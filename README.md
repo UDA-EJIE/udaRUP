@@ -1,2 +1,2 @@
 # uda-rup
-RUP components respository
+RUP components repository
