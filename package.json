@@ -1,0 +1,35 @@
+{
+  "name": "uda-rup",
+  "version": "0.1.0",
+  "description": "RUP components repository",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "gulp karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UDA-EJIE/udaRUP.git"
+  },
+  "author": "EJIE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UDA-EJIE/udaRUP/issues"
+  },
+  "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-define-module": "^0.1.4",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-wrap": "^0.13.0",
+    "handlebars": "^4.0.5"
+  }
+}

@@ -1,0 +1,529 @@
+{
+	"x21aPilotoPatronesWar_menu_mixto" :{
+		"inicio" :"Inicio",
+		"mantenimientos" :"x21aMantenimientosWar",
+		"patrones" :"Patrones",
+			"all" :"[Todos los patrones]",
+			"accordion" :"Accordion",
+			"autocomplete" :"Autocomplete",
+			"contextMenu" :"Menú contextual",
+			"toolbar" :"Botonera",
+			"combo" :"Combo",
+				"comboSimple" :"Combo Simple",
+				"comboEnlazadoSimple" :"Combo Enlazado (simple)",
+				"comboEnlazadoMulti" :"Combo Enlazado (múltiple)",
+				"multicombo" :"Combo Multiselección",
+			"dialog" :"Diálogos",
+			"date" :"Fecha",
+			"feedback" :"Feedback",
+			"form" :"Formulario",
+			"time" :"Hora",
+			"message" :"Mensajes",
+			"menu" :"Menú",
+				"menuHorizontal" :"Horizontal",
+				"menuVertical" :"Vertical",
+				"menuMixto" :"Mixto",
+			"tabs" :"Pestañas",
+				"tabsStatic" :"Pestañas carga estática",
+				"tabsAjax" :"Pestañas carga Ajax",
+				"tabsMixto" :"Pestañas carga mixta",
+				"maintTab" :"Pestañas con mantenimientos",
+			"grid" :"Tabla",
+				"grid_grupo" :"Tabla Agrupada",
+				"grid_base" :"Tabla Basico",
+				"grid_arbol" :"Tabla Arbol",
+			"tooltip" :"Tooltip",
+			"upload" :"Upload",
+			"validate" : "Validación",
+			"wizard" :"Wizard",
+				"wizardA" :"Wizard simple",
+				"wizardB" :"Wizard <%@ include %>",
+				"wizardC" :"Wizard <jsp:include>",
+				"wizardD" :"Wizard <c:import>",
+				"wizardE" :"Wizard dinámico",
+			"tree" : "Árbol",
+				"trees" :"Árboles con diferentes configuraciones",
+				"treeDAD" :"Árboles con interaccion mediante Drag & Drop",
+				"trees_formats" :"Árboles con diferentes formatos de datos",
+				"tree_panel" :"Árbol con panel de detalle",
+		"experimental" :"Experimental",
+			"maestro_detalle" :"Maestro-Detalle",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta",
+			"mant_clave_compuesta_multi" :"Multiselección",
+			"mant_clave_compuesta_edlinea" :"Edición en línea",
+		"integracion" :"Integración",
+			"z-index" :"Capas RUP (z-index)",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE", 
+		"uda" :"UDA",
+		"titulo-notifi" :"Notificaciones",
+		"titulo-nave" :"Navegación",
+		"titulo-estru" :"Estructuración de pantalla",
+		"titulo-inser" :"Inserción de datos"
+	},
+	"x21aPilotoPatronesWar_migas" :{
+		"patrones" :"Patrones",
+			"all" :"[Todos los patrones]",
+			"accordion" :"Accordion",
+			"autocomplete" :"Autocomplete",
+			"contextMenu" :"Menú contextual",
+			"toolbar" :"Botonera",
+			"comboSimple" :"Combo Simple",
+			"comboEnlazadoSimple" :"Combo Enlazado (simple)",
+			"comboEnlazadoMulti" :"Combo Enlazado (múltiple)",
+			"multicombo" :"Combo Multiselección",
+			"dialog" :"Diálogos",
+			"date" :"Fecha",
+			"feedback" :"Feedback",
+			"form" :"Formulario",
+			"time" :"Hora",
+			"message" :"Mensajes",
+			"menu" :"Menú Horizontal",
+			"menuVertical":"Menú Vertical",
+			"menuMixto":"Menú Mixto",
+			"tabs" :"Pestañas",
+				"tabsStatic":"Pestañas carga estática",
+				"tabsAjax":"Pestañas carga Ajax",
+				"tabsMixto":"Pestañas carga mixta",
+				"maintTab":"Pestañas con mantenimientos",
+			"grid" :"Tabla",
+				"grid_grupo" :"Tabla Agrupada",
+				"grid_base" :"Tabla Basico",
+				"grid_arbol" :"Tabla Arbol",
+			"tooltip" : "Tooltip",
+			"upload" : "Upload",
+			"validate" : "Validación",
+			"wizard" :"Wizard",
+				"wizardA" :"Wizard simple",
+				"wizardB" :"Wizard <%@ include %>",
+				"wizardC" :"Wizard <jsp:include>",
+				"wizardD" :"Wizard <c:import>",
+				"wizardE" :"Wizard dinámico",
+			"tree" : "Árbol",
+				"trees" :"Árboles",
+				"treeDAD" : "Árbol con D&D",
+				"treesFormats" :"Árboles formateados",
+				"treePanel" :"Árbol con panel",
+		"experimental" :"Experimental",
+			"maestro_detalle" :"Maestro-Detalle",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta",
+			"mant_clave_compuesta_multi" :"Multiselección",
+			"mant_clave_compuesta_edlinea" :"Edición en línea",
+		"integracion" :"Integración",
+			"z-index" :"Capas RUP (z-index)",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE", 
+		"uda":"UDA"
+	},
+	
+"_comment":"PATRONES",	
+	"autocomplete" :{ 
+		"asp":"asp",
+		"c":"c",
+		"c++":"c++",
+		"coldfusion":"coldfusion",
+		"groovy":"groovy",
+		"haskell":"haskell",
+		"java":"java",
+		"javascript":"javascript",
+		"perl":"perl",
+		"php":"php",
+		"python":"python",
+		"ruby":"ruby",
+		"scala":"scala"
+	},
+	"_comment":"COMBO_SIMPLE",	
+		"combo" :{ 
+			"_blank":"[Seleccione un elemento]",
+			"asp":"asp",
+			"c":"c",
+			"c++":"c++",
+			"coldfusion":"coldfusion",
+			"groovy":"groovy",
+			"haskell":"haskell",
+			"java":"java",
+			"javascript":"javascript",
+			"perl":"perl",
+			"php":"php",
+			"python":"python",
+			"ruby":"ruby",
+			"scala":"scala"
+		},
+		"comboGrupos" :{ 
+			"futbol":"Futbol",
+			"alaves":"Alaves",
+			"ath":"Athletic",
+			"real":"Real Sociedad",
+			"baloncesto":"Baloncesto",
+			"laboral":"Caja Laboral",
+			"bilbao":"BBB",
+			"lagun aro":"Lagun Aro",
+			"formula1":"Formula 1",
+			"falonso":"Fernando Alonso",
+			"hamilton":"Lewis Hamilton",
+			"vettel":"Sebastian Vettel"
+		},
+		"comboLargo":{
+			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+		},
+	"_coment":"COMBO_ENLAZADO",
+		"comboAbuelo":{
+			"_blank":"[Selecciona Abuelo]",
+			"a":"Álava",
+			"b":"Vizcaya",
+			"g":"Gipúzcoa"
+		},
+		"comboPadre":{
+			"a1":"A-Zona1",
+			"a2":"A-Zona2",
+			"a3":"A-Zona3",
+			"b1":"Gran Bilbao",
+			"b2":"Margen Derecha",
+			"b3":"Margen Izquierda",
+			"g1":"G-Zona1",
+			"g2":"G-Zona2",
+			"g3":"G-Zona3"
+		},
+		"comboHijo":{
+			"_blank":"[Selecciona Hijo]"
+		},
+		"comboAbueloRemoto":{
+			"_blank":"[Selecciona Abuelo Remoto]"
+		},
+		"mixto_comboPadre":{
+			"a1":"A-Zona1",
+			"a2":"A-Zona2",
+			"a3":"A-Zona3",
+			"b1":"Gran Bilbao",
+			"b2":"Margen Derecha",
+			"b3":"Margen Izquierda",
+			"g1":"G-Zona1",
+			"g2":"G-Zona2",
+			"g3":"G-Zona3"
+		},
+		"mixto2_comboAbuelo":{
+			"_blank":"[Selecciona Abuelo]",
+			"a":"Álava",
+			"b":"Vizcaya",
+			"g":"Gipúzcoa"
+		},
+	"_coment":"COMBO_ENLAZADO_MULTIPLE",
+		"departamentoRemote":{
+			"_blank":"[Selecciona Dpto.]"
+		},
+		"provinciaRemote":{
+			"_blank":"[Selecciona Prov.]"
+		},
+		"mixto_provincia":{
+			"a":"Álava",
+			"b":"Vizcaya",
+			"g":"Gipúzcoa"
+		},
+		"mixto2_departamento":{
+			"ayto":"Ayuntamiento",
+			"dipu":"Diputación",
+			"poli":"Policía",
+			"bomb":"Bomberos"
+		},
+	"_comment":"MULTI_COMBO",	
+		"multicombo" :{ 
+			"asp":"asp",
+			"c":"c",
+			"c++":"c++",
+			"coldfusion":"coldfusion",
+			"groovy":"groovy",
+			"haskell":"haskell",
+			"java":"java",
+			"javascript":"javascript",
+			"perl":"perl",
+			"php":"php",
+			"python":"python",
+			"ruby":"ruby",
+			"scala":"scala"
+		},
+		"multicomboGrupos" :{ 
+			"futbol":"Futbol",
+			"alaves":"Alaves",
+			"ath":"Athletic",
+			"real":"Real Sociedad",
+			"baloncesto":"Baloncesto",
+			"laboral":"Caja Laboral",
+			"bilbao":"BBB",
+			"lagun aro":"Lagun Aro",
+			"formula1":"Formula 1",
+			"falonso":"Fernando Alonso",
+			"hamilton":"Lewis Hamilton",
+			"vettel":"Sebastian Vettel"
+		},
+	"tabs" :{
+		"pestana0" 		:"Tab 0",
+		"sub00" 		:"sub00",
+		"sub000" 		:"sub000",
+		"sub001" 		:"sub001",
+		"sub0010" 		:"sub0010",
+		"sub0011" 		:"sub0011",
+		"sub00110" 		:"sub00110",
+		"sub00111" 		:"sub00111",
+		"sub002" 		:"sub002",
+		"sub01" 		:"sub01",
+		"sub02" 		:"sub02",
+		"pestana1"  	:"Tab 1",
+		"sub10" 		:"sub10",
+		"sub11" 		:"sub11",
+		"pestana2" 		:"Tab 2",
+		"pestanaAna"   	:"Nueva Pestaña",
+		"nuevaPestaña" 	:"Nuevo Nivel",
+		"PestañasMaint"	:"Pestaña con Mantenimientos"
+	},
+	"pruebaSub3Maint" :{
+		"maint1"		:"Mantenimiento 1",
+		"maint2"		:"Mantenimiento 2",
+		"maint3"		:"Mantenimiento 3"	
+	},
+	"tabsStatic" :{
+		"pestana0" 	:"Pestaña 1",
+		"pestana1"  :"Pestaña 2",
+		"pestana2" 	:"Pestaña 3",
+		"pestanaAna" :"Pestaña Añadida"
+	},
+	"tabsMixta" :{
+		"pestanaUrl" 	:"Pestaña con url",
+		"pestanaHtml"  :"Pestaña con html"
+	},
+	"tabsMaint" :{
+		"maint1"	:"Mantenimiento Simple 1",
+		"maint2"    :"Mantenimiento Simple 2",
+		"maint3" 	:"Mantenimiento Simple 3",
+		"edit1" 	:"Mantenimiento edición en línea",
+		"multi1" 	:"Mantenimiento múltiple"
+	},
+	"tabsDialog" :{
+		"pestana0" 	:"Tab 0",
+		"sub01" 	:"sub01",
+		"sub02" 	:"sub02",
+		"pestana1"  :"Tab 1",
+		"sub10" 	:"sub10",
+		"sub11" 	:"sub11"
+	},
+	"toolbar" :{
+		"buscar"  	:"Buscar",
+		"otros"	  	:"Otros botones",
+		"nuevo"	  	:"Nuevo",
+		"editar"	:"Editar",
+		"cancelar"	:"Cancelar",
+		"borrar"	:"Borrar",
+		"filtrar"	:"Filtrar",
+		"imprimir"	:"Imprimir",
+		"ficheros"	:"Ficheros",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"toolbarRight" :{
+		"buscar"  	:"Buscar",
+		"otros"	  	:"Otros botones",
+		"nuevo"	  	:"Nuevo",
+		"editar"	:"Editar",
+		"cancelar"	:"Cancelar",
+		"borrar"	:"Borrar",
+		"filtrar"	:"Filtrar",
+		"imprimir"	:"Imprimir",
+		"ficheros"	:"Ficheros",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"grid##ejie" :{
+		"0" :"No",
+		"1" :"Sí"
+	},
+	"GRID_simple##ejie" :{
+		"0" :"No",
+		"1" :"Yes"
+	},
+	"gridDialog##ejie" :{
+		"0" :"No",
+		"1" :"Sí"
+	},
+	"uploadTabs":{
+		"upload" :"Upload",
+		"uploadTable" :"Upload en tabla",
+		"uploadForm" :"Upload form",
+		"uploadFormSimple" :"Upload simple en formulario",
+		"uploadFormMultiple" :"Multiples upload en formulario",
+		"uploadFormPif" :"Integración con PIF"
+	},
+	"comboProvincias":{
+		"_blank":"Seleccione un elemento" 	
+	},
+	"comboMunicipios":{
+		"_blank":"Seleccione un elemento" 	
+	},
+	"comboProvinciasAPI":{
+		"_blank":"Seleccione un elemento" 	
+	},
+	"comboMunicipiosAPI":{
+		"_blank":"Seleccione un elemento" 	
+	},
+	"diaObligatorio":{
+		"lunes":"Lunes",
+		"martes":"Martes",
+		"miercoles":"Miércoles",
+		"jueves":"Jueves",
+		"viernes":"Viernes",
+		"sabado":"Sabado",
+		"domingo":"Domingo"
+	},
+	"gridTree":{
+		"total":"Total:",
+		"gana":"Gana:"  	
+	},
+	"sexo":{
+		"masculino":"Masculino",
+		"femenino":"Femenino"  	
+	},
+	"validaciones":{
+		"password_confirm":"Las contraseñas no coinciden",
+		"email_confirm":"Los correos introducidos no coinciden"
+	},
+	"tabsValidacion":{
+		"validacionesCliente":"Validaciones en cliente",
+		"validacionesServidor":"Validaciones en servidor",
+		"reglasValidacion":"Reglas de validación",
+		"validacionComponentes":"Validación de componentes"
+		 
+	},
+	"tabsFormulario":{
+		"ejemploYFunciones":"Ejemplo y métodos",
+		"multiplesEntidades":"Envío de varias entidades"
+	},
+	"loginUserMock" :{
+		"logginOk1" :"Usuario '",
+		"logginOk2" :"' Seleccionado correctamente"
+	},
+	"maintTab" :{
+		"maint1"	:"Mantenimiento Simple 1",
+		"maint2"    :"Mantenimiento Simple 2",
+		"maint3" 	:"Mantenimiento Simple 3",
+		"edit1" 	:"Mantenimiento edición en línea",
+		"multi1" 	:"Mantenimiento múltiple"
+	},
+	"Tiny": {
+		"limpiar"			:	"Limpiar",
+		"insert_variable"	:	"Insertar variables",
+		"insert_bloque"		:	"Insertar bloques",
+		"insert_page"		:	"Insertar número de página",
+		"insert_pageCount"	:	"Insertar número total de páginas",
+		"ver_html"			:	"Ver código HTML",
+		"aviso_ver_html"	:	"¿Está seguro de que desea cambiar el código HTML?<br/>Esto puede acarrear comportamientos inesperados en el tratamiento del bloque."
+	},
+	"breadCrumb": {
+		"integracion" :"Integración",
+			"z-index" :"Capas RUP (z-index)",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"breadCrumb_2": {
+		"integracion" :"Integración",
+			"z-index" :"Capas RUP (z-index)",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"treeCodeDialog": {
+		"title" : "Código usado para generar el árbol",
+		"javascript" : "JavaScript",
+		"html" : "HTML"
+	},
+	"contextmenuDemo": {
+		"exampleEntry" : "Ejemplo de entrada(rename)",
+		"udaRename" : "udaRename"
+	},
+	"uniqueDemo": {
+		"duplicateKey" : "Clave duplicada",
+		"duplicateNodes" : "Se ha producido una duplicidad del nodo ",
+		"inFunction" : " con la función "
+	},
+	"tasksTree": {
+		"raiz" : "Tareas Pendientes",
+		"informes" : "Informes",
+		"transportes" : "Portes en espera",
+		"reparaciones" : "Reparaciones",
+		"suministros" : "Pedidos de suministros",
+		"facturas" : "Facturas por cobrar",
+		"informe_trimestral" : "Informe general (1º trimestre)",
+		"informe_gastos_generales" : "Gastos generales (oficina)",
+		"informe_desperfectos" : "Desperfectos Granizada",
+		"informe_deudas" : "Deudas pendientes de pagar",
+		"informe_calidad" : "Calidad de servicio",
+		"informe_perdidas" : "Material extraviado",
+		"pedido_lujua" : "Ladrillos para Loiu",
+		"pedido_cemento" : "Abastecimiento de cemento Andoain",
+		"pedido_martillo" : "Martillo nuevo a Donosti",
+		"reparacion_fachada" : "Arreglos en fachadas",
+		"reparacion_indundacion" : "Limpieza por anegación",
+		"reparacion_suelo" : "Reparación de la tarima",
+		"reparacion_ratas" : "Revisión de desratización",
+		"mp_ladrillos" : "3ton ladrillos",
+		"mp_clavos" : "Clavos del 5cm",
+		"mp_cemento" : "3 camiones de cemento",
+		"mp_recambios" : "ruedas",
+		"mp_jabon" : "Jabón de manos (8 cajas)",
+		"mp_botas" : "40 pares de botas de seguridad",
+		"mp_cascos" : "40 cascos de obra",
+		"factura_VH" : "Cobros Valle Hermoso",
+		"factura_Lindo" : "Cobros Lindo S.A.",
+		"factura_devolucion" : "Revisar devolución de cobro IT",
+		"factura_OM" : "Cobro Oscar Mayer",
+		"workers" : "Trabajadores",
+		"depAdmin" : "DEP de Administración",
+		"depReparaciones" : "DEP de Suministros",
+		"depClientes" : "DEP de Clientes",
+		"depSuministros" : "DEP de Suministros"
+	},
+	"treeNodesExchangePanel_center" : {
+		"errorOp" : "Operación errónea",
+		"funtError" : "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"."
+	},
+	"tabsScrollableExample" : {
+		"pestana1" : "Tab 1",
+		"pestana2" : "Tab 2",
+		"pestana3" : "sub03",
+		"pestana4" : "sub04",
+		"pestana5" : "sub05",
+		"pestana6" : "sub06",
+		"pestana7" : "sub07",
+		"pestana8" : "sub08",
+		"pestana9" : "sub09",
+		"pestana10" : "Tab 10",
+		"pestana11" : "Tab 11",
+		"pestana12" : "sub012",
+		"pestana13" : "sub013",
+		"pestana14" : "sub014",
+		"pestana15" : "sub15",
+		"pestana16" : "sub16",
+		"pestana17" : "tab17",
+		"pestana18" : "sub18",
+		"pestana19" : "sub19"
+	}
+}

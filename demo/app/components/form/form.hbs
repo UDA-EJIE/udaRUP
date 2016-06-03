@@ -1,0 +1,416 @@
+<h2>Formulario</h2>
+
+<div id="feedbackMensajes"></div>
+<div id="tabsFormulario"></div>
+<div id="divformHttpSubmit">
+
+		
+<!-- 			<fieldset class="alumnoFieldset"> -->
+<!-- 					<legend>Configuracion</legend> -->
+<!-- 					<input type="checkbox" id="liveCheckingErrors" checked="checked" />Comprobar mensajes al vuelo -->
+<!-- 					<input type="checkbox" id="checkFeedbackError" checked="checked" />Mostrar mensaje en feedback  -->
+<!-- 					<input type="checkbox" id="checkShowErrorsFeedback" />Mostrar errores en feedback -->
+<!-- 					<input type="checkbox" id="checkShowFieldErrorsTip" />Mostrar errores de campos como tip -->
+<!-- 					<br/> -->
+					
+<!-- 					<select id="formTypeCombo"> -->
+<!-- 						<option value="ajax" selected="selected">Ajax Submit</option> -->
+<!-- 						<option value="http">Http Submit</option> -->
+<!-- 					</select> -->
+<!-- 					<button id="botonConfiguracion">Configurar</button> -->
+<!-- 				</fieldset> -->
+
+		<form id="formHttpSubmit" action="form/ejemplo" >
+				
+				<fieldset class="alumnoFieldset">
+					<legend>Datos personales</legend>
+					<div class="two-col" >
+						    <div class="col1">
+						       <label for="nombre" class="label">Nombre</label>
+								<input type="text" name="nombre" class="formulario_linea_input" size="20" id="nombre" />
+						    </div>
+						
+						    <div class="col1">
+						        <label for="apellido1" class="label">Primer apellido</label>
+								<input type="text" name="apellido1" class="formulario_linea_input" size="30" id="apellido1" />
+						    </div>
+						    
+						     <div class="col1">
+						        <label for="apellido2" class="label">Segundo apellido</label>
+								<input type="text" name="apellido2" class="formulario_linea_input" size="30" id="apellido2" />
+						    </div>
+					</div>
+					
+					<div class="two-col" >
+					    <div class="col1">
+					       <label for="sexo" class="label">Sexo</label>
+							<input type="text" name="sexo" class="formulario_linea_input" id="sexo" />
+					    </div>
+					
+					    <div class="col1">
+					        <label for="fechaNacimiento" class="label">Fecha de nacimiento</label>
+							<input type="text" name="fechaNacimiento" class="formulario_linea_input" id="fechaNacimiento" />
+					    </div>
+					    
+					     <div class="col1">
+					        <label for="telefono" class="label">Telefono</label>
+							<input type="text" name="telefono" class="formulario_linea_input" id="telefono" />
+					    </div>
+					</div>
+					
+					<div class="two-col" >
+					    <div class="col1">
+					       <label for="dni" class="label">DNI</label>
+							<input type="text" name="dni" class="formulario_linea_input" id="dni" />
+					    </div>
+					
+					</div>
+					
+				</fieldset>
+				
+				<fieldset class="alumnoFieldset">
+					<legend>Datos cuenta usuario</legend>
+					
+					<div class="two-col">
+					    <div class="col1">
+					       <label for="usuario" class="label">Usuario</label>
+							<input type="text" name="usuario" class="formulario_linea_input" id="usuario" />
+					    </div>
+					    <div class="col1">
+					    	<div>
+					       <label for="password" class="label">Contrase&ntilde;a</label>
+							<input type="password" name="password" class="formulario_linea_input" id="password" />
+							</div>
+							<div>
+							<label for="password_confirm" class="label">Confirmar contrase&ntilde;a</label>
+							<input type="password" name="password_confirm" class="formulario_linea_input" id="password_confirm" />
+							</div>
+					    </div>
+					      <div class="col1">
+					      <div>
+					       <label for="email" class="label">Email</label>
+							<input type="text" name="email" class="formulario_linea_input" id="email" />
+						</div>
+						<div>
+							<label for="email_confirm" class="label">Confirmar email</label>
+							<input type="text" name="email_confirm" class="formulario_linea_input" id="email_confirm" />
+						</div>
+					    </div>
+					</div>
+					
+				</fieldset>
+				
+				<fieldset class="alumnoFieldset">
+					<legend>Datos domicilio</legend>
+					
+					<div class="two-col">
+					    <div class="col1">
+					       <label for="nombre" class="label">País</label>
+					     <select path="pais.id" class="formulario_linea_input" id="pais" >
+                            </select>
+<!-- 						   <input type="text" name="pais.id" class="formulario_linea_input" id="pais" /> -->
+					    </div>
+					    <div class="col1">
+					       <label for="autonomia" class="label">Autonomía</label>
+					       <select path="autonomia.id" class="formulario_linea_input" id="autonomia" >
+                            </select>
+<!-- 							<input type="text" name="autonomia.id" class="formulario_linea_input" id="autonomia" /> -->
+					    </div>
+					     <div class="col1">
+					       <label for="provincia" class="label">Provincia</label>
+							<input type="text" name="provincia.id" class="formulario_linea_input" id="provincia" />
+					    </div>
+					</div>
+					
+					<div class="two-col">
+						 <div class="col1">
+					       <label for="municipio" class="label">Municipio</label>
+							<input type="text" name="municipio.id" class="formulario_linea_input" size="30" id="municipio" />
+					    </div>
+					     <div class="col1">
+					       <label for="calle" class="label">Calle</label>
+							<input type="text" name="calle.id" class="formulario_linea_input" size="50" id="calle" />
+					    </div>
+					</div>
+					
+				</fieldset>
+				
+				<input type="submit" value="Enviar" />
+				
+			</form>
+			
+
+<fieldset class="alumnoFieldset">
+	<legend>Funciones ajaxForm</legend>
+		<div>
+			<span>formSerialize</span>
+			<code>
+				<br />$("#formHttpSubmit").rup_form("formSerialize");<br />
+			</code>
+			<button id="botonFormSerialize">formSerialize</button>
+			<div id="resultadoFormSerialize" class="col1"></div>
+		</div>
+		<div>
+			<span>fieldSerialize</span>
+			<code>
+				<br />$("input",$("#formHttpSubmit")).rup_form("fieldSerialize");<br />
+			</code>
+			<button id="botonFieldSerialize">fieldSerialize</button>
+			<div id="resultadoFieldSerialize" class="col1"></div>
+		</div>
+		<div>
+			<span>fieldValue</span>
+			<code>
+				<br />$("input",$("#formHttpSubmit")).rup_form("fieldValue");<br />
+			</code>
+			<button id="botonFieldValue">fieldValue</button>
+			<div id="resultadoFieldValue" class="col1"></div>
+		</div>
+		<div>
+			<span>resetForm</span>
+			<code>
+				<br />$("#formHttpSubmit").rup_form("resetForm");<br />
+			</code>
+			<button id="botonResetForm">resetForm</button>
+			<div id="resultadoResetForm" class="col1"></div>
+		</div>
+		<div>
+			<span>clearForm</span>
+			<code>
+				<br />$("#formHttpSubmit").rup_form("clearForm");<br />
+			</code>
+			<button id="botonClearForm">clearForm</button>
+			<div id="resultadoClearForm" class="col1"></div>
+		</div>
+		<div>
+			<span>clearFields</span>
+			<code>
+				<br />$("input",$("#formHttpSubmit")).rup_form("clearFields");<br />
+			</code>
+			<button id="botonClearFields">clearFields</button>
+			<div id="resultadoClearFields" class="col1"></div>
+		</div>
+		
+
+	</fieldset>
+</div>
+
+<div id="divMultiplesEntidades">
+	<form id="formMultientidades" action='${pageContext.request.contextPath}/patrones/form/multientidades' method="post">
+		<fieldset class="alumnoFieldset">
+			<legend>Envío de varias entidades</legend>
+			
+			<span>
+                <pre>
+Mediante este formulario se realiza el envío de varias entidades en la misma petición.
+
+Los campos Nombre, Primer apellido y Segundo apellido corresponden a la entidad Alumno.
+Los campos Code, Descripcion castellano y Descripcion euskera corresponden a la entidad Departamento.
+                </pre>
+            </span>
+			
+			<fieldset class="alumnoFieldset">
+				<legend>Alumno</legend>
+				<div class="two-col" >
+				    <div class="col1">
+				       <label for="alumno_nombre_multi" class="label">Nombre</label>
+						<input type="text" name="alumno.nombre" class="formulario_linea_input" size="20" id="alumno_nombre_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="alumno_apellido1_multi" class="label">Primer apellido</label>
+						<input type="text" name="alumno.apellido1" class="formulario_linea_input" size="30" id="alumno_apellido1_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="alumno_apellido2_multi" class="label">Segundo apellido</label>
+						<input type="text" name="alumno.apellido2" class="formulario_linea_input" size="30" id="alumno_apellido2_multi" />
+				    </div>
+				</div>
+			</fieldset>
+			<fieldset class="alumnoFieldset">
+				<legend>Departamento</legend>
+				<div class="two-col" >
+				    <div class="col1">
+				       <label for="departamento_code_multi" class="label">C&oacute;digo</label>
+						<input type="text" name="departamento.code" class="formulario_linea_input" size="20" id="departamento_code_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="departamento_descEs_multi" class="label">Descripci&oacute;n castellano</label>
+						<input type="text" name="departamento.descEs" class="formulario_linea_input" size="30" id="departamento_descEs_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="departamento_descEu_multi" class="label">Descripci&oacute;n euskera</label>
+						<input type="text" name="departamento.descEu" class="formulario_linea_input" size="30" id="departamento_descEu_multi" />
+				    </div>
+				</div>
+			</fieldset>
+		<input type="submit" value="Env&iacute;o multientidad" />
+		</fieldset>
+	</form>
+
+	<form id="formMultientidadesMismoTipo" action='${pageContext.request.contextPath}/patrones/form/multientidadesMismoTipo' method="post">
+		<fieldset class="alumnoFieldset">
+			<legend>Envío de varias entidades del mismo tipo</legend>
+			
+			<span>
+                <pre>
+Mediante este formulario se realiza el envío de varias entidades del mismo tipo en la misma petición.
+
+Se envían tres entidades de tipo comarca.Los campos enviados son Código, Descripción castellano y Descripción euskera.
+En la última entidad se envía también la entidad anidada Localidad
+                </pre>
+            </span>
+			
+			<fieldset class="alumnoFieldset">
+				<legend>Comarca</legend>
+				<div class="two-col" >
+				    <div class="col1">
+				       	<label for="comarca1_code_multi" class="label">C&oacute;digo</label>
+						<input type="text" name="comarca1.code" class="formulario_linea_input" size="20" id="comarca1_code_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="comarca1_descEs_multi" class="label">Descripci&oacute;n castellano</label>
+						<input type="text" name="comarca1.descEs" class="formulario_linea_input" size="30" id="comarca1_descEs_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="comarca1_descEu_multi" class="label">Descripci&oacute;n euskera</label>
+						<input type="text" name="comarca1.descEu" class="formulario_linea_input" size="30" id="comarca1_descEu_multi" />
+				    </div>
+				</div>
+			</fieldset>
+			<fieldset class="alumnoFieldset">
+				<legend>Comarca y provincia anidada</legend>
+				<div class="two-col" >
+				    <div class="col1">
+				       	<label for="comarca2_code_multi" class="label">C&oacute;digo</label>
+						<input type="text" name="comarca2.code" class="formulario_linea_input" size="20" id="comarca2_code_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="comarca2_descEs_multi" class="label">Descripci&oacute;n castellano</label>
+						<input type="text" name="comarca2.descEs" class="formulario_linea_input" size="30" id="comarca2_descEs_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="comarca2_descEu_multi" class="label">Descripci&oacute;n euskera</label>
+						<input type="text" name="comarca2.descEu" class="formulario_linea_input" size="30" id="comarca2_descEu_multi" />
+				    </div>
+				</div>
+			</fieldset>
+			<fieldset class="alumnoFieldset">
+				<legend><spring:message code="comarcaYprovincia" /></legend>
+				<br/>
+					<i><spring:message code="comarca" /></i>
+				<br/>
+				<div class="two-col" >
+				    <div class="col1">
+				       	<label for="comarca3_code_multi" class="label">C&oacute;digo</label>
+						<input type="text" name="comarca3.code" class="formulario_linea_input" size="20" id="comarca3_code_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="comarca3_descEs_multi" class="label">Descripci&oacute;n castellano</label>
+						<input type="text" name="comarca3.descEs" class="formulario_linea_input" size="30" id="comarca3_descEs_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="comarca3_descEu_multi" class="label">Descripci&oacute;n euskera</label>
+						<input type="text" name="comarca3.descEu" class="formulario_linea_input" size="30" id="comarca3_descEu_multi" />
+				    </div>
+				</div>
+				<br/><br/>
+				<br/>
+					<i><spring:message code="provincia" /></i>
+				<br/>
+				<div class="two-col" >
+				    <div class="col1">
+				       	<label for="comarca3_provincia_code_multi" class="label">C&oacute;digo</label>
+						<input type="text" name="comarca3.provincia.code" class="formulario_linea_input" size="20" id="comarca3_provincia_code_multi" />
+				    </div>
+				
+				    <div class="col1">
+				        <label for="comarca3_provincia_descEs_multi" class="label">Descripci&oacute;n castellano</label>
+						<input type="text" name="comarca3.provincia.descEs" class="formulario_linea_input" size="30" id="comarca3_provincia_descEs_multi" />
+				    </div>
+				    
+				     <div class="col1">
+				        <label for="comarca3_descEu_multi" class="label">Descripci&oacute;n euskera</label>
+						<input type="text" name="comarca3.provincia.descEu" class="formulario_linea_input" size="30" id="comarca3_provincia_descEu_multi" />
+				    </div>
+				</div>
+			</fieldset>
+		<input type="submit" value="Env&iacute;o multientidad" />
+		</fieldset>
+	</form>
+</div>
+
+<div id="divSubidaFicheros">
+	<fieldset class="alumnoFieldset">
+		<legend>Subida de ficheros</legend>
+		
+		<form id="formSubidaArchivos" action='${pageContext.request.contextPath}/patrones/form/subidaArchivos' method="post">	
+			
+			<div id="feedback_fileupload_form_multiple"></div>
+			<div class="formulario_columna_cnt">
+				<div class="formulario_linea_izda_float">
+					<label id="label_nombre"  for="nombre" >Nombre :</label>
+					<input id="nombre" name="nombre" />
+				</div>
+				<div class="formulario_linea_izda_float">
+					<label id="label_apellido1"  for="apellido1" >Apellido 1:</label>
+					<input id="apellido1" name="apellido1" />
+				</div>
+				<div class="formulario_linea_izda_float">
+					<label id="label_apellido2"  for="apellido2" >Apellido 2:</label>
+					<input id="apellido2" name="apellido2" />
+				</div>
+				<div class="formulario_linea_izda_float">
+					<label id="label_ejie"  for="ejie" >EJIE:</label>
+					<input type="checkbox" id="ejie" name="ejie" value="1" />
+				</div>
+			</div>
+			<div class="formulario_columna_cnt">
+			&nbsp;
+			</div>
+			<div class="formulario_columna_cnt">
+				<div class="formulario_linea_izda_float">
+					Archivos adjuntos:
+				</div>
+			</div>
+			<div class="formulario_columna_cnt">
+				<div class="formulario_linea_izda_float">
+			        <div id="fileupload_file_form_padre" >
+				        <div class="fileupload-buttonbar">
+				            <label for="file">Foto padre: </label>
+				            <input id="file_form_padre" type="file" name="fotoPadre">
+						</div>
+						 <div class="fileupload-content">
+					        <table class="files"></table>
+					    </div>
+			        </div>
+			        
+			        <div id="fileupload_file_form_madre">
+			        	<div class="fileupload-buttonbar">
+				            <label for="file">Foto madre: </label>
+				            <input id="file_form_madre" type="file" name="fotoMadre">
+						</div>
+						<div class="fileupload-content">
+					        <table class="files"></table>
+					    </div>
+			        </div>
+				   
+			    </div>
+			  </div>
+			  <div class="formulario_columna_cnt">
+			 	 <div class="formulario_linea_izda_float fileupload-buttonbar"  >
+					<button id="sendButtonArchivos" type="submit" class="start">Enviar formulario</button>
+				</div>
+			</div>
+			</form>
+		</fieldset>
+</div>

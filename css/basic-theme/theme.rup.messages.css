@@ -1,0 +1,104 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+ 						/* MENSAJES DE ERROR */
+ /*Estilo de la capa con la imagen de error*/
+ .rup-message_icon-error {
+	background-image:url("images/rup.error.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:2.1em;
+	vertical-align:middle;
+	width:11%;
+ }
+ 
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de error*/
+ .rup-message_msg-error {
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
+ }
+ 
+ 						/* MENSAJES DE CONFIRMACION */
+ /*Estilo de la capa con la imagen de confirmacion*/
+ .rup-message_icon-confirm {
+	background-image:url("images/rup.confirm.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
+ }
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo confirmación*/
+ .rup-message_msg-confirm{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
+ }
+ 
+ 						/* MENSAJES DE OK */
+ /*Estilo de la capa con la imagen de ok*/
+ .rup-message_icon-ok {
+ 	background-image:url("images/rup.ok.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
+ }
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo ok*/
+ .rup-message_msg-ok{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
+ }
+ 
+ 						/* MENSAJES DE ALERTA */
+ /*Estilo de la capa con la imagen de alerta*/
+ .rup-message_icon-alert {
+ 	background-image:url("images/rup.alert.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
+ }
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo alerta*/
+ .rup-message_msg-alert{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
+ }

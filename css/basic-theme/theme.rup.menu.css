@@ -1,0 +1,178 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.ui-menu { list-style:none; padding: 2px 0; margin: 0; display:block; outline: none; }
+.ui-menu .ui-menu { margin-top: -3px; position: absolute; }
+/* .ui-menu .ui-menu-item { margin: 0; padding: 0; zoom: 1; width: 100%; } */
+.ui-menu .ui-menu-item {zoom: 1; }
+.ui-menu .ui-menu-divider { margin: 5px -2px 5px -2px; height: 0; font-size: 0; line-height: 0; }
+.ui-menu .ui-menu-item a { text-decoration: none; display: block; line-height: 1.5; zoom: 1; padding-top: 0.1em}
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active { font-weight: normal; margin: -1px; }
+
+.ui-menu .ui-state-disabled { font-weight: normal; line-height: 1.5; }
+.ui-menu .ui-state-disabled a { cursor: default; filter:Alpha(Opacity=35);}
+.ui-menu .ui-state-disabled span {filter:Alpha(Opacity=15);}
+
+/* icon support */
+.ui-menu-icons { position: relative; }
+
+/* left-aligned */
+.ui-menu .ui-icon { position: absolute; top: .2em; left: .2em; }
+.ui-menu .rup_menu_vertical_horizontal .ui-icon { top: .4em }
+
+/* right-aligned */
+.ui-menu .ui-menu-icon { position: static; float: right; }
+
+/* MENU GENERALES*/
+
+.rup_invisible_menu{
+	visibility: hidden;
+	display: none;
+}
+
+.ui-menu .ui-menu-item .rup_menu_vertical_horizontal a, .rup_menu_vertical.ui-menu .ui-menu-item a {
+	padding: 0.2em 0.3em;
+}
+
+/* cursores */
+.ui-menu li strong { cursor: default; }
+.ui-menu .ui-menu-item a { cursor: pointer; }
+
+/* MENU HORIZONTAL */
+
+.rup_menu_horizontal.ui-menu-icons .ui-menu-item a { position: relative; }
+
+.rup_menu_horizontal{
+	width: 100%;
+	float: left;
+	font-weight: normal;
+	z-index: 810;
+}
+
+.rup_menu_horizontal.ui-widget-header{
+	font-weight: normal;
+}
+
+.rup_menu_horizontal_children{
+	float: left;
+	background:none; 
+	border-style: none solid none none;
+	border-width: medium 1px medium medium;
+	border-right-color: #7C7676;
+	border-radius: 0px 0px 0px 0px;
+	text-align: center;
+ 	padding-left: .5em; 
+ 	padding-right: .5em; 
+	padding-bottom: .15em;
+	margin: .15em 0em;
+}
+
+.rup_menu_horizontal_children_entry{
+	width: 100%;
+	float: left;
+}
+
+.rup_menu_horizontal_children_icon {
+	left: -0.8em !important;
+}
+
+.rup_menu_horizontal_childrenIcon {
+	padding-left: 1.2em; 
+	padding-right: .2em; 	
+}
+
+.rup_menu_horizontal_childrenMenuIcon{ 
+	padding-right: .2em; 	
+}
+
+.rup-menu_horizontalIcon{
+	margin-top: 3px;
+	margin-right: 0em;
+}
+
+.rup_menu_horizontal_children_double{
+	padding-left: 1.6em; 
+}
+
+.rup_menu_horizontal_children_double .rup_menu_horizontal_children_icon {
+	left: -1em !important;
+}
+
+
+/* Estilo solo interpretado por los FF */
+/* Se ha añadido para mantener el color general en los separadores del menú */
+body:first-of-type .rup_menu a.ui-button{
+	border-right-color: -moz-use-text-color;
+}	
+
+.rup_menu_horizontal_disabled{
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+
+.rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus{
+	background: none;
+	border-style: none solid none none;
+	border-width: medium 1px medium medium;
+	border-right-color: #7C7676;
+	border-radius: 0px 0px 0px 0px;
+}
+
+.rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus a.rup_menu_horizontal_children_entry {
+	font-weight: bold;
+}
+
+.rup_menu_horizontal .rup_menu_horizontal_children a.rup_menu_horizontal_children_entry.ui-state-active {
+	border: none;
+	background: none;
+	font-weight: bold;
+	margin: 0em;
+}
+
+.rup_menu_horizontal_children_last,
+.rup_menu_horizontal .rup_menu_horizontal_children_last.ui-state-focus{
+	border: none;
+}
+
+
+/* MENU VERTICAL */
+
+.rup_menu_vertical{
+	float: left;
+	z-index: 800;
+}
+
+.rup_menu_vertical_horizontal{
+	z-index: 810;
+	text-align: left;
+}
+
+.rup_menu_vertical.ui-menu-icons .ui-menu-item a, /*vertical*/
+.ui-menu-icons .rup_menu_vertical_horizontal .ui-menu-item a /*horizontal*/{ 
+	position: relative; 
+	/*padding-left: 2em;*/ 
+}
+
+.rup_menu_vertical .ui-menu.ui-widget.ui-widget-content.ui-corner-all{ 
+	z-index: 800;	
+}
+
+.ui-menu { margin-bottom: 0.5em; }  
+.menu4 { height: 200px; overflow-y: auto; overflow-x: hidden; }
+.address-item { border-bottom: 1px solid #999; } 
+.address-header { display: block; margin-bottom: .2em; font-weight: bold; } 
+.address-content { display: block; margin-bottom: .2em; padding-left: 10px; } 

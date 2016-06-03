@@ -1,0 +1,498 @@
+{
+	"x21aPilotoPatronesWar_menu_mixto" :{
+		"inicio" :"Inicio_fr",
+		"mantenimientos" :"x21aMantenimientosWar_fr",
+		"patrones" :"Patrones_fr",
+			"all" :"[Todos los patrones_fr]",
+			"accordion" :"Accordion_fr",
+			"autocomplete" :"Autocomplete_fr",
+			"contextMenu" :"Menú contextual_fr",
+			"toolbar" :"Botonera_fr",
+			"combo" :"Combo_fr",
+				"comboSimple" :"Combo Simple_fr",
+				"comboEnlazadoSimple" :"Combo Enlazado (simple)_fr",
+				"comboEnlazadoMulti" :"Combo Enlazado (múltiple)_fr",
+				"multicombo" :"Combo Mutiselección_fr",
+			"dialog" :"Diálogos_fr",
+			"date" :"Fecha_fr",
+			"feedback" :"Feedback_fr",
+			"form" :"Formulario_fr",
+			"time" :"Hora_fr",
+			"message" :"Mensajes_fr",
+			"menu" :"Menú_fr",
+				"menuHorizontal":"Horizontal_fr",
+				"menuVertical":"Vertical_fr",
+				"menuMixto":"Mixto_fr",
+			"tabs" :"Pestañas_fr",
+				"tabsStatic":"Pestañas carga estática_fr",
+				"tabsAjax":"Pestañas carga Ajax_fr",
+				"tabsMixto":"Pestañas carga mixta_fr",
+				"maintTab":"Pestañas con mantenimientos_fr",
+			"grid" :"Tabla_fr",
+				"grid_grupo" :"Tabla Agrupada_fr",
+				"grid_base" :"Tabla Basico_fr",
+				"grid_arbol" :"Tabla Arbol_fr",
+			"tooltip" : "Tooltip_fr",
+			"upload" : "Upload_fr",
+			"validate" : "Validación_fr",
+			"wizard" :"Wizard_fr",
+				"wizardA" :"Wizard simple_fr",
+				"wizardB" :"Wizard <%@ include %>_fr",
+				"wizardC" :"Wizard <jsp:include>_fr",
+				"wizardD" :"Wizard <c:import>_fr",
+				"wizardE" :"Wizard dinámico_fr",
+			"tree" : "Árbol_fr",
+				"trees" :"Árboles con diferentes configuraciones_fr",
+				"treeDAD" :"Árboles con interaccion mediante Drag & Drop_fr",
+				"trees_formats" :"Árboles con diferentes formatos de datos_fr",
+				"tree_panel" :"Árbol con panel de detalle_fr",
+		"experimental" :"Experimental_fr",
+			"maestro_detalle" :"Maestro-Detalle_fr",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad_fr",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta_fr",
+			"mant_clave_compuesta_multi" :"Multiselección_fr",
+			"mant_clave_compuesta_edlinea" :"Edición en línea_fr",
+		"integracion" :"Integración_fr",
+			"z-index" :"Capas RUP (z-index)_fr",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE", 
+		"uda":"UDA",
+		"titulo-notifi":"Notificaciones_fr",
+		"titulo-nave":"Navegación_fr",
+		"titulo-estru":"Estructuración de pantalla_fr",
+		"titulo-inser":"Inserción de datos_fr"
+	},
+	"x21aPilotoPatronesWar_migas" :{
+		"patrones" :"Patrones_fr",
+			"all" :"[Todos los patrones_fr]",
+			"accordion" :"Accordion_fr",
+			"autocomplete" :"Autocomplete_fr",
+			"contextMenu" :"Menú contextual_fr",
+			"toolbar" :"Botonera_fr",
+			"comboSimple" :"Combo Simple_fr",
+			"comboEnlazadoSimple" :"Combo Enlazado (simple)_fr",
+			"comboEnlazadoMulti" :"Combo Enlazado (múltiple)_fr",
+			"multicombo" :"Combo Mutiselección_fr",
+			"dialog" :"Diálogos_fr",
+			"date" :"Fecha_fr",
+			"feedback" :"Feedback_fr",
+			"form" :"Formulario_fr",
+			"time" :"Hora_fr",
+			"message" :"Mensajes_fr",
+			"menu" :"Menú Horizontal_fr",
+			"menuVertical":"Menú Vertical_fr",
+			"menuMixto":"Menú Mixto_fr",
+			"tabs" :"Pestañas_fr",
+				"tabsStatic":"Pestañas carga estática_fr",
+				"tabsAjax":"Pestañas carga Ajax_fr",
+				"tabsMixto":"Pestañas carga mixta_fr",
+				"maintTab":"Pestañas con mantenimientos_fr",
+			"grid" :"Tabla_fr",
+				"grid_grupo" :"Tabla Agrupada_fr",
+				"grid_base" :"Tabla Basico_fr",
+				"grid_arbol" :"Tabla Arbol_fr",
+			"tooltip" : "Tooltip_fr",
+			"upload" : "Upload_fr",
+			"validate" : "Validación_fr",
+			"wizard" :"Wizard_fr",
+				"wizardA" :"Wizard simple_fr",
+				"wizardB" :"Wizard <%@ include %>_fr",
+				"wizardC" :"Wizard <jsp:include>_fr",
+				"wizardD" :"Wizard <c:import>_fr",
+				"wizardE" :"Wizard dinámico_fr",
+			"tree" : "Árbol_fr",
+				"trees" :"Árboles_fr",
+				"treeDAD" : "Árbol con D&D_fr",
+				"treesFormats" :"Árboles formateados_fr",
+				"treePanel" :"Árbol con panel_fr",
+		"experimental" :"Experimental_fr",
+			"maestro_detalle" :"Maestro-Detalle_fr",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad_fr",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta_fr",
+			"mant_clave_compuesta_multi" :"Multiselección_fr",
+			"mant_clave_compuesta_edlinea" :"Edición en línea_fr",
+		"integracion" :"Integración_fr",
+			"z-index" :"Capas RUP (z-index)_fr",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE", 
+		"uda":"UDA"
+	},
+	
+"_comment":"PATRONES",	
+	"autocomplete" :{ 
+		"asp":"asp_fr",
+		"c":"c_fr",
+		"c++":"c++_fr",
+		"coldfusion":"coldfusion_fr",
+		"groovy":"groovy_fr",
+		"haskell":"haskell_fr",
+		"java":"java_fr",
+		"javascript":"javascript_fr",
+		"perl":"perl_fr",
+		"php":"php_fr",
+		"python":"python_fr",
+		"ruby":"ruby_fr",
+		"scala":"scala_fr"
+	},
+	"_comment":"COMBO_SIMPLE",	
+		"combo" :{ 
+			"_blank":"[Seleccione un elemento_fr]",
+			"asp":"asp_fr",
+			"c":"c_fr",
+			"c++":"c++_fr",
+			"coldfusion":"coldfusion_fr",
+			"groovy":"groovy_fr",
+			"haskell":"haskell_fr",
+			"java":"java_fr",
+			"javascript":"javascript_fr",
+			"perl":"perl_fr",
+			"php":"php_fr",
+			"python":"python_fr",
+			"ruby":"ruby_fr",
+			"scala":"scala_fr"
+		},
+		"comboGrupos" :{ 
+			"futbol":"Futbol_fr",
+			"alaves":"Alaves_fr",
+			"ath":"Athletic_fr",
+			"real":"Real Sociedad_fr",
+			"baloncesto":"Baloncesto_fr",
+			"laboral":"Caja Laboral_fr",
+			"bilbao":"BBB_fr",
+			"lagun aro":"Lagun Aro_fr",
+			"formula1":"Formula 1_fr",
+			"falonso":"Fernando Alonso_fr",
+			"hamilton":"Lewis Hamilton_fr",
+			"vettel":"Sebastian Vettel_fr"
+		},
+		"comboLargo":{
+			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+		},
+	"_coment":"COMBO_frLAZADO",
+		"comboAbuelo":{
+			"_blank":"[Selecciona Abuelo_fr]",
+			"a":"Álava_fr",
+			"b":"Vizcaya_fr",
+			"g":"Gipúzcoa_fr"
+		},
+		"comboPadre":{
+			"a1":"A-Zona1_fr",
+			"a2":"A-Zona2_fr",
+			"a3":"A-Zona3_fr",
+			"b1":"Gran Bilbao_fr",
+			"b2":"Margen Derecha_fr",
+			"b3":"Margen Izquierda_fr",
+			"g1":"G-Zona1_fr",
+			"g2":"G-Zona2_fr",
+			"g3":"G-Zona3_fr"
+		},
+		"comboHijo":{
+			"_blank":"[Selecciona Hijo_fr]"
+		},
+		"comboAbueloRemoto":{
+			"_blank":"[Selecciona Abuelo Remoto_fr]"
+		},
+		"mixto_comboPadre":{
+			"a1":"A-Zona1_fr",
+			"a2":"A-Zona2_fr",
+			"a3":"A-Zona3_fr",
+			"b1":"Gran Bilbao_fr",
+			"b2":"Margen Derecha_fr",
+			"b3":"Margen Izquierda_fr",
+			"g1":"G-Zona1_fr",
+			"g2":"G-Zona2_fr",
+			"g3":"G-Zona3_fr"
+		},
+		"mixto2_comboAbuelo":{
+			"_blank":"[Selecciona Abuelo_fr]",
+			"a":"Álava_fr",
+			"b":"Vizcaya_fr",
+			"g":"Gipúzcoa_fr"
+		},
+	"_coment":"COMBO_frLAZADO_MULTIPLE",
+		"departamentoRemote":{
+			"_blank":"[Selecciona Dpto._fr]"
+		},
+		"provinciaRemote":{
+			"_blank":"[Selecciona Prov._fr]"
+		},
+		"mixto_provincia":{
+			"a":"Álava_fr",
+			"b":"Vizcaya_fr",
+			"g":"Gipúzcoa_fr"
+		},
+		"mixto2_departamento":{
+			"ayto":"Ayuntamiento_fr",
+			"dipu":"Diputación_fr",
+			"poli":"Policía_fr",
+			"bomb":"Bomberos_fr"
+		},
+	"_comment":"MULTI_COMBO",	
+		"multicombo" :{ 
+			"asp":"asp_fr",
+			"c":"c_fr",
+			"c++":"c++_fr",
+			"coldfusion":"coldfusion_fr",
+			"groovy":"groovy_fr",
+			"haskell":"haskell_fr",
+			"java":"java_fr",
+			"javascript":"javascript_fr",
+			"perl":"perl_fr",
+			"php":"php_fr",
+			"python":"python_fr",
+			"ruby":"ruby_fr",
+			"scala":"scala_fr"
+		},
+		"multicomboGrupos" :{ 
+			"futbol":"Futbol_fr",
+			"alaves":"Alaves_fr",
+			"ath":"Athletic_fr",
+			"real":"Real Sociedad_fr",
+			"baloncesto":"Baloncesto_fr",
+			"laboral":"Caja Laboral_fr",
+			"bilbao":"BBB_fr",
+			"lagun aro":"Lagun Aro_fr",
+			"formula1":"Formula 1_fr",
+			"falonso":"Fernando Alonso_fr",
+			"hamilton":"Lewis Hamilton_fr",
+			"vettel":"Sebastian Vettel_fr"
+		},
+	"tabs" :{
+		"pestana0" 	:"Tab 0_fr",
+		"sub00" 	:"sub00_fr",
+		"sub000" 	:"sub000_fr",
+		"sub001" 	:"sub001_fr",
+		"sub0010" 	:"sub0010_fr",
+		"sub0011" 	:"sub0011_fr",
+		"sub00110" 	:"sub00110_fr",
+		"sub00111" 	:"sub00111_fr",
+		"sub002" 	:"sub002_fr",
+		"sub01" 	:"sub01_fr",
+		"sub02" 	:"sub02_fr",
+		"pestana1"  :"Tab 1_fr",
+		"sub10" 	:"sub10_fr",
+		"sub11" 	:"sub11_fr",
+		"pestana2" 	:"Tab 2_fr",
+		"pestanaAna"   	:"Nueva Pestaña_fr",
+		"nuevaPestaña" 	:"Nuevo Nivel_fr",
+		"PestañasMaint"	:"Pestaña con Mantenimientos_fr"
+	},
+	"pruebaSub3Maint" :{
+		"maint1"		:"Mantenimiento 1_fr",
+		"maint2"		:"Mantenimiento 2_fr",
+		"maint3"		:"Mantenimiento 3_fr"	
+	},
+	"tabsStatic" :{
+		"pestana0" 	:"Pestaña 1_fr",
+		"pestana1"  :"Pestaña 2_fr",
+		"pestana2" 	:"Pestaña 3_fr",
+		"pestanaAna" :"Pestaña Añadida_fr"
+	},
+	"tabsMixta" :{
+		"pestanaUrl" 	:"Pestaña con url_fr",
+		"pestanaHtml"  :"Pestaña con html_fr"
+	},
+	"tabsMaint" :{
+		"maint1"	:"Mantenimiento Simple 1_fr",
+		"maint2"    :"Mantenimiento Simple 2_fr",
+		"maint3" 	:"Mantenimiento Simple 3_fr",
+		"edit1" 	:"Mantenimiento edición en línea_fr",
+		"multi1" 	:"Mantenimiento múltiple_fr"
+	},
+	"tabsDialog" :{
+		"pestana0" 	:"Tab 0_fr",
+		"sub01" 	:"sub01_fr",
+		"sub02" 	:"sub02_fr",
+		"pestana1"  :"Tab 1_fr",
+		"sub10" 	:"sub10_fr",
+		"sub11" 	:"sub11_fr"
+	},
+	"toolbar" :{
+		"buscar"  	:"Buscar_fr",
+		"otros"	  	:"Otros botones_fr",
+		"nuevo"	  	:"Nuevo_fr",
+		"editar"	:"Editar_fr",
+		"cancelar"	:"Cancelar_fr",
+		"borrar"	:"Borrar_fr",
+		"filtrar"	:"Filtrar_fr",
+		"imprimir"	:"Imprimir_fr",
+		"ficheros"	:"Ficheros_fr",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"toolbarRight" :{
+		"buscar"  	:"Buscar_fr",
+		"otros"	  	:"Otros botones_fr",
+		"nuevo"	  	:"Nuevo_fr",
+		"editar"	:"Editar_fr",
+		"cancelar"	:"Cancelar_fr",
+		"borrar"	:"Borrar_fr",
+		"filtrar"	:"Filtrar_fr",
+		"imprimir"	:"Imprimir_fr",
+		"ficheros"	:"Ficheros_fr",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"grid##ejie" :{
+		"0" :"Non",
+		"1" :"Oui"
+	},
+	"GRID_simple##ejie" :{
+		"0" :"No",
+		"1" :"Yes"
+	},
+	"gridDialog##ejie" :{
+		"0" :"Non",
+		"1" :"Oui"
+	},
+	"uploadTabs":{
+		"upload" :"Upload_fr",
+		"uploadTable" :"Upload en tabla_fr",
+		"uploadForm" :"Upload form_fr",
+		"uploadFormSimple" :"Upload simple en formulario_fr",
+		"uploadFormMultiple" :"Multiples upload en formulario_fr",
+		"uploadFormPif" :"Integración con PIF_fr"
+	},
+	"comboProvincias":{
+		"_blank":"Seleccione un elemento_fr" 	
+	},
+	"comboMunicipios":{
+		"_blank":"Seleccione un elemento_fr" 	
+	},
+	"comboProvinciasAPI":{
+		"_blank":"Seleccione un elemento_fr"
+	},
+	"comboMunicipiosAPI":{
+		"_blank":"Seleccione un elemento_fr"
+	},
+	"gridTree":{
+		"total":"Total:_fr",
+		"gana":"Gana:_fr"  	
+	},
+	"diaObligatorio":{
+		"lunes":"Lundi",
+		"martes":"Mardi",
+		"miercoles":"Mercredi",
+		"jueves":"Jeudi",
+		"viernes":"Vendredi",
+		"sabado":"Samedi",
+		"domingo":"Dimanche"
+	},
+	"sexo":{
+		"masculino":"Masculino_fr",
+		"femenino":"Femenino_fr"  	
+	},
+	"validaciones":{
+		"password_confirm":"Las contraseñas no coinciden_fr",
+		"email_confirm":"Los correos introducidos no coinciden_fr"
+	},
+	"tabsValidacion":{
+		"validacionesCliente":"Validaciones en cliente_fr",
+		"validacionesServidor":"Validaciones en servidor_fr",
+		"reglasValidacion":"Reglas de validación_fr",
+		"validacionComponentes":"Validación de componentes_fr"
+	},
+	"tabsFormulario":{
+		"ejemploYFunciones":"Ejemplo y métodos_fr",
+		"multiplesEntidades":"Envío de varias entidades_fr"
+	},
+	"loginUserMock" :{
+		"logginOk1" :"Usuario _fr'",
+		"logginOk2" :"' Seleccionado correctamente_fr"
+	},
+	"maintTab" :{
+		"maint1"	:"Mantenimiento Simple 1_fr",
+		"maint2"    :"Mantenimiento Simple 2_fr",
+		"maint3" 	:"Mantenimiento Simple 3_fr",
+		"edit1" 	:"Mantenimiento edición en línea_fr",
+		"multi1" 	:"Mantenimiento múltiple_fr"
+	},
+	"breadCrumb": {
+		"integracion" :"Integración_fr",
+			"z-index" :"Capas RUP (z-index)_fr",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"breadCrumb_2": {
+		"integracion" :"Integración_fr",
+			"z-index" :"Capas RUP (z-index)_fr",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"treeCodeDialog": {
+		"title" : "Código usado para generar el árbol_fr",
+		"javascript" : "JavaScript",
+		"html" : "HTML"
+	},
+	"contextmenuDemo": {
+		"exampleEntry" : "Ejemplo de entrada(rename)_fr",
+		"udaRename" : "udaRename"
+	},
+	"uniqueDemo": {
+		"duplicateKey" : "Clave duplicada_fr",
+		"duplicateNodes" : "Se ha producido una duplicidad del nodo _fr",
+		"inFunction" : " con la función _fr"
+	},
+	"tasksTree": {
+		"raiz" : "Tareas Pendientes_fr",
+		"informes" : "Informes_fr",
+		"transportes" : "Portes en espera_fr",
+		"reparaciones" : "Reparaciones_fr",
+		"suministros" : "Pedidos de suministros_fr",
+		"facturas" : "Facturas por cobrar_fr",
+		"informe_trimestral" : "Informe general (1º trimestre)_fr",
+		"informe_gastos_generales" : "Gastos generales (oficina)_fr",
+		"informe_desperfectos" : "Desperfectos Granizada_fr",
+		"informe_deudas" : "Deudas pendientes de pagar_fr",
+		"informe_calidad" : "Calidad de servicio_fr",
+		"informe_perdidas" : "Material extraviado_fr",
+		"pedido_lujua" : "Ladrillos para Loiu_fr",
+		"pedido_cemento" : "Abastecimiento de cemento Andoain_fr",
+		"pedido_martillo" : "Martillo nuevo a Donosti_fr",
+		"reparacion_fachada" : "Arreglos en fachadas_fr",
+		"reparacion_indundacion" : "Limpieza por anegación_fr",
+		"reparacion_suelo" : "Reparación de la tarima_fr",
+		"reparacion_ratas" : "Revisión de desratización_fr",
+		"mp_ladrillos" : "3ton ladrillos_fr",
+		"mp_clavos" : "Clavos del 5cm_fr",
+		"mp_cemento" : "3 camiones de cemento_fr",
+		"mp_recambios" : "ruedas_fr",
+		"mp_jabon" : "Jabón de manos (8 cajas)_fr",
+		"mp_botas" : "40 pares de botas de seguridad_fr",
+		"mp_cascos" : "40 cascos de obra_fr",
+		"factura_VH" : "Cobros Valle Hermoso_fr",
+		"factura_Lindo" : "Cobros Lindo S.A._fr",
+		"factura_devolucion" : "Revisar devolución de cobro IT_fr",
+		"factura_OM" : "Cobro Oscar Mayer_fr",
+		"workers" : "Trabajadores_fr",
+		"depAdmin" : "DEP de Administración_fr",
+		"depReparaciones" : "DEP de Suministros_fr",
+		"depClientes" : "DEP de Clientes_fr",
+		"depSuministros" : "DEP de Suministros_fr"
+	},
+	"treeNodesExchangePanel_center" : {
+		"errorOp" : "Operación errónea_fr",
+		"funtError" : "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"._fr"
+	}
+}

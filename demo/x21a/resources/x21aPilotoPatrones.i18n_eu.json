@@ -1,0 +1,500 @@
+{
+	"x21aPilotoPatronesWar_menu_mixto":{
+		"inicio" :"Hasiera",
+		"mantenimientos" :"x21aMantenimientosWar",
+		"patrones" :"Ereduak",
+			"all" :"[Eredu guztiak]",
+			"accordion" :"Accordion_eu",
+			"autocomplete" :"Autocomplete",
+			"contextMenu" :"Menú contextual_eu",
+			"toolbar" :"Botoi-lerro",
+			"combo" :"Combo",
+				"comboSimple" :"Combo Simple",
+				"comboEnlazadoSimple" :"Combo Enlazado (simple)",
+				"comboEnlazadoMulti" :"Combo Enlazado (múltiple)",
+				"multicombo" :"Combo Mutiselección",
+			"dialog" :"Dialogo",
+			"date" :"Data",
+			"feedback" :"Feedback",
+			"form" :"Inprimakia",
+			"time" :"Ordu",
+			"message" :"Mezu",
+			"menu" :"Menu",
+				"menuHorizontal":"Horizontala",
+				"menuVertical":"Bertikala",
+				"menuMixto":"Mixto",
+			"tabs" :"Erlaitz",
+				"tabsStatic":"Erlaitz carga estática",
+				"tabsAjax":"Erlaitz carga Ajax",
+				"tabsMixto":"Erlaitz carga mixta",
+				"maintTab":"Erlaitz con mantenimientos",
+			"grid" :"Taula",
+				"grid_grupo" :"Tabla Agrupada_eu",
+				"grid_base" :"Tabla Basico_eu",
+				"grid_arbol" :"Tabla Arbol_eu",
+			"tooltip" : "Tooltip",
+			"upload" : "Upload",
+			"validate" : "Validación_eu",
+			"wizard" :"Wizard_eu",
+				"wizardA" :"Wizard simple_eu",
+				"wizardB" :"Wizard <%@ include %>_eu",
+				"wizardC" :"Wizard <jsp:include>_eu",
+				"wizardD" :"Wizard <c:import>_eu",
+				"wizardE" :"Wizard dinámico_eu",
+			"tree" : "Árbol_eu",
+				"trees" :"Árboles con diferentes configuraciones_eu",
+				"treeDAD" :"Árboles con interaccion mediante Drag & Drop_eu",
+				"trees_formats" :"Árboles con diferentes formatos de datos_eu",
+				"tree_panel" :"Árbol con panel de detalle_eu",
+		"experimental" :"Experimental_eu",
+			"maestro_detalle" :"Maestro-Detalle_eu",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad_eu",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta_eu",
+			"mant_clave_compuesta_multi" :"Multiselección_eu",
+			"mant_clave_compuesta_edlinea" :"Edición en línea_eu",
+		"integracion" :"Integración_eu",
+			"z-index" :"Capas RUP (z-index)_eu",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE",  
+		"uda":"UDA",
+		"titulo-notifi":"Notificaciones_eu",
+		"titulo-nave":"Navegación_eu",
+		"titulo-estru":"Estructuración de pantalla_eu",
+		"titulo-inser":"Inserción de datos_eu"
+	},
+	"x21aPilotoPatronesWar_migas" :{
+		"patrones" :"Ereduak",
+			"all" :"[Eredu guztiak]",
+			"accordion" :"Accordion_eu",
+			"autocomplete" :"Autocomplete",
+			"contextMenu" :"Menú contextual_eu",
+			"toolbar" :"Botoi-lerro",
+			"comboSimple" :"Combo Simple",
+			"comboEnlazadoSimple" :"Combo Enlazado (simple)",
+			"comboEnlazadoMulti" :"Combo Enlazado (múltiple)",
+			"multicombo" :"Combo Mutiselección",
+			"dialog" :"Dialogo",
+			"date" :"Data",
+			"feedback" :"Feedback",
+			"form" :"Inprimakia",
+			"time" :"Ordu",
+			"message" :"Mezu",
+			"menu" :"Menu",
+				"menuHorizontal" :"Horizontala",
+				"menuVertical":"Bertikala",
+				"menuMixto":"Mixto",
+			"tabs" :"Erlaitz",
+				"tabsStatic":"Erlaitz carga estática_eu",
+				"tabsAjax":"Erlaitz carga Ajax_eu",
+				"tabsMixto":"Erlaitz carga mixta_eu",
+				"maintTab":"Erlaitz con mantenimientos_eu",
+			"grid" :"Taula",
+				"grid_grupo" :"Tabla Agrupada_eu",
+				"grid_base" :"Tabla Basico_eu",
+				"grid_arbol" :"Tabla Arbol_eu",
+			"tooltip" : "Tooltip",
+			"upload" : "Upload",
+			"validate" : "Validación_eu",
+			"wizard" :"Wizard_eu",
+				"wizardA" :"Wizard simple_eu",
+				"wizardB" :"Wizard <%@ include %>_eu",
+				"wizardC" :"Wizard <jsp:include>_eu",
+				"wizardD" :"Wizard <c:import>_eu",
+				"wizardE" :"Wizard dinámico_eu",
+			"tree" : "Árbol_eu",
+				"trees" :"Árboles_eu",
+				"treeDAD" : "Árbol con D&D_eu",
+				"treesFormats" :"Árboles formateados_eu",
+				"treePanel" :"Árbol con panel_eu",
+		"experimental" :"Experimental_eu",
+			"maestro_detalle" :"Maestro-Detalle_eu",
+			"mant_multi_entidad" :"Mantenimiento multi-entidad_eu",
+			"mant_clave_compuesta" :"Mantenimiento clave-compuesta_eu",
+			"mant_clave_compuesta_multi" :"Multiselección_eu",
+			"mant_clave_compuesta_edlinea" :"Edición en línea_eu",
+		"integracion" :"Integración_eu",
+			"z-index" :"Capas RUP (z-index)_eu",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE", 
+		"uda":"UDA"
+	},
+	
+"_comment":"PATRONES",	
+	"autocomplete" :{ 
+		"asp":"asp_eu",
+		"c":"c_eu",
+		"c++":"c++_eu",
+		"coldfusion":"coldfusion_eu",
+		"groovy":"groovy_eu",
+		"haskell":"haskell_eu",
+		"java":"java_eu",
+		"javascript":"javascript_eu",
+		"perl":"perl_eu",
+		"php":"php_eu",
+		"python":"python_eu",
+		"ruby":"ruby_eu",
+		"scala":"scala_eu"
+	},
+	"_comment":"COMBO_SIMPLE",	
+		"combo" :{ 
+			"_blank":"[Elementu bat aukeratu]",
+			"asp":"asp_eu",
+			"c":"c_eu",
+			"c++":"c++_eu",
+			"coldfusion":"coldfusion_eu",
+			"groovy":"groovy_eu",
+			"haskell":"haskell_eu",
+			"java":"java_eu",
+			"javascript":"javascript_eu",
+			"perl":"perl_eu",
+			"php":"php_eu",
+			"python":"python_eu",
+			"ruby":"ruby_eu",
+			"scala":"scala_eu"
+		},
+		"comboGrupos" :{ 
+			"futbol":"Futbola",
+			"alaves":"Alaves_eu",
+			"ath":"Athletic_eu",
+			"real":"Real Sociedad_eu",
+			"baloncesto":"Saskibaloia",
+			"laboral":"Caja Laboral_eu",
+			"bilbao":"BBB_eu",
+			"lagun aro":"Lagun Aro_eu",
+			"formula1":"1 Formula",
+			"falonso":"Fernando Alonso_eu",
+			"hamilton":"Lewis Hamilton_eu",
+			"vettel":"Sebastian Vettel_eu"
+		},
+		"comboLargo":{
+			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+		},
+	"_coment":"COMBO_ENLAZADO",
+		"comboAbuelo":{
+			"_blank":"[Selecciona Abuelo_eu]",
+			"a":"Álava_eu",
+			"b":"Vizcaya_eu",
+			"g":"Gipúzcoa_eu"
+		},
+		"comboPadre":{
+			"a1":"A-Zona1_eu",
+			"a2":"A-Zona2_eu",
+			"a3":"A-Zona3_eu",
+			"b1":"Gran Bilbao_eu",
+			"b2":"Margen Derecha_eu",
+			"b3":"Margen Izquierda_eu",
+			"g1":"G-Zona1_eu",
+			"g2":"G-Zona2_eu",
+			"g3":"G-Zona3_eu"
+		},
+		"comboHijo":{
+			"_blank":"[Selecciona Hijo_eu]"
+		},
+		"comboAbueloRemoto":{
+			"_blank":"[Selecciona Abuelo Remoto_eu]"
+		},
+		"mixto_comboPadre":{
+			"a1":"A-Zona1_eu",
+			"a2":"A-Zona2_eu",
+			"a3":"A-Zona3_eu",
+			"b1":"Gran Bilbao_eu",
+			"b2":"Margen Derecha_eu",
+			"b3":"Margen Izquierda_eu",
+			"g1":"G-Zona1_eu",
+			"g2":"G-Zona2_eu",
+			"g3":"G-Zona3_eu"
+		},
+		"mixto2_comboAbuelo":{
+			"_blank":"[Selecciona Abuelo_eu]",
+			"a":"Álava_eu",
+			"b":"Vizcaya_eu",
+			"g":"Gipúzcoa_eu"
+		},
+	"_coment":"COMBO_ENLAZADO_MULTIPLE",
+		"departamentoRemote":{
+			"_blank":"[Selecciona Dpto._eu]"
+		},
+		"provinciaRemote":{
+			"_blank":"[Selecciona Prov._eu]"
+		},
+		"mixto_provincia":{
+			"a":"Álava_eu",
+			"b":"Vizcaya_eu",
+			"g":"Gipúzcoa_eu"
+		},
+		"mixto2_departamento":{
+			"ayto":"Ayuntamiento_eu",
+			"dipu":"Diputación_eu",
+			"poli":"Policía_eu",
+			"bomb":"Bomberos_eu"
+		},
+	"_comment":"MULTI_COMBO",	
+		"multicombo" :{ 
+			"asp":"asp_eu",
+			"c":"c_eu",
+			"c++":"c++_eu",
+			"coldfusion":"coldfusion_eu",
+			"groovy":"groovy_eu",
+			"haskell":"haskell_eu",
+			"java":"java_eu",
+			"javascript":"javascript_eu",
+			"perl":"perl_eu",
+			"php":"php_eu",
+			"python":"python_eu",
+			"ruby":"ruby_eu",
+			"scala":"scala_eu"
+		},
+		"multicomboGrupos" :{ 
+			"futbol":"Futbola",
+			"alaves":"Alaves_eu",
+			"ath":"Athletic_eu",
+			"real":"Real Sociedad_eu",
+			"baloncesto":"Saskibaloia",
+			"laboral":"Caja Laboral_eu",
+			"bilbao":"BBB_eu",
+			"lagun aro":"Lagun Aro_eu",
+			"formula1":"1 Formula",
+			"falonso":"Fernando Alonso_eu",
+			"hamilton":"Lewis Hamilton_eu",
+			"vettel":"Sebastian Vettel_eu"
+		},
+	"tabs" :{
+		"pestana0" 	:"Tab 0_eu",
+		"sub00" 	:"sub00_eu",
+		"sub000" 	:"sub000_eu",
+		"sub001" 	:"sub001_eu",
+		"sub0010" 	:"sub0010_eu",
+		"sub0011" 	:"sub0011_eu",
+		"sub00110" 	:"sub00110_eu",
+		"sub00111" 	:"sub00111_eu",
+		"sub002" 	:"sub002_eu",
+		"sub01" 	:"sub01_eu",
+		"sub02" 	:"sub02_eu",
+		"pestana1"  :"Tab 1_eu",
+		"sub10" 	:"sub10_eu",
+		"sub11" 	:"sub11_eu",
+		"pestana2" 	:"Tab 2_eu",
+		"pestanaAna"   	:"Nueva Pestaña_eu",
+		"nuevaPestaña" 	:"Nuevo Nivel_eu",
+		"PestañasMaint"	:"Pestaña con Mantenimientos_eu"
+	},
+	"pruebaSub3Maint" :{
+		"maint1"		:"Mantenimiento 1_eu",
+		"maint2"		:"Mantenimiento 2_eu",
+		"maint3"		:"Mantenimiento 3_eu"	
+	},
+	"tabsStatic" :{
+		"pestana0" 	:"Pestaña 1_eu",
+		"pestana1"  :"Pestaña 2_eu",
+		"pestana2" 	:"Pestaña 3_eu",
+		"pestanaAna" :"Pestaña Añadida_eu"
+	},
+	"tabsMixta" :{
+		"pestanaUrl" 	:"Pestaña con url_eu",
+		"pestanaHtml"  :"Pestaña con html_eu"
+	},
+	"tabsMaint" :{
+		"maint1"	:"Mantenimiento Simple 1_eu",
+		"maint2"    :"Mantenimiento Simple 2_eu",
+		"maint3" 	:"Mantenimiento Simple 3_eu",
+		"edit1" 	:"Mantenimiento edición en línea_eu",
+		"multi1" 	:"Mantenimiento múltiple_eu"
+	},
+	"tabsDialog" :{
+		"pestana0" 	:"Tab 0_eu",
+		"sub01" 	:"sub01_eu",
+		"sub02" 	:"sub02_eu",
+		"pestana1"  :"Tab 1_eu",
+		"sub10" 	:"sub10_eu",
+		"sub11" 	:"sub11_eu"
+	},
+	"toolbar" :{
+		"buscar"  	:"Bilatu",
+		"otros"	  	:"Beste botoi",
+		"nuevo"	  	:"Berria",
+		"editar"	:"Aldatu",
+		"cancelar"	:"Ezeztatu",
+		"borrar"	:"Ezabatu",
+		"filtrar"	:"Iragazi",
+		"imprimir"	:"Inprimatu",
+		"ficheros"	:"Fitxategiak",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"toolbarRight" :{
+		"buscar"  	:"Bilatu",
+		"otros"	  	:"Beste botoi",
+		"nuevo"	  	:"Berria",
+		"editar"	:"Aldatu",
+		"cancelar"	:"Ezeztatu",
+		"borrar"	:"Ezabatu",
+		"filtrar"	:"Iragazi",
+		"imprimir"	:"Inprimatu",
+		"ficheros"	:"Fitxategiak",
+		"DLL"		:"DLL",
+		"DOC"		:"DOC",
+		"EXE"		:"EXE",
+		"GIF"		:"GIF",
+		"JPG"		:"JPG",
+		"JS"		:"JS",
+		"PDF"		:"PDF",
+		"PPT"		:"PPT",
+		"TXT"		:"TXT",
+		"XLS"		:"XLS",
+		"ZIP"		:"ZIP"
+	},
+	"grid##ejie" :{
+		"0" :"Ez",
+		"1" :"Bai"
+	},
+	"GRID_simple##ejie" :{
+		"0" :"Ez",
+		"1" :"Bai"
+	},
+	"gridDialog##ejie" :{
+		"0" :"Ez",
+		"1" :"Bai"
+	},
+	"uploadTabs":{
+		"upload" :"Upload",
+		"uploadTable" :"Upload taulan",
+		"uploadForm" :"Upload formularioan",
+		"uploadFormSimple" :"Upload soila formularioan",
+		"uploadFormMultiple" :"Upload asko formularioan",
+		"uploadFormPif" :"PIF-rekiko integrazioa"
+	},
+	"comboProvincias":{
+		"_blank":"[Elementu bat aukeratu]" 	
+	},
+	"comboMunicipios":{
+		"_blank":"[Elementu bat aukeratu]" 	
+	},
+	"comboProvinciasAPI":{
+		"_blank":"[Elementu bat aukeratu]" 	
+	},
+	"comboMunicipiosAPI":{
+		"_blank":"[Elementu bat aukeratu]" 	
+	},
+	"gridTree":{
+		"total":"Total:_eu",
+		"gana":"Gana:_eu"  	
+	},
+	"diaObligatorio":{
+		"lunes":"Astelehena",
+		"martes":"Asteartea",
+		"miercoles":"Asteazketa",
+		"jueves":"Osteguna",
+		"viernes":"Ostirala",
+		"sabado":"Larumbata",
+		"domingo":"Igandea"
+	},
+	"sexo":{
+		"masculino":"Masculino_eu",
+		"femenino":"Femenino_eu"  	
+	},
+	"validaciones":{
+		"password_confirm":"Las contraseñas no coinciden_eu",
+		"email_confirm":"Los correos introducidos no coinciden_eu"
+	},
+	"tabsValidacion":{
+		"validacionesCliente":"Validaciones en cliente_eu",
+		"validacionesServidor":"Validaciones en servidor_eu",
+		"reglasValidacion":"Reglas de validación_eu",
+		"validacionComponentes":"Validación de componentes_eu"
+		 
+	},
+	"tabsFormulario":{
+		"ejemploYFunciones":"Ejemplo y métodos_eu",
+		"multiplesEntidades":"Envío de varias entidades_eu"
+	},
+	"loginUserMock" :{
+		"logginOk1" :"Usuario _eu'",
+		"logginOk2" :"' Seleccionado correctamente_eu"
+	},
+	"maintTab" :{
+		"maint1"	:"Mantenimiento Simple 1_eu",
+		"maint2"    :"Mantenimiento Simple 2_eu",
+		"maint3" 	:"Mantenimiento Simple 3_eu",
+		"edit1" 	:"Mantenimiento edición en línea_eu",
+		"multi1" 	:"Mantenimiento múltiple_eu"
+	},
+	"breadCrumb": {
+		"integracion" :"Integración_eu",
+			"z-index" :"Capas RUP (z-index)_eu",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"breadCrumb_2": {
+		"integracion" :"Integración_eu",
+			"z-index" :"Capas RUP (z-index)_eu",
+			"nora"	:"NORA",
+			"tiny" :"TinyMCE"
+	},
+	"treeCodeDialog": {
+		"title" : "Código usado para generar el árbol_eu",
+		"javascript" : "JavaScript",
+		"html" : "HTML"
+	},
+	"contextmenuDemo": {
+		"exampleEntry" : "Ejemplo de entrada(rename)_eu",
+		"udaRename" : "udaRename"
+	},
+	"uniqueDemo": {
+		"duplicateKey" : "Clave duplicada_eu",
+		"duplicateNodes" : "Se ha producido una duplicidad del nodo _eu",
+		"inFunction" : " con la función _eu"
+	},
+	"tasksTree": {
+		"raiz" : "Tareas Pendientes_eu",
+		"informes" : "Informes_eu",
+		"transportes" : "Portes en espera_eu",
+		"reparaciones" : "Reparaciones_eu",
+		"suministros" : "Pedidos de suministros_eu",
+		"facturas" : "Facturas por cobrar_eu",
+		"informe_trimestral" : "Informe general (1º trimestre)_eu",
+		"informe_gastos_generales" : "Gastos generales (oficina)_eu",
+		"informe_desperfectos" : "Desperfectos Granizada_eu",
+		"informe_deudas" : "Deudas pendientes de pagar_eu",
+		"informe_calidad" : "Calidad de servicio_eu",
+		"informe_perdidas" : "Material extraviado_eu",
+		"pedido_lujua" : "Ladrillos para Loiu_eu",
+		"pedido_cemento" : "Abastecimiento de cemento Andoain_eu",
+		"pedido_martillo" : "Martillo nuevo a Donosti_eu",
+		"reparacion_fachada" : "Arreglos en fachadas_eu",
+		"reparacion_indundacion" : "Limpieza por anegación_eu",
+		"reparacion_suelo" : "Reparación de la tarima_eu",
+		"reparacion_ratas" : "Revisión de desratización_eu",
+		"mp_ladrillos" : "3ton ladrillos_eu",
+		"mp_clavos" : "Clavos del 5cm_eu",
+		"mp_cemento" : "3 camiones de cemento_eu",
+		"mp_recambios" : "ruedas_eu",
+		"mp_jabon" : "Jabón de manos (8 cajas)_eu",
+		"mp_botas" : "40 pares de botas de seguridad_eu",
+		"mp_cascos" : "40 cascos de obra_eu",
+		"factura_VH" : "Cobros Valle Hermoso_eu",
+		"factura_Lindo" : "Cobros Lindo S.A._eu",
+		"factura_devolucion" : "Revisar devolución de cobro IT_eu",
+		"factura_OM" : "Cobro Oscar Mayer_eu",
+		"workers" : "Trabajadores_eu",
+		"depAdmin" : "DEP de Administración_eu",
+		"depReparaciones" : "DEP de Suministros_eu",
+		"depClientes" : "DEP de Clientes_eu",
+		"depSuministros" : "DEP de Suministros_eu"
+	},
+	"treeNodesExchangePanel_center" : {
+		"errorOp" : "Operación errónea_eu",
+		"funtError" : "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"._eu"
+	}
+}
