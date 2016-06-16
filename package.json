@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
+    "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "express": "^4.13.4",
     "gulp": "^3.9.1",
@@ -30,6 +31,8 @@
     "gulp-handlebars": "^4.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-wrap": "^0.13.0",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "html": "0.0.10",
+    "path": "^0.12.7"
   }
 }

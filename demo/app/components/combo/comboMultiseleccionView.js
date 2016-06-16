@@ -1,13 +1,27 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/combo'], function(Marionette, App){
 
-App.Views.ComboMultiseleccion = Backbone.View.extend({
-    el: '#container',
+  var ComboMultiseleccionView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.combo.comboMultiseleccionTemplate,
+    ui:{
+      multicombo: "#multicombo",
+      multicomboRemoto: "#multicomboRemoto",
+      multicomboGrupos: "#multicomboGrupos",
+      multicomboGruposRemoto: "#multicomboGruposRemoto",
+      multicomboInput: "#multicomboInput",
+      multicomboLoadFromSelect: "#multicomboLoadFromSelect"
+    },
     languageList:[],
     languageNameList:[],
     teamList:[],
-    render: renderComboMultiseleccion,
-    initialize: function(){
-        this.languageList = [
+    initialize: fncInitialize,
+    onDomRefresh: fncOnDomRefresh
+
+  });
+
+  function fncInitialize(){
+    this.languageList = [
 			{i18nCaption: "asp", value:"asp_value"},
 			{i18nCaption: "c", value:"c_value"},
 			{i18nCaption: "c++", value:"c++_value"},
@@ -22,8 +36,8 @@ App.Views.ComboMultiseleccion = Backbone.View.extend({
 			{i18nCaption: "ruby", value:"ruby_value"},
 			{i18nCaption: "scala", value:"scala_value"}
 		];
-        
-        this.teamList = [ 
+
+    this.teamList = [
 			{"futbol" : [
 				{i18nCaption: "alaves", value:"alaves_value", style:"delete"},
 				{i18nCaption: "ath", value:"ath_value", style:"filter"},
@@ -40,69 +54,66 @@ App.Views.ComboMultiseleccion = Backbone.View.extend({
 				{i18nCaption: "vettel", value:"vettel_value"}
 			]}
 		];
-        
-        this.languageNameList = ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"];
-       
-    }
-});
 
+    this.languageNameList = ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"];
 
-function renderComboMultiseleccion(){
-    
-    var template = App.Templates["app/components/combo/comboMultiseleccion.hbs"],
+  }
+
+  function fncOnDomRefresh(){
+    var $view = this,
         comboSourceParamObj = {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"};
-    
-    this.$el.html(template({}));
 
-    $('#multicombo').rup_combo({
-		source : this.languageList,
-		selected: ["perl_value", "javascript_value", 0], //value && index
-		ordered: false,
-		width: 400,
-		multiselect: true,
-		rowStriping : true
+    $view.ui.multicombo.rup_combo({
+  		source : this.languageList,
+  		selected: ["perl_value", "javascript_value", 0], //value && index
+  		ordered: false,
+  		width: 400,
+  		multiselect: true,
+  		rowStriping : true
     });
-	
-	$('#multicomboRemoto').rup_combo({
-		source : "comboSimple/remote",
-		sourceParam : comboSourceParamObj,
-		selected: [1], //index
-		width: 350,
-		height: 75,
-		multiselect: true
-	});
-	
-	$('#multicomboGrupos').rup_combo({
-		sourceGroup : this.teamList,
-		width: 500,
-		height: 300,
-		multiselect: true,
-		multiOptgroupIconText: false,
-		rowStriping : true
-	});
-	
-	$('#multicomboGruposRemoto').rup_combo({
-		sourceGroup : "comboSimple/remoteGroupEnlazado",
-		sourceParam : comboSourceParamObj,
-		width: 500,
-		multiselect: true
-	});
-	
-	$('#multicomboInput').rup_combo({
-		source : this.languageNameList,
-		width: 350,
-		multiselect: true
-	});
 
-	$('#multicomboLoadFromSelect').rup_combo({
-		source : "comboSimple/remote",
-		sourceParam : comboSourceParamObj,
-		loadFromSelect: true,
-		width: 350,
-		height: 75,
-		multiselect: true
-	});
-}
+  	$view.ui.multicomboRemoto.rup_combo({
+  		source : "comboSimple/remote",
+  		sourceParam : comboSourceParamObj,
+  		selected: [1], //index
+  		width: 350,
+  		height: 75,
+  		multiselect: true
+  	});
+
+  	$view.ui.multicomboGrupos.rup_combo({
+  		sourceGroup : this.teamList,
+  		width: 500,
+  		height: 300,
+  		multiselect: true,
+  		multiOptgroupIconText: false,
+  		rowStriping : true
+  	});
+
+  	$view.ui.multicomboGruposRemoto.rup_combo({
+  		sourceGroup : "comboSimple/remoteGroupEnlazado",
+  		sourceParam : comboSourceParamObj,
+  		width: 500,
+  		multiselect: true
+  	});
+
+  	$view.ui.multicomboInput.rup_combo({
+  		source : this.languageNameList,
+  		width: 350,
+  		multiselect: true
+  	});
+
+  	$view.ui.multicomboLoadFromSelect.rup_combo({
+  		source : "comboSimple/remote",
+  		sourceParam : comboSourceParamObj,
+  		loadFromSelect: true,
+  		width: 350,
+  		height: 75,
+  		multiselect: true
+  	});
+  }
 
 
+  return ComboMultiseleccionView;
 
+});

@@ -28,9 +28,20 @@ requirejs.config({
         "rup/toolbar": "../../src/rup.toolbar",
         "rup/button": "../../src/rup.button",
         "rup/accordion": "../../src/rup.accordion",
+        "rup/tabs": "../../src/rup.tabs",
+        "rup/autocomplete": "../../src/rup.autocomplete",
+        "rup/combo": "../../src/rup.combo",
+        "rup/date": "../../src/rup.date",
+        "rup/time": "../../src/rup.time",
 
         // menuDeps
         "jquery-1.7": "../../src/core/jquery-1.7.2",
+        "jquery.ui.autocomplete": "../../src/core/ui/jquery.ui.autocomplete",
+        "jquery.ui.selectmenu": "../../src/core/ui/jquery.ui.selectmenu",
+        "jquery.multiselect": "../../src/core/ui/jquery.multiselect",
+        "jquery-json": "../../src/core/utils/jquery.json-2.2",
+        "jquery-ui-timepicker": "../../src/core/ui/jquery-ui.timepicker",
+        "jquery-ui-multidatespicker": "../../src/core/ui/jquery-ui.multidatespicker",
         "private-jquery": "../jquery-private",
         "private-jqueryui-core-menu":"../../src/core/ui/menu/jquery.ui.core.menu",
         "private-jqueryui-widget-menu":"../../src/core/ui/menu/jquery.ui.widget.menu",
@@ -54,7 +65,7 @@ requirejs.config({
         "exports":"widgetMenu"
       },
       "rup/utils":{
-        "deps": ["jquery-ui"]
+        "deps": ["jquery-ui","jquery-json"]
       },
       "rup/compatibility":{
         "deps": ["rup/base"]
@@ -92,6 +103,21 @@ requirejs.config({
       "rup/accordion":{
         "deps": ["rup/base"]
       },
+      "rup/tabs":{
+        "deps": ["rup/base"]
+      },
+      "rup/autocomplete":{
+        "deps": ["rup/base","jquery.ui.autocomplete"]
+      },
+      "rup/combo":{
+        "deps": ["rup/base","jquery.multiselect"]
+      },
+      "rup/date":{
+        "deps": ["rup/base", "jquery-ui-multidatespicker","jquery-ui-timepicker"]
+      },
+      "rup/time":{
+        "deps": ["rup/base"]
+      },
 
       // legacy
       "blockUI":{
@@ -99,6 +125,24 @@ requirejs.config({
       },
       "jQuery-contextMenu":{
         "deps": ["jquery"]
+      },
+      "jquery.ui.autocomplete":{
+        "deps": ["jquery-ui"]
+      },
+      "jquery.ui.selectmenu":{
+        "deps": ["jquery-ui"]
+      },
+      "jquery.multiselect":{
+        "deps": ["jquery.ui.selectmenu"]
+      },
+      "jquery-json":{
+        "deps": ["jquery"]
+      },
+      "jquery-ui-multidatespicker":{
+        "deps": ["jquery-ui"]
+      },
+      "jquery-ui-timepicker":{
+        "deps": ["jquery-ui"]
       }
 
     }

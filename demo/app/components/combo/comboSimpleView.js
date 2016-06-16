@@ -1,16 +1,30 @@
- App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/combo'], function(Marionette, App){
 
-App.Views.ComboSimple = Backbone.View.extend({
-    el: '#container',
+  var ComboSimpleView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.combo.comboSimpleTemplate,
+    ui:{
+      comboLocal: "#combo",
+      comboRemoto: "#comboRemoto",
+      comboLargo: "#comboLargo",
+      comboGrupos: "#comboGrupos",
+      comboGruposRemoto: "#comboGruposRemoto",
+      comboImgs: "#comboImgs",
+      comboInput: "#comboInput",
+      comboLoadFromSelect: "#comboLoadFromSelect"
+    },
     languageList:[],
-    languageNameList:[],
     personList:[],
-    teamList:[],
     actionList:[],
-    render: renderComboSimpleView,
-    initialize: function(){
-    
-        this.languageList = [
+    teamList:[],
+    initialize: fncInitialize,
+    onDomRefresh: fncOnDomRefresh
+
+  });
+
+  function fncInitialize(){
+    this.languageList = [
 			{i18nCaption: "asp", value:"asp_value"},
 			{i18nCaption: "c", value:"c_value"},
 			{i18nCaption: "c++", value:"c++_value"},
@@ -25,17 +39,17 @@ App.Views.ComboSimple = Backbone.View.extend({
 			{i18nCaption: "ruby", value:"ruby_value"},
 			{i18nCaption: "scala", value:"scala_value"}
 		];
-        
-        this.personList = [
+
+    this.personList = [
 			{i18nCaption: "jon_doe", value:"jon"},
 			{i18nCaption: "jane_doe", value:"jane"},
 			{i18nCaption: "joseph_doe", value:"joseph"},
 			{i18nCaption: "mad_doe", value:"mad"}
 		];
-        
-        this.actionList = ["Borrar", "Filtrar", "Imprimir"];
-        
-        this.teamList = [ 
+
+    this.actionList = ["Borrar", "Filtrar", "Imprimir"];
+
+    this.teamList = [
 			{"futbol" : [
 				{i18nCaption: "alaves", value:"alaves_value", style:"delete"},
 				{i18nCaption: "ath", value:"ath_value", style:"filter"},
@@ -52,93 +66,87 @@ App.Views.ComboSimple = Backbone.View.extend({
 				{i18nCaption: "vettel", value:"vettel_value"}
 			]}
 		];
-        
-        this.languageNameList = ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"];
-        
-    }
+
+    this.languageNameList = ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"];
+  }
+
+  function fncOnDomRefresh(){
+    var $view = this;
+
+    $view.ui.comboLocal.rup_combo({
+  		source : this.languageList,
+  		selected: "perl_value",
+  		width: 300,
+  		blank : "0",
+  		rowStriping : true,
+  		inputText:true
+  	});
+
+
+  	$view.ui.comboRemoto.rup_combo({
+  		source : "comboSimple/remote",
+  		sourceParam : {
+              label:"desc"+$.rup_utils.capitalizedLang(),
+              value:"code",
+              style:"css"},
+  		selected: "3",
+  		width: 300
+  	});
+
+
+  	$view.ui.comboLargo.rup_combo({
+  		/*source: ["John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+  				"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+  				"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+  				"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+  		],*/
+  		source : this.personList,
+  		selected: "joseph",
+  		width: 400,
+  		format: "default"
+  	});
+
+
+  	$view.ui.comboGrupos.rup_combo({
+  		sourceGroup : this.teamList,
+  		selected: "real_value",
+  		rowStriping : true
+  	});
+
+  	$view.ui.comboGruposRemoto.rup_combo({
+  		sourceGroup : "comboSimple/remoteGroup",
+  		sourceParam : {
+              label:"desc"+$.rup_utils.capitalizedLang(),
+              value:"code",
+              style:"css"},
+  		selected: "7",
+  		width: 300
+  	});
+
+
+  	$view.ui.comboImgs.rup_combo({
+  		source : this.actionList,
+  		imgs : [
+  			{Borrar: "delete"},
+  			{Filtrar: "filter"},
+  			{Imprimir: "print"}
+  		],
+  		selected: "Filtrar"
+  	});
+
+  	$view.ui.comboInput.rup_combo({
+  		source : this.languageNameList,
+  		width: 300
+  	});
+
+  	$view.ui.comboLoadFromSelect.rup_combo({
+  		source : "comboSimple/remote",
+  		sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"},
+  		loadFromSelect: true,
+  		width: 300,
+  		height: 75
+  	});
+  }
+
+  return ComboSimpleView;
 });
-
-
-
-function renderComboSimpleView(){
-    
-    var template = App.Templates["app/components/combo/comboSimple.hbs"];
-    this.$el.html(template({}));
-
-    $('#combo').rup_combo({
-		source : this.languageList,
-		selected: "perl_value",
-		width: 300,
-		blank : "0",
-		rowStriping : true,
-		inputText:true
-	});
-	
-	
-	$('#comboRemoto').rup_combo({
-		source : "comboSimple/remote",
-		sourceParam : {
-            label:"desc"+$.rup_utils.capitalizedLang(), 
-            value:"code", 
-            style:"css"},
-		selected: "3",
-		width: 300
-	});
-
-	
-	$('#comboLargo').rup_combo({
-		/*source: ["John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-				"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-				"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-				"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
-		],*/
-		source : this.personList,
-		selected: "joseph",
-		width: 400,
-		format: "default"
-	});
-	
-	
-	$('#comboGrupos').rup_combo({
-		sourceGroup : this.teamList,
-		selected: "real_value",
-		rowStriping : true
-	});
-	
-	$('#comboGruposRemoto').rup_combo({
-		sourceGroup : "comboSimple/remoteGroup",
-		sourceParam : {
-            label:"desc"+$.rup_utils.capitalizedLang(), 
-            value:"code", 
-            style:"css"},
-		selected: "7",
-		width: 300
-	});
-		 
-		 
-	$('#comboImgs').rup_combo({
-		source : this.actionList,
-		imgs : [
-			{Borrar: "delete"},
-			{Filtrar: "filter"},
-			{Imprimir: "print"}
-		],
-		selected: "Filtrar"
-	});
-	
-	$('#comboInput').rup_combo({
-		source : this.languageNameList,
-		width: 300
-	});
-
-	$('#comboLoadFromSelect').rup_combo({
-		source : "comboSimple/remote",
-		sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"},
-		loadFromSelect: true,
-		width: 300,
-		height: 75
-	});
-}
-
-
-

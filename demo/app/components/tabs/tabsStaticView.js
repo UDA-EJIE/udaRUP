@@ -1,21 +1,26 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/tabs'], function(Marionette, App){
 
-App.Views.TabsStatic = Backbone.View.extend({
-    el: '#container',
-    render: renderTabsStaticView,
+  var TabsStaticView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.tabs.tabsStaticTemplate,
+    ui:{
+      tabs: "#tabsStatic"
+    },
+    onDomRefresh: fncOnDomRefresh
+
+  });
+
+  function fncOnDomRefresh(){
+
+    this.ui.tabs.rup_tabs({
+     		tabs : [
+     			{i18nCaption:"pestana0", layer:".estiloo"},
+     			{i18nCaption:"pestana1", layer:"#ejemploVisual"},
+     			{i18nCaption:"pestana2", layer:".estiloo2"}]
+    });
+  }
+
+  return TabsStaticView;
+
 });
-
-
-
-function renderTabsStaticView(){
-    
-    var template = App.Templates["app/components/tabs/tabsStatic.hbs"];
-    this.$el.html(template({}));
-
-   $("#tabsStatic").rup_tabs({
-		tabs : [
-			{i18nCaption:"pestana0", layer:".estiloo"},
-			{i18nCaption:"pestana1", layer:"#ejemploVisual"},
-			{i18nCaption:"pestana2", layer:".estiloo2"}]
-	});
-}

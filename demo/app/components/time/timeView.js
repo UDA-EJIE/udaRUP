@@ -1,40 +1,46 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/time'], function(Marionette, App){
 
-App.Views.Time = Backbone.View.extend({
-    el: '#container',
-    render: renderTimeView,
+  var TimeView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.time.timeTemplate,
+    ui:{
+      timeFull: "#hora",
+      timeShort: "#hora2",
+      timeInline: "#hora_inline"
+    },
+    onDomRefresh: fncOnDomRefresh
+  });
+
+  function fncOnDomRefresh(){
+    var $view = this;
+
+    $view.ui.timeFull.rup_time({
+  		labelMaskId : "hora-mask",
+  		showSecond : true,
+  		timeFormat: 'hh:mm:ss',
+  		showButtonPanel: true
+  	});
+
+  	$view.ui.timeShort.rup_time({
+  		showTime: false,
+  		ampm : true,
+  		hour: 8,
+  		minute: 30,
+  		hourMin: 8,
+  		hourMax: 18,
+  		stepHour : 2,
+  		stepMinute : 10
+  		//,disabled:true
+  	});
+
+  	$view.ui.timeInline.rup_time({
+  		hourGrid: 5,
+  		minuteGrid: 10
+  	});
+
+  	$view.ui.timeInline.rup_time("setTime", new Date());
+  }
+
+  return TimeView;
 });
-
-
-
-function renderTimeView(){
-    
-    var template = App.Templates["app/components/time/time.hbs"];
-    this.$el.html(template({}));
-
-   	$("#hora").rup_time({
-		labelMaskId : "hora-mask",
-		showSecond : true,
-		timeFormat: 'hh:mm:ss',
-		showButtonPanel: true
-	});
-	
-	$("#hora2").rup_time({
-		showTime: false,
-		ampm : true,
-		hour: 8,
-		minute: 30,
-		hourMin: 8,
-		hourMax: 18,
-		stepHour : 2,
-		stepMinute : 10
-		//,disabled:true
-	});
-	
-	$("#hora_inline").rup_time({
-		hourGrid: 5,
-		minuteGrid: 10
-	});
-	
-	$("#hora_inline").rup_time("setTime", new Date());
-}

@@ -1,21 +1,25 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/tabs'], function(Marionette, App){
 
-App.Views.TabsMixto= Backbone.View.extend({
-    el: '#container',
-    render: renderTabsMixtoView,
+  var TabsMixedView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.tabs.tabsMixtoTemplate,
+    ui:{
+      tabs: "#tabsMixta",
+    },
+    onDomRefresh: fncOnDomRefresh
+  });
+
+  function fncOnDomRefresh(){
+
+    this.ui.tabs.rup_tabs({
+  		tabs : [
+  			{i18nCaption:"pestanaUrl", url:"tab2Fragment"},
+  			{i18nCaption:"pestanaHtml", layer:".estiloMixto"},
+  			{i18nCaption:"pestanaUrl", url:"tab3Fragment"}]
+  	});
+  }
+
+  return TabsMixedView;
+
 });
-
-
-
-function renderTabsMixtoView(){
-    
-    var template = App.Templates["app/components/tabs/tabsMixto.hbs"];
-    this.$el.html(template({}));
-
-  	$("#tabsMixta").rup_tabs({
-		tabs : [
-			{i18nCaption:"pestanaUrl", url:"tab2Fragment"},
-			{i18nCaption:"pestanaHtml", layer:".estiloMixto"},
-			{i18nCaption:"pestanaUrl", url:"tab3Fragment"}]
-	});
-}
