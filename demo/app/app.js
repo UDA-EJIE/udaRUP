@@ -22,14 +22,18 @@ define(["marionette",
         "components/combo/comboEnlazadoMultipleView",
         "components/combo/comboMultiseleccionView",
         "components/date/dateView",
-        "components/time/timeView"
+        "components/time/timeView",
+        "components/form/formView",
+        "components/validate/validateView",
+        "components/upload/uploadView",
+        "components/table/tableFilterView",
 
       ], function(Marionette, MainView, FeedbackView, TooltipView, MessageView,
                   DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView,
                   ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
                   TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
                   ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
-                  DateView, TimeView){
+                  DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView){
 
     var RupDemoApp = new Marionette.Application();
 
@@ -59,7 +63,11 @@ define(["marionette",
         'comboEnlazadoMultiple': 'comboEnlazadoMultiple',
         'comboMultiseleccion': 'comboMultiseleccion',
         'date': 'date',
-        'time': 'time'
+        'time': 'time',
+        'form': 'form',
+        'validate': 'validate',
+        'upload': 'upload',
+        'tableFilter': 'tableFilter'
 
       }
 
@@ -133,6 +141,18 @@ define(["marionette",
         },
         time: function(){
           RupDemoApp.mainView.Container.show(new TimeView());
+        },
+        form: function(){
+          RupDemoApp.mainView.Container.show(new FormView());
+        },
+        validate: function(){
+          RupDemoApp.mainView.Container.show(new ValidateView());
+        },
+        upload: function(){
+          RupDemoApp.mainView.Container.show(new UploadView());
+        },
+        tableFilter: function(){
+          RupDemoApp.mainView.Container.show(new TableFilterView());
         }
     });
 

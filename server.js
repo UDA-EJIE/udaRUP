@@ -1,9 +1,34 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     http = require('http'),
+
+    //Table database
+    lokijs = require('lokijs'),
+    LokiDb = require('./lokiDb'),
+    lokiNativescriptAdapter = require('lokijs/src/loki-nativescript-adapter'),
+    routesNora = require('./demo/routes/nora'),
+    dummyjson = require('dummy-json'),
+    //Routes
     routesTabs = require('./demo/routes/tabs'),
     routesAutocomplete = require('./demo/routes/autocomplete'),
-    routesCombo = require('./demo/routes/combo');
+    routesCombo = require('./demo/routes/combo'),
+    routesNora = require('./demo/routes/nora'),
+    routesTable = require('./demo/routes/table');
+
+
+// db
+//var db = new lokijs('uda');
+
+//var ldb = new LokiDb();
+LokiDb.log();
+LokiDb.setText("prueba1");
+console.log(LokiDb.getText());
+LokiDb.initialize();
+
+
+
+
+
 
 var app = express();
 
@@ -35,7 +60,15 @@ app.get('/demo/comboEnlazadoSimple/remoteEnlazadoLocalidad', routesCombo.comboEn
 app.get('/demo/comboEnlazadoMultiple/departamentoRemote', routesCombo.comboEnlazadoMultiple.departamentoRemote);
 app.get('/demo/comboEnlazadoMultiple/provinciaRemote', routesCombo.comboEnlazadoMultiple.provinciaRemote);
 app.get('/demo/comboEnlazadoMultiple/dptoProvRemote', routesCombo.comboEnlazadoMultiple.dptoProvRemote);
-
+// Form
+app.get('/demo/nora/pais', routesNora.pais);
+app.get('/demo/nora/autonomia', routesNora.autonomia);
+app.get('/demo/nora/provincia', routesNora.provincia);
+// Table
+app.post('/demo/jqGridUsuario/filter', routesTable.filter);
+app.get('/demo/jqGridUsuario/:id', routesTable.get);
+app.put('/demo/jqGridUsuario', routesTable.put);
+app.post('/demo/jqGridUsuario', routesTable.post);
 
 
 app.listen(8080);

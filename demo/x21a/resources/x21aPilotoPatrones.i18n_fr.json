@@ -55,7 +55,7 @@
 		"integracion" :"Integración_fr",
 			"z-index" :"Capas RUP (z-index)_fr",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda":"UDA",
 		"titulo-notifi":"Notificaciones_fr",
 		"titulo-nave":"Navegación_fr",
@@ -114,12 +114,12 @@
 		"integracion" :"Integración_fr",
 			"z-index" :"Capas RUP (z-index)_fr",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda":"UDA"
 	},
-	
-"_comment":"PATRONES",	
-	"autocomplete" :{ 
+
+"_comment":"PATRONES",
+	"autocomplete" :{
 		"asp":"asp_fr",
 		"c":"c_fr",
 		"c++":"c++_fr",
@@ -134,8 +134,8 @@
 		"ruby":"ruby_fr",
 		"scala":"scala_fr"
 	},
-	"_comment":"COMBO_SIMPLE",	
-		"combo" :{ 
+	"_comment":"COMBO_SIMPLE",
+		"combo" :{
 			"_blank":"[Seleccione un elemento_fr]",
 			"asp":"asp_fr",
 			"c":"c_fr",
@@ -151,7 +151,7 @@
 			"ruby":"ruby_fr",
 			"scala":"scala_fr"
 		},
-		"comboGrupos" :{ 
+		"comboGrupos" :{
 			"futbol":"Futbol_fr",
 			"alaves":"Alaves_fr",
 			"ath":"Athletic_fr",
@@ -167,8 +167,8 @@
 		},
 		"comboLargo":{
 			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
-			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
 			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
 		},
 	"_coment":"COMBO_frLAZADO",
@@ -230,8 +230,8 @@
 			"poli":"Policía_fr",
 			"bomb":"Bomberos_fr"
 		},
-	"_comment":"MULTI_COMBO",	
-		"multicombo" :{ 
+	"_comment":"MULTI_COMBO",
+		"multicombo" :{
 			"asp":"asp_fr",
 			"c":"c_fr",
 			"c++":"c++_fr",
@@ -246,7 +246,7 @@
 			"ruby":"ruby_fr",
 			"scala":"scala_fr"
 		},
-		"multicomboGrupos" :{ 
+		"multicomboGrupos" :{
 			"futbol":"Futbol_fr",
 			"alaves":"Alaves_fr",
 			"ath":"Athletic_fr",
@@ -283,7 +283,7 @@
 	"pruebaSub3Maint" :{
 		"maint1"		:"Mantenimiento 1_fr",
 		"maint2"		:"Mantenimiento 2_fr",
-		"maint3"		:"Mantenimiento 3_fr"	
+		"maint3"		:"Mantenimiento 3_fr"
 	},
 	"tabsStatic" :{
 		"pestana0" 	:"Pestaña 1_fr",
@@ -375,10 +375,10 @@
 		"uploadFormPif" :"Integración con PIF_fr"
 	},
 	"comboProvincias":{
-		"_blank":"Seleccione un elemento_fr" 	
+		"_blank":"Seleccione un elemento_fr"
 	},
 	"comboMunicipios":{
-		"_blank":"Seleccione un elemento_fr" 	
+		"_blank":"Seleccione un elemento_fr"
 	},
 	"comboProvinciasAPI":{
 		"_blank":"Seleccione un elemento_fr"
@@ -388,7 +388,7 @@
 	},
 	"gridTree":{
 		"total":"Total:_fr",
-		"gana":"Gana:_fr"  	
+		"gana":"Gana:_fr"
 	},
 	"diaObligatorio":{
 		"lunes":"Lundi",
@@ -401,7 +401,7 @@
 	},
 	"sexo":{
 		"masculino":"Masculino_fr",
-		"femenino":"Femenino_fr"  	
+		"femenino":"Femenino_fr"
 	},
 	"validaciones":{
 		"password_confirm":"Las contraseñas no coinciden_fr",
@@ -494,5 +494,97 @@
 	"treeNodesExchangePanel_center" : {
 		"errorOp" : "Operación errónea_fr",
 		"funtError" : "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"._fr"
+	},
+	"x21aMantenimientosWar_migas" :{
+		"simple"	: "Selección simple_fr",
+		"multi"		: "Multiselección_fr",
+		"edlinea"	: "Edición en línea_fr",
+		"formPropio" : "Form Propio_fr",
+		"administracion" : "Administración_fr",
+		"alumno" : "Alumno_fr",
+		"jerarquia" : "Jerarquia_fr",
+		"usuarioJerarquia" : "Normal_fr",
+		"usuarioJerarquiaGroup" : "Agrupado_fr",
+		"usuarioJerarquiaMulti" : "Multiselección_fr",
+		"usuarioJerarquiaGroupMulti" : "Multiselección agrupado_fr",
+		"usuarioJerarquiaCol" : "Columna independiente_fr",
+		"uda":"UDA"
+	},
+	"GRID_simple##ejie" : {
+		"0" : "Non",
+		"1" : "Oui"
+	},
+	"GRID_simple##rol" : {
+		"administrador" : "administrador_en",
+		"desarrollador" : "desarrollador_en",
+		"espectador" : "espectador_en",
+		"informador" : "informador_en",
+		"manager" : "manager_en"
+	},
+	"GRID_simple##tipo" : {
+		"0A" : "Tipo_No_A_fr",
+		"0B" : "Tipo_No_B_fr",
+		"1A" : "Tipo_Si_A_fr",
+		"1B" : "Tipo_Si_B_fr"
+	},
+	"GRID_simple##subtipo" : {
+		"0_0A_A" : "Subtipo_No_TipoA_A_fr",
+		"0_0A_B" : "Subtipo_No_TipoA_B_fr",
+		"0_0B_A" : "Subtipo_No_TipoB_A_fr",
+		"0_0B_B" : "Subtipo_No_TipoB_B_fr",
+		"1_0A_A" : "Subtipo_Si_TipoA_A_fr",
+		"1_0A_B" : "Subtipo_Si_TipoA_B_fr",
+		"1_0B_A" : "Subtipo_Si_TipoB_A_fr",
+		"1_0B_B" : "Subtipo_Si_TipoB_B_fr",
+		"0_1A_A" : "Subtipo_No_TipoA_A_fr",
+		"0_1A_B" : "Subtipo_No_TipoA_B_fr",
+		"0_1B_A" : "Subtipo_No_TipoB_A_fr",
+		"0_1B_B" : "Subtipo_No_TipoB_B_fr",
+		"1_1A_A" : "Subtipo_Si_TipoA_A_fr",
+		"1_1A_B" : "Subtipo_Si_TipoA_B_fr",
+		"1_1A_A" : "Subtipo_Si_TipoB_A_fr",
+		"1_1A_B" : "Subtipo_Si_TipoB_B_fr"
+	},
+	"GRID_multi##ejie" : {
+		"0" : "Non",
+		"1" : "Oui"
+	},
+	"GRID_edlinea##ejie" : {
+		"0" : "Non",
+		"1" : "Oui"
+	},
+	"simpelMaint" : {
+		"actualizar":"Ejemplo de botón personalizado_fr"
+	},
+	"alumno":{
+		"password_confirm":"Las contraseñas no coinciden_fr",
+		"email_confirm":"Los correos introducidos no coinciden_fr"
+	},
+	"GRID_alumno":{
+		"id": "Id_fr",
+		"usuario" : "Usuario_fr",
+		"nombre" : "Nombre_fr",
+		"apellido1" : "Primer apellido_fr",
+		"apellido2" : "Segundo apellido_fr",
+		"dni" : "DNI_fr",
+		"importeMatricula":"Importe matrícula_fr"
+	},
+	"loginUserMock" : {
+		"logginOk1" : "Usuario _fr'",
+		"logginOk2" : "' Seleccionado correctamente_fr"
+	},
+	"GRID_usuarioJerarquia##ejie" : {
+		"0" : "Non",
+		"1" : "Oui"
+	},
+	"table":{
+		"id": "Id",
+		"nombre" : "Nombre",
+		"apellido1" : "Primer apellido",
+		"apellido2" : "Segundo apellido",
+		"ejie" : "Ejie",
+		"fechaAlta":"Fecha de alta",
+		"fechaBaja":"Fecha de baja",
+		"rol":"Rol"
 	}
 }

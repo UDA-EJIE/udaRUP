@@ -1,0 +1,21 @@
+[
+  {"label":"Comunidad Autónoma de Andalucía","value":"01"},
+  {"label":"Comunidad Autónoma de Aragón","value":"02"},
+  {"label":"Principado de Asturias","value":"03"},
+  {"label":"Comunidad Autónoma de las Illes Balears","value":"04"},
+  {"label":"Comunidad Autónoma de Canarias","value":"05"},
+  {"label":"Comunidad Autónoma de Cantabria","value":"06"},
+  {"label":"Comunidad Autónoma de Castilla y León","value":"07"},
+  {"label":"Comunidad Autónoma de Castilla-La Mancha","value":"08"},
+  {"label":"Comunidad Autónoma de Cataluña","value":"09"},
+  {"label":"Comunidad Valenciana","value":"10"},
+  {"label":"Comunidad Autónoma de Extremadura","value":"11"},
+  {"label":"Comunidad Autónoma de Galicia","value":"12"},
+  {"label":"Comunidad de Madrid","value":"13"},
+  {"label":"Región de Murcia","value":"14"},
+  {"label":"Comunidad Foral de Navarra","value":"15"},
+  {"label":"Comunidad Autónoma de Euskadi","value":"16"},
+  {"label":"Comunidad Autónoma de La Rioja","value":"17"},
+  {"label":"Ceuta","value":"18"},
+  {"label":"Melilla","value":"19"}
+]

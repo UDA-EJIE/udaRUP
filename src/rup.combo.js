@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -21,34 +21,34 @@
 //Modificado "jquery.multiselect.js" línea 53 [Estilo flecha como combos
 //Añadido	 "jquery.multiselect.js" línea 65 [Id al componete]
 //Modificado "jquery.multiselect.js" línea 581 [jQuery 1.8 compatible]
-//Modificadro "IE Fixes" (evitar problemas con elementos deshabilitados en IE) 
+//Modificadro "IE Fixes" (evitar problemas con elementos deshabilitados en IE)
 
 //Arregos para resaltado con el teclado (UDA - focus): líneas 446-448, 494-496, 519-522
 
 (function ($) {
-	
+
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÁN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
-	
+
 	var rup_combo = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_combo", rup_combo));
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_combo("extend",{
 		getRupValue : function(param){
 			var $self = $(this), settings = $self.data("settings"), retObj, arrayTMP, prop, valueArray, valueArray_length, returnArray, wrapObj={}, name;
-			
+
 			name = $self.attr("name");
-			
+
 			if (name){
 				arrayTMP = $self.attr("name").split(".");
 			}
-			
+
 			if (settings.submitAsJSON){
 //					arrayTMP = $self.attr("name").split(".");
 //					prop = arrayTMP[arrayTMP.length-1];
@@ -62,7 +62,7 @@
 //				}
 				return jQuery.rup_utils.getRupValueAsJson(name,  $self.rup_combo("value"));
 			}
-			
+
 			retObj = settings.submitAsString?$self.rup_combo("value").toString():$self.rup_combo("value");
 
 			if (arrayTMP !== undefined && arrayTMP !== null && settings.multiselect){
@@ -73,7 +73,7 @@
 		},
 		setRupValue : function(param){
 			var $self = $(this), settings = $self.data("settings");
-			
+
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
 				//Simple > selectmenu
@@ -96,9 +96,9 @@
 		},
 		reset : function(){
 			var $self = $(this);
-			
+
 			$self.rup_combo("select", $self.find("option[selected]").attr("value"));
-			
+
 		},
 		checkAll : function(){
 			//Tipo de combo
@@ -200,8 +200,8 @@
 				}
 				return retorno;
 			}
-			
-		}, 
+
+		},
 		disable : function(){
 			//Tipo de combo
 			var $self = $(this);
@@ -223,9 +223,9 @@
 		enable : function(){
 			//Tipo de combo
 			var $self = $(this), settings = $(this).data("settings");
-			// Eliminamos el handler del evento focus para evitar que adquiera el foco cuando está deshabilitado 
+			// Eliminamos el handler del evento focus para evitar que adquiera el foco cuando está deshabilitado
 			$("#"+$(this).attr("id")+"-button").off("focus.rup_combo");
-			
+
 			$("#"+$(this).attr("id")+"-button").attr("tabindex",(settings.tabindex ? settings.tabindex : 0));
 			if (this.length===0 || !$(this).data("settings").multiselect){
 				//Simple > selectmenu
@@ -259,15 +259,15 @@
 			if ($(this).data("settings").multiselect){
 				//Deshabilitar select
 				this.find("[value='" + optValue + "']").attr('disabled','disabled');
-				
+
 				var obj = $("#rup-multiCombo_"+ $(this).attr("id")).find("[value='" + optValue + "']");
-				
+
 				//Deshabilitar input
 				obj.attr('disabled','disabled');
-				
+
 				//Estilos línea (label)
 				obj.parent().css("color","grey");
-				
+
 				//Si pertenece a OptGroup y es el último en deshabilitarse > Cambiar estilos optGroupLabel
 				if ($(this).data("settings").sourceGroup != undefined){
 					//Obtener inicio optGroup
@@ -286,7 +286,7 @@
 						li.children("a").remove();
 						li.children("span").not(".rup-combo_multiOptgroupLabel").remove();
 					}
-					
+
 				}
 			} else {
 				alert('Función no soportada.');
@@ -305,26 +305,26 @@
 			if ($(this).data("settings").multiselect){
 				//Habilitar select
 				this.find("[value='" + optValue + "']").removeAttr('disabled');
-				
+
 				var obj = $("#rup-multiCombo_"+ $(this).attr("id")).find("[value='" + optValue + "']");
-				
+
 				//Habilitar input
 				obj.removeAttr('disabled');
-				
+
 				//Estilos línea (label)
 				obj.parent().css("color","black");
-				
+
 				//Si pertenece a OptGroup y es el primero en habilitarse > Cambiar estilos optGroupLabel
 				if ($(this).data("settings").sourceGroup != undefined){
 					//Obtener inicio optGroup
 					var li = obj.parentsUntil("ul").last().prevAll('li.ui-multiselect-optgroup-label').first();
-					
+
 					//Estilos optGroup
 					if (li.children("a").length===0){
 						li.css("color","black");
 						this._generateOptGroupLabel(li, $(this).data("settings").multiOptgroupIconText);
 					}
-					
+
 				}
 			} else {
 				alert('Función no soportada.');
@@ -339,7 +339,7 @@
 				alert('Función no soportada.');
 			}
 		},
-		
+
 		//Funcion que refresca los valores asociados al combo
 		refresh : function(){
 			//Tipo de combo
@@ -349,49 +349,49 @@
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect("refresh");
-				
+
 				//Modificar literal en optgroups y asociarle el evento de "seleccionar/deseleccionar"
 				var multiOptgroupIconText = $(this).data("settings").multiOptgroupIconText,
 					self = this;
 				$.each ($("#rup-multiCombo_"+ $(this).attr("id")).find(".ui-multiselect-optgroup-label"), function(index, object){
 					self._generateOptGroupLabel(object, multiOptgroupIconText);
 				});
-				
+
 				//Titles de botones por defecto
 				$("#rup-multiCombo_"+ $(this).attr("id")).find(".ui-multiselect-all").attr("title", $.rup.i18n.base["rup_combo"]["multiselect"]["checkAllTitle"]).rup_tooltip();
 				$("#rup-multiCombo_"+ $(this).attr("id")).find(".ui-multiselect-none").attr("title", $.rup.i18n.base["rup_combo"]["multiselect"]["uncheckAllTitle"]).rup_tooltip();
-				
+
 				//Deseleccionar todos
 				return $(this).multiselect("uncheckAll");
 			}
 		},
 		//Funcion encargada de recargar los combos
 		reload: function (id){
-			if (this.length!==0){ 
+			if (this.length!==0){
 				var settings = $(this).data("settings"),
 					source, setRupValue;
-					
+
 				//Vaciar combo, quitarle valor y deshabilitar
 				$("#"+settings.id).rup_combo("disableChild");
-				
+
 				if (typeof settings.source === "object" || typeof settings.sourceGroup === "object"){
 					//LOCAL
 					source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
 					if (source!==undefined){
 						//Parsear datos
 						this._parseLOCAL(source, settings, $("#"+settings.id));
-						
+
 						//Crear combo
 						this._makeCombo(settings);
-						
+
 						// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
 						if(settings.onLoadSuccess!==null){
 							jQuery(settings.onLoadSuccess($("#"+settings.id)));
 						}
-						
+
 						//Lanzar cambio para que se recarguen hijos
 						$("#"+settings.id).selectmenu("change");
-	
+
 						setRupValue = $.data($("#"+settings.id)[0],"setRupValue");
 						if (setRupValue){
 						//Vaciar combo, quitarle valor y deshabilitar
@@ -403,7 +403,7 @@
 					var data = this._getParentsValues(settings.parent, true),
 						rupCombo = this;
 					if (data===null){ return false; } //Se para la petición porque algún padre no tiene el dato cargado
-					
+
 					$.rup_ajax({
 						url: settings.source?settings.source:settings.sourceGroup,
 						data : data,
@@ -414,7 +414,7 @@
 						},
 						success: function (data, textStatus, jqXHR){
 							rupCombo._ajaxSuccess(data, settings, $("#"+settings.id));
-							
+
 							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
 							if(settings.onLoadSuccess!==null){
 								jQuery(settings.onLoadSuccess($("#"+settings.id)));
@@ -426,7 +426,7 @@
 							}else{
 								self._ajaxError(xhr, textStatus, errorThrown);
 							}
-						}	
+						}
 					});
 					delete rupCombo;
 				} else if (typeof settings.source === "function" || typeof settings.sourceGroup === "function"){
@@ -441,23 +441,23 @@
 				options = $('option', combo),
 				arrVals = [],
 				skippedValue = null;
-			
+
 			//Comprobar que se ha obtenido el combo deseado
 			if (combo.length>0){
-				
+
 				//Guardar elemento seleccionado
 				var selectedVal = combo.rup_combo("value");
-			
+
 				//Obtener elementos combo
 				options.each(function(){
 					 //Omitir posible opción vacía
-					if (skipFirst){ 
+					if (skipFirst){
 						skipFirst = false;
 						skippedValue = {
 							val: $(this).val(),
 					        text: $(this).text()
 						};
-						return true; 
+						return true;
 					}
 					arrVals.push({
 						val: $(this).val(),
@@ -465,7 +465,7 @@
 						clazz: $(this).attr('class')
 					});
 				});
-				
+
 				//Ordenar elementos (segun parametros, por defecto de texto)
 				if (!orderedByValue){
 					if (!orderAsNumber){
@@ -490,7 +490,7 @@
 						});
 					}
 				}
-				
+
 				//Actualizar combo con elementos ordenados
 			    for (var i = 0, l = arrVals.length; i < l; i++) {
 			        $(options[i]).val(arrVals[i].val).text(arrVals[i].text);
@@ -498,27 +498,27 @@
 						$(options[i]).attr('class', arrVals[i].clazz);
 					}
 			    }
-			
+
 				//Añadir opción vacía al inicio
 				if (skippedValue){
 					combo.prepend($("<option>").attr("value", skippedValue.val).text(skippedValue.text));//Añadir opción vacía
 					$(options[arrVals.length]).remove();//Eliminar ultimo elemento
 				}
-			
+
 				//Regenerar combo
 				combo.rup_combo("refresh");
-				
+
 				//Restaurar elemento seleccionado
 				this._setElement($(this), selectedVal, $(this).data("settings").multiselect);
-								
+
 				//Eliminar referencias
 				delete combo;
 				delete options;
 				delete arrVals;
-			}			
+			}
 		}
 	});
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
@@ -584,7 +584,7 @@
 				var app = $.rup.i18n.app;
 				if (app[id] && app[id]["_blank"]){
 					return app[id]["_blank"];
-				} 
+				}
 				return $.rup.i18n.base["rup_combo"]["blankNotDefined"];
 			},
 			//Formateo de textos
@@ -600,7 +600,7 @@
 					text = text.replace(findreps[i].find, findreps[i].rep);
 				}
 				return text;
-			},	
+			},
 			//Obtener valores padres (si no están cargados o valores 'vacíos' devuelve null)
 			_getParentsValues : function(array, remote, multiValueToken){
 				var retorno="", id, texto, multiValueToken=multiValueToken!=null?multiValueToken:"", parentBlankValue;
@@ -616,10 +616,10 @@
 						//Comprobar si tiene valor por defecto (bien propio o valor base por no haberlo definido)
 						if ( texto === $.rup.i18n.base["rup_combo"]["blankNotDefined"] ||
 							(($.rup.i18n.app[id] !== undefined) && (texto === $.rup.i18n.app[array[i]]["_blank"])) ){
-							return null;	
+							return null;
 						}
 					}
-					
+
 					//Si el valor de algún padre es null (no se ha cargado aún)
 					if ($("#"+id).data("settings").blank!==undefined && $("#"+id).data("settings").blank!==null){
 						parentBlankValue = $("#"+id).data("settings").blank;
@@ -627,9 +627,9 @@
 						parentBlankValue = "";
 					}
 					if ($("#"+id).val()=== null || $("#"+id).val() === parentBlankValue){ return null; };
-					
+
 					if (remote){
-						retorno += $("#"+id).attr("name") + "=" + $("#"+id).val() + "&"; 
+						retorno += $("#"+id).attr("name") + "=" + $("#"+id).val() + "&";
 					} else {
 						retorno += $("#"+id).val() + multiValueToken;
 					}
@@ -646,12 +646,12 @@
 			},
 			//Crear combo
 			_makeCombo : function(settings) {
-				
+
 					//Opción vacía
 					if (settings.blank!=null){
 						$("#"+settings.id).prepend($("<option>").attr("value", settings.blank).text(this._getBlankLabel(settings.id)));
 					}
-					
+
 					//Gestionar Imagenes
 					if (settings.imgs) {
 						var icons = [], values = [];
@@ -669,13 +669,13 @@
 						});
 						settings.icons = icons;
 					}
-					
+
 					//Formato texto
 					settings.format = settings.format==="default"?this._defaultFormatting:settings.format;
-					
+
 					//Almacenar los settings
 					$("#"+settings.id).data("settings", settings);
-				
+
 					//Tipo de combo
 					if (!settings.multiselect){
 						//Simple > selectmenu
@@ -688,7 +688,7 @@
 						$("#"+settings.id).data("multiselect").button.attr("id",settings.id+"-button");
 						$("#"+settings.id).rup_combo("refresh");	//Actualizar cambios (remotos)
 						$("#"+settings.id).attr("multiple", "multiple");
-						
+
 						// Asignaci�n de eventos de teclado
 						var self = this;
 						$("#"+settings.id).data("multiselect").button.on('keypress.selectmenu', function(event) {
@@ -704,9 +704,9 @@
 							}
 							return true;
 						});
-						
-						
-						
+
+
+
 					}
 
 					//Buscar el UL del combo y colocarlo tras el elemento sobre el que debe ir
@@ -719,34 +719,34 @@
 							$("div.r01gContainer").append($("#rup-multiCombo_"+ settings.id));
 						}
 					}
-					
+
 					//Ordenar elementos del combo
 					if (settings.ordered){
 						$("#"+settings.id).rup_combo("order", settings.orderedByValue, settings.orderAsNumber, settings.blank);
 					}
-					
+
 					//Seleccionar elemento (valor del input, valor settings combo)
-					if (!settings.loadFromSelect && (settings.inputValue === undefined || settings.inputValue === "") || 
+					if (!settings.loadFromSelect && (settings.inputValue === undefined || settings.inputValue === "") ||
 						 settings.loadFromSelect && settings.selected !== undefined){
 						this._setElement($("#"+settings.id), settings.selected, settings.multiselect, true);
 					} else {
 						if (settings.multiselect){
 							//Convertir inputValue en array
 							if (jQuery.isArray(settings.inputValue)===false){
-								settings.inputValue = settings.inputValue.split("##"); 
+								settings.inputValue = settings.inputValue.split("##");
 							}
-							
+
 						}
 						this._setElement($("#"+settings.id), settings.inputValue, settings.multiselect, true);
 					}
-					
+
 					//Habilitar/Deshabilitar combo
-					if (!settings.disabled) { 
+					if (!settings.disabled) {
 						$("#"+settings.id).rup_combo("enable");
 					} else {
-						$("#"+settings.id).rup_combo("disable"); 
+						$("#"+settings.id).rup_combo("disable");
 					}
-					
+
 					//Habilitar/Deshabilitar elementos (multicombo)
 					if (settings.multiselect){
 						if (settings.disabledOpts!==undefined){
@@ -756,8 +756,8 @@
 							$("#"+settings.id).rup_combo("enableOptArr", settings.enabledOpts);
 						}
 					}
-					
-					//Si los padres están deshabilitados, se deshabilita el combo 
+
+					//Si los padres están deshabilitados, se deshabilita el combo
 					var padres = settings.parent;
 					if (padres !== undefined){
 						$.each(padres, function(index, object) {
@@ -767,7 +767,7 @@
 							}
 						});
 					}
-					
+
 					//Clases para el pijama
 					if (settings.rowStriping){
 						if (!settings.multiselect){
@@ -804,10 +804,10 @@
 					}
 					html.append($("<option>").attr("value", value).text(settings.showValue?value+settings.token+label:label));
 				}
-			}, 
+			},
 			_parseOptGroupLOCAL : function(arrayGroup, settings, html){
 				var optGroup, self = this;
-				
+
 				for(var i=0;i<arrayGroup.length;i=i+1){
 					optGroup = arrayGroup[i];
 					$.each(optGroup, function(key, elemGroup){
@@ -818,7 +818,7 @@
 						}
 						html = $(html).children("optgroup:last-child");
 						self._parseLOCAL(elemGroup, settings, html);
-						html = $(html).parent();											
+						html = $(html).parent();
 					});
 				}
 			},
@@ -855,14 +855,14 @@
 				//Crear combo (vacío) y deshabilitarlo
 				if (html!==undefined){ $("#"+settings.id).replaceWith(html); } //Si no es 'reload' se debe inicializar vacío
 				this._makeCombo(settings);
-				$("#"+settings.id).rup_combo("disable"); 
-				 
+				$("#"+settings.id).rup_combo("disable");
+
 				//LOADING...
 				$("#"+settings.id+"-button span:first-child").addClass("rup-combo_loadingText").text($.rup.i18n.base["rup_combo"]["loadingText"]);
 				var icon = $("#"+settings.id+"-button span:last-child");
 				$(icon).removeClass("ui-icon-triangle-1-s");
 				$(icon).addClass("rup-combo_loading");
-				
+
 				//Cabecera RUP
 				xhr.setRequestHeader("RUP", $.toJSON(settings.sourceParam));
 			},
@@ -872,10 +872,10 @@
 				var icon = $("#"+settings.id+"-button span:last-child");
 				$(icon).removeClass("rup-combo_loading");
 				$(icon).addClass("ui-icon-triangle-1-s");
-				
+
 				//Vaciar combo
 				$("#"+settings.id).empty();
-				
+
 				//Cargar combo (si se reciben datos)
 				if (data.length>0){
 					if (settings.source) {
@@ -884,10 +884,10 @@
 						settings.ordered = false;
 						this._parseOptGroupREMOTE(data, settings, html);
 					}
-				
+
 					//Crear combo
 					this._makeCombo(settings);
-					
+
 					setRupValue = $.data($("#"+settings.id)[0],"setRupValue");
 					if (setRupValue){
 						//Vaciar combo, quitarle valor y deshabilitar
@@ -914,8 +914,8 @@
 						.addClass ("rup-combo_multiOptgroupLabel")
 					);
 				$(object).children("a").remove();
-				
-				
+
+
 				$(object).append($("<span />").text(" ["));
 				$(object).append($("<a />")
 									.text(multiOptgroupIconText?$.rup.i18n.base["rup_combo"]["multiselect"]["optGroupSelect"]:"")
@@ -1004,9 +1004,9 @@
 					this._selectedOptionLiMultiselect(settings).data('index') :
 					this._focusedOptionLiMultiselect(settings).data('index')) || 0;
 
-				
+
 				var multiselectSettings = $("#"+settings.id).data("multiselect");
-				
+
 				for (var i = 0; i < multiselectSettings.inputs.length; i++) {
 					var thisText =multiselectSettings.inputs.eq(i).next("span").text().substr(0, matchee.length).toLowerCase();
 
@@ -1039,7 +1039,7 @@
 //					});
 //					multiselectSettings.inputs.eq(i).parent().addClass("ui-state-hover");
 //					multiselectSettings.inputs.eq(i).parent().focus();
-					
+
 				}
 
 				self._typeAhead_timer = window.setTimeout(function() {
@@ -1053,38 +1053,38 @@
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				} else {
 					//Se recogen y cruzan las paremetrizaciones del objeto
-					var settings = $.extend({}, $.fn.rup_combo.defaults, args[0]), 
+					var settings = $.extend({}, $.fn.rup_combo.defaults, args[0]),
 						html, loadAsLocal = false, isValidableElem = false,
 						attrsJson = {},
 						attrs;
-					
+
 					//Se recoge el tabindex indicado en el elemento
 					settings.tabindex = $(this).attr("tabindex");
-					
+
 					//Sobreescribir literales por defecto para multicombo
 					$.extend($.ech.multiselect.prototype.options, $.rup.i18n.base["rup_combo"]["multiselect"]);
 
 					//Se carga el identificador del padre del patron
 					settings.id = $.rup_utils.escapeId($(this).attr("id"));
 					settings.name = $(this).attr("name");
-					
+
 					//Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 					if (!settings.i18nId){ settings.i18nId = settings.id; }
-					
+
 					//Guardar valor del INPUT
-					settings.inputValue = $("#"+settings.id).attr('value');
-					
+					settings.inputValue = $("#"+settings.id).val()===null?$("#"+settings.id).prop("value"):$("#"+settings.id).val();
+
 				    attrs = $(this).prop("attributes");
 
 					for (var i=0;i< attrs.length;i++){
-						attrsJson[attrs[i].name] = attrs[i].value;  
+						attrsJson[attrs[i].name] = attrs[i].value;
 					}
 
 					$.extend(attrsJson, {
 						name: settings.name,
 						ruptype: "combo"
 					});
-					
+
 					//Contenido combo
 					html = $("<select>").attr(attrsJson).addClass("rup_combo");
 
@@ -1096,11 +1096,11 @@
 						isValidableElem = true;
 						html.addClass("customelement");
 					}
-					
+
 					if(settings.firstLoad===null && ($(this).is("select") && settings.loadFromSelect)){
 						loadAsLocal = true;
 					}
-					
+
 					if (settings.parent){
 					//DEPENDIENTE
 						//Guardar referencia a hijos en cada uno de los padres (propagación de carga)
@@ -1108,8 +1108,8 @@
 							var childsArray = $('#'+item).data("childs")===undefined?[]:$('#'+item).data("childs");
 							childsArray[childsArray.length] = settings.id;
 							$('#'+item).data("childs", childsArray);
-						});  
-						
+						});
+
 						if (settings.loadFromSelect===false){
 							if (settings.firstLoad!==null){
 								this._parseLOCAL(settings.firstLoad, settings, html);
@@ -1122,9 +1122,9 @@
 								$("#"+settings.id).removeClass().addClass("validableElem");
 							}
 						}
-						
+
 						this._makeCombo(settings);
-						
+
 						if(!($(this).is("select") && settings.loadFromSelect)){
 							$("#"+settings.id).rup_combo("disable");
 						} else {
@@ -1140,15 +1140,15 @@
 								$("#"+settings.id).rup_combo("disable");
 							}
 						}
-						 
+
 						//Almacenar los settings
 						$("#"+settings.id).data("settings", settings);
-						
+
 						//Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
 						if (this._getParentsValues(settings.parent)!==null && (settings.firstLoad===null && settings.loadFromSelect===false)){
-							$("#"+settings.id).rup_combo("reload", settings.id); 
+							$("#"+settings.id).rup_combo("reload", settings.id);
 						}
-						
+
 					}else if (typeof settings.source === "object" || typeof settings.sourceGroup === "object" || loadAsLocal){
 					//LOCAL
 						//Parsear datos
@@ -1166,17 +1166,17 @@
 								$("#"+settings.id).removeClass().addClass("validableElem");
 							}
 						}
-						
+
 						//Crear combo
 						this._makeCombo(settings);
-						
+
 						if(settings.onLoadSuccess!==null){
 							jQuery(settings.onLoadSuccess($("#"+settings.id)));
 						}
-						
+
 						//Almacenar los settings
 						$("#"+settings.id).data("settings", settings);
-						
+
 					} else if (typeof settings.source === "string" || typeof settings.sourceGroup === "string"){
 					//REMOTO
 						var url = settings.source?settings.source:settings.sourceGroup, rupCombo = this, self = this;
@@ -1202,18 +1202,18 @@
 							}
 						});
 						delete rupCombo;
-						
+
 						//Almacenar los settings
 						$("#"+settings.id).data("settings", settings);
 
 					} else if (typeof settings.source === "function" || typeof settings.sourceGroup === "function"){
 						jQuery(settings.source);
 						this._makeCombo(settings);
-						
+
 						//Almacenar los settings
 						$("#"+settings.id).data("settings", settings);
 					}
-					
+
 					//Asociar evento CHANGE para propagar cambios a los hijos
 					$("#"+settings.id).bind("change", function(event, ui) {
 						// En caso de modificarse el valor del select, se actualiza el valor del rup.combo (con esta accion se recargan tambien los hijos)
@@ -1223,21 +1223,21 @@
 							$("#"+settings.id).rup_combo("select",$("#"+settings.id).rup_combo('getRupvalue'));
 						}
 					});
-					
+
 					//Borrar referencia
 					delete html;
-					
+
 					//Ocultar posibles elementos de fechas/horas
 					$("#"+settings.id).next("a").click(function(event){
 						$("#ui-datepicker-div").hide();
 					});
-					
+
 				}
 			}
 		});
-		
+
 	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 	$.fn.rup_combo.defaults = {
 		onLoadError:null,
@@ -1260,7 +1260,7 @@
 		rowStriping : false,
 		typeAhead:1000,
 		legacyWrapMode:false
-	};	
-	
-	
+	};
+
+
 })(jQuery);

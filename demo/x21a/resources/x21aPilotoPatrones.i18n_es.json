@@ -55,7 +55,7 @@
 		"integracion" :"Integración",
 			"z-index" :"Capas RUP (z-index)",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda" :"UDA",
 		"titulo-notifi" :"Notificaciones",
 		"titulo-nave" :"Navegación",
@@ -114,12 +114,12 @@
 		"integracion" :"Integración",
 			"z-index" :"Capas RUP (z-index)",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda":"UDA"
 	},
-	
-"_comment":"PATRONES",	
-	"autocomplete" :{ 
+
+"_comment":"PATRONES",
+	"autocomplete" :{
 		"asp":"asp",
 		"c":"c",
 		"c++":"c++",
@@ -134,8 +134,8 @@
 		"ruby":"ruby",
 		"scala":"scala"
 	},
-	"_comment":"COMBO_SIMPLE",	
-		"combo" :{ 
+	"_comment":"COMBO_SIMPLE",
+		"combo" :{
 			"_blank":"[Seleccione un elemento]",
 			"asp":"asp",
 			"c":"c",
@@ -151,7 +151,7 @@
 			"ruby":"ruby",
 			"scala":"scala"
 		},
-		"comboGrupos" :{ 
+		"comboGrupos" :{
 			"futbol":"Futbol",
 			"alaves":"Alaves",
 			"ath":"Athletic",
@@ -167,8 +167,8 @@
 		},
 		"comboLargo":{
 			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
-			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
 			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
 		},
 	"_coment":"COMBO_ENLAZADO",
@@ -230,8 +230,8 @@
 			"poli":"Policía",
 			"bomb":"Bomberos"
 		},
-	"_comment":"MULTI_COMBO",	
-		"multicombo" :{ 
+	"_comment":"MULTI_COMBO",
+		"multicombo" :{
 			"asp":"asp",
 			"c":"c",
 			"c++":"c++",
@@ -246,7 +246,7 @@
 			"ruby":"ruby",
 			"scala":"scala"
 		},
-		"multicomboGrupos" :{ 
+		"multicomboGrupos" :{
 			"futbol":"Futbol",
 			"alaves":"Alaves",
 			"ath":"Athletic",
@@ -283,7 +283,7 @@
 	"pruebaSub3Maint" :{
 		"maint1"		:"Mantenimiento 1",
 		"maint2"		:"Mantenimiento 2",
-		"maint3"		:"Mantenimiento 3"	
+		"maint3"		:"Mantenimiento 3"
 	},
 	"tabsStatic" :{
 		"pestana0" 	:"Pestaña 1",
@@ -375,16 +375,16 @@
 		"uploadFormPif" :"Integración con PIF"
 	},
 	"comboProvincias":{
-		"_blank":"Seleccione un elemento" 	
+		"_blank":"Seleccione un elemento"
 	},
 	"comboMunicipios":{
-		"_blank":"Seleccione un elemento" 	
+		"_blank":"Seleccione un elemento"
 	},
 	"comboProvinciasAPI":{
-		"_blank":"Seleccione un elemento" 	
+		"_blank":"Seleccione un elemento"
 	},
 	"comboMunicipiosAPI":{
-		"_blank":"Seleccione un elemento" 	
+		"_blank":"Seleccione un elemento"
 	},
 	"diaObligatorio":{
 		"lunes":"Lunes",
@@ -397,11 +397,11 @@
 	},
 	"gridTree":{
 		"total":"Total:",
-		"gana":"Gana:"  	
+		"gana":"Gana:"
 	},
 	"sexo":{
 		"masculino":"Masculino",
-		"femenino":"Femenino"  	
+		"femenino":"Femenino"
 	},
 	"validaciones":{
 		"password_confirm":"Las contraseñas no coinciden",
@@ -412,7 +412,7 @@
 		"validacionesServidor":"Validaciones en servidor",
 		"reglasValidacion":"Reglas de validación",
 		"validacionComponentes":"Validación de componentes"
-		 
+
 	},
 	"tabsFormulario":{
 		"ejemploYFunciones":"Ejemplo y métodos",
@@ -525,5 +525,97 @@
 		"pestana17" : "tab17",
 		"pestana18" : "sub18",
 		"pestana19" : "sub19"
+	},
+	"x21aMantenimientosWar_migas" :{
+		"simple"	: "Selección simple",
+		"multi"		: "Multiselección",
+		"edlinea"	: "Edición en línea",
+		"formPropio" : "Form Propio",
+		"administracion" : "Administración",
+		"alumno" : "Alumno",
+		"jerarquia" : "Jerarquia",
+		"usuarioJerarquia" : "Normal",
+		"usuarioJerarquiaGroup" : "Agrupado",
+		"usuarioJerarquiaMulti" : "Multiselección",
+		"usuarioJerarquiaGroupMulti" : "Multiselección agrupado",
+		"usuarioJerarquiaCol" : "Columna independiente",
+		"uda":"UDA"
+	},
+	"GRID_simple##ejie" : {
+		"0" : "No",
+		"1" : "Sí"
+	},
+	"GRID_simple##rol" : {
+		"administrador" : "administrador",
+		"desarrollador" : "desarrollador",
+		"espectador" : "espectador",
+		"informador" : "informador",
+		"manager" : "manager"
+	},
+	"GRID_simple##tipo" : {
+		"0A" : "Tipo_No_A",
+		"0B" : "Tipo_No_B",
+		"1A" : "Tipo_Si_A",
+		"1B" : "Tipo_Si_B"
+	},
+	"GRID_simple##subtipo" : {
+		"0_0A_A" : "Subtipo_No_TipoA_A",
+		"0_0A_B" : "Subtipo_No_TipoA_B",
+		"0_0B_A" : "Subtipo_No_TipoB_A",
+		"0_0B_B" : "Subtipo_No_TipoB_B",
+		"1_0A_A" : "Subtipo_Si_TipoA_A",
+		"1_0A_B" : "Subtipo_Si_TipoA_B",
+		"1_0B_A" : "Subtipo_Si_TipoB_A",
+		"1_0B_B" : "Subtipo_Si_TipoB_B",
+		"0_1A_A" : "Subtipo_No_TipoA_A",
+		"0_1A_B" : "Subtipo_No_TipoA_B",
+		"0_1B_A" : "Subtipo_No_TipoB_A",
+		"0_1B_B" : "Subtipo_No_TipoB_B",
+		"1_1A_A" : "Subtipo_Si_TipoA_A",
+		"1_1A_B" : "Subtipo_Si_TipoA_B",
+		"1_1A_A" : "Subtipo_Si_TipoB_A",
+		"1_1A_B" : "Subtipo_Si_TipoB_B"
+	},
+	"GRID_multi##ejie" : {
+		"0" : "No",
+		"1" : "Sí"
+	},
+	"GRID_edlinea##ejie" : {
+		"0" : "No",
+		"1" : "Sí"
+	},
+	"simpelMaint" : {
+		"actualizar":"Ejemplo de botón personalizado"
+	},
+	"alumno":{
+		"password_confirm":"Las contraseñas no coinciden",
+		"email_confirm":"Los correos introducidos no coinciden"
+	},
+	"GRID_alumno":{
+		"id": "Id",
+		"usuario" : "Usuario",
+		"nombre" : "Nombre",
+		"apellido1" : "Primer apellido",
+		"apellido2" : "Segundo apellido",
+		"dni" : "DNI",
+		"importeMatricula":"Importe matrícula"
+	},
+	"loginUserMock" : {
+		"logginOk1" : "Usuario '",
+		"logginOk2" : "' Seleccionado correctamente"
+	},
+	"GRID_usuarioJerarquia##ejie" : {
+		"0" : "No",
+		"1" : "Sí"
+	},
+	"table":{
+		"id": "Id",
+		"nombre" : "Nombre",
+		"apellido1" : "Primer apellido",
+		"apellido2" : "Segundo apellido",
+		"ejie" : "Ejie",
+		"fechaAlta":"Fecha de alta",
+		"fechaBaja":"Fecha de baja",
+		"rol":"Rol"
 	}
 }

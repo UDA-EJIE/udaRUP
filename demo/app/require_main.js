@@ -11,9 +11,11 @@ requirejs.config({
         "backbone": "../../bower_components/backbone/backbone",
         "underscore": "../../bower_components/underscore/underscore",
         "handlebars": "../../bower_components/handlebars/handlebars",
+        "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
         "templates": "../templates",
+        "rup/min": "../../dist/rup.min-2.4.7",
         "rup/compatibility": "../../src/rup.compatibility",
         "rup/base": "../../src/rup.base",
         "rup/utils": "../../src/rup.utils",
@@ -33,6 +35,15 @@ requirejs.config({
         "rup/combo": "../../src/rup.combo",
         "rup/date": "../../src/rup.date",
         "rup/time": "../../src/rup.time",
+        "rup/form": "../../src/rup.form",
+        "rup/validate": "../../src/rup.validate",
+        "rup/upload": "../../src/rup.upload",
+        "rup/report": "../../src/rup.report",
+
+        //Table
+
+        "rup/table": "../../src/rup.table",
+        //"rup/table.core": "../rup.table.core-private",
 
         // menuDeps
         "jquery-1.7": "../../src/core/jquery-1.7.2",
@@ -47,10 +58,20 @@ requirejs.config({
         "private-jqueryui-widget-menu":"../../src/core/ui/menu/jquery.ui.widget.menu",
         "private-jqueryui-position-menu":"../../src/core/ui/menu/jquery.ui.position.menu",
         "private-jqueryui-menu":"../../src/core/ui/menu/jquery.ui.menu",
-
+        "jquery.form": "../../src/core/utils/jquery.form",
+        "jquery.validate": "../../src/core/utils/jquery.validate",
+        "jquery.fileupload": "../../src/core/utils/jquery.fileupload",
+        "jquery.fileupload-ui": "../../src/core/utils/jquery.fileupload-ui",
+        "jquery.xdr-transport": "../../src/core/utils/jquery.xdr-transport",
+        // Table deps
+        "jqGrid": "../../src/core/jqGrid/jquery.jqGrid.src",
+        "jqGrid.fluid": "../../src/core/jqGrid/jqGrid.fluid",
+        "jqGrid.rup.table": "../../src/core/jqgrid/jqGrid.rup.table",
         // legacy
         "blockUI": "../../src/core/utils/jquery.blockUI",
-        "jQuery-contextMenu": "../../src/core/utils/jquery.contextMenu"
+        "jQuery-contextMenu": "../../src/core/utils/jquery.contextMenu",
+        "form2object": "../../src/core/utils/form2object"
+
 
     },
     shim : {
@@ -98,7 +119,7 @@ requirejs.config({
         "deps": ["rup/base", "rup/button"]
       },
       "rup/button":{
-        "deps": ["rup/base"]
+        "deps": ["rup/base","rup/dialog"]
       },
       "rup/accordion":{
         "deps": ["rup/base"]
@@ -117,6 +138,99 @@ requirejs.config({
       },
       "rup/time":{
         "deps": ["rup/base"]
+      },
+      "rup/form":{
+        "deps": ["rup/base","jquery.form","rup/validate"]
+      },
+      "rup/validate":{
+        "deps": ["rup/base","jquery.validate"]
+      },
+      "rup/upload":{
+        "deps": ["rup/base","jquery.fileupload-ui","jquery.fileupload"]
+      },
+      "rup/report":{
+        "deps": ["rup/base"]
+      },
+      "jqGrid":{
+        "deps": ["jquery"]
+      },
+      "jqGrid.fluid":{
+        "deps": ["jqGrid"]
+      },
+      // "jqGrid": "../../src/jqgrid/jquery.jqGrid.src",
+      // "jqGrid.fluid": "../../src/jqgrid/jqGrid.fluid",
+      // "jqGrid.rup.table": "../../src/jqgrid/jqGrid.rup.table",
+      //
+      // "rup/table": "../rup.table.core",
+      // "rup/table.contextMenu": "../rup.table.contextMenu",
+      // "rup/table.feedback": "../rup.table.feedback",
+      // "rup/table.filter": "../rup.table.filter",
+      // "rup/table.fluid": "../rup.table.fluid",
+      // "rup/table.formEdit": "../rup.table.formEdit",
+      // "rup/table.inlineEdit": "../rup.table.inlineEdit",
+      // "rup/table.jerarquia": "../rup.table.jerarquia",
+      // "rup/table.masterDetail": "../rup.table.masterDetail",
+      // "rup/table.multifilter": "../rup.table.multifilter",
+      // "rup/table.multiselection": "../rup.table.multiselection",
+      // "rup/table.core.base": {
+      //   "deps": [ "rup/base","form2object"]
+      // },
+      "rup/table":{
+            "deps": ["rup/base","rup/report","form2object"]
+      },
+
+      "rup/table.core": {
+        "deps": ["private-jqGrid"]
+      },
+      "rup/table.report": {
+        "deps": ["rup/table.core", "rup/report"]
+      },
+      "rup/table.contextMenu": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.feedback": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.filter": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.fluid": {
+        "deps": ["rup/table.core", "jqGrid.fluid"]
+      },
+      "rup/table.formEdit": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.inlineEdit": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.jerarquia": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.masterDetail": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.multifilter": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.multiselection": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.toolbar": {
+        "deps": ["rup/table.core"]
+      },
+      "rup/table.search": {
+        "deps": ["rup/table.core"]
+      },
+      // "rup/table.search": "../rup.table.search",
+      // "rup/table.toolbar": "../rup.table.toolbar",
+
+      // more...
+      "handlebars-i18n":{
+        "deps": ["handlebars"]
+      },
+      "templates":{
+        "deps": ["handlebars-i18n"]
+
       },
 
       // legacy
@@ -143,8 +257,22 @@ requirejs.config({
       },
       "jquery-ui-timepicker":{
         "deps": ["jquery-ui"]
+      },
+      "jquery.fileupload": {
+        "deps": ["jquery-ui"]
+      },
+      "jquery.fileupload-ui": {
+        "deps": ["jquery.fileupload"]
+      },
+      "jquery.xdr-transport": {
+        "deps": ["jquery.fileupload"]
+      },
+      "jquery.form":{
+        "deps": ["jquery"]
+      },
+      "jquery.validate":{
+        "deps": ["jquery"]
       }
-
     }
 //    ,
 //    map: {

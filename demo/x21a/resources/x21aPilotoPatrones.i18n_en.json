@@ -55,7 +55,7 @@
 		"integracion" :"Integración_en",
 			"z-index" :"Capas RUP (z-index)_en",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda":"UDA",
 		"titulo-notifi":"Notificaciones_en",
 		"titulo-nave":"Navegación_en",
@@ -114,12 +114,12 @@
 		"integracion" :"Integración_en",
 			"z-index" :"Capas RUP (z-index)_en",
 			"nora"	:"NORA",
-			"tiny" :"TinyMCE", 
+			"tiny" :"TinyMCE",
 		"uda":"UDA"
 	},
-	
-"_comment":"PATRONES",	
-	"autocomplete" :{ 
+
+"_comment":"PATRONES",
+	"autocomplete" :{
 		"asp":"asp_en",
 		"c":"c_en",
 		"c++":"c++_en",
@@ -134,8 +134,8 @@
 		"ruby":"ruby_en",
 		"scala":"scala_en"
 	},
-	"_comment":"COMBO_SIMPLE",	
-		"combo" :{ 
+	"_comment":"COMBO_SIMPLE",
+		"combo" :{
 			"_blank":"[Seleccione un elemento_en]",
 			"asp":"asp_en",
 			"c":"c_en",
@@ -151,7 +151,7 @@
 			"ruby":"ruby_en",
 			"scala":"scala_en"
 		},
-		"comboGrupos" :{ 
+		"comboGrupos" :{
 			"futbol":"Futbol_en",
 			"alaves":"Alaves_en",
 			"ath":"Athletic_en",
@@ -167,8 +167,8 @@
 		},
 		"comboLargo":{
 			"jon_doe":"John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
-			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
-			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)", 
+			"jane_doe":"Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+			"joseph_doe":"Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
 			"mad_doe":"Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
 		},
 	"_coment":"COMBO_ENLAZADO",
@@ -230,8 +230,8 @@
 			"poli":"Policía_en",
 			"bomb":"Bomberos_en"
 		},
-	"_comment":"MULTI_COMBO",	
-		"multicombo" :{ 
+	"_comment":"MULTI_COMBO",
+		"multicombo" :{
 			"asp":"asp_en",
 			"c":"c_en",
 			"c++":"c++_en",
@@ -246,7 +246,7 @@
 			"ruby":"ruby_en",
 			"scala":"scala_en"
 		},
-		"multicomboGrupos" :{ 
+		"multicomboGrupos" :{
 			"futbol":"Futbol_en",
 			"alaves":"Alaves_en",
 			"ath":"Athletic_en",
@@ -283,7 +283,7 @@
 	"pruebaSub3Maint" :{
 		"maint1"		:"Mantenimiento 1_en",
 		"maint2"		:"Mantenimiento 2_en",
-		"maint3"		:"Mantenimiento 3_en"	
+		"maint3"		:"Mantenimiento 3_en"
 	},
 	"tabsStatic" :{
 		"pestana0" 	:"Pestaña 1_en",
@@ -375,20 +375,20 @@
 		"uploadFormPif" :"Integración con PIF_en"
 	},
 	"comboProvincias":{
-		"_blank":"Seleccione un elemento_en" 	
+		"_blank":"Seleccione un elemento_en"
 	},
 	"comboMunicipios":{
-		"_blank":"Seleccione un elemento_en" 	
+		"_blank":"Seleccione un elemento_en"
 	},
 	"gridTree":{
 		"total":"Total:_en",
-		"gana":"Gana:_en" 	
+		"gana":"Gana:_en"
 	},
 	"comboProvinciasAPI":{
-		"_blank":"Seleccione un elemento_en" 	
+		"_blank":"Seleccione un elemento_en"
 	},
 	"comboMunicipiosAPI":{
-		"_blank":"Seleccione un elemento_en" 	
+		"_blank":"Seleccione un elemento_en"
 	},
 	"diaObligatorio":{
 		"lunes":"Monday",
@@ -398,10 +398,10 @@
 		"viernes":"Friday",
 		"sabado":"Saturday",
 		"domingo":"Sunday"
-	},	
+	},
 	"sexo":{
 		"masculino":"Masculino_en",
-		"femenino":"Femenino_en"  	
+		"femenino":"Femenino_en"
 	},
 	"validaciones":{
 		"password_confirm":"Las contraseñas no coinciden_en",
@@ -412,7 +412,7 @@
 		"validacionesServidor":"Validaciones en servidor_en",
 		"reglasValidacion":"Reglas de validación_en",
 		"validacionComponentes":"Validación de componentes_en"
-		 
+
 	},
 	"tabsFormulario":{
 		"ejemploYFunciones":"Ejemplo y métodos_en",
@@ -495,7 +495,99 @@
 	"treeNodesExchangePanel_center" : {
 		"errorOp" : "Operación errónea_en",
 		"funtError" : "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"._en"
+	},
+	"x21aMantenimientosWar_migas" :{
+		"simple"	: "Selección simple_en",
+		"multi"		: "Multiselección_en",
+		"edlinea"	: "Edición en línea_en",
+		"formPropio" : "Form Propio_en",
+		"administracion" : "Administración_en",
+		"alumno" : "Alumno_en",
+		"jerarquia" : "Jerarquia_en",
+		"usuarioJerarquia" : "Normal_en",
+		"usuarioJerarquiaGroup" : "Agrupado_en",
+		"usuarioJerarquiaMulti" : "Multiselección_en",
+		"usuarioJerarquiaGroupMulti" : "Multiselección agrupado_en",
+		"usuarioJerarquiaCol" : "Columna independiente_en",
+		"uda":"UDA"
+	},
+	"GRID_simple##ejie" : {
+		"0" : "No",
+		"1" : "Yes"
+	},
+	"GRID_simple##rol" : {
+		"administrador" : "administrador",
+		"desarrollador" : "desarrollador",
+		"espectador" : "espectador",
+		"informador" : "informador",
+		"manager" : "manager"
+	},
+	"GRID_simple##tipo" : {
+		"0A" : "Tipo_No_A_en",
+		"0B" : "Tipo_No_B_en",
+		"1A" : "Tipo_Si_A_en",
+		"1B" : "Tipo_Si_B_en"
+	},
+	"GRID_simple##subtipo" : {
+		"0_0A_A" : "Subtipo_No_TipoA_A_en",
+		"0_0A_B" : "Subtipo_No_TipoA_B_en",
+		"0_0B_A" : "Subtipo_No_TipoB_A_en",
+		"0_0B_B" : "Subtipo_No_TipoB_B_en",
+		"1_0A_A" : "Subtipo_Si_TipoA_A_en",
+		"1_0A_B" : "Subtipo_Si_TipoA_B_en",
+		"1_0B_A" : "Subtipo_Si_TipoB_A_en",
+		"1_0B_B" : "Subtipo_Si_TipoB_B_en",
+		"0_1A_A" : "Subtipo_No_TipoA_A_en",
+		"0_1A_B" : "Subtipo_No_TipoA_B_en",
+		"0_1B_A" : "Subtipo_No_TipoB_A_en",
+		"0_1B_B" : "Subtipo_No_TipoB_B_en",
+		"1_1A_A" : "Subtipo_Si_TipoA_A_en",
+		"1_1A_B" : "Subtipo_Si_TipoA_B_en",
+		"1_1A_A" : "Subtipo_Si_TipoB_A_en",
+		"1_1A_B" : "Subtipo_Si_TipoB_B_en"
+	},
+	"GRID_multi##ejie" : {
+		"0" : "No",
+		"1" : "Yes"
+	},
+	"GRID_edlinea##ejie" : {
+		"0" : "No",
+		"1" : "Yes"
+	},
+	"simpelMaint" : {
+		"actualizar":"Ejemplo de botón personalizado_en"
+	},
+	"alumno":{
+		"password_confirm":"Las contraseñas no coinciden_en",
+		"email_confirm":"Los correos introducidos no coinciden_en"
+	},
+	"GRID_alumno":{
+		"id": "Id_en",
+		"usuario" : "Usuario_en",
+		"nombre" : "Nombre_en",
+		"apellido1" : "Primer apellido_en",
+		"apellido2" : "Segundo apellido_en",
+		"dni" : "DNI_en",
+		"importeMatricula":"Importe matrícula_en"
+	},
+	"loginUserMock" : {
+		"logginOk1" : "Usuario _en'",
+		"logginOk2" : "' Seleccionado correctamente_en"
+	},
+	"GRID_usuarioJerarquia#ejie" : {
+		"0" : "No",
+		"1" : "Yes"
+	},
+	"table":{
+		"id": "Id_en",
+		"nombre" : "Nombre_en",
+		"apellido1" : "Primer apellido_en",
+		"apellido2" : "Segundo apellido_en",
+		"ejie" : "Ejie_en",
+		"fechaAlta":"Fecha de alta_en",
+		"fechaBaja":"Fecha de baja_en",
+		"rol":"Rol_en"
 	}
-	
-	
+
+
 }

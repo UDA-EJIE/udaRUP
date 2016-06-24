@@ -6904,7 +6904,7 @@ $.extend($.fn.jqFilter,{
  * http://www.gnu.org/licenses/gpl-2.0.html
 **/
 "use strict";
-var rp_ge = {};
+//var rp_ge = {};
 $.jgrid.extend({
 	searchGrid : function (p) {
 		p = $.extend(true, {
