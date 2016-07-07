@@ -1,5 +1,6 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     http = require('http'),
 
     //Table database
@@ -25,15 +26,11 @@ LokiDb.setText("prueba1");
 console.log(LokiDb.getText());
 LokiDb.initialize();
 
-
-
-
-
-
 var app = express();
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(cookieParser());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -42,6 +39,14 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static('./'));
+
+app.get('/', function(req, res){
+
+  if (req.cookies.language===undefined){
+    res.cookie("language" , 'es',{expire : new Date() + 9999});
+  }
+  res.redirect('/demo/index.html');
+});
 
 app.get('/demo/fragmento1', routesTabs.tabsContent1);
 app.get('/demo/fragmento2', routesTabs.tabsContent1);

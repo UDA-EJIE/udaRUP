@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -25,12 +25,30 @@
 
 //Arregos para resaltado con el teclado (UDA - focus): líneas 446-448, 494-496, 519-522
 
+/**
+ * @fileOverview Implementa el patrón RUP Combo.
+ * @author EJIE
+ * @version 2.4.8
+ */
 (function ($) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÁN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
+    /**
+    * Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
+    *
+    * @summary Componente RUP Combo.
+    * @namespace jQuery.rup_combo
+    * @memberOf jQuery
+    * @tutorial rup_combo
+    * @example
+    * $("#idCombo").rup_combo({
+	*	source : "comboSimple/remote",
+	*	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
+	* });
+    */
 	var rup_combo = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
@@ -40,6 +58,15 @@
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_combo("extend",{
+        /**
+        * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del Combo.
+        *
+        * @name jQuery.rup_combo#getRupValue
+        * @function
+        * @return {string | number} - Devuelve el valor actual del componente seleccionado por el usuario.
+        * @example
+        * $("#idCombo").rup_combo("getRupValue");
+        */
 		getRupValue : function(param){
 			var $self = $(this), settings = $self.data("settings"), retObj, arrayTMP, prop, valueArray, valueArray_length, returnArray, wrapObj={}, name;
 
@@ -71,6 +98,16 @@
 
 			return (settings.multiselect===true && arrayTMP!== undefined && arrayTMP.length>1) && settings.legacyWrapMode===false?wrapObj:retObj;
 		},
+        /**
+         * Método utilizado para asignar el valor al componente. Este método es el utilizado por
+el resto de componentes RUP para estandarizar la asignación del valor al Combo.
+         *
+         * @name jQuery.rup_combo#setRupValue
+         * @function
+         * @param {string | number} param - Valor que se va a asignar al componente.
+         * @example
+         * $("#idCombo").rup_combo("setRupValue", "Si");
+         */
 		setRupValue : function(param){
 			var $self = $(this), settings = $self.data("settings");
 
@@ -84,6 +121,14 @@
 				$(this).rup_combo("select",(settings.readAsString===true?param.split(","):param));
 			}
 		},
+        /**
+         * Método que limpia el valor seleccionado en el combo. En el caso de selección múltiple los valores seleccionados.
+         *
+         * @name jQuery.rup_combo#clear
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("clear");
+         */
 		clear : function(){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -94,12 +139,28 @@
 				$(this).multiselect("uncheckAll");
 			}
 		},
+        /**
+         * Realiza una reinicizalización del estado del componente.
+         *
+         * @name jQuery.rup_combo#reset
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("reset");
+         */
 		reset : function(){
 			var $self = $(this);
 
 			$self.rup_combo("select", $self.find("option[selected]").attr("value"));
 
 		},
+        /**
+         * Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
+         *
+         * @name jQuery.rup_combo#checkAll
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("checkAll");
+         */
 		checkAll : function(){
 			//Tipo de combo
 			if ($(this).data("settings").multiselect){
@@ -110,6 +171,18 @@
 				alert('Función no soportada.');
 			}
 		},
+        /**
+         * Selecciona el elemento enviado como parámetro. En caso de ser un numérico se selecciona por la posición (comenzando en 0) y si es un literal se selecciona por el valor. En el caso de selección múltiple el parámetro será un array.
+         *
+         * @name jQuery.rup_combo#select
+         * @function
+         * @param {string | number | string[] | number[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
+         * @example
+         * // Simple
+         * $("#idCombo").rup_combo("select", 2);
+         * // Multiple
+         * $("#idCombo").rup_combo("select", [0,2]);
+         */
 		select : function(param){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -130,6 +203,18 @@
 				this._setElement($(this), param, true);
 			}
 		},
+        /**
+         * Selecciona el elemento del combo que contiene como texto el indicado. En caso de no existir el texto a buscar el combo no sufrirá cambios En el caso de selección múltiple el parámetro será un array.
+         *
+         * @name jQuery.rup_combo#selectLabel
+         * @function
+         * @param {string | string[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
+         * @example
+         * // Simple
+         * $("#idCombo").rup_combo("selectLabel", "No");
+         * // Multiple
+         * $("#idCombo").rup_combo("selectLabel", ["No","Si"]);
+         */
 		selectLabel : function(param){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -154,6 +239,15 @@
 				$(this).multiselect("update");
 			}
 		},
+        /**
+         * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
+         *
+         * @name jQuery.rup_combo#value
+         * @function
+         * @return {string | string[]} - Valor del elemento o elementos seleccionados.
+         * @example
+         * $("#idCombo").rup_combo("value");
+         */
 		value : function(){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -169,6 +263,15 @@
 				return retorno;
 			}
 		},
+        /**
+         * Método que devuelve el label asociado al valor seleccionado en el combo. En el caso de la selección múltiple se devolverá un array.
+         *
+         * @name jQuery.rup_combo#label
+         * @function
+         * @return {string | string[]} - Texto del elemento o elementos seleccionado.
+         * @example
+         * $("#idCombo").rup_combo("label");
+         */
 		label : function(){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -183,6 +286,15 @@
 				return retorno;
 			}
 		},
+        /**
+         * Devuelve el índice de la opción seleccionada en el combo (empezando en 0). En el caso de la selección múltiple se devolverá un array.
+         *
+         * @name jQuery.rup_combo#index
+         * @function
+         * @return {number | number[]} - Índice del elemento o elementos seleccionados.
+         * @example
+         * $("#idCombo").rup_combo("index");
+         */
 		index : function(){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -202,6 +314,14 @@
 			}
 
 		},
+        /**
+         * Deshabilita el combo.
+         *
+         * @name jQuery.rup_combo#disable
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("disable");
+         */
 		disable : function(){
 			//Tipo de combo
 			var $self = $(this);
@@ -220,6 +340,14 @@
 				$(this).multiselect("disable");
 			}
 		},
+        /**
+         * Habilita el combo.
+         *
+         * @name jQuery.rup_combo#enable
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("enable");
+         */
 		enable : function(){
 			//Tipo de combo
 			var $self = $(this), settings = $(this).data("settings");
@@ -235,6 +363,15 @@
 				$(this).multiselect("enable");
 			}
 		},
+        /**
+         * Indica si el combo está deshabilitado o no.
+         *
+         * @name jQuery.rup_combo#isDisabled
+         * @function
+         * @param {boolean} - Devuelve si el combo está deshabilitado o no.
+         * @example
+         * $("#idCombo").rup_combo("isDisabled");
+         */
 		isDisabled : function(){
 			if ($(this).attr('aria-disabled') === 'false'){
 				return false;
@@ -242,6 +379,14 @@
 				return true;
 			}
 		},
+        /**
+         * Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
+         *
+         * @name jQuery.rup_combo#disableChild
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("disableChild");
+         */
 		disableChild : function(){
 			//Vaciar combo, deshabilitarlo
 			$(this).empty().append("<option></option>").selectmenu("disable");
@@ -255,6 +400,15 @@
 				}
 			}
 		},
+        /**
+         * Deshabilita una opción de un combo multiselección.
+         *
+         * @name jQuery.rup_combo#disableOpt
+         * @param {string} optValue - Value del option que queremos deshabilitar.
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("disableOpt", "opt1");
+         */
 		disableOpt : function (optValue){
 			if ($(this).data("settings").multiselect){
 				//Deshabilitar select
@@ -292,6 +446,15 @@
 				alert('Función no soportada.');
 			}
 		},
+         /**
+         * Deshabilita varias opciones del combo. Las opciones se identifican mediante un array.
+         *
+         * @name jQuery.rup_combo#disableOptArr
+         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a deshabilitar.
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("disableOptArr", ["opt1","opt2"]);
+         */
 		disableOptArr : function (optValueArr){
 			if ($(this).data("settings").multiselect){
 				for (var i=0; i<optValueArr.length; i++){
@@ -301,6 +464,15 @@
 				alert('Función no soportada.');
 			}
 		},
+        /**
+         * Habilita una opción de un combo multiselección.
+         *
+         * @name jQuery.rup_combo#enableOpt
+         * @param {string} enableOpt - Value del option que queremos habilitar.
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("enableOpt", "opt1");
+         */
 		enableOpt : function (optValue){
 			if ($(this).data("settings").multiselect){
 				//Habilitar select
@@ -330,6 +502,15 @@
 				alert('Función no soportada.');
 			}
 		},
+        /**
+         * Habilita varias opciones del combo. Las opciones se identifican mediante un array.
+         *
+         * @name jQuery.rup_combo#enableOptArr
+         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a habilitar.
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("enableOptArr", ["opt1","opt2"]);
+         */
 		enableOptArr : function (optValueArr){
 			if ($(this).data("settings").multiselect){
 				for (var i=0; i<optValueArr.length; i++){
@@ -339,8 +520,14 @@
 				alert('Función no soportada.');
 			}
 		},
-
-		//Funcion que refresca los valores asociados al combo
+        /**
+         * Refresca los valores asociados al combo.
+         *
+         * @name jQuery.rup_combo#refresh
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("refresh");
+         */
 		refresh : function(){
 			//Tipo de combo
 			if (this.length===0 || !$(this).data("settings").multiselect){
@@ -365,7 +552,14 @@
 				return $(this).multiselect("uncheckAll");
 			}
 		},
-		//Funcion encargada de recargar los combos
+        /**
+         * Realiza una recarga de los combos.
+         *
+         * @name jQuery.rup_combo#reload
+         * @function
+         * @example
+         * $("#idCombo").rup_combo("reload");
+         */
 		reload: function (id){
 			if (this.length!==0){
 				var settings = $(this).data("settings"),
@@ -436,6 +630,17 @@
 				}
 			}
 		},
+        /**
+         * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
+         *
+         * @name jQuery.rup_combo#order
+         * @function
+         * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
+         * @param {boolean} orderAsNumber - Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos.
+         * @param {boolean} skipFirst - Determina si se debe de obviar el primer elemento.
+         * @example
+         * $("#idCombo").rup_combo("reload");
+         */
 		order: function (orderedByValue, orderAsNumber, skipFirst){
 			var combo = $(this),
 				options = $('option', combo),
@@ -523,7 +728,17 @@
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 	$.fn.rup_combo("extend", {
-			//Establece un elemento del combo por posición o valor
+        /**
+         * Establece un elemento del combo por posición o valor.
+         *
+         * @name jQuery.rup_combo#_setElement
+         * @function
+         * @private
+         * @param {object} selector - Referencia al objeto jQuery del combo.
+         * @param {object} param - Value correspondiente.
+         * @param {boolean} multicombo - Indica si el combo permite la multiselección.
+         * @param {boolean} markOptSelected - Determina si se debe marcar como seleccionado el elemento.
+         */
 			_setElement : function(selector, param, multicombo, markOptSelected){
 				if (multicombo!==true){
 					//Simple > selectmenu
@@ -568,7 +783,16 @@
 					return true;
 				}
 			},
-			_selectLabel : function(selector, param){
+        /**
+         * Selecciona el elemento correspondiente al label indicado
+         *
+         * @name jQuery.rup_combo#_selectLabel
+         * @function
+         * @private
+         * @param {object} selector - Referencia al objeto jQuery del combo.
+         * @param {object} param - Value correspondiente.
+         */
+        _selectLabel : function(selector, param){
 				var $option;
 				for(var i = 0; i<$("option", selector).length; i=i+1){
 					$option = jQuery("option:eq("+i+")", selector);
@@ -579,7 +803,14 @@
 				}
 				return false;
 			},
-			//Obtener la opción vacía (del fichero de la app o el por defecto)
+        /**
+         * Obtener la opción vacía a partir del fichero de internacionalización de la aplicación o del fichero por defecto.
+         *
+         * @name jQuery.rup_combo#_getBlankLabel
+         * @function
+         * @private
+         * @param {string} id - Identificador del fichero
+         */
 			_getBlankLabel : function (id){
 				var app = $.rup.i18n.app;
 				if (app[id] && app[id]["_blank"]){
@@ -587,7 +818,13 @@
 				}
 				return $.rup.i18n.base["rup_combo"]["blankNotDefined"];
 			},
-			//Formateo de textos
+        /**
+         * Realiza el formateo de los registros que se muestran en la lista desplegable del combo.
+         *
+         * @name jQuery.rup_combo#_defaultFormatting
+         * @function
+         * @private
+         */
 			_defaultFormatting : function(text){
 				var findreps = [
 						{find:/^([^\-]+) \- /g, rep: '<span class="ui-selectmenu-item-header">$1</span>'},
@@ -601,7 +838,17 @@
 				}
 				return text;
 			},
-			//Obtener valores padres (si no están cargados o valores 'vacíos' devuelve null)
+        /**
+         * Obtener valores de los combos padres (si no están cargados o valores 'vacíos' devuelve null). En caso de disponer de varios combos padres se devolverán separados por un caracter delimitador.
+         *
+         * @name jQuery.rup_combo#_getParentsValues
+         * @function
+         * @private
+         * @param {object[]} array - Array con los elementos a mostrar.
+         * @param {boolean} remote - Determina si la fuente de datos es remota o no.
+         * @param {string} multiValueToken - Caracter separador en el caso de devolver varios elementos.
+         * @return {string} - Devuelve los values seleccionados de los combos padres.
+         */
 			_getParentsValues : function(array, remote, multiValueToken){
 				var retorno="", id, texto, multiValueToken=multiValueToken!=null?multiValueToken:"", parentBlankValue;
 				//Puede que se lance una recarga de un combo sin padres
@@ -644,7 +891,14 @@
 				}
 				return retorno;
 			},
-			//Crear combo
+        /**
+         * Función principal en el proceso de crear un combo. Genera todos los elementos html y objetos js internos necesarios para el funcionamiento del mismo.
+         *
+         * @name jQuery.rup_combo#_makeCombo
+         * @function
+         * @private
+         * @param {object} settings - Parametros de configuración con los que se ha inicializado el combo.
+         */
 			_makeCombo : function(settings) {
 
 					//Opción vacía
@@ -784,6 +1038,16 @@
 						}
 					}
 			},
+        /**
+         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
+         *
+         * @name jQuery.rup_combo#_parseLOCAL
+         * @function
+         * @private
+         * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         */
 			_parseLOCAL : function (array, settings, html){
 				var imgs = settings.imgs?settings.imgs:[],
 					label, value;
@@ -805,6 +1069,16 @@
 					html.append($("<option>").attr("value", value).text(settings.showValue?value+settings.token+label:label));
 				}
 			},
+        /**
+         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local. Este método se emplea en el caso de existir agrupación de los mismos.
+         *
+         * @name jQuery.rup_combo#_parseOptGroupLOCAL
+         * @function
+         * @private
+         * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         */
 			_parseOptGroupLOCAL : function(arrayGroup, settings, html){
 				var optGroup, self = this;
 
@@ -822,6 +1096,17 @@
 					});
 				}
 			},
+        /**
+         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto.
+         *
+         * @name jQuery.rup_combo#_parseREMOTE
+         * @function
+         * @private
+         * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         * @param {string} optGroupKey - Identificador del optionGroup al que pertenece.
+         */
 			_parseREMOTE : function(array, settings, html, optGroupKey){
 				var remoteImgs = settings.imgs?settings.imgs:[],
 					item, setRupValue;
@@ -839,6 +1124,16 @@
 					html.append($("<option>").attr("value", item["value"]).text(settings.showValue?item["value"]+settings.token+item["label"]:item["label"]));
 				}
 			},
+        /**
+         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto. Este método se emplea en el caso de existir agrupación de los mismos.
+         *
+         * @name jQuery.rup_combo#_parseOptGroupREMOTE
+         * @function
+         * @private
+         * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         */
 			_parseOptGroupREMOTE : function(arrayGroup, settings, html){
 				var optGroup, self = this;
 				for(var i=0;i<arrayGroup.length;i=i+1){
@@ -851,6 +1146,16 @@
 					});
 				}
 			},
+        /**
+         * Prepara la petición AJAX que se va a realizar para obtener los registros a partir de un origen remoto. Se añaden las cabeceras RUP correspondientes para realizar la serialización json de manera correcta.
+         *
+         * @name jQuery.rup_combo#_ajaxBeforeSend
+         * @function
+         * @private
+         * @param {object} xhr - Objeto xhr que se va a enviar en la petición
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         */
 			_ajaxBeforeSend : function (xhr, settings, html){
 				//Crear combo (vacío) y deshabilitarlo
 				if (html!==undefined){ $("#"+settings.id).replaceWith(html); } //Si no es 'reload' se debe inicializar vacío
@@ -866,6 +1171,16 @@
 				//Cabecera RUP
 				xhr.setRequestHeader("RUP", $.toJSON(settings.sourceParam));
 			},
+        /**
+         * Procesa la respuesta de la petición AJAX en el caso de que esta haya finalizado correctamente.
+         *
+         * @name jQuery.rup_combo#_ajaxSuccess
+         * @function
+         * @private
+         * @param {object} data - Objeto enviado en la respuesta.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         */
 			_ajaxSuccess : function (data, settings, html){
 				//UNLOADING...
 				$("#"+settings.id+"-button span:first-child").removeClass("rup-combo_loadingText").text("");
@@ -900,6 +1215,17 @@
 					$("#"+settings.id).append("<option></option>");
 				}
 			},
+        /**
+         * Procesa la respuesta de la petición AJAX en el caso de que se haya producido un error en la misma.
+         *
+         * @name jQuery.rup_combo#_ajaxError
+         * @function
+         * @private
+         * @param {object} xhr - Objeto xhr enviado en la respuesta.
+         * @param {string} textStatus - Cadena identificadora del error que se ha producido en la petición.
+         * @param {object} errorThrown - Objeto error correspondiente al que se ha producido en la petición.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         */
 			_ajaxError : function (xhr, textStatus, errorThrown, settings){
 				if(xhr.responseText !== null){
 					$.rup.showErrorToUser(xhr.responseText);
@@ -907,6 +1233,15 @@
 					$.rup.showErrorToUser($.rup.i18n.base.rup_combo.ajaxError);
 				}
 			},
+        /**
+         * Crea la etiqueta correspondiente a una agrupación.
+         *
+         * @name jQuery.rup_combo#_generateOptGroupLabel
+         * @function
+         * @private
+         * @param {jQuery} object - Referencia al propio componente.
+         * @param {string} multiOptgroupIconText - Prefijo de los option group.
+         */
 			_generateOptGroupLabel: function (object, multiOptgroupIconText){
 				//Texto A > SPAN
 				$(object).append($("<span />")
@@ -946,10 +1281,28 @@
 								);
 				$(object).append($("<span />").text(" ]"));
 			},
+        /**
+         * Devuelve los li de los elementos seleccionados en un combo multiselección.
+         *
+         * @name jQuery.rup_combo#_selectedOptionLiMultiselect
+         * @function
+         * @private
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @return {jQuery | jQuery[]} - Objetos jQuery con referencias a los elementos seleccionados.
+         */
 			_selectedOptionLiMultiselect: function(settings) {
 				var multiselectSettings = $("#"+settings.id).data("multiselect");
 				return this._optionLis.eq(this._selectedIndex());
 			},
+        /**
+         * Devuelve el li del elemento que contiene el foco en un combo multiselección.
+         *
+         * @name jQuery.rup_combo#_focusedOptionLiMultiselect
+         * @function
+         * @private
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @return {jQuery} - Objeto jQuery con referencia al elemento que contiene el foco.
+         */
 
 			_focusedOptionLiMultiselect: function(settings) {
 				var multiselectSettings = $("#"+settings.id).data("multiselect");
@@ -964,6 +1317,16 @@
 
 				return $elem;
 			},
+        /**
+         * Procesa los eventos de introducción de caracteres de teclado por parte del usuario.
+         *
+         * @name jQuery.rup_combo#_typeAheadMultiselect
+         * @function
+         * @private
+         * @param {number} code - Código ASCII correspondiente al caracter introducido por el usuario.
+         * @param {object} eventType - Objeto event de jQuery.
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         */
 			_typeAheadMultiselect: function( code, eventType, settings ) {
 				var self = this,
 					c = String.fromCharCode(code).toLowerCase(),
@@ -1048,6 +1411,14 @@
 					self._typeAhead_cycling = undefined;
 				}, settings.typeAhead);
 			},
+        /**
+         * Método de inicialización del componente.
+         *
+         * @name jQuery.rup_combo#_init
+         * @function
+         * @private
+         * @param {object} args - Parámetros de inicialización del componente.
+         */
 			_init : function(args){
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
@@ -1239,6 +1610,48 @@
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
+
+    /**
+     * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
+     *
+     * @callback jQuery.rup_combo~onLoadError
+     * @param {Object} xhr - Objeto XHR que contiene la respuesta de la petición realizada.
+     * @param {string} textStatus - Texto que identifica el error producido.
+     * @param {Object} errorThrown - Objeto error que contiene las propiedades del error devuelto en la petición.
+     */
+
+    /**
+     * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
+     *
+     * @callback jQuery.rup_combo~onLoadSuccess
+     * @param {jQuery} self - Referencia al objeto jQuery del propio combo.
+     */
+
+    /**
+     * @description Opciones por defecto de configuración del componente.
+     *
+     * @name jQuery.rup_combo#defaults
+     *
+     * @property {jQuery.rup_combo~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
+     * @property {number} [width=200] - Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria.
+     * @property {string} [blank=null] - Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento.
+     * @property {string} [style=dropdown] - Tipo de visualización de la lista de opciones del combo.
+     * @property {boolean} [showValue=false] - Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple).
+     * @property {string} [token="|"] - Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal.
+     * @property {string} [multiValueToken="##"] - Define el separador a utilizar en combos enlazados locales.
+     * @property {boolean} [ordered=true] - Indica si el combo debe ordenarse.
+     * @property {boolean} [orderedByValue=false] - Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto.
+     * @property {jQuery.rup_combo~onLoadSuccess} [onLoadSuccess=null] - Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente.
+     * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
+     * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
+     * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
+     * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
+     * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
+     * @property {boolean} [readAsString=false] - Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json.
+     * @property {boolean} [rowStriping=false] - Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
+     * @property {number} [typeAhead=false] - Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
+     * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
+     */
 	$.fn.rup_combo.defaults = {
 		onLoadError:null,
 		width: 200,

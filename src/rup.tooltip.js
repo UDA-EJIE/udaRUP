@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,12 +14,28 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Tooltip.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */
 (function ($) {
 	
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
-	
+    
+	/**
+    * Se les presenta a los usuarios una barra de botones con diversas funcionalidades relacionadas a elementos de la página. Gracias a este componente se presentan, ordenan y agrupan las distintas funcionalidades gestionadas por las aplicaciones.
+    *
+    * @summary Componente RUP Tooltip.
+    * @namespace jQuery.rup_tooltip
+    * @memberOf jQuery
+    * @tutorial rup_tooltip
+    * @see El componente está basado en el plugin {@link http://qtip2.com/options|qTip2}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://qtip2.com/options|aquí}.
+    * @example 
+    * $("[title]").rup_tooltip({});
+    */
 	var rup_tooltip = {};
 	
 	//Se configura el arranque de UDA para que alberge el nuevo patrón 
@@ -29,23 +45,76 @@
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_tooltip("extend",{
+        /**
+        * Muestra el tooltip.
+        *
+        * @name jQuery.rup_tooltip#open     
+        * @function
+        * @example 
+        * $("#idTooltip").rup_tooltip("open");
+        */ 
 		open: function() {
 			$(this).qtip('show', true);
 		},
+        /**
+        * Oculta el tooltip.
+        *
+        * @name jQuery.rup_tooltip#close     
+        * @function
+        * @example 
+        * $("#idTooltip").rup_tooltip("close");
+        */ 
 		close: function(){
 			$(this).qtip('hide', true);
 		},
+        /**
+        * Habilita el tooltip.
+        *
+        * @name jQuery.rup_tooltip#enable     
+        * @function
+        * @example 
+        * $("#idTooltip").rup_tooltip("enable");
+        */ 
 		enable: function() {
 			$(this).qtip('enable', true);
 		},
+        /**
+        * Deshabilita el tooltip.
+        *
+        * @name jQuery.rup_tooltip#disable     
+        * @function
+        * @example 
+        * $("#idTooltip").rup_tooltip("disable");
+        */
 		disable: function() {
 			$(this).rup_tooltip('close');
 			$(this).qtip('disable', true);
 		},
+        /**
+        * Elimina el tooltip.
+        *
+        * @name jQuery.rup_tooltip#destroy     
+        * @function
+        * @example 
+        * $("#idTooltip").rup_tooltip("destroy");
+        */
 		destroy: function() {
 			$(this).rup_tooltip('disable');
 			$(this).qtip('destroy');
 		},
+        /**
+         * Obtiene o establece la configuración del tooltip.
+         *
+         * @name jQuery.rup_tooltip#option
+         * @param {string} option - Nombre de la propiedad que se desea gestionar.
+         * @param {*} [value] - Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro.
+         * @function
+         * @example 
+         * // Obtener el valor de la posición
+         * $("#idTooltip").rup_tooltip("option", "position");
+         * // Establecer el valor de la posición
+         * $("#idTooltip").rup_tooltip("option", "position", {offset: "15 15"});
+         */ 
 		option: function(option, value){
 			return $(this).qtip('option', option, value);
 		}
@@ -194,4 +263,49 @@
 		events : {}
 	};	
 	
+    /**
+    * Función que se ejecutará cuando se muestre el tooltip.
+    *
+    * @callback jQuery.rup_tooltip~onOpen
+    * @example
+    * $("#idTooltip").rup_tooltip({
+    *   open: function(){
+    *   }
+    * });
+    */
+    
+    /**
+    * Función que se ejecutará cuando se oculte el tooltip.
+    *
+    * @callback jQuery.rup_tooltip~onClose
+    * @example
+    * $("#idTooltip").rup_tooltip({
+    *   close: function(){
+    *   }
+    * });
+    */
+    
+    /**                                                                         
+    * @description Propiedades de configuración del componente.
+    * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link http://qtip2.com/options|qTip2}.
+    *
+    * @name jQuery.rup_tooltip#options
+    * @property {boolean} [disabled=false] - booleano que indica si el tooltip está habilitado o no.    
+    * @property {boolean} [applyToPortal=false] - Parámetro encargado de determinar si el componente tooltip se aplica, también, al código html adscrito a los portales de la infraestructura de EJIE. El parámetro acepta el valor true, para indicar que se aplique al portal, y el valor false, para indicar que no se aplique al portal. 
+    * @property {object} [content] - Configura el texto del tooltip (si no se ha definido en el title). 
+    * @property {string} [content.text] - Texto del tooltip.
+    * @property {string} [content.title] - Tooltip en formato diálogo y este parámetro define el título del mismo.
+    * @property {object} [position] - Configura la posición del tooltip y tiene (entre otros) los siguientes parámetros.
+    * @property {string} position.my=top left - Posición en la que es colocado el tooltip a mostrar parámetros.
+    * @property {string} position.at=bottom left - Posición respecto al objeto al que se aplica el tooltip.
+    * @property {string} position.target - Si se quiere definir sobre qué elemento debe aplicarse el tooltip. parámetros.
+    * @property {object} [show] - Configura el modo/evento en el que se despliega el tooltip.
+    * @property {string} show.event=mouseenter - Evento con el que se muestra el tooltip.
+    * @property {object} show.modal - Configura el modo/evento en el que se despliega el tooltip.
+    * @property {object} [hide] - Configura el modo/evento en el que se oculta el tooltip.
+    * @property {object} hide.event=mouseleave - Evento con el que se oculta el tooltip.
+    * @property {jQuery.rup_tooltip~onOpen} [open] - Permite asociar una función que se ejecutará cuando se muestre el tooltip.
+    * @property {jQuery.rup_tooltip~onClose} [close] - Permite asociar una función que se ejecutará cuando se oculte el tooltip.
+    */
+    
 })(jQuery);

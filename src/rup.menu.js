@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -16,12 +16,31 @@
  //require(["jquery", "require-jqueryui"],function (jQuery, widgetMenu) {
 
  define(["jquery", "private-jqueryui-menu"], function(jQuery, widgetMenu){
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Menu.
+ * @author EJIE
+ * @version 2.5.0                                                                                               
+ */
 (function ($, widgetMenu) {
 
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-
+	
+    /**
+    * Menú de la aplicación mantenido a lo largo de todas las páginas de forma consistente que muestra entradas directas a secciones clave de la aplicación.
+    *
+    * @summary Componente RUP Menu.
+    * @namespace jQuery.rup_menu
+    * @memberOf jQuery
+    * @tutorial rup.menu
+    * @example 
+    * var properties={
+    *   // Propiedades de configuración
+    * };
+    *
+    * $("#idMenu").rup_menu(properties);
+    */
 	var rup_menu = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
@@ -32,11 +51,29 @@
 	//********************************
 
 	$.fn.rup_menu("extend",{
+        /**
+        * Deshabilita una opción de menú.
+        *
+        * @name jQuery.rup_menu#disable 
+        * @function
+        * @param {string} entryMenuId - Identificador de la opción de menú que se desea deshabilitar.
+        * @example
+        * $("#idlanguage").rup_menu("disable","opAdmin);
+        */
 		disable : function (entryMenuId){
 			var entryMenu = $("#"+entryMenuId);
 			entryMenu.addClass("ui-state-disabled");
 //			entryMenu.bind("click", function(event){event.preventDefault(); event.stopImmediatePropagation();});
 		},
+        /**
+        * Habilita una opción de menú.
+        *
+        * @name jQuery.rup_menu#enable 
+        * @function
+        * @param {string} entryMenuId - Identificador de la opción de menú que se desea habilitar.
+        * @example
+        * $("#idlanguage").rup_menu("enable","opAdmin);
+        */
 		enable : function (entryMenuId){
 			var entryMenu = $("#"+entryMenuId);
 			entryMenu.removeClass("ui-state-disabled");
@@ -49,7 +86,15 @@
 	//********************************
 
 	$.fn.rup_menu("extend",{
-			_init : function(args){
+        /**
+        * Método de inicialización del componente.
+        *
+        * @name jQuery.rup_menu#_init 
+        * @function
+        * @private
+        * @param {string} args - Opciones de configuración del componente.
+        */
+        _init : function(args){
 
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError" + $(this).attr("id")));
@@ -241,6 +286,13 @@
 					}
 				}
 			},
+	/**
+        * Parsea un objeto json para generar la estructura de menú de acuerdo a la información contenida en el.
+        *
+        * @name jQuery.rup_menu#_parseJSON 
+        * @function
+        * @private
+        */
 
 			_parseJSON: function (json, json_i18n, self, force) {
 				var submenu, element, objectUrl = "", entry;
@@ -343,6 +395,25 @@
 		menus: 'ul'
 
 	};
+
+   /**                                                                         
+    * Opciones por defecto de configuración del componente. 
+    * @name jQuery.rup_menu#options  
+    *
+    * @property {string} [verticalWidth=undefined] - Valor asociado a cada menú que determinara la anchura vertical del mismo. Este parámetro tiene cabida, tanto, en menús verticales, como, en menús horizontales (al fin y al cabo los dos tienen partes verticales). En caso de no especificar ningún valor, cada uno de los submenús verticales se ajustara al ancho máximo de sus literales.
+    * @property {string} [display=horizontal] - Orientación del menú: horizontal o vertical.
+    * @property {string} [i18nId] - Indica el identificador del objeto JSON para la resolución de los literales del componente. En caso de no definirse se tomará el ID del objeto sobre el que se crea el componente.
+    * @property {string} [menus=ul] - Parámetro que determina el tag de html que hará de padre para determinar las entradas del menú (tanto para las entradas normales como para las de los submenús).
+    * @property {boolean} [forceAbs=false] - Parámetro de configuración que activa el uso de la función relToAbsUrl. Dicha función hace que todas las llamadas relativas se transformen a absolutas. El uso de este parámetro responde a situaciones en el que el navegador, por diferentes cuestiones funcionales, no gestiona bien las urls relativas (se tratan todas las urls relativas como urls absolutas para evitar el posible problema. Por ejemplo: problemas con portales). Este parámetro se puede aplicar tanto a nivel de entrada como a nivel general del menú.
+    *
+    * @property {object} [menu] - Estructura del menú se define mediante un array en notación JSON cuyo nombre será el mismo que el identificador del elemento sobre el que se aplica el componente. No se limita el número de submenús. Por coherencia se ha decidido que los elementos que contengan submenús no serán enlaces y viceversa.
+    * @property {string} menu.i18nCaption - Define la ruta (url) a seguir cuando se pulse sobre el elemento, en caso de no tener submenú. La especificación de las rutas (urls), se puede hacer de forma relativa o de forma absoluta. (véase el capítulo 11. Formato de las urls).
+    * @property {object} menu.submenu - Define una estructura JSON submenú.
+    * @property {boolean} menu.newWindow=false - Si el valor es true, el enlace del menú se abrirá en una nueva ventana del navegador, en caso contrario (false), se aplicará sobre la ventana que alberga el menu. Todas las entradas de este tipo, serán indicadas mediante el icono “external link”.
+    * @property {boolean} [menu.divider=false] - Parámetro encargado de indicar si la entrada del menú es un elemento de división o un objeto del menú. Cuando el valor de “divider” sea true, la entrada en cuestión, es un divisor. Existen dos tipos de divisores que se diferencian en la presencia del parámetro "i18nCaption". En caso de no tenerlo, el divisor es únicamente una línea divisora de entradas. En caso contrario, el divisor es una cabecera. En ambos casos, el resto de parámetros no tienen importancia y no serán tomados en cuanta a la hora de componer el menú. Su valor por defecto es false.
+    * @property {boolean} menu.disabled - Determina si la entrada del menú esta habilitada o deshabilitada. El valor por defecto del campo es false. Dicho estado puede ser variado mediante las funciones enable y disable del componente.
+    * @property {string} menu.icon - Especifica el class que tiene asociado el icono que regirá la entrada de menú.
+    */
 
 
 })(jQuery, widgetMenu);

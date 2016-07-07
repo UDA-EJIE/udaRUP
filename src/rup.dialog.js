@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -28,6 +28,11 @@
 //			loadBeforeSend_default(xhr);
 //		};
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Dialog.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */ 
 (function ($) {
 	
 	//*********************************************
@@ -35,6 +40,24 @@
 	//*********************************************
 	
 	$.extend($.rup, {
+        /**
+         * Determina los tipos de diálogos.
+         *
+         * @typedef {Object} jQuery.rup~dialog
+         * @property {string} DIV - Dialogo creado a partir de un diálogo existente.
+         * @property {string} TEXT - Dialogo creado a partir de un texto.
+         * @property {string} AJAX - Dialogo creado a partir de la respuesta de una petición AJAX.
+         * @property {string} LINK - Dialogo creado a partir del contenido de un enlace estático.
+         * @example
+         * // Diálogo de tipo DIV
+         * $.rup.dialog.DIV
+         * // Diálogo de tipo TEXT
+         * $.rup.dialog.TEXT
+         * // Diálogo de tipo AJAX
+         * $.rup.dialog.AJAX
+         * // Diálogo de tipo LINK
+         * $.rup.dialog.LINK
+         */
 		dialog : {
 			DIV : "dialogDIV", 
 			TEXT : "textDialog", 
@@ -47,6 +70,25 @@
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
 	
+    /**
+    * Permite lanzar un subproceso o un mensaje de confirmación dentro de un proceso principal sin salirse de este. <br/><br/>Es una evolución del patrón mensaje.
+    *
+    * @summary Componente RUP Dialog.
+    * @namespace jQuery.rup_dialog
+    * @memberOf jQuery
+    * @tutorial rup_dialog
+    * @example 
+    * var properties = {
+    *   type: $.rup.dialog.TEXT,
+    *   autoOpen: true,
+    *   modal: true,
+    *   resizable: true,
+    *   title: "Título del dialog (text) ",
+    *   message: "Se esta creando un div con el mensaje puesto por parametro."
+    * };
+    *
+    * $("#selector").rup_dialog(properties);
+    */
 	var rup_dialog = {};
 	
 	//Se configura el arranque de UDA para que alberge el nuevo patrón 
@@ -57,6 +99,15 @@
 	//********************************
 	
 	$.fn.rup_dialog("extend",{
+        /**
+         * Abre el diálogo y estable el foco en el primer botón.
+         *
+         * @name jQuery.rup_dialog#open     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("open");
+         */ 
 		open : function () {//abre el dialogo y estable el foco en el primer botón.
 			var settings = $.extend({}, $(this).dialog("option")), $overlayEl;
 			//Guardar el elemento que tenía el foco antes de abrir el diálogo
@@ -87,30 +138,104 @@
 			
 			$('div[aria-labelledby=ui-dialog-title-' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
 		},
+        /**
+         * Borra el dialogo si este estubiera oculto o visible.
+         *
+         * @name jQuery.rup_dialog#destroy     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("destroy");
+         */ 
 		destroy : function (){
 			$(this).dialog("destroy");
 		},
+        /**
+         * Función que deshabilita el dialogo sobre el que se aplica.
+         *
+         * @name jQuery.rup_dialog#disable     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("disable");
+         */ 
 		disable : function (){
 			$(this).dialog( "disable" );
 		},
+        /**
+         * Funcion que, en caso de estar desahibilitado, habilita el dialogo sobre el que se aplica.
+         *
+         * @name jQuery.rup_dialog#enable     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("enable");
+         */ 
 		enable : function (){
 			$(this).dialog( "enable" );
 		},
 		widget : function (){
 			return ($(this).dialog( "widget" ));
 		},
+        /**
+         * Funcion encargada de poner por encima de todos los dialogos al dialogo sobre el que se aplica. Puede ser muy util se se tiene mas de un dialog abierto a la vez.
+         *
+         * @name jQuery.rup_dialog#moveToTop     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("moveToTop");
+         */ 
 		moveToTop : function(){
 			$(this).dialog( "moveToTop" );
 		}, 
+        /**
+         * Cierra el dialogo.
+         *
+         * @name jQuery.rup_dialog#close     
+         * @function
+         *
+         * @example 
+         * $("#selector").rup_dialog("close");
+         */ 
 		close : function () {//Cierra el dialogo.
 			$(this).dialog("close");
 		},
+        /**
+         * Función que devuelve si el dialogo esta abierto o no.
+         *
+         * @name jQuery.rup_dialog#isOpen     
+         * @function
+         * @returns {boolean} - Determina si el diálogo está abierto o no.
+         * @example 
+         * $("#selector").rup_dialog("isOpen");
+         */ 
 		isOpen : function () {//Función que devuelve si el dialogo esta abierto.
 			return $(this).dialog("isOpen");
 		},
+        /**
+         * Obtiene la propiedad que recibe como parametro.
+         *
+         * @name jQuery.rup_dialog#getOption     
+         * @function
+         * @param {string} opt - Nombre de la propiedad.
+         * @returns {Object} - Valor de la propiedad especificada.
+         * @example 
+         * $("#selector").rup_dialog("getOption","width");
+         */ 
 		getOption : function (opt) {//Obtiene la propiedad que recibe como parametro.
 			return $(this).dialog("option", opt);
 		},
+        /**
+         * Establece la propiedad que recibe como parametro.
+         *
+         * @name jQuery.rup_dialog#setOption     
+         * @function
+         * @param {string} opt - Nombre de la propiedad.
+         * @param {object} value - Valor de la propiedad a establecer.
+         * @example 
+         * $("#selector").rup_dialog("setOption","width", 200);
+         */ 
 		setOption : function (opt, value) {//Establece la propiedad que recibe como parametro.
 			if (opt === "buttons") {//si establecemos los botones tenemos que tener encuenta lo de los links
 				var btnsLength = value.length, aux, i, j, linkButtons = [], linkButtonsLength;//tamaño incial de los botones se o no enlaces
@@ -150,6 +275,16 @@
 				$("#ui-dialog-title-"+$(this).attr("id")).html(value);
 			}
 		},	
+        /**
+         * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones.
+         *
+         * @name jQuery.rup_dialog#createBtnLinks     
+         * @function
+         * @param {object} btn - Objeto de definición del botón.
+         * @param {object} id - Identificador del diálogo.
+         * @example 
+         * $("#selector").rup_dialog("createBtnLinks", btnObj, "idDialog");
+         */ 
 		createBtnLinks : function (btn, id) {
 			/**
 			 * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
@@ -169,7 +304,14 @@
 	//********************************
 	
 	$.fn.rup_dialog("extend",{
-			_init : function(args){
+        /**
+         * Método de inicialización del componente
+         *
+         * @name jQuery.rup_dialog#_init     
+         * @function
+         * @private
+         */
+        _init : function(args){
 				
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError" + $(this).attr("id")));
@@ -342,6 +484,14 @@
 					}
 				}
 			},
+**       
+         * Realiza la carga del contenido del diálogo a partir de una petición AJAX.
+         *
+         * @name jQuery.rup_messages#_createDiv     
+         * @function
+         * @private
+         * @param {object} settings - Propiedades de configuración del componente.
+         */ 
 			_ajaxLoad : function(settings){
 				//Si el tipo de dialogo es AJAX y no se establece url se muestra un error y se devuelve el control
 				if (!settings.url || settings.url === null || settings.url === '') {
@@ -392,6 +542,86 @@
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
 	//*******************************************************
 	
+    /**
+     * Propiedades de configuración de la petición Ajax.
+     *
+     * @typedef {object} jQuery.rup_dialog~ajaxOptions
+     * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings|jQuery Ajax Settings}
+     */
+    
+    /**
+     * Evento que se lanza cuando se abre el diálogo. 
+     *
+     * @see {@link http://api.jqueryui.com/dialog/#event-open jQueryUI Dialog}
+     * @callback jQuery.rup_dialog~onOpen
+     * @param {Event} event - Fecha seleccionada
+     * @param {object} ui - Objeto de jQueryUI correspondiente a la interfaz del diálogo.
+     * @example
+     * $("#idDialog").rup_dialog({
+     *  open: function(event, ui) { ... }
+     * });
+     */
+    
+    /**
+     * Evento que se lanza a la hora de cerrar el diálogo. 
+     *
+     * @see {@link http://api.jqueryui.com/dialog/#event-open jQueryUI Dialog}
+     * @callback jQuery.rup_dialog~onClose
+     * @param {Event} event - Fecha seleccionada
+     * @param {object} ui - Objeto de jQueryUI correspondiente a la interfaz del diálogo.
+     * @example
+     * $("#idDialog").rup_dialog({
+     *  close: function(event, ui) { ... }
+     * });
+     */
+    
+    /**
+     * Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto
+     *
+     * @see {@link http://api.jqueryui.com/dialog/#event-beforeClose jQueryUI Dialog}
+     * @callback jQuery.rup_dialog~onBeforeClose
+     * @param {Event} event - Fecha seleccionada
+     * @param {object} ui - Objeto de jQueryUI correspondiente a la interfaz del diálogo.
+     * @return {boolean} - Si devuelve false se anulará las acción de cierre y el dialogo seguirá abierto.
+     * @example
+     * $("#idDialog").rup_dialog({
+     *  onBeforeClose: function(event, ui) { ... }
+     * });
+     */
+    
+    /**                                                                         
+     * Opciones por defecto de configuración del componente. 
+     * @name jQuery.rup_dialog#options                                        
+     *
+     * @property {string} [url] - Url de donde se obtendrá el contenido del diálogo.
+     * @property {boolean} [rupCheckStyle=true] Propiedad definida por el componentes base, si está a true se mostraran los mensajes específicos del componente base marcados por la guía de estilos, es decir, que si el desarrollador no cumple con la guisa de estilos o desarrollo el objeto base mostrará los mensajes advirtiendo su incumplimiento, si se pone a false no se mostraran. Esta acción queda bajo la responsabilidad de la aplicación, ya que esta propiedad no debería modificarse.
+     * @property {jQuery.rup~dialog} type - Propiedad que establece el tipo de diálogo a mostrar. 
+     * @property {jQuery.rup_dialog~ajaxOptions} ajaxOptions - Establece las todas las propiedades para configurar la petición ajax.
+     * @property {boolean} [showLoading=true] - Esta propiedad mostrará una capa de cargando datos en los diálogos de tipo Ajax durante la carga del mismo.
+     * @property {boolean} [disabled=false] - Propiedad que deshabilita o no el diálogo. 
+     * @property {boolean} [autoOpen=true] - Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)).
+     * @property {Object} [buttons] - Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo.
+     * @property {boolean} [closeOnEscape=true] - Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC.
+     * @property {string} dialogClass - Porpiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes.
+     * @property {boolean} [draggable=true] - Si su valor es true el diáologo sera dragable pinchando sobre el título.
+     * @property {string | number} [height=auto] - Establece el alto del diálogoen pixeles.
+     * @property {string} [hide=null] - Efecto utilizado cuando se cierra el diálogo. 
+     * @property {boolean | number} [maxHeight=false] - Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo.
+     * @property {boolean | number} [maxWidth=false] - Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo.
+     * @property {boolean | number} [minHeight=100] - Alto mínimo en pixeles al que se puede llegar a redimensionar el diálogo.
+     * @property {boolean | number} [minWidth=150] - Ancho mínimo en pixeles al que se puede llegar a redimensionar el diálogo.
+     * @property {boolean} [modal=false] - Si se establece esta propiedad a true el diálogo se abrirá de forma modal, por encima del resto de elementos.
+     * @property {string | string[] | number[]} position - Esta propiedad especifica donde debe mostrarse el diálogo. Sus posibles valores son: Un simple String representando la posición. 'center', 'left', 'right', 'top', 'bottom'. Un array con las coordenadas x, y en pixles (e. [350,100]). Un array con string que representan la posición (e. ['right','top']).
+     * @property {boolean} [resizable=true] - Si se establece esta propiedad a true el diálogo se redimensionable.
+     * @property {string} [show] - Efecto a realizar cuando se abre el diálogo.
+     * @property {boolean} [stack] - Establece si el diálogo actual se situa por encima del resto de diálogos que existan en la ventana.
+     * @property {string} [title] - Establece el título de la ventana. Puede ser cualquier html válido.
+     * @property {number} [width=300] - Establece el ancho del diálogo en pixeles.
+     * @property {number} [z-index=1000] - Establece el zIndex del diálogo.
+     * @property {jQuery.rup_dialog~onOpen} open - Evento que se lanza cuando se abre el diálogo.
+     * @property {jQuery.rup_dialog~onClose} close - Evento que se lanza a la hora de cerrar el diálogo.
+     * @property {jQuery.rup_dialog~onBeforeClose} beforeClose - Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto.
+     */
 	$.fn.rup_dialog.defaults = {
 		rupCheckStyle: true,
 		type: null,

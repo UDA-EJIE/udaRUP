@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,18 +14,43 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Dav.
+ * @author EJIE
+ * @version 2.4.8                                                                                              
+ */ 
 (function ($) {
 	
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+	/**
+    * Permite al usuario editar online documentos almacenados en el servidor de aplicaciones.
+    *
+    * @summary Componente RUP Dav.
+    * @namespace jQuery.rup_dav
+    * @memberOf jQuery
+    * @tutorial rup_dav
+    * @example 
+    * jQuery.rup_dav.editOnline({
+	*	url:"webdavServlet/webdav.doc",
+	*	xlnetsAuth:true,
+	*	downloadOnError:true,
+	*	alternateDownloadURL:"../upload?fileName=webdav.doc"
+	* });
+    */
 	jQuery.rup_dav = {};
 	
 	//Se configura el arranque de UDA para que alberge el nuevo patrón 
 //	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_dav", rup_dav));
 	
 	$.extend(jQuery.rup_dav,{
+        /**
+         * TODO
+         *
+         * @name jQuery.rup_dav#editOnline     
+         * @function
+         */ 
 		editOnline:function(args){
 			var url,
 			settings;

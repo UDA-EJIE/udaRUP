@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,12 +14,28 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+* @fileOverview Implementa el patrón RUP Wizard.
+* @author EJIE
+* @version 2.4.8                                                                                               
+*/
 (function ($) {
 	
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 	
+    /**
+    * Permitir guiar al usuario paso a paso a través de un proceso realizando las tareas dentro de un orden señalado.
+    *
+    * @summary Componente RUP Wizard.
+    * @namespace jQuery.rup_wizard
+    * @memberOf jQuery
+    * @tutorial rup_wizard
+    * @example 
+    * var properties = {};
+    * $("#id_form").rup_wizard(properties)
+    */
 	var rup_wizard = {};
 	
 	//Se configura el arranque de UDA para que alberge el nuevo patrón 
@@ -29,7 +45,14 @@
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_wizard("extend",{
-		//Seleccionar paso [0..n]
+        /**
+        * Selecciona el paso recibido como parámetro [0..n].
+        *
+        * @name jQuery.rup_wizard#step
+        * @param {Integer} step - Identificador del paso que se desea seleccionar.
+        * @example 
+        * $("#idForm").rup_wizard("step", 1);
+        */ 
 		step: function(stepNumber) {
 			
 			//controlar si está deshabilitado
@@ -63,33 +86,113 @@
             	}
             }
 		},
+        /**
+        * Selecciona el primer paso del asistente.
+        *
+        * @name jQuery.rup_wizard#first
+        * @example 
+        * $("#idForm").rup_wizard("first");
+        */ 
 		first: function(){
 			this.rup_wizard("step",0);
 		},
+        /**
+        * Selecciona el último paso del asistente.
+        *
+        * @name jQuery.rup_wizard#last
+        * @example 
+        * $("#idForm").rup_wizard("last");
+        */ 
 		last: function(){
 			this.rup_wizard("step", $("#steps").children().size()-1);
 		},
+        /**
+        * Devuelve el número del paso actual.
+        *
+        * @name jQuery.rup_wizard#getCurrentStep
+        * @return {Integer} - Número de paso actual.
+        * @example 
+        * $("#idForm").rup_wizard("getCurrentStep");
+        */ 
 		getCurrentStep: function(){
 			return parseInt($("#steps li.current").attr("id").substring(8));
 		},
+        /**
+        * Indica si el paso recibido como parámetro es el activo.
+        *
+        * @name jQuery.rup_wizard#isCurrentStep
+        * @param {Integer} step - Número de paso.
+        * @return {boolean} - Devuelve true en caso de que el paso indicado sea el actual y false en caso de que no.
+        * @example 
+        * $("#idForm").rup_wizard("isCurrentStep", 2);
+        */ 
 		isCurrentStep: function(i){
 			return (this.rup_wizard("getCurrentStep")===i);
 		},
+        /**
+        * Indica si el paso activo es el primero.
+        *
+        * @name jQuery.rup_wizard#isCurrentStepFirst
+        * @return {boolean} - Devuelve true en caso de que el último paso sea el activo y false en caso de que no.
+        * @example 
+        * $("#idForm").rup_wizard("isCurrentStepFirst");
+        */ 
 		isCurrentStepFirst: function(){
 			return this.rup_wizard("isCurrentStep",0);
 		},
+        /**
+        * Indica si el paso activo es el último.
+        *
+        * @name jQuery.rup_wizard#isCurrentStepLast
+        * @return {boolean} - Devuelve true en caso de que el primer paso sea el activo y false en caso de que no.
+        * @example 
+        * $("#idForm").rup_wizard("isCurrentStepLast");
+        */ 
 		isCurrentStepLast: function(){
 			return ($("#steps").children().size()-1 === this.rup_wizard("getCurrentStep"));
 		},
+        /**
+        * Indica si el paso activo es el resumen.
+        *
+        * @name jQuery.rup_wizard#isCurrentStepSummary
+        * @return {boolean} - Devuelve true en caso de que el paso activo sea el del resumen y false en caso de que no.
+        * @example 
+        * $("#idForm").rup_wizard("isCurrentStepSummary");
+        */
 		isCurrentStepSummary: function(){
 			return $("#stepDesc" + this.rup_wizard("getCurrentStep")).hasClass("rup-wizard_summary");
 		},
+        /**
+        * Habilita el paso recibido como parámetro.
+        *
+        * @name jQuery.rup_wizard#enableStep
+        * @param {Integer} step - Numero que identifica el paso que deseamos habilitar.
+        * @example 
+        * $("#idForm").rup_wizard("enableStep", 2);
+        */
 		enableStep: function(stepNumber){
 			$("#stepDesc" + stepNumber).removeClass("disabled");
 		},
+        /**
+        * Deshabilita el paso recibido como parámetro.
+        *
+        * @name jQuery.rup_wizard#disableStep
+        * @param {Integer} step - Numero que identifica el paso que deseamos deshabilitar.
+        * @example 
+        * $("#idForm").rup_wizard("disableStep", 2);
+        */
 		disableStep: function(stepNumber){
 			$("#stepDesc" + stepNumber).addClass("disabled");
 		},
+        /**
+        * Indica si el paso recibido como parámetro está deshabilitado.
+        *
+        * @name jQuery.rup_wizard#isStepDisabled
+        * @param {Integer} step - Numero que identifica el paso que deseamos deshabilitar.
+        * @return {boolean} - Devuelve true si el paso indicado está deshabilitado y false en caso de que no.
+        * @example 
+        * $("#idForm").rup_wizard("isStepDisabled", 2);
+        */
 		isStepDisabled: function(stepNumber){
 			return $("#stepDesc" + stepNumber).hasClass("disabled");
 		} 
@@ -760,5 +863,79 @@
 		labelSeparatorText : "&nbsp;&nbsp;&nbsp;",
 		textareaElement : "<p />"
 	};	
+
+/**
+* Función de callback que se ejecuta previamente al envío del formulario.
+*
+* @callback jQuery.rup_validate~onSubmitFnc  
+* @example 
+* $("#idForm").rup_wizard({
+*   submitFnc: function(){
+*   }
+* });
+*/
+    
+/**
+* Función de callback que se invocará previamente a la generación del paso.
+*
+* @callback jQuery.rup_validate~onSummaryFnc_PRE  
+* @return {boolean} - En caso de devolver false no se generaría el resumen.
+* @example 
+* $("#idForm").rup_wizard({
+*   summaryFnc_PRE: function(){
+*   }
+* });
+*/
+    
+/**
+* Función de callback que se ejecuta una vez ha comenzado la generación del paso resumen.
+*
+* @callback jQuery.rup_validate~onSummaryFnc_INTER  
+* @return {boolean} - En caso de devolver false no se continuaría con el procesado del contenido de los pasos
+* @example 
+* $("#idForm").rup_wizard({
+*   summaryFnc_INTER: function(){
+*   }
+* });
+*/
+    
+/**
+* Función de callback que se invocará una vez se ha generado el paso resumen.
+*
+* @callback jQuery.rup_validate~onSummaryFnc_POST
+* @example 
+* $("#idForm").rup_wizard({
+*   summaryFnc_POST: function(){
+*   }
+* });
+*/
+    
+/**                                                                         
+* @description Propiedades de configuración del componente.
+*
+* @name jQuery.rup_wizard#options
+*
+* @property {Selector} submitButton - Identificador del botón de envío del formulario. Sirve para que dicho botón solo se muestre en el último paso del asistente.
+* @property {jQuery.rup_validate~onSubmitFnc} [submitFnc] - Función que se ejecuta previamente al envío del formulario.
+* @property {boolean} [summary=true] - Indica si se debe generar o no el paso resumen. Este paso mostrará (como texto plano) los valores seleccionados en los diferentes pasos habilitados. Si un paso se encuentra deshabilitado no se utilizarán sus valores para la generación del resumen. El paso de resumen se genera cuando se navega hacia él.
+* @property {boolean} [summaryWithAccordion=false] - Indica si el paso resumen debe formatear los diferentes pasos del asistente mediante elementos que usan el componente accordion.
+* @property {boolean} [summaryWithAccordionSpaceBefore=true] - Indica si cuando se genera un resumen con los diferentes pasos presentados con accordion, se debe dejar un espacio (</br>) entre el contenido y la barra con los pasos.
+* @property {boolean} [summaryWithAccordionSpaceAfter=true] - Indica si cuando se genera un resumen con los diferentes pasos presentados con accordion, se debe dejar un espacio (</br>) entre el contenido y el contenedor de botones (siguiente y enviar).
+* @property {boolean} [summaryTabs2Accordion=false] - Indica si los componentes rup_tab de los diferentes pasos del wizard se deben convertir en elementos del componente accordion a la hora de generar el paso resumen.
+* @property {jQuery.rup_validate~onSummaryFnc_PRE} [summaryFnc_PRE] - Función que se invocará previamente a la generación del paso resumen. En caso de devolver false no se generaría el resumen.
+* @property {jQuery.rup_validate~onSummaryFnc_INTER} [summaryFnc_INTER] -Función que se ejecuta una vez ha comenzado la generación del paso resumen. Se habrá generado la capa contenedora y duplicado el contenido de los pasos anteriores pero sin llegar a procesarse (cambiarse por texto plano). En caso de devolver false no se continuaría con el procesado del contenido de los pasos. 
+* @property {jQuery.rup_validate~onSummaryFnc_POST} [summaryFnc_POST] - Función que se ejecuta una vez se ha generado el paso resumen.
+* @property {object} [stepFnc] - Objeto json que contiene las diferentes funciones a ejecutar al navegar hacia cada uno de los pasos. En caso de devolver false no se continuaría la navegación hacia dicho paso. La clave de cada elemento será el número del paso y el valor será la función a ejecutar.
+* @property {Integer[]} [disabled] - Array que indica los pasos a deshabilitar al inicio. En caso de que el elemento del array sea un número (numeric) se deshabilitará dicho paso y en caso de que sea un literal (string) se procesará como un intervalo que deberá definirse como “X-Y”.
+* @property {object} [accordion] - Define de forma general el funcionamiento del componente rup_accordion en el paso de resumen.
+* @property {object} [rupAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen (de los objetos rup_accordion existentes en los pasos anteriores). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
+* @property {object} [summaryAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen para cada uno de los pasos que lo componen (si configura la generación de resumen y conversión de pasos en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
+* @property {object} [tabAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen, para cada los objetos rup_tab existentes en los pasos anteriores (si configura la generación de resumen y conversión de pestañas en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
+* @property {string} [rupTabsElement=<h4/>] - Define el funcionamiento del patrón rup_accordion en el resumen, para cada los objetos rup_tab existentes en los pasos anteriores (si configura la generación de resumen y conversión de pestañas en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
+* @property {string} [labelElement=<span/>] - Indica el tipo de objeto HTML en el que se convierten los objetos label en el paso de resumen.
+* @property {string} [labelSeparatorElement=<span/>] - Indica el tipo de objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
+* @property {string} [labelSeparatorText=&nbsp;&nbsp;&nbsp;] - Indica el contenido del objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
+* @property {string} [textareaElement=<p/>] - Indica el tipo de objeto HTML en el que se convierten los objetos textarea en el paso de resumen.
+*/
 	
 })(jQuery);

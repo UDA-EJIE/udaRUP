@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -13,6 +13,12 @@
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+
+/**                                                                   
+* @fileOverview Implementa el patrón RUP Validate.
+* @author EJIE
+* @version 2.4.8                                                                                               
+*/
 (function ($) {
 	
 	
@@ -25,6 +31,23 @@
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
 	
+    /**
+    * Permite al usuario validar los datos introducidos en los campos que se presentan en la aplicación.
+    *
+    * @summary Componente RUP Validate.
+    * @namespace jQuery.rup_validate
+    * @memberOf jQuery
+    * @tutorial rup_validate
+    * @see El componente está basado en el plugin {@link http://jqueryvalidation.org/|jQuery Validation Plugin}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://jqueryvalidation.org/|aquí}.
+    * @example 
+    * var properties={
+    *   rules:{
+    *       "campoObligatorio":{required:true},
+    *       "dni":{required:true,dni:true}
+    *   }
+    * };
+    * $("#formValidaciones").rup_validate(properties);
+    */
 	var rup_validate = {};
 	$.rup_validate ={};
 	
@@ -238,7 +261,13 @@
 	});
 	
 	$.fn.rup_validate("extend",{
-		// Se eliminan todos los objetos y eventos credos por el componente. 
+        /**
+        * Se eliminan todos los objetos y eventos credos por el componente. 
+        *
+        * @name jQuery.rup_validate#destroy
+        * @example 
+        * $("#formValidaciones").rup_validate("destroy");
+        */ 
 		destroy:function(){
 			var self = this;
 			
@@ -249,7 +278,13 @@
 			// Se eliminan los eventos asociados al objeto.
 			self.unbind();
 		},
-		// Se eliminan los menssajes de error de las reglas de validacion. 
+        /**
+        * Se eliminan los menssajes de error de las reglas de validacion.
+        *
+        * @name jQuery.rup_validate#resetForm
+        * @example 
+        * $("#formValidaciones").rup_validate("resetForm");
+        */ 
 		resetForm:function(){
 			var self = this, settings =	self.data("settings");
 
@@ -552,6 +587,169 @@
 			showFieldErrorsInFeedback:true,
 			errorImage:$.rup.STATICS+"/rup/basic-theme/images/exclamation.png"
 	};		
-	
+
+
+/**
+* Función de callback que se ejecutará cuando el formulario sea válido.
+*
+* @callback jQuery.rup_validate~onSubmitHandler 
+* @param {Element} form - Referencia al objeto DOM del formulario que está siendo validado.
+* @example <caption>Envia el formulario cuando este es válido.</caption>
+* $("#idFormulario").rup_tooltip({
+*   onSubmitHandler: function(form){
+*       $(form).ajaxSubmit();
+*   }
+* });
+* @example <caption>Realizar otras operaciones cuando el formulario es válido.</caption>
+* $("#idFormulario").rup_tooltip({
+*   onSubmitHandler: function(form){
+        // Operaciones extra 
+*       $(form).ajaxSubmit();
+*   }
+* });
+*/
+    
+/**
+* Función que se ejecutará cuando el formulario presente errores de validación.
+*
+* @callback jQuery.rup_validate~onInvalidHandler 
+* @param {Event} event - Objeto event asociado al evento lanzado.
+* @param {object} validator - Instancia del validador asociada al formulario actual.
+* @example 
+* $(".selector").validate({
+*   invalidHandler: function(event, validator) {
+*    // 'this' refers to the form
+*    var errors = validator.numberOfInvalids();
+*    if (errors) {
+*      var message = errors == 1
+*        ? 'You missed 1 field. It has been highlighted'
+*        : 'You missed ' + errors + ' fields. They have been highlighted';
+*      $("div.error span").html(message);
+*      $("div.error").show();
+*    } else {
+*      $("div.error").hide();
+*    }
+*  }
+* });
+*/
+
+/**
+* Función que se ejecutará cuando se produzca la validación de los datos permitiendo personalizar los errores de validación.
+*
+* @callback jQuery.rup_validate~onShowErrors 
+* @param {Object} errorMap - Pares de clave/valor, donde el key se corresponde con el name del campo del formulario y el value con el mensaje que se va a mostrar para ese campo.
+* @param {Object[]} errorList - Array de objetos correspondientes a los campos validados.
+* @param {String} errorList.message - Mensaje que va mostrarse para ese campo.
+* @param {Element} errorList.element - Objeto del DOM correspondiente a ese campo.
+* @example 
+* $(".selector").validate({
+*  showErrors: function(errorMap, errorList) {
+*    $("#summary").html("Your form contains "
+*      + this.numberOfInvalids()
+*      + " errors, see details below.");
+*    this.defaultShowErrors();
+*  }
+* });
+*/
+    
+/**
+* Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+*
+* @callback jQuery.rup_validate~onErrorPlacement  
+* @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
+* @param {jQuery} element - Referencia al campo validado.
+* @example 
+* $("#myform").validate({
+*   errorPlacement: function(error, element) {
+*       error.appendTo( element.parent("td").next("td") );
+*   }
+* });
+*/
+    
+/**
+* Función de callback para determinar como se debe resaltar los campos inválidos.
+*
+* @callback jQuery.rup_validate~onHighlight  
+* @param {jQuery} element - Referencia al campo validado.
+* @param {String} errorClass - Valor actual del parámetro errorClass.
+* @param {String} validClass - Valor actual del parámetro validClass.
+* @example 
+* $(".selector").validate({
+*   highlight: function(element, errorClass, validClass) {
+*        $(element).fadeOut(function() {
+*            $(element).fadeIn();
+*        });
+*   }
+* });
+*/
+    
+/**
+* Función de callback para determinar como se debe resaltar los campos inválidos.
+*
+* @callback jQuery.rup_validate~onUnhighlight  
+* @param {jQuery} element - Referencia al campo validado.
+* @param {String} errorClass - Valor actual del parámetro errorClass.
+* @param {String} validClass - Valor actual del parámetro validClass.
+* @example 
+* $(".selector").validate({
+*  highlight: function(element, errorClass, validClass) {
+*    $(element).addClass(errorClass).removeClass(validClass);
+*    $(element.form).find("label[for=" + element.id + "]")
+*      .addClass(errorClass);
+*  },
+*  unhighlight: function(element, errorClass, validClass) {
+*    $(element).removeClass(errorClass).addClass(validClass);
+*    $(element.form).find("label[for=" + element.id + "]")
+*      .removeClass(errorClass);
+*  }
+* });
+*/
+    
+    
+/**                                                                         
+* @description Propiedades de configuración del componente.
+* @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link http://jqueryvalidation.org/validate/|jQuery Validation Plugin}.
+*
+* @name jQuery.rup_validate#options
+* @property {boolean} [debug=false] - Activa el modo debug. En caso de estar activado el formulario no se envía el formulario y los errores de ejecución que se hayan producido se visualizan en la consola. Requiere Firebug o Firebug lite.
+* @property {jQuery.rup_validate~onSubmitHandler} [submitHandler] - Método callback utilizado para capturar el evento submit cuando el formulario es válido. Reemplaza el submit por defecto. Es el método utilizado para realizar un submit mediante AJAX después de ser validado.
+* @property {jQuery.rup_validate~onInvalidHandler} [invalidHandler] - Método callback que se ejecuta cuando un formulario presenta errores de validación.
+* @property {Selector} [ignore] - Selector jQuery que identifica los elementos del formulario que van a ser ignorados al realizarse las validaciones.
+* @property {object} [messages] - Utilizado para indicar mensajes propios para las validaciones. Estos se especifican mediante pares de clave/valor. La clave es el nombre del elemento mientras que el valor es el texto que se ha de mostrar en caso de producirse un error en la validación.
+* @property {object} [groups] - Se utiliza para realizar agrupamientos de mensajes de error.
+* @property {boolean} [onsubmit=true] - Determina si se valida el formulario al realizarse el submit. Marcar como false para realizar las validaciones mediante el resto de eventos.
+* @property {boolean} [ofocusout=true] - Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos blur. Estas validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido.
+* @property {boolean} [okeyup=true] - Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos keyup. Las validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido.
+* @property {boolean} [onclick=true] - Determina si se realizan las validaciones de los checkbox y radio al realizar un click sobre los mismos.
+* @property {boolean} [focusInvalid=true] - Posiciona el foco en el último campo activo o en el primer campo inválido la realizarse la validación de los campos. En caso de encontrarse el foco en un campo al realizarse la validación se mantiene en dicho campo. En caso de no encontrarse el foco en un campo, se posicionará en el primer campo inválido existente.
+* @property {boolean} [focusCleanup=false] - En caso de activarse, elimina el errorClass correspondiente y oculta los mensajes de error de los campos que reciben el foco. Evitar utilizar esta propiedad en conjunción con focusInvalid.
+* @property {Selector} [meta] - En caso de utilizar metainformación en los campos que sea utilizada por otros plugins, es posible indicar un identificador para envolver la metadata correspondiente al el componente validate dentro de un objeto propio.
+* @property {String} [errorClass=error] - Determina el nombre del class que va a aplicarse a los campos que presenten errores de validación.
+* @property {String} [validClass=valid] - Determina el nombre del class que va a aplicarse a los campos que han sido validados y no presenten errores.
+* @property {String} [errorElement=label] - Determina el tipo del elemento que va a utilizarse para generar los mensajes de error.
+* @property {String} [wrapper=window] - Recubre los mensajes de error con el elemento especificado. Util en conjunción la propiedad errorLabelContainer para crear listado de errores.
+* @property {Selector} [errorLabelContainer] - Determina el objeto contenedor en el que se van a mostrar los mensajes de error.
+* @property {Selector} [errorContainer] - Determina un contenedor adicional para los mensajes de error.
+* @property {boolean} [ignoreTitle=false] - Determina si se evita el obtener los mensajes a partir del atributo title.
+* @property {jQuery.rup_validate~onShowErrors} [showErrors] - Función callback para realizar un tratamiento  personalizado de los errores de validación.
+* @property {jQuery.rup_validate~onErrorPlacement} [errorPlacement] - Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+* @property {jQuery.rup_validate~onHighlight} [highlight] - Función de callback para determinar como se debe resaltar los campos inválidos.
+* @property {jQuery.rup_validate~onUnhighlight} [unhighlight] - Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight.
+*/
+    
+
+/***********/
+/* EVENTOS */
+/***********/
+    
+/**
+* Este evento es lanzado cuando se produce alguna violación entre las reglas de validación especificadas para ser aplicadas sobre los campos del formulario.
+*
+* @event jQuery.rup_upload#rupValidate_formValidationError
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @example 
+* $("#idFormulario").on("rupValidate_formValidationError", function(event){
+* });
+*/
 
 })(jQuery);

@@ -16,6 +16,64 @@
 
 (function ($) {
 	
+    /**
+     * jQuery definition to anchor JsDoc comments.
+     *  
+     * @see http://jquery.com/
+     * @name jQuery
+     * @namespace jQuery
+     */
+    
+    /**
+     * jQuery object type
+     * @namespace jQuery.rup
+     * @memberOf jQuery
+     */
+    
+    /**
+    * The built in string object.
+    * @external String
+    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String|String}
+    */
+    
+    /**
+    * The File interface provides information about files and allows to access their content.
+    * @typedef File
+    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/File|File}
+    */
+    
+    /**
+    * A Blob object represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format.
+    * @typedef Blob
+    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Blob|Blob}
+    */
+    
+    /**
+     * jQuery object type.
+     * @typedef {object} jQuery
+     */
+    
+    /**
+     * Selector de jQuery para referenciar elementos del DOM.
+     * @typedef {object} Selector
+     * @see {@link http://api.jquery.com/Types/#Selector|Selector}
+     */
+    
+    /**
+     * jQuery Event type object.
+     * @typedef {object} Event
+     */
+    
+    /**
+     * Elemento del Document Object Model (DOM).
+     * @typedef {object} Element
+     */
+    
+    /**
+     * Tipo de dato entero.
+     * @typedef {number} Integer
+     */
+    
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	};

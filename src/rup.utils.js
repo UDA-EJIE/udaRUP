@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,13 +14,40 @@
  * que establece la Licencia.
  */
 
-(function ($) { 
+/**
+ * @fileOverview Clase de utilidades para los patrones RUP.
+ * @author EJIE
+ * @version: 2.4.8
+ */
+(function ($) {
+
 
 	$.rup_utils  = {};
 	$.rup_utils.arr = [];
 	$.rup_utils.autoGenerateIdNum = 0;
+
+    /**
+    * Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>
+    * Implementa métodos para la manipulación de JSON, formularios, formatos...
+    *
+    * @summary Librería de utilidades para los componentes RUP.
+    * @namespace jQuery.rup_utils
+    * @memberOf jQuery
+    */
+
 	$.extend($.rup_utils, {
-		//Funcion encargada de devolver el idioma capitalizado
+		/**
+         * Retorna el idioma actual capitalizado.
+         *
+         * El idioma actual se obtiene de la variable $.rup.lang
+         *
+         * @name jQuery.rup_utils#capitalizedLang
+         * @function
+         * @example
+         * // Retorna "Es" para un valor "es" en $.rup.lang.
+         * $.rup_utils.capitalizedLang();
+         * @returns {string} - Idioma actual capitalizado
+         */
 		capitalizedLang : function (){
 			if ($.rup.lang==null){ return ""; }
     		return $.rup.lang.charAt(0).toUpperCase() + $.rup.lang.slice(1);
@@ -52,6 +79,26 @@
 	            aux[split[split.length-1]] = value;
             }
         },
+ /**
+         * Transforma un objeto JSON en un array Javascript.
+         *
+         * @name jQuery.rup_utils#jsontoarray
+         * @function
+         * @param {Object} obj - Objeto JSON que se desea transformar en un array.
+         * @returns {Object} - Array JavaScript.
+         * @example
+         * // Transforma un json obj={'prop':'value'} en un array arr['prop'] -> 'value'
+         * var obj={'prop':'value'};
+         * $.rup_utils.jsontoarray(obj);
+         * @example
+         * // Transforma un json obj={'propA':{'propAA':'value'}} en un array arr['propA.propAA'] -> 'value'
+         * var obj={'propA':{'propAA':'value'}};
+         * $.rup_utils.jsontoarray(obj);
+         * @example
+         * // Transforma un json obj={'propA':{'propAA':['a','b','c','d']}} en un array arr['propA.propAA[0]']
+         * var obj={'propA':{'propAA':['a','b','c','d']}};
+         * $.rup_utils.jsontoarray(obj);
+         */
 		jsontoarray : function (obj) {
 			var arr = [];
 			function parseJSON (obj, path) {// parsea un json a un array
@@ -90,7 +137,18 @@
 			return arr; 
 			
 		},
-		// Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}
+		/**
+     * Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}.
+     *
+     * @name jQuery.rup_utils#unnestjson
+     * @function
+     * @param {Object} obj - Objeto JSON que se desea desanidar.
+     * @returns {Object} -  Objeto JSON desanidado.
+     * @example
+     * // Transforma un json obj={'propA':{'propAA':'valueAA'}} en un json obj={'propA.propAA':'valueAA'}}
+     * var obj={'propA':{'propAA':'valueAA'}};
+     * $.rup_utils.unnestjson(obj);
+     */
 		unnestjson : function(obj){
 			
 			var array = $.rup_utils.jsontoarray(obj);
@@ -105,7 +163,18 @@
 			return json;
 			
 		},
-		// Devuelve el objeto del dom existente en la posición indicada
+        /**
+         * Devuelve el objeto del dom existente en la posición indicada.
+         *
+         * @name jQuery.rup_utils#elementFromPoint
+         * @function
+         * @param {number} x - Coordenada x de la posición en la pantalla.
+         * @param {number} y - Coordenada y de la posición en la pantalla.
+         * @param {boolean} [argCheck=true] - Determina si debe de ajustarse en base al scroll realizado en la pantalla .
+         * @returns {Object} -  Objeto del DOM correspodiente a la posición indicada.
+         * @example
+         * $.rup_utils.elementFromPoint(120,140);
+         */
 		elementFromPoint : function(x, y, argCheck) {
 			var isRelative = true, check = argCheck || true;
 			if (!document.elementFromPoint)
@@ -130,9 +199,31 @@
 
 			return document.elementFromPoint(x, y);
 		},
+        /**
+         * Convierte en mínusculas el primer caracter de la cadena de caracteres pasada como parámetro.
+         *
+         * @name jQuery.rup_utils#firstCharToLowerCase
+         * @function
+         * @param {string} cadena - Cadena de caracteres inicial.
+         * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
+         * @example
+         * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
+         * $.rup_utils.firstCharToLowerCase("AbCdEfg");
+         */
 		firstCharToLowerCase : function(cadena){
 			return cadena.substring(0,1).toLowerCase()+cadena.substring(1);
 		},
+        /**
+         * Devuelve un string que puede ser utilizado como selector de jQuery mediante el id ('#'). El método permite también escapar los caracteres reservados en los selectores de jQuery
+         *
+         * @name jQuery.rup_utils#firstCharToLowerCase
+         * @function
+         * @param {string} cadena - Cadena de caracteres inicial.
+         * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
+         * @example
+         * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
+         * $.rup_utils.firstCharToLowerCase("AbCdEfg");
+         */
 		getJQueryId: function(sid, escaped){
 			var returnIdSelector;
 			
@@ -146,7 +237,17 @@
 			
 			return null;
 		},
-		// Convierte una cadena querystring en un objeto json 
+        /**
+         * Convierte una cadena querystring en un objeto json.
+         *
+         * @name jQuery.rup_utils#queryStringToJson
+         * @function
+         * @param {string} queryString - Query string a transformar en un objeto json.
+         * @returns {object} - Objeto JSON creado a partir de la query string indicada.
+         * @example
+         * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
+         * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
+         */
 		queryStringToJson: function(queryString){
 			
 			function setValue(root, path, value) {

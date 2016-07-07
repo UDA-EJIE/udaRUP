@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,8 +14,38 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Toolbar.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */
 (function ($) {
 	
+    /**
+    * Se les presenta a los usuarios una barra de botones con diversas funcionalidades relacionadas a elementos de la página. Gracias a este componente se presentan, ordenan y agrupan las distintas funcionalidades gestionadas por las aplicaciones.
+    *
+    * @summary Componente RUP Toolbar.
+    * @namespace jQuery.rup_toolbar
+    * @memberOf jQuery
+    * @tutorial rup_toolbar
+    * @example 
+    * var properties = {
+	*	width: 1000,
+	*	buttons:[
+	*		{i18nCaption:"buscar", css:"buscar", click: handlerBoton },
+    *       {i18nCaption:"editar", css:"editar", click: handlerMButtons},
+	*		{id : "mbuton2", i18nCaption:"ficheros", buttons:[
+   	*		    {i18nCaption:"DLL", css:"dll", click: handlerMButtons },
+   	*			{i18nCaption:"DOC", css:"doc", click: handlerMButtons},
+   	*			{i18nCaption:"EXE", css:"exe", click: handlerMButtons},
+   	*			{i18nCaption:"GIF", css:"gif", click: handlerMButtons},
+   	*		]},
+   	*		{i18nCaption:"filtrar", css:"filtrar", click: handlerMButtons}
+	*	]
+    * };
+    *
+    * $("#idToolbar").rup_toolbar(properties);
+    */
 	$.rup_toolbar = $.rup_toolbar || {};
 	$.extend($.rup_toolbar, {
 		extend : function (methods) {
@@ -23,10 +53,65 @@
 		}
 	});
 	
+    /**
+    * Función de callback a ejecutar cuando se realiza un click sobre un botón de la botonera.
+    *
+    * @callback jQuery.rup_toolbar~buttonClick
+    * @param {Event} event - Objeto correspondiente al evento click realizado sobre el botón.
+    * @param {string} event.data.id - Identificador del botón que ha lanzado el evento.
+    * @param {string} event.data.caption - Texto del botón que ha lanzado el evento.
+    * @example
+    * var newButton = {
+    *   i18nCaption:"editButton",
+    *   click: function(event){
+    *       
+    *   }
+    * };
+    *
+    * $("#idToolbar").rup_toolbar("addButton", newButton); 
+    */
+    
+    /**
+    * Definición del tipo de objeto que representa un botón de la botonera.
+    *
+    * @typedef {Object} jQuery.rup_toolbar~button
+    * @property {string} [id] - Identificador único del botón con menú.
+    * @property {string} [i18nCaption] - Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes.
+    * @property {string} [css] - Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón.
+    * @property {boolean} [right=false] - Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false).
+    * @property {jQuery.rup_toolbar~buttonClick} click - Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado.
+    */
+    
+    /**
+    * Definición del tipo de objeto que representa un mButton de la botonera.
+    *
+    * @typedef {Object} jQuery.rup_toolbar~mButton
+    * @property {string} id - Identificador único del botón con menú.
+    * @property {string} [i18nCaption] - Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes.
+    * @property {string} [css] - Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón.
+    * @property {boolean} [right=false] - Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false).
+    * @property {jQuery.rup_toolbar~button[]} buttons - Botones que va a incluir el botón con menú. 
+    */
+    
 	//Variable interna del toolbar para gestión de MButtons
 	$.rup_toolbar.showingMB = null;
 	
 	$.rup_toolbar.extend({
+        /**
+        * Añade un nuevo botón a la botonera. Las características del botón se especifican en los parámetros del método.
+        *
+        * @name jQuery.rup_toolbar#addButton     
+        * @function
+        * @property {jQuery.rup_toolbar~button} obj - Objeto que define el botón a añadir.
+        * @property {object} json_i18n - Objeto json con los recursos de i18n.
+        * @example 
+        * var button = {
+        *   i18nCaption:"editButton",
+        *   css:"editar"
+        * };
+        *
+        * $("#idToolbar").rup_date("addButton", button);
+        */ 
 		addButton : function (obj, json_i18n) { //añade a la toolbar un 'button'
 			
 			var buttonId, rightObjects;
@@ -88,7 +173,24 @@
 			
 			return boton;
 		},
-		
+		/**
+        * Añade un nuevo menu button a la botonera. Las características del mButton se especifican en los parámetros del método.
+        *
+        * @name jQuery.rup_toolbar#addMButton     
+        * @function
+        * @property {jQuery.rup_toolbar~mButton} obj - Objeto que define el mButton a añadir.
+        * @property {object} json_i18n - Objeto json con los recursos de i18n.
+        * @example 
+        * var mButton = {
+        *   id: "mbuton1", i18nCaption:"otros", buttons:[
+		*	    {i18nCaption:"nuevo", css:"nuevo", click: handlerMButtons},
+        *       {i18nCaption:"editar", css:"editar", click: handlerMButtons},
+		*       {i18nCaption:"cancelar", css:"cancelar", click: handlerMButtons}
+        *   ]
+        * };
+        *
+        * $("#idToolbar").rup_date("addMButton", mButton);
+        */ 
 		addMButton : function (obj, json_i18n){ //añade a la toolbar un 'mbutton' (sin botones)
 			var boton = '', buttonId;
 			if (obj.id === undefined) {
@@ -131,6 +233,23 @@
 			return boton;
 		},
 		
+        /**
+        * Se añaden un conjunto de botones a un menu button existente.
+        *
+        * @name jQuery.rup_toolbar#addButtonsToMButton     
+        * @function
+        * @property {jQuery.rup_toolbar~button[]} buttons - Array de botones a añadir al menu button.
+        * @property {string} menuButton - Identificador del menu button al que vamos a añadir los botones.
+        * @property {object} json_i18n - Objeto json con los recursos de i18n.
+        * @example 
+        * var buttons = [
+		*	    {i18nCaption:"nuevo", css:"nuevo", click: handlerMButtons},
+        *       {i18nCaption:"editar", css:"editar", click: handlerMButtons},
+		*       {i18nCaption:"cancelar", css:"cancelar", click: handlerMButtons}
+        * ];
+        *
+        * $("#idToolbar").rup_date("addMButton", "mbuton1", buttons);
+        */ 
 		addButtonsToMButton : function (buttons, menuButton, json_i18n) { //añade botones al 'mbutton'
 			var div, ul,
 				//numero de botones a añadir
@@ -181,7 +300,14 @@
 			delete ul;
 			delete div;
 		},
-		
+		/**
+        * Se muestra la capa con los mButtons
+        *
+        * @name jQuery.rup_toolbar#showMButton     
+        * @function
+        * @example 
+        * $("#idToolbar").rup_date("showMButton");
+        */ 
 		showMButton : function () {//Muestra la capa con los mbuttons
 				
 				var self = $(this),
@@ -211,42 +337,107 @@
 					
 				return false;
 		},
+        /**
+        * Desabilita el botón correspondiente al identificador indicado.
+        *
+        * @name jQuery.rup_toolbar#disableButton     
+        * @function
+        * @param {string} id - Identificador del botón que se desea deshabilitar.
+        * @example 
+        * $("#idToolbar").rup_date("disableButton","idEditButton");
+        */ 
 		disableButton : function(id){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").button("disable");
 		},
+        /**
+        * Habilita el botón correspondiente al identificador indicado.
+        *
+        * @name jQuery.rup_toolbar#enableButton     
+        * @function
+        * @param {string} id - Identificador del botón que se desea habilitar.
+        * @example 
+        * $("#idToolbar").rup_date("enableButton","idEditButton");
+        */
 		enableButton : function(id){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").button("enable");
 		},
+        /**
+        * Añade el estilo de css indicado para simular un estado press en el botón.
+        *
+        * @name jQuery.rup_toolbar#pressButton     
+        * @function
+        * @param {string} id - Identificador del botón.
+        * @param {string} css - Css asociado al estado press.
+        * @example 
+        * $("#idToolbar").rup_date("pressButton","idEditButton","preesed-button");
+        */
 		pressButton : function(id, css){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").addClass(css);
 		},
+        /**
+        * Elimina el estilo de css indicado para simular un estado press en el botón.
+        *
+        * @name jQuery.rup_toolbar#unpressButton     
+        * @function
+        * @param {string} id - Identificador del botón.
+        * @param {string} css - Css asociado al estado press.
+        * @example 
+        * $("#idToolbar").rup_date("unpressButton","idEditButton","preesed-button");
+        */
 		unpressButton : function(id, css){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").removeClass(css);
 		},
+        /**
+        * Alterna el estado del estilo de css indicado para simular un estado press en el botón.
+        *
+        * @name jQuery.rup_toolbar#tooglePressButton     
+        * @function
+        * @param {string} id - Identificador del botón.
+        * @param {string} css - Css asociado al estado press.
+        * @example 
+        * $("#idToolbar").rup_date("tooglePressButton","idEditButton","preesed-button");
+        */
 		tooglePressButton : function(id, css){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").toggleClass(css);
 		},
+        /**
+        * Actualiza el botón al estado que determina la configuración actual.
+        *
+        * @name jQuery.rup_toolbar#refresh     
+        * @function
+        * @param {string} id - Identificador del botón.
+        * @example 
+        * $("#idToolbar").rup_date("refresh");
+        */
 		refreshButton : function(id){
 			if (id.indexOf(this.attr("id"))===-1){
 				id = this.attr("id")+"##"+id;
 			}
 			$("[id='"+id+"']").button("refresh");
 		},
+        /**
+        * Configura la gestión de eventos de teclado en el botón.
+        *
+        * @name jQuery.rup_toolbar#_setKeyDown     
+        * @function
+        * @private
+        * @param {object} boton - Referencia al button.
+        */
 		_setKeyDown : function(boton){
 			boton.bind("keydown", function(event){
 				var object = $(event.currentTarget), 
@@ -362,6 +553,15 @@
 		width: null,
 		buttons:[],
 		mbuttons:null
-	};	
+	};
+    
+    /**                                                                         
+     * @description Propiedades de configuración del componente.
+     *
+     * @name jQuery.rup_toolbar#options
+     * @property {Integer} [width=null] - Tamaño que tendrá la botonera. Por defecto ocupará toda la página.    
+     * @property {jQuery.rup_toolbar~button[]} [buttons] - Array de botones a mostrar. 
+     * @property {jQuery.rup_toolbar~mButton[]} [mbuttons] - Array de botones con menú a mostrar.
+     */
 	
 })(jQuery);

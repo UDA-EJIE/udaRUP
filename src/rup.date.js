@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,12 +14,49 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Date.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */ 
 (function ($) {
 	
 	//****************************************************************************************************************
 	//DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 	
+    /**
+    * Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
+    *
+    * @summary Componente RUP Date.
+    * @namespace jQuery.rup_date
+    * @memberOf jQuery
+    * @tutorial rup_date
+    * @example 
+    * // Ejemplo de selector de fecha simple.
+    * $("#fecha").rup_date({
+	*	labelMaskId : "fecha-mask",
+	*	showButtonPanel : true,
+	*	showOtherMonths : true,
+	*	noWeekend : true
+	* });
+    * 
+    * // Ejemplo de selector de fecha simple que permite seleccionar tres fechas.
+    * $("#fecha_multi").rup_date({
+	*	multiSelect: 3,
+	*	labelMaskId : "fecha_multi-mask",
+	*	buttonImage : "/rup/basic-theme/images/exclamation.png"
+	* });
+    * 
+    * // Ejemplo de selectores de fecha desde y hasta
+    * $.rup_date({		
+	*	from: "desde",
+	*	to: "hasta",
+	*	//Resto igual que en date
+	*	labelMaskId : "intervalo-mask",
+	*	numberOfMonths: 3
+	* });
+    */
 	var rup_date = {};
 	var rup_interval = {};
 	
@@ -32,6 +69,15 @@
 	//*******************************
 	
 	$.fn.rup_date("extend",{
+        /**
+         * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
+         *
+         * @name jQuery.rup_date#getRupValue     
+         * @function
+         * @return {string | string[]} - Devuelve el valor actual del componente seleccionado por el usuario.
+         * @example 
+         * $("#idDate").rup_date("getRupValue");
+         */ 
 		getRupValue : function(){
 			if ($(this).data("datepicker").settings.datetimepicker){
 
@@ -49,6 +95,19 @@
 				return $(this).rup_date("getDate");
 			}
 		},
+        /**
+         * Método utilizado para asignar el valor al componente. Este método es el utilizado por
+el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
+         *
+         * @name jQuery.rup_date#setRupValue     
+         * @function
+         * @param {string | string[]} param - Valor que se va a asignar al componente. En caso de tratarse de uan configuración en la que se permite seleccionar varias fechas se indicará mediante un array.
+         * @example 
+         * // Fecha simple
+         * $("#idDate").rup_date("setRupValue", "21/06/2015");
+         * // Varias fechas
+         * $("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
+         */
 		setRupValue : function(param){
 			
 			if ($(this).data("datepicker").settings.datetimepicker){
@@ -73,6 +132,14 @@
 				$(this).val(param);
 			}
 		},
+        /**
+         * Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
+         *
+         * @name jQuery.rup_date#destroy     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("destroy");
+         */ 
 		destroy : function(){
 			//Eliminar máscara
 			var labelMaskId = $(this).data("datepicker").settings.labelMaskId;
@@ -82,30 +149,112 @@
 			delete labelMaskId;
 			$(this).datepicker("destroy");
 		},
+        /**
+         * Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
+         *
+         * @name jQuery.rup_date#disable     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("disable");
+         */ 
 		disable : function(){
 		  $(this).datepicker("disable");
 		},
+        /**
+         * Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
+         *
+         * @name jQuery.rup_date#enable     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("enable");
+         */ 
 		enable : function(){
 		  $(this).datepicker("enable");
 		},
+        /**
+         * Indica si el componente se encuentra deshabilitado o no.
+         *
+         * @name jQuery.rup_date#isDisabled    
+         * @function
+         * @return {boolean} - Devuelve si el componente está deshabilitado o no.
+         * @example 
+         * $("#idDate").rup_date("isDisabled");
+         */ 
 		isDisabled : function(){
 		  return $(this).datepicker("isDisabled");
 		},
+        /**
+         * Oculta el calendario para seleccionar una fecha.
+         *
+         * @name jQuery.rup_date#hide     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("hide");
+         */ 
 		hide : function(){
 		  $(this).datepicker("hide");
 		},
+        /**
+         * Muestra el calendario para seleccionar una fecha.
+         *
+         * @name jQuery.rup_date#show     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("show");
+         */
 		show : function(){
 		  $(this).datepicker("show");
 		},
+        /**
+         * Devuelve la fecha seleccionada, si no se ha seleccionado nada devuelve vacío.
+         *
+         * @name jQuery.rup_date#getDate     
+         * @function
+         * @return {date} - Fecha seleccionada. 
+         * @example 
+         * $("#idDate").rup_date("getDate");
+         */
 		getDate : function(){
 			return $(this).val();
 		},
+        /**
+         * Establece la fecha del componente. El parámetro debe ser un objeto date.
+         *
+         * @name jQuery.rup_date#setDate     
+         * @function
+         * @param {date} - Fecha que se desea asignar. 
+         * @example 
+         * $("#idDate").rup_date("setDate", new Date());
+         */
 		setDate : function(date){
 		  $(this).datepicker("setDate" , date);
 		},
+        /**
+         * Refresca el calendario desplegado por si ha habido algún cambio.
+         *
+         * @name jQuery.rup_date#refresh     
+         * @function
+         * @example 
+         * $("#idDate").rup_date("refresh");
+         */
 		refresh : function(){
 	  		$(this).datepicker("refresh");
 		},
+        /**
+         * Permite consultar y modificar la configuración del componente.
+         *
+         * @name jQuery.rup_date#option
+         * @param {string | object} optionName - Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades.
+         * @param {*} [value] - Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro.
+         * @function
+         * @example 
+         * // Consultar una propiedad
+         * $("#idCombo").rup_date("option", "multiselect");
+         * // Establecer una propiedad
+         * $("#idCombo").rup_date("option", "multiselect", 2);
+         * // Establecer varias propiedad
+         * $("#idCombo").rup_date("option", {datetimepicker:true, multiselect:3});
+         */ 
 		option : function(optionName, value){
 	  		$(this).datepicker("option", optionName, value);
 		}
@@ -116,6 +265,13 @@
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 	$.fn.rup_date("extend", {
+        /**
+         * Método de inicialización del componente
+         *
+         * @name jQuery.rup_date#_init     
+         * @function
+         * @private
+         */
 			_init : function(args){
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
@@ -380,5 +536,135 @@
 		noWeekend: false,
 		showSecond: true
 	};	
+	
+    /**
+     * Función de callback a ejecutar cuando se crea el calendario.
+     *
+     * @callback jQuery.rup_date~create
+     * @example
+     * $("#idDate").rup_date({ 
+     *  create: 
+     *      function(){
+     *          // ...
+     *      } 
+     * });
+     */
+    
+    /**
+     * Función de callback a ejecutar antes de que se muestre el calendario.
+     *
+     * @callback jQuery.rup_date~beforeShow
+     * @param {Element} input - Referencia al input sobre el que se ejecuta el componente. 
+     * @param {jQuery} inst - Referencia a la instancia de jQuery que referencia el componente.
+     * @example
+     * $("#idDate").rup_date({ 
+     *  beforeShow: 
+     *      function(input, inst){
+     *          // ...
+     *      } 
+     * });
+     */
+    
+    /**
+     * Función de callback a ejecutar cuando se cambie de mes o de año en el calendario.
+     *
+     * @callback jQuery.rup_date~onChangeMonthYear
+     * @param {Integer} y - Año seleccionado.
+     * @param {Integer} m - Mes seleccionado.
+     * @param {jQuery} inst - Referencia a la instancia de jQuery que referencia el componente.
+     * @example
+     * $("#idDate").rup_date({ 
+     *  onChangeMonthYear: 
+     *      function(y, m, inst){
+     *          // ...
+     *      } 
+     * });
+     */
+    
+    /**
+     * Función de callback a ejecutar cuando se seleccione un valor del calendario.
+     *
+     * @callback jQuery.rup_date~onSelect
+     * @param {string} dateText - Fecha seleccionada
+     * @param {jQuery} inst - Referencia a la instancia de jQuery que referencia el componente.
+     * @example
+     * $("#idDate").rup_date({ 
+     *  onSelect: 
+     *      function(dateText, inst){
+     *          // ...
+     *      } 
+     * });
+     */
+    
+    /**
+     * Función de callback a ejecutar cuando se oculte el calendario.
+     *
+     * @callback jQuery.rup_date~onClose
+     * @param {string} dateText - Fecha seleccionada
+     * @param {jQuery} inst - Referencia a la instancia de jQuery que referencia el componente.
+     * @example
+     * $("#idDate").rup_date({ 
+     *  onClose: 
+     *      function(dateText, inst){
+     *          // ...
+     *      } 
+     * });
+     */
+    
+    /**                                                                         
+     * @description Propiedades de configuración del componente.
+     *
+     * @name jQuery.rup_date#options
+     * @property {boolean} [datetimepicker=false] - Indica si el componente permite introducir la hora además de la fecha.    
+     * @property {boolean} [disabled=false] - indica si el componente debe aparecer deshabilitado o no.
+     * @property {string} [altField] - Identificador de un campo adicional para que muestre la fecha en otro formato.
+     * @property {string} [altFormat] - Formato que debe seguir la fecha en el campo adicional.
+     * @property {string} [appendText] - Texto que se puede añadir detrás de cada campo de fecha. Por defecto no se define. Se recomienda el uso del atributo “labelMaskId” que se detalla a continuación en lugar de este atributo.
+     * @property {string} [labelMaskId] - Identificador del label que contendrá la máscara que indica el formato de la fecha.
+     * @property {string} [mask] - Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [autoSize=false] - Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido.
+     * @property {string} buttonImage - Ruta a la imagen que se muestra junto al campo de la fecha y que sirve para desplegar el calendario pulsando sobre ella. Por defecto se muestra una imagen incluida en los ficheros de RUP.
+     * @property {string} buttonText - Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [changeMonth=true] - Indica si se muestra un combo que en la cabecera que facilita el cambio de mes.
+     * @property {boolean} [changeYear=true] - Indica si se muestra un combo que en la cabecera que facilita el cambio de año.
+     * @property {string} [closeText] - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el calendario. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} [currentText] - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la fecha actual en el calendario. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} [dateFormat] - Formato de la fecha a introducir (ej: dd/mm/yy para 20/01/2011). Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string[]} [dayNames] - Literales para los días [array]. Su valor por defecto se obtiene del fichero de idioma. 
+     * @property {string[]} [dayNamesMin] - Literales para los días (mínimos) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string[]} [dayNamesShort] - Literales para los días (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {date | string | number} [defaultDate] - Fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver laexplicación al final de este apartado). Por defecto se destaca la fecha del día.
+     * @property {string | number} [duration="normal"] - velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos).
+     * @property {number} [firstDay] - Número que indica en qué día de la semana debe empezar el calendario. El valor 0 equivale al domingo, el 1 al lunes y así sucesivamente. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [hideIfNoPrevNext=false] - Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan.
+     * @property {date | string | number} [maxDate] - Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite.
+     * @property {date | string | number} [minDate] - Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite.
+     * @property {string[]} [monthNames] - Literales para los meses [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string[]} [monthNamesShort] - Literales para los meses (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} [nextText] - Literal a mostrar en el enlace de siguiente. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {number | number[]} [numberOfMonths=1] - Número de meses a mostrar. Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]).
+     * @property {string} [prevText] - Literal a mostrar en el enlace de anterior. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [selectOtherMonths=false] - Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths.
+     * @property {string} [showAnim="show"] - Indica el tipo de animación que se emplea para mostrar el calendario en pantalla. Para más información ver los efectos de jQuery UI.
+     * @property {boolean} [showButtonPanel=false] - Indica si se muestran los botones de la parte inferior (hoy y cerrar).
+     * @property {number} [showCurrentAtPos=0] - Cuando se muestra más de un mes, indica la posición que ocupa el mes actual. 
+     * @property {boolean} [showMonthAfterYear] - Intercambia la posición del mes y del año en la cabecera del calendario.
+     * @property {object} [showOptions] - Objeto que determina las propiedades de la animación del calendario.
+     * @property {boolean} [showOtherMonths=false] - Indica si se muestran los días del mes anterior y posterior al que se muestra.
+     * @property {boolean} [showWeek=false] - Indica si se debe mostrar el número de semana.
+     * @property {number} [stepMonths=1] - Indica el número de meses que se avanzan al pulsar los enlaces anterior/siguiente. 
+     * @property {string} [weekHeader] - Literal que aparece sobre los números de semana. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} [yearRange="c-10:c+10"] - Determina el rango de años a mostrar en el combo de la cabecera del calendario. No implica que sea el límite de años a seleccionar. Se debe definir como un literal que indique el inicio y el fin separado por dos puntos ej. 2001:2011. Puede usarse el la letra c como valor actual restándole y sumándole un numérico ej. c-10:c+10.
+     * @property {string} [yearSuffix=""] - Texto adicional a mostrar en la cabecera del calendario junto al año.
+     * @property {boolean} [noWeekend=false] - Indica si se muestran o no los días del fin de semana (sábado y domingo). Indica si se muestran los días del mes anterior y posterior al que se muestra 
+     * @property {string} [to] - El atributo encargado de determinar el campo inicial en los intervalos. 
+     * @property {string} [from] - El atributo encargado de determinar el campo final en los intervalos.
+     * @property {number} [multiselect] - Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica.
+     * @property {jQuery.rup_date~create} [create] - Función que se lanza cuando se crea el calendario. La invocación es automática por parte del componente.
+     * @property {jQuery.rup_date~beforeShow} [beforeShow] - permite asociar una función que se ejecutará antes de que se muestre el calendario.
+     * @property {jQuery.rup_date~onChangeMonthYear} [onChangeMonthYear] - permite asociar una función que se ejecutará cuando se cambie de mes o de año en el calendario.
+     * @property {jQuery.rup_date~onSelect} [onSelect] - Permite asociar una función que se ejecutará cuando se seleccione un valor del calendario.
+     * @property {jQuery.rup_date~onClose} [onClose] - Permite asociar una función que se ejecutará cuando se oculte el calendario.
+     */
 	
 })(jQuery);

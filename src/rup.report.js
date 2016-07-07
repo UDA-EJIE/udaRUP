@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -14,12 +14,31 @@
  * que establece la Licencia.
  */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Report.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */
 (function ($) {
 	
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
 	
+    /**
+    * El objetivo principal del componente es mejorar la experiencia del usuario a la hora de generar informes mediante la presentación de diálogos de espera.
+    *
+    * @summary Componente RUP Report.
+    * @namespace jQuery.rup_report
+    * @memberOf jQuery
+    * @tutorial rup.report
+    * @example 
+    * var properties={
+    *   // Propiedades de configuración
+    * };
+    *
+    * $.rup_report(properties);
+    */
 	var rup_report = {};
 	
 	//Se configura el arranque de UDA para que alberge el nuevo patrón 
@@ -39,6 +58,14 @@
 	//********************************
 
 	$.rup_report("extend", {
+        /**
+        * Función de inicialización del componente. 
+        *
+        * @name jQuery.rup_report#_init     
+        * @function
+        * @private
+        * @param {object} args - Propiedades de configuración.
+        */
 		_init : function(args) {
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18n.base.rup_global.initError + $(this).attr("id"));
@@ -347,5 +374,14 @@
 			}
 		}
 	};
+    
+    /**                                                                         
+    * Opciones por defecto de configuración del componente. 
+    *
+    * @name jQuery.rup_report#options  
+    *
+    *  
+    *
+    */
 	
 })(jQuery);

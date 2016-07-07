@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -41,13 +41,40 @@
 		</ul>
 */
 
+/**                                                                   
+ * @fileOverview Implementa el patrón RUP Language.
+ * @author EJIE
+ * @version 2.4.8                                                                                               
+ */
 (function ($) {
+    
+    /**
+    * El componente de idioma esta diseñado para permitir al usuario elegir, de forma intuitiva, el idioma en el que se presenta la aplicación.
+    *
+    * @summary Componente RUP Language.
+    * @namespace jQuery.rup_language
+    * @memberOf jQuery
+    * @tutorial rup.language
+    * @example 
+    * var properties={
+    *   // Propiedades de configuración
+    * };
+    *
+    * $("#idlanguage").rup_language(properties);
+    */
 	$.widget("$.rup_language", {
 		options: {
 			languages: null, 
 			active: null,
 			modo: "" //portal
 		},
+        /**
+        * Función encargada de crear en el DOM los elementos necesarios para el componente.
+        *
+        * @name jQuery.rup_language#_create 
+        * @function
+        * @private
+        */
 		_create: function () {
 			
 			this.options.active = $.rup.lang==null?"[lang]":$.rup.lang, active = this.options.active;
@@ -194,11 +221,35 @@
 			// Se aplica el tooltip
 			self.find("[title]").rup_tooltip({"applyToPortal": true});
 		},
+        /**
+        * Modifica las opciones de configuración del componente.
+        *
+        * @name jQuery.rup_language#_setOption 
+        * @function
+        * @private
+        */
 		_setOption: function (key, value) {
 			$.Widget.prototype._setOption.apply(this, arguments);			
 		},
+        /**
+        * Elimina el componente.
+        *
+        * @name jQuery.rup_language#destroy 
+        * @function
+        * @example
+        * $("#idlanguage").rup_language("destroy");
+        */
 		destroy: function () {
 			$.Widget.prototype.destroy.apply(this, arguments);
 		}
 	});
+    
+    /**                                                                         
+    * Opciones por defecto de configuración del componente. 
+    * @name jQuery.rup_language#options                                        
+    * 
+    * @property {object} languages - Conjunto de idiomas que serán gestionados con el componente. El listado de los mismos, por configuración general, se gestiona a través de la variable jQuery “$.rup.AVAILABLE_LANGS_ARRAY”. Para mas información, consultar el documento “Anexo-Gestion_idiomatica.doc” de la documentación de UDA.
+    * @property {string} [modo] - Determina el tipo de maquetación que utilizara el componente para presentar las diferentes opciones idiomáticas. Si el valor especificado es “portal”, los idiomas se presentaran en un listado horizontal separado por barras (ver ejemplo visual del capítulo/Sección “2. Ejemplo”). En cualquier otro caso, se mostrara el modo por defecto (ver ejemplo visual del capítulo/Sección “2. Ejemplo”).
+    */
+    
 })(jQuery);

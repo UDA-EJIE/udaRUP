@@ -14,8 +14,48 @@
  * que establece la Licencia.
  */
 
+/**
+ * @fileOverview Implementa el patrón RUP Feedback.
+ * @author EJIE
+ * @version 2.4.8
+ */
 (function ($) {
+
+    /**
+    * Se informa al usuario de cómo interactuar con los elementos de la aplicación y del resultado de cualquier acción que realice o cualquier problema que tenga y de cómo solucionarlo.
+    *
+    * @summary Componente RUP Feedback.
+    * @namespace jQuery.rup_feedback
+    * @memberOf jQuery
+    * @tutorial rup.feedback
+    * @example
+    * var properties = {
+    *   type: "ok",
+    *   delay: 500,
+    *   fadeSpeed: 600,
+    *   gotoTop: false,
+    *   block: false,
+    *   closeLink: true
+    * };
+    * $("#id_capa").rup_feedback (properties);
+    */
 	$.widget("$.rup_feedback", {
+        /**
+         * @description Opciones por defecto de configuración del widget.
+         *
+         * @name jQuery.rup_feedback#options
+         *
+         * @property {string}  [type=null] - Tipo de feedback a mostrar [ok, alert, error].
+         * @property {Number}  [imgClass=null] - Clase que determina el estilo que se va a aplicar en el icono del feedback.
+         * @property {Number}  [delay=null] - Espera (ms) que va a aplicarse antes de ocultar el feedback.
+         * @property {Number}  [fadeSpeed=null] - Tiempo (ms) que va a durar la animación de ocultación del feedback.
+         * @property {boolean} [gotoTop=true] - Drmina si cuando se muestre el feedback se debe desplazar la
+página hasta la parte superior de la misma.
+         * @property {boolean}  [block=true] - Indica si la capa que contendrá el mensaje de feedback debe tener o
+no un espacio fijo en la pantalla.
+         * @property {closeLink}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario
+de la aplicación pueda cerrar la capa manualmente.
+         */
 		options: {
 			type: null,  //[ok, alert, error]
 			imgClass: null,
@@ -28,7 +68,12 @@
 			_idFeedback: null,
 			_divClose: null
 		},
-		
+        /**
+         * @name jQuery.rup_feedback#_setOption
+         * @function
+         * @private
+         * @description Modifica las opciones de configuración del componente.
+         */
 		_setOption: function (key, value) {
 			var opciones = this.options,
 				element = this.element;
@@ -64,7 +109,12 @@
 			delete element;
 			$.Widget.prototype._setOption.apply(this, arguments);
 		},
-		
+		/**
+         * @name jQuery.rup_feedback#_create
+         * @function
+         * @private
+         * @description Crea en el DOM los elementos que conforman el componente.
+         */
 		_create: function () {
 			var opciones = this.options;
 			opciones._idFeedback = 
@@ -89,14 +139,28 @@
 			
 			delete opciones;
 		},
-		
+		/**
+         * @description Añade el enlace de cierre.
+         *
+         * @name jQuery.rup_feedback#_addCloseLink
+         * @function
+         * @private
+         */
 		_addCloseLink: function () {
 			var opciones = this.options;
 			opciones._divClose.click(function(){ $("#"+opciones._idFeedback).rup_feedback("close"); });
 			this.element.prepend(opciones._divClose);
 			delete opciones;
 		},
-		
+		/**
+         * Elimina las modificaciones realizadas sobre la capa para convertirla en feedback volviendo a ser una simple capa.
+         *
+         * @name jQuery.rup_feedback#destroy
+         * @function
+         * @example
+         * // Elimina el feedback
+         * jQuery("#feedback").rup_feedback("destroy");
+         */
 		destroy: function () {
 			var opciones = this.options;
 			this.element
@@ -108,8 +172,23 @@
 			delete opciones;
 			$.Widget.prototype.destroy.apply (this, arguments);
 		},
-
-		
+		/**
+         * Establece el texto (msg) a mostrar en el feedback, que podrá ser tanto texto plano como html. <br/><br/>
+         * En caso de sólo definirse el parámetro msg, se mostrará como imagen aquella definida anteriormente ya sea de un tipo por defecto o de una imagen con estilo personalizado (si es que se había definido). <br/><br/>
+         * En caso de que se envíe el parámetro type informado de modificará la capa para mostrar la imagen por defecto asociada al tipo, borrando algún posible estilos personalizado establecido anteriormente. <br/><br/>
+         * Por último para realizar el cambio a un estilo personalizado se pasará como parámetro type null y como imgClass la clase con el estilo a establecer.
+         * @name jQuery.rup_feedback#set
+         * @function
+         * @param {string} message - Texto del mensaje que se va a mostrar en el feedback.
+         * @param {string} [type] - Identificador del tipo de feedback [ok, alert, error].
+         * @param {string} [imgClass] - Clase que determina el estilo que se va a aplicar en el icono del feedback.
+         * @example <caption>Feedback simple:</caption>
+         * $("#id_capa").rup_feedback("set","Texto a mostrar");
+         * @example <caption>Feedback cambiando a imagen de un tipo por defecto (Ej. error):</caption>
+         * $("#id_capa").rup_feedback("set", "...", "error");
+         * @example <caption>Feedback estableciendo un estilo personalizado:</caption>
+         * $("#id_capa").rup_feedback("set", "...", null, "imgPropio");
+         */
 		set: function (message, type, imgClass){
 			var element = this.element,
 			 	opciones = this.options;
@@ -163,7 +242,22 @@
 			delete element;
 			delete opciones;
 		},
-		
+		/**
+     * Oculta la capa del feedback con una animación. <br/><br/>
+     * Si no se definen los parámetros se tomaran los definidos con anterioridad (creación del feedback por ejemplo) o si no los valores por defecto (null, null) que implica una animación sin espera con una “velocidad” de 400 ms.
+     *
+     * @name jQuery.rup_feedback#hide
+     * @function
+     * @param {Number} [delay] - Espera (ms) que va a aplicarse antes de ocultar el feedback.
+     * @param {Number} [fadeSpeed] - Tiempo (ms) que va a durar la animación de ocultación del feedback.
+     *
+     * @example
+     * // Ocultar el feedback.
+     * jQuery("#feedback").rup_feedback("hide");
+     * @example
+     * // Ocultar el feedback. Se realiza con una demora de 1000ms y la transición dura 500ms.
+     * jQuery("#feedback").rup_feedback("hide",1000,500);
+     */
 		hide: function (delay, fadeSpeed){
 			var opciones = this.options,
 				element = this.element;
@@ -181,7 +275,18 @@
 			delete opciones;
 			delete element;
 		},
-		
+		/**
+     * Oculta la capa del feedback sin animación alguna.<br/>
+     * Esta función será invocada por el enlace de cierre (parámetro closeLink) en caso de que se muestre.
+     *
+     * @name jQuery.rup_feedback#close
+     * @function
+     * @param {boolean} [notEmpty=false] - Determina si se debe ejecutar empty() sobre el feedback.
+     *
+     * @example
+     * // Cierra el feedback.
+     * jQuery("#feedback").rup_feedback("close");
+     */
 		close: function (notEmpty) {
 			var element = this.element;
 			element.css("display",this.options.block?"block":"none");
@@ -191,7 +296,17 @@
 			}
 			delete element;
 		},
-		
+		/**
+     * Muesta la capa del feedback. <br/><br/>
+     * Esta función será invocada automáticamente cada vez que se invoque la función set(…)
+     *
+     * @name jQuery.rup_feedback#show
+     * @function
+     * @fires rupFeedback_show
+     * @example
+     * // Muestra el feedback.
+     * jQuery("#feedback").rup_feedback("show");
+     */
 		show: function () {
 			var element = this.element;
 			element.css("display","block");
@@ -204,6 +319,23 @@
 
 			jQuery(this.element).triggerHandler("rupFeedback_show");
 
-		}
+    /**
+     * Permite cambiar las propiedades definidas en el feedback.<br/><br/>
+     * Puede invocarase antes que la funcion set(…) para modificar cualquiera de los parámetros del mensaje a mostar: icono, imagen personalizada, tiempo de espera hasta desaparecer…
+     *
+     * @name jQuery.rup_feedback#option
+     * @function
+     * @param {(Object|string)} param1 - Primer parámetro de invocación.<br/>
+     * Puede tratarse de un Object que contenga varios parámetros o un string que indica el nombre del parámetro.
+     * @param {*} [param2] - Segundo parámetro de invocación.<br/>
+     * En caso de que el primer parámetro sea un string este será el valor correspondiente del parámetro identificado con el nombre de param1.
+     * @example
+     * // Feedback cambio propiedad simple
+     * $("#id_capa").rup_feedback("option","closeLink", false);
+     * @example
+     * //Feedback cambio varias propiedades
+     * var properties = {"closeLink":false, "block":false};
+     * $("#id_capa").rup_feedback("option", properties);
+     */
 	});
 })( jQuery );
