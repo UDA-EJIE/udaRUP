@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jasmine Spec Runner</title>
+
+	<link rel="shortcut icon" type="image/png" href="lib/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="lib/jasmine.css">
+</head>
+
+<body>
+	<!-- sandbox that tests can use for things that require the DOM -->
+	<div id="sandbox"></div>
+
+	<script src="../node_modules/jasmine/lib/jasmine.js"></script>
+  <script src="../node_modules/jasmine-jquery/lib/jasmine-jquery.js"></script>
+	<!-- Pull in Testem helper when using Testem -->
+	<script src="/testem.js"></script>
+	<script src="lib/jasmine-html.js"></script>
+	<!-- Using RequireJS. Specs and config are done in spec-runner.js -->
+	<script type="text/javascript" src="../js/lib/require.js" data-main="spec-runner"></script>
+</body>
+</html>

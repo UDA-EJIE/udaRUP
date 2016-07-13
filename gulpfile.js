@@ -6,10 +6,17 @@ var declare = require('gulp-declare');
 var concat = require('gulp-concat');
 var merge = require('merge-stream');
 var defineModule = require('gulp-define-module');
+var jsdoc = require('gulp-jsdoc3');
 
 gulp.task('default', function() {
   // place code for your default task here
 });
+
+gulp.task('doc', function (cb) {
+    let config = require('./jsdoc.conf.json');
+    gulp.src(['README.md', './src/**/*.js']).pipe(jsdoc(config, cb));
+});
+
 
 gulp.task('templates', function() {
   var templates = gulp.src('demo/app/**/*.hbs')

@@ -32,12 +32,26 @@
     "gulp-declare": "^0.3.0",
     "gulp-define-module": "^0.1.4",
     "gulp-handlebars": "^4.0.0",
+    "gulp-jsdoc3": "^0.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-wrap": "^0.13.0",
     "handlebars": "^4.0.5",
     "html": "0.0.10",
+    "jasmine": "^2.4.1",
+    "jasmine-jquery": "^2.1.1",
+    "karma": "^1.1.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-handlebars-preprocessor": "^0.3.0",
+    "karma-html-reporter": "^0.2.7",
+    "karma-htmlfile-reporter": "^0.3.4",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-mocha-reporter": "^2.0.4",
+    "karma-requirejs": "^1.0.0",
     "lokijs": "^1.3.19",
     "merge-stream": "^1.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "requirejs": "^2.2.0"
   }
 }

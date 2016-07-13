@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>UDA - Rup Source: rup.upload.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.spacelab.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">UDA - Rup</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#jQuery">jQuery</a></li><li><a href="jQuery.rup.html">jQuery.rup</a></li><li><a href="jQuery.rup_accordion.html">jQuery.rup_accordion</a></li><li><a href="jQuery.rup_autocomplete.html">jQuery.rup_autocomplete</a></li><li><a href="jQuery.rup_breadCrumb.html">jQuery.rup_breadCrumb</a></li><li><a href="jQuery.rup_button.html">jQuery.rup_button</a></li><li><a href="jQuery.rup_combo.html">jQuery.rup_combo</a></li><li><a href="jQuery.rup_contextMenu.html">jQuery.rup_contextMenu</a></li><li><a href="jQuery.rup_date.html">jQuery.rup_date</a></li><li><a href="jQuery.rup_dav.html">jQuery.rup_dav</a></li><li><a href="jQuery.rup_dialog.html">jQuery.rup_dialog</a></li><li><a href="jQuery.rup_form.html">jQuery.rup_form</a></li><li><a href="jQuery.rup_language.html">jQuery.rup_language</a></li><li><a href="jQuery.rup_menu.html">jQuery.rup_menu</a></li><li><a href="jQuery.rup_messages.html">jQuery.rup_messages</a></li><li><a href="jQuery.rup_report.html">jQuery.rup_report</a></li><li><a href="jQuery.rup_tooltip.html">jQuery.rup_tooltip</a></li><li><a href="jQuery.rup_upload.html">jQuery.rup_upload</a></li><li><a href="jQuery.rup_utils.html">jQuery.rup_utils</a></li><li><a href="jQuery.rup_validate.html">jQuery.rup_validate</a></li><li><a href="jQuery.rup_wizard.html">jQuery.rup_wizard</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_upload.html#event:rupValidate_formValidationError">jQuery.rup_upload#event:rupValidate_formValidationError</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="external-String.html">String</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: rup.upload.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/*!
+ * Copyright 2016 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/**                                                                   
+* @fileOverview Implementa el patrón RUP Upload.
+* @author EJIE
+* @version 2.4.8                                                                                               
+*/
+(function ($) {
+	
+	$.widget('blueimpUIX.fileupload', $.blueimpUI.fileupload, {
+	    options: {
+	        errorMessages: {
+	            maxFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxFileSizeError"),
+	            minFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.minFileSizeError"),
+	            acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, "rup_upload.acceptFileTypesError"),
+	            maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxNumberOfFilesError")
+	        }
+	    },
+	    _renderUpload: function (files) {
+            var that = this,
+                options = this.options,
+                tmpl = this._renderUploadTemplate(files),
+                isValidated = this._validate(files);
+            if (!(tmpl instanceof $)) {
+                return $();
+            }
+            var settings = $.data(this.element[0], "settings");
+            
+            tmpl.css('display', 'none');
+            // .slice(1).remove().end().first() removes all but the first
+            // element and selects only the first for the jQuery collection:
+            tmpl.find('.progress div').slice(
+                isValidated ? 1 : 0
+            ).remove().end().first()
+                .progressbar();
+            tmpl.find('.start button').slice(
+                this.options.autoUpload || !isValidated ? 0 : 1
+            ).remove().end().first()
+                .button({
+                    text: true,
+                    icons: {primary: 'ui-icon-circle-arrow-e'}
+                });
+            var cancelButton = tmpl.find('.cancel button').slice(1).remove().end().first()
+                .button({
+                    text: true,
+                    icons: {primary: 'ui-icon-cancel'}
+                });
+            
+            if(settings.submitInForm){
+	            cancelButton.bind("click",function(event){
+	            	var newFileInput;
+	                event.preventDefault();
+	                that.options.fileInput.attr("value","");
+	                newFileInput=that.options.fileInput.clone(true).attr("value","").insertAfter(that.options.fileInput);
+	                that.options.fileInput.remove();
+	                that.options.fileInput=newFileInput;
+	                
+	            });
+            }
+            
+            tmpl.find('.preview').each(function (index, node) {
+                that._loadImage(
+                    files[index],
+                    function (img) {
+                        $(img).hide().appendTo(node).fadeIn();
+                    },
+                    {
+                        maxWidth: options.previewMaxWidth,
+                        maxHeight: options.previewMaxHeight,
+                        fileTypes: options.previewFileTypes,
+                        canvas: options.previewAsCanvas
+                    }
+                );
+            });
+            return tmpl;
+        },
+        _renderDownload: function (files) {
+            var tmpl = this._renderDownloadTemplate(files);
+            if (!(tmpl instanceof $)) {
+                return $();
+            }
+            tmpl.css('display', 'none');
+            tmpl.find('.delete button').button({
+                text: true,
+                icons: {primary: 'ui-icon-trash'}
+            });
+            tmpl.find('a').each(this._enableDragToDesktop);
+            return tmpl;
+        },
+	    _renderUploadTemplate: function (files) {
+	        var that = this,
+            rows = $();
+	        
+	        var settings = $.data(this.element[0], "settings");
+	        
+	        
+	        $.each(files, function (index, file) {
+	            file = that._uploadTemplateHelper(file);
+	            var row = $(
+	            	'&lt;tr class="template-upload">&lt;td>' + 
+	            	'&lt;div class="formulario_columna_cnt">' +
+	                '&lt;span class="izq_float file_icon">&amp;nbsp;&lt;/span>' +
+	                '&lt;div class="izq_float name">&lt;b>&lt;/b>&lt;/div>' +
+	                '&lt;div class="formulario_columna_cnt">' +
+	                '&lt;div class="izq_float type">&lt;/div>' +
+	                '&lt;div class="izq_float size">&lt;/div>' +
+	                (settings.submitInForm ? 
+	                		'&lt;div class="izq_float cancel" style>&lt;button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.cancelUpload")+'&lt;/button>&lt;/div>'
+	                		: '') +
+	                '&lt;/div>' +
+	                (!settings.submitInForm ? 
+	                '&lt;div class="formulario_columna_cnt">' +
+	                (file.error ?
+	                    '&lt;div class="izq_float error" >&lt;/div>'
+	                :
+	                    '&lt;div class="izq_float progress">&lt;div>&lt;/div>&lt;/div>' +
+	                    '&lt;div class="izq_float start fileupload-buttonbar ui-button">&lt;button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.startUpload")+'&lt;/button>&lt;/div>'
+	                ) + 
+	                '&lt;div class="izq_float cancel">&lt;button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.cancelUpload")+'&lt;/button>&lt;/div>' +
+	                '&lt;/div>':'&lt;div class="izq_float start fileupload-buttonbar ui-button" style="display:none">&lt;button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.startUpload")+'&lt;/button>&lt;/div>') +
+	                '&lt;/td>&lt;/tr>');
+	            row.find('.name b').text(file.name);
+	            row.find('.size').text(file.sizef);
+	            row.find('.type').text(file.type);
+	            if (file.error) {
+	                row.addClass('ui-state-error');
+	                row.find('.error').text(
+	                    that.options.errorMessages[file.error] || file.error
+	                );
+	            }
+	            
+	            rows = rows.add(row);
+	        });
+	        return rows;
+		},
+	    _renderDownloadTemplate: function (files) {
+	        var that = this,
+	            rows = $();
+	        $.each(files, function (index, file) {
+	            file = that._downloadTemplateHelper(file);
+	            var row = $('&lt;tr class="template-download">&lt;td>' + 
+	                (file.error ?
+	                	'&lt;td class="file_icon">&lt;/td>' +
+	                    '&lt;td class="name">&lt;/td>' +
+	                    '&lt;td class="size">&lt;/td>' +
+	                    '&lt;td class="error" colspan="2">&lt;/td>'
+	                :
+	                	'&lt;div class="formulario_columna_cnt">' +
+		                '&lt;span class="izq_float file_icon">&amp;nbsp;&lt;/span>' +
+		                '&lt;div class="izq_float name">&lt;a>&lt;/a>&lt;/div>' +
+		                '&lt;/div>' +
+		                '&lt;div class="formulario_columna_cnt">' +
+		                '&lt;div class="izq_float type">&lt;/div>' +
+		                '&lt;div class="izq_float size">&lt;/div>' +
+		                '&lt;/div>'+
+		                '&lt;div class="formulario_columna_cnt">' +
+		                '&lt;a>&lt;div class="izq_float">'+
+		                '&lt;div class="file_download" >'+
+		                '&lt;span class="file_download_icon">&amp;nbsp;&lt;/span>'+
+		                '&lt;span class="file_download_text">'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.openUploaded")+'&lt;/span>&lt;/div>'+
+		                '&lt;/div>&lt;/a>' +
+		                '&lt;div class="izq_float delete">&lt;button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.deleteUploaded")+'&lt;/button>&lt;/div>' +
+		                '&lt;/div>'
+	                ) + 
+	                '&lt;/td>&lt;/tr>');
+	            
+	            row.find('.size').text(file.sizef);
+	            row.find('.type').text(file.type);
+	            if (file.error) {
+	                row.find('.name').text(file.name);
+	                row.addClass('ui-state-error');
+	                row.find('.error').text(
+	                    that.options.errorMessages[file.error] || file.error
+	                );
+	            } else {
+	                row.find('.name a').text(file.name);
+	                if (file.thumbnail_url) {
+	                    row.find('.preview').append('&lt;a>&lt;img>&lt;/a>')
+	                        .find('img').prop('src', file.thumbnail_url);
+	                    row.find('a').prop('target', '_blank');
+	                }
+	                row.find('a').prop('href', $.rup_utils.setNoPortalParam(file.url));
+	                row.find('.delete button')
+	                    .attr('data-type', file.delete_type)
+	                    .attr('data-url',  $.rup_utils.setNoPortalParam(file.delete_url));
+	            }
+	            rows = rows.add(row);
+	        });
+	        return rows;
+	    },
+	    _initFileUploadButtonBar: function () {
+	    	 var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
+             filesList = this.element.find('.files'),
+             ns = this.options.namespace;
+		    	fileUploadButtonBar.find('.start')
+	            .button({icons: {primary: 'ui-icon-circle-arrow-e'}})
+	            .bind('click.' + ns, function (e) {
+	                e.preventDefault();
+	                filesList.find('.start button').click();
+	            });
+	        fileUploadButtonBar.find('.cancel')
+	            .button({icons: {primary: 'ui-icon-cancel'}})
+	            .bind('click.' + ns, function (e) {
+	                e.preventDefault();
+	                filesList.find('.cancel button').click();
+	            });
+	        fileUploadButtonBar.find('.delete')
+	            .button({icons: {primary: 'ui-icon-trash'}})
+	            .bind('click.' + ns, function (e) {
+	                e.preventDefault();
+//	                filesList.find('.delete input:checked')
+//	                    .siblings('button').click();
+	                filesList.find('.delete button').click();
+	            });
+	        fileUploadButtonBar.find('.toggle')
+	            .bind('change.' + ns, function (e) {
+	                filesList.find('.delete input').prop(
+	                    'checked',
+	                    $(this).is(':checked')
+	                );
+	            });
+	    },
+	    _getAJAXSettings: function (data) {
+	        var options = $.extend({}, this.options, data);
+	        this._initFormSettings(options);
+	        this._initDataSettings(options);
+	        return options;
+	    }
+//	    ,_initProgressListener: function (options) {
+//            var that = this,
+//                xhr = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
+//            // Accesss to the native XHR object is required to add event listeners
+//            // for the upload progress event:
+//                if (options.pif ===null &amp;&amp; xhr.upload) {
+//    				//-- fix start --
+//    				$( xhr.upload ).bind( "progress", function (e) {
+//    				that._onProgress(e, options);
+//    				});
+//    				options.xhr = function () {
+//                        return xhr;
+//                    };
+//    				//-- fix end --
+//                }
+//        }
+//	    destroy: function (e, data) {
+//            var that = $(this).data('fileupload');
+//            if (data.url) {
+//                $.rup_ajax(data)
+//                    .success(function () {
+//                        that._adjustMaxNumberOfFiles(1);
+//                        $(this).fadeOut(function () {
+//                            $(this).remove();
+//                        });
+//                    });
+//            } else {
+//                that._adjustMaxNumberOfFiles(1);
+//                data.context.fadeOut(function () {
+//                    $(this).remove();
+//                });
+//            }
+//        }
+
+	});
+	
+	//*********************************************
+	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN 
+	//*********************************************
+	
+	//*****************************************************************************************************************
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	//*****************************************************************************************************************
+	
+    /**
+    * Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.
+    *
+    * @summary Componente RUP Upload.
+    * @namespace jQuery.rup_upload
+    * @memberOf jQuery
+    * @tutorial rup_upload
+    * @see El componente está basado en el plugin {@link https://blueimp.github.io/jQuery-File-Upload/|jQuery File Upload}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link https://blueimp.github.io/jQuery-File-Upload/|aquí}.
+    * @example 
+    * $("#idUpload").rup_upload({});
+    */
+	
+	var rup_upload = {};
+	
+	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_upload", rup_upload));
+	
+	//********************************
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	//********************************
+	
+	$.fn.rup_upload("extend",{
+		option: function(args){
+			$(this).fileupload("option",args);
+		},
+		destroy: function(){
+			$(this).fileupload("destroy");
+		},
+		enable: function(){
+			$(this).fileupload("enable");
+		},
+		disable: function(){
+			$(this).fileupload("disable");
+		},
+		add: function(data){
+			$(this).fileupload("add",data);
+		},
+		send: function(data){
+			$(this).fileupload("send",data);
+		}
+	});
+	
+	
+	//********************************
+	// DEFINICIÓN DE MÉTODOS PRIVADOS
+	//********************************
+	
+	
+	function fileuploadstart () {
+	    var widget = $(this),
+	        progressElement = $('#fileupload-progressbar').fadeIn(),
+	        interval = 500,
+	        total = 0,
+	        loaded = 0,
+	        loadedBefore = 0,
+	        progressTimer,
+	        progressHandler = function (e, data) {
+	            loaded = data.loaded;
+	            total = data.total;
+	        },
+	        stopHandler = function () {
+	            widget
+	                .unbind('fileuploadprogressall', progressHandler)
+	                .unbind('fileuploadstop', stopHandler);
+	            window.clearInterval(progressTimer);
+	            progressElement.fadeOut(function () {
+	                progressElement.html('');
+	            });
+	        },
+	        formatTime = function (seconds) {
+	            var date = new Date(seconds * 1000);
+	            return ('0' + date.getUTCHours()).slice(-2) + ':' +
+	                ('0' + date.getUTCMinutes()).slice(-2) + ':' +
+	                ('0' + date.getUTCSeconds()).slice(-2);
+	        },
+	        formatBytes = function (bytes) {
+	            if (bytes >= 1000000000) {
+	                return (bytes / 1000000000).toFixed(2) + ' GB';
+	            }
+	            if (bytes >= 1000000) {
+	                return (bytes / 1000000).toFixed(2) + ' MB';
+	            }
+	            if (bytes >= 1000) {
+	                return (bytes / 1000).toFixed(2) + ' KB';
+	            }
+	            return bytes + ' B';
+	        },
+	        formatPercentage = function (floatValue) {
+	            return (floatValue * 100).toFixed(2) + ' %';
+	        },
+	        updateProgressElement = function (loaded, total, bps) {
+	            progressElement.html(
+	                formatBytes(bps) + 'ps | ' +
+	                    formatTime((total - loaded) / bps) + ' | ' +
+	                    formatPercentage(loaded / total) + ' | ' +
+	                    formatBytes(loaded) + ' / ' + formatBytes(total)
+	            );
+	        },
+	        intervalHandler = function () {
+	            var diff = loaded - loadedBefore;
+	            if (!diff) {
+	                return;
+	            }
+	            loadedBefore = loaded;
+	            updateProgressElement(
+	                loaded,
+	                total,
+	                diff * (1000 / interval)
+	            );
+	        };
+	    widget
+	        .bind('fileuploadprogressall', progressHandler)
+	        .bind('fileuploadstop', stopHandler);
+	    progressTimer = window.setInterval(intervalHandler, interval);
+	}
+	
+	$.fn.rup_upload("extend",{
+			_init : function(args){
+				
+				var settings = $.extend({}, $.fn.rup_upload.defaults, args[0]), upload=this;
+				
+				// Se configura el uso del PIF
+				if (settings.pif!==null){
+					var url="", 
+//						n38UidSesionCookie = $.rup_utils.readCookie("n38UidSesion"), 
+//						n38DominioUidCookie = $.rup_utils.readCookie("n38DominioUid"),
+//						n38UidSesionGlobal = $.rup_utils.readCookie("n38UidSesionGlobal"),
+//						n38UidSistemasXLNetS = $.rup_utils.readCookie("n38UidSistemasXLNetS"),
+						pifSettings = jQuery.extend(true, $.fn.rup_upload.pif.defaults, settings.pif );
+					
+//					if (pifSettings.base_url===undefined){
+//						alert("RUP_UPLOAD - No se ha especificado el valor del parámetro base_url para el uso del PIF.");
+//						return -1;
+//					}
+					if (pifSettings.userFolder!==true &amp;&amp; pifSettings.folderPath===undefined){
+						alert("RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF.");
+						return -1;
+					}
+					
+					
+					jQuery.extend(true, settings,{
+						formData:{
+							base_url: settings.url,
+							hadoop_folder_path: pifSettings.folderPath,
+							hadoop_preserve_name: pifSettings.preserveName,
+							y31_ttl: pifSettings.fileTtl,
+							securityToken: pifSettings.securityToken
+						}
+					}); 
+					
+					
+//					url += pifSettings.base_url;  // Url base del PIF
+//					url += pifSettings._JANO_PUT_SERVLET; // Servlet PUT
+//					url += "/"+n38UidSesionCookie; // Cookie XLNets n38UidSesionCookie
+//					url += "/"+n38DominioUidCookie; // Cookie XLNets n38DominioUidCookie
+//					url += "/"+n38UidSesionGlobal; // Cookie XLNets n38UidSesionGlobal
+//					url += "/"+n38UidSistemasXLNetS; // Cookie XLNets n38UidSistemasXLNetS
+					
+					// Se añaden los parámetros de configuración del PIF a la url
+					
+//					url +="?hadoop_folder_path="+pifSettings.folderPath; // Parámetro folderPath
+//					url +="&amp;hadoop_preserve_name="+pifSettings.preserveName; // Parámetro preserveName
+//					url +="&amp;y31_ttl="+pifSettings.fileTtl; // Parámetro fileTtl
+					
+					
+					// Configruamos la url final
+//					settings.url = url;
+					
+//					settings.xhr = function(){
+//						
+//					};
+				}
+				
+				$.data(this[0], "settings", settings);
+				
+				$(this).fileupload(settings);
+				
+				if (settings.submitInForm){
+					$(this).rup_upload("option",{singleFileUploads:false,maxNumberOfFiles:1,replaceFileInput:false});
+				}
+				
+				$(this).bind('fileuploadadd', function (e, data) {
+					if(settings.submitInForm){
+						$(this).find(".template-upload").hide();
+						$(this).find(".template-upload .cancel button").unbind("click");
+						$(this).find(".template-upload .cancel button").click();
+					}
+				});
+				$(this).bind('fileuploadsend', function (e, data) {
+					data.url=$.rup_utils.setNoPortalParam(data.url);
+//					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
+//						data.url = data.url + (data.url.match("\\?") === null ? "?" : "&amp;") + "_emulate_iframe_http_status=true";
+//					}
+				});
+			},
+			_private : function(settings){
+				
+			}
+		});
+		
+	//*******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	//*******************************************************
+	
+	$.fn.rup_upload.defaults = {
+		label:null,
+		fileInput:null,
+		submitInForm:false,
+		submitFormButton:undefined,
+		pif:null
+	};		
+	
+	$.fn.rup_upload.pif={};
+	$.fn.rup_upload.pif.defaults ={
+		fileTtl: 129600,
+		preserveName: false,
+		_JANO_PUT_SERVLET: "/y31ApiJSWAR/Y31JanoServicePutServlet",
+		securityToken:"app"
+	};
+    
+    /**                                                                         
+    * @description Propiedades de configuración del componente.
+    * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link https://github.com/blueimp/jQuery-File-Upload/wiki/Options|jQuery File Upload}.
+    *
+    * @name jQuery.rup_upload#options
+    * @property {string} [namespace] - Se utiliza para asociar el capturador de eventos del dropZone y del fileInpurt. Por defecto toma el valor del widget (“fileupload”).    
+    * @property {jQuery} [dropZone=$(document)] - Indica el objeto jQuery que representa el área de dropZone. Para deshabilitar el soporte drag &amp; drop se deberá indicar el valor null. 
+    * @property {jQuery} [fileInput] - Objeto jQuery sobre el cual se monitorizarán los eventos de cambio del mismo. En caso de no especificarse se tomarán los input de tipo file existentes dentro del objeto sobre el que se ha creado el componente upload. Para deshabilitar el capturador de eventos se deberá indicar el valor null.
+    * @property {boolean} [replaceFileInput=true] - Determinar si el campo file es reemplazado por un nuevo objeto a partir de un clone.
+    * @property {string} [paramName] - Indica el nombre del parámetro de la request mediante el cual se enviará la información del fichero. En caso de no especificarse, se tomará el valor de la propiedad name del campo file. En caso de no especificarse dicha propiedad se tomará el valor files[] por defecto.
+    * @property {boolean} [singleFileUploads=true] - Especifica si la subida de ficheros se realizar de manera individual, es decir, si se realiza una petición XHR por cada uno de los ficheros que se deben de enviar.
+    * @property {boolean} [limitMultiFileUploads=true] -Especifica el número de ficheros que pueden ser enviados en una única petición XHR.
+    * @property {boolean} [sequentialUploads=false] - Especifica si el envío de los ficheros se realizan de manera secuencial en vez de manera simultánea.
+    * @property {Integer} [limitConcurrentUploads] - Indica el número máximo de peticiones concurrentes para la
+subida de ficheros.
+    * @property {boolean} [forceIframeTransport=false] - Determina si se debe forzar el uso de iframe al realizar la subida de ficheros. Esta opción puede ser útil en caso de subida de ficheros entre diferentes dominios.
+    * @property {boolean} [multipart=true] - Indica si la subida de ficheros se realiza como multipart/form-data.
+    * @property {boolean} [recalculateProgress=true] - Por defecto, los envíos de ficheros erróneos o cancelados son excluidos del cálculo del progreso global de subida de ficheros. Para evitar el recálculo del progreso global se deberá de especificar esta opción como false.
+    * @property {object | object[] | function} [formData] - Información adicional que se desea enviar al realizarse la subida de ficheros. El parámetro acepta lo siguiente: &lt;ul>&lt;li>Array de objetos con propiedades&lt;/li>&lt;li>Objeto simple&lt;/li>&lt;li>Función que retorna uno de los tipos de datos especificados anteriormente.&lt;/li>&lt;/ul>
+    */
+
+    
+/***********/
+/* EVENTOS */
+/***********/
+    
+/**
+* Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente. 
+*
+* @event jQuery.rup_upload#fileuploadadd
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploadadd", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente. 
+*
+* @event jQuery.rup_upload#fileuploadsubmit
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @return {boolean} - Si la función retorna false el envío no se realiza.
+* @example 
+* $("#fileupload").on("fileuploadsubmit", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al iniciarse el envío de cada fichero. 
+*
+* @event jQuery.rup_upload#fileuploadsend
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @return {boolean} - Si la función retorna false el envío no se realiza.
+* @example 
+* $("#fileupload").on("fileuploadsend", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al realizarse de manera satisfactoria el envío de los ficheros. 
+*
+* @event jQuery.rup_upload#fileuploaddone
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploaddone", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al producirse un error en el envío de los ficheros o al abortarse el envío. 
+*
+* @event jQuery.rup_upload#fileuploadfail
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploadfail", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al producirse un envío correcto, erróneo o se aborte. 
+*
+* @event jQuery.rup_upload#fileuploadalways
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploadalways", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al producirse un evento relacionado con el indicador de progreso del envío de ficheros. 
+*
+* @event jQuery.rup_upload#fileuploadprogress
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploadprogress", function (e, data) {
+* });
+*/
+
+/**
+* Permite asociar una función que se ejecutará al producirse un evento relacionado el indicador de progreso global de envío de ficheros. 
+*
+* @event jQuery.rup_upload#fileuploadprogressall
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @property {object} data - Objeto que contiene la información relativa a la subida de los ficheros.
+* @example 
+* $("#fileupload").on("fileuploadprogressall", function (e, data) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al inicio del envío de los ficheros. 
+*
+* @event jQuery.rup_upload#fileuploadstart
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @example 
+* $("#fileupload").on("fileuploadstart", function (e) {
+* });
+*/
+    
+/**
+* Permite asociar una función que se ejecutará al detenerse el proceso de envío de ficheros. 
+*
+* @event jQuery.rup_upload#fileuploadstop
+* @property {Event} e - Objeto Event correspondiente al evento disparado.
+* @example 
+* $("#fileupload").on("fileuploadstop", function (e) {
+* });
+*/
+    
+})(jQuery);</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2014 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on Fri Jul 8th 2016
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

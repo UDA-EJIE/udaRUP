@@ -16,17 +16,17 @@
  //require(["jquery", "require-jqueryui"],function (jQuery, widgetMenu) {
 
  define(["jquery", "private-jqueryui-menu"], function(jQuery, widgetMenu){
-/**                                                                   
+/**
  * @fileOverview Implementa el patrón RUP Menu.
  * @author EJIE
- * @version 2.5.0                                                                                               
+ * @version 2.5.0
  */
 (function ($, widgetMenu) {
 
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+
     /**
     * Menú de la aplicación mantenido a lo largo de todas las páginas de forma consistente que muestra entradas directas a secciones clave de la aplicación.
     *
@@ -34,7 +34,7 @@
     * @namespace jQuery.rup_menu
     * @memberOf jQuery
     * @tutorial rup.menu
-    * @example 
+    * @example
     * var properties={
     *   // Propiedades de configuración
     * };
@@ -54,7 +54,7 @@
         /**
         * Deshabilita una opción de menú.
         *
-        * @name jQuery.rup_menu#disable 
+        * @name jQuery.rup_menu#disable
         * @function
         * @param {string} entryMenuId - Identificador de la opción de menú que se desea deshabilitar.
         * @example
@@ -68,7 +68,7 @@
         /**
         * Habilita una opción de menú.
         *
-        * @name jQuery.rup_menu#enable 
+        * @name jQuery.rup_menu#enable
         * @function
         * @param {string} entryMenuId - Identificador de la opción de menú que se desea habilitar.
         * @example
@@ -89,7 +89,7 @@
         /**
         * Método de inicialización del componente.
         *
-        * @name jQuery.rup_menu#_init 
+        * @name jQuery.rup_menu#_init
         * @function
         * @private
         * @param {string} args - Opciones de configuración del componente.
@@ -289,7 +289,7 @@
 	/**
         * Parsea un objeto json para generar la estructura de menú de acuerdo a la información contenida en el.
         *
-        * @name jQuery.rup_menu#_parseJSON 
+        * @name jQuery.rup_menu#_parseJSON
         * @function
         * @private
         */
@@ -396,9 +396,9 @@
 
 	};
 
-   /**                                                                         
-    * Opciones por defecto de configuración del componente. 
-    * @name jQuery.rup_menu#options  
+   /**
+    * Opciones por defecto de configuración del componente.
+    * @name jQuery.rup_menu#options
     *
     * @property {string} [verticalWidth=undefined] - Valor asociado a cada menú que determinara la anchura vertical del mismo. Este parámetro tiene cabida, tanto, en menús verticales, como, en menús horizontales (al fin y al cabo los dos tienen partes verticales). En caso de no especificar ningún valor, cada uno de los submenús verticales se ajustara al ancho máximo de sus literales.
     * @property {string} [display=horizontal] - Orientación del menú: horizontal o vertical.

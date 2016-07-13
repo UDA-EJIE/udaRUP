@@ -622,7 +622,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							}
 						}
 					});
-					delete rupCombo;
+					//delete rupCombo;
 				} else if (typeof settings.source === "function" || typeof settings.sourceGroup === "function"){
 					//Se lanza la funcion que obtiene los valores a mostrar
 					jQuery(settings.source);
@@ -717,9 +717,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				this._setElement($(this), selectedVal, $(this).data("settings").multiselect);
 
 				//Eliminar referencias
-				delete combo;
-				delete options;
-				delete arrVals;
+				// delete combo;
+				// delete options;
+				// delete arrVals;
 			}
 		}
 	});
@@ -1572,7 +1572,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								}
 							}
 						});
-						delete rupCombo;
+						// delete rupCombo;
 
 						//Almacenar los settings
 						$("#"+settings.id).data("settings", settings);
@@ -1596,7 +1596,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					});
 
 					//Borrar referencia
-					delete html;
+					// delete html;
 
 					//Ocultar posibles elementos de fechas/horas
 					$("#"+settings.id).next("a").click(function(event){

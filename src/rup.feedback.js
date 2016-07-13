@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -78,7 +78,7 @@ de la aplicación pueda cerrar la capa manualmente.
 			var opciones = this.options,
 				element = this.element;
 			switch (key) {
-				case "type": 
+				case "type":
 					//Eliminar imagenes anteriores y poner el tipo indicado
 					if (value !== null) {
 						element.removeClass(opciones.imgClass + " rup-feedback_image_"+opciones.type);
@@ -87,7 +87,7 @@ de la aplicación pueda cerrar la capa manualmente.
 						element.removeClass("rup-feedback_image rup-feedback_image_"+opciones.type);
 					}
 					break;
-				case "imgClass": 
+				case "imgClass":
 					//Eliminar imagenes anteriores y poner la personal
 					if (value !== null) {
 						element.removeClass(opciones.imgClass + " rup-feedback_image rup-feedback_image_"+opciones.type);
@@ -95,7 +95,7 @@ de la aplicación pueda cerrar la capa manualmente.
 					} else {
 						element.removeClass(opciones.imgClass);
 					}
-					break;		
+					break;
 				case "closeLink":
 					//Gestionar capa enlace cierre
 					if (value) {
@@ -103,7 +103,7 @@ de la aplicación pueda cerrar la capa manualmente.
 					} else {
 						$("#"+this.options._idFeedback+"_closeDiv").remove();
 					}
-					break;	
+					break;
 			}
 			delete opciones;
 			delete element;
@@ -117,7 +117,7 @@ de la aplicación pueda cerrar la capa manualmente.
          */
 		_create: function () {
 			var opciones = this.options;
-			opciones._idFeedback = 
+			opciones._idFeedback =
 				this.element
 					.addClass("rup-feedback ui-widget ui-widget-content ui-corner-all")
 					.addClass(opciones.imgClass!=null?opciones.imgClass:opciones.type!=null?"rup-feedback_image rup-feedback_image_"+opciones.type:"")
@@ -131,12 +131,12 @@ de la aplicación pueda cerrar la capa manualmente.
 					.attr("id",opciones._idFeedback+"_closeDiv")
 					.attr("title",$.rup.i18nParse($.rup.i18n.base,"rup_feedback.closingLiteral"))
 					.addClass("rup-feedback_closeLink");
-			
+
 			//Si se define texto sacarlo
 			if (opciones.message){
 				this.set(opciones.message, opciones.type, opciones.imgClass);
 			}
-			
+
 			delete opciones;
 		},
 		/**
@@ -192,10 +192,10 @@ de la aplicación pueda cerrar la capa manualmente.
 		set: function (message, type, imgClass){
 			var element = this.element,
 			 	opciones = this.options;
-			
+
 			//En caso de que está desapareciendo parar animación
 			element.stop().animate({opacity:'100'});
-			
+
 			//Gestión 'type'
 			if (type != undefined){
 				element.removeClass(opciones.imgClass);
@@ -212,7 +212,7 @@ de la aplicación pueda cerrar la capa manualmente.
 				element.removeClass("rup-feedback_image rup-feedback_image_" + opciones.type);
 				opciones.type = null;
 			}
-			
+
 			//Gestión 'imgClass'
 			if (imgClass != undefined) {
 				if (opciones.imgClass != null) {
@@ -220,8 +220,8 @@ de la aplicación pueda cerrar la capa manualmente.
 				}
 				element.addClass(imgClass);
 				opciones.imgClass = imgClass;
-			} 
-			
+			}
+
 			//Sacar mensaje
 			$("#"+opciones._idFeedback+"_content").remove();
 			element.append($("<div/>").attr("id",opciones._idFeedback+"_content").html(message));
@@ -230,9 +230,9 @@ de la aplicación pueda cerrar la capa manualmente.
 				this._addCloseLink();
 			}
 			this.show();
-			
+
 			//Ir al inicio
-			if (opciones.gotoTop){	
+			if (opciones.gotoTop){
 				$('html, body').animate({ scrollTop: '0px' }, 0);
 			}
 			//Ocultacion mensaje
@@ -261,9 +261,9 @@ de la aplicación pueda cerrar la capa manualmente.
 		hide: function (delay, fadeSpeed){
 			var opciones = this.options,
 				element = this.element;
-				
+
 			//Si no se reciben parámetros se toman los valores de la configuración inicial
-			if (delay == undefined) { 
+			if (delay == undefined) {
 				delay = opciones.delay;
 			}
 			if (fadeSpeed == undefined) {
@@ -311,13 +311,14 @@ de la aplicación pueda cerrar la capa manualmente.
 			var element = this.element;
 			element.css("display","block");
 			element.css("visibility","visible");
-			
+
 			// Se aplica el tooltip
 			this.element.find("[title]").rup_tooltip({position:{at:"bottom center", my:"top center"},applyToPortal: true});
-			
+
 			delete element;
 
 			jQuery(this.element).triggerHandler("rupFeedback_show");
+		}
 
     /**
      * Permite cambiar las propiedades definidas en el feedback.<br/><br/>

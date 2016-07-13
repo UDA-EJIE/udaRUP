@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -15,72 +15,72 @@
  */
 
 (function ($) {
-	
+
     /**
      * jQuery definition to anchor JsDoc comments.
-     *  
+     *
      * @see http://jquery.com/
      * @name jQuery
      * @namespace jQuery
      */
-    
+
     /**
      * jQuery object type
      * @namespace jQuery.rup
      * @memberOf jQuery
      */
-    
+
     /**
     * The built in string object.
     * @external String
     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String|String}
     */
-    
+
     /**
     * The File interface provides information about files and allows to access their content.
     * @typedef File
     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/File|File}
     */
-    
+
     /**
     * A Blob object represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format.
     * @typedef Blob
     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Blob|Blob}
     */
-    
+
     /**
      * jQuery object type.
      * @typedef {object} jQuery
      */
-    
+
     /**
      * Selector de jQuery para referenciar elementos del DOM.
      * @typedef {object} Selector
      * @see {@link http://api.jquery.com/Types/#Selector|Selector}
      */
-    
+
     /**
      * jQuery Event type object.
      * @typedef {object} Event
      */
-    
+
     /**
      * Elemento del Document Object Model (DOM).
      * @typedef {object} Element
      */
-    
+
     /**
      * Tipo de dato entero.
      * @typedef {number} Integer
      */
-    
+
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	};
-	
+
 	$.extend({
 		set_uda_ajax_mode_on: function(){
-			
+
 			// En caso de que la función $.ajax no haya sido sustituida aún.
 			if ($.ajax!==$.rup_ajax){
 				// Almacenamos la función original $.ajax en $.ajaxUDA para poder restablecerla posteriormente.
@@ -94,20 +94,20 @@
 
 			// Configuracion por defecto
 			var defaults = {
-					cache:false,	
+					cache:false,
 					error:null
 				},
 				rup_ajax_settings = $.extend({}, defaults, options), error_default, error_user, complete_user, complete_default;
-			
+
 			// Callback de error especificado en la llamada a rup_ajax
 			error_user=rup_ajax_settings.error;
 
 			// Funcion error generica
 			error_default = function(xhr, textStatus, errorThrown){
-				
+
 				var errorText = $.rup.rupAjaxDefaultError(xhr, textStatus, errorThrown);
 
-				// Si se ha producido un error de los tratados lo mostramos 
+				// Si se ha producido un error de los tratados lo mostramos
 				if (error_user!=null){
 					$(error_user(xhr, textStatus, errorThrown));
 				}else{
@@ -116,13 +116,13 @@
 					}
 				}
 			};
-			
+
 			// Callback de error especificado en la llamada a rup_ajax
 			complete_user=rup_ajax_settings.complete;
-			
+
 			// Function complete generica
 			complete_default = function(xhr, textStatus){
-				
+
 				// Restablecemos la función $.ajax original.
 				if ($.ajax===$.rup_ajax && $.ajaxUDA!==$.rup_ajax){
 					$.ajax=$.ajaxUDA;
@@ -132,14 +132,14 @@
 					complete_user(xhr, textStatus);
 				}
 			};
-			
+
 			// Asociamos las funciones a las propiedades que van a utilizarse en la peticion AJAX
 			rup_ajax_settings.complete=complete_default;
 			rup_ajax_settings.error=error_default;
-			
+
 			//Se valida la presencia de portal y, llegados al caso, se adecuan las llamadas ajax para trabajar con portales
 			rup_ajax_settings.url=$.rup_utils.setNoPortalParam(rup_ajax_settings.url);
-			
+
 			// Se realiza la llamada ajax
 			if (typeof $.ajaxUDA==="function"){
 				$.ajaxUDA(rup_ajax_settings);
@@ -148,7 +148,7 @@
 			}
 		}
 	});
-	
+
  	//Se crea el objeto base, que alberga toda la metódica y gestión de los componentes RUP, dentro de la jerarquía de JQuery
 	$.rup = $.rup || {};
 	$.extend($.rup, {
@@ -157,7 +157,7 @@
 		lang : null,
 		//Funcion que rupera el idioma del navegador por defecto
 		getBrowserLenguage : function () {
-			return ((navigator.language || navigator.userLanguage).split("-")[0].toLowerCase()); 
+			return ((navigator.language || navigator.userLanguage).split("-")[0].toLowerCase());
 		},
 		browser : {
 			version :  $.browser.version,
@@ -169,8 +169,8 @@
 			isOpera : $.browser.opera ? true:false,
 			xhrFileUploadSupport : new XMLHttpRequest().upload!==undefined?true:false
 		},
-		
-		
+
+
 /**********/
 /** i18n **/
 /**********/
@@ -181,10 +181,10 @@
 			}
 			//Peticion ajax destinada a cargar el fichero  JSon de literales
 			$.rup_ajax({
-				url: $.rup.RUP + "/resources/rup.i18n_" + $.rup.lang + ".json", 
-				dataType:'json', 
+				url: $.rup.RUP + "/resources/rup.i18n_" + $.rup.lang + ".json",
+				dataType:'json',
 				type:'GET',
-				async: false, 
+				async: false,
 				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function(data){
 						//Se cargan los literales generales de la aplicacion en RUP
@@ -197,16 +197,16 @@
 		  		error: function(XMLHttpRequest, textStatus, errorThrown){
 		  			//tratamiento de error
 					alert("Se ha producido un error en el parseo del fichero JSON de literales => "+textStatus+".\n\n"+"Error devuelto:\n"+textStatus+": "+XMLHttpRequest.status+" - "+XMLHttpRequest.statusText);
-		  		} 
+		  		}
 			});
 		},
 		//Funcion encargada de cargar el fichero i18n de la aplicación (síncrono)
 		getFile_i18n : function () {
 			//Peticion ajax destinada a devolver el fichero JSON indicado
 			$.rup_ajax({
-				url: $.rup.APP_STATICS + "/resources/" + $.rup.WAR_NAME  + ".i18n_" + $.rup.lang + ".json", 
-				dataType:'json', 
-				type:'GET', 
+				url: $.rup.APP_STATICS + "/resources/" + $.rup.WAR_NAME  + ".i18n_" + $.rup.lang + ".json",
+				dataType:'json',
+				type:'GET',
 				async: false,
 				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function(data){
@@ -215,7 +215,7 @@
 			  		},
 			  		error: function(XMLHttpRequest, textStatus, errorThrown){
 			  			alert("Se ha producido un error en el parseo del fichero JSON de literales de la aplicación => "+textStatus+".\n\n"+"Error devuelto:\n"+textStatus+": "+XMLHttpRequest.status+" - "+XMLHttpRequest.statusText);
-			  		} 
+			  		}
 			});
 		},
 		//Funcion encargada de cargar el fichero de la aplicación especificado (síncrono)
@@ -224,13 +224,13 @@
 				$.rup.errorGestor("No se ha definido el fichero a cargar");
 			} else {
 				if (!$.rup.i18n[file]){
-					
+
 					//Peticion ajax destinada a devolver el fichero JSON indicado
 					$.rup_ajax({
-						url: $.rup.APP_STATICS + "/resources/" + file + ".json", 
-						dataType:'json', 
-						type:'GET', 
-						async: false, 
+						url: $.rup.APP_STATICS + "/resources/" + file + ".json",
+						dataType:'json',
+						type:'GET',
+						async: false,
 						contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 							success: function(data, textStatus, XMLHttpRequest){
 								//se carga la respuesta del servidor en la estructura I18n de RUP
@@ -238,12 +238,12 @@
 					  		},
 					  		error: function(XMLHttpRequest, textStatus, errorThrown){
 								$.rup.errorGestor("Se ha producido un error en el parseo del fichero JSON de la aplicación => "+textStatus+".<br>"+"Error devuelto:<br>"+errorThrown);
-					  		} 
+					  		}
 					});
 				}
 			}
 		},
-		
+
 		//Funcion encargada de devolver el literal obtenido de estructura JSON (en caso de error devuelve el literal con formato especial)
 		i18nParse : function (properties, i18nCaption, defaultValue){
 			if (i18nCaption !== undefined && i18nCaption !== null && i18nCaption !== ""){
@@ -268,40 +268,40 @@
 		},
 		//Funcion encargada de devolver el literal obtenido de estructura JSON (en caso de error devuelve el literal con formato especial)
 		i18nTemplate : function (properties, i18nCaption){
-			var template  = jQuery.rup.i18nParse(properties,i18nCaption), 
+			var template  = jQuery.rup.i18nParse(properties,i18nCaption),
 				args = $.makeArray(arguments).slice(2);
-			
+
 			if(template===undefined) { template = ""; }
 			return template.replace(/\{(\d+)\}/g, function(m, i){
 				return args[i];
 			});
 		},
 /**********/
-		
+
 		//Funcion encargada de presentar los errores
-		errorGestor : function (message) {			
+		errorGestor : function (message) {
 			$.rup_messages("msgError", {
 				title: $.rup.i18nParse($.rup.i18n.base,"rup_global.developerError"),
 				message: "<p>"+message+"</p>"
 			});
 
 			throw (message);
-			
+
 		},
 		//Funcion encargada de hacer las inicializaciones basicas de RUP
 		iniRup : function () {
 			//Inicializar variables de ficheros de recuros (rup y app)
 			$.rup.i18n.app = {};
 			$.rup.i18n.base = {};
-			
+
 			//retrocompatibilidad
 			if (!window.LOCALE_COOKIE_NAME){
 				LOCALE_COOKIE_NAME = "language";
-			} 
+			}
 			if (!window.LOCALE_PARAM_NAME){
 				LOCALE_PARAM_NAME = "locale";
 			}
-			
+
 			//Se cargan las variables generales del servidor (convertir variables js a variables internas de rup)
 			$.rup.APP_RESOURCES = APP_RESOURCES;
 			$.rup.APP_STATICS = STATICS + "/" + APP_RESOURCES;
@@ -318,9 +318,9 @@
 			//mvc-config.xml
 			$.rup.LOCALE_COOKIE_NAME = LOCALE_COOKIE_NAME;
 			$.rup.LOCALE_PARAM_NAME = LOCALE_PARAM_NAME;
-			//metodos http permitidos en la emulacion xhr para el uso con iframes 
+			//metodos http permitidos en la emulacion xhr para el uso con iframes
 			$.rup.IFRAME_ONLY_SUPPORTED_METHODS = ["GET","POST"];
-			
+
 			//Borrar las variables javascript externas
 			delete APP_RESOURCES;
 			delete CTX_PATH;
@@ -333,7 +333,7 @@
 			//mvc-config.xml
 			delete LOCALE_COOKIE_NAME;
 			delete LOCALE_PARAM_NAME;
-			
+
 			var cookie = $.rup_utils.get($.rup.LOCALE_COOKIE_NAME);
 			if (cookie !== null && cookie !== "") {//si tenemos cookie con el lenguaje
 				if ($.inArray(cookie,$.rup.AVAILABLE_LANGS_ARRAY)!==-1){
@@ -349,9 +349,9 @@
 				$.rup._avoidRUPFails();
 				return false;
 			}
-			
+
 			//Se cargan los literales por defecto
-			$.rup.setLiterals();			
+			$.rup.setLiterals();
 			//Carga de ficheros de literales de la apliaccion
 			$.rup.getFile_i18n();
 		},
@@ -369,7 +369,7 @@
 		getAccessor: function(obj, objName, expr){
 			if (typeof expr === 'string') {
 				fn = obj[expr];
-				if (fn === undefined) { 
+				if (fn === undefined) {
 					$.rup.errorGestor(objName+" - No Existe el método \"" + expr + "\"  en el patrón.");
 				}
 				else {
@@ -384,7 +384,7 @@
 			return undefined;
 		},
 		rupAjaxDefaultError: function(xhr, textStatus, errorThrown){
-			
+
 			// Evaluamos el error que se ha producido
 			var errorText=null;
 
@@ -417,28 +417,28 @@
 					errorText=xhr.responseText;
 				}
 			}
-			
+
 			return errorText;
-			
+
 		},
 		//Función encargada de crear los patrones de RUP que se alberguen en el componente de JQuery directamente
 		//La estructura creada, proporciona proteccion a los metodos publicos y privados
 		rupObjectConstructor : function( name, object ) {
-			
+
 			//Se crea el nuevo gestor del Pótron
 			if ($[name] === undefined) {
 				$[name] = function( options ) {
 					var options=options, isMethodCall = typeof options === "string", args = $.makeArray(arguments).slice(1), returnValue = this;
-				
+
 				 	// prevent calls to internal methods
 					if ( isMethodCall && options.charAt( 0 ) === "_" ) {
 						return returnValue;
 					}
-				
+
 					if ( isMethodCall ) {
 						if (options !== "extend") {
 							var instance = ($.isEmptyObject($.data(object))?$.data(object, object):$.data(object)), methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : "no-function";
-					 		
+
 							if ( methodValue === "no-function" ) {
 					 			return false;
 							} else {
@@ -447,45 +447,45 @@
 						} else {
 							object = $.extend.apply( null, [ true, object].concat(args[0]));
 						}
-						
+
 					} else {
 						var instance = ($.isEmptyObject($.data(object))?$.data(object, object):$.data(object));
 				 		if ( instance && object["_init"] !== undefined && object["_init"] !== null) {
 				 			instance._init($.makeArray(arguments));
-				 		} 
+				 		}
 					 }
 					 	return returnValue;
 					 };
 			}
 		},
-		//Funcion encargada de crear los patrones de RUP que usen el selector de JQuery. 
+		//Funcion encargada de crear los patrones de RUP que usen el selector de JQuery.
 		//La estructura creada, proporciona proteccion a los metodos publicos y privados
 		rupSelectorObjectConstructor : function( name, object ) {
-			
+
 			//Se crea el nuevo gestor del Patrón
 			if ($.fn[name] === undefined) {
 			$.fn[name] = function( options ) {
 				var options=options, isMethodCall = typeof options === "string", args = $.makeArray(arguments).slice(1), returnValue = this;
-			
+
 			 	// prevent calls to internal methods
 				if ( isMethodCall && options.charAt( 0 ) === "_" ) {
 					return returnValue;
 				}
-			
+
 			if ( isMethodCall ) {
 				if (options !== "extend") {
 					var instance = $.extend(this, object), methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : "no-function";
-							
+
 			 		if ( methodValue === "no-function" ) {
 			 			return false;
 					} else {
 						returnValue = methodValue;
 					}
-				
+
 				} else {
 					object = $.fn.extend.apply( null, [ true, object].concat(args[0]));
 				}
-				
+
 			} else {
 				var instance = $.extend(this, object);
 				if ( instance && object["_init"] !== undefined && object["_init"] !== null) {
@@ -496,30 +496,30 @@
 			 };
 		}
 		},
-		//Funcion encargada de mostrar mediante el correspondiente canal el mensaje de error. 
+		//Funcion encargada de mostrar mediante el correspondiente canal el mensaje de error.
 		//La estructura creada, proporciona proteccion a los metodos publicos y privados
 		showErrorToUser : function(errorText) {
-			
+
 			if (errorText != null && errorText !== ""){
-			
+
 				// Se comprueba si existe un dialog visible con una region de rup_feedbak
 				var dialog_feedbacks = $(".ui-dialog:visible .rup-feedback"),
 					feedbacks = dialog_feedbacks.length!==0 ? dialog_feedbacks :$(".rup-feedback");
-				
+
 				// Se comprueba si existe un rup_feedback en la pagina
 				if (feedbacks.length!=0){
-					
+
 					var feedback_props = {
 							delay:null
 						},
 						//Si existen rup_feedbacks cogemos el primero
 						feedback_principal = $("#"+feedbacks[0].id);
-					
+
 					// Mostramos el error en el feedback
 					feedback_principal.rup_feedback("option",feedback_props);
 					feedback_principal.rup_feedback("set",errorText,"error");
 					feedback_principal.rup_feedback("show");
-	
+
 				}else{
 					// Si no hay feedback definido mostramos un mensaje
 					$.rup_messages("msgError", {
@@ -530,7 +530,7 @@
 			}
 		}
 	});
-	
+
 	//Almacenar y restaurar eventos
 	$.fn.extend({
 		storeEvents:function(){
@@ -555,8 +555,8 @@
 			return this;
 		}
 	});
-	
-	
+
+
 	/*
 	 * EVENTOS PROPIOS
 	 * mousestop: Detecta cuando el ratón para su desplazamiento
@@ -565,13 +565,13 @@
 	$.fn.mousestop.defaults = {
 			delay:300
 	};
-	
+
 	$.event.special.mousestop = {
 		setup : function(data) {
 			var self = this, $self = $(this);
-			
+
 			$self.data("mousestop",$.extend(true, {}, $.fn.mousestop.defaults, data));
-			
+
 			$self.on({
 				"mouseenter.rup_mousestop": mouseenterHandler,
 				"mouseleave.rup_mousestop": mouseleaveHandler,
@@ -582,34 +582,34 @@
 			$(this).removeData('mousestop').off('.rup_mousestop');
 		}
 	};
-	
-	
+
+
 	function mouseenterHandler(event){
 		var self = this, $self = $(this);
 		clearTimeout(self.timeout);
 	}
-	
+
 	function mouseleaveHandler(event){
 		var self = this, $self = $(this);
 		clearTimeout(self.timeout);
 	}
-	
+
 	function mousemoveHandler(event){
 		var self = this, $self = $(this);
-		
+
 		clearTimeout(self.timeout);
 		self.timeout = setTimeout(function(){
 			$self.trigger("mousestop", event);
 		}, $self.data("mousestop").delay);
 	}
-	
+
 	// Control de teclas especiales Ctrl y Shift
-	
+
 	jQuery("body").on({
 		"keydown.rup": function(event){
 			var $body = jQuery("body"), ret;
-			
-			
+
+
 			switch (event.which){
 			case 16:
 				if ($body.data("tmp.multiselect.shiftPressed")!==true){
@@ -635,7 +635,7 @@
 		},
 		"keyup.rup": function(event){
 			var $body = jQuery("body"), ret;
-			
+
 			switch (event.which){
 			case 16:
 				if ($body.data("tmp.multiselect.shiftPressed")!==false){
@@ -658,7 +658,7 @@
 			}
 		}
 	});
-	
+
 	jQuery.extend($.rup, {
 		isCtrlPressed : function(){
 			return jQuery("body").data("tmp.multiselect.ctrlPressed") === true;
@@ -667,11 +667,11 @@
 			return jQuery("body").data("tmp.multiselect.shiftPressed") === true;
 		}
 	});
-	
-	
-	//Ejemplo de extension de la funcion de inicio 
+
+
+	//Ejemplo de extension de la funcion de inicio
 	//$.extend($.rup.iniRup, console.log("mundo")) ;
-	
-	//Inicializacion de las funciones de gestion de RUP en general 
+
+	//Inicializacion de las funciones de gestion de RUP en general
 	$.rup.iniRup();
 })(jQuery);
