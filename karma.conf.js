@@ -23,14 +23,15 @@ module.exports = function(config) {
 //      'node_modules/underscore/underscore.js',
   //    'node_modules/requirejs/require.js',
       //'node_modules/karma-requirejs/lib/index.js',
-      'bower_components/handlebars/handlebars.js',
+      //'bower_components/handlebars/handlebars.js',
       'bower_components/jquery/jquery.js',
       'bower_components/jquery-ui/jquery-ui.js',
-      'bower_components/qtip2/jquery.qtip.js',
+      {pattern: 'bower_components/qtip2/jquery.qtip.js', included: false},
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'test/test-main.js',
       'test/js/rup.config.js',
-      {pattern: 'i18n/*.json', served: true, included: false},
+      {pattern: 'i18n/*.json', watched: true, served: true, included: false},
+      {pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
       {pattern: 'src/**/*.js', included: false},
       //{pattern: 'test/**/*.template.hbs', included: false, served:true},
       //{pattern: 'test/**/*.template.js',included: false, served:true},
@@ -38,11 +39,15 @@ module.exports = function(config) {
       {pattern: 'test/js/rup.config2.js', included: false},
       // {pattern: 'test/test/*.spec.js', included: false},
       // {pattern: 'test/accordion/*.spec.js', included: false},
-      // {pattern: 'test/feedback/*.spec.js', included: false},
-      //{pattern: 'test/utils/*.spec.js', included: false},
+      {pattern: 'test/feedback/*.spec.js', included: false},
+      {pattern: 'test/utils/*.spec.js', included: false}
       //{pattern: 'test/dialog/*.spec.js', included: false},
-      {pattern: 'test/message/*.spec.js', included: false}
+      //{pattern: 'test/message/*.spec.js', included: false}
     ],
+    proxies: {
+      "/i18n/resources/": "/base/i18n/",
+      "/demo/x21a/resources/": "/base/demo/x21a/resources/"
+    },
 
 
     // list of files to exclude
@@ -54,6 +59,7 @@ module.exports = function(config) {
       'karma-requirejs',
       'karma-firefox-launcher',
       'karma-chrome-launcher',
+      'karma-phantomjs-launcher',
       'karma-handlebars-preprocessor',
       'karma-ie-launcher',
       'karma-htmlfile-reporter',
@@ -134,7 +140,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

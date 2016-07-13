@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=release-0.1.0)](https://travis-ci.org/UDA-EJIE/udaRUP)
+
 # UDA - Componentes RUP
 
 Colección de patrones visuales denominada RUP (Rich UDA Patterns).

@@ -5,7 +5,7 @@
 	STATICS = '',
     RESOURCES_PATH = '../../i18n/',
 	RUP = '../i18n',
-	WAR_NAME = "",
+	WAR_NAME = "x21aPilotoPatrones",
 	//model
 	LAYOUT = "horizontal",
 	//mvc-config.xml

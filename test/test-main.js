@@ -99,7 +99,7 @@ require.config({
       "deps": ["rup/base"],
     },
     "rup/base":{
-      "deps": ["rup/utils","app"],
+      "deps": ["app"],
       "exports":"widgetMenu"
     },
     "rup/utils":{

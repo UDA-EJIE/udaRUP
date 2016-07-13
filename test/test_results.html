@@ -10,69 +10,33 @@
     <h2>A sample project description</h2>
     <section>
       <header class="overview">
-        <div class="browser">Browser: Chrome 51.0.2704 (Windows 7 0.0.0)</div>
-        <div class="timestamp">Timestamp: 2016-07-13 13:05:12</div>
+        <div class="browser">Browser: PhantomJS 2.1.1 (Windows 7 0.0.0)</div>
+        <div class="timestamp">Timestamp: 2016-07-14 11:31:22</div>
         <p class="results">
-          30 tests / 
+          23 tests / 
           0 errors / 
-          1 failures / 
+          0 failures / 
           0 skipped / 
-          runtime: 0.033s
+          runtime: 0.628s
         </p>
       </header>
       <div class="spec spec--group">
-        <h3 class="spec__header">RUP Messages Tests</h3>
+        <h3 class="spec__header">RUP Utils Tests</h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:40px;">
+      <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message</p>
-            <em class="spec__descrip">deberia de existir un ui-dialog</em>
+            <p class="spec__suite">Tests del método capitalizedLang</p>
+            <em class="spec__descrip">debería devolver el idioma capitalizado</em>
           </div>
           <div class="spec__status">Passed in 0.003s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una sección de título</em>
-          </div>
-          <div class="spec__status">Passed in 0.001s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una botón de cerrar</em>
-          </div>
-          <div class="spec__status">Passed in 0.001s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir un texto de cerrar</em>
-          </div>
-          <div class="spec__status">Passed in 0.001s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir una sección que contenga los botones</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir al menos el botón de Aceptar</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'prop':'value'} en un array arr['prop'] -&gt; 'value'</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
@@ -80,8 +44,101 @@
       <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de error</p>
-            <em class="spec__descrip">debería de existir un div con el icono de error</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':'value'}} en un array arr['propA.propAA'] -&gt; 'value'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA:'valueA', 'propB':{'propBA':'valueBA'}} en un array arr['propA'] -&gt; 'valueA', arr['propB.propBA'] -&gt; 'valueBA', </em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':['a','b','c','d']}} en un array arr['propA.propAA[0]'] -&gt; 'a' </em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método unnestjson</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':'valueAA'}} en un json obj={'propA.propAA':'valueAA'}}</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método elementFromPoint</p>
+            <em class="spec__descrip">debería identificar correctamente el objeto creado a partir de las coordenadas proporcionadas</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método elementFromPoint</p>
+            <em class="spec__descrip">no debería de obtener el objeto ya que las coordenadas no se corresponden con donde se visualiza el elemento</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método firstCharToLowerCase</p>
+            <em class="spec__descrip">debería trnasformar a minúsculas el primer caracter de un string un json</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método firstCharToLowerCase</p>
+            <em class="spec__descrip">debería transformar a minúsculas el primer caracter de un string un json</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método queryStringToJson</p>
+            <em class="spec__descrip">debería de crear un objeto JSON a partir de un query string</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--group">
+        <h3 class="spec__header">RUP Feedback Tests</h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto</p>
+            <em class="spec__descrip">debería disponer de los estilos de jQueryUI y RUP</em>
+          </div>
+          <div class="spec__status">Passed in 0.002s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto</p>
+            <em class="spec__descrip">debería reservar el área de visualización</em>
           </div>
           <div class="spec__status">Passed in 0s</div>
         </h3>
@@ -89,62 +146,17 @@
       <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message</p>
-            <em class="spec__descrip">deberia de existir un ui-dialog</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una sección de título</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una botón de cerrar</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir un texto de cerrar</em>
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de tener controles para cerrar el feedback</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir una sección que contenga los botones</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir al menos el botón de Aceptar</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:20px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de alert</p>
-            <em class="spec__descrip">debería de existir un div con el icono de alerta</em>
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de tener correctamente asigando el texto</em>
           </div>
           <div class="spec__status">Passed in 0s</div>
         </h3>
@@ -152,62 +164,26 @@
       <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message</p>
-            <em class="spec__descrip">deberia de existir un ui-dialog</em>
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de cerrarse al pulsar el enlace de cerrar</em>
           </div>
-          <div class="spec__status">Passed in 0s</div>
+          <div class="spec__status">Passed in 0.105s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una sección de título</em>
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Ocultar el feedback mediante la función hide</p>
+            <em class="spec__descrip">debería de ocultarse el feedback</em>
           </div>
-          <div class="spec__status">Passed in 0.001s</div>
+          <div class="spec__status">Passed in 0.511s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una botón de cerrar</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir un texto de cerrar</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir una sección que contenga los botones</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir al menos el botón de Aceptar</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:20px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de Ok</p>
-            <em class="spec__descrip">debería de existir un div con el icono de Ok</em>
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'ok' con el texto 'Todo ha ido bien'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Todo ha ido bien'</em>
           </div>
           <div class="spec__status">Passed in 0s</div>
         </h3>
@@ -215,53 +191,78 @@
       <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message</p>
-            <em class="spec__descrip">deberia de existir un ui-dialog</em>
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'ok' con el texto 'Todo ha ido bien'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'ok'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'alert' con el texto 'Se ha producido un mensaje de aviso'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Todo ha ido bien'</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una sección de título</em>
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'alert' con el texto 'Se ha producido un mensaje de aviso'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'alert'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'error' con el texto 'Se ha producido un error'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Se ha producido un error'</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:40px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir una botón de cerrar</em>
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'error' con el texto 'Se ha producido un error'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'error'</em>
           </div>
           <div class="spec__status">Passed in 0s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+    </section>
+    <section>
+      <header class="overview">
+        <div class="browser">Browser: Chrome 51.0.2704 (Windows 7 0.0.0)</div>
+        <div class="timestamp">Timestamp: 2016-07-14 11:31:22</div>
+        <p class="results">
+          23 tests / 
+          0 errors / 
+          0 failures / 
+          0 skipped / 
+          runtime: 0.62s
+        </p>
+      </header>
+      <div class="spec spec--group">
+        <h3 class="spec__header">RUP Utils Tests</h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message &raquo; Se ha construido una sección de título correcta</p>
-            <em class="spec__descrip">deberia de existir un texto de cerrar</em>
+            <p class="spec__suite">Tests del método capitalizedLang</p>
+            <em class="spec__descrip">debería devolver el idioma capitalizado</em>
           </div>
-          <div class="spec__status">Passed in 0s</div>
+          <div class="spec__status">Passed in 0.003s</div>
         </h3>
       </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
+      <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir una sección que contenga los botones</em>
-          </div>
-          <div class="spec__status">Passed in 0s</div>
-        </h3>
-      </div>
-      <div class="spec spec--pass" style="margin-left:60px;">
-        <h3 class="spec__header">
-          <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación &raquo; Construcción de un RUP Message &raquo; Construcción de la botonera</p>
-            <em class="spec__descrip">deberia de existir al menos el botón de Aceptar</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'prop':'value'} en un array arr['prop'] -&gt; 'value'</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
@@ -269,8 +270,8 @@
       <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación</p>
-            <em class="spec__descrip">debería de existir un div con el icono de confirmación</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':'value'}} en un array arr['propA.propAA'] -&gt; 'value'</em>
           </div>
           <div class="spec__status">Passed in 0.001s</div>
         </h3>
@@ -278,31 +279,186 @@
       <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación</p>
-            <em class="spec__descrip">debería de existir un enlace en la botonera que permia cancelar</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA:'valueA', 'propB':{'propBA':'valueBA'}} en un array arr['propA'] -&gt; 'valueA', arr['propB.propBA'] -&gt; 'valueBA', </em>
           </div>
           <div class="spec__status">Passed in 0s</div>
         </h3>
       </div>
-      <div class="spec spec--fail" style="margin-left:20px;">
+      <div class="spec spec--pass" style="margin-left:20px;">
         <h3 class="spec__header">
           <div class="spec__title">
-            <p class="spec__suite">Mostrar un mensaje de confirmación</p>
-            <em class="spec__descrip">debería de ejecutarse el callback del botón de aceptar</em>
+            <p class="spec__suite">Tests del método jsontoarray</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':['a','b','c','d']}} en un array arr['propA.propAA[0]'] -&gt; 'a' </em>
           </div>
-          <div class="spec__status">Failed</div>
+          <div class="spec__status">Passed in 0s</div>
         </h3>
-        <p class="spec__log">Expected spy fncOkFunction to have been called.<br />    at Object.&lt;anonymous&gt; (test/message/rup.message.spec.js:168:47)<br /></p>
       </div>
-      <div class="system-out"><strong>System output:</strong><br />Chrome 51.0.2704 (Windows 7 0.0.0) ALERT: 'Se ha producido un error en el parseo del fichero JSON de literales => error.
-
-Error devuelto:
-error: 404 - Not Found'
-<br />Chrome 51.0.2704 (Windows 7 0.0.0) ALERT: 'Se ha producido un error en el parseo del fichero JSON de literales de la aplicación => error.
-
-Error devuelto:
-error: 404 - Not Found'
-</div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método unnestjson</p>
+            <em class="spec__descrip">debería transformar un json obj={'propA':{'propAA':'valueAA'}} en un json obj={'propA.propAA':'valueAA'}}</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método elementFromPoint</p>
+            <em class="spec__descrip">debería identificar correctamente el objeto creado a partir de las coordenadas proporcionadas</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método elementFromPoint</p>
+            <em class="spec__descrip">no debería de obtener el objeto ya que las coordenadas no se corresponden con donde se visualiza el elemento</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método firstCharToLowerCase</p>
+            <em class="spec__descrip">debería trnasformar a minúsculas el primer caracter de un string un json</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método firstCharToLowerCase</p>
+            <em class="spec__descrip">debería transformar a minúsculas el primer caracter de un string un json</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Tests del método queryStringToJson</p>
+            <em class="spec__descrip">debería de crear un objeto JSON a partir de un query string</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--group">
+        <h3 class="spec__header">RUP Feedback Tests</h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto</p>
+            <em class="spec__descrip">debería disponer de los estilos de jQueryUI y RUP</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:20px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto</p>
+            <em class="spec__descrip">debería reservar el área de visualización</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de tener controles para cerrar el feedback</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de tener correctamente asigando el texto</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Asignación de un mensaje al feedback</p>
+            <em class="spec__descrip">debería de cerrarse al pulsar el enlace de cerrar</em>
+          </div>
+          <div class="spec__status">Passed in 0.105s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Invocación de un RUP Feedback por defecto &raquo; Ocultar el feedback mediante la función hide</p>
+            <em class="spec__descrip">debería de ocultarse el feedback</em>
+          </div>
+          <div class="spec__status">Passed in 0.503s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'ok' con el texto 'Todo ha ido bien'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Todo ha ido bien'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'ok' con el texto 'Todo ha ido bien'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'ok'</em>
+          </div>
+          <div class="spec__status">Passed in 0.001s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'alert' con el texto 'Se ha producido un mensaje de aviso'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Todo ha ido bien'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'alert' con el texto 'Se ha producido un mensaje de aviso'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'alert'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'error' con el texto 'Se ha producido un error'</p>
+            <em class="spec__descrip">debería de mostrar el texto 'Se ha producido un error'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
+      <div class="spec spec--pass" style="margin-left:40px;">
+        <h3 class="spec__header">
+          <div class="spec__title">
+            <p class="spec__suite">Creación de diferentes tipos de feedback mediante el método set &raquo; Mostrar feedback de tipo 'error' con el texto 'Se ha producido un error'</p>
+            <em class="spec__descrip">debería de tener asigando el class correspondiente al tipo 'error'</em>
+          </div>
+          <div class="spec__status">Passed in 0s</div>
+        </h3>
+      </div>
     </section>
   </body>
 </html>

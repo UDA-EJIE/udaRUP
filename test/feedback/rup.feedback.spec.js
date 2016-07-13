@@ -1,4 +1,4 @@
-define(['app','rup/feedback'], function($) {
+define(['rup/feedback'], function() {
   describe("RUP Feedback Tests", function(){
 
 

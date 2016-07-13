@@ -1,4 +1,4 @@
-define(['jquery','app','rup/utils'], function($) {
+define(['rup/utils'], function() {
 
   describe("RUP Utils Tests", function(){
 
@@ -7,7 +7,7 @@ define(['jquery','app','rup/utils'], function($) {
       */
       describe("Tests del método capitalizedLang", function(){
           it("debería devolver el idioma capitalizado", function(){
-              $.rup = {};
+              $.rup  = $.rup || {};
               $.rup.lang ="es";
               var capitalizedLang = $.rup_utils.capitalizedLang();
               expect(capitalizedLang).toEqual("Es");
