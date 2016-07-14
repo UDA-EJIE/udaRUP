@@ -20,7 +20,7 @@
  * @version 2.4.8
  */
 (function ($) {
-	
+
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
@@ -41,15 +41,15 @@
 	* });
     */
 	var rup_accordion = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_accordion", rup_accordion));
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	$.fn.rup_accordion("extend",{
     /**
     * Elimina completamente la funcionalidad del Accordion. Como resultado, se devuelven los
@@ -61,6 +61,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
     * $("#idAccordion").rup_accordion("destroy");
     */
 		destroy : function(){
+			$(this).removeData("settings");
 			$(this).accordion("destroy");
 		},
     /**
@@ -104,7 +105,11 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 			if (value !== undefined){
 				$(this).accordion("option", opt, value);
 			} else {
-				$(this).accordion("option", opt);
+				if (opt !== undefined){
+					return $(this).accordion("option", opt);
+				}else{
+					return $(this).accordion("option");
+				}
 			}
 		},
     /**
@@ -117,7 +122,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      * $("#idAccordion").rup_accordion("widget");
      */
 		widget : function(){
-			$(this).accordion("widget");
+			return $(this).accordion("widget");
 		},
     /**
      * Activación programática de la sección especificada por parámetro.
@@ -149,8 +154,8 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 			$(this).accordion("resize");
 		}
 	});
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
@@ -160,19 +165,19 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18n.base.rup_global.initError + $(this).attr("id"));
 			}
-			else {				
+			else {
 				var elements = this.children(), elementsNum = (elements.length)/2,
 				settings = $.extend({}, $.fn.rup_accordion.defaults, args[0]);
 				//Se recogen y cruzan las paremetrizaciones del objeto
 				//Se tapa la creación del accordion para evitar visualizaciones inapropiadas
 				//Se recomienda que el componente, inicialmente, sea invisible. Para ello se dispone del estilo rup_accordion
 				this.removeClass("rup_accordion");
-				
-				
-				
-				//Se almacenan los settings en el data del objeto 
+
+
+
+				//Se almacenan los settings en el data del objeto
 				this.data("settings",settings);
-				
+
 				//Se sobreescribe uno de los eventos para hacer reaparecer, una vez creado, el accordion
 				createUserEvent = settings.create;
 				settings.create = function (event, ui) {
@@ -184,11 +189,11 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 					//Comportamiento por defecto del evento
 					create_default(event, ui);
 				};
-				
+
 				function create_default(event, ui){
 					$(event.target).addClass("rup_accordion_create");
 				}
-				
+
 				//Se comprueba la corrección del html con el que se creara el accordion
 				if(settings.validation){
 					if(parseInt(elementsNum) !== elementsNum){
@@ -199,20 +204,20 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 							if ((parseInt(index/2) === index/2) && ($(object).find("a").length === 0)){
 								$.rup.errorGestor($.rup.i18n.base.rup_accordion.headFormatError);
 								return false;
-							} 
+							}
 						});
 					}
 				}
-				
+
 				//Se invoca la creacion del accordion
 				this.accordion(settings);
 			}
 		}
 	});
-	
-	
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
 
     /**
@@ -225,5 +230,5 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 	$.fn.rup_accordion.defaults = {
 		validation: true
 	};
-	
+
 })(jQuery);
