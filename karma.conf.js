@@ -30,6 +30,7 @@ module.exports = function(config) {
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'test/test-main.js',
       'test/js/rup.config.js',
+      {pattern: 'node_modules/handlebars/dist/handlebars.js', included: false},
       {pattern: 'i18n/*.json', watched: true, served: true, included: false},
       {pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
       {pattern: 'src/**/*.js', included: false},
@@ -38,11 +39,12 @@ module.exports = function(config) {
       {pattern: 'test/js/rup.config.js', included: false},
       {pattern: 'test/js/rup.config2.js', included: false},
       // {pattern: 'test/test/*.spec.js', included: false},
-      // {pattern: 'test/accordion/*.spec.js', included: false},
+      {pattern: 'test/accordion/*.spec.js', included: false},
+      //{pattern: 'test/autocomplete/*.spec.js', included: false},
       {pattern: 'test/feedback/*.spec.js', included: false},
-      {pattern: 'test/utils/*.spec.js', included: false}
+      {pattern: 'test/utils/*.spec.js', included: false},
       //{pattern: 'test/dialog/*.spec.js', included: false},
-      //{pattern: 'test/message/*.spec.js', included: false}
+      {pattern: 'test/message/*.spec.js', included: false}
     ],
     proxies: {
       "/i18n/resources/": "/base/i18n/",
