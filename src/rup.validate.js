@@ -215,7 +215,7 @@
 			if (date.length != 3) { return false; }
 			var j=-1,yln, dln=-1, mln=-1;
 			for(var i=0;i<format.length;i++){
-				var dv =  isNaN(date[i]) ? 0 : parseInt(date[i],10);
+				var dv =  (date[i]===null|| date[i]==="" || isNaN(date[i])) ? 0 : parseInt(date[i],10);
 				tsp[format[i]] = dv;
 				yln = format[i];
 				if(yln.indexOf("y") != -1) { j=i; }
