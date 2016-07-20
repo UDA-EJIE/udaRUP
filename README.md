@@ -41,6 +41,16 @@ $ gulp doc
 
 La documentación resultante se generará en el directorio doc/
 
+## Generar ficheros distribuibles
+
+Para generar los ficheros distribuibles, ejecutar:
+
+```sh
+$ gulp dist
+```
+
+El contenido se generará en el directorio dist/
+
 ## Ejecutar aplicación de demo
 
 Se ha implementado una aplicación de demostración en la que es posible ver en funcionamiento los componentes RUP.

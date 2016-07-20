@@ -40,7 +40,7 @@ module.exports = function(config) {
       {pattern: 'test/js/rup.config2.js', included: false},
       // {pattern: 'test/test/*.spec.js', included: false},
       {pattern: 'test/accordion/*.spec.js', included: false},
-      //{pattern: 'test/autocomplete/*.spec.js', included: false},
+      {pattern: 'test/autocomplete/*.spec.js', included: false},
       {pattern: 'test/feedback/*.spec.js', included: false},
       {pattern: 'test/utils/*.spec.js', included: false},
       //{pattern: 'test/dialog/*.spec.js', included: false},
@@ -142,7 +142,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    //browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode

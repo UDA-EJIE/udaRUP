@@ -1,0 +1,123 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+.ui-tabs .ui-tabs-panel { border-width: 1px;  }
+
+/* Estilo asociado al error de carga de una pestaña */
+.rup-loading_tab_error {
+	font-size: 2em;
+	margin: 1.5em 0.5em 1.5em 0.5em;
+	color: #F71229;
+}
+
+/* Estilo de la imagen de carga de cada pestañas */
+.rup-tabs_loading { 
+	float:left;
+	width: 1.2em;
+	height: 1.2em;
+	margin-left: 0.3em;
+	margin-right: 0em;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	
+}
+
+
+.rup-tabs_loading_img { 
+	vertical-align: middle;
+	background-image: url("images/rup.ajaxLoader.gif");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:right;
+	width: 1.2em;
+	height: 1.2em;
+	margin-left: 0.3em;
+	margin-right: 0em;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	
+}
+
+/* Estilo especifico para la separación entre las pestañas que albergan otras pestañas */ 
+.ui-tabs .ui-tabs-panel.rup-tabs_container {
+	padding: 0.4em;
+}
+
+.rup-tabs_title { 
+	float:left;
+}
+
+/* Estilo para mostrar scrollbar cuando sea necesario */
+.rup-tabs_overflow { 
+	overflow:scroll;
+}
+
+/* Estilos para mostrar las pestañas abajo */
+.tabs-bottom .ui-tabs-nav { clear: left; padding: 0 .2em .2em .2em; }
+.tabs-bottom .ui-tabs-nav li { top: auto; margin: 0 .2em 1px 0; border-bottom: 1px solid #d3d3d3; border-top: 0; }
+.tabs-bottom .ui-tabs-nav li.ui-state-active { margin-top: -1px; padding-top: 1px; }
+
+/*estilos para efecto hover del boton close de la pestaña*/
+.rup-tabs-close{	
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 1px;
+}
+
+.rup-tabs-close-hover{
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 4px;
+	
+}
+
+/* Pestañas falsas */
+
+.ui-tabs .ui-tabs-nav li a.rup-tabs-link-close {
+    padding: 1px;
+    position: relative;
+    right: 0.3em;
+    top: 50%;
+    width: 19px;
+}
+
+.ui-tabs .ui-tabs-nav li a.rup-tabs-link-close:hover {
+	margin: -1px;
+    cursor: pointer;
+    border: 1px solid #999999; 
+    background: #dadada url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+/*     font-weight: normal;  */
+    color: #212121; 
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected.ui-state-active a.rup-tabs-link-close:hover {
+	margin: -1px;
+    cursor: pointer;
+    border: 1px solid #999999; 
+    background: #dadada url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; 
+/*     font-weight: normal;  */
+    color: #212121; 
+}
+
+.rup-tabs-close {
+    box-sizing: border-box;
+    float: left;
+}
+
+
+

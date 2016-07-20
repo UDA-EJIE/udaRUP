@@ -10,7 +10,7 @@ requirejs.config({
         "jquery-ui": "../../bower_components/jquery-ui/jquery-ui",
         "backbone": "../../bower_components/backbone/backbone",
         "underscore": "../../bower_components/underscore/underscore",
-        "handlebars": "../../node_modules/handlebars/lib/handlebars",
+        "handlebars": "../../node_modules/handlebars/dist/handlebars",
         "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
