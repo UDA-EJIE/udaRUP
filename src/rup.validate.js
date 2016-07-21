@@ -7,30 +7,30 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
-/**                                                                   
+/**
 * @fileOverview Implementa el patrón RUP Validate.
 * @author EJIE
-* @version 2.4.8                                                                                               
+* @version 2.4.8
 */
 (function ($) {
-	
-	
+
+
 
 	//*********************************************
-	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN 
+	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
 	//*********************************************
-	
+
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+
     /**
     * Permite al usuario validar los datos introducidos en los campos que se presentan en la aplicación.
     *
@@ -39,7 +39,7 @@
     * @memberOf jQuery
     * @tutorial rup_validate
     * @see El componente está basado en el plugin {@link http://jqueryvalidation.org/|jQuery Validation Plugin}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://jqueryvalidation.org/|aquí}.
-    * @example 
+    * @example
     * var properties={
     *   rules:{
     *       "campoObligatorio":{required:true},
@@ -50,30 +50,30 @@
     */
 	var rup_validate = {};
 	$.rup_validate ={};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_validate", rup_validate));
-	
+
 	// Se configuran los mensajes idiomaticos.
 	var messages = {};
-	
+
 	// Es necesario identificar los mensajes parametrizables. Para ello se buscan los fragmentos de tipo {i} para ser tratados por la funcion format del validador.
 	var regularExpr = new RegExp("\\{\\d\\}");
 	$.each($.rup.i18n.base.rup_validate.messages, function(key,value){
-		
+
 		if (value.match(regularExpr)!==null){
 			messages[key]=jQuery.validator.format(value);
 		}else{
 			messages[key]=value;
 		}
 	});
-	
+
 	// Inicializacion de las expresiones regulares
 	var rup_validate_number_regexpr = new RegExp($.rup.i18n.base.rup_validate.regexp.decimal);
-	
+
 	// Se configruran los mensajes de las reglas de validacion a partir de los definidos en los ficheros idiomaticos.
 	$.extend($.validator.messages, messages);
-	
+
 	/*
 	 * VALIDACIONES
 	 */
@@ -105,12 +105,12 @@
 		// remove numbers and punctuation
 		.replace(/[0-9.(),;:!?%#$'"_+=\/-]*/g,'');
 	}
-	
+
 	// Dni
 	jQuery.validator.addMethod("dni", function(value, element) {
 		return this.optional(element) || nif(value);
 	});
-	
+
 	// Numero maximo de palabras
 	jQuery.validator.addMethod("maxWords", function(value, element, params) {
 	    return this.optional(element) || stripHtml(value).match(/\b\w+\b/g).length < params;
@@ -125,7 +125,7 @@
 	jQuery.validator.addMethod("rangeWords", function(value, element, params) {
 	    return this.optional(element) || stripHtml(value).match(/\b\w+\b/g).length >= params[0] && value.match(/bw+b/g).length < params[1];
 	});
-	
+
 	// Letras y caracteres de puntuacion
 	jQuery.validator.addMethod("letterswithbasicpunc", function(value, element) {
 		return this.optional(element) || /^[a-z-.,()'\"\s]+$/i.test(value);
@@ -150,18 +150,18 @@
 	jQuery.validator.addMethod("integer", function(value, element) {
 		return this.optional(element) || /^-?\d+$/.test(value);
 	});
-	
+
 	// Patron
 	jQuery.validator.addMethod("pattern", function(value, element, param) {
 	    return this.optional(element) || param.test(value);
 	});
-	
-	// Validacion de campo numerico. Tiene en cuenta el formato dependiendo de la locale 
+
+	// Validacion de campo numerico. Tiene en cuenta el formato dependiendo de la locale
 	jQuery.validator.addMethod("number", function(value, element) {
 		var expr = new RegExp($.rup.i18n.base.rup_validate.regexp.decimal);
 		return this.optional(element) || expr.test(value);
 	});
-	
+
 	// Validacion de fecha. Tiene en cuanta el formato dependiendo de la locale
 	jQuery.validator.addMethod("date", function(value, element, param) {
 		var format;
@@ -174,17 +174,17 @@
 		}else{
 			format = param;
 		}
-		
+
 		return this.optional(element) || $.rup_validate.checkDate(format,value);
 	});
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	$.extend($.rup_validate,{
-		// Metodo que valida una fecha de acuerdo al formato indicado 
+		// Metodo que valida una fecha de acuerdo al formato indicado
 		checkDate : function (format, date) {
 			var daysInFebruary = function(year){
 				return (((year % 4 === 0) && ( year % 100 !== 0 || (year % 400 === 0))) ? 29 : 28 );
@@ -200,7 +200,7 @@
 
 			var tsp = {}, sep;
 			format = format.toLowerCase();
-			// Se busca el separador de fecha entre los caracteres "/","-","." 
+			// Se busca el separador de fecha entre los caracteres "/","-","."
 			if(format.indexOf("/") != -1) {
 				sep = "/";
 			} else if(format.indexOf("-") != -1) {
@@ -259,18 +259,18 @@
 			return true;
 		}
 	});
-	
+
 	$.fn.rup_validate("extend",{
         /**
-        * Se eliminan todos los objetos y eventos credos por el componente. 
+        * Se eliminan todos los objetos y eventos credos por el componente.
         *
         * @name jQuery.rup_validate#destroy
-        * @example 
+        * @example
         * $("#formValidaciones").rup_validate("destroy");
-        */ 
+        */
 		destroy:function(){
 			var self = this;
-			
+
 			// Se eliminan los mensajes de error.
 			self.rup_validate("resetForm");
 			// Se elimina la informacion almacenada en el objeto.
@@ -282,9 +282,9 @@
         * Se eliminan los menssajes de error de las reglas de validacion.
         *
         * @name jQuery.rup_validate#resetForm
-        * @example 
+        * @example
         * $("#formValidaciones").rup_validate("resetForm");
-        */ 
+        */
 		resetForm:function(){
 			var self = this, settings =	self.data("settings");
 
@@ -292,94 +292,94 @@
 			if (settings!=null && settings.feedback !== undefined && settings.showErrorsInFeedback){
 				settings.feedback.rup_feedback("hide");
 			}
-			
+
 			// Se reinician los mensajes de error.
 			self.validate().resetForm();
 		}
 	});
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
 	$.fn.rup_validate("extend",{
 	});
-	
-	
+
+
 	//*****************************
 	// INICIALIZACION DE VARIABLES
 	//*****************************
-	
+
 	// Propiedades de configuracion predeterminadas para cada una de las posibles parametrizaciones de los errores.
 	var presetSettings = {
 		// Configruacion del componente por defecto
 		defaultPresetSettings:{
 			showErrors:function(errors){
 				var self = this, invalid, errorText, feedback, field, errorKey, fieldError, fieldErrorMsg, error, label;
-				
+
 				// Se comprueba si el parametro que contiene los errores está vacío. En este caso se
 				if (self.currentElements.length===1){
 					if ($.isEmptyObject(errors)){
 						delete self.invalid[self.currentElements.attr("name")];
 					}
 				}
-				
+
 				/*
 				 * Mostrar mensaje de error de validaciones en el feedback
 				 */
 				feedback = self.settings.feedback;
 				if (self.settings.showErrorsInFeedback && feedback!==undefined && feedback!==null){
 					errorText = $("<ul>").addClass("rup-maint_feedbackUL").prepend(self.settings.feedbackErrorConfig.errorMsg);
-					
+
 					if (jQuery.isEmptyObject(self.invalid)){
 							feedback.rup_feedback("close");
 					}else{
-					
+
 						if (self.settings.showFieldErrorsInFeedback){
 							$.each((!jQuery.isEmptyObject(self.submitted)?self.submitted:self.invalid), function(key,value){
-								
+
 								if (self.invalid[key]!==undefined){
 									field = self.settings.feedbackErrorConfig.getField(self, self.currentForm, key);
 									errorKey = self.settings.feedbackErrorConfig.getFieldName(self, self.currentForm, field);
 									fieldError = self.settings.feedbackErrorConfig.getFieldErrorLabel(self, self.currentForm, field, errorKey);
-									
+
 									fieldErrorMsg = self.settings.feedbackErrorConfig.getFieldErrorMsg(self, self.currentForm, field, value);
 									fieldError.append(fieldErrorMsg);
 									errorText.append(fieldError);
 								}
-								
+
 							});
 						}
 						feedback.rup_feedback("option",self.settings.feedbackOptions);
 						feedback.rup_feedback("set", errorText, "error");
 					}
 				}
-				
+
 				/*
 				 * Mostrar detalle de errores en el feedback
 				 */
 				if (self.settings.showFieldErrorAsDefault){
 					for ( var i = 0; self.errorList[i]; i++ ) {
-						
+
 						error = self.errorList[i];
-						
+
 						if (error.element!==undefined){
-						
+
 							label = self.errorsFor( error.element );
 							if ( label.length ) {
 								label.remove();
 							}
 						}
-					} 
+					}
 				}
-				
-				/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate, 
+
+				/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
 				 * no es posible indicarle varios mensajes de error para un campo.
 				 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
 				 */
 				for (var i=0;i<self.errorList.length;i++){
 //					if (self.settings.showFieldErrorAsDefault){
 //						self.errorList[i].message="";
-//					}else 
+//					}else
 					if (self.errorList[i].element===undefined){
 						alert("El campo validado no existe en el formulario");
 					}
@@ -393,7 +393,7 @@
 							}
 						}
 						self.errorList[i].message=newMessage;
-					} 
+					}
 				}
 				// Se eliminan los etilos de error previos
 				$("."+self.settings.errorClass+":not(.rup-maint_validateIcon)",self.currentForm).removeClass(self.settings.errorClass);
@@ -401,10 +401,10 @@
 				self.defaultShowErrors();
 			},
 			showErrorsInFeedback:function(errors){
-				
+
 			},
 			errorPlacement:function(label,element){
-				
+
 				if (element.attr("ruptype")==='combo'){
 					var comboElem = $("#"+element.attr("id")+"-button");
 					if (comboElem){
@@ -420,7 +420,7 @@
 			errorElement:"img",
 			errorPlacement: function(error, element) {
 				var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
-				
+
 				if (element.attr("ruptype")==='combo'){
 					var comboElem = $("#"+element.attr("id")+"-button");
 					if (comboElem){
@@ -432,24 +432,24 @@
 			}
 		}
 	};
-	
+
 	$.fn.rup_validate("extend",{
 		_init : function(args){
-				
-			var self=this, 
+
+			var self=this,
 			settings = $.extend(true,{},$.fn.rup_validate.defaults, presetSettings.defaultPresetSettings, args[0]);
 //			settings = $.extend(true, {}, defaultSettings, args[0]);
-			
-				
+
+
 			// Anadimos al formulario el class rup_validate para identificarlo como componente formulario.
 			self.addClass("rup_validate");
 			// Anadimos el ruptype validate
 			self.attr("ruptype","validate");
-			
+
 			/*
 			 * Configuracion del componente de validaciones.
 			 */
-				
+
 			// En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
 			if (settings.showFieldErrorAsDefault){
 				settings = $.extend(true,settings,presetSettings.showFieldErrorAsDefault);
@@ -457,7 +457,7 @@
 			settings = $.extend(true, {}, settings, args[0]);
 			// Se realiza la invocacion al plugin jquery.validate
 			self.validate(settings);
-			
+
 			if (settings.showFieldErrorAsDefault){
 				self.validate().showLabel = function(element, message){
 					var label = this.errorsFor( element );
@@ -499,27 +499,27 @@
 					this.toShow = this.toShow.add(label);
 				};
 			}
-				
+
 			// Si se ha configurado el componente para que no se realicen validaciones al vuelo de los campos, se eliminan los eventos correspondientes.
 			if (!settings.liveCheckingErrors){
 				self.unbind("click").unbind("focusin").unbind("focusout").unbind("keyup");
 			}
-			
+
 			// Se captura el evento invalid-form del plugin subyacente para generar un evento propio
 			self.on("invalid-form.rupValidate_formValidationError", function(event){
 				self.off("invalid-form.rupValidate_formValidationError");
 				self.triggerHandler("rupValidate_formValidationError",[this]);
 			});
-			
+
 			// Se almacena la configuracion del componente en el objeto dom para poder recuperarla en sucesivas invocaciones a los metodos del componente.
 			self.data("settings", settings);
 		}
 	});
-		
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
+
 	$.fn.rup_validate.defaults = {
 			ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",
 			feedbackOptions: {gotoTop: false, fadeSpeed: null, delay: null},
@@ -530,42 +530,42 @@
 				},
 				getFieldName: function(self, form, field){
 			        var ruptype = field.attr("ruptype"), labelForName, labelElem, fieldTmp, labelForName, labelForId;
-			        
+
 			        fieldTmp = jQuery(field.length>1?field[0]:field);
-			        
+
 			        labelForName = fieldTmp.attr("name");
 			        labelForId = fieldTmp.attr("id");
-			        
+
 			        if (ruptype!==undefined){
-			        	
+
 			        	if(ruptype==="combo"){
 			        		labelForId = labelForId+"-button";
 			        	}
-			        	
+
 			        	if(ruptype==="autocomplete"){
 				            labelForId = labelForId+"_label";
 				        }
 			        }
-			        
+
 			        labelElem = fieldTmp.parent().find("label[for='"+labelForName+"']");
-			        
+
 			        if (labelElem.length>0){
 			            return labelElem.text();
 			        }
-			        
+
 			        labelElem = fieldTmp.parent().find("label[for='"+labelForId+"']");
-			        
+
 			        if (labelElem.length>0){
 			            return labelElem.text();
 			        }
-			        
+
 			        return fieldTmp.attr("title");
 			    },
 				getFieldErrorLabel: function(self, form, field, errorLabel){
 					return $("<li>").append("<b>" + errorLabel + ":</b>");
 				},
 				getFieldErrorMsg: function(self, form, field, errorMsg){
-					/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate, 
+					/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
 					 * no es posible indicarle varios mensajes de error para un campo.
 					 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
 					 */
@@ -586,13 +586,13 @@
 			showFieldErrorAsDefault:true,
 			showFieldErrorsInFeedback:true,
 			errorImage:$.rup.STATICS+"/rup/basic-theme/images/exclamation.png"
-	};		
+	};
 
 
 /**
 * Función de callback que se ejecutará cuando el formulario sea válido.
 *
-* @callback jQuery.rup_validate~onSubmitHandler 
+* @callback jQuery.rup_validate~onSubmitHandler
 * @param {Element} form - Referencia al objeto DOM del formulario que está siendo validado.
 * @example <caption>Envia el formulario cuando este es válido.</caption>
 * $("#idFormulario").rup_tooltip({
@@ -603,19 +603,19 @@
 * @example <caption>Realizar otras operaciones cuando el formulario es válido.</caption>
 * $("#idFormulario").rup_tooltip({
 *   onSubmitHandler: function(form){
-        // Operaciones extra 
+        // Operaciones extra
 *       $(form).ajaxSubmit();
 *   }
 * });
 */
-    
+
 /**
 * Función que se ejecutará cuando el formulario presente errores de validación.
 *
-* @callback jQuery.rup_validate~onInvalidHandler 
+* @callback jQuery.rup_validate~onInvalidHandler
 * @param {Event} event - Objeto event asociado al evento lanzado.
 * @param {object} validator - Instancia del validador asociada al formulario actual.
-* @example 
+* @example
 * $(".selector").validate({
 *   invalidHandler: function(event, validator) {
 *    // 'this' refers to the form
@@ -636,12 +636,12 @@
 /**
 * Función que se ejecutará cuando se produzca la validación de los datos permitiendo personalizar los errores de validación.
 *
-* @callback jQuery.rup_validate~onShowErrors 
+* @callback jQuery.rup_validate~onShowErrors
 * @param {Object} errorMap - Pares de clave/valor, donde el key se corresponde con el name del campo del formulario y el value con el mensaje que se va a mostrar para ese campo.
 * @param {Object[]} errorList - Array de objetos correspondientes a los campos validados.
 * @param {String} errorList.message - Mensaje que va mostrarse para ese campo.
 * @param {Element} errorList.element - Objeto del DOM correspondiente a ese campo.
-* @example 
+* @example
 * $(".selector").validate({
 *  showErrors: function(errorMap, errorList) {
 *    $("#summary").html("Your form contains "
@@ -651,29 +651,29 @@
 *  }
 * });
 */
-    
+
 /**
 * Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
 *
-* @callback jQuery.rup_validate~onErrorPlacement  
+* @callback jQuery.rup_validate~onErrorPlacement
 * @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
 * @param {jQuery} element - Referencia al campo validado.
-* @example 
+* @example
 * $("#myform").validate({
 *   errorPlacement: function(error, element) {
 *       error.appendTo( element.parent("td").next("td") );
 *   }
 * });
 */
-    
+
 /**
 * Función de callback para determinar como se debe resaltar los campos inválidos.
 *
-* @callback jQuery.rup_validate~onHighlight  
+* @callback jQuery.rup_validate~onHighlight
 * @param {jQuery} element - Referencia al campo validado.
 * @param {String} errorClass - Valor actual del parámetro errorClass.
 * @param {String} validClass - Valor actual del parámetro validClass.
-* @example 
+* @example
 * $(".selector").validate({
 *   highlight: function(element, errorClass, validClass) {
 *        $(element).fadeOut(function() {
@@ -682,15 +682,15 @@
 *   }
 * });
 */
-    
+
 /**
 * Función de callback para determinar como se debe resaltar los campos inválidos.
 *
-* @callback jQuery.rup_validate~onUnhighlight  
+* @callback jQuery.rup_validate~onUnhighlight
 * @param {jQuery} element - Referencia al campo validado.
 * @param {String} errorClass - Valor actual del parámetro errorClass.
 * @param {String} validClass - Valor actual del parámetro validClass.
-* @example 
+* @example
 * $(".selector").validate({
 *  highlight: function(element, errorClass, validClass) {
 *    $(element).addClass(errorClass).removeClass(validClass);
@@ -704,9 +704,9 @@
 *  }
 * });
 */
-    
-    
-/**                                                                         
+
+
+/**
 * @description Propiedades de configuración del componente.
 * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link http://jqueryvalidation.org/validate/|jQuery Validation Plugin}.
 *
@@ -736,18 +736,18 @@
 * @property {jQuery.rup_validate~onHighlight} [highlight] - Función de callback para determinar como se debe resaltar los campos inválidos.
 * @property {jQuery.rup_validate~onUnhighlight} [unhighlight] - Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight.
 */
-    
 
-/***********/
+
+/* **********/
 /* EVENTOS */
-/***********/
-    
+/* **********/
+
 /**
 * Este evento es lanzado cuando se produce alguna violación entre las reglas de validación especificadas para ser aplicadas sobre los campos del formulario.
 *
-* @event jQuery.rup_upload#rupValidate_formValidationError
+* @event jQuery.rup_validate#rupValidate_formValidationError
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
-* @example 
+* @example
 * $("#idFormulario").on("rupValidate_formValidationError", function(event){
 * });
 */

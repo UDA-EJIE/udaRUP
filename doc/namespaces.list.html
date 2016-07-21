@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_upload.html#event:rupValidate_formValidationError">jQuery.rup_upload#event:rupValidate_formValidationError</a></li>
+					<li><a href="jQuery.rup_table.html#event:rupTable_beforeProcessing">jQuery.rup_table#event:rupTable_beforeProcessing</a></li><li><a href="jQuery.rup_table.html#event:rupTable_checkOutOfGrid">jQuery.rup_table#event:rupTable_checkOutOfGrid</a></li><li><a href="jQuery.rup_table.html#event:rupTable_coreConfigFinished">jQuery.rup_table#event:rupTable_coreConfigFinished</a></li><li><a href="jQuery.rup_table.html#event:rupTable_serializeGridData">jQuery.rup_table#event:rupTable_serializeGridData</a></li><li><a href="jQuery.rup_table.html#event:rupTableClearHighlightedRowAsSelected">jQuery.rup_table#event:rupTableClearHighlightedRowAsSelected</a></li><li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_validate.html#event:rupValidate_formValidationError">jQuery.rup_validate#event:rupValidate_formValidationError</a></li>
 				</ul>
 			</li>
 			
@@ -210,7 +210,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="event:rupTableHighlightRowAsSelected">rupTableHighlightRowAsSelected</h4>
+    <h4 class="name" id="event:rupTable_beforeProcessing">rupTable_beforeProcessing</h4>
     
     
 </dt>
@@ -218,7 +218,7 @@
 
     
     <div class="description">
-        <p>Snowball event.</p>
+        <p>Evento que se lanza antes de que se procese la información recibida del servidor.</p>
     </div>
     
 
@@ -227,56 +227,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>$row</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">jQuery</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Objeto jQuery que referencia a la línea de la tabla.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -333,13 +283,13 @@
 
         <tr>
             
-                <td class="name"><code>isPacked</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">object</span>
 
 
 
@@ -350,7 +300,55 @@
 
             
 
-            <td class="description last"><p>Indicates whether the snowball is tightly packed.</p></td>
+            <td class="description last"><p>Información recibida del servidor.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>st</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Mensaje de status de la petición.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto xhr recibido.</p></td>
         </tr>
 
     
@@ -392,7 +390,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-916">line 916</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1596">line 1596</a>
 			</li>
 		</ul>
 	</dd>
@@ -421,7 +419,838 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableHighlightRowAsSelected&quot;, function(event, $row){});</pre>
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_beforeProcessing&quot;, function(event, data, st,xhr){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_checkOutOfGrid">rupTable_checkOutOfGrid</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$originalTarget</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que referencia el elemento del dom con el que ha interactuado el usuario.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1574">line 1574</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_checkOutOfGrid&quot;, function(event,$originalTarget){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_coreConfigFinished">rupTable_coreConfigFinished</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1629">line 1629</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_coreConfigFinished&quot;, function(event, $row){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_serializeGridData">rupTable_serializeGridData</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Información serializada que va a ser enviada. Se puede modificar o agregar nuevos campos para completarla.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1585">line 1585</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_serializeGridData&quot;, function(event, data){});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTableClearHighlightedRowAsSelected">rupTableClearHighlightedRowAsSelected</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Se produce cuando se elimina el resaltado de un registro de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que identifica la línea que se ha procesado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1609">line 1609</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableClearHighlightedRowAsSelected&quot;, function(event, $row){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTableHighlightRowAsSelected">rupTableHighlightRowAsSelected</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Se produce cuando se añade el resaltado a un registro de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que identifica la línea que se ha procesado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1619">line 1619</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableHighlightedRowAsSelected&quot;, function(event, $row){ });</pre>
 
 
     
@@ -2336,7 +3165,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on Fri Jul 15th 2016
+		on Thu Jul 21st 2016
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

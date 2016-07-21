@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_upload.html#event:rupValidate_formValidationError">jQuery.rup_upload#event:rupValidate_formValidationError</a></li>
+					<li><a href="jQuery.rup_table.html#event:rupTable_beforeProcessing">jQuery.rup_table#event:rupTable_beforeProcessing</a></li><li><a href="jQuery.rup_table.html#event:rupTable_checkOutOfGrid">jQuery.rup_table#event:rupTable_checkOutOfGrid</a></li><li><a href="jQuery.rup_table.html#event:rupTable_coreConfigFinished">jQuery.rup_table#event:rupTable_coreConfigFinished</a></li><li><a href="jQuery.rup_table.html#event:rupTable_serializeGridData">jQuery.rup_table#event:rupTable_serializeGridData</a></li><li><a href="jQuery.rup_table.html#event:rupTableClearHighlightedRowAsSelected">jQuery.rup_table#event:rupTableClearHighlightedRowAsSelected</a></li><li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_validate.html#event:rupValidate_formValidationError">jQuery.rup_validate#event:rupValidate_formValidationError</a></li>
 				</ul>
 			</li>
 			
@@ -87,7 +87,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Se les presenta a los usuarios los datos tabulados para que la información se visualice de manera ágil y<br>rápida, facilitando así su comprensión y manejo. Además, el componente implementa un nuevo patrón<br>definido para facilitar la lógica necesaria en las acciones básicas, denominadas CRUD (create, read,<br>update y delete), sobre una tabla.</p></div>
+            <div class="description"><p>Se les presenta a los usuarios los datos tabulados para que la información se visualice de manera ágil y rápida, facilitando así su comprensión y manejo. Además, el componente implementa un nuevo patrón definido para facilitar la lógica necesaria en las acciones básicas, denominadas CRUD (create, read, update y delete), sobre una tabla.</p></div>
         
 
         
@@ -126,19 +126,12 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-29">line 29</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-28">line 28</a>
 			</li>
 		</ul>
 	</dd>
 	
 
-	
-	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
-	<dd class="tag-tutorial">
-		<ul>
-			<li><em class="disabled">Tutorial: rup_table</em></li>
-			</ul>
-	</dd>
 	
 
 	
@@ -150,7 +143,7 @@
         
             <h3>Example</h3>
             
-    <pre class="sunlight-highlight-javascript">// Ejemplo de inicialización del componente.$(&quot;#table&quot;).rup_table({		url: &quot;../tableUrl&quot;,		colNames: [			&quot;id&quot;,&quot;nombre&quot;,&quot;...&quot;]		],		colModel: [			{name: &quot;id&quot;, label: &quot;id&quot;},			{name: &quot;nombre&quot;, label: &quot;nombre&quot;},			{name: &quot;...&quot;, label: &quot;...&quot;}		],		model:&quot;Usuario&quot;,		usePlugins:[			&quot;formEdit&quot;,			&quot;feedback&quot;,			&quot;toolbar&quot;,			&quot;contextMenu&quot;,			&quot;fluid&quot;,			&quot;filter&quot;,			&quot;search&quot;		],		primaryKey: &quot;id&quot;,	});</pre>
+    <pre class="sunlight-highlight-javascript">var properties = {		url: &quot;../tableUrl&quot;,		colNames: [			&quot;id&quot;,&quot;nombre&quot;,&quot;...&quot;]		],		colModel: [			{name: &quot;id&quot;, label: &quot;id&quot;},			{name: &quot;nombre&quot;, label: &quot;nombre&quot;},			{name: &quot;...&quot;, label: &quot;...&quot;}		],		model:&quot;Usuario&quot;,		usePlugins:[			&quot;formEdit&quot;,			&quot;feedback&quot;,			&quot;toolbar&quot;,			&quot;contextMenu&quot;,			&quot;fluid&quot;,			&quot;filter&quot;,			&quot;search&quot;		],		primaryKey: &quot;id&quot;	};$(&quot;#table&quot;).rup_table(properties);</pre>
 
 
         
@@ -168,6 +161,686 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="options">
+    <h4><span class="type-signature"></span>options<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Propiedades de configuración del componente.</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>altRows</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Determina si se aplica o no el pijama en las filas de la tabla.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>altclass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    rupgrid_oddRow
+                
+                </td>
+            
+
+            <td class="description last"><p>Estilo que se aplica a las filas impares para mostrar el efecto.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>datatype</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    json
+                
+                </td>
+            
+
+            <td class="description last"><p>Formato de dato esperado para representar los registros de la tabla.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    auto
+                
+                </td>
+            
+
+            <td class="description last"><p>Determina la altura de la tabla.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>jsonReader</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {repeatitems: false}
+                
+                </td>
+            
+
+            <td class="description last"><p>Parámetros de configuración que determinan el modo en el que se va a procesar el json de retorno del servidor</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>resizable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Determina si la tabla puede ser redimensionada mediante el ratón.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNum</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+
+            <td class="description last"><p>Número de registros por página que se van a mostrar en la tabla.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    [10,20,30]
+                
+                </td>
+            
+
+            <td class="description last"><p>Lista de posibles valores para el número de elementos por página que se van a mostrar en el combo de selección correspondiente.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sortable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Determina si se permite variar el orden de las columnas arrastrándolas.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>viewrecords</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loadOnStartUp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Determina si se debe realizar automáticamente la búsqueda al cargar la página.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>multiplePkToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ~
+                
+                </td>
+            
+
+            <td class="description last"><p>Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>operations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="jQuery.rup_table.html#~Operations">jQuery.rup_table~Operations</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showOperations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="jQuery.rup_table.html#~ShowOperations">jQuery.rup_table~ShowOperations</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startOnPage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last"><p>Permite especificar el número de página inicial que se mostrará al cargar la página.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1501">line 1501</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>Para mas información consulte la documentación acerca de las opciones de configuración del componente <a href="http://www.trirand.com/jqgridwiki/doku.php">jqGrid</a>.</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -176,7 +849,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="clearHighlightedRowAsSelected"><span class="type-signature"></span>clearHighlightedRowAsSelected($row)</h4>
+    <h4 class="name" id="addRowData"><span class="type-signature"></span>addRowData(rowid, data, position, srcrowid)</h4>
     
     
 </dt>
@@ -184,7 +857,7 @@
 
     
     <div class="description">
-        <p>Elimina el resaltado de la línea especificada de la tabla.</p>
+        <p>Añade una nueva línea a la tabla. Esta operación no realiza una inserción del registro en el sistema de persistencia, sino que únicamente añade una nueva fila de modo visual.</p>
     </div>
     
 
@@ -219,13 +892,13 @@
 
         <tr>
             
-                <td class="name"><code>$row</code></td>
+                <td class="name"><code>rowid</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">jQuery</span>
+<span class="param-type">string</span>
 
 
 
@@ -236,7 +909,79 @@
 
             
 
-            <td class="description last"><p>Objeto jQuery que referencia a la línea de la tabla.</p></td>
+            <td class="description last"><p>Identificador del registro.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto json que contiene los valores de cada columna de la nueva línea.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>position</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>fisrt o last. Determina la posición donde se va a insertar el registro.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>srcrowid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>En el caso de indicarse se insertará la nueva línea en la posición relativa al registro que identifica y el valor del parámetro position.</p></td>
         </tr>
 
     
@@ -281,7 +1026,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-891">line 891</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1232">line 1232</a>
 			</li>
 		</ul>
 	</dd>
@@ -298,10 +1043,175 @@
     
 
     
-    <h5>Fires:</h5>
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
     <ul>
-        <li>jQuery.rup_table#event:rupTableClearHighlightedRowAsSelected</li>
-    </ul>
+<li>Referencia al propio componente.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jQuery</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;addRowData&quot;, &quot;10&quot;, {campo1:valor1,campo2:valor2});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="clearGridData"><span class="type-signature"></span>clearGridData(clearfooter)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Limpia los registros mostrados en la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clearfooter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>En caso de indicarse como true se elimina la información del pié de la tabla.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1359">line 1359</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
     
 
     
@@ -315,7 +1225,849 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;clearHighlightedRowAsSelected&quot;, $(&quot;#idFila&quot;));</pre>
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;clearGridData&quot;, false);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="configurePager"><span class="type-signature"></span>configurePager(settings)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Realiza la configuración interna del paginador de acuerdo a los parámetros de configuración indicados en la inicialización del componente.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Parámetros de configuración del componente.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1022">line 1022</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;configurePager&quot;, settings);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="delRowData"><span class="type-signature"></span>delRowData(rowid)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Elimina de la tabla un registro determinado. El registro no se elimina del sistema de persistencia. Solo se elimina de manera visual.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador del registro.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1263">line 1263</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Referencia al propio componente.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jQuery</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;delRowData&quot;,&quot;10&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getActiveLineId"><span class="type-signature"></span>getActiveLineId()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve el índice de la línea activa.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1294">line 1294</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Índice de la línea activa.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getActiveLineId&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getActiveRowId"><span class="type-signature"></span>getActiveRowId()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve el identificador de la línea activa.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1280">line 1280</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Identificador de la línea activa.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getActiveRowId&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCol"><span class="type-signature"></span>getCol(rowid, colName)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve el valor de la columna de la fila indicada.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador de la fila.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Nombre de la columna.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1385">line 1385</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getCol&quot;, &quot;10&quot;, &quot;nombre&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getColModel"><span class="type-signature"></span>getColModel()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve el objeto colModel del componente jqGrid.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1372">line 1372</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Objeto colModel de la tabla.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getColModel&quot;);</pre>
 
 
     
@@ -380,7 +2132,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-681">line 681</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-683">line 683</a>
 			</li>
 		</ul>
 	</dd>
@@ -405,11 +2157,157 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Propiedad colModel del jqGrid.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getColModel&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getDataIDs"><span class="type-signature"></span>getDataIDs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un array con los identificadores de los registros que se muestran actualmente en la página de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1346">line 1346</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Identificadores de lso registros mostrados en la página actual.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getDataIDs&quot;);</pre>
 
 
     
@@ -524,7 +2422,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-692">line 692</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-695">line 695</a>
 			</li>
 		</ul>
 	</dd>
@@ -554,7 +2452,7 @@
             
 <div class="param-desc">
     <ul>
-<li>Valor del parámetro indicado.</li>
+<li>Valor del parámetro.</li>
 </ul>
 </div>
 
@@ -589,367 +2487,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getPkUrl"><span class="type-signature"></span>getPkUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Retorna una URL con los identificadores de las primary keys del registro actual, concatenadas siguiendo la notación REST. Se emplea para realizar una peticón GET con el fin de recuperar un registro concreto.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-745">line 745</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <ul>
-<li>Url con los identificadores concatenados.</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getPkUrl&quot;);</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getSelectedLines"><span class="type-signature"></span>getSelectedLines()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Devuelve un array con los números de líneas de los registros seleccionados.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-731">line 731</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <ul>
-<li>Array con los números de líneas de los registros seleccionados.</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;number></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getSelectedLines&quot;);</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getSelectedRows"><span class="type-signature"></span>getSelectedRows()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Devuelve un array con los identificadores de los registros seleccionados.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-717">line 717</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <ul>
-<li>Array con los identificadores de los registros seleccionados.</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getSelectedRows&quot;);</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="gridResize"><span class="type-signature"></span>gridResize(options)</h4>
+    <h4 class="name" id="getGridParam"><span class="type-signature"></span>getGridParam(options)</h4>
     
     
 </dt>
@@ -1054,7 +2592,781 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-705">line 705</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-708">line 708</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Referencia al propio componente.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jQuery</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;gridResize&quot;,{});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPkUrl"><span class="type-signature"></span>getPkUrl(rowId)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.<br>La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador del registro.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-749">line 749</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Url para obtener los valores del registro correspondiente.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getPkUrl&quot;,&quot;0001&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getRowData"><span class="type-signature"></span>getRowData(rowid)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un objeto json con los valores de los campos del registro indicado.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador del registro del que se quieren recuperar los datos.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1332">line 1332</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Objecto json con los valores del registro.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getRowData&quot;, &quot;10&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getSelectedLines"><span class="type-signature"></span>getSelectedLines()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un array con los índices de las líneas de los registros seleccionados.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-735">line 735</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Array con los índices de las líneas de los registros seleccionados.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;number></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getSelectedLines&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getSelectedRows"><span class="type-signature"></span>getSelectedRows()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un array con los identificadores de los registros seleccionados.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-721">line 721</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Array con los identificadores de los registros seleccionados.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getSelectedRows&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getSerializedForm"><span class="type-signature"></span>getSerializedForm(form, skipEmpty)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un objeto json que contiene la serialización del formulario.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>form</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Formulario que se desea serializar.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>skipEmpty</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>En caso de indicarse true se omiten los campos que no contienen valor.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1399">line 1399</a>
 			</li>
 		</ul>
 	</dd>
@@ -1083,7 +3395,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;gridResize&quot;,{});</pre>
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;getSerializedForm&quot;, $(&quot;#idFormulario&quot;), false);</pre>
 
 
     
@@ -1198,7 +3510,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-927">line 927</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-938">line 938</a>
 			</li>
 		</ul>
 	</dd>
@@ -1250,7 +3562,7 @@
 
     
     <div class="description">
-        <p>Función que realiza la configuración final del core del componente Table. Esta configruación es posterior a la llamada de inicialización del componente jqGrid pero previa a la post configuración de los plugins del componente RUP Table.</p>
+        <p>Metodo que realiza la post-configuración del core del componente RUP Table.<br>Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.</p>
     </div>
     
 
@@ -1302,7 +3614,7 @@
 
             
 
-            <td class="description last"><p>Parametros de configuruación del componente RUP Table.</p></td>
+            <td class="description last"><p>Parámetros de configuración del componente.</p></td>
         </tr>
 
     
@@ -1347,7 +3659,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-601">line 601</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-602">line 602</a>
 			</li>
 		</ul>
 	</dd>
@@ -1388,7 +3700,7 @@
 
     
     <div class="description">
-        <p>Función que realiza la configuración del core del componente Table. Esta configruación se realiza previa a la configuración de los diferentes plugins del componente Table y a la llamada de inicialización del componente jqGrid.</p>
+        <p>Metodo que realiza la pre-configuración del core del componente RUP Table.<br>Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.</p>
     </div>
     
 
@@ -1440,7 +3752,7 @@
 
             
 
-            <td class="description last"><p>Parametros de configuruación del componente RUP Table.</p></td>
+            <td class="description last"><p>Parámetros de configuración del componente.</p></td>
         </tr>
 
     
@@ -1485,7 +3797,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-248">line 248</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-245">line 245</a>
 			</li>
 		</ul>
 	</dd>
@@ -1501,6 +3813,15 @@
 
     
 
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="jQuery.rup_table.html#event:rupTable_checkOutOfGrid">jQuery.rup_table#event:rupTable_checkOutOfGrid</a></li>
+    
+        <li><a href="jQuery.rup_table.html#event:rupTable_serializeGridData">jQuery.rup_table#event:rupTable_serializeGridData</a></li>
+    
+        <li><a href="jQuery.rup_table.html#event:rupTable_beforeProcessing">jQuery.rup_table#event:rupTable_beforeProcessing</a></li>
+    </ul>
     
 
     
@@ -1623,7 +3944,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-764">line 764</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-770">line 770</a>
 			</li>
 		</ul>
 	</dd>
@@ -1767,7 +4088,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-788">line 788</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-794">line 794</a>
 			</li>
 		</ul>
 	</dd>
@@ -1797,7 +4118,7 @@
             
 <div class="param-desc">
     <ul>
-<li>Referencia al propio objeto Table.</li>
+<li>Referencia al propio objeto.</li>
 </ul>
 </div>
 
@@ -1823,6 +4144,155 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;resetForm&quot;, $(&quot;#idFormulario&quot;));</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="rupTableClearHighlightedRowAsSelected"><span class="type-signature"></span>rupTableClearHighlightedRowAsSelected($row)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Elimina el resaltado de la línea especificada de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que referencia a la línea de la tabla.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-913">line 913</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="jQuery.rup_table.html#event:rupTableClearHighlightedRowAsSelected">jQuery.rup_table#event:rupTableClearHighlightedRowAsSelected</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;clearHighlightedRowAsSelected&quot;, $(&quot;#idFila&quot;));</pre>
 
 
     
@@ -1937,7 +4407,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-836">line 836</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-842">line 842</a>
 			</li>
 		</ul>
 	</dd>
@@ -1967,7 +4437,7 @@
             
 <div class="param-desc">
     <ul>
-<li>Referencia al propio objeto Table.</li>
+<li>Referencia al propio objeto.</li>
 </ul>
 </div>
 
@@ -2002,7 +4472,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setSelection"><span class="type-signature"></span>setSelection(selection, status)</h4>
+    <h4 class="name" id="setRowData"><span class="type-signature"></span>setRowData(rowid, data, cssp)</h4>
     
     
 </dt>
@@ -2010,7 +4480,7 @@
 
     
     <div class="description">
-        <p>Selecciona o deselecciona los registros indicados.</p>
+        <p>Actualiza los valores de las columnas de un registro determinado. La actualización de loa datos se realiza solo de manera visual. Los nuevos datos no se persisten.</p>
     </div>
     
 
@@ -2045,7 +4515,7 @@
 
         <tr>
             
-                <td class="name"><code>selection</code></td>
+                <td class="name"><code>rowid</code></td>
             
 
             <td class="type">
@@ -2062,20 +4532,20 @@
 
             
 
-            <td class="description last"><p>Identificador del elemento a seleccionar o deseleccionar.</p></td>
+            <td class="description last"><p>Identificador del registro que se desea actualizar.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>status</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">object</span>
 
 
 
@@ -2086,7 +4556,31 @@
 
             
 
-            <td class="description last"><p>Determina si se debe seleccionar o deseleccionar.</p></td>
+            <td class="description last"><p>Objeto json que contiene los valores de cada columna de la nueva línea.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cssp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>En caso de especificarse, se añadirán a la línea las class de estilos aquí indicadas.</p></td>
         </tr>
 
     
@@ -2131,7 +4625,178 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-850">line 850</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1308">line 1308</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;setRowData&quot;, &quot;10&quot;, {campo1:valor1,campo2:valor2});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setSelection"><span class="type-signature"></span>setSelection(selectedRows, status)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Selecciona o deselecciona los registros indicados.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>selectedRows</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador o array de identificadores de los registros que se desea seleccionar o deseleccionar.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>En caso de ser true se seleccionarán los registros indicados. En caso de ser false se deseleccionarán.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-856">line 856</a>
 			</li>
 		</ul>
 	</dd>
@@ -2230,7 +4895,7 @@
 
             
 
-            <td class="description last"><p>Objeto jQuery que referencia el formulario que se desea validar.</p></td>
+            <td class="description last"><p>Objeto jQuery que referencia el formulario que se desea resetear.</p></td>
         </tr>
 
     
@@ -2299,7 +4964,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-869">line 869</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-875">line 875</a>
 			</li>
 		</ul>
 	</dd>
@@ -2346,7 +5011,7 @@
 
     
     <div class="description">
-        <p>Actualiza el valor de los datos que se muestran en la barra de paginación</p>
+        <p>Actualiza el valor de los datos que se muestran en la barra de paginación.</p>
     </div>
     
 
@@ -2387,7 +5052,7 @@
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -2411,7 +5076,7 @@
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -2467,7 +5132,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-953">line 953</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-964">line 964</a>
 			</li>
 		</ul>
 	</dd>
@@ -2506,7 +5171,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="updateDetailPagination"><span class="type-signature"></span>updateDetailPagination(arg)</h4>
+    <h4 class="name" id="updateSavedData"><span class="type-signature"></span>updateSavedData(arg)</h4>
     
     
 </dt>
@@ -2555,7 +5220,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="jQuery.rup_table.html#~onUpdateSavedData">jQuery.rup_table~onUpdateSavedData</a></span>
+<span class="param-type">jQuery.rup_table~onUpdateSavedData</span>
 
 
 
@@ -2611,7 +5276,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-991">line 991</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1001">line 1001</a>
 			</li>
 		</ul>
 	</dd>
@@ -2656,7 +5321,7 @@
                 
 <hr>
 <dt>
-    <h4 class="name" id="~onUpdateSavedData"><span class="type-signature"></span>onUpdateSavedData(savedData)</h4>
+    <h4 class="name" id="~isEnabled"><span class="type-signature"></span>isEnabled()</h4>
     
     
 </dt>
@@ -2664,7 +5329,127 @@
 
     
     <div class="description">
-        <p>Función que se ejecuta a la hora de actualizar el objeto interno _savedData. Se permite la modificación del objeto para poder asignar valores que el componente no puede resolver automáticamente.</p>
+        <p>Función de callback que determina si la operación debe estar habilitada o no.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1442">line 1442</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Devuelve si la operación debe de estar habilitada o no.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">enabled: function(){		return true;	}</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="~onOperation"><span class="type-signature"></span>onOperation(key, options)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.</p>
     </div>
     
 
@@ -2699,7 +5484,31 @@
 
         <tr>
             
-                <td class="name"><code>savedData</code></td>
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identificador de la operación</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -2716,7 +5525,7 @@
 
             
 
-            <td class="description last"><p>Objecto interno savedData.</p></td>
+            <td class="description last"><p>Opciones de configuración de la operación.</p></td>
         </tr>
 
     
@@ -2761,7 +5570,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-981">line 981</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1430">line 1430</a>
 			</li>
 		</ul>
 	</dd>
@@ -2790,7 +5599,329 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).rup_table(&quot;updateSavedData&quot;, function(savedData){});</pre>
+    <pre class="sunlight-highlight-javascript">callback: function(key, options){		alert(&quot;Operación 1&quot;);	}</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="~Operations">
+    <h4>Operations</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Texto a mostrar al usuario a la hora de visualizar la operación.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>icon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Clase CSS correspondiente al icono que se quiere visualizar junto a la operación.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="jQuery.rup_table.html#~isEnabled">jQuery.rup_table~isEnabled</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="jQuery.rup_table.html#~onOperation">jQuery.rup_table~onOperation</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1453">line 1453</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">core:{	operations:{			&quot;operacion1&quot;: {				name: &quot;Operación 1&quot;,				icon: &quot;rup-icon rup-icon-new&quot;,				enabled: function(){					return true;				},				callback: function(key, options){					alert(&quot;Operación 1&quot;);				}			},			&quot;operacion2&quot;: {				name: &quot;Operación 2&quot;,				icon: &quot;rup-icon rup-icon-new&quot;,				enabled: function(){					return true;				},				callback: function(key, options){					alert(&quot;Operación 1&quot;);				}			}		}}</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="~ShowOperations">
+    <h4>ShowOperations</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1488">line 1488</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">core:{		showOperations:{			add:false;			clone:false;		}	}</pre>
 
 
     
@@ -2806,7 +5937,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="event:rupTableHighlightRowAsSelected">rupTableHighlightRowAsSelected</h4>
+    <h4 class="name" id="event:rupTable_beforeProcessing">rupTable_beforeProcessing</h4>
     
     
 </dt>
@@ -2814,7 +5945,7 @@
 
     
     <div class="description">
-        <p>Snowball event.</p>
+        <p>Evento que se lanza antes de que se procese la información recibida del servidor.</p>
     </div>
     
 
@@ -2823,56 +5954,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>$row</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">jQuery</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Objeto jQuery que referencia a la línea de la tabla.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -2929,13 +6010,13 @@
 
         <tr>
             
-                <td class="name"><code>isPacked</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">object</span>
 
 
 
@@ -2946,7 +6027,55 @@
 
             
 
-            <td class="description last"><p>Indicates whether the snowball is tightly packed.</p></td>
+            <td class="description last"><p>Información recibida del servidor.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>st</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Mensaje de status de la petición.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xhr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto xhr recibido.</p></td>
         </tr>
 
     
@@ -2988,7 +6117,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
-				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-916">line 916</a>
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1596">line 1596</a>
 			</li>
 		</ul>
 	</dd>
@@ -3017,7 +6146,838 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableHighlightRowAsSelected&quot;, function(event, $row){});</pre>
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_beforeProcessing&quot;, function(event, data, st,xhr){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_checkOutOfGrid">rupTable_checkOutOfGrid</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$originalTarget</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que referencia el elemento del dom con el que ha interactuado el usuario.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1574">line 1574</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_checkOutOfGrid&quot;, function(event,$originalTarget){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_coreConfigFinished">rupTable_coreConfigFinished</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1629">line 1629</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_coreConfigFinished&quot;, function(event, $row){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTable_serializeGridData">rupTable_serializeGridData</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Información serializada que va a ser enviada. Se puede modificar o agregar nuevos campos para completarla.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1585">line 1585</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTable_serializeGridData&quot;, function(event, data){});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTableClearHighlightedRowAsSelected">rupTableClearHighlightedRowAsSelected</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Se produce cuando se elimina el resaltado de un registro de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que identifica la línea que se ha procesado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1609">line 1609</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableClearHighlightedRowAsSelected&quot;, function(event, $row){ });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="event:rupTableHighlightRowAsSelected">rupTableHighlightRowAsSelected</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Se produce cuando se añade el resaltado a un registro de la tabla.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto Event correspondiente al evento disparado.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Objeto jQuery que identifica la línea que se ha procesado.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup_table_rup.table.core.js.html">rup_table/rup.table.core.js</a>,
+				 <a href="rup_table_rup.table.core.js.html#sunlight-1-line-1619">line 1619</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(&quot;#idComponente&quot;).on(&quot;rupTableHighlightedRowAsSelected&quot;, function(event, $row){ });</pre>
 
 
     
@@ -3071,7 +7031,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on Fri Jul 15th 2016
+		on Thu Jul 21st 2016
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

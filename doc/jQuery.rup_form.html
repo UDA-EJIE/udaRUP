@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_upload.html#event:rupValidate_formValidationError">jQuery.rup_upload#event:rupValidate_formValidationError</a></li>
+					<li><a href="jQuery.rup_table.html#event:rupTable_beforeProcessing">jQuery.rup_table#event:rupTable_beforeProcessing</a></li><li><a href="jQuery.rup_table.html#event:rupTable_checkOutOfGrid">jQuery.rup_table#event:rupTable_checkOutOfGrid</a></li><li><a href="jQuery.rup_table.html#event:rupTable_coreConfigFinished">jQuery.rup_table#event:rupTable_coreConfigFinished</a></li><li><a href="jQuery.rup_table.html#event:rupTable_serializeGridData">jQuery.rup_table#event:rupTable_serializeGridData</a></li><li><a href="jQuery.rup_table.html#event:rupTableClearHighlightedRowAsSelected">jQuery.rup_table#event:rupTableClearHighlightedRowAsSelected</a></li><li><a href="jQuery.rup_table.html#event:rupTableHighlightRowAsSelected">jQuery.rup_table#event:rupTableHighlightRowAsSelected</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_validate.html#event:rupValidate_formValidationError">jQuery.rup_validate#event:rupValidate_formValidationError</a></li>
 				</ul>
 			</li>
 			
@@ -1904,126 +1904,6 @@
 
     
     <div class="description">
-        <p>Devuelve un array con el valor de los campos indicados.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="rup.form.js.html">rup.form.js</a>,
-				 <a href="rup.form.js.html#sunlight-1-line-181">line 181</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <ul>
-<li>Retorna una cadena de texto con el formato nombre1=valor1&amp;nombre2=valor2.</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">jQuery(&quot;#form .specialFields&quot;).rup_form(&quot;fieldValue&quot;);</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="fieldSerialize"><span class="type-signature"></span>fieldSerialize()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
         <p>Realiza la serialización de campos del formulario en un query string</p>
     </div>
     
@@ -2127,6 +2007,126 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">jQuery(&quot;#form .specialFields&quot;).rup_form(&quot;fieldSerialize&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="fieldSerialize"><span class="type-signature"></span>fieldSerialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Devuelve un array con el valor de los campos indicados.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="rup.form.js.html">rup.form.js</a>,
+				 <a href="rup.form.js.html#sunlight-1-line-181">line 181</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Retorna una cadena de texto con el formato nombre1=valor1&amp;nombre2=valor2.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">jQuery(&quot;#form .specialFields&quot;).rup_form(&quot;fieldValue&quot;);</pre>
 
 
     
@@ -3486,7 +3486,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on Fri Jul 15th 2016
+		on Thu Jul 21st 2016
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
