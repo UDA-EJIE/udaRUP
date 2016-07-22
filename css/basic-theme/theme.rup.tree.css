@@ -1,0 +1,106 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+.rup_tree{
+	visibility: hidden;
+}
+
+/* Estilos generales, por defecto, del componente */
+
+/*
+ * jsTree classic theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+.jstree-rup-default li, 
+.jstree-rup-default ins { background-image:url("images/tree/d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-rup-default li { background-position:-93px 0; background-repeat:repeat-y;  }
+.jstree-rup-default li.jstree-last { background:transparent; }
+.jstree-rup-default .jstree-open > ins { background-position:-72px 0; }
+.jstree-rup-default .jstree-closed > ins { background-position:-54px 0; }
+.jstree-rup-default .jstree-leaf > ins { background-position:-36px 0\9; background-position:-37px 0; }
+
+.jstree-rup-default .jstree-hovered { background:#e7f4f9; border:1px solid #e7f4f9; padding:0 2px 0 1px; }
+.jstree-rup-default .jstree-clicked { background:navy; border:1px solid navy; padding:0 2px 0 1px; color:white; }
+.jstree-rup-default a .jstree-icon { background-position:-56px -19px; }
+.jstree-rup-default .jstree-open > a .jstree-icon { background-position:-56px -36px; }
+.jstree-rup-default a.jstree-loading .jstree-icon { background:url("images/tree/throbber.gif") center center no-repeat !important; }
+
+.jstree-rup-default.jstree-focused { background:white; }
+
+.jstree-rup-default ul:first-child > li.jstree-leaf:first-child > ins { background-position:-72px -36px;}
+.jstree-rup-default ul:first-child > li.jstree-open:first-child > ins { background-position:-72px -54px; }
+.jstree-rup-default ul:first-child > li.jstree-closed:first-child > ins { background-position:-54px -54px; }
+
+.jstree-rup-default .jstree-no-dots li, 
+.jstree-rup-default .jstree-no-dots .jstree-leaf > ins { background:transparent; }
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-leaf:first-child > ins { background:transparent; }
+.jstree-rup-default .jstree-no-dots .jstree-open > ins { background-position:-18px 0; }
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-open:first-child > ins { background-position:-18px 0; }
+.jstree-rup-default .jstree-no-dots .jstree-closed > ins { background-position:0 0; }
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-closed:first-child > ins { background-position:0 0; }
+
+.jstree-rup-default .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-rup-default .jstree-search { font-style:italic; }
+
+.jstree-rup-default .jstree-no-icons .jstree-checkbox { display:inline-block; }
+.jstree-rup-default .jstree-no-checkboxes .jstree-checkbox { display:none !important; }
+.jstree-rup-default .jstree-checked > a > .jstree-checkbox { background-position:-38px -19px; }
+.jstree-rup-default .jstree-unchecked > a > .jstree-checkbox { background-position:-2px -19px; }
+.jstree-rup-default .jstree-undetermined > a > .jstree-checkbox { background-position:-20px -19px; }
+.jstree-rup-default .jstree-checked > a > .jstree-checkbox:hover { background-position:-38px -37px; }
+.jstree-rup-default .jstree-unchecked > a > .jstree-checkbox:hover { background-position:-2px -37px; }
+.jstree-rup-default .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
+
+#vakata-dragged.jstree-rup-default ins { background:transparent !important; }
+#vakata-dragged.jstree-rup-default .jstree-ok { background:url("images/tree/d.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-rup-default .jstree-invalid { background:url("images/tree/d.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-rup-default { background:url("images/tree/d.png") -41px -57px no-repeat !important; text-indent:-100px; }
+
+.jstree-rup-default a.jstree-search { font-weight:bold; }
+.jstree-rup-default .jstree-locked a { color:silver; cursor:default; }
+
+#vakata-contextmenu.jstree-rup-default-context, 
+#vakata-contextmenu.jstree-rup-default-context li ul { background:#f0f0f0; border:1px solid #979797; -moz-box-shadow: 1px 1px 2px #999; -webkit-box-shadow: 1px 1px 2px #999; box-shadow: 1px 1px 2px #999; }
+#vakata-contextmenu.jstree-rup-default-context li { }
+#vakata-contextmenu.jstree-rup-default-context a { color:black; }
+#vakata-contextmenu.jstree-rup-default-context a:hover, 
+#vakata-contextmenu.jstree-rup-default-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
+#vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a, 
+#vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
+#vakata-contextmenu.jstree-rup-default-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
+#vakata-contextmenu.jstree-rup-default-context li ul { margin-left:-4px; }
+
+/* IE6 BEGIN */
+.jstree-rup-default li, 
+.jstree-rup-default ins,
+#vakata-dragged.jstree-rup-default .jstree-invalid, 
+#vakata-dragged.jstree-rup-default .jstree-ok, 
+#jstree-marker.jstree-rup-default { _background-image:url("images/tree/d.gif"); }
+.jstree-rup-default .jstree-open ins { _background-position:-72px 0; }
+.jstree-rup-default .jstree-closed ins { _background-position:-54px 0; }
+.jstree-rup-default .jstree-leaf ins { _background-position:-36px 0; }
+.jstree-rup-default .jstree-open a ins.jstree-icon { _background-position:-56px -36px; }
+.jstree-rup-default .jstree-closed a ins.jstree-icon { _background-position:-56px -19px; }
+.jstree-rup-default .jstree-leaf a ins.jstree-icon { _background-position:-56px -19px; }
+#vakata-contextmenu.jstree-rup-default-context ins { _display:none; }
+#vakata-contextmenu.jstree-rup-default-context li { _zoom:1; }
+.jstree-rup-default .jstree-undetermined a .jstree-checkbox { _background-position:-20px -19px; }
+.jstree-rup-default .jstree-checked a .jstree-checkbox { _background-position:-38px -19px; }
+.jstree-rup-default .jstree-unchecked a .jstree-checkbox { _background-position:-2px -19px; }
+/* IE6 END */

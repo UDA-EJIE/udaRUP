@@ -1,0 +1,61 @@
+.ui-carousel {
+	height: 100px;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: relative; /*for ie7 to work e.g in html carousels*/
+	width: 300px
+}
+
+.ui-carousel > .wrapper {
+    margin: 0;
+    padding: 0;
+    width: 9999px;
+}
+
+.ui-carousel > .wrapper > * {
+	border: 0;
+	display: block;
+	float: left;
+	height: 100px;
+	overflow: hidden;
+	width: 100px;
+	//white-space:nowrap;
+}
+
+#contenedorMenuTab{
+	//width:70%;
+	position:relative;
+	overflow: hidden;
+ 	width: 100.2%;
+  	margin: 0;
+  	padding: 0;
+ 	list-style: none;
+  	margin: 0 0 -0.29em;
+	
+}
+
+#ui-carousel-next, #ui-carousel-prev,#prvButton,#nxtButton {
+	width: 30px;
+}
+
+
+#ui-carousel-next {
+-moz-user-select: none;
+	cursor: pointer;
+	height: 35px;
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	z-index: 1000;
+}
+
+#ui-carousel-prev {
+	-moz-user-select: none;
+	cursor: pointer;
+	height: 35px;
+	left: 3px;
+	position: absolute;
+	top: 3px;
+	z-index: 1000;
+}

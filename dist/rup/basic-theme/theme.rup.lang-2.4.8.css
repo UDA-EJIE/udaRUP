@@ -1,0 +1,164 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.rup-language_root {
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+.rup-language_root {
+	border-top: 1px solid #DADADA;
+	position: relative;
+	width:100%;
+	line-height: 2em;
+	float: left;
+	margin-bottom: 0.7em;
+}
+
+.rup-language_root div{
+	z-index: 900;
+	
+}
+
+.rup-language_root a {
+	color: #0052C7;
+}
+
+.rup-language_root li {
+	float: left;
+	margin-right: 1em;
+	list-style-type: none;
+}
+
+.rup-language_root ul {
+        margin: 0px;
+}
+
+.rup-language_change a {
+	background: url("images/rup.dropdown.gif") no-repeat right;
+	padding: .2em 2.4em .2em .6em;
+}
+
+.rup-language_close_languages {
+	float:right;
+	background-image: url("images/rup.close.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 1.8em;
+	color: blue;
+	text-decoration: underline !important;
+	cursor: pointer;
+}
+.rup-language_close_languages:hover {
+	background-image: url("images/rup.close_hover.png");
+	text-decoration: none !important;
+}
+
+.rup-language_language_list a:link {
+	text-decoration : none;
+}
+.rup-language_language_list a:focus {
+	border-style: dotted;
+	border-width: thin;
+	outline: none; /* evitar borde TAB */ 	
+}
+.rup-language_language_list ul a:link {
+	text-decoration : underline;
+}
+
+.rup_language_link{
+	padding-right: 0.1em;
+}
+
+.rup-language_change_option {
+	background: url("images/rup.dropdown.gif") no-repeat right;
+	padding: .2em 2.4em .2em .6em;
+	background-color: #F7F7F7;
+	border-top: 1px solid #ABABAB;
+	border-right: 1px solid #ABABAB;
+	border-left: 1px solid #ABABAB;
+	text-decoration: none;
+	color: #000000 !important;
+	line-height: 1.5em;
+	position: absolute;
+	text-decoration: none;
+}
+
+.rup-language_language_list {
+	background-color: #F7F7F7;
+	border: 0.1em solid #ABABAB;
+	/* The value of padding-right and padding-left are specified in the component code */	
+	padding-top: 0.6em;
+	padding-bottom: 0.6em;
+	position: absolute;
+	left: 0px;
+}
+
+.rup-language_language_list ul li {
+	display: block !important;
+	float: none !important;
+}
+
+.rup-language_language_list ul li a:hover {
+	color: #000000 !important;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.rup-language_hidden {
+	visibility: hidden;
+}
+
+.rup-language_root .ui-state-active {
+	color: #0052C7;
+	border: none;
+	font-weight: bold;
+}
+
+.rup-language_root .ui-state-active a:link{
+	text-decoration: none;
+}
+
+/* Estilos de modo portal */
+.rup-language_portal li{
+	margin: 0px;
+}
+
+.rup-language_portal_list {
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	color: #000000 !important;
+}
+
+.rup-language_portal_list:HOVER {
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	text-decoration: underline;
+	color: #000000 !important;
+}
+
+.rup-language_portal_list_active {
+	float: left;
+	padding: 0px;
+	margin: 0px;
+}
+
+.rup-language_portal_separator {
+	float: left;
+	padding: 0px 0.5em; 
+}
+

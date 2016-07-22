@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>UDA - Rup Source: rup.breadCrumb.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.spacelab.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">UDA - Rup</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#jQuery">jQuery</a></li><li><a href="jQuery.rup.html">jQuery.rup</a></li><li><a href="jQuery.rup_accordion.html">jQuery.rup_accordion</a></li><li><a href="jQuery.rup_autocomplete.html">jQuery.rup_autocomplete</a></li><li><a href="jQuery.rup_breadCrumb.html">jQuery.rup_breadCrumb</a></li><li><a href="jQuery.rup_button.html">jQuery.rup_button</a></li><li><a href="jQuery.rup_combo.html">jQuery.rup_combo</a></li><li><a href="jQuery.rup_contextMenu.html">jQuery.rup_contextMenu</a></li><li><a href="jQuery.rup_date.html">jQuery.rup_date</a></li><li><a href="jQuery.rup_dav.html">jQuery.rup_dav</a></li><li><a href="jQuery.rup_dialog.html">jQuery.rup_dialog</a></li><li><a href="jQuery.rup_form.html">jQuery.rup_form</a></li><li><a href="jQuery.rup_language.html">jQuery.rup_language</a></li><li><a href="jQuery.rup_menu.html">jQuery.rup_menu</a></li><li><a href="jQuery.rup_messages.html">jQuery.rup_messages</a></li><li><a href="jQuery.rup_report.html">jQuery.rup_report</a></li><li><a href="jQuery.rup_tooltip.html">jQuery.rup_tooltip</a></li><li><a href="jQuery.rup_upload.html">jQuery.rup_upload</a></li><li><a href="jQuery.rup_utils.html">jQuery.rup_utils</a></li><li><a href="jQuery.rup_validate.html">jQuery.rup_validate</a></li><li><a href="jQuery.rup_wizard.html">jQuery.rup_wizard</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="jQuery.rup_upload.html#event:fileuploadadd">jQuery.rup_upload#event:fileuploadadd</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadalways">jQuery.rup_upload#event:fileuploadalways</a></li><li><a href="jQuery.rup_upload.html#event:fileuploaddone">jQuery.rup_upload#event:fileuploaddone</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadfail">jQuery.rup_upload#event:fileuploadfail</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogress">jQuery.rup_upload#event:fileuploadprogress</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadprogressall">jQuery.rup_upload#event:fileuploadprogressall</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsend">jQuery.rup_upload#event:fileuploadsend</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstart">jQuery.rup_upload#event:fileuploadstart</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadstop">jQuery.rup_upload#event:fileuploadstop</a></li><li><a href="jQuery.rup_upload.html#event:fileuploadsubmit">jQuery.rup_upload#event:fileuploadsubmit</a></li><li><a href="jQuery.rup_upload.html#event:rupValidate_formValidationError">jQuery.rup_upload#event:rupValidate_formValidationError</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="external-String.html">String</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: rup.breadCrumb.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/*!
+ * Copyright 2016 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/**
+ * @fileOverview Implementa el patrón RUP BreadCrumb.
+ * @author EJIE
+ * @version 2.4.8
+ */
+(function ($) {
+
+  /**
+  * El componente de migas muestra a los usuarios la ruta de navegación que ha seguido por la aplicación permitiéndoles volver hacia niveles superiores hasta la página de inicio.
+  *
+  * @summary Componente RUP BeadCrumb.
+  * @namespace jQuery.rup_breadCrumb
+  * @memberOf jQuery
+  * @tutorial rup.breadCrumb
+  * @example
+  * var properties = {
+  *   logOutUrl: "/x21aPilotoPatronesWar/logout",
+  *   breadCrumb: {
+  *       "patrones" : {
+  *           // Literal
+  *		    "i18nCaption" : "patrones",
+  *		    "tabsMixto" : {"i18nCaption":"tabsMixto"},
+  *		    "grid" : { "i18nCaption" : "grid" },
+  *		    // Submenu
+  *		    "subLevel":[
+  *			   {"i18nCaption":"all", "url": "/x21aPilotoPatronesWar/patrones/all" },
+  *			   {"i18nCaption":"accordion", "url": "/x21aPilotoPatronesWar/patrones/accordion" }
+  *		    ]
+  *	     },
+  *	     "experimental" : {
+  *		    // Literal
+  *		    "i18nCaption" : "experimental",
+  *		    "maestro_detalle" : { "i18nCaption" : "maestro_detalle" },
+  *		    "mant_multi_entidad": { "i18nCaption" : "mant_multi_entidad" },"
+  *        }
+  *	}
+  * };
+  * jQuery("#x21aPilotoPatronesWar_migas").rup_breadCrumb(properties);
+  */
+	$.widget("$.rup_breadCrumb", {
+    /**
+     * @description Opciones por defecto de configuración del widget.
+     *
+     * @name jQuery.rup_breadCrumb#options
+     *
+     * @property {string}  [showSpeed=fast] - Propiedad que indica la velocidad de despliegue del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal”,”slow”)..
+     * @property {string}  [hideSpeed=''] - Propiedad que indica la velocidad de colapso del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal”,”slow”)..
+     * @property {boolean}  [collapsible=false] - Propiedad que indica si el primer nivel es plegable.
+     * @property {Number}  [collapsedWidth=10] - Propiedad de indica el tamaño del texto cuando está colapsado (en pixeles).
+     * @property {object} breadCrumb - La estructura de las migas se define mediante un array en notación json cuyo nombre será el mismo que el identificador del elemento sobre el que se aplica el componente.
+     */
+		options: {
+			showSpeed:        'fast',
+			hideSpeed:        '',
+			collapsible:      false,
+			collapsedWidth:   10,
+			breadCrumb:			  $.rup.APP_RESOURCES + ".breadCrumb"
+		},
+    /**
+     * Función encargada de crear los elementos visuales e inicializar el componente.
+     *
+     * @name jQuery.rup_breadCrumb#_create
+     * @function
+     * @private
+     */
+		_create: function () {
+			var pathname = window.location.pathname, breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
+				breadCrumbElems = breadCrumbEntry.split("/"),
+				//breadCrumbSpan = $("&lt;span>").addClass("rup-breadCrumbs_span").text($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.youAre")),
+				ulBreadCrumb = $("&lt;ul>").attr("id", "rup_breadCrumbs_ul").addClass("rup-breadCrumb_main"),
+				breadCrumbStruct = null,
+				lastCrum = null,
+				initURL = (this.options.initUrl!==undefined)?$.rup.CTX_PATH+this.options.initUrl:$.rup.CTX_PATH,
+				i18nId = (this.options.i18nId === undefined)? this.element.attr("id"):this.options.i18nId;
+			//Obtenemos la estructura del fichero que se recibe como paramtero o el de por defecto del patrón
+			if (this.options.breadCrumb instanceof Object) {
+				breadCrumbStruct = this.options.breadCrumb;
+			} else {
+				$.rup.getFile(this.options.breadCrumb);
+				breadCrumbStruct = $.rup.i18n[this.options.breadCrumb];
+			}
+
+			if (!window.LOGGED_USER || LOGGED_USER === "NULL"){
+				LOGGED_USER = "";
+			}
+			if (!window.DESTROY_XLNETS_SESSION){
+				DESTROY_XLNETS_SESSION = "false";
+			}
+			if(LOGGED_USER !== ""){
+				//Se añade el boton de desconexion si este fuera necesario
+				if (this.options.logOutUrl !== undefined){
+
+					if (DESTROY_XLNETS_SESSION === "false"){
+
+						//función encargada de poner el icono y el literal de salida
+						this.element.append($("&lt;div id='logOutDiv' class='rup-breadCrumb_logoutDiv'>")
+							.append($("&lt;a>").addClass("rup-breadCrumb_link").attr("logOutHref",this.options.logOutUrl).bind("click",
+							function(){$.rup_messages("msgConfirm", {
+								message: $.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.menuDisconnectMessage"),
+								title: $.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.menuDisconnectTitle"),
+								OKFunction : function(){$(window).attr("location",$("#logOutLink").attr("logOutHref"));}
+							});}).html($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.exit")).attr("id","logOutLink").append($("&lt;span>").addClass("ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg"))));
+					} else {
+
+						//función encargada de poner el icono y el literal de desconexion
+						this.element.append($("&lt;div id='logOutDiv' class='rup-breadCrumb_logoutDiv'>")
+							.append($("&lt;a>").addClass("rup-breadCrumb_link").attr("logOutHref",this.options.logOutUrl).bind("click",
+							function(){$.rup_messages("msgConfirm", {
+								message: $.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.menuSecuritySystemDisconnectMessage"),
+								title: $.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.menuDisconnectTitle"),
+								OKFunction : function(){$(window).attr("location",$("#logOutLink").attr("logOutHref"));}
+							});}).mouseover(
+							function(eventObject){
+								$(this).find("span").removeClass("rup-breadCrumb_logoutImg").addClass("rup-breadCrumb_logoutImg_active");
+							}).mouseleave(
+							function(eventObject){
+								$(this).find("span").addClass("rup-breadCrumb_logoutImg").removeClass("rup-breadCrumb_logoutImg_active");
+							}).html($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.disconnect")).attr("id","logOutLink").append($("&lt;span>").addClass("rup-breadCrumb_logoutImg ui-icon"))));
+					}
+				}
+				//se añade el span con el texto de "xxx esta aqui"
+				breadCrumbSpan = $("&lt;span>").addClass("rup-breadCrumbs_span").text(LOGGED_USER + $.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.userAre"));
+				this.element.append(breadCrumbSpan);
+			} else {
+				breadCrumbSpan = $("&lt;span>").addClass("rup-breadCrumbs_span").text($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.youAre"));
+				//se añade el span con el texto de "Usted esta aqui"
+				this.element.append(breadCrumbSpan);
+			}
+
+			//se le añade el link de Incio
+			ulBreadCrumb.append(this._createLI($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.start"), initURL));
+			//nos recorremos los elementos del path y los buscamos en el fichero json de migas para crear los enlaces
+			for (var i = 0; i &lt; breadCrumbElems.length; i++) {
+				//Si encontramos dentro del fichero de estructura de las migas el parte de la url
+				if (breadCrumbStruct[breadCrumbElems[i]]) {
+					//Generamos su miga de actualimos la estructura en la que buscar, devolviendo las estructura del nivel que se ha añadido
+					breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
+				}
+			}
+			//se le añade al ultimo elemento el estilo current
+			//$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
+			//$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
+			$(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).addClass("rup-breadCrumb_current").find("img.rup-icon, span.rup-icon").remove();
+			//el último elemento no es navegable
+			//lastCrum = $("li:last a", ulBreadCrumb);
+			lastCrum = $("a:first", $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]));
+
+			lastCrum.replaceWith($("&lt;span>").text(lastCrum.text()).css({ "font-weight":"bold", "color": "#333333"}));
+			// delete lastCrum;
+			//y por ultimo se añade todo el ul a div que lo contiene
+			this.element.append(ulBreadCrumb);
+			ulBreadCrumb.xBreadcrumbs();
+		},
+    /**
+     * Funcion que crea el li correspondiente de la miga accediendo al fichero de lenguage correspondiente.
+     *
+     * @name jQuery.rup_breadCrumb#_createLI
+     * @function
+     * @private
+     * @param {string} i18nCaption - Key del recurso i18n a buscar en los ficheros idiomáticos correspondientes.
+     * @param {string} href - Url a la que debe navegar la miga.
+     * @param {boolean} [separator] - Indica si se debe de pintar un separador posterior a la miga actual.
+     * @return {object} - Devuelve el li resultante correspondiente a la miga que se está procesando.
+     */
+		_createLI :  function (i18nCaption, href, separator) {
+			var li = $("&lt;li>"), a = $("&lt;a>").attr("href", /*$.rup.CTX_PATH + */href).text(i18nCaption);
+			li.append(a);
+			if (separator!==false){
+				li.append($("&lt;span>").addClass("ui-icon rup-icon rup-icon-separator-arrow"));
+			}
+			return li;
+		},
+    /**
+     * Funcion que añade al ul el li correspondiente en cada nivel y devuelve la nueva entructura en la que seguir iterando.
+     *
+     * @name jQuery.rup_breadCrumb#_createBreadCrumb
+     * @function
+     * @private
+     * @param {object} breadCrumbStruct - Objeto que contiene la estructura de migas de pan que se están creando.
+     * @param {object} elem - Elemento actual que se está procesando.
+     * @param {object} parentUl - Referencia al ul padre donde insertar la li correspondiente.
+     * @param {string} i18nId - Key del recurso i18n a buscar en los ficheros idiomáticos correspondientes.
+     * @return {object} - Devuelve la nueva entructura en la que seguir iterando.
+     */
+		_createBreadCrumb : function (breadCrumbStruct, elem, parentUl, i18nId) {//nos recorremos la entrada correspondiente
+			var createdLI, subLevelUL = $("&lt;ul>");
+			if (breadCrumbStruct.i18nCaption) {//si tengo i18nCaption es que es elemento final
+				createdLI = this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId],breadCrumbStruct.i18nCaption), (breadCrumbStruct.url ? $.rup.CTX_PATH+breadCrumbStruct.url : "#"));
+			}
+			//si tengo subLevel se crearan hijo como si fuesen un menu
+			if (breadCrumbStruct.subLevel) {
+				//nos recorremos todos los submenus
+				for (var i = 0; i &lt; breadCrumbStruct.subLevel.length; i++) {
+					//creamos cada li y se lo añadimos al ul nuevo
+					subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId],breadCrumbStruct.subLevel[i].i18nCaption), (breadCrumbStruct.subLevel[i].url ? breadCrumbStruct.subLevel[i].url : "#"), false).css("background", "none"));
+				}
+				//añadimos al li padre el nuevo ul con todos li de los sublevels
+				createdLI.append(subLevelUL);
+				$(createdLI).bind("mouseover", function (event) {
+					$(this).find("a:eq(1)").focus();
+				});
+				createdLI.bind("keydown", function (event) {
+					switch (event.keyCode) {
+					case $.ui.keyCode.UP:
+						var enlaces = $(this).find("li > a");
+						for (var i=0; i&lt;=enlaces.length; i++){
+							if (enlaces[i].text === $(event.target).text()){
+								break;
+							}
+						}
+						if ($(enlaces[i-1]).length > 0){
+							$(enlaces[i-1]).focus();
+						} else {
+							$(this).find("li > a").last().focus();
+						}
+						break;
+					case $.ui.keyCode.DOWN:
+						var enlaces = $(this).find("li > a");
+						for (var i=0; i&lt;=enlaces.length; i++){
+							if (enlaces[i].text === $(event.target).text()){
+								break;
+							}
+						}
+						if ($(enlaces[i+1]).length > 0){
+							$(enlaces[i+1]).focus();
+						} else {
+							$(this).find("li > a").first().focus();
+						}
+						break;
+					case $.ui.keyCode.ESCAPE:
+						$(this).children("ul").hide();
+						break;
+					default:
+					}
+				});
+			}
+			parentUl.append(createdLI);
+			return breadCrumbStruct;
+		},
+    /**
+     * Modifica las opciones de configuración del componente.
+     *
+     * @name jQuery.rup_breadCrumb#_setOption
+     * @function
+     * @private
+     * @param {string} key - Nombre de la propiedad.
+     * @param {*} value - Valor que se desea asignar a la propiedad.
+     */
+		_setOption: function (key, value) {
+			$.Widget.prototype._setOption.apply(this, arguments);
+		},
+    /**
+     * Elimina los componenes visuales generados para el widget así como las estructuras internas.
+     *
+     * @name jQuery.rup_breadCrumb#destroy
+     * @function
+     * @example
+     * // Elimina el feedback
+     * jQuery("#breadCrumb").rup_breadCrumb("destroy");
+     */
+		destroy: function () {
+			$.Widget.prototype.destroy.apply(this, arguments);
+		}
+	});
+})(jQuery);
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2014 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on Fri Jul 8th 2016
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

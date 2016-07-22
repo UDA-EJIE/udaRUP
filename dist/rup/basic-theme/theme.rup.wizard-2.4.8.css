@@ -1,0 +1,186 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+
+/* Contenedor pasos (UL) */
+.rup-wizard_stepsDescContainer {
+	list-style:none; 
+	width:99%; 
+	overflow:hidden; 
+	height: 35px ;
+}
+
+/* Paso */
+.rup-wizard_stepDesc a{
+	font:arial,helvetica,clean,sans-serif !important;
+	cursor: pointer;	
+	color: #0052C7;
+	float:left; 
+    text-decoration: underline;
+    text-align:center;
+    height: 35px ;
+    background: #EBEBEB url("images/wizard/arrow.gif") no-repeat right top;
+	font-size: 1.09em; 
+	padding: 9px 25px 0 10px;
+	display: block;
+	font-style: normal;
+	font-weight: bold;
+}
+.rup-wizard_stepDesc a:hover {
+	text-decoration: none;
+}
+.rup-wizard_stepDesc a:focus {
+	border-style: none;
+	border-width: thin;
+	outline: none; /* evitar borde TAB */ 	
+}
+
+/* Paso ACTIVO */
+.rup-wizard_stepDesc.current a { 
+	color:white;
+	text-decoration: none;
+	cursor: default;
+	background: #69C url("images/wizard/arrow_current.gif") no-repeat right top;
+}
+
+/* Paso ANTERIOR AL ACTIVO */
+.rup-wizard_stepDesc.visited a { 
+	text-decoration: underline;
+	cursor: default;
+	background: #EBEBEB url("images/wizard/arrow_done_last.gif") no-repeat right top;
+}
+/* Paso DESHABILITADO */
+.rup-wizard_stepDesc.disabled a { 
+	color:#D3D3D3;
+	text-decoration: none;
+	cursor: default;
+}
+/* Primer PASO */
+.rup-wizard_firstStepDesc a { 
+}
+/* Último PASO */
+.rup-wizard_lastStepDesc a {
+	background: #EBEBEB url("images/wizard/arrow_last.gif") no-repeat right top;
+}
+
+/* Paso RESUMEN  */
+.rup-wizard_summary a { 
+}
+
+/* Último PASO (activo)*/
+.rup-wizard_lastStepDesc.current a{ 
+	color:white;
+	text-decoration: none;
+	cursor: default;
+	background: #69C url("images/wizard/arrow_last_current.gif") no-repeat right top;
+}
+
+
+
+/* Enlaces Siguiente/Anterior */
+.rup-wizard_prev {
+	margin:5px;
+	margin-left:17px;
+	text-decoration:none;
+	color: #666565;
+	padding:7px;
+	padding-left:37px;
+	float:left;
+	cursor: pointer;
+ 	background: #EBEBEB url("images/wizard/prev.png") no-repeat left center; 
+ 	border: 1px solid #BDBDBD;
+ 	text-align: center;
+ 	width: 55px;
+ 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius:5px;
+}
+.rup-wizard_prev:HOVER {
+	color:#666565;
+ 	text-decoration: underline;
+}
+.rup-wizard_next {
+	margin:5px;
+	margin-right:17px;
+	text-decoration:none;
+	color: #666565;
+	padding:7px;
+	padding-right:37px;
+	float:right;
+	cursor: pointer;
+ 	background: #EBEBEB url("images/wizard/next.png") no-repeat right center; 
+ 	border: 1px solid #BDBDBD;
+ 	text-align: center;
+ 	width: 55px;
+ 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius:5px;
+}
+.rup-wizard_next:HOVER {
+	color:#666565;
+ 	background: white url("images/wizard/next.png") no-repeat right center; 
+ 	text-decoration: underline;
+}
+
+
+.rup-wizard_submitButton {
+	margin:5px;
+	margin-right:17px;
+	text-decoration:none;
+	color: #666565;
+	padding:7px;
+	padding-right:37px;
+	padding-top: 11px;
+	float:right;
+	cursor: pointer;
+ 	background: #EBEBEB url("images/wizard/submit.png") no-repeat right center; 
+ 	border: 1px solid #BDBDBD;
+ 	text-align: center;
+ 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius:5px;
+}
+
+.rup-wizard_submitButton:HOVER {
+	color:#666565;
+ 	background: white url("images/wizard/submit.png") no-repeat right center; 
+ 	text-decoration: underline;
+}
+	
+/* Tabs */
+.rup-wizard_tabLevel-0 {
+	margin-left: 1em;
+	color: green;
+}
+.rup-wizard_tabLevel-1 {
+	margin-left: 2em;
+	color: red;
+}
+.rup-wizard_tabLevel-2 {
+	margin-left: 2.5em;
+	color: blue;
+}
+
+.rup-wizard_tabContainerLevel-0 {
+	margin-left: 1em;
+}
+.rup-wizard_tabContainerLevel-1 {
+	margin-left: 2em;
+}
+.rup-wizard_tabContainerLevel-2 {
+	margin-left: 2.5em;
+}
+
