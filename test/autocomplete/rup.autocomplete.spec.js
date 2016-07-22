@@ -5,9 +5,7 @@ define(['jquery','handlebars','app','rup/autocomplete'], function($,Handlebars) 
 
     beforeAll(function(){
 
-      var sourceTemplate = `
-          <input type="text" id="{{id}}" />
-      `;
+      var sourceTemplate = '<input type="text" id="{{id}}" />';
       template = Handlebars.compile(sourceTemplate);
       $content = $("#content");
 
