@@ -1,0 +1,126 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+ /* Toolbar */
+.rup-toolbar {
+	overflow: hidden;
+	padding: 0.1em 0.4em 0.1em 0.4em;
+}
+
+/* Botones */
+.rup-toolbar_button {
+	margin-right:5px;
+	font-weight: bold;
+}
+
+/* Menu-Botones */
+.rup-toolbar_menuButton{
+	background:transparent; 
+	margin-right:5px;
+	font-weight: bold;
+}
+
+.rup-toolbar_menuButtonSlided{ /* cuando tiene el menú de botones desplegado y no está encima el cursor */
+	background: #ece9d8;
+	color: #0000ff;
+}
+
+/* Contenedor Menu-Botones*/
+.rup-toolbar_menuButtonContainer{
+	background-image:none;
+	overflow:hidden;
+	padding:0.4em;
+	padding-top: 0.5em;
+}
+
+/* Estilo aplicado al Menu-Botones */
+.rup-toolbar_menuButtonElement{
+	width: 100%;
+}
+
+/* Texto del botón del Menu-Botones */
+.rup-toolbar_menuButtonElement .ui-button-text{/*estilo del texto de los mbuttons*/
+	text-align: left;
+}
+
+
+/* Flechas del mbutton */
+.rup-toolbar_menuButtonIcon{
+	background-position:-64px -16px;
+}
+.rup-toolbar_menuButtonSlided .rup-toolbar_menuButtonIcon{/* flecha cuando el mbutton está desplegado*/
+	background-position:-64px -16px;
+}
+
+/* Tamaño botones toolbar por defecto (18x18) */
+.rup-toolbar_button .ui-button-icon-primary,
+.rup-toolbar_menuButton .ui-button-icon-primary {
+	width:18px;
+	height:18px;
+}
+
+@media \0screen {
+	.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+		z-index: 0;
+	}
+}
+
+/*Posicionamiento derecho de botones en la botonera*/
+.right_button{
+	float: right;
+}
+
+
+/******************/
+/* ICONOS TOOLBAR */
+/******************/
+.borrar { background:url("images/toolbar/borrar.png") no-repeat !important; }
+.borrar.disabled { background:url("images/toolbar/borrar_disabled.png") no-repeat !important; }
+
+.buscar { background:url("images/toolbar/buscar.png") no-repeat !important; }
+.buscar.disabled { background:url("images/toolbar/buscar_disabled.png") no-repeat !important; }
+
+.cancelar { background:url("images/toolbar/cancelar.png") no-repeat !important; }
+.cancelar.disabled { background:url("images/toolbar/cancelar_disabled.png") no-repeat !important; }
+
+.editar { background:url("images/toolbar/editar.png") no-repeat !important; }
+.editar.disabled { background:url("images/toolbar/editar_disabled.png") no-repeat !important; }
+
+.filtrar { background:url("images/toolbar/filtrar.png") no-repeat !important; }
+.filtrar.disabled { background:url("images/toolbar/filtrar_disabled.png") no-repeat !important; }
+
+.imprimir { background:url("images/toolbar/imprimir.png") no-repeat !important; }
+.imprimir.disabled { background:url("images/toolbar/imprimir_disabled.png") no-repeat !important; }
+
+.nuevo { background:url("images/toolbar/nuevo.png") no-repeat !important; }
+.nuevo.disabled { background:url("images/toolbar/nuevo_disabled.png") no-repeat !important; }
+
+/***************************/
+/* ICONOS FICHEROS (files) */
+/***************************/
+.csv { background:url("images/files/csv.gif") no-repeat !important; }
+.dll { background:url("images/files/dll.gif") no-repeat !important; }
+.doc { background:url("images/files/doc.gif") no-repeat !important; }
+.exe { background:url("images/files/exe.gif") no-repeat !important; }
+.gif { background:url("images/files/gif.gif") no-repeat !important; }
+.jpg { background:url("images/files/jpg.gif") no-repeat !important; }
+.js  { background:url("images/files/js.gif")  no-repeat !important; }
+.ods { background:url("images/files/ods.gif") no-repeat !important; }
+.pdf { background:url("images/files/pdf.gif") no-repeat !important; }
+.ppt { background:url("images/files/ppt.gif") no-repeat !important; }
+.txt { background:url("images/files/txt.gif") no-repeat !important; }
+.xls { background:url("images/files/xls.gif") no-repeat !important; }
+.zip { background:url("images/files/zip.gif") no-repeat !important; }

@@ -1,0 +1,66 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+ /* Capa del feedback */
+.rup-feedback {
+	border:1px solid #C7C700;
+	background-color:#F6F6CE;
+	background-image: none; /* Evitar imagen por defecto jQuery UI */
+	color:#000000;
+	overflow:hidden;
+	padding:1em;
+}
+
+/* Capa de cierre del feedback (enlace+imagen) */
+.rup-feedback_closeLink {
+	float:right;
+	background-image: url("images/rup.close.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 1.5em;
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.rup-feedback_closeLink:hover {
+	background-image: url("images/rup.close_hover.png");
+	text-decoration: none;
+}
+
+/* Imagen fondo por defecto (valores generales) */
+.rup-feedback_image {
+	background-repeat: no-repeat;
+	background-position: 8px 12px;
+	padding-bottom:1em;
+	padding-left:4.5em;
+	padding-right:0.5em;
+	padding-top:1em;
+}
+
+/* Imagenes por defecto (url fichero) [ok, alert, error] */
+.rup-feedback_image_ok{
+	background-image: url("images/rup.ok.png");
+	background-color: #DFF2DF;
+	border: 1px solid #00B500;
+}
+.rup-feedback_image_alert{
+	background-image: url("images/rup.alert.png");
+}
+.rup-feedback_image_error{
+	background-image: url("images/rup.error.png");
+	background-color: #F6CECE;
+	border: 1px solid #FF0000;
+}

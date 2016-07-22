@@ -1,0 +1,151 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+.rup-breadCrumb_main LI UL { 
+	position: absolute;
+	float: left;
+}
+.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.rup-breadCrumb_main { /*clear: both;*/ }
+.rup-breadCrumb_main, .rup-breadCrumb_main LI {
+	float: left;
+}
+.rup-breadCrumb_main UL {
+	display: none;
+}
+
+/*  Base style of rup-breadCrumb_main  */
+/*  Top Level  */
+.rup-breadCrumb_main {
+	 background: none;
+	/*width: 90%;*/
+	padding-right: 65em;
+	position: relative;
+}
+.rup-breadCrumb_main LI {
+	border-right: none;
+/*     background: url("images/rup.separatorArrow.gif") no-repeat right center; */
+    padding-right: 4px;
+    padding-left: 10px;
+	height: 16px;
+    padding-top:5px;
+    padding-bottom:5px;
+    width: auto;
+
+}
+.rup-breadCrumb_main LI.rup-breadCrumb_current {
+	border-right: none;
+	background: none;
+}
+.rup-breadCrumb_main LI A {
+	text-decoration: underline;
+    color: #0A8ECC;
+}
+
+.rup-breadCrumb_main LI A:HOVER, .rup-breadCrumb_main LI.hover A {
+	color: #0A8ECC;
+}
+.rup-breadCrumb_main LI IMG.rup-icon, .rup-breadCrumb_main LI SPAN.rup-icon{
+	display: inline-block;
+	margin-left: 1em;
+}
+	
+/*  Top Level - Current Page  */
+.rup-breadCrumb_main LI.rup-breadCrumb_current A {
+	color: #333333;
+	font-weight: bold;
+}
+/*  Sub-level  */
+.rup-breadCrumb_main LI UL {
+	padding: 3px;
+	background: #333333;
+	font-size: 11px;
+	width: 180px;
+	top: 25px;
+	z-index: 1000;
+}
+.rup-breadCrumb_main LI UL LI {
+	float: left;
+	width: 100%;
+	border-right: none;
+	height: auto;
+}
+.rup-breadCrumb_main LI UL LI A,
+.rup-breadCrumb_main LI UL LI A:visited {
+	text-decoration: none !important;
+	color: #CCCCCC !important;
+	display: block;
+	padding: 4px;
+	border-bottom: 1px dotted #666666;
+}
+
+.rup-breadCrumb_main LI UL LI A:HOVER {
+    background: #444444;
+}
+
+.rup-breadCrumb_main LI UL LI A:FOCUS {
+	background: #444444;
+	border-style: dotted;
+	border-width: thin;
+	outline: none; /* evitar borde TAB */ 	
+}
+
+.rup-breadCrumbs {width: 100%; position: relative; padding-bottom: 2.5em; clear: both;}
+
+.rup-breadCrumbs_span {float: left; padding-top: 0.5em;}
+
+.rup-breadCrumb_root{
+	width: 100%;
+	float: left;
+	margin-bottom: 0.5em;
+}
+
+.rup-breadCrumb_main{
+	padding-top: 0.1em;
+	padding-right: 0em;
+}
+
+
+.rup-breadCrumb_logoutDiv{
+	float: right;
+	padding-top: 0.5em;
+}
+
+.rup-breadCrumb_link{
+	cursor: pointer;
+	padding-left: 0.3em;
+}
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg{
+	display: inline-block;
+	float: left;
+    background: url("images/rup.padlock.gif") no-repeat right center;
+}
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active{
+	display: inline-block;
+	float: left;
+    background: url("images/rup.unlock.png") no-repeat right center;
+}
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_exitImg{
+	display: inline-block;
+	float: left;
+}

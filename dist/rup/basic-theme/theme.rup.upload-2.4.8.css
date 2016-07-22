@@ -1,0 +1,115 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+.fileupload-buttonbar .ui-button {
+/*   background: none; */
+/*   border: none; */
+}
+
+.fileupload-buttonbar span.ui-icon-cancel {
+	background:transparent url("images/rup.cancel.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+.fileupload-buttonbar span.ui-icon-trash {
+	background:transparent url("images/toolbar/borrar.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+.fileupload-buttonbar span.ui-icon-circle-arrow-e {
+	background:transparent url("images/rup.upload.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary{
+/* 	background:none; */
+/* 	border:none; */
+/* 	height: 15px; */
+}
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-button-text{
+/* 	padding: 0em 0em 0.3em 2em; */
+}
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-circle-arrow-e{
+	background:transparent url("images/rup.upload.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-cancel{
+	background:transparent url("images/rup.cancel.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-trash{
+	background:transparent url("images/toolbar/borrar.png") no-repeat !important;
+	width:16px;
+	height: 16px;
+}
+
+
+.fileupload-content .file_icon{
+	background-image:url("images/rup.file.png");
+	width: 15px;
+}
+
+.fileupload-content .file_download{
+	margin-top: 0.5em;
+}
+
+.fileupload-content .file_download_icon{
+	background-image:url("images/rup.download.png") ;
+	width: 15px;
+	margin-top: 0.5em;
+	padding-left: 12px;
+}
+
+.fileupload-content .file_download_text{
+	margin-left: 0.5em;
+	text-decoration: underline;
+}
+
+.fileupload-buttonbar{
+	border-top: medium none;
+	border-left: medium none;
+	border-right: medium none;
+	padding-left: 0em;
+}
+
+.fileupload-content .ui-progressbar {
+	height: 15px;	
+	margin-top: 0.5em;
+}
+
+.fileupload-content.ui-widget-content.ui-corner-bottom{
+	border-top: medium none;
+	border-left: medium none;
+	border-right: medium none;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.fileupload-content .izq_float{
+	float: left;
+	margin-right: 1em;
+	margin-bottom: 0.5em
+}
+

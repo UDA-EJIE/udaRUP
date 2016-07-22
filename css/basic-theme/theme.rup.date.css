@@ -1,0 +1,31 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+#ui-datepicker-div {display:none;}
+.ui-datepicker-calendar td { border: none !important;}
+
+/* Fin de semana (sab-dom) */  
+.ui-datepicker-week-end a { font-weight: normal !important; background:#FFC0CB none no-repeat scroll 50% 50% !important; border:0.1em solid red !important; color:black !important; }
+
+/* Día de hoy (azul) */
+.ui-datepicker-today a { font-weight: normal !important; background:#DDE7FF none no-repeat scroll 50% 50% !important; border:0.1em solid #195FFE !important; color:black !important; }
+ 
+/* Día seleccionado (verde)*/
+.ui-datepicker-calendar .ui-state-highlight a,
+.ui-datepicker-current-day a { font-weight: normal !important; background:#B4FDCC none no-repeat scroll 50% 50% !important; border:0.1em solid #175C2E !important; color:black !important; }
+
+
+

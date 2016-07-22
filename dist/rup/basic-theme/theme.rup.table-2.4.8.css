@@ -1,0 +1,437 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
+
+.rup-jerarquia_filter {
+	background-image: url("images/jerarquia/ui-icons.png") !important;
+	float: left;
+}
+
+/** MULTISELECCION flecha**/
+.rup-jerarquia_checkmenu_arrow {
+	display : inline;
+	position : absolute;
+	margin-left : -0.8em;
+	cursor : pointer;	
+	background-position: -64px -16px;
+}
+
+
+/* 
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #D0D0D0;
+	background-image: none; 
+}
+*/
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+
+/* Padding de las celdas [IMPORTANT] */
+.rup-grid_cellPadding_important { 
+	padding: 0 15px !important
+}
+
+
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+/*******************************************/
+/* Fila seleccionada con negrita */
+.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {font-weight: bold;}
+
+/* Paginador "Mostrando X-Y de Z" */
+.ui-jqgrid .ui-paging-info { height: auto; margin: 0px; }
+
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
+.ui-jqgrid tr.jqgrow td{
+	font-weight: inherit;
+}
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+.ui-jqgrid-btable .trAddSeparator{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+	height: 0em;
+}
+.ui-jqgrid-btable .trAddSeparator:HOVER{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+	height: .2em !important;
+}
+.ui-jqgrid-btable .tdAddSeparator{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+}
+.ui-jqgrid-btable .tdAddSeparator:HOVER{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+}
+.ui-jqgrid-btable .addElement{
+/* 	background-color: #E0E4EC; */
+}
+.ui-jqgrid-btable .addElementBorder{
+/* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+/* 	background-color: #E0E4EC; */
+}
+
+.ui-jqgrid tr.ui-row-ltr td:last-child {
+	border-right-style: none;
+}
+
+/* Animación para el mensaje de "Cargando..." */
+.ui-jqgrid .loading   { background: white url('images/rup.ajaxLoader.gif') right center no-repeat; font-weight:normal !important;}
+
+/**********
+ PAGINADOR 
+***********/
+/* Tamaño letra */
+.ui-jqgrid-pager { font-size: 0.85em; }
+
+/* Secciones */
+.pager_left { padding-left: 1.7em !important;}
+.pager_center{ width: 60% !important;}
+.pager_right { padding-right:1.7em !important; }
+
+/* Cada elemento de la sección central */
+.pagControls { 
+	padding-right: 1em !important; border:0px !important; 
+	background-image: none !important; background-color: transparent !important; /* Sobreescribir el ui-state-hover por defecto */
+}
+
+/* Links de paginacion */
+.linkPaginacion { text-decoration:underline !important; color:#0052C7 !important; }
+.linkPaginacion:hover { text-decoration:none; color:#0052C7; }
+.linkPaginacion.ui-state-disabled:hover { text-decoration: underline;} /* Para que en los links deshabilitados no se quite el subrayado*/
+.ui-state-disabled > .linkPaginacion { cursor:default;} /* Links deshabilitados sin cursor de mano */
+
+/* ************************ */
+/* AÑADIDOS PARA RUP.TABLE */
+/* ************************ */
+
+.cursor_pointer{
+	cursor: pointer;
+}
+
+.collapse_icon{
+	float:left;
+	cursor: pointer;
+}
+
+.collapse_icon_right{
+	float:right;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.collapse_icon_right{
+	float:right;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.collapse_icon_right{
+	float:right;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.collapse_label{
+	color:blue;	
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.collapse_label, .matched_layer{
+	font-weight: normal;
+}
+
+.collapse_icon_right:hover{
+	opacity: 0.3;
+}
+
+.cursor_pointer{
+	cursor: pointer;
+}
+
+.matched_layer{
+	float:left;
+}
+
+.search_row, .ui-search-toolbar{
+	background: none repeat scroll 0 0 #F8F8F8;
+}
+.search_row_header{
+	background: none repeat scroll 0 0 #F8F8F8;
+	border-top: 1px solid #AAAAAA;
+}
+.search_row > th.ui-widget-header.ui-state-default{
+	border-top: 1px solid #AAAAAA;
+}
+
+.search_collapse_layer{
+	float:left;
+}
+
+.search_nav_layer{
+	float:right;
+}
+
+.search_nav_layer{
+	float:rigth;
+}
+
+.search_nav_button_icon{
+	height:16px;
+	float: left;
+}
+
+.ui-state-default a.rup-table_linkSearchNav {
+	background:none ;
+	border:none ;
+	clear:none ;
+	cursor:pointer;
+	font-weight: normal;
+	float:left;
+	text-decoration:underline;
+	color:#0052C7 !important;
+	font-size:0.88em ;
+	padding:0 1.3em 0 0;
+}
+
+button.ui-button.rup-table_searchButton{
+	padding: 0 0.0em;
+	height:16px;
+	width: 7em;
+}
+
+.ui-state-default a.rup-table_linkSearchNav:hover {
+	text-decoration: none;
+	padding:0 1.3em 0 0;
+}
+
+.ui-state-default a.rup-table_linkClear{
+	float:right;
+}
+
+.fm-button {
+	padding: 0.5em 1em;
+}
+
+.white-space-normal{
+	white-space: normal;
+}
+
+.EditTable, .botoneraModal{
+	text-align: right;
+	width: 100%;
+}
+.EditTable hr, .botoneraModal hr{
+	border-bottom: none;
+	border-right: none;
+	border-left: none;
+	padding-bottom: 1em;
+}
+
+.EditTable tr:last-child td, .botoneraModal tr:last-child td{
+	padding-bottom: 1em;
+}
+
+.botonEnlace{
+	background-image: none;
+}
+
+
+.fm-button.botonEnlace{
+	background: none repeat scroll 0 0 transparent;
+	color: #222222;
+	cursor: pointer;
+    float: right;
+    line-height: 1.4em;
+    margin: 0.1em 0.4em 0.5em 0;
+    overflow: visible;
+    padding: 0.2em 0.6em 0.3em;
+    width: auto;
+    border:none;
+    text-decoration: underline !important;
+}
+
+.fm-button.botonEnlace:hover {
+    text-decoration: none !important;
+}
+
+.ui-icon.icono_cancelar{
+	background-image: none;
+}
+
+.ui-icon_collapse{
+	background-position: center; 
+	width: 100%;
+	height: 14px;
+	cursor:pointer;
+}
+
+.ui-jqgrid tr.jqgrow td.rupInfoCol{
+	margin: 0;
+	padding: 0;
+	border-right: 0px none;
+}
+.ui-icon.ui-icon-rupInfoCol{
+	background-position: -300px -300px;
+}
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-search{
+	background-position: -160px -112px;
+}
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-pencil{
+	background-position: -64px -112px;
+}
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
+  background-image: url(images/rup.search_edit_222222.png);
+ 	background-position: 0px 0px;
+}
+
+tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
+	background-image: url(images/rup.search_edit_2e83ff.png);
+}
+
+.ui-icon_collapse:hover{
+	background-color: #E6E6E6;
+}
+
+.form-column{
+	float: left;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    margin-top: 5px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.one-column{
+	float: left;
+    margin: 0.5em 1.5em 0 0;
+}
+
+.one-column label {
+    display: block;
+}
+
+.rup_form_element{
+	border: 0.1em solid #D1D1D1;
+    color: #666666;
+    font-size: 100%;
+}
+
+.FormElement { 
+	border:0.1em solid #D1D1D1;
+	color:#666666;
+	/*font-size:1.2em;*/ 
+	font-size:100%;
+	/*width: 15em; */
+}
+
+/* Formulario de detalle */
+.rup-table-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.rup-table-buttonpane .ui-dialog-buttonset { float: right; }
+.rup-table-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+
+.rup-table-container{
+	margin-top:0.5em;
+	margin-bottom:0.5em;
+}
+.rup-table-filter{
+	margin-top:0.2em;
+	margin-bottom:0.3em;
+	border:1px solid #DADADA;
+}
+
+.rup-table-filter-fieldset{
+	clear:both;
+}
+
+.rup-table-formEdit-detail{
+	display:none;
+}
+
+.rup-table_linkPaginacionDetalle {
+	background:none ;
+	border:none ;
+	clear:none ;
+	cursor:pointer;
+	float:left;
+	text-decoration:underline;
+	color:#0052C7 !important;
+	font-size:0.88em ;
+	padding-right:1.3em ;
+}
+
+
+.rup-table-filter-toggle-label{
+	cursor:pointer;
+	text-decoration: underline;
+}
+
+.ui-icon.rup-rss-icon-16 {
+	background: url("images/rup.rss.16.png") no-repeat !important;
+}
+
+.ui-icon.rup-rss-icon-24 {
+	background: url("images/rup.rss.24.png") no-repeat !important;
+}
+
+/* MULTIFILTER */
+
+
+
+.rup_multifilter_dropdown{
+	
+}
+
+.rup_multifilter_dropdown input{
+	margin-left:0.3em;
+
+/* 	margin-right:0.3em; */
+}
+
+.rup_multifilter_dropdown input[type=checkbox]{
+	margin-right:0.3em;
+}
+
+
+
+.rup_multifilter_dropdown .rup-feedback{
+ padding-left: 2.5em;
+ }
+
+.rup_multifilter_selector{
+	background-image: none;
+	padding-left: 0.5em;
+	width:23em;
+}

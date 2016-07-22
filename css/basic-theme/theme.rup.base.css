@@ -1,0 +1,48 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+/* Enlaces */
+a {color:#0052c7; text-decoration:underline; }
+a:hover {text-decoration: none;}
+ 
+/*Estilo basico para los botones con formato enlace*/
+.rup-enlaceCancelar { 
+	 float: right;
+	 margin: .5em .4em .5em 0; 
+	 cursor: pointer; 
+	 padding: .2em .6em .3em .6em; 
+	 line-height: 1.4em; 
+	 width:auto; 
+	 overflow:visible; 
+	 color:blue;
+}
+
+input.ui-button { padding: 0.2em 0.6em; }
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {font-weight: bold; }
+
+/** ICONOS **/
+.rup_icon{
+	float: left;
+	padding-right: 0.5em;
+}
+.rup_external_link{
+/* 	float: right; */
+	display: inline; 
+	left: inherit !important;	
+	margin-top: 0.15em !important;
+	position: static;
+}

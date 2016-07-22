@@ -1,0 +1,102 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+.rup-combo {}
+.rup-combo_loading { background-image: url('images/rup.ajaxLoader.gif') !important; color: black; font-weight: bold;}
+.rup-combo_loadingText { color: black; font-weight: bold;}
+
+/* Selectmenu
+----------------------------------*/
+.ui-selectmenu { display: inline-block; position:relative; height:1.4em; text-decoration: none; overflow:hidden;}
+.ui-selectmenu-focus { }
+.ui-selectmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }
+.ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
+.ui-selectmenu-open { visibility: visible; }
+.ui-selectmenu-menu-popup { margin-top: -1px; }
+.ui-selectmenu-menu-dropdown {}
+.ui-selectmenu-menu li { padding:0; margin:0; display: block; /*border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/ border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
+.ui-selectmenu-menu li a,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }
+/*.ui-selectmenu-menu li a:hover,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }*/
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status { height:2em;padding-left: 20px; position: relative; margin-left: 5px; }
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -12px; left: 0; }
+.ui-selectmenu-status { line-height: 1.4em; }
+.ui-selectmenu-open li.ui-selectmenu-item-focus a {  }
+.ui-selectmenu-open li.ui-selectmenu-item-selected { }
+.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
+.ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
+.ui-selectmenu-menu li .ui-selectmenu-item-content {  }
+/*.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }*/
+/*for optgroups*/
+.ui-selectmenu-menu .ui-selectmenu-group { font-size: 1em; }
+.ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label { line-height: 1.4em; display:block; padding:.6em .5em 0; font-weight: bold; }
+.ui-selectmenu-menu .ui-selectmenu-group ul { margin: 0; padding: 0; }
+
+/* Multiselect
+----------------------------------*/
+.ui-multiselect { display: inline-block; padding:2px 0 2px 4px; text-align:left }
+.ui-multiselect span.ui-icon { float:right }
+.ui-multiselect-single .ui-multiselect-checkboxes input { position:absolute !important; top: auto !important; left:-9999px; }
+.ui-multiselect-single .ui-multiselect-checkboxes label { padding:5px !important }
+
+.ui-multiselect-header { margin-bottom:3px; padding:3px 0 3px 4px }
+.ui-multiselect-header ul { font-size:0.9em }
+.ui-multiselect-header ul li { float:left; padding:0 10px 0 0 }
+.ui-multiselect-header a { text-decoration:none }
+.ui-multiselect-header a:hover { text-decoration:underline }
+.ui-multiselect-header span.ui-icon { float:left }
+.ui-multiselect-header span.ui-icon { float:left; margin-right: 2px } 
+.ui-multiselect-header li.ui-multiselect-close { float:right; text-align:right; padding-right:0 }
+
+.ui-multiselect-menu { display:none; padding:3px; position:absolute; z-index:10000; text-align: left }
+.ui-multiselect-checkboxes { position:relative /* fixes bug in IE6/7 */; overflow-y:scroll }
+.ui-multiselect-checkboxes label { cursor:default; display:block; border:1px solid transparent; padding:3px 1px }
+.ui-multiselect-checkboxes label input { position:relative; top:1px;  margin-right: 4px; }
+.ui-multiselect-checkboxes li { clear:both; font-size:0.9em; padding-right:3px }
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label { cursor: default; margin-top: .8em; border-bottom:1px solid }
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label span { font-weight:bold; }
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a { cursor: pointer; text-decoration: none; }
+
+/* remove label borders in IE6 because IE6 does not support transparency */
+* html .ui-multiselect-checkboxes label { border:none }
+
+.rup-combo_multiOptgroupIcon{
+	display: inline-table;
+	vertical-align: text-bottom;
+}
+
+/*** ESTILOS PROPIOS ***/
+.ui-selectmenu,
+.ui-selectmenu-status {
+/* 	background: #d5d5d2 50% 50%; */
+
+}
+.ui-selectmenu-menu-dropdown,
+.ui-selectmenu-menu-popup { 
+/* 	background: #eaeaea 50% 50%; */
+}
+
+/*select with custom icons*/
+.ui-selectmenu-item-icon { height: 24px; width: 24px; background-repeat: no-repeat;}
+.delete .ui-selectmenu-item-icon { background-image: url(images/toolbar/borrar.png); }
+.filter .ui-selectmenu-item-icon { background-image: url(images/toolbar/filtrar.png); }
+.print .ui-selectmenu-item-icon { background-image: url(images/toolbar/imprimir.png); }
+
+/* PIJAMA */
+.rup-combo_odd { background-color: #EEE; }
+.rup-combo_even { background-color: #FFF; }
+.rup-combo_groupOdd { background-color: #FFF; }
+.rup-combo_groupEven { background-color: #FFF; }
