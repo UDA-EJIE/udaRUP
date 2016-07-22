@@ -18,6 +18,14 @@ var version = "2.4.8";
 
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 
+var mkdirSync = function (path) {
+  try {
+    fs.mkdirSync(path);
+  } catch(e) {
+    if ( e.code != 'EEXIST' ) throw e;
+  }
+}
+
 gulp.task('default', function() {
   // place code for your default task here
 });
@@ -64,6 +72,8 @@ gulp.task('copyRupSources', function(cb) {
 
 gulp.task('minimizeRupJs', function (cb) {
   console.log("Minimizando ficheros js de RUP...");
+  mkdirSync('dist/rup/scripts/min');
+
   pump([
       gulp.src(minimizeConf.rupJsFiles, {cwd: "src"}),
       concat("rup.min-"+version+".js"),
@@ -72,6 +82,8 @@ gulp.task('minimizeRupJs', function (cb) {
       }),
       gulp.dest('dist/rup/scripts/min')
   ], cb);
+
+
 });
 
 gulp.task('minimizeRupCss', function (cb) {

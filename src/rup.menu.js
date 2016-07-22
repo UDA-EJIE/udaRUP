@@ -15,13 +15,25 @@
  */
  //require(["jquery", "require-jqueryui"],function (jQuery, widgetMenu) {
 
- define(["jquery", "private-jqueryui-menu"], function(jQuery, widgetMenu){
-/**
+ /**
  * @fileOverview Implementa el patrón RUP Menu.
  * @author EJIE
  * @version 2.5.0
  */
-(function ($, widgetMenu) {
+
+ ;(function( factory ) {
+ 	 if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define(["jquery", "private-jqueryui-menu"], factory );
+ 	 } else {
+
+ 		 // Browser globals
+ 		 factory(jQuery);
+ 	 }
+}(function ($, widgetMenu) {
+
+
 
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -101,8 +113,10 @@
 				} else {
 					if(this.length > 0){
 
+						var WM = window.widgetMenu!== undefined?window.widgetMenu:widgetMenu;
+
 						//Se recogen y cruzan las paremetrizaciones del objeto
-						var settings = $.extend({}, $.fn.rup_menu.defaults, args[0]), self = this, selectorSelf = widgetMenu(this), menuId = self[0].id, json, json_i18n;
+						var settings = $.extend({}, $.fn.rup_menu.defaults, args[0]), self = this, selectorSelf = WM(this), menuId = self[0].id, json, json_i18n;
 
 						//visualizacion de los menus
 						//Se oculta la capa para que no aparezca deformada
@@ -123,7 +137,7 @@
 						}
 
 						//Se extienden las funcionalidades del menú para ajustarlas a las necesidades de funcionamiento del rup_menu
-						widgetMenu.widget( "ui.rupMenu", widgetMenu.ui.menu, $.rup.compatibility.menu );
+						WM.widget( "ui.rupMenu", WM.ui.menu, $.rup.compatibility.menu );
 
 						//En caso de ser necesario, se secra el objeto que compondra la estructura del menu
 						if (json !== undefined){
@@ -416,5 +430,4 @@
     */
 
 
-})(jQuery, widgetMenu);
-});
+}));

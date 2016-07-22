@@ -7,8 +7,17 @@
  *
  * http://docs.jquery.com/UI
  */
- define(["private-jquery"], function(jQuery){
-(function( $, undefined ) {
+ ;(function( factory ) {
+	 if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define(["private-jquery"], factory );
+	 } else {
+
+		 // Browser globals
+		 factory( jQuery );
+	 }
+}(function($, undefined ) {
 
 // prevent duplicate loading
 // this is only a problem because we proxy existing functions
@@ -302,7 +311,6 @@ $.extend( $.ui, {
 	}
 });
 
-})( jQuery );
 
-return jQuery;
-});
+return $;
+}));

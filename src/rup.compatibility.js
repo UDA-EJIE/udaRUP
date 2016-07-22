@@ -16,8 +16,19 @@
 
 // Funciones y estructuras destinadas a hacer compatibles diferentes aspectos de los plug-in's subyacentes. Por ejemplo: en casos de cambio de versión, en condiciones funcionales extremas,...
 
- define(["jquery", "private-jqueryui-menu"], function(jQuery, widgetMenu){
-(function ($, widgetMenu) {
+
+ ;(function( factory ) {
+	 if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define(["jquery", "private-jqueryui-menu"], factory );
+	 } else {
+
+		 // Browser globals
+		 factory(jQuery);
+	 }
+
+ }(function ($, widgetMenu) {
 
 	$.rup.compatibility = $.rup.compatibility || {};
 	$.extend($.rup.compatibility, {
@@ -75,6 +86,9 @@
 				}
 
 				this.activeMenu = item.parent();
+			},
+			_getWidgetMenu: function(){
+				return  window.widgetMenu!== undefined?window.widgetMenu:widgetMenu;
 			},
 			_create: function() {
 				this.activeMenu = this.element;
@@ -173,7 +187,7 @@
 					position.my = "left top";
 					position.at = "left bottom";
 				}
-				var subMenu = widgetMenu(submenu);
+				var subMenu = this._getWidgetMenu()(submenu);
 				subMenu
 					.show()
 					.removeAttr( "aria-hidden" )
@@ -427,7 +441,7 @@
 				}
 			},
 			_move: function( direction, filter, event ) {
-				var next;
+				var next, self = this;
 				if ( this.active ) {
 					if ( direction === "first" || direction === "last" ) {
 						next = this.active
@@ -449,6 +463,7 @@
 				this.element.off("mouseover");
 
 				this.element.one("mousemove", function( event ){
+					var widgetMenu = self._getWidgetMenu();
 					widgetMenu(event.currentTarget).rupMenu("restoreScrollEvents");
 					widgetMenu(event.currentTarget).off("mousemove");
 				});
@@ -587,8 +602,4 @@
 		}
 	});
 
-
-})(jQuery, widgetMenu);
-
-
-});
+}));

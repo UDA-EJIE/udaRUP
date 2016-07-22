@@ -1067,7 +1067,7 @@
 				// Evento de control de página máxima
 				jQuery(".pagControls input.ui-pg-input", $pagerCenter).on("change", function(){
 					var pageNum = parseInt($(this).val()),
-					totalNum = parseInt($self.rup_grid("getGridParam","lastpage"));
+					totalNum = parseInt($self.rup_table("getGridParam","lastpage"));
 
 					if (isNaN(pageNum)===false && pageNum>totalNum){
 						$(this).val(totalNum);

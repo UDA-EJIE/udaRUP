@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -15,21 +15,21 @@
  */
 
 (function ($) {
-	
-	
+
+
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+
 	var rup_tabs = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_tabs", rup_tabs));
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	$.fn.rup_tabs("extend",{
 		//Funcion encargada de deshabilitar una o un conjunto de pestanyas
 		disableTabs : function(args){
@@ -58,9 +58,9 @@
 			}
 		},
 		//Funcion que fuerza la recarga de una pestanya
-		//Si se le especifica una nueva url, ademas de recargar la pagina con la nueva url, se inserta esta como nueva url de la pestanya  
+		//Si se le especifica una nueva url, ademas de recargar la pagina con la nueva url, se inserta esta como nueva url de la pestanya
 		loadTab : function(args){
-			$("#"+args.idTab).tabs("load",args.position);	
+			$("#"+args.idTab).tabs("load",args.position);
 		},
 		//Funcion encargada de actualizar la url de invocacion de una pestanya determinada
 		changeUrlTab : function(args){
@@ -74,34 +74,34 @@
 		selectTab : function(args){
 			$("#"+args.idTab).tabs("select",args.position);
 		},
-		//Funcion encargada de añadir una nueva pestanya cuando el componente ya esta creado 
+		//Funcion encargada de añadir una nueva pestanya cuando el componente ya esta creado
 		addTab : function(args){
 			var newTab, auxTabName, nameLiteral= "rup-tabs-", insertIndex = 0, label, title="";
-			
+
 			//limitacion de numero de pestañas abiertas
 			if (args.maxNumberTabs!== undefined){
 				var numPestanas= $('#'+args.idTab+' li').size();
 				//si sobrepasamos numero de pestañas lanzamos limitTabs
 				if (numPestanas+1>args.maxNumberTabs){
 					$('#'+args.idTab).trigger('limitTabs');
-					return false;	
+					return false;
 				}
-			}				
+			}
 			// para acortar a n caracteres el literalal de la pestana
-			
+
 			if (args.lengthLiteral!==undefined){
-				title = args.label;	
+				title = args.label;
 				if (args.label.length>args.lengthLiteral){
 					args.label = args.label.substr(0,args.lengthLiteral).concat("...");
 				}
 			}
-			
+
 			if (args.tabs !== undefined){
 				if ((args.idNewTab !== undefined) && ($("#"+args.idNewTab).length === 0)){
 					newTab = $('<div>').attr('id', args.idNewTab);
 					newTab.appendTo('body');
 					auxTabName = this._includeLayer($("#"+args.idTab+" > ul:first-child"), "#"+args.idNewTab, null);
-					newTab.rup_tabs(args);			
+					newTab.rup_tabs(args);
 					$("#"+args.idTab).tabs("add","#"+args.idNewTab,args.label,args.position);
 					$(auxTabName).remove();
 				} else {
@@ -109,149 +109,149 @@
 					return false;
 				}
 			}else if(args.layer!==undefined){
-				
+
 				//LAYER => Recoge una capa ya cargada de la Jsp
-				args.layer = this._includeLayer($("#"+args.idTab+" > ul:first-child"), args.layer, null);					
-				
+				args.layer = this._includeLayer($("#"+args.idTab+" > ul:first-child"), args.layer, null);
+
 				$("#"+args.idTab).tabs("add",args.layer,args.label,args.position);
-				
+
 				$.each($("#"+args.idTab+" div[id*='"+nameLiteral+"']"), function(index, object) {
 					if(insertIndex < parseFloat(object.id.split(nameLiteral)[1])){
 						insertIndex = object.id.split(nameLiteral)[1];
 					}
 				});
 				//$("#"+args.idTab+" div[id='rup-tabs-"+insertIndex+"']").addClass("ui-tabs-hide");
-				
+
 			} else {
 				$("#"+args.idTab).tabs("add",$.rup_utils.setNoPortalParam(args.url),args.label,args.position);
-				
+
 				$.each($("#"+args.idTab+" div[id*='"+nameLiteral+"']"), function(index, object) {
 					if(insertIndex < parseFloat(object.id.split(nameLiteral)[1])){
 						insertIndex = object.id.split(nameLiteral)[1];
 					}
 				});
-				
+
 				$("#"+args.idTab+" div[id='rup-tabs-"+insertIndex+"']").addClass("ui-tabs-hide");
 				//altura fija
 				if(undefined !== args.fixedHeight){
-					$("#"+args.idTab+" div[id='rup-tabs-"+insertIndex+"']").css('height', args.fixedHeight);					
+					$("#"+args.idTab+" div[id='rup-tabs-"+insertIndex+"']").css('height', args.fixedHeight);
 				}
-				
+
 			}
-			
+
 			$("#"+args.idTab+" ul:first li:nth-child("+(args.position+1)+") a").attr("title", title).rup_tooltip({});
-			
-			
+
+
 			if (args.tabsAtBottom){
 				loadLi =$("#"+args.idTab+" ul li:last").not(".rup-tabs_loading");
 				loadLi.removeClass("ui-corner-top").addClass("ui-corner-botttom");
 			}
-			
+
 			loadSpan = $("#"+args.idTab+" ul li a span:last").not(".rup-tabs_loading");
 			if (args.close===true){
 				loadSpan.parent().append ($('<div>').addClass('rup-tabs_title').text($.rup.i18nParse($.rup.i18n.app[$(this).attr("id")],args.label)))
 				.append($('<span>').addClass('rup-tabs_loading'))
 				.append('<span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>');
-				
+
 
 				//evento close
 				$("span.ui-icon-close").on( "click", function() {
-									
+
 					var tabContentId = $(this).parent().attr("href");
 			        $(this).parent().parent().remove(); //remove li of tab
 			        $(tabContentId).remove(); //remove respective tab content
-					
+
 					 tabs.tabs( "refresh" );
 					 });
-				
-				
+
+
 				//efecto hover del boton cerrar
 				$("span.ui-icon-close").addClass('rup-tabs-close');
 				$("span.ui-icon-close").on({
 					mouseenter: function () {
 						$(this).addClass('rup-tabs-close-hover');
 					},
-					
+
 					mouseleave: function () {
 						$(this).removeClass('rup-tabs-close-hover');
 					}
 				});
-				
+
 			}else{
 				loadSpan.parent().append ($('<div>').addClass('rup-tabs_title').text($.rup.i18nParse($.rup.i18n.app[$(this).attr("id")],args.label)))
 				.append ($('<span>').addClass('rup-tabs_loading'));
 			}
-			
-			
-			
+
+
+
 			loadSpan.remove();
-			
-			
+
+
 		},
-		//Funcion encargada de añadir una nueva pestanya cuando el componnete ya esta creado 
+		//Funcion encargada de añadir una nueva pestanya cuando el componnete ya esta creado
 		removeTab : function(args){
 			$("#"+args.idTab).tabs("remove",args.position);
 		},
 		selected : 0
 	});
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
-	
+
 	$.fn.rup_tabs("extend",{
 			_init : function(args){
-				
+
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				}
 				else {
 					//Se recogen y cruzan las paremetrizaciones del objeto
 					var settings = $.extend({}, $.fn.rup_tabs.defaults, args[0]), json_i18n;
-					
+
 					settings.id = $(this).attr("id");
 					settings.iniLoad = false;
-					
+
 					//Establecemos el ancho general de las pestañas en caso de venir informado
 					if(undefined !== settings.width){
-						$('#' + settings.id).css("width", settings.width).addClass("rup-tabs_overflow");	
+						$('#' + settings.id).css("width", settings.width).addClass("rup-tabs_overflow");
 					}
 					//Establecemos la altura general de las pestañas en caso de venir informada
 					if(undefined !== settings.height){
-						$('#' + settings.id).css("height", settings.height).addClass("rup-tabs_overflow");	
+						$('#' + settings.id).css("height", settings.height).addClass("rup-tabs_overflow");
 					}
-					
+
 					var structure = settings.tabs, profun = 0;
-					
+
 					while (structure !== undefined) {
 						profun = profun + 1;
 						structure = structure[0].tabs;
 					}
-					
+
 					settings.profun = profun;
 					//Generar estructura
 					this._parseJSON(settings.tabs, $.rup.i18n.app[settings.id], $('#' + settings.id), "", 1, settings);
-					
+
 					//Una vez creadas todas las pestanyas, se permite la carga normal de las mismas
 					settings.iniLoad = true;
-					
+
 					//Convertir en pestanyas
 					this._tabify($('#' + settings.id), settings);
-					
-					//altura 
+
+					//altura
 					if(undefined !== settings.fixedHeight){
-						$('#' + settings.id+">.ui-tabs-panel").css('height', settings.fixedHeight);					
+						$('#' + settings.id+">.ui-tabs-panel").css('height', settings.fixedHeight);
 					}
-					
-					
+
+
 					//Añadir evento de conversión a pestanyas en los enlaces
 					//$('#'+settings.id).find("a[rupLevel]").click ({disabled: settings.disabled}, tabClick);
-					
+
 					//evento limite de numero de pestañas
 					$('#'+settings.id).on('limitTabs',function() {
 						alert("limite de pestañas alcanzado");
 					});
-					
+
 					//Deshabilitar las pestanyas indicadas
 					if (settings.disabled !== undefined) {
 						for (var i in settings.disabled) {
@@ -268,13 +268,13 @@
 
 				//Se especifica el estilo asociado a la pestanya contenedora de pestanyas
 				div.addClass("rup-tabs_container");
-				
+
 				//Se cargan los Setting de cada objeto en su campo "data" correspondiente
 				div.data("settings",settings);
 
-				//Se especifica el control del evento "select" por parte del patron 					
+				//Se especifica el control del evento "select" por parte del patron
 				var select = function(event, ui){
-					
+
 					//Se gestiona la primera carga de la primera pestanya de cada tab
 					if ($(ui.panel).data("cargado") !== undefined && $(ui.panel).data("cargado") === false && $(ui.panel).length > 0){
 							$(ui.panel).tabs("load", settings.selected);
@@ -284,15 +284,15 @@
 						settings.select(event, ui);
 					}
 				};
-				
+
 				//se cargan las extensiones de los usuarios en los eventos de las peticiones Ajax
 				var ajaxOptions =  $.extend({},settings.ajaxOptions);
-				
+
 				ajaxOptions.beforeSend = function(XMLHttpRequest, sets){
 					if(settings.ajaxOptions.beforeSend !== undefined && settings.ajaxOptions.beforeSend !== null && typeof settings.ajaxOptions.beforeSend === "function"){
 						settings.ajaxOptions.beforeSend.call();
 					}
-					
+
 					if (!settings.iniLoad) {
 						div.data("cargado",false);
 						return (false);
@@ -300,8 +300,8 @@
 				};
 				ajaxOptions.complete = function(XMLHttpRequest, textStatus){
 					//se elimina el objeto de visualizacion de carga
-					div.find("span.rup-tabs_loading_img").remove();			
-					
+					div.find("span.rup-tabs_loading_img").remove();
+
 					if(settings.ajaxOptions.complete !== undefined && settings.ajaxOptions.complete !== null && typeof settings.ajaxOptions.complete === "function"){
 						settings.ajaxOptions.complete(XMLHttpRequest, textStatus);
 					}
@@ -313,7 +313,7 @@
 				};
 				ajaxOptions.error = function (xhr, s, t){
 					var userFunction;
-					
+
 					if(settings.ajaxOptions.error !== undefined && settings.ajaxOptions.error !== null && typeof settings.ajaxOptions.error === "function"){
 						userFunction = function(){
 							settings.ajaxOptions.error(xhr, s, t);
@@ -336,7 +336,7 @@
 					fx: settings.fx, //son los efectos que se aplican al presentar u ocultar una pestanya
 					idPrefix: 'rup-tabs-',
 					panelTemplate: settings.panelTemplate,
-					selected : settings.selected, 
+					selected : settings.selected,
 					spinner : "<span class='rup-tabs_loading_img' />",
 					//eventos
 					create : settings.create,
@@ -346,14 +346,14 @@
 					add : settings.add,
 					remove : settings.remove,
 					enable : settings.enable,
-					disable : settings.disable						      
-				}); 
+					disable : settings.disable
+				});
 				//}
-		
+
 				if (settings.scrollable===true){
 						this._scrollable(settings);
 				}
-				
+
 				// Tabs at bottoms
 				if (settings.tabsAtBottom===true){
 					$(div).addClass("tabs-bottom");
@@ -361,24 +361,24 @@
 					$(".ui-tabs-nav, .ui-tabs-nav > *",$(div))
 					.removeClass( "ui-corner-all ui-corner-top" )
 					.addClass( "ui-corner-bottom" );
-					
+
 					$(".ui-tabs-panel.ui-widget-content.ui-corner-bottom",$(div)).removeClass("ui-corner-bottom").addClass("ui-corner-top");
-					
+
 					// move the nav to the bottom
 					$(".ui-tabs-nav",$(div)).appendTo( ".tabs-bottom" );
-					
+
 				}
-				
-			
+
+
 			},
-			
+
 			//Funcion encargada de gestionar el objeto definido por el usuario (se parsea el JSon y se actua en consecuencia)
-			_parseJSON : function (json, json_i18n, tabs, pos, profundidad, settings) { 
+			_parseJSON : function (json, json_i18n, tabs, pos, profundidad, settings) {
 				var element, rupLevel, label, title="";
-							
+
 				tabs.append($('<ul>'));  //Añadir contenedor de pestanyas
 				tabs = $(tabs).children('ul'); //Seleccionar pestanya
-				
+
 				//pestanyas
 				for (var i = json.length; i--; ) {
 					rupLevel = pos+i; //Indicador de nivel de la pestanya
@@ -388,17 +388,17 @@
 					} else {
 						settings.iniLoad = false;
 					}
-					
+
 					label = $.rup.i18nParse(json_i18n,element.i18nCaption);
-					
+
 					if (settings.lengthLiteral!==undefined){
 						title = label;
 						if(label.length>settings.lengthLiteral){
 							label = label.substr(0,settings.lengthLiteral).concat("...");
 						}
-					
+
 					}
-					
+
 					if (element.layer !== undefined){
 						//LAYER => Recoge una capa ya cargada de la Jsp
 						element.layer = this._includeLayer(tabs, element.layer, null);
@@ -417,29 +417,29 @@
 								.append ($('<span>').addClass('rup-tabs_loading'))
 								.append('<span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>')
 						));
-						
+
 						//evento close
 						$("span.ui-icon-close").on( "click", function() {
-											
+
 							var tabContentId = $(this).parent().attr("href");
 					        $(this).parent().parent().remove(); //remove li of tab
 					        $(tabContentId).remove(); //remove respective tab content
-							
+
 							 tabs.tabs( "refresh" );
 							 });
-					
+
 						//efecto hover del boton cerrar
 						$("span.ui-icon-close").addClass('rup-tabs-close');
 						$("span.ui-icon-close").on({
 							mouseenter: function () {
 								$(this).addClass('rup-tabs-close-hover');
 							},
-							
+
 							mouseleave: function () {
 								$(this).removeClass('rup-tabs-close-hover');
 							}
 						});
-						
+
 						}else{
 							tabs.prepend($('<li>').append(
 									$('<a>').attr('href',element.layer)
@@ -454,7 +454,7 @@
 									.append ($('<span>').addClass('rup-tabs_loading'))
 							));
 						}
-						
+
 					} else if (element.url !== undefined){
 						//URL => Cargar contenido al pulsar
 						tabs.prepend($('<li>').append(
@@ -484,7 +484,7 @@
 								.append ($('<div>').addClass('rup-tabs_title').text(label))
 								.append ($('<span>').addClass('rup-tabs_loading'))
 						));
-						
+
 						//Gestionar capa contenedora subpestanyas
 						tabs = $(tabs).parent();
 
@@ -492,30 +492,30 @@
 							capaId = $.rup_utils.randomIdGenerator(capa);
 						tabs.append(capa); 						//Añadir contenedor de capa asociada a pestanya
 						tabs = $(tabs).children("#"+capaId); 	//Seleccionar capa contenedora
-					
+
 						//Gestionar capa de la subpestanya
 						tabs.prepend($('<div>').attr('id', element.i18nCaption).attr('actualTab',true)); //Añadir capa asociada a la pestanya
 						tabs = $(tabs).children('div:first-child'); //Seleccionar capa
-	
+
 						//Subpestanyas
 						var subsettings = jQuery.extend(true, {}, settings);
 						subsettings.selected = element.selected;
 						tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad+1, subsettings));
-						
+
 						this._tabify(tabs,subsettings); //Si no tiene 1 es que es el primer elemento y lo convertimos a pestanyas
-					
+
 						//Reposicionar 'puntero' para siguiente pasada del bucle
 						tabs = $(tabs).parents("div[actualTab=true]").find("ul").first();
 						if (tabs.length===0){
 							tabs = $("#"+settings.id).find("ul").first();
 						}
-						
+
 					}
 				}
 				$(tabs).parents("div[actualTab=true]").first().removeAttr("actualTab");
 				delete tabs;
 			},
-			
+
 			//Función encargada de validar e incluir la capa que contendrá la pestanya. De no tener identificador se le asocia uno.
 			_includeLayer : function(tabs, layerSelector, pestanya){
 				var content, selectObject;
@@ -525,7 +525,7 @@
 					} else {
 						selectObject = $('<div>').append($(layerSelector).css("display",""));
 					}
-					
+
 					if(pestanya === null){
 						content = $('<div>').append(selectObject);
 						tabs.parent().append(content);
@@ -537,9 +537,9 @@
 						content.append(selectObject);
 					}
 				} else {
-					
+
 					layerSelector = "#load-tab-error";
-					
+
 					if(pestanya === null){
 						tabs.parent().append($('<div>').attr('id',"load-tab-error")
 							.append($('<div>').addClass("rup-loading_tab_error")
@@ -562,13 +562,13 @@
 				$tabs = $(this),
 				$tabsNav = $tabs.find('.ui-tabs-nav'),
 				$nav;//referencia al wrapper
-				
+
 				//ajuste del css
 				$tabs.css({'padding':2, 'position':'relative'});
-							
+
 				//wrapper del contenido
 				$tabs.wrap('<div id="stTabswrapper" class="stTabsMainWrapper" style="position:relative"/>').find('.ui-tabs-nav').css('overflow','hidden').wrapInner('<div class="stTabsInnerWrapper" style="width:30000px"><span class="stWidthChecker"/></div>');
-				
+
 				var $widthChecker = $tabs.find('.stWidthChecker'),
 					$itemContainer = $tabs.find('.stTabsInnerWrapper'),
 					$tabsWrapper = $tabs.parents('#stTabswrapper').width($tabs.outerWidth(true));
@@ -601,7 +601,7 @@
 						alert('Error:\nCannot be resizable because "jQuery.resizable" plugin is not available.');
 					}
 				}
-				
+
 
 				//añade iconos de navegación
 				//console.log(parseInt($tabsNav.innerHeight(true)));
@@ -613,7 +613,7 @@
 				$tabsWrapper.prepend(
 				$nav = $('<div/>')
 				  		.disableSelection()
-						.css({'position':'relative','z-index':3000,'display':'block'})			  		
+						.css({'position':'relative','z-index':3000,'display':'block'})
 						.append(
 							$('<span/>')
 								.disableSelection()
@@ -625,7 +625,7 @@
 								.click(function(){
 									//comprueba si esta deshabilitado
 									if($(this).hasClass('ui-state-disabled')) return;
-									//selecciona el tab anterior y lanza el evento scrollToTab 
+									//selecciona el tab anterior y lanza el evento scrollToTab
 									prevIndex = $tabsNav.find('li.ui-tabs-selected').prevAll().length-1
 									//seleeciona el tab
 									$tabsNav.find('li').eq(prevIndex).find('a').trigger('click');
@@ -639,7 +639,7 @@
 								.css({'right':3})
 								.append($('<span/>').addClass('ui-icon ui-icon-carat-1-e').html('Next tab').css('margin-top',arrowsTopMargin))
 								.click(function(){
-									//selecciona el tab anterior y lanza el evento scrollToTab 
+									//selecciona el tab anterior y lanza el evento scrollToTab
 									nextIndex = $tabsNav.find('li.ui-tabs-selected').prevAll().length+1
 									//selecciona el tab
 									$tabsNav.find('li').eq(nextIndex).find('a').trigger('click');
@@ -647,7 +647,7 @@
 								})
 						)
 				);
-				
+
 				//Binding de los eventos con las pestañas
 				$tabs.on('navEnabler',function(){
 					setTimeout(function(){
@@ -676,10 +676,10 @@
 				})
 				//Comprueba si hace face falta la navegacion (si hay demasiadas pestañas visibles)
 				.on('navHandler',function(){
-					//Si $widthCheker es mayor tabnav  lo oculto 
+					//Si $widthCheker es mayor tabnav  lo oculto
 				//console.log($widthChecker.width());
 				//console.log($tabsNav.width());
-					
+
 				//if($widthChecker.width()>$tabsNav.width())
 					if($('.stWidthChecker').children().length>5)
 					{
@@ -691,17 +691,17 @@
 					{
 						$nav.hide();
 						//elima el margen del primer elemento
-						$tabsNav.find('li:first').css('margin-left',0);					
+						$tabsNav.find('li:first').css('margin-left',0);
 					}
 				})
 				//Bind el evento de mover el scroll
 				.on('scrollToTab',function(event,$tabToScrollTo,clickedFrom,hiddenOnSide){
 					//Si no se provee una pestaña como parametro ,scroll a la ultima pestaña
 					$tabToScrollTo = (typeof $tabToScrollTo!='undefined') ? $($tabToScrollTo) : $tabsNav.find('li.ui-tabs-selected');
-					
+
 					var navWidth = $nav.is(':visible') ? $nav.find('.stPrev').outerWidth(true) : 0;
 					//debug($tabToScrollTo.prevAll().length)
-			
+
 					offsetLeft = -($tabs.width()-($tabToScrollTo.outerWidth(true)+navWidth+parseInt($tabsNav.find('li:last').css('margin-right'),10)));
 					offsetLeft = (clickedFrom=='tabClicked' && hiddenOnSide=='left') ? -navWidth : offsetLeft;
 					offsetLeft = (clickedFrom=='tabClicked' && hiddenOnSide=='right') ? offsetLeft : offsetLeft;
@@ -733,18 +733,18 @@
 					$tabs.trigger('navHandler');
 					$tabs.trigger('scrollToTab',$tabsNav.find('li.ui-tabs-selected'));
 				})
-				
+
 				//triggers
 				.trigger('navHandler')
 				.trigger('navEnabler')
 				.trigger('bindTabClick');
 			}
 		});
-		
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
+
 	$.fn.rup_tabs.defaults = {
 		ajaxOptions: {},
 		cache: true,
@@ -764,7 +764,7 @@
 		disable : null,
 		tabsAtBottom:false
 	};
-	
+
 
 })(jQuery);
 
