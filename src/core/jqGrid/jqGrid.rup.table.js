@@ -7,20 +7,20 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 var rp_ge = {};
-(function ($) {
-	
-	
-	$.extend($.jgrid,{
-        
-	});
-	
-	
-	
-})(jQuery);
+// (function ($) {
+//
+//
+// 	$.extend($.jgrid,{
+//
+// 	});
+//
+//
+//
+// })(jQuery);

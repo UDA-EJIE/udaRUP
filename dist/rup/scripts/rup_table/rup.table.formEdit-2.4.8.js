@@ -1431,7 +1431,7 @@
 	 *
 	 * - editGridRow
 	 */
-	$.extend($.jgrid, {
+	$.jgrid.extend({
 		editGridRow : function(rowid, p){
 			p = $.extend({
 				top : 0,

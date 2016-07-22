@@ -11,8 +11,18 @@
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
  */
-define(["private-jqueryui-widget-menu"], function(jQuery){
-(function($) {
+
+;(function( factory ) {
+	 if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define(["private-jqueryui-widget-menu"], factory );
+	 } else {
+
+		 // Browser globals
+		 factory( jQuery );
+	 }
+ }(function($) {
 
 var idIncrement = 0;
 
@@ -564,7 +574,6 @@ $.widget( "ui.menu", {
 	}
 });
 
-}( jQuery ));
+return $;
 
-return jQuery;
-});
+}));

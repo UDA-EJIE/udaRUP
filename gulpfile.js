@@ -94,6 +94,14 @@ gulp.task('minimizeRupCss', function (cb) {
       .pipe(gulp.dest('dist/rup/basic-theme'));
 });
 
+gulp.task('minimizeRupTable', function (cb) {
+  console.log("Minimizando RUP Table...");
+  gulp.src(minimizeConf.rupCssFiles, {cwd: "css/basic-theme"})
+      .pipe(concat("rup.min-"+version+".css"))
+      .pipe(cleanCSS())
+      .pipe(gulp.dest('dist/rup/basic-theme'));
+});
+
 gulp.task('templates', function() {
   var templates = gulp.src('demo/app/**/*.hbs')
     .pipe(handlebars({

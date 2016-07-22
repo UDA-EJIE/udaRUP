@@ -594,8 +594,8 @@ input.
        * @private
        */
 			_init : function(args){
-				var visible;
-
+				
+				
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				} else {
@@ -777,24 +777,32 @@ input.
 						var selected = $("#"+settings.id).data("selected"),
 						isShowingMenu = $(".ui-autocomplete:visible").length>0?true:false;
 						if(!selected && isShowingMenu){
-							visible=true;
+							$("#"+settings.id).data("ieIssueScrollVisible",true);
 							event.preventDefault();
 						}
 
 					});
-					$("#"+settings.id+"_label").bind("blur keydown", function(event){
+					
+					$("#"+settings.id+"_label").bind("keydown", function(event){
+						
+						$("#"+settings.id).data("ieIssueScrollVisible",false);
+					});
+					
+					
+					
+					$("#"+settings.id+"_label").bind("blur", function(event){
 						//Obtener datos de si viene de seleccionar elemento o si el menú de selección está desplegado
 						var selected = $("#"+settings.id).data("selected"),
 							isShowingMenu = $(".ui-autocomplete:visible").length>0?true:false;
 						//Borrar índicador de que viene de seleccionar elemento
 						$("#"+settings.id).data("selected",false);
 						//Si es un evento de teclado pero no es ENTER, omitir esta función
-						if (event.type==="keydown" && event.keyCode!==13){return true;}
-						if (visible===true)
+						if (event.type==="keydown" && event.keyCode!==13){return true;}						
+						if ($("#"+settings.id).data("ieIssueScrollVisible")===true)
 							{
 								$("#"+settings.id).focus();
 								event.stopPropagation();
-								visible=false;
+								$("#"+settings.id).data("ieIssueScrollVisible",false);
 								return true;
 							}
 

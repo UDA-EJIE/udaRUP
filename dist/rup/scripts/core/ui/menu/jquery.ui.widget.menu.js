@@ -7,8 +7,18 @@
  *
  * http://docs.jquery.com/UI/Widget
  */
-define(["private-jqueryui-core-menu"], function(jQuery){
-(function( $, undefined ) {
+
+;(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+
+		// AMD. Register as an anonymous module.
+		define(["private-jqueryui-core-menu"], factory );
+	} else {
+
+		// Browser globals
+		factory( jQuery );
+	}
+}(function( $, undefined ) {
 
 var slice = Array.prototype.slice,
 	_cleanData = $.cleanData;
@@ -488,10 +498,6 @@ if ( $.uiBackCompat !== false ) {
 	};
 }
 
+return $;
 
-
-})(jQuery);
-
-return jQuery;
-
-});
+}));

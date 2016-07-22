@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -19,10 +19,10 @@
 	/**
 	 * Definición de los métodos principales que configuran la inicialización
 	 * del plugin.
-	 * 
+	 *
 	 * postConfiguration: Método que se ejecuta después de la invocación del
 	 * componente jqGrid.
-	 * 
+	 *
 	 */
 	jQuery.rup_table.registerPlugin("multifilter", {
 		loadOrder : 15,
@@ -34,7 +34,7 @@
 			var $self = this;
 			return $self.rup_table("postConfigureMultifilter", settings);
 		}
-		
+
 	});
 
 	// ********************************
@@ -44,14 +44,14 @@
 	/**
 	 * Extensión del componente rup_table para permitir la gestión del filtrado
 	 * de registros de la tabla.
-	 * 
+	 *
 	 * Los métodos implementados son:
-	 * 
+	 *
 	 * postConfigureFilter(settings): Método que define la preconfiguración
 	 * necesaria para el correcto funcionamiento del componente.
-	 * 
+	 *
 	 * Se almacena la referencia de los diferentes componentes:
-	 * 
+	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
 	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
@@ -59,7 +59,7 @@
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los
 	 * criterios de filtrado
-	 * 
+	 *
 	 */
 	jQuery.fn
 			.rup_table(
@@ -70,18 +70,18 @@
 							var $self = this, tableId = settings.id, multifilterSettings = settings.multifilter, dropdownDialogId, $dropdownDialog, $dropdownDiaglogTemplate;
 
 
-					
 
-						
-						
-							//definincion de variables con los selectores 
+
+
+
+							//definincion de variables con los selectores
 							multifilterSettings.$dropdownDialog=$("#"+settings.id+"_multifilter_dropdownDialog");
-					
-							//definicion de variables con ids	
-							multifilterSettings.dropdownDialogId = settings.id+"_multifilter_dropdownDialog";
-							
 
-							
+							//definicion de variables con ids
+							multifilterSettings.dropdownDialogId = settings.id+"_multifilter_dropdownDialog";
+
+
+
 							$dropdownDiaglogTemplate = $self.rup_table("getMultifilterDialogTemplate", settings);
 
 							settings.filter.$filterContainer
@@ -92,16 +92,16 @@
 							// configuracion del resumen del filtro para que
 							// apareza el nombre del filtro
 							settings.multifilter.fncFilterName = function(searchString) {
-								
 
-								
+
+
 								if (multifilterSettings.$comboLabel==undefined){ //&& settings.$firstStartUp  && multifilterSettings.$filterDefaultName!=undefined){
 										if (multifilterSettings.$filterDefaultName!==undefined)
 										searchString = multifilterSettings.$filterDefaultName+ "  {" + searchString + "}   ";
 
 								}
-								else if (multifilterSettings.$comboLabel!=undefined && settings.$firstStartUp){  
-									if(multifilterSettings.$comboLabel.val()==""  && multifilterSettings.$filterDefaultName!=undefined){									
+								else if (multifilterSettings.$comboLabel!=undefined && settings.$firstStartUp){
+									if(multifilterSettings.$comboLabel.val()==""  && multifilterSettings.$filterDefaultName!=undefined){
 										if (multifilterSettings.$filterDefaultName!==undefined)
 										searchString = multifilterSettings.$filterDefaultName+ "  {" + searchString + "}   ";
 									}
@@ -113,28 +113,28 @@
 								return searchString;
 							}
 
-									
-						
+
+
 
 						},
 
-			
+
 
 						/*
 						 * Método que define la preconfiguración necesaria para
 						 * el correcto funcionamiento del componente.
-						 * 
-						 * 
+						 *
+						 *
 						 */
 						postConfigureMultifilter : function(settings) {
 							var $self = this, multifilterSettings = settings.multifilter, filterSettings,$dropdownButton, $combo,$comboLabel
 							,$defaultCheck,$feedback,$comboButton,$closeDialog;
-							
-							
+
+
 							/*
 							 * $("#"+settings.id+"_multifilter_combo_label").on("change",
 							 * function(){
-							 * 
+							 *
 							 * if
 							 * ($("#"+settings.id+"_multifilter_combo_label").val()==""){
 							 * $self._toggleButtons(settings.id,false); }else{
@@ -160,17 +160,17 @@
 
 																	// creo objeto Filter con los datos del formulario del filtro
 																	var filter = $self._createFilterFromForm(settings);
-																	
+
 																	var bfr = $self.triggerHandler("rupTable_beforeAdd");
 																	if (bfr === false || bfr === 'stop') {
-																		multifilterSettings.$feedback.rup_feedback("set",$.rup.i18n.base.rup_table.plugins.multifilter.errorValidate,"error");	
-																	return; } 
-																	
-																	
+																		multifilterSettings.$feedback.rup_feedback("set",$.rup.i18n.base.rup_table.plugins.multifilter.errorValidate,"error");
+																	return; }
+
+
 																	// añado el filtro
 																	$self.rup_table("addFilter",filter);
-																	
-																		
+
+
 																}
 
 															}
@@ -180,25 +180,25 @@
 															id : settings.id+ "_multifilter_BtnApply",
 															text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
 															click : function() {
-																
+
 																//Deshabilitar el nombre del filtro en el filterSummary una vez que ha terminado el filtro por defecto
 																if (settings.$firstStartUp){
-																
+
 																settings.$firstStartUp=false;
 																}
-																
+
 																if ($self._checkLabel(settings)) {
 																	multifilterSettings.$filterWithName=true;
-																	
-																	
-																	
-																	
-																
+
+
+
+
+
 																	var valorFiltro= $self._searchFilterInCombo(settings);
 																	if (valorFiltro!=undefined){
 																		//limpiamos el filtro
 																		$self.rup_table("cleanFilterForm");
-																		
+
 																		//Cargamos de nuevo el filtro en el formulario del filtro
 																		// rellenar el formulario del filtro
 																		$self.triggerHandler("rupTable_multifilter_fillForm",valorFiltro);
@@ -206,28 +206,28 @@
 																		$self.rup_table("filter");
 																		multifilterSettings.$closeDialog.click();
 																	}
-																		
-																		
-																		
+
+
+
 																	else{
 																		multifilterSettings.$feedback.rup_feedback("set",$.rup.i18n.base.rup_table.plugins.multifilter.errorNoexiste,"error");
 
 																	}
-																	
-															
-//														
-															
-																	
-																	
-																	
-																	
-																	
+
+
+//
+
+
+
+
+
+
 																	//$self.rup_table("filter");
 																	// crea el tooptip del resumen del filtro
 																	//var filterCriteria = $self._createTooltip();
-																	
-																	
-																	
+
+
+
 																}
 
 															}
@@ -236,13 +236,13 @@
 															id : settings.id+ "_multifilter_BtnRemove",
 															text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 															click : function() {
-																
+
 
 																if ($self._checkLabel(settings)) {
 
 																	// creo objeto Filter con los datos del formulario del filtro
 																	var filter = $self._createFilterFromForm(settings);
-																	
+
 																	// borro el filtro
 																	$self.rup_table("deleteFilter",filter);
 																}
@@ -251,7 +251,7 @@
 														{
 															text : $.rup.i18n.base.rup_table.plugins.multifilter.cancel,
 															click : function() {
-																
+
 																var filtroAnterior= $self.data("filtroAnterior");
 																if (filtroAnterior!=null){
 																	//var xhrArray=$.rup_utils.jsontoarray(filtroAnterior);
@@ -259,7 +259,7 @@
 																	//$.rup_utils.populateForm(filtroAnterior,settings.filter.$filterForm);
 																	$self.triggerHandler("rupTable_multifilter_fillForm",filtroAnterior);
 																	$self._fillForm(filtroAnterior);
-																	
+
 																}
 																//limpio el filtro del dropdownDIalog
 																multifilterSettings.$comboLabel.val("");
@@ -271,20 +271,20 @@
 										}
 
 									});
-							
+
 
 							//Deshabilitar el nombre del filtro en el filterSummary una vez que ha terminado el filtro por defecto
 							$self.on("rupTable_beforeFilter", function(event){
 								/*if (settings.$firstStartUp){
-								
+
 									settings.$firstStartUp=false;
 								}*/
 
 							});
-							
-						
-							
-							//definincion de variables con los selectores 
+
+
+
+							//definincion de variables con los selectores
 							multifilterSettings.$dropdownButton=$('#'+settings.id+"_filter_filterButton_dropdown");
 							multifilterSettings.$combo=$("#" + settings.id	+ "_multifilter_combo");
 							multifilterSettings.$comboLabel=$("#" + settings.id	+ "_multifilter_combo_label");
@@ -292,66 +292,66 @@
 							multifilterSettings.$defaultCheck=$("#" + settings.id	+  "_multifilter_defaultFilter");
 							multifilterSettings.$feedback=$("#" + settings.id	+ "_multifilter_dropdownDialog_feedback");
 							multifilterSettings.$closeDialog=$('#closeText_'+settings.id+'_multifilter_dropdownDialog')
-								
 
-							
-							
+
+
+
 							// dialog modal para no cambiar el filtro mientras
 							// se gestionan los mismos
 							$('#' + multifilterSettings.dropdownDialogId).rup_dialog("setOption", "modal", true);
 							$('#' + multifilterSettings.dropdownDialogId).rup_dialog("setOption", "draggable", false);
 							$('#' + multifilterSettings.dropdownDialogId).rup_dialog("setOption", "resizable", false);
-							
+
 
 							// $('#'+multifilterSettings.dropdownDialogId).parent().addClass("rup_multifilter_container");
 							$('#' + multifilterSettings.dropdownDialogId).parent().css("width", "500px");
-							
-							
+
+
 							multifilterSettings.$dropdownButton.on("click", function(){
 								//guardo el filtroAnterior
 								var valorFiltro= form2object(settings.filter.$filterContainer[0]);
 								var xhrArray=$.rup_utils.jsontoarray(valorFiltro);
 								$self.data("filtroAnterior",valorFiltro);
-								
-								
+
+
 								//Foco al label al entrar al dialog
 								multifilterSettings.$comboLabel.focus();
-								
-								
+
+
 							});
-						
+
 							$self._configCombo(settings);
 
 							multifilterSettings.$feedback.rup_feedback({
 								block : false
 							});
-							
-							//gesión por filtroPorDefecto					
-							
+
+							//gesión por filtroPorDefecto
+
 							//$self.rup_table("showSearchCriteria");
-							
+
 							//if(filtroDefault!=null)
 							//$("#"+settings.id+"_filter_summary").prepend(filtroDefault.filterName +" "+ $("#"+settings.id+"_filter_summary").val() );
-							
+
 							//bug IE que al cerrar el dialog con el combo desplegado , la lista del combo sigue abierta
 							$('.rup-dropdown-dialog').on("dialogclose",function (){
 								multifilterSettings.$comboLabel.autocomplete("widget").hide();
 							});
-							
+
 							//la primera vez que cancelas el filtroAnterior es el filtroPorDefecto
 							var valorFiltro=form2object(settings.filter.$filterContainer[0]);
 							xhrArray=$.rup_utils.jsontoarray(valorFiltro);
-							
+
 							$self.data("filtroAnterior",valorFiltro);
-							
+
 							//$self.rup_table("filter");
-							
+
 							//settings.filter.$filterButton.trigger("click");
 							//$self.triggerHandler("rupTable_multifilter_fillForm",form2object(settings.filter.$filterContainer[0]));
 
 							$self.on({
 								"rupTable_beforeAdd.multifilter.validate": function(){
-									
+
 									//filterSettings.$filterContainer.rup_validate("resetForm");
 								if (multifilterSettings!==undefined){
 									if(!settings.$firstStartUp){
@@ -363,9 +363,9 @@
 									return settings.filter.$filterContainer.valid();
 								}
 							}
-							
+
 							});
-						
+
 						}
 					});
 
@@ -375,12 +375,12 @@
 
 	/**
 	 * Métodos públicos del plugin filter.
-	 * 
+	 *
 	 * cleanFilterForm: Realiza una limpieza de los campos del formulario.
 	 * filter: Lanza el filtrado de la tabla de acuerdo a los criterios
 	 * indicados en el formulario. toggleFilterForm: Método encargado de ocultar
 	 * y mostrar el formulario de filtrado.
-	 * 
+	 *
 	 */
 	jQuery.fn
 			.rup_table(
@@ -431,11 +431,11 @@
 						configureMultifilter : function(settings) {
 							var $self = this, multifilterSettings = settings.multifilter,$filterForm ;
 							$self.data("settings", settings);
-							
-							
-							
+
+
+
 							settings.filter.$filterForm = $("#" + settings.id + "_filter_form");
-							
+
 							var options_ejie_combo = {
 								source : [ {
 									label : "Si",
@@ -463,7 +463,7 @@
 							}else{
 								usuario=LOGGED_USER;
 							}
-							
+
 							var getDefault;
 							if (multifilterSettings.getDefault!=null){
 								getDefault = multifilterSettings.getDefault;
@@ -471,8 +471,8 @@
 								getDefault = true;
 							}
 
-						
-							
+
+
 							jQuery("#" + settings.id + "_multifilter_combo").rup_autocomplete(
 											{
 												source : settings.baseUrl
@@ -490,25 +490,25 @@
 												menuAppendTo : $('#' + multifilterSettings.dropdownDialogId).parent(),
 
 												select : function() {
-													
-													
-													
+
+
+
 													var valorFiltro=$self._searchFilterInCombo(settings);
-																			
+
 													//limpiar Filtro
 													//$self.rup_table("resetForm",settings.filter.$filterForm);
 													$self.rup_table("cleanFilterForm");
 
-													
+
 													// rellenar el formulario del filtro
 													//$.rup_utils.populateForm(xhrArray,settings.filter.$filterForm);
 													$self.triggerHandler("rupTable_multifilter_fillForm",valorFiltro);
 													$self._fillForm(valorFiltro);
 
-//											
-													
+//
 
-													
+
+
 												}
 											});
 
@@ -516,72 +516,21 @@
 								$(this).rup_tree("setRupValue",data);
 								//$self.rup_table("showSearchCriteria");
 							});
-							
+
 
 							settings.filter.$cleanLink.on("click",function() {
 								multifilterSettings.$combo.rup_autocomplete("set", "", "");
 								settings.filter.$filterSummary.html("<i></i>");
 
 							});
-							
-
-				
-							
-							
-							
-//							settings.serializeGridData = function(postData){
-//								
-//								var newPostData,
-//								pageNum = parseInt(postData.page),
-//								lastpage = parseInt($self.rup_grid("getGridParam","lastpage"));
-//								
-//								if (lastpage!==0 && pageNum>lastpage){
-//									postData.page = lastpage;
-//								}
-//								
-//								jQuery.extend(true, postData,{core:{
-//									"pkToken":settings.multiplePkToken,
-//									"pkNames":settings.primaryKey
-//									}
-//								});
-//								var filtro= $self.getDefaultFilter(settings,$self);
-//								newPostData = $.extend({},{"filter":{"nombre":"nombre"}}, postData);
-//								
-//								$self.triggerHandler("rupTable_serializeGridData", [newPostData]);
-//								
-//								return jQuery.toJSON(newPostData);
-//							};
-						
 						},
-
-//						getDefaultFilter : function(filtroDefault) {
-//							var $self = this,valorFiltro,xhrArray,filtroAnterior;
-//							var settings=$self.data("settings");
-//
-//							//Si existe un filtro por defecto lo cargo												
-//							if (filtroDefault!=null){
-//							
-//								//Guardo el filtroDefault como filtroAnterior para la primera vez que cancela un filtro
-////								filtroAnterior= filtroDefault.filterValue;
-////								if (filtroAnterior!=undefined){
-////									$self.data("filtroAnterior",filtroAnterior);
-////								}
-//								
-//								
-//								
-//								$self._fillForm(filtroDefault.filterValue);
-//								
-//							}
-//							
-//							
-//						},
 						addFilter : function(filter) {
 							var $self=this;
 							var settings = $self.data("settings");
-							
+
 							var multifilterSettings= settings.multifilter;
-							
-							
+
+
 							// self.data("settings");
 							if (multifilterSettings.idFilter != null) {
 								filter.filtro.filterSelector = multifilterSettings.idFilter;
@@ -600,17 +549,17 @@
 											return $self.triggerHandler("rupTable_multifilter_beforeAdd",[xhr, options]);
 										},
 										success : function(data, status, xhr) {
-											
+
 											multifilterSettings.$savedFilterName=data.filterName;
 											multifilterSettings.$savedFilterValue=data.filterValue;
-											
+
 											multifilterSettings.$feedback.rup_feedback("set",$.rup.i18n.base.rup_table.plugins.multifilter.ok,"ok");
 
 											//multifilterSettings.$combo.rup_autocomplete("set","", "");
 											multifilterSettings.$comboLabel.data("tmp.loadObjects.term",null);
 											multifilterSettings.$comboLabel.data("loadObjects", {});
 											// $("#"+settings.id+"_multifilter_combo_label").data("tmp.loadObjects.term",term);
-											
+
 											multifilterSettings.$comboLabel.data("tmp.data", {});
 
 											if (multifilterSettings.$comboLabel.autocomplete("widget").is(":visible")) {
@@ -635,11 +584,11 @@
 
 
 							var multifilterSettings = settings.multifilter;
-							
+
 							//reiniciar filter salvado
 							multifilterSettings.$savedFilterName =undefined;
 							multifilterSettings.$savedFilterValue =undefined;
-							
+
 							if (multifilterSettings.idFilter != null) {
 								filter.filtro.filterSelector = multifilterSettings.idFilter;
 							}
@@ -691,30 +640,30 @@
 						_createFilterFromForm : function(settings) {
 							var multifilterSettings= settings.multifilter;
 							var dataForm = form2object(settings.filter.$filterContainer[0]);
-							
-							
-						
+
+
+
 
 							//cambiar la fecha a milisegundos para guardar en bd
 							var fecha ;
 							$.each($("[ruptype='date']", settings.filter.$filterContainer), function(index,item){
-								fecha = $(item).datepicker("getDate");								
+								fecha = $(item).datepicker("getDate");
 								if (fecha!=null)
 								dataForm[item.name]=fecha.getTime().toString();
 							});
-							
-							
-							
+
+
+
 							var dataFormJson = $.toJSON(dataForm);
-							
+
 							var usuario;
 							if (multifilterSettings.userFilter!=null){
 								usuario=multifilterSettings.userFilter;
 							}else{
 								usuario=LOGGED_USER;
 							}
-							
-														
+
+
 
 							var filter = {
 
@@ -729,17 +678,17 @@
 
 							return filter;
 						},
-						
+
 						_configCombo: function (settings){
 							var multifilterSettings= settings.multifilter;
-							
+
 							multifilterSettings.$comboLabel.on("change",function() {
 								settings.filter.$filterSummary.html("<i></i>");
-						
+
 							});
-							
-							
-							
+
+
+
 							// si el filtro es el predefinido que aparezca en negrita
 							multifilterSettings.$comboLabel.data("autocomplete")._renderItem = function(ul,	item) {
 								if (item.value) {
@@ -754,13 +703,13 @@
 											.appendTo(ul);
 								}
 							};
-							
-						
-							
+
+
+
 							multifilterSettings.$comboLabel.off("blur click");
 
 							multifilterSettings.$comboLabel.attr("placeholder",$.rup.i18n.base.rup_table.plugins.multifilter.input);
-							
+
 							multifilterSettings.$comboLabel.on("blur",function(event) {
 
 												// Obtener datos de si viene de
@@ -789,7 +738,7 @@
 													return true;
 												}
 
-												var autoCompObject = $(event.currentTarget), loadObjects = 
+												var autoCompObject = $(event.currentTarget), loadObjects =
 														multifilterSettings.$comboLabel.data("loadObjects");
 
 												if (settings.getText == true) {
@@ -822,7 +771,7 @@
 												}
 
 											});
-							
+
 							multifilterSettings.$comboButton.off("click mousedown");
 
 							multifilterSettings.$comboButton.on("blur",function() {
@@ -840,7 +789,7 @@
 													multifilterSettings.$comboLabel.autocomplete("widget").trigger('focus');
 												}
 											});
-							
+
 						},
 //						_toggleButtons : function(id, visibles) {
 //
@@ -862,9 +811,9 @@
 //							}
 //						},
 						_checkLabel : function(settings) {
-							
+
 							var multifilterSettings= settings.multifilter;
-							
+
 							if ($.trim(multifilterSettings.$comboLabel.val()) == "") {
 
 								multifilterSettings.$feedback.rup_feedback("set",$.rup.i18n.base.rup_table.plugins.multifilter.emptyName,"error");
@@ -906,46 +855,46 @@
 								// });
 								xhrArray = $.rup_utils.jsontoarray(valorFiltro);
 							}
-							
+
 							if (valorFiltro==undefined &&  multifilterSettings.$savedFilterName!=undefined){
 								if (multifilterSettings.$savedFilterName===name)
 								var valorFiltro = $.parseJSON(multifilterSettings.$savedFilterValue);
-								
+
 							}
 							return valorFiltro;
-							
-							
+
+
 						},
 
 						_fillForm : function(filtroNuevo) {
 
 							var $self = this;
 							var settings= $self.data("settings");
-							
+
 							//cambiar milisengudos a fecha (el formato de bd del  fecha es milisegundos)
 							$("[ruptype='date']", settings.filter.$filterContainer).each(function(index, elem){
-								  
+
 								  var $campo = jQuery(elem);
-								  
+
 								var fechaString;
 
 								var jsonFecha = filtroNuevo[elem.name];
 								if (jsonFecha!=undefined){
 									if( jsonFecha.search("/")==-1){
 										var dateFromJson = new Date(parseInt(jsonFecha));
-	
+
 									var dateFormat = $campo.data("datepicker").settings.dateFormat;
-	
+
 									if ($campo.data("datepicker").settings.datetimepicker){
 									                // Cuando es fecha-hora
 									                var dateObj={hour:dateFromJson.getHours(),minute:dateFromJson.getMinutes(),second:dateFromJson.getSeconds()};
-									                fechaString = $.datepicker.formatDate(dateFormat, dateFromJson)+" "+$.timepicker._formatTime(dateObj, "hh:mm:ss"); 
+									                fechaString = $.datepicker.formatDate(dateFormat, dateFromJson)+" "+$.timepicker._formatTime(dateObj, "hh:mm:ss");
 									}else{
 									                // Solo fecha
-									                
+
 									                fechaString = $.datepicker.formatDate(dateFormat, dateFromJson);
 									}
-									
+
 									filtroNuevo[elem.name]=fechaString;
 									}
 							}
@@ -965,9 +914,9 @@
 
 						}
 
-						
 
-			
+
+
 					});
 
 	// *******************************************************
@@ -976,7 +925,7 @@
 
 	/**
 	 * Parámetros de configuración por defecto para el plugin filter.
-	 * 
+	 *
 	 */
 	jQuery.fn.rup_table.plugins.multifilter = {};
 	jQuery.fn.rup_table.plugins.multifilter.defaults = {
