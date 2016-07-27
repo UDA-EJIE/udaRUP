@@ -27,13 +27,14 @@ define(["marionette",
         "components/validate/validateView",
         "components/upload/uploadView",
         "components/table/tableFilterView",
+        "components/chart/chartView",
 
       ], function(Marionette, MainView, FeedbackView, TooltipView, MessageView,
                   DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView,
                   ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
                   TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
                   ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
-                  DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView){
+                  DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView, ChartView){
 
     var RupDemoApp = new Marionette.Application();
 
@@ -67,7 +68,8 @@ define(["marionette",
         'form': 'form',
         'validate': 'validate',
         'upload': 'upload',
-        'tableFilter': 'tableFilter'
+        'tableFilter': 'tableFilter',
+        "chart":"chart"
 
       }
 
@@ -153,7 +155,10 @@ define(["marionette",
         },
         tableFilter: function(){
           RupDemoApp.mainView.Container.show(new TableFilterView());
-        }
+        },
+        chart: function(){
+          RupDemoApp.mainView.Container.show(new ChartView());
+        },
     });
 
 

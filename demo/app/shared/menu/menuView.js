@@ -51,7 +51,8 @@ define(['marionette',
       					  	{"divider":true},
       					  	{"divider":true, "i18nCaption":"titulo-estru"},
       					    {"i18nCaption":"accordion", "pathUrl": "/x21aResponsiveWar/patrones/accordion" },
-      					    {"i18nCaption":"tabs", "submenu":[
+                    {"i18nCaption":"chart", "url": "patrones/chart"},
+                    {"i18nCaption":"tabs", "submenu":[
       					     	{"i18nCaption":"tabsStatic", "url": "patrones/tabsStatic" },
       					    	{"i18nCaption":"tabsAjax", "url": "patrones/tabsAjax" },
       					    	{"i18nCaption":"tabsMixto", "url": "patrones/tabsMixto" },
@@ -81,8 +82,8 @@ define(['marionette',
       					    {"i18nCaption":"combo", "submenu":[
       					      	{"i18nCaption":"comboSimple", "url": "patrones/comboSimple", "newWindow": true },
       					      	{"i18nCaption":"comboEnlazadoSimple", "url": "patrones/comboEnlazadoSimple" },
-      					      	{"i18nCaption":"comboEnlazadoMulti", "url": "patrones/comboEnlazadoMultiple" }
-      					      	,{"i18nCaption":"multicombo", "url": "patrones/multicombo" }
+      					      	{"i18nCaption":"comboEnlazadoMulti", "url": "patrones/comboEnlazadoMultiple" },
+                        {"i18nCaption":"multicombo", "url": "patrones/multicombo" }
       					  	]},
       							{"i18nCaption":"date", "url": "patrones/date" },
       							{"i18nCaption":"time", "url": "patrones/time" },

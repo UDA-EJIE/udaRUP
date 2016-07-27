@@ -39,6 +39,7 @@ requirejs.config({
         "rup/validate": "../../src/rup.validate",
         "rup/upload": "../../src/rup.upload",
         "rup/report": "../../src/rup.report",
+        "rup/chart":"../../src/rup.chart",
 
         //Table
 

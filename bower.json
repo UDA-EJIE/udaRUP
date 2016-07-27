@@ -18,11 +18,12 @@
   "dependencies": {
     "jquery-ui": "1.8.23",
     "jqgrid": "4.4.4",
-    "qtip2": "2.1.1"
+    "qtip2": "2.1.1",
+	"Chart.js": "1.0.2"
   },
   "devDependencies": {
     "backbone.marionette": "2.4.7",
     "handlebars": "4.0.5",
     "requirejs": "2.2.0"
   }
-}
+  }
