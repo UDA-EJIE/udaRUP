@@ -617,5 +617,35 @@
 		"fechaAlta":"Fecha de alta",
 		"fechaBaja":"Fecha de baja",
 		"rol":"Rol"
-	}
+	},
+"charts":{
+    	"charts":"Gráficos",
+    	"line":"Líneas",
+    	"bar":"Barras",
+    	"radar":"Radar",
+    	"polar":"Polar",
+    	"pie":"Tarta",
+    	"doughnut":"Donut",
+    	"datasetRadar":{
+    		"dataset1":"dataset 1"
+    	},
+    	"radarLabels":
+	    		{"Eating": "Comida",
+	    		"Drinking" :"Bebida",
+	    		"Sleeping": "Dormir",
+	    		"Designing": "Diseño",
+	    		"Coding": "Programacion",
+	    		"Cycling" : "Bicicleta",
+	    		"Running" :"Correr"
+				},
+				"mesesLabels":{
+					"January": "Enero",
+					"February": "Febrero",
+					"March" : "Marzo",
+					"April" : "Abril",
+					"May":"Mayo",
+					"June": "Junio",
+					"July":"Julio"
+				}
+}
 }

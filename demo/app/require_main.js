@@ -14,6 +14,7 @@ requirejs.config({
         "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
+        "chartjs":"../../bower_components/Chart.js/Chart",
         "templates": "../templates",
         //"rup/min": "../../dist/rup.min-2.4.7",
         "rup/compatibility": "../../src/rup.compatibility",
@@ -29,7 +30,6 @@ requirejs.config({
         "rup/contextMenu": "../../src/rup.contextMenu",
         "rup/toolbar": "../../src/rup.toolbar",
         "rup/button": "../../src/rup.button",
-        "rup/accordion": "../../src/rup.accordion",
         "rup/tabs": "../../src/rup.tabs",
         "rup/autocomplete": "../../src/rup.autocomplete",
         "rup/combo": "../../src/rup.combo",
@@ -40,6 +40,7 @@ requirejs.config({
         "rup/upload": "../../src/rup.upload",
         "rup/report": "../../src/rup.report",
         "rup/chart":"../../src/rup.chart",
+
 
         //Table
 
@@ -89,9 +90,6 @@ requirejs.config({
       "rup/utils":{
         "deps": ["jquery-ui","jquery-json"]
       },
-      "rup/compatibility":{
-        "deps": ["rup/base"]
-      },
       "rup/lang":{
         "deps": ["rup/base", "rup/tooltip"]
       },
@@ -121,9 +119,6 @@ requirejs.config({
       },
       "rup/button":{
         "deps": ["rup/base","rup/dialog"]
-      },
-      "rup/accordion":{
-        "deps": ["rup/base"]
       },
       "rup/tabs":{
         "deps": ["rup/base"]
@@ -157,6 +152,9 @@ requirejs.config({
       },
       "jqGrid.fluid":{
         "deps": ["jqGrid"]
+      },
+      "rup/chart":{
+        "deps": ["rup/base","chartjs"]
       },
       // "jqGrid": "../../src/jqgrid/jquery.jqGrid.src",
       // "jqGrid.fluid": "../../src/jqgrid/jqGrid.fluid",

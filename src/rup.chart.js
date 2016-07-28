@@ -108,7 +108,7 @@
       }
 
       var loadedColors = typeof(arguments[1]) == 'undefined' ? [] : arguments[1], //predefine colors in the set
-          number = aux + loadedColors.length, //reset number to include the colors already passed
+          number = number + loadedColors.length, //reset number to include the colors already passed
           //set a random value to be the first to decrease
           lastLoadedReduction = Math.floor(Math.random() * 3),
 
