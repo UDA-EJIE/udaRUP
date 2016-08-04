@@ -360,7 +360,11 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
 					//Datepicker
 					if (!settings.multiSelect){
 						if (settings.datetimepicker){
-							(this).attr("maxlength","16");
+							if (settings.showSecond){
+								(this).attr("maxlength","19");
+							}else{
+								(this).attr("maxlength","16");
+							}
 							$("#"+settings.id).datetimepicker(settings);
 						}else{
 							(this).attr("maxlength","10");
