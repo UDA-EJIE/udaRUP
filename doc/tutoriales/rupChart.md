@@ -72,7 +72,7 @@ El siguiente ejemplo instancia un gráfico de barras mostrando el número de vot
 ```
 
 ## Tipos de gráficos
-Rup.Chart está basado en Chart.js, una librería responsive js para mostrar gráficos. Esta herramienta ofrece los siguientes tipos de gráficos:
+Rup.Chart está basado en [Chart.js](http://www.chartjs.org/), una librería responsive js para mostrar gráficos. Esta herramienta ofrece los siguientes tipos de gráficos:
 
 * [Barras](#barras)
 * [Líneas](#líneas)
@@ -115,6 +115,7 @@ var data = {
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___
 ### Líneas
 
 Un gráfico de líneas es una manera de trazar los puntos de datos en una línea . A menudo , se utiliza para mostrar los datos de tendencias , y la comparación de dos conjuntos de datos.
@@ -162,6 +163,7 @@ var data = {
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+ ___
 ### Radar
 
 Un gráfico de radar es una forma de mostrar múltiples puntos de datos y la variación entre ellos. A menudo son útiles para comparar los puntos de dos o más conjuntos de datos diferentes .neas es una manera de trazar los puntos de datos en una línea . A menudo , se utiliza para mostrar los datos de tendencias , y la comparación de dos conjuntos de datos.
@@ -205,6 +207,7 @@ var data = {
         });
 ```
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___
 ### Área Polar
 
 Los gráficos de áreas polares son similares a gráficos de tartas , pero cada segmento tiene el mismo ángulo - el radio del segmento varía en función del valor .
@@ -237,6 +240,7 @@ var data = {
 Los gráficos de áreas polares son similares a gráficos de tartas , pero cada segmento tiene el mismo ángulo - el radio del segmento varía en función del valor.
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___
 ### Tarta y Donuts
 
 Los gráficos de tarta y donuts son probablemente los gráficos más utilizados que existen . Se dividen en segmentos , el arco de cada segmento se muestra el valor proporcional de cada fracción de datos .
@@ -280,6 +284,7 @@ var data = {
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___
 ### Burbuja
 
 Un gráfico de burbujas se utiliza para mostrar tres dimensiones de datos al mismo tiempo. La ubicación de la burbuja se determina por las dos primeras dimensiones y los ejes horizontales y verticales correspondientes . La tercera dimensión está representada por el tamaño de las burbujas individuales.
@@ -321,3 +326,4 @@ var data = {
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___

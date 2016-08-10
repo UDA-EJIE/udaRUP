@@ -626,9 +626,16 @@
     	"polar":"Polar",
     	"pie":"Tarta",
     	"doughnut":"Donut",
+			"bubble":"Burbuja",
     	"datasetRadar":{
-    		"dataset1":"dataset 1"
+    		"dataset1":"dataset 1",
+				"dataset2":"dataset 2"
     	},
+			"colorLabels":{
+				"red":"rojo",
+				"blue":"azul",
+				"yellow":"amarillo"
+			},
     	"radarLabels":
 	    		{"Eating": "Comida",
 	    		"Drinking" :"Bebida",

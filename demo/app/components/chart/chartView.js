@@ -1,7 +1,7 @@
 define(['marionette',
     'templates',
     'rup/chart'
-], function(Marionette, App) {
+], function (Marionette, App) {
 
 
 
@@ -14,225 +14,126 @@ define(['marionette',
             graficoRadar: "#graficoRadar",
             graficoPolar: "#graficoPolar",
             graficoPie: "#graficoPie",
-            graficoDoughnut: "#graficoDoughnut"
+            graficoDoughnut: "#graficoDoughnut",
+            graficoBubble: "#graficoBubble"
 
         },
-        mesesLabels:[],
-        radarLabels:[],
-        datasetRadar:[],
         initialize: fncInitialize,
-        onDomRefresh: fncOnDomRefresh
-
+        onDomRefresh: fncOnDomRefresh,
+        mesesData: [],
+        colorsData: [],
+        radarData: [],
+        bubbleData: []
     });
 
-    function fncInitialize(){
-      this.mesesLabels={
-					"January": "Enero",
-					"February": "Febrero",
-					"March" : "Marzo",
-					"April" : "Abril",
-					"May":"Mayo",
-					"June": "Junio",
-					"July":"Julio"
-				};
-      this.radarLabels={
-          "Eating": "Comida",
-	    		"Drinking" :"Bebida",
-	    		"Sleeping": "Dormir",
-	    		"Designing": "Diseño",
-	    		"Coding": "Programacion",
-	    		"Cycling" : "Bicicleta",
-	    		"Running" :"Correr"
-				};
-      this.datasetRadar={
-    		"dataset1":"dataset 1"
-    	};
-    }
-
-    function fncOnDomRefresh() {
-
-
-        renderChartLine(this);
-        renderChartBar(this);
-        renderChartRadar(this);
-        renderChartPolar(this);
-        renderChartPie(this);
-        renderCHartDoughnut(this);
-
-    }
-
-
-
-    function renderChartLine($view) {
-        var data = {
-            labels: $view.mesesLabels,
+    function fncInitialize() {
+        /*data*/
+        this.mesesData = {
+            labels: $.rup.i18n.app.charts.mesesLabels,
             datasets: [{
-                label: $view.dataset1,
+                label: $.rup.i18n.app.charts.datasetRadar.dataset1,
                 data: [65, 59, 80, 81, 56, 55, 40]
-            }, {
-                label: "My Second dataset",
-                data: [28, 48, 40, 19, 86, 27, 90]
             }]
         };
+        this.colorsData = {
 
-
-
-        $view.ui.graficoLine.rup_chart({
-            type: "line",
-            data: data
-        });
-
-    }
-
-    function renderChartBar($view) {
-
-        var data = {
-            labels: $view.mesesLabels,
+            labels: $.rup.i18n.app.charts.colorLabels,
             datasets: [{
-                label: "My First ",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            }, {
-                label: "My Second",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [300, 50, 100],
+                backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56"
+                ],
+                hoverBackgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56"
+                ]
             }]
         };
-
-
-
-        $view.ui.graficoBar.rup_chart({
-            type: "bar",
-            data: data
-        });
-
-
-    }
-
-    function renderChartRadar($view) {
-        var data = {
-            labels: $view.radarLabels,
+        this.radarData = {
+            labels: $.rup.i18n.app.charts.radarLabels,
             datasets: [{
-                label: $view.dataset1,
+                label: $.rup.i18n.app.charts.datasetRadar.dataset1,
                 data: [65, 59, 90, 81, 56, 55, 40]
             }, {
-                label: "My Second dataset",
+                label: $.rup.i18n.app.charts.datasetRadar.dataset2,
                 data: [28, 48, 40, 19, 96, 27, 100]
             }]
         };
 
-
-
-
-        $view.ui.graficoRadar.rup_chart({
-            type: "radar",
-            data: data
-
-
-        });
+        this.bubbleData = {
+            datasets: [{
+                label: $.rup.i18n.app.charts.datasetRadar.dataset1,
+                data: [{
+                    x: 20,
+                    y: 30,
+                    r: 15
+                }, {
+                    x: 40,
+                    y: 10,
+                    r: 10
+                }],
+                backgroundColor: "#FF6384",
+                hoverBackgroundColor: "#FF6384",
+            }]
+        };
     }
 
-
-    function renderChartPolar($view) {
-
-        /*var data = [{
-                value: 300,
-                label: "Red"
-            }, {
-                value: 50,
-                label: "Green"
-            }, {
-                value: 100,
-                label: "Yellow"
-            }, {
-                value: 40,
-                label: "Grey"
-            }, {
-                value: 120,
-                label: "Dark Grey"
+    function fncOnDomRefresh() {
+        var $view = this;
+        var options = {
+            legend: {
+                display: true
             }
 
-        ];*/
-        var data = [
-    {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: 40,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-    },
-    {
-        value: 120,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-    }
+        };
+        //line chart
+        $view.ui.graficoLine.rup_chart({
+            type: "line",
+            data: $view.mesesData,
+            options: options
+        });
 
-];
+        //bar chart
+        $view.ui.graficoBar.rup_chart({
+            type: "bar",
+            data: $view.mesesData,
+            options: options
+        });
 
+        //radar chart
+        $view.ui.graficoRadar.rup_chart({
+            type: "radar",
+            data: $view.radarData
+        });
 
+        //polar chart
         $view.ui.graficoPolar.rup_chart({
             type: "polarArea",
-            data: data
+            data: $view.colorsData
 
         });
-    }
 
-    function renderChartPie($view) {
-
-        var data = [{
-            value: 300,
-            label: "Red"
-        }, {
-            value: 50,
-            label: "Green"
-        }, {
-            value: 100,
-            label: "Yellow"
-        }];
-
-
-
+        //pie chart
         $view.ui.graficoPie.rup_chart({
             type: "pie",
-            data: data
+            data: $view.colorsData
 
         });
-    }
 
-    function renderCHartDoughnut($view) {
-
-        var data = [{
-            value: 300,
-            label: "Red"
-        }, {
-            value: 50,
-            label: "Green"
-        }, {
-            value: 100,
-            label: "Yellow"
-        }];
-
-
-
+        // doughnut chart
         $view.ui.graficoDoughnut.rup_chart({
             type: "doughnut",
-            data: data
+            data: $view.colorsData
+
+        });
+
+        //bubble chart
+        $view.ui.graficoBubble.rup_chart({
+            type: 'bubble',
+            data: $view.bubbleData
 
         });
     }
