@@ -35,9 +35,9 @@ El siguiente ejemplo instancia un gráfico de barras mostrando el número de vot
  $("miGrafico").rup_chart({
     type: 'bar',
     data: {
-        labels: ["Rojo", "Azul", "Amarillo", "Verde", "Morando", "Naranja"],
+        labels: $.rup.i18n.app.charts.colorLabels,
         datasets: [{
-            label: '# de Votos',
+            label:  $.rup.i18n.app.charts.votos,
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -70,6 +70,18 @@ El siguiente ejemplo instancia un gráfico de barras mostrando el número de vot
 });
 
 ```
+####i18n
+Para configurar los literales de los datasets, se especifican en el archivo idiomático json de la aplicación como un array en el caso de labels, y como un valor único en el caso de los label.
+
+```json
+"charts": {
+        "dataset1": "dataset 1",
+        "dataset2": "dataset 2",
+        "colorLabels": ["rojo", "azul", "amarillo"],
+        "radarLabels": ["Comida", "Bebida", "Dormir", "Diseño", "Programacion", "Bicicleta", "Correr"],
+        "mesesLabels": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"]
+}
+```
 
 ## Tipos de gráficos
 Rup.Chart está basado en [Chart.js](http://www.chartjs.org/), una librería responsive js para mostrar gráficos. Esta herramienta ofrece los siguientes tipos de gráficos:
@@ -93,16 +105,19 @@ Un gráfico de barras muestra los datos como barras. Es usado para comprar mulit
 
 ```javascript
 var data = {
-            labels: ["Enero", "ebrero", "Marzp", "Abril", "Mayu", "Junio", "Julio"],
+            labels: $.rup.i18n.app.charts.mesesLabels,
             datasets: [{
-                label: "My First ",
+                label: $.rup.i18n.app.charts.dataset1,
                 data: [65, 59, 80, 81, 56, 55, 40]
             }, {
-                label: "My Second",
+                label: $.rup.i18n.app.charts.dataset2,
                 data: [28, 48, 40, 19, 86, 27, 90]
             }]
         };
+
  ```
+
+
 ####Instanciación
 ```javascript
         $('#miGrafico').rup_chart({
@@ -111,6 +126,7 @@ var data = {
 			options:options
         });
 ```
+
 
 
 
@@ -125,10 +141,10 @@ Un gráfico de líneas es una manera de trazar los puntos de datos en una línea
 
 ```javascript
 var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: $.rup.i18n.app.charts.mesesLabels,
     datasets: [
         {
-            label: "My First dataset",
+            label: $.rup.i18n.app.charts.dataset1,
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -173,10 +189,10 @@ Un gráfico de radar es una forma de mostrar múltiples puntos de datos y la var
 
 ```javascript
 var data = {
-    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    labels: $.rup.i18n.app.charts.radarLabels,
     datasets: [
         {
-            label: "My First dataset",
+            label: $.rup.i18n.app.charts.dataset1,
             backgroundColor: "rgba(179,181,198,0.2)",
             borderColor: "rgba(179,181,198,1)",
             pointBackgroundColor: "rgba(179,181,198,1)",
@@ -186,7 +202,7 @@ var data = {
             data: [65, 59, 90, 81, 56, 55, 40]
         },
         {
-            label: "My Second dataset",
+            label: $.rup.i18n.app.charts.dataset2,
             backgroundColor: "rgba(255,99,132,0.2)",
             borderColor: "rgba(255,99,132,1)",
             pointBackgroundColor: "rgba(255,99,132,1)",
@@ -223,9 +239,9 @@ var data = {
         data: [ 11,16,7,3,14],
         backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"
         ],
-        label: 'My dataset' // for legend
+        label: $.rup.i18n.app.charts.dataset1
     }],
-    labels: ["Red","Green","Yellow","Grey","Blue"]
+    labels: $.rup.i18n.app.charts.colorLabels
 };
  ```
 #### Instanciación
@@ -251,7 +267,7 @@ Los gráficos de tarta y donuts son probablemente los gráficos más utilizados 
 
 ```javascript
 var data = {
-    labels: ["Red","Blue","Yellow"],
+    labels: $.rup.i18n.app.charts.colorLabels,
     datasets: [
         {
             data: [300, 50, 100],
@@ -297,7 +313,7 @@ Un gráfico de burbujas se utiliza para mostrar tres dimensiones de datos al mis
 var data = {
     datasets: [
         {
-            label: 'First Dataset',
+            label: $.rup.i18n.app.charts.dataset1,
             data: [
                 {
                     x: 20,
@@ -326,4 +342,50 @@ var data = {
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
+___
+## Métodos
+
+
+###updateLabels
+  Método que actualiza los labels asociados a los datos
+ ```javascript
+ 	$('#miGrafico').rup_chart('updateLabels',$.rup.i18n.app.charts.colorLabels);
+ ```
+###updateDatasets
+   Método que actualiza los datasets con los valores numéricos a representar por el gráfico
+ ```javascript
+ 	$('#miGrafico').rup_chart('updateDatasets',datasets);
+ ```
+###updateData
+Método utilizado para actualizar los datos de los gráficos en caliente, tanto los labels como los datos numéricos
+```javascript
+ 	$('#miGrafico').rup_chart('updateDatasets',data);
+ ```
+###getDatasets
+Método que devuelve los datasets de datos del gráfico
+```javascript
+ 	$('#miGrafico').rup_chart('getDatasets');
+ ```
+ ###getLabels
+Método que devuelve los labels asociados a los datasets del gráfico
+```javascript
+ 	$('#miGrafico').rup_chart('getLabels');
+ ```
+ ###getData
+Método que devuelve la estructura de datos de datasets y labels que definen el gráfico
+```javascript
+ 	$('#miGrafico').rup_chart('getData');
+ ```
+###getChart
+Devuelve la instancia del objeto Chart.js
+```javascript
+ 	var grafico=$('#miGrafico').rup_chart('getChart');
+ ```
+###destroy
+  Destruye la instancia del grafico creado, limpia cualquier referencia almacenada del componente. Debe ser utilizado antes de usar el canvas para un nuevo gráfico
+```javascript
+ 	$('#miGrafico').rup_chart('destroy');
+ ```
+
+- **  Volver a [Métodos](#métodos)**
 ___

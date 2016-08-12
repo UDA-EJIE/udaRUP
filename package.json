@@ -58,5 +58,8 @@
     "path": "^0.12.7",
     "pump": "^1.0.1",
     "requirejs": "^2.2.0"
+  },
+  "dependencies": {
+    "chart.js":"2.1.1"
   }
 }

@@ -589,43 +589,21 @@
 		"fechaBaja":"Fecha de baja_eu",
 		"rol":"Rol"
 	},
-	"charts":{
-	    	"charts":"Gráfico_eu",
-	    	"line":"Líneas_eu",
-	    	"bar":"Barras_eu",
-	    	"radar":"Radar_eu",
-	    	"polar":"Polar_eu",
-	    	"pie":"Tarta_eu",
-	    	"doughnut":"Donut_eu",
-				"bubble":"Burbuja_eu",
-	    	"datasetRadar":{
-	    		"dataset1":"dataset 1_eu",
-					"dataset2":"dataset 2_eu"
-	    	},
-				"colorLabels":{
-					"red":"rojo_eu",
-					"blue":"azul_eu",
-					"yellow":"amarillo_eu"
-				},
-	    	"radarLabels":
-		    		{"Eating": "Comida_eu",
-		    		"Drinking" :"Bebida_eu",
-		    		"Sleeping": "Dormir_eu",
-		    		"Designing": "Diseño_eu",
-		    		"Coding": "Programacion_eu",
-		    		"Cycling" : "Bicicleta_eu",
-		    		"Running" :"Correr_eu",
-					},
-					"mesesLabels":{
-						"January": "Enero_eu",
-						"February": "Febrero_eu",
-						"March" : "Marzo_eu",
-						"April" : "Abril_eu",
-						"May":"Mayo_eu",
-						"June": "Junio_eu",
-						"July":"Julio_eu"
-					}
+	"charts": {
+			"charts": "Gráficos_eu",
+			"line": "Líneas_eu",
+			"bar": "Barras_eu",
+			"radar": "Radar_eu",
+			"polar": "Polar_eu",
+			"pie": "Tarta_eu",
+			"doughnut": "Donut_eu",
+			"bubble": "Burbuja_eu",
+			"datasetRadar": {
+					"dataset1": "dataset 1_eu",
+					"dataset2": "dataset 2_eu"
+			},
+			"colorLabels": ["rojo_eu", "azul_eu", "amarillo_eu"],
+			"radarLabels": ["Comida_eu", "Bebida_eu", "Dormir_eu", "Diseño_eu", "Programacion_eu", "Bicicleta_eu", "Correr_eu"],
+			"mesesLabels": ["Enero_eu", "Febrero_eu", "Marzo_eu", "Abril_eu", "Mayo_eu", "Junio_eu", "Julio_eu"]
 	}
 	}
-
-}

@@ -14,7 +14,7 @@ requirejs.config({
         "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
-        "chartjs":"../../bower_components/Chart.js/Chart",
+        "chartjs":"../../node_modules/chart.js/dist/Chart",
         "templates": "../templates",
         //"rup/min": "../../dist/rup.min-2.4.7",
         "rup/compatibility": "../../src/rup.compatibility",

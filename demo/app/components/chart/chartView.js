@@ -28,6 +28,7 @@ define(['marionette',
 
     function fncInitialize() {
         /*data*/
+
         this.mesesData = {
             labels: $.rup.i18n.app.charts.mesesLabels,
             datasets: [{
