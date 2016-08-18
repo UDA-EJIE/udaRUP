@@ -49,6 +49,7 @@
     "core/utils/jquery.jstree.js",
     "core/utils/jquery.hotkeys.js",
     "core/utils/jquery.contextMenu.js",
+    "../node_modules/chart.js/dist/Chart.js",
     "rup.accordion.js",
     "rup.autocomplete.js",
     "rup.breadCrumb.js",
@@ -67,6 +68,7 @@
     "rup.menu.js",
     "rup.message.js",
     "rup.report.js",
+    "rup.chart.js",
     "rup_table/rup.table.core.js",
     "rup_table/rup.table.contextMenu.js",
     "rup_table/rup.table.filter.js",
@@ -94,6 +96,8 @@
     "core/ui/menu/jquery.ui.widget.menu.js",
     "core/ui/menu/jquery.ui.position.menu.js",
     "core/ui/menu/jquery.ui.menu.js"
+
+
   ],
   "rupCssFiles":[
     "ui.jqgrid.css",

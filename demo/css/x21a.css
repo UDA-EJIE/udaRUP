@@ -702,6 +702,11 @@ a.ui-selectmenu { text-decoration: none; color: black }
 	background-image: url("../images/icons/old.16.png") !important;
 }
 
+.chart_icon{
+	background-image: url("../images/icons/chart_16.png") !important;
+}
+
+
 /* VISUALIZAR CORRECTAMENTE IE-PORTALES */
 .ui-menu .ui-menu-item a {
 	color: black !important;
