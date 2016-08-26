@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2015 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -40,19 +40,21 @@
 
 .rup-combobox {
 	position: relative;
-	display: inline-flex;
+	display: inline-block;
 }
 
 .rup-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
 	margin-left: -1px;
+	padding: 0;
 }
 
 .rup-combobox-input {
 	margin: 0;
-}
-
-.rup-combobox a.rup-combobox-toggle.ui-button-disabled{
-	opacity:0.6
+	background-color: white;
+	/*padding: 5px 10px;*/
 }
 
  .ui-autocomplete-category {
@@ -61,5 +63,10 @@
 padding: .2em .4em;
 margin: .8em 0 .2em;
 line-height: 1.5;
+}
+
+.matched-text{
+	font-weight: bold;
+}
 }
  

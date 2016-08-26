@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -19,8 +19,17 @@
  * @author EJIE
  * @version: 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
 
+ 		// AMD. Register as an anonymous module.
+ 		define( ["jquery","jquery-ui","jquery-json" ], factory );
+ 	} else {
+
+ 		// Browser globals
+ 		factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	$.rup_utils  = {};
 	$.rup_utils.arr = [];
@@ -53,9 +62,9 @@
     		return $.rup.lang.charAt(0).toUpperCase() + $.rup.lang.slice(1);
 		},
 		getJson: function(obj, path){
-            var ret = $.extend({}, obj), 
+            var ret = $.extend({}, obj),
                 split = path.split(".");
-            
+
             if (split.length ===1){
             	return obj[split[0]];
             }
@@ -66,16 +75,16 @@
             return ret
         },
         setJson: function(obj, path, value){
-            var aux = obj, 
+            var aux = obj,
                 split = path.split(".");
-            
+
             if (split.length ===1){
             	obj[split[0]] = value;
             }else{
 	            for (var i=0; i<split.length-1;i++){
 	            	aux = aux[split[i]];
 	            }
-	
+
 	            aux[split[split.length-1]] = value;
             }
         },
@@ -102,10 +111,10 @@
 		jsontoarray : function (obj) {
 			var arr = [];
 			function parseJSON (obj, path) {// parsea un json a un array
-				path = path || '';			
+				path = path || '';
 				// iteracion a traves (objects / arrays)
 				if (obj === undefined || obj === null) {
-					// Si no existe un valor para el path indicado se envia '' 
+					// Si no existe un valor para el path indicado se envia ''
 					parseJSON('', path);
 				} else if (obj.constructor == Object) {
 					for (var prop in obj) {
@@ -114,9 +123,9 @@
 						parseJSON(obj[prop], name);
 					}
 				} else if (obj.constructor == Array) {
-					if(obj.length == 0){         
-						parseJSON('[]', path);     
-					} else { 
+					if(obj.length == 0){
+						parseJSON('[]', path);
+					} else {
 						for (var i = 0; i < obj.length; i++)	{
 							var index	= '[' + i + ']', name = path + index;
 							parseJSON(obj[i], name);
@@ -132,10 +141,10 @@
 					}
 				}
 			}
-			
+
 			parseJSON(obj);
-			return arr; 
-			
+			return arr;
+
 		},
 		/**
      * Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}.
@@ -150,18 +159,18 @@
      * $.rup_utils.unnestjson(obj);
      */
 		unnestjson : function(obj){
-			
+
 			var array = $.rup_utils.jsontoarray(obj);
-			
+
 			var json={};
 			for (key in array) {
                 if (!$.isFunction(array[key])){
     			    json[key]=array[key];
                 }
 			}
-			
+
 			return json;
-			
+
 		},
         /**
          * Devuelve el objeto del dom existente en la posición indicada.
@@ -226,7 +235,7 @@
          */
 		getJQueryId: function(sid, escaped){
 			var returnIdSelector;
-			
+
 			if (typeof sid === "string"){
 				returnIdSelector = sid;
 				if (escaped === true){
@@ -234,7 +243,7 @@
 				}
 				return returnIdSelector[0]==="#"?returnIdSelector:"#"+returnIdSelector;
 			}
-			
+
 			return null;
 		},
         /**
@@ -249,14 +258,14 @@
          * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
          */
 		queryStringToJson: function(queryString){
-			
+
 			function setValue(root, path, value) {
 				if (path.length > 1) {
 					var dir = path.shift();
 					if (typeof root[dir] == 'undefined') {
 						root[dir] = path[0] == '' ? [] : {};
 					}
-	
+
 					arguments.callee(root[dir], path, value);
 				} else {
 					if (root instanceof Array) {
@@ -266,9 +275,9 @@
 					}
 				}
 			};
-			
+
 			var nvp = queryString.split('&'), data = {}, pair, name, value, path, first;
-			
+
 			for ( var i = 0; i < nvp.length; i++) {
 				pair = nvp[i].split('=');
 				name = decodeURIComponent(pair[0]);
@@ -276,7 +285,7 @@
 
 				path = name.match(/(^[^\[]+)(\[.*\]$)?/);
 				first = path[1];
-				
+
 				if (path[2]) {
 					// case of 'array[level1]' ||
 					// 'array[level1][level2]'
@@ -296,19 +305,19 @@
 			var ruptype, formElem;
 			var tree_data,selectorArray;
 			if (aData) {
-				
+
 				for (var i in aData) {
 					tree_data= new Array();
 					formElem = $("[name='" + i + "']", formid);
 					if (formElem.length==0){
 						selectorArray=i.substr(0,i.indexOf('['));
 						formElem= $("[name='" + selectorArray + "']", formid);
-						
-							
+
+
 					}
 					if (formElem.is("[ruptype]")){
 						if (formElem.hasClass("jstree")){
-							
+
 							for (var a in aData){
 								if (a.substr(0,a.indexOf('['))==selectorArray){
 									tree_data.push(aData[a]);
@@ -320,10 +329,10 @@
 							formElem.on("loaded.jstree", function (event, data) {
 								var selectorArbol= this.id;
 								//$(this).rup_tree("setRupValue",$arbol[selectorArbol]);
-								
+
 								$(this).trigger("rup_filter_treeLoaded",$arbol[selectorArbol]);
 							});
-							
+
 						}else{
 						// Forma de evitar el EVAL
 						formElem["rup_"+formElem.attr("ruptype")]("setRupValue",aData[i]);
@@ -344,7 +353,7 @@
 				}
 			}
 		},
-		
+
 		//DATE UTILS
 		createDate : function (day, month, year) {
 			return $.datepicker.formatDate($.rup.i18n.base["rup_date"].dateFormat, new Date(year, month-1, day));
@@ -363,16 +372,16 @@
 		 *
 		 * Date: 2010-01-24 (Sun, 24 January 2010)
 		 */
-		
+
 		//TODO: Documentacion -> http://plugins.jquery.com/project/cooquery
 		setCookie : function( name, value, options ){
 			if( typeof name === 'undefined' || typeof value === 'undefined' || name === null || value === null ){
 				$.rup.errorGestor("["+$.rup.i18nParse($.rup.i18n.base,"rup_global.metodError") + "setCookie] - "+$.rup.i18nParse($.rup.i18n.base,"rup_utils.paramsError"));
 				return false;
 			}
-		
+
 		    var str = name + '=' + encodeURIComponent(value);
-		    
+
 		    if (typeof options !== 'undefined' && options !== null){
 			    if( options.domain ) str += '; domain=' + options.domain;
 			    if( options.path ) str += '; path=' + options.path;
@@ -383,25 +392,25 @@
 			    }
 			    if( options.secure ) str += '; secure';
 		    }
-		
+
 		    return (document.cookie = str);
 		},
-	
+
 		delCookie : function( name ){
 			if( typeof name === 'undefined' || name === null){
 				$.rup.errorGestor("["+$.rup.i18nParse($.rup.i18n.base,"rup_global.metodError") + "delCookie] - "+$.rup.i18nParse($.rup.i18n.base,"rup_utils.paramsError"));
 				return false;
 			}
-			
+
 			return $.rup_utils.setCookie( name, '', { duration: -1 } );
 		},
-	
+
 		readCookie : function( name ){
 			if( typeof name === 'undefined' || name === null){
 				$.rup.errorGestor("["+$.rup.i18nParse($.rup.i18n.base,"rup_global.metodError") + "readCookie] - "+$.rup.i18nParse($.rup.i18n.base,"rup_utils.paramsError"));
 				return false;
 			}
-			
+
 			var value = document.cookie.match('(?:^|;)\\s*' + name.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + '=([^;]*)');
 			return (value) ? decodeURIComponent(value[1]) : null;
 		},
@@ -421,7 +430,7 @@
 		},
 		set : function(name,value,options){
 	   		options = $.extend({}, options);
-	   		
+
 	        if (value === null) {
 	            value = '';
 	            options.expires = -1;
@@ -437,16 +446,16 @@
 		}
 	            expires = '; expires=' + date.toUTCString();
 	        }
-	        
+
 	  		value = options.json ? encodeURIComponent($.JSON.encode(value)):encodeURIComponent(value);
-	  
+
 	        var path = options.path ? '; path=' + (options.path) : '';
 	        var domain = options.domain ? '; domain=' + (options.domain) : '';
 	        var secure = options.secure ? '; secure' : '';
-	        
+
 	        document.cookie = [name, '=', value, expires, path, domain, secure].join('');
 		},
-		//compare objects function 
+		//compare objects function
 		compareObjects : function (x, y) {
 			   var objectsAreSame = true;
 			   if (Object.keys(x).length !== Object.keys(y).length){
@@ -469,8 +478,8 @@
 			if (id){
 				return id.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, "\\$1");
 			}
-			
-			return ""; 
+
+			return "";
 		},
 		selectorId : function(id){
 			if ((typeof id === "string") && (id.substring(0,1) !== "#")){
@@ -486,7 +495,7 @@
 			$.rup_utils.autoGenerateIdNum = $.rup_utils.autoGenerateIdNum+1;
 			return id;
 		},
-		//Función encargada de gestionar las url's de las aplicaciones en portal 
+		//Función encargada de gestionar las url's de las aplicaciones en portal
 		setNoPortalParam : function(url){
 			if(url !== undefined && url !== null){
             	if ($.rup_utils.readCookie("r01PortalInfo") !== null && url.match("R01HNoPortal") === null && (($("div.r01gContainer").length > 0)) || ($("div.r01gApplication").length > 0)){
@@ -503,16 +512,16 @@
 				return true;
 			}
 		},
-		//Funcion encargada de pasar las urls relativas a absolutas. 
-		//Esta diseñado para terminar con los problemas de comportamientos anómalo de los navegadores en la redirecciones relativas 
+		//Funcion encargada de pasar las urls relativas a absolutas.
+		//Esta diseñado para terminar con los problemas de comportamientos anómalo de los navegadores en la redirecciones relativas
 		relToAbsUrl : function(url){
-			
+
 			var urlPage = $(location);
-			
+
 			if (typeof url === "string"){
 				var fChar1 = url.substring(0,1);
 				var fChar2 = url.substring(1,2);
-				
+
 				if($.url(url).attr('protocol') === undefined || $.url(url).attr('protocol') === ""){
 					if (fChar1 === "/"){
 						if(fChar2 === undefined || fChar2 !== "/"){
@@ -605,15 +614,15 @@
 					return ret+=ul[0].outerHTML;
 				}else{
 					var span = $("<span>");
-					
+
 					if(msg.style!==undefined){
 						span.addClass(msg.style);
 					}
-					
+
 					if(msg.label!==undefined){
 						span.append(msg.label);
 					}
-					
+
 					return span[0].outerHTML+"<br/>";
 				}
 			}
@@ -631,18 +640,18 @@
 			    $.rup.getParams = vars;
 			}
 			return $.rup.getParams;
-			
+
 		},
 		//Función encargada de recuperar una variable especifica de las pasadas por QueryString (en la url)
 		getUrlVar: function(name){
 			return $.rup_utils.getUrlVars()[name];
 		},
 		sortArray: function(array, sortFnc){
-			
+
 			function defaultSortFnc(obj1, obj2){
 				return obj1 - obj2;
 			}
-			
+
 			function bubbleSort(a, fnc)
 			{
 			    var swapped;
@@ -658,11 +667,11 @@
 			        }
 			    } while (swapped);
 			}
-			
+
 			if (!$.isArray(array)){
 				return undefined;
 			}
-			
+
 			if ($.isFunction(sortFnc)){
 				bubbleSort(array, sortFnc);
 			}else{
@@ -670,28 +679,28 @@
 			}
 		},
 		insertSorted: function(array, elem, sortFnc){
-			
+
 			function defaultSortFnc(obj1, obj2){
 				return obj2 - obj1;
 			}
-			
+
 			if (!$.isArray(array)){
 				return undefined;
 			}
-			
+
 			array.push(elem);
-			
+
 			if ($.isFunction(sortFnc)){
 				$.rup_utils.sortArray(array, sortFnc);
 			}else{
 				$.rup_utils.sortArray(array, defaultSortFnc);
 			}
-			
+
 			return $.inArray(elem, array);
 		},
 		getRupValueAsJson: function(name, value){
 			var arrTmp, returnArray, dotNotation=false, dotProperty, tmpJson, returnArray=[];
-			
+
 			if (name){
 				// Miramos si el name contiene notación dot
 				arrTmp =  name.split(".");
@@ -701,7 +710,7 @@
 				}else{
 					dotProperty = arrTmp[0];
 				}
-				
+
 				if (jQuery.isArray(value)){
 					// Devolvemos un array de resultados.
 					for (var i=0; i<value.length;i++){
@@ -714,17 +723,17 @@
 							returnArray.push(tmpJson)
 						}
 					}
-					
+
 					return returnArray;
 				}else{
 					// Devolvemos un único valor.
 					tmpJson={};
 					tmpJson[dotProperty]=value;
-					
+
 					return tmpJson;
 				}
 			}
-			
+
 			return null;
 		},
 		getRupValueWrapped: function(name, value){
@@ -738,17 +747,17 @@
 				}else{
 					return value;
 				}
-			
+
 				wrapObj[dotProperty] = value;
-				
+
 				return wrapObj;
 			}
-			
+
 			return null;
 		}
-		
+
 	});
-	
+
 	//Utilidades de los formularios
 	$.fn.serializeToObject = function () {//Para enviar los campos que contienen valor (!= "")
 		var o = {}, a = this.serializeArrayWithoutNulls();
@@ -764,7 +773,7 @@
 		});
 		return o;
 	};
-	
+
 	$.fn.serializeArrayWithoutNulls = function () { //crea un array con campos de un formulario que tienen valor !=""
 		return this.map(function () {
 			return this.elements ? jQuery.makeArray(this.elements) : this;
@@ -788,7 +797,7 @@
 					{ name: elem.name, value: val };
 		}).get();
 	};
-	
+
 	$.fn.serializeObject = function () {//Para enviar los campos nulos con null en vez de en blanco
 		var o = {}, a = this.serializeArrayNull();
 		$.each(a, function () {
@@ -803,7 +812,7 @@
 		});
 		return o;
 	};
-	
+
 	$.fn.serializeArrayNull = function () {
 		return this.map(function () {
 			return this.elements ? jQuery.makeArray(this.elements) : this;
@@ -827,7 +836,7 @@
 					{ name: elem.name, value: val };
 		}).get();
 	};
-	
+
 	jQuery.rup_utils.base64 = {
 		    // private property
 		    _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -931,5 +940,5 @@
 		};
 
 
-	
-})(jQuery);
+
+}));

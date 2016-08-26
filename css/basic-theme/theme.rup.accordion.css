@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2015 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -7,13 +7,13 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- 
+
 .rup_accordion{
 	display: none;
 }
@@ -22,5 +22,13 @@
 }
 
 .ui-accordion .ui-accordion-header {
-	width: 99.8%;
+	width: auto;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+    border-bottom: none;
+}
+
+.ui-accordion.ui-accordion-disabled.ui-state-disabled{
+  opacity: 1.0;
 }

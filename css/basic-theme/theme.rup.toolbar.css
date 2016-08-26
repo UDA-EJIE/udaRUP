@@ -1,5 +1,5 @@
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2015 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -7,13 +7,13 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- 
+
  /* Toolbar */
 .rup-toolbar {
 	overflow: hidden;
@@ -23,14 +23,11 @@
 /* Botones */
 .rup-toolbar_button {
 	margin-right:5px;
-	font-weight: bold;
 }
 
 /* Menu-Botones */
 .rup-toolbar_menuButton{
-	background:transparent; 
 	margin-right:5px;
-	font-weight: bold;
 }
 
 .rup-toolbar_menuButtonSlided{ /* cuando tiene el menú de botones desplegado y no está encima el cursor */
@@ -67,6 +64,7 @@
 
 /* Tamaño botones toolbar por defecto (18x18) */
 .rup-toolbar_button .ui-button-icon-primary,
+.rup-toolbar_button .ui-button-icon,
 .rup-toolbar_menuButton .ui-button-icon-primary {
 	width:18px;
 	height:18px;
@@ -117,7 +115,7 @@
 .exe { background:url("images/files/exe.gif") no-repeat !important; }
 .gif { background:url("images/files/gif.gif") no-repeat !important; }
 .jpg { background:url("images/files/jpg.gif") no-repeat !important; }
-.js  { background:url("images/files/js.gif")  no-repeat !important; }
+.js:not(html)  { background:url("images/files/js.gif")  no-repeat !important; }
 .ods { background:url("images/files/ods.gif") no-repeat !important; }
 .pdf { background:url("images/files/pdf.gif") no-repeat !important; }
 .ppt { background:url("images/files/ppt.gif") no-repeat !important; }

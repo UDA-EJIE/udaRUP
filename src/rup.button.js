@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base","./rup.dialog" ], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -303,7 +313,7 @@
 		dropdown:false
 	};
 
-  /**                                                                         
+  /**
    * @description Opciones por defecto del objeto de configuración del menú desplegable asociado al botón.
    *
    * @name jQuery.rup_button#dropdown_defaults
@@ -319,4 +329,4 @@
 		}
 	};
 
-})(jQuery);
+}));

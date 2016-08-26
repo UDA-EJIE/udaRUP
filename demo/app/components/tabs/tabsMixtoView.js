@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/tabs'], function(Marionette, App){
+        'rup/rup.tabs'], function(Marionette, App){
 
   var TabsMixedView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.tabs.tabsMixtoTemplate,

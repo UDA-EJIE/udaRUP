@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/message'], function(Marionette, App){
+        'rup/rup.message'], function(Marionette, App){
 
   var MessageView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.components.message.messageTemplate,

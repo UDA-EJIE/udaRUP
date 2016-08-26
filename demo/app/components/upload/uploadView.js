@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/upload'], function(Marionette, App){
+        'rup/rup.upload'], function(Marionette, App){
 
   var UploadView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.upload.uploadTemplate,

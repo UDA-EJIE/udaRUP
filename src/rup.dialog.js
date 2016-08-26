@@ -33,7 +33,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base","blockUI" ], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	//*********************************************
 	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
@@ -132,11 +142,11 @@
 
 				}
 				if (settings.position === undefined || settings.position === null){
-					$(this).data("dialog").uiDialog.css("position","absolute").css("top",(docHeight/2)-($('div[aria-labelledby=ui-dialog-title-' + this[0].id + ']').height()/2));
+					$(this).data("dialog").uiDialog.css("position","absolute").css("top",(docHeight/2)-($('div[aria-describedby=' + this[0].id + ']').height()/2));
 				}
 			}
 
-			$('div[aria-labelledby=ui-dialog-title-' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
+			$('div[aria-describedby=' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
 		},
         /**
          * Borra el dialogo si este estubiera oculto o visible.
@@ -295,7 +305,7 @@
 			.addClass("rup-enlaceCancelar")
 			.html(btn.text)
 			.click(btn.click);
-			$('div[aria-labelledby=ui-dialog-title-' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
+			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF); 
 		}
 	});
 
@@ -345,7 +355,7 @@
 
 							//Se determina la ubicación del dialogo físicamente (dentro de la pagina html). Por defecto se ubica en el body de la página pero puede determinarse una ubicación específica.
 							//En caso de encontrarnos en portales (Ejie), y no determinar una ubicación específica, se ubica dentro de los rangos apropiados.
-							if($('div[aria-labelledby=ui-dialog-title-' + settings.id + ']').length > 0){//comprobamos que no se haya ya creado el dialog sobre ese div para evitar problemas de sobreescritura de propiedades, como el tiulo...
+                        if($('div[aria-describedby=' + settings.id + ']').length > 0){//comprobamos que no se haya ya creado el dialog sobre ese div para evitar problemas de sobreescritura de propiedades, como el tiulo...
 								created = true;
 							} else {
 								if($("body #"+settings.id).not(".ui-dialog-content").length > 1){
@@ -444,7 +454,7 @@
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').removeClass("ui-state-hover");
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').attr("style", "");
 								})
-								.insertAfter("#ui-dialog-title-" + settings.id);
+                            .insertAfter(jQuery("span.ui-dialog-title",jQuery("#"+settings.id).parent()));
 								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').hover(
 									function () {
 										aClose.css("text-decoration", "none");
@@ -484,7 +494,7 @@
 					}
 				}
 			},
-/**       
+/**
          * Realiza la carga del contenido del diálogo a partir de una petición AJAX.
          *
          * @name jQuery.rup_messages#_createDiv
@@ -633,4 +643,4 @@
 	};
 
 
-})(jQuery);
+}));

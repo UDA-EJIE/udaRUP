@@ -5,9 +5,22 @@ requirejs.config({
 //            "typeahead": '../src/core/typeahead!../../bower_components/typeahead.js/dist/typeahead.jquery'
 //        }
 //    },
+    packages: [
+        {
+            name: 'rup',
+            location: '../../src/',
+            main: 'rup.base'
+        },
+        {
+            name: 'jquery.ui.widget',
+            location: "../../node_modules/jquery-ui/ui/",
+            main: 'widget'
+        }
+    ],
     paths: {
-        "jquery": "../../bower_components/jquery/jquery",
-        "jquery-ui": "../../bower_components/jquery-ui/jquery-ui",
+        "jquery": "../../node_modules/jquery/dist/jquery",
+        "jquery-migrate": "../../node_modules/jquery-migrate/dist/jquery-migrate",
+        "jquery-ui": "../../node_modules/jquery-ui-dist/jquery-ui",
         "backbone": "../../bower_components/backbone/backbone",
         "underscore": "../../bower_components/underscore/underscore",
         "handlebars": "../../node_modules/handlebars/dist/handlebars",
@@ -15,29 +28,50 @@ requirejs.config({
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
         "templates": "../templates",
+        "blockUI": "../../node_modules/block-ui/jquery.blockUI",
+        "jquery-contextMenu": "../../node_modules/jquery-contextmenu/dist/jquery.contextMenu",
+        "jquery.form": "../../node_modules/jquery-form/jquery.form",
+        "jquery.validation": "../../node_modules/jquery-validation/dist/jquery.validate",
+        "jquery.scrollTo": "../../node_modules/jquery.scrollTo/jquery.scrollTo",
+
+        "jquery.fileupload": "../../node_modules/blueimp-file-upload/js/jquery.fileupload",
+        "jquery.fileupload-image": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-image",
+        "jquery.fileupload-audio": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-audio",
+        "jquery.fileupload-process": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-process",
+        "jquery.fileupload-video": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-video",
+        "jquery.fileupload-validate": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-validate",
+        "jquery.fileupload-ui": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-ui",
+        "jquery.xdr-transport": "../../node_modules/blueimp-file-upload/js/cors/jquery.xdr-transport",
+        "jquery.ui.widget": "../../node_modules/jquery-ui/ui/widget",
+        "tmpl": "../../node_modules/blueimp-tmpl/js/tmpl",
+        "load-image": "../../node_modules/blueimp-load-image/js/load-image",
+        "load-image-meta": "../../node_modules/blueimp-load-image/js/load-image-meta",
+        "load-image-exif": "../../node_modules/blueimp-load-image/js/load-image-exif",
+        "canvas-to-blob": "../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob",
+
         //"rup/min": "../../dist/rup.min-2.4.7",
         "rup/compatibility": "../../src/rup.compatibility",
         "rup/base": "../../src/rup.base",
         "rup/utils": "../../src/rup.utils",
         "rup/lang": "../../src/rup.lang",
-        "rup/tooltip": "../../src/rup.tooltip",
+        //"rup/tooltip": "../../src/rup.tooltip",
         "rup/menu": "../../src/rup.menu",
-        "rup/feedback": "../../src/rup.feedback",
+        //"rup/feedback": "../../src/rup.feedback",
         "rup/accordion": "../../src/rup.accordion",
-        "rup/message": "../../src/rup.message",
+        // "rup/message": "../../src/rup.message",
         "rup/dialog": "../../src/rup.dialog",
-        "rup/contextMenu": "../../src/rup.contextMenu",
-        "rup/toolbar": "../../src/rup.toolbar",
-        "rup/button": "../../src/rup.button",
-        "rup/accordion": "../../src/rup.accordion",
-        "rup/tabs": "../../src/rup.tabs",
-        "rup/autocomplete": "../../src/rup.autocomplete",
+        //"rup/contextMenu": "../../src/rup.contextMenu",
+        //"rup/toolbar": "../../src/rup.toolbar",
+        // "rup/button": "../../src/rup.button",
+        //"rup/accordion": "../../src/rup.accordion",
+        //"rup/tabs": "../../src/rup.tabs",
+        //"rup/autocomplete": "../../src/rup.autocomplete",
         "rup/combo": "../../src/rup.combo",
         "rup/date": "../../src/rup.date",
         "rup/time": "../../src/rup.time",
         "rup/form": "../../src/rup.form",
-        "rup/validate": "../../src/rup.validate",
-        "rup/upload": "../../src/rup.upload",
+        // "rup/validate": "../../src/rup.validate",
+        // "rup/upload": "../../src/rup.upload",
         "rup/report": "../../src/rup.report",
 
         //Table
@@ -46,90 +80,88 @@ requirejs.config({
         //"rup/table.core": "../rup.table.core-private",
 
         // menuDeps
-        "jquery-1.7": "../../src/core/jquery-1.7.2",
+        // "jquery-1.7": "../../src/core/jquery-1.7.2",
         "jquery.ui.autocomplete": "../../src/core/ui/jquery.ui.autocomplete",
         "jquery.ui.selectmenu": "../../src/core/ui/jquery.ui.selectmenu",
         "jquery.multiselect": "../../src/core/ui/jquery.multiselect",
         "jquery-json": "../../src/core/utils/jquery.json-2.2",
         "jquery-ui-timepicker": "../../src/core/ui/jquery-ui.timepicker",
         "jquery-ui-multidatespicker": "../../src/core/ui/jquery-ui.multidatespicker",
-        "private-jquery": "../jquery-private",
-        "private-jqueryui-core-menu":"../../src/core/ui/menu/jquery.ui.core.menu",
-        "private-jqueryui-widget-menu":"../../src/core/ui/menu/jquery.ui.widget.menu",
-        "private-jqueryui-position-menu":"../../src/core/ui/menu/jquery.ui.position.menu",
-        "private-jqueryui-menu":"../../src/core/ui/menu/jquery.ui.menu",
-        "jquery.form": "../../src/core/utils/jquery.form",
-        "jquery.validate": "../../src/core/utils/jquery.validate",
-        "jquery.fileupload": "../../src/core/utils/jquery.fileupload",
-        "jquery.fileupload-ui": "../../src/core/utils/jquery.fileupload-ui",
-        "jquery.xdr-transport": "../../src/core/utils/jquery.xdr-transport",
+        // "private-jquery": "../jquery-private",
+        // "private-jqueryui-core-menu":"../../src/core/ui/menu/jquery.ui.core.menu",
+        // "private-jqueryui-widget-menu":"../../src/core/ui/menu/jquery.ui.widget.menu",
+        // "private-jqueryui-position-menu":"../../src/core/ui/menu/jquery.ui.position.menu",
+        // "private-jqueryui-menu":"../../src/core/ui/menu/jquery.ui.menu",
+
+        // "jquery.validate": "../../src/core/utils/jquery.validate",
+
         // Table deps
         "jqGrid": "../../src/core/jqGrid/jquery.jqGrid.src",
         "jqGrid.fluid": "../../src/core/jqGrid/jqGrid.fluid",
         "jqGrid.rup.table": "../../src/core/jqgrid/jqGrid.rup.table",
         // legacy
-        "blockUI": "../../src/core/utils/jquery.blockUI",
-        "jQuery-contextMenu": "../../src/core/utils/jquery.contextMenu",
+        //"blockUI": "../../src/core/utils/jquery.blockUI",
+
         "form2object": "../../src/core/utils/form2object"
 
 
     },
     shim : {
       "jquery-ui":{
-        "deps": ["jquery"],
+        "deps": ["jquery","jquery-migrate"],
       },
       "rup/compatibility":{
         "deps": ["rup/base"],
       },
-      "rup/base":{
-        "deps": ["rup/utils"],
-        "exports":"widgetMenu"
-      },
-      "rup/utils":{
-        "deps": ["jquery-ui","jquery-json"]
-      },
+      // "rup/base":{
+      //   "deps": ["rup/utils"],
+      //   "exports":"widgetMenu"
+      // },
+      // "rup/utils":{
+      //   "deps": ["jquery-ui","jquery-json"]
+      // },
       "rup/compatibility":{
         "deps": ["rup/base"]
       },
-      "rup/lang":{
-        "deps": ["rup/base", "rup/tooltip"]
-      },
-      "rup/tooltip":{
-        "deps": ["rup/base","qtip2"]
-      },
-      "rup/menu":{
-        "deps": ["rup/base","rup/compatibility"]
-      },
-      "rup/feedback":{
-        "deps": ["rup/base"]
-      },
-      "rup/accordion":{
-        "deps": ["rup/base"]
-      },
-      "rup/message":{
-        "deps": ["rup/base"]
-      },
-      "rup/dialog":{
-        "deps": ["rup/base", "blockUI"]
-      },
-      "rup/contextMenu":{
-        "deps": ["rup/base", "jQuery-contextMenu"]
-      },
-      "rup/toolbar":{
-        "deps": ["rup/base", "rup/button"]
-      },
-      "rup/button":{
-        "deps": ["rup/base","rup/dialog"]
-      },
-      "rup/accordion":{
-        "deps": ["rup/base"]
-      },
-      "rup/tabs":{
-        "deps": ["rup/base"]
-      },
-      "rup/autocomplete":{
-        "deps": ["rup/base","jquery.ui.autocomplete"]
-      },
+      // "rup/lang":{
+      //   "deps": ["rup/base", "rup/tooltip"]
+      // },
+      // "rup/tooltip":{
+      //   "deps": ["rup/base","qtip2"]
+      // },
+      // "rup/menu":{
+      //   "deps": ["rup/base","rup/compatibility"]
+      // },
+      // "rup/feedback":{
+      //   "deps": ["rup/base"]
+      // },
+      // "rup/accordion":{
+      //   "deps": ["rup/base"]
+      // },
+      // "rup/message":{
+      //   "deps": ["rup/base"]
+      // },
+      // "rup/dialog":{
+      //   "deps": ["rup/base", "blockUI"]
+      // },
+      // "rup/contextMenu":{
+      //   "deps": ["rup/base", "jQuery-contextMenu"]
+      // },
+      // "rup/toolbar":{
+      //   "deps": ["rup/base", "rup/button"]
+      // },
+      // "rup/button":{
+      //   "deps": ["rup/base","rup/dialog"]
+      // },
+      // "rup/accordion":{
+      //   "deps": ["rup/base"]
+      // },
+      // "rup/tabs":{
+      //   "deps": ["rup/base"]
+      // },
+      // "rup/autocomplete":{
+      //   "deps": ["rup/base","jquery.ui.autocomplete"]
+      // },
       "rup/combo":{
         "deps": ["rup/base","jquery.multiselect"]
       },
@@ -139,12 +171,12 @@ requirejs.config({
       "rup/time":{
         "deps": ["rup/base"]
       },
-      "rup/form":{
-        "deps": ["rup/base","jquery.form","rup/validate"]
-      },
-      "rup/validate":{
-        "deps": ["rup/base","jquery.validate"]
-      },
+      // "rup/form":{
+      //   "deps": ["rup/base","jquery.form","rup/validate"]
+      // },
+      // "rup/validate":{
+      //   "deps": ["rup/base","jquery.validate"]
+      // },
       "rup/upload":{
         "deps": ["rup/base","jquery.fileupload-ui","jquery.fileupload"]
       },
@@ -233,13 +265,13 @@ requirejs.config({
 
       },
 
-      // legacy
-      "blockUI":{
-        "deps": ["jquery"]
-      },
-      "jQuery-contextMenu":{
-        "deps": ["jquery"]
-      },
+      // // legacy
+      // "blockUI":{
+      //   "deps": ["jquery"]
+      // },
+      // "jQuery-contextMenu":{
+      //   "deps": ["jquery"]
+      // },
       "jquery.ui.autocomplete":{
         "deps": ["jquery-ui"]
       },
@@ -266,13 +298,13 @@ requirejs.config({
       },
       "jquery.xdr-transport": {
         "deps": ["jquery.fileupload"]
-      },
-      "jquery.form":{
-        "deps": ["jquery"]
-      },
-      "jquery.validate":{
-        "deps": ["jquery"]
       }
+      // "jquery.form":{
+      //   "deps": ["jquery"]
+      // }
+      // "jquery.validate":{
+      //   "deps": ["jquery"]
+      // }
     }
 //    ,
 //    map: {

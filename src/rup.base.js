@@ -14,7 +14,17 @@
  * que establece la Licencia.
  */
 
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		// AMD. Register as an anonymous module.
+ 		define( ["jquery","./rup.utils"], factory );
+ 	} else {
+
+ 		// Browser globals
+ 		factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
     /**
      * jQuery definition to anchor JsDoc comments.
@@ -674,4 +684,4 @@
 
 	//Inicializacion de las funciones de gestion de RUP en general
 	$.rup.iniRup();
-})(jQuery);
+}));

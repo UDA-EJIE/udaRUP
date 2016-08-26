@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/accordion'], function(Marionette, App){
+        'rup/rup.accordion'], function(Marionette, App){
 
   var AccordionView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.accordion.accordionTemplate,
@@ -9,11 +9,11 @@ define(['marionette',
       toolbarMixta: "#toolbarMixta",
       toolbarRight: "#toolbarRight"
     },
-    onRender: fncOnRender
+    onDomRefresh: fncOnDomRefresh
 
   });
 
-  function fncOnRender(){
+  function fncOnDomRefresh(){
 
      	$(".rup_accordion").rup_accordion({
   		animated: "bounceslide",

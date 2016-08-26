@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base"], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( jQuery ) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -66,6 +76,24 @@
 				self._renderItem( ul, item );
 			});
 		}
+		},
+		_renderItem: function( ul, item ) {
+
+            // Replace the matched text with a custom span. This
+            // span uses the class found in the "highlightClass" option.
+            var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +$.ui.autocomplete.escapeRegex(this.term) +	")(?![^<>]*>)(?![^&;]+;)", "gi"),
+                cls = "matched-text",
+                template = "<span class='" + cls + "'>$1</span>",
+                label = item.label.replace( re, template ),
+                $li = $( "<li/>" ).appendTo( ul );
+
+            // Create and return the custom menu item content.
+            $( "<a/>" ).attr( "href", "#" )
+                       .html( label )
+                       .appendTo( $li );
+
+            return $li;
+
 		}
 	});
 
@@ -594,8 +622,8 @@ input.
        * @private
        */
 			_init : function(args){
-				
-				
+
+
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				} else {
@@ -690,7 +718,7 @@ input.
 					jQuery("#"+settings.id).autocomplete(settings);
 
 					//Se anyade un id al menu desplegable del autocomplete
-					settings.$menu = jQuery("#"+settings.id).data("autocomplete").menu.element.attr("id",settings.id+"_menu");
+                settings.$menu = jQuery("#"+settings.id).data("ui-autocomplete").menu.element.attr("id",settings.id+"_menu");
 
 					//override mousedown para corregir el fallo del scrollbar en IE (bug 5610)
 					settings.$menu.off("mousedown");
@@ -716,7 +744,7 @@ input.
 
 					// use another timeout to make sure the blur-event-handler on the input was already triggered
 						setTimeout(function() {
-							clearTimeout($("#"+settings.id+"_label").data("autocomplete").closing );
+                        clearTimeout($("#"+settings.id+"_label").data("ui-autocomplete").closing );
 						}, 13);
 					})
 
@@ -755,7 +783,17 @@ input.
 						}
 					}
 
-
+                //Deshabilitar
+                // if (settings.disabled===true) { $("#"+settings.id).rup_autocomplete("disable");
+                //     if (settings.combobox)
+                //         $('span').has('#'+settings.id+'_label').find("a").attr("style","display:none");
+                //
+                // }else if (settings.disabled===false){ //habilitar
+                //     $("#"+settings.id).rup_autocomplete("enable");
+                //     if (settings.combobox){
+                //         $('span').has('#'+settings.id+'_label').find("a").removeAttr("style");
+                //     }
+                // }
 
 					//Valor por defecto
 					if (settings.defaultValue) { $("#"+settings.id).rup_autocomplete("search", settings.defaultValue); }
@@ -782,14 +820,14 @@ input.
 						}
 
 					});
-					
+
 					$("#"+settings.id+"_label").bind("keydown", function(event){
-						
+
 						$("#"+settings.id).data("ieIssueScrollVisible",false);
 					});
-					
-					
-					
+
+
+
 					$("#"+settings.id+"_label").bind("blur", function(event){
 						//Obtener datos de si viene de seleccionar elemento o si el menú de selección está desplegado
 						var selected = $("#"+settings.id).data("selected"),
@@ -797,7 +835,7 @@ input.
 						//Borrar índicador de que viene de seleccionar elemento
 						$("#"+settings.id).data("selected",false);
 						//Si es un evento de teclado pero no es ENTER, omitir esta función
-						if (event.type==="keydown" && event.keyCode!==13){return true;}						
+						if (event.type==="keydown" && event.keyCode!==13){return true;}
 						if ($("#"+settings.id).data("ieIssueScrollVisible")===true)
 							{
 								$("#"+settings.id).focus();
@@ -897,4 +935,4 @@ input.
 	};
 
 
-})(jQuery);
+}));

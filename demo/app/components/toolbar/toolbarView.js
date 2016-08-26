@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/toolbar'], function(Marionette, App){
+        'rup/rup.toolbar'], function(Marionette, App){
 
   var ToolbarView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.toolbar.toolbarTemplate,

@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base" ], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -164,7 +174,6 @@
             aceptButton = [{
                     text: $.rup.i18nParse($.rup.i18n.base,"rup_message.aceptar"),
                     click: function () {
-											debugger;
                     	settings.OKFunction.call(this, self);
                         self.dialog("close");
                     }
@@ -180,7 +189,7 @@
             this._dialogInPortal(docWidth, docHeight, self, settings);
 
             //Le ponemos el foco al botón aceptar en vez de al enlace
-            $('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-buttonpane button:first').focus();
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:first').focus();
         },
         /**
          * Muestra un mensaje de aviso.
@@ -287,7 +296,7 @@
          * @function
          * @private
          */
-			_createDiv : function () { //Crea los divs de los mensajes
+        _createDiv : function () {
 				return $("<div/>").attr("id", "rup_msgDIV_" + new Date().getTime()).attr("rup_message", "true");
 			},
 /**
@@ -310,14 +319,14 @@
 	                    self.dialog("close");
 	                    return false;
 	                }).hover(function (eventObject) { //Evento lanzado para que se cambie el icono de la X a hover, marcado por ARISTA
-						$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-titlebar-close').addClass("ui-state-hover");
-						$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-titlebar-close').css("padding", "0px");
+                    $('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').addClass("ui-state-hover");
+                    $('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').css("padding", "0px");
 					},
 					function (eventObject) {
-						$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-titlebar-close').removeClass("ui-state-hover");
-						$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-titlebar-close').attr("style", "");
-					}).insertAfter("#ui-dialog-title-" + self[0].id);
-				$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-titlebar-close').hover(
+                    $('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').removeClass("ui-state-hover");
+                    $('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').attr("style", "");
+                }).insertAfter(jQuery("span.ui-dialog-title",self.parent()));
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').hover(
 				function () {
 					aClose.css("text-decoration", "none");
 				},
@@ -366,7 +375,7 @@
 	                        	}
 	                        	return false;
 	                        });
-					$('div[aria-labelledby=ui-dialog-title-' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
 				},
 			/**
          * Ajuste en la visualización del mensaje para que se muestre correctamente en aplicaciones integradas en portal.
@@ -429,4 +438,4 @@
 		minHeight: 100
 	};
 
-})(jQuery);
+}));

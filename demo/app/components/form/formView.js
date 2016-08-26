@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/form'], function(Marionette, App){
+        'rup/rup.form'], function(Marionette, App){
 
   var FormView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.components.form.formTemplate,

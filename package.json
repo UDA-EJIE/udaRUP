@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
+    "backbone.marionette": "^2.4.7",
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "^1.4.3",
@@ -42,6 +43,7 @@
     "html": "0.0.10",
     "jasmine": "^2.4.1",
     "jasmine-jquery": "^2.1.1",
+    "jquery": "^1.12.4",
     "karma": "^1.1.1",
     "karma-chrome-launcher": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",
@@ -58,5 +60,24 @@
     "path": "^0.12.7",
     "pump": "^1.0.1",
     "requirejs": "^2.2.0"
+  },
+  "dependencies": {
+    "backbone.marionette": "^2.4.7",
+    "block-ui": "^2.70.1",
+    "blueimp-canvas-to-blob": "^3.3.0",
+    "blueimp-file-upload": "^9.12.5",
+    "blueimp-load-image": "^2.6.1",
+    "blueimp-tmpl": "^3.4.0",
+    "free-jqgrid": "^4.8.0",
+    "handlebars": "^4.0.5",
+    "jquery": "^1.12.4",
+    "jquery-contextmenu": "^2.2.3",
+    "jquery-form": "^3.50.0",
+    "jquery-migrate": "^1.4.1",
+    "jquery-ui": "^1.12.0",
+    "jquery-ui-dist": "^1.12.0",
+    "jquery-validation": "^1.15.1",
+    "jquery.scrollto": "^2.1.2",
+    "qtip2": "^3.0.3"
   }
 }

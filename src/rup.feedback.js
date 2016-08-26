@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+( function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define( ["jquery","./rup.base" ], factory );
+	} else {
+
+		 // Browser globals
+		 factory( jQuery );
+	}
+} ( function( $ ) {
 
     /**
     * Se informa al usuario de cómo interactuar con los elementos de la aplicación y del resultado de cualquier acción que realice o cualquier problema que tenga y de cómo solucionarlo.
@@ -339,4 +349,4 @@ de la aplicación pueda cerrar la capa manualmente.
      * $("#id_capa").rup_feedback("option", properties);
      */
 	});
-})( jQuery );
+}));

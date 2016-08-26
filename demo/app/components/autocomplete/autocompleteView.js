@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/autocomplete'], function(Marionette, App){
+        'rup/rup.autocomplete'], function(Marionette, App){
 
   var AutocompleteView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.autocomplete.autocompleteTemplate,

@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/contextMenu'], function(Marionette, App){
+        'rup/rup.contextMenu'], function(Marionette, App){
 
   var ContextMenuView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.contextMenu.contextMenuTemplate,
