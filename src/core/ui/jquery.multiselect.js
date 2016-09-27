@@ -18,7 +18,17 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
 */
-(function($, undefined){
+( function( factory ) {
+ if ( typeof define === "function" && define.amd ) {
+
+		// AMD. Register as an anonymous module.
+		define( ["jquery","jquery-ui", "./jquery.ui.selectmenu"], factory );
+	} else {
+
+			// Browser globals
+			factory( jQuery );
+	 }
+ } ( function( $ ) {
 
 var multiselectID = 0;
 
@@ -714,4 +724,4 @@ $.widget("ech.multiselect", {
 	}
 });
 
-})(jQuery);
+}));

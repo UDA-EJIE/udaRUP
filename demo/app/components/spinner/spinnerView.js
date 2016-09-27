@@ -1,45 +1,51 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/rup.spinner'], function(Marionette, App){
 
-App.Views.Spinner = Backbone.View.extend({
-    el: '#container',
-//    events: {
-//        "click #btnDialog": "openDialog"
-//    },
-    render: rendeSpinnerView,
-//    openDialog:openDialog,
-    initialize: function(){
-    }
+  var SpinnerView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.spinner.spinnerTemplate,
+    ui:{
+      spinner: "#spinner",
+      btnDisable: "#disable",
+      btnDestroy: "#destroy",
+      btnGetValue: "#getvalue",
+      btnSetValue: "#setvalue",
+      btnButton: "#button"
+    },
+    onDomRefresh: fncOnDomRefresh
+
+  });
+
+
+  function fncOnDomRefresh(){
+    var $view = this;
+
+    $view.ui.spinner.rup_spinner();
+
+    $view.ui.btnDisable.click(function() {
+      if ( $view.ui.spinner.spinner( "option", "disabled" ) ) {
+        $view.ui.spinner.spinner( "enable" );
+      } else {
+        $view.ui.spinner.spinner( "disable" );
+      }
+    });
+    $view.ui.btnDestroy.click(function() {
+      if ( $view.ui.spinner.spinner( "instance" ) ) {
+        $view.ui.spinner.spinner( "destroy" );
+      } else {
+        $view.ui.spinner.rup_spinner();
+      }
+    });
+    $view.ui.btnGetValue.click(function() {
+      alert( $view.ui.spinner.rup_spinner( "getRupValue" ) );
+    });
+    $view.ui.btnSetValue.click(function() {
+      $view.ui.spinner.rup_spinner( "setRupValue", 5 );
+    });
+
+    $view.ui.btnButton.button();
+
+  }
+
+  return SpinnerView;
 });
-
-
-function rendeSpinnerView(){
-  var template = App.Templates["app/components/spinner/spinner.hbs"];
-  this.$el.html(template({}));
-
-
-  var $spinner = $( "#spinner" ).rup_spinner();
-
-  $( "#disable" ).click(function() {
-    if ( $spinner.spinner( "option", "disabled" ) ) {
-      $spinner.spinner( "enable" );
-    } else {
-      $spinner.spinner( "disable" );
-    }
-  });
-  $( "#destroy" ).click(function() {
-    if ( $spinner.spinner( "instance" ) ) {
-      $spinner.spinner( "destroy" );
-    } else {
-      $spinner.rup_spinner();
-    }
-  });
-  $( "#getvalue" ).click(function() {
-    alert( $spinner.rup_spinner( "getRupValue" ) );
-  });
-  $( "#setvalue" ).click(function() {
-    $spinner.rup_spinner( "setRupValue", 5 );
-  });
-
-  $( "button" ).button();
-
-}

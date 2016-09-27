@@ -14,7 +14,17 @@
  * que establece la Licencia.
  */
 
-(function($) {
+ ( function( factory ) {
+  if ( typeof define === "function" && define.amd ) {
+
+ 	 // AMD. Register as an anonymous module.
+ 	 define( ["../external/jqgrid/jqgrid","../rup.base","./rup.table.core"], factory );
+  } else {
+
+ 	 // Browser globals
+ 	 factory( jQuery );
+  }
+ } ( function( $ ) {
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización
@@ -932,4 +942,4 @@
 		multifilter : {}
 	};
 
-})(jQuery);
+}));

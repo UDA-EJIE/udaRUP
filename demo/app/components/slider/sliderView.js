@@ -1,31 +1,34 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/rup.slider'], function(Marionette, App){
 
-App.Views.Slider = Backbone.View.extend({
-    el: '#container',
-//    events: {
-//        "click #btnDialog": "openDialog"
-//    },
-    render: rendeSliderView,
-//    openDialog:openDialog,
-    initialize: function(){
-    }
-});
+  var SliderView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.slider.sliderTemplate,
+    ui:{
+      slider: "#slider",
+      sliderRange: "#sliderRange",
+      amount: "#amount"
+    },
+    onDomRefresh: fncOnDomRefresh
 
-
-function rendeSliderView(){
-  var template = App.Templates["app/components/slider/slider.hbs"];
-  this.$el.html(template({}));
-
-  $("#slider").rup_slider({});
-
-  $("#sliderRange").rup_slider({
-    range: true,
-    min: 0,
-    max: 500,
-    values: [ 75, 300 ],
-    slide: function( event, ui ) {
-      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-    }
   });
 
-}
+  function fncOnDomRefresh(){
+    var $view = this;
+
+    $view.ui.slider.rup_slider({});
+
+    $view.ui.sliderRange.rup_slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $view.ui.amount.val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+
+  }
+
+  return SliderView;
+});

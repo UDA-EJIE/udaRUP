@@ -14,7 +14,17 @@
  * que establece la Licencia.
  */
 
-(function ($) {
+ ( function( factory ) {
+  if ( typeof define === "function" && define.amd ) {
+
+ 	 // AMD. Register as an anonymous module.
+ 	 define( ["./rup.table.core"], factory );
+  } else {
+
+ 	 // Browser globals
+ 	 factory( jQuery );
+  }
+ } ( function( $ ) {
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización del plugin.
@@ -504,7 +514,8 @@
 				 "jqGridAddEditBeforeShowForm.rupTable.formEditing": function(event, $detailForm, frmoper){
 					 var $self = $(this), settings = $self.data("settings"),
 					 $title = jQuery("#ui-dialog-title-"+settings.formEdit.$detailFormDiv.attr("id"),settings.formEdit.$detailFormDiv.parent()),
-					 colModel = $self[0].p.colModel;
+					 colModel = $self[0].p.colModel,
+           gridRes = $self.getGridRes("edit");
 
 					 // Se ocultan los errores de validación mostrados en el formulario de detalle
 					 $self.rup_table("hideFormErrors", settings.formEdit.$detailForm);
@@ -1431,7 +1442,7 @@
 	 *
 	 * - editGridRow
 	 */
-	$.jgrid.extend({
+	$.extend($.jgrid,{
 		editGridRow : function(rowid, p){
 			p = $.extend({
 				top : 0,
@@ -1995,4 +2006,6 @@
 			}
 	};
 
-})(jQuery);
+  return $;
+
+}));

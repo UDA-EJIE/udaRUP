@@ -76,6 +76,12 @@ app.put('/demo/jqGridUsuario', routesTable.put);
 app.post('/demo/jqGridUsuario', routesTable.post);
 
 
+app.post('/demoResponsive/jqGridUsuario/filter', routesTable.filter);
+app.get('/demoResponsive/jqGridUsuario/:id', routesTable.get);
+app.put('/demoResponsive/jqGridUsuario', routesTable.put);
+app.post('/demoResponsive/jqGridUsuario', routesTable.post);
+
+
 app.listen(8080);
 
 console.log('Listening on port 8080...');

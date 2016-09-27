@@ -94,12 +94,27 @@ gulp.task('minimizeRupCss', function (cb) {
       .pipe(gulp.dest('dist/rup/basic-theme'));
 });
 
-gulp.task('minimizeRupTable', function (cb) {
+gulp.task('buildTable', function (cb) {
   console.log("Minimizando RUP Table...");
-  gulp.src(minimizeConf.rupCssFiles, {cwd: "css/basic-theme"})
-      .pipe(concat("rup.min-"+version+".css"))
-      .pipe(cleanCSS())
-      .pipe(gulp.dest('dist/rup/basic-theme'));
+  gulp.src(minimizeConf.rupTableFiles, {cwd: "src"})
+      .pipe(concat("rup.table.js"))
+      .pipe(wrap(`
+        ( function( factory ) {
+         if ( typeof define === "function" && define.amd ) {
+
+            // AMD. Register as an anonymous module.
+            define( ["jquery","./rup.base","./rup.form"], factory );
+         } else {
+
+            // Browser globals
+            factory( jQuery );
+         }
+        } ( function( $ ) {
+          <%= contents %>
+        }));
+        `
+      ))
+      .pipe(gulp.dest('src'));
 });
 
 gulp.task('templates', function() {
@@ -141,4 +156,45 @@ gulp.task('templates', function() {
         .pipe(concat('templates.js'))
         .pipe(wrap("define(['handlebars'], function(Handlebars) { <%= contents %>  return this['App'];});"))
         .pipe(gulp.dest('demo/'));
+});
+
+gulp.task('templates-responsive', function() {
+  var templates = gulp.src('demoResponsive/app/**/*.hbs')
+    .pipe(handlebars({
+      handlebars: require('handlebars')
+    }))
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'App.Templates',
+      noRedeclare: true, // Avoid duplicate declarations
+      processName: function(filePath) {
+        // Allow nesting based on path using gulp-declare's processNameByPath()
+        // You can remove this option completely if you aren't using nested folders
+        // Drop the client/templates/ folder from the namespace path by removing it from the filePath
+        return declare.processNameByPath(filePath.replace('client/templates/', ''));
+      }
+    }));
+    // .pipe(concat('templates.js'))
+    // //.pipe(defineModule('amd'))
+    // .pipe(wrap("define(['handlebars'], function(Handlebars) { <%= contents %>  return this['App'];});"))
+    // .pipe(gulp.dest('demo/'));
+
+  var partials = gulp.src(['demoResponsive/app/**/_*.hbs'])
+      .pipe(handlebars({
+        handlebars: require('handlebars')
+      }))
+      .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));', {}, {
+        imports: {
+          processPartialName: function(fileName) {
+            // Strip the extension and the underscore
+            // Escape the output with JSON.stringify
+            return JSON.stringify(path.basename(fileName, '.js').substr(1));
+          }
+        }
+      }));
+
+  return merge(partials, templates)
+        .pipe(concat('templates.js'))
+        .pipe(wrap("define(['handlebars'], function(Handlebars) { <%= contents %>  return this['App'];});"))
+        .pipe(gulp.dest('demoResponsive/'));
 });

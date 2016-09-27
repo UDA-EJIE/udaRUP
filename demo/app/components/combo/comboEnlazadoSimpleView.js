@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/combo'], function(Marionette, App){
+        'rup/rup.combo'], function(Marionette, App){
 
   var ComboSimpleView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.combo.comboEnlazadoSimpleTemplate,

@@ -19,7 +19,23 @@
   * @author EJIE
   * @version 2.4.8
   */
-(function ($) {
+( function( factory ) {
+  	if ( typeof define === "function" && define.amd ) {
+
+  		// AMD. Register as an anonymous module.
+  		// define( ["../external/jqgrid/jqgrid","../rup.base"], factory );
+  		define( ["../external/jqgrid/jqgrid","../rup.base"], factory );
+      // define( ['../external/jqgrid/grid.base','../external/jqgrid/grid.base.fn','../external/jqgrid/jquery.fmatter',"../rup.base"], factory );
+      // '../external/jqgrid/jqgrid/grid.base','../external/jqgrid/jqgrid/grid.base.fn','../external/jqgrid/jqgrid/jquery.fmatter'
+  	} else {
+
+  		// Browser globals
+  		factory( jQuery );
+  	}
+} ( function($) {
+
+  console.log("rup.table.core.js: -start");
+  console.log(jQuery.jgrid);
 
 
 	//*****************************************************************************************************************
@@ -162,7 +178,15 @@
 	 * - hideModal
 	 * - viewModal
 	 */
-	jQuery.extend(jQuery.jgrid,{
+   $.jgrid = $.jgrid || {};
+   $.extend($.jgrid,{
+    format : function(format){ //jqgformat
+  		var args = $.makeArray(arguments).slice(1);
+  		if(format==null) { format = ""; }
+  		return format.replace(/\{(\d+)\}/g, function(m, i){
+  			return args[i];
+  		});
+  	},
 		createModal : function(aIDs, content, p, insertSelector, posSelector, appendsel, css) {
 			// aIDs: Identificadores de la modal
 			// -- aIDs.modalcontent :
@@ -1635,4 +1659,8 @@
 * $("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
 */
 
-})(jQuery);
+console.log("rup.table.core.js_end:");
+console.log(jQuery.jgrid);
+return jQuery;
+
+}));

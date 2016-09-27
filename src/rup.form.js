@@ -23,7 +23,7 @@
   if ( typeof define === "function" && define.amd ) {
 
  		// AMD. Register as an anonymous module.
- 		define( ["jquery","./rup.base","./rup.validate"], factory );
+ 		define( ["jquery","jquery.form","./rup.base","./rup.validate"], factory );
   } else {
 
  		// Browser globals

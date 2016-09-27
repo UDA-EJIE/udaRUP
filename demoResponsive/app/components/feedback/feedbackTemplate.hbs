@@ -1,0 +1,129 @@
+<div class="feedback-view container-fluid">
+  <section>
+    <h3>Feedback</h3>
+    <p>
+      Informa al usuario de cómo interactuar con los elementos de la aplicación y del resultado de cualquier acción que realice o cualquier problema que tenga y de cómo solucionarlo.
+    </p>
+    <h4>Ejemplos</h4>
+    <div id="feedbackOk" role="alert"></div>
+    <div id="feedbackAlert" role="alert"></div>
+    <div id="feedbackError"role="alert"></div>
+
+    <div id="exampleTabs"></div>
+    <pre>
+      <code class="html">
+        <div id="feedback-ok" role="alert"></div>
+        <div id="feedback-alert" role="alert"></div>
+        <div id="feedback-error"role="alert"></div>
+      </code>
+    </pre>
+    <pre>
+      <code class="javascript">
+        $view.ui.feedbackOk.rup_feedback({
+            message:"<strong>Ok!</strong> Se ha realizado correctamente la acción solicitada.",
+            type:"ok"
+        });
+        $view.ui.feedbackAlert.rup_feedback({
+            message:"<strong>Atención!</strong> El resultado de la acción requiere su atención.",
+            type:"alert"
+        });
+        $view.ui.feedbackError.rup_feedback({
+            message:"<strong>Error!</strong> Se ha producido un error inesperado.",
+            type:"error"
+        });
+      </code>
+    </pre>
+
+
+
+
+  </section>
+
+  <section>
+    <h4>Pruebalo!</h4>
+
+    <div id="feedback"></div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Valores feedback</div>
+      <div class="panel-body">
+        <form>
+          <div class="row">
+            <div class="col-xs-6 col-md-3">
+              <div class="form-group form-group-sm">
+                <label for="feedback_type">Tipo</label>
+            		<select id="feedback_type" class="form-control input-sm">
+            			<option value="">---</option>
+            			<option value="ok" selected="selected">ok</option>
+            			<option value="alert">alert</option>
+            			<option value="error">error</option>
+            		</select>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+              <div class="form-group form-group-sm">
+                <label for="feedback_gotoTop">gotoTop</label>
+              	<select id="feedback_gotoTop" class="form-control">
+              		<option value="true">true</option>
+              		<option value="false">false</option>
+              	</select>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+              <div class="form-group form-group-sm">
+                <label for="feedback_block">block</label>
+              	<select id="feedback_block" class="form-control">
+              		<option value="true">true</option>
+              		<option value="false">false</option>
+              	</select>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+              <div class="form-group form-group-sm">
+                <label for="feedback_closeLink">closeLink</label>
+              	<select id="feedback_closeLink" class="form-control">
+              		<option value="true">true</option>
+              		<option value="false">false</option>
+              	</select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <div class="form-group form-group-sm">
+                <label for="feedback_imgClass">imgClass</label>
+                <input id="feedback_imgClass" class="form-control" type="text" placeholder="feedbackImgPruebas"/>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="form-group form-group-sm">
+                <label for="feedback_delay">delay (ms)</label>
+              	<input id="feedback_delay"  class="form-control" type="text" />
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="form-group form-group-sm">
+                <label for="feedback_fadeSpeed">fadeSpeed (ms)</label>
+              	<input id="feedback_fadeSpeed" class="form-control" type="text" />
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+
+    <button id="boton_create" class="feedback-test-button">_Create</button>
+    <button id="boton_destroy" class="feedback-test-button" disabled="disabled">Destroy</button>
+    <button id="boton_set" class="feedback-test-button">Set</button>
+    <button id="boton_setOptions" class="feedback-test-button">Set_options</button>
+    <button id="boton_setType" class="feedback-test-button">Set_type</button>
+    <button id="boton_setImgClass" class="feedback-test-button">Set_imgClass</button>
+    <button id="boton_hide" class="feedback-test-button">Hide</button>
+    <button id="boton_close" class="feedback-test-button">Close</button>
+    <button id="boton_show" class="feedback-test-button">Show</button>
+  </section>
+
+
+</div>

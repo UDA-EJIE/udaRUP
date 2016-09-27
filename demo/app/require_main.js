@@ -66,7 +66,7 @@ requirejs.config({
         //"rup/accordion": "../../src/rup.accordion",
         //"rup/tabs": "../../src/rup.tabs",
         //"rup/autocomplete": "../../src/rup.autocomplete",
-        "rup/combo": "../../src/rup.combo",
+        //"rup/combo": "../../src/rup.combo",
         "rup/date": "../../src/rup.date",
         "rup/time": "../../src/rup.time",
         "rup/form": "../../src/rup.form",
@@ -82,8 +82,8 @@ requirejs.config({
         // menuDeps
         // "jquery-1.7": "../../src/core/jquery-1.7.2",
         "jquery.ui.autocomplete": "../../src/core/ui/jquery.ui.autocomplete",
-        "jquery.ui.selectmenu": "../../src/core/ui/jquery.ui.selectmenu",
-        "jquery.multiselect": "../../src/core/ui/jquery.multiselect",
+        //"jquery.ui.selectmenu": "../../src/core/ui/jquery.ui.selectmenu",
+        //"jquery.multiselect": "../../src/core/ui/jquery.multiselect",
         "jquery-json": "../../src/core/utils/jquery.json-2.2",
         "jquery-ui-timepicker": "../../src/core/ui/jquery-ui.timepicker",
         "jquery-ui-multidatespicker": "../../src/core/ui/jquery-ui.multidatespicker",
@@ -162,9 +162,9 @@ requirejs.config({
       // "rup/autocomplete":{
       //   "deps": ["rup/base","jquery.ui.autocomplete"]
       // },
-      "rup/combo":{
-        "deps": ["rup/base","jquery.multiselect"]
-      },
+      // "rup/combo":{
+      //   "deps": ["rup/base","jquery.multiselect"]
+      // },
       "rup/date":{
         "deps": ["rup/base", "jquery-ui-multidatespicker","jquery-ui-timepicker"]
       },
@@ -275,12 +275,12 @@ requirejs.config({
       "jquery.ui.autocomplete":{
         "deps": ["jquery-ui"]
       },
-      "jquery.ui.selectmenu":{
-        "deps": ["jquery-ui"]
-      },
-      "jquery.multiselect":{
-        "deps": ["jquery.ui.selectmenu"]
-      },
+      // "jquery.ui.selectmenu":{
+      //   "deps": ["jquery-ui"]
+      // },
+      // "jquery.multiselect":{
+      //   "deps": ["jquery-ui"]
+      // },
       "jquery-json":{
         "deps": ["jquery"]
       },

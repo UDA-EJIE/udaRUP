@@ -1,37 +1,36 @@
-App.Views = App.Views || {};
+define(['marionette',
+        'templates',
+        'rup/rup.progressbar'], function(Marionette, App){
 
-App.Views.Progressbar = Backbone.View.extend({
-    el: '#container',
-//    events: {
-//        "click #btnDialog": "openDialog"
-//    },
-    render: renderProgressbarView,
-//    openDialog:openDialog,
-    initialize: function(){
-    }
+  var ProgressbarView = Marionette.LayoutView.extend({
+    template: App.Templates.demo.app.components.progressbar.progressbarTemplate,
+    ui:{
+      progressbar: "#progressbar",
+      progressbarLabel: "#progressbarLabel",
+      progressbarValueFalse: "#progressbarValueFalse"
+    },
+    onDomRefresh: fncOnDomRefresh
+
+  });
+
+  function fncOnDomRefresh(){
+
+      var $view = this;
+
+      $view.ui.progressbar.rup_progressbar({
+        value: 37
+      });
+
+      $view.ui.progressbarLabel.rup_progressbar({
+        value: 37,
+        label: $.rup.i18n.base.rup_progressbar.progress
+      });
+
+      $view.ui.progressbarValueFalse.rup_progressbar({
+        value: false,
+        label: $.rup.i18n.base.rup_progressbar.loading
+      });
+  }
+
+  return ProgressbarView;
 });
-
-
-function renderProgressbarView(){
-
-    var template = App.Templates["app/components/progressbar/progressbar.hbs"];
-    this.$el.html(template({}));
-
-    $("#progressbar").rup_progressbar({
-      value: 37
-    });
-
-
-    $("#progressbarLabel").rup_progressbar({
-      value: 37,
-      label: $.rup.i18n.base.rup_progressbar.progress
-    });
-
-    $("#progressbarValueFalse").rup_progressbar({
-      value: false,
-      label: $.rup.i18n.base.rup_progressbar.loading
-    });
-
-
-
-}
