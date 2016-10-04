@@ -625,5 +625,5 @@
 		return $.fn.fmatter.defaultFormat(cellval, opts);
 	};
 
-  return $;
+  //return $;
 }));

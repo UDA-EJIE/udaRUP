@@ -7,49 +7,39 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
- ( function( factory ) {
-  if ( typeof define === "function" && define.amd ) {
-
- 	 // AMD. Register as an anonymous module.
- 	 define( ["../external/jqgrid/jqgrid","../rup.base","./rup.table.core"], factory );
-  } else {
-
- 	 // Browser globals
- 	 factory( jQuery );
-  }
- } ( function( $ ) {
+(function (jQuery) {
 
 	jQuery.rup_table.registerPlugin("jerarquia",{
 		loadOrder:11,
 		preConfiguration: function(settings){
 			var $self = this;
 			return $self.rup_table("preConfigurejerarquia", settings);
-
+			
 		},
 		postConfiguration: function(settings){
 			var $self = this;
 			return $self.rup_table("postConfigurejerarquia", settings);
 		}
 	});
-
+	
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
 	jQuery.fn.rup_table("extend",{
 		preConfigurejerarquia: function(settings){
-
+			
 			var $self = this, jerarquiaSettings = settings.jerarquia;
-
+			
 			//Contenedor de parámetros de la jerarquia
 			$self.jqGrid("setGridParam",{postData:{jerarquia:{}}});
-
+			
 			//Sobreescribir valores y funciones TREEGRID
 			settings.treeGrid = true;
 			settings.rowTotal = 0; //(avoid default feature)
@@ -69,15 +59,15 @@
 					}
 				}
 			});
-
+			
 			// Se configura la url de filtrado
 			if (settings.filter.childrenUrl === null){
 				settings.filter.childrenUrl = settings.baseUrl +"Children";
 			}
-
+			
 			//Columna de jerarquía
 			settings.ExpandColumn = jerarquiaSettings["column"];
-
+			
 			//Si es multiselección se debe de desplazar el puntero de la columna a la siguiente (da igual que sea oculta)
 			if (settings.multiselect){
 				for (key in settings.colModel){
@@ -93,7 +83,7 @@
 					}
 				}
 			}
-
+			
 			//Añadir columnas de la jerarquía
 			settings.colNames = jQuery.merge(["level"], settings.colNames);
 			settings.colModel = jQuery.merge([{ name: "level", hidden: true }], settings.colModel);
@@ -103,7 +93,7 @@
 			settings.colModel = jQuery.merge([{ name: "parentNodes", hidden: true }], settings.colModel);
 			settings.colNames = jQuery.merge(["filter"], settings.colNames);
 			settings.colModel = jQuery.merge([{ name: "filter", hidden: true }], settings.colModel);
-
+			
 			//Inicializar los elementos contraidos
 			jQuery($self).data("tree", []);
 
@@ -135,14 +125,14 @@
 					//Array de elementos contraidos
 					var collapsedNodes = jQuery($self).data("tree"),
 						collapsedNodes_length = collapsedNodes.length;
-
+					
 					//ICONOS: contraidos (tree)
 					for (var i=0; i<collapsedNodes_length; i++){
 						jQuery("[id='"+collapsedNodes[i]+"'] .tree-wrap > div")
 							.removeClass("tree-leaf "+settings.treeIcons.leaf)
 							.addClass("tree-minus "+settings.treeIcons.minus);
-					}
-
+					} 
+					
 					//ICONOS: filtrado (filter) y tooltip (parentNodes)
 					var rows =  $self.rup_table("getGridParam","data"),
 						rows_length = rows.length,
@@ -155,22 +145,22 @@
 							$rowColumn = jQuery("tr[id='"+rowId+"'] > td .tree-wrap");
 						//Filtro
 						if (rows[i].filter){
-							$rowColumn.prepend($filterIcon.clone());
+							$rowColumn.prepend($filterIcon.clone());	
 						}
 						//Tooltip
 						if (jerarquiaSettings["parentNodesTooltip"]){
 							$rowColumn.parent().rup_tooltip({content: { text: $self._parseParentNodes(rows[i].parentNodes) } });
 						}
 					}
-
+					
 					//EVENTOS: Expandir (plus) - Contraer (minus)
 					jQuery(".tree-plus, .tree-minus").off("click");
 					jQuery(".tree-plus, .tree-minus").on("click", function (event){
-						var $iconDiv = jQuery(this),
+						var $iconDiv = jQuery(this), 
 							rowId = $self.rup_table("getGridParam","_index")[$iconDiv.closest("tr.jqgrow")[0].id],
 							rowData = $self.rup_table("getGridParam","data")[rowId],
 							nodeId = jQuery.jgrid.getAccessor(rowData, $self.rup_table("getGridParam","localReader").id);
-
+						
 						//Añadir o eliminar elemento para query (y almacenarlo en la tabla)
 						if ($iconDiv.hasClass(settings.treeIcons.plus)){
 							collapsedNodes.push(nodeId);
@@ -178,17 +168,17 @@
 							collapsedNodes.splice(jQuery.inArray(nodeId, collapsedNodes), 1);
 						}
 			        	jQuery($self).data("tree", collapsedNodes);
-
+						
 						//Buscar (añadiendo colapsados)
 			        	$self.jqGrid("setGridParam",{postData:{"jerarquia":{"tree":collapsedNodes.toString()}}});
 						$self.trigger("reloadGrid");
 					});
-
+					
 					//Desactivar TREEGRID
 					$self[0].p.treeGrid = false; //(avoid default feature)
 				}
 			});
-
+			
 			//Eventos que producen reset de los elementos expandidos
 			jQuery.each (jerarquiaSettings["resetEvents"], function (index, object) {
 				var callback = jQuery.isFunction(object[0]) ? object.shift() : null,
@@ -201,10 +191,10 @@
 				});
 				//El evento se ejecuta el primero en secuencia
 				for (var i=0; i<object.length; i++){
-					jQuery._data(jQuery("#"+object[i])[0], "events")[index] = jQuery._data(jQuery("#"+object[i])[0], "events")[index].reverse();
+					jQuery._data(jQuery("#"+object[i])[0], "events")[index] = jQuery._data(jQuery("#"+object[i])[0], "events")[index].reverse();	
 				}
 			});
-
+			
 			//Activar contextMenu
 			settings.multiselection.rowContextMenu_enabled = settings.jerarquia.contextMenu;
 		},
@@ -212,12 +202,12 @@
 			var $self = this, jerarquiaSettings = settings.jerarquia;
 		}
 	});
-
+	
 	/**
-	 * Métodos públicos del plugin jerarquia.
-	 *
+	 * Métodos públicos del plugin jerarquia. 
+	 * 
 	 * Los métodos implementados son:
-	 *
+	 * 
 	 * reset: Reiniciar los elementos expandidos
 	 */
 	jQuery.fn.rup_table("extend",{
@@ -227,13 +217,13 @@
 			jQuery(this).jqGrid("setGridParam",{postData:{"jerarquia":{"tree":[]}}});
 		}
 	});
-
-
+	
+	
 	/**
-	 * Métodos privados del plugin jerarquia.
-	 *
+	 * Métodos privados del plugin jerarquia. 
+	 * 
 	 * Los métodos implementados son:
-	 *
+	 * 
 	 * _parseParentNodes(parentNodes): Procesar valores del tooltip
 	 * _getJerarquiaChildren($trigger, key, options : Obtener los hijos/descendientes para seleccionar/deseleccionar
 	 */
@@ -244,10 +234,10 @@
 			if (parentNodesTooltipFnc===null){
 				//Función por defecto
 				var str = "", tab = "&nbsp;&nbsp;";
-				for (var i=0; i<nodes.length; i++){
+				for (var i=0; i<nodes.length; i++){ 
 					if (i!== (nodes.length-1)){
 						str += nodes[i] + "<br/>" + tab + "└&nbsp;";
-						tab += "&nbsp;&nbsp;&nbsp;";
+						tab += "&nbsp;&nbsp;&nbsp;"; 
 					}else {
 						str += "<b>" + nodes[i] + "</b>";
 					}
@@ -264,14 +254,14 @@
         		rowData = $self.rup_table("getRowData",$trigger.parent().attr("id")),
 				ajaxData = {
 					jerarquia:{
-							//tree : {}, //Obviar elementos contraidos
+							//tree : {}, //Obviar elementos contraidos 
 							parentId : jQuery.jgrid.getAccessor(rowData,settings.primaryKeyCol),
 							child : key.toLowerCase().indexOf("child")!=-1
-					//FIXME: Quitar esto
+					//FIXME: Quitar esto 
 					},
 					filter :$self.rup_table("getFilterParams")
         		};
-        	jQuery.extend(true, ajaxData, $self.rup_table("getGridParam", "postData"));
+        	jQuery.extend(true, ajaxData, $self.rup_table("getGridParam", "postData")); 
         	var primaryKey = jQuery.isArray(settings.primaryKey)?settings.primaryKey[0]:settings.primaryKey;
 			jQuery.rup_ajax({
 				url: settings.filter.childrenUrl,
@@ -279,7 +269,7 @@
 				data: jQuery.toJSON(ajaxData),
 				type: "POST",
 				async: false,
-				contentType: 'application/json',
+				contentType: 'application/json',		    
 				beforeSend: function (xhr) {
 					xhr.setRequestHeader("JQGridModel", true);
 					xhr.setRequestHeader("RUP", jQuery.toJSON({primaryKey:primaryKey}));
@@ -288,11 +278,11 @@
 					var children = xhr["children"],
 						children_length = children.length,
 						status = key.indexOf("deselect")!=-1?false:true;
-
+					
 					for (var i=0; i<children_length; i++){
 						var record = children[i];
 							rowPK = record.pk[primaryKey];
-
+						
 						//FIXME: Generalizar esto
 						$self._refreshSelectedElements(settings, status, rowPK, record);
 					}
@@ -306,9 +296,9 @@
 			});
         }
 	});
-
+	
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
 	//*******************************************************
 	// Parámetros de configuración por defecto para la jerarquía.
 	jQuery.fn.rup_table.plugins.jerarquia = {};
@@ -319,7 +309,7 @@
 				reloadAfterSubmit : true
 			}
 		},
-		jerarquia : {
+		jerarquia : { 
 			token : "/",
 			icons: {
 				plus: 'ui-icon-triangle-1-se',
@@ -332,4 +322,4 @@
 			contextMenu : true
 		}
 	};
-}));
+})(jQuery);

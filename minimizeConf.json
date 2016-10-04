@@ -16,7 +16,8 @@
     "rup_table/rup.table.jerarquia.js",
     "rup_table/rup.table.masterDetail.js",
     "rup_table/rup.table.report.js",
-    "rup_table/rup.table.multifilter.js"
+    "rup_table/rup.table.multifilter.js",
+    "rup_table/rup.table.responsive.js"
   ],
   "rupJsFiles":[
     "core/jquery-1.8.0.js",

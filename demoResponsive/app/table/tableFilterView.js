@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/table'], function(Marionette, App){
+        'rup/rup.table'], function(Marionette, App){
 
   var TableFilterView = Marionette.LayoutView.extend({
     template: App.Templates.demoResponsive.app.table.tableFilterTemplate,
@@ -32,7 +32,8 @@ define(['marionette',
 
 		this.tableColModels = [
 			{ name: "id", index: "id", editable:true, width: 80
-				, formoptions:{rowpos:1, colpos:1}
+				, formoptions:{rowpos:1, colpos:1},
+        rwdClasses:"hidden-xs hidden-sm hidden-md"
 			},
 			{ name: "nombre", index: "nombre", editable:true
 				, formoptions:{rowpos:2, colpos:1}
@@ -73,6 +74,7 @@ define(['marionette',
 			},
 			{ name: "fechaBaja", index: "fecha_baja", editable:true, width: 120,
 				rupType: "date",
+        rwdClasses:"hidden-xs hidden-sm hidden-md",
 				editoptions:{
 					labelMaskId : "fecha-mask",
 					showButtonPanel : true,
@@ -83,6 +85,7 @@ define(['marionette',
 			},
 			{ name: "rol", index: "rol", editable:true, width: 140,
 				rupType: "combo",
+        rwdClasses:"hidden-xs hidden-sm hidden-md",
 				editoptions: {
 					source : [
 					   {label: "---", value:""},
@@ -164,10 +167,10 @@ define(['marionette',
           	"feedback",
   			"toolbar",
           	"contextMenu",
-          	"fluid",
           	"filter",
           	"search",
           	"report",
+            "responsive"
           ],
           rowNum:10,
           rowList:[10,20,30],
@@ -246,7 +249,7 @@ define(['marionette',
           	}
           },
           report: $view.options_table_report
-          
+
          // loadOnStartUp:false
   });
   }

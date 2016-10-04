@@ -1,0 +1,139 @@
+/* RUP BUTTON */
+
+.rup-dropdown-btn-group{
+  /*display: inline-block;*/
+}
+
+.ui-button-icon-only{
+  /*text-indent:-9999px;
+  box-sizing: border-box;
+  white-space: nowrap;*/
+}
+
+.rup-dropdown-btn-group > button.ui-button-icon-only > span.ui-button-icon{
+  margin-top: -8px;
+}
+
+.rup-button{
+
+}
+
+/* RUP TOOLBAR */
+
+.rup-toolbar{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.rup-button > span.ui-button-icon.ui-icon{
+  display: inline-block;
+}
+
+a.rup-toolbar_menuButton.ui-button{
+
+}
+
+a.rup-toolbar_menuButton.ui-button > span{
+  display: inline-flex;
+  padding-bottom: 0;
+}
+
+.rup-toolbar_menuButtonContainer > ul[role='menu']{
+  padding-left: 0;
+  padding-bottom: 0;
+}
+.rup-toolbar_menuButtonContainer > ul[role='menu'] button.rup-toolbar_menuButtonElement{
+  text-align: left;
+}
+
+/* MESSAGE */
+.rup-message_icon-ok, .rup-message_icon-error, .rup-message_icon-confirm, .rup-message_icon-alert{
+  font-family:"Glyphicons Halflings";
+  content: "";
+  background-image:none;
+  height: auto;
+  padding-top: 0.4em;
+  margin-left: 0.4em;
+  margin-right: 0;
+  font-size: 1.5em;
+}
+
+.rup-message_icon-ok::before{
+  content: "\e013";
+  color: #2D882D;
+}
+
+.rup-message_icon-error::before{
+  content: "";
+  color: #2D882D;
+}
+
+.rup-message_icon-alert::before{
+  content: "\e209";
+  color: #FF851B;
+
+}
+.rup-message_icon-error::before{
+  content: "\e083";
+  color: #FF4136;
+}
+
+.rup-message_icon-confirm::before{
+  content: "\e085";
+  color: #0074D9;
+}
+
+/* DIALOG */
+
+.ui-dialog .ui-dialog-title{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span{
+  display: inline-block;
+}
+
+
+.ui-dialog > .ui-dialog-titlebar > a.ui-dialog-title[role='button']{
+  display:none;
+}
+
+.ui-dialog > .ui-dialog-titlebar > a.ui-dialog-title[role='button']{
+  display:none;
+}
+
+.ui-dialog > .ui-dialog-titlebar > span.ui-dialog-title{
+  font-size: 1.0em;
+}
+
+.ui-dialog .ui-dialog-titlebar-close{
+  margin-right: 15px;
+}
+
+
+.ui-button, .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button{
+  background-image: none;
+}
+/*font-size: 1.1em;*/
+/* FORMS */
+
+.form-group-sm .form-control, .form-group-sm select.form-control{
+  height: 25px;
+}
+
+.rup-table-filter-fieldset{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* TABLE */
+
+div.right_buttons > button{
+  float:right;
+}
+
+.rup-table-filter .collapse_icon, .rup-table-filter .collapse_icon_right{
+  margin-top: 0;
+
+}
