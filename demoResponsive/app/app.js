@@ -4,27 +4,32 @@ define(["marionette",
         "pages/index/indexView",
         "components/feedback/feedbackView",
         "components/message/messageView",
+        "components/button/buttonView",
+        "components/toolbar/toolbarView",
         "components/tabs/tabsStaticView",
         "table/tableFilterView",
-      ], function(Marionette, MainView, Bootstrap, IndexView, FeedbackView, MessageView, TabsStaticView,
-              TableFilterView){
+        "responsiveGrid/stackedHorizontal/stackedHorizontalView",
+        "responsiveGrid/mobileDesktop/mobileDesktopView",
+        "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView"
+
+      ], function(Marionette, MainView, Bootstrap, IndexView, FeedbackView, MessageView, ButtonView, ToolbarView, TabsStaticView,
+              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView){
 
     var RupResponsiveDemoApp = new Marionette.Application();
 
     var MyRouter = Marionette.AppRouter.extend({
-      // "someMethod" must exist at controller.someMethod
-
       appRoutes: {
         '' : 'index',
         'feedback' : 'feedback',
         'message' : 'message',
+        'button' : 'button',
+        'toolbar' : 'toolbar',
         'tabsStatic' : 'tabsStatic',
-        'tableFilter' : 'tableFilter'
-
-
-
+        'tableFilter' : 'tableFilter',
+        'stackedHorizontal': 'stackedHorizontal',
+        'mobileDesktop': 'mobileDesktop',
+        'mobileTabletDesktop': 'mobileTabletDesktop'
       }
-
     });
 
     var RouteController = Marionette.Controller.extend({
@@ -34,6 +39,12 @@ define(["marionette",
         feedback: function() {
           RupResponsiveDemoApp.mainView.Container.show(new FeedbackView());
         },
+        button: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ButtonView());
+        },
+        toolbar: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ToolbarView());
+        },
         message: function(){
           RupResponsiveDemoApp.mainView.Container.show(new MessageView());
         },
@@ -42,6 +53,15 @@ define(["marionette",
         },
         tableFilter: function(){
           RupResponsiveDemoApp.mainView.Container.show(new TableFilterView());
+        },
+        stackedHorizontal: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
+        },
+        mobileDesktop: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new MobileDesktopView());
+        },
+        mobileTabletDesktop: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
         }
     });
 

@@ -1,5 +1,7 @@
 var path = require('path');
 var gulp = require('gulp');
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 var del = require('del');
 var rename = require('gulp-rename');
 var handlebars = require('gulp-handlebars');
@@ -94,6 +96,12 @@ gulp.task('minimizeRupCss', function (cb) {
       .pipe(gulp.dest('dist/rup/basic-theme'));
 });
 
+gulp.task('watch', function () {
+    watch('src/rup_table/*.js', batch(function (events, done) {
+        gulp.start('buildTable');
+    }));
+});
+
 gulp.task('buildTable', function (cb) {
   console.log("Minimizando RUP Table...");
   gulp.src(minimizeConf.rupTableFiles, {cwd: "src"})
@@ -103,7 +111,7 @@ gulp.task('buildTable', function (cb) {
          if ( typeof define === "function" && define.amd ) {
 
             // AMD. Register as an anonymous module.
-            define( ["jquery","./rup.base","./rup.form"], factory );
+            define( ["jquery","./rup.base","./rup.form", "./rup.contextMenu", "./rup.toolbar","./rup.report","form2object"], factory );
          } else {
 
             // Browser globals

@@ -79,7 +79,7 @@ requirejs.config({
 
         //Table
 
-        "rup/table": "../../src/rup.table",
+        //"rup/table": "../../src/rup.table",
         //"rup/table.core": "../rup.table.core-private",
 
         // menuDeps
@@ -101,10 +101,10 @@ requirejs.config({
         // Table deps
         //"jqGrid": "../../src/core/jqGrid/jquery.jqGrid.src",
         //"free-jqgrid":"../../node_modules/free-jqgrid/dist/jquery.jqgrid.src",
-        "free-jqgrid": "../../src/core/jqGrid/jquery.jqGrid.src",
-        "jqgrid": "../../src/core/jqGrid/jqgrid",
-        "jqGrid.fluid": "../../src/core/jqGrid/jqGrid.fluid",
-        "jqGrid.rup.table": "../../src/core/jqgrid/jqGrid.rup.table",
+        // "free-jqgrid": "../../src/core/jqGrid/jquery.jqGrid.src",
+        // "jqgrid": "../../src/core/jqGrid/jqgrid",
+        // "jqGrid.fluid": "../../src/core/jqGrid/jqGrid.fluid",
+        // "jqGrid.rup.table": "../../src/core/jqgrid/jqGrid.rup.table",
         // legacy
         //"blockUI": "../../src/core/utils/jquery.blockUI",
 
@@ -126,58 +126,10 @@ requirejs.config({
       "bootstrap":{
         "deps": ["jquery"],
       },
-      // "rup/base":{
-      //   "deps": ["rup/utils"],
-      //   "exports":"widgetMenu"
-      // },
-      // "rup/utils":{
-      //   "deps": ["jquery-ui","jquery-json"]
-      // },
+
       "rup/compatibility":{
         "deps": ["rup/base"]
       },
-      // "rup/lang":{
-      //   "deps": ["rup/base", "rup/tooltip"]
-      // },
-      // "rup/tooltip":{
-      //   "deps": ["rup/base","qtip2"]
-      // },
-      // "rup/menu":{
-      //   "deps": ["rup/base","rup/compatibility"]
-      // },
-      // "rup/feedback":{
-      //   "deps": ["rup/base"]
-      // },
-      // "rup/accordion":{
-      //   "deps": ["rup/base"]
-      // },
-      // "rup/message":{
-      //   "deps": ["rup/base"]
-      // },
-      // "rup/dialog":{
-      //   "deps": ["rup/base", "blockUI"]
-      // },
-      // "rup/contextMenu":{
-      //   "deps": ["rup/base", "jQuery-contextMenu"]
-      // },
-      // "rup/toolbar":{
-      //   "deps": ["rup/base", "rup/button"]
-      // },
-      // "rup/button":{
-      //   "deps": ["rup/base","rup/dialog"]
-      // },
-      // "rup/accordion":{
-      //   "deps": ["rup/base"]
-      // },
-      // "rup/tabs":{
-      //   "deps": ["rup/base"]
-      // },
-      // "rup/autocomplete":{
-      //   "deps": ["rup/base","jquery.ui.autocomplete"]
-      // },
-      // "rup/combo":{
-      //   "deps": ["rup/base","jquery.multiselect"]
-      // },
       "rup/date":{
         "deps": ["rup/base", "jquery-ui-multidatespicker","jquery-ui-timepicker"]
       },
@@ -196,80 +148,6 @@ requirejs.config({
       "rup/report":{
         "deps": ["rup/base"]
       },
-      // "jqGrid":{
-      //   "deps": ["jquery"]
-      // },
-      // "free-jqgrid":{
-      //   "deps": ["jquery"]
-      // },
-
-      // "jqGrid": "../../src/jqgrid/jquery.jqGrid.src",
-      // "jqGrid.fluid": "../../src/jqgrid/jqGrid.fluid",
-      // "jqGrid.rup.table": "../../src/jqgrid/jqGrid.rup.table",
-      //
-      // "rup/table": "../rup.table.core",
-      // "rup/table.contextMenu": "../rup.table.contextMenu",
-      // "rup/table.feedback": "../rup.table.feedback",
-      // "rup/table.filter": "../rup.table.filter",
-      // "rup/table.fluid": "../rup.table.fluid",
-      // "rup/table.formEdit": "../rup.table.formEdit",
-      // "rup/table.inlineEdit": "../rup.table.inlineEdit",
-      // "rup/table.jerarquia": "../rup.table.jerarquia",
-      // "rup/table.masterDetail": "../rup.table.masterDetail",
-      // "rup/table.multifilter": "../rup.table.multifilter",
-      // "rup/table.multiselection": "../rup.table.multiselection",
-      // "rup/table.core.base": {
-      //   "deps": [ "rup/base","form2object"]
-      // },
-      // "rup/table":{
-      //       "deps": ["rup/base","rup/report","form2object"]
-      // },
-      //
-      // "rup/table.core": {
-      //   "deps": ["private-jqGrid"]
-      // },
-      // "rup/table.report": {
-      //   "deps": ["rup/table.core", "rup/report"]
-      // },
-      // "rup/table.contextMenu": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.feedback": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.filter": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.fluid": {
-      //   "deps": ["rup/table.core", "jqGrid.fluid"]
-      // },
-      // "rup/table.formEdit": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.inlineEdit": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.jerarquia": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.masterDetail": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.multifilter": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.multiselection": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.toolbar": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.search": {
-      //   "deps": ["rup/table.core"]
-      // },
-      // "rup/table.search": "../rup.table.search",
-      // "rup/table.toolbar": "../rup.table.toolbar",
-
       // more...
       "handlebars-i18n":{
         "deps": ["handlebars"]
@@ -278,7 +156,6 @@ requirejs.config({
         "deps": ["handlebars-i18n"]
 
       },
-
       // // legacy
       // "blockUI":{
       //   "deps": ["jquery"]
