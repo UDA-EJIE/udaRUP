@@ -14,17 +14,7 @@
  * que establece la Licencia.
  */
 
- ( function( factory ) {
-  if ( typeof define === "function" && define.amd ) {
-
- 	 // AMD. Register as an anonymous module.
- 	 define(["../external/jqgrid/jqgrid","../rup.base","../rup.toolbar","./rup.table.core"], factory );
-  } else {
-
- 	 // Browser globals
- 	 factory( jQuery );
-  }
- } ( function( $ ) {
+(function ($) {
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización del plugin.
@@ -81,7 +71,7 @@
 				settings.$toolbar=(toolbarSettings.id[0]==="#"?$(toolbarSettings.id):$("#"+toolbarSettings.id));
 				if (!settings.$toolbar.hasClass("rup-toolbar")){
 					settings.$toolbar.rup_toolbar({
-						width: 796
+						 width: toolbarSettings.width
 					});
 				}
 
@@ -94,7 +84,7 @@
 				toolbarSettings.self = $("<div/>").attr("id", toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
-					width: 796
+					 width: toolbarSettings.width
 				});
 			}
 
@@ -218,10 +208,11 @@
 				defaultDelete : true,
 				defaultFilter : false,
 				defaultButtons:{},
-				showOperations:{}
+				showOperations:{},
+				width: 796
 			}
 	};
 
 
 
-}));
+})(jQuery);

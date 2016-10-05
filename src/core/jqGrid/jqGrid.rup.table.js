@@ -13,19 +13,9 @@
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- ( function( factory ) {
-  if ( typeof define === "function" && define.amd ) {
 
-   // AMD. Register as an anonymous module.
-   define( ["jquery","../../rup.base","../../rup_table/rup.table.core"], factory );
-  } else {
-
-   // Browser globals
-   factory( jQuery );
-  }
- } ( function( $ ) {
 var rp_ge = {};
-}));
+
 // (function ($) {
 //
 //

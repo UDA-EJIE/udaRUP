@@ -1,0 +1,25 @@
+$("#boton").rup_button({});
+
+$("#dropdownHtmlListButton").rup_button({
+  dropdown:{
+    dropdownListId:"dropdownHtmlList"
+  }
+});
+
+// Dropdown dialog
+
+$("#dropdownDialogButton").rup_button({
+  dropdown:{
+    dropdownDialog: "dropdownDialog",
+    dropdownDialogConfig:{
+      title:"<span class='rup-icon rup-icon-filter'/>Administración de filtros",
+      width:"380px",
+      buttons: [{
+        text: "Guardar",
+        click: function () {
+        }
+      }
+    }
+    ]
+  }
+});

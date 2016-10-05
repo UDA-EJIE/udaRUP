@@ -176,6 +176,16 @@ nav.rup-navbar a{
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
+#rwdExampleSection{
+  background-color: #eaeaea;
+}
+
+#rwdExample div.row > div > p{
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 1em;
+}
+
 
 /** Feedback **/
 .feedback-view [role='alert']{
