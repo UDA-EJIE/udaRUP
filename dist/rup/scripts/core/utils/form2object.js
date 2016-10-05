@@ -24,8 +24,17 @@
  * Time: 19:02:33
  */
 
-(function()
-{
+ ( function( factory ) {
+  if ( typeof define === "function" && define.amd ) {
+
+ 	 // AMD. Register as an anonymous module.
+ 	 define( [], factory );
+  } else {
+
+ 	 // Browser globals
+ 	 factory( jQuery );
+  }
+ } ( function( $ ) {
         /**
          * Returns form values represented as Javascript object
          * "name" attribute defines structure of resulting object
@@ -50,23 +59,23 @@
                         if (skipEmpty && value === '') continue;
 
                         var name = formValues[i].name;
-                        
+
                         if (name){
-                        
+
 	                        var nameParts = name.split(delimiter);
-	
+
 	                        var currResult = result;
-	
+
 	                        for (var j = 0; j < nameParts.length; j++)
 	                        {
 	                                var namePart = nameParts[j];
-	
+
 	                                var arrName;
-	
+
 	                                if (namePart.indexOf('[]') > -1 && j == nameParts.length - 1)
 	                                {
 	                                        arrName = namePart.substr(0, namePart.indexOf('['));
-	
+
 	                                        if (!currResult[arrName]) currResult[arrName] = [];
 	                                        currResult[arrName].push(value);
 	                                }
@@ -76,17 +85,17 @@
 	                                        {
 	                                                arrName = namePart.substr(0, namePart.indexOf('['));
 	                                                var arrIdx = namePart.replace(/^[a-z]+\[|\]$/gi, '');
-	
+
 	                                                /*
 	                                                 * Because arrIdx in field name can be not zero-based and step can be
 	                                                 * other than 1, we can't use them in target array directly.
 	                                                 * Instead we're making a hash where key is arrIdx and value is a reference to
 	                                                 * added array element
 	                                                 */
-	
+
 	                                                if (!arrays[arrName]) arrays[arrName] = {};
 	                                                if (!currResult[arrName]) currResult[arrName] = [];
-	
+
 	                                                if (j == nameParts.length - 1)
 	                                                {
 	                                                        currResult[arrName].push(value);
@@ -99,7 +108,7 @@
 	                                                                arrays[arrName][arrIdx] = currResult[arrName][currResult[arrName].length - 1];
 	                                                        }
 	                                                }
-	
+
 	                                                currResult = arrays[arrName][arrIdx];
 	                                        }
 	                                        else
@@ -126,12 +135,12 @@
         {
                 var result = [], name;
                 var currentNode = rootNode.firstChild;
-                
+
                 while (currentNode)
                 {
                         if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA|HIDDEN/i) || jQuery(currentNode).is("[ruptype='tree']")){
                                 var fieldValue = getFieldValue(currentNode);
-                                
+
                                 if ((jQuery(currentNode).is("select") && currentNode.multiple) || jQuery(currentNode).is("[ruptype='tree']")){
                             		var nameParts = jQuery(currentNode).attr("name").split(".");
                             		name = nameParts.length>1?nameParts.slice(0,nameParts.length-1).join('.'):nameParts[0];
@@ -169,24 +178,24 @@
 	                                        case 'checkbox':
 	                                                if (fieldNode.checked) return fieldNode.value;
 	                                                break;
-	
+
 	                                        case 'button':
 	                                        case 'reset':
 	                                        case 'submit':
 	                                        case 'image':
 	                                                return '';
 	                                                break;
-	
+
 	                                        default:
 	                                                return fieldNode.value;
 	                                                break;
 	                                }
 	                                break;
-	
+
 	                        case 'SELECT':
 	                                return getSelectedOptionValue(fieldNode);
 	                                break;
-	
+
 	                        default:
 	                                break;
 	                }
@@ -223,4 +232,4 @@
          */
         window.form2json = window.form2object;
 
-})();
+}));

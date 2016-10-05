@@ -27,6 +27,7 @@ requirejs.config({
         "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../bower_components/backbone.marionette/lib/backbone.marionette",
         "qtip2": "../../bower_components/qtip2/jquery.qtip",
+        "chartjs": "../../node_modules/chart.js/dist/Chart",
         "templates": "../templates",
         "blockUI": "../../node_modules/block-ui/jquery.blockUI",
         "jquery-contextMenu": "../../node_modules/jquery-contextmenu/dist/jquery.contextMenu",
@@ -74,6 +75,8 @@ requirejs.config({
         // "rup/validate": "../../src/rup.validate",
         // "rup/upload": "../../src/rup.upload",
         "rup/report": "../../src/rup.report",
+        "rup/chart": "../../src/rup.chart",
+
 
         //Table
 
@@ -105,9 +108,9 @@ requirejs.config({
         // legacy
         //"blockUI": "../../src/core/utils/jquery.blockUI",
 
-        "form2object": "../../src/core/utils/form2object"
-
-
+        "form2object": "../../src/core/utils/form2object",
+        //graficos
+        "chartjs": "../../node_modules/chart.js/dist/Chart",
     },
     shim: {
         "jquery-ui": {
@@ -118,6 +121,9 @@ requirejs.config({
         },
         "rup/navMenu": {
             "deps": ["jquery-ui-rcarousel", "rup/base"],
+        },
+        "rup/chart": {
+            "deps": ["rup/base", "chartjs"],
         },
         // "rup/base":{
         //   "deps": ["rup/utils"],

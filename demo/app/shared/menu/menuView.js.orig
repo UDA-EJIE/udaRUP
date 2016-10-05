@@ -258,6 +258,7 @@ define(['marionette',
                         "url": "patrones/chart"
                             },
 
+            });
 
                     {
                         "i18nCaption": "experimental",

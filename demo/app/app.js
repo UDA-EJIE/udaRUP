@@ -29,7 +29,8 @@ define(["marionette",
         "components/table/tableFilterView",
         "components/progressbar/progressbarView",
         "components/slider/sliderView",
-        "components/spinner/spinnerView"
+        "components/spinner/spinnerView",
+        "components/chart/chartView"
 
 
       ], function (Marionette, MainView, FeedbackView, TooltipView, MessageView,
@@ -38,7 +39,7 @@ define(["marionette",
     TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
     ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
     DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView,
-    ProgressbarView, SliderView, SpinnerView) {
+    ProgressbarView, SliderView, SpinnerView, ChartView) {
 
     var RupDemoApp = new Marionette.Application();
 
@@ -76,7 +77,8 @@ define(["marionette",
             'tableFilter': 'tableFilter',
             'progressbar': 'progressbar',
             'slider': 'slider',
-            'spinner': 'spinner'
+            'spinner': 'spinner',
+            'chart': 'chart'
 
         }
 
@@ -173,7 +175,10 @@ define(["marionette",
         },
         spinner: function () {
             RupDemoApp.mainView.Container.show(new SpinnerView());
-        }
+        },
+        chart: function () {
+            RupDemoApp.mainView.Container.show(new ChartView());
+        },
     });
 
 

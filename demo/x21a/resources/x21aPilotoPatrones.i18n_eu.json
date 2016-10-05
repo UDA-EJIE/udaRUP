@@ -590,5 +590,22 @@
 		"fechaAlta":"Fecha de alta_eu",
 		"fechaBaja":"Fecha de baja_eu",
 		"rol":"Rol"
+	},
+	"charts": {
+			"charts": "Gráficos_eu",
+			"line": "Líneas_eu",
+			"bar": "Barras_eu",
+			"radar": "Radar_eu",
+			"polar": "Polar_eu",
+			"pie": "Tarta_eu",
+			"doughnut": "Donut_eu",
+			"bubble": "Burbuja_eu",
+			"datasetRadar": {
+					"dataset1": "dataset 1_eu",
+					"dataset2": "dataset 2_eu"
+			},
+			"colorLabels": ["rojo_eu", "azul_eu", "amarillo_eu"],
+			"radarLabels": ["Comida_eu", "Bebida_eu", "Dormir_eu", "Diseño_eu", "Programacion_eu", "Bicicleta_eu", "Correr_eu"],
+			"mesesLabels": ["Enero_eu", "Febrero_eu", "Marzo_eu", "Abril_eu", "Mayo_eu", "Junio_eu", "Julio_eu"]
 	}
-}
+	}

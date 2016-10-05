@@ -83,6 +83,7 @@
     "jquery-validation": "^1.15.1",
     "jquery.scrollto": "^2.1.2",
     "modernizr": "^3.3.1",
-    "qtip2": "^3.0.3"
+    "qtip2": "^3.0.3",
+    "chart.js":"2.1.1"
   }
 }
