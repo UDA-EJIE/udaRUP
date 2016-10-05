@@ -62,7 +62,7 @@
     "merge-stream": "^1.0.0",
     "path": "^0.12.7",
     "pump": "^1.0.1",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.3.2"
   },
   "dependencies": {
     "backbone.marionette": "^2.4.7",
@@ -84,6 +84,6 @@
     "jquery.scrollto": "^2.1.2",
     "modernizr": "^3.3.1",
     "qtip2": "^3.0.3",
-    "chart.js":"2.1.1"
+    "chart.js": "2.1.1"
   }
 }
