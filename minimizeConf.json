@@ -65,6 +65,7 @@
     "rup.lang.js",
     "rup.maint.js",
     "rup.menu.js",
+    "rup.navMenu.js",
     "rup.message.js",
     "rup.report.js",
     "rup_table/rup.table.core.js",
@@ -93,7 +94,8 @@
     "core/ui/menu/jquery.ui.core.menu.js",
     "core/ui/menu/jquery.ui.widget.menu.js",
     "core/ui/menu/jquery.ui.position.menu.js",
-    "core/ui/menu/jquery.ui.menu.js"
+    "core/ui/menu/jquery.ui.menu.js",
+    "core/jquery.ui.rcarousel.js"
   ],
   "rupCssFiles":[
     "ui.jqgrid.css",

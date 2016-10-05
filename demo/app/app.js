@@ -1,4 +1,3 @@
-
 define(["marionette",
         "shared/mainView/mainView",
         "components/feedback/feedbackView",
@@ -8,6 +7,7 @@ define(["marionette",
         "components/menu/menuHorizontalView",
         "components/menu/menuVerticalView",
         "components/menu/menuMixtoView",
+        "components/menu/navMenuView",
         "components/contextMenu/contextMenuView",
         "components/toolbar/toolbarView",
         "components/button/buttonView",
@@ -32,151 +32,154 @@ define(["marionette",
         "components/spinner/spinnerView"
 
 
-      ], function(Marionette, MainView, FeedbackView, TooltipView, MessageView,
-                  DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView,
-                  ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
-                  TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
-                  ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
-                  DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView,
-                  ProgressbarView, SliderView, SpinnerView){
+      ], function (Marionette, MainView, FeedbackView, TooltipView, MessageView,
+    DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView, NavMenuView,
+    ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
+    TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
+    ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
+    DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView,
+    ProgressbarView, SliderView, SpinnerView) {
 
     var RupDemoApp = new Marionette.Application();
 
     var MyRouter = Marionette.AppRouter.extend({
-      // "someMethod" must exist at controller.someMethod
+        // "someMethod" must exist at controller.someMethod
 
-      appRoutes: {
-        '' : 'index',
-        'feedback' : 'feedback',
-        'tooltip' : 'tooltip',
-        'message' : 'message',
-        'dialog' : 'dialog',
-        'menuHorizontal' : 'menuHorizontal',
-        'menuVertical' : 'menuVertical',
-        'menuMixto' : 'menuMixto',
-        'contextMenu': 'contextMenu',
-        'toolbar': 'toolbar',
-        'button': 'button',
-        'accordion': 'accordion',
-        'tabsStatic': 'tabsStatic',
-        'tabsAjax': 'tabsAjax',
-        'tabsMixto': 'tabsMixto',
-        'tabsScrollable': 'tabsScrollable',
-        'autocomplete': 'autocomplete',
-        'comboSimple': 'comboSimple',
-        'comboEnlazadoSimple': 'comboEnlazadoSimple',
-        'comboEnlazadoMultiple': 'comboEnlazadoMultiple',
-        'comboMultiseleccion': 'comboMultiseleccion',
-        'date': 'date',
-        'time': 'time',
-        'form': 'form',
-        'validate': 'validate',
-        'upload': 'upload',
-        'tableFilter': 'tableFilter',
-        'progressbar': 'progressbar',
-        'slider': 'slider',
-        'spinner': 'spinner'
+        appRoutes: {
+            '': 'index',
+            'feedback': 'feedback',
+            'tooltip': 'tooltip',
+            'message': 'message',
+            'dialog': 'dialog',
+            'menuHorizontal': 'menuHorizontal',
+            'menuVertical': 'menuVertical',
+            'menuMixto': 'menuMixto',
+            'navMenu': 'navMenu',
+            'contextMenu': 'contextMenu',
+            'toolbar': 'toolbar',
+            'button': 'button',
+            'accordion': 'accordion',
+            'tabsStatic': 'tabsStatic',
+            'tabsAjax': 'tabsAjax',
+            'tabsMixto': 'tabsMixto',
+            'tabsScrollable': 'tabsScrollable',
+            'autocomplete': 'autocomplete',
+            'comboSimple': 'comboSimple',
+            'comboEnlazadoSimple': 'comboEnlazadoSimple',
+            'comboEnlazadoMultiple': 'comboEnlazadoMultiple',
+            'comboMultiseleccion': 'comboMultiseleccion',
+            'date': 'date',
+            'time': 'time',
+            'form': 'form',
+            'validate': 'validate',
+            'upload': 'upload',
+            'tableFilter': 'tableFilter',
+            'progressbar': 'progressbar',
+            'slider': 'slider',
+            'spinner': 'spinner'
 
-      }
+        }
 
     });
 
     var RouteController = Marionette.Controller.extend({
-        index: function() {
+        index: function () {},
+        feedback: function () {
+            RupDemoApp.mainView.Container.show(new FeedbackView());
         },
-        feedback: function() {
-          RupDemoApp.mainView.Container.show(new FeedbackView());
+        tooltip: function () {
+            RupDemoApp.mainView.Container.show(new TooltipView());
         },
-        tooltip: function(){
-          RupDemoApp.mainView.Container.show(new TooltipView());
+        message: function () {
+            RupDemoApp.mainView.Container.show(new MessageView());
         },
-        message: function(){
-          RupDemoApp.mainView.Container.show(new MessageView());
+        dialog: function () {
+            RupDemoApp.mainView.Container.show(new DialogView());
         },
-        dialog: function(){
-          RupDemoApp.mainView.Container.show(new DialogView());
+        menuHorizontal: function () {
+            RupDemoApp.mainView.Container.show(new MenuHorizontalView());
         },
-        menuHorizontal: function(){
-          RupDemoApp.mainView.Container.show(new MenuHorizontalView());
+        menuVertical: function () {
+            RupDemoApp.mainView.Container.show(new MenuVerticalView());
         },
-        menuVertical: function(){
-          RupDemoApp.mainView.Container.show(new MenuVerticalView());
+        menuMixto: function () {
+            RupDemoApp.mainView.Container.show(new MenuMixtoView());
         },
-        menuMixto: function(){
-          RupDemoApp.mainView.Container.show(new MenuMixtoView());
+        navMenu: function () {
+            RupDemoApp.mainView.Container.show(new NavMenuView());
         },
-        contextMenu: function(){
-          RupDemoApp.mainView.Container.show(new ContextMenuView());
+        contextMenu: function () {
+            RupDemoApp.mainView.Container.show(new ContextMenuView());
         },
-        toolbar: function(){
-          RupDemoApp.mainView.Container.show(new ToolbarView());
+        toolbar: function () {
+            RupDemoApp.mainView.Container.show(new ToolbarView());
         },
-        button: function(){
-          RupDemoApp.mainView.Container.show(new ButtonView());
+        button: function () {
+            RupDemoApp.mainView.Container.show(new ButtonView());
         },
-        accordion: function(){
-          RupDemoApp.mainView.Container.show(new AccordionView());
+        accordion: function () {
+            RupDemoApp.mainView.Container.show(new AccordionView());
         },
-        tabsStatic: function(){
-          RupDemoApp.mainView.Container.show(new TabsStaticView());
+        tabsStatic: function () {
+            RupDemoApp.mainView.Container.show(new TabsStaticView());
         },
-        tabsAjax: function(){
-          RupDemoApp.mainView.Container.show(new TabsAjaxView());
+        tabsAjax: function () {
+            RupDemoApp.mainView.Container.show(new TabsAjaxView());
         },
-        tabsMixto: function(){
-          RupDemoApp.mainView.Container.show(new TabsMixedView());
+        tabsMixto: function () {
+            RupDemoApp.mainView.Container.show(new TabsMixedView());
         },
-        tabsScrollable: function(){
-          RupDemoApp.mainView.Container.show(new TabsScrollableView());
+        tabsScrollable: function () {
+            RupDemoApp.mainView.Container.show(new TabsScrollableView());
         },
-        autocomplete: function(){
-          RupDemoApp.mainView.Container.show(new AutocompleteView());
+        autocomplete: function () {
+            RupDemoApp.mainView.Container.show(new AutocompleteView());
         },
-        comboSimple: function(){
-          RupDemoApp.mainView.Container.show(new ComboSimpleView());
+        comboSimple: function () {
+            RupDemoApp.mainView.Container.show(new ComboSimpleView());
         },
-        comboEnlazadoSimple: function(){
-          RupDemoApp.mainView.Container.show(new ComboEnlazadoSimpleView());
+        comboEnlazadoSimple: function () {
+            RupDemoApp.mainView.Container.show(new ComboEnlazadoSimpleView());
         },
-        comboEnlazadoMultiple: function(){
-          RupDemoApp.mainView.Container.show(new ComboEnlazadoMultipleView());
+        comboEnlazadoMultiple: function () {
+            RupDemoApp.mainView.Container.show(new ComboEnlazadoMultipleView());
         },
-        comboMultiseleccion: function(){
-          RupDemoApp.mainView.Container.show(new ComboMultiseleccionView());
+        comboMultiseleccion: function () {
+            RupDemoApp.mainView.Container.show(new ComboMultiseleccionView());
         },
-        date: function(){
-          RupDemoApp.mainView.Container.show(new DateView());
+        date: function () {
+            RupDemoApp.mainView.Container.show(new DateView());
         },
-        time: function(){
-          RupDemoApp.mainView.Container.show(new TimeView());
+        time: function () {
+            RupDemoApp.mainView.Container.show(new TimeView());
         },
-        form: function(){
-          RupDemoApp.mainView.Container.show(new FormView());
+        form: function () {
+            RupDemoApp.mainView.Container.show(new FormView());
         },
-        validate: function(){
-          RupDemoApp.mainView.Container.show(new ValidateView());
+        validate: function () {
+            RupDemoApp.mainView.Container.show(new ValidateView());
         },
-        upload: function(){
-          RupDemoApp.mainView.Container.show(new UploadView());
+        upload: function () {
+            RupDemoApp.mainView.Container.show(new UploadView());
         },
-        tableFilter: function(){
-          RupDemoApp.mainView.Container.show(new TableFilterView());
+        tableFilter: function () {
+            RupDemoApp.mainView.Container.show(new TableFilterView());
         },
-        progressbar: function(){
-          RupDemoApp.mainView.Container.show(new ProgressbarView());
+        progressbar: function () {
+            RupDemoApp.mainView.Container.show(new ProgressbarView());
         },
-        slider: function(){
-          RupDemoApp.mainView.Container.show(new SliderView());
+        slider: function () {
+            RupDemoApp.mainView.Container.show(new SliderView());
         },
-        spinner: function(){
-          RupDemoApp.mainView.Container.show(new SpinnerView());
+        spinner: function () {
+            RupDemoApp.mainView.Container.show(new SpinnerView());
         }
     });
 
 
 
 
-    RupDemoApp.on("start", function(){
+    RupDemoApp.on("start", function () {
         RupDemoApp.Controller = new RouteController();
 
         RupDemoApp.router = new MyRouter({
@@ -191,6 +194,6 @@ define(["marionette",
 
 
 
-    return  RupDemoApp;
+    return RupDemoApp;
 
 });
