@@ -111,10 +111,14 @@ a.rup-toolbar_menuButton.ui-button > span{
   margin-right: 15px;
 }
 
-
 .ui-button, .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button{
   background-image: none;
 }
+
+.ui-dialog > div.ui-dialog-titlebar.ui-widget-header {
+  background-color:transparent;
+}
+
 /*font-size: 1.1em;*/
 /* FORMS */
 
@@ -137,3 +141,14 @@ div.right_buttons > button{
   margin-top: 0;
 
 }
+
+/* TABS */
+/*.rup-tabs_container.ui-tabs .ui-tabs-nav li a{
+  border-style: none;
+}*/
+
+
+/*.rup-tabs_container.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+  background: #fff none repeat scroll 0 0;
+  border-top:
+}*/
