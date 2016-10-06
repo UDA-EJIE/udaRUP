@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+  if ( typeof define === "function" && define.amd ) {
+
+ 		// AMD. Register as an anonymous module.
+ 		define( ["jquery","./rup.base","jquery-ui-timepicker","jquery-ui-multidatespicker" ], factory );
+  } else {
+
+ 		// Browser globals
+ 		factory( jQuery );
+  }
+ } ( function( $ ) {
 
 	//****************************************************************************************************************
 	//DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -671,4 +681,4 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
      * @property {jQuery.rup_date~onClose} [onClose] - Permite asociar una función que se ejecutará cuando se oculte el calendario.
      */
 
-})(jQuery);
+}));

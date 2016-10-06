@@ -6,13 +6,14 @@ define(["marionette",
         "components/message/messageView",
         "components/button/buttonView",
         "components/toolbar/toolbarView",
+        "components/date/dateView",
         "components/tabs/tabsStaticView",
         "table/tableFilterView",
         "responsiveGrid/stackedHorizontal/stackedHorizontalView",
         "responsiveGrid/mobileDesktop/mobileDesktopView",
         "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView"
 
-      ], function(Marionette, MainView, Bootstrap, IndexView, FeedbackView, MessageView, ButtonView, ToolbarView, TabsStaticView,
+      ], function(Marionette, MainView, Bootstrap, IndexView, FeedbackView, MessageView, ButtonView, ToolbarView, DateView, TabsStaticView,
               TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView){
 
     var RupResponsiveDemoApp = new Marionette.Application();
@@ -24,6 +25,7 @@ define(["marionette",
         'message' : 'message',
         'button' : 'button',
         'toolbar' : 'toolbar',
+        'date' : 'date',
         'tabsStatic' : 'tabsStatic',
         'tableFilter' : 'tableFilter',
         'stackedHorizontal': 'stackedHorizontal',
@@ -44,6 +46,9 @@ define(["marionette",
         },
         toolbar: function(){
           RupResponsiveDemoApp.mainView.Container.show(new ToolbarView());
+        },
+        date: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new DateView());
         },
         message: function(){
           RupResponsiveDemoApp.mainView.Container.show(new MessageView());
