@@ -1,4 +1,19 @@
 {
+	"title" : {
+    "anadePanel" : "Añade un panel a tu escritorio",
+    "opciones" : "Opciones de personalización de este escritorio",
+    "herramientas" : "Listado de herramientas para la tramitación",
+    "accesoFamilias" : "Aquí dispones de los accesos directos a familias de Tramitagune",
+    "escritorioSel" : "Este es el escritorio que has seleccionado. Haz click para cambiarlo.",
+    "cerrar" : "Cerrar",
+    "eliminar" : "Eliminar",
+    "refrescar" : "Refrescar",
+    "maximizar" : "Maximizar",
+    "minimizar" : "Minimizar",
+    "configuracion" : "Personalizar",
+    "necesario" : "Es necesario personalizar el panel {0}",
+    "mostrarOcultar" : "Mostrar/Ocultar"
+  },
 	"x21aPilotoPatronesWar_menu_mixto" :{
 		"inicio" :"Inicio",
 		"mantenimientos" :"x21aMantenimientosWar",

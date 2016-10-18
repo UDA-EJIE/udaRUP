@@ -113,6 +113,7 @@
     "theme.rup.combo.css",
     "theme.rup.contextMenu.css",
     "theme.rup.date.css",
+    "theme.rup.dashboard.css",
     "theme.rup.button.css",
     "theme.rup.feedback.css",
     "theme.rup.grid.css",
@@ -129,6 +130,7 @@
     "theme.rup.tooltip.css",
     "theme.rup.upload.css",
     "theme.rup.validate.css",
+    "theme.rup.widget.css",
     "theme.rup.wizard.css",
     "theme.rup.tree.css"
   ]

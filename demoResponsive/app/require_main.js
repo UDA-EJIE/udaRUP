@@ -16,6 +16,11 @@ requirejs.config({
             location: "../../node_modules/jquery-ui/ui/",
             main: 'widget'
         }
+        // {
+        //     name: 'jquery-ui',
+        //     location: "../../node_modules/jquery-ui/ui",
+        //      main: 'widget'
+        // }
     ],
     paths: {
         "jquery": "../../node_modules/jquery/dist/jquery",
@@ -108,7 +113,10 @@ requirejs.config({
         // legacy
         //"blockUI": "../../src/core/utils/jquery.blockUI",
 
-        "form2object": "../../src/core/utils/form2object"
+        "form2object": "../../src/core/utils/form2object",
+        "gridstack": "../../node_modules/gridstack/dist/gridstack",
+        "lodash": "../../node_modules/lodash/lodash"
+
 
 
     },
@@ -196,6 +204,33 @@ requirejs.config({
       // "jquery.validate":{
       //   "deps": ["jquery"]
       // }
+    },
+    map: {
+      '*': {
+          'jquery-ui/mouse': 'jquery-ui',
+          'jquery-ui/draggable': 'jquery-ui',
+          'jquery-ui/data': 'jquery-ui',
+          'jquery-ui/disable-selection': 'jquery-ui',
+          'jquery-ui/focusable': 'jquery-ui',
+          'jquery-ui/form': 'jquery-ui',
+          'jquery-ui/ie': 'jquery-ui',
+          'jquery-ui/keycode': 'jquery-ui',
+          'jquery-ui/labels': 'jquery-ui',
+          'jquery-ui/jquery-1-7': 'jquery-ui',
+          'jquery-ui/plugin': 'jquery-ui',
+          'jquery-ui/safe-active-element': 'jquery-ui',
+          'jquery-ui/safe-blur': 'jquery-ui',
+          'jquery-ui/scroll-parent': 'jquery-ui',
+          'jquery-ui/tabbable': 'jquery-ui',
+          'jquery-ui/unique-id': 'jquery-ui',
+          'jquery-ui/version': 'jquery-ui',
+          'jquery-ui/widget': 'jquery-ui',
+          'jquery-ui/widgets/mouse': 'jquery-ui',
+          'jquery-ui/widgets/draggable': 'jquery-ui',
+          'jquery-ui/widgets/droppable': 'jquery-ui',
+          'jquery-ui/widgets/resizable': 'jquery-ui'
+          // And so on for all different cases...
+      }
     }
 //    ,
 //    map: {

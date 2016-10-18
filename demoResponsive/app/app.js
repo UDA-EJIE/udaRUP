@@ -11,10 +11,11 @@ define(["marionette",
         "table/tableFilterView",
         "responsiveGrid/stackedHorizontal/stackedHorizontalView",
         "responsiveGrid/mobileDesktop/mobileDesktopView",
-        "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView"
+        "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView",
+        "dashboard/dashboardView",
 
       ], function(Marionette, MainView, Bootstrap, IndexView, FeedbackView, MessageView, ButtonView, ToolbarView, DateView, TabsStaticView,
-              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView){
+              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView, DashboardView){
 
     var RupResponsiveDemoApp = new Marionette.Application();
 
@@ -30,7 +31,9 @@ define(["marionette",
         'tableFilter' : 'tableFilter',
         'stackedHorizontal': 'stackedHorizontal',
         'mobileDesktop': 'mobileDesktop',
-        'mobileTabletDesktop': 'mobileTabletDesktop'
+        'mobileTabletDesktop': 'mobileTabletDesktop',
+        'mobileTabletDesktop': 'mobileTabletDesktop',
+        'dashboard': 'dashboard'
       }
     });
 
@@ -67,6 +70,9 @@ define(["marionette",
         },
         mobileTabletDesktop: function(){
           RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
+        },
+        dashboard: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
         }
     });
 
