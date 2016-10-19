@@ -712,19 +712,25 @@
 				}
 
 				if (jQuery.isArray(value)){
-					// Devolvemos un array de resultados.
-					for (var i=0; i<value.length;i++){
-						tmpJson={};
-						if (dotNotation){
-							tmpJson[dotProperty]=value[i];
-							returnArray.push(tmpJson)
-						}else{
-							tmpJson[dotProperty]=value[i];
-							returnArray.push(tmpJson)
-						}
-					}
+						
+                    		//issue [utils] getRupValueAsJson provoca error con los arrays vacíos #24
+                    		//https://github.com/UDA-EJIE/udaRUP/issues/24
+                    		if (value.length !== 0) {
+                        	// Devolvemos un array de resultados.
+                        		for (var i = 0; i < value.length; i++) {
+                            		tmpJson = {};
+                            		if (dotNotation) {
+                                		tmpJson[dotProperty] = value[i];
+                                		returnArray.push(tmpJson)
+                            		} else {
+                                		tmpJson[dotProperty] = value[i];
+                                		returnArray.push(tmpJson)
+                            		}
+                        	}
 
-					return returnArray;
+                        	return returnArray;
+                    		}
+                    	
 				}else{
 					// Devolvemos un único valor.
 					tmpJson={};
