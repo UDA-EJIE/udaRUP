@@ -5,7 +5,6 @@ define(['marionette',
   var DashboardView = Marionette.LayoutView.extend({
       template: App.Templates.demoResponsive.app.dashboard.dashboardTemplate,
       gridOptions: {
-          cellHeight: 80,
           verticalMargin: 10,
 
           configure:{
@@ -32,7 +31,10 @@ define(['marionette',
     $view.ui.dashboard.rup_dashboard("addWidget",{
       type:"template",
       widgetOptions:{
-        template: "#templateInline"
+        template: "#templateInline",
+        configure:{
+          template:"#templateConfig"
+        }
       }
 
 
@@ -41,6 +43,9 @@ define(['marionette',
     $view.ui.dashboard.rup_dashboard("addWidget",{
       type:"template",
       widgetOptions:{
+        buttons:{
+          btnConfig:false
+        },
         template: "#templateInline"
       }
     });
@@ -49,18 +54,36 @@ define(['marionette',
     $view.ui.dashboard.rup_dashboard("addWidget",{
       type:"template",
       widgetOptions:{
+        configure:{
+          requiredByUser:false,
+          template:"#templateConfig"
+        },
         template: "<p>"+
           "Template Inline String"+
         "</p>"
 
-        
+
+      }
+    });
+
+    $view.ui.dashboard.rup_dashboard("addWidget",{
+      type:"xhr",
+      widgetOptions:{
+        url: "/demoResponsive/app/dashboard/html/widgetDiv.html",
+        configure:{
+          template:"#templateConfig"
+        }
+
       }
     });
 
     $view.ui.dashboard.rup_dashboard("addWidget",{
       type:"template",
       widgetOptions:{
-        template: App.Templates.demoResponsive.app.dashboard.templates.widgetInline
+        template: App.Templates.demoResponsive.app.dashboard.templates.widgetInline,
+        configure:{
+          template:"#templateConfig"
+        }
       }
     });
   }

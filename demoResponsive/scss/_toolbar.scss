@@ -1,0 +1,24 @@
+
+.rup-toolbar{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+a.rup-toolbar_menuButton.ui-button{
+  @extend button;
+
+  span{
+    display: inline-flex;
+    padding-bottom: 0;
+  }
+}
+
+.rup-toolbar_menuButtonContainer{
+  ul[role='menu']{
+    padding-left: 0;
+    padding-bottom: 0;
+    button.rup-toolbar_menuButtonElement{
+      text-align: left;
+    }
+  }
+}

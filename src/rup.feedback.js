@@ -133,7 +133,7 @@ de la aplicación pueda cerrar la capa manualmente.
 					.addClass(opciones.imgClass!=null?opciones.imgClass:opciones.type!=null?"rup-feedback_image rup-feedback_image_"+opciones.type:"")
 					.attr({ role: "alert" })
 					.css("display", opciones.block?"block":"none")
-					.css("visibility","hidden")
+					.css("visibility","hidden").append("<span class='rup-feedback-icon'>")
 				.context.id;
 
 			//Crear capa cierre

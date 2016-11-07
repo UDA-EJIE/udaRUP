@@ -8,6 +8,9 @@ define(['marionette',
         btnDefault: "#boton",
         btnDropdownList: "#dropdownHtmlListButton",
         btnDropdownDialog: "#dropdownDialogButton",
+        btnFab: "#fabButton",
+        fabButtonLayer: "#fabButtonLayer",
+        btnFabFixed: "#fabButtonFixed",
         dropdownDialog: "#dropdownDialog",
         dropdownElem: "#dropdownElem1",
         dropdownCombo: "#dropdownButton-combo"
@@ -21,8 +24,20 @@ define(['marionette',
   function fncOnAttach(){
     var $view = this;
 
-    
+
    	$view.ui.btnDefault.rup_button({});
+
+    $view.ui.btnFab.rup_button({
+      //fab: true
+    });
+
+    $view.ui.fabButtonLayer.rup_button({
+      //fab: true
+    });
+
+    $view.ui.btnFabFixed.rup_button({
+      //fab: true
+    });
 
   	$view.ui.btnDropdownList.rup_button({
   		dropdown:{

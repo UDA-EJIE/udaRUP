@@ -1,0 +1,76 @@
+%feedback-icon{
+
+
+  height: auto;
+
+  margin: 0 1rem 0 0;
+
+  float:left;
+  font-size: $glyphicon-size-lg;
+  font-family: $glyphicon-font-family;
+
+}
+
+.rup-feedback{
+  @extend .shadow-2;
+  margin: 0.8rem 0;
+  &.rup-feedback_image{
+    background-image: none;
+    padding: 1em 0.5em 1em 1.5em;
+
+    &.rup-feedback_image_ok{
+      span.rup-feedback-icon{
+        @extend %feedback-icon;
+        &:before{
+          content: "\e013";
+          color: $color-ok;
+        }
+      }
+    }
+
+    &.rup-feedback_image_alert{
+      span.rup-feedback-icon{
+        @extend %feedback-icon;
+        &:before{
+          content: "\e209";
+          color: $color-alert;
+        }
+      }
+    }
+
+    &.rup-feedback_image_error{
+      span.rup-feedback-icon{
+        @extend %feedback-icon;
+        &:before{
+          content: "\e083";
+          color: $color-error;
+        }
+      }
+    }
+
+    div.rup-feedback_closeLink{
+      visibility: hidden;
+      float: right;
+      padding-right: 0.5rem;
+      margin: 0;
+      @extend %feedback-icon;
+
+      &:before{
+        float: right;
+        visibility: visible;
+        content: "\e014";
+        color: $color-gray;
+      }
+      &:hover{
+        &:before{
+          color: $color-gray-hover;
+        }
+
+      }
+    }
+
+    div:last-child{
+      line-height: 2.4rem;
+    }
+  }
+}

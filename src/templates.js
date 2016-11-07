@@ -47,7 +47,7 @@ this["Rup"]["Templates"]["rup"]["widget"] = this["Rup"]["Templates"]["rup"]["wid
 this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <span id=\"widgetClose-"
+  return "          <span id=\"widgetClose-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-trash\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.eliminar",{"name":"i18n","hash":{},"data":data}))
@@ -55,7 +55,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 },"3":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <span id=\"widgetReload-"
+  return "          <span id=\"widgetReload-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-refresh\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.refrescar",{"name":"i18n","hash":{},"data":data}))
@@ -63,7 +63,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 },"5":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <span id=\"widgetResizeFull-"
+  return "          <span id=\"widgetResizeFull-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-resize-full\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.maximizar",{"name":"i18n","hash":{},"data":data}))
@@ -71,7 +71,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 },"7":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <span id=\"widgetConfig-"
+  return "          <span id=\"widgetConfig-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-cog\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.configuracion",{"name":"i18n","hash":{},"data":data}))
@@ -79,7 +79,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 },"9":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "        <span id=\"widgetInfo-"
+  return "          <span id=\"widgetInfo-"
     + alias4(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-question-sign\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\""
     + alias4(((helper = (helper = helpers.infoTextNew || (depth0 != null ? depth0.infoTextNew : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"infoTextNew","hash":{},"data":data}) : helper)))
@@ -89,7 +89,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 },"11":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <span id=\"widgetShow-"
+  return "          <span id=\"widgetShow-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-eye-close\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.mostrarOcultar",{"name":"i18n","hash":{},"data":data}))
@@ -99,13 +99,13 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 
   return "<div class=\"widget rssBottom\" id=\""
     + alias4(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
-    + "\">\r\n    <div class=\"widget-header\">\r\n        <span class=\"widget-header-title\">"
+    + "\">\r\n    <div class=\"widget-header\">\r\n        <div>\r\n          <span class=\"widget-header-title\">"
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</span>\r\n"
+    + "</span>\r\n        </div>\r\n        <div class=\"widget-header-controls\">\r\n"
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnClose : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnReload : stack1),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnResizeFull : stack1),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "        <span id=\"widgetResizeSmall-"
+    + "          <span id=\"widgetResizeSmall-"
     + alias4(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
     + "\" class=\"widget-icon widget-icon-right glyphicon glyphicon-resize-small\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.minimizar",{"name":"i18n","hash":{},"data":data}))
@@ -113,7 +113,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnConfig : stack1),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.infoText : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnShow : stack1),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\r\n    <div class=\"widget-feedback\">\r\n    </div>\r\n    <div class=\"widget-body\">\r\n\r\n    </div>\r\n\r\n</div>\r\n";
+    + "        </div>\r\n    </div>\r\n    <div class=\"widget-feedback\">\r\n    </div>\r\n    <div class=\"widget-body\">\r\n\r\n    </div>\r\n\r\n</div>\r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"]["close"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";

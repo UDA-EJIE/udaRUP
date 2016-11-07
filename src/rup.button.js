@@ -209,10 +209,33 @@
          * @private
          */
 		_init : function(args){
-			var settings = $.extend(true, {}, $.fn.rup_button.defaults, args[0]),
+			var settings = $.extend(true, {}, $.fn.rup_button.defaults, $(this).data(), args[0]),
 			$self = this, $dropdownList, $container, dropdownSettings;
 
+      if (settings.fab===true){
+        $self.addClass("rup-button-fab");
 
+        if (settings.fixed===true){
+          $self.addClass("rup-button-fixed");
+        }
+
+        if (settings.fixed===true){
+          $self.addClass("rup-button-fixed");
+        }
+
+        if (settings.list!==null){
+          var $fabListDiv = $("<div>").addClass("rup-button-fab-group");
+          //$self.wrap($fabListDiv);
+          $self.add($("#"+settings.list)).wrapAll($fabListDiv);
+          $("#"+settings.list).addClass("rup-button-fab-list");
+          //$fabListDiv.append($("#"+settings.list));
+          //$("#"+settings.list).wrap($fabListDiv);
+          //$("#"+settings.list).addClass("rup-button-fab-list");
+          //
+          $("button","#"+settings.list).addClass("rup-button-fab-sm").rup_button()
+
+        }
+      }
 
 			// Comprobamos si se hace uso del dropdown
 			if (settings.dropdown=== undefined || settings.dropdown === false){
@@ -310,7 +333,10 @@
    * @property {boolean | Object} [dropdown=false] - Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo.
    */
 	$.fn.rup_button.defaults = {
-		dropdown:false
+		dropdown:false,
+    fab: false,
+    fixed: false,
+    list: null
 	};
 
   /**
@@ -321,6 +347,7 @@
    * @property {string} [dropdownIcon=ui-icon-triangle-1-s] - Clase css correspondiente al icono del control que despliega el menú.
    */
 	$.fn.rup_button.dropdown_defaults ={
+
 		dropdownIcon: "ui-icon-triangle-1-s",
 		dropdownListId: undefined,
 		dropdownDialog: undefined,

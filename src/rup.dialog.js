@@ -305,7 +305,7 @@
 			.addClass("rup-enlaceCancelar")
 			.html(btn.text)
 			.click(btn.click);
-			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF); 
+			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
 		}
 	});
 
@@ -342,9 +342,10 @@
 					if(settings.type !== null && $(this).length > 0){
 
 						$.each($(this), function(index, object) {
+              var $self = $(this);
 
-							if($(this).attr('id') !== undefined){
-								settings.id = $(this).attr('id');
+							if($self.attr('id') !== undefined){
+								settings.id = $self.attr('id');
 							} else {
 								settings.id = "rup_"+settings.type+"DIV";
 								msgDiv = $("<div/>").attr("id", settings.id);
@@ -364,7 +365,7 @@
 
 								if(settings.specificLocation !== ""){
 									codeEventCreate = function(event, ui){
-										 $("#"+settings.id).parent(".ui-dialog").insertAfter($("#"+settings.specificLocation));
+										 $self.parent(".ui-dialog").insertAfter($("#"+settings.specificLocation));
 									};
 								} else if ($.rup_utils.aplicatioInPortal()){ //Ajuste para portales
 									codeEventCreate = function(event, ui){
@@ -391,12 +392,12 @@
 							switch (settings.type) {
 							case $.rup.dialog.DIV://si el dialog es de tipo DIV se utilizara el div creado por el desarrollador para crear el ui dialog
 								if(settings.clone !== undefined){
-									$('#'+settings.id).clone(true).attr("id",settings.clone).insertAfter('#'+settings.id );
+									$self.clone(true).attr("id",settings.clone).insertAfter($self);
 									settings.id = settings.clone;
 								}
 								break;
 							case $.rup.dialog.TEXT:
-								$("#"+settings.id).html(settings.message);
+								$self.html(settings.message);
 								break;
 							case $.rup.dialog.AJAX:
 								dialog._ajaxLoad(settings);
@@ -433,7 +434,7 @@
 							}
 
 							if (!created) { //si ha sido creado no hace falta volver a añadir el elnace de cierre
-								$("#" + settings.id).dialog(settings);
+								$self.dialog(settings);
 								closeSpan = "<span id='closeText_" + settings.id + "' style='float:right;font-size:0.85em'>" + $.rup.i18nParse($.rup.i18n.base,"rup_global.cerrar") + "</span>";
 								aClose = $("<a href='#'></a>")
 								.attr("role", "button")
@@ -443,7 +444,7 @@
 								.addClass("ui-dialog-title")
 								.html(closeSpan)
 								.click(function (event) {
-									$("#" + settings.id).dialog("close");
+									$self.dialog("close");
 									return false;
 								})
 								.hover(function (eventObject) { //Evento lanzado para que se cambie el icono de la X a hover, marcado por ARISTA
@@ -477,7 +478,7 @@
 							}
 							if (autopen) { //si se auto abría lo mostramos
 								if( settings.type !== $.rup.dialog.AJAX){
-									$("#" + settings.id).rup_dialog("open");
+									$self.rup_dialog("open");
 									//le establecemos el foco
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:first').focus();
 								} else {

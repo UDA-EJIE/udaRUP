@@ -10,9 +10,13 @@
 		// AMD. Register as an anonymous module.
 		define([
 			"jquery",
+      "handlebars",
       "./templates",
 			"jquery-ui/widget",
       "./rup.base",
+      "./rup.utils",
+      "./rup.message",
+      "./rup.dialog"
 
             // "rup/loading",
             // "rup/message",
@@ -30,7 +34,7 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function($) {
+}(function($, Handlebars) {
 
     /**
     * Componente widget genérico.
@@ -65,7 +69,9 @@
         * @property {object} configure.script - Permite especificar un script que se ejecutará una vez se haya renderizado el contenido del diálogo a partir de la template.
         */
         options: {
-            minWidth: 2,
+
+            minWidth: 4,
+            minHeight: 4,
             defaultWidth:4,
             defaultHeight:6,
             title: "Título Widget",
@@ -91,12 +97,14 @@
                 title: "Configuración",
                 requiredByUser: true,
                 template: null,
+                templateData: {},
                 data: null,
                 script: null,
                 _configuredByUser: false,
                 _configurationData: null
 
-            }
+            },
+            _hidden:false,
 //            ,configTemplate: null,
 //            ,configData: null,
 //            ,configScript: null
@@ -154,7 +162,7 @@
             }
 
             $el.append(template($.extend({},options, {uuid:uuid,infoTextNew:infoText})));
-            
+
             // Se almacena la referencia interna de los elementos de la interfaz de usuario.
             $ui = {
                 $widgetBody: $el.find(ui.widgetBody),
@@ -181,11 +189,11 @@
             $self._configure = $self._configure || {};
 
             // Se procede a crear el diálogo de configuración a partir de las propiedades con las que se ha inicializado el widget
-            // if (options.buttons.btnConfig===true && $self._configure.template!== null){
-            //
-            //     $ui.configure = $ui.configure || {};
-            //     $self._createConfigureDialog();
-            // }
+            if (options.buttons.btnConfig===true && $self._configure.template!== null){
+
+                $ui.configure = $ui.configure || {};
+                $self._createConfigureDialog();
+            }
                 //Tooltip en el botón "info"
                 $ui.$btnInfo.tooltip({
                   'html':true
@@ -210,7 +218,10 @@
                 ui = $self.ui,
                 $ui = $self.$ui,
                 $configDialog,
-                configDialogId;
+                configDialogId,
+                configTemplate,
+                configTemplateData,
+                $templateObj;
 
 
             configDialogId = $self.widgetName+"_"+$self.uuid;
@@ -225,14 +236,56 @@
 
             // Añadimos el diálogo en el DOM junto al widget.
             $el.parent().append($configDialog);
+            // Insertamos el contenido del body
+            configTemplate = options.configure.template;
+            configTemplateData = options.configure.templateData;
+            if (typeof configTemplate === "string"){
+              var $templateObj = $(configTemplate)
+              if ($templateObj.length>0){
+                var source = $templateObj.html();
+								var compiledTemplate = Handlebars.compile(source);
+                $configDialog.append(compiledTemplate(configTemplateData));
+              }
+            }else if (typeof template === "function"){
+                $configDialog.append(configTemplate(configTemplateData));
+						}
 
             // Se crea el diálogo con el componente RUP Dialog.
-            $configDialog.rup_dialog($.extend({},$self._configure, {
-                bodyTemplate: $self._configure.template,
-                title: eval("$.rup.i18n.app."+options.configure.title),
-                bodyData: $self._configure.data,
-                type:"alert"
-            }));
+            $configDialog.rup_dialog({
+                type: $.rup.dialog.DIV,
+                autoOpen: false,
+                modal: true,
+                resizable: true,
+                // appendTo :'#container',
+                title: "Configuración",
+                buttons: [{
+                        text: "Aceptar",
+                        click: function () {
+                            $view.ui.dialog.dialog("close");
+                        }
+                    },
+                    {
+                        text: "Enviar",
+                        click: function () {
+                            $view.ui.dialog.dialog("close");
+                        }
+                    },
+                    {
+                        text: "Cancelar",
+                        click: function () {
+                            $view.ui.dialog.dialog("close");
+                        },
+                        btnType: $.rup.dialog.LINK
+                    }
+                ]
+
+            });
+            // $configDialog.rup_dialog($.extend({},$self._configure, {
+            //     bodyTemplate: $self._configure.template,
+            //     title: eval("$.rup.i18n.app."+options.configure.title),
+            //     bodyData: $self._configure.data,
+            //     type:"alert"
+            // }));
             $self.$configDialog = $configDialog;
 
 
@@ -276,7 +329,7 @@
                       $self.options.configure._configuredByUser = true;
                   }
                   $el.triggerHandler("widgetConfigured.widget.rup", $self.options.configure._configurationData);
-                  $self.$configDialog.rup_dialog("hide");
+                  $self.$configDialog.rup_dialog("close");
                 }
 
                 if ($self.$ui.configure.$form.is(".rup-validate")){
@@ -352,9 +405,15 @@
             // worry about
             // calling the base widget
         },
+        minHeight: function(val){
+          this.element.triggerHandler("rup.widget.minHeight", [val]);
+        },
+        resize: function(width, height){
+          this.element.triggerHandler("rup.widget.resize", [width, height]);
+        },
         remove: function(){
             this.destroy();
-            this._trigger("rup.widget.removed");
+            this.element.triggerHandler("rup.widget.removed");
         },
         getOptions: function(){
             return this.options;
@@ -364,10 +423,11 @@
         },
         close: function(){
             var $self = this;
-            $.rup_message("msgConfirm", {
+
+            $.rup_messages("msgConfirm", {
                 title: $.rup.i18n.app.comons.rupWidget.confirmaAccion,
-                content: $.rup.i18n.app.comons.rupWidget.deseaEliminar,
-                onOk: function(){
+                message: $.rup.i18n.app.comons.rupWidget.deseaEliminar,
+                OKFunction: function(){
                     $self.element.triggerHandler("rup.widget.closed");
                 }
             })
@@ -385,13 +445,13 @@
                 options = this.options,
                 $configDialog;
 
-            if (options.configure._configurationData!==null){
-                var validator = $self.$ui.configure.$form.validate();
-                validator.resetForm();
-                $(".rup-feedback", $self.$ui.configure.$dialog).removeAttr("style");
-                $self.$ui.configure.$form.rup_form("populate", options.configure._configurationData);
-            }
-            $self.$ui.configure.$dialog.rup_dialog("show");
+            // if (options.configure._configurationData!==null){
+            //     var validator = $self.$ui.configure.$form.validate();
+            //     validator.resetForm();
+            //     $(".rup-feedback", $self.$ui.configure.$dialog).removeAttr("style");
+            //     $self.$ui.configure.$form.rup_form("populate", options.configure._configurationData);
+            // }
+            $self.$ui.configure.$dialog.rup_dialog("open");
             $el.triggerHandler("printConfig");
         },
         showConfigRequired: function(){
@@ -489,43 +549,35 @@
         fncBtnConfigClick: function(){
             this.showConfig();
         },
+        execDashboard: function(arguments){
+          this.element.triggerHandler("rup.widget.execFunction", arguments);
+        },
+        getDashboardWidgetOptions: function(){
+           return this.element.triggerHandler("rup.widget.getDashboardWidgetOptions");
+        },
         fncbtnShowHideClick: function(event, ui){
-            var $padre = this.element.parent();
-            var grid = $("#gridStack").data("gridstack");
-            $($("#gridStack").data("gridstack").grid.nodes).each(function(){
-                $(this).attr("el").draggable('enable');
-                $(this).attr("el").resizable('enable');
-            });
+            var $padre = this.element.parent(),
+                widgetOpts;
 
-            if (this.$ui.$btnShowHide.hasClass("glyphicon-eye-close")){
-                this.$ui.$btnShowHide.removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
-                $padre.addClass("displayNone");
-                $padre.attr("data-gs-height",0);
-                if ($( window ).width()>1270){
-                    $padre.attr("data-gs-width","3");
-                }else{
-                    $padre.attr("data-gs-width","4");
-                    grid.resize($(this), parseInt("4"), parseInt("0"));
-                }
-                recalculaTitulo(this.element,true);
-                //gridStack
-				ordenarPaneles();
+            this.element.parent().addClass("hidden-content");
+            if (this.options._hidden===false){
+              // this.options._previousMinHeight =
+              widgetOpts = this.getDashboardWidgetOptions();
+
+              this.element.parent().addClass("hidden-content");
+              this.options._previousMinHeight = widgetOpts.minHeight;
+              this.options._previousHeight = widgetOpts.height;
+              this.minHeight(1);
+              this.resize(null, 1);
+              this.options._hidden = true;
             }else{
-                this.$ui.$btnShowHide.removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
-                grid.resize($(this), parseInt($padre.attr("data-default-width")), parseInt($padre.attr("data-default-height")));
-                $padre.attr("data-gs-height", $padre.attr("data-default-height"));
-                $padre.attr("data-gs-width", $padre.attr("data-default-width"));
-
-                if (12<(Number($padre.attr("data-default-width"))+Number($padre.attr("data-gs-x")))){
-                    $padre.attr("data-gs-x",0);
-                    $padre.attr("data-gs-y",$padre.attr("data-gs-y")+1);
-                    //$padre.attr("data-gs-y",Number($padre.attr("data-default-y"))+1);
-                }
-                $padre.removeClass("displayNone");
-                recalculaTitulo(this.element,false);
-                //gridStack
-                ordenarPaneles();
+              this.element.parent().removeClass("hidden-content");
+              this.minHeight(this.options._previousMinHeight);
+              this.resize(null, this.options._previousHeight);
+              this.options._hidden = false;
             }
+
+            // this.element.parent().css("height","40px");
 
         },serializeFilter: function(){
             var $self = this;

@@ -4,7 +4,7 @@
     margin-left: 0.5em;
     margin-right: 0.5em;
     padding-bottom: 0.5em;
-    padding-top: 0.5em;
+    padding-top: 0.35em;
     border-color: -moz-use-text-color -moz-use-text-color #cbcbcb;
     border-image: none;
     border-style: none none solid;
@@ -43,13 +43,38 @@
     padding: 1em;
 }
 
+
+.widget-header > div{
+  display: inline-flex;
+}
+
+.widget-header > div.widget-header-controls{
+  float: right;
+  padding-top: 0.15em;
+
+  /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color; #fff;
+  background-clip:padding-box;*/
+}
+
 .grid-stack > .grid-stack-item > .ui-resizable-se {
   background-image: none;
-  background-color: white;
+
+
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item{
+
 }
 
 .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full{
     position: fixed;
+
+    /*transition-property: top, left, width, height;
+    transition-duration: 0.5s, 0.5s, 0.1s, 0.1s;
+    transition-delay: 0.5s, 0.5s, 0.1s, 0.1s;*/
     top:1%;
     left:1%;
     width: 98%;

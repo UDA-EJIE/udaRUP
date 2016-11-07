@@ -1,30 +1,33 @@
 <div class="widget rssBottom" id="{{uuid}}">
     <div class="widget-header">
-        <span class="widget-header-title">{{title}}</span>
-        {{#if buttons.btnClose}}
-        <span id="widgetClose-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="{{i18n "title.eliminar"}}"></span>
-        {{/if}}
-        {{#if buttons.btnReload}}
-        <span id="widgetReload-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-refresh" data-toggle="tooltip" data-placement="top" title="{{i18n "title.refrescar"}}"></span>
-        {{/if}}
-        {{#if buttons.btnResizeFull}}
-        <span id="widgetResizeFull-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-resize-full" data-toggle="tooltip" data-placement="top" title="{{i18n "title.maximizar"}}"></span>
-        {{/if}}
-        <span id="widgetResizeSmall-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="{{i18n "title.minimizar"}}"></span>
-        {{#if buttons.btnConfig}}
-        <span id="widgetConfig-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="top" title="{{i18n "title.configuracion"}}" ></span>
-        {{/if}}
-        {{#if infoText}}
-        <span id="widgetInfo-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="{{infoTextNew}}" tttt="{{infoText}}"></span>
-        {{/if}}
-        {{#if buttons.btnShow}}
-        <span id="widgetShow-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-eye-close" data-toggle="tooltip" data-placement="top" title="{{i18n "title.mostrarOcultar"}}"></span>
-        {{/if}}
+        <div>
+          <span class="widget-header-title">{{title}}</span>
+        </div>
+        <div class="widget-header-controls">
+          {{#if buttons.btnClose}}
+          <span id="widgetClose-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="{{i18n "title.eliminar"}}"></span>
+          {{/if}}
+          {{#if buttons.btnReload}}
+          <span id="widgetReload-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-refresh" data-toggle="tooltip" data-placement="top" title="{{i18n "title.refrescar"}}"></span>
+          {{/if}}
+          {{#if buttons.btnResizeFull}}
+          <span id="widgetResizeFull-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-resize-full" data-toggle="tooltip" data-placement="top" title="{{i18n "title.maximizar"}}"></span>
+          {{/if}}
+          <span id="widgetResizeSmall-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="{{i18n "title.minimizar"}}"></span>
+          {{#if buttons.btnConfig}}
+          <span id="widgetConfig-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="top" title="{{i18n "title.configuracion"}}" ></span>
+          {{/if}}
+          {{#if infoText}}
+          <span id="widgetInfo-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="{{infoTextNew}}" tttt="{{infoText}}"></span>
+          {{/if}}
+          {{#if buttons.btnShow}}
+          <span id="widgetShow-{{uuid}}" class="widget-icon widget-icon-right glyphicon glyphicon-eye-close" data-toggle="tooltip" data-placement="top" title="{{i18n "title.mostrarOcultar"}}"></span>
+          {{/if}}
+        </div>
     </div>
     <div class="widget-feedback">
     </div>
     <div class="widget-body">
 
     </div>
-
 </div>

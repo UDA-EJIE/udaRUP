@@ -31,28 +31,26 @@
 
     $.widget("rup.widget_xhr", $.rup.widget, {
         options:{
-            template: null,
-            templateData: null
+            url: null,
+            ajaxOptions: {
+
+						}
         },
         _initializeBody: function(){
             var ops = this.options,
-                template = ops.template;
+                template = ops.template,
+								$self = this;
 
-            if (typeof template === "string"){
-              var $templateObj = $(template)
-              if ($templateObj.length>0){
-                var source = $templateObj.html();
-								var compiledTemplate = Handlebars.compile(source);
-                this.$ui.$widgetBody.append(compiledTemplate(ops.templateData));
-              }
-
-
-            }else if (typeof template === "function"){
-
-                this.$ui.$widgetBody.append(template(ops.templateData));
-
-						}
-
+            $.ajax(ops.url, ops.ajaxOptions).done(function(data, textStatus, jqXHR){
+							$self.$ui.$widgetBody.append(data);
+							console.log("done");
+						}).fail(function(jqXHR, textStatus, errorThrown){
+							console.log("fail");
+						}).always(function(arg1, textStatus, arg2){
+							console.log("always");
+						}).then(function( arg1, textStatus, arg2){
+							console.log("then");
+						});
 
         }
 

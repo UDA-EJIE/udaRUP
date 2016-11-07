@@ -204,3 +204,48 @@ nav.rup-navbar a{
 .feedback-view [role='alert']{
   margin-bottom: 0.5em;
 }
+
+/* FORM */
+.two-col {
+    overflow: hidden;
+}
+
+
+.two-col .col1 {
+    float: left;
+    margin: 0.5em 1.5em 0 0;
+}
+
+
+.two-col label, .two-col label.label {
+    display: block;
+    text-align: left;
+    padding: 0px;
+}
+
+/* STYLE GUIDE */
+
+.example {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0.5rem 0rem;
+    /*padding: 2rem 1rem 0.5rem;*/
+    padding: 1rem;
+    position: relative;
+}
+
+/*.example::after {
+    color: #959595;
+    content: "Ejemplo";
+    font-size: 12px;
+    font-weight: 700;
+    left: 1rem;
+    letter-spacing: 1px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 1rem;
+}*/
+
+/*.example > form{
+  margin-top: 1.5rem;
+}*/

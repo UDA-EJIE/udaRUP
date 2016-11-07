@@ -1,4 +1,19 @@
 {
+	"comons" : {
+    "rupWidget" : {
+      "confirmaAccion" : "Confirma la acción, por favor.",
+      "deseaEliminar" : "¿Desea eliminar el panel?",
+      "confirmaAnadePanel" : "Se va a añadir un panel. ¿Seguro  que deseas añadirlo?",
+      "confirmaEliminarEscritorio" : "Se va a eliminar el escritorio actual. La acción no puede deshacerse. ¿Seguro que deseas eliminarlo?",
+      "confirmaEliminarEscritorioSeleccionado" : "Se va a eliminar el escritorio seleccionado. La acción no puede deshacerse. ¿Seguro que deseas eliminarlo?",
+      "dashboardRenameOk" : "El escritorio se ha renombrado correctamente",
+      "widgetAnadidoOk" : "El panel se ha añadido correctamente al final del escritorio, y está pendiente de personalizarlo. También puedes cambiarlo de lugar en el escritorio.",
+      "widgetDeleteOk" : "Se ha eliminado el panel correctamente",
+      "setDefaultOk" : "El escritorio se ha establecido como predeterminado",
+      "configuracion" : "Personalización",
+      "urlConsulta" : "Puedes consultar su funcionamiento en el siguiente <a href=\"{0}\" target=\"_blank\">enlace </a>"
+    }
+	},
 	"title" : {
     "anadePanel" : "Añade un panel a tu escritorio",
     "opciones" : "Opciones de personalización de este escritorio",

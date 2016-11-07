@@ -138,7 +138,7 @@
 				if (args.length > 1) {
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				} else {
-					if ($(this).size()>0){//Evitar invocaciones sin objetos (grid)
+					if ($(this).length>0){//Evitar invocaciones sin objetos (grid)
 
 						var settings = $.extend({}, $.fn.rup_tooltip.defaults, args[0]),
 							isGrid = this[0].className.indexOf("rup-grid") !== -1, openUserEvent;

@@ -1,0 +1,47 @@
+$font-size: 12px;
+$bg-color: #fff;
+$border-color: #ccc;
+$font-family: 'Open Sans', sans-serif;
+
+$font-size-regular: 1rem;
+
+html{
+  font-size: $font-size;
+}
+
+body {
+  font-family: $font-family;
+}
+
+/* Typhography */
+h1{
+  /*font-size: 1.6rem;*/
+  font-size: 2.14rem;
+  font-weight: bold;
+}
+
+h2{
+  /*font-size: 1.31rem;*/
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 1.5rem;
+}
+
+h4{
+  font-size: 1.3rem;
+}
+
+h5{
+  font-size: 1rem;
+}
+
+h6{
+  font-size: 0.85rem;
+}
+
+label {
+  font-size: 1rem;
+}

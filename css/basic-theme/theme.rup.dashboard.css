@@ -2,6 +2,11 @@
   margin-left: 4px;
   margin-right: 4px;
 }
+
+.grid-stack-item.hidden-content{
+  height: 40px;
+}
+
 .grid-stack-item-content {
     background: white none repeat scroll 0 0;
     color: #2c3e50;

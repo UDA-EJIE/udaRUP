@@ -76,7 +76,7 @@ requirejs.config({
         //"rup/autocomplete": "../../src/rup.autocomplete",
         //"rup/combo": "../../src/rup.combo",
         "rup/date": "../../src/rup.date",
-        "rup/time": "../../src/rup.time",
+        //"rup/time": "../../src/rup.time",
         "rup/form": "../../src/rup.form",
         // "rup/validate": "../../src/rup.validate",
         // "rup/upload": "../../src/rup.upload",
@@ -141,9 +141,9 @@ requirejs.config({
       "rup/date":{
         "deps": ["rup/base", "jquery-ui-multidatespicker","jquery-ui-timepicker"]
       },
-      "rup/time":{
-        "deps": ["rup/base"]
-      },
+      // "rup/time":{
+      //   "deps": ["rup/base"]
+      // },
       // "rup/form":{
       //   "deps": ["rup/base","jquery.form","rup/validate"]
       // },

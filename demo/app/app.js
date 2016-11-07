@@ -1,5 +1,6 @@
 define(["marionette",
         "shared/mainView/mainView",
+        "styleGuide/styleGuideView",
         "components/feedback/feedbackView",
         "components/tooltip/tooltipView",
         "components/message/messageView",
@@ -33,7 +34,7 @@ define(["marionette",
         "components/chart/chartView"
 
 
-      ], function (Marionette, MainView, FeedbackView, TooltipView, MessageView,
+      ], function (Marionette, MainView, StyleGuideView, FeedbackView, TooltipView, MessageView,
     DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView, NavMenuView,
     ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
     TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
@@ -48,6 +49,7 @@ define(["marionette",
 
         appRoutes: {
             '': 'index',
+            'styleGuide': 'styleGuide',
             'feedback': 'feedback',
             'tooltip': 'tooltip',
             'message': 'message',
@@ -86,6 +88,9 @@ define(["marionette",
 
     var RouteController = Marionette.Controller.extend({
         index: function () {},
+        styleGuide: function () {
+            RupDemoApp.mainView.Container.show(new StyleGuideView());
+        },
         feedback: function () {
             RupDemoApp.mainView.Container.show(new FeedbackView());
         },
