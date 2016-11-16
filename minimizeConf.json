@@ -1,4 +1,15 @@
 {
+  "rupCssFiles":[
+    "./node_modules/jquery-ui-dist/jquery-ui.css",
+    "./dist/css/bootstrap.css",
+    "./dist/css/rup.css"
+  ],
+  "rupClassicCssFiles":[
+    "./node_modules/jquery-ui-dist/jquery-ui.css",
+    "ui.jqgrid.css",
+    "jquery.fileupload-ui.css",
+    "./dist/css/rup.css"
+  ],
   "rupTableFiles":[
     "core/jqGrid/jquery.jqGrid.src.js",
     "core/jqGrid/jqGrid.rup.table.js",
@@ -101,37 +112,5 @@
     "core/jquery.ui.rcarousel.js"
 
 
-  ],
-  "rupCssFiles":[
-    "ui.jqgrid.css",
-    "jquery.fileupload-ui.css",
-    "theme.rup.sprite.css",
-    "theme.rup.base.css",
-    "theme.rup.accordion.css",
-    "theme.rup.autocomplete.css",
-    "theme.rup.breadCrumb.css",
-    "theme.rup.combo.css",
-    "theme.rup.contextMenu.css",
-    "theme.rup.date.css",
-    "theme.rup.dashboard.css",
-    "theme.rup.button.css",
-    "theme.rup.feedback.css",
-    "theme.rup.grid.css",
-    "theme.rup.grid.jerarquia.css",
-    "theme.rup.lang.css",
-    "theme.rup.maint.css",
-    "theme.rup.menu.css",
-    "theme.rup.messages.css",
-    "theme.rup.report.css",
-    "theme.rup.table.css",
-    "theme.rup.tabs.css",
-    "theme.rup.time.css",
-    "theme.rup.toolbar.css",
-    "theme.rup.tooltip.css",
-    "theme.rup.upload.css",
-    "theme.rup.validate.css",
-    "theme.rup.widget.css",
-    "theme.rup.wizard.css",
-    "theme.rup.tree.css"
   ]
 }

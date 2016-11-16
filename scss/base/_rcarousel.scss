@@ -1,0 +1,117 @@
+//colors
+$color_gallery_approx: #eee;
+$white: #fff;
+$color_alto_approx: #ddd;
+$color_tundora_approx: #444;
+$white_80: rgba(255,255,255,.8);
+$color_celeste_approx: #cccccc;
+$black: #000;
+
+//urls
+$url_0: url(../custom-theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png);
+
+.ui-carousel {
+	height: 100px;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: relative;
+	width: 300px;
+	> .wrapper {
+		margin: 0;
+		padding: 0;
+		width: 9999px;
+		> * {
+			border: 0;
+			display: block;
+			float: left;
+			height: 100px;
+			overflow: hidden;
+			//white-space: nowrap;
+		}
+	}
+}
+#ui-carousel-next {
+	width: 16px;
+	border: 0;
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: border-box;
+	cursor: pointer;
+	height: 35px;
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	z-index: 0;
+	float: right;
+	> span {
+		vertical-align: sub;
+	}
+}
+#ui-carousel-prev {
+	width: 16px;
+	border: 0;
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: border-box;
+	cursor: pointer;
+	height: 35px;
+	left: 3px;
+	position: absolute;
+	top: 3px;
+	z-index: 0;
+	vertical-align: sub;
+	> span {
+		vertical-align: sub;
+	}
+}
+#prvButton {
+	width: 16px;
+	border: 0;
+}
+#nxtButton {
+	width: 16px;
+	border: 0;
+}
+.rup_navMenu {
+	overflow: hidden;
+	width: 100.2%!important;
+	padding: 0;
+	list-style: none;
+	margin: 0 0 -0.29em;
+	position: relative;
+}
+.itemTab a {
+	position: relative;
+	background: $color_gallery_approx;
+	background-image: linear-gradient(to top, $white, $color_alto_approx);
+	padding: 0.24em 1.5em;
+	float: left;
+	text-decoration: none;
+	color: $color_tundora_approx;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 1px 0 $white_80;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none!important;
+	border-right: 1px solid $color_alto_approx;
+	border-bottom: 1px solid $color_alto_approx;
+	border-top: 1px solid $color_alto_approx;
+	width: 100%;
+	height: 100%;
+	&:hover {
+		background: $color_celeste_approx $url_0 40% 40% repeat-x;
+		font-weight: bold;
+	}
+	&:focus {
+		background: $color_celeste_approx $url_0 40% 40% repeat-x;
+		font-weight: bold;
+	}
+}
+.actualTab a {
+	background: $color_celeste_approx $url_0 40% 40% repeat-x;
+	color: $black;
+	z-index: 2;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: none!important;
+	padding-bottom: 0.20em;
+	font-weight: bold;
+	border-bottom: 0 none!important;
+}

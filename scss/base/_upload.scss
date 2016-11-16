@@ -1,0 +1,88 @@
+//urls
+$url_0: url(images/rup.cancel.png);
+$url_1: url(images/toolbar/borrar.png);
+$url_2: url(images/rup.upload.png);
+$url_3: url(images/rup.file.png);
+$url_4: url(images/rup.download.png);
+
+.fileupload-buttonbar {
+	border-top: medium none;
+	border-left: medium none;
+	border-right: medium none;
+	padding-left: 0;
+	.ui-button {
+	}
+	span {
+		&.ui-icon-cancel {
+			background: transparent $url_0 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+		&.ui-icon-trash {
+			background: transparent $url_1 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+		&.ui-icon-circle-arrow-e {
+			background: transparent $url_2 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+	}
+}
+.fileupload-content {
+	.file_icon {
+		background-image: $url_3;
+		width: 15px;
+	}
+	.file_download {
+		margin-top: 0.5em;
+	}
+	.file_download_icon {
+		background-image: $url_4;
+		width: 15px;
+		margin-top: 0.5em;
+		padding-left: 12px;
+	}
+	.file_download_text {
+		margin-left: 0.5em;
+		text-decoration: underline;
+	}
+	.ui-progressbar {
+		height: 15px;
+		margin-top: 0.5em;
+	}
+	.izq_float {
+		float: left;
+		margin-right: 1em;
+		margin-bottom: 0.5em;
+	}
+	button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span {
+		&.ui-button-text {
+		}
+		&.ui-icon-circle-arrow-e {
+			background: transparent $url_2 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+		&.ui-icon-cancel {
+			background: transparent $url_0 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+		&.ui-icon-trash {
+			background: transparent $url_1 no-repeat !important;
+			width: 16px;
+			height: 16px;
+		}
+	}
+	&.ui-widget-content.ui-corner-bottom {
+		border-top: medium none;
+		border-left: medium none;
+		border-right: medium none;
+		//Instead of the line below you could use @include border-bottom-right-radius($radius)
+		border-bottom-right-radius: 0;
+		//Instead of the line below you could use @include border-bottom-left-radius($radius)
+		border-bottom-left-radius: 0;
+	}
+}

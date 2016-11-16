@@ -1,0 +1,158 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+ //colors
+ $color_alto_approx: #dadada;
+ $color_science_blue_approx: #0052c7;
+ $blue: blue;
+ $color_black_haze_approx: #f7f7f7;
+ $color_silver_chalice_approx: #ababab;
+ $black: #000000;
+
+ //fonts
+ $font_0: Arial;
+ $font_1: Helvetica;
+ $font_2: sans-serif;
+
+ //urls
+ $url_0: url(images/rup.dropdown.gif);
+ $url_1: url(images/rup.close.png);
+ $url_2: url(images/rup.close_hover.png);
+
+ .rup-language_root {
+ 	font-family: $font_0, $font_1, $font_2;
+ 	border-top: 1px solid $color_alto_approx;
+ 	position: relative;
+ 	width: 100%;
+ 	line-height: 2em;
+ 	float: left;
+ 	margin-bottom: 0.7em;
+ 	div {
+ 		z-index: 900;
+ 	}
+ 	a {
+ 		color: $color_science_blue_approx;
+ 	}
+ 	li {
+ 		float: left;
+ 		margin-right: 1em;
+ 		list-style-type: none;
+ 	}
+ 	ul {
+ 		margin: 0;
+ 	}
+ 	.ui-state-active {
+ 		color: $color_science_blue_approx;
+ 		border: none;
+ 		font-weight: bold;
+ 		a:link {
+ 			text-decoration: none;
+ 		}
+ 	}
+ }
+ .rup-language_close_languages {
+ 	float: right;
+ 	background-image: $url_1;
+ 	background-repeat: no-repeat;
+ 	background-position: right;
+ 	padding-right: 1.8em;
+ 	color: $blue;
+ 	text-decoration: underline !important;
+ 	cursor: pointer;
+ 	&:hover {
+ 		background-image: $url_2;
+ 		text-decoration: none !important;
+ 	}
+ }
+ .rup-language_language_list {
+ 	background-color: $color_black_haze_approx;
+ 	border: 0.1em solid $color_silver_chalice_approx;
+ 	padding-top: 0.6em;
+ 	padding-bottom: 0.6em;
+ 	position: absolute;
+ 	left: 0;
+ 	a {
+ 		&:link {
+ 			text-decoration: none;
+ 		}
+ 		&:focus {
+ 			border-style: dotted;
+ 			border-width: thin;
+ 			outline: none;
+ 		}
+ 	}
+ 	ul {
+ 		li {
+ 			display: block !important;
+ 			float: none !important;
+ 			a:hover {
+ 				color: $black !important;
+ 				font-weight: bold;
+ 				text-decoration: none;
+ 			}
+ 		}
+ 		a:link {
+ 			text-decoration: underline;
+ 		}
+ 	}
+ }
+ .rup_language_link {
+ 	padding-right: 0.1em;
+ }
+ .rup-language_change_option {
+ 	background: $url_0 no-repeat right;
+ 	padding: .2em 2.4em .2em .6em;
+ 	background-color: $color_black_haze_approx;
+ 	border-top: 1px solid $color_silver_chalice_approx;
+ 	border-right: 1px solid $color_silver_chalice_approx;
+ 	border-left: 1px solid $color_silver_chalice_approx;
+ 	color: $black !important;
+ 	line-height: 1.5em;
+ 	position: absolute;
+ 	text-decoration: none;
+ }
+ .rup-language_hidden {
+ 	visibility: hidden;
+ }
+ .rup-language_portal_list {
+ 	float: left;
+ 	padding: 0;
+ 	margin: 0;
+ 	color: $black !important;
+ 	&:HOVER {
+ 		float: left;
+ 		padding: 0;
+ 		margin: 0;
+ 		text-decoration: underline;
+ 		color: $black !important;
+ 	}
+ }
+ .rup-language_portal_list_active {
+ 	float: left;
+ 	padding: 0;
+ 	margin: 0;
+ }
+ .rup-language_portal_separator {
+ 	float: left;
+ 	padding: 0 0.5em;
+ }
+ .rup-language_change a {
+ 	background: $url_0 no-repeat right;
+ 	padding: .2em 2.4em .2em .6em;
+ }
+ .rup-language_portal li {
+ 	margin: 0;
+ }

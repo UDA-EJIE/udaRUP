@@ -1,0 +1,102 @@
+//colors
+$color_torch_red_approx: #f71229;
+$color_quill_gray_approx: #d3d3d3;
+$color_mountain_mist_approx: #999999;
+$color_alto_approx: #dadada;
+$color_log_cabin_approx: #212121;
+
+//urls
+$url_0: url(images/rup.ajaxLoader.gif);
+$url_1: url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png);
+$url_2: url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png);
+
+.ui-tabs {
+	.ui-tabs-panel {
+		border-width: 1px;
+		&.rup-tabs_container {
+			padding: 0.4em;
+		}
+	}
+	.ui-tabs-nav li {
+		a.rup-tabs-link-close {
+			padding: 1px;
+			position: relative;
+			right: 0.3em;
+			top: 50%;
+			width: 19px;
+			&:hover {
+				margin: -1px;
+				cursor: pointer;
+				border: 1px solid $color_mountain_mist_approx;
+				background: $color_alto_approx $url_1 50% 50% repeat-x;
+				color: $color_log_cabin_approx;
+			}
+		}
+		&.ui-tabs-selected.ui-state-active a.rup-tabs-link-close:hover {
+			margin: -1px;
+			cursor: pointer;
+			border: 1px solid $color_mountain_mist_approx;
+			background: $color_alto_approx $url_2 50% 50% repeat-x;
+			color: $color_log_cabin_approx;
+		}
+	}
+}
+.rup-loading_tab_error {
+	font-size: 2em;
+	margin: 1.5em 0.5em 1.5em 0.5em;
+	color: $color_torch_red_approx;
+}
+.rup-tabs_loading {
+	float: left;
+	width: 1.2em;
+	height: 1.2em;
+	margin-left: 0.3em;
+	margin-right: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.rup-tabs_loading_img {
+	vertical-align: middle;
+	background-image: $url_0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	float: right;
+	width: 1.2em;
+	height: 1.2em;
+	margin-left: 0.3em;
+	margin-right: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.rup-tabs_title {
+	float: left;
+}
+.rup-tabs_overflow {
+	overflow: scroll;
+}
+.rup-tabs-close {
+	margin-left: 1px;
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: border-box;
+	float: left;
+}
+.rup-tabs-close-hover {
+	border-style: solid;
+	border-width: 1px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 4px;
+}
+.tabs-bottom .ui-tabs-nav {
+	clear: left;
+	padding: 0 .2em .2em .2em;
+	li {
+		top: auto;
+		margin: 0 .2em 1px 0;
+		border-bottom: 1px solid $color_quill_gray_approx;
+		border-top: 0;
+		&.ui-state-active {
+			margin-top: -1px;
+			padding-top: 1px;
+		}
+	}
+}

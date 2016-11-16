@@ -7,16 +7,16 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- 
+
 /* Autocomplete
 ----------------------------------*/
-.ui-autocomplete { position: absolute; cursor: default;}	
+.ui-autocomplete { position: absolute; cursor: default;}
 .ui-autocomplete-loading { background: white url('images/rup.ajaxLoader.gif') right center no-repeat; }
 
 .ui-autocomplete ul li, .ui-autocomplete li{
@@ -68,5 +68,3 @@ line-height: 1.5;
 .matched-text{
 	font-weight: bold;
 }
-}
- 

@@ -1,0 +1,31 @@
+.ui-accordion{
+
+  .ui-accordion-header{
+    .ui-accordion-header-icon{
+      display: inline-block;
+      background-image: none;
+      overflow: visible;
+      text-indent: 0;
+
+      padding-right: 0.5rem;
+      &:before{
+        @extend %rup-fa;
+        @extend .rup-fa-caret-right;
+
+
+      }
+    }
+
+    &.ui-accordion-header-active{
+      .ui-accordion-header-icon{
+        &:before{
+          @extend %rup-fa;
+          @extend .rup-fa-caret-down;
+
+
+        }
+      }
+    }
+  }
+
+}

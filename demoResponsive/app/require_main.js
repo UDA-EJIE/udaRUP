@@ -32,7 +32,9 @@ requirejs.config({
         "handlebars": "../../node_modules/handlebars/dist/handlebars",
         "handlebars-i18n": "../js/handlebars-helper-i18n",
         "marionette": "../../node_modules/backbone.marionette/lib/backbone.marionette",
+        "chartjs": "../../node_modules/chart.js/dist/Chart",
         "qtip2": "../../node_modules/qtip2/dist/jquery.qtip",
+        "tether": "../../node_modules/tether/dist/js/tether",
         //"highlight": "../../node_modules/highlight.js/lib/highlight",
         "highlight": "../js/highlight.pack",
         "templates": "../templates",
@@ -115,7 +117,10 @@ requirejs.config({
 
         "form2object": "../../src/core/utils/form2object",
         "gridstack": "../../node_modules/gridstack/dist/gridstack",
-        "lodash": "../../node_modules/lodash/lodash"
+        "lodash": "../../node_modules/lodash/lodash",
+        "jquery-jstree": "../../src/core/utils/jquery.jstree",
+        "jquery-hotkeys": "../../src/core/utils/jquery.hotkeys"
+
 
 
 

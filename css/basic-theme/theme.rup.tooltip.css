@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -96,7 +96,7 @@
 
 /*! Add shadows to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE6+, Safari 2+ */
 .ui-tooltip-shadow { -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); }
-.ui-tooltip-shadow .ui-tooltip-titlebar, .ui-tooltip-shadow .ui-tooltip-content { filter: progid : DXImageTransform.Microsoft.Shadow ( Color = 'gray', Direction = 135, Strength = 3 ); -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)";	_margin-bottom: -3px; /* IE6 */ . margin-bottom: -3px; /* IE7 */ }
+.ui-tooltip-shadow .ui-tooltip-titlebar, .ui-tooltip-shadow .ui-tooltip-content { filter: "progid : DXImageTransform.Microsoft.Shadow ( Color = 'gray', Direction = 135, Strength = 3 )"; -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)"; }
 
 /*! Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
 .ui-tooltip-rounded,.ui-tooltip-rounded .ui-tooltip-content,.ui-tooltip-tipsy,.ui-tooltip-tipsy .ui-tooltip-content,.ui-tooltip-youtube,.ui-tooltip-youtube .ui-tooltip-content	{ -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
@@ -105,7 +105,7 @@
 
 /*! Youtube tooltip style */
 .ui-tooltip-youtube { -webkit-box-shadow: 0 0 3px #333; -moz-box-shadow: 0 0 3px #333; box-shadow: 0 0 3px #333; }
-.ui-tooltip-youtube .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-content { _margin-bottom: 0; /* IE6 */ . margin-bottom: 0; /* IE7 */ background: transparent; background: rgba(0, 0, 0, 0.85);	filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white;	border-color: #CCCCCC; }
+.ui-tooltip-youtube .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-content {  background: transparent; background: rgba(0, 0, 0, 0.85);	filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )"; -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white;	border-color: #CCCCCC; }
 .ui-tooltip-youtube .ui-tooltip-icon { border-color: #222; }
 .ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover { border-color: #303030; }
 
@@ -129,7 +129,7 @@
 /* Tipsy style */
 .ui-tooltip-tipsy { border: 0; }
 
-.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content { _margin-bottom: 0; /* IE6 */ . margin-bottom: 0; /* IE7 */ background: transparent; background: rgba(0, 0, 0, .87); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 );	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white; border: 0px transparent; font-size: 11px; font-family: 'Lucida Grande', sans-serif; font-weight: bold; line-height: 16px; text-shadow: 0 1px black; }
+.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content {background: transparent; background: rgba(0, 0, 0, .87); filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white; border: 0px transparent; font-size: 11px; font-family: 'Lucida Grande', sans-serif; font-weight: bold; line-height: 16px; text-shadow: 0 1px black; }
 .ui-tooltip-tipsy .ui-tooltip-titlebar { padding: 6px 35px 0 10; }
 .ui-tooltip-tipsy .ui-tooltip-content { padding: 6px 10; }
 .ui-tooltip-tipsy .ui-tooltip-icon { border-color: #222; text-shadow: none; }

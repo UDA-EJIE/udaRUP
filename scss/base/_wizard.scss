@@ -1,0 +1,167 @@
+//colors
+$color_science_blue_approx: #0052c7;
+$color_cararra_approx: #ebebeb;
+$white: white;
+$color_danube_approx: #69c;
+$color_quill_gray_approx: #d3d3d3;
+$color_storm_dust_approx: #666565;
+$color_silver_approx: #bdbdbd;
+$color_japanese_laurel_approx: green;
+$red: red;
+$blue: blue;
+
+//urls
+$url_0: url(images/wizard/arrow.gif);
+$url_1: url(images/wizard/arrow_current.gif);
+$url_2: url(images/wizard/arrow_done_last.gif);
+$url_3: url(images/wizard/arrow_last.gif);
+$url_4: url(images/wizard/arrow_last_current.gif);
+$url_5: url(images/wizard/prev.png);
+$url_6: url(images/wizard/next.png);
+$url_7: url(images/wizard/submit.png);
+
+.rup-wizard_stepsDescContainer {
+	list-style: none;
+	width: 99%;
+	overflow: hidden;
+	height: 35px;
+}
+.rup-wizard_stepDesc {
+	a {
+		font: arial,helvetica,clean,sans-serif !important;
+		cursor: pointer;
+		color: $color_science_blue_approx;
+		float: left;
+		text-decoration: underline;
+		text-align: center;
+		height: 35px;
+		background: $color_cararra_approx $url_0 no-repeat right top;
+		font-size: 1.09em;
+		padding: 9px 25px 0 10px;
+		display: block;
+		font-style: normal;
+		font-weight: bold;
+		&:hover {
+			text-decoration: none;
+		}
+		&:focus {
+			border-style: none;
+			border-width: thin;
+			outline: none;
+		}
+	}
+	&.current a {
+		color: $white;
+		text-decoration: none;
+		cursor: default;
+		background: $color_danube_approx $url_1 no-repeat right top;
+	}
+	&.visited a {
+		text-decoration: underline;
+		cursor: default;
+		background: $color_cararra_approx $url_2 no-repeat right top;
+	}
+	&.disabled a {
+		color: $color_quill_gray_approx;
+		text-decoration: none;
+		cursor: default;
+	}
+}
+.rup-wizard_lastStepDesc {
+	a {
+		background: $color_cararra_approx $url_3 no-repeat right top;
+	}
+	&.current a {
+		color: $white;
+		text-decoration: none;
+		cursor: default;
+		background: $color_danube_approx $url_4 no-repeat right top;
+	}
+}
+.rup-wizard_prev {
+	margin: 5px;
+	margin-left: 17px;
+	text-decoration: none;
+	color: $color_storm_dust_approx;
+	padding: 7px;
+	padding-left: 37px;
+	float: left;
+	cursor: pointer;
+	background: $color_cararra_approx $url_5 no-repeat left center;
+	border: 1px solid $color_silver_approx;
+	text-align: center;
+	width: 55px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+	&:HOVER {
+		color: $color_storm_dust_approx;
+		text-decoration: underline;
+	}
+}
+.rup-wizard_next {
+	margin: 5px;
+	margin-right: 17px;
+	text-decoration: none;
+	color: $color_storm_dust_approx;
+	padding: 7px;
+	padding-right: 37px;
+	float: right;
+	cursor: pointer;
+	background: $color_cararra_approx $url_6 no-repeat right center;
+	border: 1px solid $color_silver_approx;
+	text-align: center;
+	width: 55px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+	&:HOVER {
+		color: $color_storm_dust_approx;
+		background: $white $url_6 no-repeat right center;
+		text-decoration: underline;
+	}
+}
+.rup-wizard_submitButton {
+	margin: 5px;
+	margin-right: 17px;
+	text-decoration: none;
+	color: $color_storm_dust_approx;
+	padding: 7px;
+	padding-right: 37px;
+	padding-top: 11px;
+	float: right;
+	cursor: pointer;
+	background: $color_cararra_approx $url_7 no-repeat right center;
+	border: 1px solid $color_silver_approx;
+	text-align: center;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+	&:HOVER {
+		color: $color_storm_dust_approx;
+		background: $white $url_7 no-repeat right center;
+		text-decoration: underline;
+	}
+}
+.rup-wizard_tabLevel-0 {
+	margin-left: 1em;
+	color: $color_japanese_laurel_approx;
+}
+.rup-wizard_tabLevel-1 {
+	margin-left: 2em;
+	color: $red;
+}
+.rup-wizard_tabLevel-2 {
+	margin-left: 2.5em;
+	color: $blue;
+}
+.rup-wizard_tabContainerLevel-0 {
+	margin-left: 1em;
+}
+.rup-wizard_tabContainerLevel-1 {
+	margin-left: 2em;
+}
+.rup-wizard_tabContainerLevel-2 {
+	margin-left: 2.5em;
+}
+.rup-wizard_firstStepDesc a {
+}
+.rup-wizard_summary a {
+}

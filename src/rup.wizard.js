@@ -7,24 +7,34 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
-/**                                                                   
+/**
 * @fileOverview Implementa el patrón RUP Wizard.
 * @author EJIE
-* @version 2.4.8                                                                                               
+* @version 2.4.8
 */
-(function ($) {
-	
+( function( factory ) {
+ if ( typeof define === "function" && define.amd ) {
+
+		// AMD. Register as an anonymous module.
+		define( ["jquery","./rup.base" ], factory );
+ } else {
+
+		// Browser globals
+		factory( jQuery );
+ }
+} ( function( $ ) {
+
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
-	
+
     /**
     * Permitir guiar al usuario paso a paso a través de un proceso realizando las tareas dentro de un orden señalado.
     *
@@ -32,15 +42,15 @@
     * @namespace jQuery.rup_wizard
     * @memberOf jQuery
     * @tutorial rup_wizard
-    * @example 
+    * @example
     * var properties = {};
     * $("#id_form").rup_wizard(properties)
     */
 	var rup_wizard = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_wizard", rup_wizard));
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
@@ -50,18 +60,18 @@
         *
         * @name jQuery.rup_wizard#step
         * @param {Integer} step - Identificador del paso que se desea seleccionar.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("step", 1);
-        */ 
+        */
 		step: function(stepNumber) {
-			
+
 			//controlar si está deshabilitado
 			if ($("#stepDesc" + stepNumber).hasClass("disabled")){
 				return false;
 			}
-			
+
 			var currentId = $("#steps li.current").attr("id");
-			
+
 			//Gestionar cabeceras
 			$("#steps li").removeClass("current");
             $("#stepDesc" + stepNumber).addClass("current");
@@ -70,11 +80,11 @@
 	            if (stepNumber != 0){
 	            	$("#stepDesc" + (stepNumber-1)).addClass("visited");
 	            }
-            
+
             //Gestionar capas
             $("#step" + currentId.substring(8)).hide();
             $("#step" + stepNumber).show();
-            
+
             //Gestionar submitButton
             if (!this.rup_wizard("isCurrentStepLast")){
             	$(".rup-wizard_submitButton").hide();
@@ -90,9 +100,9 @@
         * Selecciona el primer paso del asistente.
         *
         * @name jQuery.rup_wizard#first
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("first");
-        */ 
+        */
 		first: function(){
 			this.rup_wizard("step",0);
 		},
@@ -100,9 +110,9 @@
         * Selecciona el último paso del asistente.
         *
         * @name jQuery.rup_wizard#last
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("last");
-        */ 
+        */
 		last: function(){
 			this.rup_wizard("step", $("#steps").children().size()-1);
 		},
@@ -111,9 +121,9 @@
         *
         * @name jQuery.rup_wizard#getCurrentStep
         * @return {Integer} - Número de paso actual.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("getCurrentStep");
-        */ 
+        */
 		getCurrentStep: function(){
 			return parseInt($("#steps li.current").attr("id").substring(8));
 		},
@@ -123,9 +133,9 @@
         * @name jQuery.rup_wizard#isCurrentStep
         * @param {Integer} step - Número de paso.
         * @return {boolean} - Devuelve true en caso de que el paso indicado sea el actual y false en caso de que no.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("isCurrentStep", 2);
-        */ 
+        */
 		isCurrentStep: function(i){
 			return (this.rup_wizard("getCurrentStep")===i);
 		},
@@ -134,9 +144,9 @@
         *
         * @name jQuery.rup_wizard#isCurrentStepFirst
         * @return {boolean} - Devuelve true en caso de que el último paso sea el activo y false en caso de que no.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("isCurrentStepFirst");
-        */ 
+        */
 		isCurrentStepFirst: function(){
 			return this.rup_wizard("isCurrentStep",0);
 		},
@@ -145,9 +155,9 @@
         *
         * @name jQuery.rup_wizard#isCurrentStepLast
         * @return {boolean} - Devuelve true en caso de que el primer paso sea el activo y false en caso de que no.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("isCurrentStepLast");
-        */ 
+        */
 		isCurrentStepLast: function(){
 			return ($("#steps").children().size()-1 === this.rup_wizard("getCurrentStep"));
 		},
@@ -156,7 +166,7 @@
         *
         * @name jQuery.rup_wizard#isCurrentStepSummary
         * @return {boolean} - Devuelve true en caso de que el paso activo sea el del resumen y false en caso de que no.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("isCurrentStepSummary");
         */
 		isCurrentStepSummary: function(){
@@ -167,7 +177,7 @@
         *
         * @name jQuery.rup_wizard#enableStep
         * @param {Integer} step - Numero que identifica el paso que deseamos habilitar.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("enableStep", 2);
         */
 		enableStep: function(stepNumber){
@@ -178,7 +188,7 @@
         *
         * @name jQuery.rup_wizard#disableStep
         * @param {Integer} step - Numero que identifica el paso que deseamos deshabilitar.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("disableStep", 2);
         */
 		disableStep: function(stepNumber){
@@ -190,14 +200,14 @@
         * @name jQuery.rup_wizard#isStepDisabled
         * @param {Integer} step - Numero que identifica el paso que deseamos deshabilitar.
         * @return {boolean} - Devuelve true si el paso indicado está deshabilitado y false en caso de que no.
-        * @example 
+        * @example
         * $("#idForm").rup_wizard("isStepDisabled", 2);
         */
 		isStepDisabled: function(stepNumber){
 			return $("#stepDesc" + stepNumber).hasClass("disabled");
-		} 
+		}
 	});
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
@@ -208,12 +218,13 @@
 				} else {
 					var settings = $.extend({}, $.fn.rup_wizard.defaults, args[0]),
 						rupWizard = this; //referencia
-					
+
+          this.addClass("rup-wizard");
 					this._formToWizard(settings);
-					
+
 					//Contenedor (UL)
 					$("#steps").addClass("rup-wizard_stepsDescContainer");
-					
+
 					//Paso (LI)
 					$("#steps").children().each( function(index, element){
 						$(element)
@@ -237,7 +248,7 @@
 						$(span).text((index+1) + ". " + $(span).text());
 						$(element).text("").append(span);
 					});
-					
+
 					//Botones Anterior/Siguiente
 					$("p[id$='commands'] .prev")
 						//Estilo
@@ -245,8 +256,8 @@
 						//Texto
 						.text($.rup.i18nParse($.rup.i18n.base,"rup_wizard.prev"))
 						//Evento 'click'
-						.unbind('click').click(function(event){ 
-							//Paso anterior 
+						.unbind('click').click(function(event){
+							//Paso anterior
 							rupWizard._gotoPrevStep(rupWizard, settings, event);
 						});
 					$("p[id$='commands'] .next")
@@ -255,21 +266,21 @@
 						//Texto
 						.text($.rup.i18nParse($.rup.i18n.base,"rup_wizard.next"))
 						//Evento 'click'
-						.unbind('click').click(function(event){ 
+						.unbind('click').click(function(event){
 							//Siguiente paso
 							rupWizard._gotoNextStep(rupWizard, settings, event);
 						});
-					
+
 					//Estilo botón submit (sirve de ID)
 					$("#" + settings.submitButton).addClass("rup-wizard_submitButton");
 					if (settings.submitFnc){
 						$("#" + settings.submitButton).click(settings.submitFnc);
 					}
-					
+
 					//Estilos firstStep y finalStep
 					$("#steps li:first").addClass("rup-wizard_firstStepDesc");
 					$("#steps li:last").addClass("rup-wizard_lastStepDesc");
-					
+
 					//Paso de RESUMEN
 					if (settings.summary){
 						//Cabecera
@@ -278,35 +289,37 @@
 							stepDesc = $("<li>")
 											.attr("id", "stepDesc" + stepNumber)
 											.addClass("rup-wizard_stepDesc rup-wizard_summary rup-wizard_lastStepDesc")
-											.append("<a href='#'>"+(stepNumber+1)+". "+$.rup.i18nParse($.rup.i18n.base,"rup_wizard.summary")+"</a>")
-											.click(function (){
+											.append("<a>"+(stepNumber+1)+". "+$.rup.i18nParse($.rup.i18n.base,"rup_wizard.summary")+"</a>")
+											.click(function (event){
 												//Paso final
 												$(this).rup_wizard("step", $(this).attr("id").substring(8));
 												//Resumen
 												rupWizard._generateSummary(stepNumber, rupWizard, settings);
+                        event.preventDefault();
 											});
 						$("#steps").append(stepDesc);
-						
+
 						//Capa
 						if (stepNumber > 1){
 							$("div[id='step"+(stepNumber-1)+"']").after("<div id='step"+stepNumber+"' style='display: none;'/>");
-							
+
 							//Añadir botón siguiente anteúltimo paso
 							var nextButton = $("<a>")
 								.attr("id", "step" + (stepNumber-1) + "Next")
 								.html($.rup.i18nParse($.rup.i18n.base,"rup_wizard.next"))
 								.addClass("rup-wizard_next")
-								.unbind('click').click(function(event){ 
+								.unbind('click').click(function(event){
 									//Siguiente paso
 									rupWizard._gotoNextStep(rupWizard, settings, event);
 									//Resumen
 									rupWizard._generateSummary(stepNumber, rupWizard, settings);
+                  event.preventDefault();
 								});
 							$("#step" + (stepNumber-1) + "commands").append(nextButton);
 						}
-						
+
 					}
-					
+
 					//Disabled
 					if (settings.disabled !== undefined){
 						$.each(settings.disabled, function(index, element){
@@ -322,7 +335,7 @@
 						});
 					}
 				}
-				
+
 				//Ir al paso inicial
 				this.rup_wizard("step",0);
 			},
@@ -371,10 +384,10 @@
 						nextStep);
 			},
 			_gotoPrevStep : function (rupWizard, settings, event){
-				
+
 				//Obtener paso anterior
-				var prevStep = parseInt($("#steps li.current").attr("id").substring(8))-1;					
-				
+				var prevStep = parseInt($("#steps li.current").attr("id").substring(8))-1;
+
 				//Comprobar que no está deshabilitado (o buscar el anterior habilitado)
 				if (rupWizard.isStepDisabled(prevStep)){
 					prevStep = $("#stepDesc"+(prevStep+1)).prevAll("li:not(.disabled)").first().attr("id");
@@ -384,7 +397,7 @@
 						return false;
 					}
 				}
-				
+
 				//Invocar f(x) del paso (si existe)
 				if (settings.stepFnc[prevStep] !== undefined){
 					if (settings.stepFnc[prevStep].call() === false){
@@ -392,12 +405,12 @@
 						return false;
 					}
 				}
-				
+
 				//Cambiar de paso
 				$("#stepDesc"+prevStep).rup_wizard("step", prevStep);
 			},
 			_generateSummary : function (stepNumber, rupWizard, settings){
-				
+
 				//controlar si está deshabilitado
 				if ($("#stepDesc" + stepNumber).hasClass("disabled")){
 					return false;
@@ -405,45 +418,45 @@
 
 				//Devolver botón submit a su lugar
 				$("#step" + stepNumber).parent().append($(".rup-wizard_submitButton"));
-				
+
 				/** DEVELOPER SummaryFnc_PRE **/
 				if (settings.summaryFnc_PRE && settings.summaryFnc_PRE.call() === false){
 					return false;
 				}
-				
+
 				//Reiniciar capa (si hacemos .empty() no funciona accordion la segunda vez)
 				$("#step"+stepNumber).remove();
 				$("div[id='step"+(stepNumber-1)+"']").after("<div id='step"+stepNumber+"' style='display: none;'/>");
-				
-				
+
+
 				//Copiar capas anteriores
 				for (var i=0; i<stepNumber; i++){
 					if (!rupWizard.isStepDisabled(i)){//Comprobar pasos deshabilitados
 						$("#step"+stepNumber).append($("#step"+i).children().clone());
 					}
 				}
-				
+
 				//Eliminar botones
 				$("#step"+stepNumber+" p[id$='commands']").remove();
-				
+
 				//Botón anterior
 				$("div[id='step"+(stepNumber)+"'] fieldset:last").append("<p id='step" + stepNumber + "commands'></p>");
 				var prevButton = $("<a>")
 									.attr("id", "step" + stepNumber + "Prev")
 									.html($.rup.i18nParse($.rup.i18n.base,"rup_wizard.prev"))
 									.addClass("rup-wizard_prev")
-									.unbind('click').click(function(event){ 
-										//Paso anterior 
+									.unbind('click').click(function(event){
+										//Paso anterior
 										rupWizard._gotoPrevStep(rupWizard, settings, event);
 									});
 				$("#step" + stepNumber + "commands").append(prevButton);
-				
-				
+
+
 				/** DEVELOPER SummaryFnc_INTER **/
 				if (settings.summaryFnc_INTER && settings.summaryFnc_INTER.call() === false){
 					return false;
 				}
-				
+
 				//RUP_MULTICOMBO
 				$("#step"+stepNumber+" .ui-multiselect").each( function() {
 					var selectObj = $("#"+$(this).prev().attr('id'));
@@ -468,7 +481,7 @@
 						$(this).remove();
 					}
 				});
-				
+
 				//Gestionar INPUTS
 				$("#step"+stepNumber+" input").each( function() {
 					if (this.type === "text"){
@@ -497,26 +510,26 @@
 					}
 					$(this).remove();
 				});
-				
+
 				//Gestionar TEXTAREAS
 				$("#step"+stepNumber+" textarea").each( function() {
 					$(settings.textareaElement, { text: $("#"+$(this).attr("id")).val(), "class":"rup-wizard_summaryParagraph" }).insertAfter(this);
 					$(this).remove();
 				});
-				
+
 				//Gestionar SELECTS
 				$("#step"+stepNumber+" select:not('.ui-pg-selbox')").each( function() {
 				   $(settings.labelElement, { text: ($("#"+this.id+" option:selected").text()!=="&nbsp;")?$("#"+this.id+" option:selected").text():"", "class":"rup-wizard_summaryValue" }).insertAfter(this);
 				   $(this).remove();
 				});
-				
+
 				//Gestionar LABELS
 				$("#step"+stepNumber+" label").each( function() {
 					$(settings.labelSeparatorElement, { html: settings.labelSeparatorText, "class":"rup-wizard_separator" }).insertAfter(this);
 					$(settings.labelElement, { text: this.innerHTML, "class":"rup-wizard_summaryLabel" }).insertAfter(this);
 					$(this).remove();
 				});
-				
+
 				//Gestionar componentes RUP
 					//rup_accordion
 					$("#step"+stepNumber+" .ui-accordion").each( function() {
@@ -530,43 +543,43 @@
 							$(this).rup_accordion(settings.rupAccordion);
 						}
 					});
-			
+
 					//rup_combo (multicombo se procesa antes)
 					$("#step"+stepNumber+" .rup_combo").each( function() {
 						$(this).remove();
 					});
-					
+
 					//rup_date
 					$("#step"+stepNumber+" img.ui-datepicker-trigger").each( function() {
 						$(this).remove();
 					});
-					
-					//rup_time					
+
+					//rup_time
 					$("#step"+stepNumber+" img.ui-timepicker-trigger").each( function() {
 						$(this).remove();
 					});
-					
+
 					//rup_tabs
 					var maxLevel = 0; //Control de estilos cuando las pestañas pasan a accordion
 					if (settings.summaryTabs2Accordion){
 						settings.rupTabsElement = "<a />";
 					}
 					$("#step"+stepNumber+" > fieldset").children(".rup-tabs_container").each( function() {
-						
+
 						var labelTabs = new Array(),
 							idTabs = new Array(),
 							fieldset = $(this).parent().attr("accordionable",true), //Donde se deben anidar las pestañas
 							containerTab = new Array();
-						
+
 						//Obtención de valores/ids de pestañas (labelTabs & idTabs)
 						rupWizard._getRupTabs(rupWizard, $(this), labelTabs, idTabs);
-						
+
 						//Procesar pestañas
 						var tab = null,
 							pointer = $(fieldset);
 						for (var i=0; i<labelTabs.length; i++){
 							tab = $(settings.rupTabsElement).text(labelTabs[i]); //LABEL pestaña
-							if (idTabs[i].indexOf("rupRandomLayerId")!==-1){ 
+							if (idTabs[i].indexOf("rupRandomLayerId")!==-1){
 								//Es pestaña
 								tab = $(tab).wrap("<div class='IE8_fix'>");
 									tab = $(tab).parent().append($(this).find(idTabs[i]).html());
@@ -588,7 +601,7 @@
 								pointer = $("#subtab_"+labelTabs[i]);
 								continue;
 							}
-							
+
 							//Comprobamos si es subelemento
 							if ($("#"+containerTab[containerTab.length-1]).find(idTabs[i]).length === 0){
 								//No es subpestaña, se debe mover el puntero de dónde se deba añadir la capa
@@ -604,13 +617,13 @@
 										$($(tab).get(1)).removeAttr("class").addClass("rup-wizard_tabLevel-"+containerTab.length);
 									}
 								} while (containerTab.length>0);
-							} 
-							
+							}
+
 							//Añadir la capa
 							$(pointer).append(tab);
 						}
-						
-						
+
+
 						// rup_table
 						$("#step"+stepNumber+" .rup-table-container").each( function() {
 						    var $table = $(this);
@@ -621,7 +634,7 @@
 
 						});
 
-						
+
 						//h1 a /h1 para Pesatañas
 						if (settings.summaryTabs2Accordion){
 							$(fieldset).find("a").each(function(){
@@ -630,14 +643,14 @@
 								}
 							});
 						}
-						
+
 						//Eliminar contenedor
 						$(this).remove();
 					});
-					
+
 				//summaryWithAccordion
 				if (settings.summaryWithAccordion){
-					
+
 					//Convertir estructura
 					$("#step"+stepNumber).find("legend").each( function(index, element) {
 						//legend -> h1 a /h1
@@ -652,24 +665,24 @@
 								.attr("accordionable", $(element).parent().attr("accordionable")===undefined?false:true)
 								.append($(element).parent().children())
 						);
-						
+
 						//remove legend
 						$(element).remove();
 					});
-				
+
 					//convertir en rup-accordion
 					if ($.isEmptyObject(settings.summaryAccordion)){
 						$("#step"+stepNumber).rup_accordion(settings.accordion);
 					} else {
 						$("#step"+stepNumber).rup_accordion(settings.summaryAccordion);
 					}
-					
+
 					//Botón anterior (sacar de accordion)
 					$("<fieldset />")
-						.attr("id", "commands_fieldset")
+						.attr("id", "commands_fieldset").addClass("commands-fieldset")
 						.append($("#step"+stepNumber).find("p[id='step"+(stepNumber)+"commands']"))
 						.appendTo($("#step"+stepNumber));
-					
+
 					//Espacio para separarlo de los pasos
 					if (settings.summaryWithAccordionSpaceBefore){
 						$("#step"+stepNumber).prepend("</br>");
@@ -679,7 +692,7 @@
 						$("#commands_fieldset").prepend("</br>");
 					}
 				}
-				
+
 				//tabs2Accordion
 				if (settings.summaryTabs2Accordion){
 					//Eliminar estilos para no accordion
@@ -687,7 +700,7 @@
 						$(".rup-wizard_tabLevel-"+i).removeClass("rup-wizard_tabLevel-"+i);
 						$(".rup-wizard_tabContainerLevel-"+i).removeClass("rup-wizard_tabContainerLevel-"+i);
 					}
-					
+
 					$("[accordionable=true]").each( function(index, element) {
 						if (element.nodeName === "FIELDSET"){
 							var legend = $(element).find("legend")[0],
@@ -695,21 +708,21 @@
 								object = $("<div />")
 									.attr("accordionable", $(element).attr("accordionable")===undefined?false:true)
 									.append($(element).children());
-							
+
 							//Cambiar estructura
 							$(element).replaceWith(object);
-							
+
 							//Eliminar extras (LEGEND y BOTONES)
 							$(legend).remove();
 							$(buttons).remove();
-							
+
 							//Accordion
 							if ($.isEmptyObject(settings.tabAccordion)){
 								$(object).rup_accordion(settings.accordion);
 							} else {
 								$(object).rup_accordion(settings.tabAccordion);
 							}
-							
+
 							//Restablecer extras (LEGEND y BOTONES)
 							$(object).prepend(legend);
 							$(object).append($("<fieldset />").append(buttons));
@@ -722,21 +735,21 @@
 						}
 					});
 				}
-				
+
 				//Eliminar posibles atributos y estilos extra
 				$("[accordionable]").removeAttr("accordionable");
-				
+
 				//Mover botón submit
 				$("#step" + stepNumber).find("p[id$='commands']").append($(".rup-wizard_submitButton"));
-				
+
 				//Mostrar paso
 				$("#step"+stepNumber).show();
-				
+
 				/** DEVELOPER SummaryFnc_POST **/
 				if (settings.summaryFnc_POST){
 					settings.summaryFnc_POST.call();
 				}
-				
+
 			},
 			_getRupTabs: function(rupWizard, object, labelTabs, idTabs){
 				//Recorrer los enlaces a pestañas
@@ -745,11 +758,11 @@
 					if ($.inArray(element.innerHTML, labelTabs) !== -1){
 						return;
 					}
-					
-					//Obtener ID y LABEL 
+
+					//Obtener ID y LABEL
 					idTabs.push($(element).parent().attr("href"));
 					labelTabs.push(element.innerHTML);
-					
+
 					//Es un contenedor de pestañas (llamada recursiva para pre-procesar los hijos)
 					if (idTabs[idTabs.length-1].substring(1) === labelTabs[labelTabs.length-1]){
 						rupWizard._getRupTabs(rupWizard, $("#"+labelTabs[labelTabs.length-1]), labelTabs, idTabs);
@@ -759,19 +772,19 @@
 			_hidePassword : function (password){
 				var value = '';
 				for (var i=0; i<password.length; i++){
-					value += '*'; 
+					value += '*';
 				}
 				return value;
 			},
 			/* Created by jankoatwarpspeed.com */ //http://www.jankoatwarpspeed.com/post/2009/09/28/webform-wizard-jquery.aspx
 			//Modificaciones:
 			//	- SPAN por A en los pasos para poder navegar con el tabulador
-				
+
 			_formToWizard : function(options) {
-		        options = $.extend({  
-		            submitButton: "" 
-		        }, options); 
-		        
+		        options = $.extend({
+		            submitButton: ""
+		        }, options);
+
 		        var element = this;
 
 		        var steps = $(element).find("fieldset");
@@ -788,7 +801,7 @@
 
 		            // 2
 		            var name = $(this).find("legend").html();
-		            $("#steps").append("<li id='stepDesc" + i + "'>Step " + (i + 1) + "<a href='#'>" + name + "</a></li>");
+		            $("#steps").append("<li id='stepDesc" + i + "'>Step " + (i + 1) + "<a>" + name + "</a></li>");
 
 		            if (i == 0) {
 		                createNextButton(i);
@@ -807,19 +820,20 @@
 
 		        function createPrevButton(i) {
 		            var stepName = "step" + i;
-		            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev'>< Back</a>");
+		            $("#" + stepName + "commands").append("<a id='" + stepName + "Prev' class='prev'>< Back</a>");
 
 		            $("#" + stepName + "Prev").bind("click", function(e) {
 		                $("#" + stepName).hide();
 		                $("#step" + (i - 1)).show();
 		                $(submmitButtonName).hide();
 		                selectStep(i - 1);
+                    e.preventDefault();
 		            });
 		        }
 
 		        function createNextButton(i) {
 		            var stepName = "step" + i;
-		            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next'>Next ></a>");
+		            $("#" + stepName + "commands").append("<a id='" + stepName + "Next' class='next'>Next ></a>");
 
 		            $("#" + stepName + "Next").bind("click", function(e) {
 		                $("#" + stepName).hide();
@@ -827,6 +841,7 @@
 		                if (i + 2 == count)
 		                    $(submmitButtonName).show();
 		                selectStep(i + 1);
+                    e.preventDefault();
 		            });
 		        }
 
@@ -837,9 +852,9 @@
 
 		    }
 		});
-		
+
 	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 	$.fn.rup_wizard.defaults = {
 		summary : true,
@@ -862,55 +877,55 @@
 		labelSeparatorElement : "<span />",
 		labelSeparatorText : "&nbsp;&nbsp;&nbsp;",
 		textareaElement : "<p />"
-	};	
+	};
 
 /**
 * Función de callback que se ejecuta previamente al envío del formulario.
 *
-* @callback jQuery.rup_validate~onSubmitFnc  
-* @example 
+* @callback jQuery.rup_validate~onSubmitFnc
+* @example
 * $("#idForm").rup_wizard({
 *   submitFnc: function(){
 *   }
 * });
 */
-    
+
 /**
 * Función de callback que se invocará previamente a la generación del paso.
 *
-* @callback jQuery.rup_validate~onSummaryFnc_PRE  
+* @callback jQuery.rup_validate~onSummaryFnc_PRE
 * @return {boolean} - En caso de devolver false no se generaría el resumen.
-* @example 
+* @example
 * $("#idForm").rup_wizard({
 *   summaryFnc_PRE: function(){
 *   }
 * });
 */
-    
+
 /**
 * Función de callback que se ejecuta una vez ha comenzado la generación del paso resumen.
 *
-* @callback jQuery.rup_validate~onSummaryFnc_INTER  
+* @callback jQuery.rup_validate~onSummaryFnc_INTER
 * @return {boolean} - En caso de devolver false no se continuaría con el procesado del contenido de los pasos
-* @example 
+* @example
 * $("#idForm").rup_wizard({
 *   summaryFnc_INTER: function(){
 *   }
 * });
 */
-    
+
 /**
 * Función de callback que se invocará una vez se ha generado el paso resumen.
 *
 * @callback jQuery.rup_validate~onSummaryFnc_POST
-* @example 
+* @example
 * $("#idForm").rup_wizard({
 *   summaryFnc_POST: function(){
 *   }
 * });
 */
-    
-/**                                                                         
+
+/**
 * @description Propiedades de configuración del componente.
 *
 * @name jQuery.rup_wizard#options
@@ -923,7 +938,7 @@
 * @property {boolean} [summaryWithAccordionSpaceAfter=true] - Indica si cuando se genera un resumen con los diferentes pasos presentados con accordion, se debe dejar un espacio (</br>) entre el contenido y el contenedor de botones (siguiente y enviar).
 * @property {boolean} [summaryTabs2Accordion=false] - Indica si los componentes rup_tab de los diferentes pasos del wizard se deben convertir en elementos del componente accordion a la hora de generar el paso resumen.
 * @property {jQuery.rup_validate~onSummaryFnc_PRE} [summaryFnc_PRE] - Función que se invocará previamente a la generación del paso resumen. En caso de devolver false no se generaría el resumen.
-* @property {jQuery.rup_validate~onSummaryFnc_INTER} [summaryFnc_INTER] -Función que se ejecuta una vez ha comenzado la generación del paso resumen. Se habrá generado la capa contenedora y duplicado el contenido de los pasos anteriores pero sin llegar a procesarse (cambiarse por texto plano). En caso de devolver false no se continuaría con el procesado del contenido de los pasos. 
+* @property {jQuery.rup_validate~onSummaryFnc_INTER} [summaryFnc_INTER] -Función que se ejecuta una vez ha comenzado la generación del paso resumen. Se habrá generado la capa contenedora y duplicado el contenido de los pasos anteriores pero sin llegar a procesarse (cambiarse por texto plano). En caso de devolver false no se continuaría con el procesado del contenido de los pasos.
 * @property {jQuery.rup_validate~onSummaryFnc_POST} [summaryFnc_POST] - Función que se ejecuta una vez se ha generado el paso resumen.
 * @property {object} [stepFnc] - Objeto json que contiene las diferentes funciones a ejecutar al navegar hacia cada uno de los pasos. En caso de devolver false no se continuaría la navegación hacia dicho paso. La clave de cada elemento será el número del paso y el valor será la función a ejecutar.
 * @property {Integer[]} [disabled] - Array que indica los pasos a deshabilitar al inicio. En caso de que el elemento del array sea un número (numeric) se deshabilitará dicho paso y en caso de que sea un literal (string) se procesará como un intervalo que deberá definirse como “X-Y”.
@@ -937,5 +952,5 @@
 * @property {string} [labelSeparatorText=&nbsp;&nbsp;&nbsp;] - Indica el contenido del objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
 * @property {string} [textareaElement=<p/>] - Indica el tipo de objeto HTML en el que se convierten los objetos textarea en el paso de resumen.
 */
-	
-})(jQuery);
+
+}));

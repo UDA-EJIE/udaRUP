@@ -18,7 +18,14 @@ define(["marionette",
         "components/accordion/accordionView",
         "components/slider/sliderView",
         "components/spinner/spinnerView",
+        "components/upload/uploadView",
+        "components/validate/validateView",
+        "components/chart/chartView",
+        "components/tree/examples/treeView",
+        "components/tree/dragDrop/treeDragDropView",
         "components/tabs/tabsStaticView",
+        "components/wizard/simple/wizardSimpleView",
+        "components/wizard/dynamic/wizardDynamicView",
         "components/combo/comboSimple/comboSimpleView",
         "table/tableFilterView",
         "responsiveGrid/stackedHorizontal/stackedHorizontalView",
@@ -28,8 +35,9 @@ define(["marionette",
 
       ], function(Marionette, MainView, Bootstrap, IndexView, StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
               MessageView, DialogView, ProgressbarView, ContextMenuView, ButtonView, ToolbarView, DateView,
-              FormView, TimeView, AccordionView, SliderView, SpinnerView, TabsStaticView,
-              ComboSimpleView,
+              FormView, TimeView, AccordionView, SliderView, SpinnerView, UploadView, ValidateView, ChartView,
+              TreeView, TreeDragDropView, TabsStaticView,
+              WizardSimpleView, WizardDynamicView, ComboSimpleView,
               TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView, DashboardView){
 
     var RupResponsiveDemoApp = new Marionette.Application();
@@ -53,7 +61,14 @@ define(["marionette",
         'accordion' : 'accordion',
         'slider' : 'slider',
         'spinner' : 'spinner',
+        'upload' : 'upload',
+        'validate' : 'validate',
+        'chart' : 'chart',
+        'treeExamples' : 'treeExamples',
+        'treeDragDrop' : 'treeDragDrop',
         'tabsStatic' : 'tabsStatic',
+        'wizardSimple' : 'wizardSimple',
+        'wizardDynamic' : 'wizardDynamic',
         'comboSimple' : 'comboSimple',
         'tableFilter' : 'tableFilter',
         'stackedHorizontal': 'stackedHorizontal',
@@ -116,8 +131,32 @@ define(["marionette",
         spinner: function(){
           RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
         },
+        upload: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new UploadView());
+        },
+        validate: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ValidateView());
+        },
+        chart: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ChartView());
+        },
+        treeExamples: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TreeView());
+        },
+        treeDragDrop: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TreeDragDropView());
+        },
+        spinner: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
+        },
         tabsStatic: function(){
           RupResponsiveDemoApp.mainView.Container.show(new TabsStaticView());
+        },
+        wizardSimple: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new WizardSimpleView());
+        },
+        wizardDynamic: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new WizardDynamicView());
         },
         comboSimple: function(){
           RupResponsiveDemoApp.mainView.Container.show(new ComboSimpleView());

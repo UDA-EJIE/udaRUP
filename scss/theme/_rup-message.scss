@@ -1,0 +1,84 @@
+%rup-message_icon{
+  @extend %rup-fa;
+    background-image:none;
+    height: auto;
+    padding-top: 0.4em;
+    margin-left: 0.4em;
+    margin-right: 0;
+    font-size: $rup-fa-size-lg;
+}
+
+.rup-message{
+  .ui-dialog-titlebar{
+    background: $rup-color-message-header-bg;
+
+    .ui-dialog-title{
+      color: $rup-color-message-header-text;
+    }
+  }
+
+  &.rup-message-error{
+    .ui-dialog-titlebar{
+      background: $rup-color-message-error-header-bg;
+
+      .ui-dialog-title{
+        color: $rup-color-message-error-header-text;
+      }
+    }
+  }
+
+  &.rup-message-ok{
+    .ui-dialog-titlebar{
+      background: $rup-color-message-ok-header-bg;
+
+      .ui-dialog-title{
+        color: $rup-color-message-ok-header-text;
+      }
+    }
+  }
+
+  &.rup-message-alert{
+    .ui-dialog-titlebar{
+      background: $rup-color-message-alert-header-bg;
+
+      .ui-dialog-title{
+        color: $rup-color-message-alert-header-text;
+      }
+    }
+  }
+
+  &.rup-message-confirm{
+    .ui-dialog-titlebar{
+      background: $rup-color-message-confirm-header-bg;
+
+      .ui-dialog-title{
+        color: $rup-color-message-confirm-header-text;
+      }
+    }
+  }
+
+  .rup-message_icon-ok{
+    @extend %rup-message_icon;
+    color: $rup-color-message-ok-icon;
+    @extend .rup-fa-ok;
+  }
+
+  .rup-message_icon-alert{
+    @extend %rup-message_icon;
+    color: $rup-color-message-alert-icon;
+    @extend .rup-fa-warning;
+  }
+
+  .rup-message_icon-error{
+    @extend %rup-message_icon;
+    color: $rup-color-message-error-icon;
+    @extend .rup-fa-error;
+  }
+
+  .rup-message_icon-confirm{
+    @extend %rup-message_icon;
+    color: $rup-color-message-confirm-icon;
+    @extend .rup-fa-confirm;
+  }
+
+}

@@ -1,0 +1,19 @@
+// Colors
+
+$rup-color-white: #ffffff;
+$rup-color-black: #000000;
+
+$rup_color-gray: #7f9db9;
+
+$rup-link-color:            #0052c7;
+$rup-link-decoration:       underline !default;
+$rup-link-hover-color:      #0052c7 !default;
+$rup-link-hover-decoration: none !default;
+
+// autocomplete
+
+$rup-autocomplete-input-bg: $rup-color-white;
+$rup-autocomplete-loading-bg-url: url(images/rup.ajaxLoader.gif);
+$rup-autocomplete-loading-bg: $rup-color-white $rup-autocomplete-loading-bg-url right center no-repeat;
+$rup-autocomplete-label-border: 0.5px solid $rup_color-gray;
+$rup-autocomplete-label-icon-url: url(images/rup.autocomplete.png);

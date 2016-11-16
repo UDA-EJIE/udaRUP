@@ -1,0 +1,172 @@
+//colors
+$color_white_rock_approx: #ece9d8;
+$blue: #0000ff;
+
+//urls
+$url_0: url(images/toolbar/borrar.png);
+$url_1: url(images/toolbar/borrar_disabled.png);
+$url_2: url(images/toolbar/buscar.png);
+$url_3: url(images/toolbar/buscar_disabled.png);
+$url_4: url(images/toolbar/cancelar.png);
+$url_5: url(images/toolbar/cancelar_disabled.png);
+$url_6: url(images/toolbar/editar.png);
+$url_7: url(images/toolbar/editar_disabled.png);
+$url_8: url(images/toolbar/filtrar.png);
+$url_9: url(images/toolbar/filtrar_disabled.png);
+$url_10: url(images/toolbar/imprimir.png);
+$url_11: url(images/toolbar/imprimir_disabled.png);
+$url_12: url(images/toolbar/nuevo.png);
+$url_13: url(images/toolbar/nuevo_disabled.png);
+$url_14: url(images/files/csv.gif);
+$url_15: url(images/files/dll.gif);
+$url_16: url(images/files/doc.gif);
+$url_17: url(images/files/exe.gif);
+$url_18: url(images/files/gif.gif);
+$url_19: url(images/files/jpg.gif);
+$url_20: url(images/files/js.gif);
+$url_21: url(images/files/ods.gif);
+$url_22: url(images/files/pdf.gif);
+$url_23: url(images/files/ppt.gif);
+$url_24: url(images/files/txt.gif);
+$url_25: url(images/files/xls.gif);
+$url_26: url(images/files/zip.gif);
+
+.rup-toolbar {
+	overflow: hidden;
+	padding: 0.1em 0.4em 0.1em 0.4em;
+}
+.rup-toolbar_button {
+	margin-right: 5px;
+	.ui-button-icon-primary {
+		width: 18px;
+		height: 18px;
+	}
+	.ui-button-icon {
+		width: 18px;
+		height: 18px;
+	}
+}
+.rup-toolbar_menuButton {
+	margin-right: 5px;
+	.ui-button-icon-primary {
+		width: 18px;
+		height: 18px;
+	}
+}
+.rup-toolbar_menuButtonSlided {
+	background: $color_white_rock_approx;
+	color: $blue;
+	.rup-toolbar_menuButtonIcon {
+		background-position: -64px -16px;
+	}
+}
+.rup-toolbar_menuButtonContainer {
+	background-image: none;
+	overflow: hidden;
+	padding: 0.4em;
+	padding-top: 0.5em;
+}
+.rup-toolbar_menuButtonElement {
+	width: 100%;
+	.ui-button-text {
+		text-align: left;
+	}
+}
+.rup-toolbar_menuButtonIcon {
+	background-position: -64px -16px;
+}
+@media \0screen {
+	.ui-state-disabled {
+		z-index: 0;
+	}
+	.ui-widget-content .ui-state-disabled {
+		z-index: 0;
+	}
+	.ui-widget-header .ui-state-disabled {
+		z-index: 0;
+	}
+}
+.right_button {
+	float: right;
+}
+.borrar {
+	background: $url_0 no-repeat !important;
+	&.disabled {
+		background: $url_1 no-repeat !important;
+	}
+}
+.buscar {
+	background: $url_2 no-repeat !important;
+	&.disabled {
+		background: $url_3 no-repeat !important;
+	}
+}
+.cancelar {
+	background: $url_4 no-repeat !important;
+	&.disabled {
+		background: $url_5 no-repeat !important;
+	}
+}
+.editar {
+	background: $url_6 no-repeat !important;
+	&.disabled {
+		background: $url_7 no-repeat !important;
+	}
+}
+.filtrar {
+	background: $url_8 no-repeat !important;
+	&.disabled {
+		background: $url_9 no-repeat !important;
+	}
+}
+.imprimir {
+	background: $url_10 no-repeat !important;
+	&.disabled {
+		background: $url_11 no-repeat !important;
+	}
+}
+.nuevo {
+	background: $url_12 no-repeat !important;
+	&.disabled {
+		background: $url_13 no-repeat !important;
+	}
+}
+.csv {
+	background: $url_14 no-repeat !important;
+}
+.dll {
+	background: $url_15 no-repeat !important;
+}
+.doc {
+	background: $url_16 no-repeat !important;
+}
+.exe {
+	background: $url_17 no-repeat !important;
+}
+.gif {
+	background: $url_18 no-repeat !important;
+}
+.jpg {
+	background: $url_19 no-repeat !important;
+}
+.ods {
+	background: $url_21 no-repeat !important;
+}
+.pdf {
+	background: $url_22 no-repeat !important;
+}
+.ppt {
+	background: $url_23 no-repeat !important;
+}
+.txt {
+	background: $url_24 no-repeat !important;
+}
+.xls {
+	background: $url_25 no-repeat !important;
+}
+.zip {
+	background: $url_26 no-repeat !important;
+}
+.js:not(html) {
+	background: $url_20 no-repeat !important;
+}

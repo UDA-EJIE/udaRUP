@@ -1,0 +1,14 @@
+//colors
+$white: #fff;
+
+.rup-progressbar {
+	position: relative;
+}
+.rup-progressbar-label {
+	position: absolute;
+	left: 50%;
+	top: 4px;
+	font-weight: bold;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 1px 1px 0 $white;
+}

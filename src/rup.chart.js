@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","rup/base", "chartjs"], factory );
+	 } else {
+
+  		 // Browser globals
+  		 factory( jQuery );
+  	}
+  } ( function( $ ) {
 
     //**********************************************************************************
     // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá
@@ -306,4 +316,4 @@
      */
 
 
-})(jQuery);
+}));

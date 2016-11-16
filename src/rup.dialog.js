@@ -435,6 +435,11 @@
 
 							if (!created) { //si ha sido creado no hace falta volver a añadir el elnace de cierre
 								$self.dialog(settings);
+
+                // Estilos RUP
+                 debugger;
+                $self.data("uiDialog").uiDialog.addClass("rup-dialog");
+
 								closeSpan = "<span id='closeText_" + settings.id + "' style='float:right;font-size:0.85em'>" + $.rup.i18nParse($.rup.i18n.base,"rup_global.cerrar") + "</span>";
 								aClose = $("<a href='#'></a>")
 								.attr("role", "button")

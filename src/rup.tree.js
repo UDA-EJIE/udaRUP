@@ -7,90 +7,100 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
-(function (jQuery) {
-	
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base","jquery-jstree","jquery-hotkeys"], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
+
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+
 	var rup_tree = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	jQuery.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_tree", rup_tree));
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	jQuery.fn.rup_tree("extend", {
 		/* Metodos publicos del core */
 		getRupValue: function(){
 			var $self = this, settings = $self.data("settings"), selectedItems, tmpId, name = $self.attr("name"), wrapObj;
-			
+
 			if (jQuery.inArray("checkbox", settings.plugins) !==-1){
 				selectedItems = $self.rup_tree("get_checked", null, true)
 			}else{
 				selectedItems = $self.rup_tree("get_selected");
 			}
-			
+
 			var returnArray =  jQuery.map(selectedItems, function(item, index){
 				var $item = jQuery(item);
 
 				if (jQuery.isFunction(settings.core.getValue)){
 					return jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
 				}
-				
+
 				tmpId = $item.attr("id");
 				return tmpId?tmpId:$item.text();
 			});
-			
+
 			if (settings.core.submitAsJSON){
 				return jQuery.rup_utils.getRupValueAsJson(name, returnArray);
 			}else{
-				
+
 				if (settings.core.submitAsString){
 					return jQuery.rup_utils.getRupValueWrapped(name, returnArray.toString());
 				}else{
 					return jQuery.rup_utils.getRupValueWrapped(name, returnArray);
 				}
-				
+
 			}
 		},
 		setRupValue: function(valuesArray){
 			var $self = this, settings = $self.data("settings"), $items, $item, itemValue, tmpId, dataArray;
-			
+
 			$self.rup_tree("uncheck_all");
-			
+
 			$items = $self.get_container_ul().find("li");
-			
+
 			dataArray = settings.core.readAsString===true?valuesArray.split(","):valuesArray;
-			
+
 			jQuery.each($items, function(index, item){
 				$item = jQuery(item);
-				
+
 				if (jQuery.isFunction(settings.core.getValue)){
 					itemValue = jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
 				}else{
 					tmpId = $item.attr("id");
 					itemValue = tmpId?tmpId:$item.text();
 				}
-				
+
 				if (jQuery.inArray(itemValue, dataArray)!==-1){
-					$self.rup_tree("check_node", item);	
+					$self.rup_tree("check_node", item);
 				}
 			});
-			
-			
+
+
 		},
-		rollback: function(rollback_object){			
+		rollback: function(rollback_object){
 			jQuery.jstree.rollback (rollback_object);
 		},
 		get_container: function (){
@@ -151,7 +161,7 @@
 			return($(this).jstree('is_leaf', node));
 		},
 		get_rollback: function(){
-			return($(this).jstree('get_rollback'));	
+			return($(this).jstree('get_rollback'));
 		},
 		create_node: function(node , position , js , callback){
 			return($(this).jstree('create_node', node , position , js , callback));
@@ -161,7 +171,7 @@
 		},
 		rename_node: function(node, text){
 			$(this).jstree('rename_node', node, text);
-		},		
+		},
 		delete_node: function(node){
 			$(this).jstree('delete_node', node);
 		},
@@ -171,7 +181,7 @@
 		move_node : function (obj, ref, position, is_copy, is_prepared, skip_check){
 			return ($(this).jstree('move_node', obj, ref, position, is_copy, is_prepared, skip_check));
 		},
-		
+
 		/* Metodos publicos del theme */
 		get_theme: function() {
 			var theme = $(this).jstree('get_theme');
@@ -212,7 +222,7 @@
 		toggle_icons: function() {
 			$(this).jstree('toggle_icons');
 		},
-		
+
 		/* Metodos publicos de la selección */
 		save_selected: function() {
 			$(this).jstree('save_selected');
@@ -234,7 +244,7 @@
 		},
 		deselect_node: function(node){
 			$(this).jstree('deselect_node', node);
-		}, 
+		},
 		toggle_select: function(node){
 			$(this).jstree('toggle_select', node);
 		},
@@ -247,7 +257,7 @@
 		is_selected: function(node){
 			return($(this).jstree('is_selected', node));
 		},
-		
+
 		/* Metodos publicos del hotkeys */
 		enable_hotkeys: function(){
 			$(this).jstree('enable_hotkeys');
@@ -255,7 +265,7 @@
 		disable_hotkeys:  function(){
 			$(this).jstree('disable_hotkeys');
 		},
-		
+
 		/* Metodos  publicos del checkbox */
 		change_state: function(node , uncheck){
 			$(this).jstree('change_state', node, uncheck);
@@ -287,7 +297,7 @@
 		hide_checkboxes: function(){
 			$(this).jstree('hide_checkboxes');
 		},
-		
+
 		/* Metodos  publicos del crrm */
 		rename: function(node){
 			$(this).jstree('rename',node);
@@ -307,55 +317,55 @@
 		paste : function(node){
 			$(this).jstree('paste', node);
 		},
-		
+
 		/* Metodos publicos del contextmenu */
 		show_contextmenu : function(node, x, y){
 			$(this).jstree('show_contextmenu', node, x, y);
 		},
-		
+
 		/* Metodos publicos de la especificación de types */
 		set_type: function (type, node){
 			$(this).jstree('set_type', type, node);
 		}
 	});
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
-	
+
 	jQuery.fn.rup_tree("extend", {
 		_init : function(args) {
 			if (args.length > 1) {
 				jQuery.rup.errorGestor(jQuery.rup.i18n.base.rup_global.initError + jQuery(this).attr("id"));
 			}
-			else {		
+			else {
 				//Se recogen y cruzan las paremetrizaciones del objeto
-				if (args.length > 0){ 
+				if (args.length > 0){
 					if (args[0].select){
 						args[0].ui = args[0].select;
-						delete args[0].select;					
+						delete args[0].select;
 					}
 					if (args[0].jQueryUIStyles){
 						args[0].themeroller = args[0].jQueryUIStyles;
-						delete args[0].jQueryUIStyles;					
+						delete args[0].jQueryUIStyles;
 					}
 				}
-				
+
 				var settings = jQuery.extend(true, {}, jQuery.fn.rup_tree.defaults, args[0]), self = this[0], selectorSelf = this;
-				
+
 				// Se guarda la referencia al $self
 				settings.$self = $(this);
 				settings.$self.attr("ruptype","tree");
-				
+
 				//validacion de carga por defecto
 				if(settings.ui === undefined || settings.ui.enable !== false){
 					settings.plugins[settings.plugins.length]="ui";
 				}
-				
+
 				if(settings.crrm === undefined || settings.crrm.enable !== false){
 					settings.plugins[settings.plugins.length]="crrm";
-					
+
 					//Se añaden los evento para gestionar el objeto cortado
 					selectorSelf.bind("cut.jstree", $.proxy(function (event, eventArgs) {
 						$(this).find(".rup_tree_cutNode.ui-state-disabled").removeClass("rup_tree_cutNode ui-state-disabled");
@@ -370,8 +380,8 @@
 				}
 
 				if(settings.hotkeys === undefined || settings.hotkeys.enable !== false){
-					settings.plugins[settings.plugins.length]="hotkeys";	
-					
+					settings.plugins[settings.plugins.length]="hotkeys";
+
 					if(settings.crrm === undefined || settings.crrm.enable !== false){
 						jQuery.jstree.defaults.hotkeys["esc"] = $.proxy(function (event) {
 							if(event.target.tagName === "BODY" ){
@@ -381,15 +391,15 @@
 						}, this);
 					}
 				}
-				
+
 				//Gestión de los evento para su posterior carga en el orden correcto
-				selectorSelf._eventRecollector(settings, selectorSelf);				
-				
+				selectorSelf._eventRecollector(settings, selectorSelf);
+
 				//Se tapa la creación del arbol para evitar visualizaciones inapropiadas
 				//Se recomienda que el componente, inicialmente, sea invisible. Para ello se dispone del estilo rup_tree
 				selectorSelf.addClass("rup_tree");
-				
-				//Se determina, a partir de la configuración, el tipo de origen de datos utilizado 
+
+				//Se determina, a partir de la configuración, el tipo de origen de datos utilizado
 				if(settings.xml_data !== undefined){
 					settings.plugins[settings.plugins.length]="xml_data";
 				} else if (settings.json_data !== undefined){
@@ -397,14 +407,14 @@
 				} else {
 					settings.plugins[settings.plugins.length]="html_data";
 				}
-				
+
 				//Se activa y configura, si fuera necesario, el modulo del menu contextual
 				if(settings.contextmenu !== undefined && settings.contextmenu.enable === true){
 					settings.plugins[settings.plugins.length]="contextmenu";
 				} else {
 					delete settings.contextmenu;
 				}
-				
+
 				//Se activa, si fuera necesario, el modulo de ordenación
 				if(settings.sort !== undefined){
 					if (settings.sort.enable === true){
@@ -418,7 +428,7 @@
 						 delete settings.sort;
 					}
 				}
-				
+
 				//Se activa, si fuera necesario, el modulo checkbox
 				if(settings.checkbox !== undefined && settings.checkbox.enable === true){
 					settings.plugins[settings.plugins.length]="checkbox";
@@ -426,12 +436,12 @@
 				} else {
 					delete settings.checkbox;
 				}
-				
+
 				//Si fuera necesario, se activa el plugin wholerow (fila entera)
 				if(settings.wholerow !== undefined && settings.wholerow === true){
 					settings.plugins[settings.plugins.length]="wholerow";
 				}
-				
+
 				//Si fuera necesario, se activa el plugin unique
 				if(settings.unique !== undefined && settings.unique.enable === true){
 					settings.plugins[settings.plugins.length]="unique";
@@ -439,27 +449,27 @@
 				} else {
 					delete settings.unique;
 				}
-				
+
 				//Si fuera necesario, se activa el plugin types
 				if(settings.types !== undefined){
 					settings.plugins[settings.plugins.length]="types";
-					
+
 					//Se ajusta el jsTree a la convivencia con portales
 					if($.rup_utils.aplicatioInPortal()){
-						this.get_container().bind("loaded.jstree", $.proxy(function () { 
+						this.get_container().bind("loaded.jstree", $.proxy(function () {
 							$(this).jstree("types_portal_css");
 						},this));
 					}
 				}
-				
-				//Si fuera necesario, se activa el plugin Drag and Drop 
+
+				//Si fuera necesario, se activa el plugin Drag and Drop
 				if(settings.dnd !== undefined && settings.dnd.enable === true){
 					settings.plugins[settings.plugins.length]="dnd";
 					delete settings.dnd.enable;
 				} else {
 					delete settings.dnd;
 				}
-				
+
 				//Se valora la gestión de estilos. El plugin de themeRoller (estilos jQueryUI) siempre debe ser el ultimo y es excluyente al plugin themes
 				if(settings.themeroller !== undefined){
 					if(settings.themeroller.enable === true){
@@ -472,11 +482,11 @@
 				} else {
 					settings.plugins[settings.plugins.length]="themes";
 				}
-				
-				
-				//Se almacenan los settings en el data del objeto 
+
+
+				//Se almacenan los settings en el data del objeto
 				selectorSelf.data("settings",settings);
-				
+
 				//Se crea el árbol
 				selectorSelf.jstree(settings);
 
@@ -485,13 +495,13 @@
 					//Una vez creado, se libera la visualización del componente
 					this.removeClass("rup_tree");
 				}, this));
-				
+
 				//Se ajustan los estilos por defecto
 				if (settings.themeroller === undefined && !settings.themes.theme){
 					selectorSelf.addClass("jstree-rup-default");
 					$(this).jstree("set_theme_data","rup-default");
 				}
-				
+
 				//Se configura, si fuera necesario, el modulo del menu contextual
 				if(settings.contextmenu !== undefined && settings.contextmenu.enable === true){
 					delete settings.contextmenu.enable;
@@ -516,11 +526,11 @@
 				} else {
 					delete settings.contextmenu;
 				}
-				
-				
-				
+
+
+
 				/* REVISION (encuentrame) */
-				
+
 				//Se sobreescribe uno de los eventos para hacer reaparecer, una vez creado, el accordion
 //				createUserEvent = settings.create;
 //				settings.create = function (event, ui) {
@@ -532,11 +542,11 @@
 					//Comportamiento por defecto del evento
 //					create_default(event, ui);
 //				};
-				
+
 //				function create_default(event, ui){
 //					$(event.target).addClass("rup_accordion_create");
 //				}
-				
+
 				//Se comprueba la corrección del html con el que se creara el accordion
 //				if(settings.validation){
 //					if(parseInt(elementsNum) !== elementsNum){
@@ -547,38 +557,38 @@
 //							if ((parseInt(index/2) === index/2) && ($(object).find("a").length === 0)){
 //								$.rup.errorGestor($.rup.i18n.base.rup_accordion.headFormatError);
 //								return false;
-//							} 
+//							}
 //						});
 //					}
 //				}
-				
+
 				//Se invoca la creacion del accordion
 //				this.accordion(settings);
 			}
 		},
 		/* revisar funcionamiento */
 		_eventRecollector : function(settings, selectorSelf){
-			
+
 			var aux;
-			
+
 			for (var i in settings){
 				aux = i.split("_event");
 				if (aux.length >1){
 					this.bind(aux[0]+".jstree", settings[i]);
-				} 
+				}
 			}
 		}
 	});
-	
-	
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
+
 	jQuery.fn.rup_tree.defaults = {
 		"plugins" : ["rup_extend"],
 		"actualThemeUrl" : "",
-		
+
 		//Pruebas de configuracion (todos los parametros)
 		//CORE
 //		"core" : {
@@ -591,7 +601,7 @@
 //			"notify_plugins" : true,
 //			"rtl" : false,
 //			"strings" : { loading : "Loading ...", new_node : "New node" }
-//		},		
+//		},
 		//THEMES PLUGIN
 		"core" : {
 			"strings" : {
@@ -613,11 +623,11 @@
 			"input_width_limit" : 200
 		}
 	};
-	
+
 	//*************************************************
-	// AJUSTES GENERALES DEL FUNCIONAMIENTO DEL PÁTRON  
+	// AJUSTES GENERALES DEL FUNCIONAMIENTO DEL PÁTRON
 	//*************************************************
-	
+
 	//Gestion de los literales del menu contextual
 	jQuery.jstree.defaults.contextmenu.items.create.label = $.rup.i18nParse($.rup.i18n.base,"rup_tree.create");
 	jQuery.jstree.defaults.contextmenu.items.rename.label = $.rup.i18nParse($.rup.i18n.base,"rup_tree.rename");
@@ -626,9 +636,73 @@
 	jQuery.jstree.defaults.contextmenu.items.ccp.submenu.cut.label = $.rup.i18nParse($.rup.i18n.base,"rup_tree.ccp.cut");
 	jQuery.jstree.defaults.contextmenu.items.ccp.submenu.copy.label = $.rup.i18nParse($.rup.i18n.base,"rup_tree.ccp.copy");
 	jQuery.jstree.defaults.contextmenu.items.ccp.submenu.paste.label = $.rup.i18nParse($.rup.i18n.base,"rup_tree.ccp.paste");
-	
-	//Se extienden las funcionalidades del jstree para ajustar prestaciones, de manejo de teclado, que funcionaban erráticamente 
-	jQuery.extend(jQuery.jstree.defaults.hotkeys, $.rup.compatibility.jstree.hotkeys);
-	$.jstree.plugin("rup_extend", $.rup.compatibility.jstree.rup_extend);
-	
-})(jQuery);
+
+	//Se extienden las funcionalidades del jstree para ajustar prestaciones, de manejo de teclado, que funcionaban erráticamente
+   $.compatibility = {
+    hotkeys : {
+      "ctrl+space" : function (event) {
+        delete event.target;
+        event.type = "click";
+        if(this.data.ui.hovered) { this.data.ui.hovered.children("a:eq(0)").trigger(event); }
+        return false;
+      },
+      "shift+space" : function (event) {
+        delete event.target;
+        event.type = "click";
+        if(this.data.ui.hovered) { this.data.ui.hovered.children("a:eq(0)").trigger(event); }
+        return false;
+      }
+    },
+    rup_extend : {
+      _fn : {
+        "cleanCut" : function () {
+          this.data.crrm.ct_nodes = false;
+        },
+        "set_contextmenu_items" : function (s) {
+          var settings = this.get_settings();
+          settings.contextmenu.items = s;
+          this._set_settings(settings);
+        },
+        "set_theme_data" : function (themeName) {
+          this.data.themes["theme"] = themeName;
+        },
+        "types_portal_css" : function () {
+          var s = this._get_settings().types;
+          var types = s.types,
+            attr  = s.type_attr,
+            icons_css = "",
+            _this = this;
+          $.each(types, function (i, tp) {
+            $.each(tp, function (k, v) {
+              if(!/^(max_depth|max_children|icon|valid_children)$/.test(k)) { _this.data.types.attach_to.push(k); }
+            });
+            if(!tp.icon) { return true; }
+            if( tp.icon.image || tp.icon.position) {
+              icons_css += 'div.r01gContainer ';
+              if(i == "default")	{
+                icons_css += '.jstree-' + _this.get_index() + ' a > .jstree-icon { ';
+              } else{
+                icons_css += '.jstree-' + _this.get_index() + ' li[' + attr + '="' + i + '"] > a > .jstree-icon { ';
+              }
+              if(tp.icon.image)	{ icons_css += ' background-image:url(' + tp.icon.image + '); '; }
+              if(tp.icon.position){ icons_css += ' background-position:' + tp.icon.position + '; '; }
+              else				{ icons_css += ' background-position:0 0; '; }
+              icons_css += '} ';
+            }
+          });
+
+          var jstreeTypesStylesheet = $("#jstree-types-stylesheet");
+
+          if(jstreeTypesStylesheet !== undefined){
+            jstreeTypesStylesheet.remove();
+          }
+
+          if(icons_css !== "") { $.vakata.css.add_sheet({ 'str' : icons_css, title : "jstree-porta-types" }); }
+        }
+      }
+    }
+  };
+	jQuery.extend(jQuery.jstree.defaults.hotkeys, $.compatibility.hotkeys);
+	$.jstree.plugin("rup_extend", $.compatibility.rup_extend);
+
+}));

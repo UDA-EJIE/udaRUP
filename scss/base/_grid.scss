@@ -1,0 +1,105 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ //colors
+$white: #fff;
+$color_gallery_approx: #eee;
+$color_science_blue_approx: #0052c7;
+
+//urls
+$url_0: url(ellipsis-xbl.xml#ellipsis);
+$url_1: url(images/rup.ajaxLoader.gif);
+
+.rup-grid_evenRow {
+	background-color: $white !important;
+	background-image: none;
+}
+.rup-grid_oddRow {
+	background-color: $color_gallery_approx !important;
+	background-image: none;
+}
+.rup-grid_cellPadding_important {
+	padding: 0 15px !important;
+}
+.ui-th-column {
+	font-weight: bold;
+}
+.ui-jqgrid {
+	.ui-paging-info {
+		height: auto;
+		margin: 0;
+	}
+	tr {
+		&.jqgrow td {
+			font-weight: inherit;
+		}
+		&.ui-row-ltr td:last-child {
+			border-right-style: none;
+		}
+	}
+	.loading {
+		background: $white $url_1 right center no-repeat;
+		font-weight: normal !important;
+	}
+	.ui-jqgrid-htable th.ui-th-column {
+		font-weight: bold;
+	}
+}
+.ui-jqgrid-btable {
+	.trAddSeparator {
+		height: 0;
+		&:HOVER {
+			height: .2em !important;
+		}
+	}
+	.addElement {
+	}
+	.addElementBorder {
+	}
+	.tdAddSeparator:HOVER {
+	}
+}
+.ui-jqgrid-pager {
+	font-size: 0.85em;
+}
+.pager_left {
+	padding-left: 1.7em !important;
+}
+.pager_center {
+	width: 60% !important;
+}
+.pager_right {
+	padding-right: 1.7em !important;
+}
+.pagControls {
+	padding-right: 1em !important;
+	border: 0 !important;
+	background-image: none !important;
+	background-color: transparent !important;
+}
+.linkPaginacion {
+	text-decoration: underline !important;
+	color: $color_science_blue_approx !important;
+	&:hover {
+		text-decoration: none;
+		color: $color_science_blue_approx;
+	}
+	&.ui-state-disabled:hover {
+		text-decoration: underline;
+	}
+}
+.ui-state-disabled > .linkPaginacion {
+	cursor: default;
+}

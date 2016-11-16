@@ -123,7 +123,7 @@
 
             var self = this._createDiv().appendTo("body");
             self.dialog(settings);
-
+            self.data("uiDialog").uiDialog.addClass("rup-message rup-message-error");
 			this._createCloseLink(self);
 			this._addStyles(self, "error", settings.message);
 			docHeight = $(document).height();
@@ -169,6 +169,7 @@
 
             var self = this._createDiv().appendTo("body"), aceptButton;
             self.dialog(settings);
+            self.data("uiDialog").uiDialog.addClass("rup-message rup-message-confirm");
 
             //parámetros específicos de tipo de mensaje
             aceptButton = [{
@@ -229,6 +230,7 @@
 
             var self = this._createDiv().appendTo("body");
             self.dialog(settings);
+            self.data("uiDialog").uiDialog.addClass("rup-message rup-message-ok");
 
             this._createCloseLink(self);
 			this._addStyles(self, "ok", settings.message);
@@ -275,6 +277,7 @@
 
             var self = this._createDiv().appendTo("body");
             self.dialog(settings);
+            self.data("uiDialog").uiDialog.addClass("rup-message rup-message-alert");
             this._createCloseLink(self);
 			this._addStyles(self, "alert", settings.message);
 			docHeight = $(document).height();

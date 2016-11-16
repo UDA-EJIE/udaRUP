@@ -1,0 +1,77 @@
+//colors
+$gray: gray;
+$black: black;
+
+.widget-header {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	padding-bottom: 0.5em;
+	padding-top: 0.35em;
+	//Instead of the line below you could use @include border-image($value)
+	border-image: none;
+	border-style: none none solid;
+	border-width: 0 0 1px;
+	text-align: left;
+	> div {
+		display: inline-flex;
+		&.widget-header-controls {
+			float: right;
+			padding-top: 0.15em;
+		}
+	}
+}
+.widget-header-title {
+	text-align: left;
+	padding-left: 0.5em;
+	font-weight: bold;
+}
+.widget-icon {
+	cursor: pointer;
+	color: $gray;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	&:hover {
+		color: $black;
+	}
+}
+.widget-icon-right {
+	float: right;
+}
+.widget-body {
+	padding: 1em;
+}
+.grid-stack {
+	> .grid-stack-item > .ui-resizable-se {
+		background-image: none;
+	}
+	&.rup_dashboard > .grid-stack-item {
+		&.widget-resize-full {
+			position: fixed;
+			top: 1%;
+			left: 1%;
+			width: 98%;
+			height: 95%;
+			z-index: 10000;
+			.widget-header span {
+				&.glyphicon-cog {
+					display: none;
+				}
+				&.glyphicon-resize-full {
+					display: none;
+				}
+				&.glyphicon-refresh {
+					display: none;
+				}
+				&.glyphicon-remove {
+					display: none;
+				}
+				&.glyphicon-resize-small {
+					display: block;
+				}
+			}
+		}
+		.widget-header span.glyphicon-resize-small {
+			display: none;
+		}
+	}
+}

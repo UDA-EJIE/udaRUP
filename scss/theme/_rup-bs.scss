@@ -1,0 +1,76 @@
+%button-style-base{
+  font-size: $rup-font-size-larger;
+  padding: 6px 12px;
+  border-radius: $rup-border-radius;
+  line-height: $rup-button-line-height;
+  font-weight: $rup-button-font-weight;
+  margin-bottom: 0;
+}
+%button-style{
+  -moz-user-select: none;
+  background-image: none;
+  border: 1px solid $rup-color-button-border;
+  /*border-radius: 4px;*/
+  border-radius: $rup-border-radius;
+  cursor: pointer;
+  display: inline-block;
+
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-shadow: none;
+}
+
+.form-control{
+  height: 2rem;
+  font-size: $rup-font-size-base;
+}
+
+select.form-control{
+  @extend %select-style;
+
+}
+
+select.form-control-sm{
+  @extend %select-style;
+  @extend .form-control-sm;
+}
+
+.input-lg {
+  font-size: $rup-font-size-lg;
+  height: 2.5rem;
+}
+
+.btn{
+
+  @extend %button-style-base;
+
+
+}
+
+.dropdown-menu{
+  font-size: $rup-font-size-base;
+}
+
+// .navbar-brand{
+//   font-size: $rup-font-size-xlg;
+// }
+
+.form-control{
+  font-size: $rup-font-size-base;
+}
+
+.form-group-sm{
+  font-size: $rup-font-size-sm;
+  .form-control{
+    @extend .form-group-sm;
+  }
+}
+
+.form-control-lg{
+  font-size: $rup-font-size-lg;
+}
+
+.form-group-sm{
+  font-size: $rup-font-size-sm;
+}

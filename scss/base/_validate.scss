@@ -1,0 +1,12 @@
+//colors
+$red:  red;
+
+form.rup_validate {
+	input.error {
+		border: 1px dotted $red;
+	}
+	label.error {
+		color: $red;
+		font-style: italic;
+	}
+}

@@ -15,10 +15,40 @@ var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
 var pump = require('pump');
 var fs = require('fs');
+var sass = require('gulp-sass');
+var runSequence = require('run-sequence');
+
+var moduleImporter = require('sass-module-importer');
 
 var version = "2.4.8";
 
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+
+
+var config = {
+    bootstrapDir: './node_modules/bootstrap',
+    jqueryUiDir: './node_modules/jquery-ui',
+    jqueryUiSassSource: './node_modules/jquery-ui/themes/base/*.css',
+    qtip2Dir: './node_modules/qtip2',
+    qtip2SassSource: './node_modules/qtip2/dist/jquery.qtip.min.css',
+    publicDir: './public',
+    dirs:{
+      dist: './dist/',
+      distCss: './dist/css/',
+      distJs: './dist/js/',
+      sass: './scss/',
+      sassBootstrap: './scss/bootstrap/',
+      sassRupBase: './scss/bootstrap/base',
+      sassRupTheme: './scss/bootstrap/theme'
+    },
+    files:{
+      sass:{
+        customBootstrapScss: 'custom-bootstrap.scss',
+        rupScss: 'rup.scss',
+        rupClassicScss: 'rup-classic.scss',
+      }
+    }
+};
 
 var mkdirSync = function (path) {
     try {
@@ -27,10 +57,111 @@ var mkdirSync = function (path) {
         if (e.code != 'EEXIST') throw e;
     }
 }
+// import moduleImporter from 'sass-module-importer';
 
 gulp.task('default', function () {
     // place code for your default task here
 });
+
+
+gulp.task('sass:bootstrap', function(){
+  gulp.src(config.dirs.sass + config.files.sass.customBootstrapScss)
+    .pipe(sass.sync({
+      precision: 8
+    }).on('error', sass.logError))
+    .pipe(rename(function(path){
+      path.basename='bootstrap';
+    }))
+    .pipe(gulp.dest(config.dirs.distCss));
+});
+
+gulp.task('sass:rup', function () {
+  gulp.src(config.dirs.sass + config.files.sass.rupScss)
+    .pipe(sass.sync({
+      outputStyle: 'nested ',
+      precision: 8,
+    }).on('error', sass.logError))
+    .pipe(gulp.dest(config.dirs.distCss));
+});
+
+gulp.task('sass:rup-classic', function () {
+  gulp.src(config.dirs.sass + config.files.sass.rupClassicScss)
+    .pipe(sass.sync({
+      outputStyle: 'nested ',
+      precision: 8,
+    }).on('error', sass.logError))
+    .pipe(gulp.dest(config.dirs.distCss));
+});
+
+// MINIMIZE
+
+gulp.task('minimize:rup-classic', function () {
+  gulp.src(minimizeConf.rupClassicCssFiles)
+    .pipe(concat("rup-classic.min.css"))
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('minimize:rup', function () {
+  console.log(minimizeConf.rupCssFiles);
+  gulp.src(minimizeConf.rupCssFiles)
+    .pipe(concat("rup.min.css"))
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('./dist/css'));
+});
+
+// WATCHES
+
+gulp.task('watch', [
+  'watch:sass:bootstrap',
+  'watch:sass:rup-classic',
+  'watch:sass:rup',
+  'watch:minimize:rup-classic',
+  'watch:minimize:rup',
+  'watch:templates:rup',
+  'watch:templates:rup-classic'
+]);
+
+// WATCHES:sass
+
+gulp.task('watch:sass:bootstrap', function () {
+  gulp.watch(['./scss/custom-bootstrap.scss','./scss/bootstrap/*.scss'], ['sass:bootstrap']);
+});
+
+gulp.task('watch:sass:rup-classic', function () {
+  gulp.watch(['./scss/rup-classic.scss','./scss/base/*.scss'], ['sass:rup-classic']);
+});
+
+gulp.task('watch:sass:rup', function () {
+  gulp.watch(['./scss/rup.scss','./scss/theme/*.scss'], ['sass:rup']);
+});
+
+// WATCHES:minimize
+
+gulp.task('watch:minimize:rup', function () {
+  gulp.watch(['./dist/css/bootstrap.css','./dist/css/rup.css'], ['minimize:rup']);
+});
+
+gulp.task('watch:minimize:rup-classic', function () {
+  gulp.watch(['./dist/css/rup-classic.css'], ['minimize:rup-classic']);
+});
+
+
+// WATCHES:templates
+
+gulp.task('watch:templates:rup', function () {
+  gulp.watch('./demoResponsive/**/*.hbs', ['templates']);
+});
+
+gulp.task('watch:templates:rup-classic', function () {
+  gulp.watch('./demo/**/*.hbs', ['templates-classic']);
+});
+
+gulp.task('dist:prepare', function () {
+  gulp.src('./css/basic-theme/images/**').pipe(gulp.dest("./dist/css/images"));
+  gulp.src('./css/basic-theme/cursors/**').pipe(gulp.dest("./dist/css/cursors"));
+});
+
 
 gulp.task('doc', function (cb) {
     var config = require('./jsdoc.conf.json');
@@ -100,7 +231,7 @@ gulp.task('minimizeRupCss', function (cb) {
         .pipe(gulp.dest('dist/rup/basic-theme'));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch:buildTable', function () {
     watch('src/rup_table/*.js', batch(function (events, done) {
         gulp.start('buildTable');
     }));
@@ -130,7 +261,7 @@ gulp.task('buildTable', function (cb) {
         .pipe(gulp.dest('src'));
 });
 
-gulp.task('templates', function () {
+gulp.task('templates-classic', function () {
     var templates = gulp.src('demo/app/**/*.hbs')
         .pipe(handlebars({
             handlebars: require('handlebars')
@@ -171,7 +302,7 @@ gulp.task('templates', function () {
         .pipe(gulp.dest('demo/'));
 });
 
-gulp.task('templates-responsive', function () {
+gulp.task('templates', function () {
     var templates = gulp.src('demoResponsive/app/**/*.hbs')
         .pipe(handlebars({
             handlebars: require('handlebars')

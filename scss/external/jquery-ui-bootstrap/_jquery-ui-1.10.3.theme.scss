@@ -1,0 +1,218 @@
+//colors
+$black_20: rgba(0, 0, 0, 0.2);
+$white_15: rgba(255, 255, 255, 0.15);
+$black_7_5: rgba(0, 0, 0, 0.075);
+$black_12_5: rgba(0, 0, 0, 0.125);
+$white: #fff;
+$color_mercury_approx: #e6e6e6;
+$color_bon_jour_approx: #e0e0e0;
+$color_celeste_approx: #ccc;
+$color_boston_blue_approx: #428bca;
+$color_astral_approx: #3071a9;
+$color_jelly_bean_approx: #2d6ca2;
+$color_casablanca_approx: #f0ad4e;
+$color_carrot_orange_approx: #ec971f;
+$color_dixie_approx: #eb9316;
+$color_chestnut_rose_approx: #d9534f;
+$color_persian_red_approx: #c9302c;
+$color_tall_poppy_approx: #c12e2a;
+$color_fern_approx: #5cb85c;
+$color_apple_approx: #449d44;
+$color_viking_approx: #5bc0de;
+$color_scooter_approx: #31b0d5;
+$color_carnation_approx: #ee5f5b;
+$color_flush_mahogany_approx: #c43c35;
+$black_10: rgba(0, 0, 0, 0.1);
+$color_curious_blue_approx: #149bdf;
+$color_lochmara_approx: #0480be;
+$black_15: rgba(0, 0, 0, 0.15);
+
+//@extend-elements
+//original selectors
+//.ui-button, .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button
+%extend_1 {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 1px 0 $white;
+	background-image: linear-gradient(to bottom, $white 0, $color_mercury_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_bon_jour_approx;
+	border-color: $color_celeste_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+//original selectors
+//.ui-button-primary, .ui-dialog-buttonset .ui-button:not(:first-child)
+%extend_2 {
+	background-image: linear-gradient(to bottom, $color_boston_blue_approx 0, $color_astral_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_jelly_bean_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff3071a9', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+
+.ui-button {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	@extend %extend_1;
+	&:active {
+		background-image: none;
+	}
+	&.ui-state-active {
+		background-image: none;
+	}
+}
+.ui-button-primary {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	@extend %extend_2;
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+}
+.ui-button-success {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	background-image: linear-gradient(to bottom, $color_fern_approx 0, $color_apple_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_apple_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5cb85c', endColorstr='#ff449d44', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+		background-color: $color_apple_approx;
+		border-color: $color_apple_approx;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+		background-color: $color_apple_approx;
+		border-color: $color_apple_approx;
+	}
+}
+.ui-button-info {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	background-image: linear-gradient(to bottom, $color_viking_approx 0, $color_scooter_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_scooter_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff31b0d5', GradientType=0);
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+		background-color: $color_scooter_approx;
+		border-color: $color_scooter_approx;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+		background-color: $color_scooter_approx;
+		border-color: $color_scooter_approx;
+	}
+}
+.ui-button-warning {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	background-image: linear-gradient(to bottom, $color_casablanca_approx 0, $color_carrot_orange_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_dixie_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0ad4e', endColorstr='#ffec971f', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+}
+.ui-button-danger {
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 -1px 0 $black_20;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 0 $white_15, 0 1px 1px $black_7_5;
+	background-image: linear-gradient(to bottom, $color_chestnut_rose_approx 0, $color_persian_red_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_tall_poppy_approx;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffc9302c', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+}
+.ui-button-default {
+	&:active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+}
+.ui-button-error {
+	background-image: linear-gradient(top, $color_carnation_approx, 0, $color_flush_mahogany_approx 100%);
+	background-repeat: repeat-x;
+	border-color: $color_flush_mahogany_approx;
+	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_carnation_approx', endcolorstr='$color_flush_mahogany_approx', gradienttype=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+input {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 3px $black_10;
+}
+textarea {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 1px 3px $black_10;
+}
+.ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
+	@extend %extend_1;
+}
+.ui-dialog-buttonset .ui-button:not(:first-child) {
+	@extend %extend_2;
+}
+.ui-menu .ui-menu-item a {
+	&.ui-state-focus {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-state-active {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+	&.ui-widget-content {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 3px 5px $black_12_5;
+	}
+}
+.ui-progressbar .ui-progressbar-value {
+	background-image: linear-gradient(to bottom, $color_curious_blue_approx, $color_lochmara_approx);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: inset 0 -1px 0 $black_15;
+}

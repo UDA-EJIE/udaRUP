@@ -1,0 +1,51 @@
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	li {
+		list-style-type: none;
+	}
+	ul li {
+		list-style-type: none;
+	}
+}
+.ui-autocomplete-loading {
+	background: $rup-autocomplete-loading-bg;
+}
+.rup-autocomplete_label {
+	background-image: $rup-autocomplete-label-icon-url;
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 2em;
+	border: $rup-autocomplete-label-border;
+}
+.rup-autocomplete_loading {
+	background-image: $rup-autocomplete-loading-bg-url !important;
+}
+.rup-combobox {
+	position: relative;
+	display: inline-block;
+}
+.rup-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-left: -1px;
+	padding: 0;
+}
+.rup-combobox-input {
+	margin: 0;
+	background-color: $rup-autocomplete-input-bg;
+}
+.ui-autocomplete-category {
+	text-decoration: underline;
+	font-weight: bold;
+	padding: .2em .4em;
+	margin: .8em 0 .2em;
+	line-height: 1.5;
+}
+.matched-text {
+	font-weight: bold;
+}
+* html .ui-autocomplete {
+	width: 1px;
+}

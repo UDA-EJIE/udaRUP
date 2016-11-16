@@ -1,0 +1,322 @@
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+ //colors
+ $black: black;
+ $pink: pink;
+ $silver: silver;
+ $color_gallery_approx: #eee;
+ $white: #fff;
+
+ //urls
+ $url_0: url(images/rup.ajaxLoader.gif);
+ $url_1: url(images/toolbar/borrar.png);
+ $url_2: url(images/toolbar/filtrar.png);
+ $url_3: url(images/toolbar/imprimir.png);
+
+ //@extend-elements
+ //original selectors
+ //.ui-selectmenu-menu li a, .ui-selectmenu-status
+ %extend_1 {
+ 	line-height: 1.4em;
+ 	display: block;
+ 	padding: 0 1em;
+ 	outline: none;
+ 	text-decoration: none;
+ }
+
+ //original selectors
+ //.ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status
+ %extend_2 {
+ 	height: 2em;
+ 	padding-left: 20px;
+ 	position: relative;
+ 	margin-left: 5px;
+ }
+
+ //original selectors
+ //.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon
+ %extend_3 {
+ 	position: absolute;
+ 	top: 1em;
+ 	margin-top: -12px;
+ 	left: 0;
+ }
+
+
+ .rup-combo {
+ }
+ .rup-combo_loading {
+ 	background-image: $url_0 !important;
+ 	color: $black;
+ 	font-weight: bold;
+ }
+ .rup-combo_loadingText {
+ 	color: $black;
+ 	font-weight: bold;
+ }
+ .ui-selectmenu {
+ 	display: inline-block;
+ 	position: relative;
+ 	height: 1.4em;
+ 	text-decoration: none;
+ 	overflow: hidden;
+ }
+ .ui-selectmenu-focus {
+ }
+ .ui-selectmenu-icon {
+ 	position: absolute;
+ 	right: 6px;
+ 	margin-top: -8px;
+ 	top: 50%;
+ }
+ .ui-selectmenu-menu {
+ 	list-style: none;
+ 	visibility: hidden;
+ 	overflow: auto;
+ 	padding: 0;
+ 	margin: 0;
+ 	position: absolute;
+ 	top: 0;
+ 	display: none;
+ 	z-index: 1005;
+ 	li {
+ 		font-weight: normal !important;
+ 		padding: 0;
+ 		margin: 0;
+ 		display: block;
+ 		border-right-width: 0 !important;
+ 		border-left-width: 0 !important;
+ 		a {
+ 			@extend %extend_1;
+ 		}
+ 		.ui-icon {
+ 			@extend %extend_3;
+ 		}
+ 		span {
+ 			display: block;
+ 			margin-bottom: .2em;
+ 		}
+ 		.ui-selectmenu-item-header {
+ 			font-weight: bold;
+ 		}
+ 		.ui-selectmenu-item-content {
+ 		}
+ 		.ui-selectmenu-item-footer {
+ 			opacity: .8;
+ 		}
+ 		&.ui-selectmenu-hasIcon a {
+ 			@extend %extend_2;
+ 		}
+ 		&.ui-state-disabled a {
+ 			cursor: default;
+ 		}
+ 		&.ui-selectmenu-group ul {
+ 			overflow-y: hidden;
+ 		}
+ 	}
+ 	.ui-selectmenu-group {
+ 		font-size: 1em;
+ 		.ui-selectmenu-group-label {
+ 			line-height: 1.4em;
+ 			display: block;
+ 			padding: .6em .5em 0;
+ 			font-weight: bold;
+ 		}
+ 		ul {
+ 			margin: 0;
+ 			padding: 0;
+ 		}
+ 	}
+ 	ul {
+ 		padding: 0;
+ 		margin: 0;
+ 		list-style: none;
+ 		position: relative;
+ 		overflow: auto;
+ 		overflow-y: auto;
+ 		overflow-x: hidden;
+ 	}
+ }
+ .ui-selectmenu-open {
+ 	visibility: visible;
+ 	display: block;
+ 	li {
+ 		&.ui-selectmenu-item-selected {
+ 		}
+ 		&.ui-selectmenu-item-focus a {
+ 		}
+ 	}
+ }
+ .ui-selectmenu-menu-popup {
+ 	margin-top: -1px;
+ }
+ .ui-selectmenu-menu-dropdown {
+ }
+ .ui-selectmenu-status {
+ 	@extend %extend_1;
+ 	line-height: 1.4em;
+ 	.ui-icon {
+ 		@extend %extend_3;
+ 	}
+ 	span {
+ 		display: block;
+ 		margin-bottom: .2em;
+ 	}
+ }
+ .ui-state-disabled {
+ 	cursor: default;
+ }
+ * {
+ 	html {
+ 		.ui-selectmenu-menu li {
+ 			border-color: $pink;
+ 			filter: chroma(color=pink);
+ 			width: 100%;
+ 			a {
+ 				position: relative;
+ 			}
+ 		}
+ 		.ui-multiselect-checkboxes label {
+ 			border: none;
+ 		}
+ 	}
+ 	+ html .ui-state-disabled {
+ 		color: $silver;
+ 		a {
+ 			color: $silver;
+ 		}
+ 	}
+ }
+ .ui-multiselect {
+ 	display: inline-block;
+ 	padding: 2px 0 2px 4px;
+ 	text-align: left;
+ 	span.ui-icon {
+ 		float: right;
+ 	}
+ }
+ .ui-multiselect-header {
+ 	margin-bottom: 3px;
+ 	padding: 3px 0 3px 4px;
+ 	ul {
+ 		font-size: 0.9em;
+ 		li {
+ 			float: left;
+ 			padding: 0 10px 0 0;
+ 		}
+ 	}
+ 	a {
+ 		text-decoration: none;
+ 		&:hover {
+ 			text-decoration: underline;
+ 		}
+ 	}
+ 	span.ui-icon {
+ 		float: left;
+ 		margin-right: 2px;
+ 	}
+ 	li.ui-multiselect-close {
+ 		float: right;
+ 		text-align: right;
+ 		padding-right: 0;
+ 	}
+ }
+ .ui-multiselect-menu {
+ 	display: none;
+ 	padding: 3px;
+ 	position: absolute;
+ 	z-index: 10000;
+ 	text-align: left;
+ }
+ .ui-multiselect-checkboxes {
+ 	position: relative;
+ 	overflow-y: scroll;
+ 	label {
+ 		cursor: default;
+ 		display: block;
+ 		border: 1px solid transparent;
+ 		padding: 3px 1px;
+ 		input {
+ 			position: relative;
+ 			top: 1px;
+ 			margin-right: 4px;
+ 		}
+ 	}
+ 	li {
+ 		clear: both;
+ 		font-size: 0.9em;
+ 		padding-right: 3px;
+ 		&.ui-multiselect-optgroup-label {
+ 			cursor: default;
+ 			margin-top: .8em;
+ 			border-bottom: 1px solid;
+ 			span {
+ 				font-weight: bold;
+ 			}
+ 			a {
+ 				cursor: pointer;
+ 				text-decoration: none;
+ 			}
+ 		}
+ 	}
+ }
+ .rup-combo_multiOptgroupIcon {
+ 	display: inline-table;
+ 	vertical-align: text-bottom;
+ }
+ .ui-selectmenu-item-icon {
+ 	height: 24px;
+ 	width: 24px;
+ 	background-repeat: no-repeat;
+ }
+ .rup-combo_odd {
+ 	background-color: $color_gallery_approx;
+ }
+ .rup-combo_even {
+ 	background-color: $white;
+ }
+ .rup-combo_groupOdd {
+ 	background-color: $white;
+ }
+ .rup-combo_groupEven {
+ 	background-color: $white;
+ }
+ .ui-selectmenu-hasIcon .ui-selectmenu-status {
+ 	@extend %extend_2;
+ }
+ ul.ui-selectmenu-menu-popup {
+ 	margin-top: -1px;
+ }
+ .ui-multiselect-single .ui-multiselect-checkboxes {
+ 	input {
+ 		position: absolute !important;
+ 		top: auto !important;
+ 		left: -9999px;
+ 	}
+ 	label {
+ 		padding: 5px !important;
+ 	}
+ }
+ .delete .ui-selectmenu-item-icon {
+ 	background-image: $url_1;
+ }
+ .filter .ui-selectmenu-item-icon {
+ 	background-image: $url_2;
+ }
+ .print .ui-selectmenu-item-icon {
+ 	background-image: $url_3;
+ }

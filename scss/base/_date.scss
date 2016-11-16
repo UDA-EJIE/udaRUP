@@ -1,0 +1,62 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+ //colors
+ $pink: #ffc0cb;
+ $red:  red;
+ $black: black;
+ $color_hawkes_blue_approx: #dde7ff;
+ $color_blue_ribbon_approx: #195ffe;
+ $color_magic_mint_approx: #b4fdcc;
+ $color_green_pea_approx: #175c2e;
+
+ //@extend-elements
+ //original selectors
+ //.ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a
+ %extend_1 {
+ 	font-weight: normal !important;
+ 	background: $color_magic_mint_approx none no-repeat scroll 50% 50% !important;
+ 	border: 0.1em solid $color_green_pea_approx !important;
+ 	color: $black !important;
+ }
+
+
+ #ui-datepicker-div {
+ 	display: none;
+ }
+ .ui-datepicker-calendar {
+ 	td {
+ 		border: none !important;
+ 	}
+ 	.ui-state-highlight a {
+ 		@extend %extend_1;
+ 	}
+ }
+ .ui-datepicker-week-end a {
+ 	font-weight: normal !important;
+ 	background: $pink none no-repeat scroll 50% 50% !important;
+ 	border: 0.1em solid $red !important;
+ 	color: $black !important;
+ }
+ .ui-datepicker-today a {
+ 	font-weight: normal !important;
+ 	background: $color_hawkes_blue_approx none no-repeat scroll 50% 50% !important;
+ 	border: 0.1em solid $color_blue_ribbon_approx !important;
+ 	color: $black !important;
+ }
+ .ui-datepicker-current-day a {
+ 	@extend %extend_1;
+ }

@@ -1,0 +1,98 @@
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+ //urls
+ $url_0: url(images/rup.error.png);
+ $url_1: url(images/rup.confirm.png);
+ $url_2: url(images/rup.ok.png);
+ $url_3: url(images/rup.alert.png);
+
+ .rup-message_icon-error {
+ 	background-image: $url_0;
+ 	background-position: center center;
+ 	background-repeat: no-repeat;
+ 	float: left;
+ 	height: 24px;
+ 	margin-right: 0.9em;
+ 	padding-top: 2.1em;
+ 	vertical-align: middle;
+ 	width: 11%;
+ }
+ .rup-message_msg-error {
+ 	padding-top: 1em;
+ 	text-align: left;
+ 	vertical-align: middle;
+ 	float: right;
+ 	width: 84%;
+ }
+ .rup-message_icon-confirm {
+ 	background-image: $url_1;
+ 	background-position: center center;
+ 	background-repeat: no-repeat;
+ 	float: left;
+ 	height: 24px;
+ 	margin-right: 0.9em;
+ 	padding-top: 1.5em;
+ 	vertical-align: middle;
+ 	width: 11%;
+ }
+ .rup-message_msg-confirm {
+ 	padding-top: 1em;
+ 	text-align: left;
+ 	vertical-align: middle;
+ 	float: right;
+ 	width: 84%;
+ }
+ .rup-message_icon-ok {
+ 	background-image: $url_2;
+ 	background-position: center center;
+ 	background-repeat: no-repeat;
+ 	float: left;
+ 	height: 24px;
+ 	margin-right: 0.9em;
+ 	padding-top: 1.5em;
+ 	vertical-align: middle;
+ 	width: 11%;
+ }
+ .rup-message_msg-ok {
+ 	padding-top: 1em;
+ 	text-align: left;
+ 	vertical-align: middle;
+ 	float: right;
+ 	width: 84%;
+ }
+ .rup-message_icon-alert {
+ 	background-image: $url_3;
+ 	background-position: center center;
+ 	background-repeat: no-repeat;
+ 	float: left;
+ 	height: 24px;
+ 	margin-right: 0.9em;
+ 	padding-top: 1.5em;
+ 	vertical-align: middle;
+ 	width: 11%;
+ }
+ .rup-message_msg-alert {
+ 	padding-top: 1em;
+ 	text-align: left;
+ 	vertical-align: middle;
+ 	float: right;
+ 	width: 84%;
+ }
+ .ui-dialog .ui-dialog-title {
+ 	width: auto;
+ 	padding-right: 0.3em;
+ }
