@@ -50,7 +50,7 @@
 	if ( typeof define === "function" && define.amd ) {
 
 		 // AMD. Register as an anonymous module.
-		 define( ["jquery","./rup.base","./rup.tooltip" ], factory );
+		 define( ["jquery","./rup.base","./rup.tooltip"], factory );
 	} else {
 
 		 // Browser globals
@@ -76,7 +76,7 @@
 		options: {
 			languages: null,
 			active: null,
-			modo: "" //portal
+			modo: "default" //portal
 		},
         /**
         * Función encargada de crear en el DOM los elementos necesarios para el componente.
@@ -87,6 +87,7 @@
         */
 		_create: function () {
 
+
 			this.options.active = $.rup.lang==null?"[lang]":$.rup.lang, active = this.options.active;
 			this.options.languages = $.rup.AVAILABLE_LANGS.split(",");
 			var self = this.element, aChangeLang = $("<a>").attr("id", "rup_language_choice").addClass("rup-language_change_option").text($.rup.i18nParse($.rup.i18n.base,"rup_language.changeLanguage"));
@@ -94,7 +95,33 @@
 			//gestion de estilos de jquery-ui
 			$(self).addClass("ui-widget");
 
-			if (this.options.modo === "portal"){
+			if (this.options.modo === "default"){
+				var $parent = self.parent(),
+						$langCurrentText = self.find("[data-rup-lang-current]"),
+						$languagesDropdown, value;
+
+				$parent.addClass("dropdown");
+				self.addClass("dropdown-toggle")
+						.attr({
+							"data-toogle":"dropdown",
+							"aria-haspopup":"true",
+							"aria-expanded":"false"
+						});
+
+
+				$langCurrentText.text($.rup.i18nParse($.rup.i18n.base,"rup_language."+this.options.active));
+				// $languagesDropdown = $("<div>").addClass("dropdown-menu").attr("aria-labelledby",self.attr("id"));
+				$languagesDropdown = $parent.find("[aria-labelledby="+ self.attr("id")+"]")
+				$.each(this.options.languages, function (key, value) {
+					value = value.replace(/^\s*|\s*$/g,"");
+					var txt = $.rup.i18nParse($.rup.i18n.base,"rup_language."+value);
+
+					$languagesDropdown.append($("<a>").addClass("dropdown-item").attr("href", "?"+$.rup.LOCALE_PARAM_NAME+"=" + value).text(txt));
+				});
+				$parent.append($languagesDropdown);
+
+
+			} else if (this.options.modo === "portal"){
 				var ul = $("<ul>").addClass("rup-language_portal"), lng_lenght = $(this.options.languages).size();
 
 				$.each(this.options.languages, function (key, value) {
@@ -117,7 +144,7 @@
 
 				self.append(ul);
 
-			} else {
+			} else if (this.options.modo === "classic"){
 
 				// Carga de los valores por defecto para los atributos que no ha introducido el usuario
 				var ul = $("<ul>").attr("id","ulGeneral"), timerID,

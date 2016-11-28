@@ -17,12 +17,14 @@ var pump = require('pump');
 var fs = require('fs');
 var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
+var amdOptimize = require("amd-optimize");
 
 var moduleImporter = require('sass-module-importer');
 
 var version = "2.4.8";
 
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+var amdConf = JSON.parse(fs.readFileSync('./amd.conf.json'));
 
 
 var config = {
@@ -95,20 +97,56 @@ gulp.task('sass:rup-classic', function () {
 
 // MINIMIZE
 
-gulp.task('minimize:rup-classic', function () {
+gulp.task('minimize:css:rup-classic', function () {
   gulp.src(minimizeConf.rupClassicCssFiles)
     .pipe(concat("rup-classic.min.css"))
     .pipe(cleanCSS())
     .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('minimize:rup', function () {
+gulp.task('minimize:css:rup', function () {
   console.log(minimizeConf.rupCssFiles);
   gulp.src(minimizeConf.rupCssFiles)
     .pipe(concat("rup.min.css"))
-    .pipe(cleanCSS())
+    // .pipe(cleanCSS())
     .pipe(gulp.dest('./dist/css'));
+
+    // FIXME: Solo para desarrollo de la x21a
+    gulp.src('./dist/css/rup.min.css')
+      .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
+
+      gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
+        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/fonts'));
+
 });
+
+gulp.task('minimize:js:rup', function () {
+
+
+  gulp.src(minimizeConf.rupJsFiles)
+  .pipe(concat("rup.min.js"))
+  .pipe(gulp.dest('./dist/js'));
+
+
+
+  // FIXME: Solo para desarrollo de la x21a
+  gulp.src('./dist/js/rup.min.js')
+    .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
+
+
+});
+
+gulp.task('build', [
+  'sass:bootstrap',
+  'sass:rup-classic',
+  'sass:rup',
+  'minimize:css:rup-classic',
+  'minimize:css:rup',
+  'templates',
+  'templates-classic',
+  'minimize:js:rup'
+]);
+
 
 // WATCHES
 
@@ -116,10 +154,11 @@ gulp.task('watch', [
   'watch:sass:bootstrap',
   'watch:sass:rup-classic',
   'watch:sass:rup',
-  'watch:minimize:rup-classic',
-  'watch:minimize:rup',
+  'watch:minimize:css:rup-classic',
+  'watch:minimize:css:rup',
   'watch:templates:rup',
-  'watch:templates:rup-classic'
+  'watch:templates:rup-classic',
+  'watch:minimize:js:rup'
 ]);
 
 // WATCHES:sass
@@ -138,14 +177,17 @@ gulp.task('watch:sass:rup', function () {
 
 // WATCHES:minimize
 
-gulp.task('watch:minimize:rup', function () {
-  gulp.watch(['./dist/css/bootstrap.css','./dist/css/rup.css'], ['minimize:rup']);
+gulp.task('watch:minimize:css:rup', function () {
+  gulp.watch(['./dist/css/bootstrap.css','./dist/css/rup.css'], ['minimize:css:rup']);
 });
 
-gulp.task('watch:minimize:rup-classic', function () {
-  gulp.watch(['./dist/css/rup-classic.css'], ['minimize:rup-classic']);
+gulp.task('watch:minimize:css:rup-classic', function () {
+  gulp.watch(['./dist/css/rup-classic.css'], ['minimize:css:rup-classic']);
 });
 
+gulp.task('watch:minimize:js:rup', function () {
+  gulp.watch(['./src/**/*.js'], ['minimize:js:rup']);
+});
 
 // WATCHES:templates
 
@@ -156,6 +198,11 @@ gulp.task('watch:templates:rup', function () {
 gulp.task('watch:templates:rup-classic', function () {
   gulp.watch('./demo/**/*.hbs', ['templates-classic']);
 });
+
+
+
+// -------------------
+
 
 gulp.task('dist:prepare', function () {
   gulp.src('./css/basic-theme/images/**').pipe(gulp.dest("./dist/css/images"));
@@ -205,18 +252,11 @@ gulp.task('copyRupSources', function (cb) {
 
 gulp.task('minimizeRupJs', function (cb) {
     console.log("Minimizando ficheros js de RUP...");
-    mkdirSync('dist/rup/scripts/min');
-
-    pump([
-      gulp.src(minimizeConf.rupJsFiles, {
-            cwd: "src"
-        }),
-      concat("rup.min-" + version + ".js"),
-      uglify({
-            preserveComments: 'license'
-        }),
-      gulp.dest('dist/rup/scripts/min')
-  ], cb);
+    return gulp.src("src/**/*.js")
+    // Traces all modules and outputs them in the correct order.
+    .pipe(amdOptimize("main", amdConf))
+    .pipe(concat("rup.js"))
+    .pipe(gulp.dest("dist/js"));
 
 
 });

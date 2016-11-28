@@ -3,7 +3,7 @@ define(['marionette',
         'templates',
         'rup/rup.base',
         'rup/rup.utils',
-        'rup/lang'], function(Marionette, App){
+        'rup/rup.lang'], function(Marionette, App){
 
     var HeaderView = Marionette.LayoutView.extend({
         template: App.Templates.demoResponsive.app.shared.language.languageTemplate,

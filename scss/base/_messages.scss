@@ -7,91 +7,102 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-
- //urls
- $url_0: url(images/rup.error.png);
- $url_1: url(images/rup.confirm.png);
- $url_2: url(images/rup.ok.png);
- $url_3: url(images/rup.alert.png);
-
+ 
+ 						/* MENSAJES DE ERROR */
+ /*Estilo de la capa con la imagen de error*/
  .rup-message_icon-error {
- 	background-image: $url_0;
- 	background-position: center center;
- 	background-repeat: no-repeat;
- 	float: left;
- 	height: 24px;
- 	margin-right: 0.9em;
- 	padding-top: 2.1em;
- 	vertical-align: middle;
- 	width: 11%;
+	background-image:url("images/rup.error.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:2.1em;
+	vertical-align:middle;
+	width:11%;
  }
+ 
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de error*/
  .rup-message_msg-error {
- 	padding-top: 1em;
- 	text-align: left;
- 	vertical-align: middle;
- 	float: right;
- 	width: 84%;
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
  }
+ 
+ 						/* MENSAJES DE CONFIRMACION */
+ /*Estilo de la capa con la imagen de confirmacion*/
  .rup-message_icon-confirm {
- 	background-image: $url_1;
- 	background-position: center center;
- 	background-repeat: no-repeat;
- 	float: left;
- 	height: 24px;
- 	margin-right: 0.9em;
- 	padding-top: 1.5em;
- 	vertical-align: middle;
- 	width: 11%;
+	background-image:url("images/rup.confirm.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
  }
- .rup-message_msg-confirm {
- 	padding-top: 1em;
- 	text-align: left;
- 	vertical-align: middle;
- 	float: right;
- 	width: 84%;
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo confirmación*/
+ .rup-message_msg-confirm{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
  }
+ 
+ 						/* MENSAJES DE OK */
+ /*Estilo de la capa con la imagen de ok*/
  .rup-message_icon-ok {
- 	background-image: $url_2;
- 	background-position: center center;
- 	background-repeat: no-repeat;
- 	float: left;
- 	height: 24px;
- 	margin-right: 0.9em;
- 	padding-top: 1.5em;
- 	vertical-align: middle;
- 	width: 11%;
+ 	background-image:url("images/rup.ok.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
  }
- .rup-message_msg-ok {
- 	padding-top: 1em;
- 	text-align: left;
- 	vertical-align: middle;
- 	float: right;
- 	width: 84%;
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo ok*/
+ .rup-message_msg-ok{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
  }
+ 
+ 						/* MENSAJES DE ALERTA */
+ /*Estilo de la capa con la imagen de alerta*/
  .rup-message_icon-alert {
- 	background-image: $url_3;
- 	background-position: center center;
- 	background-repeat: no-repeat;
- 	float: left;
- 	height: 24px;
- 	margin-right: 0.9em;
- 	padding-top: 1.5em;
- 	vertical-align: middle;
- 	width: 11%;
+ 	background-image:url("images/rup.alert.png");
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	height:24px;
+	margin-right:0.9em;
+	padding-top:1.5em;
+	vertical-align:middle;
+	width:11%;
  }
- .rup-message_msg-alert {
- 	padding-top: 1em;
- 	text-align: left;
- 	vertical-align: middle;
- 	float: right;
- 	width: 84%;
+ /*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo alerta*/
+ .rup-message_msg-alert{
+	padding-top:1em;
+	text-align:left;
+	vertical-align:middle;
+	float: right;
+	width: 84%;
  }
+ 
  .ui-dialog .ui-dialog-title {
  	width: auto;
  	padding-right: 0.3em;

@@ -31,86 +31,97 @@
  }
 } ( function( $ ) {
 
-	$.widget('blueimpX.fileupload', $.blueimp.fileupload, {
+	$.widget('blueimp.fileupload', $.blueimp.fileupload, {
 	    options: {
 	        errorMessages: {
 	            maxFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxFileSizeError"),
 	            minFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.minFileSizeError"),
 	            acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, "rup_upload.acceptFileTypesError"),
 	            maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxNumberOfFilesError")
-	        }
-	    },
-	    _renderUpload: function (files) {
-            var that = this,
-                options = this.options,
-                tmpl = this._renderUploadTemplate(files),
-                isValidated = this._validate(files);
-            if (!(tmpl instanceof $)) {
-                return $();
-            }
-            var settings = $.data(this.element[0], "settings");
-
-            tmpl.css('display', 'none');
-            // .slice(1).remove().end().first() removes all but the first
-            // element and selects only the first for the jQuery collection:
-            tmpl.find('.progress div').slice(
-                isValidated ? 1 : 0
-            ).remove().end().first()
-                .progressbar();
-            tmpl.find('.start button').slice(
-                this.options.autoUpload || !isValidated ? 0 : 1
-            ).remove().end().first()
-                .button({
-                    text: true,
-                    icons: {primary: 'ui-icon-circle-arrow-e'}
-                });
-            var cancelButton = tmpl.find('.cancel button').slice(1).remove().end().first()
-                .button({
-                    text: true,
-                    icons: {primary: 'ui-icon-cancel'}
-                });
-
-            if(settings.submitInForm){
-	            cancelButton.bind("click",function(event){
-	            	var newFileInput;
-	                event.preventDefault();
-	                that.options.fileInput.attr("value","");
-	                newFileInput=that.options.fileInput.clone(true).attr("value","").insertAfter(that.options.fileInput);
-	                that.options.fileInput.remove();
-	                that.options.fileInput=newFileInput;
-
-	            });
-            }
-
-            tmpl.find('.preview').each(function (index, node) {
-                that._loadImage(
-                    files[index],
-                    function (img) {
-                        $(img).hide().appendTo(node).fadeIn();
-                    },
-                    {
-                        maxWidth: options.previewMaxWidth,
-                        maxHeight: options.previewMaxHeight,
-                        fileTypes: options.previewFileTypes,
-                        canvas: options.previewAsCanvas
+	        },
+          processdone: function (e, data) {
+                $(e.target).find('.start').button('enable');
+            },
+          getFilesFromResponse: function (data) {
+                        if (data.result && $.isArray(data.result)) {
+                            // return data.result;
+                            return data.result.map(function(elem,i){ return $.extend(elem,{deleteType:elem.delete_type,deleteUrl:elem.delete_url});})
+                        }
+                        return [];
                     }
-                );
-            });
-            return tmpl;
-        },
-        _renderDownload: function (files) {
-            var tmpl = this._renderDownloadTemplate(files);
-            if (!(tmpl instanceof $)) {
-                return $();
-            }
-            tmpl.css('display', 'none');
-            tmpl.find('.delete button').button({
-                text: true,
-                icons: {primary: 'ui-icon-trash'}
-            });
-            tmpl.find('a').each(this._enableDragToDesktop);
-            return tmpl;
-        },
+	    },
+
+	    // _renderUpload: function (files) {
+      //       var that = this,
+      //           options = this.options,
+      //           tmpl = this._renderUploadTemplate(files),
+      //           isValidated = this._validate(files);
+      //       if (!(tmpl instanceof $)) {
+      //           return $();
+      //       }
+      //       var settings = $.data(this.element[0], "settings");
+      //
+      //       tmpl.css('display', 'none');
+      //       // .slice(1).remove().end().first() removes all but the first
+      //       // element and selects only the first for the jQuery collection:
+      //       tmpl.find('.progress div').slice(
+      //           isValidated ? 1 : 0
+      //       ).remove().end().first()
+      //           .progressbar();
+      //       tmpl.find('.start button').slice(
+      //           this.options.autoUpload || !isValidated ? 0 : 1
+      //       ).remove().end().first()
+      //           .button({
+      //               text: true,
+      //               icons: {primary: 'ui-icon-circle-arrow-e'}
+      //           });
+      //       var cancelButton = tmpl.find('.cancel button').slice(1).remove().end().first()
+      //           .button({
+      //               text: true,
+      //               icons: {primary: 'ui-icon-cancel'}
+      //           });
+      //
+      //       if(settings.submitInForm){
+	    //         cancelButton.bind("click",function(event){
+	    //         	var newFileInput;
+	    //             event.preventDefault();
+	    //             that.options.fileInput.attr("value","");
+	    //             newFileInput=that.options.fileInput.clone(true).attr("value","").insertAfter(that.options.fileInput);
+	    //             that.options.fileInput.remove();
+	    //             that.options.fileInput=newFileInput;
+      //
+	    //         });
+      //       }
+      //
+      //       tmpl.find('.preview').each(function (index, node) {
+      //           that._loadImage(
+      //               files[index],
+      //               function (img) {
+      //                   $(img).hide().appendTo(node).fadeIn();
+      //               },
+      //               {
+      //                   maxWidth: options.previewMaxWidth,
+      //                   maxHeight: options.previewMaxHeight,
+      //                   fileTypes: options.previewFileTypes,
+      //                   canvas: options.previewAsCanvas
+      //               }
+      //           );
+      //       });
+      //       return tmpl;
+      //   },
+        // _renderDownload: function (files) {
+        //     var tmpl = this._renderDownloadTemplate(files);
+        //     if (!(tmpl instanceof $)) {
+        //         return $();
+        //     }
+        //     tmpl.css('display', 'none');
+        //     tmpl.find('.delete button').button({
+        //         text: true,
+        //         icons: {primary: 'ui-icon-trash'}
+        //     });
+        //     tmpl.find('a').each(this._enableDragToDesktop);
+        //     return tmpl;
+        // },
 	    _renderUploadTemplate: function (files) {
 	        var that = this,
             rows = $();
@@ -119,7 +130,7 @@
 
 
 	        $.each(files, function (index, file) {
-	            file = that._uploadTemplateHelper(file);
+	            // file = that._uploadTemplateHelper(file);
 	            var row = $(
 	            	'<tr class="template-upload"><td>' +
 	            	'<div class="formulario_columna_cnt">' +
@@ -161,7 +172,7 @@
 	        var that = this,
 	            rows = $();
 	        $.each(files, function (index, file) {
-	            file = that._downloadTemplateHelper(file);
+	            // file = that._downloadTemplateHelper(file);
 	            var row = $('<tr class="template-download"><td>' +
 	                (file.error ?
 	                	'<td class="file_icon"></td>' +
@@ -499,11 +510,119 @@
 	//*******************************************************
 
 	$.fn.rup_upload.defaults = {
-		label:null,
-		fileInput:null,
-		submitInForm:false,
-		submitFormButton:undefined,
-		pif:null
+		// label:null,
+		// fileInput:null,
+		// submitInForm:false,
+		// submitFormButton:undefined,
+		pif:null,
+    filesContainer: '.files',
+    uploadTemplateId:false,
+    downloadTemplateId:false,
+    uploadTemplate: function (o) {
+        var that = this,
+          rows = $(),
+          files = o.files,
+          options = o.options;
+
+        // var settings = $.data(this.element[0], "settings");
+
+
+        $.each(files, function (index, file) {
+            // file = that._uploadTemplateHelper(file);
+            var row = $(
+              '<tr class="template-upload"><td>' +
+              '<div class="formulario_columna_cnt">' +
+                '<span class="izq_float file_icon">&nbsp;</span>' +
+                '<div class="izq_float name"><b></b></div>' +
+                '<div class="formulario_columna_cnt">' +
+                '<div class="izq_float type"></div>' +
+                '<div class="izq_float size"></div>' +
+                (options.submitInForm ?
+                    '<div class="izq_float cancel" style><button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.cancelUpload")+'</button></div>'
+                    : '') +
+                '</div>' +
+                (!options.submitInForm ?
+                '<div class="formulario_columna_cnt">' +
+                (file.error ?
+                    '<div class="izq_float error" ></div>'
+                :
+                    '<div class="izq_float progress"><div></div></div>' +
+                    '<div class="izq_float start fileupload-buttonbar ui-button"><button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.startUpload")+'</button></div>'
+                ) +
+                '<div class="izq_float cancel"><button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.cancelUpload")+'</button></div>' +
+                '</div>':'<div class="izq_float start fileupload-buttonbar ui-button" style="display:none"><button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.startUpload")+'</button></div>') +
+                '</td></tr>');
+            row.find('.name b').text(file.name);
+            row.find('.size').text(file.sizef);
+            row.find('.type').text(file.type);
+            if (file.error) {
+                row.addClass('ui-state-error');
+                row.find('.error').text(
+                    options.errorMessages[file.error] || file.error
+                );
+            }
+
+            rows = rows.add(row);
+        });
+        return rows;
+  },
+
+    downloadTemplate: function (o) {
+        var that = this,
+            rows = $(),
+            files = o.files;
+        $.each(files, function (index, file) {
+            // file = that._downloadTemplateHelper(file);
+            var row = $('<tr class="template-download"><td>' +
+                (file.error ?
+                  '<td class="file_icon"></td>' +
+                    '<td class="name"></td>' +
+                    '<td class="size"></td>' +
+                    '<td class="error" colspan="2"></td>'
+                :
+                  '<div class="formulario_columna_cnt">' +
+                  '<span class="izq_float file_icon">&nbsp;</span>' +
+                  '<div class="izq_float name"><a></a></div>' +
+                  '</div>' +
+                  '<div class="formulario_columna_cnt">' +
+                  '<div class="izq_float type"></div>' +
+                  '<div class="izq_float size"></div>' +
+                  '</div>'+
+                  '<div class="formulario_columna_cnt">' +
+                  '<a><div class="izq_float">'+
+                  '<div class="file_download" >'+
+                  '<span class="file_download_icon">&nbsp;</span>'+
+                  '<span class="file_download_text">'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.openUploaded")+'</span></div>'+
+                  '</div></a>' +
+                  '<div class="izq_float delete"><button>'+$.rup.i18nParse($.rup.i18n.base,"rup_upload.deleteUploaded")+'</button></div>' +
+                  '</div>'
+                ) +
+                '</td></tr>');
+
+            row.find('.size').text(file.sizef);
+            row.find('.type').text(file.type);
+            if (file.error) {
+                row.find('.name').text(file.name);
+                row.addClass('ui-state-error');
+                row.find('.error').text(
+                    that.options.errorMessages[file.error] || file.error
+                );
+            } else {
+                row.find('.name a').text(file.name);
+                if (file.thumbnail_url) {
+                    row.find('.preview').append('<a><img></a>')
+                        .find('img').prop('src', file.thumbnail_url);
+                    row.find('a').prop('target', '_blank');
+                }
+                row.find('a').prop('href', $.rup_utils.setNoPortalParam(file.url));
+                row.find('.delete button')
+                    .attr('data-type', file.delete_type)
+                    .attr('data-url',  $.rup_utils.setNoPortalParam(file.delete_url));
+            }
+            rows = rows.add(row);
+        });
+        return rows;
+    }
 	};
 
 	$.fn.rup_upload.pif={};

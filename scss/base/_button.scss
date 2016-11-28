@@ -14,79 +14,83 @@
  * que establece la Licencia.
  */
 
- //colors
- $black_17_6: rgba(0, 0, 0, 0.176);
- $white: #fff;
- $black_15: rgba(0, 0, 0, 0.15);
- $color_mine_shaft_approx: #333;
- $mercury: #e5e5e5;
+.rup-dropdown-btn-group {
+    display: inline-block;
+}
 
- .rup-dropdown-btn-group {
- 	display: inline-block;
- 	.rup-toolbar_button.rup-dropdown {
- 		//Instead of the line below you could use @include border-bottom-right-radius($radius)
- 		border-bottom-right-radius: 0;
- 		//Instead of the line below you could use @include border-top-right-radius($radius)
- 		border-top-right-radius: 0;
- 	}
- }
- .rup-dropdown {
- 	//Instead of the line below you could use @include border-top-right-radius($radius)
- 	border-top-right-radius: 0;
- 	//Instead of the line below you could use @include border-bottom-right-radius($radius)
- 	border-bottom-right-radius: 0;
- 	margin-right: 0;
- }
- .rup-dropdown-button {
- 	//Instead of the line below you could use @include border-top-left-radius($radius)
- 	border-top-left-radius: 0;
- 	//Instead of the line below you could use @include border-bottom-left-radius($radius)
- 	border-bottom-left-radius: 0;
- 	border-left: 0;
- 	width: 25px;
- }
- .rup-dropdown-dialog {
- 	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
- 	box-shadow: 0 6px 12px $black_17_6;
- 	> .ui-widget-header {
- 		background: none;
- 		border: 0;
- 	}
- }
- .rup-dropdown-option-list {
- 	display: none;
- 	background-color: $white;
- 	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
- 	box-shadow: 0 6px 12px $black_17_6;
- 	border: 1px solid $black_15;
- 	list-style: outside none none;
- 	margin: 2px 0 0;
- 	padding: 5px 0;
- 	position: absolute;
- 	z-index: 9000;
- 	font-size: 1.1em;
- 	&.open {
- 		display: block;
- 	}
- 	.divider {
- 		background-color: $mercury;
- 		height: 1px;
- 		margin: 9px 0;
- 		overflow: hidden;
- 	}
- 	> li > a {
- 		clear: both;
- 		color: $color_mine_shaft_approx;
- 		display: block;
- 		font-weight: 400;
- 		line-height: 1.42857;
- 		padding: 3px 20px;
- 		white-space: nowrap;
- 	}
- 	&.rup-toolbar_menuButtonContainer > li > a {
- 		padding: 0;
- 	}
- }
- button.ui-button-icon-only.rup-dropdown-button {
- 	width: 1.8em;
- }
+.rup-dropdown{
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	margin-right: 0px;
+}
+
+
+.rup-dropdown-button{
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-left: 0px;
+/* 	left: -1px; */
+	width:25px;
+}
+
+.rup-dropdown-dialog{
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+}
+
+button.ui-button-icon-only.rup-dropdown-button{
+	width: 1.8em;
+}
+
+.rup-dropdown-dialog > .ui-widget-header{
+	background: none;
+	border:0px;
+}
+
+
+
+
+/* Dropdown HTML List */
+
+.rup-dropdown-option-list{
+	display: none;
+	background-color: #fff;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	list-style: outside none none;
+	margin: 2px 0 0;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 9000;
+	font-size: 1.1em;
+
+}
+
+.rup-dropdown-option-list.open{
+	display: block;
+}
+
+.rup-dropdown-option-list > li > a  {
+    clear: both;
+    color: #333;
+    display: block;
+    font-weight: 400;
+    line-height: 1.42857;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+
+.rup-dropdown-option-list.rup-toolbar_menuButtonContainer > li > a {
+	padding: 0px;
+}
+
+.rup-dropdown-option-list .divider {
+    background-color: #e5e5e5;
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+}
+
+.rup-dropdown-btn-group .rup-toolbar_button.rup-dropdown{
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+}

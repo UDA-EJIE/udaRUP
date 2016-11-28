@@ -1,0 +1,31 @@
+select, select.form-control{
+  @extend select;
+
+}
+
+.ui-selectmenu-dropdown{
+  @extend select;
+
+  &:hover{
+    text-decoration: none;
+  }
+
+  span.ui-selectmenu-status{
+    padding: 3px 4px;
+  }
+
+  span.ui-selectmenu-icon{
+    top: 4px;
+  }
+}
+
+.ui-selectmenu-menu {
+  .ui-selectmenu-menu-dropdown{
+
+    @extend %box-shadow-style1;
+
+    li a{
+      padding: 3px 4px;
+    }
+  }
+}

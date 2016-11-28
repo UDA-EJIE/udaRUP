@@ -1,0 +1,62 @@
+
+body{
+  font-size: $font-size-body;
+}
+
+label, label.label, .label {
+  font-size: $font-size-base;
+  color: $text-color;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 5px;
+  max-width: 100%;
+}
+
+input, textarea{
+  box-shadow: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+.ui-autocomplete-input,
+textarea,
+.uneditable-input {
+  font-size: $font-size-base;
+  height: 2rem;
+}
+
+button{
+  @extend %button-style-base;
+  @extend %button-style;
+  @extend %button-color;
+
+  &:hover{
+    @extend %button-color-hover;
+  }
+}
+
+fieldset{
+  border: 1px solid silver;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+legend{
+  font-size: $font-size-base;
+  width: auto;
+  margin-bottom: 0;
+  border: none;
+  padding: 0 0.4rem;
+}
+
+.form-group-sm .form-control, .form-group-sm select.form-control{
+  height: 25px;
+}
+
+select{
+  @extend %select-style;
+}

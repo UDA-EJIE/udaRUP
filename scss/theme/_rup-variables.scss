@@ -58,6 +58,10 @@ $rup-color-transparent: transparent;
 $rup-color-white: #ffffff;
 $rup-color-black: #000000;
 
+$rup-text-color: $rup-gray-darkest;
+$rup-text-color-inverse: $rup-gray-lightest;
+$rup-text-color-primary: $rup-color-primary-3;
+
 
 $rup-color-gray-dark:                 $rup-gray-dark !default;
 $rup-color-gray:                      $rup-gray !default;
@@ -90,8 +94,8 @@ $rup-bg-color-hover: darken($rup-bg-color, 5%);
 $rup-color-gray: #aaa;
 $rup-color-gray-hover: darken($rup-color-gray, 20%);
 
+$rup-color-transparent: transparent;
 
-// Color: general
 
 $rup-color-border: $rup-gray-border;
 $rup-color-border-hover: darken($rup-color-border, 20%);
@@ -102,9 +106,54 @@ $rup-link-decoration:       none !default;
 $rup-link-hover-color:      darken($rup-link-color, 15%) !default;
 $rup-link-hover-decoration: underline !default;
 
+// Color: general
+
+$rup-color-ui-widget-hover: lighten($rup-color-primary-2,20%);
+
+// Color: Utillities: bubble
+
+$rup-color-bubble-border: $rup-color-border;
+$rup-color-bubble-bg: $rup-bg-color;
+
+// Color: Utillities: callout
+
+$rup-color-bubble-border: $rup-color-border;
+$rup-color-bubble-bg: $rup-bg-color;
+
+// Color: Accordion
+
+$rup-color-accordion-active-bg: $rup-color-primary-3;
+$rup-color-accordion-active-text: $rup-text-color-inverse;
+
 // Color: Button
 
 $rup-color-button-border: $rup-gray-border;
+
+// Color: Breadcrumbs
+
+$rup-color-breadCrumb-bg: $rup-bg-color;
+
+// Colors: date
+
+$rup-color-date-bg: $rup-bg-color;
+$rup-color-date-header-bg: $rup-bg-color;
+$rup-color-date-day-bg: $rup-bg-color;
+
+$rup-color-date-today-bg: $rup-color-primary-3;
+$rup-color-date-today-border: 0.1em solid $rup-color-primary-3 !important;
+$rup-color-date-today-text: $rup-text-color-inverse;
+
+$rup-color-date-hover-bg: $rup-color-primary-2;
+$rup-color-date-hover-border: 0.1em solid $rup-color-primary-2 !important;
+$rup-color-date-hover-text: $rup-text-color-inverse;
+
+$rup-color-date-current-bg: $rup-color-ok-light;
+$rup-color-date-current-border: 0.1em solid $rup-color-ok-light !important;
+$rup-color-date-current-text: $rup-text-color-inverse;
+
+$rup-color-date-weekend-bg: $rup-color-error-light;
+$rup-color-date-weekend-border: 0.1em solid $rup-color-error-light !important;
+$rup-color-date-weekend-text: $rup-text-color-inverse;
 
 // Colors: Navbar
 
@@ -162,7 +211,14 @@ $rup-color-progressbar-secondary: $rup-color-primary-4;
 
 // Colors: Tabs
 
-$rup-color-tabs-border: $rup-color-border;
+
+$rup-color-tabs-border: none;
+$rup-color-tabs-text: $rup-text-color;
+$rup-color-tabs-active-text: $rup-text-color;
+$rup-color-tabs-active-border: $rup-text-color;
+$rup-color-tabs-active-border: $rup-color-border;
+
+$rup-color-tabs-container-border: $rup-color-border;
 
 // Fonts
 
@@ -194,15 +250,14 @@ $rup-font-size-xs: .75rem !default;
 $rup-font-size-larger: ($rup-font-size-base * 1.1) !default;
 
 $rup-glyphicon-font-family:"Glyphicons Halflings";
-$rup-glyphicon-size-lg: 1.5em;
+$rup-glyphicon-size-lg: 1.5rem;
 
 $rup-fa-font-family:"FontAwesome";
-$rup-fa-size-lg: 1.5em;
-$rup-fa-size: 1.2em;
+$rup-fa-size-xlg: 2rem;
+$rup-fa-size-lg: 1.5rem;
+$rup-fa-size: 1.2rem;
 
-$rup-text-color: $rup-gray-darkest;
-$rup-text-color-inverse: $rup-gray-lightest;
-$rup-text-color-primary: $rup-color-primary-3;
+
 
 // Fonts: Dialog
 
@@ -223,12 +278,28 @@ $rup-button-font-weight: $rup-font-weight-base;
 
 // Styles
 
-
+$rup-border-width: 1px !default;
 
 $rup-border-radius: 4px;
 $rup-border-radius-none: 0;
 
+// Styles: Utillities: bubble
 
+
+$rup-bubble-border-width: $rup-border-width;
+$rup-bubble-border: $rup-bubble-border-width solid $rup-color-bubble-border;
+$rup-bubble-width: 10px;
+$rup-bubble-margin: $rup-bubble-width;
+$rup-bubble-after-border-width: $rup-bubble-width;
+$rup-bubble-before-border-width: $rup-bubble-width+$rup-border-width;
+
+// Styles: Forms
+
+$rup-input-height: 2rem;
+
+// Styles: Accordion
+
+$rup-accordion-active-border: 1px solid $rup-color-primary-3;
 
 // Styles: Feedback
 
@@ -239,6 +310,9 @@ $rup-border-radius-none: 0;
 $rup-navbar-height: 4rem;
 $rup-navbar-line-height: 3rem;
 $rup-navbar-brand-line-height: 3.6rem;
+
+$rup-navbar-icon-font-size: $rup-fa-size-xlg;
+$rup-navbar-icon-text-font-size: 1.2rem;
 
 
 // Styles: Button

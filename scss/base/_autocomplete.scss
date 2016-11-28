@@ -1,30 +1,48 @@
-.ui-autocomplete {
-	position: absolute;
-	cursor: default;
-	li {
-		list-style-type: none;
-	}
-	ul li {
-		list-style-type: none;
-	}
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Autocomplete
+----------------------------------*/
+.ui-autocomplete { position: absolute; cursor: default;}
+.ui-autocomplete-loading { background: white url('images/rup.ajaxLoader.gif') right center no-repeat; }
+
+.ui-autocomplete ul li, .ui-autocomplete li{
+	list-style-type: none;
 }
-.ui-autocomplete-loading {
-	background: $rup-autocomplete-loading-bg;
-}
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
 .rup-autocomplete_label {
-	background-image: $rup-autocomplete-label-icon-url;
+	background-image: url(images/rup.autocomplete.png);
 	background-repeat: no-repeat;
 	background-position: left;
 	padding-left: 2em;
-	border: $rup-autocomplete-label-border;
+	border: 0.5px solid #7F9DB9;
 }
+
 .rup-autocomplete_loading {
-	background-image: $rup-autocomplete-loading-bg-url !important;
+    background-image: url("images/rup.ajaxLoader.gif") !important;
 }
+
 .rup-combobox {
 	position: relative;
 	display: inline-block;
 }
+
 .rup-combobox-toggle {
 	position: absolute;
 	top: 0;
@@ -32,20 +50,21 @@
 	margin-left: -1px;
 	padding: 0;
 }
+
 .rup-combobox-input {
 	margin: 0;
-	background-color: $rup-autocomplete-input-bg;
+	background-color: white;
+	/*padding: 5px 10px;*/
 }
-.ui-autocomplete-category {
-	text-decoration: underline;
+
+ .ui-autocomplete-category {
+ text-decoration: underline;
+ font-weight:bold;
+padding: .2em .4em;
+margin: .8em 0 .2em;
+line-height: 1.5;
+}
+
+.matched-text{
 	font-weight: bold;
-	padding: .2em .4em;
-	margin: .8em 0 .2em;
-	line-height: 1.5;
-}
-.matched-text {
-	font-weight: bold;
-}
-* html .ui-autocomplete {
-	width: 1px;
 }

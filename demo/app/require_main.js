@@ -113,9 +113,13 @@ requirejs.config({
         "chartjs": "../../node_modules/chart.js/dist/Chart",
     },
     shim: {
+      "jquery-migrate": {
+          "deps": ["jquery"],
+      },
         "jquery-ui": {
             "deps": ["jquery", "jquery-migrate"],
         },
+
         "rup/compatibility": {
             "deps": ["rup/base"],
         },

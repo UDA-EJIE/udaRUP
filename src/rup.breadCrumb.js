@@ -19,7 +19,18 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ;(function( factory ) {
+	 if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define(["jquery"], factory );
+	 } else {
+
+		 // Browser globals
+		 factory(jQuery);
+	 }
+
+ }(function ($) {
 
   /**
   * El componente de migas muestra a los usuarios la ruta de navegación que ha seguido por la aplicación permitiéndoles volver hacia niveles superiores hasta la página de inicio.
@@ -278,4 +289,4 @@
 			$.Widget.prototype.destroy.apply(this, arguments);
 		}
 	});
-})(jQuery);
+}));

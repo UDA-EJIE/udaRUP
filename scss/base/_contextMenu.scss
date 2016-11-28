@@ -11,202 +11,161 @@
  *   GPL v3 http://opensource.org/licenses/GPL-3.0
  *
  */
- //colors
- $black: #000;
- $color_alto_approx: #ddd;
- $color_gallery_approx: #eee;
- $black_50: rgba(0, 0, 0, 0.5);
- $color_pink_swan_approx: #bababa;
- $color_storm_dust_approx: #666;
 
- //fonts
- $font_0: Verdana;
- $font_1: Arial;
- $font_2: Helvetica;
- $font_3: sans-serif;
+.context-menu-root {
+	color: #000;
+}
 
- //urls
- $url_0: url(images/contextmenu/check.png);
- $url_1: url(images/contextmenu/check_all.png);
- $url_2: url(images/contextmenu/uncheck.png);
- $url_3: url(images/contextmenu/uncheck_all.png);
- $url_4: url(images/contextmenu/child.png);
- $url_5: url(images/contextmenu/descendent.png);
- $url_6: url(images/contextmenu/page_white_edit.png);
- $url_7: url(images/contextmenu/cut.png);
- $url_8: url(images/contextmenu/page_white_copy.png);
- $url_9: url(images/contextmenu/page_white_clone.png);
- $url_10: url(images/contextmenu/page_white_paste.png);
- $url_11: url(images/contextmenu/page_white_delete.png);
- $url_12: url(images/contextmenu/page_white_add.png);
- $url_13: url(images/contextmenu/door.png);
- $url_14: url(cursors/context-menu.cur);
+.context-menu-item.icon-check { background-image: url(images/contextmenu/check.png); }
+.context-menu-item.icon-check_all { background-image: url(images/contextmenu/check_all.png); }
+.context-menu-item.icon-uncheck { background-image: url(images/contextmenu/uncheck.png); }
+.context-menu-item.icon-uncheck_all { background-image: url(images/contextmenu/uncheck_all.png); }
 
- //@extend-elements
- //original selectors
- //.context-menu-input >label, .context-menu-input >label >input[type="text"], .context-menu-input >label >textarea, .context-menu-input >label >select
- %extend_1 {
- 	display: block;
- 	width: 100%;
- 	//Instead of the line below you could use @include box-sizing($bs)
- 	box-sizing: border-box;
- }
+.context-menu-item.icon-child { background-image: url(images/contextmenu/child.png); }
+.context-menu-item.icon-descendent { background-image: url(images/contextmenu/descendent.png); }
 
 
- .context-menu-root {
- 	color: $black;
- }
- .context-menu-item {
- 	padding: 2px 2px 2px 24px;
- 	background-color: $color_gallery_approx;
- 	position: relative;
- 	//Instead of the line below you could use @include user-select($select)
- 	user-select: none;
- 	&.icon-check {
- 		background-image: $url_0;
- 	}
- 	&.icon-check_all {
- 		background-image: $url_1;
- 	}
- 	&.icon-uncheck {
- 		background-image: $url_2;
- 	}
- 	&.icon-uncheck_all {
- 		background-image: $url_3;
- 	}
- 	&.icon-child {
- 		background-image: $url_4;
- 	}
- 	&.icon-descendent {
- 		background-image: $url_5;
- 	}
- 	> label {
- 		> input {
- 			//Instead of the line below you could use @include user-select($select)
- 			user-select: text;
- 		}
- 		> textarea {
- 			//Instead of the line below you could use @include user-select($select)
- 			user-select: text;
- 		}
- 	}
- 	&.hover {
- 		cursor: pointer;
- 		background-color: $color_pink_swan_approx;
- 		> .context-menu-list {
- 			display: block;
- 		}
- 	}
- 	&.disabled {
- 		color: $color_storm_dust_approx;
- 		cursor: default;
- 		&.hover {
- 			cursor: default;
- 			background-color: $color_gallery_approx;
- 		}
- 	}
- 	&.icon {
- 		min-height: 18px;
- 		background-repeat: no-repeat;
- 		background-position: 4px 2px;
- 		&.rup-icon {
- 			display: block;
- 		}
- 	}
- 	&.icon-edit {
- 		background-image: $url_6;
- 	}
- 	&.icon-cut {
- 		background-image: $url_7;
- 	}
- 	&.icon-copy {
- 		background-image: $url_8;
- 	}
- 	&.icon-clone {
- 		background-image: $url_9;
- 	}
- 	&.icon-paste {
- 		background-image: $url_10;
- 	}
- 	&.icon-delete {
- 		background-image: $url_11;
- 	}
- 	&.icon-add {
- 		background-image: $url_12;
- 	}
- 	&.icon-quit {
- 		background-image: $url_13;
- 	}
- 	&.rup-css-sprite {
- 		padding: 2px;
- 	}
- 	> .context-menu-list {
- 		display: none;
- 		right: -5px;
- 		top: 5px;
- 	}
- }
- .context-menu-list {
- 	margin: 0;
- 	padding: 0;
- 	min-width: 120px;
- 	max-width: 250px;
- 	display: inline-block;
- 	position: absolute;
- 	list-style-type: none;
- 	border: 1px solid $color_alto_approx;
- 	background: $color_gallery_approx;
- 	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
- 	box-shadow: 0 2px 5px $black_50;
- 	font-family: $font_0, $font_1, $font_2, $font_3;
- 	font-size: 11px;
- }
- .context-menu-separator {
- 	padding-bottom: 0;
- 	border-bottom: 1px solid $color_alto_approx;
- }
- .context-menu-input {
- 	&.hover {
- 		cursor: default;
- 		background-color: $color_gallery_approx;
- 	}
- 	> label {
- 		@extend %extend_1;
- 		> * {
- 			vertical-align: top;
- 		}
- 		> input[type="checkbox"] {
- 			margin-left: -17px;
- 		}
- 		> input[type="radio"] {
- 			margin-left: -17px;
- 		}
- 		> span {
- 			margin-left: 5px;
- 		}
- 		> input[type="text"] {
- 			@extend %extend_1;
- 		}
- 		> textarea {
- 			@extend %extend_1;
- 			height: 100px;
- 		}
- 		> select {
- 			@extend %extend_1;
- 		}
- 	}
- }
- .context-menu-accesskey {
- 	text-decoration: underline;
- }
- .context-menu-cursor {
- 	cursor: $url_14,default;
- }
- .context-menu-submenu:after {
- 	content: " >";
- 	color: $color_storm_dust_approx;
- 	position: absolute;
- 	top: 0;
- 	right: 3px;
- 	z-index: 1;
- }
+.context-menu-list {
+    margin:0; 
+    padding:0;
+    
+    min-width: 120px;
+    max-width: 250px;
+    display: inline-block;
+    position: absolute;
+    list-style-type: none;
+    
+    border: 1px solid #DDD;
+    background: #EEE;
+    
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+       -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+         -o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.context-menu-item {
+    padding: 2px 2px 2px 24px;
+    background-color: #EEE;
+    position: relative;
+    -webkit-user-select: none;
+       -moz-user-select: -moz-none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.context-menu-separator {
+    padding-bottom:0;
+    border-bottom: 1px solid #DDD;
+}
+
+.context-menu-item > label > input,
+.context-menu-item > label > textarea {
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
+}
+
+.context-menu-item.hover {
+    cursor: pointer;
+    background-color: #bababa;
+}
+
+.context-menu-item.disabled {
+    color: #666;
+    cursor: default;
+}
+
+.context-menu-input.hover,
+.context-menu-item.disabled.hover {
+    cursor: default;
+    background-color: #EEE;
+}
+
+.context-menu-submenu:after {
+    content: ">";
+    color: #666;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    z-index: 1;
+}
+
+/* icons
+    #protip:
+    In case you want to use sprites for icons (which I would suggest you do) have a look at
+    http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
+    .context-menu-item.icon:before {}
+ */
+.context-menu-item.icon { min-height: 18px; background-repeat: no-repeat; background-position: 4px 2px; }
+.context-menu-item.icon-edit { background-image: url(images/contextmenu/page_white_edit.png); }
+.context-menu-item.icon-cut { background-image: url(images/contextmenu/cut.png); }
+.context-menu-item.icon-copy { background-image: url(images/contextmenu/page_white_copy.png); }
+.context-menu-item.icon-clone { background-image: url(images/contextmenu/page_white_clone.png); }
+.context-menu-item.icon-paste { background-image: url(images/contextmenu/page_white_paste.png); }
+.context-menu-item.icon-delete { background-image: url(images/contextmenu/page_white_delete.png); }
+.context-menu-item.icon-add { background-image: url(images/contextmenu/page_white_add.png); }
+.context-menu-item.icon-quit { background-image: url(images/contextmenu/door.png); }
+.context-menu-item.icon-add { background-image: url(images/contextmenu/page_white_add.png); }
+
+/* vertically align inside labels */
+.context-menu-input > label > * { vertical-align: top; }
+
+/* position checkboxes and radios as icons */
+.context-menu-input > label > input[type="checkbox"],
+.context-menu-input > label > input[type="radio"] {
+    margin-left: -17px;
+}
+.context-menu-input > label > span {
+    margin-left: 5px;
+}
+
+.context-menu-input > label,
+.context-menu-input > label > input[type="text"],
+.context-menu-input > label > textarea,
+.context-menu-input > label > select {
+    display: block;
+    width: 100%;
+    
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+         -o-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.context-menu-input > label > textarea {
+    height: 100px;
+}
+.context-menu-item > .context-menu-list {
+    display: none;
+    /* re-positioned by js */
+    right: -5px;
+    top: 5px;
+}
+
+.context-menu-item.hover > .context-menu-list {
+    display: block;
+}
+
+.context-menu-accesskey {
+    text-decoration: underline;
+}
+
+
+.context-menu-item.icon.rup-icon{
+	display: block;
+}
+
+.context-menu-item.rup-css-sprite{
+	padding: 2px;
+}
+
+.context-menu-cursor{
+	cursor: url(cursors/context-menu.cur),default;
+}

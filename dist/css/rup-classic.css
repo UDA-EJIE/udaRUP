@@ -2192,13 +2192,30 @@ tr.ui-search-toolbar select {
 .qtipmodal-ie6fix {
   position: absolute !important; }
 
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* Enlaces */
 a {
   color: #0052c7;
   text-decoration: underline; }
-  a:hover {
-    color: #0052c7;
-    text-decoration: none; }
 
+a:hover {
+  text-decoration: none; }
+
+/*Estilo basico para los botones con formato enlace*/
 .rup-enlaceCancelar {
   float: right;
   margin: .5em .4em .5em 0;
@@ -2207,29 +2224,25 @@ a {
   line-height: 1.4em;
   width: auto;
   overflow: visible;
-  color: #0052c7; }
+  color: blue; }
 
-.ui-state-highlight {
+input.ui-button {
+  padding: 0.2em 0.6em; }
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
   font-weight: bold; }
 
+/** ICONOS **/
 .rup_icon {
   float: left;
   padding-right: 0.5em; }
 
 .rup_external_link {
+  /* 	float: right; */
   display: inline;
   left: inherit !important;
   margin-top: 0.15em !important;
   position: static; }
-
-input.ui-button {
-  padding: 0.2em 0.6em; }
-
-.ui-widget-content .ui-state-highlight {
-  font-weight: bold; }
-
-.ui-widget-header .ui-state-highlight {
-  font-weight: bold; }
 
 /*!
  * Copyright 2015 E.J.I.E., S.A.
@@ -2251,32 +2264,54 @@ input.ui-button {
 
 .ui-accordion .ui-accordion-header {
   width: auto; }
-  .ui-accordion .ui-accordion-header.ui-state-active {
-    border-bottom: none; }
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+  border-bottom: none; }
 
 .ui-accordion.ui-accordion-disabled.ui-state-disabled {
   opacity: 1.0; }
 
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* Autocomplete
+----------------------------------*/
 .ui-autocomplete {
   position: absolute;
   cursor: default; }
-  .ui-autocomplete li {
-    list-style-type: none; }
-  .ui-autocomplete ul li {
-    list-style-type: none; }
 
 .ui-autocomplete-loading {
-  background: #ffffff url(images/rup.ajaxLoader.gif) right center no-repeat; }
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat; }
 
+.ui-autocomplete ul li, .ui-autocomplete li {
+  list-style-type: none; }
+
+/* workarounds */
+* html .ui-autocomplete {
+  width: 1px; }
+
+/* without this, the menu expands to 100% in IE6 */
 .rup-autocomplete_label {
   background-image: url(images/rup.autocomplete.png);
   background-repeat: no-repeat;
   background-position: left;
   padding-left: 2em;
-  border: 0.5px solid #7f9db9; }
+  border: 0.5px solid #7F9DB9; }
 
 .rup-autocomplete_loading {
-  background-image: url(images/rup.ajaxLoader.gif) !important; }
+  background-image: url("images/rup.ajaxLoader.gif") !important; }
 
 .rup-combobox {
   position: relative;
@@ -2291,7 +2326,8 @@ input.ui-button {
 
 .rup-combobox-input {
   margin: 0;
-  background-color: #ffffff; }
+  background-color: white;
+  /*padding: 5px 10px;*/ }
 
 .ui-autocomplete-category {
   text-decoration: underline;
@@ -2303,9 +2339,6 @@ input.ui-button {
 .matched-text {
   font-weight: bold; }
 
-* html .ui-autocomplete {
-  width: 1px; }
-
 /*!
  * Copyright 2013 E.J.I.E., S.A.
  *
@@ -2315,81 +2348,100 @@ input.ui-button {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
+.rup-breadCrumb_main LI UL {
+  position: absolute;
+  float: left; }
+
+.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI {
   list-style: none;
   margin: 0;
   padding: 0; }
 
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
+.rup-breadCrumb_main {
+  /*clear: both;*/ }
+
+.rup-breadCrumb_main, .rup-breadCrumb_main LI {
+  float: left; }
+
+.rup-breadCrumb_main UL {
+  display: none; }
+
+/*  Base style of rup-breadCrumb_main  */
+/*  Top Level  */
+.rup-breadCrumb_main {
+  background: none;
+  /*width: 90%;*/
+  padding-right: 65em;
+  position: relative; }
+
+.rup-breadCrumb_main LI {
+  border-right: none;
+  /*     background: url("images/rup.separatorArrow.gif") no-repeat right center; */
+  padding-right: 4px;
+  padding-left: 10px;
+  height: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: auto; }
+
+.rup-breadCrumb_main LI.rup-breadCrumb_current {
+  border-right: none;
+  background: none; }
+
+.rup-breadCrumb_main LI A {
+  text-decoration: underline;
+  color: #0A8ECC; }
+
+.rup-breadCrumb_main LI A:HOVER, .rup-breadCrumb_main LI.hover A {
+  color: #0A8ECC; }
+
+.rup-breadCrumb_main LI IMG.rup-icon, .rup-breadCrumb_main LI SPAN.rup-icon {
+  display: inline-block;
+  margin-left: 1em; }
+
+/*  Top Level - Current Page  */
+.rup-breadCrumb_main LI.rup-breadCrumb_current A {
+  color: #333333;
+  font-weight: bold; }
+
+/*  Sub-level  */
+.rup-breadCrumb_main LI UL {
+  padding: 3px;
+  background: #333333;
+  font-size: 11px;
+  width: 180px;
+  top: 25px;
+  z-index: 1000; }
+
+.rup-breadCrumb_main LI UL LI {
+  float: left;
+  width: 100%;
+  border-right: none;
+  height: auto; }
+
+.rup-breadCrumb_main LI UL LI A,
+.rup-breadCrumb_main LI UL LI A:visited {
   text-decoration: none !important;
-  color: #cccccc !important;
+  color: #CCCCCC !important;
   display: block;
   padding: 4px;
   border-bottom: 1px dotted #666666; }
 
-.rup-breadCrumb_main {
-  background: none;
-  position: relative;
-  padding-top: 0.1em;
-  padding-right: 0;
-  float: left; }
-  .rup-breadCrumb_main LI {
-    float: left;
-    border-right: none;
-    padding-right: 4px;
-    padding-left: 10px;
-    height: 16px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: auto; }
-    .rup-breadCrumb_main LI UL {
-      position: absolute;
-      float: left;
-      padding: 3px;
-      background: #333333;
-      font-size: 11px;
-      width: 180px;
-      top: 25px;
-      z-index: 1000; }
-      .rup-breadCrumb_main LI UL LI {
-        float: left;
-        width: 100%;
-        border-right: none;
-        height: auto; }
-        .rup-breadCrumb_main LI UL LI A:HOVER {
-          background: #444444; }
-        .rup-breadCrumb_main LI UL LI A:FOCUS {
-          background: #444444;
-          border-style: dotted;
-          border-width: thin;
-          outline: none; }
-    .rup-breadCrumb_main LI.rup-breadCrumb_current {
-      border-right: none;
-      background: none; }
-      .rup-breadCrumb_main LI.rup-breadCrumb_current A {
-        color: #333333;
-        font-weight: bold; }
-    .rup-breadCrumb_main LI A {
-      text-decoration: underline;
-      color: #0a8ecc; }
-      .rup-breadCrumb_main LI A:HOVER {
-        color: #0a8ecc; }
-    .rup-breadCrumb_main LI.hover A {
-      color: #0a8ecc; }
-    .rup-breadCrumb_main LI IMG.rup-icon {
-      display: inline-block;
-      margin-left: 1em; }
-    .rup-breadCrumb_main LI SPAN.rup-icon {
-      display: inline-block;
-      margin-left: 1em; }
-  .rup-breadCrumb_main UL {
-    display: none; }
+.rup-breadCrumb_main LI UL LI A:HOVER {
+  background: #444444; }
+
+.rup-breadCrumb_main LI UL LI A:FOCUS {
+  background: #444444;
+  border-style: dotted;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */ }
 
 .rup-breadCrumbs {
   width: 100%;
@@ -2406,24 +2458,31 @@ input.ui-button {
   float: left;
   margin-bottom: 0.5em; }
 
+.rup-breadCrumb_main {
+  padding-top: 0.1em;
+  padding-right: 0em; }
+
 .rup-breadCrumb_logoutDiv {
   float: right;
   padding-top: 0.5em; }
-  .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg {
-    display: inline-block;
-    float: left;
-    background: url(images/rup.padlock.gif) no-repeat right center; }
-  .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active {
-    display: inline-block;
-    float: left;
-    background: url(images/rup.unlock.png) no-repeat right center; }
-  .rup-breadCrumb_logoutDiv .rup-breadCrumb_exitImg {
-    display: inline-block;
-    float: left; }
 
 .rup-breadCrumb_link {
   cursor: pointer;
   padding-left: 0.3em; }
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg {
+  display: inline-block;
+  float: left;
+  background: url("images/rup.padlock.gif") no-repeat right center; }
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active {
+  display: inline-block;
+  float: left;
+  background: url("images/rup.unlock.png") no-repeat right center; }
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_exitImg {
+  display: inline-block;
+  float: left; }
 
 /*!
  * Copyright 2015 E.J.I.E., S.A.
@@ -2442,27 +2501,30 @@ input.ui-button {
  */
 .rup-dropdown-btn-group {
   display: inline-block; }
-  .rup-dropdown-btn-group .rup-toolbar_button.rup-dropdown {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0; }
 
 .rup-dropdown {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  margin-right: 0; }
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-right: 0px; }
 
 .rup-dropdown-button {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-left: 0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left: 0px;
+  /* 	left: -1px; */
   width: 25px; }
 
 .rup-dropdown-dialog {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176); }
-  .rup-dropdown-dialog > .ui-widget-header {
-    background: none;
-    border: 0; }
 
+button.ui-button-icon-only.rup-dropdown-button {
+  width: 1.8em; }
+
+.rup-dropdown-dialog > .ui-widget-header {
+  background: none;
+  border: 0px; }
+
+/* Dropdown HTML List */
 .rup-dropdown-option-list {
   display: none;
   background-color: #fff;
@@ -2474,26 +2536,31 @@ input.ui-button {
   position: absolute;
   z-index: 9000;
   font-size: 1.1em; }
-  .rup-dropdown-option-list.open {
-    display: block; }
-  .rup-dropdown-option-list .divider {
-    background-color: #e5e5e5;
-    height: 1px;
-    margin: 9px 0;
-    overflow: hidden; }
-  .rup-dropdown-option-list > li > a {
-    clear: both;
-    color: #333;
-    display: block;
-    font-weight: 400;
-    line-height: 1.42857;
-    padding: 3px 20px;
-    white-space: nowrap; }
-  .rup-dropdown-option-list.rup-toolbar_menuButtonContainer > li > a {
-    padding: 0; }
 
-button.ui-button-icon-only.rup-dropdown-button {
-  width: 1.8em; }
+.rup-dropdown-option-list.open {
+  display: block; }
+
+.rup-dropdown-option-list > li > a {
+  clear: both;
+  color: #333;
+  display: block;
+  font-weight: 400;
+  line-height: 1.42857;
+  padding: 3px 20px;
+  white-space: nowrap; }
+
+.rup-dropdown-option-list.rup-toolbar_menuButtonContainer > li > a {
+  padding: 0px; }
+
+.rup-dropdown-option-list .divider {
+  background-color: #e5e5e5;
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden; }
+
+.rup-dropdown-btn-group .rup-toolbar_button.rup-dropdown {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px; }
 
 /*!
  * Copyright 2015 E.J.I.E., S.A.
@@ -2504,33 +2571,14 @@ button.ui-button-icon-only.rup-dropdown-button {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  line-height: 1.4em;
-  display: block;
-  padding: 0 1em;
-  outline: none;
-  text-decoration: none; }
-
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
-  height: 2em;
-  padding-left: 20px;
-  position: relative;
-  margin-left: 5px; }
-
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon, .loading-modal > div > div > span, .config-required-modal > div > div > *, .ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
-  position: absolute;
-  top: 1em;
-  margin-top: -12px;
-  left: 0; }
-
 .rup-combo_loading {
-  background-image: url(images/rup.ajaxLoader.gif) !important;
+  background-image: url("images/rup.ajaxLoader.gif") !important;
   color: black;
   font-weight: bold; }
 
@@ -2538,6 +2586,8 @@ button.ui-button-icon-only.rup-dropdown-button {
   color: black;
   font-weight: bold; }
 
+/* Selectmenu
+----------------------------------*/
 .ui-selectmenu {
   display: inline-block;
   position: relative;
@@ -2552,109 +2602,220 @@ button.ui-button-icon-only.rup-dropdown-button {
   top: 50%; }
 
 .ui-selectmenu-menu {
+  padding: 0;
+  margin: 0;
   list-style: none;
+  position: absolute;
+  top: 0;
   visibility: hidden;
-  overflow: auto;
+  overflow: auto; }
+
+.ui-selectmenu-open {
+  visibility: visible; }
+
+.ui-selectmenu-menu-popup {
+  margin-top: -1px; }
+
+.ui-selectmenu-menu li {
+  padding: 0;
+  margin: 0;
+  display: block;
+  /*border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+  font-weight: normal !important; }
+
+.ui-selectmenu-menu li a, .ui-selectmenu-status {
+  line-height: 1.4em;
+  display: block;
+  padding: 0em 1em;
+  outline: none;
+  text-decoration: none; }
+
+/*.ui-selectmenu-menu li a:hover,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }*/
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status {
+  height: 2em;
+  padding-left: 20px;
+  position: relative;
+  margin-left: 5px; }
+
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon {
+  position: absolute;
+  top: 1em;
+  margin-top: -12px;
+  left: 0; }
+
+.ui-selectmenu-status {
+  line-height: 1.4em; }
+
+.ui-selectmenu-menu li span, .ui-selectmenu-status span {
+  display: block;
+  margin-bottom: .2em; }
+
+.ui-selectmenu-menu li .ui-selectmenu-item-header {
+  font-weight: bold; }
+
+/*.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }*/
+/*for optgroups*/
+.ui-selectmenu-menu .ui-selectmenu-group {
+  font-size: 1em; }
+
+.ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
+  line-height: 1.4em;
+  display: block;
+  padding: .6em .5em 0;
+  font-weight: bold; }
+
+.ui-selectmenu-menu .ui-selectmenu-group ul {
+  margin: 0;
+  padding: 0; }
+
+/* Selectmenu
+----------------------------------*/
+/*.ui-selectmenu { display: block; display: inline-block; position: relative; height: 1.4em; vertical-align: middle; text-decoration: none; overflow: hidden; zoom: 1; }*/
+/*.ui-selectmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }*/
+.ui-selectmenu-menu {
   padding: 0;
   margin: 0;
   position: absolute;
   top: 0;
   display: none;
   z-index: 1005; }
-  .ui-selectmenu-menu li {
-    font-weight: normal !important;
-    padding: 0;
-    margin: 0;
-    display: block;
-    border-right-width: 0 !important;
-    border-left-width: 0 !important; }
-    .ui-selectmenu-menu li span {
-      display: block;
-      margin-bottom: .2em; }
-    .ui-selectmenu-menu li .ui-selectmenu-item-header {
-      font-weight: bold; }
-    .ui-selectmenu-menu li .ui-selectmenu-item-footer {
-      opacity: .8; }
-    .ui-selectmenu-menu li.ui-state-disabled a {
-      cursor: default; }
-    .ui-selectmenu-menu li.ui-selectmenu-group ul {
-      overflow-y: hidden; }
-  .ui-selectmenu-menu .ui-selectmenu-group {
-    font-size: 1em; }
-    .ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
-      line-height: 1.4em;
-      display: block;
-      padding: .6em .5em 0;
-      font-weight: bold; }
-    .ui-selectmenu-menu .ui-selectmenu-group ul {
-      margin: 0;
-      padding: 0; }
-  .ui-selectmenu-menu ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    position: relative;
-    overflow: auto;
-    overflow-y: auto;
-    overflow-x: hidden; }
+
+/* z-index: 1005 to make selectmenu work with dialog */
+.ui-selectmenu-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
 
 .ui-selectmenu-open {
-  visibility: visible;
   display: block; }
 
-.ui-selectmenu-menu-popup {
+ul.ui-selectmenu-menu-popup {
   margin-top: -1px; }
+
+.ui-selectmenu-menu li {
+  padding: 0;
+  margin: 0;
+  display: block;
+  /* border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/
+  border-right-width: 0 !important;
+  border-left-width: 0 !important; }
+
+.ui-selectmenu-menu li a, .ui-selectmenu-status {
+  line-height: 1.4em;
+  display: block;
+  padding: 0em 1em;
+  outline: none;
+  text-decoration: none; }
+
+.ui-selectmenu-menu li.ui-state-disabled a, .ui-state-disabled {
+  cursor: default; }
+
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status {
+  padding-left: 20px;
+  position: relative;
+  margin-left: 5px; }
+
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon {
+  position: absolute;
+  top: 1em;
+  margin-top: -12px;
+  left: 0; }
 
 .ui-selectmenu-status {
   line-height: 1.4em; }
-  .ui-selectmenu-status span {
-    display: block;
-    margin-bottom: .2em; }
 
-.ui-state-disabled {
-  cursor: default; }
+.ui-selectmenu-menu li span, .ui-selectmenu-status span {
+  display: block;
+  margin-bottom: .2em; }
 
+.ui-selectmenu-menu li .ui-selectmenu-item-header {
+  font-weight: bold; }
+
+.ui-selectmenu-menu li .ui-selectmenu-item-footer {
+  opacity: .8; }
+
+/* for optgroups */
+.ui-selectmenu-menu .ui-selectmenu-group {
+  font-size: 1em; }
+
+.ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
+  line-height: 1.4em;
+  display: block;
+  padding: .6em .5em 0;
+  font-weight: bold; }
+
+.ui-selectmenu-menu .ui-selectmenu-group ul {
+  margin: 0;
+  padding: 0; }
+
+/* IE6 workaround (dotted transparent borders) */
 * html .ui-selectmenu-menu li {
   border-color: pink;
   filter: chroma(color=pink);
   width: 100%; }
-  * html .ui-selectmenu-menu li a {
-    position: relative; }
 
-* html .ui-multiselect-checkboxes label {
-  border: none; }
+* html .ui-selectmenu-menu li a {
+  position: relative; }
 
-* + html .ui-state-disabled {
+/* IE7 workaround (opacity disabled) */
+* + html .ui-state-disabled, * + html .ui-state-disabled a {
   color: silver; }
-  * + html .ui-state-disabled a {
-    color: silver; }
 
+/* Multiselect
+----------------------------------*/
 .ui-multiselect {
   display: inline-block;
   padding: 2px 0 2px 4px;
   text-align: left; }
-  .ui-multiselect span.ui-icon {
-    float: right; }
+
+.ui-multiselect span.ui-icon {
+  float: right; }
+
+.ui-multiselect-single .ui-multiselect-checkboxes input {
+  position: absolute !important;
+  top: auto !important;
+  left: -9999px; }
+
+.ui-multiselect-single .ui-multiselect-checkboxes label {
+  padding: 5px !important; }
 
 .ui-multiselect-header {
   margin-bottom: 3px;
   padding: 3px 0 3px 4px; }
-  .ui-multiselect-header ul {
-    font-size: 0.9em; }
-    .ui-multiselect-header ul li {
-      float: left;
-      padding: 0 10px 0 0; }
-  .ui-multiselect-header a {
-    text-decoration: none; }
-    .ui-multiselect-header a:hover {
-      text-decoration: underline; }
-  .ui-multiselect-header span.ui-icon {
-    float: left;
-    margin-right: 2px; }
-  .ui-multiselect-header li.ui-multiselect-close {
-    float: right;
-    text-align: right;
-    padding-right: 0; }
+
+.ui-multiselect-header ul {
+  font-size: 0.9em; }
+
+.ui-multiselect-header ul li {
+  float: left;
+  padding: 0 10px 0 0; }
+
+.ui-multiselect-header a {
+  text-decoration: none; }
+
+.ui-multiselect-header a:hover {
+  text-decoration: underline; }
+
+.ui-multiselect-header span.ui-icon {
+  float: left; }
+
+.ui-multiselect-header span.ui-icon {
+  float: left;
+  margin-right: 2px; }
+
+.ui-multiselect-header li.ui-multiselect-close {
+  float: right;
+  text-align: right;
+  padding-right: 0; }
 
 .ui-multiselect-menu {
   display: none;
@@ -2666,60 +2827,60 @@ button.ui-button-icon-only.rup-dropdown-button {
 .ui-multiselect-checkboxes {
   position: relative;
   overflow-y: scroll; }
-  .ui-multiselect-checkboxes label {
-    cursor: default;
-    display: block;
-    border: 1px solid transparent;
-    padding: 3px 1px; }
-    .ui-multiselect-checkboxes label input {
-      position: relative;
-      top: 1px;
-      margin-right: 4px; }
-  .ui-multiselect-checkboxes li {
-    clear: both;
-    font-size: 0.9em;
-    padding-right: 3px; }
-    .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
-      cursor: default;
-      margin-top: .8em;
-      border-bottom: 1px solid; }
-      .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label span {
-        font-weight: bold; }
-      .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a {
-        cursor: pointer;
-        text-decoration: none; }
+
+.ui-multiselect-checkboxes label {
+  cursor: default;
+  display: block;
+  border: 1px solid transparent;
+  padding: 3px 1px; }
+
+.ui-multiselect-checkboxes label input {
+  position: relative;
+  top: 1px;
+  margin-right: 4px; }
+
+.ui-multiselect-checkboxes li {
+  clear: both;
+  font-size: 0.9em;
+  padding-right: 3px; }
+
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
+  cursor: default;
+  margin-top: .8em;
+  border-bottom: 1px solid; }
+
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label span {
+  font-weight: bold; }
+
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a {
+  cursor: pointer;
+  text-decoration: none; }
+
+/* remove label borders in IE6 because IE6 does not support transparency */
+* html .ui-multiselect-checkboxes label {
+  border: none; }
 
 .rup-combo_multiOptgroupIcon {
   display: inline-table;
   vertical-align: text-bottom; }
 
+/*** ESTILOS PROPIOS ***/
+.ui-selectmenu,
+.ui-selectmenu-status {
+  /* 	background: #d5d5d2 50% 50%; */ }
+
+.ui-selectmenu-menu li.ui-selectmenu-group ul {
+  overflow-y: hidden; }
+
+.ui-selectmenu-menu-dropdown,
+.ui-selectmenu-menu-popup {
+  /* 	background: #eaeaea 50% 50%; */ }
+
+/*select with custom icons*/
 .ui-selectmenu-item-icon {
   height: 24px;
   width: 24px;
   background-repeat: no-repeat; }
-
-.rup-combo_odd {
-  background-color: #eee; }
-
-.rup-combo_even {
-  background-color: #fff; }
-
-.rup-combo_groupOdd {
-  background-color: #fff; }
-
-.rup-combo_groupEven {
-  background-color: #fff; }
-
-ul.ui-selectmenu-menu-popup {
-  margin-top: -1px; }
-
-.ui-multiselect-single .ui-multiselect-checkboxes input {
-  position: absolute !important;
-  top: auto !important;
-  left: -9999px; }
-
-.ui-multiselect-single .ui-multiselect-checkboxes label {
-  padding: 5px !important; }
 
 .delete .ui-selectmenu-item-icon {
   background-image: url(images/toolbar/borrar.png); }
@@ -2729,6 +2890,19 @@ ul.ui-selectmenu-menu-popup {
 
 .print .ui-selectmenu-item-icon {
   background-image: url(images/toolbar/imprimir.png); }
+
+/* PIJAMA */
+.rup-combo_odd {
+  background-color: #EEE; }
+
+.rup-combo_even {
+  background-color: #FFF; }
+
+.rup-combo_groupOdd {
+  background-color: #FFF; }
+
+.rup-combo_groupEven {
+  background-color: #FFF; }
 
 /*!
  * jQuery contextMenu - Plugin for simple contextMenu handling
@@ -2743,74 +2917,26 @@ ul.ui-selectmenu-menu-popup {
  *   GPL v3 http://opensource.org/licenses/GPL-3.0
  *
  */
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  display: block;
-  width: 100%;
-  box-sizing: border-box; }
-
 .context-menu-root {
   color: #000; }
 
-.context-menu-item {
-  padding: 2px 2px 2px 24px;
-  background-color: #eee;
-  position: relative;
-  user-select: none; }
-  .context-menu-item.icon-check {
-    background-image: url(images/contextmenu/check.png); }
-  .context-menu-item.icon-check_all {
-    background-image: url(images/contextmenu/check_all.png); }
-  .context-menu-item.icon-uncheck {
-    background-image: url(images/contextmenu/uncheck.png); }
-  .context-menu-item.icon-uncheck_all {
-    background-image: url(images/contextmenu/uncheck_all.png); }
-  .context-menu-item.icon-child {
-    background-image: url(images/contextmenu/child.png); }
-  .context-menu-item.icon-descendent {
-    background-image: url(images/contextmenu/descendent.png); }
-  .context-menu-item > label > input {
-    user-select: text; }
-  .context-menu-item > label > textarea {
-    user-select: text; }
-  .context-menu-item.hover {
-    cursor: pointer;
-    background-color: #bababa; }
-    .context-menu-item.hover > .context-menu-list {
-      display: block; }
-  .context-menu-item.disabled {
-    color: #666;
-    cursor: default; }
-    .context-menu-item.disabled.hover {
-      cursor: default;
-      background-color: #eee; }
-  .context-menu-item.icon {
-    min-height: 18px;
-    background-repeat: no-repeat;
-    background-position: 4px 2px; }
-    .context-menu-item.icon.rup-icon {
-      display: block; }
-  .context-menu-item.icon-edit {
-    background-image: url(images/contextmenu/page_white_edit.png); }
-  .context-menu-item.icon-cut {
-    background-image: url(images/contextmenu/cut.png); }
-  .context-menu-item.icon-copy {
-    background-image: url(images/contextmenu/page_white_copy.png); }
-  .context-menu-item.icon-clone {
-    background-image: url(images/contextmenu/page_white_clone.png); }
-  .context-menu-item.icon-paste {
-    background-image: url(images/contextmenu/page_white_paste.png); }
-  .context-menu-item.icon-delete {
-    background-image: url(images/contextmenu/page_white_delete.png); }
-  .context-menu-item.icon-add {
-    background-image: url(images/contextmenu/page_white_add.png); }
-  .context-menu-item.icon-quit {
-    background-image: url(images/contextmenu/door.png); }
-  .context-menu-item.rup-css-sprite {
-    padding: 2px; }
-  .context-menu-item > .context-menu-list {
-    display: none;
-    right: -5px;
-    top: 5px; }
+.context-menu-item.icon-check {
+  background-image: url(images/contextmenu/check.png); }
+
+.context-menu-item.icon-check_all {
+  background-image: url(images/contextmenu/check_all.png); }
+
+.context-menu-item.icon-uncheck {
+  background-image: url(images/contextmenu/uncheck.png); }
+
+.context-menu-item.icon-uncheck_all {
+  background-image: url(images/contextmenu/uncheck_all.png); }
+
+.context-menu-item.icon-child {
+  background-image: url(images/contextmenu/child.png); }
+
+.context-menu-item.icon-descendent {
+  background-image: url(images/contextmenu/descendent.png); }
 
 .context-menu-list {
   margin: 0;
@@ -2820,49 +2946,143 @@ ul.ui-selectmenu-menu-popup {
   display: inline-block;
   position: absolute;
   list-style-type: none;
-  border: 1px solid #ddd;
-  background: #eee;
+  border: 1px solid #DDD;
+  background: #EEE;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 11px; }
 
+.context-menu-item {
+  padding: 2px 2px 2px 24px;
+  background-color: #EEE;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none; }
+
 .context-menu-separator {
   padding-bottom: 0;
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 1px solid #DDD; }
 
-.context-menu-input.hover {
+.context-menu-item > label > input,
+.context-menu-item > label > textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text; }
+
+.context-menu-item.hover {
+  cursor: pointer;
+  background-color: #bababa; }
+
+.context-menu-item.disabled {
+  color: #666;
+  cursor: default; }
+
+.context-menu-input.hover,
+.context-menu-item.disabled.hover {
   cursor: default;
-  background-color: #eee; }
-
-.context-menu-input > label > * {
-  vertical-align: top; }
-
-.context-menu-input > label > input[type="checkbox"] {
-  margin-left: -17px; }
-
-.context-menu-input > label > input[type="radio"] {
-  margin-left: -17px; }
-
-.context-menu-input > label > span {
-  margin-left: 5px; }
-
-.context-menu-input > label > textarea {
-  height: 100px; }
-
-.context-menu-accesskey {
-  text-decoration: underline; }
-
-.context-menu-cursor {
-  cursor: url(cursors/context-menu.cur), default; }
+  background-color: #EEE; }
 
 .context-menu-submenu:after {
-  content: " >";
+  content: ">";
   color: #666;
   position: absolute;
   top: 0;
   right: 3px;
   z-index: 1; }
 
+/* icons
+    #protip:
+    In case you want to use sprites for icons (which I would suggest you do) have a look at
+    http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
+    .context-menu-item.icon:before {}
+ */
+.context-menu-item.icon {
+  min-height: 18px;
+  background-repeat: no-repeat;
+  background-position: 4px 2px; }
+
+.context-menu-item.icon-edit {
+  background-image: url(images/contextmenu/page_white_edit.png); }
+
+.context-menu-item.icon-cut {
+  background-image: url(images/contextmenu/cut.png); }
+
+.context-menu-item.icon-copy {
+  background-image: url(images/contextmenu/page_white_copy.png); }
+
+.context-menu-item.icon-clone {
+  background-image: url(images/contextmenu/page_white_clone.png); }
+
+.context-menu-item.icon-paste {
+  background-image: url(images/contextmenu/page_white_paste.png); }
+
+.context-menu-item.icon-delete {
+  background-image: url(images/contextmenu/page_white_delete.png); }
+
+.context-menu-item.icon-add {
+  background-image: url(images/contextmenu/page_white_add.png); }
+
+.context-menu-item.icon-quit {
+  background-image: url(images/contextmenu/door.png); }
+
+.context-menu-item.icon-add {
+  background-image: url(images/contextmenu/page_white_add.png); }
+
+/* vertically align inside labels */
+.context-menu-input > label > * {
+  vertical-align: top; }
+
+/* position checkboxes and radios as icons */
+.context-menu-input > label > input[type="checkbox"],
+.context-menu-input > label > input[type="radio"] {
+  margin-left: -17px; }
+
+.context-menu-input > label > span {
+  margin-left: 5px; }
+
+.context-menu-input > label,
+.context-menu-input > label > input[type="text"],
+.context-menu-input > label > textarea,
+.context-menu-input > label > select {
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.context-menu-input > label > textarea {
+  height: 100px; }
+
+.context-menu-item > .context-menu-list {
+  display: none;
+  /* re-positioned by js */
+  right: -5px;
+  top: 5px; }
+
+.context-menu-item.hover > .context-menu-list {
+  display: block; }
+
+.context-menu-accesskey {
+  text-decoration: underline; }
+
+.context-menu-item.icon.rup-icon {
+  display: block; }
+
+.context-menu-item.rup-css-sprite {
+  padding: 2px; }
+
+.context-menu-cursor {
+  cursor: url(cursors/context-menu.cur), default; }
+
 /*!
  * Copyright 2013 E.J.I.E., S.A.
  *
@@ -2878,61 +3098,75 @@ ul.ui-selectmenu-menu-popup {
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  font-weight: normal !important;
-  background: #b4fdcc none no-repeat scroll 50% 50% !important;
-  border: 0.1em solid #175c2e !important;
-  color: black !important; }
-
 #ui-datepicker-div {
   display: none; }
 
 .ui-datepicker-calendar td {
   border: none !important; }
 
+/* Fin de semana (sab-dom) */
 .ui-datepicker-week-end a {
   font-weight: normal !important;
-  background: #ffc0cb none no-repeat scroll 50% 50% !important;
+  background: #FFC0CB none no-repeat scroll 50% 50% !important;
   border: 0.1em solid red !important;
   color: black !important; }
 
+/* Día de hoy (azul) */
 .ui-datepicker-today a {
   font-weight: normal !important;
-  background: #dde7ff none no-repeat scroll 50% 50% !important;
-  border: 0.1em solid #195ffe !important;
+  background: #DDE7FF none no-repeat scroll 50% 50% !important;
+  border: 0.1em solid #195FFE !important;
+  color: black important; }
+
+/* Día seleccionado (verde)*/
+.ui-datepicker-calendar .ui-state-highlight a,
+.ui-datepicker-current-day a {
+  font-weight: normal !important;
+  background: #B4FDCC none no-repeat scroll 50% 50% !important;
+  border: 0.1em solid #175C2E !important;
   color: black !important; }
 
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  height: inherit;
-  width: inherit;
-  display: 100%; }
-
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
-  vertical-align: middle;
-  color: white;
-  text-align: center;
-  width: inherit;
-  height: 100%; }
-
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon, .loading-modal > div > div > span, .config-required-modal > div > div > *, .ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
-  color: white;
-  position: relative;
-  top: 15%; }
-
 .rup_dashboard {
   margin-left: 4px;
   margin-right: 4px; }
 
+.grid-stack-item.hidden-content {
+  height: 40px; }
+
 .grid-stack-item-content {
   background: white none repeat scroll 0 0;
   color: #2c3e50;
+  /*    text-align: center;*/ }
+
+.grid-stack-item-content {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: all 0.2s ease-in-out; }
-  .grid-stack-item-content:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.19), 0 8px 8px rgba(0, 0, 0, 0.23); }
+
+.grid-stack-item-content:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.19), 0 8px 8px rgba(0, 0, 0, 0.23); }
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-x {
+  overflow-x: hidden; }
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
+  overflow-y: hidden; }
 
 .glyphicon-refresh-animate {
+  -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite; }
+
+/* Control del scroll */
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
+  height: inherit;
+  overflow-y: hidden; }
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content > .widget {
+  height: inherit; }
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content > .widget > .widget-body {
+  height: 93%;
+  overflow-y: auto;
+  overflow-x: hidden; }
 
 .loading-modal {
   background-color: black;
@@ -2944,8 +3178,6 @@ ul.ui-selectmenu-menu-popup {
   margin-left: 10px;
   margin-right: 10px;
   display: none; }
-  .loading-modal > div > div > span {
-    font-size: 7em; }
 
 .config-required-modal {
   background-color: black;
@@ -2958,40 +3190,69 @@ ul.ui-selectmenu-menu-popup {
   margin-right: 10px;
   display: none; }
 
+.loading-modal > div, .config-required-modal > div {
+  height: inherit;
+  width: inherit;
+  display: 100%; }
+
+.loading-modal > div > div, .config-required-modal > div > div {
+  /*display:table-cell;*/
+  vertical-align: middle;
+  color: white;
+  text-align: center;
+  width: inherit;
+  height: 100%; }
+
+.loading-modal > div > div > span, .config-required-modal > div > div > * {
+  color: white;
+  position: relative;
+  top: 15%; }
+
+.loading-modal > div > div > span {
+  font-size: 7em; }
+
 .widget-header {
   cursor: move; }
 
 .blurred-widget-content {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
   filter: blur(5px); }
 
+/* include this only once */
 @-webkit-keyframes spin {
   0% {
-    transform: rotate(0deg); }
+    -webkit-transform: rotate(0deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);
+    /* IE 9 */
+    transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */ }
   100% {
-    transform: rotate(360deg); } }
+    -webkit-transform: rotate(360deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);
+    /* IE 9 */
+    transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */ } }
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg); }
+    -webkit-transform: rotate(0deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);
+    /* IE 9 */
+    transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */ }
   100% {
-    transform: rotate(360deg); } }
-
-.grid-stack-item.hidden-content {
-  height: 40px; }
-
-.grid-stack > .grid-stack-item > .grid-stack-item-content {
-  height: inherit;
-  overflow-y: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-x {
-    overflow-x: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
-    overflow-y: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget {
-    height: inherit; }
-    .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget > .widget-body {
-      height: 93%;
-      overflow-y: auto;
-      overflow-x: hidden; }
+    -webkit-transform: rotate(360deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);
+    /* IE 9 */
+    transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */ } }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.
@@ -3002,102 +3263,59 @@ ul.ui-selectmenu-menu-popup {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  height: inherit;
-  width: inherit;
-  display: 100%; }
+/* Capa del feedback */
+.rup-feedback {
+  border: 1px solid #C7C700;
+  background-color: #F6F6CE;
+  background-image: none;
+  /* Evitar imagen por defecto jQuery UI */
+  color: #000000;
+  overflow: hidden;
+  padding: 1em; }
 
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
-  vertical-align: middle;
-  color: white;
-  text-align: center;
-  width: inherit;
-  height: 100%; }
+/* Capa de cierre del feedback (enlace+imagen) */
+.rup-feedback_closeLink {
+  float: right;
+  background-image: url("images/rup.close.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-right: 1.5em;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer; }
 
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon, .loading-modal > div > div > span, .config-required-modal > div > div > *, .ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
-  color: white;
-  position: relative;
-  top: 15%; }
+.rup-feedback_closeLink:hover {
+  background-image: url("images/rup.close_hover.png");
+  text-decoration: none; }
 
-.rup_dashboard {
-  margin-left: 4px;
-  margin-right: 4px; }
+/* Imagen fondo por defecto (valores generales) */
+.rup-feedback_image {
+  background-repeat: no-repeat;
+  background-position: 8px 12px;
+  padding-bottom: 1em;
+  padding-left: 4.5em;
+  padding-right: 0.5em;
+  padding-top: 1em; }
 
-.grid-stack-item-content {
-  background: white none repeat scroll 0 0;
-  color: #2c3e50;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: all 0.2s ease-in-out; }
-  .grid-stack-item-content:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.19), 0 8px 8px rgba(0, 0, 0, 0.23); }
+/* Imagenes por defecto (url fichero) [ok, alert, error] */
+.rup-feedback_image_ok {
+  background-image: url("images/rup.ok.png");
+  background-color: #DFF2DF;
+  border: 1px solid #00B500; }
 
-.glyphicon-refresh-animate {
-  animation: spin 1.5s linear infinite; }
+.rup-feedback_image_alert {
+  background-image: url("images/rup.alert.png"); }
 
-.loading-modal {
-  background-color: black;
-  height: inherit;
-  opacity: 0.2;
-  position: relative;
-  top: 0;
-  width: auto;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: none; }
-  .loading-modal > div > div > span {
-    font-size: 7em; }
-
-.config-required-modal {
-  background-color: black;
-  height: inherit;
-  opacity: 0.4;
-  position: relative;
-  top: 0;
-  width: auto;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: none; }
-
-.widget-header {
-  cursor: move; }
-
-.blurred-widget-content {
-  filter: blur(5px); }
-
-@-webkit-keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
-
-.grid-stack-item.hidden-content {
-  height: 40px; }
-
-.grid-stack > .grid-stack-item > .grid-stack-item-content {
-  height: inherit;
-  overflow-y: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-x {
-    overflow-x: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
-    overflow-y: hidden; }
-  .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget {
-    height: inherit; }
-    .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget > .widget-body {
-      height: 93%;
-      overflow-y: auto;
-      overflow-x: hidden; }
+.rup-feedback_image_error {
+  background-image: url("images/rup.error.png");
+  background-color: #F6CECE;
+  border: 1px solid #FF0000; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.
@@ -3108,51 +3326,106 @@ ul.ui-selectmenu-menu-popup {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
+ */
+/*
+ * PIJAMA
  */
 .rup-grid_evenRow {
-  background-color: #fff !important;
+  background-color: #FFF !important;
   background-image: none; }
 
 .rup-grid_oddRow {
-  background-color: #eee !important;
+  background-color: #EEE !important;
   background-image: none; }
 
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
+/*
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #CCC;
+	background-image: none; 
+}
+*/
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+/* Padding de las celdas [IMPORTANT] */
 .rup-grid_cellPadding_important {
   padding: 0 15px !important; }
 
-.ui-th-column {
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+/*******************************************/
+/* Fila seleccionada con negrita */
+.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
   font-weight: bold; }
 
+/* Paginador "Mostrando X-Y de Z" */
 .ui-jqgrid .ui-paging-info {
   height: auto;
-  margin: 0; }
+  margin: 0px; }
 
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
 .ui-jqgrid tr.jqgrow td {
   font-weight: inherit; }
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+.ui-jqgrid-btable .trAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: 0em; }
+
+.ui-jqgrid-btable .trAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: .2em !important; }
+
+.ui-jqgrid-btable .tdAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */ }
+
+.ui-jqgrid-btable .tdAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */ }
+
+.ui-jqgrid-btable .addElement {
+  /* 	background-color: #E0E4EC; */ }
+
+.ui-jqgrid-btable .addElementBorder {
+  /* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+  /* 	background-color: #E0E4EC; */ }
 
 .ui-jqgrid tr.ui-row-ltr td:last-child {
   border-right-style: none; }
 
+/* Animación para el mensaje de "Cargando..." */
 .ui-jqgrid .loading {
-  background: #fff url(images/rup.ajaxLoader.gif) right center no-repeat;
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat;
   font-weight: normal !important; }
 
-.ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
-  font-weight: bold; }
-
-.ui-jqgrid-btable .trAddSeparator {
-  height: 0; }
-  .ui-jqgrid-btable .trAddSeparator:HOVER {
-    height: .2em !important; }
-
+/**********
+ PAGINADOR 
+***********/
+/* Tamaño letra */
 .ui-jqgrid-pager {
   font-size: 0.85em; }
 
+/* Secciones */
 .pager_left {
   padding-left: 1.7em !important; }
 
@@ -3162,24 +3435,31 @@ ul.ui-selectmenu-menu-popup {
 .pager_right {
   padding-right: 1.7em !important; }
 
+/* Cada elemento de la sección central */
 .pagControls {
   padding-right: 1em !important;
-  border: 0 !important;
+  border: 0px !important;
   background-image: none !important;
-  background-color: transparent !important; }
+  background-color: transparent !important;
+  /* Sobreescribir el ui-state-hover por defecto */ }
 
+/* Links de paginacion */
 .linkPaginacion {
   text-decoration: underline !important;
-  color: #0052c7 !important; }
-  .linkPaginacion:hover {
-    text-decoration: none;
-    color: #0052c7; }
-  .linkPaginacion.ui-state-disabled:hover {
-    text-decoration: underline; }
+  color: #0052C7 !important; }
 
+.linkPaginacion:hover {
+  text-decoration: none;
+  color: #0052C7; }
+
+.linkPaginacion.ui-state-disabled:hover {
+  text-decoration: underline; }
+
+/* Para que en los links deshabilitados no se quite el subrayado*/
 .ui-state-disabled > .linkPaginacion {
   cursor: default; }
 
+/* Links deshabilitados sin cursor de mano */
 /*!
  * Copyright 2013 E.J.I.E., S.A.
  *
@@ -3189,19 +3469,22 @@ ul.ui-selectmenu-menu-popup {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+/* Estilo para icono vacío (al no encontrarlo) */
 .ui-icon-none {
   background-position: -900px -900px; }
 
+/* Estilo general para todos los niveles */
 .rup-grid-jerarquia {
   float: left;
   cursor: pointer; }
 
+/* Estilo por nivel (hasta 10) */
 .rup-grid-jerarquia_level_1 {
   margin-left: 1em; }
 
@@ -3262,12 +3545,17 @@ ul.ui-selectmenu-menu-popup {
 .rup-grid-jerarquia_filter_10 {
   margin-right: -10em; }
 
+/** MULTISELECCION **/
+/* Menu (UL) */
 .rup-grid-jerarquia_checkmenu {
   width: 200px;
   position: absolute !important; }
-  .rup-grid-jerarquia_checkmenu a {
-    text-decoration: none !important; }
 
+/* Elementos menu (A) */
+.rup-grid-jerarquia_checkmenu a {
+  text-decoration: none !important; }
+
+/* Apertura menu (SPAN) */
 .rup-grid-jerarquia_checkmenu_arrow {
   display: inline;
   position: absolute;
@@ -3275,26 +3563,28 @@ ul.ui-selectmenu-menu-popup {
   cursor: pointer;
   background-position: -64px -16px; }
 
+/* Iconos multiselect */
 .check_icon {
-  background-image: url(images/jerarquia/check.png) !important; }
+  background-image: url("images/jerarquia/check.png") !important; }
 
 .child_icon {
-  background-image: url(images/jerarquia/child.png) !important; }
+  background-image: url("images/jerarquia/child.png") !important; }
 
 .hierarchy-down_icon {
-  background-image: url(images/jerarquia/hierarchy_down.png) !important; }
+  background-image: url("images/jerarquia/hierarchy_down.png") !important; }
 
 .uncheck_icon {
-  background-image: url(images/jerarquia/uncheck.png) !important; }
+  background-image: url("images/jerarquia/uncheck.png") !important; }
 
 .parent_icon {
-  background-image: url(images/jerarquia/parent.png) !important; }
+  background-image: url("images/jerarquia/parent.png") !important; }
 
 .hierarchy-up_icon {
-  background-image: url(images/jerarquia/hierarchy_up.png) !important; }
+  background-image: url("images/jerarquia/hierarchy_up.png") !important; }
 
+/********************/
 .rup-grid-jerarquia_filter {
-  background-image: url(images/jerarquia/ui-icons.png) !important; }
+  background-image: url("images/jerarquia/ui-icons.png") !important; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.
@@ -3305,118 +3595,137 @@ ul.ui-selectmenu-menu-popup {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 .rup-language_root {
-  font-family: Arial, Helvetica, sans-serif;
-  border-top: 1px solid #dadada;
+  font-family: Arial,Helvetica,sans-serif; }
+
+.rup-language_root {
+  border-top: 1px solid #DADADA;
   position: relative;
   width: 100%;
   line-height: 2em;
   float: left;
   margin-bottom: 0.7em; }
-  .rup-language_root div {
-    z-index: 900; }
-  .rup-language_root a {
-    color: #0052c7; }
-  .rup-language_root li {
-    float: left;
-    margin-right: 1em;
-    list-style-type: none; }
-  .rup-language_root ul {
-    margin: 0; }
-  .rup-language_root .ui-state-active {
-    color: #0052c7;
-    border: none;
-    font-weight: bold; }
-    .rup-language_root .ui-state-active a:link {
-      text-decoration: none; }
+
+.rup-language_root div {
+  z-index: 900; }
+
+.rup-language_root a {
+  color: #0052C7; }
+
+.rup-language_root li {
+  float: left;
+  margin-right: 1em;
+  list-style-type: none; }
+
+.rup-language_root ul {
+  margin: 0px; }
+
+.rup-language_change a {
+  background: url("images/rup.dropdown.gif") no-repeat right;
+  padding: .2em 2.4em .2em .6em; }
 
 .rup-language_close_languages {
   float: right;
-  background-image: url(images/rup.close.png);
+  background-image: url("images/rup.close.png");
   background-repeat: no-repeat;
   background-position: right;
   padding-right: 1.8em;
   color: blue;
   text-decoration: underline !important;
   cursor: pointer; }
-  .rup-language_close_languages:hover {
-    background-image: url(images/rup.close_hover.png);
-    text-decoration: none !important; }
 
-.rup-language_language_list {
-  background-color: #f7f7f7;
-  border: 0.1em solid #ababab;
-  padding-top: 0.6em;
-  padding-bottom: 0.6em;
-  position: absolute;
-  left: 0; }
-  .rup-language_language_list a:link {
-    text-decoration: none; }
-  .rup-language_language_list a:focus {
-    border-style: dotted;
-    border-width: thin;
-    outline: none; }
-  .rup-language_language_list ul li {
-    display: block !important;
-    float: none !important; }
-    .rup-language_language_list ul li a:hover {
-      color: #000000 !important;
-      font-weight: bold;
-      text-decoration: none; }
-  .rup-language_language_list ul a:link {
-    text-decoration: underline; }
+.rup-language_close_languages:hover {
+  background-image: url("images/rup.close_hover.png");
+  text-decoration: none !important; }
+
+.rup-language_language_list a:link {
+  text-decoration: none; }
+
+.rup-language_language_list a:focus {
+  border-style: dotted;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */ }
+
+.rup-language_language_list ul a:link {
+  text-decoration: underline; }
 
 .rup_language_link {
   padding-right: 0.1em; }
 
 .rup-language_change_option {
-  background: url(images/rup.dropdown.gif) no-repeat right;
+  background: url("images/rup.dropdown.gif") no-repeat right;
   padding: .2em 2.4em .2em .6em;
-  background-color: #f7f7f7;
-  border-top: 1px solid #ababab;
-  border-right: 1px solid #ababab;
-  border-left: 1px solid #ababab;
+  background-color: #F7F7F7;
+  border-top: 1px solid #ABABAB;
+  border-right: 1px solid #ABABAB;
+  border-left: 1px solid #ABABAB;
+  text-decoration: none;
   color: #000000 !important;
   line-height: 1.5em;
   position: absolute;
   text-decoration: none; }
 
+.rup-language_language_list {
+  background-color: #F7F7F7;
+  border: 0.1em solid #ABABAB;
+  /* The value of padding-right and padding-left are specified in the component code */
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  position: absolute;
+  left: 0px; }
+
+.rup-language_language_list ul li {
+  display: block !important;
+  float: none !important; }
+
+.rup-language_language_list ul li a:hover {
+  color: #000000 !important;
+  font-weight: bold;
+  text-decoration: none; }
+
 .rup-language_hidden {
   visibility: hidden; }
 
+.rup-language_root .ui-state-active {
+  color: #0052C7;
+  border: none;
+  font-weight: bold; }
+
+.rup-language_root .ui-state-active a:link {
+  text-decoration: none; }
+
+/* Estilos de modo portal */
+.rup-language_portal li {
+  margin: 0px; }
+
 .rup-language_portal_list {
   float: left;
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   color: #000000 !important; }
-  .rup-language_portal_list:HOVER {
-    float: left;
-    padding: 0;
-    margin: 0;
-    text-decoration: underline;
-    color: #000000 !important; }
+
+.rup-language_portal_list:HOVER {
+  float: left;
+  padding: 0px;
+  margin: 0px;
+  text-decoration: underline;
+  color: #000000 !important; }
 
 .rup-language_portal_list_active {
   float: left;
-  padding: 0;
-  margin: 0; }
+  padding: 0px;
+  margin: 0px; }
 
 .rup-language_portal_separator {
   float: left;
-  padding: 0 0.5em; }
-
-.rup-language_change a {
-  background: url(images/rup.dropdown.gif) no-repeat right;
-  padding: .2em 2.4em .2em .6em; }
-
-.rup-language_portal li {
-  margin: 0; }
+  padding: 0px 0.5em; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.
@@ -3427,38 +3736,43 @@ ul.ui-selectmenu-menu-popup {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+/* Capa del feedback */
+.rup-maint_feedbackUL li {
+  margin-left: 2em;
+  margin-top: 0.2em; }
+
 .rup-maint_new {
-  background: transparent url(images/toolbar/nuevo.png) no-repeat !important;
+  background: transparent url("images/toolbar/nuevo.png") no-repeat !important;
   width: 14px; }
 
 .rup-maint_edit {
-  background: transparent url(images/toolbar/editar.png) no-repeat !important;
+  background: transparent url("images/toolbar/editar.png") no-repeat !important;
   width: 14px; }
 
 .rup-maint_cancel {
-  background: transparent url(images/toolbar/cancelar.png) no-repeat !important;
+  background: transparent url("images/toolbar/cancelar.png") no-repeat !important;
   width: 14px; }
 
 .rup-maint_delete {
-  background: transparent url(images/toolbar/borrar.png) no-repeat !important;
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
   width: 14px; }
 
 .rup-maint_save {
-  background: transparent url(images/toolbar/guardar.png) no-repeat !important;
+  background: transparent url("images/toolbar/guardar.png") no-repeat !important;
   width: 14px; }
 
 .rup-maint_filter {
-  background: transparent url(images/toolbar/filtrar.png) no-repeat !important;
+  background: transparent url("images/toolbar/filtrar.png") no-repeat !important;
   width: 16px; }
 
 .rup-maint_clone {
-  background: transparent url(images/toolbar/clonar.png) no-repeat !important;
+  background: transparent url("images/toolbar/clonar.png") no-repeat !important;
   width: 16px; }
 
 .rup-maint_filter_pressed {
@@ -3467,7 +3781,7 @@ ul.ui-selectmenu-menu-popup {
   color: #212121 !important; }
 
 .rup-maint_export {
-  background: transparent url(images/toolbar/filtrar.png) no-repeat !important;
+  background: transparent url("images/toolbar/filtrar.png") no-repeat !important;
   width: 16px; }
 
 .rup-maint_export_pressed {
@@ -3475,6 +3789,7 @@ ul.ui-selectmenu-menu-popup {
   font-weight: normal !important;
   color: #212121 !important; }
 
+/* Al mantenimiento Links de paginacion */
 .rup-maint_linkPaginacionDetalle {
   background: none;
   border: none;
@@ -3482,16 +3797,12 @@ ul.ui-selectmenu-menu-popup {
   cursor: pointer;
   float: left;
   text-decoration: underline;
-  color: #0052c7 !important;
+  color: #0052C7 !important;
   font-size: 0.88em;
   padding-right: 1.3em; }
 
 .rup-maint_searchCriteria {
-  background-color: #fffacd; }
-
-.rup-maint_feedbackUL li {
-  margin-left: 2em;
-  margin-top: 0.2em; }
+  background-color: #FFFACD; }
 
 /*!
  * Copyright 2015 E.J.I.E., S.A.
@@ -3513,123 +3824,107 @@ ul.ui-selectmenu-menu-popup {
   padding: 2px 0;
   margin: 0;
   display: block;
-  outline: none;
-  margin-bottom: 0.5em; }
-  .ui-menu .ui-menu {
-    margin-top: -3px;
-    position: absolute; }
-  .ui-menu .ui-menu-item {
-    zoom: 1; }
-    .ui-menu .ui-menu-item a {
-      text-decoration: none;
-      display: block;
-      line-height: 1.5;
-      zoom: 1;
-      padding-top: 0.1em;
-      cursor: pointer; }
-      .ui-menu .ui-menu-item a.ui-state-focus {
-        font-weight: normal;
-        margin: -1px; }
-      .ui-menu .ui-menu-item a.ui-state-active {
-        font-weight: normal;
-        margin: -1px; }
-    .ui-menu .ui-menu-item.rup_menu_horizontal_children_double {
-      padding-left: 1.6em; }
-    .ui-menu .ui-menu-item.rup_menu_horizontal_childrenIcon {
-      padding-left: 1.6em; }
-    .ui-menu .ui-menu-item .rup_menu_vertical_horizontal a {
-      padding: 0.2em 0.3em; }
-  .ui-menu .ui-menu-divider {
-    margin: 5px -2px;
-    height: 0;
-    font-size: 0;
-    line-height: 0; }
-  .ui-menu .ui-state-disabled {
-    font-weight: normal;
-    line-height: 1.5; }
-    .ui-menu .ui-state-disabled a {
-      cursor: default;
-      filter: Alpha(Opacity=35); }
-    .ui-menu .ui-state-disabled span {
-      filter: Alpha(Opacity=15); }
-  .ui-menu .ui-icon {
-    position: absolute;
-    top: .2em;
-    left: .2em; }
-  .ui-menu .ui-menu-icon {
-    position: static;
-    float: right; }
-  .ui-menu .rup_menu_vertical_horizontal .ui-icon {
-    top: .4em; }
-  .ui-menu li strong {
-    cursor: default; }
+  outline: none; }
 
+.ui-menu .ui-menu {
+  margin-top: -3px;
+  position: absolute; }
+
+/* .ui-menu .ui-menu-item { margin: 0; padding: 0; zoom: 1; width: 100%; } */
+.ui-menu .ui-menu-item {
+  zoom: 1; }
+
+.ui-menu .ui-menu-divider {
+  margin: 5px -2px 5px -2px;
+  height: 0;
+  font-size: 0;
+  line-height: 0; }
+
+.ui-menu .ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  line-height: 1.5;
+  zoom: 1;
+  padding-top: 0.1em; }
+
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: normal;
+  margin: -1px; }
+
+.ui-menu .ui-state-disabled {
+  font-weight: normal;
+  line-height: 1.5; }
+
+.ui-menu .ui-state-disabled a {
+  cursor: default;
+  filter: Alpha(Opacity=35); }
+
+.ui-menu .ui-state-disabled span {
+  filter: Alpha(Opacity=15); }
+
+/* icon support */
 .ui-menu-icons {
   position: relative; }
-  .ui-menu-icons .rup_menu_vertical_horizontal .ui-menu-item a {
-    position: relative; }
 
+/* left-aligned */
+.ui-menu .ui-icon {
+  position: absolute;
+  top: .2em;
+  left: .2em; }
+
+.ui-menu .rup_menu_vertical_horizontal .ui-icon {
+  top: .4em; }
+
+/* right-aligned */
+.ui-menu .ui-menu-icon {
+  position: static;
+  float: right; }
+
+/* MENU GENERALES*/
 .rup_invisible_menu {
   visibility: hidden;
   display: none; }
 
-.rup_menu_vertical {
-  float: left;
-  z-index: 800; }
-  .rup_menu_vertical.ui-menu .ui-menu-item a {
-    padding: 0.2em 0.3em; }
-  .rup_menu_vertical.ui-menu-icons .ui-menu-item a {
-    position: relative; }
-  .rup_menu_vertical .ui-menu.ui-widget.ui-widget-content.ui-corner-all {
-    z-index: 800; }
+.ui-menu .ui-menu-item .rup_menu_vertical_horizontal a, .rup_menu_vertical.ui-menu .ui-menu-item a {
+  padding: 0.2em 0.3em; }
+
+/* cursores */
+.ui-menu li strong {
+  cursor: default; }
+
+.ui-menu .ui-menu-item a {
+  cursor: pointer; }
+
+/* MENU HORIZONTAL */
+.rup_menu_horizontal.ui-menu-icons .ui-menu-item a {
+  position: relative; }
 
 .rup_menu_horizontal {
   width: 100%;
   float: left;
   font-weight: normal;
   z-index: 810; }
-  .rup_menu_horizontal.ui-widget-header {
-    font-weight: normal; }
-  .rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus {
-    background: none;
-    border-style: none solid none none;
-    border-width: medium 1px medium medium;
-    border-right-color: #7c7676;
-    border-radius: 0 0 0 0; }
-    .rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus a.rup_menu_horizontal_children_entry {
-      font-weight: bold; }
-  .rup_menu_horizontal .rup_menu_horizontal_children a.rup_menu_horizontal_children_entry.ui-state-active {
-    border: none;
-    background: none;
-    font-weight: bold;
-    margin: 0; }
-  .rup_menu_horizontal.ui-menu-icons .ui-menu-item a {
-    position: relative; }
-  .rup_menu_horizontal .rup_menu_horizontal_children_last.ui-state-focus {
-    border: none; }
-  .rup_menu_horizontal.ui-menu .ui-menu-item-wrapper {
-    padding: 3px 1em 3px 0; }
+
+.rup_menu_horizontal.ui-widget-header {
+  font-weight: normal; }
 
 .rup_menu_horizontal_children {
   float: left;
   background: none;
   border-style: none solid none none;
   border-width: medium 1px medium medium;
-  border-right-color: #7c7676;
-  border-radius: 0 0 0 0;
+  border-right-color: #7C7676;
+  border-radius: 0px 0px 0px 0px;
   text-align: center;
   padding-left: .5em;
   padding-right: .5em;
   padding-bottom: .15em;
-  margin: .15em 0; }
-  .rup_menu_horizontal_children.ui-menu-item {
-    padding-left: 0.5em; }
+  margin: .15em 0em; }
 
 .rup_menu_horizontal_children_entry {
   width: 100%;
   float: left; }
-  .rup_menu_horizontal_children_entry:hover {
-    font-weight: bold; }
 
 .rup_menu_horizontal_children_icon {
   left: -0.8em !important; }
@@ -3641,21 +3936,64 @@ ul.ui-selectmenu-menu-popup {
 .rup_menu_horizontal_childrenMenuIcon {
   padding-right: .2em; }
 
+.ui-menu-icon.ui-icon.rup-menu_horizontalIcon {
+  margin-top: 3px;
+  margin-right: 0em; }
+
 .rup_menu_horizontal_children_double {
   padding-left: 1.6em; }
-  .rup_menu_horizontal_children_double .rup_menu_horizontal_children_icon {
-    left: -1em !important; }
+
+.rup_menu_horizontal_children_double .rup_menu_horizontal_children_icon {
+  left: -1em !important; }
+
+/* Estilo solo interpretado por los FF */
+/* Se ha añadido para mantener el color general en los separadores del menú */
+body:first-of-type .rup_menu a.ui-button {
+  border-right-color: -moz-use-text-color; }
 
 .rup_menu_horizontal_disabled {
-  margin-top: 0;
-  margin-bottom: 0; }
+  margin-top: 0em;
+  margin-bottom: 0em; }
 
-.rup_menu_horizontal_children_last {
+.rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus {
+  background: none;
+  border-style: none solid none none;
+  border-width: medium 1px medium medium;
+  border-right-color: #7C7676;
+  border-radius: 0px 0px 0px 0px; }
+
+.rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus a.rup_menu_horizontal_children_entry {
+  font-weight: bold; }
+
+.rup_menu_horizontal .rup_menu_horizontal_children a.rup_menu_horizontal_children_entry.ui-state-active {
+  border: none;
+  background: none;
+  font-weight: bold;
+  margin: 0em; }
+
+.rup_menu_horizontal_children_last,
+.rup_menu_horizontal .rup_menu_horizontal_children_last.ui-state-focus {
   border: none; }
+
+/* MENU VERTICAL */
+.rup_menu_vertical {
+  float: left;
+  z-index: 800; }
 
 .rup_menu_vertical_horizontal {
   z-index: 810;
   text-align: left; }
+
+.rup_menu_vertical.ui-menu-icons .ui-menu-item a,
+.ui-menu-icons .rup_menu_vertical_horizontal .ui-menu-item a {
+  position: relative;
+  /*padding-left: 2em;*/ }
+
+.rup_menu_vertical .ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+  z-index: 800; }
+
+.ui-menu {
+  margin-bottom: 0.5em; }
 
 .menu4 {
   height: 200px;
@@ -3675,25 +4013,32 @@ ul.ui-selectmenu-menu-popup {
   margin-bottom: .2em;
   padding-left: 10px; }
 
-ul.ui-menu.rup_menu_vertical_horizontal li.ui-menu-item {
-  padding: 0; }
-
-ul.rup_menu_horizontal.ui-widget.ui-widget-content {
-  border: 1px solid #aaaaaa; }
-
-.ui-menu-icon.ui-icon.rup-menu_horizontalIcon {
-  margin-top: 3px;
-  margin-right: 0; }
-
+/* jQuery ui 1.11*/
 .ui-menu-icon.ui-icon.ui-icon-carat-1-s.rup-menu_horizontalIcon {
   position: absolute;
   right: 0.2em;
   left: auto; }
 
-.ui-menu-item:not([aria-haspopup=true]) {
+.rup_menu_horizontal_children_entry:hover {
+  font-weight: bold; }
+
+.ui-menu-item:not([aria-haspopup=true]), .ui-menu-item:not([aria-haspopup=true]) > a {
   text-decoration: underline; }
-  .ui-menu-item:not([aria-haspopup=true]) > a {
-    text-decoration: underline; }
+
+ul.ui-menu.rup_menu_vertical_horizontal li.ui-menu-item {
+  padding: 0; }
+
+.rup_menu_horizontal_children.ui-menu-item {
+  padding-left: 0.5em; }
+
+.ui-menu .ui-menu-item.rup_menu_horizontal_children_double, .ui-menu .ui-menu-item.rup_menu_horizontal_childrenIcon {
+  padding-left: 1.6em; }
+
+ul.rup_menu_horizontal.ui-widget.ui-widget-content {
+  border: 1px solid #aaaaaa; }
+
+.rup_menu_horizontal.ui-menu .ui-menu-item-wrapper {
+  padding: 3px 1em 3px 0em; }
 
 /*!
  * Copyright 2015 E.J.I.E., S.A.
@@ -3704,14 +4049,16 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+/* MENSAJES DE ERROR */
+/*Estilo de la capa con la imagen de error*/
 .rup-message_icon-error {
-  background-image: url(images/rup.error.png);
+  background-image: url("images/rup.error.png");
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
@@ -3721,6 +4068,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   vertical-align: middle;
   width: 11%; }
 
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de error*/
 .rup-message_msg-error {
   padding-top: 1em;
   text-align: left;
@@ -3728,8 +4076,10 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   float: right;
   width: 84%; }
 
+/* MENSAJES DE CONFIRMACION */
+/*Estilo de la capa con la imagen de confirmacion*/
 .rup-message_icon-confirm {
-  background-image: url(images/rup.confirm.png);
+  background-image: url("images/rup.confirm.png");
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
@@ -3739,6 +4089,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   vertical-align: middle;
   width: 11%; }
 
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo confirmación*/
 .rup-message_msg-confirm {
   padding-top: 1em;
   text-align: left;
@@ -3746,8 +4097,10 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   float: right;
   width: 84%; }
 
+/* MENSAJES DE OK */
+/*Estilo de la capa con la imagen de ok*/
 .rup-message_icon-ok {
-  background-image: url(images/rup.ok.png);
+  background-image: url("images/rup.ok.png");
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
@@ -3757,6 +4110,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   vertical-align: middle;
   width: 11%; }
 
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo ok*/
 .rup-message_msg-ok {
   padding-top: 1em;
   text-align: left;
@@ -3764,8 +4118,10 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   float: right;
   width: 84%; }
 
+/* MENSAJES DE ALERTA */
+/*Estilo de la capa con la imagen de alerta*/
 .rup-message_icon-alert {
-  background-image: url(images/rup.alert.png);
+  background-image: url("images/rup.alert.png");
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
@@ -3775,6 +4131,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   vertical-align: middle;
   width: 11%; }
 
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo alerta*/
 .rup-message_msg-alert {
   padding-top: 1em;
   text-align: left;
@@ -3795,7 +4152,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -3810,16 +4167,32 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
 .rup_report .ui-progressbar-value {
   background: url(images/pbar-ani.gif); }
 
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  border-bottom: none;
-  border-right: none;
-  border-left: none;
-  padding-bottom: 1em; }
-
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
 .rup-jerarquia_filter {
-  background-image: url(images/jerarquia/ui-icons.png) !important;
+  background-image: url("images/jerarquia/ui-icons.png") !important;
   float: left; }
 
+/** MULTISELECCION flecha**/
 .rup-jerarquia_checkmenu_arrow {
   display: inline;
   position: absolute;
@@ -3827,41 +4200,83 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   cursor: pointer;
   background-position: -64px -16px; }
 
+/* 
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #D0D0D0;
+	background-image: none; 
+}
+*/
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+/* Padding de las celdas [IMPORTANT] */
 .rup-grid_cellPadding_important {
   padding: 0 15px !important; }
 
-.ui-th-column {
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+/*******************************************/
+/* Fila seleccionada con negrita */
+.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
   font-weight: bold; }
 
+/* Paginador "Mostrando X-Y de Z" */
 .ui-jqgrid .ui-paging-info {
   height: auto;
-  margin: 0; }
+  margin: 0px; }
 
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
 .ui-jqgrid tr.jqgrow td {
   font-weight: inherit; }
-  .ui-jqgrid tr.jqgrow td.rupInfoCol {
-    margin: 0;
-    padding: 0;
-    border-right: 0 none; }
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+.ui-jqgrid-btable .trAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: 0em; }
+
+.ui-jqgrid-btable .trAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: .2em !important; }
+
+.ui-jqgrid-btable .tdAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */ }
+
+.ui-jqgrid-btable .tdAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */ }
+
+.ui-jqgrid-btable .addElement {
+  /* 	background-color: #E0E4EC; */ }
+
+.ui-jqgrid-btable .addElementBorder {
+  /* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+  /* 	background-color: #E0E4EC; */ }
 
 .ui-jqgrid tr.ui-row-ltr td:last-child {
   border-right-style: none; }
 
+/* Animación para el mensaje de "Cargando..." */
 .ui-jqgrid .loading {
-  background: white url(images/rup.ajaxLoader.gif) right center no-repeat;
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat;
   font-weight: normal !important; }
 
-.ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
-  font-weight: bold; }
-
-.ui-jqgrid-btable .trAddSeparator {
-  height: 0; }
-  .ui-jqgrid-btable .trAddSeparator:HOVER {
-    height: .2em !important; }
-
+/**********
+ PAGINADOR 
+***********/
+/* Tamaño letra */
 .ui-jqgrid-pager {
   font-size: 0.85em; }
 
+/* Secciones */
 .pager_left {
   padding-left: 1.7em !important; }
 
@@ -3871,21 +4286,34 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
 .pager_right {
   padding-right: 1.7em !important; }
 
+/* Cada elemento de la sección central */
 .pagControls {
   padding-right: 1em !important;
-  border: 0 !important;
+  border: 0px !important;
   background-image: none !important;
-  background-color: transparent !important; }
+  background-color: transparent !important;
+  /* Sobreescribir el ui-state-hover por defecto */ }
 
+/* Links de paginacion */
 .linkPaginacion {
   text-decoration: underline !important;
-  color: #0052c7 !important; }
-  .linkPaginacion:hover {
-    text-decoration: none;
-    color: #0052c7; }
-  .linkPaginacion.ui-state-disabled:hover {
-    text-decoration: underline; }
+  color: #0052C7 !important; }
 
+.linkPaginacion:hover {
+  text-decoration: none;
+  color: #0052C7; }
+
+.linkPaginacion.ui-state-disabled:hover {
+  text-decoration: underline; }
+
+/* Para que en los links deshabilitados no se quite el subrayado*/
+.ui-state-disabled > .linkPaginacion {
+  cursor: default; }
+
+/* Links deshabilitados sin cursor de mano */
+/* ************************ */
+/* AÑADIDOS PARA RUP.TABLE */
+/* ************************ */
 .cursor_pointer {
   cursor: pointer; }
 
@@ -3897,33 +4325,49 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   float: right;
   cursor: pointer;
   opacity: 0.5; }
-  .collapse_icon_right:hover {
-    opacity: 0.3; }
+
+.collapse_icon_right {
+  float: right;
+  cursor: pointer;
+  opacity: 0.5; }
+
+.collapse_icon_right {
+  float: right;
+  cursor: pointer;
+  opacity: 0.5; }
 
 .collapse_label {
   color: blue;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: underline; }
+
+.collapse_label, .matched_layer {
   font-weight: normal; }
 
+.collapse_icon_right:hover {
+  opacity: 0.3; }
+
+.cursor_pointer {
+  cursor: pointer; }
+
 .matched_layer {
-  font-weight: normal;
   float: left; }
 
-.search_row {
-  background: none repeat scroll 0 0 #f8f8f8; }
-  .search_row > th.ui-widget-header.ui-state-default {
-    border-top: 1px solid #aaaaaa; }
-
-.ui-search-toolbar {
-  background: none repeat scroll 0 0 #f8f8f8; }
+.search_row, .ui-search-toolbar {
+  background: none repeat scroll 0 0 #F8F8F8; }
 
 .search_row_header {
-  background: none repeat scroll 0 0 #f8f8f8;
-  border-top: 1px solid #aaaaaa; }
+  background: none repeat scroll 0 0 #F8F8F8;
+  border-top: 1px solid #AAAAAA; }
+
+.search_row > th.ui-widget-header.ui-state-default {
+  border-top: 1px solid #AAAAAA; }
 
 .search_collapse_layer {
   float: left; }
+
+.search_nav_layer {
+  float: right; }
 
 .search_nav_layer {
   float: rigth; }
@@ -3932,71 +4376,104 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   height: 16px;
   float: left; }
 
+.ui-state-default a.rup-table_linkSearchNav {
+  background: none;
+  border: none;
+  clear: none;
+  cursor: pointer;
+  font-weight: normal;
+  float: left;
+  text-decoration: underline;
+  color: #0052C7 !important;
+  font-size: 0.88em;
+  padding: 0 1.3em 0 0; }
+
+button.ui-button.rup-table_searchButton {
+  padding: 0 0.0em;
+  height: 16px;
+  width: 7em; }
+
+.ui-state-default a.rup-table_linkSearchNav:hover {
+  text-decoration: none;
+  padding: 0 1.3em 0 0; }
+
+.ui-state-default a.rup-table_linkClear {
+  float: right; }
+
 .fm-button {
   padding: 0.5em 1em; }
-  .fm-button.botonEnlace {
-    background: none repeat scroll 0 0 transparent;
-    color: #222222;
-    cursor: pointer;
-    float: right;
-    line-height: 1.4em;
-    margin: 0.1em 0.4em 0.5em 0;
-    overflow: visible;
-    padding: 0.2em 0.6em 0.3em;
-    width: auto;
-    border: none;
-    text-decoration: underline !important; }
-    .fm-button.botonEnlace:hover {
-      text-decoration: none !important; }
 
 .white-space-normal {
   white-space: normal; }
 
-.EditTable {
+.EditTable, .botoneraModal {
   text-align: right;
   width: 100%; }
-  .EditTable tr:last-child td {
-    padding-bottom: 1em; }
 
-.botoneraModal {
-  text-align: right;
-  width: 100%; }
-  .botoneraModal tr:last-child td {
-    padding-bottom: 1em; }
+.EditTable hr, .botoneraModal hr {
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  padding-bottom: 1em; }
+
+.EditTable tr:last-child td, .botoneraModal tr:last-child td {
+  padding-bottom: 1em; }
 
 .botonEnlace {
   background-image: none; }
 
+.fm-button.botonEnlace {
+  background: none repeat scroll 0 0 transparent;
+  color: #222222;
+  cursor: pointer;
+  float: right;
+  line-height: 1.4em;
+  margin: 0.1em 0.4em 0.5em 0;
+  overflow: visible;
+  padding: 0.2em 0.6em 0.3em;
+  width: auto;
+  border: none;
+  text-decoration: underline !important; }
+
+.fm-button.botonEnlace:hover {
+  text-decoration: none !important; }
+
 .ui-icon.icono_cancelar {
   background-image: none; }
-
-.ui-icon.ui-icon-rupInfoCol {
-  background-position: -300px -300px; }
-  .ui-icon.ui-icon-rupInfoCol.ui-icon-search {
-    background-position: -160px -112px; }
-  .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil {
-    background-position: -64px -112px; }
-    .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
-      background-image: url(images/rup.search_edit_222222.png);
-      background-position: 0 0; }
-
-.ui-icon.rup-rss-icon-16 {
-  background: url(images/rup.rss.16.png) no-repeat !important; }
-
-.ui-icon.rup-rss-icon-24 {
-  background: url(images/rup.rss.24.png) no-repeat !important; }
 
 .ui-icon_collapse {
   background-position: center;
   width: 100%;
   height: 14px;
   cursor: pointer; }
-  .ui-icon_collapse:hover {
-    background-color: #e6e6e6; }
+
+.ui-jqgrid tr.jqgrow td.rupInfoCol {
+  margin: 0;
+  padding: 0;
+  border-right: 0px none; }
+
+.ui-icon.ui-icon-rupInfoCol {
+  background-position: -300px -300px; }
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-search {
+  background-position: -160px -112px; }
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-pencil {
+  background-position: -64px -112px; }
+
+.ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
+  background-image: url(images/rup.search_edit_222222.png);
+  background-position: 0px 0px; }
+
+tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
+  background-image: url(images/rup.search_edit_2e83ff.png); }
+
+.ui-icon_collapse:hover {
+  background-color: #E6E6E6; }
 
 .form-column {
   float: left;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
   font-size: 11px;
   margin-top: 5px;
   padding-right: 10px;
@@ -4005,30 +4482,36 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
 .one-column {
   float: left;
   margin: 0.5em 1.5em 0 0; }
-  .one-column label {
-    display: block; }
+
+.one-column label {
+  display: block; }
 
 .rup_form_element {
-  border: 0.1em solid #d1d1d1;
+  border: 0.1em solid #D1D1D1;
   color: #666666;
   font-size: 100%; }
 
 .FormElement {
-  border: 0.1em solid #d1d1d1;
+  border: 0.1em solid #D1D1D1;
   color: #666666;
-  font-size: 100%; }
+  /*font-size:1.2em;*/
+  font-size: 100%;
+  /*width: 15em; */ }
 
+/* Formulario de detalle */
 .rup-table-buttonpane {
   text-align: left;
   border-width: 1px 0 0 0;
   background-image: none;
   margin: .5em 0 0 0;
   padding: .3em 1em .5em .4em; }
-  .rup-table-buttonpane .ui-dialog-buttonset {
-    float: right; }
-  .rup-table-buttonpane button {
-    margin: .5em .4em .5em 0;
-    cursor: pointer; }
+
+.rup-table-buttonpane .ui-dialog-buttonset {
+  float: right; }
+
+.rup-table-buttonpane button {
+  margin: .5em .4em .5em 0;
+  cursor: pointer; }
 
 .rup-table-container {
   margin-top: 0.5em;
@@ -4037,7 +4520,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
 .rup-table-filter {
   margin-top: 0.2em;
   margin-bottom: 0.3em;
-  border: 1px solid #dadada; }
+  border: 1px solid #DADADA; }
 
 .rup-table-filter-fieldset {
   clear: both; }
@@ -4052,7 +4535,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   cursor: pointer;
   float: left;
   text-decoration: underline;
-  color: #0052c7 !important;
+  color: #0052C7 !important;
   font-size: 0.88em;
   padding-right: 1.3em; }
 
@@ -4060,8 +4543,16 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   cursor: pointer;
   text-decoration: underline; }
 
+.ui-icon.rup-rss-icon-16 {
+  background: url("images/rup.rss.16.png") no-repeat !important; }
+
+.ui-icon.rup-rss-icon-24 {
+  background: url("images/rup.rss.24.png") no-repeat !important; }
+
+/* MULTIFILTER */
 .rup_multifilter_dropdown input {
-  margin-left: 0.3em; }
+  margin-left: 0.3em;
+  /* 	margin-right:0.3em; */ }
 
 .rup_multifilter_dropdown input[type=checkbox] {
   margin-right: 0.3em; }
@@ -4074,126 +4565,149 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   padding-left: 0.5em;
   width: 23em; }
 
-.ui-state-disabled > .linkPaginacion {
-  cursor: default; }
-
-.ui-state-default a.rup-table_linkSearchNav {
-  background: none;
-  border: none;
-  clear: none;
-  cursor: pointer;
-  font-weight: normal;
-  float: left;
-  text-decoration: underline;
-  color: #0052c7 !important;
-  font-size: 0.88em;
-  padding: 0 1.3em 0 0; }
-  .ui-state-default a.rup-table_linkSearchNav:hover {
-    text-decoration: none;
-    padding: 0 1.3em 0 0; }
-
-.ui-state-default a.rup-table_linkClear {
-  float: right; }
-
-button.ui-button.rup-table_searchButton {
-  padding: 0 0.0em;
-  height: 16px;
-  width: 7em; }
-
-tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
-  background-image: url(images/rup.search_edit_2e83ff.png); }
-
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
 .ui-tabs .ui-tabs-panel {
   border-width: 1px; }
-  .ui-tabs .ui-tabs-panel.rup-tabs_container {
-    padding: 0.4em; }
 
-.ui-tabs .ui-tabs-nav li a.rup-tabs-link-close {
-  padding: 1px;
-  position: relative;
-  right: 0.3em;
-  top: 50%;
-  width: 19px; }
-  .ui-tabs .ui-tabs-nav li a.rup-tabs-link-close:hover {
-    margin: -1px;
-    cursor: pointer;
-    border: 1px solid #999999;
-    background: #dadada url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
-    color: #212121; }
-
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected.ui-state-active a.rup-tabs-link-close:hover {
-  margin: -1px;
-  cursor: pointer;
-  border: 1px solid #999999;
-  background: #dadada url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
-  color: #212121; }
-
+/* Estilo asociado al error de carga de una pestaña */
 .rup-loading_tab_error {
   font-size: 2em;
   margin: 1.5em 0.5em 1.5em 0.5em;
-  color: #f71229; }
+  color: #F71229; }
 
+/* Estilo de la imagen de carga de cada pestañas */
 .rup-tabs_loading {
   float: left;
   width: 1.2em;
   height: 1.2em;
   margin-left: 0.3em;
-  margin-right: 0;
-  margin-top: 0;
-  margin-bottom: 0; }
+  margin-right: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em; }
 
 .rup-tabs_loading_img {
   vertical-align: middle;
-  background-image: url(images/rup.ajaxLoader.gif);
+  background-image: url("images/rup.ajaxLoader.gif");
   background-position: center center;
   background-repeat: no-repeat;
   float: right;
   width: 1.2em;
   height: 1.2em;
   margin-left: 0.3em;
-  margin-right: 0;
-  margin-top: 0;
-  margin-bottom: 0; }
+  margin-right: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em; }
+
+/* Estilo especifico para la separación entre las pestañas que albergan otras pestañas */
+.ui-tabs .ui-tabs-panel.rup-tabs_container {
+  padding: 0.4em; }
 
 .rup-tabs_title {
   float: left; }
 
+/* Estilo para mostrar scrollbar cuando sea necesario */
 .rup-tabs_overflow {
   overflow: scroll; }
 
+/* Estilos para mostrar las pestañas abajo */
+.tabs-bottom .ui-tabs-nav {
+  clear: left;
+  padding: 0 .2em .2em .2em; }
+
+.tabs-bottom .ui-tabs-nav li {
+  top: auto;
+  margin: 0 .2em 1px 0;
+  border-bottom: 1px solid #d3d3d3;
+  border-top: 0; }
+
+.tabs-bottom .ui-tabs-nav li.ui-state-active {
+  margin-top: -1px;
+  padding-top: 1px; }
+
+/*estilos para efecto hover del boton close de la pestaña*/
 .rup-tabs-close {
-  margin-left: 1px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  float: left; }
+  float: left;
+  margin-left: 1px; }
 
 .rup-tabs-close-hover {
   border-style: solid;
   border-width: 1px;
   border-radius: 4px; }
 
-.tabs-bottom .ui-tabs-nav {
-  clear: left;
-  padding: 0 .2em .2em .2em; }
-  .tabs-bottom .ui-tabs-nav li {
-    top: auto;
-    margin: 0 .2em 1px 0;
-    border-bottom: 1px solid #d3d3d3;
-    border-top: 0; }
-    .tabs-bottom .ui-tabs-nav li.ui-state-active {
-      margin-top: -1px;
-      padding-top: 1px; }
+/* Pestañas falsas */
+.ui-tabs .ui-tabs-nav li a.rup-tabs-link-close {
+  padding: 1px;
+  position: relative;
+  right: 0.3em;
+  top: 50%;
+  width: 19px; }
 
+.ui-tabs .ui-tabs-nav li a.rup-tabs-link-close:hover {
+  margin: -1px;
+  cursor: pointer;
+  border: 1px solid #999999;
+  background: #dadada url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+  /*     font-weight: normal;  */
+  color: #212121; }
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected.ui-state-active a.rup-tabs-link-close:hover {
+  margin: -1px;
+  cursor: pointer;
+  border: 1px solid #999999;
+  background: #dadada url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  /*     font-weight: normal;  */
+  color: #212121; }
+
+.rup-tabs-close {
+  box-sizing: border-box;
+  float: left; }
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* css for timepicker */
 .ui-timepicker-div .ui-widget-header {
   margin-bottom: 8px; }
 
 .ui-timepicker-div dl {
   text-align: left;
   margin-top: 0.5em; }
-  .ui-timepicker-div dl dt {
-    height: 25px;
-    margin-bottom: -25px; }
-  .ui-timepicker-div dl dd {
-    margin: 0 10px 10px 65px; }
+
+.ui-timepicker-div dl dt {
+  height: 25px;
+  margin-bottom: -25px; }
+
+.ui-timepicker-div dl dd {
+  margin: 0 10px 10px 65px; }
 
 .ui-timepicker-div td {
   font-size: 90%; }
@@ -4207,131 +4721,182 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
 .ui-slider-handle {
   z-index: 1 !important; }
 
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* Toolbar */
 .rup-toolbar {
   overflow: hidden;
   padding: 0.1em 0.4em 0.1em 0.4em; }
 
+/* Botones */
 .rup-toolbar_button {
   margin-right: 5px; }
-  .rup-toolbar_button .ui-button-icon-primary {
-    width: 18px;
-    height: 18px; }
-  .rup-toolbar_button .ui-button-icon {
-    width: 18px;
-    height: 18px; }
 
+/* Menu-Botones */
 .rup-toolbar_menuButton {
   margin-right: 5px; }
-  .rup-toolbar_menuButton .ui-button-icon-primary {
-    width: 18px;
-    height: 18px; }
 
 .rup-toolbar_menuButtonSlided {
+  /* cuando tiene el menú de botones desplegado y no está encima el cursor */
   background: #ece9d8;
   color: #0000ff; }
-  .rup-toolbar_menuButtonSlided .rup-toolbar_menuButtonIcon {
-    background-position: -64px -16px; }
 
+/* Contenedor Menu-Botones*/
 .rup-toolbar_menuButtonContainer {
   background-image: none;
   overflow: hidden;
   padding: 0.4em;
   padding-top: 0.5em; }
 
+/* Estilo aplicado al Menu-Botones */
 .rup-toolbar_menuButtonElement {
   width: 100%; }
-  .rup-toolbar_menuButtonElement .ui-button-text {
-    text-align: left; }
 
+/* Texto del botón del Menu-Botones */
+.rup-toolbar_menuButtonElement .ui-button-text {
+  /*estilo del texto de los mbuttons*/
+  text-align: left; }
+
+/* Flechas del mbutton */
 .rup-toolbar_menuButtonIcon {
   background-position: -64px -16px; }
 
+.rup-toolbar_menuButtonSlided .rup-toolbar_menuButtonIcon {
+  /* flecha cuando el mbutton está desplegado*/
+  background-position: -64px -16px; }
+
+/* Tamaño botones toolbar por defecto (18x18) */
+.rup-toolbar_button .ui-button-icon-primary,
+.rup-toolbar_button .ui-button-icon,
+.rup-toolbar_menuButton .ui-button-icon-primary {
+  width: 18px;
+  height: 18px; }
+
 @media \0screen {
-  .ui-state-disabled {
-    z-index: 0; }
-  .ui-widget-content .ui-state-disabled {
-    z-index: 0; }
-  .ui-widget-header .ui-state-disabled {
+  .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
     z-index: 0; } }
 
+/*Posicionamiento derecho de botones en la botonera*/
 .right_button {
   float: right; }
 
+/******************/
+/* ICONOS TOOLBAR */
+/******************/
 .borrar {
-  background: url(images/toolbar/borrar.png) no-repeat !important; }
-  .borrar.disabled {
-    background: url(images/toolbar/borrar_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/borrar.png") no-repeat !important; }
+
+.borrar.disabled {
+  background: url("images/toolbar/borrar_disabled.png") no-repeat !important; }
 
 .buscar {
-  background: url(images/toolbar/buscar.png) no-repeat !important; }
-  .buscar.disabled {
-    background: url(images/toolbar/buscar_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/buscar.png") no-repeat !important; }
+
+.buscar.disabled {
+  background: url("images/toolbar/buscar_disabled.png") no-repeat !important; }
 
 .cancelar {
-  background: url(images/toolbar/cancelar.png) no-repeat !important; }
-  .cancelar.disabled {
-    background: url(images/toolbar/cancelar_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/cancelar.png") no-repeat !important; }
+
+.cancelar.disabled {
+  background: url("images/toolbar/cancelar_disabled.png") no-repeat !important; }
 
 .editar {
-  background: url(images/toolbar/editar.png) no-repeat !important; }
-  .editar.disabled {
-    background: url(images/toolbar/editar_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/editar.png") no-repeat !important; }
+
+.editar.disabled {
+  background: url("images/toolbar/editar_disabled.png") no-repeat !important; }
 
 .filtrar {
-  background: url(images/toolbar/filtrar.png) no-repeat !important; }
-  .filtrar.disabled {
-    background: url(images/toolbar/filtrar_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/filtrar.png") no-repeat !important; }
+
+.filtrar.disabled {
+  background: url("images/toolbar/filtrar_disabled.png") no-repeat !important; }
 
 .imprimir {
-  background: url(images/toolbar/imprimir.png) no-repeat !important; }
-  .imprimir.disabled {
-    background: url(images/toolbar/imprimir_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/imprimir.png") no-repeat !important; }
+
+.imprimir.disabled {
+  background: url("images/toolbar/imprimir_disabled.png") no-repeat !important; }
 
 .nuevo {
-  background: url(images/toolbar/nuevo.png) no-repeat !important; }
-  .nuevo.disabled {
-    background: url(images/toolbar/nuevo_disabled.png) no-repeat !important; }
+  background: url("images/toolbar/nuevo.png") no-repeat !important; }
 
+.nuevo.disabled {
+  background: url("images/toolbar/nuevo_disabled.png") no-repeat !important; }
+
+/***************************/
+/* ICONOS FICHEROS (files) */
+/***************************/
 .csv {
-  background: url(images/files/csv.gif) no-repeat !important; }
+  background: url("images/files/csv.gif") no-repeat !important; }
 
 .dll {
-  background: url(images/files/dll.gif) no-repeat !important; }
+  background: url("images/files/dll.gif") no-repeat !important; }
 
 .doc {
-  background: url(images/files/doc.gif) no-repeat !important; }
+  background: url("images/files/doc.gif") no-repeat !important; }
 
 .exe {
-  background: url(images/files/exe.gif) no-repeat !important; }
+  background: url("images/files/exe.gif") no-repeat !important; }
 
 .gif {
-  background: url(images/files/gif.gif) no-repeat !important; }
+  background: url("images/files/gif.gif") no-repeat !important; }
 
 .jpg {
-  background: url(images/files/jpg.gif) no-repeat !important; }
-
-.ods {
-  background: url(images/files/ods.gif) no-repeat !important; }
-
-.pdf {
-  background: url(images/files/pdf.gif) no-repeat !important; }
-
-.ppt {
-  background: url(images/files/ppt.gif) no-repeat !important; }
-
-.txt {
-  background: url(images/files/txt.gif) no-repeat !important; }
-
-.xls {
-  background: url(images/files/xls.gif) no-repeat !important; }
-
-.zip {
-  background: url(images/files/zip.gif) no-repeat !important; }
+  background: url("images/files/jpg.gif") no-repeat !important; }
 
 .js:not(html) {
-  background: url(images/files/js.gif) no-repeat !important; }
+  background: url("images/files/js.gif") no-repeat !important; }
 
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
+.ods {
+  background: url("images/files/ods.gif") no-repeat !important; }
+
+.pdf {
+  background: url("images/files/pdf.gif") no-repeat !important; }
+
+.ppt {
+  background: url("images/files/ppt.gif") no-repeat !important; }
+
+.txt {
+  background: url("images/files/txt.gif") no-repeat !important; }
+
+.xls {
+  background: url("images/files/xls.gif") no-repeat !important; }
+
+.zip {
+  background: url("images/files/zip.gif") no-repeat !important; }
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* Core qTip styles */
+.ui-tooltip, .qtip {
   position: absolute;
   left: -28000px;
   top: -28000px;
@@ -4341,49 +4906,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   font-size: 10.5px;
   line-height: 12px; }
 
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
-  border-color: #f1d031;
-  background-color: #ffffa3;
-  color: #555; }
-
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon, .loading-modal > div > div > span, .config-required-modal > div > div > *, .ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
-  position: absolute;
-  line-height: 0.1px !important;
-  font-size: 0.1px !important;
-  color: #123456;
-  background: transparent;
-  border: 0 dashed transparent; }
-
-.ui-tooltip-youtube .ui-tooltip-content, .ui-tooltip-youtube .ui-tooltip-titlebar {
-  background: rgba(0, 0, 0, 0.85);
-  filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-  color: white;
-  border-color: #ccc; }
-
-.ui-tooltip-jtools .ui-tooltip-titlebar, .ui-tooltip-jtools .ui-tooltip-content {
-  background: transparent;
-  color: white;
-  border: 0 dashed transparent; }
-
-.ui-tooltip-tipsy .ui-tooltip-content, .ui-tooltip-tipsy .ui-tooltip-titlebar {
-  background: rgba(0, 0, 0, 0.87);
-  filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-  color: white;
-  border: 0 transparent;
-  font-size: 11px;
-  font-family: Lucida Grande, sans-serif;
-  font-weight: bold;
-  line-height: 16px;
-  text-shadow: 0 1px black; }
-
-.ui-tooltip .ui-tooltip-tip {
-  margin: 0 auto;
-  overflow: hidden;
-  z-index: 10; }
-  .ui-tooltip .ui-tooltip-tip canvas {
-    top: 0;
-    left: 0; }
-
+/* Fluid class for determining actual width in IE */
 .ui-tooltip-fluid {
   display: block;
   visibility: hidden;
@@ -4393,6 +4916,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
 .ui-tooltip-content {
   position: relative;
   padding: 5px 9px;
+  overflow: hidden;
   border: 1px solid #000001;
   text-align: left;
   word-wrap: break-word;
@@ -4406,265 +4930,411 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   border: 1px solid #000001;
   border-width: 1px 1px 0;
   font-weight: bold; }
-  .ui-tooltip-titlebar .ui-state-default {
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    margin-top: -9px;
-    cursor: pointer;
-    outline: medium none;
-    border-width: 1px;
-    border-style: solid; }
-  .ui-tooltip-titlebar .ui-icon {
-    display: block;
-    text-indent: -1000em; }
-  .ui-tooltip-titlebar + .ui-tooltip-content {
-    border-top-width: 0 !important; }
 
-.ui-tooltip-icon {
+.ui-tooltip-titlebar + .ui-tooltip-content {
+  border-top-width: 0px !important; }
+
+/*! Default close button class */
+.ui-tooltip-titlebar .ui-state-default {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  margin-top: -9px;
+  cursor: pointer;
+  outline: medium none;
+  border-width: 1px;
+  border-style: solid; }
+
+* html .ui-tooltip-titlebar .ui-state-default {
+  top: 16px; }
+
+/* IE fix */
+.ui-tooltip-titlebar .ui-icon, .ui-tooltip-icon .ui-icon {
+  display: block;
+  text-indent: -1000em; }
+
+.ui-tooltip-icon, .ui-tooltip-icon .ui-icon {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border-radius: 3px; }
-  .ui-tooltip-icon .ui-icon {
-    display: block;
-    text-indent: -1000em;
-    border-radius: 3px;
-    width: 18px;
-    height: 14px;
-    text-align: center;
-    text-indent: 0;
-    font: normal bold 10px/13px Tahoma, sans-serif;
-    color: inherit;
-    background: transparent none no-repeat -100em -100em; }
+
+.ui-tooltip-icon .ui-icon {
+  width: 18px;
+  height: 14px;
+  text-align: center;
+  text-indent: 0;
+  font: normal bold 10px/13px Tahoma, sans-serif;
+  color: inherit;
+  background: transparent none no-repeat -100em -100em; }
+
+/* Applied to 'focused' tooltips e.g. most recently displayed/interacted with */
+/* Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively */
+/*! Default tooltip style */
+.ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
+  border-color: #F1D031;
+  background-color: #FFFFA3;
+  color: #555; }
 
 .ui-tooltip-default .ui-tooltip-titlebar {
-  background-color: #ffef93; }
-  .ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #aaa;
-    color: #111; }
+  background-color: #FFEF93; }
 
 .ui-tooltip-default .ui-tooltip-icon {
-  border-color: #ccc;
-  background: #f1f1f1;
+  border-color: #CCC;
+  background: #F1F1F1;
   color: #777; }
 
+.ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #AAA;
+  color: #111; }
+
+/* Modal plugin */
 #qtip-overlay {
   position: fixed;
   left: -10000em;
   top: -10000em; }
-  #qtip-overlay.blurs {
-    cursor: pointer; }
-  #qtip-overlay div {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.7;
-    filter: alpha(opacity=70); }
 
-.ui-tooltip-light .ui-tooltip-titlebar {
-  border-color: #e2e2e2;
-  color: #454545;
-  background-color: #f1f1f1; }
+/* Applied to modals with show.modal.blur set to true */
+#qtip-overlay.blurs {
+  cursor: pointer; }
+
+/* Change opacity of overlay here */
+#qtip-overlay div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; }
+
+/* Tips plugin */
+.ui-tooltip .ui-tooltip-tip {
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 10; }
+
+.ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
+  position: absolute;
+  line-height: 0.1px !important;
+  font-size: 0.1px !important;
+  color: #123456;
+  background: transparent;
+  border: 0px dashed transparent; }
+
+.ui-tooltip .ui-tooltip-tip canvas {
+  top: 0;
+  left: 0; }
+
+/*! Light tooltip style */
+.ui-tooltip-light .ui-tooltip-titlebar, .ui-tooltip-light .ui-tooltip-content {
+  border-color: #E2E2E2;
+  color: #454545; }
 
 .ui-tooltip-light .ui-tooltip-content {
-  border-color: #e2e2e2;
-  color: #454545;
   background-color: white; }
 
-.ui-tooltip-dark .ui-tooltip-titlebar {
+.ui-tooltip-light .ui-tooltip-titlebar {
+  background-color: #f1f1f1; }
+
+/*! Dark tooltip style */
+.ui-tooltip-dark .ui-tooltip-titlebar, .ui-tooltip-dark .ui-tooltip-content {
   border-color: #303030;
-  color: #f3f3f3;
-  background-color: #404040; }
-  .ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #303030; }
+  color: #f3f3f3; }
 
 .ui-tooltip-dark .ui-tooltip-content {
-  border-color: #303030;
-  color: #f3f3f3;
-  background-color: #555; }
+  background-color: #505050; }
+
+.ui-tooltip-dark .ui-tooltip-titlebar {
+  background-color: #404040; }
 
 .ui-tooltip-dark .ui-tooltip-icon {
-  border-color: #454545; }
+  border-color: #444; }
 
-.ui-tooltip-cream .ui-tooltip-titlebar {
-  border-color: #ffef93;
-  color: #a27d35;
-  background-color: #f0de7d; }
+.ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030; }
+
+/*! Cream tooltip style */
+.ui-tooltip-cream .ui-tooltip-titlebar, .ui-tooltip-cream .ui-tooltip-content {
+  border-color: #F9E98E;
+  color: #A27D35; }
 
 .ui-tooltip-cream .ui-tooltip-content {
-  border-color: #ffef93;
-  color: #a27d35;
-  background-color: #fbf7aa; }
+  background-color: #FBF7AA; }
+
+.ui-tooltip-cream .ui-tooltip-titlebar {
+  background-color: #F0DE7D; }
 
 .ui-tooltip-cream .ui-state-default .ui-tooltip-icon {
   background-position: -82px 0; }
 
-.ui-tooltip-red .ui-tooltip-titlebar {
-  border-color: #d95252;
-  color: #912323;
-  background-color: #f06d65; }
-  .ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #d95252; }
+/*! Red tooltip style */
+.ui-tooltip-red .ui-tooltip-titlebar, .ui-tooltip-red .ui-tooltip-content {
+  border-color: #D95252;
+  color: #912323; }
 
 .ui-tooltip-red .ui-tooltip-content {
-  border-color: #d95252;
-  color: #912323;
-  background-color: #f78b83; }
+  background-color: #F78B83; }
 
-.ui-tooltip-red .ui-tooltip-icon {
-  border-color: #d95252; }
+.ui-tooltip-red .ui-tooltip-titlebar {
+  background-color: #F06D65; }
 
 .ui-tooltip-red .ui-state-default .ui-tooltip-icon {
   background-position: -102px 0; }
 
-.ui-tooltip-green .ui-tooltip-titlebar {
-  border-color: #90d93f;
-  color: #3f6219;
-  background-color: #b0de78; }
+.ui-tooltip-red .ui-tooltip-icon {
+  border-color: #D95252; }
+
+.ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #D95252; }
+
+/*! Green tooltip style */
+.ui-tooltip-green .ui-tooltip-titlebar, .ui-tooltip-green .ui-tooltip-content {
+  border-color: #90D93F;
+  color: #3F6219; }
 
 .ui-tooltip-green .ui-tooltip-content {
-  border-color: #90d93f;
-  color: #3f6219;
-  background-color: #caed9e; }
+  background-color: #CAED9E; }
+
+.ui-tooltip-green .ui-tooltip-titlebar {
+  background-color: #B0DE78; }
 
 .ui-tooltip-green .ui-state-default .ui-tooltip-icon {
   background-position: -42px 0; }
 
-.ui-tooltip-blue .ui-tooltip-titlebar {
-  border-color: #add9ed;
-  color: #5e99bd;
-  background-color: #d0e9f5; }
+/*! Blue tooltip style */
+.ui-tooltip-blue .ui-tooltip-titlebar, .ui-tooltip-blue .ui-tooltip-content {
+  border-color: #ADD9ED;
+  color: #5E99BD; }
 
 .ui-tooltip-blue .ui-tooltip-content {
-  border-color: #add9ed;
-  color: #5e99bd;
-  background-color: #e5f6fe; }
+  background-color: #E5F6FE; }
+
+.ui-tooltip-blue .ui-tooltip-titlebar {
+  background-color: #D0E9F5; }
 
 .ui-tooltip-blue .ui-state-default .ui-tooltip-icon {
   background-position: -2px 0; }
 
+/*! Add shadows to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE6+, Safari 2+ */
 .ui-tooltip-shadow {
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); }
-  .ui-tooltip-shadow .ui-tooltip-titlebar {
-    filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )"; }
-  .ui-tooltip-shadow .ui-tooltip-content {
-    filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )"; }
 
-.ui-tooltip-rounded {
+.ui-tooltip-shadow .ui-tooltip-titlebar, .ui-tooltip-shadow .ui-tooltip-content {
+  filter: "progid : DXImageTransform.Microsoft.Shadow ( Color = 'gray', Direction = 135, Strength = 3 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)"; }
+
+/*! Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
+.ui-tooltip-rounded, .ui-tooltip-rounded .ui-tooltip-content, .ui-tooltip-tipsy, .ui-tooltip-tipsy .ui-tooltip-content, .ui-tooltip-youtube, .ui-tooltip-youtube .ui-tooltip-content {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
   border-radius: 4px; }
-  .ui-tooltip-rounded .ui-tooltip-content {
-    border-radius: 4px; }
-  .ui-tooltip-rounded .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0; }
-    .ui-tooltip-rounded .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
 
-.ui-tooltip-tipsy {
-  border-radius: 4px;
-  border: 0; }
-  .ui-tooltip-tipsy .ui-tooltip-content {
-    border-radius: 4px;
-    padding: 6px 10; }
-  .ui-tooltip-tipsy .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0;
-    padding: 6px 35px 0 10; }
-    .ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #303030; }
-    .ui-tooltip-tipsy .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
-  .ui-tooltip-tipsy .ui-tooltip-icon {
-    border-color: #222;
-    text-shadow: none; }
+.ui-tooltip-rounded .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-titlebar {
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0; }
 
+.ui-tooltip-rounded .ui-tooltip-titlebar + .ui-tooltip-content, .ui-tooltip-tipsy .ui-tooltip-titlebar + .ui-tooltip-content, .ui-tooltip-youtube .ui-tooltip-titlebar + .ui-tooltip-content {
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px; }
+
+/*! Youtube tooltip style */
 .ui-tooltip-youtube {
-  border-radius: 4px;
-  box-shadow: 0 0 3px #303030; }
-  .ui-tooltip-youtube .ui-tooltip-content {
-    border-radius: 4px; }
-  .ui-tooltip-youtube .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0; }
-    .ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #303030; }
-    .ui-tooltip-youtube .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
-  .ui-tooltip-youtube .ui-tooltip-icon {
-    border-color: #222; }
+  -webkit-box-shadow: 0 0 3px #333;
+  -moz-box-shadow: 0 0 3px #333;
+  box-shadow: 0 0 3px #333; }
 
+.ui-tooltip-youtube .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-content {
+  background: transparent;
+  background: rgba(0, 0, 0, 0.85);
+  filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
+  color: white;
+  border-color: #CCCCCC; }
+
+.ui-tooltip-youtube .ui-tooltip-icon {
+  border-color: #222; }
+
+.ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030; }
+
+/* jQuery TOOLS Tooltip style */
 .ui-tooltip-jtools {
+  background: #232323;
   background: rgba(0, 0, 0, 0.7);
+  background-image: -moz-linear-gradient(top, #717171, #232323);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#717171), to(#232323));
+  border: 2px solid #ddd;
   border: 2px solid #f1f1f1;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
   border-radius: 2px;
-  box-shadow: 0 0 12px #303030; }
-  .ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #303030; }
-  .ui-tooltip-jtools .ui-tooltip-icon {
-    border-color: #555; }
+  -webkit-box-shadow: 0 0 12px #333;
+  -moz-box-shadow: 0 0 12px #333;
+  box-shadow: 0 0 12px #333; }
 
+/* IE Specific */
+/* csscssParserFix - .ui-tooltip-jtools .ui-tooltip-titlebar { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #717171, endColorstr = #4A4A4A ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)"; } */
+/* cssParserFix - .ui-tooltip-jtools .ui-tooltip-content { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr =	#4A4A4A, endColorstr = #232323 ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)"; }*/
+.ui-tooltip-jtools .ui-tooltip-titlebar, .ui-tooltip-jtools .ui-tooltip-content {
+  background: transparent;
+  color: white;
+  border: 0 dashed transparent; }
+
+.ui-tooltip-jtools .ui-tooltip-icon {
+  border-color: #555; }
+
+.ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #333; }
+
+/* Cluetip style */
 .ui-tooltip-cluetip {
+  -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4); }
-  .ui-tooltip-cluetip .ui-tooltip-titlebar {
-    background-color: #87876a;
-    color: white;
-    border: 0 dashed transparent; }
-    .ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #696952;
-      color: #696952; }
-  .ui-tooltip-cluetip .ui-tooltip-content {
-    background-color: #d9d9c2;
-    color: #111;
-    border: 0 dashed transparent; }
-  .ui-tooltip-cluetip .ui-tooltip-icon {
-    border-color: #808064; }
 
-.ui-tooltip-tipped .ui-tooltip-titlebar {
-  border: 3px solid #959fa9;
-  filter: none; }
+.ui-tooltip-cluetip .ui-tooltip-titlebar {
+  background-color: #87876A;
+  color: white;
+  border: 0 dashed transparent; }
 
-.ui-tooltip-tipped .ui-tooltip-content {
-  border: 3px solid #959fa9;
+.ui-tooltip-cluetip .ui-tooltip-content {
+  background-color: #D9D9C2;
+  color: #111;
+  border: 0 dashed transparent; }
+
+.ui-tooltip-cluetip .ui-tooltip-icon {
+  border-color: #808064; }
+
+.ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #696952;
+  color: #696952; }
+
+/* Tipsy style */
+.ui-tooltip-tipsy {
+  border: 0; }
+
+.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content {
+  background: transparent;
+  background: rgba(0, 0, 0, 0.87);
+  filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
+  color: white;
+  border: 0px transparent;
+  font-size: 11px;
+  font-family: 'Lucida Grande', sans-serif;
+  font-weight: bold;
+  line-height: 16px;
+  text-shadow: 0 1px black; }
+
+.ui-tooltip-tipsy .ui-tooltip-titlebar {
+  padding: 6px 35px 0 10; }
+
+.ui-tooltip-tipsy .ui-tooltip-content {
+  padding: 6px 10; }
+
+.ui-tooltip-tipsy .ui-tooltip-icon {
+  border-color: #222;
+  text-shadow: none; }
+
+.ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030; }
+
+/* Tipped style */
+.ui-tooltip-tipped .ui-tooltip-titlebar, .ui-tooltip-tipped .ui-tooltip-content {
+  border: 3px solid #959FA9;
   filter: none;
-  background-color: #f9f9f9;
+  -ms-filter: none; }
+
+/* cssParserFix - .ui-tooltip-tipped .ui-tooltip-titlebar { background: #3A79B8; background-image: -moz-linear-gradient(top, #3A79B8, #2E629D); background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D) ); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #3A79B8, endColorstr = #2E629D ); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"; color: white; font-weight: normal; font-family: serif; border-bottom-width: 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; } */
+.ui-tooltip-tipped .ui-tooltip-content {
+  background-color: #F9F9F9;
   color: #454545;
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
   border-radius: 0 0 3px 3px; }
 
 .ui-tooltip-tipped .ui-tooltip-icon {
   border: 2px solid #285589;
   background: #285589; }
-  .ui-tooltip-tipped .ui-tooltip-icon .ui-icon {
-    background-color: #f9f9f9;
-    color: #555; }
 
-* html .ui-tooltip-titlebar .ui-state-default {
-  top: 16px; }
+.ui-tooltip-tipped .ui-tooltip-icon .ui-icon {
+  background-color: #FBFBFB;
+  color: #555; }
 
-.fileupload-buttonbar {
-  border-top: medium none;
-  border-left: medium none;
-  border-right: medium none;
-  padding-left: 0; }
-  .fileupload-buttonbar span.ui-icon-cancel {
-    background: transparent url(images/rup.cancel.png) no-repeat !important;
-    width: 16px;
-    height: 16px; }
-  .fileupload-buttonbar span.ui-icon-trash {
-    background: transparent url(images/toolbar/borrar.png) no-repeat !important;
-    width: 16px;
-    height: 16px; }
-  .fileupload-buttonbar span.ui-icon-circle-arrow-e {
-    background: transparent url(images/rup.upload.png) no-repeat !important;
-    width: 16px;
-    height: 16px; }
+/* IE9 fix - removes all filters */
+/* cssParserFix - .ui-tooltip:not (.ie9haxors ) div.ui-tooltip-content, .ui-tooltip:not (.ie9haxors) div.ui-tooltip-titlebar { filter: none; -ms-filter: none;} */
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+.fileupload-buttonbar .ui-button {
+  /*   background: none; */
+  /*   border: none; */ }
+
+.fileupload-buttonbar span.ui-icon-cancel {
+  background: transparent url("images/rup.cancel.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
+
+.fileupload-buttonbar span.ui-icon-trash {
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
+
+.fileupload-buttonbar span.ui-icon-circle-arrow-e {
+  background: transparent url("images/rup.upload.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary {
+  /* 	background:none; */
+  /* 	border:none; */
+  /* 	height: 15px; */ }
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-button-text {
+  /* 	padding: 0em 0em 0.3em 2em; */ }
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-circle-arrow-e {
+  background: transparent url("images/rup.upload.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-cancel {
+  background: transparent url("images/rup.cancel.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
+
+.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-trash {
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
+  width: 16px;
+  height: 16px; }
 
 .fileupload-content .file_icon {
-  background-image: url(images/rup.file.png);
+  background-image: url("images/rup.file.png");
   width: 15px; }
 
 .fileupload-content .file_download {
   margin-top: 0.5em; }
 
 .fileupload-content .file_download_icon {
-  background-image: url(images/rup.download.png);
+  background-image: url("images/rup.download.png");
   width: 15px;
   margin-top: 0.5em;
   padding-left: 12px; }
@@ -4673,37 +5343,43 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   margin-left: 0.5em;
   text-decoration: underline; }
 
+.fileupload-buttonbar {
+  border-top: medium none;
+  border-left: medium none;
+  border-right: medium none;
+  padding-left: 0em; }
+
 .fileupload-content .ui-progressbar {
   height: 15px;
   margin-top: 0.5em; }
+
+.fileupload-content.ui-widget-content.ui-corner-bottom {
+  border-top: medium none;
+  border-left: medium none;
+  border-right: medium none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px; }
 
 .fileupload-content .izq_float {
   float: left;
   margin-right: 1em;
   margin-bottom: 0.5em; }
 
-.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-circle-arrow-e {
-  background: transparent url(images/rup.upload.png) no-repeat !important;
-  width: 16px;
-  height: 16px; }
-
-.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-cancel {
-  background: transparent url(images/rup.cancel.png) no-repeat !important;
-  width: 16px;
-  height: 16px; }
-
-.fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-trash {
-  background: transparent url(images/toolbar/borrar.png) no-repeat !important;
-  width: 16px;
-  height: 16px; }
-
-.fileupload-content.ui-widget-content.ui-corner-bottom {
-  border-top: medium none;
-  border-left: medium none;
-  border-right: medium none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0; }
-
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
 form.rup_validate input.error {
   border: 1px dotted red; }
 
@@ -4716,15 +5392,11 @@ form.rup_validate label.error {
   margin-right: 0.5em;
   padding-bottom: 0.5em;
   padding-top: 0.35em;
+  border-color: -moz-use-text-color -moz-use-text-color #cbcbcb;
   border-image: none;
   border-style: none none solid;
   border-width: 0 0 1px;
   text-align: left; }
-  .widget-header > div {
-    display: inline-flex; }
-    .widget-header > div.widget-header-controls {
-      float: right;
-      padding-top: 0.15em; }
 
 .widget-header-title {
   text-align: left;
@@ -4732,12 +5404,17 @@ form.rup_validate label.error {
   font-weight: bold; }
 
 .widget-icon {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
   cursor: pointer;
-  color: gray;
+  color: gray; }
+
+.widget-icon:hover {
+  color: black; }
+
+.widget-icon {
   margin-left: 0.5em;
   margin-right: 0.5em; }
-  .widget-icon:hover {
-    color: black; }
 
 .widget-icon-right {
   float: right; }
@@ -4745,82 +5422,130 @@ form.rup_validate label.error {
 .widget-body {
   padding: 1em; }
 
+.widget-header > div {
+  display: inline-flex; }
+
+.widget-header > div.widget-header-controls {
+  float: right;
+  padding-top: 0.15em;
+  /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color; #fff;
+  background-clip:padding-box;*/ }
+
 .grid-stack > .grid-stack-item > .ui-resizable-se {
   background-image: none; }
 
 .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full {
   position: fixed;
+  /*transition-property: top, left, width, height;
+    transition-duration: 0.5s, 0.5s, 0.1s, 0.1s;
+    transition-delay: 0.5s, 0.5s, 0.1s, 0.1s;*/
   top: 1%;
   left: 1%;
   width: 98%;
   height: 95%;
   z-index: 10000; }
-  .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-    display: none; }
-  .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-    display: none; }
-  .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-    display: none; }
-  .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-    display: none; }
-  .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-    display: block; }
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
+  display: none; }
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
+  display: none; }
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
+  display: none; }
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
+  display: none; }
 
 .grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
   display: none; }
 
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
+  display: block; }
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+/* Contenedor pasos (UL) */
 .rup-wizard_stepsDescContainer {
   list-style: none;
   width: 99%;
   overflow: hidden;
   height: 35px; }
 
+/* Paso */
 .rup-wizard_stepDesc a {
   font: arial,helvetica,clean,sans-serif !important;
   cursor: pointer;
-  color: #0052c7;
+  color: #0052C7;
   float: left;
   text-decoration: underline;
   text-align: center;
   height: 35px;
-  background: #ebebeb url(images/wizard/arrow.gif) no-repeat right top;
+  background: #EBEBEB url("images/wizard/arrow.gif") no-repeat right top;
   font-size: 1.09em;
   padding: 9px 25px 0 10px;
   display: block;
   font-style: normal;
   font-weight: bold; }
-  .rup-wizard_stepDesc a:hover {
-    text-decoration: none; }
-  .rup-wizard_stepDesc a:focus {
-    border-style: none;
-    border-width: thin;
-    outline: none; }
 
+.rup-wizard_stepDesc a:hover {
+  text-decoration: none; }
+
+.rup-wizard_stepDesc a:focus {
+  border-style: none;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */ }
+
+/* Paso ACTIVO */
 .rup-wizard_stepDesc.current a {
   color: white;
   text-decoration: none;
   cursor: default;
-  background: #69c url(images/wizard/arrow_current.gif) no-repeat right top; }
+  background: #69C url("images/wizard/arrow_current.gif") no-repeat right top; }
 
+/* Paso ANTERIOR AL ACTIVO */
 .rup-wizard_stepDesc.visited a {
   text-decoration: underline;
   cursor: default;
-  background: #ebebeb url(images/wizard/arrow_done_last.gif) no-repeat right top; }
+  background: #EBEBEB url("images/wizard/arrow_done_last.gif") no-repeat right top; }
 
+/* Paso DESHABILITADO */
 .rup-wizard_stepDesc.disabled a {
-  color: #d3d3d3;
+  color: #D3D3D3;
   text-decoration: none;
   cursor: default; }
 
+/* Primer PASO */
+/* Último PASO */
 .rup-wizard_lastStepDesc a {
-  background: #ebebeb url(images/wizard/arrow_last.gif) no-repeat right top; }
+  background: #EBEBEB url("images/wizard/arrow_last.gif") no-repeat right top; }
 
+/* Paso RESUMEN  */
+/* Último PASO (activo)*/
 .rup-wizard_lastStepDesc.current a {
   color: white;
   text-decoration: none;
   cursor: default;
-  background: #69c url(images/wizard/arrow_last_current.gif) no-repeat right top; }
+  background: #69C url("images/wizard/arrow_last_current.gif") no-repeat right top; }
 
+/* Enlaces Siguiente/Anterior */
 .rup-wizard_prev {
   margin: 5px;
   margin-left: 17px;
@@ -4830,14 +5555,17 @@ form.rup_validate label.error {
   padding-left: 37px;
   float: left;
   cursor: pointer;
-  background: #ebebeb url(images/wizard/prev.png) no-repeat left center;
-  border: 1px solid #bdbdbd;
+  background: #EBEBEB url("images/wizard/prev.png") no-repeat left center;
+  border: 1px solid #BDBDBD;
   text-align: center;
   width: 55px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px; }
-  .rup-wizard_prev:HOVER {
-    color: #666565;
-    text-decoration: underline; }
+
+.rup-wizard_prev:HOVER {
+  color: #666565;
+  text-decoration: underline; }
 
 .rup-wizard_next {
   margin: 5px;
@@ -4848,15 +5576,18 @@ form.rup_validate label.error {
   padding-right: 37px;
   float: right;
   cursor: pointer;
-  background: #ebebeb url(images/wizard/next.png) no-repeat right center;
-  border: 1px solid #bdbdbd;
+  background: #EBEBEB url("images/wizard/next.png") no-repeat right center;
+  border: 1px solid #BDBDBD;
   text-align: center;
   width: 55px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px; }
-  .rup-wizard_next:HOVER {
-    color: #666565;
-    background: white url(images/wizard/next.png) no-repeat right center;
-    text-decoration: underline; }
+
+.rup-wizard_next:HOVER {
+  color: #666565;
+  background: white url("images/wizard/next.png") no-repeat right center;
+  text-decoration: underline; }
 
 .rup-wizard_submitButton {
   margin: 5px;
@@ -4868,15 +5599,19 @@ form.rup_validate label.error {
   padding-top: 11px;
   float: right;
   cursor: pointer;
-  background: #ebebeb url(images/wizard/submit.png) no-repeat right center;
-  border: 1px solid #bdbdbd;
+  background: #EBEBEB url("images/wizard/submit.png") no-repeat right center;
+  border: 1px solid #BDBDBD;
   text-align: center;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px; }
-  .rup-wizard_submitButton:HOVER {
-    color: #666565;
-    background: white url(images/wizard/submit.png) no-repeat right center;
-    text-decoration: underline; }
 
+.rup-wizard_submitButton:HOVER {
+  color: #666565;
+  background: white url("images/wizard/submit.png") no-repeat right center;
+  text-decoration: underline; }
+
+/* Tabs */
 .rup-wizard_tabLevel-0 {
   margin-left: 1em;
   color: green; }
@@ -4898,309 +5633,229 @@ form.rup_validate label.error {
 .rup-wizard_tabContainerLevel-2 {
   margin-left: 2.5em; }
 
-.rup-breadCrumb_main, .rup-breadCrumb_main LI, .rup-breadCrumb_main UL, .rup-breadCrumb_main UL LI, .ui-selectmenu-menu li a, .ui-selectmenu-status, .context-menu-input > label, .context-menu-input > label > input[type="text"], .context-menu-input > label > textarea, .context-menu-input > label > select, .ui-datepicker-calendar .ui-state-highlight a, .ui-datepicker-current-day a, .loading-modal > div, .config-required-modal > div, .EditTable hr, .botoneraModal hr, .ui-tooltip, .qtip {
-  position: absolute;
-  left: -28000px;
-  top: -28000px;
-  display: none;
-  max-width: 280px;
-  min-width: 50px;
-  font-size: 10.5px;
-  line-height: 12px; }
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+.rup_tree {
+  visibility: hidden; }
 
-.rup-breadCrumb_main LI UL LI A, .rup-breadCrumb_main LI UL LI A:visited, .ui-selectmenu-menu li.ui-selectmenu-hasIcon a, .ui-selectmenu-hasIcon .ui-selectmenu-status, .loading-modal > div > div, .config-required-modal > div > div, .ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content {
-  border-color: #f1d031;
-  background-color: #ffffa3;
-  color: #555; }
+/* Estilos generales, por defecto, del componente */
+/*
+ * jsTree classic theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+.jstree-rup-default li,
+.jstree-rup-default ins {
+  background-image: url("images/tree/d.png");
+  background-repeat: no-repeat;
+  background-color: transparent; }
 
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon, .loading-modal > div > div > span, .config-required-modal > div > div > *, .ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip * {
-  position: absolute;
-  line-height: 0.1px !important;
-  font-size: 0.1px !important;
-  color: #123456;
-  background: transparent;
-  border: 0 dashed transparent; }
+.jstree-rup-default li {
+  background-position: -93px 0;
+  background-repeat: repeat-y; }
 
-.ui-tooltip-youtube .ui-tooltip-content, .ui-tooltip-youtube .ui-tooltip-titlebar {
-  background: rgba(0, 0, 0, 0.85);
-  filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-  color: white;
-  border-color: #ccc; }
+.jstree-rup-default li.jstree-last {
+  background: transparent; }
 
-.ui-tooltip-jtools .ui-tooltip-titlebar, .ui-tooltip-jtools .ui-tooltip-content {
-  background: transparent;
-  color: white;
-  border: 0 dashed transparent; }
+.jstree-rup-default .jstree-open > ins {
+  background-position: -72px 0; }
 
-.ui-tooltip-tipsy .ui-tooltip-content, .ui-tooltip-tipsy .ui-tooltip-titlebar {
-  background: rgba(0, 0, 0, 0.87);
-  filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-  color: white;
-  border: 0 transparent;
-  font-size: 11px;
-  font-family: Lucida Grande, sans-serif;
-  font-weight: bold;
-  line-height: 16px;
-  text-shadow: 0 1px black; }
+.jstree-rup-default .jstree-closed > ins {
+  background-position: -54px 0; }
 
-.ui-tooltip .ui-tooltip-tip {
-  margin: 0 auto;
-  overflow: hidden;
-  z-index: 10; }
-  .ui-tooltip .ui-tooltip-tip canvas {
-    top: 0;
-    left: 0; }
+.jstree-rup-default .jstree-leaf > ins {
+  background-position: -36px 0\9;
+  background-position: -37px 0; }
 
-.ui-tooltip-fluid {
-  display: block;
-  visibility: hidden;
-  position: static !important;
-  float: left !important; }
+.jstree-rup-default .jstree-hovered {
+  background: #e7f4f9;
+  border: 1px solid #e7f4f9;
+  padding: 0 2px 0 1px; }
 
-.ui-tooltip-content {
-  position: relative;
-  padding: 5px 9px;
-  border: 1px solid #000001;
-  text-align: left;
-  word-wrap: break-word;
-  overflow: hidden; }
+.jstree-rup-default .jstree-clicked {
+  background: navy;
+  border: 1px solid navy;
+  padding: 0 2px 0 1px;
+  color: white; }
 
-.ui-tooltip-titlebar {
-  position: relative;
-  min-height: 14px;
-  padding: 5px 35px 5px 10px;
-  overflow: hidden;
-  border: 1px solid #000001;
-  border-width: 1px 1px 0;
+.jstree-rup-default a .jstree-icon {
+  background-position: -56px -19px; }
+
+.jstree-rup-default .jstree-open > a .jstree-icon {
+  background-position: -56px -36px; }
+
+.jstree-rup-default a.jstree-loading .jstree-icon {
+  background: url("images/tree/throbber.gif") center center no-repeat !important; }
+
+.jstree-rup-default.jstree-focused {
+  background: white; }
+
+.jstree-rup-default ul:first-child > li.jstree-leaf:first-child > ins {
+  background-position: -72px -36px; }
+
+.jstree-rup-default ul:first-child > li.jstree-open:first-child > ins {
+  background-position: -72px -54px; }
+
+.jstree-rup-default ul:first-child > li.jstree-closed:first-child > ins {
+  background-position: -54px -54px; }
+
+.jstree-rup-default .jstree-no-dots li,
+.jstree-rup-default .jstree-no-dots .jstree-leaf > ins {
+  background: transparent; }
+
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-leaf:first-child > ins {
+  background: transparent; }
+
+.jstree-rup-default .jstree-no-dots .jstree-open > ins {
+  background-position: -18px 0; }
+
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-open:first-child > ins {
+  background-position: -18px 0; }
+
+.jstree-rup-default .jstree-no-dots .jstree-closed > ins {
+  background-position: 0 0; }
+
+.jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-closed:first-child > ins {
+  background-position: 0 0; }
+
+.jstree-rup-default .jstree-no-icons a .jstree-icon {
+  display: none; }
+
+.jstree-rup-default .jstree-search {
+  font-style: italic; }
+
+.jstree-rup-default .jstree-no-icons .jstree-checkbox {
+  display: inline-block; }
+
+.jstree-rup-default .jstree-no-checkboxes .jstree-checkbox {
+  display: none !important; }
+
+.jstree-rup-default .jstree-checked > a > .jstree-checkbox {
+  background-position: -38px -19px; }
+
+.jstree-rup-default .jstree-unchecked > a > .jstree-checkbox {
+  background-position: -2px -19px; }
+
+.jstree-rup-default .jstree-undetermined > a > .jstree-checkbox {
+  background-position: -20px -19px; }
+
+.jstree-rup-default .jstree-checked > a > .jstree-checkbox:hover {
+  background-position: -38px -37px; }
+
+.jstree-rup-default .jstree-unchecked > a > .jstree-checkbox:hover {
+  background-position: -2px -37px; }
+
+.jstree-rup-default .jstree-undetermined > a > .jstree-checkbox:hover {
+  background-position: -20px -37px; }
+
+#vakata-dragged.jstree-rup-default ins {
+  background: transparent !important; }
+
+#vakata-dragged.jstree-rup-default .jstree-ok {
+  background: url("images/tree/d.png") -2px -53px no-repeat !important; }
+
+#vakata-dragged.jstree-rup-default .jstree-invalid {
+  background: url("images/tree/d.png") -18px -53px no-repeat !important; }
+
+#jstree-marker.jstree-rup-default {
+  background: url("images/tree/d.png") -41px -57px no-repeat !important;
+  text-indent: -100px; }
+
+.jstree-rup-default a.jstree-search {
   font-weight: bold; }
-  .ui-tooltip-titlebar .ui-state-default {
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    margin-top: -9px;
-    cursor: pointer;
-    outline: medium none;
-    border-width: 1px;
-    border-style: solid; }
-  .ui-tooltip-titlebar .ui-icon {
-    display: block;
-    text-indent: -1000em; }
-  .ui-tooltip-titlebar + .ui-tooltip-content {
-    border-top-width: 0 !important; }
 
-.ui-tooltip-icon {
-  border-radius: 3px; }
-  .ui-tooltip-icon .ui-icon {
-    display: block;
-    text-indent: -1000em;
-    border-radius: 3px;
-    width: 18px;
-    height: 14px;
-    text-align: center;
-    text-indent: 0;
-    font: normal bold 10px/13px Tahoma, sans-serif;
-    color: inherit;
-    background: transparent none no-repeat -100em -100em; }
+.jstree-rup-default .jstree-locked a {
+  color: silver;
+  cursor: default; }
 
-.ui-tooltip-default .ui-tooltip-titlebar {
-  background-color: #ffef93; }
-  .ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #aaa;
-    color: #111; }
+#vakata-contextmenu.jstree-rup-default-context,
+#vakata-contextmenu.jstree-rup-default-context li ul {
+  background: #f0f0f0;
+  border: 1px solid #979797;
+  -moz-box-shadow: 1px 1px 2px #999;
+  -webkit-box-shadow: 1px 1px 2px #999;
+  box-shadow: 1px 1px 2px #999; }
 
-.ui-tooltip-default .ui-tooltip-icon {
-  border-color: #ccc;
-  background: #f1f1f1;
-  color: #777; }
+#vakata-contextmenu.jstree-rup-default-context a {
+  color: black; }
 
-#qtip-overlay {
-  position: fixed;
-  left: -10000em;
-  top: -10000em; }
-  #qtip-overlay.blurs {
-    cursor: pointer; }
-  #qtip-overlay div {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.7;
-    filter: alpha(opacity=70); }
+#vakata-contextmenu.jstree-rup-default-context a:hover,
+#vakata-contextmenu.jstree-rup-default-context .vakata-hover > a {
+  padding: 0 5px;
+  background: #e8eff7;
+  border: 1px solid #aecff7;
+  color: black;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
 
-.ui-tooltip-light .ui-tooltip-titlebar {
-  border-color: #e2e2e2;
-  color: #454545;
-  background-color: #f1f1f1; }
+#vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a,
+#vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a:hover {
+  color: silver;
+  background: transparent;
+  border: 0;
+  padding: 1px 4px; }
 
-.ui-tooltip-light .ui-tooltip-content {
-  border-color: #e2e2e2;
-  color: #454545;
-  background-color: white; }
+#vakata-contextmenu.jstree-rup-default-context li.vakata-separator {
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  margin: 0; }
 
-.ui-tooltip-dark .ui-tooltip-titlebar {
-  border-color: #303030;
-  color: #f3f3f3;
-  background-color: #404040; }
-  .ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #303030; }
+#vakata-contextmenu.jstree-rup-default-context li ul {
+  margin-left: -4px; }
 
-.ui-tooltip-dark .ui-tooltip-content {
-  border-color: #303030;
-  color: #f3f3f3;
-  background-color: #555; }
+/* IE6 BEGIN */
+.jstree-rup-default li,
+.jstree-rup-default ins,
+#vakata-dragged.jstree-rup-default .jstree-invalid,
+#vakata-dragged.jstree-rup-default .jstree-ok,
+#jstree-marker.jstree-rup-default {
+  _background-image: url("images/tree/d.gif"); }
 
-.ui-tooltip-dark .ui-tooltip-icon {
-  border-color: #454545; }
+.jstree-rup-default .jstree-open ins {
+  _background-position: -72px 0; }
 
-.ui-tooltip-cream .ui-tooltip-titlebar {
-  border-color: #ffef93;
-  color: #a27d35;
-  background-color: #f0de7d; }
+.jstree-rup-default .jstree-closed ins {
+  _background-position: -54px 0; }
 
-.ui-tooltip-cream .ui-tooltip-content {
-  border-color: #ffef93;
-  color: #a27d35;
-  background-color: #fbf7aa; }
+.jstree-rup-default .jstree-leaf ins {
+  _background-position: -36px 0; }
 
-.ui-tooltip-cream .ui-state-default .ui-tooltip-icon {
-  background-position: -82px 0; }
+.jstree-rup-default .jstree-open a ins.jstree-icon {
+  _background-position: -56px -36px; }
 
-.ui-tooltip-red .ui-tooltip-titlebar {
-  border-color: #d95252;
-  color: #912323;
-  background-color: #f06d65; }
-  .ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #d95252; }
+.jstree-rup-default .jstree-closed a ins.jstree-icon {
+  _background-position: -56px -19px; }
 
-.ui-tooltip-red .ui-tooltip-content {
-  border-color: #d95252;
-  color: #912323;
-  background-color: #f78b83; }
+.jstree-rup-default .jstree-leaf a ins.jstree-icon {
+  _background-position: -56px -19px; }
 
-.ui-tooltip-red .ui-tooltip-icon {
-  border-color: #d95252; }
+#vakata-contextmenu.jstree-rup-default-context ins {
+  _display: none; }
 
-.ui-tooltip-red .ui-state-default .ui-tooltip-icon {
-  background-position: -102px 0; }
+#vakata-contextmenu.jstree-rup-default-context li {
+  _zoom: 1; }
 
-.ui-tooltip-green .ui-tooltip-titlebar {
-  border-color: #90d93f;
-  color: #3f6219;
-  background-color: #b0de78; }
+.jstree-rup-default .jstree-undetermined a .jstree-checkbox {
+  _background-position: -20px -19px; }
 
-.ui-tooltip-green .ui-tooltip-content {
-  border-color: #90d93f;
-  color: #3f6219;
-  background-color: #caed9e; }
+.jstree-rup-default .jstree-checked a .jstree-checkbox {
+  _background-position: -38px -19px; }
 
-.ui-tooltip-green .ui-state-default .ui-tooltip-icon {
-  background-position: -42px 0; }
+.jstree-rup-default .jstree-unchecked a .jstree-checkbox {
+  _background-position: -2px -19px; }
 
-.ui-tooltip-blue .ui-tooltip-titlebar {
-  border-color: #add9ed;
-  color: #5e99bd;
-  background-color: #d0e9f5; }
-
-.ui-tooltip-blue .ui-tooltip-content {
-  border-color: #add9ed;
-  color: #5e99bd;
-  background-color: #e5f6fe; }
-
-.ui-tooltip-blue .ui-state-default .ui-tooltip-icon {
-  background-position: -2px 0; }
-
-.ui-tooltip-shadow {
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); }
-  .ui-tooltip-shadow .ui-tooltip-titlebar {
-    filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )"; }
-  .ui-tooltip-shadow .ui-tooltip-content {
-    filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )"; }
-
-.ui-tooltip-rounded {
-  border-radius: 4px; }
-  .ui-tooltip-rounded .ui-tooltip-content {
-    border-radius: 4px; }
-  .ui-tooltip-rounded .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0; }
-    .ui-tooltip-rounded .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
-
-.ui-tooltip-tipsy {
-  border-radius: 4px;
-  border: 0; }
-  .ui-tooltip-tipsy .ui-tooltip-content {
-    border-radius: 4px;
-    padding: 6px 10; }
-  .ui-tooltip-tipsy .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0;
-    padding: 6px 35px 0 10; }
-    .ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #303030; }
-    .ui-tooltip-tipsy .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
-  .ui-tooltip-tipsy .ui-tooltip-icon {
-    border-color: #222;
-    text-shadow: none; }
-
-.ui-tooltip-youtube {
-  border-radius: 4px;
-  box-shadow: 0 0 3px #303030; }
-  .ui-tooltip-youtube .ui-tooltip-content {
-    border-radius: 4px; }
-  .ui-tooltip-youtube .ui-tooltip-titlebar {
-    border-radius: 5px 5px 0 0; }
-    .ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #303030; }
-    .ui-tooltip-youtube .ui-tooltip-titlebar + .ui-tooltip-content {
-      border-radius: 0 0 5px 5px; }
-  .ui-tooltip-youtube .ui-tooltip-icon {
-    border-color: #222; }
-
-.ui-tooltip-jtools {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #f1f1f1;
-  border-radius: 2px;
-  box-shadow: 0 0 12px #303030; }
-  .ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover {
-    border-color: #303030; }
-  .ui-tooltip-jtools .ui-tooltip-icon {
-    border-color: #555; }
-
-.ui-tooltip-cluetip {
-  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4); }
-  .ui-tooltip-cluetip .ui-tooltip-titlebar {
-    background-color: #87876a;
-    color: white;
-    border: 0 dashed transparent; }
-    .ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover {
-      border-color: #696952;
-      color: #696952; }
-  .ui-tooltip-cluetip .ui-tooltip-content {
-    background-color: #d9d9c2;
-    color: #111;
-    border: 0 dashed transparent; }
-  .ui-tooltip-cluetip .ui-tooltip-icon {
-    border-color: #808064; }
-
-.ui-tooltip-tipped .ui-tooltip-titlebar {
-  border: 3px solid #959fa9;
-  filter: none; }
-
-.ui-tooltip-tipped .ui-tooltip-content {
-  border: 3px solid #959fa9;
-  filter: none;
-  background-color: #f9f9f9;
-  color: #454545;
-  border-radius: 0 0 3px 3px; }
-
-.ui-tooltip-tipped .ui-tooltip-icon {
-  border: 2px solid #285589;
-  background: #285589; }
-  .ui-tooltip-tipped .ui-tooltip-icon .ui-icon {
-    background-color: #f9f9f9;
-    color: #555; }
-
-* html .ui-tooltip-titlebar .ui-state-default {
-  top: 16px; }
+/* IE6 END */

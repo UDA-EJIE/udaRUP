@@ -158,7 +158,7 @@
 						$self.css("cursor", settings.msieCursorCss);
 					}
 
-					
+
 					/* Adecuar los cssSprites */
 					$.each($(".context-menu-list.context-menu-root"), function(index, elem){
 						var $elem = jQuery(elem);

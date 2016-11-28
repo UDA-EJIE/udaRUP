@@ -34,18 +34,21 @@ header div.cabecera > a{
 
 footer{
   clear: both;
-  margin-left: 1em;
-  margin-right: 1em;
-  background: #b6b6b6;
+
+  vertical-align: baseline;
+  /*margin-left: 1em;
+  margin-right: 1em;*/
+  background: #69a3d6;
   color: #ffffff;
   height: 2em;
   margin-top:1em;
   padding-top:0.2em;
-  padding-left: 1em;
-  padding-right: 1em;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  /*padding-left: 1em;
+  padding-right: 1em;*/
+  /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
 
 }
+
 
 @media (max-width: 767px) {
   footer{
@@ -64,12 +67,18 @@ footer .footer-ejgv{
 
 footer .footer-row-1{
   clear: both;
+  background: #69a3d6;
+  padding: 0rem 2rem;
+  line-height: 3rem;
+  height: 3rem;
 }
 
 footer .footer-row-2{
+  background: url('../images/web01-2014_oina_logo_atzekoa.gif') no-repeat left bottom #1f1f1f;
   clear: both;
   text-align: center;
-  padding-top: 2em;
+  height: 15rem;
+  padding-top: 2rem;
 }
 
 

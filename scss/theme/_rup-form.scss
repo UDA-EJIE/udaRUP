@@ -44,13 +44,13 @@ input, textarea{
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     color: #555;
-    display: block;
-    font-size: 14px;
-    height: 34px;
+    // display: block;
+    font-size: $rup-font-size-base;
+    //height: 2rem;
     line-height: 1.42857;
-    padding: 6px 12px;
+    padding: 2px 12px;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-    width: 100%;
+    //width: 100%;
 }
 
 input[type="text"],
@@ -63,10 +63,10 @@ input[type="password"],
 textarea,
 .uneditable-input {
   font-size: $rup-font-size-base;
-  height: 2rem;
+  height: $rup-input-height;
 }
 
-button{
+button, input[type="button"], input[type="submit"]{
   @extend %button-style-base;
   @extend %button-style;
   @extend %button-color;

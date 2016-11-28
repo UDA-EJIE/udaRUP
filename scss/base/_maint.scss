@@ -7,85 +7,75 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+ 
+ /* Capa del feedback */
+.rup-maint_feedbackUL li{
+	margin-left: 2em;
+    margin-top: 0.2em;
+}
+.rup-maint_new {
+	background:transparent url('images/toolbar/nuevo.png') no-repeat !important;
+	width:14px;
+}
+.rup-maint_edit {
+	background:transparent url("images/toolbar/editar.png") no-repeat !important;
+	width:14px;
+}
+.rup-maint_cancel {
+	background:transparent url("images/toolbar/cancelar.png") no-repeat !important;
+	width:14px;
+}
+.rup-maint_delete {
+	background:transparent url("images/toolbar/borrar.png") no-repeat !important;
+	width:14px;
+}
+.rup-maint_save {
+	background:transparent url("images/toolbar/guardar.png") no-repeat !important;
+	width:14px;
+}
+.rup-maint_filter {
+	background:transparent url("images/toolbar/filtrar.png") no-repeat !important;
+	width:16px;
+}
+.rup-maint_clone {
+	background:transparent url("images/toolbar/clonar.png") no-repeat !important;
+	width:16px;
+}
+.rup-maint_filter_pressed {
+	border: 1px solid #999999 !important;  
+	font-weight: normal !important; 
+	color: #212121 !important;
+}
 
- //colors
- $color_mountain_mist_approx: #999999;
- $color_log_cabin_approx: #212121;
- $color_science_blue_approx: #0052c7;
- $lemon_chiffon: #fffacd;
+.rup-maint_export {
+	background:transparent url("images/toolbar/filtrar.png") no-repeat !important;
+	width:16px;
+}
+.rup-maint_export_pressed {
+	border: 1px solid #999999 !important;  
+	font-weight: normal !important; 
+	color: #212121 !important;
+}
 
- //urls
- $url_0: url(images/toolbar/nuevo.png);
- $url_1: url(images/toolbar/editar.png);
- $url_2: url(images/toolbar/cancelar.png);
- $url_3: url(images/toolbar/borrar.png);
- $url_4: url(images/toolbar/guardar.png);
- $url_5: url(images/toolbar/filtrar.png);
- $url_6: url(images/toolbar/clonar.png);
+/* Al mantenimiento Links de paginacion */
+.rup-maint_linkPaginacionDetalle {
+	background:none ;
+	border:none ;
+	clear:none ;
+	cursor:pointer;
+	float:left;
+	text-decoration:underline;
+	color:#0052C7 !important;
+	font-size:0.88em ;
+	padding-right:1.3em ;
+}
 
- .rup-maint_new {
- 	background: transparent $url_0 no-repeat !important;
- 	width: 14px;
- }
- .rup-maint_edit {
- 	background: transparent $url_1 no-repeat !important;
- 	width: 14px;
- }
- .rup-maint_cancel {
- 	background: transparent $url_2 no-repeat !important;
- 	width: 14px;
- }
- .rup-maint_delete {
- 	background: transparent $url_3 no-repeat !important;
- 	width: 14px;
- }
- .rup-maint_save {
- 	background: transparent $url_4 no-repeat !important;
- 	width: 14px;
- }
- .rup-maint_filter {
- 	background: transparent $url_5 no-repeat !important;
- 	width: 16px;
- }
- .rup-maint_clone {
- 	background: transparent $url_6 no-repeat !important;
- 	width: 16px;
- }
- .rup-maint_filter_pressed {
- 	border: 1px solid $color_mountain_mist_approx !important;
- 	font-weight: normal !important;
- 	color: $color_log_cabin_approx !important;
- }
- .rup-maint_export {
- 	background: transparent $url_5 no-repeat !important;
- 	width: 16px;
- }
- .rup-maint_export_pressed {
- 	border: 1px solid $color_mountain_mist_approx !important;
- 	font-weight: normal !important;
- 	color: $color_log_cabin_approx !important;
- }
- .rup-maint_linkPaginacionDetalle {
- 	background: none;
- 	border: none;
- 	clear: none;
- 	cursor: pointer;
- 	float: left;
- 	text-decoration: underline;
- 	color: $color_science_blue_approx !important;
- 	font-size: 0.88em;
- 	padding-right: 1.3em;
- }
- .rup-maint_searchCriteria {
- 	background-color: $lemon_chiffon;
- }
- .rup-maint_feedbackUL li {
- 	margin-left: 2em;
- 	margin-top: 0.2em;
- }
+.rup-maint_searchCriteria {
+	background-color: #FFFACD;
+}

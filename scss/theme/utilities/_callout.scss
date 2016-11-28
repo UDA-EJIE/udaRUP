@@ -1,0 +1,51 @@
+.rup-callout {
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #eee;
+  // border-left-width: .25rem;
+  // border-radius: .25rem;
+  border-left-width: .25rem;
+  border-radius: 0;
+}
+
+.rup-callout h4 {
+  margin-top: 0;
+  margin-bottom: .25rem;
+}
+
+.rup-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.rup-callout code {
+  border-radius: .25rem;
+}
+
+.rup-callout + .rup-callout {
+  margin-top: -.25rem;
+}
+
+.rup-callout-info {
+  border-left-color: #5bc0de;
+}
+
+.rup-callout-info h4 {
+  color: #5bc0de;
+}
+
+.rup-callout-warning {
+  border-left-color: #f0ad4e;
+}
+
+.rup-callout-warning h4 {
+  color: #f0ad4e;
+}
+
+.rup-callout-danger {
+  border-left-color: #d9534f;
+}
+
+.rup-callout-danger h4 {
+  color: #d9534f;
+}

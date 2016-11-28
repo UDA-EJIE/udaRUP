@@ -17,6 +17,9 @@
     }
 
     &.ui-accordion-header-active{
+      border: $rup-accordion-active-border;
+      color: $rup-color-accordion-active-text;
+      background: $rup-color-accordion-active-bg;
       .ui-accordion-header-icon{
         &:before{
           @extend %rup-fa;

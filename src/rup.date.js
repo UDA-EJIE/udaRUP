@@ -320,7 +320,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
 					//Se carga el identificador del padre del patron
 					settings.id = $(this).attr("id");
 
-					(this).attr("ruptype","date");
+					$(this).attr("ruptype","date");
 
 					//Carga de propiedades/literales
 					//var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);

@@ -1,10 +1,20 @@
-(function($) {
+( function( factory ) {
+ if ( typeof define === "function" && define.amd ) {
+
+	 // AMD. Register as an anonymous module.
+	 define( ["jquery"], factory );
+ } else {
+
+	 // Browser globals
+	 factory( jQuery );
+ }
+} ( function( $ ) {
 $.fn.numeric = function(decimal, callback)
 {
 	decimal = (decimal === false) ? "" : decimal || ".";
 	callback = typeof callback == "function" ? callback : function(){};
 	var campo = $(this);
-	
+
 	this.bind('paste', function(e) {
 		setTimeout(function() {
 			var valorCampo = campo.val();
@@ -124,4 +134,4 @@ $.fn.removeNumeric = function()
 	return this.data("numeric.decimal", null).data("numeric.callback", null).unbind("keypress", $.fn.numeric.keypress).unbind("blur", $.fn.numeric.blur);
 };
 
-})(jQuery);
+}));

@@ -1,480 +1,148 @@
-//colors
-$color_black_approx: #000001;
-$color_golden_dream_approx: #f1d031;
-$color_milan_approx: #ffffa3;
-$color_fuscous_gray_approx: #555;
-$color_sweet_corn_approx: #ffef93;
-$color_celeste_approx: #ccc;
-$seashell: #f1f1f1;
-$color_tapa_approx: #777;
-$color_silver_chalice_approx: #aaa;
-$color_woodsmoke_approx: #111;
-$black: black;
-$color_nile_blue_approx: #123456;
-$color_bon_jour_approx: #e2e2e2;
-$color_tundora_approx: #454545;
-$white: white;
-$color_mine_shaft_approx: #303030;
-$color_concrete_approx: #f3f3f3;
-$color_cape_cod_approx: #404040;
-$color_luxor_gold_approx: #a27d35;
-$color_drover_approx: #fbf7aa;
-$color_golden_sand_approx: #f0de7d;
-$color_chestnut_rose_approx: #d95252;
-$color_old_brick_approx: #912323;
-$color_geraldine_approx: #f78b83;
-$color_bittersweet_approx: #f06d65;
-$color_atlantis_approx: #90d93f;
-$color_dell_approx: #3f6219;
-$color_reef_approx: #caed9e;
-$color_yellow_green_approx: #b0de78;
-$color_regent_st_blue_approx: #add9ed;
-$color_hippie_blue_approx: #5e99bd;
-$color_lily_white_approx: #e5f6fe;
-$color_link_water_approx: #d0e9f5;
-$black_15: rgba(0, 0, 0, 0.15);
-$black_85: rgba(0, 0, 0, 0.85);
-$color_log_cabin_approx: #222;
-$black_70: rgba(0, 0, 0, 0.7);
-$color_alto_approx: #ddd;
-$seashell_100: rgba(241, 241, 241, 1);
-$black_40: rgba(0, 0, 0, 0.4);
-$color_bandicoot_approx: #87876a;
-$color_tana_approx: #d9d9c2;
-$color_flax_smoke_approx: #808064;
-$color_siam_approx: #696952;
-$black_87: rgba(0, 0, 0, .87);
-$color_pewter_approx: #959fa9;
-$color_alabaster_approx: #f9f9f9;
-$color_chambray_approx: #285589;
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
 
-//fonts
-$font_0: Tahoma;
-$font_1: sans-serif;
-$font_2: Lucida Grande;
+/* Core qTip styles */
+.ui-tooltip,.qtip { position: absolute; left: -28000px; top: -28000px; display: none; max-width: 280px; min-width: 50px; font-size: 10.5px; line-height: 12px; }
 
-//@extend-elements
-//original selectors
-//.ui-tooltip, .qtip
-%extend_1 {
-	position: absolute;
-	left: -28000px;
-	top: -28000px;
-	display: none;
-	max-width: 280px;
-	min-width: 50px;
-	font-size: 10.5px;
-	line-height: 12px;
-}
+/* Fluid class for determining actual width in IE */
+.ui-tooltip-fluid { display: block; visibility: hidden; position: static !important; float: left !important; }
+.ui-tooltip-content { position: relative; padding: 5px 9px; overflow: hidden; border: 1px solid #000001; text-align: left; word-wrap: break-word; overflow: hidden; }
+.ui-tooltip-titlebar { position: relative; min-height: 14px; padding: 5px 35px 5px 10px; overflow: hidden; border: 1px solid #000001; border-width: 1px 1px 0; font-weight: bold; }
+.ui-tooltip-titlebar+.ui-tooltip-content { border-top-width: 0px !important; }
 
-//original selectors
-//.ui-tooltip-default .ui-tooltip-titlebar, .ui-tooltip-default .ui-tooltip-content
-%extend_2 {
-	border-color: $color_golden_dream_approx;
-	background-color: $color_milan_approx;
-	color: $color_fuscous_gray_approx;
-}
+/*! Default close button class */
+.ui-tooltip-titlebar .ui-state-default { position: absolute; right: 4px; top: 50%; margin-top: -9px; cursor: pointer; outline: medium none; border-width: 1px; border-style: solid; }
+* html .ui-tooltip-titlebar .ui-state-default { top: 16px; } /* IE fix */
+.ui-tooltip-titlebar .ui-icon, .ui-tooltip-icon .ui-icon { display: block; text-indent: -1000em; }
+.ui-tooltip-icon,.ui-tooltip-icon .ui-icon { -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.ui-tooltip-icon .ui-icon { width: 18px; height: 14px; text-align: center; text-indent: 0; font: normal bold 10px/13px Tahoma, sans-serif; color: inherit; background: transparent none no-repeat -100em -100em; }
 
-//original selectors
-//.ui-tooltip .ui-tooltip-tip, .ui-tooltip .ui-tooltip-tip *
-%extend_3 {
-	position: absolute;
-	line-height: 0.1px !important;
-	font-size: 0.1px !important;
-	color: $color_nile_blue_approx;
-	background: transparent;
-	border: 0 dashed transparent;
-}
+/* Applied to 'focused' tooltips e.g. most recently displayed/interacted with */
+.ui-tooltip-focus {}
 
-//original selectors
-//.ui-tooltip-youtube .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-content
-%extend_4 {
-	background: $black_85;
-	filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-	color: $white;
-	border-color: $color_celeste_approx;
-}
+/* Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively */
+.ui-tooltip-hover {}
 
-//original selectors
-//.ui-tooltip-jtools .ui-tooltip-titlebar, .ui-tooltip-jtools .ui-tooltip-content
-%extend_5 {
-	background: transparent;
-	color: $white;
-	border: 0 dashed transparent;
-}
+/*! Default tooltip style */
+.ui-tooltip-default .ui-tooltip-titlebar,.ui-tooltip-default .ui-tooltip-content { border-color: #F1D031; background-color: #FFFFA3; color: #555; }
+.ui-tooltip-default .ui-tooltip-titlebar { background-color: #FFEF93; }
+.ui-tooltip-default .ui-tooltip-icon { border-color: #CCC; background: #F1F1F1; color: #777; }
+.ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover { border-color: #AAA; color: #111; }
 
-//original selectors
-//.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content
-%extend_6 {
-	background: $black_87;
-	filter: "progid : DXImageTransform.Microsoft.gradient(startColorstr = #D9000000, endColorstr = #D9000000 )";
-	color: $white;
-	border: 0 transparent;
-	font-size: 11px;
-	font-family: $font_2, $font_1;
-	font-weight: bold;
-	line-height: 16px;
-	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	text-shadow: 0 1px $black;
-}
+/* Modal plugin */
+#qtip-overlay { position: fixed; left: -10000em; top: -10000em; }
 
+/* Applied to modals with show.modal.blur set to true */
+#qtip-overlay.blurs { cursor: pointer; }
 
-.ui-tooltip {
-	@extend %extend_1;
-	.ui-tooltip-tip {
-		margin: 0 auto;
-		overflow: hidden;
-		z-index: 10;
-		@extend %extend_3;
-		* {
-			@extend %extend_3;
-		}
-		canvas {
-			top: 0;
-			left: 0;
-		}
-	}
-}
-.qtip {
-	@extend %extend_1;
-}
-.ui-tooltip-fluid {
-	display: block;
-	visibility: hidden;
-	position: static !important;
-	float: left !important;
-}
-.ui-tooltip-content {
-	position: relative;
-	padding: 5px 9px;
-	border: 1px solid $color_black_approx;
-	text-align: left;
-	word-wrap: break-word;
-	overflow: hidden;
-}
-.ui-tooltip-titlebar {
-	position: relative;
-	min-height: 14px;
-	padding: 5px 35px 5px 10px;
-	overflow: hidden;
-	border: 1px solid $color_black_approx;
-	border-width: 1px 1px 0;
-	font-weight: bold;
-	.ui-state-default {
-		position: absolute;
-		right: 4px;
-		top: 50%;
-		margin-top: -9px;
-		cursor: pointer;
-		outline: medium none;
-		border-width: 1px;
-		border-style: solid;
-	}
-	.ui-icon {
-		display: block;
-		text-indent: -1000em;
-	}
-	+ .ui-tooltip-content {
-		border-top-width: 0 !important;
-	}
-}
-.ui-tooltip-icon {
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 3px;
-	.ui-icon {
-		display: block;
-		text-indent: -1000em;
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 3px;
-		width: 18px;
-		height: 14px;
-		text-align: center;
-		text-indent: 0;
-		font: normal bold 10px/13px $font_0, $font_1;
-		color: inherit;
-		background: transparent none no-repeat -100em -100em;
-	}
-}
-.ui-tooltip-focus {
-}
-.ui-tooltip-hover {
-}
-.ui-tooltip-default {
-	.ui-tooltip-titlebar {
-		@extend %extend_2;
-		background-color: $color_sweet_corn_approx;
-		.ui-state-hover {
-			border-color: $color_silver_chalice_approx;
-			color: $color_woodsmoke_approx;
-		}
-	}
-	.ui-tooltip-content {
-		@extend %extend_2;
-	}
-	.ui-tooltip-icon {
-		border-color: $color_celeste_approx;
-		background: $seashell;
-		color: $color_tapa_approx;
-	}
-}
-#qtip-overlay {
-	position: fixed;
-	left: -10000em;
-	top: -10000em;
-	&.blurs {
-		cursor: pointer;
-	}
-	div {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background-color: $black;
-		opacity: 0.7;
-		filter: alpha(opacity = 70);
-	}
-}
-.ui-tooltip-light {
-	.ui-tooltip-titlebar {
-		border-color: $color_bon_jour_approx;
-		color: $color_tundora_approx;
-		background-color: $seashell;
-	}
-	.ui-tooltip-content {
-		border-color: $color_bon_jour_approx;
-		color: $color_tundora_approx;
-		background-color: $white;
-	}
-}
-.ui-tooltip-dark {
-	.ui-tooltip-titlebar {
-		border-color: $color_mine_shaft_approx;
-		color: $color_concrete_approx;
-		background-color: $color_cape_cod_approx;
-		.ui-state-hover {
-			border-color: $color_mine_shaft_approx;
-		}
-	}
-	.ui-tooltip-content {
-		border-color: $color_mine_shaft_approx;
-		color: $color_concrete_approx;
-		background-color: $color_fuscous_gray_approx;
-	}
-	.ui-tooltip-icon {
-		border-color: $color_tundora_approx;
-	}
-}
-.ui-tooltip-cream {
-	.ui-tooltip-titlebar {
-		border-color: $color_sweet_corn_approx;
-		color: $color_luxor_gold_approx;
-		background-color: $color_golden_sand_approx;
-	}
-	.ui-tooltip-content {
-		border-color: $color_sweet_corn_approx;
-		color: $color_luxor_gold_approx;
-		background-color: $color_drover_approx;
-	}
-	.ui-state-default .ui-tooltip-icon {
-		background-position: -82px 0;
-	}
-}
-.ui-tooltip-red {
-	.ui-tooltip-titlebar {
-		border-color: $color_chestnut_rose_approx;
-		color: $color_old_brick_approx;
-		background-color: $color_bittersweet_approx;
-		.ui-state-hover {
-			border-color: $color_chestnut_rose_approx;
-		}
-	}
-	.ui-tooltip-content {
-		border-color: $color_chestnut_rose_approx;
-		color: $color_old_brick_approx;
-		background-color: $color_geraldine_approx;
-	}
-	.ui-tooltip-icon {
-		border-color: $color_chestnut_rose_approx;
-	}
-	.ui-state-default .ui-tooltip-icon {
-		background-position: -102px 0;
-	}
-}
-.ui-tooltip-green {
-	.ui-tooltip-titlebar {
-		border-color: $color_atlantis_approx;
-		color: $color_dell_approx;
-		background-color: $color_yellow_green_approx;
-	}
-	.ui-tooltip-content {
-		border-color: $color_atlantis_approx;
-		color: $color_dell_approx;
-		background-color: $color_reef_approx;
-	}
-	.ui-state-default .ui-tooltip-icon {
-		background-position: -42px 0;
-	}
-}
-.ui-tooltip-blue {
-	.ui-tooltip-titlebar {
-		border-color: $color_regent_st_blue_approx;
-		color: $color_hippie_blue_approx;
-		background-color: $color_link_water_approx;
-	}
-	.ui-tooltip-content {
-		border-color: $color_regent_st_blue_approx;
-		color: $color_hippie_blue_approx;
-		background-color: $color_lily_white_approx;
-	}
-	.ui-state-default .ui-tooltip-icon {
-		background-position: -2px 0;
-	}
-}
-.ui-tooltip-shadow {
-	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	box-shadow: 1px 1px 3px 1px $black_15;
-	.ui-tooltip-titlebar {
-		filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )";
-	}
-	.ui-tooltip-content {
-		filter: "progid : DXImageTransform.Microsoft.Shadow(Color = 'gray', Direction = 135, Strength = 3 )";
-	}
-}
-.ui-tooltip-rounded {
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 4px;
-	.ui-tooltip-content {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 4px;
-	}
-	.ui-tooltip-titlebar {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 5px 5px 0 0;
-		+ .ui-tooltip-content {
-			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-			border-radius: 0 0 5px 5px;
-		}
-	}
-}
-.ui-tooltip-tipsy {
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 4px;
-	border: 0;
-	.ui-tooltip-content {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 4px;
-		@extend %extend_6;
-		padding: 6px 10;
-	}
-	.ui-tooltip-titlebar {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 5px 5px 0 0;
-		@extend %extend_6;
-		padding: 6px 35px 0 10;
-		.ui-state-hover {
-			border-color: $color_mine_shaft_approx;
-		}
-		+ .ui-tooltip-content {
-			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-			border-radius: 0 0 5px 5px;
-		}
-	}
-	.ui-tooltip-icon {
-		border-color: $color_log_cabin_approx;
-		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-		text-shadow: none;
-	}
-}
-.ui-tooltip-youtube {
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 4px;
-	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	box-shadow: 0 0 3px $color_mine_shaft_approx;
-	.ui-tooltip-content {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 4px;
-		@extend %extend_4;
-	}
-	.ui-tooltip-titlebar {
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 5px 5px 0 0;
-		@extend %extend_4;
-		.ui-state-hover {
-			border-color: $color_mine_shaft_approx;
-		}
-		+ .ui-tooltip-content {
-			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-			border-radius: 0 0 5px 5px;
-		}
-	}
-	.ui-tooltip-icon {
-		border-color: $color_log_cabin_approx;
-	}
-}
-.ui-tooltip-jtools {
-	background: $black_70;
-	border: 2px solid $seashell_100;
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 2px;
-	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	box-shadow: 0 0 12px $color_mine_shaft_approx;
-	.ui-tooltip-titlebar {
-		@extend %extend_5;
-		.ui-state-hover {
-			border-color: $color_mine_shaft_approx;
-		}
-	}
-	.ui-tooltip-content {
-		@extend %extend_5;
-	}
-	.ui-tooltip-icon {
-		border-color: $color_fuscous_gray_approx;
-	}
-}
-.ui-tooltip-cluetip {
-	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	box-shadow: 4px 4px 5px $black_40;
-	.ui-tooltip-titlebar {
-		background-color: $color_bandicoot_approx;
-		color: $white;
-		border: 0 dashed transparent;
-		.ui-state-hover {
-			border-color: $color_siam_approx;
-			color: $color_siam_approx;
-		}
-	}
-	.ui-tooltip-content {
-		background-color: $color_tana_approx;
-		color: $color_woodsmoke_approx;
-		border: 0 dashed transparent;
-	}
-	.ui-tooltip-icon {
-		border-color: $color_flax_smoke_approx;
-	}
-}
-.ui-tooltip-tipped {
-	.ui-tooltip-titlebar {
-		border: 3px solid $color_pewter_approx;
-		filter: none;
-	}
-	.ui-tooltip-content {
-		border: 3px solid $color_pewter_approx;
-		filter: none;
-		background-color: $color_alabaster_approx;
-		color: $color_tundora_approx;
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 0 0 3px 3px;
-	}
-	.ui-tooltip-icon {
-		border: 2px solid $color_chambray_approx;
-		background: $color_chambray_approx;
-		.ui-icon {
-			background-color: $color_alabaster_approx;
-			color: $color_fuscous_gray_approx;
-		}
-	}
-}
-* html .ui-tooltip-titlebar .ui-state-default {
-	top: 16px;
-}
+/* Change opacity of overlay here */
+#qtip-overlay div { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: black; opacity: 0.7; filter: alpha(opacity = 70);	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; }
+
+/* Tips plugin */
+.ui-tooltip .ui-tooltip-tip { margin: 0 auto; overflow: hidden; z-index: 10; }
+.ui-tooltip .ui-tooltip-tip,.ui-tooltip .ui-tooltip-tip * { position: absolute; line-height: 0.1px !important; font-size: 0.1px !important; color: #123456;	background: transparent; border: 0px dashed transparent; }
+.ui-tooltip .ui-tooltip-tip canvas { top: 0; left: 0; }
+
+/*! Light tooltip style */
+.ui-tooltip-light .ui-tooltip-titlebar,.ui-tooltip-light .ui-tooltip-content { border-color: #E2E2E2; color: #454545; }
+.ui-tooltip-light .ui-tooltip-content { background-color: white; }
+.ui-tooltip-light .ui-tooltip-titlebar { background-color: #f1f1f1; }
+
+/*! Dark tooltip style */
+.ui-tooltip-dark .ui-tooltip-titlebar,.ui-tooltip-dark .ui-tooltip-content { border-color: #303030; color: #f3f3f3; }
+.ui-tooltip-dark .ui-tooltip-content { background-color: #505050; }
+.ui-tooltip-dark .ui-tooltip-titlebar {	background-color: #404040; }
+.ui-tooltip-dark .ui-tooltip-icon {	border-color: #444; }
+.ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover { border-color: #303030; }
+
+/*! Cream tooltip style */
+.ui-tooltip-cream .ui-tooltip-titlebar,.ui-tooltip-cream .ui-tooltip-content { border-color: #F9E98E; color: #A27D35; }
+.ui-tooltip-cream .ui-tooltip-content { background-color: #FBF7AA; }
+.ui-tooltip-cream .ui-tooltip-titlebar { background-color: #F0DE7D; }
+.ui-tooltip-cream .ui-state-default .ui-tooltip-icon { background-position: -82px 0; }
+
+/*! Red tooltip style */
+.ui-tooltip-red .ui-tooltip-titlebar,.ui-tooltip-red .ui-tooltip-content { border-color: #D95252; color: #912323; }
+.ui-tooltip-red .ui-tooltip-content { background-color: #F78B83; }
+.ui-tooltip-red .ui-tooltip-titlebar {	background-color: #F06D65; }
+.ui-tooltip-red .ui-state-default .ui-tooltip-icon { background-position: -102px 0; }
+.ui-tooltip-red .ui-tooltip-icon { border-color: #D95252; }
+.ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover { border-color: #D95252; }
+
+/*! Green tooltip style */
+.ui-tooltip-green .ui-tooltip-titlebar,.ui-tooltip-green .ui-tooltip-content { border-color: #90D93F; color: #3F6219; }
+.ui-tooltip-green .ui-tooltip-content { background-color: #CAED9E; }
+.ui-tooltip-green .ui-tooltip-titlebar { background-color: #B0DE78; }
+.ui-tooltip-green .ui-state-default .ui-tooltip-icon { background-position: -42px 0; }
+
+/*! Blue tooltip style */
+.ui-tooltip-blue .ui-tooltip-titlebar,.ui-tooltip-blue .ui-tooltip-content { border-color: #ADD9ED; color: #5E99BD; }
+.ui-tooltip-blue .ui-tooltip-content { background-color: #E5F6FE; }
+.ui-tooltip-blue .ui-tooltip-titlebar { background-color: #D0E9F5; }
+.ui-tooltip-blue .ui-state-default .ui-tooltip-icon { background-position: -2px 0; }
+
+/*! Add shadows to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE6+, Safari 2+ */
+.ui-tooltip-shadow { -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15); }
+.ui-tooltip-shadow .ui-tooltip-titlebar, .ui-tooltip-shadow .ui-tooltip-content { filter: "progid : DXImageTransform.Microsoft.Shadow ( Color = 'gray', Direction = 135, Strength = 3 )"; -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)"; }
+
+/*! Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
+.ui-tooltip-rounded,.ui-tooltip-rounded .ui-tooltip-content,.ui-tooltip-tipsy,.ui-tooltip-tipsy .ui-tooltip-content,.ui-tooltip-youtube,.ui-tooltip-youtube .ui-tooltip-content	{ -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+.ui-tooltip-rounded .ui-tooltip-titlebar,.ui-tooltip-tipsy .ui-tooltip-titlebar,.ui-tooltip-youtube .ui-tooltip-titlebar { -moz-border-radius: 5px 5px 0 0;	-webkit-border-radius: 5px 5px 0 0;	border-radius: 5px 5px 0 0; }
+.ui-tooltip-rounded .ui-tooltip-titlebar+.ui-tooltip-content,.ui-tooltip-tipsy .ui-tooltip-titlebar+.ui-tooltip-content,.ui-tooltip-youtube .ui-tooltip-titlebar+.ui-tooltip-content { -moz-border-radius: 0 0 5px 5px;	-webkit-border-radius: 0 0 5px 5px;	border-radius: 0 0 5px 5px; }
+
+/*! Youtube tooltip style */
+.ui-tooltip-youtube { -webkit-box-shadow: 0 0 3px #333; -moz-box-shadow: 0 0 3px #333; box-shadow: 0 0 3px #333; }
+.ui-tooltip-youtube .ui-tooltip-titlebar, .ui-tooltip-youtube .ui-tooltip-content {  background: transparent; background: rgba(0, 0, 0, 0.85);	filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )"; -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white;	border-color: #CCCCCC; }
+.ui-tooltip-youtube .ui-tooltip-icon { border-color: #222; }
+.ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover { border-color: #303030; }
+
+/* jQuery TOOLS Tooltip style */
+.ui-tooltip-jtools { background: #232323; background: rgba(0, 0, 0, 0.7); background-image: -moz-linear-gradient(top, #717171, #232323); background-image: -webkit-gradient(linear, left top, left bottom, from(#717171), to(#232323) ); border: 2px solid #ddd; border: 2px solid rgba(241, 241, 241, 1); -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; -webkit-box-shadow: 0 0 12px #333; -moz-box-shadow: 0 0 12px #333; box-shadow: 0 0 12px #333; }
+
+/* IE Specific */
+/* csscssParserFix - .ui-tooltip-jtools .ui-tooltip-titlebar { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #717171, endColorstr = #4A4A4A ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)"; } */
+/* cssParserFix - .ui-tooltip-jtools .ui-tooltip-content { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr =	#4A4A4A, endColorstr = #232323 ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)"; }*/
+.ui-tooltip-jtools .ui-tooltip-titlebar, .ui-tooltip-jtools .ui-tooltip-content { background: transparent; color: white; border: 0 dashed transparent; }
+.ui-tooltip-jtools .ui-tooltip-icon { border-color: #555; }
+.ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover { border-color: #333; }
+
+/* Cluetip style */
+.ui-tooltip-cluetip { -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4); -moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4); box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4); }
+.ui-tooltip-cluetip .ui-tooltip-titlebar { background-color: #87876A; color: white; border: 0 dashed transparent; }
+.ui-tooltip-cluetip .ui-tooltip-content { background-color: #D9D9C2; color: #111; border: 0 dashed transparent; }
+.ui-tooltip-cluetip .ui-tooltip-icon { border-color: #808064; }
+.ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover { border-color: #696952; color: #696952; }
+
+/* Tipsy style */
+.ui-tooltip-tipsy { border: 0; }
+
+.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content {background: transparent; background: rgba(0, 0, 0, .87); filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white; border: 0px transparent; font-size: 11px; font-family: 'Lucida Grande', sans-serif; font-weight: bold; line-height: 16px; text-shadow: 0 1px black; }
+.ui-tooltip-tipsy .ui-tooltip-titlebar { padding: 6px 35px 0 10; }
+.ui-tooltip-tipsy .ui-tooltip-content { padding: 6px 10; }
+.ui-tooltip-tipsy .ui-tooltip-icon { border-color: #222; text-shadow: none; }
+.ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover { border-color: #303030; }
+
+/* Tipped style */
+.ui-tooltip-tipped {}
+
+.ui-tooltip-tipped .ui-tooltip-titlebar, .ui-tooltip-tipped .ui-tooltip-content { border: 3px solid #959FA9; filter: none; -ms-filter: none; }
+/* cssParserFix - .ui-tooltip-tipped .ui-tooltip-titlebar { background: #3A79B8; background-image: -moz-linear-gradient(top, #3A79B8, #2E629D); background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D) ); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #3A79B8, endColorstr = #2E629D ); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"; color: white; font-weight: normal; font-family: serif; border-bottom-width: 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; } */
+.ui-tooltip-tipped .ui-tooltip-content { background-color: #F9F9F9; color: #454545; -moz-border-radius: 0 0 3px 3px; -webkit-border-radius: 0 0 3px 3px; border-radius: 0 0 3px 3px; }
+.ui-tooltip-tipped .ui-tooltip-icon { border: 2px solid #285589; background: #285589; }
+.ui-tooltip-tipped .ui-tooltip-icon .ui-icon { background-color: #FBFBFB; color: #555; }
+
+/* IE9 fix - removes all filters */
+/* cssParserFix - .ui-tooltip:not (.ie9haxors ) div.ui-tooltip-content, .ui-tooltip:not (.ie9haxors) div.ui-tooltip-titlebar { filter: none; -ms-filter: none;} */

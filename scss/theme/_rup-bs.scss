@@ -74,3 +74,6 @@ select.form-control-sm{
 .form-group-sm{
   font-size: $rup-font-size-sm;
 }
+
+select.form-control:not([size]):not([multiple]) {
+  height: $rup-input-height; }

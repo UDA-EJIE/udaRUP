@@ -311,10 +311,10 @@ blockquote {
   margin: 0 0 1rem; }
 
 a {
-  color: #0275d8;
+  color: #204d71;
   text-decoration: none; }
   a:focus, a:hover {
-    color: #014c8c;
+    color: #0f2435;
     text-decoration: underline; }
   a:focus {
     outline: 5px auto -webkit-focus-ring-color;
@@ -1464,7 +1464,7 @@ pre {
     cursor: not-allowed; }
 
 select.form-control:not([size]):not([multiple]) {
-  height: calc(2.5rem - 2px); }
+  height: calc(2rem - 2px); }
 
 select.form-control:focus::-ms-value {
   color: #55595c;
@@ -1583,8 +1583,8 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .form-control-danger {
   padding-right: 2.25rem;
   background-repeat: no-repeat;
-  background-position: center right 0.625rem;
-  background-size: 1.25rem 1.25rem; }
+  background-position: center right 0.5rem;
+  background-size: 1rem 1rem; }
 
 .has-success .form-control-feedback,
 .has-success .form-control-label,
@@ -2088,7 +2088,7 @@ fieldset[disabled] a.btn {
 
 .btn-link {
   font-weight: normal;
-  color: #0275d8;
+  color: #204d71;
   border-radius: 0; }
   .btn-link, .btn-link:active, .btn-link.active, .btn-link:disabled {
     background-color: transparent; }
@@ -2097,7 +2097,7 @@ fieldset[disabled] a.btn {
   .btn-link:hover {
     border-color: transparent; }
   .btn-link:focus, .btn-link:hover {
-    color: #014c8c;
+    color: #0f2435;
     text-decoration: underline;
     background-color: transparent; }
   .btn-link:disabled:focus, .btn-link:disabled:hover {
@@ -2590,7 +2590,7 @@ tbody.collapse.in {
 .custom-select {
   display: inline-block;
   max-width: 100%;
-  height: calc(2.5rem - 2px);
+  height: calc(2rem - 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
   padding-right: 0.75rem \9;
   color: #55595c;
@@ -3356,12 +3356,12 @@ tbody.collapse.in {
   float: left;
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
-  color: #0275d8;
+  color: #204d71;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd; }
   .page-link:focus, .page-link:hover {
-    color: #014c8c;
+    color: #0f2435;
     background-color: #eceeef;
     border-color: #ddd; }
 

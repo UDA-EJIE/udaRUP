@@ -14,19 +14,21 @@
  * que establece la Licencia.
  */
 
- .rup_accordion {
- 	display: none;
- }
- .rup_accordion_create {
- }
- .ui-accordion {
- 	.ui-accordion-header {
- 		width: auto;
- 		&.ui-state-active {
- 			border-bottom: none;
- 		}
- 	}
- 	&.ui-accordion-disabled.ui-state-disabled {
- 		opacity: 1.0;
- 	}
- }
+.rup_accordion{
+	display: none;
+}
+
+.rup_accordion_create{
+}
+
+.ui-accordion .ui-accordion-header {
+	width: auto;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+    border-bottom: none;
+}
+
+.ui-accordion.ui-accordion-disabled.ui-state-disabled{
+  opacity: 1.0;
+}
