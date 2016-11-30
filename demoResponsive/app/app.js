@@ -168,12 +168,14 @@ define(["marionette",
           RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
         },
         mobileDesktop: function(){
+
           RupResponsiveDemoApp.mainView.Container.show(new MobileDesktopView());
         },
         mobileTabletDesktop: function(){
           RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
         },
         dashboard: function(){
+          jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass("dashboard-content");
           RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
         }
     });

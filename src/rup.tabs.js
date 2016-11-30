@@ -18,13 +18,13 @@
   if ( typeof define === "function" && define.amd ) {
 
  		// AMD. Register as an anonymous module.
- 		define( ["jquery","jquery.scrollTo","./rup.base"], factory );
+ 		define( ["jquery","./templates","jquery.scrollTo","./rup.base"], factory );
   } else {
 
  		// Browser globals
- 		factory( jQuery );
+ 		factory( jQuery, Rup);
   }
- } ( function( jQuery ) {
+} ( function( jQuery, Rup) {
 
 
 	//*****************************************************************************************************************
@@ -382,15 +382,16 @@
 
 			},
 
-			//Funcion encargada de gestionar el objeto definido por el usuario (se parsea el JSon y se actua en consecuencia)
-			_parseJSON : function (json, json_i18n, tabs, pos, profundidad, settings) {
-				var element, rupLevel, label, title="";
+      _parseJSON : function (json, json_i18n, tabs, pos, profundidad, settings) {
+				var $self = this, element, rupLevel, label, title="";
 
-				tabs.append($('<ul>'));  //Añadir contenedor de pestanyas
-				tabs = $(tabs).children('ul'); //Seleccionar pestanya
+        //Añadir contenedor de pestanyas
+        var $tabsContainer = $(Rup.Templates.rup.tabs.container());
+        tabs.append($tabsContainer);
+
 
 				//pestanyas
-				for (var i = json.length; i--; ) {
+				for (var i = 0; i< json.length; i++) {
 					rupLevel = pos+i; //Indicador de nivel de la pestanya
 					element = json[i];
 					if (i === 0 && profundidad === settings.profun){
@@ -411,22 +412,18 @@
 
 					if (element.layer !== undefined){
 						//LAYER => Recoge una capa ya cargada de la Jsp
-						element.layer = this._includeLayer(tabs, element.layer, null);
-						//si quiero con boton de cerrar pestana
-						if (settings.close===true){
-							tabs.prepend($('<li>').append(
-								$('<a>').attr('href',element.layer)
-								.attr({
-									'rupLevel':rupLevel,
-									'title':title,
-									'alt':title
-								}).rup_tooltip({})
-								.css('padding-left', '1.4em')
-								.css('padding-right', '0.3em')
-								.append ($('<div>').addClass('rup-tabs_title').text(label))
-								.append ($('<span>').addClass('rup-tabs_loading'))
-								.append('<span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>')
-						));
+						element.layer = this._includeLayer($tabsContainer, element.layer, null);
+
+            $tabsContainer.append(Rup.Templates.rup.tabs.tab({
+              'id': element.i18nCaption,
+              'href': element.layer,
+              'rupLevel': rupLevel,
+              'title': title,
+              'alt': title,
+              'label': label,
+              'btnClose': settings.close
+            }));
+
 
 						//evento close
 						$("span.ui-icon-close").on( "click", function() {
@@ -450,81 +447,209 @@
 							}
 						});
 
-						}else{
-							tabs.prepend($('<li>').append(
-									$('<a>').attr('href',element.layer)
-									.attr({
-										'rupLevel':rupLevel,
-										'title':title,
-										'alt':title
-									}).rup_tooltip({})
-									.css('padding-left', '1.4em')
-									.css('padding-right', '0.3em')
-									.append ($('<div>').addClass('rup-tabs_title').text(label))
-									.append ($('<span>').addClass('rup-tabs_loading'))
-							));
-						}
-
 					} else if (element.url !== undefined){
 						//URL => Cargar contenido al pulsar
-						tabs.prepend($('<li>').append(
-							$('<a>').attr('href',$.rup_utils.setNoPortalParam(element.url))
-								.attr({
-									'rupLevel':rupLevel,
-									'title':title,
-									'alt':title
-								}).rup_tooltip({})
-								.css('padding-left', '1.4em')
-								.css('padding-right', '0.3em')
-								.append ($('<div>').addClass('rup-tabs_title').text(label))
-								.append ($('<span>').addClass('rup-tabs_loading'))
-						));
+						$tabsContainer.append(Rup.Templates.rup.tabs.tab({
+              'id': '#'+element.i18nCaption,
+              'href': $.rup_utils.setNoPortalParam(element.url),
+              'rupLevel': rupLevel,
+              'title': title,
+              'alt': title,
+              'label': label,
+              'btnClose': settings.close
+            }));
+
 					} else if (element.tabs !== undefined){
 						//TABS => Subpestanyas
-						tabs.prepend($('<li>').append(
-							$('<a>').attr('id','#'+element.i18nCaption)
-								.attr('href','#'+element.i18nCaption)
-								.attr({
-									'rupLevel':rupLevel,
-									'title':title,
-									'alt':title
-								}).rup_tooltip({})
-								.css('padding-left', '1.4em')
-								.css('padding-right', '0.3em')
-								.append ($('<div>').addClass('rup-tabs_title').text(label))
-								.append ($('<span>').addClass('rup-tabs_loading'))
-						));
+            $tabsContainer.append(Rup.Templates.rup.tabs.tab({
+              'id': '#'+element.i18nCaption,
+              'href': '#'+element.i18nCaption,
+              'rupLevel': rupLevel,
+              'title': title,
+              'alt': title,
+              'label': label,
+              'btnClose': settings.close,
+              'tabs': element.tabs
+            }));
 
 						//Gestionar capa contenedora subpestanyas
-						tabs = $(tabs).parent();
+						// tabs = $(tabs).parent();
+						//Añadir contenedor de capa asociada a pestanya
+						var capaId = "rupRandomLayerId-"+$.rup_utils.autoGenerateIdNum++;
+            var $capa = $(Rup.Templates.rup.tabs.subtab({
+              'rupRandomLayerId': capaId,
+              'id': element.i18nCaption,
+              'actualTab': true
+            }));
+						$self.append($capa);
 
-						var capa = $('<div>'),
-							capaId = $.rup_utils.randomIdGenerator(capa);
-						tabs.append(capa); 						//Añadir contenedor de capa asociada a pestanya
-						tabs = $(tabs).children("#"+capaId); 	//Seleccionar capa contenedora
+            var $subTabsDiv = $("[id='"+element.i18nCaption+"']", $capa);
+
+
+						// tabs.append(capa); 						//Añadir contenedor de capa asociada a pestanya
+						// tabs = $(tabs).children("#"+capaId); 	//Seleccionar capa contenedora
 
 						//Gestionar capa de la subpestanya
-						tabs.prepend($('<div>').attr('id', element.i18nCaption).attr('actualTab',true)); //Añadir capa asociada a la pestanya
-						tabs = $(tabs).children('div:first-child'); //Seleccionar capa
+						// tabs.prepend($('<div>').attr('id', element.i18nCaption).attr('actualTab',true)); //Añadir capa asociada a la pestanya
+						// tabs = $(tabs).children('div:first-child'); //Seleccionar capa
 
 						//Subpestanyas
 						var subsettings = jQuery.extend(true, {}, settings);
 						subsettings.selected = element.selected;
-						tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad+1, subsettings));
+						// tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad+1, subsettings));
+            tabs.append(this._parseJSON(element.tabs, json_i18n, $subTabsDiv, rupLevel, profundidad+1, subsettings));
 
-						this._tabify(tabs,subsettings); //Si no tiene 1 es que es el primer elemento y lo convertimos a pestanyas
+						this._tabify($subTabsDiv, subsettings); //Si no tiene 1 es que es el primer elemento y lo convertimos a pestanyas
 
-						//Reposicionar 'puntero' para siguiente pasada del bucle
-						tabs = $(tabs).parents("div[actualTab=true]").find("ul").first();
-						if (tabs.length===0){
-							tabs = $("#"+settings.id).find("ul").first();
-						}
 
 					}
 				}
-				$(tabs).parents("div[actualTab=true]").first().removeAttr("actualTab");
-				delete tabs;
+
 			},
+
+			//Funcion encargada de gestionar el objeto definido por el usuario (se parsea el JSon y se actua en consecuencia)
+			// _parseJSON : function (json, json_i18n, tabs, pos, profundidad, settings) {
+			// 	var element, rupLevel, label, title="";
+      //
+			// 	tabs.append($('<ul>'));  //Añadir contenedor de pestanyas
+			// 	tabs = $(tabs).children('ul'); //Seleccionar pestanya
+      //
+			// 	//pestanyas
+			// 	for (var i = json.length; i--; ) {
+			// 		rupLevel = pos+i; //Indicador de nivel de la pestanya
+			// 		element = json[i];
+			// 		if (i === 0 && profundidad === settings.profun){
+			// 			settings.iniLoad = true;
+			// 		} else {
+			// 			settings.iniLoad = false;
+			// 		}
+      //
+			// 		label = $.rup.i18nParse(json_i18n,element.i18nCaption);
+      //
+			// 		if (settings.lengthLiteral!==undefined){
+			// 			title = label;
+			// 			if(label.length>settings.lengthLiteral){
+			// 				label = label.substr(0,settings.lengthLiteral).concat("...");
+			// 			}
+      //
+			// 		}
+      //
+			// 		if (element.layer !== undefined){
+			// 			//LAYER => Recoge una capa ya cargada de la Jsp
+			// 			element.layer = this._includeLayer(tabs, element.layer, null);
+			// 			//si quiero con boton de cerrar pestana
+			// 			if (settings.close===true){
+			// 				tabs.prepend($('<li>').append(
+			// 					$('<a>').attr('href',element.layer)
+			// 					.attr({
+			// 						'rupLevel':rupLevel,
+			// 						'title':title,
+			// 						'alt':title
+			// 					}).rup_tooltip({})
+			// 					.css('padding-left', '1.4em')
+			// 					.css('padding-right', '0.3em')
+			// 					.append ($('<div>').addClass('rup-tabs_title').text(label))
+			// 					.append ($('<span>').addClass('rup-tabs_loading'))
+			// 					.append('<span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>')
+			// 			));
+      //
+			// 			//evento close
+			// 			$("span.ui-icon-close").on( "click", function() {
+      //
+			// 				var tabContentId = $(this).parent().attr("href");
+			// 		        $(this).parent().parent().remove(); //remove li of tab
+			// 		        $(tabContentId).remove(); //remove respective tab content
+      //
+			// 				 tabs.tabs( "refresh" );
+			// 				 });
+      //
+			// 			//efecto hover del boton cerrar
+			// 			$("span.ui-icon-close").addClass('rup-tabs-close');
+			// 			$("span.ui-icon-close").on({
+			// 				mouseenter: function () {
+			// 					$(this).addClass('rup-tabs-close-hover');
+			// 				},
+      //
+			// 				mouseleave: function () {
+			// 					$(this).removeClass('rup-tabs-close-hover');
+			// 				}
+			// 			});
+      //
+			// 			}else{
+			// 				tabs.prepend($('<li>').append(
+			// 						$('<a>').attr('href',element.layer)
+			// 						.attr({
+			// 							'rupLevel':rupLevel,
+			// 							'title':title,
+			// 							'alt':title
+			// 						}).rup_tooltip({})
+			// 						.css('padding-left', '1.4em')
+			// 						.css('padding-right', '0.3em')
+			// 						.append ($('<div>').addClass('rup-tabs_title').text(label))
+			// 						.append ($('<span>').addClass('rup-tabs_loading'))
+			// 				));
+			// 			}
+      //
+			// 		} else if (element.url !== undefined){
+			// 			//URL => Cargar contenido al pulsar
+			// 			tabs.prepend($('<li>').append(
+			// 				$('<a>').attr('href',$.rup_utils.setNoPortalParam(element.url))
+			// 					.attr({
+			// 						'rupLevel':rupLevel,
+			// 						'title':title,
+			// 						'alt':title
+			// 					}).rup_tooltip({})
+			// 					.css('padding-left', '1.4em')
+			// 					.css('padding-right', '0.3em')
+			// 					.append ($('<div>').addClass('rup-tabs_title').text(label))
+			// 					.append ($('<span>').addClass('rup-tabs_loading'))
+			// 			));
+			// 		} else if (element.tabs !== undefined){
+			// 			//TABS => Subpestanyas
+			// 			tabs.prepend($('<li>').append(
+			// 				$('<a>').attr('id','#'+element.i18nCaption)
+			// 					.attr('href','#'+element.i18nCaption)
+			// 					.attr({
+			// 						'rupLevel':rupLevel,
+			// 						'title':title,
+			// 						'alt':title
+			// 					}).rup_tooltip({})
+			// 					.css('padding-left', '1.4em')
+			// 					.css('padding-right', '0.3em')
+			// 					.append ($('<div>').addClass('rup-tabs_title').text(label))
+			// 					.append ($('<span>').addClass('rup-tabs_loading'))
+			// 			));
+      //
+			// 			//Gestionar capa contenedora subpestanyas
+			// 			tabs = $(tabs).parent();
+      //
+			// 			var capa = $('<div>'),
+			// 				capaId = $.rup_utils.randomIdGenerator(capa);
+			// 			tabs.append(capa); 						//Añadir contenedor de capa asociada a pestanya
+			// 			tabs = $(tabs).children("#"+capaId); 	//Seleccionar capa contenedora
+      //
+			// 			//Gestionar capa de la subpestanya
+			// 			tabs.prepend($('<div>').attr('id', element.i18nCaption).attr('actualTab',true)); //Añadir capa asociada a la pestanya
+			// 			tabs = $(tabs).children('div:first-child'); //Seleccionar capa
+      //
+			// 			//Subpestanyas
+			// 			var subsettings = jQuery.extend(true, {}, settings);
+			// 			subsettings.selected = element.selected;
+			// 			tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad+1, subsettings));
+      //
+			// 			this._tabify(tabs,subsettings); //Si no tiene 1 es que es el primer elemento y lo convertimos a pestanyas
+      //
+			// 			//Reposicionar 'puntero' para siguiente pasada del bucle
+			// 			tabs = $(tabs).parents("div[actualTab=true]").find("ul").first();
+			// 			if (tabs.length===0){
+			// 				tabs = $("#"+settings.id).find("ul").first();
+			// 			}
+      //
+			// 		}
+			// 	}
+			// 	$(tabs).parents("div[actualTab=true]").first().removeAttr("actualTab");
+			// 	delete tabs;
+			// },
 
 			//Función encargada de validar e incluir la capa que contendrá la pestanya. De no tener identificador se le asocia uno.
 			_includeLayer : function(tabs, layerSelector, pestanya){

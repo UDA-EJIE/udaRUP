@@ -127,10 +127,22 @@ gulp.task('minimize:js:rup', function () {
   .pipe(concat("rup.min.js"))
   .pipe(gulp.dest('./dist/js'));
 
-
-
   // FIXME: Solo para desarrollo de la x21a
   gulp.src('./dist/js/rup.min.js')
+    .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
+
+
+});
+
+gulp.task('minimize:js:rup-classic', function () {
+
+
+  gulp.src(minimizeConf.rupJsClassicFiles)
+  .pipe(concat("rup.classic.min.js"))
+  .pipe(gulp.dest('./dist/js'));
+
+  // FIXME: Solo para desarrollo de la x21a
+  gulp.src('./dist/js/rup.classic.min.js')
     .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
 
 
@@ -144,7 +156,9 @@ gulp.task('build', [
   'minimize:css:rup',
   'templates',
   'templates-classic',
-  'minimize:js:rup'
+  'templates-rup',
+  'minimize:js:rup',
+  'minimize:js:rup-classic'
 ]);
 
 
@@ -158,7 +172,9 @@ gulp.task('watch', [
   'watch:minimize:css:rup',
   'watch:templates:rup',
   'watch:templates:rup-classic',
-  'watch:minimize:js:rup'
+  'watch:templates:rup-core',
+  'watch:minimize:js:rup',
+  'watch:minimize:js:rup-classic'
 ]);
 
 // WATCHES:sass
@@ -189,6 +205,10 @@ gulp.task('watch:minimize:js:rup', function () {
   gulp.watch(['./src/**/*.js'], ['minimize:js:rup']);
 });
 
+gulp.task('watch:minimize:js:rup-classic', function () {
+  gulp.watch(['./src/**/*.js'], ['minimize:js:rup-classic']);
+});
+
 // WATCHES:templates
 
 gulp.task('watch:templates:rup', function () {
@@ -197,6 +217,10 @@ gulp.task('watch:templates:rup', function () {
 
 gulp.task('watch:templates:rup-classic', function () {
   gulp.watch('./demo/**/*.hbs', ['templates-classic']);
+});
+
+gulp.task('watch:templates:rup-core', function () {
+  gulp.watch('./src/templates/*.hbs', ['templates-rup']);
 });
 
 
@@ -421,6 +445,24 @@ gulp.task('templates-rup', function () {
 
     return merge(partials, templates)
         .pipe(concat('templates.js'))
-        .pipe(wrap("define(['handlebars'], function(Handlebars) { <%= contents %>  return this['Rup'];});"))
+        // .pipe(wrap("define(['handlebars'], function(Handlebars) { <%= contents %>  return this['Rup'];});"))
+        //
+        .pipe(wrap(`
+        ( function( factory ) {
+         if ( typeof define === "function" && define.amd ) {
+
+            // AMD. Register as an anonymous module.
+            define( ["handlebars" ], factory );
+         } else {
+
+            // Browser globals
+            factory( Handlebars );
+         }
+        } ( function( Handlebars ) {
+          <%= contents %>
+          return this['Rup'];
+        }
+        ));
+        `))
         .pipe(gulp.dest('src/'));
 });

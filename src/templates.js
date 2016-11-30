@@ -1,4 +1,16 @@
-define(['handlebars'], function(Handlebars) { this["Rup"] = this["Rup"] || {};
+
+        ( function( factory ) {
+         if ( typeof define === "function" && define.amd ) {
+
+            // AMD. Register as an anonymous module.
+            define( ["handlebars" ], factory );
+         } else {
+
+            // Browser globals
+            factory( Handlebars );
+         }
+        } ( function( Handlebars ) {
+          this["Rup"] = this["Rup"] || {};
 this["Rup"]["Templates"] = this["Rup"]["Templates"] || {};
 this["Rup"]["Templates"]["rup"] = this["Rup"]["Templates"]["rup"] || {};
 this["Rup"]["Templates"]["rup"]["dashboard"] = this["Rup"]["Templates"]["rup"]["dashboard"] || {};
@@ -42,6 +54,42 @@ this["Rup"]["Templates"]["rup"]["dashboard"]["item"] = Handlebars.template({"1":
     + "\">\r\n\r\n    <div class=\""
     + alias4(((helper = (helper = helpers.itemClass || (depth0 != null ? depth0.itemClass : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"itemClass","hash":{},"data":data}) : helper)))
     + "\" >\r\n\r\n    </div>\r\n</div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["tabs"] = this["Rup"]["Templates"]["rup"]["tabs"] || {};
+this["Rup"]["Templates"]["rup"]["tabs"]["container"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<ul>\r\n\r\n</ul>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["tabs"]["subtab"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id="
+    + alias4(((helper = (helper = helpers.rupRandomLayerId || (depth0 != null ? depth0.rupRandomLayerId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rupRandomLayerId","hash":{},"data":data}) : helper)))
+    + " class=\"rupRandomLayerId ssss\">\r\n  <div id="
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + " actualTab=\""
+    + alias4(((helper = (helper = helpers.actualTab || (depth0 != null ? depth0.actualTab : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"actualTab","hash":{},"data":data}) : helper)))
+    + "\">\r\n\r\n  </div>\r\n</div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["tabs"]["tab"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "        <span class=\"ui-icon ui-icon-close\" role=\"presentation\">Remove Tab</span>\r\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<li>\r\n  <a  id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"\r\n      href=\""
+    + alias4(((helper = (helper = helpers.href || (depth0 != null ? depth0.href : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"href","hash":{},"data":data}) : helper)))
+    + "\"\r\n      rupLevel=\""
+    + alias4(((helper = (helper = helpers.rupLevel || (depth0 != null ? depth0.rupLevel : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rupLevel","hash":{},"data":data}) : helper)))
+    + "\"\r\n      title=\""
+    + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
+    + "\"\r\n      alt=\""
+    + alias4(((helper = (helper = helpers.alt || (depth0 != null ? depth0.alt : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"alt","hash":{},"data":data}) : helper)))
+    + "\">\r\n\r\n      <div class=\"rup-tabs_title\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</div>\r\n      <span class=\"rup-tabs_loading\"> </span>\r\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.btnClose : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "  </a>\r\n\r\n</li>\r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"] = this["Rup"]["Templates"]["rup"]["widget"] || {};
 this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -113,7 +161,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnConfig : stack1),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.infoText : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.buttons : depth0)) != null ? stack1.btnShow : stack1),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "        </div>\r\n    </div>\r\n    <div class=\"widget-feedback\">\r\n    </div>\r\n    <div class=\"widget-body\">\r\n\r\n    </div>\r\n\r\n</div>\r\n";
+    + "        </div>\r\n    </div>\r\n    <div class=\"widget-feedback\">\r\n    </div>\r\n    <div class=\"widget-body\">\r\n\r\n    </div>\r\n</div>\r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"]["close"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";
@@ -227,4 +275,8 @@ this["Rup"]["Templates"]["rup"]["widget"]["welcome"] = Handlebars.template({"com
     + "</h2>\r\n<p>"
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"welcome.herramientasText",{"name":"i18n","hash":{},"data":data}))
     + "</p>\r\n</div>\r\n\r\n";
-},"useData":true});  return this['Rup'];});
+},"useData":true});
+          return this['Rup'];
+        }
+        ));
+        

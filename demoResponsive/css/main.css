@@ -21,16 +21,16 @@ header div.cabecera > a{
 }
 
 
-.contenedor section{
-  background-color: #ffffff;
-  margin:1em;
-  padding:1em;
-}
+/* .contenedor section{ */
+/*   background-color: #ffffff; */
+/*   margin:1em; */
+/*   padding:1em; */
+/* } */
 
-.contenedor div.row > div section{
+/*.contenedor div.row > div section{
   margin-left: 0;
   margin-right: 0;
-}
+}*/
 
 footer{
   clear: both;
@@ -93,8 +93,36 @@ footer .footer-row-2{
 
 /** CONTAINER */
 
+.content{
+	margin: 2.5rem 1rem 1rem 1rem;
+   	clear: both;
+   	background: #ffffff;
+   	display: block;
+   	padding: 2rem;
+   	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.content.dashboard-content{
+	margin:0;
+   	clear: both;
+   	background: #e2e1e0;
+   	display: block;
+   	padding: 0rem;
+   	box-shadow: none;
+}
+
+/*.container  section, .container-fluid section{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
 .container  section, .container-fluid section{
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}*/
+
+section > h1, section > h2, section > h3, section > h4, section > h5, section > h6{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
 }
 
 #rwdExampleSection{
@@ -505,3 +533,23 @@ footer .footer-row-2{
 /*.example > form{
   margin-top: 1.5rem;
 }*/
+
+
+/* DASHBOARD */
+
+.dashboard-container{
+  height: auto;
+   overflow: hidden;
+
+}
+
+.dashboard-aside{
+  width: 12rem;
+  float: left;
+}
+
+.dashboard-main{
+      float: none; /* not needed, just for clarification */
+      width: auto;
+      overflow: hidden;
+}
