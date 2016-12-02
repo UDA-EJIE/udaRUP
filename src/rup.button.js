@@ -223,16 +223,19 @@
           $self.addClass("rup-button-fixed");
         }
 
-        if (settings.list!==null){
-          var $fabListDiv = $("<div>").addClass("rup-button-fab-group");
+        if (settings.list!==null || settings.layer!==null){
+          var $fabGroupDiv = $("<div>").addClass("rup-button-fab-group");
           //$self.wrap($fabListDiv);
-          $self.add($("#"+settings.list)).wrapAll($fabListDiv);
-          $("#"+settings.list).addClass("rup-button-fab-list");
-          //$fabListDiv.append($("#"+settings.list));
-          //$("#"+settings.list).wrap($fabListDiv);
-          //$("#"+settings.list).addClass("rup-button-fab-list");
-          //
-          $("button","#"+settings.list).addClass("rup-button-fab-sm").rup_button()
+          $self.add($("#"+settings.list)).wrapAll($fabGroupDiv);
+
+          if(settings.list!==null){
+            $("#"+settings.list).addClass("rup-button-fab-list");
+            $("button","#"+settings.list).addClass("rup-button-fab-sm").rup_button();
+          }
+
+          if(settings.layer!==null){
+            $("#"+settings.layer).addClass("rup-button-fab-layer");
+          }
 
         }
       }
@@ -336,7 +339,8 @@
 		dropdown:false,
     fab: false,
     fixed: false,
-    list: null
+    list: null,
+    layer: null
 	};
 
   /**

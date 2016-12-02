@@ -10,6 +10,7 @@
 		define([
 			"jquery",
       "./templates",
+      "./model/dashboardItemModel",
 			// "jquery-ui",
 			"./rup.base",
 
@@ -25,7 +26,7 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function($, Rup) {
+}(function($, Rup, DashboardItem) {
 
     /**
     * Componente Dashboard.

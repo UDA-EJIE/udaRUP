@@ -14,7 +14,8 @@ var express = require('express'),
     routesAutocomplete = require('./demo/routes/autocomplete'),
     routesCombo = require('./demo/routes/combo'),
     routesNora = require('./demo/routes/nora'),
-    routesTable = require('./demo/routes/table');
+    routesTable = require('./demo/routes/table'),
+    dashboardTable = require('./demo/routes/dashboard');
 
 
 // db
@@ -80,6 +81,15 @@ app.post('/demoResponsive/jqGridUsuario/filter', routesTable.filter);
 app.get('/demoResponsive/jqGridUsuario/:id', routesTable.get);
 app.put('/demoResponsive/jqGridUsuario', routesTable.put);
 app.post('/demoResponsive/jqGridUsuario', routesTable.post);
+
+
+// Dashboard
+app.get('/dashboard/getAll', dashboardTable.getAll);
+app.get('/dashboard/get/:id', dashboardTable.get);
+app.post('/dashboard/post', dashboardTable.post);
+app.put('/dashboard/put', dashboardTable.put);
+
+
 
 
 app.listen(8080);
