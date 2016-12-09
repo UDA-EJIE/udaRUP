@@ -1,0 +1,83 @@
+
+
+.widget-header{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    border-color: -moz-use-text-color -moz-use-text-color #cbcbcb;
+    border-image: none;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+    text-align: left;
+}
+
+
+.widget-header-title{
+    text-align: left;
+    padding-left: 0.5em;
+    font-weight: bold;
+}
+
+.widget-icon{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    cursor: pointer;
+    color: gray;
+}
+
+.widget-icon:hover{
+  color: black;
+}
+
+.widget-icon{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.widget-icon-right{
+    float: right;
+}
+
+.widget-body{
+    padding: 1em;
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-se {
+  background-image: none;
+  background-color: white;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full{
+    position: fixed;
+    top:1%;
+    left:1%;
+    width: 98%;
+    height: 95%;
+    z-index: 10000;
+
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog{
+    display: none;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full{
+    display: none;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh{
+    display: none;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove{
+    display: none;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small{
+    display: none;
+}
+
+.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small{
+    display: block;
+}

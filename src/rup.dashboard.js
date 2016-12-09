@@ -153,7 +153,9 @@
             options = $widget.data("rupWidget_"+dashboardItem.type).options;
 
             // Se invoca al plugin subyacente GridStack para que agregue el widget
-            $self.$gridstack.addWidget($gridStackItem, options.x, options.y, options.width, options.height, options.autoPosition, options.minWidth, options.maxWidth, options.minHeight, options.maxHeight, options.id);
+            // dashboardItem
+            // $self.$gridstack.addWidget($gridStackItem, options.x, options.y, options.width, options.height, options.autoPosition, options.minWidth, options.maxWidth, options.minHeight, options.maxHeight, options.id);
+            $self.$gridstack.addWidget($gridStackItem, dashboardItem.x, dashboardItem.y, dashboardItem.width, dashboardItem.height, dashboardItem.autoPosition, dashboardItem.minWidth, dashboardItem.maxWidth, dashboardItem.minHeight, dashboardItem.maxHeight, dashboardItem.id);
 
             $gridStackItem.data("options", dashboardItem);
 

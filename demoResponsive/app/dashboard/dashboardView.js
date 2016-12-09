@@ -1,6 +1,7 @@
 define(['marionette',
         'templates',
         './widget/dashboardService',
+        'bootstrap',
         'rup/rup.dashboard','rup/rup.button','rup/rup.message' ], function(Marionette, App, DashboardService){
 
   var DashboardView = Marionette.LayoutView.extend({
@@ -39,6 +40,7 @@ define(['marionette',
         saveDashboard: "#saveDashboard",
         dashboardMenu: ".dashboard-aside",
         currentDashboardLink: "#currentDashboardLink",
+        collapsibleAsideMenu: ".dashboard-aside [data-toggle='collapse']",
         fabButton: "#fabButton",
         newDashboardDialog: "#newDashboardDialog",
         addWidgetDialog: "#addWidgetDialog",
@@ -59,8 +61,15 @@ define(['marionette',
         "click @ui.newWidgetTemplateInline": "newWidgetTemplateInline",
         "click @ui.newWidgetTemplateXhr": "newWidgetTemplateXhr"
       },
+      onAttach  : fncOnRender,
       onDomRefresh: fncOnDomRefresh
   });
+
+  function fncOnRender(){
+    var $view = this;
+
+
+  }
 
   function fncOnDomRefresh(){
     var $view = this;
@@ -78,6 +87,7 @@ define(['marionette',
       type: $.rup.dialog.DIV,
   		autoOpen: false,
   		modal: true,
+      appendTo:".dashboard-container",
       width:"70%",
       buttons: [{
 				text: "Abandonar",
@@ -88,13 +98,14 @@ define(['marionette',
 				btnType: $.rup.dialog.LINK
 			}
 		]
-    })
+  });
 
 
     $view.ui.newDashboardDialog.rup_dialog({
       type: $.rup.dialog.DIV,
   		autoOpen: false,
   		modal: true,
+      appendTo:".dashboard-container",
       width:"70%",
       buttons: [{
 				text: "Aceptar",
@@ -114,28 +125,13 @@ define(['marionette',
 		]
     })
 
+
+
     $view.ui.fabButton.rup_button();
 
     $view.ui.dashboard.rup_dashboard(this.gridOptions);
 
-    $view.loadDashboard("1").then(function(){
-      $view.ui.dashboard.rup_dashboard("addWidget",{
-        type:"template",
-        widgetOptions:{
-          x:4,
-          y:3,
-          configure:{
-            requiredByUser:false,
-            template:"#templateConfig"
-          },
-          template: "<p>"+
-            "Template Inline String"+
-          "</p>"
-
-
-        }
-      });
-    });
+    $view.loadDashboard("1");
 
 
 
@@ -186,6 +182,7 @@ define(['marionette',
     //     }
     //   }
     // });
+
   }
 
   function fncLoadDashboard(dashboardId){
@@ -212,16 +209,19 @@ define(['marionette',
   }
 
   function fncNewWidgetHtmlInline(){
-    debugger;
+    var $view = this;
+
     $view.ui.dashboard.rup_dashboard("addWidget",{
       type:"template",
+      minWidth: 4,
+      minHeight: 4,
       widgetOptions:{
         configure:{
           requiredByUser:false,
           template:"#templateConfig"
         },
         template: "<p>"+
-          "Este es un ejemplo de un widget HTML."+
+          "Este ssses un ejemplo de un widget HTML."+
         "</p>"+
         "<p>"+
           "El contenido se especifica directamente en la propiedad template de la definición del widget. "+
@@ -231,11 +231,34 @@ define(['marionette',
   }
 
   function fncNewWidgetTemplateInline(){
-
+    var $view = this;
+    $view.ui.dashboard.rup_dashboard("addWidget",{
+      type:"template",
+      minWidth: 4,
+      minHeight: 4,
+      widgetOptions:{
+        buttons:{
+          btnConfig:false
+        },
+        template: "#templateInline"
+      }
+    });
   }
 
   function fncNewWidgetTemplateXhr(){
+    var $view = this;
+    $view.ui.dashboard.rup_dashboard("addWidget",{
+      type:"xhr",
+      minWidth: 4,
+      minHeight: 4,
+      widgetOptions:{
+        url: "/demoResponsive/app/dashboard/html/widgetDiv.html",
+        configure:{
+          template:"#templateConfig"
+        }
 
+      }
+    });
   }
 
   function fncNewDashboard(){
@@ -282,7 +305,11 @@ define(['marionette',
     if ($view.ui.dashboardMenu.hasClass("collapsed")){
       $view.ui.dashboardMenu.removeClass("collapsed");
     }else{
+      $.each($(".dashboard-aside [data-toggle='collapse']").map(function(i,elem){ return $($(elem).attr("href"));}), function(i, elem){
+        $(elem).collapse("hide");
+      });
       $view.ui.dashboardMenu.addClass("collapsed");
+
     }
   }
 
