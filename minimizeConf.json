@@ -3,6 +3,8 @@
     "./node_modules/jquery-ui-dist/jquery-ui.css",
     "./node_modules/font-awesome/css/font-awesome.css",
     "./dist/css/bootstrap.css",
+    "./node_modules/gridstack/dist/gridstack.css",
+    "./node_modules/gridstack/dist/gridstack-extra.css",
     "./dist/css/rup.css"
   ],
   "rupClassicCssFiles":[
@@ -88,10 +90,7 @@
     "./src/rup.button.js",
     "./src/rup.feedback.js",
     "./src/rup.form.js",
-    "./src/rup.grid.js",
-    "./src/rup.grid.jerarquia.js",
     "./src/rup.lang.js",
-    "./src/rup.maint.js",
     "./src/rup.menu.js",
     "./src/rup.navMenu.js",
     "./src/rup.message.js",

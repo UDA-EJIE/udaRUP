@@ -39,8 +39,9 @@ exports.get = function(req, res) {
   var users = LokiDb.getUsers();
 
   //ret.rows = users.data;
+  console.log(users);
   var queryRes = users.chain().find({id: req.params.id}).data();
-
+console.log(req.params.id);
   if (queryRes.length===1){
       res.status(200).json(queryRes[0]);
   }else{

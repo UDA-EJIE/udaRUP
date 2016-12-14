@@ -1,4 +1,4 @@
-( function( factory ) {
+( function(root,factory ) {
  if ( typeof define === "function" && define.amd ) {
 
    // AMD. Register as an anonymous module.
@@ -6,9 +6,9 @@
  } else {
 
    // Browser globals
-   factory( jQuery );
+   root.returnExports = factory( jQuery );
  }
-} ( function( $ ) {
+} (this,  function( $ ) {
 
   var dashboardList = [];
 

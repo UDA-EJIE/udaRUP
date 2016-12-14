@@ -29,7 +29,7 @@
     // existing widget prototype to inherit from, an object
     // literal to become the widget's prototype );
 
-    $.widget("rup.widget_template", $.rup.widget, {
+    $.widget("rup.widget_html", $.rup.widget, {
         options:{
             template: null,
             templateData: null
@@ -39,12 +39,12 @@
                 template = ops.template;
 
             if (typeof template === "string"){
-              var $templateObj = $(template);
-							var source = $templateObj.length===1?$templateObj.html():template;
-
-
-							var compiledTemplate = Handlebars.compile(source);
-							this.$ui.$widgetBody.append(compiledTemplate(ops.templateData));
+              var $templateObj = $(template)
+              if ($templateObj.length>0){
+                var source = $templateObj.html();
+								var compiledTemplate = Handlebars.compile(source);
+                this.$ui.$widgetBody.append(compiledTemplate(ops.templateData));
+              }
 
 
             }else if (typeof template === "function"){
@@ -58,6 +58,6 @@
 
     });
 
-    $.widget.bridge("rup_widget_template", $.rup.widget_template);
+    $.widget.bridge("rup_widget_html", $.rup.widget_html);
 
 }));
