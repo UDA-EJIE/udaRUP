@@ -553,3 +553,44 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
       width: auto;
       overflow: hidden;
 }
+
+/* graficos*/
+.espacioLinea{
+	padding-top: 2em;
+}
+.enLinea {
+	display: table-cell;
+}
+.butstyle {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(222, 223, 224) rgb(200, 200, 200) rgb(200, 200, 200);
+	color: rgb(51, 51, 51);
+	margin-bottom: 15px;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+	background-color: white;
+	/* rgb(248, 248, 248);*/
+	transition: border-color .21s ease-out 0s;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-image: none;
+	border-radius: 10px;
+	overflow:hidden;
+}
+.butstyle>h3{
+	border-bottom: 0.02em solid#DEDFE0;
+	text-align: center;
+	margin: 0em 0 0em 0;
+	background-color: #69a3d6;
+  	color: white;
+}
+
+.celdaGrafico{
+	width:45em;
+	height:15em;
+}
+.celdaEspacio{
+	width:5em;
+}

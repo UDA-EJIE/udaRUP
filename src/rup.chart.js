@@ -19,17 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
- ( function( factory ) {
- 	if ( typeof define === "function" && define.amd ) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
 
- 		 // AMD. Register as an anonymous module.
- 		 define( ["jquery","./rup.base", "chartjs"], factory );
-	 } else {
+        // AMD. Register as an anonymous module.
+        define(["jquery", "./rup.base", "chartjs"], factory);
+    } else {
 
-  		 // Browser globals
-  		 factory( jQuery );
-  	}
-  } ( function( $ ) {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 
     //**********************************************************************************
     // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá
@@ -68,7 +68,7 @@
          */
         destroy: function () {
             var grafico = this.data("chart");
-            grafico.destro();
+            grafico.destroy();
             this.data("chart", "");
             this.data("settings", "");
         },
@@ -162,6 +162,17 @@
          */
         getChart: function () {
             return this.data("chart");
+        },
+
+        /**
+         * Devuelve el grafico en un string base64
+         * @name jQuery.rup_chart#toBase64Image
+         * @function
+         * @return {[object]} [string en base64 del gráfico]
+         */
+        toBase64Image: function () {
+            var grafico = this.data("chart");
+            return grafico.toBase64Image();
         }
 
     });
