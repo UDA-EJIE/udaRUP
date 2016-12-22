@@ -15,6 +15,7 @@ var express = require('express'),
     routesCombo = require('./demo/routes/combo'),
     routesNora = require('./demo/routes/nora'),
     routesTable = require('./demo/routes/table'),
+    routesUpload = require('./demo/routes/upload'),
     dashboardTable = require('./demo/routes/dashboard');
 
 
@@ -76,6 +77,8 @@ app.get('/demo/jqGridUsuario/:id', routesTable.get);
 app.put('/demo/jqGridUsuario', routesTable.put);
 app.post('/demo/jqGridUsuario', routesTable.post);
 
+// Upload
+app.post('/upload', routesUpload.upload)
 
 app.post('/demoResponsive/jqGridUsuario/filter', routesTable.filter);
 app.get('/demoResponsive/jqGridUsuario/:id', routesTable.get);
@@ -88,6 +91,8 @@ app.get('/dashboard/getAll', dashboardTable.getAll);
 app.get('/dashboard/get/:id', dashboardTable.get);
 app.post('/dashboard/post', dashboardTable.post);
 app.put('/dashboard/put', dashboardTable.put);
+
+
 
 
 

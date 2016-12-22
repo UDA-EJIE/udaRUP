@@ -478,6 +478,17 @@
     "duplicateNodes": "Se ha producido una duplicidad del nodo _eu",
     "inFunction": " con la función _eu"
   },
+  "upload": {
+    "button": {
+      "addFiles": "Aukeratu..."
+    },
+    "paragraph": {
+      "basic": "eu_La configuración básica del componente sería la siguiente:",
+      "line1": "eu_Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.",
+      "line2": "eu_La interfaz del componente puede configurarse de diferentes maneras dependiendo de las necesidades de la aplicación."
+    },
+    "title": "Upload"
+  },
   "uploadTabs": {
     "upload": "Upload",
     "uploadForm": "Upload formularioan",

@@ -114,6 +114,8 @@ gulp.task('minimize:css:rup', function () {
     // FIXME: Solo para desarrollo de la x21a
     gulp.src('./dist/css/rup.min.css')
       .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
+    gulp.src(minimizeConf.rupCssFiles)
+        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
 
       gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/fonts'));

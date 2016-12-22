@@ -91,6 +91,49 @@ this["Rup"]["Templates"]["rup"]["tabs"]["tab"] = Handlebars.template({"1":functi
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.btnClose : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </a>\r\n\r\n</li>\r\n";
 },"useData":true});
+this["Rup"]["Templates"]["rup"]["upload"] = this["Rup"]["Templates"]["rup"]["upload"] || {};
+this["Rup"]["Templates"]["rup"]["upload"]["downloadTemplate"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <li class=\"list-group-item template-download\">\r\n      <div class=\"row\">\r\n        <div class=\"col-xs-6 col-md-3\">\r\n          <p class=\"name text-xs-left\"><b><a href=\""
+    + alias4(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</a></b></p>\r\n          <span class=\"name text-xs-left\"><span class=\"type\">"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "</span></span>\r\n\r\n\r\n        </div>\r\n        <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n              <a href=\""
+    + alias4(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data}) : helper)))
+    + "\">\r\n                <button type=\"button\" class=\"btn btn-primary download\">\r\n                    <i class=\"fa fa-download\" aria-hidden=\"true\"></i>\r\n                    <span>Abrir</span>\r\n                </button>\r\n              </a>\r\n\r\n                <button type=\"button\" class=\"btn btn-secondary delete\" data-type=\""
+    + alias4(((helper = (helper = helpers.delete_type || (depth0 != null ? depth0.delete_type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_type","hash":{},"data":data}) : helper)))
+    + "\" data-url=\""
+    + alias4(((helper = (helper = helpers.delete_url || (depth0 != null ? depth0.delete_url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_url","hash":{},"data":data}) : helper)))
+    + "\">\r\n                    <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                    <span>Eliminar</span>\r\n                </button>\r\n        </div>\r\n      </div>\r\n    </li>\r\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "\r\n\r\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.files : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["upload"]["uploadTemplate"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <li class=\"list-group-item template-upload\">\r\n      <div class=\"row\">\r\n        <div class=\"col-xs-6 col-md-3\">\r\n          <p class=\"name text-xs-left\"><b>"
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</b></p>\r\n          <span class=\"name text-xs-left\"><span class=\"type\">"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "</span><span class=\"type\">"
+    + alias4(((helper = (helper = helpers.size || (depth0 != null ? depth0.size : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"size","hash":{},"data":data}) : helper)))
+    + "</span></span>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n"
+    + ((stack1 = helpers["if"].call(alias1,(depths[1] != null ? depths[1].notSubmitInForm : depths[1]),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                <button class=\"btn btn-secondary cancel\">\r\n                    <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\r\n                    <span>Cancelar</span>\r\n                </button>\r\n        </div>\r\n\r\n      </div>\r\n\r\n    </li>\r\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return "                <button class=\"btn btn-primary start\">\r\n                    <i class=\"fa fa-upload\" aria-hidden=\"true\"></i>\r\n                    <span>Subir</span>\r\n                </button>\r\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1;
+
+  return "\r\n\r\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.files : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true,"useDepths":true});
 this["Rup"]["Templates"]["rup"]["widget"] = this["Rup"]["Templates"]["rup"]["widget"] || {};
 this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;

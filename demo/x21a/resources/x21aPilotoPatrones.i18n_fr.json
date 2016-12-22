@@ -441,6 +441,17 @@
     "duplicateNodes": "Se ha producido una duplicidad del nodo _fr",
     "inFunction": " con la función _fr"
   },
+  "upload": {
+    "button": {
+      "addFiles": "fr_Seleccionar..."
+    },
+    "paragraph": {
+      "basic": "fr_La configuración básica del componente sería la siguiente:",
+      "line1": "fr_Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.",
+      "line2": "fr_La interfaz del componente puede configurarse de diferentes maneras dependiendo de las necesidades de la aplicación."
+    },
+    "title": "Upload"
+  },
   "uploadTabs": {
     "upload": "Upload_fr",
     "uploadForm": "Upload form_fr",

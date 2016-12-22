@@ -20,18 +20,33 @@
         <link href="../dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="../dist/css/rup.css" rel="stylesheet" type="text/css" /> -->
 
-        <link href="../dist/css/rup.min.css" rel="stylesheet" type="text/css" />
+        <!--[if !(IE)]> -->
+          <link href="../dist/css/rup.min.css" rel="stylesheet" type="text/css" />
+        <!--<![endif]-->
+        <!--[if IE]>
+          <link href="../node_modules/jquery-ui-dist/jquery-ui.css" rel="stylesheet" type="text/css" />
+          <link href="../node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+          <link href="../dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+          <link href="../node_modules/gridstack/dist/gridstack.css" rel="stylesheet" type="text/css" />
+          <link href="../node_modules/gridstack/dist/gridstack-extra.css" rel="stylesheet" type="text/css" />
+          <link href="../node_modules/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" type="text/css" />
+          <link href="../node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" type="text/css" />
+          <link href="../dist/css/rup.css" rel="stylesheet" type="text/css" />
+        <![endif]-->
+
 
 
         <link href="../node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
-        
+
 
         <link rel="stylesheet" href="css/main.css">
         <!-- <link rel="stylesheet" href="scss/rup.css"> -->
         <link rel="stylesheet" href="../node_modules/highlight.js/styles/atom-one-dark.css"/>
 
+        <script src="../../node_modules/tether/dist/js/tether.js"></script>
         <script src="js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -60,6 +75,10 @@
     	//breadCrumbs
     	LOGGED_USER = "NULL",
     	DESTROY_XLNETS_SESSION = "false";
+      RUP_ADAPTERS = {
+    		upload: "UploadBootstrapAdapter"
+    	};
+
     </script>
      <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
         <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->

@@ -48,7 +48,7 @@
   background: $rup-color-navbar-bg;
   border-radius: 0px;
   padding: 0rem 0rem 1rem 0rem;
-
+  z-index: 9999;
   height: $rup-navbar-height;
   /*margin-left: 1em;
   margin-right: 1em;*/
@@ -114,7 +114,7 @@
 
       }
 
-      .dropdown-menu {
+      >.dropdown-menu {
         @include border-radius(0);
         @extend .shadow-2;
         @extend .bubble;
