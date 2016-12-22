@@ -1,0 +1,8 @@
+.rup-upload{
+  @extend .rup-callout;
+  @extend .rup-callout-primary;
+}
+
+.fileupload-buttonbar a{
+  text-decoration: none;
+}

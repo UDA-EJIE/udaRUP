@@ -83,6 +83,8 @@
     "blueimp-file-upload": "9.12.5",
     "blueimp-load-image": "2.6.1",
     "blueimp-tmpl": "3.4.0",
+    "chart.js": "2.1.1",
+    "flexibility": "^2.0.1",
     "free-jqgrid": "4.13.4",
     "handlebars": "4.0.5",
     "jquery": "1.12.4",
@@ -94,7 +96,6 @@
     "jquery-validation": "1.15.1",
     "jquery.scrollto": "2.1.2",
     "modernizr": "3.3.1",
-    "qtip2": "3.0.3",
-    "chart.js": "2.1.1"
+    "qtip2": "3.0.3"
   }
 }

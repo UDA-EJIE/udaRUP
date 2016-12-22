@@ -152,6 +152,7 @@ define(['marionette',
   	function getConfiguracionValClienteReglas(){
 
   		var configuracion_form1 = {
+        debug:true,
   			rules:{
   				"campoObligatorio1":{required:true},
   				"campoObligatorio2":{required:"#esObligatorio:checked"},

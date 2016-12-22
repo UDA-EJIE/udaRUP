@@ -529,6 +529,17 @@
     "duplicateNodes": "Se ha producido una duplicidad del nodo ",
     "inFunction": " con la función "
   },
+  "upload": {
+    "button": {
+      "addFiles": "Seleccionar..."
+    },
+    "paragraph": {
+      "basic": "La configuración básica del componente sería la siguiente:",
+      "line1": "Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.",
+      "line2": "La interfaz del componente puede configurarse de diferentes maneras dependiendo de las necesidades de la aplicación."
+    },
+    "title": "Upload"
+  },
   "uploadTabs": {
     "upload": "Upload",
     "uploadForm": "Upload form",

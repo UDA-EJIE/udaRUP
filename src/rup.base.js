@@ -178,7 +178,7 @@
     		browser: match[ 1 ] || "",
     		version: match[ 2 ] || "0"
     	};
-    },
+    }
   });
 
   var matched = jQuery.uaMatch( navigator.userAgent );
@@ -338,6 +338,22 @@
 		},
 		//Funcion encargada de hacer las inicializaciones basicas de RUP
 		iniRup : function () {
+
+      // Inicializar adapters
+      $.rup.adapter = {};
+      $.each(RUP_ADAPTERS, function(key, adapter){
+        if ( typeof define === "function" && define.amd ) {
+          require(["rup/adapter/bootstrap/"+adapter], function(adapter){
+            $.rup.adapter[key]= new adapter;
+          })
+          
+        }else{
+            $.rup.adapter[key]= new window[adapter];
+        }
+
+      });
+
+
 			//Inicializar variables de ficheros de recuros (rup y app)
 			$.rup.i18n.app = {};
 			$.rup.i18n.base = {};
