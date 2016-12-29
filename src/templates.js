@@ -13,6 +13,34 @@
           this["Rup"] = this["Rup"] || {};
 this["Rup"]["Templates"] = this["Rup"]["Templates"] || {};
 this["Rup"]["Templates"]["rup"] = this["Rup"]["Templates"]["rup"] || {};
+this["Rup"]["Templates"]["rup"]["button"] = this["Rup"]["Templates"]["rup"]["button"] || {};
+this["Rup"]["Templates"]["rup"]["button"]["dropdownButton"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<button id="
+    + container.escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"id","hash":{},"data":data}) : helper)))
+    + " type=\"button\" class=\"rup-dropdown-button\">\r\n  <i class=\"fa fa-caret-down\" aria-hidden=\"true\"></i>\r\n  <span class=\"invisible\"></span>\r\n</button>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["button"]["mbutton-container"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\""
+    + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
+    + "\">\r\n  <ul role=\"menu\" aria-activedescendant=\"active-menuitem\" aria-labelledby=\"active-menuitem\">\r\n    <li style=\"display: block;\">\r\n      <button type=\"button\" class=\"rup-toolbar_button ui-button ui-corner-all ui-widget rup-button rup-toolbar_menuButtonElement\" id=\"toolbar##mbuton1##nuevo\">\r\n        <span class=\"ui-button-icon ui-icon nuevo\"></span>\r\n        <span class=\"ui-button-icon-space\"></span>\r\n        <span class=\"rup-ui-button-text\">Nuevo</span>\r\n      </button>\r\n    </li>\r\n  </ul>\r\n</div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["button"]["mbutton"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<a id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"\r\n  class=\"rup-toolbar_menuButton ui-button ui-corner-all ui-widget rup-toolbar_menuButtonSlided\"\r\n  role=\"button\"\r\n  href=\"#\">\r\n  "
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "\r\n  <span class=\"ui-button-icon-space\"></span>\r\n  <span class=\""
+    + alias4(((helper = (helper = helpers.iconClasses || (depth0 != null ? depth0.iconClasses : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"iconClasses","hash":{},"data":data}) : helper)))
+    + "\" aria-hidden=\"true\"></span>\r\n</a>\r\n";
+},"useData":true});
 this["Rup"]["Templates"]["rup"]["dashboard"] = this["Rup"]["Templates"]["rup"]["dashboard"] || {};
 this["Rup"]["Templates"]["rup"]["dashboard"]["item"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
@@ -90,6 +118,48 @@ this["Rup"]["Templates"]["rup"]["tabs"]["tab"] = Handlebars.template({"1":functi
     + "</div>\r\n      <span class=\"rup-tabs_loading\"> </span>\r\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.btnClose : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </a>\r\n\r\n</li>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["toolbar"] = this["Rup"]["Templates"]["rup"]["toolbar"] || {};
+this["Rup"]["Templates"]["rup"]["toolbar"]["button"] = this["Rup"]["Templates"]["rup"]["toolbar"]["button"] || {};
+this["Rup"]["Templates"]["rup"]["toolbar"]["button"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "\r\n<button type=\"button\" id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-button\">\r\n		<i class=\""
+    + alias4(((helper = (helper = helpers.css || (depth0 != null ? depth0.css : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"css","hash":{},"data":data}) : helper)))
+    + "\" aria-hidden=\"true\"></i>\r\n    <span class=\"rup-ui-button-text\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\r\n</button>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["toolbar"]["button"]["jqueryui"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<button id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" type=\"button\" class=\"rup-toolbar_button\">\r\n    <span class=\"ui-button-icon ui-icon "
+    + alias4(((helper = (helper = helpers.css || (depth0 != null ? depth0.css : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"css","hash":{},"data":data}) : helper)))
+    + "\"></span>\r\n    <span class=\"ui-button-icon-space\"> </span>\r\n    <span class=\"rup-ui-button-text\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\r\n</button>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"] = this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"] || {};
+this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "-mbutton-group\" class=\"rup-mbutton "
+    + alias4(((helper = (helper = helpers.groupClasses || (depth0 != null ? depth0.groupClasses : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data}) : helper)))
+    + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-mbutton=\"true\" class=\"ui-button ui-corner-all ui-widget rup-button\">\r\n			<i class=\"fa fa-cog\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\r\n		</button>\r\n		<ul id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "-mbutton-container\" class=\"rup-mbutton-container\" aria-labelledby=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\r\n\r\n		</ul>\r\n</div>\r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["upload"] = this["Rup"]["Templates"]["rup"]["upload"] || {};
 this["Rup"]["Templates"]["rup"]["upload"]["downloadTemplate"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

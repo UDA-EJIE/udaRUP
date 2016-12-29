@@ -122,67 +122,9 @@
         *
         * $("#idToolbar").rup_date("addButton", button);
         */
-		addButton : function (obj, json_i18n) { //añade a la toolbar un 'button'
-
-			var buttonId, rightObjects;
-
-			// Se obtiene el identificador del boton. En caso de no haberse indicado un valor en la propiedad id, se toma el valor de la propiedad i18nCaption.
-			if (obj.id){
-				buttonId = obj.id;
-			}else{
-				buttonId = obj.i18nCaption;
-			}
-
-			// Se comprueba si el id del boton contiene el identificador de la botonera. En caso de no existir se añade al principio.
-			if (buttonId.indexOf($(this).attr("id"))!==0){
-				buttonId = $(this).attr("id")+"##"+buttonId;
-			}
-
-			var boton = $("<button type='button'/>").text($.rup.i18nParse(json_i18n,obj.i18nCaption)).addClass("rup-toolbar_button").attr({
-				"id":buttonId
-			});
-
-
-			boton.rup_button(obj);
-			boton.button("option", "icons", {primary:obj.css, secondary:null} );
-
-
-
-			// Si fuera necesario, se añade el estilo para la ubicación derecha y se gestiona su indexado
-			if(obj.right !== undefined && obj.right === true){
-				//Añadir botón a la derecha
-				var $div_rightObjects = this.children("div:not(.rup-dropdown-btn-group)");
-				if ($div_rightObjects.length===0){
-					$div_rightObjects = $("<div />").attr("id",this.attr("id")+"-rightButtons").css("float", "right");
-					this.append($div_rightObjects);
-				}
-//				if (boton.parent().is(".rup-dropdown-btn-group")){
-//					boton.parent().prependTo($div_rightObjects);
-//				}else{
-					boton.prependTo($div_rightObjects);
-//				}
-			} else {
-				if (boton.parent().is(".rup-dropdown-btn-group")){
-					$(this).append(boton.parent());
-				}else{
-					$(this).append(boton);
-				}
-			}
-
-			//Añadir evento keydown
-			this._setKeyDown(boton);
-
-			if (obj.click) { //Añadir eventos
-				boton.click({i18nCaption: obj.i18nCaption}, obj.click);
-			}
-
-			// Al perder el foco se elimina el estilo de disponer del foco
-			boton.bind("focusout",function(){
-				$(this).removeClass("ui-state-focus");
-			});
-
-			return boton;
-		},
+		addButton : function(obj, json_i18n){
+      return $.proxy(this[0]._ADAPTER.addButton,this)(obj, json_i18n);
+    },
 		/**
         * Añade un nuevo menu button a la botonera. Las características del mButton se especifican en los parámetros del método.
         *
@@ -201,47 +143,10 @@
         *
         * $("#idToolbar").rup_date("addMButton", mButton);
         */
-		addMButton : function (obj, json_i18n){ //añade a la toolbar un 'mbutton' (sin botones)
-			var boton = '', buttonId;
-			if (obj.id === undefined) {
-				alert("El atributo ID es obligatorio en los MButtons.");
-				boton = null;
-			} else {
-				buttonId = obj.id;
-				// Se comprueba si el id del boton contiene el identificador de la botonera. En caso de no existir se añade al principio.
-				if (buttonId.indexOf($(this).attr("id"))!==0){
-					buttonId = $(this).attr("id")+"##"+obj.id;
-				}
+    addMButton : function(obj, json_i18n){
+      return $.proxy(this[0]._ADAPTER.addMButton,this)(obj, json_i18n);
+    },
 
-				boton = $("<a/>").attr("id", buttonId).text($.rup.i18nParse(json_i18n,obj.i18nCaption)).addClass("rup-toolbar_menuButton");
-				//Si no se define un estilo especial se aplica por defecto
-				if (obj.css === undefined){
-					obj.css = "rup-toolbar_menuButtonIcon";
-				}
-				boton.button().button("option", "icons", {primary:null, secondary:obj.css} );
-			}
-
-			// Si fuera necesario, se añade el estilo para la ubicación derecha y se gestiona su indexado
-			if(obj.right !== undefined && obj.right === true){
-				//Añadir botón a la derecha
-				var $div_rightObjects = this.children("div:not(.rup-dropdown-btn-group)");
-				if ($div_rightObjects.length===0){
-					$div_rightObjects = $("<div />").attr("id",this.attr("id")+"-rightButtons").css("float", "right");
-					this.append($div_rightObjects);
-				}
-				boton.prependTo($div_rightObjects);
-			} else {
-				$(this).append(boton);
-			}
-
-			//Añadir evento keydown
-			this._setKeyDown(boton);
-
-			if (obj.click) { //Añadir eventos
-				boton.click({i18nCaption: obj.i18nCaption}, obj.click);
-			}
-			return boton;
-		},
 
         /**
         * Se añaden un conjunto de botones a un menu button existente.
@@ -260,56 +165,11 @@
         *
         * $("#idToolbar").rup_date("addMButton", "mbuton1", buttons);
         */
-		addButtonsToMButton : function (buttons, menuButton, json_i18n) { //añade botones al 'mbutton'
-			var div, ul,
-				//numero de botones a añadir
-				length = buttons.length, boton, buttonId;
 
-			if ($("[id='mbutton_"+menuButton.attr("id")+"']").length === 0){
-				//Contenedor del menuButton
-				div = $('<div>')
-						.addClass("ui-widget ui-widget-content rup-toolbar_menuButtonContainer")
-						.attr("id","mbutton_"+menuButton[0].id)
-						.css("display","none");
-				//Lista no numerada del menuButton
-				ul = $('<ul>')
-						.attr("role","menu")
-						.attr("aria-activedescendant","active-menuitem")
-						.attr("aria-labelledby","active-menuitem");
-			} else {
-				div = $("[id='mbutton_"+menuButton.attr("id")+"']");
-				ul = div.children("ul");
-			}
-
-			menuButton.attr("href","#");
-
-			//Se añaden cada uno de los botones del menuButton
-			for (var i = length; i--; ) {
-
-				boton = buttons[i];
-				if (boton.id){
-					buttonId = menuButton.attr("id")+"##"+boton.id;
-				}else{
-					buttonId = menuButton.attr("id")+"##"+boton.i18nCaption;
-				}
-				buttons[i].id=buttonId;
-
-				ul.prepend($("<li>").css("display", "block").append(this.addButton(buttons[i],json_i18n).addClass("rup-toolbar_menuButtonElement")));
-			}
-
-			//Añadir elementos al DOM
-			if(!$.rup_utils.aplicatioInPortal()){
-				div.appendTo("body");
-				div.append(ul);
-			} else {
-				div.append(ul);
-				$(".r01gContainer").append(div);
-			}
-
-			//Borrar referencias
-			delete ul;
-			delete div;
-		},
+     addButtonsToMButton : function(buttons, menuButton, json_i18n){
+       return $.proxy(this[0]._ADAPTER.addButtonsToMButton,this)(buttons, menuButton, json_i18n);
+     },
+		
 		/**
         * Se muestra la capa con los mButtons
         *
@@ -491,10 +351,13 @@
 
     $.fn.rup_toolbar = function( properties ) {
 		return this.each( function() {
+
+
 	    	//Carga de los valores por defecto para los atributos que no ha introducido el usuario
 			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties),
 				t = $(this),json_i18n, rightButtons = [];
 
+      this._ADAPTER = $.rup.adapter[settings.adapter];
 			//Se guarda el marcador de foco de la botonera
 			if ($.rup_toolbar.focusedExternally === undefined){
 				$.rup_toolbar.focusedExternally = {};
@@ -525,7 +388,7 @@
 					if (obj.buttons){
 
 						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-						mbutton =  t.addMButton ({id:obj.id, i18nCaption:obj.i18nCaption, css:obj.css, click:t.showMButton },json_i18n);
+						mbutton =  t.addMButton ($.extend({id:obj.id,  i18nCaption:obj.i18nCaption, css:obj.css, click:t.showMButton },obj),json_i18n);
 
 						if (mbutton !== null){
 							t.addButtonsToMButton (obj.buttons, mbutton, json_i18n);
@@ -562,7 +425,8 @@
 	$.fn.rup_toolbar.defaults = {
 		width: null,
 		buttons:[],
-		mbuttons:null
+		mbuttons:null,
+    adapter: "toolbar_bootstrap"
 	};
 
     /**

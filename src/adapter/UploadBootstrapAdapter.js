@@ -3,7 +3,7 @@
  if ( typeof define === "function" && define.amd ) {
 
     // AMD. Register as an anonymous module.
-    define( ["jquery","../../rup.base","../../templates"], factory );
+    define( ["jquery","../rup.base","../templates"], factory );
  } else {
 
     // Browser globals

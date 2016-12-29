@@ -1118,6 +1118,8 @@
 					settings = {};
 
 
+
+
 				/* *************************
 				 * CONFIGURACION
 				 * *************************/
@@ -1137,6 +1139,8 @@
 				 */
 
 				settings = $.extend(true,{}, settings, jQuery.fn.rup_table.plugins.core.defaults);
+
+				$self[0]._ADAPTER = $.rup.adapter[settings.adapter];
 
 				/* *********************************************************
 				 * SE PROCESAN LAS CONFIGURACIONES POR DEFECTO DE LOS PLUGINS
@@ -1418,6 +1422,8 @@
 	jQuery.fn.rup_table.plugins = {};
 	jQuery.fn.rup_table.plugins.core = {};
 	jQuery.fn.rup_table.plugins.core.defaults = {
+		// adapter: "table_jqueryui",
+		adapter: "table_bootstrap",
 		core:{
 			operations:{},
 			defaultOperations:{},
@@ -1521,6 +1527,7 @@
 	*/
 
 	jQuery.fn.rup_table.defaults = {
+
 			altRows: true,
 			altclass: "rup-grid_oddRow",
 			datatype: "json",					// Tipo de dato esperado para representar los registros de la tabla (jqGrid)
