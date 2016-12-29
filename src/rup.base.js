@@ -342,14 +342,29 @@
       // Inicializar adapters
       $.rup.adapter = {};
       $.each(RUP_ADAPTERS, function(key, adapter){
-        if ( typeof define === "function" && define.amd ) {
-          require(["rup/adapter/bootstrap/"+adapter], function(adapter){
-            $.rup.adapter[key]= new adapter;
-          })
-          
-        }else{
-            $.rup.adapter[key]= new window[adapter];
-        }
+        // if ($.isPlainObject(adapter)){
+        //   $.rup.adapter[key] = {};
+        //   $.each(adapter, function(subKey, subKeyAdapter){
+        //     if ( typeof define === "function" && define.amd ) {
+        //       require(["rup/adapter/"+subKeyAdapter], function(subKeyAdapter){
+        //         $.rup.adapter[key][subKey]= new subKeyAdapter;
+        //       });
+        //
+        //     }else{
+        //         $.rup.adapter[key][subKey]= new window[subKeyAdapter];
+        //     }
+        //   });
+        // }else{
+
+          if ( typeof define === "function" && define.amd ) {
+            require(["rup/adapter/"+adapter], function(adapter){
+              $.rup.adapter[key]= new adapter;
+            });
+
+          }else{
+              $.rup.adapter[key]= new window[adapter];
+          }
+        // }
 
       });
 

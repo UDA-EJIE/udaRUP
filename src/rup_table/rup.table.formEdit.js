@@ -58,6 +58,7 @@
     jQuery.fn.rup_table("extend", {
         preConfigureFormEdit: function (settings) {
             var $self = this,
+                self = this[0],
                 colModel = settings.colModel;
 
 
@@ -116,7 +117,7 @@
             settings.core.defaultOperations = {
                 "add": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.new"),
-                    icon: "rup-icon rup-icon-new",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
                     enabled: function () {
                         return true;
                     },
@@ -126,7 +127,7 @@
                 },
                 "edit": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.modify"),
-                    icon: "rup-icon rup-icon-edit",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.edit.icon,
                     enabled: function () {
                         var $self = this,
                             settings = $self.data("settings");
@@ -147,7 +148,7 @@
                 //					}},
                 "clone": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.clone"),
-                    icon: "rup-icon rup-icon-clone",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.clone.icon,
                     enabled: function () {
                         return jQuery.proxy(settings.fncHasSelectedElements, $self)();
                     },
@@ -163,7 +164,7 @@
                 //					}},
                 "delete": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.delete"),
-                    icon: "rup-icon rup-icon-delete",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.delete.icon,
                     enabled: function () {
                         var $self = this,
                             settings = $self.data("settings");

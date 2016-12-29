@@ -179,7 +179,7 @@ define(['marionette',
           	operations:{
                   "operacion1": {
                           name: "Operación 1",
-                          icon: "rup-icon rup-icon-new",
+                          icon: "fa fa-file-o",
                           enabled: function(){
                                return (disable++ %2)===0;
                           },
@@ -189,7 +189,7 @@ define(['marionette',
   	              },
   	              "operacion2": {
   	                    name: "Operación 2",
-  	                    icon: "rup-icon rup-icon-new",
+  	                    icon: "fa fa-file-o",
   	                    enabled: function(){
   	                         return true;
   	                    },

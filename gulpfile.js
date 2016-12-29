@@ -154,6 +154,7 @@ gulp.task('build', [
   'sass:bootstrap',
   'sass:rup-classic',
   'sass:rup',
+  'buildTable',
   'minimize:css:rup-classic',
   'minimize:css:rup',
   'templates',
@@ -170,6 +171,7 @@ gulp.task('watch', [
   'watch:sass:bootstrap',
   'watch:sass:rup-classic',
   'watch:sass:rup',
+  'watch:buildTable',
   'watch:minimize:css:rup-classic',
   'watch:minimize:css:rup',
   'watch:templates:rup',
@@ -298,9 +300,8 @@ gulp.task('minimizeRupCss', function (cb) {
 });
 
 gulp.task('watch:buildTable', function () {
-    watch('src/rup_table/*.js', batch(function (events, done) {
-        gulp.start('buildTable');
-    }));
+    gulp.watch(['./src/rup_table/**/*.js'], ['buildTable']);
+    
 });
 
 gulp.task('buildTable', function (cb) {
