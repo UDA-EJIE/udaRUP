@@ -172,6 +172,8 @@ define(['marionette',
           	"report",
             "responsive"
           ],
+          shrinkToFit:true,
+          forceFit:true,
           rowNum:10,
           rowList:[10,20,30],
           sortname: 'id',

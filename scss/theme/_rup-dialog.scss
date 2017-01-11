@@ -1,6 +1,8 @@
 .ui-dialog{
   padding: 0;
   color: $rup-text-color-dialog;
+  border-radius: 0px;
+  max-width: 800px;
 
   .ui-dialog-titlebar{
     border: none;
@@ -66,8 +68,7 @@
     //padding: 0 1.1rem;
 
     .ui-dialog-buttonset {
-      display: inline-flex;
-      flex-direction: row-reverse;
+      display: inline-block;
 
       button.ui-button{
         background-image: none;

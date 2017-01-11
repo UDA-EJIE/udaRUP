@@ -419,7 +419,6 @@
 				}else{
 					$self.ajaxForm(settings);
 				}
-				$self.data($self[0], "settings", settings);
 			}
 		});
 

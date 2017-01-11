@@ -83,6 +83,91 @@ this["Rup"]["Templates"]["rup"]["dashboard"]["item"] = Handlebars.template({"1":
     + alias4(((helper = (helper = helpers.itemClass || (depth0 != null ? depth0.itemClass : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"itemClass","hash":{},"data":data}) : helper)))
     + "\" >\r\n\r\n    </div>\r\n</div>\r\n";
 },"useData":true});
+this["Rup"]["Templates"]["rup"]["table"] = this["Rup"]["Templates"]["rup"]["table"] || {};
+this["Rup"]["Templates"]["rup"]["table"]["detail"] = this["Rup"]["Templates"]["rup"]["table"]["detail"] || {};
+this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"] = this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"] || {};
+this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"pagination_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table-detail-info\">\n  <i class=\"fa fa-list-alt\" aria-hidden=\"true\" title=\""
+    + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
+    + "\"></i>\n  <span id=\"rup_maint_selectedElements_table\" class=\"rup-table-detail-currentElement\" >\n    "
+    + alias4(((helper = (helper = helpers.numResult || (depth0 != null ? depth0.numResult : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"numResult","hash":{},"data":data}) : helper)))
+    + "\n  </span>\n</div>\n<div id=\"pag_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table-detail-navigation\">\n    <a id=\"first_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table_linkPaginacionDetalle\" href=\"javascript:void(0)\" alt=\""
+    + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
+    + "</a>\n    <a id=\"back_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table_linkPaginacionDetalle\" href=\"javascript:void(0)\" alt=\""
+    + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
+    + "</a>\n    <a id=\"forward_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table_linkPaginacionDetalle\" href=\"javascript:void(0)\" alt=\""
+    + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
+    + "</a>\n    <a id=\"last_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-table_linkPaginacionDetalle\" href=\"javascript:void(0)\" alt=\""
+    + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
+    + "</a>\n  </div>\n  <div class=\"rup-table-detail-separator\"></div>\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["table"]["pager"] = this["Rup"]["Templates"]["rup"]["table"]["pager"] || {};
+this["Rup"]["Templates"]["rup"]["table"]["pager"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "\n  <div id=\"pg_"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "_pager\" class=\"ui-pager-control rup_table_pager\" role=\"group\">\n    <div id=\""
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "_left\" class=\"pager_left\"></div>\n    <div id=\""
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "_center\" class=\"pager_center\">\n      <div id=\"first_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "\">\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.firstPageText || (depth0 != null ? depth0.firstPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"firstPageText","hash":{},"data":data}) : helper)))
+    + "</a>\n      </div>\n      <div id=\"prev_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "\">\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.prevPageText || (depth0 != null ? depth0.prevPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prevPageText","hash":{},"data":data}) : helper)))
+    + "</a>\n      </div>\n      <div id=\"next_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "\">\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.nextPageText || (depth0 != null ? depth0.nextPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"nextPageText","hash":{},"data":data}) : helper)))
+    + "</a>\n      </div>\n      <div id=\"last_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
+    + "\">\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.lastPageText || (depth0 != null ? depth0.lastPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"lastPageText","hash":{},"data":data}) : helper)))
+    + "</a>\n      </div>\n\n    </div>\n    <div id=\""
+    + alias4(((helper = (helper = helpers.table_pager || (depth0 != null ? depth0.table_pager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"table_pager","hash":{},"data":data}) : helper)))
+    + "_right\" class=\"pager_right\">\n      <div class=\"ui-paging-info\">"
+    + alias4(((helper = (helper = helpers.resultText || (depth0 != null ? depth0.resultText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultText","hash":{},"data":data}) : helper)))
+    + "</div>\n    </div>\n  </div>\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["table"]["pager"]["jqueryui"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"table_pager\" class=\"ui-state-default ui-jqgrid-pager ui-corner-bottom\" dir=\"ltr\" style=\"width: 100%; height: auto;\">\n  <div id=\"pg_table_pager\" class=\"ui-pager-control\" role=\"group\">\n    <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" class=\"ui-pg-table\" style=\"width:100%;table-layout:fixed;height:100%;\" role=\"row\">\n      <tbody>\n        <tr>\n          <td id=\"table_pager_left\" align=\"left\" class=\"pager_left\"></td>\n          <td id=\"table_pager_center\" align=\"center\" style=\"white-space: pre; width: 305px;\" class=\"pager_center\">\n            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"table-layout:auto;\" class=\"ui-pg-table\">\n              <tbody>\n                <tr>\n                  <td id=\"first_table_pager\" class=\"ui-corner-all pagControls ui-state-disabled\">\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Primera Página</a>\n                  </td>\n                  <td id=\"prev_table_pager\" class=\"ui-corner-all pagControls ui-state-disabled\">\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Anterior</a>\n                  </td>\n                  <td class=\"ui-pg-button ui-state-disabled pagControls\" style=\"width:4px;\">\n                    <span class=\"ui-separator\"></span>\n                  </td>\n                  <td dir=\"ltr\" class=\"pagControls\">\n                    Página\n                    <input class=\"ui-pg-input\" type=\"text\" size=\"2\" maxlength=\"7\" value=\"0\" role=\"textbox\" data-hasqtip=\"1\" oldtitle=\"Página actual\" title=\"\" aria-describedby=\"qtip-1\"> de <span id=\"sp_1_table_pager\">100</span>\n                  </td>\n                  <td class=\"ui-pg-button ui-state-disabled pagControls\" style=\"width:4px;\">\n                    <span class=\"ui-separator\"></span>\n                  </td>\n                  <td id=\"next_table_pager\" class=\"ui-corner-all pagControls\">\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Siguiente</a>\n                  </td>\n                  <td id=\"last_table_pager\" class=\"ui-corner-all pagControls\">\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Última Página</a>\n                  </td>\n                  <td dir=\"ltr\" class=\"pagControls\">\n                    <select class=\"ui-pg-selbox\" role=\"listbox\" data-hasqtip=\"0\" oldtitle=\"Número de elementos por página\" title=\"\" aria-describedby=\"qtip-0\">\n                      <option role=\"option\" value=\"10\" selected=\"selected\">10</option>\n                      <option role=\"option\" value=\"20\">20</option>\n                      <option role=\"option\" value=\"30\">30</option>\n                    </select>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n          <td id=\"table_pager_right\" align=\"right\" class=\"pager_right\">\n            <div dir=\"ltr\" style=\"text-align:right\" class=\"ui-paging-info\">Mostrando 1 - 10 de 1.000</div>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["table"]["pager"]["link"] = this["Rup"]["Templates"]["rup"]["table"]["pager"]["link"] || {};
+this["Rup"]["Templates"]["rup"]["table"]["pager"]["link"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</a>\n<i class=\"iconPaginacion "
+    + alias4(((helper = (helper = helpers.icon || (depth0 != null ? depth0.icon : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"icon","hash":{},"data":data}) : helper)))
+    + "\"></i></td>\n";
+},"useData":true});
 this["Rup"]["Templates"]["rup"]["tabs"] = this["Rup"]["Templates"]["rup"]["tabs"] || {};
 this["Rup"]["Templates"]["rup"]["tabs"]["container"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<ul>\r\n\r\n</ul>\r\n";

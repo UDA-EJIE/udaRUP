@@ -206,11 +206,11 @@ gulp.task('watch:minimize:css:rup-classic', function () {
 });
 
 gulp.task('watch:minimize:js:rup', function () {
-  gulp.watch(['./src/**/*.js'], ['minimize:js:rup']);
+  gulp.watch(['./src/**/*.js','!./src/rup_table/**/*.js'], ['minimize:js:rup']);
 });
 
 gulp.task('watch:minimize:js:rup-classic', function () {
-  gulp.watch(['./src/**/*.js'], ['minimize:js:rup-classic']);
+  gulp.watch(['./src/**/*.js','!./src/rup_table/**/*.js'], ['minimize:js:rup-classic']);
 });
 
 // WATCHES:templates
@@ -301,7 +301,7 @@ gulp.task('minimizeRupCss', function (cb) {
 
 gulp.task('watch:buildTable', function () {
     gulp.watch(['./src/rup_table/**/*.js'], ['buildTable']);
-    
+
 });
 
 gulp.task('buildTable', function (cb) {

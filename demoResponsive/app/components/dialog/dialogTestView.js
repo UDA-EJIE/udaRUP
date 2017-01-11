@@ -34,6 +34,8 @@ define(['marionette',
         autoOpen: false,
         modal: true,
         resizable: true,
+        width:"90%",
+        position:null,
         appendTo :'#container',
         title: "Título del dialog (div)",
         buttons: [{
@@ -55,8 +57,8 @@ define(['marionette',
                 },
                 btnType: $.rup.dialog.LINK
             }
-        ],
-        position: { my: "left top", at: "left bottom", of: $("#btnAjaxDialogWAR") }
+        ]
+        //,position: { my: "left top", at: "left bottom", of: $("#btnAjaxDialogWAR") }
     });
   }
 
