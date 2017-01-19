@@ -80,6 +80,7 @@
 			var $self = this;
 
 
+
 		},
 		/*
 		 * Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
@@ -99,7 +100,7 @@
 			$fluidBaseLayer = settings.fluid.fluidBaseLayer = settings.fluid.$baseLayer;
 
 			// Tratamiento del evento de redimiensionado del diseño líquido de la tabla
-			$self.bind("fluidWidth.resize", function(event, previousWidth, currentWidth){
+			$( window ).on("resize", function(event, previousWidth, currentWidth){
 				if ($self.is(":visible")){
 					var feedBackPaddingLeft, feedBackPaddingRight, toolbarPaddingLeft, toolbarPaddingRight, windowWidth,rwdConfigArray;
 
@@ -117,7 +118,9 @@
 
 					rwdConfigArray = $self.rup_table("getRwdColConfig");
 
+
 					$.each(rwdConfigArray, function(i, obj){
+
 						if (obj[currentDisplay]===true){
 							$self.rup_table("showCol", obj.name);
 						}else{
@@ -127,7 +130,7 @@
 
 					//$self.trigger("rupTable_fluidUpdate");
 
-					$self.setGridWidth(currentWidth);
+					//$self.setGridWidth(currentWidth);
 
 
 					// Se redimensionan las capas contenidas en el mantenimiento
@@ -150,18 +153,122 @@
 				}
 			});
 
-//			$self.fluidWidth({
-//				fluidBaseLayer:settings.fluid.baseLayer,
-//				minWidth: 100,
-//				maxWidth: 2000,
-//				fluidOffset : 0
-//			});
+			function intNum(val,defval) {
+				val = parseInt(val,10);
+				if (isNaN(val)) { return defval || 0;}
+				return val;
+			};
 
-			$self.fluidWidth(settings.fluid);
+			function reDefineColWidth(){
+				var $self = this;
+			    var widthsArr = $self[0].p.colModel.map(function(i,elem){return i.width});
 
-			$self.on("rupTable_fluidUpdate", function(event){
-				$self.fluidWidth(settings.fluid);
+			    for(var j=0; j < widthsArr.length ; j++ ){
+			            $('.ui-jqgrid-labels > th:eq('+j+')').css('width',widthsArr[j]);
+			            $self.find('tr').find('td:eq('+j+')').each(function(){$(this).css('width',widthsArr[j]);})
+			        }
+			}
+
+			function setColWidth () {
+				console.log("entra");
+				var initwidth = 0, ts = this[0], grid= this[0], brd=$.jgrid.cell_width? 0: intNum(ts.p.cellLayout,0), vc=0, lvc, scw=intNum(ts.p.scrollOffset,0),cw,hs=false,aw,gw=0,
+				cl = 0, cr;
+				$.each(ts.p.colModel, function() {
+					if(this.hidden === undefined) {this.hidden=false;}
+					if(ts.p.grouping && ts.p.autowidth) {
+						var ind = $.inArray(this.name, ts.p.groupingView.groupField);
+						if(ind !== -1) {
+							this.hidden = !ts.p.groupingView.groupColumnShow[ind];
+						}
+					}
+					this.widthOrg = cw = intNum(this.width,0);
+					if(this.hidden===false){
+						initwidth += cw+brd;
+						if(this.fixed) {
+							gw += cw+brd;
+						} else {
+							vc++;
+						}
+						cl++;
+					}
+				});
+				if(isNaN(ts.p.width)) {
+					ts.p.width  = initwidth + ((ts.p.shrinkToFit ===false && !isNaN(ts.p.height)) ? scw : 0);
+				}
+				grid.width = ts.p.width;
+				ts.p.tblwidth = initwidth;
+				if(ts.p.shrinkToFit ===false && ts.p.forceFit === true) {ts.p.forceFit=false;}
+				if(ts.p.shrinkToFit===true && vc > 0) {
+					aw = grid.width-brd*vc-gw;
+					if(!isNaN(ts.p.height)) {
+						aw -= scw;
+						hs = true;
+					}
+					initwidth =0;
+					$.each(ts.p.colModel, function(i) {
+
+						if(this.hidden === false && this.fixed!==true){
+							console.log("->"+this.name+" - hidden:"+ this.hidden + " - fixed: "+ this.fixed + " -  tblwidth: " + ts.p.tblwidth + " - width: "+this.width);
+							cw = Math.round(aw*this.width/(ts.p.tblwidth-brd*vc-gw));
+							this.width =cw;
+							initwidth += cw;
+							lvc = i;
+						}
+					});
+					cr =0;
+					if (hs) {
+						if(grid.width-gw-(initwidth+brd*vc) !== scw){
+							cr = grid.width-gw-(initwidth+brd*vc)-scw;
+						}
+					} else if(!hs && Math.abs(grid.width-gw-(initwidth+brd*vc)) !== 1) {
+						cr = grid.width-gw-(initwidth+brd*vc);
+					}
+					ts.p.colModel[lvc].width += cr;
+					ts.p.tblwidth = initwidth+cr+brd*vc+gw;
+					if(ts.p.tblwidth > ts.p.width) {
+						ts.p.colModel[lvc].width -= (ts.p.tblwidth - parseInt(ts.p.width,10));
+						ts.p.tblwidth = ts.p.width;
+					}
+				}
+			}
+
+			function resize(){
+				$self.css("width","100%");
+				$self.parents(".ui-jqgrid-bdiv").css("width","100%");
+				$self.parents(".ui-jqgrid-view").css("width","100%");
+				$self.parents(".ui-jqgrid").css("width","100%");
+
+				$self.parents(".ui-jqgrid").find(".ui-jqgrid-htable").css("width","100%");
+				$self.parents(".ui-jqgrid").find(".ui-jqgrid-hdiv").css("width","100%");
+				$self.parents(".ui-jqgrid").find(".ui-jqgrid-pager").css("width","100%");
+				$self.data("settings").$toolbar.css("width","100%");
+				$.proxy(setColWidth,$self)();
+				$.proxy(reDefineColWidth,$self)();
+
+			}
+
+			$self.on("jqGridAfterLoadComplete", function(){
+				$.proxy(resize,$self)();
 			});
+
+			$( window ).on("resize", function() {
+				$.proxy(resize,$self)();
+			});
+
+
+
+			// $self.fluidWidth({
+			// 	fluidBaseLayer:settings.fluid.baseLayer,
+			// 	minWidth: 100,
+			// 	maxWidth: 2000,
+			// 	fluidOffset : 0
+			// });
+			//
+			// // $self.fluidWidth(settings.fluid);
+			// //
+			// $self.on("rupTable_fluidUpdate", function(event){
+			// 	$.proxy(resize,$self)();
+			// });
 
 
 		}
@@ -235,5 +342,11 @@
 		}
 
 	};
+
+	// jQuery.fn.rup_table.plugins.toolbar.defaults = {
+	// 	toolbar:{
+	// 		autoAjustToolbar:false
+	// 	}
+	// };
 
 })(jQuery);

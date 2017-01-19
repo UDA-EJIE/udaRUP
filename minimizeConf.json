@@ -117,6 +117,7 @@
     "./src/rup_table/rup.table.masterDetail.js",
     "./src/rup_table/rup.table.report.js",
     "./src/rup_table/rup.table.multifilter.js",
+    "./src/rup_table/rup.table.responsive.js",
     "./src/rup.tabs.js",
     "./src/rup.time.js",
     "./src/rup.toolbar.js",

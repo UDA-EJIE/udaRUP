@@ -43,6 +43,89 @@ button.ui-button{
 }
 
 
+// mbutton
+
+
+
+
+
+.rup-mbutton{
+  display: inline-block;
+
+  .rup-mbutton-container{
+    display: none;
+    position: absolute;
+    list-style: outside none none;
+    z-index: 9000;
+    background-color: $rup-bg-color;
+    border: 1px solid $rup-color-border;
+    margin: 0;
+    padding: 0.4rem;
+    &.rup-mbutton-open{
+      display: block;
+
+    }
+
+    button{
+      width: 100%;
+      text-align: left;
+    }
+  }
+}
+
+@mixin collapsed-mbutton($extend: true) {
+    @if $extend == true {
+        @extend %collapsed-mbutton;
+    } @else {
+      >button{
+        display: none;
+      }
+      .rup-mbutton-container{
+        display: inline;
+        position: relative;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        z-index: 8000;
+        li{
+          display: inline-block;
+        }
+        button{
+          display: block;
+          width: inherit;
+        }
+      }
+    }
+}
+
+%collapsed-mbutton {
+    @include collapsed-mbutton($extend: false);
+}
+
+@media (min-width: 576px) {
+  .rup-mbutton.rup-collapsed-sm{
+    @include collapsed-mbutton($extend: false);
+  }
+}
+
+@media (min-width: 768px) {
+  .rup-mbutton.rup-collapsed-md{
+    @include collapsed-mbutton($extend: false);
+  }
+}
+
+@media (min-width: 992px) {
+  .rup-mbutton.rup-collapsed-lg{
+    @include collapsed-mbutton($extend: false);
+  }
+}
+
+@media (min-width: 1200px) {
+  .rup-mbutton.rup-collapsed-xl{
+    @include collapsed-mbutton($extend: false);
+  }
+}
+
 .rup-dropdown-btn-group{
   .rup-dropdown-button{
     @extend button;
@@ -50,6 +133,7 @@ button.ui-button{
 
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+    padding-left: 0.5rem;
 
     &.ui-button-icon-only> span.ui-button-icon{
       margin-top: -8px;

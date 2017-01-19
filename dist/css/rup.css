@@ -5750,9 +5750,91 @@ legend {
 .ui-button.rup-button span.ui-button-icon.ui-icon {
   display: inline-block; }
 
+.rup-mbutton {
+  display: inline-block; }
+  .rup-mbutton .rup-mbutton-container {
+    display: none;
+    position: absolute;
+    list-style: outside none none;
+    z-index: 9000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 0.4rem; }
+    .rup-mbutton .rup-mbutton-container.rup-mbutton-open {
+      display: block; }
+    .rup-mbutton .rup-mbutton-container button, .rup-mbutton .rup-mbutton-container .ui-button.rup-button, .rup-mbutton .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton .rup-mbutton-container .rup-dropdown-button, .rup-mbutton .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton .rup-mbutton-container a.rup-wizard_next, .rup-mbutton .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton .rup-mbutton-container .rup-wizard_submitButton {
+      width: 100%;
+      text-align: left; }
+
+@media (min-width: 576px) {
+  .rup-mbutton.rup-collapsed-sm > button, .rup-mbutton.rup-collapsed-sm > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-sm > .rup-dropdown-button, .rup-mbutton.rup-collapsed-sm > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-sm > .rup-wizard_submitButton {
+    display: none; }
+  .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
+    display: inline;
+    position: relative;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    z-index: 8000; }
+    .rup-mbutton.rup-collapsed-sm .rup-mbutton-container li {
+      display: inline-block; }
+    .rup-mbutton.rup-collapsed-sm .rup-mbutton-container button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard_submitButton {
+      display: block;
+      width: inherit; } }
+
+@media (min-width: 768px) {
+  .rup-mbutton.rup-collapsed-md > button, .rup-mbutton.rup-collapsed-md > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-md > .rup-dropdown-button, .rup-mbutton.rup-collapsed-md > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-md > .rup-wizard_submitButton {
+    display: none; }
+  .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
+    display: inline;
+    position: relative;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    z-index: 8000; }
+    .rup-mbutton.rup-collapsed-md .rup-mbutton-container li {
+      display: inline-block; }
+    .rup-mbutton.rup-collapsed-md .rup-mbutton-container button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard_submitButton {
+      display: block;
+      width: inherit; } }
+
+@media (min-width: 992px) {
+  .rup-mbutton.rup-collapsed-lg > button, .rup-mbutton.rup-collapsed-lg > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-lg > .rup-dropdown-button, .rup-mbutton.rup-collapsed-lg > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-lg > .rup-wizard_submitButton {
+    display: none; }
+  .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
+    display: inline;
+    position: relative;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    z-index: 8000; }
+    .rup-mbutton.rup-collapsed-lg .rup-mbutton-container li {
+      display: inline-block; }
+    .rup-mbutton.rup-collapsed-lg .rup-mbutton-container button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard_submitButton {
+      display: block;
+      width: inherit; } }
+
+@media (min-width: 1200px) {
+  .rup-mbutton.rup-collapsed-xl > button, .rup-mbutton.rup-collapsed-xl > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-xl > .rup-dropdown-button, .rup-mbutton.rup-collapsed-xl > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-xl > .rup-wizard_submitButton {
+    display: none; }
+  .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
+    display: inline;
+    position: relative;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    z-index: 8000; }
+    .rup-mbutton.rup-collapsed-xl .rup-mbutton-container li {
+      display: inline-block; }
+    .rup-mbutton.rup-collapsed-xl .rup-mbutton-container button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard_submitButton {
+      display: block;
+      width: inherit; } }
+
 .rup-dropdown-btn-group .rup-dropdown-button {
   border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px; }
+  border-bottom-left-radius: 0px;
+  padding-left: 0.5rem; }
   .rup-dropdown-btn-group .rup-dropdown-button.ui-button-icon-only > span.ui-button-icon {
     margin-top: -8px; }
 
@@ -5859,7 +5941,9 @@ select.form-control, .form-control.ui-selectmenu-dropdown, select.form-control-s
 
 .ui-dialog {
   padding: 0;
-  color: #333333; }
+  color: #333333;
+  border-radius: 0px;
+  max-width: 800px; }
   .ui-dialog .ui-dialog-titlebar {
     border: none;
     border-radius: 0;
@@ -5897,8 +5981,7 @@ select.form-control, .form-control.ui-selectmenu-dropdown, select.form-control-s
             top: 0; }
   .ui-dialog .ui-dialog-buttonset,
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-    display: inline-flex;
-    flex-direction: row-reverse; }
+    display: inline-block; }
     .ui-dialog .ui-dialog-buttonset button.ui-button, .ui-dialog .ui-dialog-buttonset .ui-button.rup-button, .ui-dialog .rup-dropdown-btn-group .ui-dialog-buttonset .ui-button.rup-dropdown-button, .ui-dialog .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_next, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_prev, .ui-dialog .rup-wizard .ui-dialog-buttonset .ui-button.rup-wizard_submitButton,
     .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button,
     .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button,
@@ -6165,6 +6248,56 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 .rup-table-filter .collapse_icon_right {
   margin-top: 0; }
 
+.ui-jqgrid {
+  border-radius: 0; }
+  .ui-jqgrid .ui-jqgrid-hbox {
+    padding-right: 0; }
+    .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable {
+      border-collapse: inherit; }
+      .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable th.ui-th-column:last-child {
+        border-right: none; }
+  .ui-jqgrid .ui-jqgrid-view {
+    font-size: inherit;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
+      border-collapse: inherit; }
+  .ui-jqgrid .ui-jqgrid-pager {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
+      height: 3rem; }
+      .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
+        vertical-align: baseline; }
+    .ui-jqgrid .ui-jqgrid-pager .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-pager .ui-pg-input {
+      height: inherit;
+      font-size: inherit;
+      padding: 0.17rem 0.4rem; }
+    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
+      vertical-align: middle;
+      font-size: 2rem; }
+    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
+      font-size: 1rem; }
+  @media (min-width: 993px) {
+    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
+      display: none; } }
+  @media (max-width: 992px) {
+    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
+      display: none; } }
+
+.rup-dialog .rup-table-detail-info {
+  float: left; }
+
+.rup-dialog .rup-table-detail-currentElement {
+  margin-left: 3px;
+  margin-top: 2px;
+  position: relative; }
+
+.rup-dialog .rup-table-detail-navigation {
+  float: right; }
+
+.rup-dialog .rup-table-detail-separator {
+  border-bottom: 1px solid #D1D1D1;
+  clear: both; }
+
 .rup-tabs_container.ui-tabs {
   padding: 0;
   border: 1px solid none;
@@ -6193,7 +6326,15 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 
 .rup-toolbar {
   padding-top: 2px;
-  padding-bottom: 2px; }
+  padding-bottom: 2px;
+  background: #e9e9e9;
+  border: 1px solid #ccc; }
+  .rup-toolbar button, .rup-toolbar .ui-button.rup-button, .rup-toolbar .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-toolbar .rup-dropdown-button, .rup-toolbar a.rup-toolbar_menuButton.ui-button, .rup-toolbar .rup-wizard a.rup-wizard_next, .rup-wizard .rup-toolbar a.rup-wizard_next, .rup-toolbar .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-toolbar a.rup-wizard_prev, .rup-toolbar .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-toolbar .rup-wizard_submitButton {
+    margin-right: 5px; }
+  .rup-toolbar .rup-button-right {
+    float: right; }
+  .rup-toolbar .rup-button-left {
+    float: left; }
 
 a.rup-toolbar_menuButton.ui-button span {
   display: inline-flex;
@@ -6204,6 +6345,12 @@ a.rup-toolbar_menuButton.ui-button span {
   padding-bottom: 0; }
   .rup-toolbar_menuButtonContainer ul[role='menu'] button.rup-toolbar_menuButtonElement, .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-toolbar_menuButtonElement.ui-button.rup-button, .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-dropdown-btn-group .rup-toolbar_menuButtonElement.rup-dropdown-button, .rup-dropdown-btn-group .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-toolbar_menuButtonElement.rup-dropdown-button, .rup-toolbar_menuButtonContainer ul[role='menu'] a.rup-toolbar_menuButtonElement.rup-toolbar_menuButton.ui-button, .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-wizard a.rup-toolbar_menuButtonElement.rup-wizard_next, .rup-wizard .rup-toolbar_menuButtonContainer ul[role='menu'] a.rup-toolbar_menuButtonElement.rup-wizard_next, .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-wizard a.rup-toolbar_menuButtonElement.rup-wizard_prev, .rup-wizard .rup-toolbar_menuButtonContainer ul[role='menu'] a.rup-toolbar_menuButtonElement.rup-wizard_prev, .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-wizard .rup-toolbar_menuButtonElement.rup-wizard_submitButton, .rup-wizard .rup-toolbar_menuButtonContainer ul[role='menu'] .rup-toolbar_menuButtonElement.rup-wizard_submitButton {
     text-align: left; }
+
+.rup-toolbar-mbutton {
+  position: relative;
+  width: 100%;
+  display: inline-table;
+  float: none; }
 
 .rup-wizard_stepsDescContainer {
   padding: 0; }
@@ -6445,3 +6592,53 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 
 .rup-table-filter .collapse_icon_right {
   margin-top: 0; }
+
+.ui-jqgrid {
+  border-radius: 0; }
+  .ui-jqgrid .ui-jqgrid-hbox {
+    padding-right: 0; }
+    .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable {
+      border-collapse: inherit; }
+      .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable th.ui-th-column:last-child {
+        border-right: none; }
+  .ui-jqgrid .ui-jqgrid-view {
+    font-size: inherit;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
+      border-collapse: inherit; }
+  .ui-jqgrid .ui-jqgrid-pager {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
+      height: 3rem; }
+      .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
+        vertical-align: baseline; }
+    .ui-jqgrid .ui-jqgrid-pager .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-pager .ui-pg-input {
+      height: inherit;
+      font-size: inherit;
+      padding: 0.17rem 0.4rem; }
+    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
+      vertical-align: middle;
+      font-size: 2rem; }
+    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
+      font-size: 1rem; }
+  @media (min-width: 993px) {
+    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
+      display: none; } }
+  @media (max-width: 992px) {
+    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
+      display: none; } }
+
+.rup-dialog .rup-table-detail-info {
+  float: left; }
+
+.rup-dialog .rup-table-detail-currentElement {
+  margin-left: 3px;
+  margin-top: 2px;
+  position: relative; }
+
+.rup-dialog .rup-table-detail-navigation {
+  float: right; }
+
+.rup-dialog .rup-table-detail-separator {
+  border-bottom: 1px solid #D1D1D1;
+  clear: both; }

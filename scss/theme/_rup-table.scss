@@ -16,3 +16,110 @@ div.right_buttons > button{
     margin-top: 0;
   }
 }
+
+
+.ui-jqgrid {
+
+  border-radius: 0;
+
+  .ui-jqgrid-hbox{
+    padding-right: 0;
+
+
+    .ui-jqgrid-htable{
+      border-collapse: inherit;
+
+      th.ui-th-column:last-child(){
+        border-right: none;
+      }
+    }
+
+  }
+  .ui-jqgrid-view{
+
+    font-size: inherit;
+    font-family: $rup-font-family;
+
+
+
+    .ui-jqgrid-bdiv{
+      .ui-jqgrid-btable{
+        border-collapse: inherit;;
+      }
+    }
+  }
+
+  .ui-jqgrid-pager{
+
+    font-family: $rup-font-family;
+
+    .ui-pager-control{
+      height: 3rem;
+
+      .ui-pg-table td{
+        vertical-align: baseline;
+      }
+    }
+
+    .ui-pg-selbox, .ui-pg-input{
+      height: inherit;
+      font-size: inherit;
+      padding: 0.17rem 0.4rem;
+    }
+
+    .iconPaginacion{
+      vertical-align: middle;
+      font-size: $rup-fa-size-xlg;
+    }
+
+    .linkPaginacion{
+      font-size: $rup-font-size-base;
+    }
+  }
+
+  @media (min-width: 993px) {
+    .ui-jqgrid-pager{
+      .iconPaginacion{
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .ui-jqgrid-pager{
+      .linkPaginacion{
+        display: none;
+      }
+
+    }
+  }
+
+
+
+
+
+}
+
+// Detail detailDiv
+
+.rup-dialog{
+
+  .rup-table-detail-info{
+    float: left;
+  }
+  .rup-table-detail-currentElement{
+
+    margin-left: 3px;
+    margin-top: 2px;
+    position: relative;
+  }
+
+  .rup-table-detail-navigation{
+    float:right;
+  }
+
+  .rup-table-detail-separator{
+    border-bottom:1px solid #D1D1D1;
+    clear:both;
+  }
+}

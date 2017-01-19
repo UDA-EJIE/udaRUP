@@ -58,6 +58,7 @@
     jQuery.fn.rup_table("extend", {
         preConfigureFormEdit: function (settings) {
             var $self = this,
+                self = this[0],
                 colModel = settings.colModel;
 
 
@@ -116,7 +117,7 @@
             settings.core.defaultOperations = {
                 "add": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.new"),
-                    icon: "rup-icon rup-icon-new",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
                     enabled: function () {
                         return true;
                     },
@@ -126,7 +127,7 @@
                 },
                 "edit": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.modify"),
-                    icon: "rup-icon rup-icon-edit",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.edit.icon,
                     enabled: function () {
                         var $self = this,
                             settings = $self.data("settings");
@@ -147,7 +148,7 @@
                 //					}},
                 "clone": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.clone"),
-                    icon: "rup-icon rup-icon-clone",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.clone.icon,
                     enabled: function () {
                         return jQuery.proxy(settings.fncHasSelectedElements, $self)();
                     },
@@ -163,7 +164,7 @@
                 //					}},
                 "delete": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.delete"),
-                    icon: "rup-icon rup-icon-delete",
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.delete.icon,
                     enabled: function () {
                         var $self = this,
                             settings = $self.data("settings");
@@ -587,59 +588,10 @@
      */
     jQuery.fn.rup_table("extend", {
         createDetailNavigation: function () {
-            var $self = $(this),
-                settings = $self.data("settings"),
-                jqGridID = $self.attr("id"),
-                paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationBar"),
-                paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationLink"),
-                elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.elementCounter"),
-                $separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.separator")),
-                $elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.numResult"))),
-                $paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, jqGridID)),
-                $firstPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'first_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.first"))),
-                $backPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'back_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.previous"))),
-                $forwardPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'forward_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.next"))),
-                $lastPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'last_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.last"))),
-                extpost = undefined;
+            var $self = $(this);
 
-            $paginationBar.append($firstPaginationLink)
-                .append($backPaginationLink)
-                .append($forwardPaginationLink)
-                .append($lastPaginationLink);
+            return $.proxy($self[0]._ADAPTER.createDetailNavigation, $self)();
 
-            function doLinkNavigation(linkId, $link) {
-                var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-
-                if (!$link.hasClass("ui-state-disabled")) {
-                    if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
-                            $.proxy(settings.doNavigation, $self)(retNavParams);
-                        })) {
-                        $.proxy(settings.doNavigation, $self)(retNavParams);
-                    }
-                }
-            }
-
-            // Elemento primero
-            $firstPaginationLink.on("click", function () {
-                doLinkNavigation('first', $(this));
-            });
-
-            // Elemento anterior
-            $backPaginationLink.on("click", function () {
-                doLinkNavigation('prev', $(this));
-            });
-
-            // Elemento siguiente
-            $forwardPaginationLink.on("click", function () {
-                doLinkNavigation('next', $(this));
-            });
-
-            // Elemento ultimo
-            $lastPaginationLink.on("click", function () {
-                doLinkNavigation('last', $(this));
-            });
-
-            return $elementCounter.after($paginationBar).after($separator);
         },
         /*
          * Realiza el borrado de un registro determinado.
