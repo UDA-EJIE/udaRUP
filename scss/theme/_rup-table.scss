@@ -3,8 +3,13 @@
   padding-right: 5px;
 }
 
-div.right_buttons > button{
-  float:right;
+div.right_buttons{
+  >button{
+    float:right;
+  }
+  .rup-dropdown-btn-group{
+    float:right;
+  }
 }
 
 

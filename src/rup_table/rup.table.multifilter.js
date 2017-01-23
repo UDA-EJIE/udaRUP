@@ -147,7 +147,7 @@
 											dropdownIcon : "ui-icon-gear",
 											dropdownDialog : multifilterSettings.dropdownDialogId,
 											dropdownDialogConfig : {
-												title : "<span class='rup-icon rup-icon-filter'/>"
+												title : '<span class="rup-icon rup-icon-filter"></span>'
 														+ $.rup.i18n.base.rup_table.plugins.multifilter.tittle,
 												width : "450px",
 												buttons : [
@@ -690,7 +690,7 @@
 
 
 							// si el filtro es el predefinido que aparezca en negrita
-							multifilterSettings.$comboLabel.data("autocomplete")._renderItem = function(ul,	item) {
+							multifilterSettings.$comboLabel.data("uiAutocomplete")._renderItem = function(ul,	item) {
 								if (item.value) {
 									return $("<li></li>").data(
 											"item.autocomplete", item).append(

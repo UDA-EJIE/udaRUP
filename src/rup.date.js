@@ -297,6 +297,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
                 //Se recogen y cruzan las paremetrizaciones del objeto
                 var settings = $.extend({}, $.fn.rup_date.defaults, args[0]);
 
+                // Se carga el adapter
+                this._ADAPTER = $.rup.adapter[settings.adapter];
+
                 //Eventos
                 //*******
                 //Guardar referencia
@@ -365,21 +368,24 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
                     }
                 }
 
-                //Imagen del calendario
-                settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/basic-theme/images/calendario.png");
+
 
                 //Sab-Dom deshabilitados
                 if (settings.noWeekend) {
                     settings.beforeShowDay = $.datepicker.noWeekends;
                 }
 
-                //Atributos NO MODIFICABLES
-                //La imagen no debe ser un botón
-                settings.buttonImageOnly = true;
-                //Solo permitir caracteres permitidos en la máscara
-                settings.constrainInput = true;
-                //Mostrar patrón con foco en input y pinchando imagen
-                settings.showOn = "both";
+                this._ADAPTER.initIconTrigger(settings);
+                // //Imagen del calendario
+                // settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/basic-theme/images/calendario.png");
+                //
+                // //Atributos NO MODIFICABLES
+                // //La imagen no debe ser un botón
+                // settings.buttonImageOnly = true;
+                // //Solo permitir caracteres permitidos en la máscara
+                // settings.constrainInput = true;
+                // //Mostrar patrón con foco en input y pinchando imagen
+                // settings.showOn = "both";
 
                 //Datepicker
                 if (!settings.multiSelect) {
@@ -437,6 +443,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
                         }
                     });
                 }
+
+                $.proxy(this._ADAPTER.postConfigure, $(this))(settings);
 
                 //Ajuste para el comportamiento de portales
                 if ($.rup_utils.aplicatioInPortal() && !$("#" + settings.id).is("div")) {
@@ -573,6 +581,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
     $.fn.rup_date.defaults = {
+        adapter: "date_bootstrap",
         datetimepicker: false,
         multiSelect: false,
         changeMonth: true,

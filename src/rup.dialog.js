@@ -468,6 +468,7 @@
 									function () {
 										aClose.css("text-decoration", "");
 									});
+
 							} else { //borramos todos los posibles enlances que se hayan creado para esa capa
 								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonset a').remove();
 
