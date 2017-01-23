@@ -427,10 +427,82 @@
     "nuevo": "Nuevo_en",
     "otros": "Otros botones_en"
   },
+  "tree": {
+    "example": {
+      "ajax": "Carga datos mediante AJAX (json)_en",
+      "changeView": "Ejemplo de cambio visual_en",
+      "checkbox": "Ejemplo checkbox_en",
+      "contextmenu": "Ejemplo menú contextual_en",
+      "default": "Ejemplo por defecto_en",
+      "hotkeys": "Ejemplo con teclado_en",
+      "jqueryuiStyles": "Ejemplo estilos jQueryUI_en",
+      "json": "Carga datos json_en",
+      "select": "Ejemplo selección_en",
+      "sort": "Ejemplo ordenación_en",
+      "specificStyle": "Ejemplo de estilo propio_en",
+      "tittle": "Árbol_en",
+      "unique": "Ejemplo de nodos únicos_en",
+      "xml": "Carga datos xml_en"
+    },
+    "treeDAD": {
+      "Interchange": "Intercambio de nodos en ambas direcciones_en",
+      "code": {
+        "htmlCode": "Código HTML_en",
+        "jsTreeCode": "Código JavaScript, creación árbol_en",
+        "jsTreeData": "Código JavaScript, Json de creación del árbol_en",
+        "jsTypesCode": "Código JavaScript, topología de objetos del árbol_en"
+      },
+      "dismissals": "DESPIDOS_en",
+      "exchange": "Intercambio de nodos entre árboles_en",
+      "formation": "FORMACIÓN_en",
+      "promotions": "PROMOCIONES_en",
+      "reorder": "Ordenación de los nodos del árbol_en",
+      "rightDirec": "Traslade los empleados a su ubicación_en",
+      "title": "Árbol con interacción Drag and Drop_en"
+    },
+    "verCodigo": {
+      "boton": "Ver código Fuente"
+    }
+  },
   "treeCodeDialog": {
     "html": "HTML",
     "javascript": "JavaScript",
     "title": "Código usado para generar el árbol_en"
+  },
+  "treeExample": {
+    "Hijo1": "Nodo primer nivel_en",
+    "Hijo2": "Nodo segundo nivel_en",
+    "Hijo3": "Nodo tercer nivel_en",
+    "HijoA": "A",
+    "HijoAtreeExample": {
+      "HijoA": "AA",
+      "HijoB": "AB",
+      "HijoC": "AC",
+      "HijoCtreeExample": {
+        "HijoA": "ACA"
+      }
+    },
+    "HijoB": "B",
+    "HijoC": "C",
+    "HijoCtreeExample": {
+      "HijoA": "CA",
+      "HijoB": "CB"
+    },
+    "checkAll": "Sec Tod_en",
+    "deselect": "Deselec_en",
+    "disable": "Desactivar_en",
+    "dots": "Puntos_en",
+    "enable": "Activar_en",
+    "hoja": "hoja_en",
+    "icons": "Iconos_en",
+    "load": "Cargar_en",
+    "new": "Nuevo_en",
+    "rename": "Renombrar_en",
+    "renameKey": "(opcional: F2)_en",
+    "save": "Guardar_en",
+    "showHide": "Show/Hide",
+    "theme": "Tema_en",
+    "unCheckAll": "Des Tod_en"
   },
   "treeNodesExchangePanel_center": {
     "errorOp": "Operación errónea_en",

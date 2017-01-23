@@ -515,10 +515,82 @@
     "nuevo": "Nuevo",
     "otros": "Otros botones"
   },
+  "tree": {
+    "example": {
+      "ajax": "Carga datos mediante AJAX (json)",
+      "changeView": "Ejemplo de cambio visual",
+      "checkbox": "Ejemplo checkbox",
+      "contextmenu": "Ejemplo menú contextual",
+      "default": "Ejemplo por defecto",
+      "hotkeys": "Ejemplo con teclado",
+      "jqueryuiStyles": "Ejemplo estilos jQueryUI",
+      "json": "Carga datos json",
+      "select": "Ejemplo selección",
+      "sort": "Ejemplo ordenación",
+      "specificStyle": "Ejemplo de estilo propio",
+      "tittle": "Árbol",
+      "unique": "Ejemplo de nodos únicos",
+      "xml": "Carga datos xml"
+    },
+    "treeDAD": {
+      "Interchange": "Intercambio de nodos en ambas direcciones",
+      "code": {
+        "htmlCode": "Código HTML",
+        "jsTreeCode": "Código JavaScript, creación árbol",
+        "jsTreeData": "Código JavaScript, Json de creación del árbol",
+        "jsTypesCode": "Código JavaScript, topología de objetos del árbol"
+      },
+      "dismissals": "DESPIDOS",
+      "exchange": "Intercambio de nodos entre árboles_es",
+      "formation": "FORMACIÓN",
+      "promotions": "PROMOCIONES",
+      "reorder": "Ordenación de los nodos del árbol",
+      "rightDirec": "Traslade los empleados a su ubicación",
+      "title": "Árbol con interacción Drag and Drop"
+    },
+    "verCodigo": {
+      "boton": "Ver código Fuente"
+    }
+  },
   "treeCodeDialog": {
     "html": "HTML",
     "javascript": "JavaScript",
     "title": "Código usado para generar el árbol"
+  },
+  "treeExample": {
+    "Hijo1": "Nodo primer nivel",
+    "Hijo2": "Nodo segundo nivel",
+    "Hijo3": "Nodo tercer nivel",
+    "HijoA": "A",
+    "HijoAtreeExample": {
+      "HijoA": "AA",
+      "HijoB": "AB",
+      "HijoC": "AC",
+      "HijoCtreeExample": {
+        "HijoA": "ACA"
+      }
+    },
+    "HijoB": "B",
+    "HijoC": "C",
+    "HijoCtreeExample": {
+      "HijoA": "CA",
+      "HijoB": "CB"
+    },
+    "checkAll": "Sec Tod",
+    "deselect": "Deselec",
+    "disable": "Desactivar",
+    "dots": "Puntos",
+    "enable": "Activar",
+    "hoja": "hoja",
+    "icons": "Iconos",
+    "load": "Cargar",
+    "new": "Nuevo",
+    "rename": "Renombrar",
+    "renameKey": "(opcional: F2)",
+    "save": "Guardar",
+    "showHide": "Show/Hide",
+    "theme": "Tema",
+    "unCheckAll": "Des Tod"
   },
   "treeNodesExchangePanel_center": {
     "errorOp": "Operación errónea",

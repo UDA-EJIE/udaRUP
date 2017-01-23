@@ -1,31 +1,35 @@
 define(['marionette',
         'templates',
         './treeDragDropBodyView',
-        './treeDragDropTestView',
         '../../../shared/component/componentExampleCodeView',
-        'rup/rup.tree'], function(Marionette, App, TreeDragDropBodyView, TreeDragDropTestView, ComponentExampleCodeView){
+        './treeDragDropCodeView',
+        './treeDragDropTestView',
+        'rup/rup.tree'], function (Marionette, App, TreeDragDropBodyView, ComponentExampleCodeView, TreeDragDropCodeView, TreeDragDropTestView) {
 
-  var TreeView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
-      regions:{
-        Main: "#componentMainBody",
-        Example: "#exampleCode",
-        Test: "#componentTest"
-      },
-      onRender: fncOnRender
-  });
+    var TreeView = Marionette.LayoutView.extend({
+        template: App.Templates.demoResponsive.app.components.tree.dragDrop.treeDragDropLayoutTemplate,
+        regions: {
+            Main: "#componentMainBody",
+            //Example: "#exampleCode",
+            Code: "#componentCode",
+            Test: "#componentTest"
+        },
+        onRender: fncOnRender
+    });
 
-  function fncOnRender(){
-    var $view = this;
+    function fncOnRender() {
+        var $view = this;
 
-    $view.Main.show(new TreeDragDropBodyView());
-    $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.tree.dragDrop.treeHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.tree.dragDrop.treeJsCodeTemplate
-    }));
-    $view.Test.show(new TreeDragDropTestView());
-  }
+        $view.Main.show(new TreeDragDropBodyView());
+        /*  $view.Example.show(new ComponentExampleCodeView({
+              templateHtml: App.Templates.demoResponsive.app.components.tree.dragDrop.treeDragDropHtmlCodeTemplate,
+              templateJs: App.Templates.demoResponsive.app.components.tree.dragDrop.treeDragDropJsCodeTemplate
+          }));*/
+        $view.Code.show(new TreeDragDropCodeView());
+        $view.Test.show(new TreeDragDropTestView());
+
+    }
 
 
-  return TreeView;
+    return TreeView;
 });

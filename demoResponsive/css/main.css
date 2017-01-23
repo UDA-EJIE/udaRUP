@@ -228,7 +228,7 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 	padding-bottom: 0.75em;
     padding-top: 0.75em;
     margin-bottom: 1.75em;
-    height: 612px;
+    height: 650px;
 }
 
 .ExchangePanel_tree{
@@ -352,7 +352,7 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 }
 
 .promotionsDismissalsActionPanel_list li[rel="worker"] > a > .jstree-icon {
-	background-image: url("../images/worker.png");
+	background-image: url("../images/arbol/worker.png");
 	background-position: 0 0;
 	width: 16px;
 	height: 16px;
@@ -379,12 +379,12 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 	padding-bottom: 0.75em;
     padding-top: 0.75em;
     margin-bottom: 1.75em;
-    height: 612px;
+    height: 652px;
 }
 
 .treeAreaExchangePanel_legend{
-    font-size: 1.5em;
-    margin-left: 7%;
+    font-size: 1.3em;
+    margin-left: 2%;
     padding-left: 0.5em;
     padding-right: 0.5em;
     background-color: #D0D0D0;
@@ -410,7 +410,6 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 	border-left: 4px #A7A5A5 dashed;
 	width: 4px;
 	margin-left: -2px;
-	height: 560px;
 }
 
 .treeNodesExchangePanel_center_img{
@@ -428,6 +427,15 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 	width: 100%;
 }
 
+.panelLeftWorkers{
+    padding-right: 125px;
+}
+.panelRightWorkers{
+    padding-left: 100px;
+    border-left: 4px #A7A5A5 dashed;
+}
+
+
 .controlsMainExample{
 	width: 100%;
 	padding-bottom: 2px;
@@ -440,6 +448,7 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 	padding-left: 2px;
 	margin-top: 1px;
 }
+
 
 .model_example_1_code{
 	display: none;
