@@ -231,12 +231,14 @@
 					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
 				} else {
 					//Se recogen y cruzan las paremetrizaciones del objeto
-					var settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
+					var $self = $(this), self = $self[0], settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
+
+          self._ADAPTER = $.rup.adapter[settings.adapter];
 
 					//Se carga el identificador del padre del patron
-					settings.id = $(this).attr("id");
+					settings.id = $self.attr("id");
 
-					(this).attr("ruptype","time");
+					$self.attr("ruptype","time");
 
 					//Carga de propiedades/literales
 					var literales = $.rup.i18n.base["rup_time"];
@@ -255,41 +257,26 @@
 					//Atributos NO MODIFICABLES
 
 					//Timepicker
-					$("#"+settings.id).timepicker(settings);
+					$self.timepicker(settings);
 
 					//Max-Length
 					//$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
 
 					//Añadir imagen
-					if (!$("#"+settings.id).is("div")){
-						$("<img>").addClass("ui-timepicker-trigger")
-							.attr({
-								"src":settings.buttonImage,
-								"alt":$.rup.i18nParse($.rup.i18n.base,"rup_time.buttonText"),
-								"title":$.rup.i18nParse($.rup.i18n.base,"rup_time.buttonText")
-							})
-							.click(function(){
-								if ( $("#ui-datepicker-div").css("display")==="none"){
-									$("#"+settings.id).timepicker("show");
-								} else {
-									$("#"+settings.id).timepicker("hide");
-								}
-							})
-							.insertAfter($("#"+settings.id));
-					}
+					$.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
 
 					//Ajuste para el comportamiento de portales
-					if($.rup_utils.aplicatioInPortal() && !$("#"+settings.id).is("div")){
-		            	$(".r01gContainer").append($(".ui-datepicker:not(.r01gContainer .ui-datepicker)"));
-		            }
+					if($.rup_utils.aplicatioInPortal() && !$self.is("div")){
+		        $(".r01gContainer").append($(".ui-datepicker:not(.r01gContainer .ui-datepicker)"));
+		      }
 
 					//Deshabilitar
 					if (settings.disabled){
-						$("#"+settings.id).rup_time("disable");
+						$self.rup_time("disable");
 					}
 
 					// Se aplica el tooltip
-					$(this).parent().find("[title]").rup_tooltip({"applyToPortal": true});
+					$self.parent().find("[title]").rup_tooltip({"applyToPortal": true});
 				}
 			}
 		});
@@ -298,6 +285,7 @@
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 	$.fn.rup_time.defaults = {
+    adapter: "time_bootstrap",
 		stepHour: 1,
 		stepMinute: 1,
 		stepSecond: 1,

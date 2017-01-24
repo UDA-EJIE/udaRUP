@@ -1,0 +1,20 @@
+.rup-time-input-group{
+  display: inline-flex;
+
+  .hasDatepicker{
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+  }
+  .ui-timepicker-trigger{
+
+      padding: 0 0.5rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      *{
+        display: block;
+      }
+  }
+}

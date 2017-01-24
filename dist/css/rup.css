@@ -5897,7 +5897,17 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
   background-color: #fff; }
 
 .rup-date-input-group {
-  display: inline-block; }
+  display: inline-flex; }
+  .rup-date-input-group .hasDatepicker {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
+  .rup-date-input-group .ui-datepicker-trigger {
+    padding: 0 0.5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
+    .rup-date-input-group .ui-datepicker-trigger * {
+      display: block; }
 
 .ui-datepicker {
   background: #fff; }
@@ -6320,6 +6330,19 @@ div.right_buttons .rup-dropdown-btn-group {
         border-top-right-radius: 4px;
         border-top-left-radius: 4px;
         border-bottom-width: 1; }
+
+.rup-time-input-group {
+  display: inline-flex; }
+  .rup-time-input-group .hasDatepicker {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
+  .rup-time-input-group .ui-timepicker-trigger {
+    padding: 0 0.5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
+    .rup-time-input-group .ui-timepicker-trigger * {
+      display: block; }
 
 .rup-toolbar {
   padding-top: 2px;
