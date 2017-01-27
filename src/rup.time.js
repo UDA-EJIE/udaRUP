@@ -251,6 +251,11 @@
 						$("#"+settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base,"rup_time.mask")+" ");
 					}
 
+          //Mostrar placeholder
+					if (settings.placeholderMask){
+						$self.attr("placeholder", $.rup.i18nParse($.rup.i18n.base,"rup_time.mask"));
+					}
+
 					//Imagen del reloj
 					settings.buttonImage = $.rup.STATICS + (settings.buttonImage?settings.buttonImage:"/rup/basic-theme/images/clock.png");
 
@@ -286,6 +291,7 @@
 	//******************************************************
 	$.fn.rup_time.defaults = {
     adapter: "time_bootstrap",
+    placeholderMask: false,
 		stepHour: 1,
 		stepMinute: 1,
 		stepSecond: 1,

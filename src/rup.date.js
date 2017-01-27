@@ -359,6 +359,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
                     }
                 }
 
+                //Mostrar placeholder
+                if (settings.placeholderMask) {
+                    if (settings.datetimepicker) {
+                        if (settings.showSecond) {
+                            $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTimeSec") + " ");
+                        } else {
+                            $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTime") + " ");
+                        }
+                    } else {
+                        $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.mask") + " ");
+                    }
+                }
+
                 //Fix: Arregla problema tamaño capa cuando selector es DIV y meses es array [X,1]
                 if ($("#" + settings.id).is("div") && settings.numberOfMonths[1] === 1) {
                     if (!settings.showWeek) {
@@ -582,6 +595,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
     //******************************************************
     $.fn.rup_date.defaults = {
         adapter: "date_bootstrap",
+        placeholderMask: false,
         datetimepicker: false,
         multiSelect: false,
         changeMonth: true,
