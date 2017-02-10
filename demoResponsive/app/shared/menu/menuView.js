@@ -1,19 +1,21 @@
 define(['marionette',
         'templates',
-        'rup/rup.menu','rup/rup.lang'], function(Marionette, App){
+        'rup/rup.menu','rup/rup.lang','rup/rup.navbar'], function(Marionette, App){
 
     var MenuView = Marionette.LayoutView.extend({
         template: App.Templates.demoResponsive.app.shared.menu.menuTemplate,
         ui:{
             // menuElement: "#x21aResponsiveWar_menu",
             // menuMixedElement: "#x21aResponsiveWar_menu"
-            languageTool: "#languageDropdown"
+            languageTool: "#languageDropdown",
+            navbar: "#navbarResponsive"
         },
         onAttach : fncOnAttach
     });
 
     function fncOnAttach(){
       this.ui.languageTool.rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY});
+      this.ui.navbar.rup_navbar();
     }
 
   //   function fncOnDomRefresh(){

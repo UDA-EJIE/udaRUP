@@ -4,19 +4,18 @@ body{
 
 header{
   background-color: #ffffff;
-  height: 6em;
-  display: none;
+  height: 0px;
+  overflow: hidden;
 }
 
 header div.cabecera > a{
   padding-top: 1.3em;
   padding-right: 1em;
-
 }
 
 @media (min-width: 768px) {
   header{
-    display: block;
+    height: 6em;
   }
 }
 
@@ -93,13 +92,19 @@ footer .footer-row-2{
 
 /** CONTAINER */
 
-.content{
-	margin: 2.5rem 1rem 1rem 1rem;
-   	clear: both;
-   	background: #ffffff;
-   	display: block;
-   	padding: 2rem;
-   	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+.content {
+    margin: 2.5rem 1rem 1rem 1rem;
+    clear: both;
+    background: #ffffff;
+    display: block;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin: 0em;
+    }
 }
 
 .content.dashboard-content{
