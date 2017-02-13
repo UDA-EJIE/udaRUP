@@ -26,7 +26,7 @@
         background: $rup-color-navbar-brand-bg;
         height: $rup-navbar-height;
         line-height: $rup-navbar-line-height;
-        // margin: 0;
+        margin: 0;
         padding: 0 2rem;
         line-height: $rup-navbar-brand-line-height;
     }
@@ -38,6 +38,9 @@
         border-radius: 0;
         margin-top: 0.7rem;
         margin-left: 0.7rem;
+        &:hover, &:focus {
+          background-color: inherit;
+        }
     }
 
     .navbar-nav {
@@ -101,32 +104,55 @@
         }
     }
 }
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(5, 5, 5, 0);
+    z-index: -1;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+    &.on {
+        z-index: 9998;
+        background-color: rgba(5, 5, 5, 0.7);
+    }
+}
 @media (max-width:991px) {
     .open {
         & > .dropdown-menu {
-            display: inherit;
+            max-height: 0;
+        }
+    }
+
+    .rup-open {
+        & > .dropdown-menu {
+            max-height: 20rem !important;
         }
     }
 
     .navbar-toggleable-md {
         margin-top: 0.8rem;
         position: absolute;
-        z-index: 9000;
+        z-index: 9999;
         width: 100%;
-
-        .navbar-brand {
-            margin: 0;
-        }
 
         .navbar-nav {
             margin: 0;
 
             &.rup-nav-tools {
-                display: flex;
+                display: table;
                 width: 100%;
 
                 .nav-item {
                     display: block;
+                    display: table-cell;
                     text-align: center;
                     border-top: 1px solid #69a3d6;
                 }
@@ -140,8 +166,16 @@
                     position: static;
                     float: none;
                     margin: 0;
+                    padding: 0;
+                    border: 0;
                     overflow-y: auto;
-                    max-height: 20rem;
+                    max-height: 0;
+                    display: block;
+                    -webkit-transition: all 0.3s ease;
+                    -moz-transition: all 0.3s ease;
+                    -o-transition: all 0.3s ease;
+                    -ms-transition: all 0.3s ease;
+                    transition: all 0.3s ease;
                 }
 
                 .dropdown-menu::before {

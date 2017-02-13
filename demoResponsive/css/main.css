@@ -2,10 +2,12 @@ body{
   background-color: #e2e1e0;
 }
 
-header{
-  background-color: #ffffff;
-  height: 0px;
-  overflow: hidden;
+header {
+    background-color: #ffffff;
+    height: 0px;
+    overflow: hidden;
+    position: relative;
+    z-index: 9999;
 }
 
 header div.cabecera > a{

@@ -16411,6 +16411,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
     background: #204d71;
     height: 4rem;
     line-height: 3rem;
+    margin: 0;
     padding: 0 2rem;
     line-height: 3.6rem; }
   .rup-navbar .navbar-toggler {
@@ -16420,6 +16421,8 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
     border-radius: 0;
     margin-top: 0.7rem;
     margin-left: 0.7rem; }
+    .rup-navbar .navbar-toggler:hover, .rup-navbar .navbar-toggler:focus {
+      background-color: inherit; }
   .rup-navbar .navbar-nav.rup-nav-tools .rup-nav-tool-icon {
     font-size: 2rem; }
     .rup-navbar .navbar-nav.rup-nav-tools .rup-nav-tool-icon:after {
@@ -16453,23 +16456,41 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           background: #69a3d6;
           color: #fffcfb; }
 
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(5, 5, 5, 0);
+  z-index: -1;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  #overlay.on {
+    z-index: 9998;
+    background-color: rgba(5, 5, 5, 0.7); }
+
 @media (max-width: 991px) {
   .open > .dropdown-menu {
-    display: inherit; }
+    max-height: 0; }
+  .rup-open > .dropdown-menu {
+    max-height: 20rem !important; }
   .navbar-toggleable-md {
     margin-top: 0.8rem;
     position: absolute;
-    z-index: 9000;
+    z-index: 9999;
     width: 100%; }
-    .navbar-toggleable-md .navbar-brand {
-      margin: 0; }
     .navbar-toggleable-md .navbar-nav {
       margin: 0; }
       .navbar-toggleable-md .navbar-nav.rup-nav-tools {
-        display: flex;
+        display: table;
         width: 100%; }
         .navbar-toggleable-md .navbar-nav.rup-nav-tools .nav-item {
           display: block;
+          display: table-cell;
           text-align: center;
           border-top: 1px solid #69a3d6; }
       .navbar-toggleable-md .navbar-nav .nav-item {
@@ -16479,8 +16500,16 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           position: static;
           float: none;
           margin: 0;
+          padding: 0;
+          border: 0;
           overflow-y: auto;
-          max-height: 20rem; }
+          max-height: 0;
+          display: block;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          transition: all 0.3s ease; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {

@@ -51,7 +51,7 @@
                     changed = false;
                     $('header').css('margin-top', 0);
                     $('.rup-navbar.navbar').css({
-                        'position': 'inherit',
+                        'position': 'relative',
                         'width': '100%'
                     });
                     $('.content').css('margin-top', function(index, curValue) {
@@ -60,6 +60,26 @@
                 }
             });
 
+            $('#overlay').on('click', function() {
+                $('.navbar-toggler').click();
+            });
+
+            $('.navbar-toggler').on('click', function() {
+                $('#overlay').toggleClass('on');
+                $('.navbar-toggleable-md .rup-open').removeClass('rup-open');
+            });
+
+            $('nav .dropdown-item').not('.dropdown-toggle').on('click', function() {
+                $('.navbar-toggler').click();
+            });
+
+            // Los submenus se despliegan al hacer click
+            $('nav .dropdown>a').on('click', function() {
+                $(this).parent().toggleClass('rup-open');
+            });
+            $('nav .dropdown-submenu a').on('click', function() {
+                $(this).parent().toggleClass('rup-open');
+            });
         }
     });
 
