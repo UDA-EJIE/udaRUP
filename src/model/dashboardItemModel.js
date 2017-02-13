@@ -15,7 +15,7 @@
     } else {
       // Browser globals (Note: root is window)
       // root.returnExports = factory(root.myModule, root.myOtherModule);
-      root.returnExports = factory(jQuery);
+      root.DashboardItem = factory(jQuery);
     }
   }(this, function (jQuery) {
 

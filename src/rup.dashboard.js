@@ -24,7 +24,7 @@
 	} else {
 
 		// Browser globals
-		factory( jQuery );
+		factory( jQuery, Rup, DashboardItem);
 	}
 }(function($, Rup, DashboardItem) {
 

@@ -284,6 +284,8 @@ $rup-button-font-weight: $rup-font-weight-base;
 
 // Styles
 
+$rup-line-height-base: 1.25 !default;
+
 $rup-border-width: 1px !default;
 
 $rup-border-radius: 4px;
@@ -332,7 +334,13 @@ $rup-tabs-border-radius: $rup-border-radius;
 
 $rup-border-radius-dialog: $rup-border-radius-none;
 
+// Styles: validate
 
+
+
+$rup-validate-icon-line-height: 1.9;
+$rup-validate-icon-right: 0.8rem;
+$rup-validate-icon-color: $rup-color-error;
 
 
 

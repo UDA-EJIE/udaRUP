@@ -1,4 +1,4 @@
-define(['rup/utils'], function() {
+define(['rup/rup.utils'], function() {
 
   describe("RUP Utils Tests", function(){
 

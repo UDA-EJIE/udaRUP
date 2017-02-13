@@ -32,7 +32,7 @@
 	} else {
 
 		// Browser globals
-		factory( jQuery );
+		factory( jQuery, Handlebars );
 	}
 }(function($, Handlebars) {
 

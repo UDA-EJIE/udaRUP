@@ -8,7 +8,22 @@ input{
   }
 }
 
+.rup-validate-error-icon{
+  color: $rup-validate-icon-color;
+}
+
+.rup-validate-field-error{
+  position: relative;
+
+  .rup-validate-error-icon{
+    position: absolute;
+    top: 0;
+    right: $rup-validate-icon-right;
+    line-height: $rup-validate-icon-line-height;
+  }
+}
+
 div.error, label.error{
-  color: $rup-color-error;
+  color: $rup-validate-icon-color;
   font-style: italic;
 }

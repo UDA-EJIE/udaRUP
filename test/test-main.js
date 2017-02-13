@@ -15,16 +15,33 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
-  baseUrl: '/base',
+  baseUrl: '/',
+  packages: [
+      {
+          name: 'rup',
+          location: '../../src/',
+          main: 'rup.base'
+      },
+      {
+          name: 'jquery.ui.widget',
+          location: "../../node_modules/jquery-ui/ui/",
+          main: 'widget'
+      }
+      // {
+      //     name: 'jquery-ui',
+      //     location: "../../node_modules/jquery-ui/ui",
+      //      main: 'widget'
+      // }
+  ],
   //waitSeconds: 200,
   // example of using a couple of path translations (paths), to allow us to refer to different library dependencies, without using relative paths
   paths: {
       "app":"./test/js/rup.config2",
       "rup_config":"./test/js/rup.config",
-      "jquery": "./bower_components/jquery/jquery",
-      "jquery-ui": "./bower_components/jquery-ui/jquery-ui",
-      "backbone": "./bower_components/backbone/backbone",
-      "underscore": "./bower_components/underscore/underscore",
+      "jquery": "./node_modules/jquery/dist/jquery",
+      "jquery-ui": "./node_modules/jquery-ui-dist/jquery-ui",
+      "backbone": "./node_modules/backbone/backbone",
+      "underscore": "./node_modules/underscore/underscore",
       "handlebars": "./node_modules/handlebars/dist/handlebars",
       "handlebars-i18n": "../js/handlebars-helper-i18n",
       "marionette": "./bower_components/backbone.marionette/lib/backbone.marionette",

@@ -16875,6 +16875,17 @@ input.error {
   background-size: 1.125rem 1.125rem;
   padding-right: 2rem; }
 
+.rup-validate-error-icon {
+  color: #d9534f; }
+
+.rup-validate-field-error {
+  position: relative; }
+  .rup-validate-field-error .rup-validate-error-icon {
+    position: absolute;
+    top: 0;
+    right: 0.8rem;
+    line-height: 1.9; }
+
 div.error, label.error {
   color: #d9534f;
   font-style: italic; }
