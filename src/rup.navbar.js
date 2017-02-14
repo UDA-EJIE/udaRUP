@@ -68,8 +68,17 @@
                 }
             });
 
+            $('nav .scrollTop').off('click');
+
+            $('nav .scrollTop').on('click', function() {
+                $('.navbar-toggler:visible').click();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, '800', 'swing');
+            });
+
             $('#overlay').on('click', function() {
-                $('.navbar-toggler').click();
+                $('.navbar-toggler:visible').click();
             });
 
             $('.navbar-toggler').on('click', function() {
@@ -78,7 +87,7 @@
             });
 
             $('nav .dropdown-item').not('.dropdown-toggle').on('click', function() {
-                $('.navbar-toggler').click();
+                $('.navbar-toggler:visible').click();
             });
 
             // Los submenus se despliegan al hacer click
