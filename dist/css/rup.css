@@ -6022,12 +6022,6 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
         border-color: #adadad;
         color: #333333; }
 
-@media (max-width: 768px) {
-  .ui-dialog {
-    width: 95% !important;
-    left: 1.25% !important;
-    margin: 5% 1.25% 5% 1.25% !important; } }
-
 .rup-message .rup-message_icon-ok, .rup-message .rup-message_icon-alert, .rup-message .rup-message_icon-error, .rup-message .rup-message_icon-confirm {
   background-image: none;
   height: auto;
@@ -6072,6 +6066,35 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
 
 .rup-message .rup-message_icon-confirm {
   color: #1f7e9a; }
+
+@media (max-width: 768px) {
+  .ui-dialog {
+    width: 95% !important;
+    left: 1.25% !important;
+    margin: 5% 1.25% !important; }
+  .rup-message .rup-message_icon-alert,
+  .rup-message .rup-message_icon-confirm,
+  .rup-message .rup-message_icon-error,
+  .rup-message .rup-message_icon-ok {
+    background-image: none;
+    height: auto;
+    padding-top: 0.4em;
+    margin-left: 0;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    width: initial;
+    display: table-cell; }
+  .rup-message_msg-alert,
+  .rup-message_msg-confirm,
+  .rup-message_msg-error,
+  .rup-message_msg-ok {
+    padding-top: 0.4em;
+    text-align: left;
+    vertical-align: middle;
+    width: auto;
+    float: none;
+    margin: 0;
+    display: table-cell; } }
 
 .rup-navbar ul .dropdown-menu a i.fa {
   padding-right: 0.5rem; }
