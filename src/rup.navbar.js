@@ -58,6 +58,14 @@
                         return parseInt(curValue, 10) - headerNavSize + 'px';
                     });
                 }
+
+                var height = $(window).scrollTop();
+
+                if (height > 200) {
+                    $('nav .scrollTop').addClass('on');
+                } else {
+                    $('nav .scrollTop').removeClass('on');
+                }
             });
 
             $('#overlay').on('click', function() {
@@ -75,9 +83,11 @@
 
             // Los submenus se despliegan al hacer click
             $('nav .dropdown>a').on('click', function() {
+                $('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
             });
             $('nav .dropdown-submenu a').on('click', function() {
+                $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
             });
         }

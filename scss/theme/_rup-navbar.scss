@@ -60,6 +60,19 @@
                     padding-left: 0.2rem;
                 }
             }
+
+            .scrollTop {
+                width: 0;
+                -webkit-transition: all 0.3s ease;
+                -moz-transition: all 0.3s ease;
+                -o-transition: all 0.3s ease;
+                -ms-transition: all 0.3s ease;
+                transition: all 0.3s ease;
+
+                &.on {
+                    width: 4rem;
+                }
+            }
         }
 
         & > .nav-item {
@@ -125,63 +138,62 @@
         z-index: 9998;
         background-color: rgba(5, 5, 5, 0.7);
     }
+}
 
-    .navbar-nav {
-        &.rup-nav-tools {
-            .rup-nav-tool-icon {
-                font-size: $rup-navbar-icon-font-size;
+.navbar-nav {
+    &.rup-nav-tools {
+        .rup-nav-tool-icon {
+            font-size: $rup-navbar-icon-font-size;
 
-                &:after {
-                    display: none;
-                }
+            &:after {
+                display: none;
+            }
 
-                span {
-                    font-size: $rup-navbar-icon-text-font-size;
-                    vertical-align: bottom;
-                    padding-left: 0.2rem;
-                }
+            span {
+                font-size: $rup-navbar-icon-text-font-size;
+                vertical-align: bottom;
+                padding-left: 0.2rem;
             }
         }
+    }
 
-        & > .nav-item {
-            height: $rup-navbar-height;
-            line-height: $rup-navbar-line-height;
-            margin-left: 0;
-            padding-left: 0;
-            background: $rup-color-navbar-item-bg;
-            border-right: 1px solid $rup-color-primary-2;
+    & > .nav-item {
+        height: $rup-navbar-height;
+        line-height: $rup-navbar-line-height;
+        margin-left: 0;
+        padding-left: 0;
+        background: $rup-color-navbar-item-bg;
 
-            &.open {
-                background: $rup-color-navbar-item-hover-bg;
-            }
+        &.open {
+            background: $rup-color-navbar-item-hover-bg;
+        }
+
+        &:hover {
+            background: $rup-color-navbar-item-hover-bg;
+        }
+
+        .nav-link {
+            padding-left: 1rem;
+            padding-right: 1rem;
 
             &:hover {
                 background: $rup-color-navbar-item-hover-bg;
             }
+        }
 
-            .nav-link {
-                padding-left: 1rem;
-                padding-right: 1rem;
+        > .dropdown-menu {
+            @include border-radius(0);
+            @extend .shadow-2;
+            @extend .bubble;
+            @extend .bubble-top-left;
+            // @extend .bubble.bottom;
+            .dropdown-item {
+                color: $rup-color-navbar-dropdown-item-text;
+                line-height: 2rem;
 
                 &:hover {
-                    background: $rup-color-navbar-item-hover-bg;
-                }
-            }
-
-            > .dropdown-menu {
-                @include border-radius(0);
-                @extend .shadow-2;
-                @extend .bubble;
-                @extend .bubble-top-left;
-                // @extend .bubble.bottom;
-                .dropdown-item {
-                    color: $rup-color-navbar-dropdown-item-text;
-                    line-height: 2rem;
-
-                    &:hover {
-                        background: $rup-color-navbar-dropdown-item-hover-bg;
-                        color: $rup-color-navbar-dropdown-item-text-hover;
-                    }
+                    background: $rup-color-navbar-dropdown-item-hover-bg;
+                    color: $rup-color-navbar-dropdown-item-text-hover;
                 }
             }
         }
@@ -212,17 +224,27 @@
             &.rup-nav-tools {
                 display: table;
                 width: 100%;
+                border: 1px solid #69a3d6;
+                border-right: 0;
 
                 .nav-item {
                     display: table-cell;
                     text-align: center;
-                    border-top: 1px solid #69a3d6;
+                    border-right: 1px solid #69a3d6;
+                }
+
+                .scrollTop {
+                    position: absolute;
+                    display: block;
+                    top: -4rem;
+                    right: -1px;
                 }
             }
 
             .nav-item {
                 display: inline-table;
                 width: 100%;
+                border-right: 0;
 
                 .dropdown-menu {
                     position: static;
