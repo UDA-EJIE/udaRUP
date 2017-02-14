@@ -16500,6 +16500,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           color: #fffcfb; }
 
 #overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -16550,6 +16551,8 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
         color: #fffcfb; }
 
 @media (max-width: 991px) {
+  #overlay {
+    display: block; }
   .open > .dropdown-menu {
     max-height: 0; }
   .rup-open > .dropdown-menu {

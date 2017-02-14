@@ -61,40 +61,49 @@
 
                 var height = $(window).scrollTop();
 
-                if (height > 200) {
+                if (height > headerNavSize) {
                     $('nav .scrollTop').addClass('on');
                 } else {
                     $('nav .scrollTop').removeClass('on');
                 }
             });
 
-            $('nav .scrollTop').off('click');
-
-            $('nav .scrollTop').on('click', function() {
-                $('.navbar-toggler:visible').click();
-                $('html, body').animate({
-                    scrollTop: 0
-                }, '800', 'swing');
+            // El reescalado de la pantalla navega al inicio del contenido
+            $(window).resize(function() {
+                $.rup_utils.swing2Top();
             });
 
+            // El botón de volver a la parte superior del contenido
+            $('nav .scrollTop')
+                .off('click')
+                .on('click', function() {
+                    $('.navbar-toggler:visible').click();
+                    $.rup_utils.swing2Top();
+                });
+
+            // Hacer click fuera de menú lo cierra
             $('#overlay').on('click', function() {
                 $('.navbar-toggler:visible').click();
             });
 
+            // Funcionamiento de apertura del menú
             $('.navbar-toggler').on('click', function() {
                 $('#overlay').toggleClass('on');
                 $('.navbar-toggleable-md .rup-open').removeClass('rup-open');
             });
 
+            // Cierre de menú al navegar a un item
             $('nav .dropdown-item').not('.dropdown-toggle').on('click', function() {
                 $('.navbar-toggler:visible').click();
             });
 
-            // Los submenus se despliegan al hacer click
+            // Funcionamiento acordeón entre desplegables en el menú
             $('nav .dropdown>a').on('click', function() {
                 $('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
             });
+
+            // Funcionamiento de apertura de sub-desplegables en el menú
             $('nav .dropdown-submenu a').on('click', function() {
                 $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
