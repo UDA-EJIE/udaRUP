@@ -5950,7 +5950,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
 .ui-dialog {
   padding: 0;
   color: #333333;
-  border-radius: 0px;
+  border-radius: 0;
   max-width: 800px; }
   .ui-dialog .ui-dialog-titlebar {
     border: none;
@@ -5962,8 +5962,8 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
       color: #333333;
       border-bottom: 1px solid #eceeef; }
       .ui-dialog .ui-dialog-titlebar.ui-widget-header .ui-dialog-title {
-        margin-top: 0px;
-        margin-bottom: 0px; }
+        margin-top: 0;
+        margin-bottom: 0; }
       .ui-dialog .ui-dialog-titlebar.ui-widget-header span.ui-dialog-title {
         font-size: 1.1rem; }
       .ui-dialog .ui-dialog-titlebar.ui-widget-header a.ui-dialog-title[role='button'] {
@@ -6021,6 +6021,12 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
         background-color: #e6e6e6;
         border-color: #adadad;
         color: #333333; }
+
+@media (max-width: 768px) {
+  .ui-dialog {
+    width: 95% !important;
+    left: 1.25% !important;
+    margin: 5% 1.25% 5% 1.25% !important; } }
 
 .rup-message .rup-message_icon-ok, .rup-message .rup-message_icon-alert, .rup-message .rup-message_icon-error, .rup-message .rup-message_icon-confirm {
   background-image: none;

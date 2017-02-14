@@ -1,87 +1,90 @@
-.ui-dialog{
-  padding: 0;
-  color: $rup-text-color-dialog;
-  border-radius: 0px;
-  max-width: 800px;
+.ui-dialog {
+    padding: 0;
+    color: $rup-text-color-dialog;
+    border-radius: 0;
+    max-width: 800px;
 
-  .ui-dialog-titlebar{
-    border: none;
-    border-radius: $rup-border-radius-dialog;
-    color: $rup-text-color-dialog-header;
+    .ui-dialog-titlebar {
+        border: none;
+        border-radius: $rup-border-radius-dialog;
+        color: $rup-text-color-dialog-header;
 
-    &.ui-widget-header{
-      padding: 1rem;
-      background-color: $rup-color-dialog-header-bg;
-      color: $rup-color-dialog-header-text;
-      border-bottom: $rup-color-dialog-border;
+        &.ui-widget-header {
+            padding: 1rem;
+            background-color: $rup-color-dialog-header-bg;
+            color: $rup-color-dialog-header-text;
+            border-bottom: $rup-color-dialog-border;
 
-      .ui-dialog-title{
-        margin-top: 0px;
-        margin-bottom: 0px;
-      }
+            .ui-dialog-title {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
 
-      span.ui-dialog-title{
-        font-size: $rup-font-size-larger;
-      }
+            span.ui-dialog-title {
+                font-size: $rup-font-size-larger;
+            }
 
-      a.ui-dialog-title[role='button']{
-        display:none;
-      }
+            a.ui-dialog-title[role='button'] {
+                display: none;
+            }
 
-      .ui-dialog-titlebar-close{
-        margin-right: 2rem;
-        background-color: transparent;
-        border-color: transparent;
-        opacity: 1;
-        color: $rup-color-feedback-close-icon;
-        text-shadow: none;
-        &:hover{
+            .ui-dialog-titlebar-close {
+                margin-right: 2rem;
+                background-color: transparent;
+                border-color: transparent;
+                opacity: 1;
+                color: $rup-color-feedback-close-icon;
+                text-shadow: none;
 
-            color: $rup-color-feedback-close-icon-hover;
+                &:hover {
+                    color: $rup-color-feedback-close-icon-hover;
+                }
 
+                span {
+                    display: inline-block;
+                    background-image: none;
+                    overflow: visible;
+                    text-indent: 0;
+                    margin: 0;
+                    padding-right: 0.5rem;
+
+                    &.ui-icon-closethick {
+                        font-size: $rup-fa-size;
+                        top: 0;
+                        @extend .rup-fa-ui;
+                        @extend .rup-fa-close;
+                    }
+                }
+            }
         }
-        span{
-          display: inline-block;
-          background-image: none;
-          overflow: visible;
-          text-indent: 0;
-          margin: 0;
-          padding-right: 0.5rem;
-
-
-          &.ui-icon-closethick{
-            font-size: $rup-fa-size;
-            top: 0;
-
-            @extend .rup-fa-ui;
-            @extend .rup-fa-close;
-
-          }
-
-        }
-      }
-
     }
-  },
-  .ui-dialog-buttonpane{
 
-    //padding: 0 1.1rem;
+    ,
+    .ui-dialog-buttonpane {
+        //padding: 0 1.1rem;
+        .ui-dialog-buttonset {
+            display: inline-block;
 
-    .ui-dialog-buttonset {
-      display: inline-block;
+            button.ui-button {
+                background-image: none;
+                font-family: $rup-font-family;
+                text-shadow: none;
+                border-color: #adadad;
 
-      button.ui-button{
-        background-image: none;
-        font-family: $rup-font-family;
-        text-shadow: none;
-
-        border-color: #adadad;
-        &:hover {
-          background-color: #e6e6e6;
-          border-color: #adadad;
-          color: $rup-text-color;
+                &:hover {
+                    background-color: #e6e6e6;
+                    border-color: #adadad;
+                    color: $rup-text-color;
+                }
+            }
         }
-      }
     }
-  }
+}
+
+@media (max-width: 768px) {
+    .ui-dialog {
+        width: 95% !important;
+        left: 1.25% !important;
+        margin: 5% 1.25% 5% 1.25% !important;
+    }
 }
