@@ -434,7 +434,7 @@ a.ui-button:active,
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #000;
+	background: #aaa;
 	opacity: .5;
 	filter: Alpha(Opacity=50); /* support: IE8 */
 }

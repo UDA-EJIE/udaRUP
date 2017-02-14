@@ -15885,6 +15885,10 @@ label {
 .ui-state-hover, .ui-widget-content .ui-state-hover {
   background: #b9d4ec; }
 
+.ui-widget-overlay {
+  opacity: .7;
+  background-color: #050505; }
+
 button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dropdown-button, a.rup-toolbar_menuButton.ui-button, .rup-wizard a.rup-wizard_next, .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-wizard_submitButton, input[type="button"], input[type="submit"], .btn {
   font-size: 1.1rem;
   padding: 6px 12px;
@@ -16405,7 +16409,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
   background: #69a3d6;
   border-radius: 0;
   padding: 0 0 1rem;
-  z-index: 9999;
+  z-index: 99;
   height: 4rem; }
   .rup-navbar .navbar-brand {
     background: #204d71;
@@ -16480,7 +16484,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease; }
   #overlay.on {
-    z-index: 9998;
+    z-index: 98;
     background-color: rgba(5, 5, 5, 0.7); }
 
 .navbar-nav.rup-nav-tools .rup-nav-tool-icon {
@@ -16524,7 +16528,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
   .navbar-toggleable-md {
     margin-top: 0.8rem;
     position: absolute;
-    z-index: 9999;
+    z-index: 99;
     width: 100%; }
     .navbar-toggleable-md .navbar-nav {
       margin: 0; }

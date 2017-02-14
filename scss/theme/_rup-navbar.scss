@@ -18,7 +18,7 @@
     background: $rup-color-navbar-bg;
     border-radius: 0;
     padding: 0 0 1rem;
-    z-index: 9999;
+    z-index: 99;
     height: $rup-navbar-height;
     @extend .shadow-2;
 
@@ -136,7 +136,7 @@
     transition: all 0.3s ease;
 
     &.on {
-        z-index: 9998;
+        z-index: 98;
         background-color: rgba(5, 5, 5, 0.7);
     }
 }
@@ -216,7 +216,7 @@
     .navbar-toggleable-md {
         margin-top: 0.8rem;
         position: absolute;
-        z-index: 9999;
+        z-index: 99;
         width: 100%;
 
         .navbar-nav {

@@ -7,7 +7,7 @@ header {
     height: 0px;
     overflow: hidden;
     position: relative;
-    z-index: 9999;
+    z-index: 99;
 }
 
 header div.cabecera > a{
