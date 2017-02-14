@@ -22,21 +22,21 @@
 (function ($) {
 
 
-	$.rup_utils  = {};
-	$.rup_utils.arr = [];
-	$.rup_utils.autoGenerateIdNum = 0;
+    $.rup_utils = {};
+    $.rup_utils.arr = [];
+    $.rup_utils.autoGenerateIdNum = 0;
 
     /**
-    * Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>
-    * Implementa métodos para la manipulación de JSON, formularios, formatos...
-    *
-    * @summary Librería de utilidades para los componentes RUP.
-    * @namespace jQuery.rup_utils
-    * @memberOf jQuery
-    */
+     * Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>
+     * Implementa métodos para la manipulación de JSON, formularios, formatos...
+     *
+     * @summary Librería de utilidades para los componentes RUP.
+     * @namespace jQuery.rup_utils
+     * @memberOf jQuery
+     */
 
-	$.extend($.rup_utils, {
-		/**
+    $.extend($.rup_utils, {
+        /**
          * Retorna el idioma actual capitalizado.
          *
          * El idioma actual se obtiene de la variable $.rup.lang

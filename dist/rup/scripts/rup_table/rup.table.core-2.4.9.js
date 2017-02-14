@@ -141,7 +141,6 @@
 	};
 
 	$.fn.fmatter.rup_combo.unformat = function (cellvalue, options) {
-//		debugger;
 		var val =  $(this).data("rup.table.formatter")[options.rowId][options.colModel.name]["rup_combo"]["value"];
 
 		return val || "";

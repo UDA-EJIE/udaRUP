@@ -164,7 +164,6 @@
             aceptButton = [{
                     text: $.rup.i18nParse($.rup.i18n.base,"rup_message.aceptar"),
                     click: function () {
-											debugger;
                     	settings.OKFunction.call(this, self);
                         self.dialog("close");
                     }
