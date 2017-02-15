@@ -66,6 +66,20 @@ define(['rup/rup.utils'], function() {
               arrObj = $.rup_utils.jsontoarray(jsonObj);
               expect(arrObj).toEqual(expectedObj);
           });
+
+          it("debería transformar un json obj={'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}, 'propB':'d'", function(){
+              var jsonObj, arrObj, expectedObj;
+
+              jsonObj = {'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}};
+              expectedObj = [];
+              expectedObj['propA.propAA[0].propAAA'] = 'a';
+              expectedObj['propA.propAA[1].propAAB'] = 'b';
+              expectedObj['propA.propAA[2].propAAC'] = 'c';
+              expectedObj['propB'] = 'd';
+
+              arrObj = $.rup_utils.jsontoarray(jsonObj);
+              expect(arrObj).toEqual(expectedObj);
+          });
       });
 
       /*

@@ -28,7 +28,7 @@
 
 .ui-widget-overlay {
 	background: $gray-light url("#{$ui-image-dir}/ui-bg_flat_0_#{$ui-gray-light-num}_40x100.png") 50% 50% repeat-x;
-	@include ui-opacity(.30);
+	@include ui-opacity(.50);
 }
 
 .ui-widget-shadow {

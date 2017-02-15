@@ -446,14 +446,15 @@
                 var $self = this,
                     element, rupLevel, label, title = "";
 
-                //Añadir contenedor de pestanyas
+                // Añadir contenedor de pestanyas
                 var $tabsContainer = $(Rup.Templates.rup.tabs.container());
                 tabs.append($tabsContainer);
+                tabs = $(tabs).children('ul');
 
 
-                //pestanyas
+                // pestanyas
                 for (var i = 0; i < json.length; i++) {
-                    rupLevel = pos + i; //Indicador de nivel de la pestanya
+                    rupLevel = pos + i; // Indicador de nivel de la pestanya
                     element = json[i];
                     if (i === 0 && profundidad === settings.profun) {
                         settings.iniLoad = true;
@@ -472,8 +473,8 @@
                     }
 
                     if (element.layer !== undefined) {
-                        //LAYER => Recoge una capa ya cargada de la Jsp
-                        element.layer = this._includeLayer($tabsContainer, element.layer, null);
+                        // LAYER => Recoge una capa ya cargada de la Jsp
+                        element.layer = this._includeLayer(tabs, element.layer, null);
 
                         $tabsContainer.append(Rup.Templates.rup.tabs.tab({
                             'id': element.i18nCaption,
@@ -487,17 +488,19 @@
                         }));
 
 
-                        //evento close
+                        // evento close
                         $("span.ui-icon-close").on("click", function () {
 
                             var tabContentId = $(this).parent().attr("href");
-                            $(this).parent().parent().remove(); //remove li of tab
-                            $(tabContentId).remove(); //remove respective tab content
+                            $(this).parent().parent().remove(); // remove li of
+                            // tab
+                            $(tabContentId).remove(); // remove respective tab
+                            // content
 
                             tabs.tabs("refresh");
                         });
 
-                        //efecto hover del boton cerrar
+                        // efecto hover del boton cerrar
                         $("span.ui-icon-close").addClass('rup-tabs-close');
                         $("span.ui-icon-close").on({
                             mouseenter: function () {
@@ -510,7 +513,7 @@
                         });
 
                     } else if (element.url !== undefined) {
-                        //URL => Cargar contenido al pulsar
+                        // URL => Cargar contenido al pulsar
                         $tabsContainer.append(Rup.Templates.rup.tabs.tab({
                             'id': '#' + element.i18nCaption,
                             'href': $.rup_utils.setNoPortalParam(element.url),
@@ -523,7 +526,7 @@
                         }));
 
                     } else if (element.tabs !== undefined) {
-                        //TABS => Subpestanyas
+                        // TABS => Subpestanyas
                         $tabsContainer.append(Rup.Templates.rup.tabs.tab({
                             'id': '#' + element.i18nCaption,
                             'href': '#' + element.i18nCaption,
@@ -536,34 +539,45 @@
                             'tabs': element.tabs
                         }));
 
-                        //Gestionar capa contenedora subpestanyas
-                        // tabs = $(tabs).parent();
-                        //Añadir contenedor de capa asociada a pestanya
+                        // Gestionar capa contenedora subpestanyas
+                        tabs = $(tabs).parent();
+                        // Añadir contenedor de capa asociada a pestanya
                         var capaId = "rupRandomLayerId-" + $.rup_utils.autoGenerateIdNum++;
                         var $capa = $(Rup.Templates.rup.tabs.subtab({
                             'rupRandomLayerId': capaId,
                             'id': element.i18nCaption,
                             'actualTab': true
                         }));
-                        $self.append($capa);
+                        tabs.append($capa);
 
                         var $subTabsDiv = $("[id='" + element.i18nCaption + "']", $capa);
 
 
-                        // tabs.append(capa); 						//Añadir contenedor de capa asociada a pestanya
-                        // tabs = $(tabs).children("#"+capaId); 	//Seleccionar capa contenedora
+                        // tabs.append(capa); //Añadir contenedor de capa
+                        // asociada a pestanya
+                        tabs = $(tabs).children("#" + capaId); //Seleccionar
+                        // capa contenedora
 
-                        //Gestionar capa de la subpestanya
-                        // tabs.prepend($('<div>').attr('id', element.i18nCaption).attr('actualTab',true)); //Añadir capa asociada a la pestanya
-                        // tabs = $(tabs).children('div:first-child'); //Seleccionar capa
+                        // Gestionar capa de la subpestanya
+                        tabs.prepend($('<div>').attr('id',
+                            element.i18nCaption).attr('actualTab', true));
+                        // //Añadir capa asociada a la pestanya
+                        tabs = $(tabs).children('div:first-child'); // Seleccionar
+                        // capa
 
-                        //Subpestanyas
+                        // Subpestanyas
                         var subsettings = jQuery.extend(true, {}, settings);
                         subsettings.selected = element.selected;
-                        // tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad+1, subsettings));
-                        tabs.append(this._parseJSON(element.tabs, json_i18n, $subTabsDiv, rupLevel, profundidad + 1, subsettings));
+                        // tabs.append(this._parseJSON(element.tabs, json_i18n,
+                        // tabs, rupLevel, profundidad+1, subsettings));
+                        tabs.append(this._parseJSON(element.tabs, json_i18n, tabs, rupLevel, profundidad + 1, subsettings));
 
-                        this._tabify($subTabsDiv, subsettings); //Si no tiene 1 es que es el primer elemento y lo convertimos a pestanyas
+                        this._tabify(tabs, subsettings); // Si no tiene 1
+                        // es que es el
+                        // primer
+                        // elemento y lo
+                        // convertimos a
+                        // pestanyas
 
 
                     }

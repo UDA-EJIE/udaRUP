@@ -52,7 +52,6 @@ requirejs.config({
         "jquery.fileupload-process": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-process",
         "jquery.fileupload-image": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-image",
         "jquery.fileupload-audio": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-audio",
-        "jquery.fileupload-process": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-process",
         "jquery.fileupload-video": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-video",
         "jquery.fileupload-validate": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-validate",
         "jquery.xdr-transport": "../../node_modules/blueimp-file-upload/js/cors/jquery.xdr-transport",

@@ -1,6 +1,6 @@
-%rup-message_icon{
-  @extend %rup-fa;
-    background-image:none;
+%rup-message_icon {
+    @extend %rup-fa;
+    background-image: none;
     height: auto;
     padding-top: 0.4em;
     margin-left: 0.4em;
@@ -8,77 +8,110 @@
     font-size: $rup-fa-size-lg;
 }
 
-.rup-message{
-  .ui-dialog-titlebar{
-    background: $rup-color-message-header-bg;
+.rup-message {
+    .ui-dialog-titlebar {
+        background: $rup-color-message-header-bg;
 
-    .ui-dialog-title{
-      color: $rup-color-message-header-text;
+        .ui-dialog-title {
+            color: $rup-color-message-header-text;
+        }
     }
-  }
 
-  &.rup-message-error{
-    .ui-dialog-titlebar{
-      background: $rup-color-message-error-header-bg;
+    &.rup-message-error {
+        .ui-dialog-titlebar {
+            background: $rup-color-message-error-header-bg;
 
-      .ui-dialog-title{
-        color: $rup-color-message-error-header-text;
-      }
+            .ui-dialog-title {
+                color: $rup-color-message-error-header-text;
+            }
+        }
     }
-  }
 
-  &.rup-message-ok{
-    .ui-dialog-titlebar{
-      background: $rup-color-message-ok-header-bg;
+    &.rup-message-ok {
+        .ui-dialog-titlebar {
+            background: $rup-color-message-ok-header-bg;
 
-      .ui-dialog-title{
-        color: $rup-color-message-ok-header-text;
-      }
+            .ui-dialog-title {
+                color: $rup-color-message-ok-header-text;
+            }
+        }
     }
-  }
 
-  &.rup-message-alert{
-    .ui-dialog-titlebar{
-      background: $rup-color-message-alert-header-bg;
+    &.rup-message-alert {
+        .ui-dialog-titlebar {
+            background: $rup-color-message-alert-header-bg;
 
-      .ui-dialog-title{
-        color: $rup-color-message-alert-header-text;
-      }
+            .ui-dialog-title {
+                color: $rup-color-message-alert-header-text;
+            }
+        }
     }
-  }
 
-  &.rup-message-confirm{
-    .ui-dialog-titlebar{
-      background: $rup-color-message-confirm-header-bg;
+    &.rup-message-confirm {
+        .ui-dialog-titlebar {
+            background: $rup-color-message-confirm-header-bg;
 
-      .ui-dialog-title{
-        color: $rup-color-message-confirm-header-text;
-      }
+            .ui-dialog-title {
+                color: $rup-color-message-confirm-header-text;
+            }
+        }
     }
-  }
 
-  .rup-message_icon-ok{
-    @extend %rup-message_icon;
-    color: $rup-color-message-ok-icon;
-    @extend .rup-fa-ok;
-  }
+    .rup-message_icon-ok {
+        @extend %rup-message_icon;
+        color: $rup-color-message-ok-icon;
+        @extend .rup-fa-ok;
+    }
 
-  .rup-message_icon-alert{
-    @extend %rup-message_icon;
-    color: $rup-color-message-alert-icon;
-    @extend .rup-fa-warning;
-  }
+    .rup-message_icon-alert {
+        @extend %rup-message_icon;
+        color: $rup-color-message-alert-icon;
+        @extend .rup-fa-warning;
+    }
 
-  .rup-message_icon-error{
-    @extend %rup-message_icon;
-    color: $rup-color-message-error-icon;
-    @extend .rup-fa-error;
-  }
+    .rup-message_icon-error {
+        @extend %rup-message_icon;
+        color: $rup-color-message-error-icon;
+        @extend .rup-fa-error;
+    }
 
-  .rup-message_icon-confirm{
-    @extend %rup-message_icon;
-    color: $rup-color-message-confirm-icon;
-    @extend .rup-fa-confirm;
-  }
+    .rup-message_icon-confirm {
+        @extend %rup-message_icon;
+        color: $rup-color-message-confirm-icon;
+        @extend .rup-fa-confirm;
+    }
+}
+@media (max-width: 768px) {
+    .ui-dialog {
+        width: 95% !important;
+        left: 1.25% !important;
+        margin: 5% 1.25% !important;
+    }
 
+    .rup-message .rup-message_icon-alert,
+    .rup-message .rup-message_icon-confirm,
+    .rup-message .rup-message_icon-error,
+    .rup-message .rup-message_icon-ok {
+        background-image: none;
+        height: auto;
+        padding-top: 0.4em;
+        margin-left: 0;
+        margin-right: 1rem;
+        font-size: 1.5rem;
+        width: initial;
+        display: table-cell;
+    }
+
+    .rup-message_msg-alert,
+    .rup-message_msg-confirm,
+    .rup-message_msg-error,
+    .rup-message_msg-ok {
+        padding-top: 0.4em;
+        text-align: left;
+        vertical-align: middle;
+        width: auto;
+        float: none;
+        margin: 0;
+        display: table-cell;
+    }
 }

@@ -2,21 +2,22 @@ body{
   background-color: #e2e1e0;
 }
 
-header{
-  background-color: #ffffff;
-  height: 6em;
-  display: none;
+header {
+    background-color: #ffffff;
+    height: 0px;
+    overflow: hidden;
+    position: relative;
+    z-index: 99;
 }
 
 header div.cabecera > a{
   padding-top: 1.3em;
   padding-right: 1em;
-
 }
 
 @media (min-width: 768px) {
   header{
-    display: block;
+    height: 6em;
   }
 }
 
@@ -54,6 +55,7 @@ footer{
   footer{
     padding-left: 0em;
     padding-right: 0em;
+    margin: 0;
   }
 }
 
@@ -93,13 +95,20 @@ footer .footer-row-2{
 
 /** CONTAINER */
 
-.content{
-	margin: 2.5rem 1rem 1rem 1rem;
-   	clear: both;
-   	background: #ffffff;
-   	display: block;
-   	padding: 2rem;
-   	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+.content {
+    margin: 2.5rem 1rem 1rem 1rem;
+    clear: both;
+    background: #ffffff;
+    display: block;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 767px) {
+    .content {
+        margin: 0em;
+        /*margin-bottom: -1rem;*/
+    }
 }
 
 .content.dashboard-content{
