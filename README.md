@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=release-0.1.0)](https://travis-ci.org/UDA-EJIE/udaRUP)
+[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=develop)](https://travis-ci.org/UDA-EJIE/udaRUP)
 
 # UDA - Componentes RUP
 
