@@ -1,0 +1,50 @@
+
+.rup-toolbar{
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background: $rup-color-toolbar-background;
+  border: $rup-color-toolbar-border;
+
+  button{
+
+    //float: left;
+    margin-right: 5px;
+  }
+
+
+
+  .rup-button-right{
+    float: right;
+  }
+
+  .rup-button-left{
+    float: left;
+  }
+}
+
+a.rup-toolbar_menuButton.ui-button{
+  @extend button;
+
+  span{
+    display: inline-flex;
+    padding-bottom: 0;
+  }
+}
+
+.rup-toolbar_menuButtonContainer{
+  ul[role='menu']{
+    padding-left: 0;
+    padding-bottom: 0;
+    button.rup-toolbar_menuButtonElement{
+      text-align: left;
+    }
+  }
+}
+
+
+.rup-toolbar-mbutton{
+  position: relative;
+  width: 100%;
+  display: inline-table;
+  float: none;
+}

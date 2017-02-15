@@ -1,0 +1,95 @@
+.rup-date-input-group{
+  display: inline-flex;
+
+  .hasDatepicker{
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+  }
+  .ui-datepicker-trigger{
+      
+      padding: 0 0.5rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      *{
+        display: block;
+      }
+  }
+}
+
+.ui-datepicker{
+
+  background: $rup-color-date-bg;
+
+  &:not(.ui-datepicker-inline){
+    @extend .shadow-2;
+  }
+
+  .ui-datepicker-header{
+    background: $rup-color-date-header-bg;
+    border: none;
+  }
+
+  .ui-datepicker-calendar{
+    td{
+      background: none;
+
+      a{
+        border: none;
+        text-align: center;
+        background: $rup-color-date-day-bg;
+      }
+
+      &.ui-datepicker-unselectable{
+        opacity: 0.5;
+
+        span{
+          border: none;
+          text-align: center;
+          background: $rup-color-date-day-bg;
+        }
+
+      }
+
+      &.ui-datepicker-today{
+
+        a{
+          background: $rup-color-date-today-bg !important;
+          border: $rup-color-date-today-border;
+          color: $rup-color-date-today-text;
+        }
+      }
+      &.ui-datepicker-week-end{
+        a{
+          background: $rup-color-date-weekend-bg !important;
+          border: $rup-color-date-weekend-border;
+          color: $rup-color-date-weekend-text;
+        }
+      }
+      &.ui-state-highlight{
+
+        a{
+          background: $rup-color-date-current-bg !important;
+          border: $rup-color-date-current-border;
+          color: $rup-color-date-current-text;
+        }
+      }
+
+
+
+      &:hover{
+        a{
+          background: $rup-color-date-hover-bg !important;
+          border: $rup-color-date-hover-border;
+          color: $rup-color-date-hover-text;
+        }
+      }
+    }
+
+
+
+
+  }
+}

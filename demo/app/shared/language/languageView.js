@@ -1,8 +1,8 @@
 
 define(['marionette',
         'templates',
-        'rup/base',
-        'rup/utils',
+        'rup/rup.base',
+        'rup/rup.utils',
         'rup/lang'], function(Marionette, App){
 
     var HeaderView = Marionette.LayoutView.extend({

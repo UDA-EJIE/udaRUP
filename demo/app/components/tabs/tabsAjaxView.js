@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/tabs', 'rup/tooltip'], function(Marionette, App){
+        'rup/rup.tabs', 'rup/rup.tooltip'], function(Marionette, App){
 
   var TabsAjaxView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.tabs.tabsAjaxTemplate,

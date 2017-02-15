@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/validate'], function(Marionette, App){
+        'rup/rup.validate'], function(Marionette, App){
 
   var ValidateView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.validate.validateTemplate,

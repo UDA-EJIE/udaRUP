@@ -1,0 +1,69 @@
+<section>
+
+<div id="treeCodeDialog" style="display:none"></div>
+
+<!-- Ãrbol con ordenaciÃ³n -->
+<fieldset id="treeAreaExchangePanel" class="treeAreaExchangePanel">
+	<legend class="treeAreaExchangePanel_legend">{{i18n "tree.treeDAD.reorder"}}</legend>
+	<div id="tasksReorderTree" class="ExchangePanel_tree"></div>
+	<div id="tasksReorderTreeUniqueControl" class="DADcontrolsMainCode">
+		<button id="btnReorderTreeUniqueControl">{{i18n "tree.verCodigo.boton"}}</button>
+	</div>
+</fieldset>
+
+<!-- Ãrboles con intercambio -->
+<fieldset id="treeNodesExchangePanel" class="treeNodesExchangePanel">
+	<legend class="treeNodesExchangePanel_legend">{{i18n "tree.treeDAD.exchange"}}</legend>
+<div>
+	<div class="enLinea panelLeftWorkers">
+		<div id="tasksTree" class="ExchangePanel_tree"></div>
+
+	</div>
+	<!--<div class="enLinea">
+		<div class="widthCentral"></div>
+		<img src="/demoResponsive/images/arbol/twoWayArrows.png" class="treeNodesExchangePanel_center_img" alt="{{ i18n 'tree.treeDAD.Interchange'}}"/>
+		<div  class="DADcontrolsMainCode"></div>
+	</div>-->
+	<div class="enLinea panelRightWorkers">
+		<div id="workersTree" class="ExchangePanel_tree"></div>
+	</div>
+</div>
+<div id="tasksExchangeTreeUniqueControl" class="DADcontrolsMainCode">
+	<button id="btnExchangeTreeUniqueControl">{{i18n "tree.verCodigo.boton"}}</button>
+</div>
+</fieldset>
+
+<fieldset id="treeNodeAreaExchangePanel" class="treeNodeAreaExchangePanel">
+	<legend class="treePromotionsDismissalsPanel_legend">{{i18n 'tree.treeDAD.exchange'}} </legend>
+	<div class="promotionsDismissalsExchangePanel">
+		<div class="promotionsDismissalsExchangePanel_left">
+			<div id="promotionsDismissalsTree" class="promotionsDismissals_tree"></div>
+		</div>
+		<div class="promotionsDismissalsExchangePanel_center">
+			<div class="promotionsDismissalsExchangePanel_center_line"></div>
+			<div class="promotionsDismissalsExchangePanel_center_img_div">
+				<img src="/demoResponsive/images/arbol/rightArrow.png" class="promotionsDismissalsExchangePanel_center_img" alt="{{i18n  'tree.treeDAD.rightDirec'}}"/>
+			</div>
+		</div>
+		<div class="promotionsDismissalsExchangePanel_right">
+			<div class="promotionsDismissalsActionPanel">
+				<h3 class="promotionsDismissalsDestiny">{{i18n "tree.treeDAD.promotions"}}</h3>
+				<ul class="promotionsDismissalsActionPanel_list"></ul>
+			</div>
+			<div class="promotionsDismissalsActionPanel_line"></div>
+			<div class="promotionsDismissalsActionPanel promotionsDismissalsActionPanelCenter">
+				<h3 class="promotionsDismissalsDestiny">{{i18n "tree.treeDAD.formation"}}</h3>
+				<ul class="promotionsDismissalsActionPanel_list"></ul>
+			</div>
+			<div class="promotionsDismissalsActionPanel_line"></div>
+			<div class="promotionsDismissalsActionPanel">
+				<h3 class="promotionsDismissalsDestiny">{{i18n "tree.treeDAD.dismissals" }}</h3>
+				<ul class="promotionsDismissalsActionPanel_list"></ul>
+			</div>
+		</div>
+	</div>
+	<div id="tasksPromotionsDismissalsUniqueControl" class="DADcontrolsMainCode PromotionsDismissalsMainCode">
+		<button id="btnPromotionsDismissalsUniqueControl">{{i18n "tree.verCodigo.boton" }}</button>
+	</div>
+</fieldset>
+</section>

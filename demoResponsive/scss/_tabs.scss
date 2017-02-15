@@ -1,0 +1,29 @@
+.rup-tabs_container.ui-tabs{
+  padding: 0;
+
+  .rupRandomLayerId.ui-tabs-panel{
+    padding: 0 0.4rem;
+  }
+
+  ul.ui-tabs-nav{
+    padding: 0 0 0 0.2rem;
+
+    li.ui-tabs-tab{
+
+      &.ui-tabs-active{
+        background: #fff;
+      }
+
+      a{
+        border-top-right-radius: $border-radius;
+        border-top-left-radius: $border-radius;
+        border-bottom-width: 0;
+        &:hover {
+          @extend %tab-color-hover;
+        }
+      }
+    }
+
+  }
+
+}

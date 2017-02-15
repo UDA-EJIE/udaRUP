@@ -1,0 +1,22 @@
+$("toolbar").rup_toolbar({
+  width: 1000,
+  buttons:[
+    {i18nCaption:"cancelar", css:"cancelar", click: handlerMButtons, right: true},
+    {i18nCaption:"buscar", css:"buscar", click: handlerBoton },
+    {id: "mbuton1", i18nCaption:"otros", buttons:[
+      {i18nCaption:"nuevo", css:"nuevo", click: handlerMButtons},
+      {i18nCaption:"editar", css:"editar", click: handlerMButtons},
+      {i18nCaption:"cancelar", css:"cancelar", click: handlerMButtons},
+      {i18nCaption:"borrar", css:"borrar", click: handlerMButtons},
+      {i18nCaption:"filtrar", css:"filtrar", click: handlerMButtons},
+     ]},
+     {id : "mbuton2", i18nCaption:"ficheros", right: true, buttons:[
+        {i18nCaption:"DOC", css:"doc", click: handlerMButtons},
+        {i18nCaption:"PDF", css:"pdf", click: handlerMButtons},
+        {i18nCaption:"PPT", css:"ppt", click: handlerMButtons},
+        {i18nCaption:"XLS", css:"xls", click: handlerMButtons}
+      ]},
+      {i18nCaption:"filtrar", css:"filtrar", click: handlerMButtons},
+      {i18nCaption:"imprimir", css:"imprimir", click: handlerMButtons, right: true}
+  ]
+});

@@ -14,7 +14,17 @@
  * que establece la Licencia.
  */
 
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		// AMD. Register as an anonymous module.
+ 		define( ["jquery","./rup.utils"], factory );
+ 	} else {
+
+ 		// Browser globals
+ 		factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
     /**
      * jQuery definition to anchor JsDoc comments.
@@ -151,6 +161,44 @@
 
  	//Se crea el objeto base, que alberga toda la metódica y gestión de los componentes RUP, dentro de la jerarquía de JQuery
 	$.rup = $.rup || {};
+
+
+  $.extend($.rup, {
+    _uaMatch: function( ua ) {
+    	ua = ua.toLowerCase();
+
+    	var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+    		/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+    		/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+    		/(msie) ([\w.]+)/.exec( ua ) ||
+    		ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+    		[];
+
+    	return {
+    		browser: match[ 1 ] || "",
+    		version: match[ 2 ] || "0"
+    	};
+    }
+  });
+
+  var matched = jQuery.uaMatch( navigator.userAgent );
+  var browser = {};
+
+	if ( matched.browser ) {
+		browser[ matched.browser ] = true;
+		browser.version = matched.version;
+	}
+
+	// Chrome is Webkit, but Webkit is also Safari.
+	if ( browser.chrome ) {
+		browser.webkit = true;
+	} else if ( browser.webkit ) {
+		browser.safari = true;
+	}
+
+  $.rup._browser = browser;
+
+
 	$.extend($.rup, {
 		i18n : {},
 		appResources : {}, //fichero de recursos de la aplicacion
@@ -160,13 +208,13 @@
 			return ((navigator.language || navigator.userLanguage).split("-")[0].toLowerCase());
 		},
 		browser : {
-			version :  $.browser.version,
-			versionNumber : $.isNumeric($.browser.version)?parseInt($.browser.version):undefined,
+			version :  $.rup._browser.version,
+			versionNumber : $.isNumeric($.rup._browser.version)?parseInt($.rup._browser.version):undefined,
 			isIE : (/Trident\//).test(navigator.userAgent),
-			isSafari : $.browser.safari && $.browser.webkit ? true:false,
-			isChrome : $.browser.safari && $.browser.webkit ? true:false,
-			isFF : $.browser.mozilla ? true:false,
-			isOpera : $.browser.opera ? true:false,
+			isSafari : $.rup._browser.safari && $.rup._browser.webkit ? true:false,
+			isChrome : $.rup._browser.safari && $.rup._browser.webkit ? true:false,
+			isFF : $.rup._browser.mozilla ? true:false,
+			isOpera : $.rup._browser.opera ? true:false,
 			xhrFileUploadSupport : new XMLHttpRequest().upload!==undefined?true:false
 		},
 
@@ -290,6 +338,37 @@
 		},
 		//Funcion encargada de hacer las inicializaciones basicas de RUP
 		iniRup : function () {
+
+      // Inicializar adapters
+      $.rup.adapter = {};
+      $.each(RUP_ADAPTERS, function(key, adapter){
+        // if ($.isPlainObject(adapter)){
+        //   $.rup.adapter[key] = {};
+        //   $.each(adapter, function(subKey, subKeyAdapter){
+        //     if ( typeof define === "function" && define.amd ) {
+        //       require(["rup/adapter/"+subKeyAdapter], function(subKeyAdapter){
+        //         $.rup.adapter[key][subKey]= new subKeyAdapter;
+        //       });
+        //
+        //     }else{
+        //         $.rup.adapter[key][subKey]= new window[subKeyAdapter];
+        //     }
+        //   });
+        // }else{
+
+          if ( typeof define === "function" && define.amd ) {
+            require(["rup/adapter/"+adapter], function(adapter){
+              $.rup.adapter[key]= new adapter;
+            });
+
+          }else{
+              $.rup.adapter[key]= new window[adapter];
+          }
+        // }
+
+      });
+
+
 			//Inicializar variables de ficheros de recuros (rup y app)
 			$.rup.i18n.app = {};
 			$.rup.i18n.base = {};
@@ -674,4 +753,4 @@
 
 	//Inicializacion de las funciones de gestion de RUP en general
 	$.rup.iniRup();
-})(jQuery);
+}));

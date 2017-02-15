@@ -19,56 +19,66 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
 
-	//****************************************************************************************************************
-	//DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-	//****************************************************************************************************************
+        // AMD. Register as an anonymous module.
+        define(["jquery", "./rup.base", "jquery-ui-timepicker", "jquery-ui-multidatespicker"], factory);
+    } else {
+
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+
+    //****************************************************************************************************************
+    //DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+    //****************************************************************************************************************
 
     /**
-    * Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
-    *
-    * @summary Componente RUP Date.
-    * @namespace jQuery.rup_date
-    * @memberOf jQuery
-    * @tutorial rup_date
-    * @example
-    * // Ejemplo de selector de fecha simple.
-    * $("#fecha").rup_date({
-	*	labelMaskId : "fecha-mask",
-	*	showButtonPanel : true,
-	*	showOtherMonths : true,
-	*	noWeekend : true
-	* });
-    *
-    * // Ejemplo de selector de fecha simple que permite seleccionar tres fechas.
-    * $("#fecha_multi").rup_date({
-	*	multiSelect: 3,
-	*	labelMaskId : "fecha_multi-mask",
-	*	buttonImage : "/rup/basic-theme/images/exclamation.png"
-	* });
-    *
-    * // Ejemplo de selectores de fecha desde y hasta
-    * $.rup_date({
-	*	from: "desde",
-	*	to: "hasta",
-	*	//Resto igual que en date
-	*	labelMaskId : "intervalo-mask",
-	*	numberOfMonths: 3
-	* });
-    */
-	var rup_date = {};
-	var rup_interval = {};
+     * Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
+     *
+     * @summary Componente RUP Date.
+     * @namespace jQuery.rup_date
+     * @memberOf jQuery
+     * @tutorial rup_date
+     * @example
+     * // Ejemplo de selector de fecha simple.
+     * $("#fecha").rup_date({
+     *	labelMaskId : "fecha-mask",
+     *	showButtonPanel : true,
+     *	showOtherMonths : true,
+     *	noWeekend : true
+     * });
+     *
+     * // Ejemplo de selector de fecha simple que permite seleccionar tres fechas.
+     * $("#fecha_multi").rup_date({
+     *	multiSelect: 3,
+     *	labelMaskId : "fecha_multi-mask",
+     *	buttonImage : "/rup/basic-theme/images/exclamation.png"
+     * });
+     *
+     * // Ejemplo de selectores de fecha desde y hasta
+     * $.rup_date({
+     *	from: "desde",
+     *	to: "hasta",
+     *	//Resto igual que en date
+     *	labelMaskId : "intervalo-mask",
+     *	numberOfMonths: 3
+     * });
+     */
+    var rup_date = {};
+    var rup_interval = {};
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_date", rup_date));
-	$.extend($.rup.iniRup, $.rup.rupObjectConstructor("rup_date", rup_interval));
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_date", rup_date));
+    $.extend($.rup.iniRup, $.rup.rupObjectConstructor("rup_date", rup_interval));
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//*******************************
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //*******************************
 
-	$.fn.rup_date("extend",{
+    $.fn.rup_date("extend", {
         /**
          * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
          *
@@ -78,23 +88,27 @@
          * @example
          * $("#idDate").rup_date("getRupValue");
          */
-		getRupValue : function(){
-			if ($(this).data("datepicker").settings.datetimepicker){
+        getRupValue: function () {
+            if ($(this).data("datepicker").settings.datetimepicker) {
 
-				var tmpDate = $(this).datepicker("getDate");
+                var tmpDate = $(this).datepicker("getDate");
 
-				if(tmpDate===null || tmpDate.toString()==="Invalid Date"){
-					return "";
-				}
-				var dateObj={hour:tmpDate.getHours(),minute:tmpDate.getMinutes(),second:tmpDate.getSeconds()};
-				var formattedTime = $.timepicker._formatTime(dateObj, "hh:mm:ss");
-				var dateFormat = $(this).data("datepicker").settings.dateFormat;
+                if (tmpDate === null || tmpDate.toString() === "Invalid Date") {
+                    return "";
+                }
+                var dateObj = {
+                    hour: tmpDate.getHours(),
+                    minute: tmpDate.getMinutes(),
+                    second: tmpDate.getSeconds()
+                };
+                var formattedTime = $.timepicker._formatTime(dateObj, "hh:mm:ss");
+                var dateFormat = $(this).data("datepicker").settings.dateFormat;
 
-				return $.datepicker.formatDate(dateFormat, tmpDate)+" "+$.timepicker._formatTime(dateObj, "hh:mm:ss");
-			}else{
-				return $(this).rup_date("getDate");
-			}
-		},
+                return $.datepicker.formatDate(dateFormat, tmpDate) + " " + $.timepicker._formatTime(dateObj, "hh:mm:ss");
+            } else {
+                return $(this).rup_date("getDate");
+            }
+        },
         /**
          * Método utilizado para asignar el valor al componente. Este método es el utilizado por
 el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
@@ -108,30 +122,34 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * // Varias fechas
          * $("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
          */
-		setRupValue : function(param){
+        setRupValue: function (param) {
 
-			if ($(this).data("datepicker").settings.datetimepicker){
-				var fechaArray = param.split(" ");
+            if ($(this).data("datepicker").settings.datetimepicker) {
+                var fechaArray = param.split(" ");
 
-				var tmpDate = new Date(fechaArray[0]);
-				var time = fechaArray[1];
+                var tmpDate = new Date(fechaArray[0]);
+                var time = fechaArray[1];
 
-				var tmpDate = new Date(param);
-				if(tmpDate.toString()==="Invalid Date"){
-					return "";
-				}
-				var dateObj={hour:tmpDate.getHours(),minute:tmpDate.getMinutes(),second:tmpDate.getSeconds()};
+                var tmpDate = new Date(param);
+                if (tmpDate.toString() === "Invalid Date") {
+                    return "";
+                }
+                var dateObj = {
+                    hour: tmpDate.getHours(),
+                    minute: tmpDate.getMinutes(),
+                    second: tmpDate.getSeconds()
+                };
 
-				var formattedTime = $.timepicker._formatTime(dateObj, $(this).data("datepicker").settings.timeFormat);
+                var formattedTime = $.timepicker._formatTime(dateObj, $(this).data("datepicker").settings.timeFormat);
 
-				$(this).datepicker("setTime", param);
+                $(this).datepicker("setTime", param);
 
-				$(this).val(fechaArray[0]+" "+formattedTime);
+                $(this).val(fechaArray[0] + " " + formattedTime);
 
-			}else{
-				$(this).val(param);
-			}
-		},
+            } else {
+                $(this).val(param);
+            }
+        },
         /**
          * Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
          *
@@ -140,15 +158,15 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("destroy");
          */
-		destroy : function(){
-			//Eliminar máscara
-			var labelMaskId = $(this).data("datepicker").settings.labelMaskId;
-			if (labelMaskId){
-				$("#"+labelMaskId).text("");
-			}
-			delete labelMaskId;
-			$(this).datepicker("destroy");
-		},
+        destroy: function () {
+            //Eliminar máscara
+            var labelMaskId = $(this).data("datepicker").settings.labelMaskId;
+            if (labelMaskId) {
+                $("#" + labelMaskId).text("");
+            }
+            delete labelMaskId;
+            $(this).datepicker("destroy");
+        },
         /**
          * Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
          *
@@ -157,9 +175,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("disable");
          */
-		disable : function(){
-		  $(this).datepicker("disable");
-		},
+        disable: function () {
+            $(this).datepicker("disable");
+        },
         /**
          * Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
          *
@@ -168,9 +186,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("enable");
          */
-		enable : function(){
-		  $(this).datepicker("enable");
-		},
+        enable: function () {
+            $(this).datepicker("enable");
+        },
         /**
          * Indica si el componente se encuentra deshabilitado o no.
          *
@@ -180,9 +198,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("isDisabled");
          */
-		isDisabled : function(){
-		  return $(this).datepicker("isDisabled");
-		},
+        isDisabled: function () {
+            return $(this).datepicker("isDisabled");
+        },
         /**
          * Oculta el calendario para seleccionar una fecha.
          *
@@ -191,9 +209,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("hide");
          */
-		hide : function(){
-		  $(this).datepicker("hide");
-		},
+        hide: function () {
+            $(this).datepicker("hide");
+        },
         /**
          * Muestra el calendario para seleccionar una fecha.
          *
@@ -202,9 +220,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("show");
          */
-		show : function(){
-		  $(this).datepicker("show");
-		},
+        show: function () {
+            $(this).datepicker("show");
+        },
         /**
          * Devuelve la fecha seleccionada, si no se ha seleccionado nada devuelve vacío.
          *
@@ -214,9 +232,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("getDate");
          */
-		getDate : function(){
-			return $(this).val();
-		},
+        getDate: function () {
+            return $(this).val();
+        },
         /**
          * Establece la fecha del componente. El parámetro debe ser un objeto date.
          *
@@ -226,9 +244,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("setDate", new Date());
          */
-		setDate : function(date){
-		  $(this).datepicker("setDate" , date);
-		},
+        setDate: function (date) {
+            $(this).datepicker("setDate", date);
+        },
         /**
          * Refresca el calendario desplegado por si ha habido algún cambio.
          *
@@ -237,9 +255,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @example
          * $("#idDate").rup_date("refresh");
          */
-		refresh : function(){
-	  		$(this).datepicker("refresh");
-		},
+        refresh: function () {
+            $(this).datepicker("refresh");
+        },
         /**
          * Permite consultar y modificar la configuración del componente.
          *
@@ -255,16 +273,16 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * // Establecer varias propiedad
          * $("#idCombo").rup_date("option", {datetimepicker:true, multiselect:3});
          */
-		option : function(optionName, value){
-	  		$(this).datepicker("option", optionName, value);
-		}
-		//No soportadas: widget, dialog
-	});
+        option: function (optionName, value) {
+                $(this).datepicker("option", optionName, value);
+            }
+            //No soportadas: widget, dialog
+    });
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PRIVADOS
-	//*******************************
-	$.fn.rup_date("extend", {
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PRIVADOS
+    //*******************************
+    $.fn.rup_date("extend", {
         /**
          * Método de inicialización del componente
          *
@@ -272,274 +290,319 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
          * @function
          * @private
          */
-			_init : function(args){
-				if (args.length > 1) {
-					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
-				} else {
-					//Se recogen y cruzan las paremetrizaciones del objeto
-					var settings = $.extend({}, $.fn.rup_date.defaults, args[0]);
+        _init: function (args) {
+            if (args.length > 1) {
+                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, "rup_global.initError") + $(this).attr("id"));
+            } else {
+                //Se recogen y cruzan las paremetrizaciones del objeto
+                var settings = $.extend({}, $.fn.rup_date.defaults, args[0]);
 
-					//Eventos
-					//*******
-						//Guardar referencia
-						settings._onClose = settings.onClose;
-						settings.onClose = function(event, ui) {
-							if (settings._onClose!==undefined){settings._onClose(event,ui);}
-							if (!$.rup.browser.isIE){
-								$(this).focus();
-							}
-						};
+                // Se carga el adapter
+                this._ADAPTER = $.rup.adapter[settings.adapter];
 
-						if (settings.multiSelect){
-							settings._beforeShow = settings.beforeShow;
-							settings.beforeShow = function(ui, obj) {
-								if (settings._beforeShow!==undefined){settings._beforeShow(ui, obj);}
+                //Eventos
+                //*******
+                //Guardar referencia
+                settings._onClose = settings.onClose;
+                settings.onClose = function (event, ui) {
+                    if (settings._onClose !== undefined) {
+                        settings._onClose(event, ui);
+                    }
+                    if (!$.rup.browser.isIE) {
+                        $(this).focus();
+                    }
+                };
 
-								var $dateInput = $(ui), dateValue = $dateInput.attr("value"), dates;
+                if (settings.multiSelect) {
+                    settings._beforeShow = settings.beforeShow;
+                    settings.beforeShow = function (ui, obj) {
+                        if (settings._beforeShow !== undefined) {
+                            settings._beforeShow(ui, obj);
+                        }
 
-								if (dateValue!==undefined && dateValue!==''){
-									dates = dateValue.split(",");
-									if (dates.length>1){
-										$dateInput.multiDatesPicker("addDates",dates);
-									}
-								}
-							};
-						}
+                        var $dateInput = $(ui),
+                            dateValue = $dateInput.attr("value"),
+                            dates;
+
+                        if (dateValue !== undefined && dateValue !== '') {
+                            dates = dateValue.split(",");
+                            if (dates.length > 1) {
+                                $dateInput.multiDatesPicker("addDates", dates);
+                            }
+                        }
+                    };
+                }
 
 
-					//Se carga el identificador del padre del patron
-					settings.id = $(this).attr("id");
+                //Se carga el identificador del padre del patron
+                settings.id = $(this).attr("id");
 
-					(this).attr("ruptype","date");
+                $(this).attr("ruptype", "date");
 
-					//Carga de propiedades/literales
-					//var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);
-					var literales = $.rup.i18n.base["rup_date"];
-					for (var key in literales){
-						settings[key] = literales[key];
-					}
+                //Carga de propiedades/literales
+                //var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);
+                var literales = $.rup.i18n.base["rup_date"];
+                for (var key in literales) {
+                    settings[key] = literales[key];
+                }
 
-					//Mostrar máscara
-					if (settings.labelMaskId){
-						if (settings.datetimepicker){
-							if (settings.showSecond){
-								$("#"+settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base,"rup_date.maskDateTimeSec")+" ");
-							}else{
-								$("#"+settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base,"rup_date.maskDateTime")+" ");
-							}
-						}else{
-							$("#"+settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base,"rup_date.mask")+" ");
-						}
-					}
+                //Mostrar máscara
+                if (settings.labelMaskId) {
+                    if (settings.datetimepicker) {
+                        if (settings.showSecond) {
+                            $("#" + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTimeSec") + " ");
+                        } else {
+                            $("#" + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTime") + " ");
+                        }
+                    } else {
+                        $("#" + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, "rup_date.mask") + " ");
+                    }
+                }
 
- 					//Fix: Arregla problema tamaño capa cuando selector es DIV y meses es array [X,1]
-					if ($("#"+settings.id).is("div") && settings.numberOfMonths[1]===1){
-						if  (!settings.showWeek){
-							$("#"+settings.id).css("width", "15.4em");
-						} else {
-							$("#"+settings.id).css("width", "17.1em");
-						}
-					}
+                //Mostrar placeholder
+                if (settings.placeholderMask) {
+                    if (settings.datetimepicker) {
+                        if (settings.showSecond) {
+                            $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTimeSec") + " ");
+                        } else {
+                            $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.maskDateTime") + " ");
+                        }
+                    } else {
+                        $(this).attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_date.mask") + " ");
+                    }
+                }
 
-					//Imagen del calendario
-					settings.buttonImage = $.rup.STATICS + (settings.buttonImage?settings.buttonImage:"/rup/basic-theme/images/calendario.png");
+                //Fix: Arregla problema tamaño capa cuando selector es DIV y meses es array [X,1]
+                if ($("#" + settings.id).is("div") && settings.numberOfMonths[1] === 1) {
+                    if (!settings.showWeek) {
+                        $("#" + settings.id).css("width", "15.4em");
+                    } else {
+                        $("#" + settings.id).css("width", "17.1em");
+                    }
+                }
 
-					//Sab-Dom deshabilitados
-					if (settings.noWeekend){
-						settings.beforeShowDay =  $.datepicker.noWeekends;
-					}
 
-					//Atributos NO MODIFICABLES
-						//La imagen no debe ser un botón
-						settings.buttonImageOnly = true;
-						//Solo permitir caracteres permitidos en la máscara
-						settings.constrainInput = true;
-						//Mostrar patrón con foco en input y pinchando imagen
-						settings.showOn = "both";
 
-					//Datepicker
-					if (!settings.multiSelect){
-						if (settings.datetimepicker){
-							if (settings.showSecond){
-								(this).attr("maxlength","19");
-							}else{
-								(this).attr("maxlength","16");
-							}
-							$("#"+settings.id).datetimepicker(settings);
-						}else{
-							(this).attr("maxlength","10");
-							$("#"+settings.id).datepicker(settings);
-						}
-					} else {
-						var maxlength = 0;
-						if (typeof settings.multiSelect === 'number'){
-							settings.mode = {
-								modeName: 'normal',
-								options : {maxPicks : settings.multiSelect}
-							};
-							maxlength = (10*settings.multiSelect)+(settings.multiSelect-1);
-						} else if (typeof settings.multiSelect === 'object'){
-							settings.mode = {
-								modeName: 'daysRange',
-								options : {autoselectRange : settings.multiSelect}
-							};
-							maxlength = settings.multiSelect[1] - settings.multiSelect[0];
-							maxlength = (10*maxlength)+(maxlength-1);
-						}
-						(this).attr("maxlength", maxlength);
+                //Sab-Dom deshabilitados
+                if (settings.noWeekend) {
+                    settings.beforeShowDay = $.datepicker.noWeekends;
+                }
 
-						//Sobreescribir valores por defecto para multiselección
-						$.datepicker._defaults.dateFormat = settings.dateFormat;
-						$("#"+settings.id).multiDatesPicker(settings);
+                this._ADAPTER.initIconTrigger(settings);
+                // //Imagen del calendario
+                // settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/basic-theme/images/calendario.png");
+                //
+                // //Atributos NO MODIFICABLES
+                // //La imagen no debe ser un botón
+                // settings.buttonImageOnly = true;
+                // //Solo permitir caracteres permitidos en la máscara
+                // settings.constrainInput = true;
+                // //Mostrar patrón con foco en input y pinchando imagen
+                // settings.showOn = "both";
 
-						//Permitir separador de intervalos (coma)
-						$(this).keypress(function (event) {
-							if (event.charCode===44){
-								var value = $(event.currentTarget).val(),
-									cursorPosStart = event.originalEvent.originalTarget.selectionStart,
-									cursorPosEnd = event.originalEvent.originalTarget.selectionEnd;
-									begin = value.substring(0,cursorPosStart),
-									end = value.substring(cursorPosEnd);
-								//Si no tiene tamaño máximo o tiene selección de caracteres
-								if (value.length < $(event.currentTarget).attr("maxlength") || 	cursorPosStart !== cursorPosEnd){
-									$(event.currentTarget).val(begin+","+end);
-									event.originalEvent.originalTarget.selectionStart = cursorPosStart+1;
-									event.originalEvent.originalTarget.selectionEnd = cursorPosStart+1;
-								}
-							}
-						});
-					}
+                //Datepicker
+                if (!settings.multiSelect) {
+                    if (settings.datetimepicker) {
+                        if (settings.showSecond) {
+                            (this).attr("maxlength", "19");
+                        } else {
+                            (this).attr("maxlength", "16");
+                        }
+                        $("#" + settings.id).datetimepicker(settings);
+                    } else {
+                        (this).attr("maxlength", "10");
+                        $("#" + settings.id).datepicker(settings);
+                    }
+                } else {
+                    var maxlength = 0;
+                    if (typeof settings.multiSelect === 'number') {
+                        settings.mode = {
+                            modeName: 'normal',
+                            options: {
+                                maxPicks: settings.multiSelect
+                            }
+                        };
+                        maxlength = (10 * settings.multiSelect) + (settings.multiSelect - 1);
+                    } else if (typeof settings.multiSelect === 'object') {
+                        settings.mode = {
+                            modeName: 'daysRange',
+                            options: {
+                                autoselectRange: settings.multiSelect
+                            }
+                        };
+                        maxlength = settings.multiSelect[1] - settings.multiSelect[0];
+                        maxlength = (10 * maxlength) + (maxlength - 1);
+                    }
+                    (this).attr("maxlength", maxlength);
 
-					//Ajuste para el comportamiento de portales
-					if($.rup_utils.aplicatioInPortal() && !$("#"+settings.id).is("div")){
-		            	$(".r01gContainer").append($(".ui-datepicker:not(.r01gContainer .ui-datepicker)"));
-		            }
+                    //Sobreescribir valores por defecto para multiselección
+                    $.datepicker._defaults.dateFormat = settings.dateFormat;
+                    $("#" + settings.id).multiDatesPicker(settings);
 
-					// Se aplica el tooltip
-					$(this).parent().find("[title]").rup_tooltip({"applyToPortal": true});
+                    //Permitir separador de intervalos (coma)
+                    $(this).keypress(function (event) {
+                        if (event.charCode === 44) {
+                            var value = $(event.currentTarget).val(),
+                                cursorPosStart = event.originalEvent.originalTarget.selectionStart,
+                                cursorPosEnd = event.originalEvent.originalTarget.selectionEnd;
+                            begin = value.substring(0, cursorPosStart),
+                                end = value.substring(cursorPosEnd);
+                            //Si no tiene tamaño máximo o tiene selección de caracteres
+                            if (value.length < $(event.currentTarget).attr("maxlength") || cursorPosStart !== cursorPosEnd) {
+                                $(event.currentTarget).val(begin + "," + end);
+                                event.originalEvent.originalTarget.selectionStart = cursorPosStart + 1;
+                                event.originalEvent.originalTarget.selectionEnd = cursorPosStart + 1;
+                            }
+                        }
+                    });
+                }
 
-					//Deshabilitar
-					if (settings.disabled){
-						$("#"+settings.id).rup_date("disable");
-					}
-				}
-			}
-		});
-		$.rup_date("extend", {
-			_init : function(args){
-				if (args.length > 1) {
-					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
-				} else {
-					//Se recogen y cruzan las paremetrizaciones del objeto (duplicado de objetos)
-					var settings = $.extend({}, $.fn.rup_date.defaults, args[0]),
-					from_settings = $.extend(true, {}, settings),
-					to_settings =  $.extend(true, {}, settings);
+                $.proxy(this._ADAPTER.postConfigure, $(this))(settings);
 
-					//Gestionar intervalo del campo desde
-					from_settings.onClose = function(dateText, inst) {
-//				        var endDateTextBox = $("#"+settings.to);
-						var $endDateTextBox = $("#"+settings.to),
-					        $startDateTextBox = inst.input, startDateData, toDateData, testStartDate, testEndDate;
+                //Ajuste para el comportamiento de portales
+                if ($.rup_utils.aplicatioInPortal() && !$("#" + settings.id).is("div")) {
+                    $(".r01gContainer").append($(".ui-datepicker:not(.r01gContainer .ui-datepicker)"));
+                }
 
-				        if ($endDateTextBox.attr("value") != '') {
-				        	startDateData = $startDateTextBox.data("datepicker");
-				        	toDateData = $endDateTextBox.data("datepicker");
+                // Se aplica el tooltip
+                $(this).parent().find("[title]").rup_tooltip({
+                    "applyToPortal": true
+                });
 
-				        	if (startDateData.settings.timepicker!==undefined){
-				        		testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay, startDateData.settings.hour, startDateData.settings.minute, startDateData.settings.second);
-				        	}else{
-				        		testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay);
-				        	}
-				        	if (toDateData.settings.timepicker!==undefined){
-				        		testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay, toDateData.settings.hour, toDateData.settings.minute, toDateData.settings.second);
-				        	}else{
-				        		testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay);
-				        	}
+                //Deshabilitar
+                if (settings.disabled) {
+                    $("#" + settings.id).rup_date("disable");
+                }
+            }
+        }
+    });
+    $.rup_date("extend", {
+        _init: function (args) {
+            if (args.length > 1) {
+                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, "rup_global.initError") + $(this).attr("id"));
+            } else {
+                //Se recogen y cruzan las paremetrizaciones del objeto (duplicado de objetos)
+                var settings = $.extend({}, $.fn.rup_date.defaults, args[0]),
+                    from_settings = $.extend(true, {}, settings),
+                    to_settings = $.extend(true, {}, settings);
 
-				            if (testStartDate > testEndDate){
-				                $endDateTextBox.attr("value",dateText);
-				            }
-				        }
-				        else {
-				            $endDateTextBox.attr("value",dateText);
-				        }
-				        if (settings.onClose!==undefined){ settings.onClose(dateText, inst); }
-					};
-					from_settings.onSelect = to_settings.beforeShow = function (selectedDate){
-				        var start = $("#"+settings.from).datetimepicker('getDate'), startDate;
+                //Gestionar intervalo del campo desde
+                from_settings.onClose = function (dateText, inst) {
+                    //				        var endDateTextBox = $("#"+settings.to);
+                    var $endDateTextBox = $("#" + settings.to),
+                        $startDateTextBox = inst.input,
+                        startDateData, toDateData, testStartDate, testEndDate;
 
-				        startDate = start!==null?new Date(start.getTime()):null;
+                    if ($endDateTextBox.attr("value") != '') {
+                        startDateData = $startDateTextBox.data("datepicker");
+                        toDateData = $endDateTextBox.data("datepicker");
 
-				        $("#"+settings.to).datetimepicker('option', 'minDate', startDate);
+                        if (startDateData.settings.timepicker !== undefined) {
+                            testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay, startDateData.settings.hour, startDateData.settings.minute, startDateData.settings.second);
+                        } else {
+                            testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay);
+                        }
+                        if (toDateData.settings.timepicker !== undefined) {
+                            testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay, toDateData.settings.hour, toDateData.settings.minute, toDateData.settings.second);
+                        } else {
+                            testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay);
+                        }
 
-				        if (settings.datetimepicker){
-				        	$("#"+settings.to).datetimepicker('option', 'minDateTime', startDate);
-				        }
+                        if (testStartDate > testEndDate) {
+                            $endDateTextBox.attr("value", dateText);
+                        }
+                    } else {
+                        $endDateTextBox.attr("value", dateText);
+                    }
+                    if (settings.onClose !== undefined) {
+                        settings.onClose(dateText, inst);
+                    }
+                };
+                from_settings.onSelect = to_settings.beforeShow = function (selectedDate) {
+                    var start = $("#" + settings.from).datetimepicker('getDate'),
+                        startDate;
 
-				        if (settings.onSelect!==undefined){ settings.onSelect(selectedDate);}
-				    };
+                    startDate = start !== null ? new Date(start.getTime()) : null;
 
-				  //Gestionar intervalo del campo hasta
-				    to_settings.onClose = function(dateText, inst) {
-				        var $startDateTextBox = $("#"+settings.from),
-				        $endDateTextBox = inst.input, startDateData, toDateData, testStartDate, testEndDate;
+                    $("#" + settings.to).datetimepicker('option', 'minDate', startDate);
 
-				        if ($startDateTextBox.attr("value")  != '') {
-				        	startDateData = $startDateTextBox.data("datepicker");
-				        	toDateData = $endDateTextBox.data("datepicker");
+                    if (settings.datetimepicker) {
+                        $("#" + settings.to).datetimepicker('option', 'minDateTime', startDate);
+                    }
 
-				        	if (startDateData.settings.timepicker!==undefined){
-				        		testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay, startDateData.settings.hour, startDateData.settings.minute, startDateData.settings.second);
-				        	}else{
-				        		testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay);
-				        	}
-				        	if (toDateData.settings.timepicker!==undefined){
-				        		testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay, toDateData.settings.hour, toDateData.settings.minute, toDateData.settings.second);
-				        	}else{
-				        		testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay);
-				        	}
+                    if (settings.onSelect !== undefined) {
+                        settings.onSelect(selectedDate);
+                    }
+                };
 
-				            if (testStartDate > testEndDate){
-				            	$startDateTextBox.attr("value",dateText);
-				            }
-				        }
-				        else {
-				            $startDateTextBox.attr("value",dateText);
-				        }
-				        if (settings.onClose!==undefined){ settings.onClose(dateText, inst); }
-				    };
-				    to_settings.onSelect = from_settings.beforeShow = function (selectedDate){
-				        var end = $("#"+settings.to).datetimepicker('getDate'), endDate;
+                //Gestionar intervalo del campo hasta
+                to_settings.onClose = function (dateText, inst) {
+                    var $startDateTextBox = $("#" + settings.from),
+                        $endDateTextBox = inst.input,
+                        startDateData, toDateData, testStartDate, testEndDate;
 
-				        endDate = end!==null?new Date(end.getTime()):null;
+                    if ($startDateTextBox.attr("value") != '') {
+                        startDateData = $startDateTextBox.data("datepicker");
+                        toDateData = $endDateTextBox.data("datepicker");
 
-				        $("#"+settings.from).datetimepicker('option', 'maxDate', endDate);
+                        if (startDateData.settings.timepicker !== undefined) {
+                            testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay, startDateData.settings.hour, startDateData.settings.minute, startDateData.settings.second);
+                        } else {
+                            testStartDate = new Date(startDateData.selectedYear, startDateData.selectedMonth, startDateData.selectedDay);
+                        }
+                        if (toDateData.settings.timepicker !== undefined) {
+                            testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay, toDateData.settings.hour, toDateData.settings.minute, toDateData.settings.second);
+                        } else {
+                            testEndDate = new Date(toDateData.selectedYear, toDateData.selectedMonth, toDateData.selectedDay);
+                        }
 
-				        if (settings.datetimepicker){
-				        	$("#"+settings.from).datetimepicker('option', 'maxDateTime',endDate);
-				        }
+                        if (testStartDate > testEndDate) {
+                            $startDateTextBox.attr("value", dateText);
+                        }
+                    } else {
+                        $startDateTextBox.attr("value", dateText);
+                    }
+                    if (settings.onClose !== undefined) {
+                        settings.onClose(dateText, inst);
+                    }
+                };
+                to_settings.onSelect = from_settings.beforeShow = function (selectedDate) {
+                    var end = $("#" + settings.to).datetimepicker('getDate'),
+                        endDate;
 
-				        if (settings.onSelect!==undefined){ settings.onSelect(selectedDate); }
-				    };
+                    endDate = end !== null ? new Date(end.getTime()) : null;
 
-					//Lanzar componente
-					$("#"+settings.from).rup_date(from_settings);
-					$("#"+settings.to).rup_date(to_settings);
-				}
-			}
-		});
+                    $("#" + settings.from).datetimepicker('option', 'maxDate', endDate);
 
-	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//******************************************************
-	$.fn.rup_date.defaults = {
-		datetimepicker: false,
-		multiSelect: false,
-		changeMonth: true,
-		changeYear: true,
-		noWeekend: false,
-		showSecond: true
-	};
+                    if (settings.datetimepicker) {
+                        $("#" + settings.from).datetimepicker('option', 'maxDateTime', endDate);
+                    }
+
+                    if (settings.onSelect !== undefined) {
+                        settings.onSelect(selectedDate);
+                    }
+                };
+
+                //Lanzar componente
+                $("#" + settings.from).rup_date(from_settings);
+                $("#" + settings.to).rup_date(to_settings);
+            }
+        }
+    });
+
+    //******************************************************
+    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //******************************************************
+    $.fn.rup_date.defaults = {
+        adapter: "date_bootstrap",
+        placeholderMask: false,
+        datetimepicker: false,
+        multiSelect: false,
+        changeMonth: true,
+        changeYear: true,
+        noWeekend: false,
+        showSecond: true
+    };
 
     /**
      * Función de callback a ejecutar cuando se crea el calendario.
@@ -671,4 +734,4 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
      * @property {jQuery.rup_date~onClose} [onClose] - Permite asociar una función que se ejecutará cuando se oculte el calendario.
      */
 
-})(jQuery);
+}));

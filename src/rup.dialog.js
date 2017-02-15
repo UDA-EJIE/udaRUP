@@ -33,7 +33,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base","blockUI" ], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	//*********************************************
 	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
@@ -132,11 +142,11 @@
 
 				}
 				if (settings.position === undefined || settings.position === null){
-					$(this).data("dialog").uiDialog.css("position","absolute").css("top",(docHeight/2)-($('div[aria-labelledby=ui-dialog-title-' + this[0].id + ']').height()/2));
+					$(this).data("dialog").uiDialog.css("position","absolute").css("top",(docHeight/2)-($('div[aria-describedby=' + this[0].id + ']').height()/2));
 				}
 			}
 
-			$('div[aria-labelledby=ui-dialog-title-' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
+			$('div[aria-describedby=' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
 		},
         /**
          * Borra el dialogo si este estubiera oculto o visible.
@@ -295,7 +305,7 @@
 			.addClass("rup-enlaceCancelar")
 			.html(btn.text)
 			.click(btn.click);
-			$('div[aria-labelledby=ui-dialog-title-' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
+			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
 		}
 	});
 
@@ -332,9 +342,10 @@
 					if(settings.type !== null && $(this).length > 0){
 
 						$.each($(this), function(index, object) {
+              var $self = $(this);
 
-							if($(this).attr('id') !== undefined){
-								settings.id = $(this).attr('id');
+							if($self.attr('id') !== undefined){
+								settings.id = $self.attr('id');
 							} else {
 								settings.id = "rup_"+settings.type+"DIV";
 								msgDiv = $("<div/>").attr("id", settings.id);
@@ -345,7 +356,7 @@
 
 							//Se determina la ubicación del dialogo físicamente (dentro de la pagina html). Por defecto se ubica en el body de la página pero puede determinarse una ubicación específica.
 							//En caso de encontrarnos en portales (Ejie), y no determinar una ubicación específica, se ubica dentro de los rangos apropiados.
-							if($('div[aria-labelledby=ui-dialog-title-' + settings.id + ']').length > 0){//comprobamos que no se haya ya creado el dialog sobre ese div para evitar problemas de sobreescritura de propiedades, como el tiulo...
+                        if($('div[aria-describedby=' + settings.id + ']').length > 0){//comprobamos que no se haya ya creado el dialog sobre ese div para evitar problemas de sobreescritura de propiedades, como el tiulo...
 								created = true;
 							} else {
 								if($("body #"+settings.id).not(".ui-dialog-content").length > 1){
@@ -354,7 +365,7 @@
 
 								if(settings.specificLocation !== ""){
 									codeEventCreate = function(event, ui){
-										 $("#"+settings.id).parent(".ui-dialog").insertAfter($("#"+settings.specificLocation));
+										 $self.parent(".ui-dialog").insertAfter($("#"+settings.specificLocation));
 									};
 								} else if ($.rup_utils.aplicatioInPortal()){ //Ajuste para portales
 									codeEventCreate = function(event, ui){
@@ -381,12 +392,12 @@
 							switch (settings.type) {
 							case $.rup.dialog.DIV://si el dialog es de tipo DIV se utilizara el div creado por el desarrollador para crear el ui dialog
 								if(settings.clone !== undefined){
-									$('#'+settings.id).clone(true).attr("id",settings.clone).insertAfter('#'+settings.id );
+									$self.clone(true).attr("id",settings.clone).insertAfter($self);
 									settings.id = settings.clone;
 								}
 								break;
 							case $.rup.dialog.TEXT:
-								$("#"+settings.id).html(settings.message);
+								$self.html(settings.message);
 								break;
 							case $.rup.dialog.AJAX:
 								dialog._ajaxLoad(settings);
@@ -423,7 +434,12 @@
 							}
 
 							if (!created) { //si ha sido creado no hace falta volver a añadir el elnace de cierre
-								$("#" + settings.id).dialog(settings);
+								$self.dialog(settings);
+
+                // Estilos RUP
+
+                $self.data("uiDialog").uiDialog.addClass("rup-dialog");
+
 								closeSpan = "<span id='closeText_" + settings.id + "' style='float:right;font-size:0.85em'>" + $.rup.i18nParse($.rup.i18n.base,"rup_global.cerrar") + "</span>";
 								aClose = $("<a href='#'></a>")
 								.attr("role", "button")
@@ -433,7 +449,7 @@
 								.addClass("ui-dialog-title")
 								.html(closeSpan)
 								.click(function (event) {
-									$("#" + settings.id).dialog("close");
+									$self.dialog("close");
 									return false;
 								})
 								.hover(function (eventObject) { //Evento lanzado para que se cambie el icono de la X a hover, marcado por ARISTA
@@ -444,7 +460,7 @@
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').removeClass("ui-state-hover");
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').attr("style", "");
 								})
-								.insertAfter("#ui-dialog-title-" + settings.id);
+                            .insertAfter(jQuery("span.ui-dialog-title",jQuery("#"+settings.id).parent()));
 								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').hover(
 									function () {
 										aClose.css("text-decoration", "none");
@@ -452,6 +468,7 @@
 									function () {
 										aClose.css("text-decoration", "");
 									});
+
 							} else { //borramos todos los posibles enlances que se hayan creado para esa capa
 								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonset a').remove();
 
@@ -467,7 +484,7 @@
 							}
 							if (autopen) { //si se auto abría lo mostramos
 								if( settings.type !== $.rup.dialog.AJAX){
-									$("#" + settings.id).rup_dialog("open");
+									$self.rup_dialog("open");
 									//le establecemos el foco
 									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:first').focus();
 								} else {
@@ -484,7 +501,7 @@
 					}
 				}
 			},
-/**       
+/**
          * Realiza la carga del contenido del diálogo a partir de una petición AJAX.
          *
          * @name jQuery.rup_messages#_createDiv
@@ -633,4 +650,4 @@
 	};
 
 
-})(jQuery);
+}));

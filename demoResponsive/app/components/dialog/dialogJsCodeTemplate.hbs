@@ -1,0 +1,21 @@
+$("#idDialog").rup_dialog({
+    type: $.rup.dialog.DIV,
+    autoOpen: false,
+    modal: true,
+    resizable: true,
+    title: "Título del dialog (div)",
+    buttons: [{
+            text: "Aceptar",
+            click: function () {
+                $view.ui.dialog.dialog("close");
+            }
+        },
+        {
+            text: "Abandonar",
+            click: function () {
+                $view.ui.dialog.dialog("close");
+            },
+            btnType: $.rup.dialog.LINK
+        }
+    ]    
+});

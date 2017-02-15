@@ -1,0 +1,134 @@
+.grid-stack-item-content {
+    background: white none repeat scroll 0 0;
+    color: #2c3e50;
+/*    text-align: center;*/
+}
+
+.grid-stack-item-content {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.2s ease-in-out;
+}
+
+.grid-stack-item-content:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.19), 0 8px 8px rgba(0,0,0,0.23);
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-x{
+    overflow-x: hidden;
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y{
+    overflow-y: hidden;
+}
+
+.glyphicon-refresh-animate {
+-webkit-animation: spin 1.5s linear infinite;
+animation: spin 1.5s linear infinite;
+}
+
+
+/* Control del scroll */
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
+    height: inherit;
+    overflow-y: hidden;
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content > .widget{
+    height: inherit;
+}
+.grid-stack > .grid-stack-item > .grid-stack-item-content > .widget > .widget-body{
+    height: 93%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.loading-modal {
+    background-color: black;
+    height: inherit;
+    opacity: 0.2;
+    position: relative;
+    top: 0;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: none;
+}
+
+.config-required-modal {
+    background-color: black;
+    height: inherit;
+    opacity: 0.4;
+    position: relative;
+    top: 0;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: none;
+}
+
+.loading-modal > div, .config-required-modal > div {
+    height: inherit;
+    width: inherit;
+    display: 100%;
+}
+
+.loading-modal > div > div, .config-required-modal > div > div {
+    /*display:table-cell;*/
+ vertical-align:middle;
+    color: white;
+    text-align: center;
+    width: inherit;
+    height: 100%;
+}
+
+.loading-modal > div > div > span, .config-required-modal > div > div > *{
+    color: white;
+    position: relative;
+    top: 15%;
+}
+
+.config-required-modal > div > div > span{
+}
+
+.loading-modal > div > div > span{
+    font-size: 7em;
+}
+
+.widget-header{
+    cursor: move;
+}
+
+.blurred-widget-content{
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+/* include this only once */
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}

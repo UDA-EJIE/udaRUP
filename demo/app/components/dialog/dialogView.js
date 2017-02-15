@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/dialog'], function(Marionette, App){
+        'rup/rup.dialog'], function(Marionette, App){
 
   var DialogView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.dialog.dialogTemplate,

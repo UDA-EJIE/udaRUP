@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/tooltip',
+        'rup/rup.tooltip',
         'rup/accordion'], function(Marionette, App){
 
   var TooltipView = Marionette.LayoutView.extend({

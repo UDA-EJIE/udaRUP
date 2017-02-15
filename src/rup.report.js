@@ -7,24 +7,34 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
-/**                                                                   
+/**
  * @fileOverview Implementa el patrón RUP Report.
  * @author EJIE
- * @version 2.4.8                                                                                               
+ * @version 2.4.8
  */
-(function ($) {
-	
+ ;(function( factory ) {
+ 	 if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define(["jquery","./rup.base"], factory );
+ 	 } else {
+
+ 		 // Browser globals
+ 		 factory(jQuery);
+ 	 }
+}(function ($) {
+
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	
+
     /**
     * El objetivo principal del componente es mejorar la experiencia del usuario a la hora de generar informes mediante la presentación de diálogos de espera.
     *
@@ -32,7 +42,7 @@
     * @namespace jQuery.rup_report
     * @memberOf jQuery
     * @tutorial rup.report
-    * @example 
+    * @example
     * var properties={
     *   // Propiedades de configuración
     * };
@@ -40,28 +50,28 @@
     * $.rup_report(properties);
     */
 	var rup_report = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupObjectConstructor("rup_report", rup_report));
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	$.rup_report("extend",{
 	});
-	
-	
+
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
 
 	$.rup_report("extend", {
         /**
-        * Función de inicialización del componente. 
+        * Función de inicialización del componente.
         *
-        * @name jQuery.rup_report#_init     
+        * @name jQuery.rup_report#_init
         * @function
         * @private
         * @param {object} args - Propiedades de configuración.
@@ -70,7 +80,7 @@
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18n.base.rup_global.initError + $(this).attr("id"));
 			}
-			else {				
+			else {
 				//Se recogen y cruzan las paremetrizaciones del objeto
 				var self = this,
 					settings = $.extend(true, {}, $.rup_report.defaults, args[0]),
@@ -80,17 +90,17 @@
 					customDialog = settings.customDialog,
 					//Contenedor de botones
 					$container = $.find("[id='"+settings.appendTo+"']");
-				
+
 				//Existe capa contenedora ?
 				if ($.isEmptyObject($container)){
 					alert('No existe objeto al que añadir el componente');
 					return false;
 				}
 				$container = $($container[0]);
-				
+
 				//Guardar settings
 				$container.data("report", settings);
-				
+
 				//Añadir dialogo por defecto
 				var $defaultDialog_wait = $("<div />")
 										.attr("id","reportFileWait")
@@ -114,7 +124,7 @@
 				//Guardar datos dialogo por defecto
 				defaultDialog["waitDiv"] = "reportFileWait";
 				defaultDialog["errorDiv"] = "reportFileError";
-				
+
 				//El contenedor es un mButton
 				var isMButton = false, $mbutton;
 				if ($container.hasClass("rup-toolbar_menuButtonContainer")){
@@ -125,8 +135,8 @@
 						alert('No se pueden añadir MButtons a un contenedor MButton');
 						return false;
 					};
-				} 
-				
+				}
+
 				//Recorrer los botones
 				var errors = [];
 				$.each(buttons, function(index, object){
@@ -157,7 +167,7 @@
 						self._configureButton(object, defaultDialog, customDialog, settings);
 					}
 				});
-				
+
 				if (errors.length>0){
 					var txtErrors = "";
 					for (var i=0; i<errors.length; i++){
@@ -165,7 +175,7 @@
 					}
 					alert(txtErrors);
 				}
-				
+
 			}
 		},
 		_checkButton: function(button, errors){
@@ -189,18 +199,18 @@
 			$.extend(dialog,defaultDialog); //Copiar el dialogo de por defecto
 			//isInline a false por defecto
 			button.isInline = (button.isInline===undefined)?false:button.isInline;
-			
+
 			//Si no es inLine
 			if (!button.isInline){
 				$("[id='"+button.id+"']").on("click", function (){
-					
+
 					//Ocultar MButton
 					var $container = $(this).parents("div.rup-toolbar_menuButtonContainer");
 					if ($container.length>0){
 						$container.showMButton();
 						$container.removeClass("rup-toolbar_menuButtonSlided");
 					}
-					
+
 					//Controlar columnas
 					var data = {};
 					if (button.columns!==undefined){
@@ -213,7 +223,7 @@
 						}
 						data["columns"] = $.toJSON(self._getColumns($grid, button.columns));
 					}
-					
+
 					//Dialogo propio?
 					var standarDialog = true;
 					if (button.customDialog !== undefined){
@@ -229,12 +239,12 @@
 							dialog.waitDiv = actualDialog.waitDiv;
 							$("#"+dialog.waitDiv).addClass("rup_report");
 						}
-							
+
 						/** ERROR **/
 						//Sobreescritura del defaultDialog-error
 						if (actualDialog.errorDiv===undefined){
 							dialog.error = actualDialog.error;
-						//Dialogo propio completo	
+						//Dialogo propio completo
 						} else {
 							dialog.errorDiv = actualDialog.errorDiv;
 							$("#"+dialog.errorDiv).addClass("rup_report");
@@ -242,8 +252,8 @@
 
 						dialog.successCallback = actualDialog.successCallback;
 						dialog.failCallback = actualDialog.failCallback;
-					} 
-					
+					}
+
 					//Dialogo de espera
 					var $reportFileWait = $("#"+dialog.waitDiv);
 					$reportFileWait.rup_dialog({
@@ -277,7 +287,7 @@
 							$reportFileWait.html(html);
 					}
 					$reportFileWait.rup_dialog("open");
-					
+
 					//Lanzar petición
 				    $.fileDownload($.rup_utils.setNoPortalParam(button.url), {
 				    	httpMethod: "POST",
@@ -285,7 +295,7 @@
 				        successCallback: function (url) {
 				        	if (dialog.successCallback!==undefined){
 				        		dialog.successCallback();
-							}  
+							}
 				        	$reportFileWait.rup_dialog("close");
 				        },
 				        failCallback: function (responseHtml, url) {
@@ -304,10 +314,10 @@
 				            	$reportFileError.rup_dialog("setOption", "message", dialog.error.msg);
 				            }
 				            $reportFileError.rup_dialog("open");
-				            
+
 				            if (dialog.failCallback!==undefined){
 				            	dialog.failCallback();
-							} 
+							}
 				        }
 				    });
 				    return false;
@@ -317,22 +327,22 @@
 					window.open(button.url+"?isInline=true","_blank");
 				});
 			}
-			
+
 		},
 		_getColumns: function($grid, columns){
-			//Preparar datos 
+			//Preparar datos
 			var colModel = $grid.jqGrid("getGridParam", "colModel"),
 				colNames = $grid.jqGrid("getGridParam", "colNames"),
 				colNumber = colNames.length,
 				columnsArray = [],
 				customNames = columns.customNames,
 				hidden = columns.hidden===true?true:false;
-				
+
 			//Todas las columnas
 			if (customNames===undefined){
 				for (var i=0; i<colNumber; i++){
 					//Omitir columna multiselección
-					if (colNames[i].indexOf("type='checkbox'")!==-1){ continue; } 
+					if (colNames[i].indexOf("type='checkbox'")!==-1){ continue; }
 					//Obtener columna si se requieren todas o si solo se quieren visibles + es visible
 					if (hidden || !hidden && colModel[i].hidden===false ){
 						var column = [];
@@ -355,12 +365,12 @@
 			return columnsArray;
 		}
 	});
-	
-	
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
+
 	$.rup_report.defaults = {
 		fncGetGridParam:null,
 		dialog: {
@@ -374,14 +384,14 @@
 			}
 		}
 	};
-    
-    /**                                                                         
-    * Opciones por defecto de configuración del componente. 
+
+    /**
+    * Opciones por defecto de configuración del componente.
     *
-    * @name jQuery.rup_report#options  
+    * @name jQuery.rup_report#options
     *
-    *  
+    *
     *
     */
-	
-})(jQuery);
+
+}));

@@ -30,7 +30,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base", "./core/ui/jquery.ui.selectmenu","./core/ui/jquery.multiselect"], factory );
+	 } else {
+
+  		 // Browser globals
+  		 factory( jQuery );
+  	}
+  } ( function( $ ) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÁN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -389,7 +399,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		disableChild : function(){
 			//Vaciar combo, deshabilitarlo
-			$(this).empty().append("<option></option>").selectmenu("disable");
+			$(this).empty().append("<option></option>").rup_combo("disable");
 			//Eliminar texto que se muestra
 			$("#"+$(this).attr("id")+"-button span:first-child").text("");
 			//Propagar evento de selección a hijos (recursivo)
@@ -747,7 +757,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (markOptSelected===true){
 								$("option[value='"+param+"']", selector).attr("selected","selected");
 							}
-							$(selector).selectmenu("value", param).trigger('_setElement');
+							$(selector).selectmenu("value", param);
+              $(selector).trigger('_setElement');
 						} else {
 							return false;
 						}
@@ -756,12 +767,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (markOptSelected===true){
 								$("option:eq("+param+")", selector).attr("selected","selected");
 							}
-							$(selector).selectmenu("index", param).trigger('_setElement');
+							$(selector).selectmenu("index", param);
+              $(selector).trigger('_setElement');
 						} else {
 							return false;
 						}
 					} else {
-						$(selector).selectmenu("index", 0).trigger('_setElement');
+						$(selector).selectmenu("index", 0);
+            $(selector).trigger('_setElement');
 					}
 					return true;
 				} else {
@@ -939,20 +952,20 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						$("#"+settings.id).width("0"); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
 						settings.minWidth = settings.width;
 						$("#"+settings.id).multiselect(settings);
-						$("#"+settings.id).data("multiselect").button.attr("id",settings.id+"-button");
+						$("#"+settings.id).data("echMultiselect").button.attr("id",settings.id+"-button");
 						$("#"+settings.id).rup_combo("refresh");	//Actualizar cambios (remotos)
 						$("#"+settings.id).attr("multiple", "multiple");
 
 						// Asignaci�n de eventos de teclado
 						var self = this;
-						$("#"+settings.id).data("multiselect").button.on('keypress.selectmenu', function(event) {
+						$("#"+settings.id).data("echMultiselect").button.on('keypress.selectmenu', function(event) {
 							if (event.which > 0) {
 								self._typeAheadMultiselect(event.which, 'focus', settings);
 							}
 							return true;
 						});
 //						$("#rup-multiCombo_remoteGroup_comboHijo").on('keypress', function(event) {
-						 $("#"+settings.id).data("multiselect").menu.delegate('label', 'keydown.multiselect', function( event ){
+						 $("#"+settings.id).data("echMultiselect").menu.delegate('label', 'keydown.multiselect', function( event ){
 							if (event.which > 0) {
 								self._typeAheadMultiselect(event.which, 'focus', settings);
 							}
@@ -1291,7 +1304,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          * @return {jQuery | jQuery[]} - Objetos jQuery con referencias a los elementos seleccionados.
          */
 			_selectedOptionLiMultiselect: function(settings) {
-				var multiselectSettings = $("#"+settings.id).data("multiselect");
+				var multiselectSettings = $("#"+settings.id).data("echMultiselect");
 				return this._optionLis.eq(this._selectedIndex());
 			},
         /**
@@ -1305,7 +1318,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 
 			_focusedOptionLiMultiselect: function(settings) {
-				var multiselectSettings = $("#"+settings.id).data("multiselect");
+				var multiselectSettings = $("#"+settings.id).data("echMultiselect");
 //				return this.list.find('.' + this.widgetBaseClass + '-item-focus');
 				var $elem=undefined;
 
@@ -1368,7 +1381,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					this._focusedOptionLiMultiselect(settings).data('index')) || 0;
 
 
-				var multiselectSettings = $("#"+settings.id).data("multiselect");
+				var multiselectSettings = $("#"+settings.id).data("echMultiselect");
 
 				for (var i = 0; i < multiselectSettings.inputs.length; i++) {
 					var thisText =multiselectSettings.inputs.eq(i).next("span").text().substr(0, matchee.length).toLowerCase();
@@ -1676,4 +1689,4 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 	};
 
 
-})(jQuery);
+}));

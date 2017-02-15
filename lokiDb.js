@@ -18,7 +18,9 @@ var LokiDb = (function() {
     // private variable
     var texto = "default";
     var _db;
-    var _users
+    var _users;
+
+    var _dashboard;
 
     // private function
     function log()
@@ -36,6 +38,10 @@ var LokiDb = (function() {
 
     function getUsers(){
       return _users;
+    }
+
+    function getDashboard(){
+      return _dashboard;
     }
 
 
@@ -66,6 +72,7 @@ var LokiDb = (function() {
       });
 
       _users = _db.addCollection('users', { indices: ['id'] });
+      _dashboard = _db.addCollection('dashboard', { indices: ['id'] });
 
 
 
@@ -99,6 +106,14 @@ var LokiDb = (function() {
         }
 
 
+        // Dashboard
+        _dashboard.insert({"id":"1","nombre":"Escritorio 1", "serializedArray":"[]"});
+        _dashboard.insert({"id":"2","nombre":"Escritorio 2", "serializedArray":"[]"});
+        _dashboard.insert({"id":"3","nombre":"Escritorio 3", "serializedArray":"[]"});
+        _dashboard.insert({"id":"4","nombre":"Escritorio 4", "serializedArray":"[]"});
+        _dashboard.insert({"id":"5","nombre":"Escritorio 5", "serializedArray":"[]"});
+
+
     }
 
     // return public interface
@@ -122,7 +137,14 @@ var LokiDb = (function() {
         },
         upsert: function(collection, idField, record){
           return upsert(collection, idField, record);
+        },
+        // Dashboard
+        dashboard:{
+          getAll: function(userId){
+            return getDashboard();
+          }
         }
+
     }
 }()); // we import jQuery as a global symbol
 

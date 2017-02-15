@@ -1,0 +1,366 @@
+html{
+  font-size: 12px;
+
+}
+
+/* Typhography */
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ui-widget {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+  /*font-size: 1.6rem;*/
+  font-size: 2.14rem;
+  font-weight: bold;
+}
+
+h2{
+  /*font-size: 1.31rem;*/
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 1.5rem;
+}
+
+h4{
+  font-size: 1.3rem;
+}
+
+h5{
+  font-size: 1rem;
+}
+
+h6{
+  font-size: 0.85rem;
+}
+
+/* FORM */
+
+label {
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+.ui-autocomplete-input,
+textarea,
+.uneditable-input {
+  font-size: 1rem;
+}
+
+.form-control{
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.input-lg {
+  font-size: 2rem;
+  height: 2.5rem;
+}
+
+/* BUTTONS */
+
+.btn, button, .ui-button.rup-button, .rup-toolbar_menuButton,  button.rup-dropdown-button{
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+button, button.ui-button{
+  -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    /*border-radius: 4px;*/
+    cursor: pointer;
+    display: inline-block;
+    /*font-size: 14px;*/
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    /*padding: 6px 12px;*/
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+button, .ui-button.rup-button, .rup-toolbar_menuButton, button.rup-dropdown-button{
+  background-color: #fff;
+  border-color: #ccc;
+  color: #333;
+}
+
+button:hover, .ui-button.rup-button:hover, .rup-toolbar_menuButton:hover, button.rup-dropdown-button:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333;
+}
+
+
+/* RUP BUTTON */
+
+button.rup-button.rup-dropdown{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-right: medium none;
+}
+
+ button.rup-dropdown-button{
+   border-top-left-radius: 0px;
+   border-bottom-left-radius: 0px;
+ }
+
+select, select.form-control, a.ui-selectmenu-dropdown{
+  height: 2rem;
+  font-size: 1rem;
+  padding: 0;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+a.ui-selectmenu-dropdown > span.ui-selectmenu-icon{
+  top: 4px;
+}
+
+ a.ui-selectmenu-dropdown:hover{
+   text-decoration: none;
+ }
+
+ .ui-selectmenu-menu li a, .ui-selectmenu-status{
+   padding: 3px 4px;
+ }
+
+.rup-dropdown-btn-group{
+  /*display: inline-block;*/
+}
+
+.ui-button-icon-only{
+  /*text-indent:-9999px;
+  box-sizing: border-box;
+  white-space: nowrap;*/
+}
+
+.rup-dropdown-btn-group > button.ui-button-icon-only > span.ui-button-icon{
+  margin-top: -8px;
+}
+
+
+
+/* RUP TOOLBAR */
+
+.rup-toolbar{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.rup-button > span.ui-button-icon.ui-icon{
+  display: inline-block;
+}
+
+a.rup-toolbar_menuButton.ui-button{
+
+}
+
+a.rup-toolbar_menuButton.ui-button > span{
+  display: inline-flex;
+  padding-bottom: 0;
+}
+
+.rup-toolbar_menuButtonContainer > ul[role='menu']{
+  padding-left: 0;
+  padding-bottom: 0;
+}
+.rup-toolbar_menuButtonContainer > ul[role='menu'] button.rup-toolbar_menuButtonElement{
+  text-align: left;
+}
+
+/* MESSAGE */
+.rup-message_icon-ok, .rup-message_icon-error, .rup-message_icon-confirm, .rup-message_icon-alert{
+  font-family:"Glyphicons Halflings";
+  content: "";
+  background-image:none;
+  height: auto;
+  padding-top: 0.4em;
+  margin-left: 0.4em;
+  margin-right: 0;
+  font-size: 1.5em;
+}
+
+.rup-message_icon-ok::before{
+  content: "\e013";
+  color: #2D882D;
+}
+
+.rup-message_icon-error::before{
+  content: "";
+  color: #2D882D;
+}
+
+.rup-message_icon-alert::before{
+  content: "\e209";
+  color: #FF851B;
+
+}
+.rup-message_icon-error::before{
+  content: "\e083";
+  color: #FF4136;
+}
+
+.rup-message_icon-confirm::before{
+  content: "\e085";
+  color: #0074D9;
+}
+
+/* CONTEXT MENU */
+
+.context-menu-list{
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fff;
+  border-color: #ccc;
+  font-size: 1.1rem;
+  padding: 4px 4px;
+}
+
+.context-menu-item {
+  background-color: #fff;
+}
+
+/* DIALOG */
+
+.ui-dialog .ui-dialog-titlebar{
+  padding: 1px 15px;
+}
+
+.ui-dialog .ui-dialog-buttonpane{
+  padding: 1px 15px;
+}
+
+.ui-dialog .ui-dialog-title{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span{
+  display: inline-block;
+}
+
+
+.ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button{
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: none;
+  border-radius: 4px;
+  border-color: #adadad;
+}
+
+.ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333;
+}
+
+.ui-dialog > .ui-dialog-titlebar > a.ui-dialog-title[role='button']{
+  display:none;
+}
+
+.ui-dialog > .ui-dialog-titlebar > a.ui-dialog-title[role='button']{
+  display:none;
+}
+
+.ui-dialog > .ui-dialog-titlebar > span.ui-dialog-title{
+  font-size: 1.1rem;
+}
+
+.ui-dialog .ui-dialog-titlebar-close{
+  margin-right: 15px;
+}
+
+.ui-button, .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button{
+  background-image: none;
+}
+
+.ui-dialog > div.ui-dialog-titlebar.ui-widget-header {
+  background-color:transparent;
+}
+
+/*font-size: 1.1em;*/
+/* FORMS */
+
+.form-group-sm .form-control, .form-group-sm select.form-control{
+  height: 25px;
+}
+
+.rup-table-filter-fieldset{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* TABLE */
+
+div.right_buttons > button{
+  float:right;
+}
+
+.rup-table-filter .collapse_icon, .rup-table-filter .collapse_icon_right{
+  margin-top: 0;
+
+}
+
+/* RUP DATE */
+.ui-datepicker:not(.ui-datepicker-inline){
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* TABS */
+/*.rup-tabs_container.ui-tabs .ui-tabs-nav li a{
+  border-style: none;
+}*/
+
+.rup-tabs_container.ui-tabs{
+  padding: 0;
+}
+
+.rupRandomLayerId.ui-tabs-panel{
+  padding: 0 0.4rem;
+}
+
+ul.ui-tabs-nav{
+  padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-tab a{
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-width: 0;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-tab a:hover{
+  background-color: #e6e6e6;
+  /*border-color: #adadad;*/
+  color: #333;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+  background: #fff;
+}
+
+/*.rup-tabs_container.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+  background: #fff none repeat scroll 0 0;
+  border-top:
+}*/
+
+/* SPINNER */
+input.rup_spinner{
+  font-size: 1rem;
+}

@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+( function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+
+		 // AMD. Register as an anonymous module.
+		 define( ["jquery","./rup.base" ], factory );
+	} else {
+
+		 // Browser globals
+		 factory( jQuery );
+	}
+} ( function( $ ) {
 
     /**
     * Se informa al usuario de cómo interactuar con los elementos de la aplicación y del resultado de cualquier acción que realice o cualquier problema que tenga y de cómo solucionarlo.
@@ -123,7 +133,7 @@ de la aplicación pueda cerrar la capa manualmente.
 					.addClass(opciones.imgClass!=null?opciones.imgClass:opciones.type!=null?"rup-feedback_image rup-feedback_image_"+opciones.type:"")
 					.attr({ role: "alert" })
 					.css("display", opciones.block?"block":"none")
-					.css("visibility","hidden")
+					.css("visibility","hidden").append("<span class='rup-feedback-icon'>")
 				.context.id;
 
 			//Crear capa cierre
@@ -339,4 +349,4 @@ de la aplicación pueda cerrar la capa manualmente.
      * $("#id_capa").rup_feedback("option", properties);
      */
 	});
-})( jQuery );
+}));

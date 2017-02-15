@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ (function( factory ) {
+  if ( typeof define === "function" && define.amd ) {
+
+ 		// AMD. Register as an anonymous module.
+ 		define( ["jquery","jquery.form","./rup.base","./rup.validate"], factory );
+  } else {
+
+ 		// Browser globals
+ 		factory( jQuery );
+  }
+ } ( function( jQuery ) {
 
 
 
@@ -517,4 +527,4 @@ envío de los datos.
 	};
 
 
-})(jQuery);
+}));

@@ -1028,71 +1028,11 @@
 		 * $("#idComponente").rup_table("configurePager", settings);
 		 */
 		configurePager: function(settings){
-			var $self = this,
-				pagerName,
-				$pagerCenter,
-				pagerLeft,
-				pagerRight;
+			var $self = this;
 
-
-			if (settings.pager!==undefined && settings.pager!==null){
-				settings.$pager = $((settings.pager.indexOf("#")===0?settings.pager:'#'+settings.pager));
-				pagerName = settings.$pager.attr("id");
-
-				settings.$pager.css('height','auto'); //Posibilitar redimensionar paginador
-
-				//Añadir clase a cada parte del paginador
-				$pagerLeft = $('#' + pagerName + '_left');
-				$pagerCenter = $('#' + pagerName + '_center');
-				$pagerRight = $('#' + pagerName + '_right');
-
-				$pagerLeft.addClass("pager_left");
-				$pagerCenter.addClass("pager_center");
-				$pagerRight.addClass("pager_right");
-
-				//pager_left
-				//**********
-				//Quitar posibles botones del paginador (y dejar la parte izquierda vacía)
-				$pagerLeft.html("");
-
-				//Contador de seleccionados
-				if (settings.multiselect === true){
-					$pagerLeft.append( $('<div/>').addClass('ui-paging-selected').html("0 " + jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.selected")));
-				}
-
-				// Pager center
-				jQuery(".pager_center table td",settings.$pager).addClass('pagControls');
-
-				// Evento de control de página máxima
-				jQuery(".pagControls input.ui-pg-input", $pagerCenter).on("change", function(){
-					var pageNum = parseInt($(this).val()),
-					totalNum = parseInt($self.rup_table("getGridParam","lastpage"));
-
-					if (isNaN(pageNum)===false && pageNum>totalNum){
-						$(this).val(totalNum);
-					}
-				});
-
-				// Tooltip al combo de selección de número de registros
-				jQuery(".pagControls select.ui-pg-selbox", $pagerCenter).attr("title",jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.select")).rup_tooltip();
-				// Tooltip al input de selección de página
-				jQuery(".pagControls input.ui-pg-input", $pagerCenter).attr("title",jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.input")).rup_tooltip();
-
-				//Cambiar flechas paginación por literales
-					jQuery('#first_'+ pagerName, $pagerCenter)
-					.html($('<a/>').attr("href","javascript:void(0)").html(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.primPag")).addClass('linkPaginacion'))
-					.removeClass('ui-pg-button');
-				jQuery('#prev_'+ pagerName, $pagerCenter)
-					.html($('<a/>').attr("href","javascript:void(0)").html(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.anterior")).addClass('linkPaginacion'))
-					.removeClass('ui-pg-button');
-				jQuery('#next_'+ pagerName, $pagerCenter)
-					.html($('<a/>').attr("href","javascript:void(0)").html(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.siguiente")).addClass('linkPaginacion'))
-					.removeClass('ui-pg-button');
-				jQuery('#last_'+ pagerName, $pagerCenter)
-					.html($('<a/>').attr("href","javascript:void(0)").html(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_grid.pager.ultiPag")).addClass('linkPaginacion'))
-					.removeClass('ui-pg-button');
-			}
+			return $.proxy($self[0]._ADAPTER.configurePager, $self)(settings);
 		}
+
 	});
 
 	//********************************
@@ -1117,6 +1057,8 @@
 					settings = {};
 
 
+
+
 				/* *************************
 				 * CONFIGURACION
 				 * *************************/
@@ -1136,6 +1078,8 @@
 				 */
 
 				settings = $.extend(true,{}, settings, jQuery.fn.rup_table.plugins.core.defaults);
+
+				$self[0]._ADAPTER = $.rup.adapter[settings.adapter];
 
 				/* *********************************************************
 				 * SE PROCESAN LAS CONFIGURACIONES POR DEFECTO DE LOS PLUGINS
@@ -1417,6 +1361,8 @@
 	jQuery.fn.rup_table.plugins = {};
 	jQuery.fn.rup_table.plugins.core = {};
 	jQuery.fn.rup_table.plugins.core.defaults = {
+		// adapter: "table_jqueryui",
+		adapter: "table_bootstrap",
 		core:{
 			operations:{},
 			defaultOperations:{},
@@ -1520,6 +1466,7 @@
 	*/
 
 	jQuery.fn.rup_table.defaults = {
+
 			altRows: true,
 			altclass: "rup-grid_oddRow",
 			datatype: "json",					// Tipo de dato esperado para representar los registros de la tabla (jqGrid)

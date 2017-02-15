@@ -1,0 +1,373 @@
+
+
+// Colors
+
+// As hex codes */
+
+// SASS style sheet */
+// Palette color codes */
+// Palette URL: http://paletton.com/#uid=73H0u0kjY++0A++cf+Gr7++Kn++ */
+
+// $rup-color-primary-0: #6FA4FF;	// Main Primary color */
+// $rup-color-primary-1: #FBFCFF;
+// $rup-color-primary-2: #A6C7FE;
+// $rup-color-primary-3: #3B84FF;
+// $rup-color-primary-4: #0D66FF;
+
+$rup-color-primary-0: #6FA4FF;	// Main Primary color */
+$rup-color-primary-1: #FBFCFF;
+$rup-color-primary-2: #69a3d6;
+$rup-color-primary-3: #337ab7;
+$rup-color-primary-4: #204d71;
+
+$rup-color-secondary-1-0: #8D73FF;	// Main Secondary color (1) */
+$rup-color-secondary-1-1: #FCFBFF;
+$rup-color-secondary-1-2: #B8A9FE;
+$rup-color-secondary-1-3: #6441FF;
+$rup-color-secondary-1-4: #3C10FF;
+
+$rup-color-secondary-2-0: #FFE060;	// Main Secondary color (2) */
+$rup-color-secondary-2-1: #FFFEFA;
+$rup-color-secondary-2-2: #FFEC9D;
+$rup-color-secondary-2-3: #FFD527;
+$rup-color-secondary-2-4: #FFCE00;
+
+$rup-color-complement-0: #FFC660;	// Main Complement color */
+$rup-color-complement-1: #FFFDFA;
+$rup-color-complement-2: #FFDC9D;
+$rup-color-complement-3: #FFB227;
+$rup-color-complement-4: #FFA400;
+
+$rup-gray-darkest:              #333333 !default;
+$rup-gray-dark:                 #373a3c !default;
+$rup-gray:                      #55595c !default;
+$rup-gray-light:                #818a91 !default;
+$rup-gray-lighter:              #eceeef !default;
+$rup-gray-lightest:             #fffcfb !default;
+
+$rup-gray-border:             #ccc !default;
+
+$rup-brand-primary:             #0275d8 !default;
+$rup-brand-success:             #5cb85c !default;
+$rup-brand-info:                #5bc0de !default;
+$rup-brand-warning:             #f0ad4e !default;
+$rup-brand-danger:              #d9534f !default;
+$rup-brand-inverse:             $rup-gray-dark !default;
+
+$rup-color-transparent: transparent;
+$rup-color-white: #ffffff;
+$rup-color-black: #000000;
+
+$rup-text-color: $rup-gray-darkest;
+$rup-text-color-inverse: $rup-gray-lightest;
+$rup-text-color-primary: $rup-color-primary-3;
+
+
+$rup-color-gray-dark:                 $rup-gray-dark !default;
+$rup-color-gray:                      $rup-gray !default;
+$rup-color-gray-light:                $rup-gray-light !default;
+$rup-color-gray-lighter:              $rup-gray-lighter !default;
+$rup-color-gray-lightest:             $rup-gray-lightest !default;
+
+$rup-color-ok: $rup-brand-success;
+$rup-color-alert: $rup-brand-warning;
+$rup-color-error: $rup-brand-danger;
+$rup-color-info: $rup-brand-info;
+$rup-color-confirm: $rup-color-info;
+
+$rup-color-ok-light: lighten($rup-color-ok,30%);
+$rup-color-alert-light: lighten($rup-color-alert,25%);
+$rup-color-error-light: lighten($rup-color-error,25%);
+$rup-color-info-light: lighten($rup-color-info,25%);
+$rup-color-confirm-light: lighten($rup-color-confirm,25%);
+
+$rup-color-ok-dark: darken($rup-color-ok,25%);
+$rup-color-alert-dark: darken($rup-color-alert,25%);
+$rup-color-error-dark: darken($rup-color-error,25%);
+$rup-color-info-dark: darken($rup-color-info,25%);
+$rup-color-confirm-dark: darken($rup-color-confirm,25%);
+
+$rup-bg-color: #fff;
+$rup-bg-color-hover: darken($rup-bg-color, 5%);
+
+
+$rup-color-gray: #aaa;
+$rup-color-gray-hover: darken($rup-color-gray, 20%);
+
+$rup-color-transparent: transparent;
+
+
+$rup-color-border: $rup-gray-border;
+$rup-color-border-hover: darken($rup-color-border, 20%);
+$rup-color-border-light: $rup-gray-lighter;
+
+$rup-link-color:            $rup-color-primary-4;
+$rup-link-decoration:       none !default;
+$rup-link-hover-color:      darken($rup-link-color, 15%) !default;
+$rup-link-hover-decoration: underline !default;
+
+// Color: general
+
+$rup-color-ui-widget-hover: lighten($rup-color-primary-2,20%);
+
+// Color: Utillities: bubble
+
+$rup-color-bubble-border: $rup-color-border;
+$rup-color-bubble-bg: $rup-bg-color;
+
+// Color: Utillities: callout
+
+$rup-color-bubble-border: $rup-color-border;
+$rup-color-bubble-bg: $rup-bg-color;
+
+// Color: Accordion
+
+$rup-color-accordion-active-bg: $rup-color-primary-3;
+$rup-color-accordion-active-text: $rup-text-color-inverse;
+
+// Color: Button
+
+$rup-color-button-border: $rup-gray-border;
+
+// Color: Breadcrumbs
+
+$rup-color-breadCrumb-bg: $rup-bg-color;
+
+// Colors: date
+
+$rup-color-date-trigger-bg: $rup-gray-lighter;
+
+$rup-color-date-bg: $rup-bg-color;
+$rup-color-date-header-bg: $rup-bg-color;
+$rup-color-date-day-bg: $rup-bg-color;
+
+$rup-color-date-today-bg: $rup-color-primary-3;
+$rup-color-date-today-border: 0.1em solid $rup-color-primary-3 !important;
+$rup-color-date-today-text: $rup-text-color-inverse;
+
+$rup-color-date-hover-bg: $rup-color-primary-2;
+$rup-color-date-hover-border: 0.1em solid $rup-color-primary-2 !important;
+$rup-color-date-hover-text: $rup-text-color-inverse;
+
+$rup-color-date-current-bg: $rup-color-ok-light;
+$rup-color-date-current-border: 0.1em solid $rup-color-ok-light !important;
+$rup-color-date-current-text: $rup-text-color-inverse;
+
+$rup-color-date-weekend-bg: $rup-color-error-light;
+$rup-color-date-weekend-border: 0.1em solid $rup-color-error-light !important;
+$rup-color-date-weekend-text: $rup-text-color-inverse;
+
+// Colors: Navbar
+
+$rup-color-navbar-bg: $rup-color-primary-2;
+
+$rup-color-navbar-border: $rup-color-primary-4;
+$rup-color-navbar-brand-bg: $rup-color-primary-4;
+$rup-color-navbar-item-bg: $rup-color-primary-3;
+$rup-color-navbar-item-hover-bg: $rup-color-primary-2;
+$rup-color-navbar-dropdown-item-hover-bg: $rup-color-primary-2;
+
+
+// Colors: Feedback
+
+$rup-color-feedback-ok: $rup-color-ok;
+$rup-color-feedback-ok-bg: $rup-color-ok-light;
+$rup-color-feedback-ok-icon: $rup-color-ok-dark;
+$rup-color-feedback-alert: $rup-color-alert;
+$rup-color-feedback-alert-bg: $rup-color-alert-light;
+$rup-color-feedback-alert-icon: $rup-color-alert-dark;
+$rup-color-feedback-error: $rup-color-error;
+$rup-color-feedback-error-bg: $rup-color-error-light;
+$rup-color-feedback-error-icon: $rup-color-error-dark;
+
+$rup-color-feedback-close-icon: $rup-color-gray-light;
+$rup-color-feedback-close-icon-hover: $rup-color-gray-dark;
+
+// Colors: Dialog
+$rup-color-dialog-header-bg: $rup-color-white;
+$rup-color-dialog-header-text: $rup-gray-darkest;
+$rup-color-dialog-border: 1px solid $rup-color-border-light;
+
+
+// Colors: Message
+$rup-color-message-header-bg: $rup-color-white;
+$rup-color-message-header-text: $rup-gray-darkest;
+
+$rup-color-message-error-header-bg: $rup-color-error-light;
+$rup-color-message-error-header-text: $rup-color-error-dark;
+$rup-color-message-ok-header-bg: $rup-color-ok-light;
+$rup-color-message-ok-header-text: $rup-color-ok-dark;
+$rup-color-message-alert-header-bg: $rup-color-alert-light;
+$rup-color-message-alert-header-text: $rup-color-alert-dark;
+$rup-color-message-confirm-header-bg: $rup-color-info-light;
+$rup-color-message-confirm-header-text: $rup-color-info-dark;
+
+$rup-color-message-error-icon: $rup-color-error-dark;
+$rup-color-message-ok-icon: $rup-color-ok-dark;
+$rup-color-message-alert-icon: $rup-color-alert-dark;
+$rup-color-message-confirm-icon: $rup-color-info-dark;
+
+// Colors: Progressbar
+$rup-color-progressbar-primary: $rup-color-primary-3;
+$rup-color-progressbar-secondary: $rup-color-primary-4;
+
+// Colors: Tabs
+
+
+$rup-color-tabs-border: none;
+$rup-color-tabs-text: $rup-text-color;
+$rup-color-tabs-active-text: $rup-text-color;
+$rup-color-tabs-active-border: $rup-text-color;
+$rup-color-tabs-active-border: $rup-color-border;
+
+$rup-color-tabs-container-border: $rup-color-border;
+
+// Colors: Toolbar
+$rup-color-toolbar-border: 1px solid $rup-color-border;
+$rup-color-toolbar-background: #e9e9e9;
+
+// Fonts
+
+$rup-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", 'Open Sans', sans-serif !default;
+
+$rup-font-size-root: 12px !default;
+
+$rup-font-weight-normal: normal !default;
+$rup-font-weight-bold: bold !default;
+
+$rup-font-weight-base: $rup-font-weight-normal !default;
+
+$rup-font-size-h1: 2.14rem !default;
+$rup-font-size-h2: 1.75rem !default;
+$rup-font-size-h3: 1.5rem !default;
+$rup-font-size-h4: 1.3rem !default;
+$rup-font-size-h5: 1rem !default;
+$rup-font-size-h6: 0.85rem !default;
+
+$rup-font-size-root: 12px !default;
+$rup-font-size-body: 1.1rem !default;
+
+$rup-font-size-base: 1rem !default;
+$rup-font-size-xlg:   1.5rem !default;
+$rup-font-size-lg:   1.25rem !default;
+$rup-font-size-sm:   .875rem !default;
+$rup-font-size-xs: .75rem !default;
+
+$rup-font-size-larger: ($rup-font-size-base * 1.1) !default;
+
+$rup-glyphicon-font-family:"Glyphicons Halflings";
+$rup-glyphicon-size-lg: 1.5rem;
+
+$rup-fa-font-family:"FontAwesome";
+$rup-fa-size-xlg: 2rem;
+$rup-fa-size-lg: 1.5rem;
+$rup-fa-size: 1.2rem;
+
+
+
+// Fonts: Dialog
+
+$rup-text-color-dialog: $rup-text-color;
+$rup-text-color-dialog-header: $rup-text-color-dialog;
+
+
+// Fonts: Navbar
+
+$rup-color-navbar-dropdown-item-text: $rup-text-color;
+$rup-color-navbar-dropdown-item-text-hover: $rup-text-color-inverse;
+
+
+// Fonts: Button
+
+$rup-button-font-weight: $rup-font-weight-base;
+
+
+// Styles
+
+$rup-line-height-base: 1.25 !default;
+
+$rup-border-width: 1px !default;
+
+$rup-border-radius: 4px;
+$rup-border-radius-none: 0;
+
+// Styles: Utillities: bubble
+
+
+$rup-bubble-border-width: $rup-border-width;
+$rup-bubble-border: $rup-bubble-border-width solid $rup-color-bubble-border;
+$rup-bubble-width: 10px;
+$rup-bubble-margin: $rup-bubble-width;
+$rup-bubble-after-border-width: $rup-bubble-width;
+$rup-bubble-before-border-width: $rup-bubble-width+$rup-border-width;
+
+// Styles: Forms
+
+$rup-input-height: 2rem;
+
+// Styles: Accordion
+
+$rup-accordion-active-border: 1px solid $rup-color-primary-3;
+
+// Styles: Feedback
+
+// Styles: Dialog
+
+// Styles: Navbar
+
+$rup-navbar-height: 4rem;
+$rup-navbar-line-height: 3rem;
+$rup-navbar-brand-line-height: 3.6rem;
+
+$rup-navbar-icon-font-size: $rup-fa-size-xlg;
+$rup-navbar-icon-text-font-size: 1.2rem;
+
+
+// Styles: Button
+
+$rup-button-line-height: 1.42857;
+
+
+// Styles: Tabs
+
+$rup-tabs-border-radius: $rup-border-radius;
+
+$rup-border-radius-dialog: $rup-border-radius-none;
+
+// Styles: validate
+
+
+
+$rup-validate-icon-line-height: 1.9;
+$rup-validate-icon-right: 0.8rem;
+$rup-validate-icon-color: $rup-color-error;
+
+
+
+%color-base{
+  background-color: $rup-bg-color;
+  border-color: $rup-color-border;
+  color: $rup-text-color;
+}
+
+%color-hover-base{
+  background-color: $rup-bg-color-hover;
+  border-color: $rup-color-border-hover;
+  color: $rup-text-color;
+}
+
+%tab-color{
+  @extend %color-base;
+}
+
+%tab-color-hover{
+  @extend %color-hover-base;
+}
+
+%button-color{
+  @extend %color-base;
+}
+
+%button-color-hover{
+  @extend %color-hover-base;
+}

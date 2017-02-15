@@ -19,7 +19,17 @@
 * @author EJIE
 * @version 2.4.8
 */
-(function ($) {
+(function( factory ) {
+ if ( typeof define === "function" && define.amd ) {
+
+	 // AMD. Register as an anonymous module.
+	 define( ["jquery","./rup.base","jquery.validate","jquery.validate.additional"], factory );
+ } else {
+
+	 // Browser globals
+	 factory( jQuery );
+ }
+} ( function( jQuery ) {
 
 
 
@@ -437,8 +447,24 @@
 		_init : function(args){
 
 			var self=this,
-			settings = $.extend(true,{},$.fn.rup_validate.defaults, presetSettings.defaultPresetSettings, args[0]);
-//			settings = $.extend(true, {}, defaultSettings, args[0]);
+      settingsAdapter,
+      defaultPresetSettings,
+			settings;
+
+      settingsAdapter = $.extend(true, {}, {adapter:$.fn.rup_validate.defaults.adapter}, {adapter:presetSettings.defaultPresetSettings.adapter}, {adapter: args[0].adapter});
+      self[0]._ADAPTER = $.rup.adapter[settingsAdapter.adapter];
+
+      defaultPresetSettings = $.extend(true, {}, presetSettings.defaultPresetSettings, {
+        showFieldErrorAsDefault:{
+          errorElement : self[0]._ADAPTER.errorElement,
+          errorPlacement : self[0]._ADAPTER.errorPlacement
+        }
+      });
+      // settings = $.extend(true,{},$.fn.rup_validate.defaults, presetSettings.defaultPresetSettings, args[0]);
+
+      settings = $.extend(true,{},$.fn.rup_validate.defaults, defaultPresetSettings, args[0]);
+
+      // settings = $.extend(true, {}, defaultSettings, args[0]);
 
 
 			// Anadimos al formulario el class rup_validate para identificarlo como componente formulario.
@@ -452,52 +478,14 @@
 
 			// En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
 			if (settings.showFieldErrorAsDefault){
-				settings = $.extend(true,settings,presetSettings.showFieldErrorAsDefault);
+				settings = $.extend(true,settings,defaultPresetSettings.showFieldErrorAsDefault);
 			}
 			settings = $.extend(true, {}, settings, args[0]);
 			// Se realiza la invocacion al plugin jquery.validate
 			self.validate(settings);
 
 			if (settings.showFieldErrorAsDefault){
-				self.validate().showLabel = function(element, message){
-					var label = this.errorsFor( element );
-					if ( label.length ) {
-						// refresh error/success class
-						label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
-
-						// check if we have a generated label, replace the message then
-						label.attr("generated") && label.html(message);
-					} else {
-						// create label
-						if (settings.showFieldErrorAsDefault){
-							label = $("<" + this.settings.errorElement + "/>")
-							.attr({"for":  this.idOrName(element), generated: true})
-							.addClass(this.settings.errorClass)
-							.attr("title",message || "");
-						}else{
-							label = $("<" + this.settings.errorElement + "/>")
-								.attr({"for":  this.idOrName(element), generated: true})
-								.addClass(this.settings.errorClass)
-								.html(message || "");
-						}
-						if ( this.settings.wrapper ) {
-							// make sure the element is visible, even in IE
-							// actually showing the wrapped element is handled elsewhere
-							label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
-						}
-						if ( !this.labelContainer.append(label).length )
-							this.settings.errorPlacement
-								? this.settings.errorPlacement(label, $(element) )
-								: label.insertAfter(element);
-					}
-					if ( !message && this.settings.success ) {
-						label.text("");
-						typeof this.settings.success == "string"
-							? label.addClass( this.settings.success )
-							: this.settings.success( label );
-					}
-					this.toShow = this.toShow.add(label);
-				};
+				self.validate().showLabel = self[0]._ADAPTER.showLabel;
 			}
 
 			// Si se ha configurado el componente para que no se realicen validaciones al vuelo de los campos, se eliminan los eventos correspondientes.
@@ -521,6 +509,7 @@
 	//*******************************************************
 
 	$.fn.rup_validate.defaults = {
+      adapter: "validate_bootstrap",
 			ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",
 			feedbackOptions: {gotoTop: false, fadeSpeed: null, delay: null},
 			feedbackErrorConfig:{
@@ -752,4 +741,4 @@
 * });
 */
 
-})(jQuery);
+}));

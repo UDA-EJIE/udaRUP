@@ -13,7 +13,9 @@
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
+
 var rp_ge = {};
+
 // (function ($) {
 //
 //

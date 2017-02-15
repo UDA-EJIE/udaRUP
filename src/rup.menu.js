@@ -25,13 +25,13 @@
  	 if ( typeof define === "function" && define.amd ) {
 
  		 // AMD. Register as an anonymous module.
- 		 define(["jquery", "private-jqueryui-menu"], factory );
+ 		 define(["jquery","./rup.base"], factory );
  	 } else {
 
  		 // Browser globals
  		 factory(jQuery);
  	 }
-}(function ($, widgetMenu) {
+}(function ($) {
 
 
 
@@ -113,10 +113,8 @@
 				} else {
 					if(this.length > 0){
 
-						var WM = window.widgetMenu!== undefined?window.widgetMenu:widgetMenu;
-
 						//Se recogen y cruzan las paremetrizaciones del objeto
-						var settings = $.extend({}, $.fn.rup_menu.defaults, args[0]), self = this, selectorSelf = WM(this), menuId = self[0].id, json, json_i18n;
+                    var settings = $.extend(true, {}, $.fn.rup_menu.defaults, args[0]), self = this, selectorSelf = this, menuId = self[0].id, json, json_i18n;
 
 						//visualizacion de los menus
 						//Se oculta la capa para que no aparezca deformada
@@ -137,7 +135,7 @@
 						}
 
 						//Se extienden las funcionalidades del menú para ajustarlas a las necesidades de funcionamiento del rup_menu
-						WM.widget( "ui.rupMenu", WM.ui.menu, $.rup.compatibility.menu );
+//						widgetMenu.widget( "ui.rupMenu", widgetMenu.ui.menu, $.rup.compatibility.menu );
 
 						//En caso de ser necesario, se secra el objeto que compondra la estructura del menu
 						if (json !== undefined){
@@ -180,25 +178,179 @@
 							return false;
 						};
 
+
 						//Enlaces externos (add icon)
 						selectorSelf.find("a[target='_blank']").append("<span class='ui-icon ui-icon-extlink rup_external_link'></span>");
 
 						//Se comienza a crear el menu segun el tipo
 						if (settings.display === "horizontal"){
 
+//							selectorSelf.on("mouseenter", ".rup_menu_horizontal_children.ui-menu-item", function( event ) {
+//								event.stopImmediatePropagation();
+//								event.preventDefault();
+//								event.stopPropagation();
+//								return false;
+//							});
+
+                        selectorSelf.on("mouseenter",".ui-menu-item",  function( event ) {
+                            // Ignore mouse events while typeahead is active, see #10458.
+                            // Prevents focusing the wrong item when typeahead causes a scroll while the mouse
+                            // is over an item in the menu
+                            var $uiMenu = selectorSelf.data().uiMenu;
+
+                            if ( $uiMenu.previousFilter ) {
+                                return;
+                            }
+                            var target = $( event.currentTarget );
+//								console.log("rup-this:");
+//								console.log($uiMenu);
+//								console.log("rup-taget:");
+//								console.log(target);
+//								console.log("position:");
+//								console.log($uiMenu.options.position);
+
+                            if (target.hasClass("rup_menu_horizontal_children")){
+                                $uiMenu.options.position = { my: "left top", at: "left bottom", collision:"none none", of: this };
+                            }else{
+                                $uiMenu.options.position = { my: "left bottom", at: "right bottom"};
+                            }
+
+                            // Remove ui-state-active class from siblings of the newly focused menu item
+                            // to avoid a jump caused by adjacent elements both having a class with a border
+                            target.siblings( ".ui-state-active" ).removeClass( "ui-state-active" );
+                            $uiMenu.focus( event, target );
+                            event.stopImmediatePropagation();
+                            event.preventDefault();
+                            event.stopPropagation();
+                            return false;
+                        });
+
+//							selectorSelf.on("mouseenter", " .rup_menu_vertical_horizontal.ui-menu", function( event ) {
+//
+//								$(this).addClass(".ui-state-active");
+//
+//								event.stopImmediatePropagation();
+//								event.preventDefault();
+//								event.stopPropagation();
+//								return false;
+//							});
+
+//							selectorSelf.on("mouseleave",".rup_menu_horizontal_children.ui-menu-item,.rup_menu_vertical_horizontal.ui-menu",function(event){
+//
+//								$(this).parents(".ui-state-active").removeClass("ui-state-active");
+//
+//								return false;
+//							});
+                        selectorSelf.on("keydown", function(event){
+
+                            var $uiMenu = selectorSelf.data().uiMenu;
+//								console.log($uiMenu.active);
+
+                            switch ( event.keyCode ) {
+                            case $.ui.keyCode.UP:
+                                $uiMenu.previous( event );
+                                event.stopImmediatePropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                            case $.ui.keyCode.DOWN:
+                                if ( $uiMenu.active && !$uiMenu.active.is( ".ui-state-disabled" ) ) {
+                                    if ($uiMenu.active.hasClass("rup_menu_horizontal_children")){
+                                        $uiMenu.options.position = { my: "left top", at: "left bottom", collision:"none none", of: $uiMenu.active };
+                                        $uiMenu.expand( event );
+                                    }else{
+                                        $uiMenu.next( event );
+                                    }
+
+                                }
+                                event.stopImmediatePropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                            case $.ui.keyCode.LEFT:
+                                if (!$uiMenu.active.hasClass("rup_menu_horizontal_children")){
+                                    $uiMenu.collapse( event );
+                                }else{
+                                    $uiMenu.previous( event );
+                                }
+                                event.stopImmediatePropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                            case $.ui.keyCode.RIGHT:
+                                if (!$uiMenu.active.hasClass("rup_menu_horizontal_children") && $uiMenu.active.is("[aria-haspopup='true']")){
+                                    $uiMenu.options.position = { my: "left bottom", at: "right bottom"};
+                                    $uiMenu.expand( event );
+                                }else{
+                                    $uiMenu.next( event );
+
+                                }
+                                event.stopImmediatePropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                            case $.ui.keyCode.HOME:
+                                $uiMenu._move( "first", "first", event );
+                                event.stopImmediatePropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
+                                break;
+                            }
+                        });
+
+//
+//							selectorSelf.on("click", ".rup_menu_horizontal_children.ui-menu-item", function( event ) {
+//								event.stopImmediatePropagation();
+//								event.preventDefault();
+//								event.stopPropagation();
+//								this.focus();
+//								return false;
+//							});
+
+//							selectorSelf.on("click", ".rup_menu_horizontal_children.rup_menu_horizontal_children_double.ui-menu-item", function( event ) {
+//								console.log(this);
+////								$(this).removeClass("ui-state-active");
+//
+//								var $uiMenu = selectorSelf.data().uiMenu;
+//
+//
+////								var $submenu = $(this).children("ul");
+//								$uiMenu.options.position = { my: "left top", at: "left bottom", collision:"none none", of: this };
+//
+//								if ( $uiMenu.previousFilter ) {
+//									return;
+//								}
+//								var target = $( this);
+//								// Remove ui-state-active class from siblings of the newly focused menu item
+//								// to avoid a jump caused by adjacent elements both having a class with a border
+//								target.siblings( ".ui-state-active" ).removeClass( "ui-state-active" );
+//								$uiMenu.focus( event, target );
+//
+////								$submenu
+////									.show()
+////									.removeAttr( "aria-hidden" )
+////									.attr( "aria-expanded", "true" )
+////									.position($uiMenu.options.position);
+////								$(this).removeClass("ui-state-active");
+////								event.stopImmediatePropagation();
+////								event.preventDefault();
+////								event.stopPropagation();
+////								return false;
+//							});
+
 							//Se asocian los estilos específicos del menú horizontal
 							selectorSelf.addClass("rup_menu_horizontal").addClass("ui-widget-header");
 							selectorSelf.children().addClass("rup_menu_horizontal_children");
 							selectorSelf.children().children("a").addClass("rup_menu_horizontal_children_entry");
 
-							selectorSelf.rupMenu(settings);
+                        selectorSelf.menu(settings);
 
 							//Se borran las entradas separadoras. En el menu horizontal no tienen sentido.
 							selectorSelf.children(".ui-menu-divider").remove();
 
 							//Ajustes de estilos para la primera capa del menu horizontal
 							selectorSelf.children(".ui-state-disabled").css({'margin-top': '0em', 'margin-bottom': '0em'});
-							$("#"+menuId+" .rup_menu_horizontal_children .rup_menu_horizontal_children_entry .ui-icon-carat-1-e").removeClass("ui-icon-carat-1-e").addClass("ui-icon-carat-1-s").addClass("rup-menu_horizontalIcon");
+                        $("#"+menuId+" li.rup_menu_horizontal_children > a .ui-icon-caret-1-e").removeClass("ui-icon-caret-1-e").addClass("ui-icon-caret-1-s").addClass("rup-menu_horizontalIcon");
 							selectorSelf.children().children("a").css("font-weight", "bold");
 							selectorSelf.children().each(function (position, object){
 								var iconsWidth = 0;
@@ -219,7 +371,8 @@
 							selectorSelf.children(":last-child").addClass("rup_menu_horizontal_children_last");
 
 							//Asignación de los menús desplegables de primer menú
-							selectorSelf.children().children("a[aria-haspopup='true']").parent().attr('rupMenu_firsLevel', 'true');
+
+              selectorSelf.children().children("[aria-haspopup='true']").parent().attr('rupMenu_firsLevel', 'true');
 							$("#"+menuId+" [rupmenu_firslevel='true'] [role='menu']").addClass("rup_menu_vertical_horizontal");
 							if (settings.verticalWidth === undefined){
 								$("#"+menuId+" [rupmenu_firslevel='true'] [role='menu']").css("white-space","nowrap");
@@ -253,7 +406,7 @@
 							selectorSelf.children().addClass("rup_menu_vertical_children");
 
 							//Se invoca a la generacion del menu
-							selectorSelf.rupMenu(settings);
+                        selectorSelf.menu(settings);
 
 							//Se ajustan los tamaños de las sub-entradas del menú
 							if (settings.verticalWidth !== undefined){
@@ -263,6 +416,11 @@
 						} else {
 							$.rup.errorGestor($.rup.i18n.base.rup_menu.displayMenuError);
 						}
+
+                    // Ajuste estilos
+                    selectorSelf.addClass("ui-corner-all");
+                    selectorSelf.find("ul.rup_menu_vertical_horizontal").addClass("ui-corner-all");
+
 
 						//Ajuste margen iconos
 						var icon = false;
@@ -285,7 +443,7 @@
 						});
 
 						//Ajuste de estilos para cubrir arista
-						$("#"+menuId+" [role = 'menuitem']").not($("[aria-haspopup = 'true']")).css("text-decoration","underline");
+//						$("#"+menuId+" [role = 'menuitem']").not($("[aria-haspopup = 'true']")).css("text-decoration","underline");
 
 						//Se deshabilitan los botones desconectados
 						selectorSelf.find("a").bind("click", function(event){
@@ -307,7 +465,6 @@
         * @function
         * @private
         */
-
 			_parseJSON: function (json, json_i18n, self, force) {
 				var submenu, element, objectUrl = "", entry;
 
@@ -406,8 +563,8 @@
 		display: 'horizontal',
 		forceAbs: false,
 		i18nId: undefined,
-		menus: 'ul'
-
+		menus: 'ul',
+		position: { my: "left bottom", at: "right bottom" }
 	};
 
    /**

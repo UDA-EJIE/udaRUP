@@ -1,0 +1,58 @@
+
+.bubble {
+	margin-top: $rup-bubble-margin;
+	background: $rup-color-bubble-bg;
+	border: $rup-bubble-border;
+}
+
+.bubble:after, .bubble:before {
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.bubble-top{
+  margin-top: $rup-bubble-margin;
+}
+
+.bubble-top:after, .bubble-top:before {
+	bottom: 100%;
+	left: 50%;
+}
+
+.bubble-top-left:after, .bubble-top-left:before {
+	bottom: 100%;
+	left: 25%;
+}
+
+.bubble-top-right:after, .bubble-top-right:before {
+	bottom: 100%;
+	left: 75%;
+}
+
+
+
+.bubble-bottom{
+  margin-top: $rup-bubble-margin;
+}
+
+.bubble-bottom:after, .bubble-top:before {
+	bottom: 100%;
+	left: 50%;
+}
+
+.bubble:after {
+	border-color: $rup-color-transparent;
+	border-bottom-color: $rup-color-bubble-bg;
+  border-width: $rup-bubble-after-border-width;
+	margin-left: -$rup-bubble-after-border-width;
+}
+.bubble:before {
+	border-color: $rup-color-transparent;
+	border-bottom-color: $rup-color-bubble-border;
+  border-width: $rup-bubble-before-border-width;
+	margin-left: -$rup-bubble-before-border-width;
+}

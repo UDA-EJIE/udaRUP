@@ -1,0 +1,137 @@
+  var options = {
+          legend: {
+              display: true
+          }
+
+      };
+      //line chart
+      $('#graficoLine').rup_chart({
+          type: "line",
+          data: {
+              labels: $.rup.i18n.app.charts.mesesLabels,
+              datasets: [{
+                  label: $.rup.i18n.app.charts.datasetRadar.dataset1,
+                  data: [65, 59, 80, 81, 56, 55, 40]
+              }]
+          },
+          options: options
+      });
+
+      //bar chart
+      $('#graficoBar').rup_chart({
+          type: "bar",
+          data: {
+              labels: $.rup.i18n.app.charts.mesesLabels,
+              datasets: [{
+                  label: $.rup.i18n.app.charts.datasetRadar.dataset1,
+                  data: [65, 59, 80, 81, 56, 55, 40]
+              }]
+          },
+          options: options
+      });
+
+      //radar chart
+      $('#graficoRadar').rup_chart({
+          type: "radar",
+          data: {
+              labels: $.rup.i18n.app.charts.radarLabels,
+              datasets: [{
+                  label: $.rup.i18n.app.charts.datasetRadar.dataset1,
+                  data: [65, 59, 90, 81, 56, 55, 40]
+              }, {
+                  label: $.rup.i18n.app.charts.datasetRadar.dataset2,
+                  data: [28, 48, 40, 19, 96, 27, 100]
+              }]
+          }
+      });
+
+      //polar chart
+      $('#graficoPolar').rup_chart({
+          type: "polarArea",
+          data: {
+
+              labels: $.rup.i18n.app.charts.colorLabels,
+              datasets: [{
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
+          }
+
+      });
+
+      //pie chart
+      $('#graficoPie').rup_chart({
+          type: "pie",
+          data: {
+
+              labels: $.rup.i18n.app.charts.colorLabels,
+              datasets: [{
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
+          }
+
+      });
+
+      // doughnut chart
+      $('#graficoDoughnut').rup_chart({
+          type: "doughnut",
+          data: {
+
+              labels: $.rup.i18n.app.charts.colorLabels,
+              datasets: [{
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
+          }
+
+      });
+
+      //bubble chart
+      $('#graficoBubble').rup_chart({
+          type: 'bubble',
+          data: {
+              datasets: [{
+                  label: $.rup.i18n.app.charts.datasetRadar.dataset1,
+                  data: [{
+                      x: 20,
+                      y: 30,
+                      r: 15
+                  }, {
+                      x: 40,
+                      y: 10,
+                      r: 10
+                  }],
+                  backgroundColor: "#FF6384",
+                  hoverBackgroundColor: "#FF6384",
+              }]
+          }
+
+      });

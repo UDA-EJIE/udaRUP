@@ -7,24 +7,34 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
-(function ($) {
-	
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base"], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
+
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
-	
+
 	var rup_empty = {};
-	
-	//Se configura el arranque de UDA para que alberge el nuevo patrón 
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_empty", rup_empty));
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
@@ -33,35 +43,35 @@
 			return this;
 		}
 	});
-	
+
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
-	
+
 	$.fn.rup_empty("extend",{
 		_bar: function() {
 			return this;
 		}
 	});
-	
+
 	//*******************************
 	// MÉTODO DE INICIALIZACION
 	//*******************************
 	$.fn.rup_empty("extend", {
 		_init : function(args){
 			var settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
-			
-			
-			// TODO : Invocación al plugin 
-			
+
+
+			// TODO : Invocación al plugin
+
 		}
 	});
-		
+
 	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 	$.fn.rup_empty.defaults = {
 		foobar: false
-	};	
-	
-})(jQuery);
+	};
+
+}));

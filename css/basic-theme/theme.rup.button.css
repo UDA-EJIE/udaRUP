@@ -1,17 +1,18 @@
 /*!
- * jQuery contextMenu - Plugin for simple contextMenu handling
+ * Copyright 2015 E.J.I.E., S.A.
  *
- * Version: git-master
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
  *
- * Authors: Rodney Rehm, Addy Osmani (patches for FF)
- * Web: http://medialize.github.com/jQuery-contextMenu/
+ *      http://ec.europa.eu/idabc/eupl.html
  *
- * Licensed under
- *   MIT License http://www.opensource.org/licenses/mit-license
- *   GPL v3 http://opensource.org/licenses/GPL-3.0
- *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
  */
-/*filtro hecho por mi*/
 
 .rup-dropdown-btn-group {
     display: inline-block;
@@ -61,7 +62,7 @@ button.ui-button-icon-only.rup-dropdown-button{
 	position: absolute;
 	z-index: 9000;
 	font-size: 1.1em;
-	
+
 }
 
 .rup-dropdown-option-list.open{
@@ -93,6 +94,3 @@ button.ui-button-icon-only.rup-dropdown-button{
 	border-bottom-right-radius: 0px;
 	border-top-right-radius: 0px;
 }
-
-
-		

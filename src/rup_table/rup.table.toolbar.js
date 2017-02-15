@@ -7,7 +7,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -18,52 +18,52 @@
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización del plugin.
-	 * 
+	 *
 	 * preConfiguration: Método que se ejecuta antes de la invocación del componente jqGrid.
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
-	 * 
+	 *
 	 */
 	jQuery.rup_table.registerPlugin("toolbar",{
 		loadOrder:3,
 		preConfiguration: function(settings){
 			var $self = this;
 			return $self.rup_table("preConfigureToolbar", settings);
-			
+
 		},
 		postConfiguration: function(settings){
 			var $self = this;
 			return $self.rup_table("postConfigureToolbar", settings);
-			
+
 		}
 	});
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla. 
-	 * 
+	 * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+	 *
 	 * Los métodos implementados son:
-	 * 
+	 *
 	 * preConfigureToolbar(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 	 * postConfigureToolbar(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
-	 * 
+	 *
 	 */
 	jQuery.fn.rup_table("extend",{
 		/*
 		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
-		 * 
+		 *
 		 * TODO: internacionalizar mensajes de error.
 		 */
 		preConfigureToolbar: function(settings){
 			var $self = this, toolbarSettings = settings.toolbar;
-			
+
 			/*
-			 * Inicialización de los identificadores por defecto de los componentes del toolbar  
+			 * Inicialización de los identificadores por defecto de los componentes del toolbar
 			 */
 			toolbarSettings.id = toolbarSettings.id!==null?toolbarSettings.id:settings.id+"_toolbar";
-			
+
 			/*
 			 * Inicialización del componente rup_toolbar
 			 */
@@ -71,10 +71,10 @@
 				settings.$toolbar=(toolbarSettings.id[0]==="#"?$(toolbarSettings.id):$("#"+toolbarSettings.id));
 				if (!settings.$toolbar.hasClass("rup-toolbar")){
 					settings.$toolbar.rup_toolbar({
-						width: 796
+						 width: toolbarSettings.width
 					});
 				}
-				
+
 //				toolbarSettings.self=$(toolbarSettings);
 			}else{
 				// En caso de no indicarse un toolbar, se crea un toolbar por defecto.
@@ -84,30 +84,30 @@
 				toolbarSettings.self = $("<div/>").attr("id", toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
-					width: 796
+					 width: toolbarSettings.width
 				});
 			}
-			
+
 			toolbarSettings.$toolbar = settings.$toolbar;
-			
+
 			// autoAjustToolbar: Realiza el autoajuste del toolbar al tamanyo del grid.
 			if (toolbarSettings.autoAjustToolbar) {
 				settings.$toolbar.css("width", $self.rup_table("getGridParam", "width") - 5);//-5 para ajustar el ancho
 			}
-			
+
 			// createDefaultToolButtons: Determina la creacion de los botones basicos por defecto del toolbar.
 			// Se unifican los parámetros de configuración de mostrar/ocultar los botones de la toolbar
 			if (toolbarSettings.createDefaultToolButtons===true) {
 				toolbarSettings.showOperations = jQuery.extend(true, {}, toolbarSettings.defaultButtons, settings.core.showOperations, toolbarSettings.showOperations);
 			}
-			
+
 			// Retrocompatibilidad: se mantiene el antiguo parámetro newButtons
 			toolbarSettings.buttons = jQuery.extend(true, {}, toolbarSettings.newButtons, toolbarSettings.buttons);
-			
+
 		},
 		postConfigureToolbar: function(settings){
 			var $self = this, toolbarSettings = settings.toolbar, counter=1;
-			
+
 			// Se generan los botones de la toolbar en base a las operaciones
 			jQuery.each(settings.toolbar.showOperations, function(buttonId, value){
 				var operationCfg;
@@ -127,7 +127,7 @@
 					}
 				}
 			});
-			
+
 			//Se comprueba si hay nuevos botones definidos y se ejecuta la función addButton con la parametrizacion de los nuevos botones
 			if (toolbarSettings.buttons !== undefined && toolbarSettings.buttons !== null){
 				jQuery.each(toolbarSettings.buttons, function (index, object){
@@ -135,8 +135,8 @@
 						object.json_i18n = {};
 					}
 //					if (object.obj===undefined)
-					
-					
+
+
 					if (object.obj !== undefined && object.click !== undefined){
 						settings.$toolbar.addButton(object.obj, object.json_i18n).bind("click", object.click);
 					} else if (object.buttons !== undefined){
@@ -144,10 +144,10 @@
 					 	 settings.$toolbar.addButtonsToMButton(object.buttons, mButton, object.json_i18n);
 					}else{
 						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_table.toolbarNewButtonError"));
-					} 
+					}
 				});
-			} 
-			
+			}
+
 			/*
 			 * EVENTOS
 			 */
@@ -155,7 +155,7 @@
 				"jqGridSelectRow.rupTable.toolbar jqGridLoadComplete.rupTable.toolbar jqGridInlineEditRow.rupTable.toolbar jqGridInlineAfterRestoreRow.rupTable.toolbar rupTableHighlightRowAsSelected.rupTable.toolbar rupTableSelectedRowNumberUpdated jqGridInlineAfterSaveRow rupTable_toolbarButtonsStateRefresh rupTable_afterDeleteRow.rupTable.toolbar rupTable_coreConfigFinished.toolbar rupTable_deleteAfterComplete.rupTable.toolbar": function(event, id, status, obj){
 					var $self = jQuery(this), settings = $self.data("settings");
 					// Existe elementos seleccionados para ser editados
-							
+
 					function processButton($button, enable){
 						if ($button!==undefined){
 							if (enable){
@@ -165,9 +165,9 @@
 							}
 						}
 					}
-					
+
 					jQuery.each(settings.core.operations, function(buttonId, operationCfg){
-						
+
 //						if (value===true){
 						if (settings.toolbar.showOperations[buttonId]===true){
 //							operationCfg = settings.core.operations[buttonId];
@@ -176,23 +176,23 @@
 							}
 						}
 					});
-						
+
 				},
 				"rupTable_internalFeedbackClose": function(){
 					var $self = jQuery(this), settings = $self.data("settings");
 					settings.$internalFeedback.rup_feedback("close");
 				}
 			});
-			
+
 		}
 	});
-	
-	
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
-		
+
+
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.toolbar = {};
 	jQuery.fn.rup_table.plugins.toolbar.defaults = {
@@ -208,10 +208,11 @@
 				defaultDelete : true,
 				defaultFilter : false,
 				defaultButtons:{},
-				showOperations:{}
+				showOperations:{},
+				width: 796
 			}
 	};
-	
-		
-	
+
+
+
 })(jQuery);

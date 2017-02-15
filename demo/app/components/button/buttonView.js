@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/button'], function(Marionette, App){
+        'rup/rup.button'], function(Marionette, App){
 
   var ButtonView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.button.buttonTemplate,

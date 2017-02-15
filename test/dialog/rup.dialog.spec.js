@@ -1,4 +1,4 @@
-define(['app','rup/dialog'], function() {
+define(['rup/rup.dialog'], function() {
 
   function executeSharedTests(createInstanceFn){
 

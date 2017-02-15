@@ -1,0 +1,12 @@
+{{#each channel}} 
+    <div class="list-group">
+       {{#each items}}  
+          <a href="{{link}}" class="list-group-item" data-source="{{source}}" data-url="{{link}}" data-comments="{{comments}}" target="_blank">
+            <h5 class="list-group-item-heading">{{title}}</h5>
+            <p class="list-group-item-text">{{content}}</p>
+            <p class="list-group-item-text">{{pubDate}}</p>
+          </a>
+        {{/each}}
+    </div>
+{{/each}}
+

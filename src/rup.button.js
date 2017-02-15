@@ -19,7 +19,17 @@
  * @author EJIE
  * @version 2.4.8
  */
-(function ($) {
+ ( function( factory ) {
+ 	if ( typeof define === "function" && define.amd ) {
+
+ 		 // AMD. Register as an anonymous module.
+ 		 define( ["jquery","./rup.base","./rup.dialog" ], factory );
+ 	} else {
+
+ 		 // Browser globals
+ 		 factory( jQuery );
+ 	}
+ } ( function( $ ) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -199,90 +209,164 @@
          * @private
          */
 		_init : function(args){
-			var settings = $.extend(true, {}, $.fn.rup_button.defaults, args[0]),
-			$self = this, $dropdownList, $container, dropdownSettings;
+			var settings = $.extend(true, {}, $.fn.rup_button.defaults, $(this).data(), args[0]);
+
+      return this.each(function() {
+
+  			var $self = $(this), $dropdownList, $container, dropdownSettings;
+
+        if (settings.fab===true){
+          $self.addClass("rup-button-fab");
+
+          if (settings.fixed===true){
+            $self.addClass("rup-button-fixed");
+          }
+
+          if (settings.fixed===true){
+            $self.addClass("rup-button-fixed");
+          }
+
+          if (settings.list!==null || settings.layer!==null){
+            var $fabGroupDiv = $("<div>").addClass("rup-button-fab-group");
+            //$self.wrap($fabListDiv);
+            $self.add($("#"+settings.list)).wrapAll($fabGroupDiv);
+
+            if(settings.list!==null){
+              $("#"+settings.list).addClass("rup-button-fab-list");
+              $("button","#"+settings.list).addClass("rup-button-fab-sm").rup_button();
+            }
+
+            if(settings.layer!==null){
+              $("#"+settings.layer).addClass("rup-button-fab-layer");
+            }
+
+          }
+        }
+
+        // Se envuelve el texto en un span
+        if ($self.find(settings.labelBaseCss).length === 0){
+          $self.contents().filter(function(){return this.nodeType===Node.TEXT_NODE && /\S/.test(this.nodeValue);}).wrap($("<span>").addClass(settings.labelBaseCss));
+        }
+        // Se añade los css al label
+        if (settings.labelCss){
+          $self.find("."+settings.labelBaseCss).addClass(settings.labelCss);
+        }
+
+        // Se añade el icono al botón
+        if (settings.iconCss){
+          $self.prepend($("<i>").attr("aria-hidden", "true").addClass(settings.iconCss));
+        }
+
+        // Se gestiona el evento del click
+        if (settings.click && $.isFunction(settings.click)){
+          $self.on("click", settings.click);
+        }
+
+        if (settings.dropdown === undefined || settings.dropdown === false){
+
+  				// Botón normal
+
+  				$self.button(settings);
+  				$self.addClass("rup-button");
+
+          if (settings.mbutton === true){
+            // Configuramos el mbutton
+            var $mbuttonContainer = $self.siblings("[aria-labelledby='"+$self.attr("id")+"']");
+            if ($mbuttonContainer){
+              $self.on("click.rup_mbutton", function(event){
+    						$mbuttonContainer.addClass("rup-mbutton-open");
+    						event.stopPropagation();
+
+    					});
+
+    					$mbuttonContainer.on("click.rup_mbutton", function(event){
+    						event.stopPropagation();
+    					});
+
+    					jQuery(document).on("click.rup_mbutton.close", function(){
+    						$mbuttonContainer.removeClass("rup-mbutton-open");
+    					});
 
 
-
-			// Comprobamos si se hace uso del dropdown
-			if (settings.dropdown=== undefined || settings.dropdown === false){
-				// Botón normal
-				$self.button(settings);
-				$self.addClass("rup-button");
-
-			}else{
-				// Inicialización del dropdown
-				$.extend(true, settings.dropdown, $.fn.rup_button.dropdown_defaults, args[0].dropdown);
-
-				dropdownSettings = settings.dropdown;
-
-				$self.addClass("rup-button rup-dropdown");
-
-				// Wrap into div
-				$container = jQuery("<div>").attr("class","rup-dropdown-btn-group");
-
-				$container = $self.wrap($container).parent();
-
-				dropdownSettings.$container = $container;
-
-				$self.button({});
+            }
 
 
-				$self.addClass("rup-dropdown");
+          }
+
+  			}else{
+  				// Inicialización del dropdown
+  				$.extend(true, settings.dropdown, $.fn.rup_button.dropdown_defaults, args[0].dropdown);
+
+  				dropdownSettings = settings.dropdown;
+
+  				$self.addClass("rup-button rup-dropdown");
+
+  				// Wrap into div
+  				$container = jQuery("<div>").attr("class","rup-dropdown-btn-group");
+
+  				$container = $self.wrap($container).parent();
+
+  				dropdownSettings.$container = $container;
+
+  				$self.button({});
 
 
-				var $dropdownButton = jQuery("<button>").attr({
-					type: "button",
-					id: $self.prop("id")+"_dropdown"
-
-				}).text("Administración de filtros").button({
-					icons:{
-						primary: dropdownSettings.dropdownIcon
-					},
-					text: false
-				}).addClass("rup-dropdown-button");
-
-				$self.after($dropdownButton);
-
-				if (dropdownSettings.dropdownListId){
-					$dropdownList = jQuery("#"+dropdownSettings.dropdownListId);
-					dropdownSettings.$dropdownList = $dropdownList;
-
-					$container.append($dropdownList);
-					$dropdownButton.on("click.rup_dopdown", function(event){
-						$dropdownList.toggleClass("open");
-						event.stopPropagation();
-
-					});
-
-					$dropdownList.on("click.rup_dopdown", function(event){
-						event.stopPropagation();
-					});
-
-					jQuery(document).on("click.rup_dopdown.close", function(){
-						$dropdownList.removeClass("open");
-					});
+  				$self.addClass("rup-dropdown");
 
 
-				}else if (dropdownSettings.dropdownDialog){ // Configuracion del dropdown con un RUP dialog
+          var $dropdownButton = $.proxy($.rup.adapter.button.createDropdownButton, $self)(settings);
+  				// var $dropdownButton = jQuery("<button>").attr({
+  				// 	type: "button",
+  				// 	id: $self.prop("id")+"_dropdown"
+          //
+  				// }).text("Administración de filtros").button({
+  				// 	icons:{
+  				// 		primary: dropdownSettings.dropdownIcon
+  				// 	},
+  				// 	text: false
+  				// }).addClass("rup-dropdown-button");
 
-					jQuery.extend(dropdownSettings.dropdownDialogConfig,{
-						autoOpen:false,
-						position:{my: "right top", at: "right bottom", of: $container}
-					});
-					var $dropdownDialog = jQuery("#"+dropdownSettings.dropdownDialog).rup_dialog(dropdownSettings.dropdownDialogConfig);
+  				$self.after($dropdownButton);
 
-					// Estilos
-					$dropdownDialog.parent().addClass("rup-dropdown-dialog");
+  				if (dropdownSettings.dropdownListId){
+  					$dropdownList = jQuery("#"+dropdownSettings.dropdownListId);
+  					dropdownSettings.$dropdownList = $dropdownList;
 
-					$dropdownButton.on("click", function(){
-						$dropdownDialog.rup_dialog("open");
-					});
-				}else if (dropdownSettings.buttons){ // Configuración del dropdown a partir de buttons
-						$self._doDropdownByButtons($dropdownButton, $container, dropdownSettings);
-				}
-			}
+  					$container.append($dropdownList);
+  					$dropdownButton.on("click.rup_dopdown", function(event){
+  						$dropdownList.toggleClass("open");
+  						event.stopPropagation();
 
+  					});
+
+  					$dropdownList.on("click.rup_dopdown", function(event){
+  						event.stopPropagation();
+  					});
+
+  					jQuery(document).on("click.rup_dopdown.close", function(){
+  						$dropdownList.removeClass("open");
+  					});
+
+
+  				}else if (dropdownSettings.dropdownDialog){ // Configuracion del dropdown con un RUP dialog
+
+  					jQuery.extend(dropdownSettings.dropdownDialogConfig,{
+  						autoOpen:false,
+  						position:{my: "right top", at: "right bottom", of: $container}
+  					});
+  					var $dropdownDialog = jQuery("#"+dropdownSettings.dropdownDialog).rup_dialog(dropdownSettings.dropdownDialogConfig);
+
+  					// Estilos
+  					$dropdownDialog.parent().addClass("rup-dropdown-dialog");
+
+  					$dropdownButton.on("click", function(){
+  						$dropdownDialog.rup_dialog("open");
+  					});
+  				}else if (dropdownSettings.buttons){ // Configuración del dropdown a partir de buttons
+  						$self._doDropdownByButtons($dropdownButton, $container, dropdownSettings);
+  				}
+  			}
+      });
 			// TODO : Invocación al plugin
 
 		}
@@ -300,10 +384,20 @@
    * @property {boolean | Object} [dropdown=false] - Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo.
    */
 	$.fn.rup_button.defaults = {
-		dropdown:false
-	};
+		dropdown:false,
+    fab: false,
+    fixed: false,
+    list: null,
+    layer: null,
+    iconCss: undefined,
+    labelCss: undefined,
+    mbutton: false,
+    click: undefined,
+    labelBaseCss: "rup-ui-button-text",
 
-  /**                                                                         
+  };
+
+  /**
    * @description Opciones por defecto del objeto de configuración del menú desplegable asociado al botón.
    *
    * @name jQuery.rup_button#dropdown_defaults
@@ -311,7 +405,10 @@
    * @property {string} [dropdownIcon=ui-icon-triangle-1-s] - Clase css correspondiente al icono del control que despliega el menú.
    */
 	$.fn.rup_button.dropdown_defaults ={
-		dropdownIcon: "ui-icon-triangle-1-s",
+
+		// dropdownIcon: "ui-icon-triangle-1-s",
+
+    dropdownIcon: "fa fa-caret-down",
 		dropdownListId: undefined,
 		dropdownDialog: undefined,
 		dropdownDialogConfig:{
@@ -319,4 +416,4 @@
 		}
 	};
 
-})(jQuery);
+}));
