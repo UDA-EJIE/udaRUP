@@ -34,6 +34,7 @@
 	$.rup_utils  = {};
 	$.rup_utils.arr = [];
 	$.rup_utils.autoGenerateIdNum = 0;
+  $.rup_utils.swinging = false;
 
     /**
     * Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>
@@ -712,7 +713,7 @@
 				}
 
 				if (jQuery.isArray(value)){
-						
+
                     		//issue [utils] getRupValueAsJson provoca error con los arrays vacíos #24
                     		//https://github.com/UDA-EJIE/udaRUP/issues/24
                     		if (value.length !== 0) {
@@ -730,7 +731,7 @@
 
                         	return returnArray;
                     		}
-                    	
+
 				}else{
 					// Devolvemos un único valor.
 					tmpJson={};
@@ -760,7 +761,19 @@
 			}
 
 			return null;
-		}
+		},
+    swing2Top: function() {
+        if (!$.rup_utils.swinging) {
+            $.rup_utils.swinging = true;
+            $('html, body').animate({
+                scrollTop: 0
+            }, '800', 'swing', function() {
+                $.rup_utils.swinging = false;
+            });
+        }
+    }
+
+
 
 	});
 
@@ -944,7 +957,5 @@
 		        return string;
 		    }
 		};
-
-
 
 }));
