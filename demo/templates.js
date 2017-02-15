@@ -108,6 +108,10 @@ this["App"]["Templates"]["demo"]["app"]["components"]["progressbar"] = this["App
 this["App"]["Templates"]["demo"]["app"]["components"]["progressbar"]["progressbarTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<h2>Progressbar</h2>\r\n\r\n<span> Barra de progreso simple </span>\r\n<div id=\"progressbar\"></div>\r\n<br/><br/>\r\n<span> Barra de progreso mostrando un mensaje </span>\r\n<div id=\"progressbarLabel\"></div>\r\n<br/><br/>\r\n<span> Barra de progreso sin mostrar un valor concreto </span>\r\n<div id=\"progressbarValueFalse\"></div>\r\n<br/><br/>\r\n";
 },"useData":true});
+this["App"]["Templates"]["demo"]["app"]["components"]["slider"] = this["App"]["Templates"]["demo"]["app"]["components"]["slider"] || {};
+this["App"]["Templates"]["demo"]["app"]["components"]["slider"]["sliderTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<h2>Deslizador</h2>\r\n\r\n\r\n<div class=\"slider-examples\">\r\n  <div class=\"example\">\r\n    <div id=\"slider\"></div>\r\n  </div>\r\n\r\n  <div class=\"example\">\r\n    <p>\r\n      <label for=\"amount\">Price range:</label>\r\n      <input type=\"text\" id=\"amount\" readonly style=\"border:0; color:#f6931f; font-weight:bold;\">\r\n    </p>\r\n    <div id=\"sliderRange\"></div>\r\n  </div>\r\n\r\n</div>\r\n";
+},"useData":true});
 this["App"]["Templates"]["demo"]["app"]["components"]["spinner"] = this["App"]["Templates"]["demo"]["app"]["components"]["spinner"] || {};
 this["App"]["Templates"]["demo"]["app"]["components"]["spinner"]["spinnerTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<h2>Spinner</h2>\r\n\r\n<p>\r\n  <label for=\"spinner\">Seleccione un valor:</label>\r\n  <input id=\"spinner\" name=\"value\">\r\n</p>\r\n\r\n<p>\r\n  <button id=\"disable\">Habilitar/deshabilitar</button>\r\n  <button id=\"destroy\">Destruir/inicializar</button>\r\n</p>\r\n\r\n<p>\r\n  <button id=\"getvalue\">Obtener valor</button>\r\n  <button id=\"setvalue\">Asignar valor a 5</button>\r\n</p>\r\n";
@@ -156,10 +160,6 @@ this["App"]["Templates"]["demo"]["app"]["components"]["time"]["timeTemplate"] = 
 this["App"]["Templates"]["demo"]["app"]["components"]["toolbar"] = this["App"]["Templates"]["demo"]["app"]["components"]["toolbar"] || {};
 this["App"]["Templates"]["demo"]["app"]["components"]["toolbar"]["toolbarTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<h2>Toolbar</h2>\r\n\r\n<div id=toolbar></div>\r\n\r\n<br/>\r\n<div class=\"separator\"></div>\r\n<div class=\"separator\"></div>\r\n<br/>\r\n\r\n<div id=toolbarMixta></div>\r\n\r\n<br/>\r\n<div class=\"separator\"></div>\r\n<div class=\"separator\"></div>\r\n<br/>\r\n\r\n<div id=toolbarRight></div>\r\n";
-},"useData":true});
-this["App"]["Templates"]["demo"]["app"]["components"]["slider"] = this["App"]["Templates"]["demo"]["app"]["components"]["slider"] || {};
-this["App"]["Templates"]["demo"]["app"]["components"]["slider"]["sliderTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<h2>Deslizador</h2>\r\n\r\n\r\n<div class=\"slider-examples\">\r\n  <div class=\"example\">\r\n    <div id=\"slider\"></div>\r\n  </div>\r\n\r\n  <div class=\"example\">\r\n    <p>\r\n      <label for=\"amount\">Price range:</label>\r\n      <input type=\"text\" id=\"amount\" readonly style=\"border:0; color:#f6931f; font-weight:bold;\">\r\n    </p>\r\n    <div id=\"sliderRange\"></div>\r\n  </div>\r\n\r\n</div>\r\n";
 },"useData":true});
 this["App"]["Templates"]["demo"]["app"]["components"]["tooltip"] = this["App"]["Templates"]["demo"]["app"]["components"]["tooltip"] || {};
 this["App"]["Templates"]["demo"]["app"]["components"]["tooltip"]["tooltipTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

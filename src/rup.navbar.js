@@ -34,10 +34,14 @@
             window.scrollHeight = 0;
             $(window).scroll(function() {
 
-                if ($(this).scrollTop() >= headerSize && !changed) {
+                if ($(this).scrollTop() === 0) {
+                    changed = false;
+                    $('header').removeAttr('style');
+                    $('.rup-navbar.navbar').removeAttr('style');
+                    $('.content').removeAttr('style');
+                } else if ($(this).scrollTop() >= headerSize && !changed) {
                     changed = true;
                     $('#divLogin a').popover('hide');
-
 
                     $('header').css('margin-top', -headerSize);
                     $('.rup-navbar.navbar').css({
@@ -70,24 +74,26 @@
 
             // El reescalado de la pantalla navega al inicio del contenido
             $(window).resize(function() {
+                headerSize = $('header').outerHeight(true) - $('header').offset().top;
+                headerNavSize = $('header').outerHeight(true) + $('nav').outerHeight(true);
                 $.rup_utils.swing2Top();
             });
 
             // El botón de volver a la parte superior del contenido
             $('nav .scrollTop')
                 .off('click')
-                .on('click', function() {
+                .on('click tap', function() {
                     $('.navbar-toggler:visible').click();
                     $.rup_utils.swing2Top();
                 });
 
             // Hacer click fuera de menú lo cierra
-            $('#overlay').on('click', function() {
+            $('#overlay').on('click tap', function() {
                 $('.navbar-toggler:visible').click();
             });
 
             // Funcionamiento de apertura del menú
-            $('.navbar-toggler').on('click', function() {
+            $('.navbar-toggler').on('click tap', function() {
                 $('#overlay').toggleClass('on');
                 $('.navbar-toggleable-md .rup-open').removeClass('rup-open');
             });
@@ -98,13 +104,13 @@
             });
 
             // Funcionamiento acordeón entre desplegables en el menú
-            $('nav .dropdown>a').on('click', function() {
+            $('nav .dropdown>a').on('click tap', function() {
                 $('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
             });
 
             // Funcionamiento de apertura de sub-desplegables en el menú
-            $('nav .dropdown-submenu a').on('click', function() {
+            $('nav .dropdown-submenu a').on('click tap', function() {
                 $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
             });
