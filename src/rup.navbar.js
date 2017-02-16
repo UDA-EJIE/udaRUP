@@ -41,8 +41,6 @@
                     $('.content').removeAttr('style');
                 } else if ($(this).scrollTop() >= headerSize && !changed) {
                     changed = true;
-                    $('#divLogin a').popover('hide');
-
                     $('header').css('margin-top', -headerSize);
                     $('.rup-navbar.navbar').css({
                         'position': 'fixed',
