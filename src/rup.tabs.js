@@ -221,7 +221,7 @@
                     $(this).parent().parent().remove(); //remove li of tab
                     $(tabContentId).remove(); //remove respective tab content
 
-                    tabs.tabs("refresh");
+                    (tabs.parent()).tabs("refresh");
                 });
 
 
@@ -497,7 +497,7 @@
                             $(tabContentId).remove(); // remove respective tab
                             // content
 
-                            tabs.tabs("refresh");
+                            (tabs.parent()).tabs("refresh");
                         });
 
                         // efecto hover del boton cerrar
@@ -967,7 +967,7 @@
 
 
                 var previousTab = $("#" + args.idTab).find(".ui-tabs-nav li:eq(" + (args.position - 1) + ")");
-                $("<li><a href='" + args.url + "'>" + args.label + "</a></li>");
+                $("<li><a href='" + args.url + "'>" + args.label + "</a></li>").insertBefore(previousTab);
 
                 $("#" + args.idTab).tabs("refresh");
             },
@@ -976,7 +976,7 @@
              * */
             _removeTab: function (args) {
                 // Remove the tab
-                var tab = $("#" + args.idTab).find(".ui-tabs-nav li:eq(" + args.position + ")").remove();
+                var tab = $("#" + args.idTab).find(".ui-tabs-nav li:eq(" + (args.position - 1) + ")").remove();
 
                 // Refresh the tabs widget
                 $("#" + args.idTab).tabs("refresh");

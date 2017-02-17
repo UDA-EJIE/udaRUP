@@ -69,7 +69,7 @@ requirejs.config({
         //"rup/toolbar": "../../src/rup.toolbar",
         // "rup/button": "../../src/rup.button",
         //"rup/accordion": "../../src/rup.accordion",
-        //"rup/tabs": "../../src/rup.tabs",
+        "rup/tabs": "../../src/rup.tabs",
         //"rup/autocomplete": "../../src/rup.autocomplete",
         //"rup/combo": "../../src/rup.combo",
         "rup/date": "../../src/rup.date",
@@ -114,11 +114,13 @@ requirejs.config({
         "form2object": "../../src/core/utils/form2object",
         //graficos
         "chartjs": "../../node_modules/chart.js/dist/Chart",
+        //scrollTo para rup.tabs
+        "jquery.scrollTo": "../../node_modules/jquery.scrollto/jquery.scrollTo"
     },
     shim: {
-      "jquery-migrate": {
-          "deps": ["jquery"],
-      },
+        "jquery-migrate": {
+            "deps": ["jquery"],
+        },
         "jquery-ui": {
             "deps": ["jquery", "jquery-migrate"],
         },
@@ -223,6 +225,10 @@ requirejs.config({
         // "rup/table.core.base": {
         //   "deps": [ "rup/base","form2object"]
         // },
+        //
+        "rup/tabs": {
+            "deps": ["rup/base", "rup/tabs", "jquery.scrollTo"]
+        },
         "rup/table": {
             "deps": ["rup/base", "rup/report", "form2object"]
         },
