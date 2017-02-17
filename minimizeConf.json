@@ -224,6 +224,8 @@
     "./src/rup.upload.js",
     "./src/rup.validate.js",
     "./src/rup.wizard.js",
-    "./src/rup.tree.js"
+    "./src/rup.tree.js",
+    "./node_modules/jquery.scrollto/jquery.scrollTo"
+
   ]
 }
