@@ -38,7 +38,7 @@
                     changed = false;
                     $('header').removeAttr('style');
                     $('.rup-navbar.navbar').removeAttr('style');
-                    $('.content').removeAttr('style');
+                    $('.rup-breadCrumb_root').removeAttr('style');
                 } else if ($(this).scrollTop() >= headerSize && !changed) {
                     changed = true;
                     $('header').css('margin-top', -headerSize);
@@ -46,7 +46,7 @@
                         'position': 'fixed',
                         'width': '100%'
                     });
-                    $('.content').css('margin-top', function(index, curValue) {
+                    $('.rup-breadCrumb_root').css('margin-top', function(index, curValue) {
                         return parseInt(curValue, 10) + headerNavSize + 'px';
                     });
                 } else if ($(this).scrollTop() < headerSize && changed) {
@@ -56,7 +56,7 @@
                         'position': 'relative',
                         'width': '100%'
                     });
-                    $('.content').css('margin-top', function(index, curValue) {
+                    $('.rup-breadCrumb_root').css('margin-top', function(index, curValue) {
                         return parseInt(curValue, 10) - headerNavSize + 'px';
                     });
                 }

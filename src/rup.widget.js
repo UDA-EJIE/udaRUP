@@ -104,7 +104,7 @@
                 _configurationData: null
 
             },
-            _hidden:false,
+            _hidden:false
 //            ,configTemplate: null,
 //            ,configData: null,
 //            ,configScript: null
@@ -172,7 +172,7 @@
                 $btnResizeFull: $el.find(ui.btnResizeFull+"-"+uuid),
                 $btnResizeSmall: $el.find(ui.btnResizeSmall+"-"+uuid),
                 $btnShowHide: $el.find(ui.btnShowHide+"-"+uuid),
-                $btnInfo: $el.find(ui.btnInfo+"-"+uuid),
+                $btnInfo: $el.find(ui.btnInfo+"-"+uuid)
             };
 
             // Se definen los eventos de los elementos de la interfaz de usuario.

@@ -40,7 +40,7 @@
 			responsive:{
 				"SCREEN_SM" : 768,
 				"SCREEN_MD" : 992,
-				"SCREEN_LG" : 1200,
+				"SCREEN_LG" : 1200
 			}
 		}
 	});
