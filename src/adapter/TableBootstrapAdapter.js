@@ -19,23 +19,23 @@
       core:{
         operations:{
           defaultOperations:{
-            add:{
+            'add':{
                 icon: "fa fa-file-o"
             },
-            save: {
+            'save': {
                 icon: "fa fa fa-floppy-o"
             },
-            edit: {
+            'edit': {
                 icon: "fa fa-pencil-square-o"
             },
-            clone: {
+            'clone': {
                 icon: "fa fa-clone"
             },
-            delete: {
-                icon: "fa fa-trash-o",
+            'delete': {
+                icon: "fa fa-trash-o"
             },
-            cancel: {
-                icon: "fa fa-times-circle",
+            'cancel': {
+                icon: "fa fa-times-circle"
             }
           }
         }

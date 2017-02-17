@@ -1,10 +1,6 @@
-.rup-breadCrumb_root{
-  background: $rup-color-breadCrumb-bg;
-  height: 3rem;
-  display: inline-flex;
-  @extend .shadow-2;
+.rup-breadCrumb_root {
+    background: $rup-color-breadCrumb-bg;
+    height: 3rem;
 
-  .rup-breadCrumb_main{
-
-  }
+    .rup-breadCrumb_main {}
 }

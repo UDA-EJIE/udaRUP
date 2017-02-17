@@ -414,7 +414,7 @@
                     load: settings.load,
                     activate: settings.show, //deprecated show como evento desde jquery ui 1.10
                     add: settings.add,
-                    remove: settings.remove,
+                    remove: settings.remove
                     //enable: settings.enable,
                     //disable: settings.disable
                 });

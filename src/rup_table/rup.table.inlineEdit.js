@@ -230,7 +230,7 @@
 				},
 				"delete": {
 					name: $.rup.i18nParse($.rup.i18n.base,"rup_table.delete"),
-					icon: self._ADAPTER.CONST.core.operations.defaultOperations.delete.icon,
+					icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
 					enabled: function(){
 						var $self = this,
 						selrow=$self.jqGrid('getGridParam','selrow');
