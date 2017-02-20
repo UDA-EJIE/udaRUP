@@ -2794,7 +2794,7 @@ input.ui-button {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -2901,8 +2901,10 @@ input.ui-button {
 
 .rup-breadCrumb_root {
   width: 100%;
-  float: left;
-  margin-bottom: 0.5em; }
+  padding: 0rem 2rem 0rem 2rem;
+  -moz-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
 
 .rup-breadCrumb_main {
   padding-top: 0.1em;

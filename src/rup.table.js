@@ -16594,7 +16594,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
                 //					}},
                 "delete": {
                     name: $.rup.i18nParse($.rup.i18n.base, "rup_table.delete"),
-                    icon: self._ADAPTER.CONST.core.operations.defaultOperations.delete.icon,
+                    icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
                     enabled: function () {
                         var $self = this,
                             settings = $self.data("settings");
@@ -18889,7 +18889,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				"delete": {
 					name: $.rup.i18nParse($.rup.i18n.base,"rup_table.delete"),
-					icon: self._ADAPTER.CONST.core.operations.defaultOperations.delete.icon,
+					icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
 					enabled: function(){
 						var $self = this,
 						selrow=$self.jqGrid('getGridParam','selrow');
@@ -22794,7 +22794,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			responsive:{
 				"SCREEN_SM" : 768,
 				"SCREEN_MD" : 992,
-				"SCREEN_LG" : 1200,
+				"SCREEN_LG" : 1200
 			}
 		}
 	});

@@ -19,23 +19,23 @@
       core:{
         operations:{
           defaultOperations:{
-            add:{
+            'add':{
                 icon: "ui-icon rup-icon rup-icon-new"
             },
-            save: {
+            'save': {
                 icon: "ui-icon rup-icon rup-icon-save"
             },
-            edit: {
+            'edit': {
                 icon: "ui-icon rup-icon rup-icon-edit"
             },
-            clone: {
+            'clone': {
                 icon: "ui-icon rup-icon rup-icon-clone"
             },
-            delete: {
-                icon: "ui-icon rup-icon rup-icon-delete",
+            'delete': {
+                icon: "ui-icon rup-icon rup-icon-delete"
             },
-            cancel: {
-                icon: "ui-icon rup-icon rup-icon-cancel",
+            'cancel': {
+                icon: "ui-icon rup-icon rup-icon-cancel"
             }
           }
         }

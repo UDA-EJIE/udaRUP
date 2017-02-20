@@ -393,8 +393,7 @@
     labelCss: undefined,
     mbutton: false,
     click: undefined,
-    labelBaseCss: "rup-ui-button-text",
-
+    labelBaseCss: "rup-ui-button-text"
   };
 
   /**

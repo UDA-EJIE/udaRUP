@@ -1,10 +1,86 @@
-.rup-breadCrumb_root{
-  background: $rup-color-breadCrumb-bg;
-  height: 3rem;
-  display: inline-flex;
-  @extend .shadow-2;
+.rup-breadCrumb_root {
+    background: $rup-color-breadCrumb-bg;
+    display: inline-block;
+    padding: 1rem;
 
-  .rup-breadCrumb_main{
+    .rup-breadCrumbs_span {
+        padding: 0;
+    }
 
-  }
+    .rup-breadCrumb_main {
+        display: inline-block;
+        padding: 0;
+        margin-left: 1rem;
+        width: auto;
+
+        &>li {
+            padding: 0;
+
+            span {
+                &.rup-icon {
+                    margin: 0rem 0.5rem 0rem 0.5rem;
+                    padding: 0;
+                }
+            }
+
+            a {
+                padding: 1.1rem 0.5rem;
+            }
+
+            ul {
+                margin-top: 0.5rem;
+                max-height: 25rem;
+                overflow-y: auto;
+            }
+        }
+    }
+}
+
+.rup-breadCrumb_logoutDiv {
+    float: right;
+    padding-top: 0;
+
+    &:hover {
+        color: lighten($rup-text-color, 20%);
+    }
+}
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg {
+    float: left;
+    width: 1.5rem;
+    margin: 0;
+    text-indent: 0;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: large;
+    text-rendering: auto;
+    background-image: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        content: "\f023";
+    }
+}
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active {
+    float: left;
+    width: 1.5rem;
+    margin: 0;
+    text-indent: 0;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: large;
+    text-rendering: auto;
+    background-image: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        content: "\f09c";
+    }
 }

@@ -102,6 +102,7 @@
     "./src/rup.lang.js",
     "./src/rup.menu.js",
     "./src/rup.navMenu.js",
+    "./src/rup.navbar.js",
     "./src/rup.message.js",
     "./src/rup.progressbar.js",
     "./src/rup.slider.js",
@@ -223,6 +224,8 @@
     "./src/rup.upload.js",
     "./src/rup.validate.js",
     "./src/rup.wizard.js",
-    "./src/rup.tree.js"
+    "./src/rup.tree.js",
+    "./node_modules/jquery.scrollto/jquery.scrollTo"
+
   ]
 }
