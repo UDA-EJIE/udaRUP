@@ -80,7 +80,7 @@
             // El botón de volver a la parte superior del contenido
             $('nav .scrollTop')
                 .off('click')
-                .on('click tap', function() {
+                .on('click', function() {
                     $('.navbar-toggler:visible').click();
                     $.rup_utils.swing2Top();
                 });
@@ -111,6 +111,21 @@
             $('nav .dropdown-submenu a').on('click tap', function() {
                 $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
+
+                var menuScrollPos = 0;
+                var end = $(this).parent().index();
+                $(this).parent().siblings().each(function(i, e) {
+                    if (i < end) {
+                      if($(e).children('.dropdown-menu').length>0){
+                        menuScrollPos += $(e).children('.dropdown-item:first').outerHeight(true);
+                      } else {
+                        menuScrollPos += $(e).outerHeight(true);
+                      }
+                    }
+                });
+                $(this).parent().parent().animate({
+                    scrollTop: menuScrollPos
+                }, 500);
             });
         }
     });

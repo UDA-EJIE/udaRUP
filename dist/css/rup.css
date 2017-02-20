@@ -5551,12 +5551,17 @@ h6 {
 label {
   font-size: 1rem; }
 
-.ui-state-hover, .ui-widget-content .ui-state-hover {
+.ui-state-hover,
+.ui-widget-content .ui-state-hover {
   background: #b9d4ec; }
 
 .ui-widget-overlay {
-  opacity: .7;
+  opacity: 0.7;
   background-color: #050505; }
+
+.input-group-btn > button, .input-group-btn > .ui-button.rup-button, .rup-dropdown-btn-group .input-group-btn > .rup-dropdown-button, .input-group-btn > a.rup-toolbar_menuButton.ui-button, .rup-wizard .input-group-btn > a.rup-wizard_next, .rup-wizard .input-group-btn > a.rup-wizard_prev, .rup-wizard .input-group-btn > .rup-wizard_submitButton {
+  height: 2rem;
+  padding: 0 5px; }
 
 button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dropdown-button, a.rup-toolbar_menuButton.ui-button, .rup-wizard a.rup-wizard_next, .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-wizard_submitButton, input[type="button"], input[type="submit"], .btn {
   font-size: 1.1rem;
@@ -5694,13 +5699,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     padding: 0; }
   .rup-breadCrumb_root .rup-breadCrumb_main {
     display: inline-block;
-    padding: 0;
+    padding: 0 2px 3px;
     margin-left: 1rem;
     width: auto; }
     .rup-breadCrumb_root .rup-breadCrumb_main > li {
       padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li span.rup-icon {
-        margin: 0rem 0.5rem 0rem 0.5rem;
+        margin: 0 0.5rem;
         padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li a {
         padding: 1.1rem 0.5rem; }
@@ -6319,7 +6324,12 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           -moz-transition: all 0.3s ease;
           -o-transition: all 0.3s ease;
           -ms-transition: all 0.3s ease;
-          transition: all 0.3s ease; }
+          transition: all 0.3s ease;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0; }
+          .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
+            background-color: #e6e6e6; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -6554,6 +6564,11 @@ a.rup-toolbar_menuButton.ui-button span {
   width: 100%;
   display: inline-table;
   float: none; }
+
+/* Modal plugin */
+#qtip-overlay {
+  left: 0;
+  top: 0; }
 
 .rup-wizard_stepsDescContainer {
   padding: 0; }
