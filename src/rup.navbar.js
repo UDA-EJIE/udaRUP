@@ -64,9 +64,9 @@
                 var height = $(window).scrollTop();
 
                 if (height > headerNavSize) {
-                    $('nav .scrollTop').addClass('on');
+                    $('nav .swingTop').addClass('on');
                 } else {
-                    $('nav .scrollTop').removeClass('on');
+                    $('nav .swingTop').removeClass('on');
                 }
             });
 
@@ -78,7 +78,7 @@
             });
 
             // El botón de volver a la parte superior del contenido
-            $('nav .scrollTop')
+            $('nav .swingTop')
                 .off('click')
                 .on('click', function() {
                     $('.navbar-toggler:visible').click();

@@ -45,6 +45,7 @@ button.ui-button {
     }
 }
 // mbutton
+
 .rup-mbutton {
     display: inline-block;
 
@@ -79,14 +80,14 @@ button.ui-button {
 
         .rup-mbutton-container {
             display: inline;
-            position: relative;
+            position: static;
             padding: 0;
             border: none;
             background-color: transparent;
-            z-index: 8000;
 
             li {
                 display: inline-block;
+                vertical-align: middle;
             }
 
             button {
@@ -135,12 +136,10 @@ button.ui-button {
 }
 
 .rup-button-fab-group {
-    display: flex;
-    flex-direction: column;
+    display: block;
     position: fixed;
     bottom: 45px;
     right: 24px;
-    align-items: center;
     z-index: 9999;
 
     .rup-button-fab {
@@ -149,30 +148,55 @@ button.ui-button {
 
     &:hover {
         .rup-button-fab-list {
-            display: flex;
-            visibility: visible;
+            max-height: 20rem;
 
             .rup-button-fab {
-                transform: scaleY(1) scaleX(1) translateY(0) translateX(0px);
+                -webkit-animation: anim1 0.3s linear;
             }
         }
     }
 
     .rup-button-fab-list {
         order: 1;
-        flex-direction: column-reverse;
         padding: 0;
-        display: none;
-        visibility: hidden;
-        transition: all 0.2s ease-in-out;
-
-        li {
-            display: flex;
-        }
+        max-height: 0;
+        text-align: center;
+        overflow: hidden;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        transition: all 0.8s ease;
 
         .rup-button-fab {
-            transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px);
+            -webkit-animation: anim2 0.8s linear;
             margin: 0.5rem 0;
         }
+    }
+}
+@-webkit-keyframes anim1 {
+    0% {
+        -webkit-transform: scale(0) rotate(0deg);
+    }
+
+    50% {
+        -webkit-transform: scale(0.8) rotate(22.5deg);
+    }
+
+    100% {
+        -webkit-transform: scale(1) rotate(45deg);
+    }
+}
+@-webkit-keyframes anim2 {
+    0% {
+        -webkit-transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        -webkit-transform: scale(0.2) rotate(22.5deg);
+    }
+
+    100% {
+        -webkit-transform: scale(0) rotate(45deg);
     }
 }
