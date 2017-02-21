@@ -1,183 +1,239 @@
-button.ui-button{
-  @extend button;
+button.ui-button {
+    @extend button;
 }
 
-.ui-button.rup-button{
-  @extend button;
+.ui-button.rup-button {
+    @extend button;
 
-  &.rup-dropdown{
-
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-right: medium none;
-  }
-
-  &.rup-button-fab{
-    @extend .shadow-2;
-
-    border-radius: 50%;
-    min-width: 5rem;
-    width: 5rem;
-    height: 5rem;
-    &.rup-button-fixed{
-      // position: fixed;
-      // bottom: 45px;
-      // right: 24px;
-      // z-index: 9999;
+    &.rup-dropdown {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: medium none;
     }
 
-    &.rup-button-fab-sm{
-      min-width: 3rem;
-      width: 3rem;
-      height: 3rem;
+    &.rup-button-fab {
+        @extend .shadow-2;
+        border-radius: 50%;
+        min-width: 5rem;
+        width: 5rem;
+        height: 5rem;
+
+        &.rup-button-fixed {
+            // position: fixed;
+            // bottom: 45px;
+            // right: 24px;
+            // z-index: 9999;
+        }
+
+        &.rup-button-fab-sm {
+            min-width: 3rem;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        &:hover {
+            @extend .shadow-3;
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 
-    &:hover{
-      @extend .shadow-3;
+    span.ui-button-icon.ui-icon {
+        display: inline-block;
     }
-  }
-
-  span.ui-button-icon.ui-icon{
-    display: inline-block;
-  }
 }
-
-
 // mbutton
 
+.rup-mbutton {
+    display: inline-block;
 
-
-
-
-.rup-mbutton{
-  display: inline-block;
-
-  .rup-mbutton-container{
-    display: none;
-    position: absolute;
-    list-style: outside none none;
-    z-index: 9000;
-    background-color: $rup-bg-color;
-    border: 1px solid $rup-color-border;
-    margin: 0;
-    padding: 0.4rem;
-    &.rup-mbutton-open{
-      display: block;
-
-    }
-
-    button{
-      width: 100%;
-      text-align: left;
-    }
-  }
-}
-
-@mixin collapsed-mbutton($extend: true) {
-    @if $extend == true {
-        @extend %collapsed-mbutton;
-    } @else {
-      >button{
+    .rup-mbutton-container {
         display: none;
-      }
-      .rup-mbutton-container{
-        display: inline;
-        position: relative;
-        padding: 0;
-        border: none;
-        background-color: transparent;
-        z-index: 8000;
-        li{
-          display: inline-block;
+        position: absolute;
+        list-style: outside none none;
+        z-index: 9000;
+        background-color: $rup-bg-color;
+        border: 1px solid $rup-color-border;
+        margin: 0;
+        padding: 0.4rem;
+
+        &.rup-mbutton-open {
+            display: block;
         }
-        button{
-          display: block;
-          width: inherit;
+
+        button {
+            width: 100%;
+            text-align: left;
         }
-      }
+    }
+}
+@mixin collapsed-mbutton($extend: true) {
+     @if $extend == true{
+        @extend %collapsed-mbutton;
+    }
+    @else {
+        > button {
+            display: none;
+        }
+
+        .rup-mbutton-container {
+            display: inline;
+            position: static;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+
+            li {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            button {
+                display: block;
+                width: inherit;
+            }
+        }
     }
 }
 
 %collapsed-mbutton {
     @include collapsed-mbutton($extend: false);
 }
-
 @media (min-width: 576px) {
-  .rup-mbutton.rup-collapsed-sm{
-    @include collapsed-mbutton($extend: false);
-  }
+    .rup-mbutton.rup-collapsed-sm {
+        @include collapsed-mbutton($extend: false);
+    }
 }
-
 @media (min-width: 768px) {
-  .rup-mbutton.rup-collapsed-md{
-    @include collapsed-mbutton($extend: false);
-  }
+    .rup-mbutton.rup-collapsed-md {
+        @include collapsed-mbutton($extend: false);
+    }
 }
-
 @media (min-width: 992px) {
-  .rup-mbutton.rup-collapsed-lg{
-    @include collapsed-mbutton($extend: false);
-  }
+    .rup-mbutton.rup-collapsed-lg {
+        @include collapsed-mbutton($extend: false);
+    }
 }
-
 @media (min-width: 1200px) {
-  .rup-mbutton.rup-collapsed-xl{
-    @include collapsed-mbutton($extend: false);
-  }
+    .rup-mbutton.rup-collapsed-xl {
+        @include collapsed-mbutton($extend: false);
+    }
 }
 
-.rup-dropdown-btn-group{
-  .rup-dropdown-button{
-    @extend button;
+.rup-dropdown-btn-group {
+    .rup-dropdown-button {
+        @extend button;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding-left: 0.5rem;
 
-
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    padding-left: 0.5rem;
-
-    &.ui-button-icon-only> span.ui-button-icon{
-      margin-top: -8px;
+        &.ui-button-icon-only > span.ui-button-icon {
+            margin-top: -8px;
+        }
     }
-  }
 }
 
-.rup-button-fab-group{
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  bottom: 45px;
-  right: 24px;
-  align-items: center;
-  z-index: 9999;
-  .rup-button-fab{
-    order: 2;
-  }
+.rup-button-fab-group {
+    display: block;
+    position: fixed;
+    bottom: 45px;
+    right: 24px;
+    z-index: 9999;
 
-  &:hover{
-    .rup-button-fab-list{
-      display: flex;
-      visibility: visible;
-      .rup-button-fab{
-        transform: scaleY(1) scaleX(1) translateY(0) translateX(0px);
-
-      }
-    }
-  }
-  .rup-button-fab-list{
-    order: 1;
-    flex-direction:column-reverse;
-    padding: 0;
-    display: none;
-    visibility: hidden;
-    transition: all .2s ease-in-out;
-
-    li{
-      display: flex;
+    .rup-button-fixed {
+        & > i {
+            font-size: 1.5rem;
+            -webkit-animation: fabRotateLeft 0.3s linear;
+        }
     }
 
-    .rup-button-fab{
-      transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px);
-      margin: 0.5rem 0;
+    &:hover {
+        .rup-button-fixed {
+            & > i {
+                -webkit-animation: fabRotateRight 0.3s linear;
+            }
+        }
+
+        .rup-button-fab-list {
+            max-height: 20rem;
+            opacity: 1;
+
+            .rup-button-fab {
+                -webkit-animation: fabListGrow 0.3s linear;
+            }
+        }
     }
-  }
+
+    .rup-button-fab-list {
+        order: 1;
+        padding: 0;
+        max-height: 0;
+        opacity: 0;
+        text-align: center;
+        overflow: hidden;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        transition: all 0.8s ease;
+
+        .rup-button-fab {
+            -webkit-animation: fabListBelittle 0.8s linear;
+            margin: 0.5rem 0;
+        }
+    }
+}
+@-webkit-keyframes fabRotateRight {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes fabRotateLeft {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(-180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+}
+@-webkit-keyframes fabListGrow {
+    0% {
+        -webkit-transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(0.8);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+    }
+}
+@-webkit-keyframes fabListBelittle {
+    0% {
+        -webkit-transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.2);
+    }
+
+    100% {
+        -webkit-transform: scale(0);
+    }
 }

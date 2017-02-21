@@ -15884,12 +15884,17 @@ h6 {
 label {
   font-size: 1rem; }
 
-.ui-state-hover, .ui-widget-content .ui-state-hover {
+.ui-state-hover,
+.ui-widget-content .ui-state-hover {
   background: #b9d4ec; }
 
 .ui-widget-overlay {
-  opacity: .7;
+  opacity: 0.7;
   background-color: #050505; }
+
+.input-group-btn > button, .input-group-btn > .ui-button.rup-button, .rup-dropdown-btn-group .input-group-btn > .rup-dropdown-button, .input-group-btn > a.rup-toolbar_menuButton.ui-button, .rup-wizard .input-group-btn > a.rup-wizard_next, .rup-wizard .input-group-btn > a.rup-wizard_prev, .rup-wizard .input-group-btn > .rup-wizard_submitButton {
+  height: 2rem;
+  padding: 0 5px; }
 
 button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dropdown-button, a.rup-toolbar_menuButton.ui-button, .rup-wizard a.rup-wizard_next, .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-wizard_submitButton, input[type="button"], input[type="submit"], .btn {
   font-size: 1.1rem;
@@ -16027,13 +16032,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     padding: 0; }
   .rup-breadCrumb_root .rup-breadCrumb_main {
     display: inline-block;
-    padding: 0;
+    padding: 0 2px 3px;
     margin-left: 1rem;
     width: auto; }
     .rup-breadCrumb_root .rup-breadCrumb_main > li {
       padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li span.rup-icon {
-        margin: 0rem 0.5rem 0rem 0.5rem;
+        margin: 0 0.5rem;
         padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li a {
         padding: 1.1rem 0.5rem; }
@@ -16121,8 +16126,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
       padding-top: 0.2rem; }
 
 .ui-button.rup-button.rup-dropdown {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-right: medium none; }
 
 .ui-button.rup-button.rup-button-fab {
@@ -16134,6 +16139,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     min-width: 3rem;
     width: 3rem;
     height: 3rem; }
+  .ui-button.rup-button.rup-button-fab:focus {
+    outline: none; }
 
 .ui-button.rup-button span.ui-button-icon.ui-icon {
   display: inline-block; }
@@ -16160,13 +16167,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     display: none; }
   .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
     display: inline;
-    position: relative;
+    position: static;
     padding: 0;
     border: none;
-    background-color: transparent;
-    z-index: 8000; }
+    background-color: transparent; }
     .rup-mbutton.rup-collapsed-sm .rup-mbutton-container li {
-      display: inline-block; }
+      display: inline-block;
+      vertical-align: middle; }
     .rup-mbutton.rup-collapsed-sm .rup-mbutton-container button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-sm .rup-mbutton-container .rup-wizard_submitButton {
       display: block;
       width: inherit; } }
@@ -16176,13 +16183,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     display: none; }
   .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
     display: inline;
-    position: relative;
+    position: static;
     padding: 0;
     border: none;
-    background-color: transparent;
-    z-index: 8000; }
+    background-color: transparent; }
     .rup-mbutton.rup-collapsed-md .rup-mbutton-container li {
-      display: inline-block; }
+      display: inline-block;
+      vertical-align: middle; }
     .rup-mbutton.rup-collapsed-md .rup-mbutton-container button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-md .rup-mbutton-container .rup-wizard_submitButton {
       display: block;
       width: inherit; } }
@@ -16192,13 +16199,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     display: none; }
   .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
     display: inline;
-    position: relative;
+    position: static;
     padding: 0;
     border: none;
-    background-color: transparent;
-    z-index: 8000; }
+    background-color: transparent; }
     .rup-mbutton.rup-collapsed-lg .rup-mbutton-container li {
-      display: inline-block; }
+      display: inline-block;
+      vertical-align: middle; }
     .rup-mbutton.rup-collapsed-lg .rup-mbutton-container button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-lg .rup-mbutton-container .rup-wizard_submitButton {
       display: block;
       width: inherit; } }
@@ -16208,51 +16215,87 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     display: none; }
   .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
     display: inline;
-    position: relative;
+    position: static;
     padding: 0;
     border: none;
-    background-color: transparent;
-    z-index: 8000; }
+    background-color: transparent; }
     .rup-mbutton.rup-collapsed-xl .rup-mbutton-container li {
-      display: inline-block; }
+      display: inline-block;
+      vertical-align: middle; }
     .rup-mbutton.rup-collapsed-xl .rup-mbutton-container button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .ui-button.rup-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-dropdown-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-toolbar_menuButton.ui-button, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-wizard_next, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container a.rup-wizard_prev, .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-mbutton.rup-collapsed-xl .rup-mbutton-container .rup-wizard_submitButton {
       display: block;
       width: inherit; } }
 
 .rup-dropdown-btn-group .rup-dropdown-button {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   padding-left: 0.5rem; }
   .rup-dropdown-btn-group .rup-dropdown-button.ui-button-icon-only > span.ui-button-icon {
     margin-top: -8px; }
 
 .rup-button-fab-group {
-  display: flex;
-  flex-direction: column;
+  display: block;
   position: fixed;
   bottom: 45px;
   right: 24px;
-  align-items: center;
   z-index: 9999; }
-  .rup-button-fab-group .rup-button-fab {
-    order: 2; }
+  .rup-button-fab-group .rup-button-fixed > i {
+    font-size: 1.5rem;
+    -webkit-animation: fabRotateLeft 0.3s linear; }
+  .rup-button-fab-group:hover .rup-button-fixed > i {
+    -webkit-animation: fabRotateRight 0.3s linear; }
   .rup-button-fab-group:hover .rup-button-fab-list {
-    display: flex;
-    visibility: visible; }
+    max-height: 20rem;
+    opacity: 1; }
     .rup-button-fab-group:hover .rup-button-fab-list .rup-button-fab {
-      transform: scaleY(1) scaleX(1) translateY(0) translateX(0px); }
+      -webkit-animation: fabListGrow 0.3s linear; }
   .rup-button-fab-group .rup-button-fab-list {
     order: 1;
-    flex-direction: column-reverse;
     padding: 0;
-    display: none;
-    visibility: hidden;
-    transition: all .2s ease-in-out; }
-    .rup-button-fab-group .rup-button-fab-list li {
-      display: flex; }
+    max-height: 0;
+    opacity: 0;
+    text-align: center;
+    overflow: hidden;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
     .rup-button-fab-group .rup-button-fab-list .rup-button-fab {
-      transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px);
+      -webkit-animation: fabListBelittle 0.8s linear;
       margin: 0.5rem 0; }
+
+@-webkit-keyframes fabRotateRight {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@-webkit-keyframes fabRotateLeft {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(-180deg); }
+  100% {
+    -webkit-transform: rotate(-360deg); } }
+
+@-webkit-keyframes fabListGrow {
+  0% {
+    -webkit-transform: scale(0); }
+  50% {
+    -webkit-transform: scale(0.8); }
+  100% {
+    -webkit-transform: scale(1); } }
+
+@-webkit-keyframes fabListBelittle {
+  0% {
+    -webkit-transform: scale(1); }
+  50% {
+    -webkit-transform: scale(0.2); }
+  100% {
+    -webkit-transform: scale(0); } }
 
 .ui-selectmenu-menu .ui-selectmenu-menu-dropdown {
   -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -16524,7 +16567,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
       font-size: 1.2rem;
       vertical-align: bottom;
       padding-left: 0.2rem; }
-  .rup-navbar .navbar-nav.rup-nav-tools .scrollTop {
+  .rup-navbar .navbar-nav.rup-nav-tools .swingTop {
     width: 0;
     overflow: hidden;
     -webkit-transition: all 0.3s ease;
@@ -16532,7 +16575,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease; }
-    .rup-navbar .navbar-nav.rup-nav-tools .scrollTop.on {
+    .rup-navbar .navbar-nav.rup-nav-tools .swingTop.on {
       width: 4rem; }
   .rup-navbar .navbar-nav > .nav-item {
     height: 4rem;
@@ -16633,7 +16676,7 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           display: table-cell;
           text-align: center;
           border-right: 1px solid #69a3d6; }
-        .navbar-toggleable-md .navbar-nav.rup-nav-tools .scrollTop {
+        .navbar-toggleable-md .navbar-nav.rup-nav-tools .swingTop {
           display: block; }
       .navbar-toggleable-md .navbar-nav .nav-item {
         display: inline-table;
@@ -16652,7 +16695,12 @@ select, select.form-control, .ui-selectmenu-dropdown, .form-control.ui-selectmen
           -moz-transition: all 0.3s ease;
           -o-transition: all 0.3s ease;
           -ms-transition: all 0.3s ease;
-          transition: all 0.3s ease; }
+          transition: all 0.3s ease;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0; }
+          .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
+            background-color: #e6e6e6; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -16887,6 +16935,11 @@ a.rup-toolbar_menuButton.ui-button span {
   width: 100%;
   display: inline-table;
   float: none; }
+
+/* Modal plugin */
+#qtip-overlay {
+  left: 0;
+  top: 0; }
 
 .rup-wizard_stepsDescContainer {
   padding: 0; }

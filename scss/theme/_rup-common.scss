@@ -1,8 +1,16 @@
-.ui-state-hover, .ui-widget-content .ui-state-hover{
-  background: $rup-color-ui-widget-hover;
+.ui-state-hover,
+.ui-widget-content .ui-state-hover {
+    background: $rup-color-ui-widget-hover;
 }
 
 .ui-widget-overlay {
-  opacity: .7;
-  background-color: rgb(5, 5, 5);
+    opacity: 0.7;
+    background-color: rgb(5, 5, 5);
+}
+
+.input-group-btn {
+    & > button {
+        height: $rup-input-height;
+        padding: 0 5px;
+    }
 }

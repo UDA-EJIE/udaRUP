@@ -767,7 +767,7 @@
             $.rup_utils.swinging = true;
             $('html, body').animate({
                 scrollTop: 0
-            }, '800', 'swing', function() {
+            }, '1000', 'swing', function() {
                 $.rup_utils.swinging = false;
             });
         }
