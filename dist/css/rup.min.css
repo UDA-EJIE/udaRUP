@@ -16126,8 +16126,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
       padding-top: 0.2rem; }
 
 .ui-button.rup-button.rup-dropdown {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-right: medium none; }
 
 .ui-button.rup-button.rup-button-fab {
@@ -16139,6 +16139,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     min-width: 3rem;
     width: 3rem;
     height: 3rem; }
+  .ui-button.rup-button.rup-button-fab:focus {
+    outline: none; }
 
 .ui-button.rup-button span.ui-button-icon.ui-icon {
   display: inline-block; }
@@ -16225,8 +16227,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
       width: inherit; } }
 
 .rup-dropdown-btn-group .rup-dropdown-button {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   padding-left: 0.5rem; }
   .rup-dropdown-btn-group .rup-dropdown-button.ui-button-icon-only > span.ui-button-icon {
     margin-top: -8px; }
@@ -16252,7 +16254,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     padding: 0;
     display: none;
     visibility: hidden;
-    transition: all .2s ease-in-out; }
+    transition: all 0.2s ease-in-out; }
     .rup-button-fab-group .rup-button-fab-list li {
       display: flex; }
     .rup-button-fab-group .rup-button-fab-list .rup-button-fab {
