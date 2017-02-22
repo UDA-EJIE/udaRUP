@@ -1,26 +1,8 @@
-// @import "jquery-ui-base";
-// @import "../../node_modules/jquery-ui-dist/jquery-ui.css";
 
-@import "external/ui.jqgrid";
-// @import "external/jquery-ui-bootstrap/jquery-ui-1.10.3.custom";
-// @import "external/jquery-ui-bootstrap/jquery-ui-1.10.3.theme";
-// @import "external/jquery-ui-bootstrap/jquery-ui-1.10.3.ie";
-//
-// @import "external/test/jq-ui-bootstrap";
-
-
-@import "external/jquery.fileupload-ui";
-
+@import "external/jqgrid/ui.jqgrid";
+@import "external/fileupload/jquery.fileupload-ui";
 @import "external/qtip2/jquery.qtip.min";
 
-
 @import "base/all";
-//
-//
-//
-
-// @import "custom-bootstrap";
-// @import "external/test/jq-ui-bootstrap.scss";
-
 
 @import "theme/all";
