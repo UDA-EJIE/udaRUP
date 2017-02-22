@@ -84,6 +84,23 @@
      * @typedef {number} Integer
      */
 
+  var RUP_ADAPTERS = RUP_ADAPTERS || {
+    date_jqueryui: "DateJQueryUIAdapter",
+    date_bootstrap: "DateBootstrapAdapter",
+    time_jqueryui: "TimeJQueryUIAdapter",
+    time_bootstrap: "TimeBootstrapAdapter",
+    upload_jqueryui: "UploadJQueryUIAdapter",
+    upload_bootstrap: "UploadBootstrapAdapter",
+    button_jqueryui: "ButtonJQueryUIAdapter",
+    button_bootstrap: "ButtonBootstrapAdapter",
+    toolbar_jqueryui: "ToolbarJQueryUIAdapter",
+    toolbar_bootstrap: "ToolbarBootstrapAdapter",
+    table_jqueryui: "TableJQueryUIAdapter",
+    table_bootstrap: "TableBootstrapAdapter",
+    validate_jqueryui: "ValidateJQueryUIAdapter",
+    validate_bootstrap: "ValidateBootstrapAdapter"
+  };
+
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	};

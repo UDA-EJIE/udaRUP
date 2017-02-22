@@ -213,7 +213,9 @@
 
       return this.each(function() {
 
-  			var $self = $(this), $dropdownList, $container, dropdownSettings;
+  			var self = this, $self = $(this), $dropdownList, $container, dropdownSettings;
+
+        self._ADAPTER = $.rup.adapter[settings.adapter];
 
         if (settings.fab===true){
           $self.addClass("rup-button-fab");
@@ -314,7 +316,7 @@
   				$self.addClass("rup-dropdown");
 
 
-          var $dropdownButton = $.proxy($.rup.adapter.button.createDropdownButton, $self)(settings);
+          var $dropdownButton = $.proxy(self._ADAPTER.createDropdownButton, $self)(settings);
   				// var $dropdownButton = jQuery("<button>").attr({
   				// 	type: "button",
   				// 	id: $self.prop("id")+"_dropdown"
@@ -384,6 +386,7 @@
    * @property {boolean | Object} [dropdown=false] - Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo.
    */
 	$.fn.rup_button.defaults = {
+    adapter: "button_bootstrap",
 		dropdown:false,
     fab: false,
     fixed: false,

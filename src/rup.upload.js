@@ -51,7 +51,10 @@
 	            acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, "rup_upload.acceptFileTypesError"),
 	            maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxNumberOfFilesError")
 	        },
-          processdone: $.rup.adapter.upload.processdone,
+          processdone: function(e, data){
+            return $.proxy(data.self._ADAPTER.processdone,this)(e, data);
+
+          },
           getFilesFromResponse: function (data) {
                         if (data.result && $.isArray(data.result)) {
                             // return data.result;
@@ -437,6 +440,9 @@
 
 				var settings = $.extend({}, $.fn.rup_upload.defaults, args[0]), upload=this;
 
+        upload._ADAPTER = $.rup.adapter[settings.adapter];
+        settings.self = upload;
+
 				// Se configura el uso del PIF
 				if (settings.pif!==null){
 					var url="",
@@ -523,14 +529,19 @@
 	$.fn.rup_upload.defaults = {
 		// label:null,
 		// fileInput:null,
+		adapter: "upload_bootstrap",
 		submitInForm:false,
 		submitFormButton:undefined,
 		pif:null,
     //filesContainer: '.files',
     uploadTemplateId:false,
     downloadTemplateId:false,
-    uploadTemplate: $.rup.adapter.upload.uploadTemplate,
-    downloadTemplate: $.rup.adapter.upload.downloadTemplate
+    uploadTemplate: function(o){
+        return $.proxy(o.options.self._ADAPTER.uploadTemplate,this)(o);
+    },
+    downloadTemplate: function(o){
+        return $.proxy(o.options.self._ADAPTER.downloadTemplate,this)(o);
+    }
 	};
 
 	$.fn.rup_upload.pif={};
