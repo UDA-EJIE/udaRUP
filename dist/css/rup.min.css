@@ -16239,16 +16239,21 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
   bottom: 45px;
   right: 24px;
   z-index: 9999; }
-  .rup-button-fab-group .rup-button-fab {
-    order: 2; }
+  .rup-button-fab-group .rup-button-fixed > i {
+    font-size: 1.5rem;
+    -webkit-animation: fabRotateLeft 0.3s linear; }
+  .rup-button-fab-group:hover .rup-button-fixed > i {
+    -webkit-animation: fabRotateRight 0.3s linear; }
   .rup-button-fab-group:hover .rup-button-fab-list {
-    max-height: 20rem; }
+    max-height: 20rem;
+    opacity: 1; }
     .rup-button-fab-group:hover .rup-button-fab-list .rup-button-fab {
-      -webkit-animation: anim1 0.3s linear; }
+      -webkit-animation: fabListGrow 0.3s linear; }
   .rup-button-fab-group .rup-button-fab-list {
     order: 1;
     padding: 0;
     max-height: 0;
+    opacity: 0;
     text-align: center;
     overflow: hidden;
     -webkit-transition: all 0.8s ease;
@@ -16257,24 +16262,40 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
     -ms-transition: all 0.8s ease;
     transition: all 0.8s ease; }
     .rup-button-fab-group .rup-button-fab-list .rup-button-fab {
-      -webkit-animation: anim2 0.8s linear;
+      -webkit-animation: fabListBelittle 0.8s linear;
       margin: 0.5rem 0; }
 
-@-webkit-keyframes anim1 {
+@-webkit-keyframes fabRotateRight {
   0% {
-    -webkit-transform: scale(0) rotate(0deg); }
+    -webkit-transform: rotate(0deg); }
   50% {
-    -webkit-transform: scale(0.8) rotate(22.5deg); }
+    -webkit-transform: rotate(180deg); }
   100% {
-    -webkit-transform: scale(1) rotate(45deg); } }
+    -webkit-transform: rotate(360deg); } }
 
-@-webkit-keyframes anim2 {
+@-webkit-keyframes fabRotateLeft {
   0% {
-    -webkit-transform: scale(1) rotate(0deg); }
+    -webkit-transform: rotate(0deg); }
   50% {
-    -webkit-transform: scale(0.2) rotate(22.5deg); }
+    -webkit-transform: rotate(-180deg); }
   100% {
-    -webkit-transform: scale(0) rotate(45deg); } }
+    -webkit-transform: rotate(-360deg); } }
+
+@-webkit-keyframes fabListGrow {
+  0% {
+    -webkit-transform: scale(0); }
+  50% {
+    -webkit-transform: scale(0.8); }
+  100% {
+    -webkit-transform: scale(1); } }
+
+@-webkit-keyframes fabListBelittle {
+  0% {
+    -webkit-transform: scale(1); }
+  50% {
+    -webkit-transform: scale(0.2); }
+  100% {
+    -webkit-transform: scale(0); } }
 
 .ui-selectmenu-menu .ui-selectmenu-menu-dropdown {
   -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
