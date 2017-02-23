@@ -19,6 +19,9 @@ var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
 var amdOptimize = require("amd-optimize");
 
+// jsdoc
+var jsdoc2md = require('jsdoc-to-markdown');
+
 var moduleImporter = require('sass-module-importer');
 
 var version = "2.4.9";
@@ -239,10 +242,17 @@ gulp.task('dist:prepare', function () {
 });
 
 
-gulp.task('doc', function (cb) {
+gulp.task('doc:html', function (cb) {
     var config = require('./jsdoc.conf.json');
-    gulp.src(['README.md', './src/**/*.js']).pipe(jsdoc(config, cb));
+    //gulp.src(['README.md', './src/**/*.js']).pipe(jsdoc(config, cb));
+    gulp.src(['README.md', './src/rup.accordion.js']).pipe(jsdoc(config, cb));
 });
+
+gulp.task('doc:api', function () {
+
+
+  return jsdoc2md.render({ files: 'src/rup.accordion.js' }).then(output => fs.writeFile('./doc/api/rup.accordion.md', output));
+})
 
 gulp.task('dist', ['copyRupSources', 'minimizeRupJs', 'minimizeRupCss']);
 

@@ -47,7 +47,7 @@ La gestión de ciertas partes visuales de los componentes, se han realizado medi
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
 * jquery-1.8.0.js
-* jquery-ui-1.8.23.custom.js
+* jquery-ui-1.8.23.custom.js 
 * jquery-ui-1.8.23.custom.css
 * rup.base-x.y.z.js
 * rup.accordion-x.y.z.js
@@ -98,6 +98,30 @@ Otra recomendación asociada al diseño de la aplicación, es especificar el *he
 
 Además, con respecto a los navegadores, es aconsejable saber que *Chrome*, cuando maneja el componente *Accordion*, no renderiza bien el componente si los cuerpos del mismo no tienen un *height* (tamaño vertical) especificado. Esto se debe a que *Chrome* no coge bien el tamaño proporcional del elemento padre y se pintan las secciones con tamaños variables entre carga y carga. Si es especifican los *height* de los distintos cuerpos este comportamiento anómalo no se produce.
 
-## 6. API
+## 6. Parámetros
 
-Para ver en detalle la API del componente vaya al siguiente documento [API](../api/rup.accordion.md)
+A continuación se muestran los posibles parámetros de configuración que recibe el componente.
+
+
+* **disabled**: Parámetro de configuración que determina si está habilitado (false) o deshabilitado (true) el componente *Accordion*. Por defecto el valor de este parámetro es false.
+* **active**: Determina la sección que está activa. El valor del parámetro puede ser un selector, un elemento, un boolean, un objeto JQuery y un número. Si se le especifica el valor false, el *Accordion* permanecerá totalmente cerrado (este caso requiere del parámetro collapsible true). Por defecto, su valor es la primera sección del *Accordion*.
+* **animated**: Elemento de figuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del *Accordion*. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico).
+* **autoHeight**: Si su valor es true, todas las secciones del *Accordion* tendrá un height igual al de la sección que tenga el mayor valor. Gracias a este parámetro, el *Accordion*, independientemente de la sección abierta, mantendrá su coherencia dimensional vertical. Por defecto su valor es true.
+* **clearStyle**: Si está activado, una vez acabada la animación, el *Accordion* borra los estilos de height y overflow. Este tipo de comportamiento está diseñado para situaciones en las que se  cargan contenidos dinámicos y se desea que el *Accordion* ajuste sus medidas al nuevo contenido. El uso de este parámetro no tiene sentido si se esta usando el autoHeight. Por defecto su valor es false.
+* **collapsible**: Parámetro que habilita la posibilidad de que todas las secciones del *Accordion* estén cerradas a la vez. Por defecto su valor es false.
+* **event**: Determina el tipo de evento necesario para que cada una de las secciones sea habilitada o deshabilitada. Por defecto su valor es click (un click del botón izquierdo del ratón).
+* **fillSpace**: Permite al *Accordion* que ocupe todo el height (espacio vertical) perteneciente a su padre. Este comportamiento predomina frente al autoHeight. Su valor por defecto es false.
+* **header**: Selector que determina el objeto cabecera de cada una de las secciones del *Accordion*. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el *Accordion*.
+* **icons**: Parámetro estructural que determina el icono utilizado para indicar el estado de sección abierta o cerrada. Se puede especificar tanto uno como otro como los dos. Por defecto se usan los iconos nativos del propio de JQuery-UI.
+
+```javascript
+icons: {
+'header': 'ui-icon-plus',
+'headerSelected': 'ui-icon-minus'
+}
+```
+
+* **navigation**: En caso de estar activada, el *Accordion* comprueba el valor de la ruta de cada unos de los href asociados a los ```<a>``` de las cabeceras y, en caso de coincidir con el de la ruta de la propia página, se activa dicha sección. Este tipo de funcionalidad está enfocada a diseños de páginas que guardan el estado. El criterio de selección se puede cambiar especificando un navigationFilter adecuado.
+* **navigationFilter**: Función aplicada para determinar el cumplimiento de la condición asociada a la activación del parámetro navigation. La función debe devolver true o false según se cumpla o no la condición destinada al cumplimiento del navigation.
+* **validation**: Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del *Accordion*. El valor por defecto, es true.
+

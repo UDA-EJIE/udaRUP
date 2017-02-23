@@ -1,24 +1,20 @@
-/*!
- * Copyright 2013 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
 
-/**
- * @fileOverview Implementa el patrón RUP Accordion.
- * @author EJIE
- * @version 2.4.8
- */
+
+
+
+ /**
+  * Tiene como objetivo presentar un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
+  *
+  * @summary Componente RUP Accordion.
+  * @module rup_accordion
+  * @example
+  * $(".rup_accordion").rup_accordion({
+  *   animated: "bounceslide",
+  *	active: false,
+  *	autoHeight: false,
+  *	collapsible: true
+  * });
+  */
 (function (factory) {
     if (typeof define === "function" && define.amd) {
 
@@ -35,21 +31,7 @@
     // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
     //*****************************************************************************************************************
 
-    /**
-     * Tiene como objetivo presentar un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
-     *
-     * @summary Componente RUP Accordion.
-     * @namespace jQuery.rup_accordion
-     * @memberOf jQuery
-     * @tutorial rup_accordion
-     * @example
-     * $(".rup_accordion").rup_accordion({
-     *   animated: "bounceslide",
-     *	active: false,
-     *	autoHeight: false,
-     *	collapsible: true
-     * });
-     */
+
     var rup_accordion = {};
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
@@ -61,12 +43,11 @@
     //********************************
 
     $.fn.rup_accordion("extend", {
-        /**
+    /**
     * Elimina completamente la funcionalidad del Accordion. Como resultado, se devuelven los
 objetos html, tal y como estaban, antes de aplicar el componente Accordion.
     *
-    * @name jQuery.rup_accordion#destroy
-    * @function
+    * @function destroy
     * @example
     * $("#idAccordion").rup_accordion("destroy");
     */
@@ -77,8 +58,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * Deshabilita el componente Accordion.
          *
-         * @name jQuery.rup_accordion#disable
-         * @function
+         * @function disable
          * @example
          * $("#idAccordion").rup_accordion("disable");
          */
@@ -88,8 +68,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * Habilita el componente Accordion.
          *
-         * @name jQuery.rup_accordion#enable
-         * @function
+         * @function enable
          * @example
          * $("#idAccordion").rup_accordion("enable");
          */
@@ -99,8 +78,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * Dependiendo de si se informa un valor asociado a una parámetro o se introduce un json con relaciones variable-valor o no se pasan parámetros asociados a la opción especificada, la función asigna el nuevo valor al parámetro asociado o asigna el nuevo conjunto de valores a los parámetros asociados o devuelve el valor actual del parámetro especificado (actuando como un get), respectivamente..
          *
-         * @name jQuery.rup_accordion#option
-         * @function
+         * @function option
          * @param {String | Object} opt - Nombre de la propiedad u objeto con varias propiedades.
          * @param {*} [value] - Valor a asignar a la propiedad especificada por su nombre en el primer parámetro.
          * @example
