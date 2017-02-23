@@ -1,7 +1,4 @@
-
 [TOC]
-
-
 
 ## 1. Introducción
 La descripción del Componente Accordion, visto desde el punto de vista de RUP, es la siguiente:
@@ -100,4 +97,14 @@ Además, con respecto a los navegadores, es aconsejable saber que *Chrome*, cuan
 
 ## 6. API
 
-Para ver en detalle la API del componente vaya al siguiente documento [API](../api/rup.accordion.md)
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.accordion.md).
+
+
+## 7. Sobreescritura del theme
+El componente *Accordion* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.accordion-x.y.z.css**.
+
+Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos (*codAppStatics/WebContent/codApp/styles*).
+
+Los estilos del componente se basan en los estilos básicos de los widgets de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta Theme Roller podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
+
+A continuación se muestran unas capturas del componente con los estilos asociados dependiendo del uso de imágenes. Los estilos que contengan la palabra *“ui-“* son los propios de *jQuery UI* que en caso de ser necesario serán sobrescritos y no se comentarán en este documento por no ser su ámbito.

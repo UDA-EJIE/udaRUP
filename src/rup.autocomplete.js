@@ -14,11 +14,17 @@
  * que establece la Licencia.
  */
 
-/**
- * @fileOverview Implementa el patrón RUP Autocomplete.
- * @author EJIE
- * @version 2.4.8
- */
+ /**
+  * Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
+  *
+  * @summary Componente RUP Autocomplete.
+  * @module rup_autocomplete
+  * @example
+	* $("#idAutocomplete").rup_autocomplete({
+	*	source : "autocomplete/remote",
+	*	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"}
+	* });
+  */
  ( function( factory ) {
  	if ( typeof define === "function" && define.amd ) {
 
@@ -35,19 +41,6 @@
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
-	/**
-	* Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
-	*
-	* @summary Componente RUP Autocomplete.
-	* @namespace jQuery.rup_autocomplete
-	* @memberOf jQuery
-	* @tutorial rup_autocomplete
-	* @example
-	* $("#idAutocomplete").rup_autocomplete({
-	*	source : "autocomplete/remote",
-	*	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"}
-	* });
-	*/
 	var rup_autocomplete = {};
 
 	$.extend( $.ui.autocomplete.prototype, {
@@ -108,8 +101,7 @@
 	 * Método utilizado para obtener el valor del componente. Este método es el utilizado
 	por el resto de componentes RUP para estandarizar la obtención del valor del Autocomplete.
 	 *
-	 * @name jQuery.rup_autocomplete#getRupValue
-	 * @function
+	 * @function getRupValue
 	 * @return {string | number} - Devuelve el valor actual del componente seleccionado por el usuario.
 	 * @example
 	 * $("#idAutocomplete").rup_autocomplete("getRupValue");
@@ -121,8 +113,7 @@
      * Método utilizado para asignar el valor al componente. Este método es el utilizado por
 el resto de componentes RUP para estandarizar la asignación del valor al Autocomplete.
      *
-     * @name jQuery.rup_autocomplete#setRupValue
-     * @function
+     * @function setRupValue
      * @param {string | number} param - Valor que se va a asignar al componente.
      * @example
      * $("#idAutocomplete").rup_autocomplete("setRupValue", "Si");
@@ -153,8 +144,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
     /**
      * Elimina el autocomplete.
      *
-     * @name jQuery.rup_autocomplete#destroy
-     * @function
+     * @function destroy
      * @example
      * $("#idAutocomplete").rup_autocomplete("destroy");
      */
@@ -172,8 +162,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
     /**
      * Deshabilita el autocomplete (solo la parte de sugerencias, el input sigue habilitado).
      *
-     * @name jQuery.rup_autocomplete#off
-     * @function
+     * @function off
      * @example
      * $("#idAutocomplete").rup_autocomplete("off");
      */
@@ -191,8 +180,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
     /**
      * Habilita el autocomplete (solo la parte de sugerencias).
      *
-     * @name jQuery.rup_autocomplete#on
-     * @function
+     * @function on
      * @example
      * $("#idAutocomplete").rup_autocomplete("on");
      */
@@ -208,10 +196,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			self.restoreEvents();
 		},
     /**
-     * Deshabilita el autocomplete. Internamente invoca al método {@link jQuery.rup_autocomplete#off}.
+     * Deshabilita el autocomplete. Internamente invoca al método {@link module:rup_autocomplete~off}.
      *
-     * @name jQuery.rup_autocomplete#disable
-     * @function
+     * @function disable
      * @example
      * $("#idAutocomplete").rup_autocomplete("disable");
      */
@@ -233,10 +220,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			self.attr("disabled","disabled");
 		},
     /**
-     * Habilita el autocomplete. Internamente invoca al método {@link jQuery.rup_autocomplete#on}.
+     * Habilita el autocomplete. Internamente invoca al método {@link module:rup_autocomplete~on}.
      *
-     * @name jQuery.rup_autocomplete#enable
-     * @function
+     * @function enable
      * @example
      * $("#idAutocomplete").rup_autocomplete("enable");
      */
@@ -260,11 +246,10 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
     /**
      * Permite consultar y modificar la configuración del componente.
      *
-     * @name jQuery.rup_autocomplete#option
      * @param {string | object} optionName - Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades.
      * @param {*} [value] - Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro.
      * @param {*} aux - Parámetro extra de confirguración para la propiedad "source".
-     * @function
+     * @function option
      * @example
      * // Establecer una propiedad
      * $("#idAutocomplete").rup_autocomplete("option", "minLegth", 2);
@@ -318,9 +303,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
      * Lanza una búsqueda en el autocomplete con el parámetro indicado y el foco va a parar al
 input.
      *
-     * @name jQuery.rup_autocomplete#search
      * @param {string} term - Cadena de texto utilizada para realizar la búsqueda.
-     * @function
+     * @function search
      * @example
      * $("#idAutocomplete").rup_autocomplete("search", "java");
      */
@@ -335,8 +319,7 @@ input.
     /**
      * Oculta el autocomplete.
      *
-     * @name jQuery.rup_autocomplete#close
-     * @function
+     * @function close
      * @example
      * $("#idAutocomplete").rup_autocomplete("close");
      */
@@ -346,8 +329,7 @@ input.
     /**
      * Devuelve el valor del autocomplete. Este es el valor que se guarda en el campo oculto antes descrito al final del apartado 7.Para obtener la descripción (dato que se muestra en el input) se invocará a la función estándar de jQuery.
      *
-     * @name jQuery.rup_autocomplete#val
-     * @function
+     * @function val
      * @example
      * // Recuperar el valor
      * $("#idAutocomplete").rup_autocomplete("val");
@@ -360,8 +342,7 @@ input.
     /**
      * Método utilizado para asignar el valor y el literal al componente. El valor se almacena en el campo hidden creado por el componente. El contenido indicado en la propiedad label se mostrará en el campo input del componente.
      *
-     * @name jQuery.rup_autocomplete#set
-     * @function
+     * @function set
      * @param {string | number} value - Valor que se va a almacenar en el campo hidden y que se corresponde con el value seleccionado.
      * @param {string} label - Texto que se va a mostrar en el campo de texto del componente.
      * @example
@@ -387,8 +368,7 @@ input.
     /**
      * Procesa los elementos recibidos en la respuesta de la petición de búsqueda realizada.
      *
-     * @name jQuery.rup_autocomplete#_parseResponse
-     * @function
+     * @function _parseResponse
      * @private
      * @param {string} term - Cadena de texto empleada para realizar la búsqueda.
      * @param {string} label - Texto a mostrar del elemento enviado en la respuesta.
@@ -422,8 +402,7 @@ input.
 		/**
 		 * Procesa la respuesta a partir de una petición de búsqueda sobre una fuente de datos local.
 		 *
-		 * @name jQuery.rup_autocomplete#_sourceLOCAL
-		 * @function
+		 * @function _sourceLOCAL
 		 * @private
 		 * @param {object} request - Objeto que contiene la petición de búsqueda.
 		 * @param {object} response - Objeto que contiene la respuesta a partir de la fuente de datos local.
@@ -481,8 +460,7 @@ input.
 				/**
 	       * Procesa la respuesta a partir de una petición de búsqueda sobre una fuente de datos remota.
 	       *
-	       * @name jQuery.rup_autocomplete#_sourceREMOTE
-	       * @function
+	       * @function _sourceREMOTE
 	       * @private
 	       * @param {object} request - Objeto que contiene la petición de búsqueda.
 	       * @param {object} response - Objeto que contiene la respuesta a partir de la fuente de datos remota.
@@ -579,8 +557,7 @@ input.
 			/**
        * Función encargada de crear el control encargado de mostrar todos los resultados cuando el componente tiene activado el modo de funcionamiento combobox.
        *
-       * @name jQuery.rup_autocomplete#_createShowAllButton
-       * @function
+       * @function _createShowAllButton
        * @private
        */
 			_createShowAllButton : function(settings) {
@@ -617,8 +594,7 @@ input.
 			/**
        * Método de inicialización del componente.
        *
-       * @name jQuery.rup_autocomplete#_init
-       * @function
+       * @function _init
        * @private
        */
 			_init : function(args){
@@ -901,7 +877,7 @@ input.
 	/**
    * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
    *
-   * @callback jQuery.rup_autocomplete~onLoadError
+   * @callback module:rup_autocomplete~onLoadError
    * @param {Object} xhr - Objeto XHR que contiene la respuesta de la petición realizada.
    * @param {string} textStatus - Texto que identifica el error producido.
    * @param {Object} errorThrown - Objeto error que contiene las propiedades del error devuelto en la petición.
@@ -910,9 +886,9 @@ input.
   /**
    * @description Opciones por defecto de configuración del componente.
    *
-   * @name jQuery.rup_autocomplete#defaults
+   * @name defaults
    *
-   * @property {jQuery.rup_autocomplete~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
+   * @property {module:rup_autocomplete~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
    * @property {boolean} [contains=true] - Valor que determina si la búsqueda debe ser del tipo “contiene” (se buscarán elementos que contengan en cualquier posición el literal introducido) o del tipo “comienza por” (se buscarán elementos que comiencen por el literal introducido).
    * @property {string} [valueName=null] - Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el identificador del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente.
    * @property {string} [labelName=null] - Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el texto del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente, añadiéndole el sufijo “_label”.

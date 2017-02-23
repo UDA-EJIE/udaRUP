@@ -1,6 +1,18 @@
-
-
-
+/*!
+ * Copyright 2016 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
 
  /**
   * Tiene como objetivo presentar un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
@@ -103,8 +115,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * Devuelve el elemento .ui-accordion:.
          *
-         * @name jQuery.rup_accordion#widget
-         * @function
+         * @function widget
          * @returns {object} - Objeto jQuery que contiene el accordion.
          * @example
          * $("#idAccordion").rup_accordion("widget");
@@ -115,8 +126,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * Activación programática de la sección especificada por parámetro.
          *
-         * @name jQuery.rup_accordion#activate
-         * @function
+         * @function activate
          * @param {number | object | boolean} - Valor numérico diferente de cero que indique la sección seleccionada o un selector que determine el elemento activado. En caso de tener el collapsible activado, es posible pasar el valor false para que se cierren todas las secciones.
          * @example
          * // Activar la seción tercera.
@@ -132,8 +142,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
         /**
          * La función provoca el reajuste de los height (tamaño vertical) de las distintas secciones del Accordion. La ejecución de esta función solo tiene sentido si la opción fillSpace está activada y el height del contenedor cambia.
          *
-         * @name jQuery.rup_accordion#resize
-         * @function
+         * @function resize
          * @deprecated desde la version 2.5.0. Utilizar en su lugar el método refresh.
          * @example
          * $("#idAccordion").rup_accordion("resize");
@@ -210,9 +219,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 
     /**
      * @description Opciones por defecto de configuración del componente.
-     *
-     * @name jQuery.rup_accordion#defaults
-     *
+     * @name defaults
      * @property {boolean} [validation=true] - Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del Accordion.
      */
     $.fn.rup_accordion.defaults = {

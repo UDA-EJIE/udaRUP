@@ -10,10 +10,26 @@ $(".rup_accordion").rup_accordion({  animated: "bounceslide",	active: false,	
 ```
 
 * [rup_accordion](#module_rup_accordion)
+    * [~defaults](#module_rup_accordion..defaults)
     * [~destroy()](#module_rup_accordion..destroy)
     * [~disable()](#module_rup_accordion..disable)
     * [~enable()](#module_rup_accordion..enable)
     * [~option(opt, [value])](#module_rup_accordion..option)
+    * [~widget()](#module_rup_accordion..widget) ⇒ <code>object</code>
+    * [~activate()](#module_rup_accordion..activate)
+    * ~~[~resize()](#module_rup_accordion..resize)~~
+
+<a name="module_rup_accordion..defaults"></a>
+
+### rup_accordion~defaults
+Opciones por defecto de configuración del componente.
+
+**Kind**: inner property of <code>[rup_accordion](#module_rup_accordion)</code>  
+**Properties**
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| validation | <code>boolean</code> | <code>true</code> | Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del Accordion. |
 
 <a name="module_rup_accordion..destroy"></a>
 
@@ -61,4 +77,42 @@ Dependiendo de si se informa un valor asociado a una parámetro o se introduce u
 **Example**  
 ```js
 // Asignar el valor "bounceslide" a la propiedad "animated"$("#idAccordion").rup_accordion("option", "animated", "bounceslide");// Se asignan valores a varias propiedades por medio de un objeto json.$("#idAccordion").rup_accordion("option",{active: false, collapsible : true});// Se recupera el valor de la propiedad "animated"$("#idAccordion").rup_accordion("option", "animated");
+```
+<a name="module_rup_accordion..widget"></a>
+
+### rup_accordion~widget() ⇒ <code>object</code>
+Devuelve el elemento .ui-accordion:.
+
+**Kind**: inner method of <code>[rup_accordion](#module_rup_accordion)</code>  
+**Returns**: <code>object</code> - - Objeto jQuery que contiene el accordion.  
+**Example**  
+```js
+$("#idAccordion").rup_accordion("widget");
+```
+<a name="module_rup_accordion..activate"></a>
+
+### rup_accordion~activate()
+Activación programática de la sección especificada por parámetro.
+
+**Kind**: inner method of <code>[rup_accordion](#module_rup_accordion)</code>  
+
+| Type | Description |
+| --- | --- |
+| <code>number</code> &#124; <code>object</code> &#124; <code>boolean</code> | Valor numérico diferente de cero que indique la sección seleccionada o un selector que determine el elemento activado. En caso de tener el collapsible activado, es posible pasar el valor false para que se cierren todas las secciones. |
+
+**Example**  
+```js
+// Activar la seción tercera.$("#idAccordion").rup_accordion("activate", 3);// Activar la seción identificada con el selector seccion3.$("#idAccordion").rup_accordion("activate", "#seccion3");// Colapsar todas las secciones.$("#idAccordion").rup_accordion("activate", false);
+```
+<a name="module_rup_accordion..resize"></a>
+
+### ~~rup_accordion~resize()~~
+***Deprecated***
+
+La función provoca el reajuste de los height (tamaño vertical) de las distintas secciones del Accordion. La ejecución de esta función solo tiene sentido si la opción fillSpace está activada y el height del contenedor cambia.
+
+**Kind**: inner method of <code>[rup_accordion](#module_rup_accordion)</code>  
+**Example**  
+```js
+$("#idAccordion").rup_accordion("resize");
 ```
