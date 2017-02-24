@@ -57,7 +57,7 @@
 				 ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
 			 	currentCategory = item.category;
 			 }
-			 	li = that._renderItem( ul, item );
+			 	li = that._renderItemData( ul, item );
 			 if ( item.category ) {
 				 li.attr( "aria-label", item.category + " : " + item.label );
 			 }
@@ -66,7 +66,7 @@
 		else{
 			var self = this;
 			$.each( items, function( index, item ) {
-				self._renderItem( ul, item );
+				self._renderItemData( ul, item );
 			});
 		}
 		},
@@ -84,6 +84,7 @@
             $( "<a/>" ).attr( "href", "#" )
                        .html( label )
                        .appendTo( $li );
+
 
             return $li;
 
@@ -647,6 +648,7 @@ input.
 							$("#"+settings.id).attr("rup_autocomplete_label",selected_value);
 							$("#"+settings.id).data("selected",true);
 							$self.triggerHandler("rupAutocomplete_select", [ui]);
+              return false;
 						};
 						settings.focus = function(event, ui) {
 							$("#"+event.target.id).val(ui.item["label"].replace(/<strong>/g,"").replace(/<\/strong>/g,""));

@@ -27,6 +27,18 @@ select, select.form-control{
     text-decoration: none;
   }
 
+  &.ui-selectmenu-hasIcon{
+    span.ui-selectmenu-status{
+
+      padding-left: 1.5rem;
+
+      .ui-icon{
+        margin-top: -0.8rem;
+      }
+    }
+
+  }
+
   span.ui-selectmenu-status{
     padding: 3px 4px;
   }
@@ -41,8 +53,27 @@ select, select.form-control{
 
     @extend %box-shadow-style1;
 
-    li a{
-      padding: 3px 4px;
+    li{
+
+      a{
+        padding: 3px 4px;
+      }
+
+      &.ui-selectmenu-hasIcon{
+        a{
+          padding-left: 1.5rem;
+
+          .ui-icon{
+            margin-top: -0.8rem;
+          }
+        }
+      }
     }
+  }
+}
+
+.ui-multiselect{
+  span.ui-icon{
+    top: 0.3rem;
   }
 }
