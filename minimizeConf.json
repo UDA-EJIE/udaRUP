@@ -1,15 +1,23 @@
 {
-  "rupCssFiles":[
+  "rupCssExternalFiles":[
     "./node_modules/jquery-ui-dist/jquery-ui.css",
     "./node_modules/font-awesome/css/font-awesome.css",
-    "./dist/css/bootstrap.css",
     "./node_modules/gridstack/dist/gridstack.css",
     "./node_modules/gridstack/dist/gridstack-extra.css",
     "./node_modules/blueimp-file-upload/css/jquery.fileupload.css",
-    "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css",
-    "./dist/css/rup.css"
+    "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"
   ],
-  "rupClassicCssFiles":[
+  "rupCssBuildFiles":[
+    "./build/css/bootstrap.css",
+    "./build/css/rup-rwd.css"
+  ],
+  "rupCssDistFiles":[
+    "./build/css/rup.css",
+    "./build/css/rup.min.css",
+    "./build/css/rup-classic.css",
+    "./build/css/rup-classic.min.css"
+  ],
+  "rupClassicCssExternalFiles":[
     "./node_modules/jquery-ui-dist/jquery-ui.css",
     "ui.jqgrid.css",
     "jquery.fileupload-ui.css",
@@ -135,7 +143,8 @@
     "./src/rup.widget.xhr.js",
     "./src/rup.widget.template.js",
     "./src/rup.template.js",
-    "./src/rup.tree.js"
+    "./src/rup.tree.js",
+    "./node_modules/jquery.scrollto/jquery.scrollTo.js"
   ],
   "rupJsClassicFiles":[
     "./node_modules/jquery/dist/jquery.js",
@@ -225,7 +234,6 @@
     "./src/rup.validate.js",
     "./src/rup.wizard.js",
     "./src/rup.tree.js",
-    "./node_modules/jquery.scrollto/jquery.scrollTo"
-
+    "./node_modules/jquery.scrollto/jquery.scrollTo.js"
   ]
 }

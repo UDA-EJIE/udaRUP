@@ -41,6 +41,9 @@ var config = {
       dist: './dist/',
       distCss: './dist/css/',
       distJs: './dist/js/',
+      build: './build/',
+      buildCss: './build/css/',
+      buildJs: './build/js/',
       sass: './scss/',
       sassBootstrap: './scss/bootstrap/',
       sassRupBase: './scss/bootstrap/base',
@@ -49,7 +52,7 @@ var config = {
     files:{
       sass:{
         customBootstrapScss: 'custom-bootstrap.scss',
-        rupScss: 'rup.scss',
+        rupScss: 'rup-rwd.scss',
         rupClassicScss: 'rup-classic.scss',
       }
     }
@@ -78,7 +81,7 @@ gulp.task('sass:bootstrap', function(){
     .pipe(rename(function(path){
       path.basename='bootstrap';
     }))
-    .pipe(gulp.dest(config.dirs.distCss));
+    .pipe(gulp.dest(config.dirs.buildCss));
 });
 
 gulp.task('sass:rup', function () {
@@ -87,7 +90,7 @@ gulp.task('sass:rup', function () {
       outputStyle: 'nested ',
       precision: 8,
     }).on('error', sass.logError))
-    .pipe(gulp.dest(config.dirs.distCss));
+    .pipe(gulp.dest(config.dirs.buildCss));
 });
 
 gulp.task('sass:rup-classic', function () {
@@ -96,62 +99,164 @@ gulp.task('sass:rup-classic', function () {
       outputStyle: 'nested ',
       precision: 8,
     }).on('error', sass.logError))
-    .pipe(gulp.dest(config.dirs.distCss));
+    .pipe(gulp.dest(config.dirs.buildCss));
 });
 
 // MINIMIZE
 
 gulp.task('minimize:css:rup-classic', function () {
-  gulp.src(minimizeConf.rupClassicCssFiles)
-    .pipe(concat("rup-classic.min.css"))
-    .pipe(cleanCSS())
-    .pipe(gulp.dest('./dist/css'));
+  // gulp.src(minimizeConf.rupClassicCssExternalFiles)
+  //   .pipe(concat("rup-classic.min.css"))
+  //   .pipe(cleanCSS())
+  //   .pipe(gulp.dest('./build/css'));
+
+  // gulp.src("./build/css/rup-classic.css")
+  //   .pipe(concat("rup-classic.min.css"))
+  //   .pipe(cleanCSS())
+  //   .pipe(gulp.dest('./build/css'));
+
 });
 
 gulp.task('minimize:css:rup', function () {
-  console.log(minimizeConf.rupCssFiles);
-  gulp.src(minimizeConf.rupCssFiles)
-    .pipe(concat("rup.min.css"))
+  var sources = minimizeConf.rupCssExternalFiles.concat(minimizeConf.rupCssBuildFiles);
+  console.log("Generando rup.css...");
+  console.log(sources);
+  gulp.src(sources)
+    .pipe(concat("rup.css"))
     // .pipe(cleanCSS())
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./build/css'));
+
 
     // FIXME: Solo para desarrollo de la x21a
-    gulp.src('./dist/css/rup.min.css')
-      .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
-    gulp.src(minimizeConf.rupCssFiles)
-        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
-
-      gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
-        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/fonts'));
+    // gulp.src('./build/css/rup.min.css')
+    //   .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
+    // gulp.src(minimizeConf.rupCssFiles)
+    //     .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/css'));
+    //
+    //   gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
+    //     .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/fonts'));
 
 });
 
 gulp.task('minimize:js:rup', function () {
 
-
+  console.log("Generando rup.js...");
   gulp.src(minimizeConf.rupJsFiles)
-  .pipe(concat("rup.min.js"))
-  .pipe(gulp.dest('./dist/js'));
+  .pipe(concat("rup.js"))
+  .pipe(gulp.dest('./build/js'));
 
   // FIXME: Solo para desarrollo de la x21a
-  gulp.src('./dist/js/rup.min.js')
-    .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
+  // gulp.src('./build/js/rup.min.js')
+  //   .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
 
 
 });
 
 gulp.task('minimize:js:rup-classic', function () {
 
-
+  console.log("Generando rup.classic.js...");
   gulp.src(minimizeConf.rupJsClassicFiles)
-  .pipe(concat("rup.classic.min.js"))
-  .pipe(gulp.dest('./dist/js'));
+  .pipe(concat("rup.classic.js"))
+  .pipe(gulp.dest('./build/js'));
 
   // FIXME: Solo para desarrollo de la x21a
-  gulp.src('./dist/js/rup.classic.min.js')
-    .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
+  // gulp.src('./build/js/rup.classic.min.js')
+  //   .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/js'));
 
 
+});
+
+gulp.task('uglify:css:rup', function(){
+  var sources = minimizeConf.rupCssExternalFiles.concat(minimizeConf.rupCssBuildFiles);
+  console.log("Generando rup.min.css...");
+
+  gulp.src(sources)
+    .pipe(concat("rup.min.css"))
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('./build/css/'));
+});
+
+gulp.task('uglify:css:rup-classic', function(){
+  console.log("Generando rup.classic.min.css...");
+  gulp.src("./build/css/rup-classic.css")
+    .pipe(concat("rup-classic.min.css"))
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('./build/css'));
+});
+
+gulp.task('uglify:js:rup', function(){
+  console.log("Generando rup.min.js...");
+  gulp.src('./build/js/rup.js')
+  .pipe(uglify())
+  .pipe(rename({ suffix: '.min' }))
+  .pipe(gulp.dest('./build/js/'));
+});
+
+gulp.task('uglify:js:rup-classic', function(){
+  console.log("Generando rup.classic.min.js...");
+  gulp.src('./build/js/rup.classic.js')
+  .pipe(uglify())
+  .pipe(rename({ suffix: '.min' }))
+  .pipe(gulp.dest('./build/js/'));
+});
+
+gulp.task('dist', ["dist:build","dist:copy"]);
+
+gulp.task('dist:build', ['uglify:css:rup', 'uglify:css:rup-classic', 'uglify:js:rup', 'uglify:js:rup-classic']);
+
+gulp.task('dist:copy', function () {
+
+  // Generamos la carpeta de distribuibles
+
+  // dist/js
+  console.log("dist/js");
+  gulp.src(config.dirs.buildJs+"/*").pipe(gulp.dest('./dist/js'));
+
+
+  // dist/css
+  console.log("dist/css");
+  gulp.src(minimizeConf.rupCssDistFiles).pipe(gulp.dest('./dist/css'));
+
+  // dist/css/external
+  console.log("dist/css/external");
+  //gulp.src(minimizeConf.rupCssExternalFiles).pipe(gulp.dest('./dist/css/external'));
+  gulp.src(["./node_modules/jquery-ui-dist/jquery-ui.css",
+    "./node_modules/gridstack/dist/gridstack.css",
+    "./node_modules/gridstack/dist/gridstack-extra.css",
+    "./node_modules/blueimp-file-upload/css/jquery.fileupload.css",
+    "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"])
+    .pipe(gulp.dest('./dist/css/external'));
+  gulp.src("./node_modules/font-awesome/css/font-awesome.css").pipe(gulp.dest('./dist/css'));
+  gulp.src("./build/css/bootstrap.css").pipe(gulp.dest('./dist/css/external'));
+  gulp.src("./build/css/rup-rwd.css").pipe(gulp.dest('./dist/css'));
+
+  // dist/css/images
+  console.log("dist/css/images");
+  gulp.src(["./assets/images/**/*.*"]).pipe(gulp.dest('dist/css/images'));
+  // dist/css/cursors
+  console.log("dist/css/cursors");
+  gulp.src(["./assets/cursors/**/*.*"]).pipe(gulp.dest('dist/css/cursors'));
+
+  // resources
+  console.log("dist/resources");
+  gulp.src(["./i18n/*.json"]).pipe(gulp.dest('dist/resources'));
+
+  // fonts
+  console.log("dist/fonts");
+  gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
+     .pipe(gulp.dest('dist/fonts'));
+
+  // jquery-ui (legacy)
+  console.log("jquery-ui (legacy)");
+  gulp.src(["./assets/jquery-ui/**/*.*"])
+     .pipe(gulp.dest('dist/css/external'));
+
+
+});
+
+gulp.task('dist:x21a', function () {
+  gulp.src('./dist/**/*.*')
+    .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
 });
 
 gulp.task('build', [
@@ -260,7 +365,7 @@ gulp.task('doc:api', function () {
 
 })
 
-gulp.task('dist', ['copyRupSources', 'minimizeRupJs', 'minimizeRupCss']);
+//gulp.task('dist', ['copyRupSources', 'minimizeRupJs', 'minimizeRupCss']);
 
 gulp.task('copyRupSources', function (cb) {
     console.log("Borrando el contenido del directorio 'dist'")
