@@ -1,4 +1,21 @@
-[TOC]
+#Componentes RUP – Autocomplete
+
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1. Introducción](#1-introducción)   
+   - [2. Ejemplo](#2-ejemplo)   
+   - [3. Casos de uso](#3-casos-de-uso)   
+   - [4. Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#41-ficheros)   
+      - [4.2 Dependencias](#42-dependencias)   
+      - [4.3. Versión minimizada](#43-versión-minimizada)   
+   - [5. Invocación](#5-invocación)   
+   - [6. API](#6-api)   
+   - [7. Sobreescritura del theme](#7-sobreescritura-del-theme)   
+      - [8.  Internacionalización (i18n)](#8-internacionalización-i18n)   
+   - [9. Integración con UDA](#9-integración-con-uda)   
+
+<!-- /MDTOC -->
 
 ## 1. Introducción
 
@@ -116,12 +133,12 @@ Ejemplo base de la estructura generada por el componente:
 ```
 
 ### 8.	Internacionalización (i18n)
-La internacionalización se realiza mediante el fichero de recursos definido para la aplicación que se encontrará en la parte estática bajo *codAplic/resources/codAplic.i18n.json* (con sus variantes según idioma ej: *codAplic/resources/codAplic.i18n_es.json*). En dicho fichero se deberá declarar un objeto JSON cuyo nombre sea el mismo que el id del elemento *html* sobre el que se aplica el componente. 
+La internacionalización se realiza mediante el fichero de recursos definido para la aplicación que se encontrará en la parte estática bajo *codAplic/resources/codAplic.i18n.json* (con sus variantes según idioma ej: *codAplic/resources/codAplic.i18n_es.json*). En dicho fichero se deberá declarar un objeto JSON cuyo nombre sea el mismo que el id del elemento *html* sobre el que se aplica el componente.
 
 Ejemplo:
 
 ```js
-"lenguaje" : { 
+"lenguaje" : {
 		"asp":"asp_es",
 		"c":"c_es",
 		"c++":"c++_es",
@@ -206,14 +223,14 @@ patronesList :
 	{
     	code="Autocomplete",
     	descEs="Autocomplete_es",
-		descEu="Autcomplete_eu", 
+		descEu="Autcomplete_eu",
         css="filter"
     },
 	{
     	code="Combo",
         descEs="Combo_es",
 		descEu="Combo_eu",  
-        css="print" 
+        css="print"
    }
    ...
 ]
@@ -249,4 +266,3 @@ Para que la serialización se realice correctamente, el componente envía en la 
 ```
 
 **NOTA**: Al generar el código con el *plugin* de **UDA**, se añade este serializador para todos los objetos del modelo creados.
-
