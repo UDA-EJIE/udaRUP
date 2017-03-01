@@ -1,5 +1,21 @@
 #	Componentes RUP – Idioma
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
+
+<!-- /MDTOC -->
+
 ##	1	Introducción
 La descripción del ***Componente Idioma***, visto desde el punto de vista de **RUP**, es la siguiente:
 *El componente de idioma esta diseñado para permitir al usuario elegir, de forma intuitiva, el idioma en el que se presenta la aplicación.*
@@ -15,10 +31,10 @@ Se muestra a continuación los dos posibles formatos de maquetación dispone en 
 ![ejemplo](img/rup.language_2.png)
 ***Modo portal***
 
-###	3	Casos de uso
+##	3	Casos de uso
 Se aconseja la utilización de este componente:
 +	Situaciones en las que se disponga de varias versiones idiomáticas del sitio web y se desee que el usuario pueda cambiar el idioma durante su interacción con la aplicación.
-	
+
 Las razones para el uso del componente son las siguientes:
 +	Ocupa poco espacio en la interfaz.
 +	Es fácil de comprender y utilizar.
@@ -45,7 +61,7 @@ La gestión de la ciertas partes visuales de los componentes, se han realizado m
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
     jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js 
+    jquery-ui-1.12.0.custom.js
     jquery-ui-1.12.0.custom.css
     rup.base-x.y.z.js
     rup.lang-x.y.z.js
@@ -70,6 +86,7 @@ La creación del componente idioma se realiza de forma automática gracias al wi
 Los posibles idiomas de la aplicación se cargan a través de la variable ***AVAILABLE_LANGS*** que se carga en el fichero *“base-includes.jsp”*. Esta variable se genera automáticamente con los idiomas seleccionados en la creación de la aplicación.
 
 ##	6	API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.language.md).
 
 ##	7	Sobreescritura del theme
 El componente idioma se presenta con una apariencia visual definida en el fichero de estilos ***theme.rup.lang-x.y.z.css***.
@@ -77,7 +94,7 @@ El componente idioma se presenta con una apariencia visual definida en el ficher
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.
 
 
-##	8	Internacionalización (i18n)
+##	8	Internacionalización i18n
 La gestión de los literales del componente idioma se realiza a través de ficheros *json* lo que flexibiliza el desarrollo. Para acceder a los literales se hará uso del objeto base **RUP**, por el cual se accederá al objeto *json* correspondiente según el idioma para obtener tanto los literales a través de esta sentencia.
 ```javascript
 $.rup.i18n.rup_language
@@ -91,5 +108,3 @@ Los literales marcados para este componente son los siguientes:
     	"changeLanguage": "Cambiar Idioma"
  }
 ```
-
-

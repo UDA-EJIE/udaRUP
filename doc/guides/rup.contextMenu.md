@@ -1,5 +1,21 @@
 #	Componentes RUP – Menú contextual
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6    API](#6-api)   
+   - [7.  Sobreescritura del theme](#7-sobreescritura-del-theme)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del componente ***menú contextual***, visto desde el punto de vista de RUP, es la siguiente:
 
@@ -37,9 +53,9 @@ Las distintas funcionalidades que aporta el componente y las prestaciones genera
 +	**jQuery contextMenu**: http://medialize.github.io/jQuery-contextMenu/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	
+
     jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js 
+    jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	jquery.contextMenu.js
 	rup.base-x.y.z.js
@@ -64,8 +80,9 @@ $(selector).rup_contextMenu(properties);
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
 
 ## 6	API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.contextMenu.md).
 
-##	7.	Sobreescritura del theme
+##	7	Sobreescritura del theme
 El componente *tooltip* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.contextMenu-x.y.z.css**.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos (*codAppStatics/WebContent/codApp/styles*).

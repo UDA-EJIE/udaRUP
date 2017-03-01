@@ -2,14 +2,15 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [Componentes RUP – Diálogo](#componentes-rup-–-diálogo)   
    - [1   Introducción](#1-introducción)   
    - [2 Ejemplo](#2-ejemplo)   
    - [3 Casos de uso](#3-casos-de-uso)   
    - [4 Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#41-ficheros)   
-      - [4.2 Dependencias](#42-dependencias)   
-   - [6. API](#6-api)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5 Invocación](#5-invocación)   
+   - [6 API](#6-api)   
    - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
    - [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
 
@@ -84,7 +85,9 @@ La estructura de una ventana modal debe consistir en una capa semitransparente q
 
 La funcionalidad implementada en los diálogos permite que el desarrollador decida si el diálogo a mostrar debe ser realmente modal o no. Del mismo modo se permite configurar el tamaño de las ventanas, si se pueden redimensionar, arrastrar…
 
-##	6. API
+##	6 API
+
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.dialog.md).
 
 ##	7	Sobreescritura del theme
 El componente dialog se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.message-x.y.z.css**.
@@ -100,7 +103,7 @@ Los estilos principales a tener en cuenta son los siguientes:
 
 Adicionalmente se aplican una serie de estilos para mejorar la experiencia del usuario como puede ser el redondeo de las esquinas (sólo aplicable en FireFox) o la inclusión de estilos que modifiquen el cursor en caso de que la ventana sea redimensionable.
 
-##	8	Internacionalización (i18n)
+##	8	Internacionalización i18n
 La gestion de los literales de lo diálogos se realiza a través de ficheros json lo que flexibiliza el desarrollo. Para acceder a los literales se hara uso del objeto base rup, por el cual se accedera al objeto json correspondiente según el idioma para obtener tanto los literales como los propios mensajes.
 
 Los literales definidos para el contenido del diálogo pueden ser simple texto o código en html. Para este componente lo literales utilizados son escasos y están en la parte global de la internacionalización dentro de los resources de rup. A continuación se muestran los literales necesarios para el componente:

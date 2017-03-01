@@ -1,5 +1,22 @@
 #	Componentes RUP – Pestañas
 
+
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del componente Pestañas, visto desde el punto de vista de **RUP**, es la siguiente:
 *Permiten dar acceso de forma compacta a grupos de contenidos mutuamente excluyentes pudiendo ser integradas en zonas muy reducidas de la interfaz.*
@@ -34,9 +51,9 @@ La gestión de la ciertas partes visuales de los componentes, se han realizado m
 •	**jQuery UI 1.12.0**: http://jqueryui.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	
+
     jquery-1.12.4.js
-	jquery-ui-1.12.0.custom.js 
+	jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	rup.base-x.y.z.js
 	rup.tabs-x.y.z.js
@@ -62,7 +79,7 @@ Para poder relacionar el componente a su ```<div>``` asociado y para que no se m
 Una vez definido el elemento que incluirá el componente será labor del desarrollador componer el selector de *jQuery* que determine el ```<div>``` sobre el que se aplicará el componente especificado. Una posible definición del selector, sobre el ``` <div> ``` definido anteriormente, sería:
 ```javascript
 $("#tabs").rup_tabs({
-			tabs : [ 
+			tabs : [
 				{i18nCaption:"pestana1", tabs: [
 					{i18nCaption:"sub10", url:"tab1Fragment"},
 					{i18nCaption:"sub11", url:"tab2Fragment"}
@@ -80,7 +97,7 @@ A su vez, cada uno de los elementos del array se compondrá de objetos json que 
 +	*i18nCaption*
 +	*url / tabs*
 
-El atributo *“i18nCaption”* es obligatorio a la hora de parametrizar una pestaña, ya que determina el literal que aparece definiendo la pestaña. Los literales de definición de las pestañas interaccionan con el sistema de gestión idiomática de la capa de presentación; por lo que el valor asociado al *“i18nCaption”* debe estar inscrito en el objeto *“tab”* dentro del los ficheros de literales (uno por cada idioma versionado) de la aplicación. Siguiendo con el ejemplo de definición del componente anterior, los ficheros de literales tendrían el siguiente aspecto: 
+El atributo *“i18nCaption”* es obligatorio a la hora de parametrizar una pestaña, ya que determina el literal que aparece definiendo la pestaña. Los literales de definición de las pestañas interaccionan con el sistema de gestión idiomática de la capa de presentación; por lo que el valor asociado al *“i18nCaption”* debe estar inscrito en el objeto *“tab”* dentro del los ficheros de literales (uno por cada idioma versionado) de la aplicación. Siguiendo con el ejemplo de definición del componente anterior, los ficheros de literales tendrían el siguiente aspecto:
 
 Considerando que la aplicación tiene por código x21a y el War en el 	que se ubica la página, que alberga el componente, tiene por nombre Demo.
 
@@ -103,16 +120,18 @@ url:"http://www.euskadi.ejiedes.net/x21aPilotoPatronesWar/patrones/tab2Fragment"
 
 **Relativa al dominio**: Se le especifica la url con una barra “/” como primer carácter. De esta manera, el componente concatenara la ruta especificada al dominio en el que se encuentre la aplicación.
 	url:"/x21aPilotoPatronesWar/patrones/tab2Fragment"
-    
+
 **Relativa a la dirección actual**: Se determina la ruta sin una barra “/” como primer carácter. Con este modelo, el componente monta la url quitando la ultima parte de la llamada, hasta la primera barra “/”, y añade la ruta especificada.
 	url:"tab2Fragment"
-    
+
 A nivel de interacción con el servidor, cabe destacar que el componente, por defecto, cachea el contenido servido mediante llamadas *ajax* para cada una de las pestañas. Este modelo de presentación agiliza la carga inicial del componente sin penalizar la interacción con el usuario (ya que no se invoca continuamente mediante *ajax* el contenido de cada pestaña). Este modo, por defecto, puede ser problemático frente a páginas dinámicas que pueden variar en el tiempo, por lo que se han incluido en el componente métodos y parametrizaciones que permiten modificar este comportamiento (es posible desconectar el cacheo en general o forzar la carga de una pestaña mediante un método).
 
 El componente pestañas no limita el número de subniveles de pestañas que se pueden utilizar, pero por cuestiones de legibilidad y jerarquía estructural se recomienda el uso de no más de **2 subniveles** de pestañas.
 
 
 ##	6	API
+
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.tabs.md).
 
 ##	7	Sobreescritura del theme
 El componente pestañas se presenta con una apariencia visual definida en el fichero de estilos theme.rup.tabs-x.y.z.css.

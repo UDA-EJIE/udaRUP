@@ -5,14 +5,13 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [Componentes RUP – Fecha](#componentes-rup-–-fecha)   
    - [1 Introducción](#1-introducción)   
    - [2    Ejemplo](#2-ejemplo)   
    - [3    Casos de uso](#3-casos-de-uso)   
    - [4    Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#41-ficheros)   
-      - [4.2 Dependencias](#42-dependencias)   
-      - [4.3 Versión minimizada](#43-versión-minimizada)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
    - [5    Invocación](#5-invocación)   
    - [6 API](#6-api)   
    - [7    Intervalos de fechas](#7-intervalos-de-fechas)   
@@ -84,6 +83,7 @@ $("#id_input").rup_date (properties);
 Donde el parámetro “properties” es un objeto (var properties = {};) o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
 ## 6 API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.date.md).
 
 ## 7	Intervalos de fechas
 El componente fecha permite la combinación de varios campos para poder permitir la selección de intervalos. Una vez seleccionada por ejemplo la fecha de inicio *(from)* la fecha de fin *(to)* no podría ser anterior a esta y viceversa. Esta gestión la realiza el componente internamente. A continuación se detalla un ejemplo de cómo realizar la configuración para mostrar un intervalo de fechas:

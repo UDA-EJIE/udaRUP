@@ -1,5 +1,28 @@
 #	Componentes RUP – Validación
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6 API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Personalización](#8-personalización)   
+      - [8.1 Visualización errores](#8.1-visualización-errores)   
+      - [8.2 Validaciones propias](#8.2-validaciones-propias)   
+      - [8.3.Sobreescritura validaciones](#8.3-sobreescritura-validaciones)
+      - [8.4 Personalización de los mensajes](#8.4-personalización-de-los-mensajes)   
+   - [9 Integración con UDA](#9-integración-con-uda)   
+   - [10  Interacción con otros componentes RUP](#10-interacción-con-otros-componentes-rup)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del ***Componente Validación***, visto desde el punto de vista de **RUP**, es la siguiente:
 *Permite al usuario validar los datos introducidos en los campos que se presentan en la aplicación.*
@@ -34,15 +57,15 @@ Las distintas funcionalidades que aporta el componente y las prestaciones genera
 +	**jQuery-File-Upload**: http://blueimp.github.com/jQuery-File-Upload/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	
+
     jquery-1.12.0.js
-	jquery-ui-1.12.4.custom.js 
+	jquery-ui-1.12.4.custom.js
 	jquery-ui-1.12.4.custom.css
-	jquery.validate.js 
+	jquery.validate.js
 	rup.validate-2.0.0.js
 	theme.rup.validate-2.0.0.css
-    
-    
+
+
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros *javascript* y de estilos necesarios para el uso de todos los compontente **RUP**.
 
@@ -81,6 +104,8 @@ $("#formValidaciones").rup_validate(properties);
 Como ya se profundizará mas adelante, mediante la propiedad rules se indicará para cada campo (identificado mediante su el valor de su propiedad *name*) que validaciones se deben de realizar.
 
 ## 6 API
+
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.validate.md).
 
 ##	7	Sobreescritura del theme
 El componente validación se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.validate-x.y.z.css**.
@@ -145,18 +170,18 @@ rules:{
 });
 ```
 
-###	8.3.Sobreescritura validaciones
+###	8.3	Sobreescritura validaciones
 Del mismo modo que se realiza la creación de una nueva regla de validación, es posible sobrescribir la implementación de las reglas de validación ya existentes.
 
 El procedimiento es el mismo que el que se realiza para añadir una nueva regla. Este sería un ejemplo de sobreescritura de la regla de validación dni:
 
 ```javascript
 jQuery.validator.addMethod("dni", function(value, element) {
-		// Nueva implementación	
+		// Nueva implementación
 });
 ```
 
-###	8.4	Personalización de los mensajes 
+###	8.4	Personalización de los mensajes
 Los mensajes de error de las validaciones se encuentran definidos en los ficheros de recursos de rup. Para cada menaje de error existe su versión idiomática correspondiente.
 
 ```javascript
@@ -243,7 +268,7 @@ El componente que nos ocupa, está ligado al subsistema de validaciones de **UDA
 La interacción entre ambos se detalla en el Anexo-Gestión_de_validaciones
 
 
->**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador. En estos casos la gestión de errores de validaciones realizadas en el servidor de aplicaciones, no puede hacer un uso correcto de los códigos de error http para la gestión de los mismos. 
+>**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador. En estos casos la gestión de errores de validaciones realizadas en el servidor de aplicaciones, no puede hacer un uso correcto de los códigos de error http para la gestión de los mismos.
 La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings**
 
 ##	10	Interacción con otros componentes RUP
@@ -278,7 +303,7 @@ Como se puede observar, la configuración del componente validación se especifi
 El componente formulario invocará al componente validación durante el proceso de inicialización. Una vez configurado, se podrá hacer uso de las funciones y eventos que proporciona el componente validación.
 
 
-+	**Resto componentes RUP:**	
++	**Resto componentes RUP:**
 El componente validación está preparado para realizar validaciones sobre cualquier componente **RUP**. Para validar campos que han sido inicializados como componentes RUP se deberá de proceder del mismo modo que con controles *HTML* comunes.
 En el siguiente ejemplo se muestra el uso del patrón validación sobre unos componentes **RUP**:
 
@@ -314,16 +339,16 @@ En el siguiente ejemplo se muestra el uso del patrón validación sobre unos com
 $("#autocomplete").rup_autocomplete({
 // Inicialización del componente rup_autocomplete
 });
-	
-	
+
+
 $("#comboAbueloRemoto").rup_combo({
 // Inicialización del componente rup_combo
 });
-	
+
 $("#comboPadreRemoto").rup_combo({
 // Inicialización del componente rup_combo
 });
-	
+
 $("#comboHijoRemoto").rup_combo({
 // Inicialización del componente rup_combo
 });
@@ -331,7 +356,7 @@ $("#comboHijoRemoto").rup_combo({
 $("#fecha").rup_date({
 // Inicialización del componente rup_fecha
 });
-	
+
 $("#fechaHora").rup_date({
 // Inicialización del componente rup_fecha
 });
@@ -351,4 +376,3 @@ $("#formValidaciones").rup_form({
     }
 });
 ```
-

@@ -2,19 +2,19 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [Componentes RUP – Accordion](#componentes-rup-–-accordion)   
-   - [1. Introducción](#1-introducción)   
-   - [2. Ejemplo](#2-ejemplo)   
-   - [3. Casos de uso](#3-casos-de-uso)   
-   - [4. Infraestructura](#4-infraestructura)   
+   - [1. Introducción](#1.-introducción)   
+   - [2. Ejemplo](#2.-ejemplo)   
+   - [3. Casos de uso](#3.-casos-de-uso)   
+   - [4. Infraestructura](#4.-infraestructura)   
       - [4.1 Ficheros](#4.1-ficheros)   
       - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3. Versión minimizada](#4.3-versión-minimizada)   
-   - [5. Invocación](#5-invocacion)   
-   - [6. API](#6-api)   
-   - [7. Sobreescritura del theme](#7-sobreescritura-del-theme)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5. Invocación](#5.-invocación)   
+   - [6. API](#6.-api)   
+   - [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
+
 
 
 ## 1. Introducción
@@ -67,7 +67,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
     rup.accordion-x.y.z.js
     theme.rup.accordion-x.y.z.css
 
-### 4.3. Versión minimizada
+### 4.3 Versión minimizada
 
 ++A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.++
 

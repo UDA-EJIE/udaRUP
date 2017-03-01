@@ -1,5 +1,22 @@
 #	Componentes RUP – Report
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6 API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   jQuery File Download](#8-jquery-file-download)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del ***Componente Report***, visto desde el punto de vista de *RUP*, es la siguiente:
 *El objetivo principal del componente es mejorar la experiencia del usuario a la hora de generar informes mediante la presentación de diálogos de espera.*
@@ -36,9 +53,9 @@ La gestión de los diálogos se realiza mediante el ***jQuery File Download Plug
 Adicionalmente se utiliza el componente **rup.toolbar** para la gestión de botones.
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	
+
     jquery-1.12.4.js
-	jquery-ui-1.12.0.custom.js 
+	jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	jqGrid-4.4.1.js
 	rup.base-x.y.z.js
@@ -46,7 +63,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.report-x.y.z.js
 	theme.rup.toolbar-z.y.z.css
 	theme.rup.report-z.y.z.css
-    
+
 ###	4.3	Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
@@ -67,20 +84,22 @@ Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o
 
 ##	6 API
 
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.report.md).
+
 ##	7	Sobreescritura del theme
 El componente report se presenta con una apariencia visual definida en el fichero de estilos ***theme.rup.report-x.y.z.css***.
 
 En este fichero simplemente se definen los estilos para la barra de progreso en el diálogo de espera por defecto:
 ```css
-.rup_report .ui-progressbar { 
-	height: 22px; 
-    margin-top: 2em; 
-    margin-bottom: 3em; 
-    width: 100%; 
+.rup_report .ui-progressbar {
+	height: 22px;
+    margin-top: 2em;
+    margin-bottom: 3em;
+    width: 100%;
 }
 
-.rup_report .ui-progressbar-value { 
-	background: url(images/pbar-ani.gif); 
+.rup_report .ui-progressbar-value {
+	background: url(images/pbar-ani.gif);
 }
 ```
 
@@ -91,9 +110,8 @@ El componente rup-report utiliza como plugin subyacente jQuery File Download que
             cookieValue: "true",
             cookiePath: "/",
  ```
- 
+
 Para más información acerca del funcionamiento del *plugin*:
 http://johnculviner.com/post/2012/03/22/Ajax-like-feature-rich-file-downloads-with-jQuery-File-Download.aspx
 
 Demos del funcionamiento del plugin: http://jqueryfiledownload.apphb.com/
-

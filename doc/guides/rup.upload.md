@@ -1,5 +1,31 @@
 #	Componentes RUP – Upload
 
+
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+      - [5.1 Componente upload independiente](#5.1-componente-upload-independiente)   
+      - [5.2 Componente upload integrado en formulario](#5.2-componente-upload-integrado-en-formulario)   
+      - [5.3 Varios componentes upload integrados en formuario](#5.3-varios-componentes-upload-integrados-en-formuario)   
+   - [6 API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Interacción con el servidor de aplicaciones](#8-interacción-con-el-servidor-de-aplicaciones)   
+   - [9   Internet Explorer 8](#9-internet-explorer-8)   
+   - [10  Integración con UDA](#10-integración-con-uda)   
+   - [11  Integración con PIF](#11-integración-con-pif)   
+      - [11.1    Configuración](#11.1-configuración)   
+      - [11.2    Invocación](#11.2-invocación)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del ***Componente Upload***, visto desde el punto de vista de *RUP*, es la siguiente:
 
@@ -32,14 +58,14 @@ Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* bas
 
 La gestión de la ciertas partes visuales de los componentes, se han realizado mediante el *plugin* **jQuery UI** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel, componentes personalizables (estilos) ente otros. La versión utilizada en el desarrollo ha sido la **1.12.0**.
 +	**jQuery UI 1.12.0**: http://jqueryui.com/
-	
+
 Las distintas funcionalidades que aporta el componente y las prestaciones generales del mismo, se apoyan en el *plugin* *j*Query File Upload**. Para el correcto funcionamiento del componente *Upload*, se precisa de la inclusión de dicho *plugin*.
 +	**jQuery-File-Upload**: http://blueimp.github.com/jQuery-File-Upload/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	
+
     jquery-1.12.4.js
-	jquery-ui-1.12.0.custom.js 
+	jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	jquery.fileupload.js
 	jquery.fileupload-ui.js
@@ -69,7 +95,7 @@ Un ejemplo de la creación de un componente de *upload* independiente sería el 
 Partiremos de la siguiente estructura implementada en la *jsp*:
 ```xml
 <div id="fileupload_only">
-	<form action="../upload" id="usuarioForm" enctype="multipart/form-data" 
+	<form action="../upload" id="usuarioForm" enctype="multipart/form-data"
 	method="POST">
 		<div class="fileupload-buttonbar">
 			<label for="file_only">Ficheros: </label>
@@ -89,7 +115,7 @@ Partiremos de la siguiente estructura implementada en la *jsp*:
 
 Esta estructura conforma la interfaz de usuario que se muestra al usuario para interactuar con el componente. Los elementos que la forman son los siguientes:
 
-+	**Capa contenedora**: Determina el elemento contenedor del resto que conforman el componente. 
++	**Capa contenedora**: Determina el elemento contenedor del resto que conforman el componente.
 
 ```xml
 <div id="fileupload_only">
@@ -103,7 +129,7 @@ Esta estructura conforma la interfaz de usuario que se muestra al usuario para i
 +	**Formulario**: Contiene los input file y botones utilizados para seleccionar los archivos a subir y realizar las acciones que permite el componente.
 
 ```xml
-<form action="../upload" id="usuarioForm" enctype="multipart/form-data" 
+<form action="../upload" id="usuarioForm" enctype="multipart/form-data"
 method="POST">
 
 	<!—- Contenido del formulario -->
@@ -128,7 +154,7 @@ Esta botonera es identificada por el componente upload debido a que debe llevar 
 <div class="fileupload-buttonbar">
 	<label for="file_only">Ficheros: </label>
 	<!—- Control file -->
-	<input id="file_only" type="file" name="files[]" 
+	<input id="file_only" type="file" name="files[]"
 multiple="multiple">
 	<!—- Subida de todos los ficheros encolados -->
 	<button type="submit" class="start">Subir todos</button>
@@ -142,7 +168,7 @@ multiple="multiple">
 
 	+	Campo file: Permite la selección de los ficheros por parte del usuario. El campo name determina el nombre del parámetro de la petición en el cual se enviarán los ficheros. En caso de indicar la propiedad *multiple="multiple"*, el componente permitirá la selección de varios ficheros a la vez desde el diálogo de selección de archivos (Esta opción no está soportada en IE8).
 ```xml
-<input id="file_only" type="file" name="files[]" 
+<input id="file_only" type="file" name="files[]"
 multiple="multiple">
 ```
 
@@ -177,13 +203,13 @@ class="fileupload-progressbar"></div>
 ```
 +	A su vez, la lista de ficheros contiene los siguientes elementos.
 
-	+	**Tabla de contenido**: Contiene una línea por cada uno de los ficheros que han sido seleccionados por el usuario. Se identifica mediante el valor files en la propiedad *class*. 
+	+	**Tabla de contenido**: Contiene una línea por cada uno de los ficheros que han sido seleccionados por el usuario. Se identifica mediante el valor files en la propiedad *class*.
 ```xml
 <table class="files"></table>
 ```
 	+	**Barra de progreso global**: Se permite especificar una barra de progreso global para el envío de todos los ficheros agregados a la lista. Se identifica mediante el valor *fileupload-progressbar* en la propiedad *class*.
 ```xml
-<div id="fileupload-progressbar" 
+<div id="fileupload-progressbar"
 class="fileupload-progressbar"></div>
 ```
 
@@ -208,7 +234,7 @@ Sin embargo el componente puede ser utilizado para funcionar en este escenario, 
 Este sería un ejemplo de la estructura que se debería de generar en la *jsp*:
 ```xml
 <div id="fileupload_form">
-	<form action="../upload" id="usuarioForm" enctype="multipart/form-data" 
+	<form action="../upload" id="usuarioForm" enctype="multipart/form-data"
 method="POST">
 		<div class="formulario_linea_izda_float">
 			<label id="label_nombre"  for="nombre" >Nombre :</label>
@@ -255,7 +281,7 @@ Como se puede comprobar, se ha indicado la opción *submitInForm* con el valor t
 Este escenario es básicamente una extensión el definido en el apartado anterior. En este caso se definirán dos componentes upload independientes incluidos en el mismo formulario. Como es los casos anteriores, a continuación se muestra la estructura incluida en la *jsp*:
 ``` xml
 <div id="fileupload_form">
-	<form action="../upload" id="usuarioForm" enctype="multipart/form-data" 
+	<form action="../upload" id="usuarioForm" enctype="multipart/form-data"
 method="POST">
 
 		<div class="formulario_linea_izda_float">
@@ -280,7 +306,7 @@ for="apellido2" >Apellido 2:</label>
 			<div id="fileupload_file_form_padre" >
 				<div class="fileupload-buttonbar">
 					<label for="file">Foto padre: </label>
-				      <input id="file_form_padre" type="file" 
+				      <input id="file_form_padre" type="file"
 name="fotoPadre">
 				</div>
 				<div class="fileupload-content">
@@ -292,7 +318,7 @@ name="fotoPadre">
 			<div id="fileupload_file_form_madre">
 		      	<div class="fileupload-buttonbar">
 			      	<label for="file">Foto madre: </label>
-			            <input id="file_form_madre" type="file" 
+			            <input id="file_form_madre" type="file"
 name="fotoMadre">
 				</div>
 				<div class="fileupload-content">
@@ -318,7 +344,7 @@ $('#fileupload_file_form_padre').rup_upload({
 		 fileInput: $("#file_form_padre"),
 		 submitInForm:true
 	 });
-	 
+
 	 $('#fileupload_file_form_madre').rup_upload({
 		 form:"usuarioForm",
 		 fileInput: $("#file_form_madre"),,
@@ -329,7 +355,7 @@ $('#fileupload_file_form_padre').rup_upload({
 En este caso además de indicar la propiedad *submitInForm*, se deberá de indicar en la propiedad form el identificador del formulario que contiene los campos *file*.
 
 ##	6 API
-
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.upload.md).
 
 ##	7	Sobreescritura del theme
 El componente upload se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.upload-x.y.z.css**.
@@ -388,8 +414,8 @@ Un ejemplo del objeto *json* seria el siguiente:
 Para simplificar esta generación del objeto *json* se puede implementar un método similar al siguiente (este método se utilizará en los siguientes ejemplos:
 ```javascript
 private Map<String,Object> getFileReturnMap(MultipartFile file){
-		
-Map<String,Object> mapaRetorno = new HashMap<String, Object>();	
+
+Map<String,Object> mapaRetorno = new HashMap<String, Object>();
 
 	mapaRetorno.put("url", "../upload?fileName="+file.getOriginalFilename());
 	mapaRetorno.put("name", file.getOriginalFilename());
@@ -397,7 +423,7 @@ Map<String,Object> mapaRetorno = new HashMap<String, Object>();
 	mapaRetorno.put("size", file.getSize());
 	mapaRetorno.put("delete_url", "../upload?fileName="+file.getOriginalFilename());
 	mapaRetorno.put("delete_type", "DELETE");
-		
+
 	return mapaRetorno;
 }
 ```
@@ -434,15 +460,15 @@ Un ejemplo del método del controler que escucha la petición de subida de fiche
 ```java
 @RequestMapping(method = RequestMethod.POST)
 public @ResponseBody List<Map<String, Object>> add(
-@RequestParam(value="files[]", required=false) MultipartFile 
+@RequestParam(value="files[]", required=false) MultipartFile
 file, HttpServletResponse response, HttpServletRequest request) {
-		
+
 		uploadService.saveToDisk(file, URL_UPLOAD_BASE_DIR);
-		
-		List<Map<String,Object>> filesMetaInfo = new 
+
+		List<Map<String,Object>> filesMetaInfo = new
 ArrayList<Map<String,Object>>();
 		filesMetaInfo.add(this.getFileReturnMap(file));
-		
+
 		return filesMetaInfo;
 }
 ```
@@ -452,17 +478,17 @@ ArrayList<Map<String,Object>>();
 ```java
 @RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public ModelAndView download(@RequestParam(value="fileName") String 
+	public ModelAndView download(@RequestParam(value="fileName") String
 fileName,
 HttpServletResponse response) throws Exception {
 File file = uploadService.getFromDisk(URL_UPLOAD_BASE_DIR, fileName);
-	
+
 	       byte[] fileByteArray = FileUtils.readFileToByteArray(file);
 	       response.setContentLength(fileByteArray.length);
 	       FileCopyUtils.copy(fileByteArray, response.getOutputStream());
-	        
+
 	       return null;
-	 } 
+	 }
 ```
 
 
@@ -473,10 +499,10 @@ File file = uploadService.getFromDisk(URL_UPLOAD_BASE_DIR, fileName);
 	@ResponseStatus( HttpStatus.OK )
 	public void remove(@RequestParam(value="fileName") String fileName,
 					HttpServletResponse  response) {
-		
+
 		uploadService.deleteFromDisk(URL_UPLOAD_BASE_DIR, fileName);
 	}
- 
+
 ```
 
 ##	9	Internet Explorer 8
@@ -517,12 +543,12 @@ Mediante esta configuración, *jackson* enviará las respuestas en formato *text
 
 +	**No se muestra la información completa del fichero**: Al añadir un fichero a la lista de archivos seleccionados, no se muestra el tipo de archivo ni el tamaño del mismo. Esto es debido a que IE8 no es capaz de acceder a estos metadatos del archivo seleccionado.
 
-##	9	Integración con UDA
+##	10	Integración con UDA
 
 >**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador.
 La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings, http error code, validaciones…) se detalla en el anexo Anexo-Emulacion_xhr_iframes.doc**
 
-##	10	Integración con PIF
+##	11	Integración con PIF
 A partir de la versión v2.4.2 del componente se ha mejorado la integración con el PIF permitiendo una subida directa.
 
 El objetivo es facilitar al desarrollador el realizar subidas de ficheros al PIF mediante el componente **RUP Upload** sin necesidad de implementar código propio.
@@ -534,7 +560,7 @@ Por este motivo, se proporcionan desde la x38 una serie de clases que implementa
 
 A continuación se explica los pasos a seguir para configurar los diferentes componentes en la aplicación.
 
-###	10.1	Configuración
+###	11.1	Configuración
 Para hacer uso de la subida directa al PIF desde la aplicación se debe de realizar la siguiente configuración en la aplicación:
 
 +	Añadir la dependencia en el pom.xml
@@ -584,7 +610,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 <!-- Servlet que gestiona las al PIF -->
 <bean id="pifServlet" class="com.ejie.x38.pif.PifSpringServlet">
 </bean>
-	
+
 </beans>
 
 ```
@@ -608,7 +634,7 @@ Se deberá de incluir en dicho fichero la referencia al nuevo fichero de configu
             http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
-			
+
 	<import resource="jackson-config.xml" />
 	<import resource="validation-config.xml"/>
 	<import resource="mvc-config.xml" />
@@ -619,7 +645,7 @@ Se deberá de incluir en dicho fichero la referencia al nuevo fichero de configu
 </beans>
 ```
 
-###	10.2	Invocación
+###	11.2	Invocación
 
 La invocación del componente se realiza del mismo modo que se indica en el apartado [5.1-Invocación](5.1-invocación).
 
@@ -650,7 +676,3 @@ Las propiedades posibles de configuración son las siguientes:
 +	**fileTtl**: Número de segundos que se desea mantener el fichero en el repositorio. Como máximo se podrá fijar el número de segundos de 15 días naturales
 +	**preserveName**: Indica si se desea preservar el nombre del fichero en la ruta seleccionada sobrescribiendo el fichero si existiera. Si se decide no preservar los nombres lo que se hace es concatenarle una serie de dígitos que lo hace único en el repositorio. Indicar true en caso de requerirlo.
 +	**securityToken**: Determina si se va a utilizar un *token* de aplicación o de la sesión de XLNets iniciada por el usuario. Los valores posibles son “*app*” o “*user*”. (Por defecto “app”)
-
-
-
-

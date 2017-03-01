@@ -1,5 +1,23 @@
 #	Componentes RUP – Migas
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
+   - [9   Integración con UDA](#9-integración-con-uda)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del ***Componente Migas***, visto desde el punto de vista de **RUP**, es la siguiente:
 *El componente de migas muestra a los usuarios la ruta de navegación que ha seguido por la aplicación permitiéndoles volver hacia niveles superiores hasta la página de inicio.*
@@ -49,7 +67,7 @@ La gestión de la ciertas partes visuales de los componentes, se han realizado m
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
 	jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js 
+    jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	xbreadcrumbs.js
 	rup.base-x.y.z.js
@@ -67,7 +85,7 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 
 
 ##	5	Invocación
-El componente de migas se crea y configura según la disposición seleccionada en el asistente de generación de aplicación del *plugin* **UDA**. 
+El componente de migas se crea y configura según la disposición seleccionada en el asistente de generación de aplicación del *plugin* **UDA**.
 El componente se posiciona justo después del menú en una capa cuyo identificador se corresponde con el nombre del War *(xxxYyyWar)* seguido de *“_migas”* y cuya clase asociada para los estilos es *“rup-breadCrumb_root”*:
 ```xml
 <div id="x21aDemoWAR_migas" class="rup-breadCrumb_root"></div>
@@ -78,11 +96,12 @@ $("#idMenu").rup_menu(properties);
 ```
 donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
-Para generar la miga de una ventana se usa la **URL** a la que se está invocando desde el *contextPath*. Por ejemplo, si la *url* es *“http://desarrollo.jakina.ejiedes.net:7001/x21aPilotoPatronesWar/patrones/tooltip”*, se separa el *substring* de después del *contextPath*, en este caso *“patrones/tooltip”*. La configuración de las migas contendrá un elemento “patrones” dentro del cual existirá un subelemento *“tooltip”*. 
+Para generar la miga de una ventana se usa la **URL** a la que se está invocando desde el *contextPath*. Por ejemplo, si la *url* es *“http://desarrollo.jakina.ejiedes.net:7001/x21aPilotoPatronesWar/patrones/tooltip”*, se separa el *substring* de después del *contextPath*, en este caso *“patrones/tooltip”*. La configuración de las migas contendrá un elemento “patrones” dentro del cual existirá un subelemento *“tooltip”*.
 
 En el siguiente apartado se explican las propiedades y se adjunta un ejemplo más detallado.
 
 ##	6	API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.breadCrumb.md).
 
 ##	7	Sobreescritura del theme
 El componente migas se presenta con una apariencia visual definida en el fichero de estilos ***theme.rup.breadCrumb-x.y.z.css***.
@@ -90,10 +109,10 @@ Si se quiere modificar la apariencia del componente, se recomienda redefinir el/
 
 Los estilos más relevantes son los siguientes:
 •	**rup-breadCrumbs_span**: estilo asociado al literal “Usted está en:”
-•	**.rup-breadCrumb_main LI A**: estilo asociado a cada elemento miga (no final) 
+•	**.rup-breadCrumb_main LI A**: estilo asociado a cada elemento miga (no final)
 •	**rup-breadCrumb_current**: estilo asociado a la última miga (elemento final)
 
-##	8	Internacionalización (i18n)
+##	8	Internacionalización i18n
 Como se ha comentado anteriormente para la internacionalización del patrón se usa el fichero de recursos de la aplicación con una estructura como la siguiente:
 ```javascript
 "x21aPilotoPatronesWar_migas" :{
@@ -133,9 +152,9 @@ El procedimiento de desconexión, automáticamente, presenta un mensaje de confi
 
 ![](img/rup.breadCrumb_3.png)
 
-La gestión y procesado de estos dos servicios, por parte de las migas, se hace de manera automática y requiere de la presencia de una variable JavaScript “*LOGGED_USER*” y del parámetro *“logOutUrl”*. 
+La gestión y procesado de estos dos servicios, por parte de las migas, se hace de manera automática y requiere de la presencia de una variable JavaScript “*LOGGED_USER*” y del parámetro *“logOutUrl”*.
 
-La variable JavaScript “*LOGGED_USER*” determina el nombre visualizado en la identificación del usuario. El parámetro “*logOutUrl*”, especificado en la definición de las propias migas, determina la *url* de la página que se cargara una vez efectuado el procedimiento de *logOut* 
+La variable JavaScript “*LOGGED_USER*” determina el nombre visualizado en la identificación del usuario. El parámetro “*logOutUrl*”, especificado en la definición de las propias migas, determina la *url* de la página que se cargara una vez efectuado el procedimiento de *logOut*
 
 La variable *“LOGGED_USER”* puede integrarse de múltiples formas pero **UDA**, por defecto, la incluye en la *jsp “base-includes.jsp”* mediante el siguiente código:
 ``` java
@@ -161,5 +180,3 @@ Con desconexión de **XLNets**:
 
 ![](img/rup.breadCrumb_5.png)
 Sin desconexión de XLNets:
-
-

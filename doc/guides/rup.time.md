@@ -1,5 +1,23 @@
 #	Componentes RUP – Hora
 
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Interacción con teclado](#7-interacción-con-teclado)   
+   - [8   Sobreescritura del theme](#8-sobreescritura-del-theme)   
+   - [9   Integración con UDA](#9-integración-con-uda)   
+
+<!-- /MDTOC -->
+
+
 ##	1	Introducción
 La descripción del Componente Hora, visto desde el punto de vista de **RUP**, es la siguiente:
 *El usuario puede introducir y seleccionar una hora tanto de forma manual como visual, moviéndose fácilmente por las horas y los minutos, recibiendo ayudas y sugerencias para minimizar las posibilidades de introducir una hora incorrecta.*
@@ -10,7 +28,7 @@ Se muestra a continuación una captura de un ejemplo típico del componente:
 
 ##	3	Casos de uso
 Se recomienda el uso del componente:
-+	Cuando el usuario tenga que introducir una hora y se quiera ofrecer flexibilidad para escribirla manualmente o seleccionándola de un calendario. 
++	Cuando el usuario tenga que introducir una hora y se quiera ofrecer flexibilidad para escribirla manualmente o seleccionándola de un calendario.
 
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
@@ -56,6 +74,8 @@ Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o b
 
 ##	6	API
 
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.time.md).
+
 ##	7	Interacción con teclado
 La interacción natural con el componente es mediante el ratón, pero se han añadido la posibilidad de manipular los valores mediante el teclado para agilizar su uso lo que ahorra mucho tiempo a los usuarios avanzados.
 
@@ -93,29 +113,29 @@ Tiempo
 		<dt class="ui_tpicker_hour_label" id="ui_tpicker_hour_label_hora">
 Hora
 </dt>
-		<dd class="ui_tpicker_hour ui-slider ui-slider-horizontal ui-widget 
+		<dd class="ui_tpicker_hour ui-slider ui-slider-horizontal ui-widget
 ui-widget-content ui-corner-all" id="ui_tpicker_hour_hora">
 			<a style="left: 34.7826%;" class="ui-slider-handle ui-state-
 default ui-corner-all" href="#"></a>
 		</dd>
-		
-		<dt class="ui_tpicker_minute_label" 
+
+		<dt class="ui_tpicker_minute_label"
 id="ui_tpicker_minute_label_hora">
 Minuto
 </dt>
 		<dd class="ui_tpicker_minute ui-slider ui-slider-horizontal ui-
 widget ui-widget-content ui-corner-all" id="ui_tpicker_minute_hora">
-			<a style="left: 0%;" class="ui-slider-handle ui-state-default 
+			<a style="left: 0%;" class="ui-slider-handle ui-state-default
 ui-corner-all" href="#"></a>
 		</dd>			
-<dt class="ui_tpicker_second_label" 
+<dt class="ui_tpicker_second_label"
 id="ui_tpicker_second_label_hora">
 Segundo
 </dt>
 
 		<dd class="ui_tpicker_second ui-slider ui-slider-horizontal ui-
 widget ui-widget-content ui-corner-all" id="ui_tpicker_second_hora">
-			<a style="left: 0%;" class="ui-slider-handle ui-state-default 
+			<a style="left: 0%;" class="ui-slider-handle ui-state-default
 ui-corner-all" href="#"></a>
 		</dd>
 	</dl>

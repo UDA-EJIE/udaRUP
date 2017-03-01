@@ -2,30 +2,29 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [Componentes RUP – Árbol](#componentes-rup-–-árbol)   
    - [1 Introducción](#1-introducción)   
    - [2 Ejemplo](#2-ejemplo)   
    - [3 Casos de uso](#3-casos-de-uso)   
    - [4 Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#41-ficheros)   
-      - [4.2 Dependencias](#42-dependencias)   
-      - [4.3 Versión minimizada](#43-versión-minimizada)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
    - [5 Invocación](#5-invocación)   
    - [6 Obtención de los datos](#6-obtención-de-los-datos)   
-      - [6.1 Html](#61-html)   
-      - [6.2 JSON](#62-json)   
-      - [6.3 XML](#63-xml)   
-      - [6.4 Carga mediante Ajax](#64-carga-mediante-ajax)   
+      - [6.1 Html](#6.1-html)   
+      - [6.2 JSON](#6.2-json)   
+      - [6.3 XML](#6.3-xml)   
+      - [6.4 Carga mediante Ajax](#6.4-carga-mediante-ajax)   
    - [7 Plugins](#7-plugins)   
-      - [7.1 Core](#71-core)   
-         - [7.1.1 Propiedades](#711-propiedades)   
-         - [7.1.2 Funciones](#712-funciones)   
-      - [7.2 Checkbox](#72-checkbox)   
-      - [7.3 Menú contextual](#73-menú-contextual)   
-      - [7.4 Ordenación](#74-ordenación)   
-      - [7.5 Selección (UI)](#75-selección-ui)   
-      - [7.6 Theme](#76-theme)   
-      - [7.7 Nodos únicos](#77-nodos-únicos)   
+      - [7.1 Core](#7.1-core)   
+         - [7.1.1 Propiedades](#7.1.1-propiedades)   
+         - [7.1.2 Funciones](#7.1.2-funciones)   
+      - [7.2 Checkbox](#7.2-checkbox)   
+      - [7.3 Menú contextual](#7.3-menú-contextual)   
+      - [7.4 Ordenación](#7.4-ordenación)   
+      - [7.5 Selección (UI)](#7.5-selección-ui)   
+      - [7.6 Theme](#7.6-theme)   
+      - [7.7 Nodos únicos](#7.7-nodos-únicos)   
    - [8 Sobreescritura del theme](#8-sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
@@ -353,7 +352,7 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin sort pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
 
-###	7.5 Selección (UI)
+###	7.5 Selección UI
 El plugin UI gestiona la selección, deselección y resaltado de nodos.
 ![ui](img/rup.tree_5.png)
 

@@ -3,24 +3,23 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [Componentes RUP – Combo](#componentes-rup-–-combo)   
    - [1 Introducción](#1-introducción)   
    - [2 Ejemplo](#2-ejemplo)   
    - [3 Casos de uso](#3-casos-de-uso)   
    - [4 Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#41-ficheros)   
-      - [4.2 Dependencias](#42-dependencias)   
-      - [4.3 Versión minimizada](#43-versión-minimizada)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
    - [5 Invocación](#5-invocación)   
    - [6 API](#6-api)   
    - [7 Comunicación remota](#7-comunicación-remota)   
-      - [7.1 Option Groups Remotos](#71-option-groups-remotos)   
+      - [7.1 Option Groups Remotos](#7.1-option-groups-remotos)   
    - [8 Combos enlazados](#8-combos-enlazados)   
-      - [8.1 Local](#81-local)   
-      - [8.2 Remoto](#82-remoto)   
+      - [8.1 Local](#8.1-local)   
+      - [8.2 Remoto](#8.2-remoto)   
    - [9   Precarga de datos](#9-precarga-de-datos)   
-      - [9.1.    Carga a partir del elemento HTML select](#91-carga-a-partir-del-elemento-html-select)   
-      - [9.2 Carga a partir de un objeto JSON](#92-carga-a-partir-de-un-objeto-json)   
+      - [9.1.    Carga a partir del elemento HTML select](#9.1-carga-a-partir-del-elemento-html-select)   
+      - [9.2 Carga a partir de un objeto JSON](#9.2-carga-a-partir-de-un-objeto-json)   
    - [10  Sobreescritura del theme](#10-sobreescritura-del-theme)   
    - [11  Integración con UDA](#11-integración-con-uda)   
 
@@ -92,6 +91,7 @@ $("#id_input").rup_combo (properties);
 Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
 ##  6 API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.combo.md).
 
 ##  7 Comunicación remota
 El componente Combo permite recuperar los datos almacenados en base de datos. En el método del *controller* que recibe la petición se invocará  al servicio encargado de recuperar los datos. Como no se va a realizar ningún filtrado por algún campo de la entidad ni se requiere de paginación, los parámetros serán **null, null:**
@@ -379,7 +379,7 @@ Se indica que las entidades utilizadas se serialicen en el retorno del controlle
 La recuperación los datos proporcionados por el servidor de aplicaciones, se realiza mediante una petición AJAX. Con el objeto de minimizar el número de peticiones realizadas por el componente combo, se posibilita el realizar una precarga de los datos que va a presentar el combo sin necesidad de realizar la primera petición AJAX.
 Se proporcionan dos mecanismos para permitir realizar la carga inicial de los datos del combo:
 
-### 9.1.	Carga a partir del elemento HTML select
+### 9.1	Carga a partir del elemento HTML select
 En este caso el componente combo toma los valores existentes en los tag option del elemento select como valores a precargar. En el caso de que el componente deba de actualizar los datos en base a una acción del usuario, se realizará mediante una petición AJAX.
 
 A continuación se muestra un ejemplo de la implementación que se debería de realizar para que una invocación al componente combo utilice los datos existentes en un combo HTML para inicializarse.

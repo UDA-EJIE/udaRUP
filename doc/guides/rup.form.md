@@ -2,52 +2,56 @@
 
 
 
-> +	1.[Introducción](#introduccion)
-> +	2.[Ejemplo](#ejemplo)
-> +	3.[Casos de uso](#casos-de-uso)
-> +	4.[Infraestructura](#infraestrucura)
-> 	+	4.1	[Ficheros](#ficheros)
-> 	+	4.2 [Dependencias](#dependencias)
-> 	+	4.3 [Versón minimizada](#version-minimizada)
-> +	5.[Invocación](#invocacion)
-> +	6.[API](#api)
-> +	7.[Integración con UDA](#integracion-con-uda)
-> +	7.1[Envío y recepción de datos](#envio-recepcion-con-uda)
-> +	7.2[Envío de múltiples endtidades](#envio-de-multiples-entidades)
-> +	7.3[Subida de ficheros](#subida-de-ficheros)
-> +	8.[Interacción con otros componentes RUP](#interaccion-con-otros-componentes-rup)
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Integración con UDA](#7-integración-con-uda)   
+      - [7.1 Envío y recepción de datos](#7.1-envío-y-recepción-de-datos)   
+      - [7.2 Envío de múltiples entidades](#7.2-envío-de-múltiples-entidades)   
+      - [7.3 Subida de ficheros](#7.3-subida-de-ficheros)   
+   - [8   Interacción con otros componentes RUP](#8-interacción-con-otros-componentes-rup)   
+
+<!-- /MDTOC -->
 
 
 <a id="introduccion"></a>
-##1	Introducción
+##  1	Introducción
 
 La descripción del ***Componente Formulario***, visto desde el punto de vista de RUP, es la siguiente:
 *Permite al usuario introducir datos en una serie de campos para ser enviados al servidor y ser procesados.*
 
 <a id="ejemplo"></a>
-##2	Ejemplo
+##  2	Ejemplo
 Se presenta a continuación un ejemplo de este componente:
 ![ejemplo](img/rup.form_1.png)
 
 <a id="casos-de-uso"></a>
-##3	Casos de uso
+##  3	Casos de uso
 Se aconseja la utilización de este componente:
 +	Cuando sea necesario enviar formularios vía AJAX.
 
 <a id="infraestrucura"></a>
-##4	Infraestructura 
+##  4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Únicamente se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.
 
 <a id="ficheros"></a>
-###4.1	Ficheros
+### 4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.form-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.form-x.y.z.css**
 
 <a id="dependencias"></a>
-###4.2	Dependencias
+### 4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript **jQuery**, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 
 +	**jQuery 1.12.4**: http://jquery.com/
@@ -69,7 +73,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.form-x.y.z.js
 ```
 <a id="version-minimizada"></a>
-###4.3	Versión minimizada
+### 4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 Los ficheros minimizados de RUP son los siguientes:
 +	**rup/scripts/min/rup.min-x.y.z.js**
@@ -79,7 +83,7 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 
 
 <a id="invocacion"></a>
-##5	Invocación
+##  5	Invocación
 El componente formulario se invoca sobre un formulario html existente en la jsp. El formulario contendrá los campos que se desean enviar.
 
 Un ejemplo de un formulario que se desee enviar es el siguiente:
@@ -105,14 +109,15 @@ $("#formulario").rup_form(properties);
 Como ya se profundizará mas adelante, mediante las propiedades indicadas en la invocación del componente, se realiza la configuración del mismo.
 
 <a id="api"></a>
-##6	API
+##  6	API
+Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.form.md).
 
 <a id="integracion-con-uda"></a>
-##7	Integración con UDA
+##  7	Integración con UDA
 En este apartado se va a explicar las diferentes interacciones que realiza el componente con el resto de subsistemas definidos en UDA.
 
 <a id="envio-y-recepcion-de-datos"></a>
-###7.1	Envío y recepción de datos
+### 7.1	Envío y recepción de datos
 El componente formulario realiza, por defecto, el envío de los datos en formato application/json, excepto en los casos en los que se ha especificado otro formato de envío o cuando se debe realizar envío de un fichero. El envío de ficheros se detallará en un apartado posterior.
 Una vez explicado este punto, se presentan dos escenarios al realizar el envío del formulario:
 •	El contenido del formulario se envía en formato *application/json*. En este caso el data binding de estos datos se realiza sobre el parámetro del controller anotado mediante *@RequestBody*. El proceso de data binding del formulario enviado en formato *application/json* se realiza mediante el componente *Jackson JSON Processor*. El uso y configuración del mismo se detalla en el documento correspondiente.
@@ -134,7 +139,7 @@ public @ResponseBody Alumno edit(@ModelAttribute Alumno alumno){
 ```
 
 <a id="envio-de-multiples-entidades"></a>
-###7.2	Envío de múltiples entidades
+### 7.2	Envío de múltiples entidades
 El componente formulario permite, junto con el uso del componente Jackson, el envío y recepción de datos de múltiples entidades dentro de la misma petición.
 
 Supongamos que se debe de enviar desde la capa de presentación cierta información introducida por el usuario. El *databinding* de estos datos debe de ser realizado sobre dos beans entre los cuales no existe anidamiento:
@@ -193,7 +198,7 @@ success:function(xhr){
 },
 validate:{
     rules:{
-        // Reglas de validación necesarias	
+        // Reglas de validación necesarias
     }
 }
 });
@@ -227,14 +232,14 @@ En el objeto json se envía la siguiente información:
 
 ```java
 @RequestMapping(value = "form/multientidades", method = RequestMethod.POST)
-public @ResponseBody Object getFormmMultientidades(@RequestBody Map<String, Object> 
+public @ResponseBody Object getFormmMultientidades(@RequestBody Map<String, Object>
 multiModelMap) {
 
 // Obtención del alumno
 Alumno alumno = (Alumno)multiModelMap.get("alumno");
 
 // Obtención del departamento
-Departamento departamento = 
+Departamento departamento =
 (Departamento)multiModelMap.get("departamento");
 }
 ```
@@ -272,7 +277,7 @@ success:function(xhr){
 },
 validate:{
     rules:{
-        // Reglas de validación necesarias	
+        // Reglas de validación necesarias
     }
 }
 });
@@ -281,7 +286,7 @@ validate:{
 Por su parte, el método del controller encargado de la recepción de las entidades sería el siguiente:
 ```java
 @RequestMapping(value = "/multientidades", method = RequestMethod.POST)
-public @ResponseBody Object getFormmMultientidades(@RequestBody Map<String, Object> 
+public @ResponseBody Object getFormmMultientidades(@RequestBody Map<String, Object>
 multiModelMap) {
 
 // Obtención de la entidad comarca1
@@ -295,7 +300,7 @@ Comarca comarca3 = (Comarca)multiModelMap.get("comarca3");
 }
 ```
 <a id="subida-de-ficheros"></a>
-###7.3	Subida de ficheros
+### 7.3	Subida de ficheros
 Para realizar la subida de ficheros basta con incorporar un campo file al formulario que se va a enviar. El componente formulario detecta que debe de gestionar la subida de un fichero y actúa en consecuencia.
 
 La principal diferencia respecto al envío de una petición normal es que se realiza mediante una *multipart/form-data* en lugar de una  *application/x-www-form-urlencoded*.
@@ -344,17 +349,17 @@ public void subirFichero(
 	@RequestParam(value="fichero", required=false) MultipartFile fichero) {
 
 // Procesado del fichero
-			
+
 }
 ```
 
 ```
-IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador. 
+IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador.
  La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings, http error code, validaciones…) se detalla en el anexo Anexo-Emulacion_xhr_iframes.doc
 ```
 
 <a id="interaccion-con-otros-componentes-rup"></a>
-##8	Interacción con otros componentes RUP
+##  8	Interacción con otros componentes RUP
 Para facilitar la gestión de los formularios de la aplicación, se ha tratado de facilitar la validación de los campos del formulario. Para ello se ha integrado en el componente formulario el uso del componente validación.
 
 La configuración de las validaciones que se deben de aplicar a los campos del formulario se realiza del mismo modo que se describe en el documento de uso del componente validación. Las opciones de configuración del componente validación se indican en la propiedad *validate* del las opciones de configuración del componente formulario.
@@ -375,4 +380,3 @@ $("#formulario").rup_form({
 ```
 
 La configuración referente al proceso de validación se detalla en la guía de uso del componente RUP validación.
-

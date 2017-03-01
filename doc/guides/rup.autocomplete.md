@@ -1,19 +1,19 @@
-#Componentes RUP – Autocomplete
+#	Componentes RUP – Autocomplete
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1. Introducción](#1-introducción)   
-   - [2. Ejemplo](#2-ejemplo)   
-   - [3. Casos de uso](#3-casos-de-uso)   
-   - [4. Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#41-ficheros)   
-      - [4.2 Dependencias](#42-dependencias)   
-      - [4.3. Versión minimizada](#43-versión-minimizada)   
-   - [5. Invocación](#5-invocación)   
-   - [6. API](#6-api)   
-   - [7. Sobreescritura del theme](#7-sobreescritura-del-theme)   
-      - [8.  Internacionalización (i18n)](#8-internacionalización-i18n)   
-   - [9. Integración con UDA](#9-integración-con-uda)   
+   - [1. Introducción](#1.-introducción)   
+   - [2. Ejemplo](#2.-ejemplo)   
+   - [3. Casos de uso](#3.-casos-de-uso)   
+   - [4. Infraestructura](#4.-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5. Invocación](#5.-invocación)   
+   - [6. API](#6.-api)   
+   - [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
+   - [8.  Internacionalización (i18n)](#8.-internacionalización-i18n)   
+   - [9. Integración con UDA](#9.-integración-con-uda)   
 
 <!-- /MDTOC -->
 
@@ -66,7 +66,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 * rup.autocomplete-x.y.z.js
 * theme.rup.autocomplete-x.y.z.css
 
-### 4.3. Versión minimizada
+### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
@@ -132,7 +132,7 @@ Ejemplo base de la estructura generada por el componente:
 </ul>
 ```
 
-### 8.	Internacionalización (i18n)
+### 8.	Internacionalización i18n
 La internacionalización se realiza mediante el fichero de recursos definido para la aplicación que se encontrará en la parte estática bajo *codAplic/resources/codAplic.i18n.json* (con sus variantes según idioma ej: *codAplic/resources/codAplic.i18n_es.json*). En dicho fichero se deberá declarar un objeto JSON cuyo nombre sea el mismo que el id del elemento *html* sobre el que se aplica el componente.
 
 Ejemplo:
