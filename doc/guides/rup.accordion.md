@@ -51,10 +51,10 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 ### 4.2 Dependencias
 
-Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 1.12.4.
+Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
 * **jQuery 1.12.4**: http://jquery.com/
 
-La gestión de ciertas partes visuales de los componentes, se han realizado mediante el plugin jQuery-UI que se basa en jQuery y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la 1.12.0.
+La gestión de ciertas partes visuales de los componentes, se han realizado mediante el *plugin* **jQuery-UI** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este *plugin*, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la **1.12.0**.
 
 * **jQuery-UI 1.12.0**: http://jqueryui.com/
 
@@ -69,19 +69,19 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 
 ### 4.3 Versión minimizada
 
-++A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.++
+A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
 
-++Los ficheros minimizados de RUP son los siguientes:++
+Los ficheros minimizados de RUP son los siguientes:
 * **rup/scripts/min/rup.min-x.y.z.js**
 * **rup/basic-theme/rup.min-x.y.z.css**
 
-++Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.++
+Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
 ## 5. Invocación
 
-La primera noción que se ha de tener en cuenta para el correcto manejo e inclusión del componente Accordion dentro de un pagina jsp es la asociación del componente a un elemento estructural ```<div>``` de html. La determinación del elemento ```<div>``` es determinará la ubicación y el contenido del componente dentro de la página.
+La primera noción que se ha de tener en cuenta para el correcto manejo e inclusión del componente Accordion dentro de un pagina *jsp* es la asociación del componente a un elemento estructural `<div>` de *html*. La determinación del elemento `<div>` es determinará la ubicación y el contenido del componente dentro de la página.
 
-Para poder relacionar el componente Accordion con el ```<div>``` sobre el que se aplica, debe ir, como marcan las especificaciones de html, identificado por un id (identificador) único. Dicho id (identificador) representa al elemento dentro de la infraestructura de la página y facilita la localización y manejo del mismo. Un ejemplo de ```<div>``` identificado tiene el siguiente aspecto:
+Para poder relacionar el componente Accordion con el `<div>` sobre el que se aplica, debe ir, como marcan las especificaciones de *html*, identificado por un id (identificador) único. Dicho id (identificador) representa al elemento dentro de la infraestructura de la página y facilita la localización y manejo del mismo. Un ejemplo de `<div>` identificado tiene el siguiente aspecto:
 
 ```xml
 <div id="accordionExample" class="rup_accordion">
