@@ -44,7 +44,7 @@ requirejs.config({
         "jquery.form": "../../node_modules/jquery-form/jquery.form",
         "jquery.validate": "../../node_modules/jquery-validation/dist/jquery.validate",
         "jquery.validate.additional": "../../node_modules/jquery-validation/dist/additional-methods",
-        "jquery.scrollTo": "../../node_modules/jquery.scrollTo/jquery.scrollTo",
+        "jquery.scrollTo": "../../node_modules/jquery.scrollto/jquery.scrollTo",
 
         "jquery.fileupload": "../../node_modules/blueimp-file-upload/js/jquery.fileupload",
         "jquery.fileupload-ui": "../../node_modules/blueimp-file-upload/js/jquery.fileupload-ui",
