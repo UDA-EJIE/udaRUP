@@ -8,8 +8,6 @@
     "test": "test"
   },
   "scripts": {
-    "install": "gulp build",
-    "test": "gulp karma"
   },
   "repository": {
     "type": "git",
