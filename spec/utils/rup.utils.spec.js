@@ -1,3 +1,16 @@
+
+(function (factory) {
+      if (typeof define === "function" && define.amd) {
+
+          // AMD. Register as an anonymous module.
+          define(['jquery','rup/rup.utils'], factory);
+      } else {
+
+          // Browser globals
+          factory(jQuery);
+      }
+  }(function ($) {
+
   describe("RUP Utils Tests", function(){
 
       /*
@@ -68,7 +81,16 @@
           it("debería transformar un json obj={'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}, 'propB':'d'", function(){
               var jsonObj, arrObj, expectedObj;
 
-              jsonObj = {'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}};
+              jsonObj = {
+                'propA':{
+                  'propAA':[
+                    {'propAAA': 'a'},
+                    {'propAAB':'b'},
+                    {'propAAC':'c'}
+                  ]
+                },
+                'propB':'d'
+              };
               expectedObj = [];
               expectedObj['propA.propAA[0].propAAA'] = 'a';
               expectedObj['propA.propAA[1].propAAB'] = 'b';
@@ -169,3 +191,4 @@
           });
        });
   });
+}));

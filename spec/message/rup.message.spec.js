@@ -3,7 +3,7 @@
       if (typeof define === "function" && define.amd) {
 
           // AMD. Register as an anonymous module.
-          define(['jquery','handlebars','jasmine-jquery','rup/rup.message'], factory);
+          define(['jquery','handlebars','rup/rup.message'], factory);
       } else {
 
           // Browser globals
@@ -52,7 +52,7 @@
               });
 
               it("deberia de existir al menos el botón de Aceptar", function(){
-                  expect($(".ui-dialog-buttonset button span.ui-button-text",$messageButtonpaneDiv)).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_message.aceptar"));
+                  expect($(".ui-dialog-buttonset button",$messageButtonpaneDiv)).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_message.aceptar"));
               });
           });
 
@@ -168,11 +168,11 @@
               expect($(".ui-dialog>.ui-dialog-content > div.rup-message_icon-confirm")).toExist();
           });
 
-          it("debería de existir un enlace en la botonera que permia cancelar", function(){
+          it("debería de existir un enlace en la botonera que permita cancelar", function(){
               expect($(".ui-dialog .ui-dialog-buttonset a.rup-enlaceCancelar")).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_global.cancel"));
           });
 
-          //FIXME
+          // FIXME
           // it("debería de ejecutarse el callback del botón de aceptar", function(){
           //
           //     //spyOn(callbacks, 'fncOkFunction');

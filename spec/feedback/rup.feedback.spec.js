@@ -3,7 +3,7 @@
       if (typeof define === "function" && define.amd) {
 
           // AMD. Register as an anonymous module.
-          define(['jquery','handlebars','jasmine-jquery','rup/rup.feedback'], factory);
+          define(['jquery','handlebars','rup/rup.feedback'], factory);
       } else {
 
           // Browser globals
@@ -49,7 +49,7 @@
 
                   expect($closeLink).toExist();
                   expect($closeLink).toHaveClass("rup-feedback_closeLink");
-                  expect($closeLink).toContainText("cerrar");
+                  expect($closeLink).toContainText('cerrar');
               });
 
               it("debería de tener correctamente asigando el texto", function(){

@@ -63,7 +63,7 @@
       it("debería de inicializarse el RUP Autocomplete", function(){
         expect($autocomplete).toHaveAttr("ruptype","autocomplete");
         expect($autocomplete).toHaveClass("rup-autocomplete_label ui-autocomplete-input");
-        expect($autocomplete.data("autocomplete")).not.toBe(undefined);
+        expect($autocomplete.data("ui-autocomplete")).not.toBe(undefined);
       });
 
       it("deberia de tener un id con sufijo '_label'", function(){

@@ -31,6 +31,7 @@ require.config({
       "handlebars-i18n": "../js/handlebars-helper-i18n",
       "jquery-json": "../src/core/utils/jquery.json-2.2",
       "blockUI": "../node_modules/block-ui/jquery.blockUI",
+      "qtip2": "../node_modules/qtip2/dist/jquery.qtip",
 
       "specs": "specs"
   },
@@ -49,4 +50,11 @@ require.config({
       "deps": ["jquery","jquery-migrate"]
     }
   }
+});
+
+require(['jasmine-boot'], function () {
+  require(['specs'], function(){
+    //trigger Jasmine
+    window.onload();
+  })
 });

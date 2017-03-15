@@ -87,8 +87,8 @@
               $content.html('');
           });
 
-          it("debería disponer de los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset ui-accordion-icons rup_accordion_create)" , function(){
-              expect($accordion).toHaveClass("ui-accordion ui-widget ui-helper-reset ui-accordion-icons rup_accordion_create");
+          it("debería disponer de los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset rup_accordion_create)" , function(){
+              expect($accordion).toHaveClass("ui-accordion ui-widget ui-helper-reset rup_accordion_create");
           });
 
           it("debería asignar los estilos correspondientes a las secciones h1 (ui-accordion-header)", function(){

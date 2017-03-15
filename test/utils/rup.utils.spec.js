@@ -70,7 +70,16 @@ define(['rup/rup.utils'], function() {
           it("debería transformar un json obj={'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}, 'propB':'d'", function(){
               var jsonObj, arrObj, expectedObj;
 
-              jsonObj = {'propA':{'propAA':[{'propAAA': 'a'},{'propAAB':'b'},{'propAAC':'c'}]}};
+              jsonObj = {
+                'propA':{
+                  'propAA':[
+                    {'propAAA': 'a'},
+                    {'propAAB':'b'},
+                    {'propAAC':'c'}
+                  ]
+                },
+                'propB':'d'
+              };
               expectedObj = [];
               expectedObj['propA.propAA[0].propAAA'] = 'a';
               expectedObj['propA.propAA[1].propAAB'] = 'b';
