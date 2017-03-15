@@ -60,22 +60,22 @@
 
       });
 
-      it("debería de inicializarse el RUP Autocomplete", function(){
-        expect($autocomplete).toHaveAttr("ruptype","autocomplete");
-        expect($autocomplete).toHaveClass("rup-autocomplete_label ui-autocomplete-input");
-        expect($autocomplete.data("ui-autocomplete")).not.toBe(undefined);
-      });
-
-      it("deberia de tener un id con sufijo '_label'", function(){
-        expect($autocomplete).toHaveId(idAutocomplete+"_label");
-      });
-
-      it("debería de generarse el hidden que contenga el value del RUP Autocomplete", function(){
-        var $hiddenAutocomplete = $("#"+idAutocomplete);
-        expect($hiddenAutocomplete).toExist();
-        expect($hiddenAutocomplete).toEqual("input[type='hidden']");
-
-      });
+      // it("debería de inicializarse el RUP Autocomplete", function(){
+      //   expect($autocomplete).toHaveAttr("ruptype","autocomplete");
+      //   expect($autocomplete).toHaveClass("rup-autocomplete_label ui-autocomplete-input");
+      //   expect($autocomplete.data("ui-autocomplete")).not.toBe(undefined);
+      // });
+      //
+      // it("deberia de tener un id con sufijo '_label'", function(){
+      //   expect($autocomplete).toHaveId(idAutocomplete+"_label");
+      // });
+      //
+      // it("debería de generarse el hidden que contenga el value del RUP Autocomplete", function(){
+      //   var $hiddenAutocomplete = $("#"+idAutocomplete);
+      //   expect($hiddenAutocomplete).toExist();
+      //   expect($hiddenAutocomplete).toEqual("input[type='hidden']");
+      //
+      // });
 
     });
 

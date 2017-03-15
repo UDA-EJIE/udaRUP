@@ -3,7 +3,7 @@
       if (typeof define === "function" && define.amd) {
 
           // AMD. Register as an anonymous module.
-          define(['jquery','handlebars','rup/rup.accordion'], factory);
+          define(['jquery','handlebars','jasmine-jquery','rup/rup.accordion'], factory);
       } else {
 
           // Browser globals

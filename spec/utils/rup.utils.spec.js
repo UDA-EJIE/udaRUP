@@ -121,32 +121,32 @@
       /*
       * Tests del método firstCharToLowerCase
       */
-      describe("Tests del método elementFromPoint", function(){
-
-          var obj;
-
-          beforeAll(function(){
-              obj = jQuery("<div>").attr({
-                 "id":"elementDiv"
-              }).css({
-                  width:"40px",
-                  height:"40px",
-                  position:"absolute",
-                  top:0,
-                  left:0
-              }).appendTo("body");
-          });
-
-          it("debería identificar correctamente el objeto creado a partir de las coordenadas proporcionadas", function(){
-              var tmpObj = $.rup_utils.elementFromPoint(20,20);
-              expect(obj).toEqual(tmpObj);
-          });
-          it("no debería de obtener el objeto ya que las coordenadas no se corresponden con donde se visualiza el elemento", function(){
-
-              var tmpObj = $.rup_utils.elementFromPoint(50,20);
-              expect(obj).not.toEqual(tmpObj);
-          });
-       });
+      // describe("Tests del método elementFromPoint", function(){
+      //
+      //     var obj;
+      //
+      //     beforeAll(function(){
+      //         obj = jQuery("<div>").attr({
+      //            "id":"elementDiv"
+      //         }).css({
+      //             width:"40px",
+      //             height:"40px",
+      //             position:"absolute",
+      //             top:0,
+      //             left:0
+      //         }).appendTo("body");
+      //     });
+      //
+      //     it("debería identificar correctamente el objeto creado a partir de las coordenadas proporcionadas", function(){
+      //         var tmpObj = $.rup_utils.elementFromPoint(20,20);
+      //         expect(obj).toEqual(tmpObj);
+      //     });
+      //     it("no debería de obtener el objeto ya que las coordenadas no se corresponden con donde se visualiza el elemento", function(){
+      //
+      //         var tmpObj = $.rup_utils.elementFromPoint(50,20);
+      //         expect(obj).not.toEqual(tmpObj);
+      //     });
+      //  });
 
       /*
       * Tests del método firstCharToLowerCase

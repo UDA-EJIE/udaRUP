@@ -33,7 +33,8 @@ require.config({
       "blockUI": "../node_modules/block-ui/jquery.blockUI",
       "qtip2": "../node_modules/qtip2/dist/jquery.qtip",
 
-      "specs": "specs"
+      "specs": "specs",
+      "karma-specs": "karma-specs"
   },
   // shim: makes external libraries compatible with requirejs (AMD)
   shim: {
