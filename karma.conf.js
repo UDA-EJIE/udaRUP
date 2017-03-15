@@ -42,7 +42,7 @@ module.exports = function(config) {
       { pattern: 'i18n/*.json', watched: true, served: true, included: false},
       { pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
       { pattern: "node_modules/handlebars/dist/handlebars.js", included: false },
-      { pattern: "js/handlebars-helper-i18n.js", included: false },
+      { pattern: "src/helper/handlebars-helper-i18n.js", included: false },
       //{ pattern: "src/core/utils/jquery.json-2.2.js", included: false },
       { pattern: "node_modules/block-ui/jquery.blockUI.js", included: false },
       { pattern: "node_modules/qtip2/dist/jquery.qtip.js", included: false },
@@ -155,7 +155,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

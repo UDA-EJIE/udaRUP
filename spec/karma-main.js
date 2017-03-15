@@ -44,7 +44,7 @@ require.config({
       "jquery-migrate": "node_modules/jquery-migrate/dist/jquery-migrate",
       "jquery-ui": "node_modules/jquery-ui-dist/jquery-ui",
       "handlebars": "node_modules/handlebars/dist/handlebars",
-      "handlebars-i18n": "js/handlebars-helper-i18n",
+      "handlebars-i18n": "src/helper/handlebars-helper-i18n",
       "jquery-json": "src/core/utils/jquery.json-2.2",
       "blockUI": "node_modules/block-ui/jquery.blockUI",
       "qtip2": "node_modules/qtip2/dist/jquery.qtip",
