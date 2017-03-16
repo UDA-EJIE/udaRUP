@@ -10,8 +10,8 @@ El catálogo de patrones disponible puede consultarse desde la [wiki](https://gi
 
 Existen una serie de documentos disponibles:
 
-* [Instalación](UDA-EJIE/udaRUP/doc/INSTALL.md): Es el documento que explica la instalación del software necesario para el desarrolo, testing y ejecución del proyecto de udaRUP.
-* [Testing](UDA-EJIE/udaRUP/doc/TESTING.md): Detalla el proceso de instalación y configuración del entorno de test del proyecto de udaRUP.
+* [Instalación](https://github.com/UDA-EJIE/udaRUP/blob/develop/doc/INSTALL.md): Es el documento que explica la instalación del software necesario para el desarrolo, testing y ejecución del proyecto de udaRUP.
+* [Testing](https://github.com/UDA-EJIE/udaRUP/blob/develop/doc/TESTING.md): Detalla el proceso de instalación y configuración del entorno de test del proyecto de udaRUP.
 
 Una vez instalado y configurado correctamente el entorno estas son las funcionalidades disponibles:
 
@@ -80,10 +80,10 @@ El resultado de los test se genera en test/test_results.html
 
 En el caso de que se desee actualizar una aplicación desarrollada con una versión v2.x de UDA a la versión actual v3.x, se deberán de acometer las modificaciones indicadas en los documentos de migración.
 
-* [Migración](UDA-EJIE/udaRUP/doc/TESTING.md): Detalla los pasos a seguir para actualizar una apliación a la versión v3.x de UDA.
+* [Migración](https://github.com/UDA-EJIE/udaRUP/blob/develop/doc/MIGRACION.md): Detalla los pasos a seguir para actualizar una apliación a la versión v3.x de UDA.
 
 > En el documento de migración solo se detallan los pasos a seguir para mantener la compatibilidad de la aplicación a nivel de API publica y funcionalidades de los componentes RUP y uso de liberías Java empleadas por UDA.
 
 > En el caso de que se hayan utilizado directamente funcionalidades o se haya hecho uso directamente de la API de las liberías subyacentes directamente se deberán de realizar modificaciones de acuerdo a los cambios introducidos por estas librerías.
 
-> Se han recopilado los problemas de compatibilidad mas comunes que pueden darse el el siguiente [documento](UDA-EJIE/udaRUP/doc/COMPONENTES.md).  
+> Se han recopilado los problemas de compatibilidad mas comunes que pueden darse el el siguiente [documento](https://github.com/UDA-EJIE/udaRUP/blob/develop/doc/COMPONENTES.md).  
