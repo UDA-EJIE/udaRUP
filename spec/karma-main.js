@@ -38,7 +38,7 @@ require.config({
   paths: {
       'jasmine': ['node_modules/jasmine-core/lib/jasmine-core/jasmine'],
       'jasmine-html': ['node_modules/jasmine-core/lib/jasmine-core/jasmine-html'],
-      'jasmine-boot': ['node_modules/jasmine-core/lib/jasmine-core/boot'],
+    //  'jasmine-boot': ['node_modules/jasmine-core/lib/jasmine-core/boot'],
       'jasmine-jquery': ['node_modules/jasmine-jquery/lib/jasmine-jquery'],
       "jquery": "node_modules/jquery/dist/jquery",
       "jquery-migrate": "node_modules/jquery-migrate/dist/jquery-migrate",
@@ -49,7 +49,7 @@ require.config({
       "blockUI": "node_modules/block-ui/jquery.blockUI",
       "qtip2": "node_modules/qtip2/dist/jquery.qtip",
 
-      "specs": "spec/specs",
+      //"specs": "spec/specs",
       "karma-specs": "spec/karma-specs"
   },
   // shim: makes external libraries compatible with requirejs (AMD)

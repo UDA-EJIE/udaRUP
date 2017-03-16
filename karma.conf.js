@@ -30,7 +30,7 @@ module.exports = function(config) {
 
     //  'node_modules/requirejs/require.js',
 
-      { pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js', included: false},
+    //  { pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js', included: false},
       { pattern: 'spec/helpers/rup.karma.config.js'},
       //{ pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js'},
       //{ pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js'},
@@ -69,10 +69,10 @@ module.exports = function(config) {
       'karma-firefox-launcher',
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
-      'karma-handlebars-preprocessor',
-      'karma-ie-launcher',
-      'karma-htmlfile-reporter',
-      'karma-mocha-reporter'
+      'karma-handlebars-preprocessor'
+    //  'karma-ie-launcher',
+    //  'karma-htmlfile-reporter',
+    //  'karma-mocha-reporter'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -103,7 +103,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', 'html'],
+    //reporters: ['mocha', 'html'],
     // htmlReporter: {
     //   outputDir: 'karma_html', // where to put the reports
     //   templatePath: null, // set if you moved jasmine_template.html
@@ -118,16 +118,16 @@ module.exports = function(config) {
     //   preserveDescribeNesting: false, // folded suites stay folded
     //   foldAll: false, // reports start folded (only with preserveDescribeNesting)
     // },
-    htmlReporter: {
-      outputFile: 'test/test_results.html',
-
-      // Optional
-      pageTitle: 'Unit Tests',
-      subPageTitle: 'A sample project description',
-  	  groupSuites: true,
-  	  useCompactStyle: true,
-      useLegacyStyle: false
-    },
+    // htmlReporter: {
+    //   outputFile: 'test/test_results.html',
+    //
+    //   // Optional
+    //   pageTitle: 'Unit Tests',
+    //   subPageTitle: 'A sample project description',
+  	//   groupSuites: true,
+  	//   useCompactStyle: true,
+    //   useLegacyStyle: false
+    // },
 
 
     // web server port
