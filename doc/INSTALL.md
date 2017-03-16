@@ -4,9 +4,9 @@ En el presente documento se van a indicar los pasos a seguir para configurar el 
 
 El proyecto de udaRUP hace uso de una serie de recursos para facilitar el desarrollo.
 
-* Git
-* Node.js
-* Gulp
+* [Git](https://git-scm.com/): Git es necesario para la instalación de paquetes y dependencias.
+* [Node.js](https://nodejs.org): Se utiliza Node para la generación de documentación, iniciar un servidor web para la aplicación de demostración, la ejecución de tests y para generar los ficheros distribuibles.
+* [Gulp](http://gulpjs.com/): Se emplea Gulp como sistema de generación y automatización de tareas. Se deberá de instalar de manera global:
 
 ## Git
 

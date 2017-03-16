@@ -24,7 +24,7 @@ var express = require('express'),
 
 //var ldb = new LokiDb();
 LokiDb.log();
-LokiDb.setText("prueba1");
+LokiDb.setText("Iniciando...");
 console.log(LokiDb.getText());
 LokiDb.initialize();
 
@@ -43,11 +43,30 @@ app.use(function(req, res, next) {
 app.use(express.static('./'));
 
 app.get('/', function(req, res){
+  if (req.cookies.language===undefined){
+    res.cookie("language" , 'es',{expire : new Date() + 9999});
+  }
+  res.redirect('/demoResponsive/index.html');
+});
+
+app.get('/test', function(req, res){
+  res.redirect('/spec/specRunner_require.html');
+});
+
+app.get('/app', function(req, res){
 
   if (req.cookies.language===undefined){
     res.cookie("language" , 'es',{expire : new Date() + 9999});
   }
   res.redirect('/demo/index.html');
+});
+
+app.get('/app', function(req, res){
+
+  if (req.cookies.language===undefined){
+    res.cookie("language" , 'es',{expire : new Date() + 9999});
+  }
+  res.redirect('/demoResponsive/index.html');
 });
 
 app.get('/demo/fragmento1', routesTabs.tabsContent1);
