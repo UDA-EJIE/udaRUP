@@ -58,7 +58,7 @@ Gulp.js es un build system(sistema de construcción) que permite automatizar tar
 Su instalación se realiza a través del gestor de paquetes de Node.js **npm**.
 
 ```bash
-$ npm install gulp-cli -g
+$ npm install -g gulp-cli
 ```
 
 La documentación y uso avanzado de Gulp se puede cosultar [aquí](http://gulpjs.com/).

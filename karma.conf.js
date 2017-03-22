@@ -39,7 +39,7 @@ module.exports = function(config) {
       { pattern: "node_modules/jquery/dist/jquery.js", included: false},
       { pattern: "node_modules/jquery-migrate/dist/jquery-migrate.js", included: false},
       { pattern: "node_modules/jquery-ui-dist/jquery-ui.js", included: false},
-      { pattern: 'i18n/*.json', watched: true, served: true, included: false},
+      { pattern: 'i18n/*.json', watched: false, included: true, served: true, nocache: false},
       { pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
       { pattern: "node_modules/handlebars/dist/handlebars.js", included: false },
       { pattern: "src/helper/handlebars-helper-i18n.js", included: false },
@@ -149,13 +149,13 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-    //browsers: ['Chrome'],
+    //browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
   //  browserNoActivityTimeout:30000,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
