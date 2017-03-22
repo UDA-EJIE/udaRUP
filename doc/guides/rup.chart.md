@@ -68,14 +68,14 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 ### 4.2 Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 1.12.4.
-* **jQuery 1.12.4**: http://jquery.com/
+* **jQuery 1.12.4**: <http://jquery.com/>
 
 La gestión de ciertas partes visuales de los componentes, se han realizado mediante el plugin jQuery-UI que se basa en jQuery y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la 1.12.0.
 
-* **jQuery-UI 1.12.0**: http://jqueryui.com/
+* **jQuery-UI 1.12.0**: <http://jqueryui.com/>
 
 Para la representación de gráficos se ha usado la librería *Chart.js* que permite la visualización de gráficos interactivos de una manera sencilla y con cientos de opciones usando etiquetas *HTML5* y con capacidades responsivas.
-* **Chart.js 2.5.0**: http://www.chartjs.org/
+* **Chart.js 2.5.0**: <http://www.chartjs.org/>
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
@@ -102,50 +102,49 @@ Los ficheros minimizados de RUP son los siguientes:
 Para crear un gráfico necesitamos instanciar la clase rup.chart. Para hacer esto, necesitamos pasar el selector CSS de un elemento canvas donde queramos dibujar el gráfico. Por ejemplo
 
 ```xml
-<canvas id="miGrafico" width="400" height="400"></canvas>
+  <canvas id="miGrafico" width="400" height="400"></canvas>
 ```
 
 El siguiente ejemplo instancia un gráfico de barras mostrando el número de votos para cada diferente color.
 
 
 ```javascript
- $("miGrafico").rup_chart({
-    type: 'bar',
-    data: {
-        labels: $.rup.i18n.app.charts.colorLabels,
-        datasets: [{
-            label:  $.rup.i18n.app.charts.votos,
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
+     $("miGrafico").rup_chart({
+        type: 'bar',
+        data: {
+            labels: $.rup.i18n.app.charts.colorLabels,
+            datasets: [{
+                label:  $.rup.i18n.app.charts.votos,
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
             }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
         }
-    }
-});
-
+    });
 ```
 
 
@@ -172,35 +171,35 @@ Un gráfico de barras muestra los datos como barras. Es usado para comparar muli
 ####	6.1.1	Datos
 
 ```javascript
-var data = {
-            labels: $.rup.i18n.app.charts.mesesLabels,
-            datasets: [{
-                label: $.rup.i18n.app.charts.dataset1,
-                data: [65, 59, 80, 81, 56, 55, 40]
-            }, {
-                label: $.rup.i18n.app.charts.dataset2,
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }]
-        };
+  var data = {
+              labels: $.rup.i18n.app.charts.mesesLabels,
+              datasets: [{
+                  label: $.rup.i18n.app.charts.dataset1,
+                  data: [65, 59, 80, 81, 56, 55, 40]
+              }, {
+                  label: $.rup.i18n.app.charts.dataset2,
+                  data: [28, 48, 40, 19, 86, 27, 90]
+              }]
+          };
 
  ```
 
 
 ####	6.1.2	Instanciación
 ```javascript
-        $('#miGrafico').rup_chart({
-            type: "bar",
-            data: data,
-			options:options
-        });
+          $('#miGrafico').rup_chart({
+              type: "bar",
+              data: data,
+  			options:options
+          });
 ```
 
 
 
 
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
-___
-###	6.2 Líneas
+__
+###   6.2 Líneas
 
 Un gráfico de líneas es una manera de trazar los puntos de datos en una línea . A menudo , se utiliza para mostrar los datos de tendencias , y la comparación de dos conjuntos de datos.
 ![](img/rup.chart_3.png)
@@ -208,41 +207,41 @@ Un gráfico de líneas es una manera de trazar los puntos de datos en una línea
 #### 6.2.1	Datos
 
 ```javascript
-var data = {
-    labels: $.rup.i18n.app.charts.mesesLabels,
-    datasets: [
-        {
-            label: $.rup.i18n.app.charts.dataset1,
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false,
-        }
-    ]
-};
+  var data = {
+      labels: $.rup.i18n.app.charts.mesesLabels,
+      datasets: [
+          {
+              label: $.rup.i18n.app.charts.dataset1,
+              fill: false,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data: [65, 59, 80, 81, 56, 55, 40],
+              spanGaps: false,
+          }
+      ]
+  };
  ```
 ####	6.2.2	 Instanciación
 ```javascript
-        $('#miGrafico').rup_chart({
-            type: "line",
-            data: data,
-			options:options
-        });
+      $('#miGrafico').rup_chart({
+          type: "line",
+          data: data,
+  			  options:options
+      });
 ```
 
 
@@ -257,38 +256,38 @@ Un gráfico de radar es una forma de mostrar múltiples puntos de datos y la var
 
 ```javascript
 var data = {
-    labels: $.rup.i18n.app.charts.radarLabels,
-    datasets: [
-        {
-            label: $.rup.i18n.app.charts.dataset1,
-            backgroundColor: "rgba(179,181,198,0.2)",
-            borderColor: "rgba(179,181,198,1)",
-            pointBackgroundColor: "rgba(179,181,198,1)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(179,181,198,1)",
-            data: [65, 59, 90, 81, 56, 55, 40]
-        },
-        {
-            label: $.rup.i18n.app.charts.dataset2,
-            backgroundColor: "rgba(255,99,132,0.2)",
-            borderColor: "rgba(255,99,132,1)",
-            pointBackgroundColor: "rgba(255,99,132,1)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(255,99,132,1)",
-            data: [28, 48, 40, 19, 96, 27, 100]
-        }
-    ]
-};
+      labels: $.rup.i18n.app.charts.radarLabels,
+      datasets: [
+          {
+              label: $.rup.i18n.app.charts.dataset1,
+              backgroundColor: "rgba(179,181,198,0.2)",
+              borderColor: "rgba(179,181,198,1)",
+              pointBackgroundColor: "rgba(179,181,198,1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(179,181,198,1)",
+              data: [65, 59, 90, 81, 56, 55, 40]
+          },
+          {
+              label: $.rup.i18n.app.charts.dataset2,
+              backgroundColor: "rgba(255,99,132,0.2)",
+              borderColor: "rgba(255,99,132,1)",
+              pointBackgroundColor: "rgba(255,99,132,1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(255,99,132,1)",
+              data: [28, 48, 40, 19, 96, 27, 100]
+          }
+      ]
+  };
  ```
 #### 6.3.2	Instanciación
 ```javascript
-        $('#miGrafico').rup_chart({
-            type: "radar",
-            data: data,
-			options:options
-        });
+          $('#miGrafico').rup_chart({
+              type: "radar",
+              data: data,
+  			options:options
+          });
 ```
 - **  Volver a [Tipo de Gráficos](#tipos-de-gráficos)**
 ___
@@ -302,23 +301,23 @@ Este tipo de gráfico suele ser útil cuando queremos mostrar una comparación d
 #### 6.4.1	Datos
 
 ```javascript
-var data = {
-    datasets: [{
-        data: [ 11,16,7,3,14],
-        backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"
-        ],
-        label: $.rup.i18n.app.charts.dataset1
-    }],
-    labels: $.rup.i18n.app.charts.colorLabels
-};
+  var data = {
+      datasets: [{
+          data: [ 11,16,7,3,14],
+          backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"
+          ],
+          label: $.rup.i18n.app.charts.dataset1
+      }],
+      labels: $.rup.i18n.app.charts.colorLabels
+  };
  ```
 #### 6.4.2	Instanciación
 ```javascript
-        $('#miGrafico').rup_chart({
-            type: "polarArea",
-            data: data,
-			options:options
-        });
+          $('#miGrafico').rup_chart({
+              type: "polarArea",
+              data: data,
+  			options:options
+          });
 ```
 
 Los gráficos de áreas polares son similares a gráficos de tartas , pero cada segmento tiene el mismo ángulo - el radio del segmento varía en función del valor.
@@ -334,36 +333,36 @@ Los gráficos de tarta y donuts son probablemente los gráficos más utilizados 
 #### 6.5.1	Datos
 
 ```javascript
-var data = {
-    labels: $.rup.i18n.app.charts.colorLabels,
-    datasets: [
-        {
-            data: [300, 50, 100],
-            backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ],
-            hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ]
-        }]
-};
+  var data = {
+      labels: $.rup.i18n.app.charts.colorLabels,
+      datasets: [
+          {
+              data: [300, 50, 100],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ]
+          }]
+  };
  ```
 #### 6.5.2	Instanciación
 ```javascript
-	$('#miGrafico').rup_chart({
-            type: "pie",
-            data: data,
-			options:options
-        });
-    $('#miGrafico').rup_chart({
-            type: "doughnut",
-            data: data,
-			options:options
-        });
+  	$('#miGrafico').rup_chart({
+              type: "pie",
+              data: data,
+  			options:options
+          });
+      $('#miGrafico').rup_chart({
+              type: "doughnut",
+              data: data,
+  			options:options
+          });
 ```
 
 

@@ -15,182 +15,178 @@
  */
 
 /**
- * @fileOverview Implementa el patrón RUP ContextMenu.
- * @author EJIE
- * @version 2.4.8
+ * Un menú contextual consta de un menú dentro de una interfaz gráfica que se muestra a partir de una interacción del usuario. El menú contextual muestra una serie de opciones disponibles en el contexto o estado actual de la aplicación.
+ *
+ * @summary Componente RUP ContextMenu.
+ * @module rup_contextMenu
+ * @example
+ * var properties = {
+ *  items : {
+ *       "edit": {name: "Edit", icon: "edit"},
+ *       "cut": {name: "Cut", icon: "cut"},
+ *       "copy": {name: "Copy", icon: "copy"},
+ *       "paste": {name: "Paste", icon: "paste"},
+ *       "delete": {name: "Delete", icon: "delete"},
+ *       "sep1": "---------",
+ *       "quit": {name: "Quit", icon: "quit"}
+ *   }
+ * };
+ *
+ * $('#contextMenu').rup_contextMenu(properties);
  */
- ( function( factory ) {
-  if ( typeof define === "function" && define.amd ) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
 
- 		// AMD. Register as an anonymous module.
- 		define( ["jquery","./rup.base","jquery-contextMenu" ], factory );
-  } else {
+        // AMD. Register as an anonymous module.
+        define(["jquery", "./rup.base", "jquery-contextMenu"], factory);
+    } else {
 
- 		// Browser globals
- 		factory( jQuery );
-  }
- } ( function( $ ) {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 
-	//****************************************************************************************************************
-	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-	//****************************************************************************************************************
+    //****************************************************************************************************************
+    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+    //****************************************************************************************************************
 
-    /**
-    * Un menú contextual consta de un menú dentro de una interfaz gráfica que se muestra a partir de una interacción del usuario. El menú contextual muestra una serie de opciones disponibles en el contexto o estado actual de la aplicación.
-    *
-    * @summary Componente RUP ContextMenu.
-    * @namespace jQuery.rup_contextMenu
-    * @memberOf jQuery
-    * @tutorial rup_contextMenu
-    * @example
-    * var properties = {
-	*  items : {
-    *       "edit": {name: "Edit", icon: "edit"},
-    *       "cut": {name: "Cut", icon: "cut"},
-    *       "copy": {name: "Copy", icon: "copy"},
-    *       "paste": {name: "Paste", icon: "paste"},
-    *       "delete": {name: "Delete", icon: "delete"},
-    *       "sep1": "---------",
-    *       "quit": {name: "Quit", icon: "quit"}
-    *   }
-    * };
-    *
-    * $('#contextMenu').rup_contextMenu(properties);
-    */
-	var rup_contextMenu = {};
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_contextMenu", rup_contextMenu));
+    var rup_contextMenu = {};
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//*******************************
-	$.fn.rup_contextMenu("extend",{
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_contextMenu", rup_contextMenu));
+
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //*******************************
+    $.fn.rup_contextMenu("extend", {
         /**
-        * Muestra el menú contextual.
-        *
-        * @name jQuery.rup_contextMenu#show
-        * @function
-        * @example
-        * $("#contextMenu").rup_contextMenu("show");
-        */
-		show: function(position){
-			$(this).contextMenu(position);
-		},
+         * Muestra el menú contextual.
+         *
+         * @name show
+         * @function
+         * @example
+         * $("#contextMenu").rup_contextMenu("show");
+         */
+        show: function (position) {
+            $(this).contextMenu(position);
+        },
         /**
-        * Oculta el menú contextual.
-        *
-        * @name jQuery.rup_contextMenu#hide
-        * @function
-        * @example
-        * $("#contextMenu").rup_contextMenu("hide");
-        */
-		hide: function(){
-			$(this).contextMenu("hide");
-		},
+         * Oculta el menú contextual.
+         *
+         * @name jQuery.rup_contextMenu#hide
+         * @function
+         * @example
+         * $("#contextMenu").rup_contextMenu("hide");
+         */
+        hide: function () {
+            $(this).contextMenu("hide");
+        },
         /**
-        * Habilita el menú contextual. El menú se mostrará al lanzarse el evento asociado.
-        *
-        * @name jQuery.rup_contextMenu#enable
-        * @function
-        * @example
-        * $("#contextMenu").rup_contextMenu("enable");
-        */
-		enable: function(){
-			$(this).contextMenu(true);
-		},
+         * Habilita el menú contextual. El menú se mostrará al lanzarse el evento asociado.
+         *
+         * @name enable
+         * @function
+         * @example
+         * $("#contextMenu").rup_contextMenu("enable");
+         */
+        enable: function () {
+            $(this).contextMenu(true);
+        },
         /**
-        * Deshabilita el menú contextual. El menú no se mostrará aunque se lance el evento asociado.
-        *
-        * @name jQuery.rup_contextMenu#disable
-        * @function
-        * @example
-        * $("#contextMenu").rup_contextMenu("disable");
-        */
-		disable: function(){
-			$(this).contextMenu(false);
-		},
+         * Deshabilita el menú contextual. El menú no se mostrará aunque se lance el evento asociado.
+         *
+         * @name disable
+         * @function
+         * @example
+         * $("#contextMenu").rup_contextMenu("disable");
+         */
+        disable: function () {
+            $(this).contextMenu(false);
+        },
         /**
-        * Elimina el menú contextual.
-        *
-        * @name jQuery.rup_contextMenu#destroy
-        * @function
-        * @example
-        * $("#contextMenu").rup_contextMenu("destroy");
-        */
-		destroy: function(){
-			$.contextMenu('destroy', this.selector);
-		}
-	});
+         * Elimina el menú contextual.
+         *
+         * @name destroy
+         * @function
+         * @example
+         * $("#contextMenu").rup_contextMenu("destroy");
+         */
+        destroy: function () {
+            $.contextMenu('destroy', this.selector);
+        }
+    });
 
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PRIVADOS
-	//*******************************
-	$.fn.rup_contextMenu("extend", {
-            /**
-            * Método de inicialización del componente.
-            *
-            * @name jQuery.rup_contextMenu#_init
-            * @function
-            * @private
-            * @param {object} args - Parámetros de inicialización del componente.
-            */
-			_init : function(args){
-				if (args.length > 1) {
-					$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_global.initError") + $(this).attr("id"));
-				} else {
-					//Se recogen y cruzan las paremetrizaciones del objeto
-					var $self = this, settings = $.extend({}, $.fn.rup_contextMenu.defaults, args[0]), background_image, background_position;
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PRIVADOS
+    //*******************************
+    $.fn.rup_contextMenu("extend", {
+        /**
+         * Método de inicialización del componente.
+         *
+         * @name _init
+         * @function
+         * @private
+         * @param {object} args - Parámetros de inicialización del componente.
+         */
+        _init: function (args) {
+            if (args.length > 1) {
+                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, "rup_global.initError") + $(this).attr("id"));
+            } else {
+                //Se recogen y cruzan las paremetrizaciones del objeto
+                var $self = this,
+                    settings = $.extend({}, $.fn.rup_contextMenu.defaults, args[0]),
+                    background_image, background_position;
 
-					//Asociar el selector
-					settings.selector = $self.selector;
+                //Asociar el selector
+                settings.selector = $self.selector;
 
-					//TODO:ejemplo de title en el contextMenu
-					//Procesar items para i18n
+                //TODO:ejemplo de title en el contextMenu
+                //Procesar items para i18n
 
-					//Lanzar el plugin subyaciente
-					jQuery.contextMenu(settings);
+                //Lanzar el plugin subyaciente
+                jQuery.contextMenu(settings);
 
-					/* Añadir el estilo para la modificación del estilo del puntero del ratón */
-					$self.addClass("context-menu-cursor");
-					if (jQuery.rup.browser.isIE){
-						$self.css("cursor", settings.msieCursorCss);
-					}
+                /* Añadir el estilo para la modificación del estilo del puntero del ratón */
+                $self.addClass("context-menu-cursor");
+                if (jQuery.rup.browser.isIE) {
+                    $self.css("cursor", settings.msieCursorCss);
+                }
 
 
-					/* Adecuar los cssSprites */
-					$.each($(".context-menu-list.context-menu-root"), function(index, elem){
-						var $elem = jQuery(elem);
-					    if ($elem.data("contextMenuRoot").selector===settings.selector){
-					    	$elem.attr("id", $elem.data("contextMenuRoot").ns.substring(1));
-					    	$.each($(".context-menu-item"), function(index, item){
-					    		var $item = jQuery(item),
-					    		contextMenuKey = $item.data("contextMenuKey"),
-					    		cssSprite, itemCfg;
-					    		if (contextMenuKey !== undefined){
-					    			itemCfg = settings.items[contextMenuKey];
-					    			if (itemCfg!==undefined){
-						    			cssSprite = itemCfg.cssSprite;
-						    			if (cssSprite!==undefined && !$item.hasClass("rup-css-sprite")){
-						    				$item.addClass("rup-css-sprite");
-						    				$item.prepend($("<span>").addClass(cssSprite));
-						    			}
-						    			if (itemCfg.id!==undefined){
-						    				$item.attr("id", itemCfg.id);
-						    			}
-					    			}
-					    		}
-					    	});
-					    }
-					});
-				}
-			}
-		});
+                /* Adecuar los cssSprites */
+                $.each($(".context-menu-list.context-menu-root"), function (index, elem) {
+                    var $elem = jQuery(elem);
+                    if ($elem.data("contextMenuRoot").selector === settings.selector) {
+                        $elem.attr("id", $elem.data("contextMenuRoot").ns.substring(1));
+                        $.each($(".context-menu-item"), function (index, item) {
+                            var $item = jQuery(item),
+                                contextMenuKey = $item.data("contextMenuKey"),
+                                cssSprite, itemCfg;
+                            if (contextMenuKey !== undefined) {
+                                itemCfg = settings.items[contextMenuKey];
+                                if (itemCfg !== undefined) {
+                                    cssSprite = itemCfg.cssSprite;
+                                    if (cssSprite !== undefined && !$item.hasClass("rup-css-sprite")) {
+                                        $item.addClass("rup-css-sprite");
+                                        $item.prepend($("<span>").addClass(cssSprite));
+                                    }
+                                    if (itemCfg.id !== undefined) {
+                                        $item.attr("id", itemCfg.id);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
 
-	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//******************************************************
+    //******************************************************
+    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //******************************************************
 
     /**
      * Función de callback a ejecutar cuando se muestra el menú contextual.
@@ -261,7 +257,7 @@
     /**
      * @description Propiedades de configuración del componente.
      *
-     * @name jQuery.rup_contextMenu#options
+     * @name defaults
      * @property {object} items - Objeto que define los elementos que van a mostrarse en el menú contextual. En el siguiente apartado se explicará más en detalle como realizar esta definición.
      * @property {string} [appendTo] - Selector de jQuery que identifica el elemento del DOM a partir del cual se va a añadir el menú contextual generado.
      * @property {string} [trigger] - Determina el evento que va a lanzar la visualización del menú contextual. ("right","left", "hover", "none").
@@ -282,10 +278,10 @@
      * @property {string} [msieCursorCss="url("+$.rup.RUP+"/basic-theme/cursors/context-menu.cur),default"] - Esta propiedad se emplea para poder modificar la apariencia del cursor en Internet Explorer al posicionarse sobre un elemento que dispone de un menú contextual. Esto es debido a que el modo en el que hay que realizar la asignación del nuevo cursor no se puede realizar mediante un class
      */
 
-	$.fn.rup_contextMenu.defaults = {
-		autoHide: true,
-		showCursor:true,
-		msieCursorCss:"url("+$.rup.RUP+"/basic-theme/cursors/context-menu.cur),default"
-	};
+    $.fn.rup_contextMenu.defaults = {
+        autoHide: true,
+        showCursor: true,
+        msieCursorCss: "url(" + $.rup.RUP + "/basic-theme/cursors/context-menu.cur),default"
+    };
 
 }));

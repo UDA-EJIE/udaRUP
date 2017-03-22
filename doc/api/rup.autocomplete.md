@@ -4,27 +4,75 @@
 Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
 
 **Summary**: Componente RUP Autocomplete.  
+**See**: El componente está basado en el plugin [jQuery UI Autocomplete](https://jqueryui.com/autocomplete/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/autocomplete/).  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete({	source : "autocomplete/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"}});
 ```
 
 * [rup_autocomplete](#module_rup_autocomplete)
-    * [~defaults](#module_rup_autocomplete..defaults)
-    * [~getRupValue()](#module_rup_autocomplete..getRupValue) ⇒ <code>string</code> &#124; <code>number</code>
-    * [~setRupValue(param)](#module_rup_autocomplete..setRupValue)
-    * [~destroy()](#module_rup_autocomplete..destroy)
-    * [~off()](#module_rup_autocomplete..off)
-    * [~on()](#module_rup_autocomplete..on)
-    * [~disable()](#module_rup_autocomplete..disable)
-    * [~enable()](#module_rup_autocomplete..enable)
-    * [~option(optionName, [value], aux)](#module_rup_autocomplete..option)
-    * [~search(term)](#module_rup_autocomplete..search)
-    * [~close()](#module_rup_autocomplete..close)
-    * [~val()](#module_rup_autocomplete..val)
-    * [~set(value, label)](#module_rup_autocomplete..set)
-    * [~onLoadError](#module_rup_autocomplete..onLoadError) : <code>function</code>
+    * _instance_
+        * ["rupAutocomplete_loadComplete"](#module_rup_autocomplete+event_rupAutocomplete_loadComplete)
+        * ["rupAutocomplete_change"](#module_rup_autocomplete+event_rupAutocomplete_change)
+        * ["rupAutocomplete_select"](#module_rup_autocomplete+event_rupAutocomplete_select)
+        * ["rupAutocomplete_beforeLoadComplete"](#module_rup_autocomplete+event_rupAutocomplete_beforeLoadComplete)
+    * _inner_
+        * [~defaults](#module_rup_autocomplete..defaults)
+        * [~getRupValue()](#module_rup_autocomplete..getRupValue) ⇒ <code>string</code> &#124; <code>number</code>
+        * [~setRupValue(param)](#module_rup_autocomplete..setRupValue)
+        * [~destroy()](#module_rup_autocomplete..destroy)
+        * [~off()](#module_rup_autocomplete..off)
+        * [~on()](#module_rup_autocomplete..on)
+        * [~disable()](#module_rup_autocomplete..disable)
+        * [~enable()](#module_rup_autocomplete..enable)
+        * [~option(optionName, [value], aux)](#module_rup_autocomplete..option)
+        * [~search(term)](#module_rup_autocomplete..search)
+        * [~close()](#module_rup_autocomplete..close)
+        * [~val()](#module_rup_autocomplete..val)
+        * [~set(value, label)](#module_rup_autocomplete..set)
+        * [~success()](#module_rup_autocomplete..success)
+        * [~onLoadError](#module_rup_autocomplete..onLoadError) : <code>function</code>
 
+<a name="module_rup_autocomplete+event_rupAutocomplete_loadComplete"></a>
+
+### "rupAutocomplete_loadComplete"
+Permite asociar una función que se ejecutará cuando se complete la carga de los registros correspondientes al texto de búsqueda introducido.
+
+**Kind**: event emitted by <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
+**Example**  
+```js
+$("#autocomplete").on("rupAutocomplete_loadComplete", function(event, data){});
+```
+<a name="module_rup_autocomplete+event_rupAutocomplete_change"></a>
+
+### "rupAutocomplete_change"
+Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del comonente
+
+**Kind**: event emitted by <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
+**Example**  
+```js
+$("#autocomplete").on("rupAutocomplete_change", function(event, data){});
+```
+<a name="module_rup_autocomplete+event_rupAutocomplete_select"></a>
+
+### "rupAutocomplete_select"
+Permite asociar una función que se ejecutará cuando se produzca la selección de un registro de entre la lista de resultados
+
+**Kind**: event emitted by <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
+**Example**  
+```js
+$("#autocomplete").on("rupAutocomplete_select", function(event, data){});
+```
+<a name="module_rup_autocomplete+event_rupAutocomplete_beforeLoadComplete"></a>
+
+### "rupAutocomplete_beforeLoadComplete"
+Permite manipular la respuesta del servidor antes de construir la lista de resultados.
+
+**Kind**: event emitted by <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
+**Example**  
+```js
+$("#autocomplete").on("rupAutocomplete_beforeLoadComplete", function(event, data){});
+```
 <a name="module_rup_autocomplete..defaults"></a>
 
 ### rup_autocomplete~defaults
@@ -43,13 +91,14 @@ Opciones por defecto de configuración del componente.
 | combobox | <code>boolean</code> | <code>false</code> | Habilita/deshabilita el modo de funcionamiento combobox. |
 | menuMaxHeight | <code>number</code> | <code>false</code> | Determina la altura máxima que podrá tener la capa del menú desplegable antes de mostrar scroll. |
 | menuAppendTo | <code>object</code> | <code></code> | Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable. |
-| disabled | <code>boolean</code> | <code>false</code> | determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda. |
+| disabled | <code>boolean</code> | <code>false</code> | Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda. |
+| defaultValue | <code>string</code> |  | Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos |
 
 <a name="module_rup_autocomplete..getRupValue"></a>
 
 ### rup_autocomplete~getRupValue() ⇒ <code>string</code> &#124; <code>number</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado
-	por el resto de componentes RUP para estandarizar la obtención del valor del Autocomplete.
+        por el resto de componentes RUP para estandarizar la obtención del valor del Autocomplete.
 
 **Kind**: inner method of <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
 **Returns**: <code>string</code> &#124; <code>number</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
@@ -192,6 +241,11 @@ Método utilizado para asignar el valor y el literal al componente. El valor se 
 ```js
 $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
 ```
+<a name="module_rup_autocomplete..success"></a>
+
+### rup_autocomplete~success()
+**Kind**: inner method of <code>[rup_autocomplete](#module_rup_autocomplete)</code>  
+**Emits**: <code>event:{[event]} rupAutocomplete_beforeLoadComplete [description]</code>  
 <a name="module_rup_autocomplete..onLoadError"></a>
 
 ### rup_autocomplete~onLoadError : <code>function</code>
