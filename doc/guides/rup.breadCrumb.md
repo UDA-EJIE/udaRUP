@@ -2,18 +2,18 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#1-introducción)   
-   - [2   Ejemplo](#2-ejemplo)   
-   - [3   Casos de uso](#3-casos-de-uso)   
-   - [4   Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
-   - [5   Invocación](#5-invocación)   
-   - [6   API](#6-api)   
-   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
-   - [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
-   - [9   Integración con UDA](#9-integración-con-uda)   
+-   [1   Introducción](#1-introducción)   
+-   [2   Ejemplo](#2-ejemplo)   
+-   [3   Casos de uso](#3-casos-de-uso)   
+-   [4   Infraestructura](#4-infraestructura)   
+    -   [4.1 Ficheros](#4.1-ficheros)   
+    -   [4.2 Dependencias](#4.2-dependencias)   
+    -   [4.3 Versión minimizada](#4.3-versión-minimizada)   
+-   [5   Invocación](#5-invocación)   
+-   [6   API](#6-api)   
+-   [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+-   [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
+-   [9   Integración con UDA](#9-integración-con-uda)   
 
 <!-- /MDTOC -->
 
@@ -29,25 +29,25 @@ Se muestra a continuación una maquetación típica del patrón:
 
 ##	3	Casos de uso
 Se aconseja la utilización de este componente:
-+	Cuando queramos mostrar al usuario la ruta de navegación que ha seguido, en qué página está y permitirle volver fácilmente a niveles superiores.
++   Cuando queramos mostrar al usuario la ruta de navegación que ha seguido, en qué página está y permitirle volver fácilmente a niveles superiores.
 
-+	Se recomienda usarlas en aplicaciones web con tres o más niveles de jerarquía ya que es en este tipo de aplicaciones donde son realmente útiles.
++   Se recomienda usarlas en aplicaciones web con tres o más niveles de jerarquía ya que es en este tipo de aplicaciones donde son realmente útiles.
 
 Las razones para el uso del componente son las siguientes:
-+	Es una solución conocida por los usuarios y fácil de comprender.
++   Es una solución conocida por los usuarios y fácil de comprender.
 
-+	Aporta flexibilidad a la navegación al permitir volver a niveles superiores.
++   Aporta flexibilidad a la navegación al permitir volver a niveles superiores.
 
-+	Ocupa poco espacio en la interfaz.
++   Ocupa poco espacio en la interfaz.
 
-+	Refuerza el contexto y la navegación ya que muestra a los usuarios dónde están y cómo está estructurada la información.
++   Refuerza el contexto y la navegación ya que muestra a los usuarios dónde están y cómo está estructurada la información.
 
-+	Ayuda a los usuarios a comprender la estructura de la aplicación.
++   Ayuda a los usuarios a comprender la estructura de la aplicación.
 
 
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del patrón.
-+	Únicamente se requiere la inclusión de los ficheros que implementan el patrón (*js y css*) comentados en los apartados *Ficheros y Dependencias*.
++   Únicamente se requiere la inclusión de los ficheros que implementan el patrón (*js y css*) comentados en los apartados *Ficheros y Dependencias*.
 
 
 ###	4.1 Ficheros
@@ -59,15 +59,15 @@ Fichero CSS del theme: **theme.rup.breadCrumb-x.y.z.css**
 
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería JavaScript ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
-+	**jQuery 1.12.4**: http://jquery.com/
++   **jQuery 1.12.4**: <http://jquery.com/>
 
 La gestión de la ciertas partes visuales de los componentes, se han realizado mediante el plugin ***jQuery UI*** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este *plugin*, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel, componentes personalizables (estilos) ente otros. La versión utilizada en el desarrollo ha sido la **1.12.0**.
-+	**jQuery UI 1.12.0**: http://jqueryui.com/
++   **jQuery UI 1.12.0**: <http://jqueryui.com/>
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
 	jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js
+  jquery-ui-1.12.0.custom.js
 	jquery-ui-1.12.0.custom.css
 	xbreadcrumbs.js
 	rup.base-x.y.z.js
@@ -78,8 +78,8 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
 Los ficheros minimizados de RUP son los siguientes:
-+	**rup/scripts/min/rup.min-x.y.z.js**
-+	**rup/basic-theme/rup.min-x.y.z.css**
++   **rup/scripts/min/rup.min-x.y.z.js**
++   **rup/basic-theme/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
@@ -88,11 +88,11 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 El componente de migas se crea y configura según la disposición seleccionada en el asistente de generación de aplicación del *plugin* **UDA**.
 El componente se posiciona justo después del menú en una capa cuyo identificador se corresponde con el nombre del War *(xxxYyyWar)* seguido de *“_migas”* y cuya clase asociada para los estilos es *“rup-breadCrumb_root”*:
 ```xml
-<div id="x21aDemoWAR_migas" class="rup-breadCrumb_root"></div>
+  <div id="x21aDemoWAR_migas" class="rup-breadCrumb_root"></div>
 ```
 La creación del componente se realiza en la plantilla de inclusión de js con la siguiente instrucción:
 ```javascript
-$("#idMenu").rup_menu(properties);
+  $("#idMenu").rup_menu(properties);
 ```
 donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
@@ -115,30 +115,30 @@ Los estilos más relevantes son los siguientes:
 ##	8	Internacionalización i18n
 Como se ha comentado anteriormente para la internacionalización del patrón se usa el fichero de recursos de la aplicación con una estructura como la siguiente:
 ```javascript
-"x21aPilotoPatronesWar_migas" :{
-		"patrones" : "Patrones",
-		"all" : "[Todos los patrones]",
-		"autocomplete" : "Autocomplete",
-		"toolbar" : "Botonera",
-		"comboSimple" : "Combo Simple",
-		"comboEnlazadoSimple" : "Combo Enlazado (simple)",
-		"comboEnlazadoMulti" : "Combo Enlazado (múltiple)",
-		"dialog" : "Diálogos",
-		"date" : "Fecha",
-		"feedback" : "Feedback",
-		"time" : "Hora",
-		"message" : "Mensajes",
-		"menu" : "Menú Horizontal",
-		"menuVertical":"Menú Vertical",
-		"menuMixto":"Menú Mixto",
-		"tabs" : "Pestañas",
-		"grid" : "Tabla",
-		"tooltip" :  "Tooltip",
-		"experimental": "Experimental",
-		"generic_object": "Objeto genérico",
-		"maestro_detalle": "Maestro-Detalle",
-		"z-index": "z-index"
-}
+  "x21aPilotoPatronesWar_migas" :{
+  		"patrones" : "Patrones",
+  		"all" : "[Todos los patrones]",
+  		"autocomplete" : "Autocomplete",
+  		"toolbar" : "Botonera",
+  		"comboSimple" : "Combo Simple",
+  		"comboEnlazadoSimple" : "Combo Enlazado (simple)",
+  		"comboEnlazadoMulti" : "Combo Enlazado (múltiple)",
+  		"dialog" : "Diálogos",
+  		"date" : "Fecha",
+  		"feedback" : "Feedback",
+  		"time" : "Hora",
+  		"message" : "Mensajes",
+  		"menu" : "Menú Horizontal",
+  		"menuVertical":"Menú Vertical",
+  		"menuMixto":"Menú Mixto",
+  		"tabs" : "Pestañas",
+  		"grid" : "Tabla",
+  		"tooltip" :  "Tooltip",
+  		"experimental": "Experimental",
+  		"generic_object": "Objeto genérico",
+  		"maestro_detalle": "Maestro-Detalle",
+  		"z-index": "z-index"
+  }
 ```
 
 ##	9	Integración con UDA
@@ -158,16 +158,16 @@ La variable JavaScript “*LOGGED_USER*” determina el nombre visualizado en la
 
 La variable *“LOGGED_USER”* puede integrarse de múltiples formas pero **UDA**, por defecto, la incluye en la *jsp “base-includes.jsp”* mediante el siguiente código:
 ``` java
-//breadCrumbs
-LOGGED_USER = "${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal ? sessionScope.SPRING_SECURITY_CONTEXT.authentication.credentials.fullName : sessionScope.userData.fullName}";
+  //breadCrumbs
+  LOGGED_USER = "${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal ? sessionScope.SPRING_SECURITY_CONTEXT.authentication.credentials.fullName : sessionScope.userData.fullName}";
 ```
 
 En caso de no especificarse la variable “*LOGGED_USER*”, el componente no presentara el nombre del usuario ni el botón de desconexión. En caso de no tener especificado el parámetro “*logOutUrl*”, únicamente, no se presentara el botón de desconexión.
 Además de permitir a los usuarios interaccionar con su información de seguridad, el componente de migas también exterioriza el concepto de desconexión o salida manejado por el sistema de seguridad. Según la especificación de parámetros realizada, el sistema de seguridad permite a los usuarios que salgan, únicamente, de la aplicación o que, además, se desconecten de **XLNets** (terminando con ellos su sesión de usuario).
 Para que el componente sea consciente del tipo de modelo de desconexión se esta aplicando, es necesario especificárselo mediante la variable *JavaScript “DESTROY_XLNETS_SESSION”*. La variable puede integrarse de múltiples formas pero **UDA**, por defecto, la incluye en la jsp *“base-includes.jsp”* mediante el siguiente código:
 ``` java
-//breadCrumbs
-DESTROY_XLNETS_SESSION = "${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal ? sessionScope.SPRING_SECURITY_CONTEXT.authentication.credentials.destroySessionSecuritySystem : sessionScope.destroySessionSecuritySystem}";
+  //breadCrumbs
+  DESTROY_XLNETS_SESSION = "${!empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal ? sessionScope.SPRING_SECURITY_CONTEXT.authentication.credentials.destroySessionSecuritySystem : sessionScope.destroySessionSecuritySystem}";
 ```
 
 En caso de no incluir la variable *JavaScript “DESTROY_XLNETS_SESSION”*, por defecto, el componente considerar que la sesión de **XLNets** deberá ser respetada (manteniendo intacto el concepto de single sign-on asociado a **XLNets**).

@@ -45,11 +45,11 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 ### 4.2 Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
-* **jQuery 1.12.4**: http://jquery.com/
+*   **jQuery 1.12.4**: <http://jquery.com/>
 
 La gestión de ciertas partes visuales de los componentes, se han realizado mediante el *plugin* **jQuery-UI** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este *plugin*, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la **1.12.0**.
 
-* **jQuery-UI 1.12.0**: http://jqueryui.com/
+*   **jQuery-UI 1.12.0**: <http://jqueryui.com/>
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
@@ -64,25 +64,25 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
 
 Los ficheros minimizados de RUP son los siguientes:
-* **rup/scripts/min/rup.min-x.y.z.js**
-* **rup/basic-theme/rup.min-x.y.z.css**
+*   **rup/scripts/min/rup.min-x.y.z.js**
+*   **rup/basic-theme/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
 ## 5 Invocación
 El componente spinner actual sobre un *tag html input*, como el del siguiente ejemplo:
-```xml
-<div>
-	<label for="spinner">Seleccione un valor:</label>
-    <input id="spinner"	name="value">
-</div>
-```
+  ```xml
+    <div>
+    	<label for="spinner">Seleccione un valor:</label>
+        <input id="spinner"	name="value">
+    </div>
+  ```
 
 Usando el selector del objeto *input* podemos invcocar fácilmente el componente.
 
-```javascript
-$(selector).rup_spinner({properties});
-```
+  ```javascript
+    $(selector).rup_spinner({proper ties});
+  ```
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
 
 ## 6 API

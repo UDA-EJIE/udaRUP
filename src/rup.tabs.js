@@ -14,6 +14,18 @@
  * que establece la Licencia.
  */
 
+/**
+ * Permiten dar acceso de forma compacta a grupos de contenidos mutuamente excluyentes pudiendo ser integradas en zonas muy reducidas de la interfaz.
+ *
+ * @summary Componente RUP Tabs.
+ * @module rup_tabs
+ * @see El componente está basado en el plugin {@link https://jqueryui.com/tabs/|jQuery UI Tabs}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://api.jqueryui.com/tabs/|aquí}.
+ * @example
+ * $("#ejemploArbolDiv").rup_tabs(properties);
+ *
+ */
+
+
 (function (factory) {
     if (typeof define === "function" && define.amd) {
 
@@ -41,7 +53,24 @@
     //********************************
 
     $.fn.rup_tabs("extend", {
-        //Funcion encargada de deshabilitar una o un conjunto de pestanyas
+        /**
+         * Función encargada de deshabilitar una o un conjunto de pestañas de un mismo sub-nivel
+         * @function
+         * @name disableTabs
+         * @param  {string} args.idTab - Selector del componente pestaña
+         * @param {integer|object} args.position - Posición de las pestañas a deshabilitar
+         * @example
+         * //Una única pestaña:
+         * $("#tabs").rup_tabs("disableTabs",{
+         *    idTab: "tabs",
+         *    position: 1
+         *    });
+         * //Un conjunto de pestañas:
+         * $("#tabs").rup_tabs("disableTabs",{
+         *    idTab: "tabs",
+         *    position: [0,1,2]
+         * });
+         */
         disableTabs: function (args) {
             var tab;
 
@@ -65,7 +94,24 @@
                 }
             }
         },
-        //Funcion encargada de habilitar una o un conjunto de pestanyas
+        /**
+         * Función encargada de habilitar una o un conjunto de pestañas de un mismo subnivel.
+         * @function
+         * @name enableTabs
+         * @param  {string} args.idTab - Selector del componente pestaña
+         * @param {integer|object} args.position - Posición de las pestañas a habilitar
+         * @example
+         * //Una única pestaña:
+         * $("#tabs").rup_tabs("enableTabs ",{
+         *    idTab: "tabs",
+         *    position: 1
+         *  });
+         * //Un conjunto de pestañas:
+         *  $("#tabs").rup_tabs("enableTabs",{
+         *    idTab: "tabs",
+         *    position: [0,1,2]
+         *  });
+         */
         enableTabs: function (args) {
             var tab;
 
@@ -93,12 +139,44 @@
                 }
             }
         },
-        //Funcion que fuerza la recarga de una pestanya
-        //Si se le especifica una nueva url, ademas de recargar la pagina con la nueva url, se inserta esta como nueva url de la pestanya
+        /**
+         * Función que fuerza la recarga de una pestaña. Si se especifica una nueva url, además de recargar la página con la nueva url, se inserta ésta como nueva url de la pestaña
+         * @function  Función que fuerza la recarga de una pestaña. Si se especifica una nueva url, además de recargar la página con la nueva url, se inserta ésta como nueva url de la pestaña
+         * @name	loadTab
+         * @param  {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de la pestaña a recargar
+         * @param {string} args.url - Nueva url a cargar.
+         * @example
+         * //	Recarga simple:
+         * $("#tabs").rup_tabs("loadTab",{
+         *    idTab: "tabs",
+         *    position: 2
+         *  });
+         * //	Recarga con cambio de url:
+         * $("#tabs").rup_tabs("loadTab", {
+         *   idTab: "tabs",
+         *   position: 2,
+         *   url: "/nuevoFragmento" *
+         * });
+         */
         loadTab: function (args) {
             $("#" + args.idTab).tabs("load", args.position);
         },
-        //Funcion encargada de actualizar la url de invocacion de una pestanya determinada
+        /**
+         *
+         *  Función encargada de actualizar la url de invocación de una pestaña determinada
+         * @function
+         * @name changeUrlTab
+         * @param  {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de la pestaña a cambiar
+         * @param {string} args.url - Nueva url a cargar.
+         * @example
+         * $("#tabs").rup_tabs("changeUrlTab",{
+         *    idTab: "tabs",
+         *     position: 1,
+         *    url: "nuevaUrl"
+         *  });
+         */
         changeUrlTab: function (args) {
             //$("#" + args.idTab).tabs("url", args.position, $.rup_utils.setNoPortalParam(args.url));
 
@@ -108,15 +186,55 @@
                 url: $.rup_utils.setNoPortalParam(args.url)
             });
         },
-        //Funcion encargada de actualizar el layer de una pestanya determinada
+        /**
+         * Función encargada de actualizar la capa html, previamente cargada, que se muestra en la pestaña determinada
+         * @function
+         * @name  changeLayerTab
+         * @param {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de la pestaña a cambiar
+         * @param {string} args.layer - Selector de la capa a cargar.
+         * @example
+         * $("#tabs").rup_tabs("changeLayerTab",{
+         *    idTab: "tabs",
+         *   position: 2,
+         *   layer: "nuevaSelector"
+         * });
+         */
         changeLayerTab: function (args) {
             this._includeLayer($("#" + args.idTab + " ul:first-child"), args.layer, $($("#" + args.idTab + " ul li a").get(args.position)));
         },
-        //Funcion encargada de seleccionar una pestanya determinada. El comportamiento es identico al click con el raton del mismo
+        /**
+         * Función encargada de seleccionar una pestaña determinada. El comportamiento es idéntico al click con el ratón.
+         * @function
+         * @name  selectTab
+         * @param {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de la pestaña a seleccionar
+         * @example
+         * $("#tabs").rup_tabs("selectTab",{
+         *    idTab: "tabs",
+         *    position: 1,
+         *  });
+         */
         selectTab: function (args) {
             $("#" + args.idTab).tabs("option", "active", args.position);
         },
-        //Funcion encargada de añadir una nueva pestanya cuando el componente ya esta creado
+
+        /**
+         * Función encargada de añadir una nueva pestaña cuando el componente ya está creado. Es posible añadir una nueva pestaña al final o entre otras pestañas.
+         * @function
+         * @name addTab
+         * @param {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de las pestaña a añadir
+         * @param {string} args.url - la url a añadir a la pestaña.
+         * @param {string} args.label - Literal a mostrar en la pestaña.
+         * @example
+         * $("#tabs").rup_tabs("addTab",{
+         *    idTab: "tabs",
+         *  position: 2,
+         *   label: "nuevaPestaña",
+         *   url: "fragmento3"
+         *  });
+         */
         addTab: function (args) {
             var newTab, auxTabName, nameLiteral = "rup-tabs-",
                 insertIndex = 0,
@@ -248,7 +366,11 @@
 
 
         },
-        //Funcion encargada de añadir una nueva pestanya cuando el componnete ya esta creado
+        /**
+         * Función encargada de eliminar una nueva pestaña cuando el componente ya está creado
+         * @param {string} args.idTab - Selector del componente pestaña
+         * @param {integer} args.position - Posición de las pestaña a eliminar
+         */
         removeTab: function (args) {
             //$("#" + args.idTab).tabs("remove", args.position);
             this._removeTab({
@@ -996,6 +1118,21 @@
     //*******************************************************
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //*******************************************************
+    /**
+     * @name options
+     * @property {object}  disabled - Permite especificar el conjunto de pestañas que, inicialmente, estarán deshabilitadas
+     * @property {boolean} [close=false] - Determina si se debe mostrar un icono de cerrar pestaña junto al label de las mismas.
+     * @property {integer} 	fixedHeight - Permite especificar una altura fija para el contenedor de las pestañas
+     * @property {integer}  [lengthLiteral=undefined] - Permite especificar un número máximo de caracteres a mostrar en el label de la pestaña antes de aplicar ellipsis.
+     * @property {integer} maxNumberTabs - Parámetro que determina el número máximo de pestañas que va a permitir el componente que se añadan de manera dinámica
+     * @property {boolean} [scrollable=false] - Determina si la pestaña permite el mostrar scroll en la capa contenedora
+     * @property {string} layer - Parámetro que permite especificar fragmentos html previamente cargados para el contenido de una pestaña. El parámetro acepta cualquier tipo de selector válido de JQuery para determinar que fragmento html se ubica en la pestaña. En caso de precisarse un selector de JQuery que devuelva más de un elemento, éstos se incluirán en la pestaña correspondiente dispuestos verticalmente (esta forma de trabajar no es muy ortodoxa pero es factible).
+     * @property {integer} width - Permite definir la anchura del componente.
+     * @property {integer} height - Permite difinir la altura del componente.
+     * @property {boolean} [tabsAtBottom=false] - Parámetro que determina si las pestañas se van a mostrar en la parte inferior en vez de en la superior
+     *
+     *
+     */
 
     $.fn.rup_tabs.defaults = {
         ajaxOptions: {},
@@ -1017,6 +1154,80 @@
         disable: null,
         tabsAtBottom: false
     };
+    /* **********/
+    /* EVENTOS */
+    /* **********/
+
+    /**
+     * Se lanza cada vez que se crea una pestaña
+     * @event module:rup_tabs#create
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ create: function(){...} });
+     */
+
+    /**
+     * Se lanza el evento cada vez que se hace click sobre una pestaña
+     * @event module:rup_tabs#select
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ select: function(){...} });
+     */
+
+    /**
+     * Este evento se desencadena después de que el contenido de una pestaña se ha cargado.
+     * @event module:rup_tabs#load
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ load: function(){...} });
+     */
+
+    /**
+     * Este evento ocurre cuando una pestaña está preparada para ser mostrada.
+     * @event module:rup_tabs#activate
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ activate: function(){...} });
+     */
+
+    /**
+     * Este evento se desencadena cuando se añade una pestaña
+     * @event module:rup_tabs#add
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ add: function(){...} });
+     */
+
+    /**
+     * Este evento se desencadena cuando se elimina una pestaña
+     * @event module:rup_tabs#remove
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ remove: function(){...} });
+     */
+
+    /**
+     * Este evento se desencadena cuando se habilita una pestaña
+     * @event module:rup_tabs#enable
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ enable: function(){...} });
+     */
+
+
+    /**
+     * Este evento se desencadena cuando se deshabilita una pestaña
+     * @event module:rup_tabs#disable
+     * @property {Event} e - Objeto Event correspondiente al evento disparado.
+     * @example
+     * $(selector).rup_tabs ({ disable: function(){...} });
+     */
+
+
+
+
+
+
 
 
 }));

@@ -15,485 +15,480 @@
  */
 
 /**
- * @fileOverview Implementa el patrón RUP Form.
- * @author EJIE
- * @version 2.4.8
+ * Permite al usuario introducir datos en una serie de campos para ser enviados al servidor y ser procesados.
+ *
+ * @summary Componente RUP Form.
+ * @module   rup_form
+ * @example
+ * var properties={
+ *   // Propiedades de configuración
+ * };
+ *
+ * $("#formulario").rup_form(properties);
  */
- (function( factory ) {
-  if ( typeof define === "function" && define.amd ) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
 
- 		// AMD. Register as an anonymous module.
- 		define( ["jquery","jquery.form","./rup.base","./rup.validate"], factory );
-  } else {
+        // AMD. Register as an anonymous module.
+        define(["jquery", "jquery.form", "./rup.base", "./rup.validate"], factory);
+    } else {
 
- 		// Browser globals
- 		factory( jQuery );
-  }
- } ( function( jQuery ) {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function (jQuery) {
 
 
 
-	//*********************************************
-	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
-	//*********************************************
+    //*********************************************
+    // ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
+    //*********************************************
 
-	//*****************************************************************************************************************
-	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-	//*****************************************************************************************************************
-    /**
-    * Permite al usuario introducir datos en una serie de campos para ser enviados al servidor y ser procesados.
-    *
-    * @summary Componente RUP Form.
-    * @namespace jQuery.rup_form
-    * @memberOf jQuery
-    * @tutorial rup.form
-    * @example
-    * var properties={
-    *   // Propiedades de configuración
-    * };
-    *
-    * $("#formulario").rup_form(properties);
-    */
-	var rup_form = {};
+    //*****************************************************************************************************************
+    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+    //*****************************************************************************************************************
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_form", rup_form));
+    var rup_form = {};
 
-	//********************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//********************************
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_form", rup_form));
 
-	$.fn.rup_form("extend",{
+    //********************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //********************************
+
+    $.fn.rup_form("extend", {
         /**
-        * Realiza la misma función que ajaxSubmit. Se mantiene para asegurar la retrocompatibilidad con versiones anteriores.
-        *
-        * @name jQuery.rup_form#ajaxFormSubmit
-        * @function
-        * @param {object} options - Opciones de configuración.
-        * @example
-        * var options = {};
-        * jQuery("#form").rup_form("ajaxFormSubmit", options);
-        */
-		ajaxFormSubmit:function(options){
-			var $self = this;
-			// Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
-			$.set_uda_ajax_mode_on();
-			$self.ajaxSubmit(options);
-		},
+         * Realiza la misma función que ajaxSubmit. Se mantiene para asegurar la retrocompatibilidad con versiones anteriores.
+         *
+         * @function  ajaxFormSubmit
+         * @param {object} options - Opciones de configuración.
+         * @example
+         * var options = {};
+         * jQuery("#form").rup_form("ajaxFormSubmit", options);
+         */
+        ajaxFormSubmit: function (options) {
+            var $self = this;
+            // Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
+            $.set_uda_ajax_mode_on();
+            $self.ajaxSubmit(options);
+        },
         /**
-        * Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
-        *
-        * @name jQuery.rup_form#ajaxSubmit
-        * @function
-        * @param {object} argOptions - Opciones de configuración.
-        * @example
-        * var options = {};
-        * jQuery("#form").rup_form("ajaxSubmit", options);
-        */
-		ajaxSubmit:function(argOptions){
-			var $self = this,
-			options = $.extend(true, {}, $.fn.rup_form.defaults, argOptions);
-			// Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
-			$.set_uda_ajax_mode_on();
-			$self.rup_form("configureOptions",options);
-			if (options.formValidationRequired){
-				$self.rup_validate(options.validate);
-				if ($self.valid()){
-					$(this).ajaxSubmit(options);
-				}
-			}else{
-				// Necesario utilizar $(this) para invocar al ajaxSubmit del plugin subyacente
-				$(this).ajaxSubmit(options);
-			}
-		},
+         * Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
+         *
+         * @function  ajaxSubmit
+         * @param {object} argOptions - Opciones de configuración.
+         * @example
+         * var options = {};
+         * jQuery("#form").rup_form("ajaxSubmit", options);
+         */
+        ajaxSubmit: function (argOptions) {
+            var $self = this,
+                options = $.extend(true, {}, $.fn.rup_form.defaults, argOptions);
+            // Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
+            $.set_uda_ajax_mode_on();
+            $self.rup_form("configureOptions", options);
+            if (options.formValidationRequired) {
+                $self.rup_validate(options.validate);
+                if ($self.valid()) {
+                    $(this).ajaxSubmit(options);
+                }
+            } else {
+                // Necesario utilizar $(this) para invocar al ajaxSubmit del plugin subyacente
+                $(this).ajaxSubmit(options);
+            }
+        },
         /**
-        * Elimina la configuración realizada por el componente sobre el formulario html.
-        *
-        * @name jQuery.rup_form#destroy
-        * @function
-        * @example
-        * var options = {};
-        * jQuery("#form").rup_form("destroy");
-        */
-		destroy:function(){
-			var $self = this;
-			$.removeData($self[0]);
-			$self.ajaxFormUnbind();
-			$self.unbind();
-		},
+         * Elimina la configuración realizada por el componente sobre el formulario html.
+         *
+         * @function  destroy
+         * @example
+         * var options = {};
+         * jQuery("#form").rup_form("destroy");
+         */
+        destroy: function () {
+            var $self = this;
+            $.removeData($self[0]);
+            $self.ajaxFormUnbind();
+            $self.unbind();
+        },
         /**
-        * Serializa el contenido del formulario en un query string.
-        *
-        * @name jQuery.rup_form#formSerialize
-        * @function
-        * @return {string} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
-        * @example
-        * jQuery("#form").rup_form("formSerialize");
-        */
-		formSerialize:function(){
-			var $self = this, fieldArray, element, ruptype, fieldArray = [];
+         * Serializa el contenido del formulario en un query string.
+         *
+         * @function  formSerialize
+         * @return {string} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
+         * @example
+         * jQuery("#form").rup_form("formSerialize");
+         */
+        formSerialize: function () {
+            var $self = this,
+                fieldArray, element, ruptype, fieldArray = [];
 
-			$.each($self.formToArray(), function(key, obj){
-				element = $("[name='"+obj.name+"']",self);
+            $.each($self.formToArray(), function (key, obj) {
+                element = $("[name='" + obj.name + "']", self);
 
-				ruptype = element.attr("ruptype");
-				if (ruptype!==undefined){
-					obj.value=element["rup_"+ruptype]("getRupValue");
-					fieldArray.push(obj);
-				}else{
-					fieldArray.push(obj);
-				}
+                ruptype = element.attr("ruptype");
+                if (ruptype !== undefined) {
+                    obj.value = element["rup_" + ruptype]("getRupValue");
+                    fieldArray.push(obj);
+                } else {
+                    fieldArray.push(obj);
+                }
 
-			});
+            });
 
-			return $.param(fieldArray);
-		},
+            return $.param(fieldArray);
+        },
         /**
-        * Realiza la serialización de campos del formulario en un objeto json.
-        *
-        * @name jQuery.rup_form#formToJson
-        * @function
-        * @return {string} - Retorna un objeto con el formato {nombre1:valor1, nombre2:valor2…nombreN:valorN}.
-        * @example
-        * jQuery("#form").rup_form("formToJson");
-        */
-		formToJson:function(){
-			return form2object(this[0]);
-		},
+         * Realiza la serialización de campos del formulario en un objeto json.
+         *
+         * @function  formToJson
+         * @return {string} - Retorna un objeto con el formato {nombre1:valor1, nombre2:valor2…nombreN:valorN}.
+         * @example
+         * jQuery("#form").rup_form("formToJson");
+         */
+        formToJson: function () {
+            return form2object(this[0]);
+        },
         /**
-        * Realiza la serialización de campos del formulario en un query string
-        *
-        * @name jQuery.rup_form#fieldSerialize
-        * @function
-        * @return {string} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
-        * @example
-        * jQuery("#form .specialFields").rup_form("fieldSerialize");
-        */
-		fieldSerialize:function(){
-			var a = [];
-			this.each(function() {
-				var n = $(this).attr("name");
-				if (!n) {
-					return;
-				}
-				var v = $(this).rup_form("fieldValue");
-				if (v && v.constructor == Array) {
-					for (var i=0,max=v.length; i < max; i++) {
-						a.push({name: n, value: v[i]});
-					}
-				}
-				else if (v !== null && typeof v != 'undefined') {
-					a.push({name: $(this).attr("name"), value: v});
-				}
-			});
-			return $.param(a);
-		},
+         * Realiza la serialización de campos del formulario en un query string
+         *
+         * @function  fieldSerialize
+         * @return {string} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
+         * @example
+         * jQuery("#form .specialFields").rup_form("fieldSerialize");
+         */
+        fieldSerialize: function () {
+            var a = [];
+            this.each(function () {
+                var n = $(this).attr("name");
+                if (!n) {
+                    return;
+                }
+                var v = $(this).rup_form("fieldValue");
+                if (v && v.constructor == Array) {
+                    for (var i = 0, max = v.length; i < max; i++) {
+                        a.push({
+                            name: n,
+                            value: v[i]
+                        });
+                    }
+                } else if (v !== null && typeof v != 'undefined') {
+                    a.push({
+                        name: $(this).attr("name"),
+                        value: v
+                    });
+                }
+            });
+            return $.param(a);
+        },
         /**
-        * Devuelve un array con el valor de los campos indicados.
-        *
-        * @name jQuery.rup_form#fieldSerialize
-        * @function
-        * @return {string[]} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
-        * @example
-        * jQuery("#form .specialFields").rup_form("fieldValue");
-        */
-		fieldValue:function(){
-			var valuesArray=[], value;
-			this.each(function() {
-				var ruptype = $(this).attr("ruptype");
+         * Devuelve un array con el valor de los campos indicados.
+         *
+         * @function  fieldValue
+         * @return {string[]} - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.
+         * @example
+         * jQuery("#form .specialFields").rup_form("fieldValue");
+         */
+        fieldValue: function () {
+            var valuesArray = [],
+                value;
+            this.each(function () {
+                var ruptype = $(this).attr("ruptype");
 
-				if (ruptype!==undefined){
-					value = $(this)["rup_"+ruptype]("getRupValue");
-					valuesArray.push(value);
-				}else{
-					$.merge(valuesArray,$(this).fieldValue());
-				}
-			});
+                if (ruptype !== undefined) {
+                    value = $(this)["rup_" + ruptype]("getRupValue");
+                    valuesArray.push(value);
+                } else {
+                    $.merge(valuesArray, $(this).fieldValue());
+                }
+            });
 
-			return valuesArray;
-		},
+            return valuesArray;
+        },
         /**
-        * Inicializa el formulario con su estado inicial invocando al método reset nativo.
-        *
-        * @name jQuery.rup_form#resetForm
-        * @function
-        * @return {jQuery} - Retorna el propio componente.
-        * @example
-        * jQuery("#form").rup_form("resetForm");
-        */
-		resetForm:function(){
-			return this.each(function() {
-				$(this).resetForm();
-			});
-		},
+         * Inicializa el formulario con su estado inicial invocando al método reset nativo.
+         *
+         * @function  resetForm
+         * @return {jQuery} - Retorna el propio componente.
+         * @example
+         * jQuery("#form").rup_form("resetForm");
+         */
+        resetForm: function () {
+            return this.each(function () {
+                $(this).resetForm();
+            });
+        },
         /**
-        * Limpia los elementos del formulario.
-        *
-        * @name jQuery.rup_form#clearForm
-        * @function
-        * @param {boolean} includeHidden - Determina si se deben de limpiar también los elementos hidden que existen en el formulario.
-        * @return {jQuery} - Retorna el propio componente.
-        * @example
-        * // Limpiar los campos del formulario
-        * jQuery("#form").rup_form("clearForm");
-        * // Limpiar los campos del formulario inlcuyendo los campos hidden
-        * jQuery("#form").rup_form("clearForm", true);
-        */
-		clearForm:function(includeHidden){
-			return this.each(function() {
-				$('input,select,textarea', this).rup_form("clearFields",includeHidden);
-			});
-		},
+         * Limpia los elementos del formulario.
+         *
+         * @function  clearForm
+         * @param {boolean} includeHidden - Determina si se deben de limpiar también los elementos hidden que existen en el formulario.
+         * @return {jQuery} - Retorna el propio componente.
+         * @example
+         * // Limpiar los campos del formulario
+         * jQuery("#form").rup_form("clearForm");
+         * // Limpiar los campos del formulario inlcuyendo los campos hidden
+         * jQuery("#form").rup_form("clearForm", true);
+         */
+        clearForm: function (includeHidden) {
+            return this.each(function () {
+                $('input,select,textarea', this).rup_form("clearFields", includeHidden);
+            });
+        },
         /**
-        * Limpia los campos especificados mediante el selector de jQuery.
-        *
-        * @name jQuery.rup_form#clearFields
-        * @function
-        * @param {boolean} includeHidden - Determina si se deben de limpiar también los elementos hidden que existen en el formulario.
-        * @return {jQuery} - Retorna el propio componente.
-        * @example
-        * // Limpiar los campos del formulario
-        * jQuery("#form .specialFields").rup_form("clearFields");
-        * // Limpiar los campos del formulario inlcuyendo los campos hidden
-        * jQuery("#form .specialFields").rup_form("clearFields", true);
-        */
-		clearFields:function(includeHidden){
-			return this.each(function() {
-				var ruptype = $(this).attr("ruptype");
+         * Limpia los campos especificados mediante el selector de jQuery.
+         *
+         * @function  clearFields
+         * @param {boolean} includeHidden - Determina si se deben de limpiar también los elementos hidden que existen en el formulario.
+         * @return {jQuery} - Retorna el propio componente.
+         * @example
+         * // Limpiar los campos del formulario
+         * jQuery("#form .specialFields").rup_form("clearFields");
+         * // Limpiar los campos del formulario inlcuyendo los campos hidden
+         * jQuery("#form .specialFields").rup_form("clearFields", true);
+         */
+        clearFields: function (includeHidden) {
+            return this.each(function () {
+                var ruptype = $(this).attr("ruptype");
 
-				if (ruptype === undefined || ruptype!=="combo"){
-					$(this).clearFields(includeHidden);
-				}else{
-					$(this).rup_combo("clear");
-				}
-			});
-		},
+                if (ruptype === undefined || ruptype !== "combo") {
+                    $(this).clearFields(includeHidden);
+                } else {
+                    $(this).rup_combo("clear");
+                }
+            });
+        },
         /**
-        * Función de inicialización del componente. Es un método de uso interno. No debería de invocarse de manera directa.
-        *
-        * @name jQuery.rup_form#configureOptions
-        * @function
-        * @param {object} settings - Propiedades de configuración
-        */
-		configureOptions:function(settings){
-			var $self = this, hasFileInputs, beforeSendUserEvent, beforeSubmitUserEvent;
+         * Función de inicialización del componente. Es un método de uso interno. No debería de invocarse de manera directa.
+         *
+         * @function  configureOptions
+         * @param {object} settings - Propiedades de configuración
+         */
+        configureOptions: function (settings) {
+            var $self = this,
+                hasFileInputs, beforeSendUserEvent, beforeSubmitUserEvent;
 
-			if (settings.url!==null){
-				$self.attr("action", settings.url);
-			}
+            if (settings.url !== null) {
+                $self.attr("action", settings.url);
+            }
 
-			hasFileInputs = $('input:file', $self).length > 0;
+            hasFileInputs = $('input:file', $self).length > 0;
 
-			if (settings.useJsonIfPossible && !hasFileInputs){
-				settings.contentType='application/json';
-			}
+            if (settings.useJsonIfPossible && !hasFileInputs) {
+                settings.contentType = 'application/json';
+            }
 
-			// BeforeSend
-			beforeSendUserEvent = settings.beforeSend;
-			settings.beforeSend = function (xhr, ajaxOptions) {
-				var ret = true;
-				if($.isFunction(beforeSendUserEvent)){
-					ret = beforeSendUserEvent.call(this,xhr, ajaxOptions);
-				}
+            // BeforeSend
+            beforeSendUserEvent = settings.beforeSend;
+            settings.beforeSend = function (xhr, ajaxOptions) {
+                var ret = true;
+                if ($.isFunction(beforeSendUserEvent)) {
+                    ret = beforeSendUserEvent.call(this, xhr, ajaxOptions);
+                }
 
-				if (ret === false){
-					return false;
-				}else if (ret !== "skip"){
-					if(ajaxOptions.contentType.indexOf("application/json")!==-1){
-						var jsonData = $self.rup_form("formToJson");
-						if (settings.multimodel!==null){
-							xhr.setRequestHeader("RUP_MULTI_ENTITY", "true");
-							jsonData["rupEntityMapping"]=settings.multimodel;
-						}
-						if (ajaxOptions.extraData!==undefined && ajaxOptions.extraData!==null){
-							$.extend(jsonData, ajaxOptions.extraData);
-						}
-						ajaxOptions.data=$.toJSON(jsonData);
-					}
-				}
-			};
+                if (ret === false) {
+                    return false;
+                } else if (ret !== "skip") {
+                    if (ajaxOptions.contentType.indexOf("application/json") !== -1) {
+                        var jsonData = $self.rup_form("formToJson");
+                        if (settings.multimodel !== null) {
+                            xhr.setRequestHeader("RUP_MULTI_ENTITY", "true");
+                            jsonData["rupEntityMapping"] = settings.multimodel;
+                        }
+                        if (ajaxOptions.extraData !== undefined && ajaxOptions.extraData !== null) {
+                            $.extend(jsonData, ajaxOptions.extraData);
+                        }
+                        ajaxOptions.data = $.toJSON(jsonData);
+                    }
+                }
+            };
 
-			// BeforeSubmit
-			beforeSubmitUserEvent = settings.beforeSubmit;
-			settings.beforeSubmit = function (arr, $form, options) {
-				var httpMethod, error_user, hasFileInputs;
-				if($.isFunction(beforeSubmitUserEvent)){
-					if (beforeSubmitUserEvent.call(this,arr, $form, options)===false){
-						return false;
-					}
-				}
+            // BeforeSubmit
+            beforeSubmitUserEvent = settings.beforeSubmit;
+            settings.beforeSubmit = function (arr, $form, options) {
+                var httpMethod, error_user, hasFileInputs;
+                if ($.isFunction(beforeSubmitUserEvent)) {
+                    if (beforeSubmitUserEvent.call(this, arr, $form, options) === false) {
+                        return false;
+                    }
+                }
 
-				hasFileInputs = jQuery('input:file', $form).length > 0;
-				// Implementacion para realizar la emulacion de xhr al utilizar iframes
-				if ((!$.rup.browser.xhrFileUploadSupport && hasFileInputs) || options.iframe===true){
+                hasFileInputs = jQuery('input:file', $form).length > 0;
+                // Implementacion para realizar la emulacion de xhr al utilizar iframes
+                if ((!$.rup.browser.xhrFileUploadSupport && hasFileInputs) || options.iframe === true) {
 
-					// Configuracion necesaria para permitir con iframes el uso de metodos http diferentes a GET o POST
-					httpMethod = settings.type!==undefined ? settings.type : options.type;
-					if ($.inArray(httpMethod.toUpperCase(),$.rup.IFRAME_ONLY_SUPPORTED_METHODS) === -1){
-						options.extraData = $.extend({}, options.extraData, {"_method":httpMethod.toUpperCase()});
-					}
+                    // Configuracion necesaria para permitir con iframes el uso de metodos http diferentes a GET o POST
+                    httpMethod = settings.type !== undefined ? settings.type : options.type;
+                    if ($.inArray(httpMethod.toUpperCase(), $.rup.IFRAME_ONLY_SUPPORTED_METHODS) === -1) {
+                        options.extraData = $.extend({}, options.extraData, {
+                            "_method": httpMethod.toUpperCase()
+                        });
+                    }
 
-					//Se valida la presencia de portal y, llegados al caso, se adecuan las llamadas ajax para trabajar con portales
-					options.url=$.rup_utils.setNoPortalParam(options.url);
-					// Envio del parametro emulate_iframe_http_status para activar la emulacion en el lado servidor
-					options.extraData = $.extend({}, options.extraData, {"_emulate_iframe_http_status":"true"});
-					options.url = options.url + (options.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
+                    //Se valida la presencia de portal y, llegados al caso, se adecuan las llamadas ajax para trabajar con portales
+                    options.url = $.rup_utils.setNoPortalParam(options.url);
+                    // Envio del parametro emulate_iframe_http_status para activar la emulacion en el lado servidor
+                    options.extraData = $.extend({}, options.extraData, {
+                        "_emulate_iframe_http_status": "true"
+                    });
+                    options.url = options.url + (options.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
 
-					// Callback de error por defecto a ejecutar cuando se produzca un error al utilizar la emulacion
-					error_user = options.error;
-					options.error = function(xhr, textStatus, errorThrown){
-						var errorText = $.rup.rupAjaxDefaultError(xhr, textStatus, errorThrown);
+                    // Callback de error por defecto a ejecutar cuando se produzca un error al utilizar la emulacion
+                    error_user = options.error;
+                    options.error = function (xhr, textStatus, errorThrown) {
+                        var errorText = $.rup.rupAjaxDefaultError(xhr, textStatus, errorThrown);
 
-						// Si se ha producido un error de los tratados lo mostramos
-						if (error_user!=null){
-							$(error_user(xhr, textStatus, errorThrown));
-						}else{
-							if(errorText){
-								$.rup.showErrorToUser(errorText);
-							}
-						}
-					};
-				}
-			};
+                        // Si se ha producido un error de los tratados lo mostramos
+                        if (error_user != null) {
+                            $(error_user(xhr, textStatus, errorThrown));
+                        } else {
+                            if (errorText) {
+                                $.rup.showErrorToUser(errorText);
+                            }
+                        }
+                    };
+                }
+            };
 
-			settings.formValidationRequired = (settings.validate!==undefined);
+            settings.formValidationRequired = (settings.validate !== undefined);
 
-			// Configruacion de las validaciones
-			if (settings.formValidationRequired){
-				if (settings.error===undefined){
-					settings.error = function(a,b,c,d){
-						try{
-							var json = jQuery.parseJSON(a.responseText);
-							$self.validate().invalid=json.rupErrorFields;
-							$self.validate().submited=json.rupErrorFields;
-							$self.validate().showErrors(json.rupErrorFields);
-							if (json.rupFeedback!==undefined && $self.validate().settings.feedback!==undefined){
-								$self.validate().settings.feedback.rup_feedback("set", $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.imgClass!==undefined?json.rupFeedback.imgClass:null));
-							}
-						}catch(ex){
-							$self.validate().settings.feedback.rup_feedback("set", a.responseText, "error");
-						}
-					};
-				}
-				settings.validate.submitHandler = function(form) {
-					jQuery(form).ajaxSubmit($(form).data("ajaxSettings"));
-				};
+            // Configruacion de las validaciones
+            if (settings.formValidationRequired) {
+                if (settings.error === undefined) {
+                    settings.error = function (a, b, c, d) {
+                        try {
+                            var json = jQuery.parseJSON(a.responseText);
+                            $self.validate().invalid = json.rupErrorFields;
+                            $self.validate().submited = json.rupErrorFields;
+                            $self.validate().showErrors(json.rupErrorFields);
+                            if (json.rupFeedback !== undefined && $self.validate().settings.feedback !== undefined) {
+                                $self.validate().settings.feedback.rup_feedback("set", $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.imgClass !== undefined ? json.rupFeedback.imgClass : null));
+                            }
+                        } catch (ex) {
+                            $self.validate().settings.feedback.rup_feedback("set", a.responseText, "error");
+                        }
+                    };
+                }
+                settings.validate.submitHandler = function (form) {
+                    jQuery(form).ajaxSubmit($(form).data("ajaxSettings"));
+                };
 
-				settings.validate.feedback=settings.feedback;
-			}
-			$self.data("ajaxSettings", settings);
-			$self.data("settings", settings);
-		}
-	});
+                settings.validate.feedback = settings.feedback;
+            }
+            $self.data("ajaxSettings", settings);
+            $self.data("settings", settings);
+        }
+    });
 
-	//********************************
-	// DEFINICIÓN DE MÉTODOS PRIVADOS
-	//********************************
-	$.fn.rup_form("extend",{
-	});
+    //********************************
+    // DEFINICIÓN DE MÉTODOS PRIVADOS
+    //********************************
+    $.fn.rup_form("extend", {});
 
-	$.fn.rup_form("extend",{
+    $.fn.rup_form("extend", {
         /**
-        * Función de inicialización del componente.
-        *
-        * @name jQuery.rup_form#_init
-        * @function
-        * @private
-        * @param {object} args - Propiedades de configuración.
-        */
-			_init : function(args){
-				var $self = this, realizarValidacion, settings, ajaxFormSettings={}, userSettings={};
+         * Función de inicialización del componente.
+         *
+         * @function  _init
+         * @private
+         * @param {object} args - Propiedades de configuración.
+         */
+        _init: function (args) {
+            var $self = this,
+                realizarValidacion, settings, ajaxFormSettings = {},
+                userSettings = {};
 
-				// Determinamos si se ha introducido configuracion para el componente validacion.
-				// Settings de configuracion
-				settings = $.extend(true, {}, $.fn.rup_form.defaults, args[0]);
+            // Determinamos si se ha introducido configuracion para el componente validacion.
+            // Settings de configuracion
+            settings = $.extend(true, {}, $.fn.rup_form.defaults, args[0]);
 
-				// Anadimos al formulario el class rup_form para identificarlo como componente formulario.
-				$self.addClass("rup_form");
-				$self.attr("ruptype","form");
+            // Anadimos al formulario el class rup_form para identificarlo como componente formulario.
+            $self.addClass("rup_form");
+            $self.attr("ruptype", "form");
 
-				$self.rup_form("configureOptions",settings);
-				// En caso de que no sehaya configurado el componente validacion se realiza la llamada al plugin jquery.form.
-				if (settings.formValidationRequired){
-					$self.rup_validate(settings.validate);
-				}else{
-					$self.ajaxForm(settings);
-				}
-			}
-		});
+            $self.rup_form("configureOptions", settings);
+            // En caso de que no sehaya configurado el componente validacion se realiza la llamada al plugin jquery.form.
+            if (settings.formValidationRequired) {
+                $self.rup_validate(settings.validate);
+            } else {
+                $self.ajaxForm(settings);
+            }
+        }
+    });
 
-	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//*******************************************************
+    //*******************************************************
+    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //*******************************************************
 
     /**
-    * Función de callback que será invocada antes de realizarse la serialización del formulario.
-    *
-    * @callback jQuery.rup_form~beforeSerialize
-    * @param {jQuery} $form - Referencia del objeto jQuery del formulario.
-    * @param {object} options - Opciones de configuración con las que se ha inicializado el componente.
-    * @return {boolean} - En caso de devolver false se cancela el envío del formulario.
-    * @example
-    * $("#form").rup_form({
-    *  beforeSerialize: function($form, options) { ... }
-    * });
-    */
+     * Función de callback que será invocada antes de realizarse la serialización del formulario.
+     *
+     * @callback jQuery.rup_form~beforeSerialize
+     * @param {jQuery} $form - Referencia del objeto jQuery del formulario.
+     * @param {object} options - Opciones de configuración con las que se ha inicializado el componente.
+     * @return {boolean} - En caso de devolver false se cancela el envío del formulario.
+     * @example
+     * $("#form").rup_form({
+     *  beforeSerialize: function($form, options) { ... }
+     * });
+     */
 
     /**
-    * Función de callback que será invocada antes de realizarse el envío del formulario.
-    *
-    * @callback jQuery.rup_form~beforeSubmit
-    * @param {object[]} arr - Array que contiene la información introducida en el formulario. El array tiene el siguiente formato : [ { name: 'username', value: 'jresig' }, { name: 'password', value: 'secret' } ]
-    * @param {jQuery} $form - Referencia del objeto jQuery del formulario.
-    * @param {object} options - Opciones de configuración con las que se ha inicializado el componente.
-    * @return {boolean} - En caso de devolver false se cancela el envío del formulario.
-    * @example
-    * $("#form").rup_form({
-    *  beforeSubmit: function(arr, $form, options) { ... }
-    * });
-    */
+     * Función de callback que será invocada antes de realizarse el envío del formulario.
+     *
+     * @callback jQuery.rup_form~beforeSubmit
+     * @param {object[]} arr - Array que contiene la información introducida en el formulario. El array tiene el siguiente formato : [ { name: 'username', value: 'jresig' }, { name: 'password', value: 'secret' } ]
+     * @param {jQuery} $form - Referencia del objeto jQuery del formulario.
+     * @param {object} options - Opciones de configuración con las que se ha inicializado el componente.
+     * @return {boolean} - En caso de devolver false se cancela el envío del formulario.
+     * @example
+     * $("#form").rup_form({
+     *  beforeSubmit: function(arr, $form, options) { ... }
+     * });
+     */
 
     /**
-    * Función de callback que será invocada cuando se produzca un error.
-    *
-    * @callback jQuery.rup_form~error
-    * @example
-    * $("#form").rup_form({
-    *  error: function() { ... }
-    * });
-    */
+     * Función de callback que será invocada cuando se produzca un error.
+     *
+     * @callback jQuery.rup_form~error
+     * @example
+     * $("#form").rup_form({
+     *  error: function() { ... }
+     * });
+     */
 
     /**
-    * Función de callback que será invocado cuando se reciba la respuesta del formulario.
-    *
-    * @callback jQuery.rup_form~suceess
-    * @param {string} responseText - Texto identificador de la respuesta obtenida.
-    * @param {string} statusText - Código de respuesta http.
-    * @param {object} xhr - Objeto xhr con la respuesta enviada del servidor.
-    * @param {jQuery} $form - Referencia jQuery al componente formulario.
-    * @example
-    * $("#form").rup_form({
-    *  suceess: function(responseText, statusText, xhr, $form) { ... }
-    * });
-    */
+     * Función de callback que será invocado cuando se reciba la respuesta del formulario.
+     *
+     * @callback jQuery.rup_form~suceess
+     * @param {string} responseText - Texto identificador de la respuesta obtenida.
+     * @param {string} statusText - Código de respuesta http.
+     * @param {object} xhr - Objeto xhr con la respuesta enviada del servidor.
+     * @param {jQuery} $form - Referencia jQuery al componente formulario.
+     * @example
+     * $("#form").rup_form({
+     *  suceess: function(responseText, statusText, xhr, $form) { ... }
+     * });
+     */
 
     /**
-    * Función de callback que será invocado cuando se reciba la respuesta del formulario.
-    *
-    * @callback jQuery.rup_form~uploadProgress
-    * @param {Event} event - Objeto Event procedente del navegador.
-    * @param {Integer} position - Numero que determina el contenido enviado.
-    * @param {Integer} total - Numero que identifica el total del contenido a enviar.
-    * @param {Integer} percentComplete - Numero que identifica el porcentaje actual completado en el proceso de envío.
-    * @example
-    * $("#form").rup_form({
-    *  uploadProgress: function(event, position, total, percentComplete) { ... }
-    * });
-    */
+     * Función de callback que será invocado cuando se reciba la respuesta del formulario.
+     *
+     * @callback jQuery.rup_form~uploadProgress
+     * @param {Event} event - Objeto Event procedente del navegador.
+     * @param {Integer} position - Numero que determina el contenido enviado.
+     * @param {Integer} total - Numero que identifica el total del contenido a enviar.
+     * @param {Integer} percentComplete - Numero que identifica el porcentaje actual completado en el proceso de envío.
+     * @example
+     * $("#form").rup_form({
+     *  uploadProgress: function(event, position, total, percentComplete) { ... }
+     * });
+     */
 
     /**
     * Opciones por defecto de configuración del componente.
-    * @name jQuery.rup_form#options
+    * @name defaults
     *
     * @property {jQuery.rup_form~beforeSerialize} [beforeSerialize=null] - Función de callback que será invocada antes de realizarse la serialización del formulario. Permite la modificación de los datos del formulario antes de que estos sean recuperados para su procesado por el componente.
     * @property {jQuery.rup_form~beforeSubmit} [beforeSubmit=null] - Función de callback que será invocada antes de realizarse el envío del formulario. Permite acceder a la información que será enviada al formulario. En caso de retornar false no se realizará en envío.
@@ -519,12 +514,12 @@ envío de los datos.
     */
 
 
-	$.fn.rup_form.defaults = {
-			ajaxForm:null,
-			feedback:null,
-			multimodel:null,
-			useJsonIfPossible:true // En caso de ser posible realizar en envío mediante json se enviarán los datos en este formato.
-	};
+    $.fn.rup_form.defaults = {
+        ajaxForm: null,
+        feedback: null,
+        multimodel: null,
+        useJsonIfPossible: true // En caso de ser posible realizar en envío mediante json se enviarán los datos en este formato.
+    };
 
 
 }));

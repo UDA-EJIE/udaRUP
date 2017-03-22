@@ -2,18 +2,18 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1. Introducción](#1.-introducción)   
-   - [2. Ejemplo](#2.-ejemplo)   
-   - [3. Casos de uso](#3.-casos-de-uso)   
-   - [4. Infraestructura](#4.-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
-   - [5. Invocación](#5.-invocación)   
-   - [6. API](#6.-api)   
-   - [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
-   - [8.  Internacionalización (i18n)](#8.-internacionalización-i18n)   
-   - [9. Integración con UDA](#9.-integración-con-uda)   
+-   [1. Introducción](#1.-introducción)   
+-   [2. Ejemplo](#2.-ejemplo)   
+-   [3. Casos de uso](#3.-casos-de-uso)   
+-   [4. Infraestructura](#4.-infraestructura)   
+    -   [4.1 Ficheros](#4.1-ficheros)   
+    -   [4.2 Dependencias](#4.2-dependencias)   
+    -   [4.3 Versión minimizada](#4.3-versión-minimizada)   
+-   [5. Invocación](#5.-invocación)   
+-   [6. API](#6.-api)   
+-   [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
+-   [8.  Internacionalización (i18n)](#8.-internacionalización-i18n)   
+-   [9. Integración con UDA](#9.-integración-con-uda)   
 
 <!-- /MDTOC -->
 
@@ -34,45 +34,45 @@ Se presentan a continuación un ejemplo de este componente:
 
 Se recomienda el uso del componente:
 
- * Cuando se desea mejorar la búsqueda ofreciendo sugerencias a los usuarios.
+*   Cuando se desea mejorar la búsqueda ofreciendo sugerencias a los usuarios.
 
 ## 4. Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
-* Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
+*   Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
 ### 4.1 Ficheros
 
-- Ruta Javascript: rup/scripts/
-- Fichero de plugin: rup.autocomplete-x.y.z.js
-- Ruta theme: rup/basic-theme/
-- Fichero CSS del theme: theme.rup.autocomplete-x.y.z.css
+-   Ruta Javascript: rup/scripts/
+-   Fichero de plugin: rup.autocomplete-x.y.z.js
+-   Ruta theme: rup/basic-theme/
+-   Fichero CSS del theme: theme.rup.autocomplete-x.y.z.css
 
 ### 4.2 Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 1.8.0.
-* jQuery 1.8.0: http://jquery.com/
+*   jQuery 1.8.0: <http://jquery.com/>
 
 La gestión de ciertas partes visuales de los componentes, se han realizado mediante el plugin jQuery-UI que se basa en jQuery y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la 1.8.23.
 
-* jQuery-UI 1.8.23: http://jqueryui.com/
+*   jQuery-UI 1.8.23: <http://jqueryui.com/>
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-* jquery-1.8.0.js
-* jquery-ui-1.8.23.custom.js
-* jquery-ui-1.8.23.custom.css
-* rup.base-x.y.z.js
-* rup.autocomplete-x.y.z.js
-* theme.rup.autocomplete-x.y.z.css
+*   jquery-1.8.0.js
+*   jquery-ui-1.8.23.custom.js
+*   jquery-ui-1.8.23.custom.css
+*   rup.base-x.y.z.js
+*   rup.autocomplete-x.y.z.js
+*   theme.rup.autocomplete-x.y.z.css
 
 ### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
 Los ficheros minimizados de RUP son los siguientes:
-* rup/scripts/min/rup.min-x.y.z.js
-* rup/basic-theme/rup.min-x.y.z.css
+*   rup/scripts/min/rup.min-x.y.z.js
+*   rup/basic-theme/rup.min-x.y.z.css
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
@@ -81,7 +81,7 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente Autocomplete. Por ejemplo:
 
 ```javascript
-$("#id_input").rup_autocomplete(properties);
+  $("#id_input").rup_autocomplete(properties);
 ```
 
 Donde el parámetro “properties” es un objeto ( var properties = {}; ) o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
@@ -89,15 +89,15 @@ Donde el parámetro “properties” es un objeto ( var properties = {}; ) o bie
 Para facilitar la gestión de los datos del formulario, el *input* sobre el que se aplica el componente pasará a tener como nombre su nombre original seguido de *“_label”* y contendrá la descripción del valor seleccionado. El valor interno se guardará en un campo oculto cuyo nombre será el nombre original del *input* sobre el que se aplica el componente. Veámoslo con un ejemplo:
 
 
-1. Se define el input sobre el que se aplica el componente:
+1.  Se define el input sobre el que se aplica el componente:
 ```js
 <input id=lenguaje name=lenguaje />
 ```
-2. Se invoca el componente sobre el input:
+2.  Se invoca el componente sobre el input:
 ```js
 $("#lenguaje").rup_autocomplete({...});
 ```
-3. Se modifica el código HTML y se convierte en:
+3.  Se modifica el código HTML y se convierte en:
 ```xml
 <input id=”lenguaje_label” name=”lenguaje_label” ruptype=”autocomplete”... />
 <hidden id=”lenguaje” name=”lenguaje” ” ruptype=”autocomplete”... />
@@ -159,21 +159,21 @@ Ejemplo:
 El componente Autocomplete permite recuperar los datos almacenados en base de datos. Para ello se requiere cierta configuración en el *Controller* al que se invoca.
 
 Se deben declarar dos parámetros (que el componente envía automáticamente):
-* **q**: termino introducido en el *input*. El termino introducido podría contener comodines (wildcards) que podrían obtener datos no deseados como son el carácter “_” que equivale a cualquier carácter o el carácter “%” que equivale a cualquier literal. Por ello en la petición al servidor se envía escapados automáticamente. Ejemplo de una petición con los caracteres escapados:
+*   **q**: termino introducido en el *input*. El termino introducido podría contener comodines (wildcards) que podrían obtener datos no deseados como son el carácter “_” que equivale a cualquier carácter o el carácter “%” que equivale a cualquier literal. Por ello en la petición al servidor se envía escapados automáticamente. Ejemplo de una petición con los caracteres escapados:
 ```xml
 http://localhost:7001/x21aDemoWAR/fase3/autocomplete/remote?q=\%\%\%\%&c=false
 ```
-* **c**: booleano que determina si la búsqueda es del tipo “contiene” (true) o del tipo “empieza por” (false).
+*   **c**: booleano que determina si la búsqueda es del tipo “contiene” (true) o del tipo “empieza por” (false).
 
 El *Service* que invoca el *Controller* tendrá el método **findAllLike (entidad, paginación, c)** (si se ha generado con el plugin UDA)  que se empleará para realizar la búsqueda. Sus parámetros son los siguientes:
 
-* **entidad**: objeto creado por el desarrollador que contendrá en el campo por el que se desea buscar el termino introducido:
+*   **entidad**: objeto creado por el desarrollador que contendrá en el campo por el que se desea buscar el termino introducido:
 ```java
 MiEntidad miEntidad = new Entidad();
 miEntidad.setCampoBusqueda(q);
 ```
-* **paginación**: objeto empleado para hacer filtrados/paginaciones. En el ejemplo actual se manda *null* ya que no se requiere esta funcionalidad.
-* **c**: parámetro enviado por el componente que determina el tipo de búsqueda.
+*   **paginación**: objeto empleado para hacer filtrados/paginaciones. En el ejemplo actual se manda *null* ya que no se requiere esta funcionalidad.
+*   **c**: parámetro enviado por el componente que determina el tipo de búsqueda.
 
 A continuación se muestra un ejemplo (se destacan con fondo gris los elementos a configurar):
 
@@ -200,7 +200,7 @@ A continuación se muestra un ejemplo (se destacan con fondo gris los elementos 
 
 El método devuelve una lista de entidades en este caso *List<Patrones>* donde cada entidad tendrá todos y cada uno de los atributos cargados con los valores de la Base de Datos. Al devolver la lista con la anotación ```@ResponseBody```, entrará en funcionamiento *Jackson* (parseador de JSON de Spring) para convertir la lista JAVA en una lista JSON:
 
-* **JAVA**:
+*   **JAVA**:
 
 ```
 patronesList :
@@ -216,7 +216,7 @@ patronesList :
                         css = print
 …
 ```
-* **JSON**:
+*   **JSON**:
 
 ```js
 [
@@ -246,7 +246,7 @@ Como se ha explicado en anteriormente en el atributo **source** en el apartado 8
 ]
 ```
 
-La traducción entre la estructura devuelta por el *controller* y la que espera el componente se realiza mediante un serializador propio de **UDA**. Para que este entre en funcionamiento simplemente se deberá configurar el fichero * **mvc-config** * del WAR (*/xxxWAR/WebContent/WEB-INF/spring/mvc-config.xml*) indicando que el modelo utilizado utilice el serializador de **UDA**:
+La traducción entre la estructura devuelta por el *controller* y la que espera el componente se realiza mediante un serializador propio de **UDA**. Para que este entre en funcionamiento simplemente se deberá configurar el fichero *     **mvc-config***del WAR (*/xxxWAR/WebContent/WEB-INF/spring/mvc-config.xml*) indicando que el modelo utilizado utilice el serializador de **UDA**:
 
 ```xml
 <bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
