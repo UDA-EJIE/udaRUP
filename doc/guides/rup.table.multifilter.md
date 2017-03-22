@@ -2,6 +2,8 @@
 
 Permite la gestión de múltiples filtros para el componente rup_table.
 
+![Imagen 1](img/rup.table.multifilter_1.png)
+
 # 1. Declaración y configuración
 
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “multtifilter”. La configuración del plugin se especifica en la propiedad multifilter.

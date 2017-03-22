@@ -7,6 +7,8 @@ dentro de un diálogo y ofrece las siguientes funcionalidades:
 * Cancelar la inserción o edición de un registro.
 * Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
 
+![Imagen 1](img/rup.table.formEdit_1.png)
+
 # 1. Declaración y configuración
 
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “formEdit”. La configuración del plugin se especifica en la propiedad formEdit.

@@ -4,6 +4,8 @@ El modulo menu contextual (contextMenu) permite mostrar un menú con acciones re
 
 Por defecto permite realizar sobre los registros de la tabla, las mismas acciones principales que se muestran en la botonera.
 
+![Imagen 1](img/rup.table.contextMenu_1.png)
+
 ## 1. Declaración y configuración
 
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “contextMenu”.

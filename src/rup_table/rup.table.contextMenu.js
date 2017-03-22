@@ -7,20 +7,27 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
+ /**
+ * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
+ *
+ * @summary Plugin de menú contextual del componente RUP Table.
+ * @module rup_table/contextMenu
+ *
+ */
 (function ($) {
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización del plugin.
-	 * 
+	 *
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
-	 * 
+	 *
 	 */
 	jQuery.rup_table.registerPlugin("contextMenu",{
 		loadOrder:4,
@@ -33,54 +40,70 @@
 			return $self.rup_table("postConfigureContextMenu", settings);
 		}
 	});
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente. 
-	 * 
+	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 *
 	 * Los métodos implementados son:
-	 * 
+	 *
 	 * postConfigureFilter(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
-	 * 
+	 *
 	 * Se almacena la referencia de los diferentes componentes:
-	 * 
+	 *
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
-	 *  
+	 *
 	 */
 	jQuery.fn.rup_table("extend",{
+		/**
+		 * Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.
+		 * Este método se ejecuta antes de la incialización del plugin.
+		 *
+		 * @name preConfigureContextMenu
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
+		 */
 		preConfigureContextMenu: function(settings){
 			var $self = this,  contextMenuSettings = settings.contextMenu;
-			
+
 			// Se unifican los parámetros de configuración de mostrar/ocultar los botones de la toolbar
 			if (contextMenuSettings.createDefaultRowOperations===true) {
 				contextMenuSettings.showOperations = jQuery.extend(true, {}, contextMenuSettings.defaultRowOperations, settings.core.showOperations, contextMenuSettings.showOperations);
 			}
-			
+
 		},
+		/**
+		 * Metodo que realiza la post-configuración del plugin contextMenu del componente RUP Table.
+		 * Este método se ejecuta después de la incialización del plugin.
+		 *
+		 * @name postConfigureContextMenu
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
+		 */
 		postConfigureContextMenu: function(settings){
 			var $self = this, contextMenuSettings = settings.contextMenu;
-				
+
 			function getTdIndex(thArray, name){
-				
+
 				for(var i=0;i<thArray.length;i++){
 				    if (jQuery(thArray[i]).attr("id")===settings.id+"_"+name){
 				        return i+1;
 				    }
 				}
-				
+
 				return -1;
 			}
-			
-			
+
+
 			$self.one({
 				"jqGridLoadComplete.rupTable.contextMenu": function(data){
 					var $tbodyTr = jQuery(settings.contextMenu.tbodySelector, $self), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray;
-					
+
 //					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
 					jQuery.each(settings.contextMenu.showOperations, function(buttonId, value){
 						var operationCfg;
@@ -106,7 +129,7 @@
 							}
 						}
 					});
-					
+
 					jQuery.each(settings.contextMenu.items,function(index, oper){
 						if (jQuery.isArray(oper.colNames)){
 							cellLevelContextMenu=true;
@@ -116,10 +139,10 @@
 
 					// En caso de especificar solo para unas columnas
 					thArray = jQuery(settings.contextMenu.theadThSelector, "#gview_"+settings.id);
-					
+
 					// Eliminamos los contextMenu creados previamente
 					$("ul.context-menu-list", $tbodyTr).remove();
-					
+
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
 							jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, contextMenuSettings.colNames[i])+")", $self).rup_contextMenu({
@@ -127,7 +150,7 @@
 							});
 						}
 					}else if (cellLevelContextMenu){
-					
+
 //						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
 						if (!jQuery.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
@@ -136,8 +159,8 @@
 							    }
 							});
 						}
-						
-							
+
+
 						jQuery.each(contextRowItems, function(index, item){
 							var colNamesAux;
 							if (jQuery.isArray(item.colNames)){
@@ -145,7 +168,7 @@
 							}else{
 								colNamesAux = contextMenuSettings.colNames;
 							}
-							
+
 							for (var i=0;i<colNamesAux.length;i++){
 								colItem={};
 								colItem[colNamesAux[i]]={};
@@ -155,33 +178,33 @@
 								jQuery.extend(true, itemsPerColumn[colNamesAux[i]], itemAux);
 							}
 						});
-						
+
 						jQuery.each(itemsPerColumn, function(index, item){
 						jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, index)+")", $self).rup_contextMenu({
 								items: item
 							});
 						});
-						
+
 					}else{
 						$tbodyTr.rup_contextMenu({
 							items: contextRowItems
 						});
 					}
-					
+
 				}
 			});
 		}
 	});
-	
-		
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
-		
+
+
 	/**
 	 * Parámetros de configuración por defecto para el plugin fluid.
-	 * 
+	 *
 	 */
 	jQuery.fn.rup_table.plugins.contextMenu = {};
 	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
@@ -196,6 +219,6 @@
 				items:{}
 			}
 	};
-	
-	
+
+
 })(jQuery);

@@ -12,6 +12,8 @@ La descripción del componente Tabla, visto desde el punto de vista de RUP, es l
 
 Se muestra a continuación una maquetación típica del componente:
 
+![Imagen 1](img/rup.table_1.png)
+
 ## 3. Casos de uso
 
 Se aconseja la utilización de este componente:

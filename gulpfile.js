@@ -358,6 +358,8 @@ gulp.task('doc:api', function () {
 
   jsdoc2md.render({ files: 'src/rup.accordion.js' }).then(output => fs.writeFile('./doc/api/rup.accordion.md', output));
   jsdoc2md.render({ files: 'src/rup.autocomplete.js' }).then(output => fs.writeFile('./doc/api/rup.autocomplete.md', output));
+  jsdoc2md.render({ files: 'src/rup_table/rup.table.core.js' }).then(output => fs.writeFile('./doc/api/rup.table.core.md', output));
+  jsdoc2md.render({ files: 'src/rup_table/rup.table.contextMenu.js' }).then(output => fs.writeFile('./doc/api/rup.table.contextMenu.md', output));
 
 
 
