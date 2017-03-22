@@ -1169,7 +1169,7 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-selectmenu-dropdown {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -1201,6 +1201,9 @@ input.ui-button {
   font-weight: bold; }
 
 /** ICONOS **/
+.ui-icon {
+  margin-top: 0; }
+
 .rup_icon {
   float: left;
   padding-right: 0.5em; }
@@ -1212,7 +1215,7 @@ input.ui-button {
   margin-top: 0.15em !important;
   position: static; }
 
-.rup-icon, .ui-icon.rup-icon {
+.rup-icon, .ui-icon.rup-icon, .ui-button:hover .ui-icon.rup-icon {
   background-image: url(images/rup-icons.png);
   background-repeat: no-repeat;
   display: inline-block;
@@ -1869,10 +1872,8 @@ input.ui-button {
 
 .rup-breadCrumb_root {
   width: 100%;
-  padding: 0rem 2rem 0rem 2rem;
-  -moz-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
-  -webkit-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
+  float: left;
+  margin-bottom: 0.5em; }
 
 .rup-breadCrumb_main {
   padding-top: 0.1em;
@@ -3322,6 +3323,9 @@ ul.ui-selectmenu-menu-popup {
   float: left;
   font-weight: normal;
   z-index: 810; }
+
+.ui-menu .rup_menu_horizontal_children.ui-menu-item {
+  list-style-image: none; }
 
 .rup_menu_horizontal.ui-widget-header {
   font-weight: normal; }
@@ -5702,7 +5706,11 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
 .rup-breadCrumb_root {
   background: lightgray;
   display: inline-block;
-  padding: 1rem; }
+  padding: 1rem;
+  padding: 0rem 2rem 0rem 2rem;
+  -moz-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
   .rup-breadCrumb_root .rup-breadCrumbs_span {
     padding: 0; }
   .rup-breadCrumb_root .rup-breadCrumb_main {

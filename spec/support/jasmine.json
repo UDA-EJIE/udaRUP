@@ -4,7 +4,9 @@
     "**/*[sS]pec.js"
   ],
   "helpers": [
-    "helpers/**/*.js"
+
+    "helpers/**/*.js",
+    "../dist/js/rup.js"
   ],
   "stopSpecOnExpectationFailure": false,
   "random": false

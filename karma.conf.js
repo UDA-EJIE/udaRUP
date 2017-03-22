@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Tue Jul 12 2016 09:00:48 GMT+0200 (Hora de verano romance)
 //var path = require('path');
+//
+
 
 module.exports = function(config) {
   config.set({
@@ -12,6 +14,7 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine','requirejs'],
+    //frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
@@ -24,27 +27,31 @@ module.exports = function(config) {
   //    'node_modules/requirejs/require.js',
       //'node_modules/karma-requirejs/lib/index.js',
       //'bower_components/handlebars/handlebars.js',
-      'node_modules/jquery/dist/jquery',
-      'node_modules/jquery-ui-dist/jquery-ui',
-      {pattern: 'bower_components/qtip2/jquery.qtip.js', included: false},
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-      'test/test-main.js',
-      'test/js/rup.config.js',
-      {pattern: 'node_modules/handlebars/dist/handlebars.js', included: false},
-      {pattern: 'i18n/*.json', watched: true, served: true, included: false},
-      {pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
-      {pattern: 'src/**/*.js', included: false},
-      //{pattern: 'test/**/*.template.hbs', included: false, served:true},
-      //{pattern: 'test/**/*.template.js',included: false, served:true},
-      {pattern: 'test/js/rup.config.js', included: false},
-      {pattern: 'test/js/rup.config2.js', included: false},
-      // {pattern: 'test/test/*.spec.js', included: false},
-      {pattern: 'test/accordion/*.spec.js', included: false},
-      {pattern: 'test/autocomplete/*.spec.js', included: false},
-      {pattern: 'test/feedback/*.spec.js', included: false},
-      {pattern: 'test/utils/*.spec.js', included: false},
-      //{pattern: 'test/dialog/*.spec.js', included: false},
-      {pattern: 'test/message/*.spec.js', included: false}
+
+    //  'node_modules/requirejs/require.js',
+
+    //  { pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js', included: false},
+      { pattern: 'spec/helpers/rup.karma.config.js'},
+      //{ pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js'},
+      //{ pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js'},
+      //{ pattern: 'node_modules/jasmine-core/lib/jasmine-core/boot.js'},
+      { pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js', included: false},
+      { pattern: "node_modules/jquery/dist/jquery.js", included: false},
+      { pattern: "node_modules/jquery-migrate/dist/jquery-migrate.js", included: false},
+      { pattern: "node_modules/jquery-ui-dist/jquery-ui.js", included: false},
+      { pattern: 'i18n/*.json', watched: true, served: true, included: false},
+      { pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false},
+      { pattern: "node_modules/handlebars/dist/handlebars.js", included: false },
+      { pattern: "src/helper/handlebars-helper-i18n.js", included: false },
+      //{ pattern: "src/core/utils/jquery.json-2.2.js", included: false },
+      { pattern: "node_modules/block-ui/jquery.blockUI.js", included: false },
+      { pattern: "node_modules/qtip2/dist/jquery.qtip.js", included: false },
+      { pattern: 'src/**/*.js', included: false},
+
+      'spec/karma-main.js',
+      //{ pattern: 'spec/karma-specs.js', included: false },
+      { pattern: 'spec/**/rup*spec.js', included: false }
+
     ],
     proxies: {
       "/i18n/resources/": "/base/i18n/",
@@ -62,10 +69,10 @@ module.exports = function(config) {
       'karma-firefox-launcher',
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
-      'karma-handlebars-preprocessor',
-      'karma-ie-launcher',
-      'karma-htmlfile-reporter',
-      'karma-mocha-reporter'
+      'karma-handlebars-preprocessor'
+    //  'karma-ie-launcher',
+    //  'karma-htmlfile-reporter',
+    //  'karma-mocha-reporter'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -96,7 +103,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', 'html'],
+    //reporters: ['mocha', 'html'],
     // htmlReporter: {
     //   outputDir: 'karma_html', // where to put the reports
     //   templatePath: null, // set if you moved jasmine_template.html
@@ -111,16 +118,16 @@ module.exports = function(config) {
     //   preserveDescribeNesting: false, // folded suites stay folded
     //   foldAll: false, // reports start folded (only with preserveDescribeNesting)
     // },
-    htmlReporter: {
-      outputFile: 'test/test_results.html',
-
-      // Optional
-      pageTitle: 'Unit Tests',
-      subPageTitle: 'A sample project description',
-  	  groupSuites: true,
-  	  useCompactStyle: true,
-      useLegacyStyle: false
-    },
+    // htmlReporter: {
+    //   outputFile: 'test/test_results.html',
+    //
+    //   // Optional
+    //   pageTitle: 'Unit Tests',
+    //   subPageTitle: 'A sample project description',
+  	//   groupSuites: true,
+  	//   useCompactStyle: true,
+    //   useLegacyStyle: false
+    // },
 
 
     // web server port
@@ -144,11 +151,11 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
     //browsers: ['Chrome'],
-
+  //  browserNoActivityTimeout:30000,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
