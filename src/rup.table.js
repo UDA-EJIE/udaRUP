@@ -12488,50 +12488,45 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * que establece la Licencia.
  */
 
- /**
-  * @fileOverview Implementa el patrón RUP Table.
-  * @author EJIE
-  * @version 2.4.8
-  */
+		/**
+		* Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
+		*
+		* @summary Componente RUP Table.
+		* @module rup_table
+		* @see El componente está basado en el plugin {@link http://www.trirand.com/blog/|jQuery Grid Plugin – jqGrid}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://www.trirand.com/jqgridwiki/doku.php|aquí}.
+		* @example
+		*
+		* var properties = {
+		*		url: "../tableUrl",
+		*		colNames: [
+		*			"id","nombre","..."]
+		*		],
+		*		colModel: [
+		*			{name: "id", label: "id"},
+		*			{name: "nombre", label: "nombre"},
+		*			{name: "...", label: "..."}
+		*		],
+		*		model:"Usuario",
+		*		usePlugins:[
+		*			"formEdit",
+		*			"feedback",
+		*			"toolbar",
+		*			"contextMenu",
+		*			"fluid",
+		*			"filter",
+		*			"search"
+		*		],
+		*		primaryKey: "id"
+		*	};
+		*
+		* $("#table").rup_table(properties);
+		*/
 (function ($) {
 
 
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	/**
-	* Se les presenta a los usuarios los datos tabulados para que la información se visualice de manera ágil y rápida, facilitando así su comprensión y manejo. Además, el componente implementa un nuevo patrón definido para facilitar la lógica necesaria en las acciones básicas, denominadas CRUD (create, read, update y delete), sobre una tabla.
-	*
-	* @summary Componente RUP Table.
-	* @namespace jQuery.rup_table
-	* @memberof jQuery
-	* @example
-	*
-	* var properties = {
-	*		url: "../tableUrl",
-	*		colNames: [
-	*			"id","nombre","..."]
-	*		],
-	*		colModel: [
-	*			{name: "id", label: "id"},
-	*			{name: "nombre", label: "nombre"},
-	*			{name: "...", label: "..."}
-	*		],
-	*		model:"Usuario",
-	*		usePlugins:[
-	*			"formEdit",
-	*			"feedback",
-	*			"toolbar",
-	*			"contextMenu",
-	*			"fluid",
-	*			"filter",
-	*			"search"
-	*		],
-	*		primaryKey: "id"
-	*	};
-	*
-	* $("#table").rup_table(properties);
-	*/
 	var rup_table = {};
 	rup_table.plugins=[];
 
@@ -12719,12 +12714,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * Metodo que realiza la pre-configuración del core del componente RUP Table.
 		 * Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
 		 *
-		 * @name jQuery.rup_table#preConfigureCore
+		 * @name preConfigureCore
 		 * @function
 		 * @param {object} settings - Parámetros de configuración del componente.
-		 * @fires jQuery.rup_table#rupTable_checkOutOfGrid
-		 * @fires jQuery.rup_table#rupTable_serializeGridData
-		 * @fires jQuery.rup_table#rupTable_beforeProcessing
+		 * @fires module:rup_table#rupTable_checkOutOfGrid
+		 * @fires module:rup_table#rupTable_serializeGridData
+		 * @fires module:rup_table#rupTable_beforeProcessing
 		 */
 		preConfigureCore: function(settings){
 			var $self = this, colModel, colModelObj;
@@ -12899,7 +12894,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				$self.triggerHandler("rupTable_serializeGridData", [newPostData]);
 
-				delete $self.data("tmp.firstLoad");
+				$self.removeData("tmp.firstLoad");
 				settings.core.startOnPage = null;
 				return jQuery.toJSON(newPostData);
 			};
@@ -13076,7 +13071,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * Metodo que realiza la post-configuración del core del componente RUP Table.
 		 * Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.
 		 *
-		 * @name jQuery.rup_table#postConfigureCore
+		 * @name postConfigureCore
 		 * @function
 		 * @param {object} settings - Parámetros de configuración del componente.
 		 */
@@ -13156,7 +13151,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve la propiedad colModel del jqGrid.
 		 *
-		 * @name jQuery.rup_table#getColModel
+		 * @name getColModel
 		 * @function
 		 * @return {object} - Propiedad colModel del jqGrid.
 		 * @example
@@ -13168,7 +13163,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el valor del parámetro del grid especificado.
 		 *
-		 * @name jQuery.rup_table#getGridParam
+		 * @name getGridParam
 		 * @function
 		 * @param {string} pName - Nombre del parámetro que se desea obtener.
 		 * @return {object} - Valor del parámetro.
@@ -13181,7 +13176,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Permite redimensionar la tabla de acuerdo a los parámetros indicados.
 		 *
-		 * @name jQuery.rup_table#getGridParam
+		 * @name getGridParam
 		 * @function
 		 * @param {object} options - Parámetros para configurar la altura y anchura del redimensionado.
 		 * @return {jQuery} - Referencia al propio componente.
@@ -13194,7 +13189,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve un array con los identificadores de los registros seleccionados.
 		 *
-		 * @name jQuery.rup_table#getSelectedRows
+		 * @name getSelectedRows
 		 * @function
 		 * @return {string[]} - Array con los identificadores de los registros seleccionados.
 		 * @example
@@ -13208,7 +13203,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve un array con los índices de las líneas de los registros seleccionados.
 		 *
-		 * @name jQuery.rup_table#getSelectedLines
+		 * @name getSelectedLines
 		 * @function
 		 * @return {number[]} - Array con los índices de las líneas de los registros seleccionados.
 		 * @example
@@ -13223,7 +13218,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.
 		 * La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.
 		 *
-		 * @name jQuery.rup_table#getPkUrl
+		 * @name getPkUrl
 		 * @function
 		 * @param {string} rowId - Identificador del registro.
 		 * @return {string} - Url para obtener los valores del registro correspondiente.
@@ -13243,7 +13238,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Lanza la recarga de la tabla.
 		 *
-		 * @name jQuery.rup_table#reloadGrid
+		 * @name reloadGrid
 		 * @function
 		 * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
 		 * @example
@@ -13267,7 +13262,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Resetea el formulario indicado.
 		 *
-		 * @name jQuery.rup_table#resetForm
+		 * @name resetForm
 		 * @function
 		 * @param {jQuery} $form - Objeto jQuery que referencia el formulario que se desea resetear.
 		 * @return {jQuery} - Referencia al propio objeto.
@@ -13315,7 +13310,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Asigna a uno o varios parámetros del grid los valores indicados.
 		 *
-		 * @name jQuery.rup_table#setGridParam
+		 * @name setGridParam
 		 * @function
 		 * @param {object} newParams - Objeto que contiene los parámetros y sus valores.
 		 * @return {jQuery} - Referencia al propio objeto.
@@ -13329,7 +13324,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Selecciona o deselecciona los registros indicados.
 		 *
-		 * @name jQuery.rup_table#setSelection
+		 * @name setSelection
 		 * @function
 		 * @param {string | string[]} selectedRows - Identificador o array de identificadores de los registros que se desea seleccionar o deseleccionar.
 		 * @param {boolean} status - En caso de ser true se seleccionarán los registros indicados. En caso de ser false se deseleccionarán.
@@ -13348,7 +13343,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Muestra en los campos del formulario los errores de validación indicados.
 		 *
-		 * @name jQuery.rup_table#showServerValidationFieldErrors
+		 * @name showServerValidationFieldErrors
 		 * @function
 		 * @param {jQuery} $form - Objeto jQuery que referencia el formulario que se desea resetear.
 		 * @param {object} errors - Objeto json que contiene los errores de validación que se han dado para cada campo.
@@ -13367,29 +13362,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 		},
-//		search : function(async){
-//			var $self = this,
-//				props = $self[0].p,
-//				settings = $self.data("settings");
-//
-//			jQuery.extend (props.postData,settings.$searchForm.serializeObject());
-//			var postDataAux = {};
-//			jQuery.each (props.postData, function(a,b){
-//			    if (b!==''){
-//			    	postDataAux[a]=b;
-//			    }
-//			});
-//			props.postData = postDataAux;
-//
-//			$self.trigger("reloadGrid");
-//		},
 	/**
 	 * Elimina el resaltado de la línea especificada de la tabla.
 	 *
-	 * @name jQuery.rup_table#rupTableClearHighlightedRowAsSelected
+	 * @name rupTableClearHighlightedRowAsSelected
 	 * @function
 	 * @param {jQuery} $row - Objeto jQuery que referencia a la línea de la tabla.
-	 * @fires jQuery.rup_table#rupTableClearHighlightedRowAsSelected
+	 * @fires module:rup_table#rupTableClearHighlightedRowAsSelected
 	 * @example
 	 * $("#idComponente").rup_table("clearHighlightedRowAsSelected", $("#idFila"));
 	 */
@@ -13411,10 +13390,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Resalta la línea especificada de la tabla.
 		 *
-		 * @name jQuery.rup_table#highlightRowAsSelected
+		 * @name highlightRowAsSelected
 		 * @function
 		 * @param {jQuery} $row - Objeto jQuery que referencia a la línea de la tabla.
-		 * @fires jQuery.rup_table#rupTableHighlightRowAsSelected
+		 * @fires module:rup_table#rupTableHighlightRowAsSelected
 		 * @example
 		 * $("#idComponente").rup_table("highlightRowAsSelected", $("#idFila"));
 		 */
@@ -13437,7 +13416,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Actualiza el valor de los datos que se muestran en la barra de paginación.
 		 *
-		 * @name jQuery.rup_table#updateDetailPagination
+		 * @name updateDetailPagination
 		 * @function
 		 * @param {string} currentRowNumArg - Número actual de los registros que se están mostrando.
 		 * @param {string} totalRowNumArg - Número total de los registros que se muestran en la tabla.
@@ -13474,9 +13453,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Permite modificar el objeto interno _savedData que se utiliza en el control de cambios en el modo de edición en formulario y edición en línea.
 		 *
-		 * @name jQuery.rup_table#updateSavedData
+		 * @name updateSavedData
 		 * @function
-		 * @param {jQuery.rup_table~onUpdateSavedData} arg -Función de callback desde la que se puede modificar el objeto _savedData.
+		 * @param {module:rup_table~onUpdateSavedData} arg -Función de callback desde la que se puede modificar el objeto _savedData.
 		 * @example
 		 * $("#idComponente").rup_table("updateSavedData", function(savedData){
 	 	 * });
@@ -13495,7 +13474,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Realiza la configuración interna del paginador de acuerdo a los parámetros de configuración indicados en la inicialización del componente.
 		 *
-		 * @name jQuery.rup_table#configurePager
+		 * @name configurePager
 		 * @function
 		 * @param {object} settings - Parámetros de configuración del componente.
 		 * @example
@@ -13517,11 +13496,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Método de inicialización del componente.
 		 *
-		 * @name jQuery.rup_table#_init
+		 * @name _init
 		 * @function
 		 * @private
 		 * @param {object} args - Parámetros de configuración del componente.
-		 * @fires jQuery.rup_table#rupTable_coreConfigFinished
+		 * @fires module:rup_table#rupTable_coreConfigFinished
 		 */
 		_init : function(args) {
 			if (args.length > 1) {
@@ -13615,7 +13594,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el índice de la línea identificada mediante el valor indicado por parámetro.
 		 *
-		 * @name jQuery.rup_table#_getLineIndex
+		 * @name _getLineIndex
 		 * @function
 		 * @private
 		 * @param {string} rowId - Identificador del registro.
@@ -13649,7 +13628,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Añade una nueva línea a la tabla. Esta operación no realiza una inserción del registro en el sistema de persistencia, sino que únicamente añade una nueva fila de modo visual.
 		 *
-		 * @name jQuery.rup_table#addRowData
+		 * @name addRowData
 		 * @function
 		 * @param {string} rowid - Identificador del registro.
 		 * @param {object} data - Objeto json que contiene los valores de cada columna de la nueva línea.
@@ -13680,7 +13659,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Elimina de la tabla un registro determinado. El registro no se elimina del sistema de persistencia. Solo se elimina de manera visual.
 		 *
-		 * @name jQuery.rup_table#delRowData
+		 * @name delRowData
 		 * @function
 		 * @param {string} rowid - Identificador del registro.
 		 * @return {jQuery} - Referencia al propio componente.
@@ -13697,7 +13676,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el identificador de la línea activa.
 		 *
-		 * @name jQuery.rup_table#getActiveRowId
+		 * @name getActiveRowId
 		 * @function
 		 * @return {string} - Identificador de la línea activa.
 		 * @example
@@ -13711,7 +13690,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el índice de la línea activa.
 		 *
-		 * @name jQuery.rup_table#getActiveLineId
+		 * @name getActiveLineId
 		 * @function
 		 * @return {string} - Índice de la línea activa.
 		 * @example
@@ -13725,7 +13704,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Actualiza los valores de las columnas de un registro determinado. La actualización de loa datos se realiza solo de manera visual. Los nuevos datos no se persisten.
 		 *
-		 * @name jQuery.rup_table#setRowData
+		 * @name setRowData
 		 * @function
 		 * @param {string} rowid - Identificador del registro que se desea actualizar.
 		 * @param {object} data - Objeto json que contiene los valores de cada columna de la nueva línea.
@@ -13749,7 +13728,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve un objeto json con los valores de los campos del registro indicado.
 		 *
-		 * @name jQuery.rup_table#getRowData
+		 * @name getRowData
 		 * @function
 		 * @param {string} rowid - Identificador del registro del que se quieren recuperar los datos.
 		 * @return {object} - Objecto json con los valores del registro.
@@ -13763,7 +13742,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve un array con los identificadores de los registros que se muestran actualmente en la página de la tabla.
 		 *
-		 * @name jQuery.rup_table#getDataIDs
+		 * @name getDataIDs
 		 * @function
 		 * @return {string[]} - Identificadores de lso registros mostrados en la página actual.
 		 * @example
@@ -13776,7 +13755,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Limpia los registros mostrados en la tabla.
 		 *
-		 * @name jQuery.rup_table#clearGridData
+		 * @name clearGridData
 		 * @function
 		 * @param {boolean} clearfooter - En caso de indicarse como true se elimina la información del pié de la tabla.
 		 * @example
@@ -13789,7 +13768,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el objeto colModel del componente jqGrid.
 		 *
-		 * @name jQuery.rup_table#getColModel
+		 * @name getColModel
 		 * @function
 		 * @return {object} - Objeto colModel de la tabla.
 		 * @example
@@ -13802,7 +13781,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve el valor de la columna de la fila indicada.
 		 *
-		 * @name jQuery.rup_table#getCol
+		 * @name getCol
 		 * @function
 		 * @param {string} rowid - Identificador de la fila.
 		 * @param {string} colName - Nombre de la columna.
@@ -13816,7 +13795,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		/**
 		 * Devuelve un objeto json que contiene la serialización del formulario.
 		 *
-		 * @name jQuery.rup_table#getSerializedForm
+		 * @name getSerializedForm
 		 * @function
 		 * @param {jQuery} form - Formulario que se desea serializar.
 		 * @param {boolean} skipEmpty - En caso de indicarse true se omiten los campos que no contienen valor.
@@ -13849,7 +13828,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 	* Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
 	*
-	* @callback jQuery.rup_table~onOperation
+	* @callback module:rup_table~onOperation
 	* @param {string} key - Identificador de la operación
 	* @param {object} options - Opciones de configuración de la operación.
 	* @example
@@ -13861,7 +13840,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 	* Función de callback que determina si la operación debe estar habilitada o no.
 	*
-	* @callback jQuery.rup_table~isEnabled
+	* @callback module:rup_table~isEnabled
 	* @return {boolean} - Devuelve si la operación debe de estar habilitada o no.
 	* @example
 	* enabled: function(){
@@ -13872,11 +13851,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 	* Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
 	*
-	* @typedef {Object} jQuery.rup_table~Operations
+	* @typedef {Object} module:rup_table~Operations
 	* @property {string} [name] - Texto a mostrar al usuario a la hora de visualizar la operación.
 	* @property {string} [icon] - Clase CSS correspondiente al icono que se quiere visualizar junto a la operación.
-	* @property {jQuery.rup_table~isEnabled} [enabled] - Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada.
-	* @property {jQuery.rup_table~onOperation} [callback] - Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
+	* @property {module:rup_table~isEnabled} [enabled] - Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada.
+	* @property {module:rup_table~onOperation} [callback] - Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
 	* @example
 	* core:{
 	* 	operations:{
@@ -13907,7 +13886,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	* Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
 	*
-	* @typedef jQuery.rup_table~ShowOperations
+	* @typedef module:rup_table~ShowOperations
 	* @example
 	* core:{
 	*		showOperations:{
@@ -13921,7 +13900,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @description Propiedades de configuración del componente.
 	* @see Para mas información consulte la documentación acerca de las opciones de configuración del componente {@link http://www.trirand.com/jqgridwiki/doku.php|jqGrid}.
 	*
-	* @name jQuery.rup_table#options
+	* @name options
+	*
 	* @property {boolean} [altRows=true] - Determina si se aplica o no el pijama en las filas de la tabla.
 	* @property {string} [altclass=rupgrid_oddRow] - Estilo que se aplica a las filas impares para mostrar el efecto.
 	* @property {string} [datatype=json] - Formato de dato esperado para representar los registros de la tabla.
@@ -13934,8 +13914,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {boolean} [viewrecords=true] - Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla.
 	* @property {boolean} [loadOnStartUp=true] - Determina si se debe realizar automáticamente la búsqueda al cargar la página.
 	* @property {string} [multiplePkToken=~] - Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado.
-	* @property {jQuery.rup_table~Operations} [operations] - Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
-	* @property {jQuery.rup_table~ShowOperations} [showOperations] - Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
+	* @property {module:rup_table~Operations} [operations] - Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
+	* @property {module:rup_table~ShowOperations} [showOperations] - Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
 	* @property {number} [startOnPage=1] - Permite especificar el número de página inicial que se mostrará al cargar la página.
 	*/
 
@@ -13994,7 +13974,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.
 *
-* @event jQuery.rup_table#rupTable_checkOutOfGrid
+* @event module:rup_table#rupTable_checkOutOfGrid
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @property {jQuery} $originalTarget - Objeto jQuery que referencia el elemento del dom con el que ha interactuado el usuario.
 * @example
@@ -14005,7 +13985,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.
 *
-* @event jQuery.rup_table#rupTable_serializeGridData
+* @event module:rup_table#rupTable_serializeGridData
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @property {object} data - Información serializada que va a ser enviada. Se puede modificar o agregar nuevos campos para completarla.
 * @example
@@ -14016,7 +13996,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Evento que se lanza antes de que se procese la información recibida del servidor.
 *
-* @event jQuery.rup_table#rupTable_beforeProcessing
+* @event module:rup_table#rupTable_beforeProcessing
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @property {object} data - Información recibida del servidor.
 * @property {string} st - Mensaje de status de la petición.
@@ -14029,7 +14009,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Se produce cuando se elimina el resaltado de un registro de la tabla.
 *
-* @event jQuery.rup_table#rupTableClearHighlightedRowAsSelected
+* @event module:rup_table#rupTableClearHighlightedRowAsSelected
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @property {jQuery} $row - Objeto jQuery que identifica la línea que se ha procesado.
 * @example
@@ -14039,7 +14019,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Se produce cuando se añade el resaltado a un registro de la tabla.
 *
-* @event jQuery.rup_table#rupTableHighlightRowAsSelected
+* @event module:rup_table#rupTableHighlightRowAsSelected
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @property {jQuery} $row - Objeto jQuery que identifica la línea que se ha procesado.
 * @example
@@ -14049,7 +14029,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 /**
 * Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.
 *
-* @event jQuery.rup_table#rupTable_coreConfigFinished
+* @event module:rup_table#rupTable_coreConfigFinished
 * @property {Event} e - Objeto Event correspondiente al evento disparado.
 * @example
 * $("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
@@ -14066,20 +14046,27 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
 
+ /**
+ * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
+ *
+ * @summary Plugin de menú contextual del componente RUP Table.
+ * @module rup_table/contextMenu
+ *
+ */
 (function ($) {
 
 	/**
 	 * Definición de los métodos principales que configuran la inicialización del plugin.
-	 * 
+	 *
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
-	 * 
+	 *
 	 */
 	jQuery.rup_table.registerPlugin("contextMenu",{
 		loadOrder:4,
@@ -14092,54 +14079,70 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			return $self.rup_table("postConfigureContextMenu", settings);
 		}
 	});
-	
+
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	
+
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente. 
-	 * 
+	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 *
 	 * Los métodos implementados son:
-	 * 
+	 *
 	 * postConfigureFilter(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
-	 * 
+	 *
 	 * Se almacena la referencia de los diferentes componentes:
-	 * 
+	 *
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
-	 *  
+	 *
 	 */
 	jQuery.fn.rup_table("extend",{
+		/**
+		 * Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.
+		 * Este método se ejecuta antes de la incialización del plugin.
+		 *
+		 * @name preConfigureContextMenu
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
+		 */
 		preConfigureContextMenu: function(settings){
 			var $self = this,  contextMenuSettings = settings.contextMenu;
-			
+
 			// Se unifican los parámetros de configuración de mostrar/ocultar los botones de la toolbar
 			if (contextMenuSettings.createDefaultRowOperations===true) {
 				contextMenuSettings.showOperations = jQuery.extend(true, {}, contextMenuSettings.defaultRowOperations, settings.core.showOperations, contextMenuSettings.showOperations);
 			}
-			
+
 		},
+		/**
+		 * Metodo que realiza la post-configuración del plugin contextMenu del componente RUP Table.
+		 * Este método se ejecuta después de la incialización del plugin.
+		 *
+		 * @name postConfigureContextMenu
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
+		 */
 		postConfigureContextMenu: function(settings){
 			var $self = this, contextMenuSettings = settings.contextMenu;
-				
+
 			function getTdIndex(thArray, name){
-				
+
 				for(var i=0;i<thArray.length;i++){
 				    if (jQuery(thArray[i]).attr("id")===settings.id+"_"+name){
 				        return i+1;
 				    }
 				}
-				
+
 				return -1;
 			}
-			
-			
+
+
 			$self.one({
 				"jqGridLoadComplete.rupTable.contextMenu": function(data){
 					var $tbodyTr = jQuery(settings.contextMenu.tbodySelector, $self), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray;
-					
+
 //					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
 					jQuery.each(settings.contextMenu.showOperations, function(buttonId, value){
 						var operationCfg;
@@ -14165,7 +14168,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							}
 						}
 					});
-					
+
 					jQuery.each(settings.contextMenu.items,function(index, oper){
 						if (jQuery.isArray(oper.colNames)){
 							cellLevelContextMenu=true;
@@ -14175,10 +14178,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					// En caso de especificar solo para unas columnas
 					thArray = jQuery(settings.contextMenu.theadThSelector, "#gview_"+settings.id);
-					
+
 					// Eliminamos los contextMenu creados previamente
 					$("ul.context-menu-list", $tbodyTr).remove();
-					
+
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
 							jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, contextMenuSettings.colNames[i])+")", $self).rup_contextMenu({
@@ -14186,7 +14189,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							});
 						}
 					}else if (cellLevelContextMenu){
-					
+
 //						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
 						if (!jQuery.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
@@ -14195,8 +14198,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							    }
 							});
 						}
-						
-							
+
+
 						jQuery.each(contextRowItems, function(index, item){
 							var colNamesAux;
 							if (jQuery.isArray(item.colNames)){
@@ -14204,7 +14207,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							}else{
 								colNamesAux = contextMenuSettings.colNames;
 							}
-							
+
 							for (var i=0;i<colNamesAux.length;i++){
 								colItem={};
 								colItem[colNamesAux[i]]={};
@@ -14214,33 +14217,33 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								jQuery.extend(true, itemsPerColumn[colNamesAux[i]], itemAux);
 							}
 						});
-						
+
 						jQuery.each(itemsPerColumn, function(index, item){
 						jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, index)+")", $self).rup_contextMenu({
 								items: item
 							});
 						});
-						
+
 					}else{
 						$tbodyTr.rup_contextMenu({
 							items: contextRowItems
 						});
 					}
-					
+
 				}
 			});
 		}
 	});
-	
-		
+
+
 	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON  
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	
-		
+
+
 	/**
 	 * Parámetros de configuración por defecto para el plugin fluid.
-	 * 
+	 *
 	 */
 	jQuery.fn.rup_table.plugins.contextMenu = {};
 	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
@@ -14255,9 +14258,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				items:{}
 			}
 	};
-	
-	
+
+
 })(jQuery);
+
 /*!
  * Copyright 2013 E.J.I.E., S.A.
  *

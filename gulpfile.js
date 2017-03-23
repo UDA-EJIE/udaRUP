@@ -26,8 +26,7 @@ var jsdoc2md = require('jsdoc-to-markdown');
 
 var moduleImporter = require('sass-module-importer');
 
-
-var version = "2.4.9";
+var version = "3.0.1";
 
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 var amdConf = JSON.parse(fs.readFileSync('./amd.conf.json'));
