@@ -478,7 +478,7 @@
                         if (testStartDate > testEndDate) {
                             $endDateTextBox.attr("value", dateText);
                         }
-                    } else {
+                    } else if (!settings.autoFillToField) {
                         $endDateTextBox.attr("value", dateText);
                     }
                     if (settings.onClose !== undefined) {
@@ -526,7 +526,7 @@
                         if (testStartDate > testEndDate) {
                             $startDateTextBox.attr("value", dateText);
                         }
-                    } else {
+                    } else if (!settings.autoFillFromField) {
                         $startDateTextBox.attr("value", dateText);
                     }
                     if (settings.onClose !== undefined) {
@@ -607,6 +607,9 @@
      * @property {string} from - Indica el selector del campo inicial en los intervalos de fechas
      * @property {string} to - Indica el selector del campo final en los intervalos de fechas
      * @property {array|number} 	multiselect - Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica.
+     * @property {boolean} [autoFillToField=true] - Atributo que indica si se auto rellena el campo hasta
+     * @property {boolean} [autoFillFromField=true] - Atributo que indica si se auto rellena el campo desde
+
      */
 
 
@@ -618,7 +621,9 @@
         changeMonth: true,
         changeYear: true,
         noWeekend: false,
-        showSecond: true
+        showSecond: true,
+        autoFillToField: true,
+        autoFillFromField: true
     };
 
     //EVENTOS
