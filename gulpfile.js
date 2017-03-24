@@ -380,7 +380,7 @@ gulp.task('doc:api', function () {
     var fileSource = 'src/rup*.js';
     var outputPath = './doc/api/';
 
-    //runJsdoc2md(fileSource, outputPath);
+    runJsdoc2md(fileSource, outputPath);
     //rup_table
     fileSource = 'src/rup_table/rup*.js';
     //outputPath = './doc/api/table/';
