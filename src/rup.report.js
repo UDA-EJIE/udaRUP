@@ -313,7 +313,7 @@
                             $reportFileError.rup_dialog("open");
 
                             if (dialog.failCallback !== undefined) {
-                                dialog.failCallback();
+                                dialog.failCallback(responseHtml, url);
                             }
                         }
                     });
