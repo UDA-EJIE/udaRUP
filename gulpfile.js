@@ -17,6 +17,7 @@ var tap = require('gulp-tap');
 var pump = require('pump');
 var fs = require('fs');
 var sass = require('gulp-sass');
+var cssWrap = require('gulp-css-wrap');
 var runSequence = require('run-sequence');
 var amdOptimize = require("amd-optimize");
 
@@ -208,9 +209,22 @@ gulp.task('uglify:js:rup-classic', function () {
         .pipe(gulp.dest('./build/js/'));
 });
 
+
+
+
+
 gulp.task('dist', ["dist:build", "dist:copy"]);
 
 gulp.task('dist:build', ['uglify:css:rup', 'uglify:css:rup-classic', 'uglify:js:rup', 'uglify:js:rup-classic']);
+
+gulp.task('dist:portal', function() {
+
+  gulp.src(['./dist/css/**/*.css'])
+    .pipe(cssWrap({selector:'.r01gContainer'}))
+    .pipe(gulp.dest('./dist/portalCss/'));
+  gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portalCss/cursors'));
+  gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portalCss/images'));
+});
 
 gulp.task('dist:copy', function () {
 
@@ -367,7 +381,7 @@ var runJsdoc2md = function (fileSource, outputPath) {
     return gulp.src(fileSource)
         .pipe(tap(function (file, t) {
             basename = file.relative.split('.js')[0];
-            console.log("outpath " + outputPath + " File " + file.path + "  " + basename);
+            //console.log("outpath " + outputPath + " File " + file.path + "  " + basename);
             jsdoc2md.render({
                 files: file.path
             }).then(output => fs.writeFile(outputPath + basename + '.md', output));
