@@ -11502,7 +11502,7 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-selectmenu-dropdown {
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -11534,6 +11534,9 @@ input.ui-button {
   font-weight: bold; }
 
 /** ICONOS **/
+.ui-icon {
+  margin-top: 0; }
+
 .rup_icon {
   float: left;
   padding-right: 0.5em; }
@@ -11545,7 +11548,7 @@ input.ui-button {
   margin-top: 0.15em !important;
   position: static; }
 
-.rup-icon, .ui-icon.rup-icon {
+.rup-icon, .ui-icon.rup-icon, .ui-button:hover .ui-icon.rup-icon {
   background-image: url(images/rup-icons.png);
   background-repeat: no-repeat;
   display: inline-block;
@@ -12202,10 +12205,8 @@ input.ui-button {
 
 .rup-breadCrumb_root {
   width: 100%;
-  padding: 0rem 2rem 0rem 2rem;
-  -moz-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
-  -webkit-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
+  float: left;
+  margin-bottom: 0.5em; }
 
 .rup-breadCrumb_main {
   padding-top: 0.1em;
@@ -13655,6 +13656,9 @@ ul.ui-selectmenu-menu-popup {
   float: left;
   font-weight: normal;
   z-index: 810; }
+
+.ui-menu .rup_menu_horizontal_children.ui-menu-item {
+  list-style-image: none; }
 
 .rup_menu_horizontal.ui-widget-header {
   font-weight: normal; }
@@ -16035,13 +16039,16 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
 .rup-breadCrumb_root {
   background: lightgray;
   display: inline-block;
-  padding: 1rem; }
+  padding: 0.8rem 2rem;
+  -moz-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
   .rup-breadCrumb_root .rup-breadCrumbs_span {
-    padding: 0; }
+    padding: 0;
+    margin-right: 1rem; }
   .rup-breadCrumb_root .rup-breadCrumb_main {
     display: inline-block;
     padding: 0 2px 3px;
-    margin-left: 1rem;
     width: auto; }
     .rup-breadCrumb_root .rup-breadCrumb_main > li {
       padding: 0; }
@@ -16049,9 +16056,9 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-selectmenu-dro
         margin: 0 0.5rem;
         padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li a {
-        padding: 1.1rem 0.5rem; }
+        padding: 0rem 0rem 1rem 0rem; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li ul {
-        margin-top: 0.5rem;
+        margin-top: 0.3rem;
         max-height: 25rem;
         overflow-y: auto; }
 
@@ -16975,7 +16982,7 @@ a.rup-toolbar_menuButton.ui-button span {
 .rup-wizard a.rup-wizard_next:after, .rup-wizard a.rup-wizard_prev:before, .rup-wizard .rup-wizard_submitButton span:after {
   font-size: 1.5rem;
   line-height: 1.5rem;
-  font-family: "Glyphicons Halflings";
+  font-family: "FontAwesome";
   color: #69c; }
 
 .rup-wizard fieldset {
@@ -16990,10 +16997,12 @@ a.rup-toolbar_menuButton.ui-button span {
   font-weight: bold; }
 
 .rup-wizard a.rup-wizard_next:after {
-  content: "\e080"; }
+  content: "\f0da";
+  margin-left: 1rem; }
 
 .rup-wizard a.rup-wizard_prev:before {
-  content: "\e079"; }
+  content: "\f0d9";
+  margin-right: 1rem; }
 
 .rup-wizard .rup-wizard_submitButton span {
   display: flex; }

@@ -14,19 +14,20 @@
  * que establece la Licencia.
  */
 
- /**
-  * Tiene como objetivo presentar un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
-  *
-  * @summary Componente RUP Accordion.
-  * @module rup_accordion
-  * @example
-  * $(".rup_accordion").rup_accordion({
-  *   animated: "bounceslide",
-  *	active: false,
-  *	autoHeight: false,
-  *	collapsible: true
-  * });
-  */
+/**
+ * Tiene como objetivo presentar un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
+ *
+ * @summary Componente RUP Accordion.
+ * @module rup_accordion
+ * @see El componente está basado en el plugin {@link https://jqueryui.com/accordion/|jQuery UI Accordion}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://api.jqueryui.com/accordion/|aquí}.
+ * @example
+ * $(".rup_accordion").rup_accordion({
+ *   animate: "bounceslide",
+ *	active: false,
+ *	autoHeight: false,
+ *	collapsible: true
+ * });
+ */
 (function (factory) {
     if (typeof define === "function" && define.amd) {
 
@@ -55,7 +56,7 @@
     //********************************
 
     $.fn.rup_accordion("extend", {
-    /**
+        /**
     * Elimina completamente la funcionalidad del Accordion. Como resultado, se devuelven los
 objetos html, tal y como estaban, antes de aplicar el componente Accordion.
     *
@@ -94,12 +95,12 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
          * @param {String | Object} opt - Nombre de la propiedad u objeto con varias propiedades.
          * @param {*} [value] - Valor a asignar a la propiedad especificada por su nombre en el primer parámetro.
          * @example
-         * // Asignar el valor "bounceslide" a la propiedad "animated"
-         * $("#idAccordion").rup_accordion("option", "animated", "bounceslide");
+         * // Asignar el valor "bounceslide" a la propiedad "animate"
+         * $("#idAccordion").rup_accordion("option", "animate", "bounceslide");
          * // Se asignan valores a varias propiedades por medio de un objeto json.
          * $("#idAccordion").rup_accordion("option",{active: false, collapsible : true});
-         * // Se recupera el valor de la propiedad "animated"
-         * $("#idAccordion").rup_accordion("option", "animated");
+         * // Se recupera el valor de la propiedad "animate"
+         * $("#idAccordion").rup_accordion("option", "animate");
          */
         option: function (opt, value) { //Se establecen la propiedad o propiedades que reciben como parametro y se leen las que no vienen con una asignación.
             if (value !== undefined) {
@@ -221,6 +222,14 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      * @description Opciones por defecto de configuración del componente.
      * @name defaults
      * @property {boolean} [validation=true] - Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del Accordion.
+     * @property {boolean} [disabled=false]- Parámetro de configuración que determina si está habilitado (false) o deshabilitado (true) el componente Accordion. Por defecto el valor de este parámetro es false.
+     * @property { boolean| number} [active=0] - Determina la sección que está activa. Si se le especifica el valor false, el Accordion permanecerá totalmente cerrado (este caso requiere del parámetro collapsible true). Por defecto, su valor es la primera sección del Accordion.
+     * @property {boolean | number | String | Object}   [animate ={}]   - Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico).
+     * @property {boolean }[collapsible=false] - Parámetro que habilita la posibilidad de que todas las secciones del Accordion estén cerradas a la vez.
+     * @property {String} [event='click'] - Determina el tipo de evento necesario para que cada una de las secciones sea habilitada o deshabilitada.
+     * @property {selector}[header="> li > :first-child,> :not(li):even"] -  Selector que determina el objeto cabecera de cada una de las secciones del Accordion. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el Accordion.
+     * @property {Object} [icons='{"header": "ui-icon-triangle-1-e","activeHeader": "ui-icon-triangle-1-s"}'] - Parámetro estructural que determina el icono utilizado para indicar el estado de sección abierta o cerrada. Se puede especificar tanto uno como otro como los dos. Por defecto se usan los iconos nativos del propio de JQuery-UI.
+     *
      */
     $.fn.rup_accordion.defaults = {
         validation: true
