@@ -67,7 +67,7 @@ var mkdirSync = function (path) {
     } catch (e) {
         if (e.code != 'EEXIST') throw e;
     }
-}
+};
 
 
 // import moduleImporter from 'sass-module-importer';
@@ -217,13 +217,15 @@ gulp.task('dist', ["dist:build", "dist:copy"]);
 
 gulp.task('dist:build', ['uglify:css:rup', 'uglify:css:rup-classic', 'uglify:js:rup', 'uglify:js:rup-classic']);
 
-gulp.task('dist:portal', function() {
+gulp.task('dist:portal', function () {
 
-  gulp.src(['./dist/css/**/*.css'])
-    .pipe(cssWrap({selector:'.r01gContainer'}))
-    .pipe(gulp.dest('./dist/portalCss/'));
-  gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portalCss/cursors'));
-  gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portalCss/images'));
+    gulp.src(['./dist/css/**/*.css'])
+        .pipe(cssWrap({
+            selector: '.r01gContainer'
+        }))
+        .pipe(gulp.dest('./dist/portalCss/'));
+    gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portalCss/cursors'));
+    gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portalCss/images'));
 });
 
 gulp.task('dist:copy', function () {
@@ -388,6 +390,16 @@ var runJsdoc2md = function (fileSource, outputPath) {
         }));
 };
 
+
+gulp.task('jsdocFile', function () {
+    var filePath = 'src/rup_table/';
+    var basename = 'rup.table.report';
+    var outputPath = './doc/api/';
+    jsdoc2md.render({
+        files: filePath + basename + '.js'
+    }).then(output => fs.writeFile(outputPath + basename + '.md', output));
+});
+
 gulp.task('doc:api', function () {
 
 
@@ -405,7 +417,7 @@ gulp.task('doc:api', function () {
 //gulp.task('dist', ['copyRupSources', 'minimizeRupJs', 'minimizeRupCss']);
 
 gulp.task('copyRupSources', function (cb) {
-    console.log("Borrando el contenido del directorio 'dist'")
+    console.log("Borrando el contenido del directorio 'dist'");
     del(['dist/rup/**/*']).then(function () {
 
         console.log("Copiando fuentes de src...");
