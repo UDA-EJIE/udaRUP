@@ -1,46 +1,49 @@
 #	Componentes RUP – Accordion
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
--   [1. Introducción](#1.-introducción)   
--   [2. Ejemplo](#2.-ejemplo)   
--   [3. Casos de uso](#3.-casos-de-uso)   
--   [4. Infraestructura](#4.-infraestructura)   
-    -   [4.1 Ficheros](#4.1-ficheros)   
-    -   [4.2 Dependencias](#4.2-dependencias)   
-    -   [4.3 Versión minimizada](#4.3-versión-minimizada)   
--   [5. Invocación](#5.-invocación)   
--   [6. API](#6.-api)   
+-   [1. Introducción](#intro)   
+-   [2. Ejemplo](#ejemplo)   
+-   [3. Casos de uso](#casos-de-uso)   
+-   [4. Infraestructura](#infraestructura)   
+    -   [4.1 Ficheros](#ficheros)   
+    -   [4.2 Dependencias](#dependencias)   
+    -   [4.3 Versión minimizada](#v-minimizada)   
+-   [5. Invocación](#invoc)   
+-   [6. API](#api)   
 -   [7. Sobreescritura del theme](#theme)   
 
 <!-- /MDTOC -->
 
 
-
+<a id="intro"></a>
 ## 1. Introducción
 La descripción del Componente Accordion, visto desde el punto de vista de RUP, es la siguiente:
 
 *El objetivo principal del componente Accordion es la presentación de un contenido donde conceptos relacionados pueden agruparse (ej. secciones) de manera que el usuario puede mostrar u ocultar información sin perder el contexto del contenido principal.
 *
-
+<a id="ejemplo"></a>
 ## 2. Ejemplo
 Se presentan a continuación un ejemplo de este componente:
 
 ![Imagen 1](img/rup.accordion_1.jpg)
 
+<a id="casos-de-uso"></a>
 ## 3. Casos de uso
 Se aconseja la utilización de este componente:
 
-* Cuando se desea permitir la interacción del usuario con un contenido extenso en el que se pueden agrupar conceptos relacionados permitiendo mostrar y ocultar información para minimizar el desplazamiento dentro de la página que lo presenta.
+*   Cuando se desea permitir la interacción del usuario con un contenido extenso en el que se pueden agrupar conceptos relacionados permitiendo mostrar y ocultar información para minimizar el desplazamiento dentro de la página que lo presenta.
 
 **Nota**: *El uso adecuado de este componente permite ordenar y aumentar, la cantidad de  información presentada en las páginas. El uso inadecuado puede hacer que el tamaño, manejo y desarrollo de las páginas se dificulte o entorpezca, por lo que se recomienda no abusar ni exagerar su uso en las aplicaciones.*
 
 **Nota2**: *El componente Accordion muestra la información de una única sección mientras las otras están ocultas. ++No se debe utilizar el componente Accordion si se desea visualizar varias secciones abiertas a la vez.++*
 
+<a id="infraestructura"></a>
 ## 4. Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
 *   Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
+<a id="ficheros"></a>
 ### 4.1 Ficheros
 
 -   Ruta Javascript: rup/scripts/
@@ -48,6 +51,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 -   Ruta theme: rup/basic-theme/
 -   Fichero CSS del theme: theme.rup.accordion-x.y.z.css
 
+<a id="dependencias"></a>
 ### 4.2 Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
@@ -66,6 +70,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
     rup.accordion-x.y.z.js
     theme.rup.accordion-x.y.z.css
 
+<a id="v-minimizada"></a>
 ### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
@@ -76,6 +81,7 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
+<a id="invoc"></a>
 ## 5. Invocación
 
 La primera noción que se ha de tener en cuenta para el correcto manejo e inclusión del componente Accordion dentro de un pagina *jsp* es la asociación del componente a un elemento estructural `<div>` de *html*. La determinación del elemento `<div>` es determinará la ubicación y el contenido del componente dentro de la página.
@@ -111,6 +117,7 @@ Otra recomendación asociada al diseño de la aplicación, es especificar el *he
 
 Además, con respecto a los navegadores, es aconsejable saber que *Chrome*, cuando maneja el componente *Accordion*, no renderiza bien el componente si los cuerpos del mismo no tienen un *height* (tamaño vertical) especificado. Esto se debe a que *Chrome* no coge bien el tamaño proporcional del elemento padre y se pintan las secciones con tamaños variables entre carga y carga. Si es especifican los *height* de los distintos cuerpos este comportamiento anómalo no se produce .
 
+<a id="api"></a>
 ## 6. API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.accordion.md).
