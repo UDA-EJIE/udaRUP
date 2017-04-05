@@ -2,45 +2,49 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
--   [1. Introducción](#1.-introducción)   
--   [2. Ejemplo](#2.-ejemplo)   
--   [3. Casos de uso](#3.-casos-de-uso)   
--   [4. Infraestructura](#4.-infraestructura)   
-    -   [4.1 Ficheros](#4.1-ficheros)   
-    -   [4.2 Dependencias](#4.2-dependencias)   
-    -   [4.3 Versión minimizada](#4.3-versión-minimizada)   
--   [5. Invocación](#5.-invocación)   
--   [6. API](#6.-api)   
--   [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
--   [8.  Internacionalización (i18n)](#8.-internacionalización-i18n)   
--   [9. Integración con UDA](#9.-integración-con-uda)   
+-   [1. Introducción](#intro)   
+-   [2. Ejemplo](#ejemplo)   
+-   [3. Casos de uso](#casos-de-uso)   
+-   [4. Infraestructura](#infraestructura)   
+    -   [4.1 Ficheros](#ficheros)   
+    -   [4.2 Dependencias](#dependencias)   
+    -   [4.3 Versión minimizada](#v-minimizada)   
+-   [5. Invocación](#invoc)   
+-   [6. API](#api)   
+-   [7. Sobreescritura del theme](#theme)   
+-   [8.  Internacionalización (i18n)](#internacionalizac)   
+-   [9. Integración con UDA](#integrac)   
 
 <!-- /MDTOC -->
 
+<a id="intro"></a>
 ## 1. Introducción
 
 La descripción del Componente Autocomplete, visto desde el punto de vista de RUP, es la siguiente:
 
 *En cuanto el usuario comienza a escribir una búsqueda se le sugieren búsquedas relacionadas con lo que ha escrito que pueden ser de su interés.*
 
-
+<a id="ejemplo"></a>
 ## 2. Ejemplo
 
 Se presentan a continuación un ejemplo de este componente:
 
 ![Imagen1](img/rup.autocomplete_1.png)
 
+<a id="casos-de-uso"></a>
 ## 3. Casos de uso
 
 Se recomienda el uso del componente:
 
 *   Cuando se desea mejorar la búsqueda ofreciendo sugerencias a los usuarios.
 
+<a id="infraestructura"></a>
 ## 4. Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
 *   Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
+<a id="ficheros"></a>
 ### 4.1 Ficheros
 
 -   Ruta Javascript: rup/scripts/
@@ -48,6 +52,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 -   Ruta theme: rup/basic-theme/
 -   Fichero CSS del theme: theme.rup.autocomplete-x.y.z.css
 
+<a id="dependencias"></a>
 ### 4.2 Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 1.8.0.
@@ -66,6 +71,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 *   rup.autocomplete-x.y.z.js
 *   theme.rup.autocomplete-x.y.z.css
 
+<a id="v-minimizada"></a>
 ### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
@@ -76,6 +82,7 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
+<a id="invoc"></a>
 ## 5. Invocación
 
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente Autocomplete. Por ejemplo:
@@ -103,10 +110,12 @@ $("#lenguaje").rup_autocomplete({...});
 <hidden id=”lenguaje” name=”lenguaje” ” ruptype=”autocomplete”... />
 ```
 
+<a id="api"></a>
 ## 6. API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.autocomplete.md).
 
+<a id="theme"></a>
 ## 7. Sobreescritura del theme
 
 El componente autocomplete se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.autocomplete-x.y.z.css**.
@@ -132,6 +141,7 @@ Ejemplo base de la estructura generada por el componente:
 </ul>
 ```
 
+<a id="internacionalizac"></a>
 ### 8.	Internacionalización i18n
 La internacionalización se realiza mediante el fichero de recursos definido para la aplicación que se encontrará en la parte estática bajo *codAplic/resources/codAplic.i18n.json* (con sus variantes según idioma ej: *codAplic/resources/codAplic.i18n_es.json*). En dicho fichero se deberá declarar un objeto JSON cuyo nombre sea el mismo que el id del elemento *html* sobre el que se aplica el componente.
 
@@ -155,6 +165,7 @@ Ejemplo:
 }
 ```
 
+<a id="integrac"></a>
 ## 9. Integración con UDA
 El componente Autocomplete permite recuperar los datos almacenados en base de datos. Para ello se requiere cierta configuración en el *Controller* al que se invoca.
 
