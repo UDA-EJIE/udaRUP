@@ -2,37 +2,37 @@
 
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
-
-   - [1 Introducción](#intro)   
-   - [2 Ejemplo](#ejemplo)   
-   - [3 Casos de uso](#casos-de-uso)   
-   - [4 Infraestructura](#infraestructura)   
-      - [4.1 Ficheros](#ficheros)   
-      - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#v-minimizada)   
-   - [5 Invocación](#invocac)   
-   - [6 API](#api)   
-   - [7 Comunicación remota](#remota)   
-      - [7.1 Option Groups Remotos](#option-groups-remotos)   
-   - [8 Combos enlazados](#combos-enlazados)   
-      - [8.1 Local](#local)   
-      - [8.2 Remoto](#remoto)   
-   - [9   Precarga de datos](#precarga-de-datos)   
-      - [9.1.    Carga a partir del elemento HTML select](#carga-a-partir-del-elemento-html-select)   
-      - [9.2 Carga a partir de un objeto JSON](#9.2-carga-a-partir-de-un-objeto-json)   
-   - [10  Sobreescritura del theme](#10-sobreescritura-del-theme)   
-   - [11  Integración con UDA](#11-integración-con-uda)   
+-   [1 Introducción](#intro)   
+-   [2 Ejemplo](#ejemplo)   
+-   [3 Casos de uso](#casos-de-uso)   
+-   [4 Infraestructura](#infraestructura)   
+  - [4.1 Ficheros](#ficheros)   
+  - [4.2 Dependencias](#dependencias)   
+  - [4.3 Versión minimizada](#v-minimizada)   
+-   [5 Invocación](#invocac)   
+-   [6 API](#api)   
+-   [7 Comunicación remota](#remota)   
+  - [7.1 Option Groups Remotos](#option-groups)   
+-   [8 Combos enlazados](#combos-enlazados)   
+  - [8.1 Local](#local)   
+  - [8.2 Remoto](#remoto)   
+-   [9   Precarga de datos](#precarga)   
+  - [9.1.    Carga a partir del elemento HTML select](#carga-html)   
+  - [9.2 Carga a partir de un objeto JSON](#carga-json)   
+-   [10  Sobreescritura del theme](#theme)   
+-   [11  Integración con UDA](#integrac-uda)   
 
 <!-- /MDTOC -->
 
 
 
-
-##  1 Introducción
+<a id="intro"></a>
+## 1 Introducción
 La descripción del **Componente Combo**, visto desde el punto de vista de RUP, es la siguiente:
 *Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.*
 
-##  2 Ejemplo
+<a id="ejemplo"></a>
+## 2 Ejemplo
 Se presentan a continuación un ejemplo de este componente:
 ![Selección simple](img/rup.combo_1.png)
 Selección Simple
@@ -40,28 +40,31 @@ Selección Simple
 ![Selección múltiple](img/rup.combo_2.png)
 Selección Múltiple
 
-##  3 Casos de uso
+<a id="casos-de-uso"></a>
+## 3 Casos de uso
 Se aconseja la utilización de este componente:
-+ Cuando la entrada de datos dependa de una selección de información previa. El ejemplo más común es la selección de provincia y municipio.
++   Cuando la entrada de datos dependa de una selección de información previa. El ejemplo más común es la selección de provincia y municipio.
 
-
-##  4 Infraestructura
+<a id="infraestructura"></a>
+## 4 Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
-+ Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros y Dependencias*.
++   Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros y Dependencias*.
 
+<a id="ficheros"></a>
 ### 4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.combo-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.combo-x.y.z.css**
 
+<a id="dependencias"></a>
 ### 4.2 Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript **jQuery**, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
-+ **jQuery 1.12.4**: http://jquery.com/
++   **jQuery 1.12.4**: http://jquery.com/
 
 La gestión de la ciertas partes visuales de los componentes, se han realizado mediante el plugin jQuery UI que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel, componentes personalizables (estilos) ente otros. La versión utilizada en el desarrollo ha sido la **1.12.0**.
 
-+ **jQuery UI 1.12.0:** http://jqueryui.com/
++   **jQuery UI 1.12.0:** http://jqueryui.com/
 
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
@@ -75,25 +78,29 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
         theme.rup.combo-x.y.z.css
 ```
 
+<a id="v-minimizada"></a>
 ### 4.3 Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 Los ficheros minimizados de RUP son los siguientes:
-+ **rup/scripts/min/rup.min-x.y.z.js**
-+ **rup/basic-theme/rup.min-x.y.z.css**
++   **rup/scripts/min/rup.min-x.y.z.js**
++   **rup/basic-theme/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-##  5 Invocación
+<a id="invocac"></a>
+## 5 Invocación
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente Combo. Por ejemplo:
 ```javascript
 $("#id_input").rup_combo (properties);
 ```
 Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
-##  6 API
+<a id="api"></a>
+## 6 API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.combo.md).
 
-##  7 Comunicación remota
+<a id="remota"></a>
+## 7 Comunicación remota
 El componente Combo permite recuperar los datos almacenados en base de datos. En el método del *controller* que recibe la petición se invocará  al servicio encargado de recuperar los datos. Como no se va a realizar ningún filtrado por algún campo de la entidad ni se requiere de paginación, los parámetros serán **null, null:**
 ```java
 @RequestMapping(value = "combo/remote", method=RequestMethod.GET)
@@ -102,24 +109,24 @@ El componente Combo permite recuperar los datos almacenados en base de datos. En
 }
 ```
 El método devuelve una lista de entidades en este caso *List<Patrones>* donde cada entidad tendrá todos y cada uno de los atributos cargados con los valores de la Base de Datos. Al devolver la lista con la anotación *@ResponseBody*, entrará en funcionamiento Jackson (parseador de JSON de Spring) para convertir la lista JAVA en una lista JSON:
-+ JAVA:
++   JAVA:
 
-	+ patronesList :
- 		+ patronesList [0]
+ +  patronesList :
+ 	+ patronesList [0]
  			+ code = Autocomplete
-     		+ descEs = Autocomplete_es
-     		+ descEu = Autocomplete_eu
-     		+  css = filter
+     	+ descEs = Autocomplete_es
+     	+ descEu = Autocomplete_eu
+     	+  css = filter
 
  		+ patronesList [1]
 
 			+ code = Combo
 			+ descEs = Combo_es
 			+ descEu = Combo_eu
-    		+ css = print
+    	+ css = print
 
 
-+ JSON:
++   JSON:
 ```javascript
 [
 {code="Autocomplete", descEs="Autocomplete_es",
@@ -151,6 +158,7 @@ La traducción entre la estructura devuelta por el *controller* y la que espera 
 ```
 NOTA: Al generar el código con el *plugin* de **UDA**, se añade este serializador para todos los objetos del modelo creados.
 
+<a id="option-groups"></a>
 ### 7.1	Option Groups Remotos
 El uso de *“option groups remotos”* requiere de un pequeño esfuerzo por parte del desarrollador ya que se deben recuperar los diferentes grupos a incluir en el combo invocando a sus respectivos servicios y agruparlos en la estructura que espera el componente Combo. Ejemplo:
 ```javascript
@@ -272,8 +280,8 @@ Un ejemplo de la respuesta devuelta por este método del controlador sería la s
 	]}
 ]
 ```
-
-##  8 Combos enlazados
+<a id="combos-enlazados"></a>
+## 8 Combos enlazados
 Mediante el uso del componente Combo, se pueden encadenar dos o más combos de tal manera que los valores que se cargarán en uno dependan directamente del valor seleccionado en el otro. Es decir, crear combos enlazados (también conocidos como combos dependientes).
 
 Estos combos enlazados, pueden ser tanto locales o remotos. Para indicar que un combo depende directamente del valor de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
@@ -286,20 +294,22 @@ Al ser combos enlazados, si un combo elimina su selección (elige la opción por
 
 A continuación veremos como se configuran/utilizan los combos enlazados locales y los remotos:
 
+<a id="local"></a>
 ### 8.1 Local
 Cuando se desea utilizar el componente Combo enlazando datos locales se deben realizar una serie de configuraciones que se detallan a continuación:
-1.	La propiedad ***source*** del combo hijo, debe tener la siguiente estructura:
+1. La propiedad ***source*** del combo hijo, debe tener la siguiente estructura:
  ```javascript
  source: {"v1":[xxx], "v2":[yyy], "v3":[zzz] }
 ```
 	+ v1, v2, v3 : posible valor seleccionable en el combo padre
 	+ [xxx], [yyy], [zzz] : estructura que posee un combo no dependiente (ver atributo o).
 
-2.	El combo hijo debe indicar en su configuración que depende del combo padre mediante la propiedad parent:
+ 2. El combo hijo debe indicar en su configuración que depende del combo padre mediante la propiedad parent:
 ```javascript
 parent: [ "comboPadre" ]
 ```
 
+<a id="remoto"></a>
 ### 8.2	Remoto
 Cuando se desea utilizar el componente Combo enlazando datos remotos, se deben realizar una serie de configuraciones que se detallan a continuación:
 1. 	El combo padre debe incluir en su código *HTML* el atributo ***name*** que define el nombre del parámetro que se va a enviar en la petición de carga del combo dependiente.
@@ -307,17 +317,18 @@ Cuando se desea utilizar el componente Combo enlazando datos remotos, se deben r
 3.	El método del *controller* que recibe la petición de carga del hijo, contendrá en su signatura el atributo con el valor seleccionado en el combo padre y se utilizará como filtro en la búsqueda de datos.
 4.	Configurar el serializador de **UDA**.
 
-+	Código HTML:
-	+	El **combo padre** debe definir el nombre del parámetro en la petición de carga del combo hijo:
+
+  + Código HTML:
+	   +	El **combo padre** debe definir el nombre del parámetro en la petición de carga del combo hijo:
 ```xml
 <select id="comboPadreRemoto" name="provincia" class="rup-combo"></select>
 ```
-	+	El **combo hijo**:
+	   +	El **combo hijo**:
 ```xml
 <select id="comboHijoRemoto" class="rup-combo"></select>
 ```
-+	Configuración js:
-	+	El **combo padre**:
+  +	Configuración js:
+	   +	El **combo padre**:
 ```javascript
 $('#comboPadreRemoto').rup_combo({
 source : "comboEnlazado/remoteEnlazadoProvincia",
@@ -325,7 +336,7 @@ source : "comboEnlazado/remoteEnlazadoProvincia",
 		});
 ```
 
-	+	El **combo hijo** debe indicar cual/cuales son sus padre/s:
+	   +	El **combo hijo** debe indicar cual/cuales son sus padre/s:
 ```javascript
 $('#comboHijoRemoto').rup_combo({
 parent: [ "comboPadreRemoto" ],
@@ -334,8 +345,8 @@ source : "comboEnlazado/remoteEnlazadoComarca",
 })
 ```
 
-+	Controller:
-	+	El método para la petición del **combo padre**:
+  +	Controller:
+	   +	El método para la petición del **combo padre**:
 ```java
 @RequestMapping(value = "comboEnlazado/remoteEnlazadoProvincia",
 method=RequestMethod.GET)
@@ -344,7 +355,7 @@ method=RequestMethod.GET)
 	}
 ```
 
-	+	El método para la petición del **combo hijo** debe declarar el parámetro donde se recibe el elemento seleccionado en el padre:
+	   +	El método para la petición del **combo hijo** debe declarar el parámetro donde se recibe el elemento seleccionado en el padre:
 
 ```java
 @RequestMapping(value = "comboEnlazado/remoteEnlazadoComarca", method=RequestMethod.GET)
@@ -360,7 +371,8 @@ public @ResponseBody List<Comarca> getEnlazadoComarca(
 	return comarcaService.findAll(comarca, null);
 }
 ```
-+	Serializador:
+  +  Serializador:
+
 Se indica que las entidades utilizadas se serialicen en el retorno del controller a la ***JSP***:
 ```xml
 <bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
@@ -374,11 +386,12 @@ Se indica que las entidades utilizadas se serialicen en el retorno del controlle
    </property>
 </bean>
 ```
-
-##  9	Precarga de datos
+<a id="precarga"></a>
+## 9	Precarga de datos
 La recuperación los datos proporcionados por el servidor de aplicaciones, se realiza mediante una petición AJAX. Con el objeto de minimizar el número de peticiones realizadas por el componente combo, se posibilita el realizar una precarga de los datos que va a presentar el combo sin necesidad de realizar la primera petición AJAX.
 Se proporcionan dos mecanismos para permitir realizar la carga inicial de los datos del combo:
 
+<a id="carga-html"></a>
 ### 9.1	Carga a partir del elemento HTML select
 En este caso el componente combo toma los valores existentes en los tag option del elemento select como valores a precargar. En el caso de que el componente deba de actualizar los datos en base a una acción del usuario, se realizará mediante una petición AJAX.
 
@@ -416,10 +429,12 @@ jQuery("#provincia").rup_combo({
 ```
 La invocación del componente se realizará de modo normal, indicando mediante el parámetro source una URL mediante la cual se podrá realizar una recarga de los datos. Entre los parámetros de configuración se debe de indicar mediante loadFromSelect:true que se utilice el contenido del combo HTML para la inicialización del componente.
 
+<a id="carga-json"></a>
 ### 9.2	Carga a partir de un objeto JSON
 De manera alternativa se puede proporcionar al componente de los datos con los que debe de inicializarse mediante un objeto JSON. Este objeto puede ser inicializado directamente o generado dinámicamente tanto en cliente como en el servidor de aplicaciones. El objeto json debe consistir en un *array*
 
-##  10	Sobreescritura del theme
+<a id="theme"></a>
+## 10	Sobreescritura del theme
 El componente combo se presenta con una apariencia visual definida en el fichero de estilos theme.rup.combo-x.y.z.css.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.
@@ -511,8 +526,8 @@ Estilos para colorear elementos pares e impares:
 +	**.rup-combo_groupOdd** → Cabecera de grupo impar
 +	**.rup-combo_groupEven** → Cabecera de grupo par
 
-
-##  11	Integración con UDA
+<a id="integrac-uda"></a>
+## 11	Integración con UDA
 En el caso de que el componente combo utilice datos obtenidos de una fuente remota, la comunicación con el servidor de aplicaciones se realizaría del siguiente modo:
 
 El componente Combo necesita que los datos remotos que le son servidos sigan la siguiente estructura:
