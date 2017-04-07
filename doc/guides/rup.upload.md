@@ -3,58 +3,55 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#intro)   
-   - [2   Ejemplo](#ejemplo)   
-   - [3   Casos de uso](#casos-de-uso)   
-   - [4   Infraestructura](#infraestructura)   
-      - [4.1 Ficheros](#ficheros)   
-      - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#v-minimizada)   
-   - [5   Invocación](#invocac)   
-      - [5.1 Componente upload independiente](#independiente)   
-      - [5.2 Componente upload integrado en formulario](#componente)   
-      - [5.3 Varios componentes upload integrados en formuario](#varios-componentes)   
-   - [6 API](#api)   
-   - [7   Sobreescritura del theme](#theme)   
-   - [8   Interacción con el servidor de aplicaciones](#servidor-de-aplicaciones)   
-   - [9   Internet Explorer 8](#internet)   
-   - [10  Integración con UDA](#uda)   
-   - [11  Integración con PIF](#pif)   
-      - [11.1    Configuración](#config)   
-      - [11.2    Invocación](#invocac2)   
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+      - [5.1 Componente upload independiente](#5.1-componente-upload-independiente)   
+      - [5.2 Componente upload integrado en formulario](#5.2-componente-upload-integrado-en-formulario)   
+      - [5.3 Varios componentes upload integrados en formuario](#5.3-varios-componentes-upload-integrados-en-formuario)   
+   - [6 API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Interacción con el servidor de aplicaciones](#8-interacción-con-el-servidor-de-aplicaciones)   
+   - [9   Internet Explorer 8](#9-internet-explorer-8)   
+   - [10  Integración con UDA](#10-integración-con-uda)   
+   - [11  Integración con PIF](#11-integración-con-pif)   
+      - [11.1    Configuración](#11.1-configuración)   
+      - [11.2    Invocación](#11.2-invocación)   
 
 <!-- /MDTOC -->
 
-<a id="intro"></a>
+
 ##	1	Introducción
 La descripción del ***Componente Upload***, visto desde el punto de vista de *RUP*, es la siguiente:
 
 *Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.*
 
-<a id="ejemplo"></a>
 ##	2	Ejemplo
 Se presentan a continuación un ejemplo de este componente:
 ![ejemplo](img/rup.upload_1.png)
 
 
-<a id="casos-de-uso"></a>
+
 ##	3	Casos de uso
 Se aconseja la utilización de este componente:
 +	Cuando sea necesario realizar una subida de archivos al servidor.
 
-<a id="infraestructura"></a>
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Únicamente se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.
 
-<a id="ficheros"></a>
+
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.upload-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.upload-x.y.z.css**
 
-<a id="dependencias"></a>
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 +	**jQuery 1.12.4: http://jquery.com/**
@@ -79,7 +76,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.upload-x.y.z.js
 	theme.rup.upload-x.y.z.css
 
-<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros *javascript* y de estilos necesarios para el uso de todos los compontente **RUP**.
 
@@ -89,9 +85,8 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
+
 ##	5	Invocación
-<a id="independiente"></a>
 ###	5.1	Componente upload independiente
 Un escenario de uso del componente es en el que se necesita de un sistema de subida de archivos sin necesidad de gestionar otros datos no relacionados con los mismos.
 
@@ -229,7 +224,6 @@ $('#fileupload_only').rup_upload({
 ```
 Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el apartado 6.
 
-<a id="componente"></a>
 ###	5.2	Componente upload integrado en formulario
 Como se ha comentado anteriormente el componente es capaz de enviar en cada petición de subida de archivos, la información existente en otros campos existentes en el formulario.
 
@@ -283,7 +277,6 @@ $('#fileupload_form').rup_upload({
 ```
 Como se puede comprobar, se ha indicado la opción *submitInForm* con el valor true. Esto indica al componente que debe de configurarse para funcionar del modo que hemos comentado en este apartado.
 
-<a id="varios-componentes"></a>
 ###	5.3	Varios componentes upload integrados en formuario
 Este escenario es básicamente una extensión el definido en el apartado anterior. En este caso se definirán dos componentes upload independientes incluidos en el mismo formulario. Como es los casos anteriores, a continuación se muestra la estructura incluida en la *jsp*:
 ``` xml
@@ -361,11 +354,9 @@ $('#fileupload_file_form_padre').rup_upload({
 
 En este caso además de indicar la propiedad *submitInForm*, se deberá de indicar en la propiedad form el identificador del formulario que contiene los campos *file*.
 
-<a id="api"></a>
 ##	6 API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.upload.md).
 
-<a id="theme"></a>
 ##	7	Sobreescritura del theme
 El componente upload se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.upload-x.y.z.css**.
 
@@ -373,7 +364,7 @@ Si se quiere modificar la apariencia del componente, se recomienda redefinir el/
 
 Los estilos del componente se basan en los estilos básicos de los *widgets* de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta [Theme Roller](http://jqueryui.com/themeroller/) podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
 
-<a id="servidor"></a>
+
 ##	8	Interacción con el servidor de aplicaciones
 En este apartado se va a detallar como realizar la comunicación entre el componente **RUP** y el servidor de aplicaciones.
 Por defecto *Spring* no tiene habilitada la gestión de subidas de ficheros *(multipart)*.
@@ -514,7 +505,6 @@ File file = uploadService.getFromDisk(URL_UPLOAD_BASE_DIR, fileName);
 
 ```
 
-<a id="internet"></a>
 ##	9	Internet Explorer 8
 
 El componente *upload* presenta varias particularidades al ser utilizado desde *Internet Explorer 8*. Estas son debidas a ciertas carencias del navegador. Estos son los aspectos a tener en cuenta sobre el uso del navegador:
@@ -553,13 +543,11 @@ Mediante esta configuración, *jackson* enviará las respuestas en formato *text
 
 +	**No se muestra la información completa del fichero**: Al añadir un fichero a la lista de archivos seleccionados, no se muestra el tipo de archivo ni el tamaño del mismo. Esto es debido a que IE8 no es capaz de acceder a estos metadatos del archivo seleccionado.
 
-<a id="uda"></a>
 ##	10	Integración con UDA
 
 >**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador.
 La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings, http error code, validaciones…) se detalla en el anexo Anexo-Emulacion_xhr_iframes.doc**
 
-<a id="pif"></a>
 ##	11	Integración con PIF
 A partir de la versión v2.4.2 del componente se ha mejorado la integración con el PIF permitiendo una subida directa.
 
@@ -572,7 +560,6 @@ Por este motivo, se proporcionan desde la x38 una serie de clases que implementa
 
 A continuación se explica los pasos a seguir para configurar los diferentes componentes en la aplicación.
 
-<a id="config"></a>
 ###	11.1	Configuración
 Para hacer uso de la subida directa al PIF desde la aplicación se debe de realizar la siguiente configuración en la aplicación:
 
@@ -658,10 +645,9 @@ Se deberá de incluir en dicho fichero la referencia al nuevo fichero de configu
 </beans>
 ```
 
-<a id="invocac2"></a>
 ###	11.2	Invocación
 
-La invocación del componente se realiza del mismo modo que se indica en el apartado [5.1-Invocación](#invocac).
+La invocación del componente se realiza del mismo modo que se indica en el apartado [5.1-Invocación](5.1-invocación).
 
 La única diferencia radica en las propiedades de configuración con las que se inicializa el componente. Para hacer uso de la subida directa al PIF, se deberá de:
 

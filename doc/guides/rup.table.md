@@ -1,40 +1,20 @@
 #	Componentes RUP – Table
 
 
-- [1 Introducción](#intro)   
-- [2 Ejemplo](#ejemplo)   
-- [3  Casos de uso](#casos-de-uso)   
-- [4    Infraestructura](#infraestructura)   
-   - [4.1 Ficheros](#ficheros)   
-   - [4.2 Dependencias](#dependencias)   
-   - [4.3 Versión minimizada](#v-minimizada)   
-- [5 Invocación](#invocac)   
-   - [5.1 Código HTML](#html)
-   - [5.2 Código Javascript](#javascript)
-- [6 Plugins](#plugins)
-- [7 Sobreescritura del theme](#theme)
-- [8 Internacionalización (i18n)](#i18n)
-- [9 Integración con UDA](#uda)
-   - [9.1 Comunicación con la capa servidor](#servidor)
-   - [9.2 Configuración de Spring ](#spring)
-   - [9.1 Métodos controller](#controller)  
-
-<a id="intro"></a>
-## 1 Introducción
+## 1. Introducción
 
 La descripción del componente Tabla, visto desde el punto de vista de RUP, es la siguiente:
 
 *Se les presenta a los usuarios los datos tabulados para que la información se visualice de manera ágil y rápida, facilitando así su comprensión y manejo. Además, el componente implementa un nuevo patrón definido para facilitar la lógica necesaria en las acciones básicas, denominadas CRUD (create, read,update y delete), sobre una tabla.*
 
-<a id="ejemplo"></a>
-## 2 Ejemplo
+
+## 2. Ejemplo
 
 Se muestra a continuación una maquetación típica del componente:
 
 ![Imagen 1](img/rup.table_1.png)
 
-<a id="casos-de-uso"></a>
-## 3 Casos de uso
+## 3. Casos de uso
 
 Se aconseja la utilización de este componente:
 
@@ -42,15 +22,13 @@ Se aconseja la utilización de este componente:
 * Cuando se realicen mantenimientos de tablas haciendo uso de las especificaciones establecidas en la guía de desarrollo de UDA.
 
 
-<a id="infraestructura"></a>
-## 4 Infraestructura
+## 4. Infraestructura
 
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
 Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros* y *Dependencias*.
 
-<a id="ficheros"></a>
-### 4.1 Ficheros
+### 4.1. Ficheros
 
 - Ruta Javascript: rup/scripts/
 - Fichero de plugin: rup.table-x.y.z.js
@@ -58,8 +36,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 - Fichero de estilos: +theme.table-x.y.z.css+ (modificable por el desarrollador) y ui.jqgrid.css (fichero base de los estilos de la tabla).
 - Ruta fichero de recursos: rup/resources/rup.i18n_idioma.json
 
-<a id="dependencias"></a>
-### 4.2 Dependencias
+### 4.2. Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
 * **jQuery 1.12.4**: http://jquery.com/
@@ -78,7 +55,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
     jqgrid.js: http://www.trirand.com/blog/
     Ejemplos online: http://www.trirand.com/blog/jqgrid/jqgrid.html
 
-<a id="v-minimizada"></a>
 ### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
@@ -89,7 +65,6 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
 ## 5. Invocación
 
 El componente tabla necesita de una invocación de una llamada javascript sobre una estructura HTML existente.
@@ -104,8 +79,7 @@ En el componente table se ha optado por minimizar el código HTML que se genera 
 Para facilitar aún más y simplificar el código necesario a la hora de invocar y configurar el componente, se ha definido una nomenclatura estándar a la hora de indicar los identificadores de los diferentes objetosHTML. De este modo no será necesario indicarle al componente todos los objetos HTML sobre los que debe
 definir cada una de las funcionalidades.
 
-<a id="html"></a>
-### 5.1 Código HTML
+### 5.1. Código HTML
 
 Para simplificar la nomenclatura nodos los identificadores de los objetos HTML se derivan a partir del identificador base del componente table.
 
@@ -195,8 +169,7 @@ La funcionalidad asociada a cada identificador sería:
 * **table_detail_button_save_repeat**: Botón que permite guarder el registro y continuar el proceso de edición.
 * **table_detail_link_cancel**: Enlace que permite cancelar el proceso de edición.
 
-<a id="javascript"></a>
-### 5.2 Código Javascript
+### 5.1. Código Javascript
 
 La invocación del componente propiamente dicha se realizará desde el fichero js correspondiente a la página. Si se ha seguido la nomenclatura del apartado anterior se requerirá únicamente de una
 configuración mínima:
@@ -228,7 +201,6 @@ $("#table").rup_table({
 
 El uso y configuración de los diferentes plugins de la tabla se especifica en el siguiente apartado.
 
-<a id="plugins"></a>
 ## 6. Plugins
 
 El componente table se ha implementado siguiendo una arquitectura modular. De este modo se consigue:
@@ -274,7 +246,6 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Botonera
 * Reporting
 
-<a id="theme"></a>
 ## 7. Sobreescritura del theme
 El componente *tabla* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.table-x.y.z.css**.
 
@@ -282,7 +253,7 @@ Si se quiere modificar la apariencia del componente, se recomienda redefinir el/
 
 Los estilos del componente se basan en los estilos básicos de los widgets de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta Theme Roller podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
 
-<a id="i18n"></a>
+
 ## 8. Internacionalización (i18n)
 
 La gestión de los literales de la tabla se realiza a través de ficheros json lo que flexibiliza el desarrollo. Para acceder a los literales se hará uso del objeto base RUP, mediante éste se accederá al objeto json correspondiente según el idioma obteniendo tanto los literales como los propios mensajes.
@@ -294,7 +265,7 @@ El objeto de internacionalización de la tabla se encuentra accesible del siguie
 
     $.rup.i18n.base.rup_table
 
-<a id="uda"></a>
+
 ## 9. Integración con UDA
 
 La interacción entre la capa de presentación y el servidor de aplicaciones que requiere el componente, hace uso de una serie de clases y configuraciones para facilitar su gestión.
@@ -306,7 +277,6 @@ Dependiendo del tipo de nueva funcionalidad que se necesite es muy posible que l
 
 Para facilitar este proceso y flexibilizar el proceso de extensibilidad del componente se ha implementado una serie de componentes que se presupondrá que son utilizadas a la hora de explicar su funcionamiento.
 
-<a id="servidor"></a>
 ### 9.1. Comunicación con la capa servidor
 
 La comunicación entre el componente y la capa servidor se realiza principalmente mediante en envío y
@@ -318,7 +288,6 @@ Para facilitar los procesos de serialización y deserialización entre los objet
 
 * **com.ejie.x38.dto.JQGridResponseDto**: Clase encargada de almacenar las propiedades que después del proceso de serialización, se convertirán en propiedades del objeto JSON que deberá de ser enviado al componente.
 
-<a id="spring"></a>
 ### 9.2. Configuración de Spring
 
 Es necesario incluir la siguiente configuración en los ficheros de configuración de Spring:
@@ -339,8 +308,7 @@ class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 </bean>
 ```
 
-<a id="controller"></a>
-### 9.3 Métodos controller
+### 9.3. Métodos controller
 
 Estos son los métodos generados en el Controller para gestionar las peticiones de las diferentes operaciones del componente table:
 

@@ -2,44 +2,43 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#intro)   
-   - [2   Ejemplo](#ejemplo)   
-   - [3   Casos de uso](#casos-de-uso)   
-   - [4    Infraestructura](#infraestructura)   
-      - [4.1 Ficheros](#ficheros)   
-      - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#minimizada)   
-   - [5   Invocación](#invocac)   
-   - [6 API](#api)   
-   - [7   Estructura](#estructura)   
-   - [8   Resumen (conversiones)](#resumen)   
-      - [8.1 INPUT](#input)   
-      - [8.2 TEXTAREA](#textarea)   
-      - [8.3 SELECT (combo)](#select)   
-      - [8.4 LABEL](#label)   
-      - [8.5 Componentes RUP](#rup)   
-         - [8.5.1    Accordion](#accordion)   
-         - [8.5.2 Combo](#combo)   
-         - [8.5.3    Date](#date)   
-         - [8.5.4    Time](#time)   
-         - [8.5.5    Tabs](#tabs)   
-   - [9   Sobreescritura del theme](#theme)   
-       - [9.1.1   Tabs](#tabs2)   
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4    Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6 API](#6-api)   
+   - [7   Estructura](#7-estructura)   
+   - [8   Resumen (conversiones)](#8-resumen-[conversiones])   
+      - [8.1 INPUT](#8.1-input)   
+      - [8.2 TEXTAREA](#8.2-textarea)   
+      - [8.3 SELECT (combo)](#8.3-select-[combo])   
+      - [8.4 LABEL](#8.4-label)   
+      - [8.5 Componentes RUP](#8.5-componentes-rup)   
+         - [8.5.1    Accordion](#8.5.1-accordion)   
+         - [8.5.2 Combo](#8.5.2-combo)   
+         - [8.5.3    Date](#8.5.3-date)   
+         - [8.5.4    Time](#8.5.4-time)   
+         - [8.5.5    Tabs](#8.5.5-tabs)   
+   - [9   Sobreescritura del theme](#9-sobreescritura-del-theme)   
+       - [9.1.1   Tabs](#9.1.1-tabs)   
 
 <!-- /MDTOC -->
 
-<a id="intro"></a>
+
 ##	1	Introducción
 La descripción del componente ***wizard***, visto desde el punto de vista de **RUP**, es la siguiente:
 
 *Permitir guiar al usuario paso a paso a través de un proceso realizando las tareas dentro de un orden señalado.*
 
-<a id="ejemplo"></a>
+
 ##	2	Ejemplo
 Se presenta a continuación un ejemplo de este componente:
 ![ejemplo](img/rup.wizard_1.png)
 
-<a id="casos-de-uso"></a>
 ##	3	Casos de uso
 Se recomienda el uso del componente:
 
@@ -49,12 +48,10 @@ Se recomienda el uso del componente:
 
 +	Cuando la tarea sea delicada y requiera un control alto.
 
-<a id="infraestructura"></a>
 ## 4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 •	Únicamente se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.
 
-<a id="ficheros"></a>
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.wizard-x.y.z.js**
@@ -73,7 +70,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.wizard-x.y.z.js
 	theme.rup.wizard-x.y.z.css
 
-<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros *javascript* y de estilos necesarios para el uso de todos los compontente **RUP**.
 
@@ -83,7 +79,6 @@ Los ficheros minimizados de **RUP** son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
 ##	5	Invocación
 Este componente se invocará mediante un selector que indicará el objeto contenedor de la estructura a convertir en asistente paso a paso. Por ejemplo
 ```javascript
@@ -91,12 +86,10 @@ $("#id_form").rup_wizard(properties);
 ```
 donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
 
-<a id="api"></a>
 ##	6 API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.wizard.md).
 
-<a id="estructura"></a>
 ##	7	Estructura
 A continuación se detalla la estructura que debe seguir el formulario a convertir en *wizard*.
 Cada paso del *wizard* estará formado por un *fieldset* y la descripción del paso se definirá dentro del *fieldset* mediante la etiqueta *legend*. Un ejemplo de la estructura:
@@ -164,11 +157,9 @@ Por lo expuesto anteriormente se deduce que la conversión de la estructura inic
 
 +	Los ***fieldsets*** que definen los diferentes pasos serán recubiertos con una capa ***DIV***. El identificador de este elemento serán correlativos y con la nomenclatura siguiente: *stepX* (siendo x un número comenzando en 0).
 
-<a id="resumen"></a>
 ##	8	Resumen [conversiones]
 El patrón *wizard* genera por defecto un paso *Resumen* donde se muestran en texto plano los diferentes datos introducidos en los pasos anteriores. A continuación se detalla la conversión realizada con los diferentes elementos posibles. Se han omitido los estilos que se detallan en el siguiente apartado.
 
-<a id="input"></a>
 ###	8.1	INPUT
 En este apartado se detallan las conversiones de los diferentes tipos de los elementos de introducción de datos, que se transformarán en elementos *span*.
 
@@ -207,7 +198,6 @@ En este apartado se detallan las conversiones de los diferentes tipos de los ele
 <span>[ ]<span/>
 ```
 
-<a id="textarea"></a>
 ###	8.2	TEXTAREA
 Los elementos de tipo *textarea* se convierten en elementos *paragraph* ```(<p>)```. Opcionalmente se puede configurar el elemento en el que se convierte mediante el parámetro ***textareaElement***.
 ```xml
@@ -215,7 +205,6 @@ Los elementos de tipo *textarea* se convierten en elementos *paragraph* ```(<p>)
 <p>Esto es un ejemplo de texto</p>
 ```
 
-<a id="select"></a>
 ###	8.3	SELECT [combo]
 Los combos se convierten en elementos span, que mostrará el *label* (literal) del elemento seleccionado.
 ```xml
@@ -226,7 +215,6 @@ Los combos se convierten en elementos span, que mostrará el *label* (literal) d
 <span>No</span>
 ```
 
-<a id="label"></a>
 ###	8.4	LABEL
 Los elementos de tipo *label* se convierten en elementos *span*. Opcionalmente se puede configurar el elemento en el que se convierte mediante el parámetro ***labelElement***.
 ```xml
@@ -234,11 +222,9 @@ Los elementos de tipo *label* se convierten en elementos *span*. Opcionalmente s
 <span>Usuario</span>
 ```
 
-<a id="rup"></a>
 ###	8.5	Componentes RUP
 Además de los elementos básicos de *HTML* se pueden incluir componentes **RUP** en el asistente paso a paso y a continuación se detalla su correspondiente conversión.
 
-<a id="accordion"></a>
 ####	8.5.1	Accordion
 Cuando se duplica un *accordion* en el paso de resumen simplemente se modifica el identificador que contiene el *accordion* pasando a llamarse como su original con el literal *“_summary”* concatenado al final. Para configurar el funcionamiento del *accordion* se utilizará el parámetro ***rupAccordion***.
 ```xml
@@ -252,18 +238,12 @@ Cuando se duplica un *accordion* en el paso de resumen simplemente se modifica e
 		...
 </div>
 ```
-
-<a id="combo"></a>
 ####	8.5.2 Combo
 En el procesamiento de este elemento se debe eliminar los elementos sobrantes para mostrar el literal del elemento seleccionado bajo un *span*.
-
-<a id="date"></a>
 ####	8.5.3	 Date
 En el procesamiento de este elemento se debe eliminar los elementos sobrantes, en este caso la imagen para seleccionar fecha.
-<a id="time"></a>
 ####	8.5.4	 Time
 En el procesamiento de este elemento se debe eliminar los elementos sobrantes, en este caso la imagen para seleccionar hora.
-<a id="tabs"></a>
 ####	8.5.5	 Tabs
 El procesamiento de las pestañas se realiza mediante un algoritmo recursivo que comprueba los diferentes niveles de las pestañas y los procesa. Se realizan las siguientes transformaciones:
 +	El nombre de la pestaña (originalmente contenido en una lista no numerada) se traduce en un elemento ```<h4/>``` que opcionalmente se puede configurar mediante el parámetro **rupTabsElement**.
@@ -317,7 +297,6 @@ La conversión del rup-tab sería la siguiente:
 </div>
 ```
 
-<a id="theme"></a>
 ##	9	Sobreescritura del theme
 El componente *wizard* se presenta con una apariencia visual definida en el fichero de estilos ***theme.rup.wizard-x.y.z.css***.
 
@@ -383,7 +362,6 @@ Estilos asociados a las imágenes para decorar el wizard:
 +	Último paso (activo): **.rup-wizard_lastStepDesc.current a**
 ![ultimo paso  activo](img/rup.wizard_7.png)
 
-<a id="tabs2"></a>
 ####	9.1.1	Tabs
 Cuando se genera el paso resumen y este va a contener algún elemento rup-tabs se realiza una trasformación para modificar la estructura final de la página como se explica el en apartado anterior.
 A la hora de realizar dicha transformación existen dos opciones:
