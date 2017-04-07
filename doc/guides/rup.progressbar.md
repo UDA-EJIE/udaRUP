@@ -15,7 +15,6 @@
 
 <!-- /MDTOC -->
 
-
 <a id="intro"></a>
 ## 1 Introducción
 La descripción del Componente Barra de progreso, visto desde el punto de vista de **RUP**, es la siguiente:

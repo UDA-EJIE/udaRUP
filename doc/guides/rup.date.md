@@ -113,7 +113,7 @@ $.rup_date({
 El resultado sería el que se muestra en la siguiente captura:
 ![intervalo](img/rup.date_2.png)
 
-<a id="fechas"></a>
+<a id="fecha_multi"></a>
 ## 8	Fechas múltiples
 El componente fecha permite la *multiselección* de fechas en el caso de que el usuario deba seleccionar más de una fecha sobre el mismo componente. Una vez seleccionadas, las fechas del componente aparecerán separadas por comas en el campo asociado. Existen dos maneras de implementar la *multiselección*:
 +	**número**: mediante un valor numérico se indica la cantidad de fechas (máximas) que se pueden elegir. Una vez seleccionadas todas las fechas permitidas, el calendario presentará los días deshabilitados y no podrán seleccionarse más fechas hasta que se deseleccione alguna.

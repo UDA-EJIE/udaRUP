@@ -4,7 +4,7 @@
 
    - [1   Introducción](#intro)   
    - [2   Ejemplo](#ejemplo)   
-   - [3   Casos de uso](#casos-de-uso)   
+   - [3   Casos de uso](casos-de-uso)   
    - [4   Infraestructura](#infraestructura)   
       - [4.1 Ficheros](#ficheros)   
       - [4.2 Dependencias](#dependencias)   

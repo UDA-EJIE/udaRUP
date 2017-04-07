@@ -34,9 +34,8 @@ La descripción del **Componente Combo**, visto desde el punto de vista de RUP, 
 <a id="ejemplo"></a>
 ## 2 Ejemplo
 Se presentan a continuación un ejemplo de este componente:
-
 ![Selección simple](img/rup.combo_1.png)
-Selección Simple 
+Selección Simple
 
 ![Selección múltiple](img/rup.combo_2.png)
 Selección Múltiple
