@@ -2,31 +2,32 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#1-introducción)   
-   - [2   Ejemplo](#2-ejemplo)   
-   - [3   Casos de uso](#3-casos-de-uso)   
-   - [4   Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)
-      - [4.3 Versión minizada](#4.3-versión-minimizada)   
-   - [5   Invocación](#5-invocación)   
-   - [6 API](#6-api)   
-   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [1   Introducción](#intro)   
+   - [2   Ejemplo](#ejemplo)   
+   - [3   Casos de uso](#casos-de-uso)   
+   - [4   Infraestructura](#infraestructura)   
+      - [4.1 Ficheros](#ficheros)   
+      - [4.2 Dependencias](#dependencias)
+      - [4.3 Versión minizada](#v-minimizada)   
+   - [5   Invocación](#invocac)   
+   - [6 API](#api)   
+   - [7   Sobreescritura del theme](#theme)   
 
 <!-- /MDTOC -->
 
-
+<a id="intro"></a>
 ##	1	Introducción
 La descripción del ***Componente Mensajes***, visto desde el punto de vista de **RUP**, es la siguiente:
 
 *Tiene como objetivo mostrar al usuario de forma homogénea, clara y llamativa, los posibles mensajes que pueden desencadenar las acciones en la aplicación. Estos mensajes predefinidos pueden ser de diferente tipología: error, confirmación, aviso o alerta*
 
+<a id="ejemplo"></a>
 ##	2	Ejemplo
 Se presentan a continuación los diferentes tipos de mensajes:
 
 ![ejemplo](img/rup.message_1.png)
 
-
+<a id="casos-de-uso"></a>
 ##	3	Casos de uso
 Se recomienda el uso del patrón:
 
@@ -42,16 +43,19 @@ En concreto, los principales tipos de mensajes que tenemos que considerar son lo
 +	Mensajes de error
 +	Mensajes de alerta
 
+<a id="infraestructura"></a>
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Únicamente se requiere la inclusión de los ficheros que implementan el componente (*js y css*) comentados en los apartados *Ficheros y Dependencias*.
 
+<a id="ficheros"></a>
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.message-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero css del theme: **theme.rup.message-x.y.z.css**
 
+<a id="dependencias"></a>
 ###	4.2	Dependencias
 El desarrollo de los patrones como *plugins* basados en la librería JavaScript ***jQuery*** hace necesaria la inclusión de esta dependencia. La versión elegida para el desarrollo ha sido la versión **1.12.4**. Un posible cambio de versión podría no ser trivial y la versión utilizada no debe seleccionarse arbitrariamente. La razón es que el cambio podría provocar errores de funcionamiento e incompatibilidad tanto con los propios patrones como con algunos *plugins* basados en *jQuery*.
 +	**jQuery 1.12.4**: http://jquery.com/
@@ -70,6 +74,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 
     Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
+<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros *javascript* y de estilos necesarios para el uso de todos los compontente **RUP**.
 
@@ -79,7 +84,7 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-
+<a id="invocac"></a>
 ##	5	Invocación
 El uso de este componente se realiza a través del objeto base de todos los patrones, **RUP**. Para poder mostrar los mensajes se debe usar la siguiente sentencia:
 ```javascript
@@ -126,10 +131,11 @@ alert(mensaje);
 Como si se tratase de una invocación al alert típico de javascript.
 
 
-
+<a id="api"></a>
 ## 6 API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.message.md).
 
+<a id="theme"></a>
 ##	7	Sobreescritura del theme
 El componente message se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.message-x.y.z.css**.
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.
