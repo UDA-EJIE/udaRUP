@@ -1,0 +1,37 @@
+var gulp = require('gulp');
+var fs = require('fs');
+var concat = require('gulp-concat');
+
+var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+
+
+// MINIMIZE
+
+gulp.task('minimize:css:rup-classic', function () {
+  
+
+});
+
+gulp.task('minimize:css:rup', function () {
+    var sources = minimizeConf.rupCssExternalFiles.concat(minimizeConf.rupCssBuildFiles);
+    console.log("Generando rup.css...");
+    console.log(sources);
+    gulp.src(sources)
+        .pipe(concat("rup.css"))
+        // .pipe(cleanCSS())
+        .pipe(gulp.dest('./build/css'));
+});
+
+gulp.task('minimize:js:rup', function () {
+    console.log("Generando rup.js...");
+    gulp.src(minimizeConf.rupJsFiles)
+        .pipe(concat("rup.js"))
+        .pipe(gulp.dest('./build/js'));
+});
+
+gulp.task('minimize:js:rup-classic', function () {
+    console.log("Generando rup.classic.js...");
+    gulp.src(minimizeConf.rupJsClassicFiles)
+        .pipe(concat("rup.classic.js"))
+        .pipe(gulp.dest('./build/js'));
+});
