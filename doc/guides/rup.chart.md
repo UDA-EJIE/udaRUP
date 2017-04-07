@@ -8,9 +8,9 @@
 -   [2 Ejemplo](#ejemplo)   
 -   [3 Casos de uso](#casos-de-uso)   
 -   [4 Infraestructura](#infraestructura)   
-  -   [4.1 Ficheros](#ficheros)   
-  -   [4.2 Dependencias](#dependencias)   
-  -   [4.3 Versión minimizada](#v-minimizada)   
+   -    [4.1 Ficheros](#ficheros)   
+   -    [4.2 Dependencias](#dependencias)   
+   -    [4.3 Versión minimizada](#minimizada)   
 -   [5 Invocación](#invocac)   
 -   [6 Tipos de gráficos](#tipos-de-graf)   
   -   [6.1 Barras](#barras)  
@@ -31,8 +31,8 @@
   - [6.6 Burbuja](#burbuja)   
          - [6.6.1 Datos](#datos6)   
          - [6.6.2 Instanciación](#instancia6)   
-   - [7 API](#api)   
-   - [8  i18n](#i18n)
+- [7 API](#api)   
+- [8  i18n](#i18n)
 
 <!-- /MDTOC -->
 
@@ -89,7 +89,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
     rup.base-x.y.z.js
     rup.chart-x.y.z.js
 
-<a id="v-minimizada"></a>
+<a id="minimizada"></a>
 ### 4.3 Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
