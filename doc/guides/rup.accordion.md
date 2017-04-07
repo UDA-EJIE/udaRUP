@@ -10,7 +10,7 @@
     -   [4.3 Versión minimizada](#4.3-versión-minimizada)   
 -   [5. Invocación](#5.-invocación)   
 -   [6. API](#6.-api)   
--   [7. Sobreescritura del theme](#theme)   
+-   [7. Sobreescritura del theme](#7.-sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
 
@@ -115,7 +115,7 @@ Además, con respecto a los navegadores, es aconsejable saber que *Chrome*, cuan
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.accordion.md).
 
-<a id="theme"></a>
+
 ## 7. Sobreescritura del theme
 El componente *Accordion* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.accordion-x.y.z.css**.
 
