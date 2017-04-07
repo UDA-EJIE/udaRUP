@@ -32,7 +32,7 @@
        - [6.6.1 Datos](#datos6)   
        - [6.6.2 Instanciación](#instancia6)   
 - [7 API](#api)   
-- [8  i18n](#i18n)
+- [8 i18n](#i18n)
 
 <!-- /MDTOC -->
 
