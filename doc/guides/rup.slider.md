@@ -41,7 +41,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 * Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
-<a id="ficeros"></a>
+<a id="ficheros"></a>
 ### 4.1 Ficheros
 
 - Ruta Javascript: rup/scripts/

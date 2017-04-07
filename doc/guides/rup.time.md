@@ -2,44 +2,49 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#1-introducción)   
-   - [2   Ejemplo](#2-ejemplo)   
-   - [3   Casos de uso](#3-casos-de-uso)   
-   - [4   Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
-   - [5   Invocación](#5-invocación)   
-   - [6   API](#6-api)   
-   - [7   Interacción con teclado](#7-interacción-con-teclado)   
-   - [8   Sobreescritura del theme](#8-sobreescritura-del-theme)   
-   - [9   Integración con UDA](#9-integración-con-uda)   
+   - [1   Introducción](#intro)   
+   - [2   Ejemplo](#ejemplo)   
+   - [3   Casos de uso](#casos-de-uso)   
+   - [4   Infraestructura](#infraestructura)   
+      - [4.1 Ficheros](#ficheros)   
+      - [4.2 Dependencias](#dependencias)   
+      - [4.3 Versión minimizada](#v-minimizada)   
+   - [5   Invocación](#invocac)   
+   - [6   API](#api)   
+   - [7   Interacción con teclado](#teclado)   
+   - [8   Sobreescritura del theme](#theme)   
+   - [9   Integración con UDA](#uda)   
 
 <!-- /MDTOC -->
 
-
+<a id="intro"></a>
 ##	1	Introducción
 La descripción del Componente Hora, visto desde el punto de vista de **RUP**, es la siguiente:
 *El usuario puede introducir y seleccionar una hora tanto de forma manual como visual, moviéndose fácilmente por las horas y los minutos, recibiendo ayudas y sugerencias para minimizar las posibilidades de introducir una hora incorrecta.*
 
+<a id="ejemplo"></a>
 ##	2	Ejemplo
 Se muestra a continuación una captura de un ejemplo típico del componente:
 ![ejemplo](img/rup.time_1.png)
 
+<a id="casos-de-uso"></a>
 ##	3	Casos de uso
 Se recomienda el uso del componente:
 +	Cuando el usuario tenga que introducir una hora y se quiera ofrecer flexibilidad para escribirla manualmente o seleccionándola de un calendario.
 
+<a id="infraestructura"></a>
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Únicamente se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.
 
+<a id="ficheros"></a>
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.time-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.time-x.y.z.css**
 
+<a id="dependencias"></a>
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 +	**jQuery 1.12.4**: http://jquery.com/
@@ -57,6 +62,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.time-x.y.z.js
 	theme.rup.time-x.y.z.css
 
+<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 Los ficheros minimizados de RUP son los siguientes:
@@ -65,6 +71,7 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
+<a id="invocac"></a>
 ##	5	Invocación
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el patrón Fecha. Por ejemplo:
 ```javascript
@@ -72,10 +79,12 @@ $("#id_input").rup_time (properties);
 ```
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
+<a id="api"></a>
 ##	6	API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.time.md).
 
+<a id="teclado"></a>
 ##	7	Interacción con teclado
 La interacción natural con el componente es mediante el ratón, pero se han añadido la posibilidad de manipular los valores mediante el teclado para agilizar su uso lo que ahorra mucho tiempo a los usuarios avanzados.
 
@@ -89,6 +98,7 @@ Existen unos atajos de teclado para poder manipular las barras de scroll sin ten
 +	CTRL + SHIFT + ALT + ← : Disminuye los segundos
 +	CTRL + SHIFT + ALT + → : Aumenta los segundos
 
+<a id="theme"></a>
 ##	8	Sobreescritura del theme
 El componente hora se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.time-x.y.z.css**.
 
@@ -155,7 +165,7 @@ Cerrar
 
 NOTA: El componente genera adicionalmente una estructura para la manipulación de fechas combinada con la manipulación de horas que no se utiliza y por ello se ha omitido. Además la estructura presentada podría variar algo en función de los atributos indicados en la configuración.
 
-
+<a id="uda"></a>
 ##	9	Integración con UDA
 Para facilitar la serialización/deserialización de los datos entre los objetos java y los componentes hora, desde UDA se proporcionan las siguientes clases. Estas clases definen tanto serializadores como deserializadores para el componente Jackson utilizado en UDA.
 
