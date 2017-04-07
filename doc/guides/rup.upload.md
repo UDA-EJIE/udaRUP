@@ -373,7 +373,7 @@ Si se quiere modificar la apariencia del componente, se recomienda redefinir el/
 
 Los estilos del componente se basan en los estilos básicos de los *widgets* de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta [Theme Roller](http://jqueryui.com/themeroller/) podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
 
-<a id="servidor-de-aplicaciones"></a>
+<a id="servidor"></a>
 ##	8	Interacción con el servidor de aplicaciones
 En este apartado se va a detallar como realizar la comunicación entre el componente **RUP** y el servidor de aplicaciones.
 Por defecto *Spring* no tiene habilitada la gestión de subidas de ficheros *(multipart)*.

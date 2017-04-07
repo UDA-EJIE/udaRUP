@@ -8,7 +8,7 @@
    - [4    Infraestructura](#infraestructura)   
       - [4.1 Ficheros](#ficheros)   
       - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#v-minimizada)   
+      - [4.3 Versión minimizada](#minimizada)   
    - [5   Invocación](#invocac)   
    - [6 API](#api)   
    - [7   Estructura](#estructura)   
@@ -61,7 +61,6 @@ Fichero de plugin: **rup.wizard-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero css del theme: **theme.rup.wizard-x.y.z.css**
 
-<a id="dependencias"></a>
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 +	**jQuery 1.12.4**: http://jquery.com/
