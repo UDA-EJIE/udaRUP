@@ -15,6 +15,7 @@
 
 <!-- /MDTOC -->
 
+
 <a id="intro"></a>
 ##	1	Introducción
 La descripción del ***Componente Mensajes***, visto desde el punto de vista de **RUP**, es la siguiente:

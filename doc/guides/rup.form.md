@@ -38,7 +38,7 @@ Se presenta a continuación un ejemplo de este componente:
 Se aconseja la utilización de este componente:
 +	Cuando sea necesario enviar formularios vía AJAX.
 
-<a id="infraestrucura"></a>
+<a id="infraestructura"></a>
 ## 4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Únicamente se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.

@@ -2,21 +2,21 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#intro)   
-   - [2   Ejemplo](#ejemplo)   
-   - [3   Casos de uso](#casos-de-uso)   
-   - [4   Infraestructura](#infraestructura)   
-   	- [4.1 Ficheros](#ficheros)
-   	- [4.2 Dependencias](#dependencias)      	  
-   	- [4.3 Versión minimizada](#v-minimizada)   
-   - [5   Invocación](#invocac)   
-      - [5.1 Modo de definición por html](#html)
-   - [6 API](#api)   
-   - [7    Menú mixto](#mixto)   
-   - [8   Sobreescritura del theme](#theme)
-   - [9  Internacionalización (i18n)](#i18n)    
-   - [10   Integración con UDA](#uda)   
-   - [11 Formato de las urls](#url)   
+- [1   Introducción](#intro)   
+- [2   Ejemplo](#ejemplo)   
+- [3   Casos de uso](#casos-de-uso)   
+- [4   Infraestructura](#infraestructura)   
+   - [4.1 Ficheros](#ficheros)
+   - [4.2 Dependencias](#dependencias)      	  
+   - [4.3 Versión minimizada](#v-minimizada)   
+- [5   Invocación](#invocac)   
+  - [5.1 Modo de definición por html](#html)
+- [6 API](#api)   
+- [7    Menú mixto](#mixto)   
+- [8   Sobreescritura del theme](#theme)
+- [9  Internacionalización (i18n)](#i18n)    
+- [10   Integración con UDA](#uda)   
+- [11 Formato de las urls](#url)   
 
 <!-- /MDTOC -->
 
