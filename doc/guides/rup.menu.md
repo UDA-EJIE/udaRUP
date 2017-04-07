@@ -2,31 +2,27 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-- [1   Introducción](#intro)   
-- [2   Ejemplo](#ejemplo)   
-- [3   Casos de uso](#casos-de-uso)   
-- [4   Infraestructura](#infraestructura)   
-   - [4.1 Ficheros](#ficheros)
-   - [4.2 Dependencias](#dependencias)      	  
-   - [4.3 Versión minimizada](#v-minimizada)   
-- [5   Invocación](#invocac)   
-  - [5.1 Modo de definición por html](#html)
-- [6 API](#api)   
-- [7    Menú mixto](#mixto)   
-- [8   Sobreescritura del theme](#theme)
-- [9  Internacionalización (i18n)](#i18n)    
-- [10   Integración con UDA](#uda)   
-- [11 Formato de las urls](#url)   
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+   	- [4.1 Ficheros](#4.1-ficheros)
+   	- [4.2 Dependencias](#4.2-dependencias)      	  
+   	- [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+      - [5.1 Modo de definición por html](#5.1-modo-de-definición-por-html)   
+   - [6    Menú mixto](#6-menú-mixto)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [8   Integración con UDA](#8-integración-con-uda)   
+   - [9.  Formato de las urls](#9-formato-de-las-urls)   
 
 <!-- /MDTOC -->
 
-<a id="intro"></a>
 ##	1	Introducción
 La descripción del ***Componente Menú*** visto desde el punto de vista de **RUP** es la siguiente:
 *Menú de la aplicación mantenido a lo largo de todas las páginas de forma consistente que muestra entradas directas a secciones clave de la aplicación
 *
 
-<a id="ejemplo"></a>
 ##	2	Ejemplo
 Se presentan a continuación un ejemplo del componente:
 
@@ -36,21 +32,18 @@ Se presentan a continuación un ejemplo del componente:
 +	**Menú vertical**:
 ![vertical](img/rup.menu_2.png)
 
-<a id="casos-de-uso"></a>
 ##	3	Casos de uso
 Se recomienda el uso del componente:
 +	Cuando exista un sitio web estructurado jerárquicamente y relativamente amplio.
 
 +	Cuando se desee facilitar y agilizar la navegación y dar contexto al usuario.
 
-<a id="infraestructura"></a>
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 +	Se requiere la inclusión de los ficheros que implementan el componente *(js y css)* comentados en los apartados *Ficheros y Dependencias*.
 
 +	Se requiere un fichero que defina la estructura del menú. Dicha definición podrá ser implementada como parámetro en la declaración del menú o como estructura *html* en la pagina que lo alberge.
 
-<a id="ficheros"></a>
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.menu-x.y.z.js**
@@ -58,7 +51,7 @@ Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.menu-x.y.z.css**
 
 
-<a id="dependencias"></a>
+
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 +	**jQuery 1.12.4**: http://jquery.com/
@@ -81,7 +74,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.menu-x.y.z.js
     theme.rup.menu-x.y.z.js
 
-<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes **RUP**. Estos ficheros contienen la versión compactada y minimizada de los ficheros *javascript* y de estilos necesarios para el uso de todos los compontente **RUP**.
@@ -91,7 +83,6 @@ Los ficheros minimizados de **RUP** son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
 ##	5	Invocación
 Por cuestiones de optimización y seguridad, asociadas a la protección de los menús, el patrón a sido rediseñado para trabajar a partir de una estructura *html* que determine sus diferentes entradas y funcionalidades. Para mantener la retro-compatibilidad, el patrón sigue disponiendo del modelo antiguo de definición.
 
@@ -112,7 +103,7 @@ $("#idMenu").rup_menu(properties);
 ```
 El parámetro *“properties”* representa el conjunto de parámetros usados para definir el comportamiento del menú. Según el modo empleado, los datos empleados para definir el comportamiento diferirán cuantiosamente. El parámetro en si, puede declararse mediante un objeto *(var properties = {};)* o bien directamente especificando los valores.
 
-<a id="html"></a>
+
 ###	5.1	Modo de definición por html
 Este modo de definición, se basa en la idea de maximizar la interpretación del html, en detrimento del javaScript, para especificar las características aplicadas al componente.
 La idea es sencilla, la estructura del menú será definida, lo más posible, mediante tags html que portaran estilos y características precisas para componer el menú. La parte html será completada mediante una serie de parámetros *JavaScript*:
@@ -261,12 +252,10 @@ Según el código presentado, un poco mas arriba, la entrada múltiple (submenú
 
 Como nota final, es interesante comentar que, el *tag* *‘accesscontrollist’* de *Spring-Security* no puede ser utilizado, ya que esa diseñado para el modulo de seguridad *ACL* y este no esta siendo utilizado, actualmente, en **UDA**.
 
-<a id="api"></a>
-## 6	 API
+	5.2	 API Javascript
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.menu.md).
 
-<a id="mixto"></a>
-## 7	Menú mixto
+## 6	Menú mixto
 
 De acuerdo a los tipos de menú considerados en el Libro de Estilo de Gobierno Vasco se da la posibilidad de la utilización de una disposición mixta del mismo.
 
@@ -317,8 +306,7 @@ display: (vertical ? 'vertical':'horizontal'),
 });
 ```
 
-<a id="theme"></a>
-##	8	Sobreescritura del theme
+##	7	Sobreescritura del theme
 El componente menu se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.menu-x.y.z.css**.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.
@@ -342,8 +330,8 @@ A continuación se muestran unas capturas del componente con los estilos asociad
 	+	**.rup_menu_vertical_children**: Estilo aplicado a todas las entradas del menú vertical.
 	+	**.ui state disabled**: Estilo de *JQuery-UI* que indica entrada deshabilitada.
 
-<a id="i18n"></a>
-## 9	Internacionalización (i18n)
+
+##8	Internacionalización (i18n)
 Según el modo que se este utilizando para configurar y ejecutar el componente, la responsabilidad de mantener y respetar los literales, según se este en un lenguaje u otro, recae en diferentes elementos de la aplicación.
 
 En caso de usarse el modo de definición por *html*, la internacionalización deberá llevarse a cabo en las *jsp’s* y, por tanto, deberá ser gestionado por los *tag’s* (```‘<spring:message>’```) asociados al gestor de mensajes de *Spring*. Los ficheros de recursos, a nivel de aplicación (*EAR*) o a nivel de modulo web (*WAR*), deberán albergar los diferentes literales, en los diferentes idiomas, del menú como si de cualquier otro elemento de una *jsp* se tratara.
@@ -384,16 +372,15 @@ En caso de usarse el modo de definición por parámetros, la internacionalizaci�
 
 Es importante tener en cuenta que, la ubicación de los recursos lingüísticos (literales), según el modo de configurar del menú, varía y puede provocar que los literales puedan estar duplicados. Ante esta circunstancia, es razonable utilizar un solo modo de definición para todos los menús de una aplicación. Considerando que el modo por *html* va a prevalecer frente al otro (deprecado), es razonable pensar que si es necesario migrar o crear algún menú en el modo *html*, se migren o creen todos los menús en dicho modo.
 
-<a id="uda"></a>
-##	10	Integración con UDA
+
+##	8	Integración con UDA
 Por cuestiones funcionales, en la evolución RUP, ha sido necesario cambiar el nombre y el comportamiento asociado al atributo (*url*) que determina la ruta a la que se redirige la aplicación.
 
 Inicialmente, el nombre de dicho atributo era *url* y su comportamiento no se ajustaba al estándar de manejo de rutas. Con la aparición del nuevo parámetro (*pathUrl*) y de las nuevas funcionalidades asociadas al mismo (*newWindow, forceAbs*), el parámetro *url* y su comportamiento quedan deprecados (a partir de la versión 1.2.1).
 
 Por cuestiones de compatibilidad con versiones anteriores, se seguirá respetando el comportamiento del atributo *url* en la actualización de la versión de **RUP**. Pero en el desarrollo de nuevos menús se debe tener en cuenta que se trata de un atributo deprecado, por lo que no soportará nuevas funcionalidades que se puedan desarrollar sobre el menú (debiendo usarse el atributo *pathUrl*).
 
-<a id="url"></a>
-##	11	Formato de las urls
+##	9	Formato de las urls
 El componente menú, al igual que muchos otros mecanismos asociados al ámbito *web*, al tratar *urls* debe respetar las recomendaciones marcadas por el estándar (*http://www.w3.org/Addressing/*) definidas para el manejo de dichos mecanismos.
 
 Las *urls*, generalmente, se pueden dividir en dos tipos básicos: absolutas y relativas. En general, cualquiera de los dos tipos se puede usar, indistintamente, en links de cualquier sitio web.

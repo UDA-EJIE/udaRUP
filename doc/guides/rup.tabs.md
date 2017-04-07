@@ -3,37 +3,33 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#intro)   
-   - [2   Ejemplo](#ejemplo)   
-   - [3   Casos de uso](#casos-de-uso)   
-   - [4   Infraestructura](#infraestructura)   
-      - [4.1 Ficheros](#ficheros)   
-      - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#v-minimizada)   
-   - [5   Invocación](#invocac)   
-   - [6   API](#api)   
-   - [7   Sobreescritura del theme](#theme)   
+   - [1   Introducción](#1-introducción)   
+   - [2   Ejemplo](#2-ejemplo)   
+   - [3   Casos de uso](#3-casos-de-uso)   
+   - [4   Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5   Invocación](#5-invocación)   
+   - [6   API](#6-api)   
+   - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
 
 
-<a id="intro"></a>
 ##	1	Introducción
 La descripción del componente Pestañas, visto desde el punto de vista de **RUP**, es la siguiente:
 *Permiten dar acceso de forma compacta a grupos de contenidos mutuamente excluyentes pudiendo ser integradas en zonas muy reducidas de la interfaz.*
 
-<a id="ejemplo"></a>
 ##	2	Ejemplo
 Se presentan a continuación un ejemplo de este patrón:
 
 ![ejemplo](img/rup.tabs_1.png)
 
-<a id="casos-de-uso"></a>
 ##	3	Casos de uso
 Se recomienda el uso del patrón:
 +	Cuando se pretende separar grupos de contenidos mutuamente excluyentes.
 
-<a id="infraestructura"></a>
 ##	4	Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del patrón.
 +	Se han de definir, en los controladores apropiados, las distintas funciones que sirvan las páginas presentadas en cada una de las pestañas.
@@ -41,14 +37,12 @@ El componente trabaja con distintas llamadas *ajax* que cargan el contenido de l
 
 +	Adicionalmente, para el funcionamiento en cliente del componente, se requiere la inclusión de los ficheros que implementan el patrón (js y css) comentados en los apartados Ficheros y Dependencias.
 
-<a id="ficheros"></a>
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.tabs-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.tabs-x.y.z.css**
 
-<a id="dependencias"></a>
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería JavaScript *jQuery*, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
 •	**jQuery 1.12.4**: http://jquery.com/
@@ -65,7 +59,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	rup.tabs-x.y.z.js
 	theme.rup.tabs-x.y.z.css
 
-<a id="v-minimizada"></a>
 ###	4.3	Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
@@ -75,7 +68,7 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
+
 ##	5	Invocación
 La primera noción que se ha de tener en cuenta, para el correcto manejo e inclusión del componente Pestañas dentro de una página *jsp*, es la asociación del componente a un elemento estructural ```<div>``` de *html*. La definición de dicho elemento determinara la ubicación que tendrá el componente dentro de las propias páginas donde será utilizado.
 
@@ -135,12 +128,11 @@ A nivel de interacción con el servidor, cabe destacar que el componente, por de
 
 El componente pestañas no limita el número de subniveles de pestañas que se pueden utilizar, pero por cuestiones de legibilidad y jerarquía estructural se recomienda el uso de no más de **2 subniveles** de pestañas.
 
-<a id="api"></a>
+
 ##	6	API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.tabs.md).
 
-<a id="theme"></a>
 ##	7	Sobreescritura del theme
 El componente pestañas se presenta con una apariencia visual definida en el fichero de estilos theme.rup.tabs-x.y.z.css.
 

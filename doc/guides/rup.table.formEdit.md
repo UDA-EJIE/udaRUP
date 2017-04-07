@@ -3,9 +3,9 @@
 Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
 dentro de un diálogo y ofrece las siguientes funcionalidades:
 
-*   Añadir un nuevo registro o modificar uno ya existente.
-*   Cancelar la inserción o edición de un registro.
-*   Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
+* Añadir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserción o edición de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
 
 ![Imagen 1](img/rup.table.formEdit_1.png)
 

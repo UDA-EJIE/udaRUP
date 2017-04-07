@@ -2,64 +2,59 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1 Introducción](#intro)   
-   - [2 Ejemplo](#ejemplo)   
-   - [3 Casos de uso](#casos-de-uso)   
-   - [4 Infraestructura](#infraestructura)   
-      - [4.1 Ficheros](#ficheros)   
-      - [4.2 Dependencias](#dependencias)   
-      - [4.3 Versión minimizada](#v-minimizada)   
-   - [5 Invocación](#invocac)   
-   - [6 Obtención de los datos](#datos)   
-      - [6.1 Html](#html)   
-      - [6.2 JSON](#json)   
-      - [6.3 XML](#xml)   
-      - [6.4 Carga mediante Ajax](#ajax)   
-   - [7 Plugins](#plugins)   
-      - [7.1 Core](#core)   
-         - [7.1.1 Propiedades](#propiedades)   
-         - [7.1.2 Funciones](#funciones)   
-      - [7.2 Checkbox](#checkbox)   
-      - [7.3 Menú contextual](#contextual)   
-      - [7.4 Ordenación](#orden)   
-      - [7.5 Selección (UI)](#ui)   
-      - [7.6 Theme](#theme)   
-      - [7.7 Nodos únicos](#nodos)   
-   - [8 Sobreescritura del theme](#theme)   
+   - [1 Introducción](#1-introducción)   
+   - [2 Ejemplo](#2-ejemplo)   
+   - [3 Casos de uso](#3-casos-de-uso)   
+   - [4 Infraestructura](#4-infraestructura)   
+      - [4.1 Ficheros](#4.1-ficheros)   
+      - [4.2 Dependencias](#4.2-dependencias)   
+      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+   - [5 Invocación](#5-invocación)   
+   - [6 Obtención de los datos](#6-obtención-de-los-datos)   
+      - [6.1 Html](#6.1-html)   
+      - [6.2 JSON](#6.2-json)   
+      - [6.3 XML](#6.3-xml)   
+      - [6.4 Carga mediante Ajax](#6.4-carga-mediante-ajax)   
+   - [7 Plugins](#7-plugins)   
+      - [7.1 Core](#7.1-core)   
+         - [7.1.1 Propiedades](#7.1.1-propiedades)   
+         - [7.1.2 Funciones](#7.1.2-funciones)   
+      - [7.2 Checkbox](#7.2-checkbox)   
+      - [7.3 Menú contextual](#7.3-menú-contextual)   
+      - [7.4 Ordenación](#7.4-ordenación)   
+      - [7.5 Selección (UI)](#7.5-selección-ui)   
+      - [7.6 Theme](#7.6-theme)   
+      - [7.7 Nodos únicos](#7.7-nodos-únicos)   
+   - [8 Sobreescritura del theme](#8-sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
 
-<a id="intro"></a>
 ## 1 Introducción
 La descripción del **Componente Árbol**, visto desde el punto de vista de RUP, es la siguiente:
 
 *Permite al usuario mostrar y ocultar de manera selectiva, información mostrada en una estructura jerárquica.*
 
-<a id="ejemplo"></a>
 ## 2 Ejemplo
 Se presenta a continuación un ejemplo de este componente:
 ![rup.tree](img/rup.tree_1.png)
 
-<a id="casos-de-uso"></a>
 ## 3 Casos de uso
 Se aconseja la utilización de este componente:
 
 - Cuando sea necesario mostrar información jerarquizada.
 
-<a id="infraestructura"></a>
+
 ## 4 Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
 - Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
-<a id="ficheros"></a>
 ### 4.1 Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.tree-x.y.z.js**
 Ruta theme: rup/basic-theme/
 Fichero CSS del theme: **theme.rup.tree-x.y.z.css**
 
-<a id="dependencias"></a>
 ### 4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión 1.8.0.
 
@@ -78,7 +73,6 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 	- jquery.jstree.js
 	- rup.tree-x.y.z.js
 
-<a id="v-minimizada"></a>
 ###	4.3 Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
@@ -88,7 +82,6 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-<a id="invocac"></a>
 ##	5 Invocación
 El componente árbol se invoca sobre un elemento html existente en la jsp. Dicho elemento servirá de contenedor del arbol.
 Un contenedor válido puede ser un simple tag div:
@@ -109,11 +102,9 @@ $("#ejemploArbolDiv").rup_tree(properties);
 
 Como ya se profundizará mas adelante, mediante las propiedades indicadas en la invocación del componente, se realiza la configuración del mismo.
 
-<a id="datos"></a>
 ## 6 Obtención de los datos
 El componente permite inicializar los nodos que componen el árbol a partir de diferentes tipos de datos. Es posible utilizar información en formato html, xml o json.
 
-<a id="html"></a>
 ###	6.1 Html
 El componente permite inicializar los datos del árbol a partir de una lista html compuesta por los elementos ul y li.
 Un ejemplo de una estructura html sería la siguiente:
@@ -162,7 +153,6 @@ El componente toma como opción por defecto la inicialización del árbol a part
 
 Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante html se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
 
-<a id="json"></a>
 ###	6.2 JSON
 El componente permite inicializar los datos que se muestran en el árbol a partir de la información existente en un objeto JSON.
 Al no obtener los datos a partir de un html el objeto sobre el que se inicializa se simplifica:
@@ -202,7 +192,6 @@ $("#tree_example").rup_tree({
 
 Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante json se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
 
-<a id="xml"></a>
 ###	6.3 XML
 El componente permite inicializar los datos que se muestran en el árbol a partir de la información existente en un XML.
 Al no obtener los datos a partir de un html el objeto sobre el que se inicializa se simplifica:
@@ -249,7 +238,6 @@ $("#xmlTreeDemo").rup_tree({
 
 Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante xml se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
 
-<a id="ajax"></a>
 ###	6.4 Carga mediante Ajax
 El componente permite inicializar los datos del árbol a partir de la respuesta de una petición AJAX. En la API del plugin jsTree se detalla la configuración necesaria para inicializar el árbol mediante una petición AJAX que devuelva datos en formato html, json o xml.
 
@@ -280,12 +268,9 @@ public Object getTreeAjax(Model model, HttpServletResponse response) {
 ```
 El formato del objeto json es idéntico que en el caso de proporcionarse en la inicialización del componente.
 
-<a id="plugins"></a>
 ##	7 Plugins
 El diseño del componente árbol sigue el mismo modelo modular que el plugin subyacente en el que se basa. De este modo las diferentes funcionalidades se implementan en forma de módulos o plugins.
 Los plugins existentes son los siguientes:
-
-<a id="core"></a>
 ###	7.1 Core
 Proporciona las propiedades de configuración para las funcionalidades comunes.
 La configuración del plugin se realiza mediante la propiedad core  de las opciones de invocación del componente:
@@ -295,7 +280,6 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-<a id="propiedades"></a>
 ####	7.1.1 Propiedades
 A continuación se muestran los posibles parámetros de configuración que recibe el componente.
 - **getValue**: Permite especificar una función de callback para implementar el dato a emplear a la hora de ejecutar los métodos getRupValue y setRupValue.
@@ -314,7 +298,6 @@ $("#tree").rup_tree({
 
 - **submitAsString**: Determina que los elementos seleccionados se enviarán representados mediante un string de identificadores separados por comas. Por defecto false.
 
-<a id="funciones"></a>
 ####	7.1.2 Funciones
 - **getRupValue**: método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la  obtención del valor del Autocomplete.
 ```javascript
@@ -326,7 +309,6 @@ $(selector).rup_autocomplete("setRupValue",value);:
 ```
 El resto de propiedades y funciones de configuración del plugin core pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
 
-<a id="checkbox"></a>
 ###	7.2 Checkbox
 
 Añade un campo checkbox a cada nodo que se visualiza en el árbol.
@@ -342,7 +324,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin checkbox pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
 
-<a id="contextual"></a>
 ###	7.3	Menú contextual
 Añade un menú contextual a cada nodo que se visualiza en el árbol.
 
@@ -357,7 +338,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin contextmenu pueden consultarse en la  [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
 
-<a id="orden"></a>
 ###	7.4 Ordenación
 Ordena automáticamente los nodos que se muestran en la tabla.
 
@@ -372,7 +352,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin sort pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
 
-<a id="ui"></a>
 ###	7.5 Selección UI
 El plugin UI gestiona la selección, deselección y resaltado de nodos.
 ![ui](img/rup.tree_5.png)
@@ -386,7 +365,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin ui pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
 
-<a id="theme"></a>
 ###	7.6 Theme
 El plugin Theme controla la apariencia del componente árbol.
 
@@ -401,7 +379,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin ui pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
 
-<a id="nodos"></a>
 ###	7.7 Nodos únicos
 El plugin unique se encarga de evitar que existan dos nodos del mismo padre que tengan el mismo nombre.
 ![unique](img/rup.tree_7.png)
@@ -415,7 +392,6 @@ $("#ejemploArbolDiv").rup_tree({
 ```
 Las propiedades de configuración del plugin unique pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
 
-<a id="theme"></a>
 ##	8 Sobreescritura del theme
 El componente árbol se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.tree-x.y.z.css**.
 
