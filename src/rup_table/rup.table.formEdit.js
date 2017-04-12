@@ -237,7 +237,9 @@
                     if ((!$.rup.browser.xhrFileUploadSupport && hasFileInputs) || options.iframe === true) {
                         options.extraData = {};
                     }
-                    delete a;
+                    // TODO : Comprobar si se puede elimianr el delete
+                    a = undefined;
+                    //delete a;
                 };
                 ajaxOptions.propperFormSerialization = false;
                 settings.formEdit.$detailForm.rup_form("ajaxSubmit", ajaxOptions);

@@ -26,9 +26,14 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function ($, RupBase, Util, Dropdown) {
 
     var rup_navbar = {};
+
+    // $(document).off(".dropdown.data-api");
+    // $(document).off(".collapse.data-api");
+
+
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
     $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_navbar", rup_navbar));
@@ -48,6 +53,8 @@
             var changed = false;
             var headerSize = $('header').outerHeight(true) - $('header').offset().top;
             var headerNavSize = $('header').outerHeight(true) + $('nav').outerHeight(true);
+            // $("nav.rup-navbar [data-toggle='dropdown']").dropdown();
+            // $("nav.rup-navbar [data-toggle='collapse']").collapse();
 
             window.scrollHeight = 0;
             $(window).scroll(function () {

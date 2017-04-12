@@ -1,8 +1,10 @@
 
 define(["marionette",
-        "shared/main/mainView","bootstrap",
+        "shared/main/mainView",
         "pages/index/indexView",
         "styleGuide/styleGuideView",
+        "styleGuide/bt3/styleGuideView",
+        "styleGuide/bt4/styleGuideView",
         "components/autocomplete/autocompleteView",
         "components/feedback/feedbackView",
         "components/tooltip/tooltipView",
@@ -33,7 +35,7 @@ define(["marionette",
         "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView",
         "dashboard/dashboardView",
 
-      ], function(Marionette, MainView, Bootstrap, IndexView, StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
+      ], function(Marionette, MainView,  IndexView, StyleGuideView, Bt3StyleGuideView, Bt4StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
               MessageView, DialogView, ProgressbarView, ContextMenuView, ButtonView, ToolbarView, DateView,
               FormView, TimeView, AccordionView, SliderView, SpinnerView, UploadView, ValidateView, ChartView,
               TreeView, TreeDragDropView, TabsStaticView,
@@ -46,6 +48,8 @@ define(["marionette",
       appRoutes: {
         '' : 'index',
         'styleGuide' : 'styleGuide',
+        'bt3StyleGuide' : 'bt3StyleGuide',
+        'bt4StyleGuide' : 'bt4StyleGuide',
         'autocomplete' : 'autocomplete',
         'feedback' : 'feedback',
         'tooltip' : 'tooltip',
@@ -85,6 +89,12 @@ define(["marionette",
         },
         styleGuide: function() {
           RupResponsiveDemoApp.mainView.Container.show(new StyleGuideView());
+        },
+        bt3StyleGuide: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new Bt3StyleGuideView());
+        },
+        bt4StyleGuide: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new Bt4StyleGuideView());
         },
         autocomplete: function() {
           RupResponsiveDemoApp.mainView.Container.show(new AutocompleteView());

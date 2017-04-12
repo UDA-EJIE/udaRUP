@@ -1,7 +1,7 @@
 define(['marionette',
         'templates',
         './widget/dashboardService',
-        'bootstrap',
+        
         'rup/rup.dashboard','rup/rup.button','rup/rup.message' ], function(Marionette, App, DashboardService){
 
   var DashboardView = Marionette.LayoutView.extend({

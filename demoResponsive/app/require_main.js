@@ -12,6 +12,11 @@ requirejs.config({
             main: 'rup.base'
         },
         {
+            name: 'bootstrap',
+            location: '../../node_modules/bootstrap/js/dist',
+            main: 'util'
+        },
+        {
             name: 'jquery.ui.widget',
             location: "../../node_modules/jquery-ui/ui/",
             main: 'widget'
@@ -28,6 +33,8 @@ requirejs.config({
         "jquery-ui": "../../node_modules/jquery-ui-dist/jquery-ui",
         "backbone": "../../node_modules/backbone/backbone",
         "bootstrap": "../../node_modules/bootstrap/dist/js/bootstrap.min",
+        "bt3": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min",
+        "bt4": "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min",
         "underscore": "../../node_modules/underscore/underscore",
         "handlebars": "../../node_modules/handlebars/dist/handlebars",
         "handlebars-i18n": "../js/handlebars-helper-i18n",
@@ -94,7 +101,13 @@ requirejs.config({
         "deps": ["rup/base"],
       },
       "bootstrap":{
-        "deps": ["jquery",'tether'],
+        "deps": ["jquery",'tether']
+      },
+      "bt3":{
+        "deps": ["jquery"]
+      },
+      "bt4":{
+        "deps": ["jquery",'tether']
       },
       "handlebars-i18n":{
         "deps": ["handlebars"]
@@ -164,6 +177,6 @@ requirejs.config({
 //    }
 });
 
-require(["app"], function(Escritorio){
-    Escritorio.start();
-});
+// require(["app"], function(Escritorio){
+//     Escritorio.start();
+// });

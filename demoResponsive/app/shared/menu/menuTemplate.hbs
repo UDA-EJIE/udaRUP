@@ -1,6 +1,7 @@
-
 <nav class="rup-navbar navbar">
-  <button type="button" class="navbar-toggler hidden-lg-up"  type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+
+    <button type="button" class="navbar-toggler hidden-lg-up navbar-toggle "  type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+
   <div id="navbarResponsive" class="collapse navbar-toggleable-md">
     <a class="navbar-brand" href="#">Uda</a>
     <ul class="nav navbar-nav">
@@ -88,6 +89,8 @@
         <a class="nav-link dropdown-toggle" href="#" id="styleGuideDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Guía de estilos</a>
         <div class="collapse dropdown-menu" aria-labelledby="styleGuideDropdown">
           <a class="dropdown-item" href="#styleGuide">Guía de estilos</a>
+          <a class="dropdown-item" href="#bt3StyleGuide">Bootstrap 3</a>
+          <a class="dropdown-item" href="#bt4StyleGuide">Bootstrap 4</a>
         </div>
       </li>
     </ul>
@@ -96,8 +99,13 @@
         <a class="nav-link rup-nav-tool-icon" href="#" id="languageDropdown"><i class="fa fa-globe" aria-hidden="true"></i><span data-rup-lang-current=""></span></a>
 
       </li>
-      <li class="nav-item">
-        <a class="nav-link rup-nav-tool-icon" href="#"><i class="fa fa-cog " aria-hidden="true"></i></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link rup-nav-tool-icon dropdown-toggle" id="demoStylesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog " aria-hidden="true"></i></a>
+        <div class="collapse dropdown-menu" aria-labelledby="demoStylesDropdown">
+          <a class="dropdown-item" id="navLinkBt4" data-redirect-navLink="index-bt4.html" href="#">Bootstrap 4</a>
+          <a class="dropdown-item" id="navLinkBt3" data-redirect-navLink="index-bt3.html"href="#">Bootstrap 3</a>
+          <a class="dropdown-item" id="navLinkJQui" data-redirect-navLink="index-jqueryui.html"href="#">JQueryUI</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link rup-nav-user rup-nav-tool-icon" href="#"><i class="fa fa-user-circle-o " aria-hidden="true"></i></a>
