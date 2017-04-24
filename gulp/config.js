@@ -20,9 +20,27 @@ module.exports = {
       },
       files: {
           sass: {
+              rupBase: 'rup-base.scss',
+              rupJQueryuiTheme: 'rup-jqueryui-theme.scss',
+              rupTheme: 'rup-theme.scss',
+
+              // legacy
               customBootstrapScss: 'custom-bootstrap.scss',
-              rupScss: 'rup-rwd.scss',
-              rupClassicScss: 'rup-classic.scss',
+              rupScss: 'rup-theme.scss',
+              rupJQueryuiTheme: 'rup-jqueryui-theme.scss',
+              rupClassicScss: 'rup-base.scss',
+          },
+          css:{
+              rupBase: 'rup-base.css',
+              rupBaseMin: 'rup-base.min.css',
+              rupJQueryuiTheme: 'rup-jqueryui-theme.css',
+              rupJQueryuiThemeMin: 'rup-jqueryui-theme.min.css',
+              rupTheme: 'rup-theme.scss',
+              rupThemeMin: 'rup-theme.min.scss'
+          },
+          js:{
+              rup: 'rup.js',
+              rupMin: 'rup.min.js'
           }
       }
   }

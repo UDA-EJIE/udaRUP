@@ -1,0 +1,675 @@
+{
+  "GRID_alumno": {
+    "apellido1": "Primer apellido_en",
+    "apellido2": "Segundo apellido_en",
+    "dni": "DNI_en",
+    "id": "Id_en",
+    "importeMatricula": "Importe matrícula_en",
+    "nombre": "Nombre_en",
+    "usuario": "Usuario_en"
+  },
+  "GRID_edlinea##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "GRID_multi##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "GRID_simple##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "GRID_simple##rol": {
+    "administrador": "administrador",
+    "desarrollador": "desarrollador",
+    "espectador": "espectador",
+    "informador": "informador",
+    "manager": "manager"
+  },
+  "GRID_simple##subtipo": {
+    "0_0A_A": "Subtipo_No_TipoA_A_en",
+    "0_0A_B": "Subtipo_No_TipoA_B_en",
+    "0_0B_A": "Subtipo_No_TipoB_A_en",
+    "0_0B_B": "Subtipo_No_TipoB_B_en",
+    "0_1A_A": "Subtipo_No_TipoA_A_en",
+    "0_1A_B": "Subtipo_No_TipoA_B_en",
+    "0_1B_A": "Subtipo_No_TipoB_A_en",
+    "0_1B_B": "Subtipo_No_TipoB_B_en",
+    "1_0A_A": "Subtipo_Si_TipoA_A_en",
+    "1_0A_B": "Subtipo_Si_TipoA_B_en",
+    "1_0B_A": "Subtipo_Si_TipoB_A_en",
+    "1_0B_B": "Subtipo_Si_TipoB_B_en",
+    "1_1A_A": "Subtipo_Si_TipoB_A_en",
+    "1_1A_B": "Subtipo_Si_TipoB_B_en"
+  },
+  "GRID_simple##tipo": {
+    "0A": "Tipo_No_A_en",
+    "0B": "Tipo_No_B_en",
+    "1A": "Tipo_Si_A_en",
+    "1B": "Tipo_Si_B_en"
+  },
+  "GRID_usuarioJerarquia##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "GRID_usuarioJerarquia#ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "Tiny": {
+    "aviso_ver_html": "¿Está seguro de que desea cambiar el código HTML?<br/>Esto puede acarrear comportamientos inesperados en el tratamiento del bloque._en",
+    "insert_bloque": "Insertar bloques_en",
+    "insert_page": "Insertar número de página_en",
+    "insert_pageCount": "Insertar número total de páginas_en",
+    "insert_variable": "Insertar variables_en",
+    "limpiar": "Limpiar_en",
+    "ver_html": "Ver código HTML_en"
+  },
+  "_coment": "COMBO_ENLAZADO_MULTIPLE",
+  "_comment": "MULTI_COMBO",
+  "alumno": {
+    "email_confirm": "Los correos introducidos no coinciden_en",
+    "password_confirm": "Las contraseñas no coinciden_en"
+  },
+  "autocomplete": {
+    "asp": "asp_en",
+    "c": "c_en",
+    "c++": "c++_en",
+    "coldfusion": "coldfusion_en",
+    "groovy": "groovy_en",
+    "haskell": "haskell_en",
+    "java": "java_en",
+    "javascript": "javascript_en",
+    "perl": "perl_en",
+    "php": "php_en",
+    "python": "python_en",
+    "ruby": "ruby_en",
+    "scala": "scala_en"
+  },
+  "breadCrumb": {
+    "integracion": "Integración_en",
+    "nora": "NORA",
+    "tiny": "TinyMCE",
+    "z-index": "Capas RUP (z-index)_en"
+  },
+  "breadCrumb_2": {
+    "integracion": "Integración_en",
+    "nora": "NORA",
+    "tiny": "TinyMCE",
+    "z-index": "Capas RUP (z-index)_en"
+  },
+  "combo": {
+    "_blank": "[Seleccione un elemento_en]",
+    "asp": "asp_en",
+    "c": "c_en",
+    "c++": "c++_en",
+    "coldfusion": "coldfusion_en",
+    "groovy": "groovy_en",
+    "haskell": "haskell_en",
+    "java": "java_en",
+    "javascript": "javascript_en",
+    "perl": "perl_en",
+    "php": "php_en",
+    "python": "python_en",
+    "ruby": "ruby_en",
+    "scala": "scala_en"
+  },
+  "comboAbuelo": {
+    "_blank": "[Selecciona Abuelo_en]",
+    "a": "Álava_en",
+    "b": "Vizcaya_en",
+    "g": "Gipúzcoa_en"
+  },
+  "comboAbueloRemoto": {
+    "_blank": "[Selecciona Abuelo Remoto_en]"
+  },
+  "comboGrupos": {
+    "alaves": "Alaves_en",
+    "ath": "Athletic_en",
+    "baloncesto": "Baloncesto_en",
+    "bilbao": "BBB_en",
+    "falonso": "Fernando Alonso_en",
+    "formula1": "Formula 1_en",
+    "futbol": "Futbol_en",
+    "hamilton": "Lewis Hamilton_en",
+    "laboral": "Caja Laboral_en",
+    "lagun aro": "Lagun Aro_en",
+    "real": "Real Sociedad_en",
+    "vettel": "Sebastian Vettel_en"
+  },
+  "comboHijo": {
+    "_blank": "[Selecciona Hijo_en]"
+  },
+  "comboLargo": {
+    "jane_doe": "Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "jon_doe": "John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "joseph_doe": "Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "mad_doe": "Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+  },
+  "comboMunicipios": {
+    "_blank": "Seleccione un elemento_en"
+  },
+  "comboMunicipiosAPI": {
+    "_blank": "Seleccione un elemento_en"
+  },
+  "comboPadre": {
+    "a1": "A-Zona1_en",
+    "a2": "A-Zona2_en",
+    "a3": "A-Zona3_en",
+    "b1": "Gran Bilbao_en",
+    "b2": "Margen Derecha_en",
+    "b3": "Margen Izquierda_en",
+    "g1": "G-Zona1_en",
+    "g2": "G-Zona2_en",
+    "g3": "G-Zona3_en"
+  },
+  "comboProvincias": {
+    "_blank": "Seleccione un elemento_en"
+  },
+  "comboProvinciasAPI": {
+    "_blank": "Seleccione un elemento_en"
+  },
+  "contextmenuDemo": {
+    "exampleEntry": "Ejemplo de entrada(rename)_en",
+    "udaRename": "udaRename"
+  },
+  "departamentoRemote": {
+    "_blank": "[Selecciona Dpto._en]"
+  },
+  "diaObligatorio": {
+    "domingo": "Sunday",
+    "jueves": "Thursday",
+    "lunes": "Monday",
+    "martes": "Tuesday",
+    "miercoles": "Wednesday",
+    "sabado": "Saturday",
+    "viernes": "Friday"
+  },
+  "grid##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "gridDialog##ejie": {
+    "0": "No",
+    "1": "Yes"
+  },
+  "gridTree": {
+    "gana": "Gana:_en",
+    "total": "Total:_en"
+  },
+  "loginUserMock": {
+    "logginOk1": "Usuario _en'",
+    "logginOk2": "' Seleccionado correctamente_en"
+  },
+  "maintTab": {
+    "edit1": "Mantenimiento edición en línea_en",
+    "maint1": "Mantenimiento Simple 1_en",
+    "maint2": "Mantenimiento Simple 2_en",
+    "maint3": "Mantenimiento Simple 3_en",
+    "multi1": "Mantenimiento múltiple_en"
+  },
+  "mixto2_comboAbuelo": {
+    "_blank": "[Selecciona Abuelo_en]",
+    "a": "Álava_en",
+    "b": "Vizcaya_en",
+    "g": "Gipúzcoa_en"
+  },
+  "mixto2_departamento": {
+    "ayto": "Ayuntamiento_en",
+    "bomb": "Bomberos_en",
+    "dipu": "Diputación_en",
+    "poli": "Policía_en"
+  },
+  "mixto_comboPadre": {
+    "a1": "A-Zona1_en",
+    "a2": "A-Zona2_en",
+    "a3": "A-Zona3_en",
+    "b1": "Gran Bilbao_en",
+    "b2": "Margen Derecha_en",
+    "b3": "Margen Izquierda_en",
+    "g1": "G-Zona1_en",
+    "g2": "G-Zona2_en",
+    "g3": "G-Zona3_en"
+  },
+  "mixto_provincia": {
+    "a": "Álava_en",
+    "b": "Vizcaya_en",
+    "g": "Gipúzcoa_en"
+  },
+  "multicombo": {
+    "asp": "asp_en",
+    "c": "c_en",
+    "c++": "c++_en",
+    "coldfusion": "coldfusion_en",
+    "groovy": "groovy_en",
+    "haskell": "haskell_en",
+    "java": "java_en",
+    "javascript": "javascript_en",
+    "perl": "perl_en",
+    "php": "php_en",
+    "python": "python_en",
+    "ruby": "ruby_en",
+    "scala": "scala_en"
+  },
+  "multicomboGrupos": {
+    "alaves": "Alaves_en",
+    "ath": "Athletic_en",
+    "baloncesto": "Baloncesto_en",
+    "bilbao": "BBB_en",
+    "falonso": "Fernando Alonso_en",
+    "formula1": "Formula 1_en",
+    "futbol": "Futbol_en",
+    "hamilton": "Lewis Hamilton_en",
+    "laboral": "Caja Laboral_en",
+    "lagun aro": "Lagun Aro_en",
+    "real": "Real Sociedad_en",
+    "vettel": "Sebastian Vettel_en"
+  },
+  "provinciaRemote": {
+    "_blank": "[Selecciona Prov._en]"
+  },
+  "pruebaSub3Maint": {
+    "maint1": "Mantenimiento 1_en",
+    "maint2": "Mantenimiento 2_en",
+    "maint3": "Mantenimiento 3_en"
+  },
+  "sexo": {
+    "femenino": "Femenino_en",
+    "masculino": "Masculino_en"
+  },
+  "simpelMaint": {
+    "actualizar": "Ejemplo de botón personalizado_en"
+  },
+  "table": {
+    "apellido1": "Primer apellido_en",
+    "apellido2": "Segundo apellido_en",
+    "ejie": "Ejie_en",
+    "fechaAlta": "Fecha de alta_en",
+    "fechaBaja": "Fecha de baja_en",
+    "id": "Id_en",
+    "nombre": "Nombre_en",
+    "rol": "Rol_en"
+  },
+  "tabs": {
+    "PestañasMaint": "Pestaña con Mantenimientos_en",
+    "nuevaPestaña": "Nuevo Nivel_en",
+    "pestana0": "Tab 0_en",
+    "pestana1": "Tab 1_en",
+    "pestana2": "Tab 2_en",
+    "pestanaAna": "Nueva Pestaña_en",
+    "sub00": "sub00_en",
+    "sub000": "sub000_en",
+    "sub001": "sub001_en",
+    "sub0010": "sub0010_en",
+    "sub0011": "sub0011_en",
+    "sub00110": "sub00110_en",
+    "sub00111": "sub00111_en",
+    "sub002": "sub002_en",
+    "sub01": "sub01_en",
+    "sub02": "sub02_en",
+    "sub10": "sub10_en",
+    "sub11": "sub11_en"
+  },
+  "tabsDialog": {
+    "pestana0": "Tab 0_en",
+    "pestana1": "Tab 1_en",
+    "sub01": "sub01_en",
+    "sub02": "sub02_en",
+    "sub10": "sub10_en",
+    "sub11": "sub11_en"
+  },
+  "tabsFormulario": {
+    "ejemploYFunciones": "Ejemplo y métodos_en",
+    "multiplesEntidades": "Envío de varias entidades_en"
+  },
+  "tabsMaint": {
+    "edit1": "Mantenimiento edición en línea_en",
+    "maint1": "Mantenimiento Simple 1_en",
+    "maint2": "Mantenimiento Simple 2_en",
+    "maint3": "Mantenimiento Simple 3_en",
+    "multi1": "Mantenimiento múltiple_en"
+  },
+  "tabsMixta": {
+    "pestanaHtml": "Pestaña con html_en",
+    "pestanaUrl": "Pestaña con url_en"
+  },
+  "tabsStatic": {
+    "pestana0": "Pestaña 1_en",
+    "pestana1": "Pestaña 2_en",
+    "pestana2": "Pestaña 3_en",
+    "pestanaAna": "Pestaña Añadida_en"
+  },
+  "tabsValidacion": {
+    "reglasValidacion": "Reglas de validación_en",
+    "validacionComponentes": "Validación de componentes_en",
+    "validacionesCliente": "Validaciones en cliente_en",
+    "validacionesServidor": "Validaciones en servidor_en"
+  },
+  "tasksTree": {
+    "depAdmin": "DEP de Administración_en",
+    "depClientes": "DEP de Clientes_en",
+    "depReparaciones": "DEP de Suministros_en",
+    "depSuministros": "DEP de Suministros_en",
+    "factura_Lindo": "Cobros Lindo S.A._en",
+    "factura_OM": "Cobro Oscar Mayer_en",
+    "factura_VH": "Cobros Valle Hermoso_en",
+    "factura_devolucion": "Revisar devolución de cobro IT_en",
+    "facturas": "Facturas por cobrar_en",
+    "informe_calidad": "Calidad de servicio_en",
+    "informe_desperfectos": "Desperfectos Granizada_en",
+    "informe_deudas": "Deudas pendientes de pagar_en",
+    "informe_gastos_generales": "Gastos generales (oficina)_en",
+    "informe_perdidas": "Material extraviado_en",
+    "informe_trimestral": "Informe general (1º trimestre)_en",
+    "informes": "Informes_en",
+    "mp_botas": "40 pares de botas de seguridad_en",
+    "mp_cascos": "40 cascos de obra_en",
+    "mp_cemento": "3 camiones de cemento_en",
+    "mp_clavos": "Clavos del 5cm_en",
+    "mp_jabon": "Jabón de manos (8 cajas)_en",
+    "mp_ladrillos": "3ton ladrillos_en",
+    "mp_recambios": "ruedas_en",
+    "pedido_cemento": "Abastecimiento de cemento Andoain_en",
+    "pedido_lujua": "Ladrillos para Loiu_en",
+    "pedido_martillo": "Martillo nuevo a Donosti_en",
+    "raiz": "Tareas Pendientes_en",
+    "reparacion_fachada": "Arreglos en fachadas_en",
+    "reparacion_indundacion": "Limpieza por anegación_en",
+    "reparacion_ratas": "Revisión de desratización_en",
+    "reparacion_suelo": "Reparación de la tarima_en",
+    "reparaciones": "Reparaciones_en",
+    "suministros": "Pedidos de suministros_en",
+    "transportes": "Portes en espera_en",
+    "workers": "Trabajadores_en"
+  },
+  "toolbar": {
+    "DLL": "DLL",
+    "DOC": "DOC",
+    "EXE": "EXE",
+    "GIF": "GIF",
+    "JPG": "JPG",
+    "JS": "JS",
+    "PDF": "PDF",
+    "PPT": "PPT",
+    "TXT": "TXT",
+    "XLS": "XLS",
+    "ZIP": "ZIP",
+    "borrar": "Borrar_en",
+    "buscar": "Buscar_en",
+    "cancelar": "Cancelar_en",
+    "editar": "Editar_en",
+    "ficheros": "Ficheros_en",
+    "filtrar": "Filtrar_en",
+    "imprimir": "Imprimir_en",
+    "nuevo": "Nuevo_en",
+    "otros": "Otros botones_en"
+  },
+  "toolbarRight": {
+    "DLL": "DLL",
+    "DOC": "DOC",
+    "EXE": "EXE",
+    "GIF": "GIF",
+    "JPG": "JPG",
+    "JS": "JS",
+    "PDF": "PDF",
+    "PPT": "PPT",
+    "TXT": "TXT",
+    "XLS": "XLS",
+    "ZIP": "ZIP",
+    "borrar": "Borrar_en",
+    "buscar": "Buscar_en",
+    "cancelar": "Cancelar_en",
+    "editar": "Editar_en",
+    "ficheros": "Ficheros_en",
+    "filtrar": "Filtrar_en",
+    "imprimir": "Imprimir_en",
+    "nuevo": "Nuevo_en",
+    "otros": "Otros botones_en"
+  },
+  "tree": {
+    "example": {
+      "ajax": "Carga datos mediante AJAX (json)_en",
+      "changeView": "Ejemplo de cambio visual_en",
+      "checkbox": "Ejemplo checkbox_en",
+      "contextmenu": "Ejemplo menú contextual_en",
+      "default": "Ejemplo por defecto_en",
+      "hotkeys": "Ejemplo con teclado_en",
+      "jqueryuiStyles": "Ejemplo estilos jQueryUI_en",
+      "json": "Carga datos json_en",
+      "select": "Ejemplo selección_en",
+      "sort": "Ejemplo ordenación_en",
+      "specificStyle": "Ejemplo de estilo propio_en",
+      "tittle": "Árbol_en",
+      "unique": "Ejemplo de nodos únicos_en",
+      "xml": "Carga datos xml_en"
+    },
+    "treeDAD": {
+      "Interchange": "Intercambio de nodos en ambas direcciones_en",
+      "code": {
+        "htmlCode": "Código HTML_en",
+        "jsTreeCode": "Código JavaScript, creación árbol_en",
+        "jsTreeData": "Código JavaScript, Json de creación del árbol_en",
+        "jsTypesCode": "Código JavaScript, topología de objetos del árbol_en"
+      },
+      "dismissals": "DESPIDOS_en",
+      "exchange": "Intercambio de nodos entre árboles_en",
+      "formation": "FORMACIÓN_en",
+      "promotions": "PROMOCIONES_en",
+      "reorder": "Ordenación de los nodos del árbol_en",
+      "rightDirec": "Traslade los empleados a su ubicación_en",
+      "title": "Árbol con interacción Drag and Drop_en"
+    },
+    "verCodigo": {
+      "boton": "Ver código Fuente"
+    }
+  },
+  "treeCodeDialog": {
+    "html": "HTML",
+    "javascript": "JavaScript",
+    "title": "Código usado para generar el árbol_en"
+  },
+  "treeExample": {
+    "Hijo1": "Nodo primer nivel_en",
+    "Hijo2": "Nodo segundo nivel_en",
+    "Hijo3": "Nodo tercer nivel_en",
+    "HijoA": "A",
+    "HijoAtreeExample": {
+      "HijoA": "AA",
+      "HijoB": "AB",
+      "HijoC": "AC",
+      "HijoCtreeExample": {
+        "HijoA": "ACA"
+      }
+    },
+    "HijoB": "B",
+    "HijoC": "C",
+    "HijoCtreeExample": {
+      "HijoA": "CA",
+      "HijoB": "CB"
+    },
+    "checkAll": "Sec Tod_en",
+    "deselect": "Deselec_en",
+    "disable": "Desactivar_en",
+    "dots": "Puntos_en",
+    "enable": "Activar_en",
+    "hoja": "hoja_en",
+    "icons": "Iconos_en",
+    "load": "Cargar_en",
+    "new": "Nuevo_en",
+    "rename": "Renombrar_en",
+    "renameKey": "(opcional: F2)_en",
+    "save": "Guardar_en",
+    "showHide": "Show/Hide",
+    "theme": "Tema_en",
+    "unCheckAll": "Des Tod_en"
+  },
+  "treeNodesExchangePanel_center": {
+    "errorOp": "Operación errónea_en",
+    "funtError": "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"._en"
+  },
+  "uniqueDemo": {
+    "duplicateKey": "Clave duplicada_en",
+    "duplicateNodes": "Se ha producido una duplicidad del nodo _en",
+    "inFunction": " con la función _en"
+  },
+  "upload": {
+    "button": {
+      "addFiles": "Select..."
+    },
+    "paragraph": {
+      "basic": "en_La configuración básica del componente sería la siguiente:",
+      "line1": "en_Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.",
+      "line2": "en_La interfaz del componente puede configurarse de diferentes maneras dependiendo de las necesidades de la aplicación."
+    },
+    "title": "Upload"
+  },
+  "uploadTabs": {
+    "upload": "Upload_en",
+    "uploadForm": "Upload form_en",
+    "uploadFormMultiple": "Multiples upload en formulario_en",
+    "uploadFormPif": "Integración con PIF_en",
+    "uploadFormSimple": "Upload simple en formulario_en",
+    "uploadTable": "Upload en tabla_en"
+  },
+  "validaciones": {
+    "email_confirm": "Los correos introducidos no coinciden_en",
+    "password_confirm": "Las contraseñas no coinciden_en"
+  },
+  "x21aMantenimientosWar_migas": {
+    "administracion": "Administración_en",
+    "alumno": "Alumno_en",
+    "edlinea": "Edición en línea_en",
+    "formPropio": "Form Propio_en",
+    "jerarquia": "Jerarquia_en",
+    "multi": "Multiselección_en",
+    "simple": "Selección simple_en",
+    "uda": "UDA",
+    "usuarioJerarquia": "Normal_en",
+    "usuarioJerarquiaCol": "Columna independiente_en",
+    "usuarioJerarquiaGroup": "Agrupado_en",
+    "usuarioJerarquiaGroupMulti": "Multiselección agrupado_en",
+    "usuarioJerarquiaMulti": "Multiselección_en"
+  },
+  "x21aPilotoPatronesWar_menu_mixto": {
+    "accordion": "Accordion",
+    "all": "[Todos los patrones_en]",
+    "autocomplete": "Autocomplete_en",
+    "combo": "Combo_en",
+    "comboEnlazadoMulti": "Combo Enlazado (múltiple)_en",
+    "comboEnlazadoSimple": "Combo Enlazado (simple)_en",
+    "comboSimple": "Combo Simple_en",
+    "contextMenu": "Menú contextual_en",
+    "date": "Fecha_en",
+    "dialog": "Diálogos_en",
+    "experimental": "Experimental_en",
+    "feedback": "Feedback_en",
+    "form": "Formulario_en",
+    "grid": "Tabla_en",
+    "grid_arbol": "Tabla Arbol_en",
+    "grid_base": "Tabla Basico_en",
+    "grid_grupo": "Tabla Agrupada_en",
+    "inicio": "Inicio_en",
+    "integracion": "Integración_en",
+    "maestro_detalle": "Maestro-Detalle_en",
+    "maintTab": "Pestañas con mantenimientos_en",
+    "mant_clave_compuesta": "Mantenimiento clave-compuesta_en",
+    "mant_clave_compuesta_edlinea": "Edición en línea_en",
+    "mant_clave_compuesta_multi": "Multiselección_en",
+    "mant_multi_entidad": "Mantenimiento multi-entidad_en",
+    "mantenimientos": "x21aMantenimientosWar_en",
+    "menu": "Menú_en",
+    "menuHorizontal": "Horizontal_en",
+    "menuMixto": "Mixto_en",
+    "menuVertical": "Vertical_en",
+    "message": "Mensajes_en",
+    "multicombo": "Combo Mutiselección_en",
+    "navMenu": "Con navegación_en",
+    "nora": "NORA",
+    "patrones": "Patrones_en",
+    "tabs": "Pestañas_en",
+    "tabsAjax": "Pestañas carga Ajax_en",
+    "tabsMixto": "Pestañas carga mixta_en",
+    "tabsStatic": "Pestañas carga estática_en",
+    "time": "Hora_en",
+    "tiny": "TinyMCE",
+    "titulo-estru": "Estructuración de pantalla_en",
+    "titulo-inser": "Inserción de datos_en",
+    "titulo-nave": "Navegación_en",
+    "titulo-notifi": "Notificaciones_en",
+    "toolbar": "Botonera_en",
+    "tooltip": "Tooltip_en",
+    "tree": "Tree",
+    "treeDAD": "Árboles con interaccion mediante Drag & Drop_en",
+    "tree_panel": "Árbol con panel de detalle_en",
+    "trees": "Árboles con diferentes configuraciones_en",
+    "trees_formats": "Árboles con diferentes formatos de datos_en",
+    "uda": "UDA",
+    "upload": "Upload_en",
+    "validate": "Validación_en",
+    "wizard": "Wizard_en",
+    "wizardA": "Wizard simple_en",
+    "wizardB": "Wizard <%@ include %>_en",
+    "wizardC": "Wizard <jsp:include>_en",
+    "wizardD": "Wizard <c:import>_en",
+    "wizardE": "Wizard dinámico_en",
+    "z-index": "Capas RUP (z-index)_en"
+  },
+  "x21aPilotoPatronesWar_migas": {
+    "accordion": "Accordion",
+    "all": "[Todos los patrones_en]",
+    "autocomplete": "Autocomplete_en",
+    "comboEnlazadoMulti": "Combo Enlazado (múltiple)_en",
+    "comboEnlazadoSimple": "Combo Enlazado (simple)_en",
+    "comboSimple": "Combo Simple_en",
+    "contextMenu": "Menú contextual_en",
+    "date": "Fecha_en",
+    "dialog": "Diálogos_en",
+    "experimental": "Experimental_en",
+    "feedback": "Feedback_en",
+    "form": "Formulario_en",
+    "grid": "Tabla_en",
+    "grid_arbol": "Tabla Arbol_en",
+    "grid_base": "Tabla Basico_en",
+    "grid_grupo": "Tabla Agrupada_en",
+    "integracion": "Integración_en",
+    "maestro_detalle": "Maestro-Detalle_en",
+    "maintTab": "Pestañas con mantenimientos_en",
+    "mant_clave_compuesta": "Mantenimiento clave-compuesta_en",
+    "mant_clave_compuesta_edlinea": "Edición en línea_en",
+    "mant_clave_compuesta_multi": "Multiselección_en",
+    "mant_multi_entidad": "Mantenimiento multi-entidad_en",
+    "menu": "Menú Horizontal_en",
+    "menuHorizontal": "Horizontal_en",
+    "menuMixto": "Menú Mixto_en",
+    "menuVertical": "Menú Vertical_en",
+    "message": "Mensajes_en",
+    "multicombo": "Combo Mutiselección_en",
+    "navMenu": "Con navegación_en",
+    "nora": "NORA",
+    "patrones": "Patrones_en",
+    "tabs": "Pestañas_en",
+    "tabsAjax": "Pestañas carga Ajax_en",
+    "tabsMixto": "Pestañas carga mixta_en",
+    "tabsStatic": "Pestañas carga estática_en",
+    "time": "Hora_en",
+    "tiny": "TinyMCE",
+    "toolbar": "Botonera_en",
+    "tooltip": "Tooltip_en",
+    "tree": "Tree",
+    "treeDAD": "Árbol con D&D_en",
+    "treePanel": "Árbol con panel_en",
+    "trees": "Trees",
+    "treesFormats": "Árboles formateados_en",
+    "uda": "UDA",
+    "upload": "Upload_en",
+    "validate": "Validación_en",
+    "wizard": "Wizard_en",
+    "wizardA": "Wizard simple_en",
+    "wizardB": "Wizard <%@ include %>_en",
+    "wizardC": "Wizard <jsp:include>_en",
+    "wizardD": "Wizard <c:import>_en",
+    "wizardE": "Wizard dinámico_en",
+    "z-index": "Capas RUP (z-index)_en"
+  }
+}

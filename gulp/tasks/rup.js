@@ -8,7 +8,7 @@ var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 
 gulp.task('rup:build:table', function (cb) {
     console.log("Minimizando RUP Table...");
-    gulp.src(minimizeConf.rupTableFiles, {
+    return gulp.src(minimizeConf.rupTableFiles, {
             cwd: "src"
         })
         .pipe(concat("rup.table.js"))
