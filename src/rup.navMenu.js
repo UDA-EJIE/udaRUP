@@ -14,7 +14,18 @@
  * que establece la Licencia.
  */
 
-(function (jQuery) {
+ (function (factory) {
+     if (typeof define === "function" && define.amd) {
+
+         // AMD. Register as an anonymous module.
+         define(["jquery", "./rup.base"], factory);
+     } else {
+
+         // Browser globals
+         factory(jQuery);
+     }
+ }(function ($) {
+
 
     //****************************************************************************************************************
     // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -290,4 +301,4 @@
 
 
 
-})(jQuery);
+}));

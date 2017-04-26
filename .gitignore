@@ -1,7 +1,6 @@
 node_modules
 bower_components
 build
-doc
 dist
 
 # Mobile Tools for Java (J2ME)

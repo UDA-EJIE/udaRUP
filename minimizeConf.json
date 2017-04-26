@@ -54,9 +54,7 @@
     "./src/rup.base.js",
     "./src/rup.compatibility.js",
     "./node_modules/jquery-ui-dist/jquery-ui.js",
-    "./node_modules/bootstrap/js/dist/dropdown.js",
-    "./node_modules/bootstrap/js/dist/collapse.js",
-    "./node_modules/bootstrap/js/dist/util.js",
+
     "./src/core/ui/jquery-ui.multidatespicker.js",
     "./src/core/ui/jquery-ui.timepicker.js",
     "./src/core/ui/jquery.ui.selectmenu.js",

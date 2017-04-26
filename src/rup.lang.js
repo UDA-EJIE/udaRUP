@@ -139,7 +139,7 @@
 
                 self.append(ul);
 
-            } else if (this.options.modo === "classic") {
+            } else if (this.options.modo === "classic" || this.options.modo === "jquery-ui") {
 
                 // Carga de los valores por defecto para los atributos que no ha introducido el usuario
                 var ul = $("<ul>").attr("id", "ulGeneral"),
