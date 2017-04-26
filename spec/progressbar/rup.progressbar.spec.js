@@ -162,7 +162,7 @@
 
           it("Debería desruir el progressbar", function() {
             $("#progressbar").rup_progressbar("destroy");
-            expect($('#progressbar').hasClass('rup-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content')).toBe(false);
+          expect($('#progressbar')).not.toHaveClass("rup-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content");
           });
 
         });
