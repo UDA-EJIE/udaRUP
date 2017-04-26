@@ -46,27 +46,11 @@ app.get('/', function(req, res){
   if (req.cookies.language===undefined){
     res.cookie("language" , 'es',{expire : new Date() + 9999});
   }
-  res.redirect('/demoResponsive/index.html');
+  res.redirect('/demo/index-bt4.html');
 });
 
 app.get('/test', function(req, res){
   res.redirect('/spec/specRunner_require.html');
-});
-
-app.get('/app', function(req, res){
-
-  if (req.cookies.language===undefined){
-    res.cookie("language" , 'es',{expire : new Date() + 9999});
-  }
-  res.redirect('/demo/index.html');
-});
-
-app.get('/app', function(req, res){
-
-  if (req.cookies.language===undefined){
-    res.cookie("language" , 'es',{expire : new Date() + 9999});
-  }
-  res.redirect('/demo/index.html');
 });
 
 app.get('/demo/fragmento1', routesTabs.tabsContent1);
