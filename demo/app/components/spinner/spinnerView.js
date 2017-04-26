@@ -8,7 +8,7 @@ define(['marionette',
         'rup/rup.spinner','rup/rup.tabs','rup/rup.button'], function(Marionette, App, SpinnerBodyView, SpinnerTestView, ComponentExampleCodeView){
 
   var SpinnerView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -22,8 +22,8 @@ define(['marionette',
 
     $view.Main.show(new SpinnerBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.spinner.spinnerHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.spinner.spinnerJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.spinner.spinnerHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.spinner.spinnerJsCodeTemplate
     }));
     $view.Test.show(new SpinnerTestView());
   }

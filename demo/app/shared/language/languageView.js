@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.lang'], function(Marionette, App){
 
     var HeaderView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.shared.language.languageTemplate,
+        template: App.Templates.demo.app.shared.language.languageTemplate,
         ui:{
             languageSelector: "#x21aResponsiveWar_language"
         },

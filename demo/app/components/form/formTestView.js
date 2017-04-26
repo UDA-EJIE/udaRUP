@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.form','rup/rup.button'], function(Marionette, App){
 
   var FormTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.form.formTestTemplate,
+      template: App.Templates.demo.app.components.form.formTestTemplate,
       reconfigureForm: fncReconfigureForm,
       exampleFormSerialize: fncExampleFormSerialize,
       exampleFieldSerialize: fncExampleFieldSerialize,

@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.combo'], function(Marionette, App){
 
   var ComboMultiseleccionView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.combo.comboMultiseleccionTemplate,
+    template: App.Templates.demo.app.components.combo.comboMultiseleccionTemplate,
     ui:{
       multicombo: "#multicombo",
       multicomboRemoto: "#multicomboRemoto",

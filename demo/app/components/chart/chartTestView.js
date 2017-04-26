@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.chart', 'rup/rup.button'], function (Marionette, App) {
 
     var ChartTestView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.components.chart.chartTestTemplate,
+        template: App.Templates.demo.app.components.chart.chartTestTemplate,
         ui: {
 
             graficoLine: "#graficoLine",

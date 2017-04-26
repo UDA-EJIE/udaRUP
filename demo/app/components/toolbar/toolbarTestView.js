@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.toolbar'], function(Marionette, App){
 
   var ToolbarTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.toolbar.toolbarTestTemplate,
+      template: App.Templates.demo.app.components.toolbar.toolbarTestTemplate,
       ui:{
         toolbar: "#toolbar",
         toolbarMixta: "#toolbarMixta",

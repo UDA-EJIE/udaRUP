@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.time','rup/rup.button'], function(Marionette, App){
 
   var TimeTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.time.timeTestTemplate,
+    template: App.Templates.demo.app.components.time.timeTestTemplate,
     ui:{
       timeFull: "#hora",
       timeShort: "#hora2",

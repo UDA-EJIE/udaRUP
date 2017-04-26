@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.message','rup/rup.tabs'], function(Marionette, App, ButtonBodyView, ButtonTestView, ComponentExampleCodeView){
 
   var ButtonView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new ButtonBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.button.buttonHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.button.buttonJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.button.buttonHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.button.buttonJsCodeTemplate
     }));
     $view.Test.show(new ButtonTestView());
   }

@@ -26,7 +26,7 @@ define(['marionette',
      */
     var MainView = Marionette.LayoutView.extend({/** @lends MainView.prototype */
         el: "body",
-        template: App.Templates.demoResponsive.app.shared.main.mainTemplate,
+        template: App.Templates.demo.app.shared.main.mainTemplate,
         regions:{
             Header:"#header",
             Language: "#language",

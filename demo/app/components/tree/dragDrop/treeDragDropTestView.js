@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tree', 'rup/rup.button'], function (Marionette, App) {
 
     var TreeDragDropTestView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.components.tree.dragDrop.treeDragDropTestTemplate,
+        template: App.Templates.demo.app.components.tree.dragDrop.treeDragDropTestTemplate,
         ui: {
             pageTitles: '[title]',
             sortTree: "#tasksReorderTree",

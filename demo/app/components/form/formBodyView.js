@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.form'], function(Marionette, App){
 
   var FormBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.form.formBodyTemplate
+      template: App.Templates.demo.app.components.form.formBodyTemplate
   });
 
   return FormBodyView;

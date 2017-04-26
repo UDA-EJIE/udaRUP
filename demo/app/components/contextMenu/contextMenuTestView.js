@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.contextMenu','rup/rup.button'], function(Marionette, App){
 
   var ContextMenuTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.contextMenu.contextMenuTestTemplate,
+    template: App.Templates.demo.app.components.contextMenu.contextMenuTestTemplate,
     ui:{
       contextMenu: "#contextMenu",
       contextMenuLeft: ".contextMenu-left",

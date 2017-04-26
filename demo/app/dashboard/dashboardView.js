@@ -1,11 +1,11 @@
 define(['marionette',
         'templates',
         './widget/dashboardService',
-        
+
         'rup/rup.dashboard','rup/rup.button','rup/rup.message' ], function(Marionette, App, DashboardService){
 
   var DashboardView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.dashboard.dashboardTemplate,
+      template: App.Templates.demo.app.dashboard.dashboardTemplate,
       gridOptions: {
           verticalMargin: 10,
 
@@ -176,7 +176,7 @@ define(['marionette',
     // $view.ui.dashboard.rup_dashboard("addWidget",{
     //   type:"template",
     //   widgetOptions:{
-    //     template: App.Templates.demoResponsive.app.dashboard.templates.widgetInline,
+    //     template: App.Templates.demo.app.dashboard.templates.widgetInline,
     //     configure:{
     //       template:"#templateConfig"
     //     }
@@ -326,7 +326,7 @@ define(['marionette',
 //         'rup/rup.message','rup/rup.tabs'], function(Marionette, App, DashboardBodyView, DashboardTestView, ComponentExampleCodeView){
 //
 //   var DashboardView = Marionette.LayoutView.extend({
-//       template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+//       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
 //       regions:{
 //         Main: "#componentMainBody",
 //         Example: "#exampleCode",
@@ -340,8 +340,8 @@ define(['marionette',
 //
 //     $view.Main.show(new DashboardBodyView());
 //     $view.Example.show(new ComponentExampleCodeView({
-//       templateHtml: App.Templates.demoResponsive.app.dashboard.dashboardHtmlCodeTemplate,
-//       templateJs: App.Templates.demoResponsive.app.dashboard.dashboardJsCodeTemplate
+//       templateHtml: App.Templates.demo.app.dashboard.dashboardHtmlCodeTemplate,
+//       templateJs: App.Templates.demo.app.dashboard.dashboardJsCodeTemplate
 //     }));
 //     $view.Test.show(new DashboardTestView());
 //   }

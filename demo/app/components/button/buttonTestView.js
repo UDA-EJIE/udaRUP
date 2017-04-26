@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.button', 'rup/rup.message'], function(Marionette, App){
 
   var ButtonTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.button.buttonTestTemplate,
+      template: App.Templates.demo.app.components.button.buttonTestTemplate,
       ui:{
         btnDefault: "#boton",
         btnIconHtml: "#btnIconHtml",

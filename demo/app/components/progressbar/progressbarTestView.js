@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.progressbar','rup/rup.button'], function(Marionette, App){
 
   var ProgressbarTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.progressbar.progressbarTestTemplate,
+    template: App.Templates.demo.app.components.progressbar.progressbarTestTemplate,
     ui:{
       progressbar: "#progressbar",
       progressbarLabel: "#progressbarLabel",

@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.autocomplete','rup/rup.button'], function(Marionette, App){
 
   var AutocompleteTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.autocomplete.autocompleteTestTemplate,
+    template: App.Templates.demo.app.components.autocomplete.autocompleteTestTemplate,
     ui:{
       autocompleteLocal: "#autocomplete",
       autocompleteRemote: "#patron",

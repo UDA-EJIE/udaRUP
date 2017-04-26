@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.upload'], function(Marionette, App, UploadBodyView, UploadTestView, ComponentExampleCodeView){
 
   var UploadView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new UploadBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.upload.uploadHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.upload.uploadJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.upload.uploadHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.upload.uploadJsCodeTemplate
     }));
     $view.Test.show(new UploadTestView());
   }

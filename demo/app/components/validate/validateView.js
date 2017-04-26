@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.validate'], function(Marionette, App, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
 
   var ValidateView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new ValidateBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.validate.validateHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.validate.validateJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.validate.validateHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.validate.validateJsCodeTemplate
     }));
     $view.Test.show(new ValidateTestView());
   }

@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.validate','rup/rup.button'], function(Marionette, App){
 
   var ValidateTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.validate.validateTestTemplate,
+      template: App.Templates.demo.app.components.validate.validateTestTemplate,
       listaDias:[],
       configuracionBasicaValidate:{},
       onAttach: fncOnAttach,

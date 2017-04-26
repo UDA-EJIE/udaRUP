@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tree'], function(Marionette, App){
 
   var TreeDragDropBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.tree.dragDrop.treeDragDropBodyTemplate
+      template: App.Templates.demo.app.components.tree.dragDrop.treeDragDropBodyTemplate
   });
 
   return TreeDragDropBodyView;

@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.dialog'], function(Marionette, App, DialogBodyView, DialogTestView, ComponentExampleCodeView){
 
   var DialogView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new DialogBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.dialog.dialogHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.dialog.dialogJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.dialog.dialogHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.dialog.dialogJsCodeTemplate
     }));
     $view.Test.show(new DialogTestView());
   }

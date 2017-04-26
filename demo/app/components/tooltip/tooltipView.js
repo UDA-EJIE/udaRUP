@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.tooltip'], function(Marionette, App, TooltipBodyView, TooltipTestView, ComponentExampleCodeView){
 
   var TooltipView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new TooltipBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.tooltip.tooltipHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.tooltip.tooltipJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.tooltip.tooltipHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.tooltip.tooltipJsCodeTemplate
     }));
     $view.Test.show(new TooltipTestView());
   }

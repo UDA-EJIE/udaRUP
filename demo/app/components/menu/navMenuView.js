@@ -3,7 +3,7 @@ define(['marionette',
         "rup/rup.navMenu"], function (Marionette, App) {
 
     var NavMenuView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.components.menu.navMenuTemplate,
+        template: App.Templates.demo.app.components.menu.navMenuTemplate,
         ui: {
             navMenuExample: "#example",
 

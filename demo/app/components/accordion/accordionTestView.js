@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.accordion','rup/rup.button'], function(Marionette, App){
 
   var AccordionTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.accordion.accordionTestTemplate,
+    template: App.Templates.demo.app.components.accordion.accordionTestTemplate,
     ui:{
       accordion: ".rup_accordion",
       toolbarMixta: "#toolbarMixta",

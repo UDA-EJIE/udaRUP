@@ -6,7 +6,7 @@ define(['marionette',
       ], function(Marionette, App, StackedHorizontalDescView, StackedHorizontalExampleView, ComponentExampleCodeView){
 
   var RwdView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.rwdGridLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.rwdGridLayoutTemplate,
       regions:{
         Description: "#description",
         Example: "#rwdExample",
@@ -21,8 +21,8 @@ define(['marionette',
     $view.Description.show(new StackedHorizontalDescView());
     $view.Example.show(new StackedHorizontalExampleView());
     $view.Code.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.responsiveGrid.stackedHorizontal.stackedHorizontalExampleTemplate
-      // templateJs: App.Templates.demoResponsive.app.components.feedback.feedbackJsCodeTemplate
+      templateHtml: App.Templates.demo.app.responsiveGrid.stackedHorizontal.stackedHorizontalExampleTemplate
+      // templateJs: App.Templates.demo.app.components.feedback.feedbackJsCodeTemplate
     }));
 
   }

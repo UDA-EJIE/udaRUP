@@ -8,7 +8,7 @@ define(['marionette',
         'rup/rup.tabs','rup/rup.button'], function(Marionette, App, WizardDynamicBodyView, WizardDynamicTestView, ComponentExampleCodeView){
 
   var WizardDynamicView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -22,8 +22,8 @@ define(['marionette',
 
     $view.Main.show(new WizardDynamicBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.wizard.dynamic.wizardDynamicHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.wizard.dynamic.wizardDynamicJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.wizard.dynamic.wizardDynamicHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.wizard.dynamic.wizardDynamicJsCodeTemplate
     }));
     $view.Test.show(new WizardDynamicTestView());
   }

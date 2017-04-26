@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.wizard'], function(Marionette, App){
 
   var WizardSimpleBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.wizard.simple.wizardSimpleBodyTemplate
+      template: App.Templates.demo.app.components.wizard.simple.wizardSimpleBodyTemplate
 
   });
 
