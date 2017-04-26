@@ -1,71 +1,33 @@
 define(['marionette',
         'templates',
-        'rup/rup.autocomplete'], function(Marionette, App){
+        './autocompleteBodyView',
+        './autocompleteTestView',
+        '../../shared/component/componentExampleCodeView',
+        // 'highlight',
+        // 'highlight-html',
+        'rup/rup.autocomplete','rup/rup.tabs','rup/rup.button'], function(Marionette, App, AutocompleteBodyView, AutocompleteTestView, ComponentExampleCodeView){
 
   var AutocompleteView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.autocomplete.autocompleteTemplate,
-    ui:{
-      autocompleteLocal: "#autocomplete",
-      autocompleteRemote: "#patron",
-      comboboxLocal: "#comboboxLocal",
-      comboboxRemote: "#comboboxRemoto",
-    },
-    languageList:[],
-    initialize: fncInitialize,
-    onDomRefresh: fncOnDomRefresh
-
+      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
+      },
+      onRender: fncOnRender
   });
 
-  function fncInitialize(){
-    this.languageList = [
-  			{i18nCaption: "asp", value:"asp_value"},
-  			{i18nCaption: "c", value:"c_value"},
-  			{i18nCaption: "c++", value:"c++_value"},
-  			{i18nCaption: "coldfusion", value:"coldfusion_value"},
-  			{i18nCaption: "groovy", value:"groovy_value"},
-  			{i18nCaption: "haskell", value:"haskell_value"},
-  			{i18nCaption: "java", value:"java_value"},
-  			{i18nCaption: "javascript", value:"javascript_value"},
-  			{i18nCaption: "perl", value:"perl_value"},
-  			{i18nCaption: "php", value:"php_value"},
-  			{i18nCaption: "python", value:"python_value"},
-  			{i18nCaption: "ruby", value:"ruby_value"},
-  			{i18nCaption: "scala", value:"scala_value"}
-  		];
+  function fncOnRender(){
+    var $view = this;
+
+    $view.Main.show(new AutocompleteBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demoResponsive.app.components.autocomplete.autocompleteHtmlCodeTemplate,
+      templateJs: App.Templates.demoResponsive.app.components.autocomplete.autocompleteJsCodeTemplate
+    }));
+    $view.Test.show(new AutocompleteTestView());
   }
 
-  function fncOnDomRefresh(){
-
-    this.ui.autocompleteLocal.rup_autocomplete({
-  		source : this.languageList,
-  		defaultValue : "java",
-  		contains : false
-  	});
-
-    this.ui.autocompleteRemote.rup_autocomplete({
-  		source : "autocomplete/remote",
-  		sourceParam : {
-              label:"desc"+$.rup_utils.capitalizedLang(),
-              value:"code"
-          },
-  		minLength: 4
-  	});
-
-    this.ui.comboboxLocal.rup_autocomplete({
-  		source : this.languageList,
-  		contains : false,
-  		combobox: true,
-  		minLength:0
-  	});
-
-    this.ui.comboboxRemote.rup_autocomplete({
-  		source : "autocomplete/remote",
-  		sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"},
-  		minLength: 4,
-  		combobox: true
-  	});
-  }
 
   return AutocompleteView;
-
 });

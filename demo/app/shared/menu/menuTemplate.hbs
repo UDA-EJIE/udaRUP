@@ -1,400 +1,119 @@
+<nav class="rup-navbar navbar">
 
-	<ul id="x21aResponsiveWar_menu"	class="rup_invisible_menu">
-		<li>
-			<a href="/demo/index.html" >
-				Inicio
-				<span class="ui-icon home_icon"></span>
-			</a>
-		</li>
-		<li>
-			<a>
-				Patrones
-				<span class="ui-icon patrones_icon"></span>
-			</a>
-			<ul>
-				<li>
-					<a href="/x21aResponsiveWar/patrones/all">
-						[Todos los patrones]
-					</a>
-				</li>
-				<li class="ui-widget-content ui-menu-divider"></li>
-				<li><strong>Notificaciones</strong></li>
-				<li>
-					<a href="#feedback">
-						Feedback
-						<span class="ui-icon feedback_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#tooltip">
-						Tooltip
-						<span class="ui-icon tooltip_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#message">
-						Mensajes
-						<span class="ui-icon message_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#dialog">
-						Diálogos
-						<span class="ui-icon dialog_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#progressbar">
-						Barra de progreso
-						<span class="ui-icon dialog_icon"></span>
-					</a>
-				</li>
-				<li class="ui-widget-content ui-menu-divider"></li>
-				<li><strong>Navegación</strong></li>
-				<li>
-					<a>
-						Menú
-						<span class="ui-icon menu_icon"></span>
-					</a>
-					<ul>
-						<li>
-							<a href="#menuHorizontal">
-								Horizontal
-							</a>
-						</li>
-						<li>
-							<a href="#menuVertical">
-								Vertical
-							</a>
-						</li>
-						<li>
-							<a	href="#menuMixto">
-								Mixto
-							</a>
-						</li>
-						<li>
-							<a href="#navMenu">
-								Con Navegación
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#contextMenu">
-						Menú contextual
-						<span class="ui-icon contextMenu_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#toolbar">
-						Botonera
-						<span class="ui-icon toolbar_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#button">
-						Botón
-						<span class="ui-icon toolbar_icon"></span>
-					</a>
-				</li>
-				<li class="ui-widget-content ui-menu-divider"></li>
-				<li><strong>Estructuración de pantalla</strong></li>
-				<li>
-					<a href="#accordion">
-						Accordion
-						<span class="ui-icon accordion_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a>
-						Pestañas
-						<span class="ui-icon tab_icon"></span>
-					</a>
-					<ul>
-						<li>
-							<a href="#tabsStatic">
-								Pestañas carga estática
-							</a>
-						</li>
-						<li>
-							<a	href="#tabsAjax">
-								Pestañas carga Ajax
-							</a>
-						</li>
-						<li>
-							<a	href="#tabsMixto">
-								Pestañas carga mixta
-							</a>
-						</li>
-						<li>
-							<a href="/x21aResponsiveWar/patrones/maintTab">
-								Pestañas con mantenimientos
-							</a>
-						</li>
-						<li>
-							<a href="#tabsScrollable">
-								Pestañas con navegación
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="/x21aResponsiveWar/patrones/grid">
-						Tabla
-						<span class="ui-icon grid_icon"></span>
-					</a>
-					<span class="ui-icon old_icon"></span>
-<!-- 					<ul> -->
-<!-- 						<li> -->
-<!-- 							<a	href="/x21aResponsiveWar/patrones/gridGroup"> -->
+    <button type="button" class="navbar-toggler hidden-lg-up navbar-toggle "  type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
 
-<!-- 							</a> -->
-<!-- 						</li> -->
-<!-- 						<li> -->
-<!-- 							<a	href="/x21aResponsiveWar/patrones/grid"> -->
+  <div id="navbarResponsive" class="collapse navbar-toggleable-md">
+    <a class="navbar-brand" href="#">Uda</a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item dropdown">
+        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Componentes <span class="caret"></span></a> -->
+        <a class="nav-link dropdown-toggle" href="#" id="responsiveNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Componentes</a>
+        <div class="collapse dropdown-menu" aria-labelledby="responsiveNavbarDropdown">
+            <a class="dropdown-item" href="#feedback"><i class="fa fa-check-square" aria-hidden="true"></i>Feedback</a>
+            <a class="dropdown-item" href="#tooltip"><i class="fa fa-comment-o" aria-hidden="true"></i>Tooltip</a>
+            <a class="dropdown-item" href="#message"><i class="fa fa-envelope" aria-hidden="true"></i>Mensaje</a>
+            <a class="dropdown-item" href="#dialog"><i class="fa fa-window-restore" aria-hidden="true"></i>Diálogo</a>
+            <a class="dropdown-item" href="#progressbar">Barra de progreso</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#contextMenu">Menú contextual</a>
+            <a class="dropdown-item" href="#button">Botón</a>
+            <a class="dropdown-item" href="#toolbar">Botonera</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#accordion">Accordion</a>
 
-<!-- 							</a> -->
-<!-- 						</li> -->
-<!-- 						<li> -->
-<!-- 							<a href="/x21aResponsiveWar/patrones/gridTree"> -->
+            <div class="dropdown-submenu" >
+              <a class="dropdown-item dropdown-toggle" href="#">Pestañas</a>
+              <div class="dropdown-menu menu-right" >
+                <a class="dropdown-item" href="#tabsStatic">Pestañas simples</a>
+              </div>
 
-<!-- 							</a> -->
-<!-- 						</li> -->
-<!-- 					</ul> -->
-				</li>
-				<li>
-					<a>
-						Wizard
-						<span class="ui-icon wizard_icon"></span>
-					</a>
-					<ul>
-						<li>
-							<a	href="#wizard">
-								Wizard simple
-							</a>
-						</li>
-						<li>
-							<a	href="#wizardDinamico">
-								Wizard dinámico
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a>
-						Árbol
-						<span class="ui-icon tree_icon"></span>
-					</a>
-					<ul>
-						<li>
-							<a	href="/x21aResponsiveWar/patrones/trees">
-								Árboles con diferentes configuraciones
-							</a>
-						</li>
-<!-- 						<li> -->
-<!-- 							<a href="/x21aResponsiveWar/patrones/trees"> -->
+            </div>
+            <div class="dropdown-submenu" >
+              <a class="dropdown-item dropdown-toggle" href="#">Wizard</a>
+              <div class="dropdown-menu menu-right" >
+                <a class="dropdown-item" href="#wizardSimple">Wizard simple</a>
+                <a class="dropdown-item" href="#wizardDynamic">Wizard dinámico</a>
+              </div>
+            </div>
 
-<!-- 							</a> -->
-<!-- 						</li> -->
-						<li>
-							<a href="/x21aResponsiveWar/patrones/treeDAD">
-								Árboles con interaccion mediante Drag & Drop
-							</a>
-						</li>
-<!-- 						<li> -->
-<!-- 							<a href="/x21aResponsiveWar/patrones/trees"> -->
+            <div class="dropdown-submenu" >
+              <a class="dropdown-item dropdown-toggle" href="#">Arbol</a>
+              <div class="dropdown-menu menu-right" >
+                <a class="dropdown-item" href="#treeExamples">Árboles con diferentes configuraciones</a>
+                <a class="dropdown-item" href="#treeDragDrop">Árbol con interacción Drag and Drop</a>
+              </div>
+            </div>
 
-<!-- 							</a> -->
-<!-- 						</li> -->
-					</ul>
-				</li>
-				<li class="ui-widget-content ui-menu-divider"></li>
-				<li><strong>Inserción de datos</strong></li>
-				<li>
-					<a href="#autocomplete">
-						Autocomplete
-						<span class="ui-icon autocomplete_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a>
-						Combo
-						<span class="ui-icon combo_icon"></span>
-					</a>
-					<ul>
-						<li>
-							<a href="#comboSimple">
-								Combo Simple
-							</a>
-						</li>
-						<li>
-							<a href="#comboEnlazadoSimple">
-								Combo Enlazado (simple)
-							</a>
-						</li>
-						<li>
-							<a href="#comboEnlazadoMultiple">
-								Combo Enlazado (múltiple)
-							</a>
-						</li>
-						<li>
-							<a href="#comboMultiseleccion">
-								Combo Multiselección
-							</a>
-						</li>
-					</ul>
-				</li>
-        <li>
-					<a href="#slider">
-						Deslizador
-						<span class="ui-icon date_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#date">
-						Fecha
-						<span class="ui-icon date_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#form">
-						Formulario
-						<span class="ui-icon form_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#time">
-						Hora
-						<span class="ui-icon time_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#slider">
-						Slider
-						<span class="ui-icon date_icon"></span>
-					</a>
-				</li>
-        <li>
-					<a href="#spinner">
-						Spinner
-						<span class="ui-icon date_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#upload">
-						Upload
-						<span class="ui-icon upload_icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#validate">
-						Validación
-						<span class="ui-icon validate_icon"></span>
-					</a>
-				</li>
-				<li class="ui-widget-content ui-menu-divider"></li>
-				<li><strong>Representación de datos</strong></li>
-				<li>
-					<a href="#chart">
-						Gráficos
-						<span class="ui-icon chart_icon"></span>
-					</a>
-				</li>
-			</ul>
-		</li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#autocomplete">Autocomplete</a>
 
-		<li>
-            <a>Tabla</a>
-            <ul>
+            <div class="dropdown-submenu" >
+              <a class="dropdown-item dropdown-toggle" href="#">Combo</a>
+              <div class="dropdown-menu menu-right" >
+                <a class="dropdown-item" href="#comboSimple">Combo simple</a>
+              </div>
+            </div>
 
-                <li>
-                    <a href="#tableFilter">Filtro Simple</a>
-                </li>
+            <a class="dropdown-item" href="#slider">Deslizador</a>
+            <a class="dropdown-item" href="#date">Fecha</a>
+            <a class="dropdown-item" href="#form">Formulario</a>
+            <a class="dropdown-item" href="#time">Hora</a>
+            <a class="dropdown-item" href="#spinner">Spinner</a>
+            <a class="dropdown-item" href="#upload">Upload</a>
+            <a class="dropdown-item" href="#validate">Validación</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#chart"><i class="fa fa-bar-chart" aria-hidden="true"></i>Gráficos</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="tableDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabla</a>
+        <div class="collapse dropdown-menu" aria-labelledby="tableDropdown">
+          <a class="dropdown-item" href="#tableFilter">Edición en formulario</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="gridResponsiveDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Grid responsive</a>
+        <div class="collapse dropdown-menu" aria-labelledby="gridResponsiveDropdown">
+          <a class="dropdown-item" href="#stackedHorizontal">Stacked to horizontal</a>
+          <a class="dropdown-item" href="#mobileDesktop">Mobile and desktop</a>
+          <a class="dropdown-item" href="#mobileTabletDesktop">Mobile, Tablet and desktop</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dashboardDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dashboard</a>
+        <div class="collapse dropdown-menu" aria-labelledby="dashboardDropdown">
+          <a class="dropdown-item" href="#dashboard">Dashboard</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="styleGuideDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Guía de estilos</a>
+        <div class="collapse dropdown-menu" aria-labelledby="styleGuideDropdown">
+          <a class="dropdown-item" href="#styleGuide">Guía de estilos</a>
+          <a class="dropdown-item" href="#bt3StyleGuide">Bootstrap 3</a>
+          <a class="dropdown-item" href="#bt4StyleGuide">Bootstrap 4</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav float-md-right rup-nav-tools">
+      <li class="nav-item">
+        <a class="nav-link rup-nav-tool-icon" href="#" id="languageDropdown"><i class="fa fa-globe" aria-hidden="true"></i><span data-rup-lang-current=""></span></a>
 
-                <li>
-                    <a>
-                        Jerarqu&iacute;a
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="/x21aMantenimientosWar/table/jerarquia">
-                               Normal
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/x21aMantenimientosWar/table/jerarquiaMulti">
-                                Multiselecci&oacute;n
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/formEditAutogenerated">
-                        Edici&oacute;n en formulario (Autogenerado)
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/formEdit">
-                         Edici&oacute;n en formulario
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/formEditMultiselection">
-                        Edici&oacute;n en formulario con multiselecci&oacute;n
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/inlineEditExcelMode">
-                        Edici&oacute;n en línea (Modo Excel)
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/inlineEdit">
-                        Edici&oacute;n en línea
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/inlineEditMultiselection">
-                        Edici&oacute;n en línea con multiselecci&oacute;n
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/grouping">
-                        Tabla con agrupamiento
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/masterDetail">
-                        Maestro - detalle
-                    </a>
-                </li>
-                    <li>
-                    <a href="/x21aMantenimientosWar/table/tableLoadOnStartUp">
-                        LoadOnStartUp =false
-                    </a>
-                </li>
-                <li>
-                    <a href="/x21aMantenimientosWar/table/dialog">
-                        Tabla en di&aacute;logo
-                    </a>
-                </li>
-                    <li>
-                    <a href="/x21aMantenimientosWar/table/tableRadiobutton">
-                        tableRadioButton
-                    </a>
-                </li>
-            </ul>
-        </li>
-				<li>
-					<a	href="#styleGuide" target="_blank">
-						Guia de estilos
-						<span class="ui-icon uda_icon"></span>
-					</a>
-				</li>
-		<li>
-			<a	href="http://code.google.com/p/uda/" target="_blank">
-				UDA
-				<span class="ui-icon uda_icon"></span>
-			</a>
-		</li>
-	</ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link rup-nav-tool-icon dropdown-toggle" id="demoStylesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog " aria-hidden="true"></i></a>
+        <div class="collapse dropdown-menu" aria-labelledby="demoStylesDropdown">
+          <a class="dropdown-item" id="navLinkBt4" data-redirect-navLink="index-bt4.html" href="#">Bootstrap 4</a>
+          <a class="dropdown-item" id="navLinkBt3" data-redirect-navLink="index-bt3.html"href="#">Bootstrap 3</a>
+          <a class="dropdown-item" id="navLinkJQui" data-redirect-navLink="index-jqueryui.html"href="#">JQueryUI</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link rup-nav-user rup-nav-tool-icon" href="#"><i class="fa fa-user-circle-o " aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item swingTop">
+        <a class="nav-link rup-nav-user rup-nav-tool-icon" href="javascript:void(0)"><i class="fa fa-arrow-circle-up " aria-hidden="true"></i></a>
+      </li>
+    </ul>
+
+  </div><!--/.navbar-collapse -->
+</nav>

@@ -1,15 +1,40 @@
 define(['marionette',
         'templates',
-        'rup/menu'], function (Marionette, App) {
+        'rup/rup.menu'], function (Marionette, App) {
 
     var MenuView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.shared.menu.menuTemplate,
+        template: App.Templates.demoResponsive.app.shared.menu.menuJQueryUITemplate,
+        redirectNavLink: fncRedirectNavLink,
         ui: {
             menuElement: "#x21aResponsiveWar_menu",
-            menuMixedElement: "#x21aResponsiveWar_menu"
+            menuMixedElement: "#x21aResponsiveWar_menu",
+            navLink : "[data-redirect-navLink]"
+        },
+        events: {
+            "click @ui.navLink": "redirectNavLink"
         },
         onDomRefresh: fncOnDomRefresh
     });
+
+    function fncRedirectNavLink(event){
+
+
+      var newIndex = $(event.target).attr("data-redirect-navLink");
+
+      window.location.href = _replaceIndex(newIndex);
+
+    }
+
+    function _replaceIndex(newIndex){
+      var pathname = window.location.pathname,
+          splitPathname = pathname.split('/'),
+          index = splitPathname[splitPathname.length-1],
+          href = window.location.href,
+          splitHref = href.split(index);
+
+      return splitHref[0] + newIndex +(splitHref.length>1?splitHref[splitHref.length-1]:"");
+
+    }
 
     function fncOnDomRefresh() {
         var $view = this;

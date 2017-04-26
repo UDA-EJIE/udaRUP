@@ -1,87 +1,30 @@
 define(['marionette',
         'templates',
-        'rup/rup.button'], function(Marionette, App){
+        './buttonBodyView',
+        './buttonTestView',
+        '../../shared/component/componentExampleCodeView',
+        'rup/rup.message','rup/rup.tabs'], function(Marionette, App, ButtonBodyView, ButtonTestView, ComponentExampleCodeView){
 
   var ButtonView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.button.buttonTemplate,
-    ui:{
-      btnDefault: "#boton",
-      btnDropdownList: "#dropdownHtmlListButton",
-      btnDropdownDialog: "#dropdownDialogButton",
-      dropdownDialog: "#dropdownDialog",
-      dropdownElem: "#dropdownElem1",
-      dropdownCombo: "#dropdownButton-combo"
-    },
-    events:{
-      'click @ui.dropdownElem': fncDropdownElementClick
-    },
-    onDomRefresh: fncOnDomRefresh
-
+      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
+      },
+      onRender: fncOnRender
   });
 
-  function fncOnDomRefresh(){
+  function fncOnRender(){
     var $view = this;
 
-   	$view.ui.btnDefault.rup_button({});
-
-  	$view.ui.btnDropdownList.rup_button({
-  		dropdown:{
-  			dropdownListId:"dropdownHtmlList"
-  		}
-  	});
-
-  	// Dropdown dialog
-
-  	$view.ui.btnDropdownDialog.rup_button({
-  		dropdown:{
-  			dropdownDialog: "dropdownDialog",
-  			dropdownDialogConfig:{
-  				title:"<span class='rup-icon rup-icon-filter'/>Administración de filtros",
-  				width:"380px",
-  				buttons: [{
-  					text: "Guardar",
-  					click: function () {
-  					}
-  				},
-  				{
-  					text: "Aceptar",
-  					click: function () {
-  					}
-  				},
-  				{
-  					text: "Eliminar",
-  					click: function () {
-  					}
-  				},
-  				{
-  					text: "Cancelar",
-  					click: function () {
-  						$view.ui.dropdownDialog.dialog("close");
-  					},
-  					btnType: $.rup.dialog.LINK
-  				}
-  				]
-  			}
-  		}
-  	});
-
-  	var options_ejie_combo = {
-  			source : [
-  			   {label:"Si", value:"0"},
-  			   {label:"No", value:"1"}
-  			],
-  			width: 120,
-  			blank: ""
-  		};
-
-
-  	$view.ui.dropdownCombo.rup_combo(options_ejie_combo);
-  }
-
-  function fncDropdownElementClick (){
-    alert("Seleccionado elemento 1");
+    $view.Main.show(new ButtonBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demoResponsive.app.components.button.buttonHtmlCodeTemplate,
+      templateJs: App.Templates.demoResponsive.app.components.button.buttonJsCodeTemplate
+    }));
+    $view.Test.show(new ButtonTestView());
   }
 
   return ButtonView;
-
 });

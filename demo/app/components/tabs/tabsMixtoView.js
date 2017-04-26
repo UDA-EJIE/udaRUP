@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tabs'], function(Marionette, App){
 
   var TabsMixedView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.tabs.tabsMixtoTemplate,
+    template: App.Templates.demoResponsive.app.components.tabs.tabsMixtoTemplate,
     ui:{
       tabs: "#tabsMixta",
     },

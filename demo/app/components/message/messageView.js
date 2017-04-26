@@ -1,60 +1,29 @@
 define(['marionette',
         'templates',
-        'rup/rup.message'], function(Marionette, App){
+        './messageBodyView',
+        './messageTestView',
+        '../../shared/component/componentExampleCodeView',
+        'rup/rup.message','rup/rup.tabs'], function(Marionette, App, MessagekBodyView, MessageTestView, ComponentExampleCodeView){
 
   var MessageView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.message.messageTemplate,
-      ui:{
-        btnError: '#btnError',
-        btnConfirm: '#btnConfirm',
-        btnOK: '#btnOK',
-        btnAlert: '#btnAlert',
-        btnAlertJS: '#btnAlertJS'
+      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
       },
-      events:{
-        "click @ui.btnError": fncClickBtnError,
-        "click @ui.btnConfirm": fncClickBtnConfirm,
-        "click @ui.btnOK": fncClickBtnOK,
-        "click @ui.btnAlert": fncClickAlert,
-        "click @ui.btnAlertJS": fncClickBtnAlertJS
-      }
+      onRender: fncOnRender
   });
 
-  function fncClickBtnError(){
-    $.rup_messages("msgError", {
-      title: "Error grave",
-      message: "<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>"
-    });
-  }
+  function fncOnRender(){
+    var $view = this;
 
-  function fncClickBtnConfirm(){
-    $.rup_messages("msgConfirm", {
-      message: "¿Está seguro que desea cancelar?",
-      title: "Confirmación",
-      OKFunction : fncConfirmAcceptCallback
-    });
-  }
-
-  function fncClickBtnOK(){
-    $.rup_messages("msgOK", {
-      title: "Correcto",
-      message: "Todo ha ido OK."
-    });
-  }
-
-  function fncClickAlert(){
-    $.rup_messages("msgAlert", {
-      title: "Alerta",
-      message: "Esto es una alerta."
-    });
-  }
-
-  function fncClickBtnAlertJS(){
-    alert("esto es un alert de javascript puro");
-  }
-
-  function fncConfirmAcceptCallback(){
-    alert("Aceptar");
+    $view.Main.show(new MessagekBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demoResponsive.app.components.message.messageHtmlCodeTemplate,
+      templateJs: App.Templates.demoResponsive.app.components.message.messageJsCodeTemplate
+    }));
+    $view.Test.show(new MessageTestView());
   }
 
   return MessageView;

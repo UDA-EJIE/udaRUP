@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tabs'], function(Marionette, App){
 
   var TabsScrollableView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.tabs.tabsScrollableTemplate,
+    template: App.Templates.demoResponsive.app.components.tabs.tabsScrollableTemplate,
     ui:{
       tabs: "#tabsScrollableExample"
     },
