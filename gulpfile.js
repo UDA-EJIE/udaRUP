@@ -15,12 +15,7 @@ gulp.task('dist', [
   'dist:copy'
 ]);
 
-gulp.task('dist:build', [
-  'uglify:css:rup',
-  'uglify:css:rup-classic',
-  'uglify:js:rup',
-  'uglify:js:rup-classic'
-]);
+gulp.task('dist:build', ['build:uglify']);
 
 
 
