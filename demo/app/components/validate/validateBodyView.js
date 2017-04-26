@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.validate'], function(Marionette, App){
 
   var ValidateBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.validate.validateBodyTemplate
+      template: App.Templates.demo.app.components.validate.validateBodyTemplate
   });
 
   return ValidateBodyView;

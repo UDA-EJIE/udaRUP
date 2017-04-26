@@ -4,7 +4,7 @@ define(['marionette',
         'rup/rup.tabs'], function(Marionette, App, hljs){
 
   var TabsStaticView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.tabs.tabsStaticTemplate,
+    template: App.Templates.demo.app.components.tabs.tabsStaticTemplate,
     ui:{
       tabs: "#tabsStatic"
     },

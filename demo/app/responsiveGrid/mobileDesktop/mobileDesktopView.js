@@ -6,7 +6,7 @@ define(['marionette',
       ], function(Marionette, App, MobileDesktopDescView, MobileDesktopExampleView, ComponentExampleCodeView){
 
   var MobileDesktopView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.rwdGridLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.rwdGridLayoutTemplate,
       regions:{
         Description: "#description",
         Example: "#rwdExample",
@@ -21,8 +21,8 @@ define(['marionette',
     $view.Description.show(new MobileDesktopDescView());
     $view.Example.show(new MobileDesktopExampleView());
     $view.Code.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.responsiveGrid.mobileDesktop.mobileDesktopExampleTemplate
-      // templateJs: App.Templates.demoResponsive.app.components.feedback.feedbackJsCodeTemplate
+      templateHtml: App.Templates.demo.app.responsiveGrid.mobileDesktop.mobileDesktopExampleTemplate
+      // templateJs: App.Templates.demo.app.components.feedback.feedbackJsCodeTemplate
     }));
 
   }

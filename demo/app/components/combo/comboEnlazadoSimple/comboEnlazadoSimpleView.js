@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.combo'], function(Marionette, App){
 
   var ComboSimpleView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.combo.comboEnlazadoSimpleTemplate,
+    template: App.Templates.demo.app.components.combo.comboEnlazadoSimpleTemplate,
     ui:{
       comboAbuelo: "#comboAbuelo",
       comboPadre: "#comboPadre",

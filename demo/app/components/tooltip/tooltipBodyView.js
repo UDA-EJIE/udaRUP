@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tooltip'], function(Marionette, App){
 
   var TooltipBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.tooltip.tooltipBodyTemplate
+      template: App.Templates.demo.app.components.tooltip.tooltipBodyTemplate
   });
 
   return TooltipBodyView;

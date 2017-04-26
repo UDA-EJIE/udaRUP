@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.message'], function(Marionette, App){
 
   var MessageBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.message.messageBodyTemplate,
+      template: App.Templates.demo.app.components.message.messageBodyTemplate,
   });
 
   return MessageBodyView;

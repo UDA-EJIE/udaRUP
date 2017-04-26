@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.message'], function(Marionette, App){
 
   var MessageTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.message.messageTestTemplate,
+      template: App.Templates.demo.app.components.message.messageTestTemplate,
       ui:{
         btnError: '#btnError',
         btnConfirm: '#btnConfirm',

@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.chart'], function(Marionette, App, ChartBodyView, ChartTestView, ComponentExampleCodeView){
 
   var ChartView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new ChartBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.chart.chartHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.chart.chartJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.chart.chartHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.chart.chartJsCodeTemplate
     }));
     $view.Test.show(new ChartTestView());
   }

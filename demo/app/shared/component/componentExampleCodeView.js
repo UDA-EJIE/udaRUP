@@ -7,7 +7,7 @@ define(['marionette',
   });
 
   var ComponentExampleCodeView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentExampleCodeTemplate,
+      template: App.Templates.demo.app.shared.component.componentExampleCodeTemplate,
       ui:{
           codeTabs: "#exampleTabs",
           codeSnippets: "pre code"
@@ -32,7 +32,7 @@ define(['marionette',
       $view.JsCode.show(new ComponentCodeView({
         template: $view.options.templateJs
       }));
-    } 
+    }
   }
 
   function fncOnShow(){

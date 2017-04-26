@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.time'], function(Marionette, App){
 
   var TimeBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.time.timeBodyTemplate
+      template: App.Templates.demo.app.components.time.timeBodyTemplate
 
   });
 

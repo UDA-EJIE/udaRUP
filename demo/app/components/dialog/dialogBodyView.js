@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.dialog'], function(Marionette, App){
 
   var DialogBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.dialog.dialogBodyTemplate
+      template: App.Templates.demo.app.components.dialog.dialogBodyTemplate
   });
 
   return DialogBodyView;

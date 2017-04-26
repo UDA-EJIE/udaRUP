@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.slider'], function(Marionette, App){
 
   var SliderBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.slider.sliderBodyTemplate
+      template: App.Templates.demo.app.components.slider.sliderBodyTemplate
 
   });
 

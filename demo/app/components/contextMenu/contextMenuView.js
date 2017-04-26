@@ -8,7 +8,7 @@ define(['marionette',
         'rup/rup.contextMenu','rup/rup.tabs','rup/rup.button'], function(Marionette, App, ContextMenuBodyView, ContextMenuTestView, ComponentExampleCodeView){
 
   var ContextMenuView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -22,8 +22,8 @@ define(['marionette',
 
     $view.Main.show(new ContextMenuBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.contextMenu.contextMenuHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.contextMenu.contextMenuJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.contextMenu.contextMenuHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.contextMenu.contextMenuJsCodeTemplate
     }));
     $view.Test.show(new ContextMenuTestView());
   }

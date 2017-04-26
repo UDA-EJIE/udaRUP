@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.spinner'], function(Marionette, App){
 
   var SpinnerBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.spinner.spinnerBodyTemplate
+      template: App.Templates.demo.app.components.spinner.spinnerBodyTemplate
 
   });
 

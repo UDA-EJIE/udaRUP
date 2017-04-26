@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.upload'], function(Marionette, App){
 
   var UploadBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.upload.uploadBodyTemplate
+      template: App.Templates.demo.app.components.upload.uploadBodyTemplate
   });
 
   return UploadBodyView;

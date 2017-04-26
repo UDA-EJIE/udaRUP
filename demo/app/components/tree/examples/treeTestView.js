@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.tree', 'rup/rup.button'], function (Marionette, App) {
 
     var TreeTestView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.components.tree.examples.treeTestTemplate,
+        template: App.Templates.demo.app.components.tree.examples.treeTestTemplate,
         ui: {
             treeCodeDialog: "#treeCodeDialog"
         },

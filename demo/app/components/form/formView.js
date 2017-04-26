@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.form'], function(Marionette, App, FormBodyView, FormTestView, ComponentExampleCodeView){
 
   var FormView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new FormBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.form.formHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.form.formJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.form.formHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.form.formJsCodeTemplate
     }));
     $view.Test.show(new FormTestView());
   }

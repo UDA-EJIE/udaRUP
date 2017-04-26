@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.date'], function(Marionette, App){
 
   var DateTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.date.dateTestTemplate,
+      template: App.Templates.demo.app.components.date.dateTestTemplate,
       openDate: fncOpenDate,
       openDateMultiple: fncOpenDateMultiple,
       openDateInline: fncOpenDateInline,

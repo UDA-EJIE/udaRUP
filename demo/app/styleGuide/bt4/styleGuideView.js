@@ -3,7 +3,7 @@ define(['marionette',
         'templates', 'rup/rup.button','rup/rup.combo'], function(Marionette, App){
 
     var StyleGuideView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.styleGuide.bt4.styleGuideTemplate,
+        template: App.Templates.demo.app.styleGuide.bt4.styleGuideTemplate,
         bt4BaseUrl: 'https://v4-alpha.getbootstrap.com/components/',
         btComponents:[
           "alerts",

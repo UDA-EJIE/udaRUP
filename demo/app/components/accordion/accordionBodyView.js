@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.accordion'], function(Marionette, App){
 
   var AccordionBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.components.accordion.accordionBodyTemplate
+      template: App.Templates.demo.app.components.accordion.accordionBodyTemplate
 
   });
 

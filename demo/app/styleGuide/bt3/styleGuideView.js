@@ -3,7 +3,7 @@ define(['marionette',
         'templates', 'rup/rup.button','rup/rup.combo'], function(Marionette, App){
 
     var StyleGuideView = Marionette.LayoutView.extend({
-        template: App.Templates.demoResponsive.app.styleGuide.bt3.styleGuideTemplate,
+        template: App.Templates.demo.app.styleGuide.bt3.styleGuideTemplate,
         ui:{
           rupButtons: '.rup-button',
           rupDropdown: '#dropdownHtmlListButton',

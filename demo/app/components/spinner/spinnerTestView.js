@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.spinner','rup/rup.button'], function(Marionette, App){
 
   var SpinnerTestView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.components.spinner.spinnerTestTemplate,
+    template: App.Templates.demo.app.components.spinner.spinnerTestTemplate,
     ui:{
       spinner: "#spinner",
       btnDisable: "#disable",

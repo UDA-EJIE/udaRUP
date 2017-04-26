@@ -3,7 +3,7 @@ define(['marionette',
         'rup/rup.table'], function(Marionette, App){
 
   var TableFilterView = Marionette.LayoutView.extend({
-    template: App.Templates.demoResponsive.app.table.tableFilterTemplate,
+    template: App.Templates.demo.app.table.tableFilterTemplate,
     tableColNames: {},
     tableColModels: {},
     options_table_report: {},

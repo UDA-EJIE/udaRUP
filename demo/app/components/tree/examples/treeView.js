@@ -6,7 +6,7 @@ define(['marionette',
         'rup/rup.tree'], function(Marionette, App, TreeBodyView, TreeTestView, ComponentExampleCodeView){
 
   var TreeView = Marionette.LayoutView.extend({
-      template: App.Templates.demoResponsive.app.shared.component.componentLayoutTemplate,
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
       regions:{
         Main: "#componentMainBody",
         Example: "#exampleCode",
@@ -20,8 +20,8 @@ define(['marionette',
 
     $view.Main.show(new TreeBodyView());
     $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demoResponsive.app.components.tree.examples.treeHtmlCodeTemplate,
-      templateJs: App.Templates.demoResponsive.app.components.tree.examples.treeJsCodeTemplate
+      templateHtml: App.Templates.demo.app.components.tree.examples.treeHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.tree.examples.treeJsCodeTemplate
     }));
     $view.Test.show(new TreeTestView());
   }
