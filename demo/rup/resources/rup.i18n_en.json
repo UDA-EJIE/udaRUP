@@ -402,6 +402,7 @@
       "jerarquia": {
         "deselectChild": "en_Deseleccionar hijos",
         "deselectDescendent": "en_Deseleccionar descendientes",
+		"filtered": "en_El elemento cumple el filtro",
         "selectChild": "en_Seleccionar hijos",
         "selectDescendent": "en_Seleccionar descendientes"
       },
