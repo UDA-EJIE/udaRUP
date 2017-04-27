@@ -11,69 +11,7 @@
 		"ajaxError":"fr_Se ha producido un error al recuperar los datos del servidor",
 		"showAllItems":"fr_Mostrar todos los resultados"
 	},
-	"rup_grid_jerarquia":{
-	    "errorTitle":"fr_ERROR",
-	    "errorMessageMulti":"fr_Error al obtener los hijos",
-	    "errorMessageSelected":"fr_Error al obtener los datos de los elementos seleccionados",
-	    "icons" : {
-	    	"expanded" :"fr_Contraer el elemento",
-	    	"unexpanded" :"fr_Expandir el elemento",
-	    	"nochild":"fr_Elemento sin hijos",
-	    	"filtered" :"fr_El elemento cumple el filtro"
-	    },
-	    "menu":{
-	    	"opt_1":"fr_Marcar hijos",
-	    	"opt_2":"fr_Marcar descendientes",
-	    	"opt_3":"fr_Desmarcar hijos",
-	    	"opt_4":"fr_Desmarcar descendientes",
-	    	"opt_5":"fr_Marcar todos",
-	    	"opt_6":"fr_Desmarcar todos"
-	    },
-	    "feedbackVisualSelect":"fr_Se han seleccionado todos los elementos <strong>visibles</strong>",
-	    "feedbackVisualDeselect":"fr_Se han deseleccionado todos los elementos <strong>visibles</strong>",
-	    "feedbackTableSelect":"fr_Se han seleccionado <strong>todos los elementos</strong>",
-	    "feedbackTableDeselect":"fr_Se han deseleccionado <strong>todos los elementos</strong>"
-	},
-	"rup_maint":{
-		"detailTitle":"fr_Detalle de Registro",
-		"deletedOK":"fr_El elemento se ha borrado correctamente.",
-		"insertOK":"fr_El elemento se ha añadido correctamente.",
-		"modifyOK":"fr_El elemento se ha modificado correctamente.",
-		"insertError":"fr_Error al insertar el elemento.",
-		"validateError":"fr_Se han producido los siguientes errores:<br/>",
-		"last":"fr_Último",
-		"first":"fr_Primero",
-		"next":"fr_Siguiente",
-		"previous":"fr_Anterior",
-		"elements":"fr_Elementos",
-		"element(s)":"fr_Elemento(s)",
-		"new":"fr_Añadir",
-		"edit":"fr_Editar",
-		"clone":"fr_Clonar",
-		"delete":"fr_Eliminar",
-		"filter":"fr_Filtrar",
-		"save":"fr_Guardar",
-		"cancel":"Cancelar",
-		"export":"Exporter",
-		"searchOptions":"fr_Criterios de Búsqueda:",
-		"noGrid":"fr_No es posible crear un mantenimiento sin un grid.",
-		"numResult":"fr_Número de resultados",
-		"de":"fr_de",
-		"changes":"fr_Control de cambios",
-		"saveAndContinue":"fr_Se perderan los cambios en los datos modificados, ¿desea continuar?",
-		"checkSelectedElems":"fr_Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
-		"checkAddedSelectedElems":"fr_Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
-		"selectAll":"fr_Ha seleccionado todos los registros de la página actual.",
-		"selected":"fr_seleccionados",
-		"deleteAll":"fr_¿Está seguro que desea eliminar todos los registros seleccionados?",
-		"titleDelAll":"fr_Eliminar los registros",
-		"noReg":"fr_Seleccione un registro.",
-		"emptyChanges":"fr_No se han realizado cambios.",
-		"invalidRowId":"fr_El identificador de la fila no es válido. No se puede completar la acción",
-		"toolbarNewButtonError":"fr_Error al crear un nuevo botón. <br/>Las tres variables de todo nuevo botón deben estar informadas.",
-		"multiselectHeader":"fr_Seleccionar todos los elementos de la página"
-    },
-    "rup_breadCrumb" : {
+  "rup_breadCrumb" : {
     	"disconnect" : "fr_Desconectar",
     	"menuDisconnectTitle" : "fr_Desconexión de Usuario",
     	"menuDisconnectMessage" : "fr_¿Está seguro de que desea desconectar su sesión de usuario actual?",
@@ -192,242 +130,8 @@
 	"rup_tabs":{
 		"serverError" :"fr_Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
 	},
-	"rup_utils":{
-		"paramsError" :"fr_Alguno de los parámetros especificados es 'null' o 'undefined'"
-	},
-    "rup_grid":{
-    	"summary" :{
-    		"cabecera" :"fr_Cabecera de la tabla",
-    		"datos" :"fr_Datos de la tabla",
-    		"paginador" :"fr_Elemento de paginación de la tabla",
-    		"paginador_navegar" : "fr_Elemento de navegación de la paginación de la tabla"
-    	},
-    	"selectedElems":"fr_Se han seleccionado los ",
-    	"deSelectedElems":"fr_Se han deseleccionado los ",
-    	"ofPage":" fr_elementos de la página.",
-    	"selectAll":"fr_seleccionar los ",
-    	"deSelectAll":"fr_deseleccionar los ",
-    	"selectAllRest":"fr_restantes",
-    	"selectMsg":"fr_Se han seleccionado los {0} elementos de la página {1}.",
-    	"selectRestMsg":"fr_Seleccionar los {0} restantes",
-    	"deselectMsg":"fr_Se han deseleccionado los {0} elementos de la página {1}.",
-    	"deselectRestMsg":"fr_Deseleccionar los {0} restantes",
-    	"clearSelection":"fr_deshacer selección",
-		"pager":{
-			"selected" :"fr_seleccionados",
-			"primPag" :"fr_Primera Página",
-			"siguiente" :"fr_Siguiente",
-			"anterior" :"fr_Anterior",
-			"ultiPag" :"fr_Última Página",
-			"input" :"fr_Página actual",
-			"select" :"fr_Número de elementos por página"
-		},
-        "noRecordsFound":"No hay registros.",
-        "defaults":{
-            "recordtext":"Mostrando {0} - {1} de {2}",
-            "emptyrecords":"Sin registros que mostrar",
-            "loadtext":"Cargando...",
-            "pgtext" :"Página {0} de {1}",
-            "detailForm_pager" :"Mostrando {0} de {1}"
-        },
-        "search":{
-            "caption":"Búsqueda...",
-            "Find":"Buscar",
-            "Reset":"Limpiar",
-            "odata":[
-                "igual",
-                "no igual a",
-                "menor que",
-                "menor o igual que",
-                "mayor que",
-                "mayor o igual a",
-                "empiece por",
-                "no empiece por",
-                "está en",
-                "no está en",
-                "termina por",
-                "no termina por",
-                "contiene",
-                "no contiene"
-            ],
-            "groupOps":[
-                {
-                    "op":"AND",
-                    "text":"todo"
-                },
-                {
-                    "op":"OR",
-                    "text":"cualquier"
-                }
-            ],
-            "matchText":" match",
-            "rulesText":" reglas"
-        },
-        "edit":{
-            "addCaption":"Agregar registro",
-            "editCaption":"Modificar registro",
-            "bSubmit":"Guardar",
-            "bCancel":"Cancelar",
-            "bClose":"Cerrar",
-            "saveData":"Se han modificado los datos, ¿guardar cambios?",
-            "bYes":"Si",
-            "bNo":"No",
-            "bExit":"Cancelar",
-            "msg":{
-                "required":"Campo obligatorio",
-                "number":"Introduzca un número",
-                "minValue":"El valor debe ser mayor o igual a ",
-                "maxValue":"El valor debe ser menor o igual a ",
-                "email":"No es una dirección de correo válida",
-                "integer":"Introduzca un valor entero",
-                "date":"Introduza una fecha correcta ",
-                "url":"No es una URL válida. Prefijo requerido ('http://' or 'https://')",
-                "nodefined":" no está definido.",
-                "novalue":" valor de retorno es requerido.",
-                "customarray":"La función personalizada debe devolver un array.",
-                "customfcheck":"La función personalizada debe estar presente en el caso de validación personalizada."
-            }
-        },
-        "view":{
-            "caption":"Consultar registro",
-            "bClose":"Cerrar"
-        },
-        "del":{
-            "caption":"Eliminar",
-            "msg":"¿Desea eliminar los registros seleccionados?",
-            "bSubmit":"Eliminar",
-            "bCancel":"Cancelar"
-        },
-        "nav":{
-            "edittext":" ",
-            "edittitle":"Modificar fila seleccionada",
-            "addtext":" ",
-            "addtitle":"Agregar nueva fila",
-            "deltext":" ",
-            "deltitle":"Eliminar fila seleccionada",
-            "searchtext":" ",
-            "searchtitle":"Buscar información",
-            "refreshtext":"",
-            "refreshtitle":"Recargar datos",
-            "alertcap":"Aviso",
-            "alerttext":"Seleccione una fila",
-            "viewtext":"",
-            "viewtitle":"Ver fila seleccionada"
-        },
-        "col":{
-            "caption":"Mostrar/ocultar columnas",
-            "bSubmit":"Enviar",
-            "bCancel":"Cancelar"
-        },
-        "errors":{
-            "errcap":"Error",
-            "nourl":"No se ha especificado una URL",
-            "norecords":"No hay datos para procesar",
-            "model":"Las columnas de nombres son diferentes de las columnas de modelo",
-            "errorOnGet":"Se ha producido un error al tratar de recuperar los datos"
-        },
-        "formatter":{
-            "integer":{
-                "thousandsSeparator":".",
-                "defaultValue":"0"
-            },
-            "number":{
-                "decimalSeparator":",",
-                "thousandsSeparator":".",
-                "decimalPlaces":2,
-                "defaultValue":"0,00"
-            },
-            "currency":{
-                "decimalSeparator":",",
-                "thousandsSeparator":".",
-                "decimalPlaces":2,
-                "prefix":"",
-                "suffix":"",
-                "defaultValue":"0,00"
-            },
-            "date":{
-                "dayNames":[
-                    "Do",
-                    "Lu",
-                    "Ma",
-                    "Mi",
-                    "Ju",
-                    "Vi",
-                    "Sa",
-                    "Domingo",
-                    "Lunes",
-                    "Martes",
-                    "Miércoles",
-                    "Jueves",
-                    "Viernes",
-                    "Sábado"
-                ],
-                "monthNames":[
-                    "Ene",
-                    "Feb",
-                    "Mar",
-                    "Abr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Ago",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dic",
-                    "Enero",
-                    "Febrero",
-                    "Marzo",
-                    "Abril",
-                    "Mayo",
-                    "Junio",
-                    "Julio",
-                    "Agosto",
-                    "Septiembre",
-                    "Octubre",
-                    "Noviembre",
-                    "Diciembre"
-                ],
-                "AmPm" :[
-                    "am",
-                    "pm",
-                    "AM",
-                    "PM"
-                ],
-                "S":"return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-                "srcformat":"d/m/y H:i:s",
-                "newformat":"d/m/Y",
-                "masks":{
-                    "ISO8601Long":"Y-m-d H:i:s",
-                    "ISO8601Short":"Y-m-d",
-                    "ShortDate":"n/j/Y",
-                    "LongDate":"l, F d, Y",
-                    "FullDateTime":"l, F d, Y g:i:s A",
-                    "MonthDay":"F d",
-                    "ShortTime":"g:i A",
-                    "LongTime":"g:i:s A",
-                    "SortableDateTime":"Y-m-d\\TH:i:s",
-                    "UniversalSortableDateTime":"Y-m-d H:i:sO",
-                    "YearMonth":"F, Y",
-                    "RupDate":"d/m/Y",
-                    "RupDateTime":"d/m/Y H:i",
-                    "RupDateTimeSec":"d/m/Y H:i:s",
-                    "RupTime":"H:i",
-                    "RupTimeSec":"H:i:s"
-                },
-                "reformatAfterEdit":false
-            },
-            "baseLinkUrl":"",
-            "showAction":"",
-            "target":"",
-            "checkbox":{
-                "disabled":true
-            },
-            "idName":"id"
-        }
-    },
-    "rup_table":{
-    	"detailTitle":"fr_Detalle de Registro",
+  "rup_table":{
+    "detailTitle":"fr_Detalle de Registro",
 		"deletedOK":"fr_El elemento se ha borrado correctamente.",
 		"insertOK":"fr_El elemento se ha añadido correctamente.",
 		"modifyOK":"fr_El elemento se ha modificado correctamente.",
@@ -702,7 +406,7 @@
         		"confirm":"<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
         	},
         	"detailForm":{
-        		"elementCounter":"<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/basic-theme/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_maint_selectedElements_{0}'></div></div>",
+        		"elementCounter":"<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/basic-theme/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
         		"paginationBar":"<div style='float:right' id='pag_{0}'></div>",
         		"paginationLink":"<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
         		"separator":"<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>",
@@ -711,8 +415,8 @@
         		"errorFeedback":"<div id='{0}' style='display:none'><span></span></div>"
         	},
         	"multiselection":{
-        		"selectRemainingRecords":"<input type='button' id='rup_grid_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-        		"deselectRemainingRecords":"<input type='button' id='rup_grid_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+        		"selectRemainingRecords":"<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        		"deselectRemainingRecords":"<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
         	},
         	"search":{
         		"searchRow":"<tr class='search_row'></tr>",
@@ -789,6 +493,7 @@
     	"openUploaded":"Abrir_fr"
     },
     "rup_utils":{
+			"paramsError" :"fr_Alguno de los parámetros especificados es 'null' o 'undefined'",
     	"relToAbsUrlParamFormatError":"Parametro del metodo &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String._fr",
     	"relToAbsUrlParamError":"La url => <b style='color:red'>&#34",
     	"relToAbsUrlParamErrorEnd":"&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta._fr"

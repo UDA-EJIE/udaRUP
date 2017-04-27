@@ -93,7 +93,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-info\">\r\n  <i class=\"fa fa-list-alt\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
-    + "\"></i>\r\n  <span id=\"rup_maint_selectedElements_table\" class=\"rup-table-detail-currentElement\" >\r\n    "
+    + "\"></i>\r\n  <span id=\"rup_table_selectedElements_table\" class=\"rup-table-detail-currentElement\" >\r\n    "
     + alias4(((helper = (helper = helpers.numResult || (depth0 != null ? depth0.numResult : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"numResult","hash":{},"data":data}) : helper)))
     + "\r\n  </span>\r\n</div>\r\n<div id=\"pag_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
