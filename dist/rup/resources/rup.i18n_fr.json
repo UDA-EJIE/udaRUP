@@ -16,8 +16,8 @@
 	    "errorMessageMulti":"fr_Error al obtener los hijos",
 	    "errorMessageSelected":"fr_Error al obtener los datos de los elementos seleccionados",
 	    "icons" : {
-	    	"expanded" :"fr_Contraer el elemento", 
-	    	"unexpanded" :"fr_Expandir el elemento", 
+	    	"expanded" :"fr_Contraer el elemento",
+	    	"unexpanded" :"fr_Expandir el elemento",
 	    	"nochild":"fr_Elemento sin hijos",
 	    	"filtered" :"fr_El elemento cumple el filtro"
 	    },
@@ -102,7 +102,7 @@
     	"changeLanguageLiteral_eu":"eu_Cambia el idioma de la página a ",
     	"changeLanguageLiteral_en":"en_Cambia el idioma de la página a ",
     	"changeLanguageLiteral_fr":"fr_Cambia el idioma de la página a "
-    }, 
+    },
     "rup_global":{
         "cerrar":"fr_cerrar",
         "rupCheckStyleError":"fr_NO SE CUMPLEN LAS NORMAS DE LA GUIA DE ESTILOS DE RUP. DEBE EXISTIR UNA ACCIÓN SECUNDARIA.",
@@ -121,12 +121,12 @@
 		"developerError":"fr_Error de desarrollo",
 		"metodError":"fr_Error en el método:",
 		"selectorError":"fr_El selector especificado es incorrecto (no devuelve nada)",
-		"parametro":"fr_Parametro: "  
+		"parametro":"fr_Parametro: "
     },
     "rup_menu":{
     	"developerError":"fr_Error de desarrollo",
     	"structuralError":"fr_No se ha especificado correctamente el área de visualizacion de pagina.<br> Al incluirse un menú vertical o un menú mixto, dicho área (&#60;div&#62;) debe ir identificada como contentMV (id=&#34;contentMV&#34;)",
-    	"displayMenuError":"fr_El valor del atributo &#34display&#34 es incorrecto. Por favor introduzca uno de los siguientes valores:&#34vertical&#34 o &#34horizontal&#34. " 
+    	"displayMenuError":"fr_El valor del atributo &#34display&#34 es incorrecto. Por favor introduzca uno de los siguientes valores:&#34vertical&#34 o &#34horizontal&#34. "
     },
     "rup_message":{
         "aceptar":"fr_Aceptar",
@@ -134,14 +134,14 @@
         "error":"fr_error",
         "confirmacion":"fr_Confirmación",
         "correct":"fr_Correcto",
-        "alert":"fr_Alerta" 
+        "alert":"fr_Alerta"
     },
     "rup_blockUI":{
-        "cargando":"fr_Procesando, espere por favor" 
+        "cargando":"fr_Procesando, espere por favor"
     },
     "rup_dialog":{
         "errorLoadingData":"fr_<b>Error recuperando los datos solicitados para crear el diálogo.</b>",
-        "noURL":"fr_No puede crearse un diálogo de tipo ajax sin URL definida." 
+        "noURL":"fr_No puede crearse un diálogo de tipo ajax sin URL definida."
     },
 	"rup_combo":{
 		"blankNotDefined":"fr_[Falta literal]",
@@ -192,10 +192,7 @@
 	"rup_tabs":{
 		"serverError" :"fr_Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
 	},
-	"rup_utils":{
-		"paramsError" :"fr_Alguno de los parámetros especificados es 'null' o 'undefined'"
-	},
-    "rup_grid":{
+  "rup_grid":{
     	"summary" :{
     		"cabecera" :"fr_Cabecera de la tabla",
     		"datos" :"fr_Datos de la tabla",
@@ -228,7 +225,7 @@
             "emptyrecords":"Sin registros que mostrar",
             "loadtext":"Cargando...",
             "pgtext" :"Página {0} de {1}",
-            "detailForm_pager" :"Mostrando {0} de {1}" 
+            "detailForm_pager" :"Mostrando {0} de {1}"
         },
         "search":{
             "caption":"Búsqueda...",
@@ -248,20 +245,20 @@
                 "termina por",
                 "no termina por",
                 "contiene",
-                "no contiene" 
+                "no contiene"
             ],
             "groupOps":[
                 {
                     "op":"AND",
-                    "text":"todo" 
+                    "text":"todo"
                 },
                 {
                     "op":"OR",
-                    "text":"cualquier" 
-                } 
+                    "text":"cualquier"
+                }
             ],
             "matchText":" match",
-            "rulesText":" reglas" 
+            "rulesText":" reglas"
         },
         "edit":{
             "addCaption":"Agregar registro",
@@ -285,18 +282,18 @@
                 "nodefined":" no está definido.",
                 "novalue":" valor de retorno es requerido.",
                 "customarray":"La función personalizada debe devolver un array.",
-                "customfcheck":"La función personalizada debe estar presente en el caso de validación personalizada." 
-            } 
+                "customfcheck":"La función personalizada debe estar presente en el caso de validación personalizada."
+            }
         },
         "view":{
             "caption":"Consultar registro",
-            "bClose":"Cerrar" 
+            "bClose":"Cerrar"
         },
         "del":{
             "caption":"Eliminar",
             "msg":"¿Desea eliminar los registros seleccionados?",
             "bSubmit":"Eliminar",
-            "bCancel":"Cancelar" 
+            "bCancel":"Cancelar"
         },
         "nav":{
             "edittext":" ",
@@ -312,12 +309,12 @@
             "alertcap":"Aviso",
             "alerttext":"Seleccione una fila",
             "viewtext":"",
-            "viewtitle":"Ver fila seleccionada" 
+            "viewtitle":"Ver fila seleccionada"
         },
         "col":{
             "caption":"Mostrar/ocultar columnas",
             "bSubmit":"Enviar",
-            "bCancel":"Cancelar" 
+            "bCancel":"Cancelar"
         },
         "errors":{
             "errcap":"Error",
@@ -329,13 +326,13 @@
         "formatter":{
             "integer":{
                 "thousandsSeparator":".",
-                "defaultValue":"0" 
+                "defaultValue":"0"
             },
             "number":{
                 "decimalSeparator":",",
                 "thousandsSeparator":".",
                 "decimalPlaces":2,
-                "defaultValue":"0,00" 
+                "defaultValue":"0,00"
             },
             "currency":{
                 "decimalSeparator":",",
@@ -343,7 +340,7 @@
                 "decimalPlaces":2,
                 "prefix":"",
                 "suffix":"",
-                "defaultValue":"0,00" 
+                "defaultValue":"0,00"
             },
             "date":{
                 "dayNames":[
@@ -360,7 +357,7 @@
                     "Miércoles",
                     "Jueves",
                     "Viernes",
-                    "Sábado" 
+                    "Sábado"
                 ],
                 "monthNames":[
                     "Ene",
@@ -386,13 +383,13 @@
                     "Septiembre",
                     "Octubre",
                     "Noviembre",
-                    "Diciembre" 
+                    "Diciembre"
                 ],
                 "AmPm" :[
                     "am",
                     "pm",
                     "AM",
-                    "PM" 
+                    "PM"
                 ],
                 "S":"return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
                 "srcformat":"d/m/y H:i:s",
@@ -415,7 +412,7 @@
                     "RupTime":"H:i",
                     "RupTimeSec":"H:i:s"
                 },
-                "reformatAfterEdit":false 
+                "reformatAfterEdit":false
             },
             "baseLinkUrl":"",
             "showAction":"",
@@ -423,11 +420,11 @@
             "checkbox":{
                 "disabled":true
             },
-            "idName":"id" 
-        } 
+            "idName":"id"
+        }
     },
     "rup_table":{
-    	"detailTitle":"fr_Detalle de Registro",
+    "detailTitle":"fr_Detalle de Registro",
 		"deletedOK":"fr_El elemento se ha borrado correctamente.",
 		"insertOK":"fr_El elemento se ha añadido correctamente.",
 		"modifyOK":"fr_El elemento se ha modificado correctamente.",
@@ -453,7 +450,6 @@
 		"saveAndContinue":"fr_Se perderan los cambios en los datos modificados, ¿desea continuar?",
 		"checkSelectedElems":"fr_Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
 		"checkAddedSelectedElems":"fr_Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
-		"selectAll":"fr_Ha seleccionado todos los registros de la página actual.",
 		"selected":"fr_seleccionados",
 		"deleteAll":"fr_¿Está seguro que desea eliminar todos los registros seleccionados?",
 		"titleDelAll":"fr_Eliminar los registros",
@@ -494,7 +490,7 @@
             "emptyrecords":"Sin registros que mostrar",
             "loadtext":"Cargando...",
             "pgtext" :"Página {0} de {1}",
-            "detailForm_pager" :"Mostrando {0} de {1}" 
+            "detailForm_pager" :"Mostrando {0} de {1}"
         },
         "search":{
             "caption":"Búsqueda...",
@@ -514,20 +510,20 @@
                 "termina por",
                 "no termina por",
                 "contiene",
-                "no contiene" 
+                "no contiene"
             ],
             "groupOps":[
                 {
                     "op":"AND",
-                    "text":"todo" 
+                    "text":"todo"
                 },
                 {
                     "op":"OR",
-                    "text":"cualquier" 
-                } 
+                    "text":"cualquier"
+                }
             ],
             "matchText":" match",
-            "rulesText":" reglas" 
+            "rulesText":" reglas"
         },
         "edit":{
             "addCaption":"Agregar registro",
@@ -551,18 +547,18 @@
                 "nodefined":" no está definido.",
                 "novalue":" valor de retorno es requerido.",
                 "customarray":"La función personalizada debe devolver un array.",
-                "customfcheck":"La función personalizada debe estar presente en el caso de validación personalizada." 
-            } 
+                "customfcheck":"La función personalizada debe estar presente en el caso de validación personalizada."
+            }
         },
         "view":{
             "caption":"Consultar registro",
-            "bClose":"Cerrar" 
+            "bClose":"Cerrar"
         },
         "del":{
             "caption":"Eliminar",
             "msg":"¿Desea eliminar los registros seleccionados?",
             "bSubmit":"Eliminar",
-            "bCancel":"Cancelar" 
+            "bCancel":"Cancelar"
         },
         "nav":{
             "edittext":" ",
@@ -578,12 +574,12 @@
             "alertcap":"Aviso",
             "alerttext":"Seleccione una fila",
             "viewtext":"",
-            "viewtitle":"Ver fila seleccionada" 
+            "viewtitle":"Ver fila seleccionada"
         },
         "col":{
             "caption":"Mostrar/ocultar columnas",
             "bSubmit":"Enviar",
-            "bCancel":"Cancelar" 
+            "bCancel":"Cancelar"
         },
         "errors":{
             "errcap":"Error",
@@ -595,13 +591,13 @@
         "formatter":{
             "integer":{
                 "thousandsSeparator":".",
-                "defaultValue":"0" 
+                "defaultValue":"0"
             },
             "number":{
                 "decimalSeparator":",",
                 "thousandsSeparator":".",
                 "decimalPlaces":"2",
-                "defaultValue":"0,00" 
+                "defaultValue":"0,00"
             },
             "currency":{
                 "decimalSeparator":",",
@@ -609,7 +605,7 @@
                 "decimalPlaces":"2",
                 "prefix":"",
                 "suffix":"",
-                "defaultValue":"0,00" 
+                "defaultValue":"0,00"
             },
             "date":{
                 "dayNames":[
@@ -626,7 +622,7 @@
                     "Miércoles",
                     "Jueves",
                     "Viernes",
-                    "Sábado" 
+                    "Sábado"
                 ],
                 "monthNames":[
                     "Ene",
@@ -652,13 +648,13 @@
                     "Septiembre",
                     "Octubre",
                     "Noviembre",
-                    "Diciembre" 
+                    "Diciembre"
                 ],
                 "AmPm" :[
                     "am",
                     "pm",
                     "AM",
-                    "PM" 
+                    "PM"
                 ],
                 "S":"return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
                 "srcformat":"d/m/y H:i:s",
@@ -681,7 +677,7 @@
                     "RupTime":"H:i",
                     "RupTimeSec":"H:i:s"
                 },
-                "reformatAfterEdit":false 
+                "reformatAfterEdit":false
             },
             "baseLinkUrl":"",
             "showAction":"",
@@ -689,13 +685,13 @@
             "checkbox":{
                 "disabled":true
             },
-            "idName":"id" 
+            "idName":"id"
         },
         "templates":{
         	"filter":{
         		"toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
 				"toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>",
-				"filterSummary": "<span id='{0}'></span>", 
+				"filterSummary": "<span id='{0}'></span>",
 				"toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>"
         	},
         	"message":{
@@ -713,7 +709,7 @@
         	"multiselection":{
         		"selectRemainingRecords":"<input type='button' id='rup_grid_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
         		"deselectRemainingRecords":"<input type='button' id='rup_grid_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-        	}, 
+        	},
         	"search":{
         		"searchRow":"<tr class='search_row'></tr>",
         		"searchRowHeader":"<th class='search_row_header' colspan='{0}'></th>",
@@ -748,9 +744,9 @@
         		"tooLong":"fr_Nombre demasiado largo",
         		 "errorNoexiste":"fr_Nombre de filtro inexistente",
         		 "errorValidate":"fr_Formulario sin validar"
-        		
-        		
-        		
+
+
+
         	},
         	"search":{
         		"searchCriteria":"fr_Criterios de búsqueda",
@@ -789,6 +785,7 @@
     	"openUploaded":"Abrir_fr"
     },
     "rup_utils":{
+			"paramsError" :"fr_Alguno de los parámetros especificados es 'null' o 'undefined'",
     	"relToAbsUrlParamFormatError":"Parametro del metodo &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String._fr",
     	"relToAbsUrlParamError":"La url => <b style='color:red'>&#34",
     	"relToAbsUrlParamErrorEnd":"&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta._fr"

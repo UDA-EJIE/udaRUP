@@ -192,9 +192,6 @@
 	"rup_tabs": {
 		"serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
 	},
-	"rup_utils": {
-		"paramsError": "Aukeratutako parametroren bat 'null' edo 'undefined' da"
-	},
 	"rup_grid": {
 		"summary": {
 			"cabecera": "Taularen goiburua",
@@ -450,7 +447,6 @@
 		"saveAndContinue": "Datuen aldaketak galduko dira, jarraitu nahi duzu?",
 		"checkSelectedElems": "Hautatutako elementuak galduko dira, jarraitu nahi duzu?",
 		"checkAddedSelectedElems": "Erantsitako elementuak galduko dira, jarraitu nahi duzu?",
-		"selectAll": "Erregistro guztiak aukeratu dituzu.",
 		"selected": "hautatuta",
 		"deleteAll": "Hautatutako erregistroak ezabatu nahi al dituzu?",
 		"titleDelAll": "Erregistroak ezabatu",
@@ -785,6 +781,7 @@
 		"openUploaded": "Ireki"
 	},
 	"rup_utils": {
+		"paramsError": "Aukeratutako parametroren bat 'null' edo 'undefined' da",
 		"relToAbsUrlParamFormatError": "&#34$.rup_utils.relToAbsUrl&#34; funtzioaren parametroa ez da zuzena.<br/>Url-a string-mota izan behar da.",
 		"relToAbsUrlParamError": "<b style='color:red'>&#34",
 		"relToAbsUrlParamErrorEnd": "&#34</b><br/> &#34$.rup_utils.relToAbsUrl&#34; funtzioaren url-a ez da zuzena"
