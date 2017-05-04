@@ -95,3 +95,15 @@ button.ui-button-icon-only.rup-dropdown-button{
 	border-top-right-radius: 0px;
 
 }
+
+.rup-button .ui-icon.fa{
+  background-image: none;
+  text-indent: inherit;
+  height: 15px;
+  padding-top: 2px;
+}
+
+.rup-button:hover .ui-icon.fa{
+  background-image: none;
+  text-indent: inherit;
+}
