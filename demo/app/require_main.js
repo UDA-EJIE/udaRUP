@@ -43,6 +43,7 @@ requirejs.config({
     "qtip2": "../../node_modules/qtip2/dist/jquery.qtip",
     "jquery.fileDownload": "../../src/core/utils/jquery.fileDownload",
     "tether": "../../node_modules/tether/dist/js/tether",
+    "rcarousel": "../../src/core/jquery.ui.rcarousel",
 
     //"highlight": "../../node_modules/highlight.js/lib/highlight",
     "highlight": "../js/highlight.pack",

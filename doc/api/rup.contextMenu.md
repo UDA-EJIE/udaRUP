@@ -43,7 +43,7 @@ Propiedades de configuración del componente.
 | callback | <code>[callback](#jQuery.rup_contextMenu..callback)</code> |  | Esta propiedad permite especificar una función de callback por defecto para aquellos ítems que no hayan especificado una función propia. |
 | build | <code>[build](#jQuery.rup_contextMenu..build)</code> |  | Función de callback que devuelve el objeto de configuración del componente. En caso de especificar una función para la propiedad build la creación del menú no se realiza inicialmente sino que se demora hasta que se ejecuta el evento que lo muestra. |
 | showCursor | <code>boolean</code> | <code>true</code> | Determina si se va a modificar el estilo del puntero del ratón al posicionarse sobre el elemento que dispone de menú contextual. El tipo de puntero se determina mediante la clase CSS context-menu-cursor. |
-| msieCursorCss | <code>string</code> | <code>&quot;\&quot;url(\&quot;+$.rup.RUP+\&quot;/basic-theme/cursors/context-menu.cur),default\&quot;&quot;</code> | Esta propiedad se emplea para poder modificar la apariencia del cursor en Internet Explorer al posicionarse sobre un elemento que dispone de un menú contextual. Esto es debido a que el modo en el que hay que realizar la asignación del nuevo cursor no se puede realizar mediante un class |
+| msieCursorCss | <code>string</code> | <code>&quot;\&quot;url(\&quot;+$.rup.RUP+\&quot;/css/cursors/context-menu.cur),default\&quot;&quot;</code> | Esta propiedad se emplea para poder modificar la apariencia del cursor en Internet Explorer al posicionarse sobre un elemento que dispone de un menú contextual. Esto es debido a que el modo en el que hay que realizar la asignación del nuevo cursor no se puede realizar mediante un class |
 
 <a name="module_rup_contextMenu..show"></a>
 

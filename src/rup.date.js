@@ -34,7 +34,7 @@
  * $("#fecha_multi").rup_date({
  *	multiSelect: 3,
  *	labelMaskId : "fecha_multi-mask",
- *	buttonImage : "/rup/basic-theme/images/exclamation.png"
+ *	buttonImage : "/rup/css/images/exclamation.png"
  * });
  *
  * // Ejemplo de selectores de fecha desde y hasta

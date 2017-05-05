@@ -35,7 +35,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 ###	4.1 Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.dialog-x.y.z.js**
-Ruta theme: rup/basic-theme/
+Ruta theme: rup/css/
 Fichero CSS del theme: **theme.rup.message-x.y.z.css**
 
 **NOTA: Como se observa, los estilos se basan en el fichero de estilos del componente message.**
@@ -64,7 +64,7 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 Los ficheros minimizados de RUP son los siguientes:
 +	**rup/scripts/min/rup.min-x.y.z.js**
-+	**rup/basic-theme/rup.min-x.y.z.css**
++	**rup/css/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 

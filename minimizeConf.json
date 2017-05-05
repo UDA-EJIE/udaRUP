@@ -4,8 +4,7 @@
     "./node_modules/font-awesome/css/font-awesome.css",
     "./node_modules/gridstack/dist/gridstack.css",
     "./node_modules/gridstack/dist/gridstack-extra.css",
-    "./node_modules/blueimp-file-upload/css/jquery.fileupload.css",
-    "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"
+    "./node_modules/blueimp-file-upload/css/jquery.fileupload.css"
   ],
   "rupCssBuildFiles":[
     "./build/css/bootstrap.css",

@@ -600,7 +600,7 @@
     showErrorsInFeedback: true,
     showFieldErrorAsDefault: true,
     showFieldErrorsInFeedback: true,
-    errorImage: $.rup.STATICS + "/rup/basic-theme/images/exclamation.png"
+    errorImage: $.rup.STATICS + "/rup/css/images/exclamation.png"
   };
 
 

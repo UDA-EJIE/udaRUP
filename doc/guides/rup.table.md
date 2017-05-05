@@ -32,7 +32,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 - Ruta Javascript: rup/scripts/
 - Fichero de plugin: rup.table-x.y.z.js
-- Ruta theme: rup/basic-theme/
+- Ruta theme: rup/css/
 - Fichero de estilos: +theme.table-x.y.z.css+ (modificable por el desarrollador) y ui.jqgrid.css (fichero base de los estilos de la tabla).
 - Ruta fichero de recursos: rup/resources/rup.i18n_idioma.json
 
@@ -61,7 +61,7 @@ A partir de la versión v2.4.0 se distribuye la versión minimizada de los compo
 
 Los ficheros minimizados de RUP son los siguientes:
 * **rup/scripts/min/rup.min-x.y.z.js**
-* **rup/basic-theme/rup.min-x.y.z.css**
+* **rup/css/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
