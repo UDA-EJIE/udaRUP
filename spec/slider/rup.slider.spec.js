@@ -10,7 +10,7 @@
   }
 }(function($, Handlebars) {
 
-  describe("RUP Progressbar Tests", function() {
+  describe("RUP Slider Tests", function() {
 
     describe("Creación de un Slider.  ", function() {
 
@@ -18,7 +18,7 @@
 
       beforeEach(function() {
         //html
-        source = '<div id="slider" class="rup-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">';
+        source = '<div id="slider">';
 
 
         $("body").append("<div id=\"content\"></div>")

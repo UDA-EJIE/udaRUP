@@ -18,7 +18,7 @@
 
       beforeEach(function() {
         //html
-        source = '<div id="progressbar" class="rup-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content">';
+        source = '<div id="progressbar" >';
 
 
         $("body").append("<div id=\"content\"></div>")
@@ -100,7 +100,7 @@
           describe('$("#progressbar").rup_progressbar("value",70);', function() {
 
             it("Debería asignar el valor elegido(70) al rup_progressbar", function() {
-            $("#progressbar").rup_progressbar("value",70)
+              $("#progressbar").rup_progressbar("value", 70)
               expect($("#progressbar").rup_progressbar("value")).toBe(70);
             });
 
@@ -162,7 +162,8 @@
 
           it("Debería desruir el progressbar", function() {
             $("#progressbar").rup_progressbar("destroy");
-          expect($('#progressbar')).not.toHaveClass("rup-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content");
+            expect($('#progressbar')).not.toHaveClass("rup-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content");
+
           });
 
         });
