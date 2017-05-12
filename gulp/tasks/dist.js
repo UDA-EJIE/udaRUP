@@ -2,10 +2,10 @@ var gulp = require('gulp');
 var fs = require('fs');
 
 var config = require('../config.js').config;
-var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json','utf8'));
 
 
-gulp.task('dist:copy', function () {
+gulp.task('dist:copy', function (callback) {
 
     // Generamos la carpeta de distribuibles
 
@@ -64,6 +64,7 @@ gulp.task('dist:copy', function () {
     gulp.src(["./assets/js/externals/**/*.*"])
         .pipe(gulp.dest('dist/js/externals'));
 
+    callback();
 });
 
 gulp.task('dist:x21a', function () {
