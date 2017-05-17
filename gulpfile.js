@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var runSequence = require('run-sequence');
 
 var requireDir  = require('require-dir');
 // Require all tasks.
@@ -10,10 +11,16 @@ gulp.task('default', function () {
     // place code for your default task here
 });
 
-gulp.task('dist', [
-  'dist:build',
-  'dist:copy'
-]);
+gulp.task('dist', function(callback){
+  runSequence('dist:build', 'dist:copy', callback);
+});
+
+
+// gulp.task('dist', [
+//   'dist:build',
+//   'dist:copy',
+//   'dist:portal'
+// ]);
 
 gulp.task('dist:build', ['build:uglify']);
 

@@ -5,7 +5,7 @@ var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 
-var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json','utf8'));
 
 gulp.task('uglify:css:rup-base', function () {
     console.log("Generando rup.classic.min.css...");
