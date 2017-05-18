@@ -565,5 +565,8 @@
     "next": "Hurrengoa",
     "prev": "Aurrekoa",
     "summary": "Laburpena"
-  }
+  },
+    "rup_button":{
+     "new": "Nuevo_eu"    
+    }
 }
