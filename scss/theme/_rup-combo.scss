@@ -20,8 +20,37 @@ select, select.form-control{
 
 }
 
+.ui-multiselect{
+  @extend select;
+  padding: 3px 4px;
+
+  &.ui-state-active{
+    span{
+
+      color: $rup-text-color;
+      &.ui-icon{
+          background-image: url("images/ui-icons_555555_256x240.png");
+      }
+    }
+  }
+
+  span.ui-icon{
+    margin-top: -0.3rem;
+  }
+}
+
 .ui-selectmenu-dropdown{
   @extend select;
+
+  &.ui-state-active{
+    span{
+
+      color: $rup-text-color;
+      &.ui-icon{
+          background-image: url("images/ui-icons_555555_256x240.png");
+      }
+    }
+  }
 
   &:hover{
     text-decoration: none;

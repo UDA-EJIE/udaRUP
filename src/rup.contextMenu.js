@@ -145,6 +145,10 @@
         //TODO:ejemplo de title en el contextMenu
         //Procesar items para i18n
 
+        if ($.rup_utils.aplicatioInPortal()) {
+          settings.appendTo=".r01gContainer";
+        }
+
         //Lanzar el plugin subyaciente
         jQuery.contextMenu(settings);
 

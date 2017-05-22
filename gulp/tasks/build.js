@@ -12,7 +12,8 @@ gulp.task('build:dist', function(callback){
 gulp.task('build:css', [
   'sass:rup-base',
   'sass:rup-theme',
-  'sass:rup-jqueryui-theme'
+  'sass:rup-jqueryui-theme',
+  'sass:app'
   // 'minimize:css:rup-classic',
   // 'minimize:css:rup'
 ]);
