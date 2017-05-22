@@ -562,5 +562,8 @@
     "next": "Siguiente_en",
     "prev": "Anterior_en",
     "summary": "Resumen_en"
-  }
+  },    
+    "rup_button":{
+     "new": "New"    
+    }
 }

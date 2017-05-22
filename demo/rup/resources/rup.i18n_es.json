@@ -520,5 +520,8 @@
     "next": "Siguiente",
     "prev": "Anterior",
     "summary": "Resumen"
-  }
+  },
+    "rup_button":{
+     "new": "Nuevo"    
+    }
 }

@@ -11,16 +11,16 @@
         </div>
         <div class="col-xs-6 col-md-4 fileupload-buttonbar">
               <a href="{{url}}">
-                <button type="button" class="btn btn-primary download">
+                <span  class="btn btn-primary download">
                     <i class="fa fa-download" aria-hidden="true"></i>
-                    <span>Abrir</span>
-                </button>
+                    <span>{{i18n "rup_upload.openUploaded"}}</span>
+                </span>
               </a>
 
-                <button type="button" class="btn btn-secondary delete" data-type="{{delete_type}}" data-url="{{delete_url}}">
+                <span  class="btn btn-secondary delete" data-type="{{delete_type}}" data-url="{{delete_url}}">
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    <span>Eliminar</span>
-                </button>
+                    <span>{{i18n "rup_upload.deleteUploaded"}}</span>
+                </span>
         </div>
       </div>
     </li>

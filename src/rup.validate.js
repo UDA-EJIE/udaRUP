@@ -82,6 +82,9 @@
    * VALIDACIONES
    */
   //sobreescritura
+  //
+
+  //
   jQuery.validator.addMethod("dni", function (value, element) {
     return this.optional(element) || euroNif(value);
   });
@@ -477,6 +480,8 @@
 
       defaultPresetSettings = $.extend(true, {}, presetSettings.defaultPresetSettings, {
         showFieldErrorAsDefault: {
+          highlight: self[0]._ADAPTER.highlight,
+          unhighlight: self[0]._ADAPTER.unhighlight,
           errorElement: self[0]._ADAPTER.errorElement,
           errorPlacement: self[0]._ADAPTER.errorPlacement
         }
@@ -496,6 +501,9 @@
       /*
        * Configuracion del componente de validaciones.
        */
+
+
+
 
       // En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
       if (settings.showFieldErrorAsDefault) {
@@ -562,13 +570,13 @@
           }
         }
 
-        labelElem = fieldTmp.parent().find("label[for='" + labelForName + "']");
+        labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forNameElement(fieldTmp, labelForName);
 
         if (labelElem.length > 0) {
           return labelElem.text();
         }
 
-        labelElem = fieldTmp.parent().find("label[for='" + labelForId + "']");
+        labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forIdElement(fieldTmp, labelForId);
 
         if (labelElem.length > 0) {
           return labelElem.text();

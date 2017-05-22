@@ -562,5 +562,8 @@
     "next": "Siguiente_fr",
     "prev": "Anterior_fr",
     "summary": "Resumen_fr"
-  }
+  },
+    "rup_button":{
+        "new": "Nuevo_fr"    
+    }
 }
