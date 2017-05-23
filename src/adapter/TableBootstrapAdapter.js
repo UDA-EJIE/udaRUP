@@ -195,5 +195,15 @@
     return $template;
   };
 
+  TableBootstrapAdapter.prototype.multifilter = {
+    dropdown:{
+      dropdownIcon : "ui-icon-gear",
+      dropdownDialogConfig : {
+        title : '<i class="fa fa-filter" aria-hidden="true"></i>'
+      }
+    }
+
+  };
+
   return TableBootstrapAdapter;
 }));
