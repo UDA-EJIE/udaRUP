@@ -110,6 +110,17 @@
   //Se configura el arranque de UDA para que alberge el nuevo patrón
   $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_dialog", rup_dialog));
 
+
+  $.widget("ui.dialog", $.ui.dialog, {
+    _title: function( title ) {
+  		if ( this.options.title ) {
+  			title.html( this.options.title );
+  		} else {
+  			title.html( "&#160;" );
+  		}
+  	}
+  });
+
   //********************************
   // DEFINICIÓN DE MÉTODOS PÚBLICOS
   //********************************
