@@ -396,13 +396,13 @@
             var $overlayEl;
 
             if ($.rup_utils.aplicatioInPortal()) {
-                if ($self.data("dialog").overlay !== null) {
-                    $overlayEl = $self.data("dialog").overlay.$el;
+                if ($self.data("uiDialog").overlay !== null) {
+                    $overlayEl = $self.data("uiDialog").overlay;
                     $overlayEl.css("height", docHeight).css("width", docWidth);
-                    $(".r01gContainer").append($self.data("dialog").uiDialog).append($overlayEl);
+                    $(".r01gContainer").append($overlayEl).append($self.data("uiDialog").uiDialog);
                 }
                 if (settings.position === undefined || settings.position === null) {
-                    $self.data("dialog").uiDialog.css("position", "absolute").css("top", (docHeight / 2) - ($(".ui-dialog:visible").height() / 2));
+                    $self.data("uiDialog").uiDialog.css("position", "absolute").css("top", (docHeight / 2) - ($(".ui-dialog:visible").height() / 2));
                 }
             }
         },
@@ -413,7 +413,7 @@
          * @name _rupProperties
          * @param {Object} properties - Propiedades de configuración sobre las que se va a realizar la inicialización-
          * @param {string} title - Titulo a mostrar en el mensaje.
-         * @function  
+         * @function
          * @private
          */
         _rupProperties: function (properties, title) {

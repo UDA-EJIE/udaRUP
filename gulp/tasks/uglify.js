@@ -34,7 +34,9 @@ gulp.task('uglify:css:rup-theme', function () {
 gulp.task('uglify:js:rup', function () {
     console.log("Generando rup.min.js...");
     return gulp.src('./build/js/rup.js')
-        .pipe(uglify())
+        .pipe(uglify().on('error', function(e){
+            console.log(e);
+         }))
         .pipe(rename({
             suffix: '.min'
         }))

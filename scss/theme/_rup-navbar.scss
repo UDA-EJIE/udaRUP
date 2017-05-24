@@ -40,6 +40,10 @@
     margin-bottom: 0;
     @extend .shadow-2;
 
+    .nav {
+      padding-bottom: 0;
+    }
+
     .navbar-brand {
         background: $rup-color-navbar-brand-bg;
         height: $rup-navbar-height;
@@ -66,6 +70,8 @@
 
     .navbar-nav {
         &.rup-nav-tools {
+
+
             .rup-nav-tool-icon {
                 font-size: $rup-navbar-icon-font-size;
 
@@ -171,6 +177,8 @@
 .navbar-nav {
     &.rup-nav-tools {
         float: right;
+        margin-top: 0;
+        
         .rup-nav-tool-icon {
             font-size: $rup-navbar-icon-font-size;
 

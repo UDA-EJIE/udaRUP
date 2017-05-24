@@ -1,0 +1,35 @@
+@import "theme/mixins/gradients";
+@import "theme/mixins/border-radius";
+@import "theme/mixins/box-shadow";
+@import "theme/mixins/forms";
+
+@import "theme/rup-variables";
+
+
+
+html, .r01gContainer{
+  font-size: $rup-font-size-root;
+  font-family: $rup-font-family;
+}
+
+/* body, .r01gContainer { */
+body, .r01gContainer{
+  font-family: $rup-font-family;
+  font-size: $rup-font-size-body;
+  margin: 0;
+  color: $rup-text-color;
+}
+
+
+/* html, .r01gContainer { */
+.r01gContainer{
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}

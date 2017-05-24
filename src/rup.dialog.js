@@ -110,6 +110,17 @@
   //Se configura el arranque de UDA para que alberge el nuevo patrón
   $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_dialog", rup_dialog));
 
+
+  $.widget("ui.dialog", $.ui.dialog, {
+    _title: function( title ) {
+  		if ( this.options.title ) {
+  			title.html( this.options.title );
+  		} else {
+  			title.html( "&#160;" );
+  		}
+  	}
+  });
+
   //********************************
   // DEFINICIÓN DE MÉTODOS PÚBLICOS
   //********************************
@@ -141,14 +152,14 @@
 
       //Ajuste para portales
       if ($.rup_utils.aplicatioInPortal()) {
-        if ($(this).data("dialog").overlay !== null) {
-          $overlayEl = $(this).data("dialog").overlay.$el;
+        if ($(this).data("uiDialog").overlay !== null) {
+          $overlayEl = $(this).data("uiDialog").overlay.$el;
           $(".r01gContainer").append($overlayEl);
           $overlayEl.css("height", docHeight).css("width", docWidth);
 
         }
         if (settings.position === undefined || settings.position === null) {
-          $(this).data("dialog").uiDialog.css("position", "absolute").css("top", (docHeight / 2) - ($('div[aria-describedby=' + this[0].id + ']').height() / 2));
+          $(this).data("uiDialog").uiDialog.css("position", "absolute").css("top", (docHeight / 2) - ($('div[aria-describedby=' + this[0].id + ']').height() / 2));
         }
       }
 

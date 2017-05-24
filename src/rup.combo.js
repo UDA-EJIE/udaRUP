@@ -146,6 +146,23 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
             }
         },
         /**
+         * Método que lanza el evento change del componente.
+         *
+         * @function change
+         * @example
+         * $("#idCombo").rup_combo("change");
+         */
+        change: function () {
+            //Tipo de combo
+            if (this.length === 0 || !$(this).data("settings").multiselect) {
+                //Simple > selectmenu
+                $(this).selectmenu("change");
+            } else {
+                //Multiple > multiselect
+                $(this).triggerHandler("change");
+            }
+        },
+        /**
          * Realiza una reinicizalización del estado del componente.
          *
          * @function  reset
@@ -574,7 +591,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
                         }
 
                         //Lanzar cambio para que se recarguen hijos
-                        $("#" + settings.id).selectmenu("change");
+                        $("#" + settings.id).rup_combo("change");
 
                         setRupValue = $.data($("#" + settings.id)[0], "setRupValue");
                         if (setRupValue) {
@@ -983,7 +1000,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
             if ($.rup_utils.aplicatioInPortal()) {
                 if (!settings.multiselect) {
                     //Simple > selectmenu
-                    $("div.r01gContainer").append($("#" + settings.id + "-menu"));
+                    $("div.r01gContainer").append($("#" + settings.id + "-menu").parent());
                 } else {
                     //Multiple > multiselect
                     $("div.r01gContainer").append($("#rup-multiCombo_" + settings.id));
@@ -1221,7 +1238,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
                     $("#" + settings.id).rup_combo("select", setRupValue);
                 } else {
                     //Lanzar cambio para que se recarguen hijos
-                    $("#" + settings.id).selectmenu("change");
+                    $("#" + settings.id).rup_combo("change");
                 }
             } else {
                 $("#" + settings.id).append("<option></option>");

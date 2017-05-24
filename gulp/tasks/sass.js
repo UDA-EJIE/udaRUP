@@ -62,3 +62,18 @@ gulp.task('sass:rup-base', function () {
         // }))
         // .pipe(gulp.dest(config.dirs.buildCss));
 });
+
+gulp.task('sass:app', function () {
+    return gulp.src(config.dirs.sass + "app.scss")
+        .pipe(sass.sync({
+            outputStyle: 'nested ',
+            precision: 8,
+        }).on('error', sass.logError))
+        .pipe(gulp.dest(config.dirs.buildCss));
+
+        // legacy file: rup-rwd.css
+        // .pipe(rename(function (path) {
+        //     path.basename = 'rup-classic';
+        // }))
+        // .pipe(gulp.dest(config.dirs.buildCss));
+});

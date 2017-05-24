@@ -165,6 +165,15 @@
     return $("<div>").append($elementCounter).append($paginationBar).append($separator);
   };
 
+  TableJQueryUIAdapter.prototype.multifilter = {
+    dropdown:{
+      dropdownIcon : "ui-icon-gear",
+      dropdownDialogConfig : {
+        title : '<span class="rup-icon rup-icon-filter"></span>'
+      }
+    }
+
+  };
 
   return TableJQueryUIAdapter;
 }));
