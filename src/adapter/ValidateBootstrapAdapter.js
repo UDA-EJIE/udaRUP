@@ -38,6 +38,7 @@
 
   ValidateBootstrapAdapter.prototype.unhighlight = function (element) {
     clearValidation(element);
+    $(element).removeClass('error');
   };
 
   function clearValidation(element) {

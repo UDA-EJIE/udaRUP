@@ -28,7 +28,7 @@
     $(element).addClass('error');
   };
   ValidateJQueryUIAdapter.prototype.unhighlight = function (element, errorClass) {
-    //$(element).addClass('error');
+    $(element).removeClass('error');
   };
 
 
