@@ -22185,7 +22185,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						 */
 						postConfigureMultifilter : function(settings) {
 							var $self = this, multifilterSettings = settings.multifilter, filterSettings,$dropdownButton, $combo,$comboLabel
-							,$defaultCheck,$feedback,$comboButton,$closeDialog;
+							,$defaultCheck,$feedback,$comboButton,$closeDialog, dropdownButtonConfig;
 
 
 							/*
@@ -22198,14 +22198,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							 * $self._toggleButtons(settings.id,true); } });
 							 */
 
+							 dropdownButtonConfig =  $self[0]._ADAPTER.multifilter.dropdown;
+
 							settings.filter.$filterButton
 									.rup_button({
 										dropdown : {
-											dropdownIcon : "ui-icon-gear",
+											dropdownIcon : dropdownButtonConfig.dropdownIcon,
 											dropdownDialog : multifilterSettings.dropdownDialogId,
 											dropdownDialogConfig : {
-												title : '<span class="rup-icon rup-icon-filter"></span>'
-														+ $.rup.i18n.base.rup_table.plugins.multifilter.tittle,
+												title : dropdownButtonConfig.dropdownDialogConfig.title + $.rup.i18n.base.rup_table.plugins.multifilter.tittle,
 												width : "450px",
 												buttons : [
 														{
