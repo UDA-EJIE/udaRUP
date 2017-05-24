@@ -286,9 +286,14 @@ de la aplicación pueda cerrar la capa manualmente.
       if (fadeSpeed == undefined) {
         fadeSpeed = opciones.fadeSpeed;
       }
+
       element.delay(delay).fadeOut(eval(fadeSpeed), function () {
         $("#" + opciones._idFeedback).rup_feedback("close", true);
       });
+
+      $("#" + this.options._idFeedback + "_closeDiv").hide();
+
+
       delete opciones;
       delete element;
     },
@@ -336,6 +341,8 @@ de la aplicación pueda cerrar la capa manualmente.
         },
         applyToPortal: true
       });
+
+      $("#" + this.options._idFeedback + "_closeDiv").show();
 
       delete element;
       /**
