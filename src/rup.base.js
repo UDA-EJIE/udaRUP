@@ -98,7 +98,9 @@
     table_jqueryui: "TableJQueryUIAdapter",
     table_bootstrap: "TableBootstrapAdapter",
     validate_jqueryui: "ValidateJQueryUIAdapter",
-    validate_bootstrap: "ValidateBootstrapAdapter"
+    validate_bootstrap: "ValidateBootstrapAdapter",
+    feedback_jqueryui: "FeedbackJQueryUIAdapter",
+    feedback_bootstrap: "FeedbackBootstrapAdapter"
   };
 
   String.prototype.capitalize = function () {
