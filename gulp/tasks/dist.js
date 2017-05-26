@@ -27,12 +27,12 @@ gulp.task('dist:copy', function (callback) {
     // "./node_modules/blueimp-file-upload/css/jquery.fileupload.css",
     // "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"])
     //     .pipe(gulp.dest('./dist/css/external'));
-    gulp.src("./node_modules/font-awesome/css/font-awesome.css").pipe(gulp.dest('./dist/css'));
+    gulp.src(["./node_modules/font-awesome/css/font-awesome.css","./node_modules/font-awesome/css/font-awesome.min.css"]).pipe(gulp.dest('./dist/css'));
     // gulp.src("./build/css/bootstrap.css").pipe(gulp.dest('./dist/css/external'));
-    gulp.src("./build/css/app.css").pipe(gulp.dest('./dist/css'));
-    gulp.src("./build/css/rup-base.css").pipe(gulp.dest('./dist/css'));
-    gulp.src("./build/css/rup-theme.css").pipe(gulp.dest('./dist/css'));
-    gulp.src("./build/css/rup-jqueryui-theme.css").pipe(gulp.dest('./dist/css'));
+    gulp.src(["./build/css/*.css"]).pipe(gulp.dest('./dist/css'));
+    // gulp.src("./build/css/rup-base.css").pipe(gulp.dest('./dist/css'));
+    // gulp.src("./build/css/rup-theme.css").pipe(gulp.dest('./dist/css'));
+    // gulp.src("./build/css/rup-jqueryui-theme.css").pipe(gulp.dest('./dist/css'));
 
     // dist/css/images
     console.log("dist/css/images");
