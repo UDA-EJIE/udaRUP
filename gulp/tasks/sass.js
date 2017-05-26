@@ -63,8 +63,8 @@ gulp.task('sass:rup-base', function () {
         // .pipe(gulp.dest(config.dirs.buildCss));
 });
 
-gulp.task('sass:app', function () {
-    return gulp.src(config.dirs.sass + "app.scss")
+gulp.task('sass:main', function () {
+    return gulp.src(config.dirs.sass + "main.scss")
         .pipe(sass.sync({
             outputStyle: 'nested ',
             precision: 8,

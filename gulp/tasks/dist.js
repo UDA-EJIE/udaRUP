@@ -69,6 +69,9 @@ gulp.task('dist:copy', function (callback) {
 });
 
 gulp.task('dist:x21a', function () {
-    gulp.src('./dist/**/*.*')
+    gulp.src(['!./dist/css/main.css','./dist/**/*.*'])
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
+
+    gulp.src(['./dist/css/main.css'])
+        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/x21a/styles'));
 });
