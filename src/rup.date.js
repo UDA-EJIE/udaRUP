@@ -319,7 +319,9 @@
         //var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);
         var literales = $.rup.i18n.base.rup_date;
         for (var key in literales) {
-          settings[key] = literales[key];
+          if (settings[key] === undefined) {
+            settings[key] = literales[key];
+          }
         }
 
         //Mostrar máscara
