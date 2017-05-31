@@ -2413,7 +2413,10 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   float: right;
   margin-top: 0; }
   .navbar-nav.rup-nav-tools .rup-nav-tool-icon {
-    font-size: 2rem; }
+    font-size: 2rem;
+    vertical-align: initial;
+    display: inherit;
+    height: inherit; }
     .navbar-nav.rup-nav-tools .rup-nav-tool-icon:after {
       display: none; }
     .navbar-nav.rup-nav-tools .rup-nav-tool-icon span {

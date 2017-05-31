@@ -3502,6 +3502,9 @@
 
 .r01gContainer .navbar-nav.rup-nav-tools .rup-nav-tool-icon {
   font-size: 2rem;
+  vertical-align: initial;
+  display: inherit;
+  height: inherit;
 }
 
 .r01gContainer .navbar-nav.rup-nav-tools .rup-nav-tool-icon:after {

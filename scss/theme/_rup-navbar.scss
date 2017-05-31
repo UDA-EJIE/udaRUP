@@ -178,10 +178,13 @@
     &.rup-nav-tools {
         float: right;
         margin-top: 0;
-        
+
         .rup-nav-tool-icon {
             font-size: $rup-navbar-icon-font-size;
+            vertical-align: initial;
 
+            display: inherit;
+            height: inherit;
             &:after {
                 display: none;
             }
