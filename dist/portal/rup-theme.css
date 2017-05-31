@@ -1715,8 +1715,8 @@
 }
 
 .r01gContainer .rup-breadCrumb_root .rup-breadCrumb_main > li span.rup-icon {
-  margin: 0 0.5rem;
   padding: 0;
+  top: 0.4rem;
 }
 
 .r01gContainer .rup-breadCrumb_root .rup-breadCrumb_main > li a {

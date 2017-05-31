@@ -1236,8 +1236,8 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
     .rup-breadCrumb_root .rup-breadCrumb_main > li {
       padding: 0; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li span.rup-icon {
-        margin: 0 0.5rem;
-        padding: 0; }
+        padding: 0;
+        top: 0.4rem; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li a {
         padding: 0rem 0rem 1rem 0rem; }
       .rup-breadCrumb_root .rup-breadCrumb_main > li ul {
