@@ -28,7 +28,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Combo.
  * @author EJIE
- * @version 2.4.8
+ * @version 2.4.10
  */
 (function ($) {
 
