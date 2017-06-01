@@ -31,7 +31,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Dialog.
  * @author EJIE
- * @version 2.4.8
+ * @version 2.4.10
  */
 (function ($) {
 
