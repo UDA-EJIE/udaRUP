@@ -1,209 +1,213 @@
+
 define(["marionette",
-        "shared/mainView/mainView",
+        "shared/main/mainView",
+        "pages/index/indexView",
         "styleGuide/styleGuideView",
+        "styleGuide/bt3/styleGuideView",
+        "styleGuide/bt4/styleGuideView",
+        "components/autocomplete/autocompleteView",
         "components/feedback/feedbackView",
         "components/tooltip/tooltipView",
         "components/message/messageView",
         "components/dialog/dialogView",
-        "components/menu/menuHorizontalView",
-        "components/menu/menuVerticalView",
-        "components/menu/menuMixtoView",
-        "components/menu/navMenuView",
-        "components/contextMenu/contextMenuView",
-        "components/toolbar/toolbarView",
-        "components/button/buttonView",
-        "components/accordion/accordionView",
-        "components/tabs/tabsStaticView",
-        "components/tabs/tabsAjaxView",
-        "components/tabs/tabsMixtoView",
-        "components/tabs/tabsScrollableView",
-        "components/autocomplete/autocompleteView",
-        "components/combo/comboSimpleView",
-        "components/combo/comboEnlazadoSimpleView",
-        "components/combo/comboEnlazadoMultipleView",
-        "components/combo/comboMultiseleccionView",
-        "components/date/dateView",
-        "components/time/timeView",
-        "components/form/formView",
-        "components/validate/validateView",
-        "components/upload/uploadView",
-        "components/table/tableFilterView",
         "components/progressbar/progressbarView",
+        "components/contextMenu/contextMenuView",
+        "components/button/buttonView",
+        "components/toolbar/toolbarView",
+        "components/date/dateView",
+        "components/form/formView",
+        "components/time/timeView",
+        "components/accordion/accordionView",
         "components/slider/sliderView",
         "components/spinner/spinnerView",
-        "components/chart/chartView"
+        "components/upload/uploadView",
+        "components/validate/validateView",
+        "components/chart/chartView",
+        "components/tree/examples/treeView",
+        "components/tree/dragDrop/treeDragDropView",
+        "components/tabs/tabsStaticView",
+        "components/wizard/simple/wizardSimpleView",
+        "components/wizard/dynamic/wizardDynamicView",
+        "components/combo/comboSimple/comboSimpleView",
+        "table/tableFilterView",
+        "responsiveGrid/stackedHorizontal/stackedHorizontalView",
+        "responsiveGrid/mobileDesktop/mobileDesktopView",
+        "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView",
+        "dashboard/dashboardView",
 
+      ], function(Marionette, MainView,  IndexView, StyleGuideView, Bt3StyleGuideView, Bt4StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
+              MessageView, DialogView, ProgressbarView, ContextMenuView, ButtonView, ToolbarView, DateView,
+              FormView, TimeView, AccordionView, SliderView, SpinnerView, UploadView, ValidateView, ChartView,
+              TreeView, TreeDragDropView, TabsStaticView,
+              WizardSimpleView, WizardDynamicView, ComboSimpleView,
+              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView, DashboardView){
 
-      ], function (Marionette, MainView, StyleGuideView, FeedbackView, TooltipView, MessageView,
-    DialogView, MenuHorizontalView, MenuVerticalView, MenuMixtoView, NavMenuView,
-    ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
-    TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
-    ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
-    DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView,
-    ProgressbarView, SliderView, SpinnerView, ChartView) {
-
-    var RupDemoApp = new Marionette.Application();
+    var RupResponsiveDemoApp = new Marionette.Application();
 
     var MyRouter = Marionette.AppRouter.extend({
-        // "someMethod" must exist at controller.someMethod
-
-        appRoutes: {
-            '': 'index',
-            'styleGuide': 'styleGuide',
-            'feedback': 'feedback',
-            'tooltip': 'tooltip',
-            'message': 'message',
-            'dialog': 'dialog',
-            'menuHorizontal': 'menuHorizontal',
-            'menuVertical': 'menuVertical',
-            'menuMixto': 'menuMixto',
-            'navMenu': 'navMenu',
-            'contextMenu': 'contextMenu',
-            'toolbar': 'toolbar',
-            'button': 'button',
-            'accordion': 'accordion',
-            'tabsStatic': 'tabsStatic',
-            'tabsAjax': 'tabsAjax',
-            'tabsMixto': 'tabsMixto',
-            'tabsScrollable': 'tabsScrollable',
-            'autocomplete': 'autocomplete',
-            'comboSimple': 'comboSimple',
-            'comboEnlazadoSimple': 'comboEnlazadoSimple',
-            'comboEnlazadoMultiple': 'comboEnlazadoMultiple',
-            'comboMultiseleccion': 'comboMultiseleccion',
-            'date': 'date',
-            'time': 'time',
-            'form': 'form',
-            'validate': 'validate',
-            'upload': 'upload',
-            'tableFilter': 'tableFilter',
-            'progressbar': 'progressbar',
-            'slider': 'slider',
-            'spinner': 'spinner',
-            'chart': 'chart'
-
-        }
-
+      appRoutes: {
+        '' : 'index',
+        'styleGuide' : 'styleGuide',
+        'bt3StyleGuide' : 'bt3StyleGuide',
+        'bt4StyleGuide' : 'bt4StyleGuide',
+        'autocomplete' : 'autocomplete',
+        'feedback' : 'feedback',
+        'tooltip' : 'tooltip',
+        'message' : 'message',
+        'dialog' : 'dialog',
+        'progressbar' : 'progressbar',
+        'contextMenu' : 'contextMenu',
+        'button' : 'button',
+        'toolbar' : 'toolbar',
+        'date' : 'date',
+        'form' : 'form',
+        'time' : 'time',
+        'accordion' : 'accordion',
+        'slider' : 'slider',
+        'spinner' : 'spinner',
+        'upload' : 'upload',
+        'validate' : 'validate',
+        'chart' : 'chart',
+        'treeExamples' : 'treeExamples',
+        'treeDragDrop' : 'treeDragDrop',
+        'tabsStatic' : 'tabsStatic',
+        'wizardSimple' : 'wizardSimple',
+        'wizardDynamic' : 'wizardDynamic',
+        'comboSimple' : 'comboSimple',
+        'tableFilter' : 'tableFilter',
+        'stackedHorizontal': 'stackedHorizontal',
+        'mobileDesktop': 'mobileDesktop',
+        'mobileTabletDesktop': 'mobileTabletDesktop',
+        'mobileTabletDesktop': 'mobileTabletDesktop',
+        'dashboard': 'dashboard'
+      }
     });
 
     var RouteController = Marionette.Controller.extend({
-        index: function () {},
-        styleGuide: function () {
-            RupDemoApp.mainView.Container.show(new StyleGuideView());
+        index: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new IndexView());
         },
-        feedback: function () {
-            RupDemoApp.mainView.Container.show(new FeedbackView());
+        styleGuide: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new StyleGuideView());
         },
-        tooltip: function () {
-            RupDemoApp.mainView.Container.show(new TooltipView());
+        bt3StyleGuide: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new Bt3StyleGuideView());
         },
-        message: function () {
-            RupDemoApp.mainView.Container.show(new MessageView());
+        bt4StyleGuide: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new Bt4StyleGuideView());
         },
-        dialog: function () {
-            RupDemoApp.mainView.Container.show(new DialogView());
+        autocomplete: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new AutocompleteView());
         },
-        menuHorizontal: function () {
-            RupDemoApp.mainView.Container.show(new MenuHorizontalView());
+        feedback: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new FeedbackView());
         },
-        menuVertical: function () {
-            RupDemoApp.mainView.Container.show(new MenuVerticalView());
+        tooltip: function() {
+          RupResponsiveDemoApp.mainView.Container.show(new TooltipView());
         },
-        menuMixto: function () {
-            RupDemoApp.mainView.Container.show(new MenuMixtoView());
+        button: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ButtonView());
         },
-        navMenu: function () {
-            RupDemoApp.mainView.Container.show(new NavMenuView());
+        toolbar: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ToolbarView());
         },
-        contextMenu: function () {
-            RupDemoApp.mainView.Container.show(new ContextMenuView());
+        date: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new DateView());
         },
-        toolbar: function () {
-            RupDemoApp.mainView.Container.show(new ToolbarView());
+        form: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new FormView());
         },
-        button: function () {
-            RupDemoApp.mainView.Container.show(new ButtonView());
+        time: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TimeView());
         },
-        accordion: function () {
-            RupDemoApp.mainView.Container.show(new AccordionView());
+        message: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new MessageView());
         },
-        tabsStatic: function () {
-            RupDemoApp.mainView.Container.show(new TabsStaticView());
+        dialog: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new DialogView());
         },
-        tabsAjax: function () {
-            RupDemoApp.mainView.Container.show(new TabsAjaxView());
+        progressbar: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ProgressbarView());
         },
-        tabsMixto: function () {
-            RupDemoApp.mainView.Container.show(new TabsMixedView());
+        contextMenu: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ContextMenuView());
         },
-        tabsScrollable: function () {
-            RupDemoApp.mainView.Container.show(new TabsScrollableView());
+        accordion: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new AccordionView());
         },
-        autocomplete: function () {
-            RupDemoApp.mainView.Container.show(new AutocompleteView());
+        slider: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new SliderView());
         },
-        comboSimple: function () {
-            RupDemoApp.mainView.Container.show(new ComboSimpleView());
+        spinner: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
         },
-        comboEnlazadoSimple: function () {
-            RupDemoApp.mainView.Container.show(new ComboEnlazadoSimpleView());
+        upload: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new UploadView());
         },
-        comboEnlazadoMultiple: function () {
-            RupDemoApp.mainView.Container.show(new ComboEnlazadoMultipleView());
+        validate: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ValidateView());
         },
-        comboMultiseleccion: function () {
-            RupDemoApp.mainView.Container.show(new ComboMultiseleccionView());
+        chart: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ChartView());
         },
-        date: function () {
-            RupDemoApp.mainView.Container.show(new DateView());
+        treeExamples: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TreeView());
         },
-        time: function () {
-            RupDemoApp.mainView.Container.show(new TimeView());
+        treeDragDrop: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TreeDragDropView());
         },
-        form: function () {
-            RupDemoApp.mainView.Container.show(new FormView());
+        spinner: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
         },
-        validate: function () {
-            RupDemoApp.mainView.Container.show(new ValidateView());
+        tabsStatic: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TabsStaticView());
         },
-        upload: function () {
-            RupDemoApp.mainView.Container.show(new UploadView());
+        wizardSimple: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new WizardSimpleView());
         },
-        tableFilter: function () {
-            RupDemoApp.mainView.Container.show(new TableFilterView());
+        wizardDynamic: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new WizardDynamicView());
         },
-        progressbar: function () {
-            RupDemoApp.mainView.Container.show(new ProgressbarView());
+        comboSimple: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new ComboSimpleView());
         },
-        slider: function () {
-            RupDemoApp.mainView.Container.show(new SliderView());
+        tableFilter: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new TableFilterView());
         },
-        spinner: function () {
-            RupDemoApp.mainView.Container.show(new SpinnerView());
+        stackedHorizontal: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
         },
-        chart: function () {
-            RupDemoApp.mainView.Container.show(new ChartView());
+        mobileDesktop: function(){
+
+          RupResponsiveDemoApp.mainView.Container.show(new MobileDesktopView());
         },
+        mobileTabletDesktop: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
+        },
+        dashboard: function(){
+          jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass("dashboard-content");
+          RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
+        }
     });
 
 
 
 
-    RupDemoApp.on("start", function () {
-        RupDemoApp.Controller = new RouteController();
+    RupResponsiveDemoApp.on("start", function(){
+        RupResponsiveDemoApp.Controller = new RouteController();
 
-        RupDemoApp.router = new MyRouter({
-            controller: RupDemoApp.Controller
+        RupResponsiveDemoApp.router = new MyRouter({
+            controller: RupResponsiveDemoApp.Controller
         });
         Backbone.history.start();
     });
 
 
-    RupDemoApp.mainView = new MainView();
-    RupDemoApp.mainView.render();
+    RupResponsiveDemoApp.mainView = new MainView();
+    RupResponsiveDemoApp.mainView.render();
 
 
 
-    return RupDemoApp;
+    return  RupResponsiveDemoApp;
 
 });

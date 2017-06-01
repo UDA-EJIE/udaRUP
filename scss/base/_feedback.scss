@@ -7,13 +7,13 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- 
+
  /* Capa del feedback */
 .rup-feedback {
 	border:1px solid #C7C700;
@@ -27,7 +27,7 @@
 /* Capa de cierre del feedback (enlace+imagen) */
 .rup-feedback_closeLink {
 	float:right;
-	background-image: url("images/rup.close.png");
+	background-image: none;//url("images/rup.close.png"); //Evitar imagen por defecto bootstrap
 	background-repeat: no-repeat;
 	background-position: right;
 	padding-right: 1.5em;
@@ -36,8 +36,17 @@
 	cursor: pointer;
 }
 .rup-feedback_closeLink:hover {
-	background-image: url("images/rup.close_hover.png");
+	background-image:none;// url("images/rup.close_hover.png");
 	text-decoration: none;
+}
+
+div.rup-feedback_closeLink.rup-jqueryui{
+  //visibility: hidden;
+  background-image: url("images/rup.close.png");
+
+}
+div.rup-feedback_closeLink.rup-jqueryui:hover {
+  background-image:url("images/rup.close_hover.png");
 }
 
 /* Imagen fondo por defecto (valores generales) */

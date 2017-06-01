@@ -26,9 +26,14 @@
         // Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function ($, RupBase, Util, Dropdown) {
 
     var rup_navbar = {};
+
+    // $(document).off(".dropdown.data-api");
+    // $(document).off(".collapse.data-api");
+
+
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
     $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_navbar", rup_navbar));
@@ -43,57 +48,71 @@
     $.fn.rup_navbar("extend", {
         _init: function (args) {
             var $self = this,
-                settings = $.extend({}, $.fn.rup_navbar.defaults, args[0]);
+                settings = $.extend({}, $.fn.rup_navbar.defaults, $(this).data(), args[0]),
+                changed, headerOuterHeight, headerSize, headerNavSize;
 
-            var changed = false;
-            var headerSize = $('header').outerHeight(true) - $('header').offset().top;
-            var headerNavSize = $('header').outerHeight(true) + $('nav').outerHeight(true);
 
-            window.scrollHeight = 0;
-            $(window).scroll(function () {
+            if (settings.sticky === true){
+              changed = false;
 
-                if ($(this).scrollTop() === 0) {
-                    changed = false;
-                    $('header').removeAttr('style');
-                    $('.rup-navbar.navbar').removeAttr('style');
-                    $('.rup-breadCrumb_root').removeAttr('style');
-                } else if ($(this).scrollTop() >= headerSize && !changed) {
-                    changed = true;
-                    $('header').css('margin-top', -headerSize);
-                    $('.rup-navbar.navbar').css({
-                        'position': 'fixed',
-                        'width': '100%'
-                    });
-                    $('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
-                        return parseInt(curValue, 10) + headerNavSize + 'px';
-                    });
-                } else if ($(this).scrollTop() < headerSize && changed) {
-                    changed = false;
-                    $('header').css('margin-top', 0);
-                    $('.rup-navbar.navbar').css({
-                        'position': 'relative',
-                        'width': '100%'
-                    });
-                    $('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
-                        return parseInt(curValue, 10) - headerNavSize + 'px';
-                    });
-                }
+              headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0;
+              headerSize = $('header').length !=0 ? headerOuterHeight - $('header').offset().top : 0;
 
-                var height = $(window).scrollTop();
+              headerNavSize = headerOuterHeight + $('nav').outerHeight(true);
+              // $("nav.rup-navbar [data-toggle='dropdown']").dropdown();
+              // $("nav.rup-navbar [data-toggle='collapse']").collapse();
 
-                if (height > headerNavSize) {
-                    $('nav .swingTop').addClass('on');
-                } else {
-                    $('nav .swingTop').removeClass('on');
-                }
-            });
+              window.scrollHeight = 0;
+              $(window).scroll(function () {
 
-            // El reescalado de la pantalla navega al inicio del contenido
-            $(window).resize(function () {
-                headerSize = $('header').outerHeight(true) - $('header').offset().top;
-                headerNavSize = $('header').outerHeight(true) + $('nav').outerHeight(true);
-                $.rup_utils.swing2Top();
-            });
+                  if ($(this).scrollTop() === 0) {
+                      changed = false;
+                      $('header').removeAttr('style');
+                      $('.rup-navbar.navbar').removeAttr('style');
+                      $('.rup-breadCrumb_root').removeAttr('style');
+                  } else if ($(this).scrollTop() >= headerSize && !changed) {
+                      changed = true;
+                      $('header').css('margin-top', -headerSize);
+                      $('.rup-navbar.navbar').css({
+                          'position': 'fixed',
+                          'width': '100%'
+                      });
+                      $('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
+                          return parseInt(curValue, 10) + headerNavSize + 'px';
+                      });
+                  } else if ($(this).scrollTop() < headerSize && changed) {
+                      changed = false;
+                      $('header').css('margin-top', 0);
+                      $('.rup-navbar.navbar').css({
+                          'position': 'relative',
+                          'width': '100%'
+                      });
+                      $('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
+                          return parseInt(curValue, 10) - headerNavSize + 'px';
+                      });
+                  }
+
+                  var height = $(window).scrollTop();
+
+                  if (height > headerNavSize) {
+                      $('nav .swingTop').addClass('on');
+                  } else {
+                      $('nav .swingTop').removeClass('on');
+                  }
+              });
+
+
+              // El reescalado de la pantalla navega al inicio del contenido
+              $(window).resize(function () {
+                  headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0;
+                  headerSize = $('header').length !=0 ? headerOuterHeight - $('header').offset().top : 0;
+
+                  headerNavSize = headerOuterHeight + $('nav').outerHeight(true);
+                  $.rup_utils.swing2Top();
+              });
+            }
+
+
 
             // El botón de volver a la parte superior del contenido
             $('nav .swingTop')
@@ -149,6 +168,6 @@
     });
 
     $.fn.rup_navbar.defaults = {
-
+      sticky: true
     };
 }));

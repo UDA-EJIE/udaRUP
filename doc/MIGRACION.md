@@ -3,7 +3,7 @@
 ## Introducción
 
 En el presente documento se van a detallar los pasos a seguir para realizar la actualización de una aplicación UDA a la versión v3.0.
->
+> 
 **Antes de aplicar los pasos del documento se debe de actualizar la aplicación a la última de la rama v2.4.x.**
 
 ### Dependencias
@@ -19,7 +19,7 @@ La versión v3.0.0 de UDA conlleva la actualización de varias dependencias de l
 
 Para descargar las nuevas versiones de las librerías java de debe modificar el fichero ```pom.xml```.
 
->
+> 
 Una vez se haya modificado el fichero ```pom.xml```se deberá de lanzar la tarea ```mavenRunDependencies``` del fichero ```build.xml```.
 
 
@@ -74,6 +74,11 @@ Una vez se haya modificado el fichero ```pom.xml```se deberá de lanzar la tarea
 -			<groupId>org.codehaus.jackson</groupId>
 -			<artifactId>jackson-mapper-asl</artifactId>
 -			<version>1.9.7</version>
++			<groupId>com.fasterxml.jackson.core</groupId>
++			<artifactId>jackson-databind</artifactId>
++			<version>2.6.5</version>
++		</dependency>
++		<dependency>
 +			<groupId>com.fasterxml.jackson.core</groupId>
 +			<artifactId>jackson-databind</artifactId>
 +			<version>2.6.5</version>
@@ -193,6 +198,11 @@ En este caso la versión actual es la **v2.6.5**.
 -			<groupId>org.codehaus.jackson</groupId>
 -			<artifactId>jackson-mapper-asl</artifactId>
 -			<version>1.9.7</version>
++			<groupId>com.fasterxml.jackson.core</groupId>
++			<artifactId>jackson-databind</artifactId>
++			<version>2.6.5</version>
++		</dependency>
++		<dependency>
 +			<groupId>com.fasterxml.jackson.core</groupId>
 +			<artifactId>jackson-databind</artifactId>
 +			<version>2.6.5</version>
@@ -403,7 +413,7 @@ El contenido de los diferentes ficheros debería de ser el siguiente:
 * */xxxAppWar/WebContent/WEB-INF/layouts/includes/rup.styles.inc*
 
 ```xml
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
 
 <link href="${staticsUrl}/rup/css/external/jquery-ui.theme.css" rel="stylesheet" type="text/css" />
 <link href="${staticsUrl}/rup/css/rup-classic.css" rel="stylesheet" type="text/css" />
@@ -509,3 +519,6 @@ Por lo tanto se elimina del fichero build.xml la tarea de portalización de esti
 -
  </project>
 ```
+
+
+

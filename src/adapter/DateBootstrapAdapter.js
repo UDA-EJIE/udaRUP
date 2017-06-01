@@ -1,23 +1,22 @@
-
-( function(root, factory ) {
- if ( typeof define === "function" && define.amd ) {
+(function (root, factory) {
+  if (typeof define === "function" && define.amd) {
 
     // AMD. Register as an anonymous module.
-    define( ["jquery","../rup.base","../templates"], factory );
- } else {
+    define(["jquery", "../rup.base", "../templates"], factory);
+  } else {
 
     // Browser globals
-    root.DateBootstrapAdapter = factory( jQuery );
- }
-} (this,  function( $ ) {
+    root.DateBootstrapAdapter = factory(jQuery);
+  }
+}(this, function ($) {
 
-  function DateBootstrapAdapter(){
+  function DateBootstrapAdapter() {
 
   }
 
   DateBootstrapAdapter.prototype.initIconTrigger = function (settings) {
     //Imagen del calendario
-    //settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/basic-theme/images/calendario.png");
+    //settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/css/images/calendario.png");
     settings.buttonText = '<i class="fa fa-calendar" aria-hidden="true"></i>';
     //Atributos NO MODIFICABLES
     //La imagen no debe ser un botón
@@ -35,8 +34,8 @@
       $trigger = data.trigger,
       $div;
 
-      $div = $("<div>").addClass("rup-date-input-group");
-      $input.add($trigger).wrapAll($div);
+    $div = $("<div>").addClass("rup-date-input-group");
+    $input.add($trigger).wrapAll($div);
   };
 
 

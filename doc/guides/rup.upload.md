@@ -49,7 +49,7 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 ###	4.1	Ficheros
 Ruta Javascript: rup/scripts/
 Fichero de plugin: **rup.upload-x.y.z.js**
-Ruta theme: rup/basic-theme/
+Ruta theme: rup/css/
 Fichero CSS del theme: **theme.rup.upload-x.y.z.css**
 
 ###	4.2	Dependencias
@@ -81,7 +81,7 @@ A partir de la versión v2.4.0 se distribuye la versión minimizada de los compo
 
 Los ficheros minimizados de RUP son los siguientes:
 +	**rup/scripts/min/rup.min-x.y.z.js**
-+	**rup/basic-theme/rup.min-x.y.z.css**
++	**rup/css/rup.min-x.y.z.css**
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 

@@ -14,141 +14,117 @@
  * que establece la Licencia.
  */
 
-/**
- * Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido
- *
- * @summary Plugin de diseño líquido del componente RUP Table.
- * @module rup_table/fluid
- * @example
- * $("#idComponente").rup_table({
- *	url: "../jqGridUsuario",
- *	usePlugins:["fluid"],
- *        	fluid:{
- *        		// Propiedades de configuración del plugin de diseño líquido
- *        	}
- * });
- *
- */
 (function ($) {
 
-    /**
-     * Definición de los métodos principales que configuran la inicialización del plugin.
-     *
-     * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
-     *
-     */
-    jQuery.rup_table.registerPlugin("fluid", {
-        loadOrder: 5,
-        postConfiguration: function (settings) {
-            var $self = this;
-            return $self.rup_table("postConfigureFluid", settings);
-        }
-    });
+	/**
+	 * Definición de los métodos principales que configuran la inicialización del plugin.
+	 *
+	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
+	 *
+	 */
+	jQuery.rup_table.registerPlugin("fluid",{
+		loadOrder:5,
+		postConfiguration: function(settings){
+			var $self = this;
+			return $self.rup_table("postConfigureFluid", settings);
+		}
+	});
 
-    //********************************
-    // DEFINICIÓN DE MÉTODOS PÚBLICOS
-    //********************************
+	//********************************
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	//********************************
 
-    /**
-     * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
-     *
-     * Los métodos implementados son:
-     *
-     * postConfigureFilter(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
-     *
-     * Se almacena la referencia de los diferentes componentes:
-     *
-     * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
-     *
-     */
-    jQuery.fn.rup_table("extend", {
+	/**
+	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 *
+	 * Los métodos implementados son:
+	 *
+	 * postConfigureFilter(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
+	 *
+	 * Se almacena la referencia de los diferentes componentes:
+	 *
+	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
+	 *
+	 */
+	jQuery.fn.rup_table("extend",{
+		/*
+		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
+		 *
+		 * TODO: internacionalizar mensajes de error.
+		 */
+		postConfigureFluid: function(settings){
+			var $self = this, $fluidBaseLayer;
 
-        /**
-         * Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
-         * @function
-         * @name postConfigureFluid
-         * @param {object} settings - Parámetros de configuración del componente.
-         * @todo internacionalizar mensajes de error.
-         */
-        postConfigureFluid: function (settings) {
-            var $self = this,
-                $fluidBaseLayer;
+			settings.fluid.baseLayer = $.rup_utils.getJQueryId(settings.fluid.baseLayer!==null?settings.fluid.baseLayer:settings.id+"_div");
+			settings.fluid.$baseLayer = jQuery(settings.fluid.baseLayer);
+			if (settings.fluid.$baseLayer.length===0){
+				alert("El identificador "+settings.baseLayer+" especificado para la capa sobre la que se va a aplicar el diseño líquido no existe.");
+				return;
+			}
 
-            settings.fluid.baseLayer = $.rup_utils.getJQueryId(settings.fluid.baseLayer !== null ? settings.fluid.baseLayer : settings.id + "_div");
-            settings.fluid.$baseLayer = jQuery(settings.fluid.baseLayer);
-            if (settings.fluid.$baseLayer.length === 0) {
-                alert("El identificador " + settings.baseLayer + " especificado para la capa sobre la que se va a aplicar el diseño líquido no existe.");
-                return;
-            }
+			$fluidBaseLayer = settings.fluid.fluidBaseLayer = settings.fluid.$baseLayer;
 
-            $fluidBaseLayer = settings.fluid.fluidBaseLayer = settings.fluid.$baseLayer;
+			// Tratamiento del evento de redimiensionado del diseño líquido de la tabla
+			$self.bind("fluidWidth.resize", function(event, previousWidth, currentWidth){
+				if ($self.is(":visible")){
+					var feedBackPaddingLeft, feedBackPaddingRight, toolbarPaddingLeft, toolbarPaddingRight;
+					$self.setGridWidth(currentWidth);
 
-            // Tratamiento del evento de redimiensionado del diseño líquido de la tabla
-            $self.bind("fluidWidth.resize", function (event, previousWidth, currentWidth) {
-                if ($self.is(":visible")) {
-                    var feedBackPaddingLeft, feedBackPaddingRight, toolbarPaddingLeft, toolbarPaddingRight;
-                    $self.setGridWidth(currentWidth);
+					// Se redimensionan las capas contenidas en el mantenimiento
+					$fluidBaseLayer.children().width(currentWidth);
+	//						prop.searchForm.parent().width(currentWidth+3)
+					// Se redimensiona el feedback
+					if (settings.$feedback){
+						feedBackPaddingLeft = parseInt(settings.$feedback.css("padding-left"));
+						feedBackPaddingRight = parseInt(settings.$feedback.css("padding-right"));
+						settings.$feedback.width(currentWidth - (feedBackPaddingLeft+feedBackPaddingRight));
+					}
 
-                    // Se redimensionan las capas contenidas en el mantenimiento
-                    $fluidBaseLayer.children().width(currentWidth);
-                    //						prop.searchForm.parent().width(currentWidth+3)
-                    // Se redimensiona el feedback
-                    if (settings.$feedback) {
-                        feedBackPaddingLeft = parseInt(settings.$feedback.css("padding-left"));
-                        feedBackPaddingRight = parseInt(settings.$feedback.css("padding-right"));
-                        settings.$feedback.width(currentWidth - (feedBackPaddingLeft + feedBackPaddingRight));
-                    }
+					// Se redimensiona la toolbar
+					if (settings.$toolbar){
+						toolbarPaddingLeft = parseInt(settings.$toolbar.css("padding-left"));
+						toolbarPaddingRight = parseInt(settings.$toolbar.css("padding-right"));
+						settings.$toolbar.width(currentWidth - (toolbarPaddingLeft+toolbarPaddingRight));
+						settings.$toolbar.css("width", currentWidth - (toolbarPaddingLeft+toolbarPaddingRight));
+					}
+				}
+			});
 
-                    // Se redimensiona la toolbar
-                    if (settings.$toolbar) {
-                        toolbarPaddingLeft = parseInt(settings.$toolbar.css("padding-left"));
-                        toolbarPaddingRight = parseInt(settings.$toolbar.css("padding-right"));
-                        settings.$toolbar.width(currentWidth - (toolbarPaddingLeft + toolbarPaddingRight));
-                        settings.$toolbar.css("width", currentWidth - (toolbarPaddingLeft + toolbarPaddingRight));
-                    }
-                }
-            });
+//			$self.fluidWidth({
+//				fluidBaseLayer:settings.fluid.baseLayer,
+//				minWidth: 100,
+//				maxWidth: 2000,
+//				fluidOffset : 0
+//			});
 
-            //			$self.fluidWidth({
-            //				fluidBaseLayer:settings.fluid.baseLayer,
-            //				minWidth: 100,
-            //				maxWidth: 2000,
-            //				fluidOffset : 0
-            //			});
+			$self.fluidWidth(settings.fluid);
 
-            $self.fluidWidth(settings.fluid);
+			$self.on("rupTable_fluidUpdate", function(event){
+				$self.fluidWidth(settings.fluid);
+			});
 
-            $self.on("rupTable_fluidUpdate", function (event) {
-                $self.fluidWidth(settings.fluid);
-            });
-
-        }
-    });
+		}
+	});
 
 
-    //*******************************************************
-    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-    //*******************************************************
+	//*******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	//*******************************************************
 
 
-    /**
-     * Parámetros de configuración para el plugin fluid.
-     * @name options
-     * @property 	{string} baseLayer - Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”.
-     * @property {number} maxWidth - Determina la anchura máxima a la que se va a redimensionar la capa.
-     * @property {number} minWidth  - Determina la anchura mínima a la que se va a redimensionar la capa.
-     * @property {number} 	fluidOffset - Desplazamiento que se aplica a la capa redimensionada.
-     *
-     */
-    jQuery.fn.rup_table.plugins.fluid = {};
-    jQuery.fn.rup_table.plugins.fluid.defaults = {
-        fluid: {
-            baseLayer: null,
-            minWidth: 100,
-            maxWidth: 2000,
-            fluidOffset: 0
-        }
-    };
+	/**
+	 * Parámetros de configuración por defecto para el plugin fluid.
+	 *
+	 */
+	jQuery.fn.rup_table.plugins.fluid = {};
+	jQuery.fn.rup_table.plugins.fluid.defaults = {
+			fluid:{
+				baseLayer:null,
+				minWidth: 100,
+				maxWidth: 2000,
+				fluidOffset : 0
+			}
+	};
 
 
 })(jQuery);

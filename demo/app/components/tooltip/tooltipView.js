@@ -1,105 +1,31 @@
 define(['marionette',
         'templates',
-        'rup/rup.tooltip',
-        'rup/accordion'], function(Marionette, App){
+        './tooltipBodyView',
+        './tooltipTestView',
+        '../../shared/component/componentExampleCodeView',
+        'rup/rup.tooltip'], function(Marionette, App, TooltipBodyView, TooltipTestView, ComponentExampleCodeView){
 
   var TooltipView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.tooltip.tooltipTemplate,
-      onRender: fncOnRender,
-      ui:{
-        pageTitles: '[title]',
-        btnCodeTooltip: '#codeTooltip',
-        btnIdTooltip: '#idTooltip',
-        btnHtmlTooltip: '#htmlTooltip',
-        btnStyle: '#button',
-        inputCode: '#code',
-        inputId: '#identificador',
-        inputHtml: '#htmlTooltip',
-        htmlContentAccordionLayer: '#accordionExample1',
-        htmlContentAccordion: '.rup_accordion',
-        pageQtips: '.qtip'
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
       },
-      events:{
-        "click @ui.btnStyle": fncSetStyle
-      }
-
+      onRender: fncOnRender
   });
 
   function fncOnRender(){
-    this.ui.pageTitles.rup_tooltip({"applyToPortal": true});
-
-    this.ui.btnCodeTooltip.rup_tooltip({
-  		content: {
-  			text: "Esto es un ejemplo de tooltip sobre imagen"
-  		},
-  		position: {
-  			my: 'top center',
-  			at: 'bottom center',
-  			target: this.ui.inputCode
-  		},
-  		show: {
-  			event: 'click'
-  		}
-  	});
-
-    this.ui.btnIdTooltip.rup_tooltip({
-  		content: {
-  			text: 'Esto es un ejemplo de tooltip modal sobre imagen',
-  			title: {
-  				text: 'Tooltip modal'
-  			}
-  		},
-  		position: {
-  			my: 'bottom center',
-  			at: 'top center',
-  			target: this.ui.inputId
-  		},
-  		show: {
-  			event: 'click',
-  			modal: true
-  		},
-  		hide: {
-  			event: 'click'
-  		}
-  	});
-
-    this.ui.btnHtmlTooltip.rup_tooltip({
-  		content: {
-  			text: this.ui.htmlContentAccordionLayer
-  		},
-  		style:{
-  			width:900
-  		},
-  		position: {
-  			my: 'bottom center',
-  			at: 'top center',
-  			target: this.ui.inputHtml
-  		},
-  		show: {
-  			event: 'click',
-  		},
-  		hide: {
-  			event: 'click'
-  		}
-  	});
-
-    this.ui.htmlContentAccordion.rup_accordion({
-  		animated: "bounceslide",
-  		active: false,
-  		autoHeight: false,
-  		collapsible: true
-  	});
-
-  }
-
-  function fncSetStyle(){
     var $view = this;
 
-    $view.ui.btnStyle.click(function() {
-      $view.ui.pageQtips.rup_tooltip('option', 'style.widget', true);
-    });
+    $view.Main.show(new TooltipBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demo.app.components.tooltip.tooltipHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.tooltip.tooltipJsCodeTemplate
+    }));
+    $view.Test.show(new TooltipTestView());
   }
 
-  return TooltipView;
 
+  return TooltipView;
 });

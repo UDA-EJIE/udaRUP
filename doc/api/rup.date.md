@@ -7,7 +7,7 @@ Permite al usuario introducir y seleccionar una fecha, tanto de forma manual com
 **See**: El componente está basado en el plugin [jQuery UI DatePicker](http://jqueryui.com/datepicker/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/datepicker/).  
 **Example**  
 ```js
-// Ejemplo de selector de fecha simple.$("#fecha").rup_date({	labelMaskId : "fecha-mask",	showButtonPanel : true,	showOtherMonths : true,	noWeekend : true});// Ejemplo de selector de fecha simple que permite seleccionar tres fechas.$("#fecha_multi").rup_date({	multiSelect: 3,	labelMaskId : "fecha_multi-mask",	buttonImage : "/rup/basic-theme/images/exclamation.png"});// Ejemplo de selectores de fecha desde y hasta$.rup_date({	from: "desde",	to: "hasta",	//Resto igual que en date	labelMaskId : "intervalo-mask",	numberOfMonths: 3});
+// Ejemplo de selector de fecha simple.$("#fecha").rup_date({	labelMaskId : "fecha-mask",	showButtonPanel : true,	showOtherMonths : true,	noWeekend : true});// Ejemplo de selector de fecha simple que permite seleccionar tres fechas.$("#fecha_multi").rup_date({	multiSelect: 3,	labelMaskId : "fecha_multi-mask",	buttonImage : "/rup/css/images/exclamation.png"});// Ejemplo de selectores de fecha desde y hasta$.rup_date({	from: "desde",	to: "hasta",	//Resto igual que en date	labelMaskId : "intervalo-mask",	numberOfMonths: 3});
 ```
 
 * [rup_date](#module_rup_date)

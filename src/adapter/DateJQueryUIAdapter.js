@@ -1,23 +1,22 @@
-
-( function(root, factory ) {
- if ( typeof define === "function" && define.amd ) {
+(function (root, factory) {
+  if (typeof define === "function" && define.amd) {
 
     // AMD. Register as an anonymous module.
-    define( ["jquery","../rup.base","../templates"], factory );
- } else {
+    define(["jquery", "../rup.base", "../templates"], factory);
+  } else {
 
     // Browser globals
-    root.DateJQueryUIAdapter = factory( jQuery );
- }
-} (this,  function( $ ) {
+    root.DateJQueryUIAdapter = factory(jQuery);
+  }
+}(this, function ($) {
 
-  function DateJQueryUIAdapter(){
+  function DateJQueryUIAdapter() {
 
   }
 
   DateJQueryUIAdapter.prototype.initIconTrigger = function (settings) {
     //Imagen del calendario
-    settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/basic-theme/images/calendario.png");
+    settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/css/images/calendario.png");
 
     //Atributos NO MODIFICABLES
     //La imagen no debe ser un botón

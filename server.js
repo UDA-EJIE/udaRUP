@@ -46,27 +46,11 @@ app.get('/', function(req, res){
   if (req.cookies.language===undefined){
     res.cookie("language" , 'es',{expire : new Date() + 9999});
   }
-  res.redirect('/demoResponsive/index.html');
+  res.redirect('/demo/index-bt4.html');
 });
 
 app.get('/test', function(req, res){
   res.redirect('/spec/specRunner_require.html');
-});
-
-app.get('/app', function(req, res){
-
-  if (req.cookies.language===undefined){
-    res.cookie("language" , 'es',{expire : new Date() + 9999});
-  }
-  res.redirect('/demo/index.html');
-});
-
-app.get('/app', function(req, res){
-
-  if (req.cookies.language===undefined){
-    res.cookie("language" , 'es',{expire : new Date() + 9999});
-  }
-  res.redirect('/demoResponsive/index.html');
 });
 
 app.get('/demo/fragmento1', routesTabs.tabsContent1);
@@ -99,10 +83,10 @@ app.post('/demo/jqGridUsuario', routesTable.post);
 // Upload
 app.post('/upload', routesUpload.upload)
 
-app.post('/demoResponsive/jqGridUsuario/filter', routesTable.filter);
-app.get('/demoResponsive/jqGridUsuario/:id', routesTable.get);
-app.put('/demoResponsive/jqGridUsuario', routesTable.put);
-app.post('/demoResponsive/jqGridUsuario', routesTable.post);
+app.post('/demo/jqGridUsuario/filter', routesTable.filter);
+app.get('/demo/jqGridUsuario/:id', routesTable.get);
+app.put('/demo/jqGridUsuario', routesTable.put);
+app.post('/demo/jqGridUsuario', routesTable.post);
 
 
 // Dashboard

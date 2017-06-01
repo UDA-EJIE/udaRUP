@@ -59,7 +59,7 @@
     }
 
       //return options.data.languages[language][key];
-      return $.rup.i18nParse($.rup.i18n.app, key);
+      return $.rup.i18nParse($.rup.i18n.base, key);
   });
 
   return Handlebars;

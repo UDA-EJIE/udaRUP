@@ -1,51 +1,33 @@
 define(['marionette',
         'templates',
-        'rup/rup.spinner'], function(Marionette, App){
+        './spinnerBodyView',
+        './spinnerTestView',
+        '../../shared/component/componentExampleCodeView',
+        // 'highlight',
+        // 'highlight-html',
+        'rup/rup.spinner','rup/rup.tabs','rup/rup.button'], function(Marionette, App, SpinnerBodyView, SpinnerTestView, ComponentExampleCodeView){
 
   var SpinnerView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.spinner.spinnerTemplate,
-    ui:{
-      spinner: "#spinner",
-      btnDisable: "#disable",
-      btnDestroy: "#destroy",
-      btnGetValue: "#getvalue",
-      btnSetValue: "#setvalue",
-      btnButton: "#button"
-    },
-    onDomRefresh: fncOnDomRefresh
-
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
+      },
+      onRender: fncOnRender
   });
 
-
-  function fncOnDomRefresh(){
+  function fncOnRender(){
     var $view = this;
 
-    $view.ui.spinner.rup_spinner();
-
-    $view.ui.btnDisable.click(function() {
-      if ( $view.ui.spinner.spinner( "option", "disabled" ) ) {
-        $view.ui.spinner.spinner( "enable" );
-      } else {
-        $view.ui.spinner.spinner( "disable" );
-      }
-    });
-    $view.ui.btnDestroy.click(function() {
-      if ( $view.ui.spinner.spinner( "instance" ) ) {
-        $view.ui.spinner.spinner( "destroy" );
-      } else {
-        $view.ui.spinner.rup_spinner();
-      }
-    });
-    $view.ui.btnGetValue.click(function() {
-      alert( $view.ui.spinner.rup_spinner( "getRupValue" ) );
-    });
-    $view.ui.btnSetValue.click(function() {
-      $view.ui.spinner.rup_spinner( "setRupValue", 5 );
-    });
-
-    $view.ui.btnButton.button();
-
+    $view.Main.show(new SpinnerBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demo.app.components.spinner.spinnerHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.spinner.spinnerJsCodeTemplate
+    }));
+    $view.Test.show(new SpinnerTestView());
   }
+
 
   return SpinnerView;
 });

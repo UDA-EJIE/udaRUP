@@ -4,8 +4,7 @@
     "./node_modules/font-awesome/css/font-awesome.css",
     "./node_modules/gridstack/dist/gridstack.css",
     "./node_modules/gridstack/dist/gridstack-extra.css",
-    "./node_modules/blueimp-file-upload/css/jquery.fileupload.css",
-    "./node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"
+    "./node_modules/blueimp-file-upload/css/jquery.fileupload.css"
   ],
   "rupCssBuildFiles":[
     "./build/css/bootstrap.css",
@@ -54,9 +53,7 @@
     "./src/rup.base.js",
     "./src/rup.compatibility.js",
     "./node_modules/jquery-ui-dist/jquery-ui.js",
-    "./node_modules/bootstrap/js/dist/dropdown.js",
-    "./node_modules/bootstrap/js/dist/collapse.js",
-    "./node_modules/bootstrap/js/dist/util.js",
+
     "./src/core/ui/jquery-ui.multidatespicker.js",
     "./src/core/ui/jquery-ui.timepicker.js",
     "./src/core/ui/jquery.ui.selectmenu.js",
@@ -65,6 +62,7 @@
     "./src/core/jqGrid/jqGrid.rup.table.js",
     "./src/core/jqGrid/jqGrid.fluid.js",
     "./src/core/utils/form2object.js",
+    "./src/core/utils/jquery.fileDownload.js",
     "./node_modules/jquery-form/jquery.form.js",
     "./node_modules/block-ui/jquery.blockUI.js",
     "./node_modules/blueimp-tmpl/js/tmpl.js",
@@ -162,6 +160,7 @@
     "./src/core/jqGrid/jqGrid.rup.table.js",
     "./src/core/jqGrid/jqGrid.fluid.js",
     "./src/core/utils/form2object.js",
+    "./src/core/utils/jquery.fileDownload.js",
     "./node_modules/jquery-form/jquery.form.js",
     "./node_modules/block-ui/jquery.blockUI.js",
     "./node_modules/blueimp-tmpl/js/tmpl.js",

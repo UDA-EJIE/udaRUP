@@ -1,34 +1,33 @@
 define(['marionette',
         'templates',
-        'rup/rup.slider'], function(Marionette, App){
+        './sliderBodyView',
+        './sliderTestView',
+        '../../shared/component/componentExampleCodeView',
+        // 'highlight',
+        // 'highlight-html',
+        'rup/rup.slider','rup/rup.tabs','rup/rup.button'], function(Marionette, App, SliderBodyView, SliderTestView, ComponentExampleCodeView){
 
   var SliderView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.slider.sliderTemplate,
-    ui:{
-      slider: "#slider",
-      sliderRange: "#sliderRange",
-      amount: "#amount"
-    },
-    onDomRefresh: fncOnDomRefresh
-
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
+      },
+      onRender: fncOnRender
   });
 
-  function fncOnDomRefresh(){
+  function fncOnRender(){
     var $view = this;
 
-    $view.ui.slider.rup_slider({});
-
-    $view.ui.sliderRange.rup_slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $view.ui.amount.val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-
+    $view.Main.show(new SliderBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demo.app.components.slider.sliderHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.slider.sliderJsCodeTemplate
+    }));
+    $view.Test.show(new SliderTestView());
   }
+
 
   return SliderView;
 });

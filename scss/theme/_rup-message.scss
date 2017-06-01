@@ -1,3 +1,11 @@
+// @import "./rup-variables";
+// @import "../bootstrap/_custom-bootstrap-variables";
+// @import "../../node_modules/bootstrap/scss/variables";
+// @import "../../node_modules/bootstrap/scss/mixins";
+// @import "../node_modules/bootstrap/scss/modal";
+// @import "../node_modules/bootstrap/scss/tooltip";
+// @import "../node_modules/bootstrap/scss/popover";
+
 %rup-message_icon {
     @extend %rup-fa;
     background-image: none;

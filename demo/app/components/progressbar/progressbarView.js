@@ -1,36 +1,33 @@
 define(['marionette',
         'templates',
-        'rup/rup.progressbar'], function(Marionette, App){
+        './progressbarBodyView',
+        './progressbarTestView',
+        '../../shared/component/componentExampleCodeView',
+        // 'highlight',
+        // 'highlight-html',
+        'rup/rup.progressbar','rup/rup.tabs','rup/rup.button'], function(Marionette, App, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
 
   var ProgressbarView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.progressbar.progressbarTemplate,
-    ui:{
-      progressbar: "#progressbar",
-      progressbarLabel: "#progressbarLabel",
-      progressbarValueFalse: "#progressbarValueFalse"
-    },
-    onDomRefresh: fncOnDomRefresh
-
+      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
+      regions:{
+        Main: "#componentMainBody",
+        Example: "#exampleCode",
+        Test: "#componentTest"
+      },
+      onRender: fncOnRender
   });
 
-  function fncOnDomRefresh(){
+  function fncOnRender(){
+    var $view = this;
 
-      var $view = this;
-
-      $view.ui.progressbar.rup_progressbar({
-        value: 37
-      });
-
-      $view.ui.progressbarLabel.rup_progressbar({
-        value: 37,
-        label: $.rup.i18n.base.rup_progressbar.progress
-      });
-
-      $view.ui.progressbarValueFalse.rup_progressbar({
-        value: false,
-        label: $.rup.i18n.base.rup_progressbar.loading
-      });
+    $view.Main.show(new ProgressbarBodyView());
+    $view.Example.show(new ComponentExampleCodeView({
+      templateHtml: App.Templates.demo.app.components.progressbar.progressbarHtmlCodeTemplate,
+      templateJs: App.Templates.demo.app.components.progressbar.progressbarJsCodeTemplate
+    }));
+    $view.Test.show(new ProgressbarTestView());
   }
+
 
   return ProgressbarView;
 });

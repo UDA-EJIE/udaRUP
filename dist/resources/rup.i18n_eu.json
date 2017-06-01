@@ -1,349 +1,235 @@
 {
-	"rup_ajax": {
-		"errorTitle": "Errorea",
-		"httpStatus0": "Internet konexioa ez dabil. Egiaztatu ondo dagoela, mesedez.",
-		"httpStatus401": "Ez daukazu baimenik",
-		"httpStatus404": "URL-a (internet hebidea) eskuz sartu baduzu, egiaztatu zuzena dela",
-		"httpStatus500": "Barne akats bat sortu da",
-		"httpStatus503": "Zerbitzua ez dago erabilgarri"
-	},
-	"rup_autocomplete": {
-		"ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
-		"showAllItems": "Emaitz guztiak erakutsi"
-	},
-	"rup_grid_jerarquia": {
-		"errorTitle": "AKATS",
-		"errorMessageMulti": "Azpimaila lortzean akats bat gertatu da",
-		"errorMessageSelected": "Hutaketako elementuen datuak lortzean akats bat gertatu da",
-		"icons": {
-			"expanded": "Okertu elementua",
-			"unexpanded": "Tiratu elementua",
-			"nochild": "Semerik gabeko elementua",
-			"filtered": "Elementuak iragazkia betetzen du"
-		},
-		"menu": {
-			"opt_1": "Markatu semeak",
-			"opt_2": "Markatu ondorengoak",
-			"opt_3": "Kendu markatutako semeak",
-			"opt_4": "Kendu markatutako ondorengoak",
-			"opt_5": "Markatu guztiak",
-			"opt_6": "Kendu markatutako guztiak"
-		},
-		"feedbackVisualSelect": "<strong>Ikusten diren</strong> elementu guztiak hautatu dira",
-		"feedbackVisualDeselect": "<strong>Ikusten diren</strong> elementu guztiak hautaketatik kenduko dira",
-		"feedbackTableSelect": "<strong>Elementu guztiak</strong> hautatu dira",
-		"feedbackTableDeselect": "<strong>Elementu guztiak</strong> hautaketatik kenduko dira"
-	},
-	"rup_maint": {
-		"detailTitle": "Erregistroaren xehetasuna",
-		"deletedOK": "Elementua zuzen ezabatu da.",
-		"insertOK": "Elementua zuzen gehitu da.",
-		"modifyOK": "Elementua zuzen aldatu da.",
-		"insertError": "Akats bat sortu da elementua gordetzean.",
-		"validateError": "Hurrengo erroreak sortu dira:<br/>",
-		"last": "Azkena",
-		"first": "Lehenengoa",
-		"next": "Hurrengoa",
-		"previous": "Aurrekoa",
-		"elements": "Elementuak",
-		"element(s)": "Elementua(k)",
-		"new": "Gehitu",
-		"edit": "Aldatu",
-		"clone": "Bikoiztu",
-		"delete": "Ezabatu",
-		"filter": "Iragazi",
-		"save": "Gorde",
-		"cancel": "Ezeztatu",
-		"export": "Esportatu",
-		"searchOptions": "Bilaketa irizpideak:",
-		"noGrid": "Grid-ik gabe ezin da mantenimendurik sortu.",
-		"numResult": "Emaitz kopurua",
-		"de": "(e)tik",
-		"changes": "Aldaketaren egiaztapena",
-		"saveAndContinue": "Datuen aldaketak galduko dira, jarraitu nahi duzu?",
-		"checkSelectedElems": "Hautatutako elementuak galduko dira, jarraitu nahi duzu?",
-		"checkAddedSelectedElems": "Erantsitako elementuak galduko dira, jarraitu nahi duzu?",
-		"selectAll": "Erregistro guztiak aukeratu dituzu.",
-		"selected": "hautatuta",
-		"deleteAll": "Hautatutako erregistroak ezabatu nahi al dituzu?",
-		"titleDelAll": "Erregistroak ezabatu",
-		"noReg": "Hautatu erregistro bat.",
-		"emptyChanges": "Ez da aldaketarik izan.",
-		"invalidRowId": "Lerroaren identifikatzaile baliogabea. Ezin da ekintza burutu.",
-		"toolbarNewButtonError": "Botoi berri baten sortzean errore bat izan da.<br/>Botoi berri baten hiru ezaugarriak informatuta egon behar dira.",
-		"multiselectHeader": "Orrialdeko elementu guztiak hautatu"
-	},
-	"rup_breadCrumb": {
-		"disconnect": "Saioa itxi",
-		"menuDisconnectTitle": "Erabiltzailearen saioa itxi",
-		"menuDisconnectMessage": "Uneko saioa itxi egingo duzu, ziur zaude?",
-		"menuSecuritySystemDisconnectMessage": "Uneko erabiltzailearen saioa segurtasun-sistematik itxiko duzu, ziur zaude?",
-		"userAre": " dago:",
-		"youAre": "Hemen zaude:",
-		"start": "Hasiera",
-		"exit": "Irten"
-	},
-	"rup_feedback": {
-		"closingLiteral": "Mezua itxi"
-	},
-	"rup_language": {
-		"es": "Castellano",
-		"eu": "Euskara",
-		"en": "English",
-		"fr": "Français",
-		"es_short": "es",
-		"eu_short": "eu",
-		"en_short": "en",
-		"fr_short": "fr",
-		"changeLanguage": "Hizkuntza aldatu",
-		"closingLiteral": "Hizkuntza menua itxi",
-		"changeLanguageLiteral": "Orrialdearen uneko hizkuntza ",
-		"changeLanguageLiteral_es": "Cambia el idioma de la página a ",
-		"changeLanguageLiteral_eu": "Web-aren hizkuntza aldatu ",
-		"changeLanguageLiteral_en": "Switch the language of the website ",
-		"changeLanguageLiteral_fr": "De changer la langue du site "
-	},
-	"rup_global": {
-		"cerrar": "Itxi",
-		"rupCheckStyleError": "RUP ESTILOEN GIDAKO ARAUAK EZ DIRA BETETZEN. BIGARREN MAILAKO EKINTZA BAT BEHARREZKOA DA.",
-		"dialogTypeError": "ERROREA</br> Dialogo-mota zehaztu gabe ezin da dialogorik zuzen sortu.",
-		"error": "Errorea",
-		"cancelar": "Ezeztatu",
-		"search": "Bilatu",
-		"clean": "Garbitu",
-		"aceptar": "Onartu",
-		"save": "Gorde",
-		"close": "Itxi",
-		"save_repeat": "Gorde eta jarraitu",
-		"cancel": "Ezeztatu",
-		"initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
-		"parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
-		"developerError": "Errorea garapenean",
-		"metodError": "Metodoan Errorea:",
-		"selectorError": "Zehaztutako selektorea ez da zuzena (ez da ezer bueltatu)",
-		"parametro": "eu_Parametro: "
-	},
-	"rup_menu": {
-		"developerError": "Errorea garapenean",
-		"structuralError": "Orriaren ikespen eremua ez da zuzena.<br> Menu bertikal edo mixtoa sartzean, eremu hori (&#60;div&#62;) contentMV bat izan behar da(id=&#34;contentMV&#34;)",
-		"displayMenuError": "&#34display&#34 atributuren balioa okerra da. Onartutako balioak &#34vertical&#34 edo &#34horizontal&#34 izaten dira."
-	},
-	"rup_message": {
-		"aceptar": "Onartu",
-		"tituloError": "Errore bat sortu da",
-		"error": "Errorea",
-		"confirmacion": "Baieztapena",
-		"correct": "Zuzena",
-		"alert": "Alerta"
-	},
-	"rup_blockUI": {
-		"cargando": "Lanean, itxaron mesedez"
-	},
-	"rup_dialog": {
-		"errorLoadingData": "<b>Eskatutako informazio berreskuratzean errore bat gertatu da.</b>",
-		"noURL": "Ezin da ajax motako 'dialog' bat sortu URL bat zehaztu gabe."
-	},
-	"rup_combo": {
-		"blankNotDefined": "[Literala falta da]",
-		"loadingText": "Kargatzen...",
-		"ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
-		"multiselect": {
-			"checkAllText": "Hautatu dena",
-			"uncheckAllText": "Garbitu hautapena",
-			"noneSelectedText": "Hautatu aukerak",
-			"selectedText": "# hautatuta",
-			"checkAllTitle": "Aukera guztiak hautatu",
-			"uncheckAllTitle": "Aukera guztiak garbitu",
-			"optGroupSelect": "Talde osoa hautatu",
-			"optGroupDeselect": "Talde osoa garbitu",
-			"optGroupSelectTitle": "Talde honen aukera guztiak hautatu",
-			"optGroupDeselectTitle": "Talde honen aukera guztiak garbitu"
-		}
-	},
-	"rup_date": {
-		"mask": "(aaaa/mm/dd)",
-		"maskDateTime": "(aaaa/mm/dd hh:mm)",
-		"maskDateTimeSec": "(aaaa/mm/dd hh:mm:ss)",
-		"dateFormat": "yy/mm/dd",
-		"firstDay": 1,
-		"weekHeader": "&nbsp;&nbsp;&nbsp;",
-		"buttonText": "Egutegia zabaldu",
-		"dayNames": ["Igandea", "Astelehena", "Asteartea", "Asteazkena", "Osteguna", "Ostirala", "Larunbata"],
+  "rup_accordion": {
+    "headFormatError": "HTML egituraren errorea.<br/>Accordion-ek htmlko &#34&#60a&#62&#34 objektu goiburu bakoitzaren barruan behar du.<br/>Berrikusi kodea goiburu eta eduki objektu elkarrekikotasunaren erroreak ala HTMLko egituraren arazo orokorrak bilatzeko.",
+    "strucPairError": "HTML egituraren errorea.<br/>Accordion-ek goiburu eta eduki objektu pareak behar ditu.<br/>Berrikusi kodea goiburu eta eduki objektu elkarrekikotasunaren erroreak ala HTMLko egituraren arazo orokorrak bilatzeko."
+  },
+  "rup_ajax": {
+    "errorTitle": "Errorea",
+    "httpStatus0": "Internet konexioa ez dabil. Egiaztatu ondo dagoela, mesedez.",
+    "httpStatus401": "Ez daukazu baimenik",
+    "httpStatus404": "URL-a (internet hebidea) eskuz sartu baduzu, egiaztatu zuzena dela",
+    "httpStatus500": "Barne akats bat sortu da",
+    "httpStatus503": "Zerbitzua ez dago erabilgarri"
+  },
+  "rup_autocomplete": {
+    "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
+    "showAllItems": "Emaitz guztiak erakutsi"
+  },
+  "rup_blockUI": {
+    "cargando": "Lanean, itxaron mesedez"
+  },
+  "rup_breadCrumb": {
+    "disconnect": "Saioa itxi",
+    "exit": "Irten",
+    "menuDisconnectMessage": "Uneko saioa itxi egingo duzu, ziur zaude?",
+    "menuDisconnectTitle": "Erabiltzailearen saioa itxi",
+    "menuSecuritySystemDisconnectMessage": "Uneko erabiltzailearen saioa segurtasun-sistematik itxiko duzu, ziur zaude?",
+    "start": "Hasiera",
+    "userAre": " dago:",
+    "youAre": "Hemen zaude:"
+  },
+  "rup_combo": {
+    "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
+    "blankNotDefined": "[Literala falta da]",
+    "loadingText": "Kargatzen...",
+    "multiselect": {
+      "checkAllText": "Hautatu dena",
+      "checkAllTitle": "Aukera guztiak hautatu",
+      "noneSelectedText": "Hautatu aukerak",
+      "optGroupDeselect": "Talde osoa garbitu",
+      "optGroupDeselectTitle": "Talde honen aukera guztiak garbitu",
+      "optGroupSelect": "Talde osoa hautatu",
+      "optGroupSelectTitle": "Talde honen aukera guztiak hautatu",
+      "selectedText": "# hautatuta",
+      "uncheckAllText": "Garbitu hautapena",
+      "uncheckAllTitle": "Aukera guztiak garbitu"
+    }
+  },
+  "rup_date": {
+    "buttonText": "Egutegia zabaldu",
+    "closeText": "Itxi",
+    "currentText": "Gaur",
+    "dateFormat": "yy/mm/dd",
+    "dayNames": ["Igandea", "Astelehena", "Asteartea", "Asteazkena", "Osteguna", "Ostirala", "Larunbata"],
 		"dayNamesMin": ["Ig", "Al", "Ar", "Az", "Og", "Or", "La"],
 		"dayNamesShort": ["Iga", "Asl", "Asr", "Asz", "Osg", "Osr", "Lar"],
-		"monthNames": ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza", "Ekaina", "Uztaila", "Abuztua", "Iraila", "Urria", "Azaroa", "Abendua"],
+    "firstDay": "1",
+    "mask": "(aaaa/mm/dd)",
+    "maskDateTime": "(aaaa/mm/dd hh:mm)",
+    "maskDateTimeSec": "(aaaa/mm/dd hh:mm:ss)",
+    "monthNames": ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza", "Ekaina", "Uztaila", "Abuztua", "Iraila", "Urria", "Azaroa", "Abendua"],
 		"monthNamesShort": ["Urt", "Ots", "Mar", "Api", "Mai", "Eka", "Uzt", "Abu", "Ira", "Urr", "Aza", "Abe"],
-		"closeText": "Itxi",
-		"currentText": "Gaur",
-		"nextText": "Hurrengoa",
-		"prevText": "Aurrekoa"
-	},
-	"rup_time": {
-		"mask": "(hh:mm)",
-		"buttonText": "Ordua zabaldu",
-		"currentText": "Orain",
-		"closeText": "Itxi",
-		"timeOnlyTitle": "Aukeratu denbora",
-		"timeText": "Denbora",
-		"hourText": "Ordu",
-		"minuteText": "Minutu",
-		"secondText": "Segundu"
-	},
-	"rup_tabs": {
-		"serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
-	},
-	"rup_utils": {
-		"paramsError": "Aukeratutako parametroren bat 'null' edo 'undefined' da"
-	},
-	"rup_grid": {
-		"summary": {
-			"cabecera": "Taularen goiburua",
-			"datos": "Taularen datuak",
-			"paginador": "Taularen orrikatzeko elementua",
-			"paginador_navegar": "Taularen orrikatzeko nabigazio elementua"
-		},
-		"selectedElems": "Hautatuko dira hurrengo ",
-		"deSelectedElems": "Hautaketatik kenduko dira hurrengo ",
-		"ofPage": " orrialdeko elementuak.",
-		"selectAll": "Hautatu ",
-		"deSelectAll": "Hautaketatik kendu ",
-		"selectAllRest": "gainerakoak",
-		"selectMsg": "{1}. orrialdeko {0} elementuak hautatu dira.",
-		"selectRestMsg": "Gainerako {0}ak hautatu.",
-		"deselectMsg": "{1}. orrialdeko {0} elementuak hautaketik kenduko dira.",
-		"deselectRestMsg": "Gainerako {0}ak hautaketatik kendu.",
-		"clearSelection": "Hautaketa kendu",
-		"pager": {
-			"selected": "hautatuta",
-			"primPag": "Lehenengo orrialdea",
-			"siguiente": "Hurrengoa",
-			"anterior": "Aurrekoa",
-			"ultiPag": "Azken orrialdea",
-			"input": "Uneko orrialdea",
-			"select": "Orrialdeko elementu kopurua"
-		},
-		"noRecordsFound": "Ez dago erregistrorik.",
-		"defaults": {
-			"recordtext": "{0} - {2}(e)tik {1} erakusten",
-			"emptyrecords": "Ez dago erregistrorik erakusteko",
-			"loadtext": "Kargatzen...",
-			"pgtext": "{1} orrialdetik {0}",
-			"detailForm_pager": "{1}-tik {0} erakusten"
-		},
-		"search": {
-			"caption": "Bilaketa...",
-			"Find": "Bilatu",
-			"Reset": "Garbitu",
-			"odata": [
-				"berdin",
-				"ez da hau:",
-				"hau baino txikiagoa:",
-				"hau baino txikiagoa edo berdina:",
-				"hau baino handiagoa:",
-				"hau baino handiagoa edo berdina:",
-				"honela hasi:",
-				"honela ez hasi:",
-				"hemen dago:",
-				"hemen ez dago:",
-				"honela amaitzen da:",
-				"honela ez da amaitzen:",
-				"badauka:",
-				"ez dauka:"
-			],
-			"groupOps": [{
-				"op": "AND",
-				"text": "dena"
-			}, {
-				"op": "OR",
-				"text": "edozein"
-			}],
-			"matchText": "match",
-			"rulesText": "arauak"
-		},
-		"edit": {
-			"addCaption": "Gehitu erregistroa",
-			"editCaption": "Aldatu erregistroa",
-			"bSubmit": "Gorde",
-			"bCancel": "Ezeztatu",
-			"bClose": "Itxi",
-			"saveData": "Datuak aldatu dira. Aldaketak gorde nahi al dituzu?",
-			"bYes": "Bai",
-			"bNo": "Ez",
-			"bExit": "Ezeztatu",
-			"msg": {
-				"required": "Derrigorrezko eremua",
-				"number": "Sartu zenbaki bat",
-				"minValue": "Gutxieneko balioa:",
-				"maxValue": "Gehienezko balioa: ",
-				"email": "Helbide elektronikoa ez da zuzena",
-				"integer": "Sartu zenbaki zuzen bat",
-				"date": "Sartu data zuzen bat",
-				"url": "URL-a ez da zuzena. Aurrizki hau izan behar du ('http://' or 'https://')",
-				"nodefined": " ez dago zehaztuta.",
-				"novalue": " itzulera-balioa nahitaez sartu behar da.",
-				"customarray": "Funtzio pertsonalizatuak array bat itzuli behar du.",
-				"customfcheck": "Baliozkotze pertsonalizatuaren kasuan funtzio pertsonalizatua egon behar da."
-			}
-		},
-		"view": {
-			"caption": "Kontsultatu erregistroa",
-			"bClose": "Itxi"
-		},
-		"del": {
-			"caption": "Ezabatu",
-			"msg": "Hautatutako erregistroak ezabatu nahi al dituzu?",
-			"bSubmit": "Ezabatu",
-			"bCancel": "Ezeztatu"
-		},
-		"nav": {
-			"edittext": " ",
-			"edittitle": "Aldatu hautatutako errenakada",
-			"addtext": " ",
-			"addtitle": "Gehitu beste errenkada bat",
-			"deltext": " ",
-			"deltitle": "Ezabatu hautatutako errenkada",
-			"searchtext": " ",
-			"searchtitle": "Bilatu informazioa",
-			"refreshtext": "",
-			"refreshtitle": "Kargatu berriro datuak",
-			"alertcap": "Oharra",
-			"alerttext": "Hautatu errenkada bat",
-			"viewtext": "",
-			"viewtitle": "Ikusi hautatutako errenkada"
-		},
-		"col": {
-			"caption": "Bistaratu/ezkutatu zutabeak",
-			"bSubmit": "Bidali",
-			"bCancel": "Ezeztatu"
-		},
-		"errors": {
-			"errcap": "Errorea",
-			"nourl": "Ez da URLrik zehaztu",
-			"norecords": "Ez dago daturik prozesatzeko",
-			"model": "Izenen eta ereduen zutabeak ezberdinak dira",
-			"errorOnGet": "Errorea gertatu da datuak berreskuratzen saiatzean"
-		},
-		"formatter": {
-			"integer": {
-				"thousandsSeparator": ".",
-				"defaultValue": "0"
-			},
-			"number": {
-				"decimalSeparator": ",",
-				"thousandsSeparator": ".",
-				"decimalPlaces": 2,
-				"defaultValue": "0,00"
-			},
-			"currency": {
-				"decimalSeparator": ",",
-				"thousandsSeparator": ".",
-				"decimalPlaces": 2,
-				"prefix": "",
-				"suffix": "",
-				"defaultValue": "0,00"
-			},
-			"date": {
-				"dayNames": [
+    "nextText": "Hurrengoa",
+    "prevText": "Aurrekoa",
+    "weekHeader": "&nbsp;&nbsp;&nbsp;"
+  },
+  "rup_dialog": {
+    "errorLoadingData": "<b>Eskatutako informazio berreskuratzean errore bat gertatu da.</b>",
+    "noURL": "Ezin da ajax motako 'dialog' bat sortu URL bat zehaztu gabe."
+  },
+  "rup_feedback": {
+    "closingLiteral": "Mezua itxi"
+  },
+  "rup_global": {
+    "aceptar": "Onartu",
+    "cancel": "Ezeztatu",
+    "cancelar": "Ezeztatu",
+    "cerrar": "Itxi",
+    "clean": "Garbitu",
+    "close": "Itxi",
+    "developerError": "Errorea garapenean",
+    "dialogTypeError": "ERROREA</br> Dialogo-mota zehaztu gabe ezin da dialogorik zuzen sortu.",
+    "error": "Errorea",
+    "initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
+    "metodError": "Metodoan Errorea:",
+    "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
+    "parametro": "eu_Parametro: ",
+    "rupCheckStyleError": "RUP ESTILOEN GIDAKO ARAUAK EZ DIRA BETETZEN. BIGARREN MAILAKO EKINTZA BAT BEHARREZKOA DA.",
+    "save": "Gorde",
+    "save_repeat": "Gorde eta jarraitu",
+    "search": "Bilatu",
+    "selectorError": "Zehaztutako selektorea ez da zuzena (ez da ezer bueltatu)"
+  },
+  "rup_language": {
+    "changeLanguage": "Hizkuntza aldatu",
+    "changeLanguageLiteral": "Orrialdearen uneko hizkuntza ",
+    "changeLanguageLiteral_en": "Switch the language of the website ",
+    "changeLanguageLiteral_es": "Cambia el idioma de la página a ",
+    "changeLanguageLiteral_eu": "Web-aren hizkuntza aldatu ",
+    "changeLanguageLiteral_fr": "De changer la langue du site ",
+    "closingLiteral": "Hizkuntza menua itxi",
+    "en": "English",
+    "en_short": "en",
+    "es": "Castellano",
+    "es_short": "es",
+    "eu": "Euskara",
+    "eu_short": "eu",
+    "fr": "Français",
+    "fr_short": "fr"
+  },
+  "rup_menu": {
+    "developerError": "Errorea garapenean",
+    "displayMenuError": "&#34display&#34 atributuren balioa okerra da. Onartutako balioak &#34vertical&#34 edo &#34horizontal&#34 izaten dira.",
+    "structuralError": "Orriaren ikespen eremua ez da zuzena.<br> Menu bertikal edo mixtoa sartzean, eremu hori (&#60;div&#62;) contentMV bat izan behar da(id=&#34;contentMV&#34;)"
+  },
+  "rup_message": {
+    "aceptar": "Onartu",
+    "alert": "Alerta",
+    "confirmacion": "Baieztapena",
+    "correct": "Zuzena",
+    "error": "Errorea",
+    "tituloError": "Errore bat sortu da"
+  },
+  "rup_progressbar": {
+    "loading": "Cargando ..._eu",
+    "progress": "${value} de ${max}_eu"
+  },
+  "rup_report": {
+    "errorMsg": "Errorea gertatu da agiria sortzean, saiatu berriro mesedez.",
+    "errorTitle": "Errorea agiria sortzean",
+    "waitMsg": "Agiria sortzen, itxaron, mesedez...",
+    "waitTitle": "Behera kargatu txostena"
+  },
+  "rup_table": {
+    "cancel": "Ezeztatu",
+    "changes": "Aldaketaren egiaztapena",
+    "checkAddedSelectedElems": "Erantsitako elementuak galduko dira, jarraitu nahi duzu?",
+    "checkSelectedElems": "Hautatutako elementuak galduko dira, jarraitu nahi duzu?",
+    "clearSelection": "Hautaketa kendu",
+    "clone": "Bikoiztu",
+    "col": {
+      "bCancel": "Ezeztatu",
+      "bSubmit": "Bidali",
+      "caption": "Bistaratu/ezkutatu zutabeak"
+    },
+    "de": "(e)tik",
+    "deSelectAll": "Hautaketatik kendu ",
+    "deSelectedElems": "Hautaketatik kenduko dira hurrengo ",
+    "defaults": {
+      "detailForm_pager": "{1}-tik {0} erakusten",
+      "emptyrecords": "Ez dago erregistrorik erakusteko",
+      "loadtext": "Kargatzen...",
+      "pgtext": "{1} orrialdetik {0}",
+      "recordtext": "{0} - {2}(e)tik {1} erakusten"
+    },
+    "del": {
+      "bCancel": "Ezeztatu",
+      "bSubmit": "Ezabatu",
+      "caption": "Ezabatu",
+      "msg": "Hautatutako erregistroak ezabatu nahi al dituzu?"
+    },
+    "delete": "Ezabatu",
+    "deleteAll": "Hautatutako erregistroak ezabatu nahi al dituzu?",
+    "deletedOK": "Elementua zuzen ezabatu da.",
+    "deselectMsg": "{1}. orrialdeko {0} elementuak hautaketik kenduko dira.",
+    "deselectRestMsg": "Gainerako {0}ak hautaketatik kendu.",
+    "detailTitle": "Detalle de registro",
+    "edit": {
+      "addCaption": "Gehitu erregistroa",
+      "bCancel": "Ezeztatu",
+      "bClose": "Itxi",
+      "bExit": "Ezeztatu",
+      "bNo": "Ez",
+      "bSubmit": "Gorde",
+      "bYes": "Bai",
+      "editCaption": "Aldatu erregistroa",
+      "msg": {
+        "customarray": "Funtzio pertsonalizatuak array bat itzuli behar du.",
+        "customfcheck": "Baliozkotze pertsonalizatuaren kasuan funtzio pertsonalizatua egon behar da.",
+        "date": "Sartu data zuzen bat",
+        "email": "Helbide elektronikoa ez da zuzena",
+        "integer": "Sartu zenbaki zuzen bat",
+        "maxValue": "Gehienezko balioa: ",
+        "minValue": "Gutxieneko balioa:",
+        "nodefined": " ez dago zehaztuta.",
+        "novalue": " itzulera-balioa nahitaez sartu behar da.",
+        "number": "Sartu zenbaki bat",
+        "required": "Derrigorrezko eremua",
+        "url": "URL-a ez da zuzena. Aurrizki hau izan behar du ('http://' or 'https://')"
+      },
+      "saveData": "Datuak aldatu dira. Aldaketak gorde nahi al dituzu?"
+    },
+    "element(s)": "Elementua(k)",
+    "elements": "Elementuak",
+    "emptyChanges": "Ez da aldaketarik izan.",
+    "errors": {
+      "errcap": "Errorea",
+      "errorOnGet": "Errorea gertatu da datuak berreskuratzen saiatzean",
+      "model": "Izenen eta ereduen zutabeak ezberdinak dira",
+      "norecords": "Ez dago daturik prozesatzeko",
+      "nourl": "Ez da URLrik zehaztu"
+    },
+    "feedback": {
+      "deletedOK": "Elementua zuzen ezabatu da.",
+      "insertError": "Akats bat sortu da elementua gordetzean.",
+      "insertOK": "Elementua zuzen gehitu da.",
+      "modifyOK": "Elementua zuzen aldatu da.",
+      "validateError": "Hurrengo erroreak sortu dira:<br/>"
+    },
+    "filter": "eu_Filtrar",
+    "first": "Lehenengoa",
+    "formatter": {
+      "baseLinkUrl": "",
+      "checkbox": {
+        "disabled": "true"
+      },
+      "currency": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "prefix": "",
+        "suffix": "",
+        "thousandsSeparator": "."
+      },
+      "date": {
+        "AmPm": [
+  					"am",
+  					"pm",
+  					"AM",
+  					"PM"
+  				],
+        "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
+        "dayNames": [
 					"Ig",
 					"Al",
 					"Ar",
@@ -359,7 +245,25 @@
 					"Ostirala",
 					"Larunbata"
 				],
-				"monthNames": [
+        "masks": {
+          "FullDateTime": "l, F d, Y g:i:s A",
+          "ISO8601Long": "Y-m-d H:i:s",
+          "ISO8601Short": "Y-m-d",
+          "LongDate": "l, F d, Y",
+          "LongTime": "g:i:s A",
+          "MonthDay": "F d",
+          "RupDate": "Y/m/d",
+          "RupDateTime": "Y/m/d H:i",
+          "RupDateTimeSec": "Y/m/d H:i:s",
+          "RupTime": "H:i",
+          "RupTimeSec": "H:i:s",
+          "ShortDate": "n/j/Y",
+          "ShortTime": "g:i A",
+          "SortableDateTime": "Y-m-dTH:i:s",
+          "UniversalSortableDateTime": "Y-m-d H:i:sO",
+          "YearMonth": "F, Y"
+        },
+        "monthNames": [
 					"Urt",
 					"Ots",
 					"Mar",
@@ -385,119 +289,123 @@
 					"Azaroa",
 					"Abendua"
 				],
-				"AmPm": [
-					"am",
-					"pm",
-					"AM",
-					"PM"
-				],
-				"S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-				"srcformat": "Y/m/d H:i:s",
-				"newformat": "Y/m/d",
-				"masks": {
-					"ISO8601Long": "Y-m-d H:i:s",
-					"ISO8601Short": "Y-m-d",
-					"ShortDate": "n/j/Y",
-					"LongDate": "l, F d, Y",
-					"FullDateTime": "l, F d, Y g:i:s A",
-					"MonthDay": "F d",
-					"ShortTime": "g:i A",
-					"LongTime": "g:i:s A",
-					"SortableDateTime": "Y-m-d\\TH:i:s",
-					"UniversalSortableDateTime": "Y-m-d H:i:sO",
-					"YearMonth": "F, Y",
-					"RupDate": "Y/m/d",
-					"RupDateTime": "Y/m/d H:i",
-					"RupDateTimeSec": "Y/m/d H:i:s",
-					"RupTime": "H:i",
-					"RupTimeSec": "H:i:s"
-				},
-				"reformatAfterEdit": false
-			},
-			"baseLinkUrl": "",
-			"showAction": "",
-			"target": "",
-			"checkbox": {
-				"disabled": true
-			},
-			"idName": "id"
-		}
-	},
-	"rup_table": {
-		"detailTitle": "Detalle de registro",
-		"deletedOK": "Elementua zuzen ezabatu da.",
-		"insertOK": "Elementua zuzen gehitu da.",
-		"modifyOK": "Elementua zuzen aldatu da.",
-		"insertError": "Akats bat sortu da elementua gordetzean.",
-		"validateError": "Hurrengo erroreak sortu dira:<br/>",
-		"last": "Azkena",
-		"first": "Lehenengoa",
-		"next": "Hurrengoa",
-		"previous": "Aurrekoa",
-		"elements": "Elementuak",
-		"element(s)": "Elementua(k)",
-		"new": "Gehitu",
-		"modify": "Aldatu",
-		"save": "Gorde",
-		"clone": "Bikoiztu",
-		"delete": "Ezabatu",
-		"cancel": "Ezeztatu",
-		"searchOptions": "Bilaketa irizpideak:",
-		"noGrid": "Grid-ik gabe ezin da mantenimendurik sortu.",
-		"numResult": "Emaitz kopurua",
-		"de": "(e)tik",
-		"changes": "Aldaketaren egiaztapena",
-		"saveAndContinue": "Datuen aldaketak galduko dira, jarraitu nahi duzu?",
-		"checkSelectedElems": "Hautatutako elementuak galduko dira, jarraitu nahi duzu?",
-		"checkAddedSelectedElems": "Erantsitako elementuak galduko dira, jarraitu nahi duzu?",
-		"selectAll": "Erregistro guztiak aukeratu dituzu.",
-		"selected": "hautatuta",
-		"deleteAll": "Hautatutako erregistroak ezabatu nahi al dituzu?",
-		"titleDelAll": "Erregistroak ezabatu",
-		"noReg": "Hautatu erregistro bat.",
-		"emptyChanges": "Ez da aldaketarik izan.",
-		"invalidRowId": "Lerroaren identifikatzaile baliogabea. Ezin da ekintza burutu.",
-		"toolbarNewButtonError": "Botoi berri baten sortzean errore bat izan da.<br/>Botoi berri baten hiru ezaugarriak informatuta egon behar dira.",
-		"multiselectHeader": "Orrialdeko elementu guztiak hautatu",
-		"summary": {
-			"cabecera": "Taularen goiburua",
-			"datos": "Taularen datuak",
-			"paginador": "Taularen orrikatzeko elementua",
-			"paginador_navegar": "Taularen orrikatzeko nabigazio elementua"
-		},
-		"selectedElems": "Hautatuko dira hurrengo ",
-		"deSelectedElems": "Hautaketatik kenduko dira hurrengo ",
-		"ofPage": " orrialdeko elementuak.",
-		"selectAll": "Hautatu ",
-		"deSelectAll": "Hautaketatik kendu ",
-		"selectAllRest": "gainerakoak",
-		"selectMsg": "{1}. orrialdeko {0} elementuak hautatu dira.",
-		"selectRestMsg": "Gainerako {0}ak hautatu.",
-		"deselectMsg": "{1}. orrialdeko {0} elementuak hautaketik kenduko dira.",
-		"deselectRestMsg": "Gainerako {0}ak hautaketatik kendu.",
-		"clearSelection": "Hautaketa kendu",
-		"pager": {
-			"selected": "hautatuta",
-			"primPag": "Lehenengo orrialdea",
-			"siguiente": "Hurrengoa",
-			"anterior": "Aurrekoa",
-			"ultiPag": "Azken orrialdea",
-			"input": "Uneko orrialdea",
-			"select": "Orrialdeko elementu kopurua"
-		},
-		"noRecordsFound": "Ez dago erregistrorik.",
-		"defaults": {
-			"recordtext": "{0} - {2}(e)tik {1} erakusten",
-			"emptyrecords": "Ez dago erregistrorik erakusteko",
-			"loadtext": "Kargatzen...",
-			"pgtext": "{1} orrialdetik {0}",
-			"detailForm_pager": "{1}-tik {0} erakusten"
-		},
-		"search": {
-			"caption": "Bilaketa...",
-			"Find": "Bilatu",
-			"Reset": "Garbitu",
-			"odata": [
+        "newformat": "Y/m/d",
+        "reformatAfterEdit": "false",
+        "srcformat": "Y/m/d H:i:s"
+      },
+      "idName": "id",
+      "integer": {
+        "defaultValue": "0",
+        "thousandsSeparator": "."
+      },
+      "number": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "thousandsSeparator": "."
+      },
+      "showAction": "",
+      "target": ""
+    },
+    "insertError": "Akats bat sortu da elementua gordetzean.",
+    "insertOK": "Elementua zuzen gehitu da.",
+    "invalidRowId": "Lerroaren identifikatzaile baliogabea. Ezin da ekintza burutu.",
+    "last": "Azkena",
+    "modify": "Aldatu",
+    "modifyOK": "Elementua zuzen aldatu da.",
+    "multiselectHeader": "Orrialdeko elementu guztiak hautatu",
+    "nav": {
+      "addtext": " ",
+      "addtitle": "Gehitu beste errenkada bat",
+      "alertcap": "Oharra",
+      "alerttext": "Hautatu errenkada bat",
+      "deltext": " ",
+      "deltitle": "Ezabatu hautatutako errenkada",
+      "edittext": " ",
+      "edittitle": "Aldatu hautatutako errenakada",
+      "refreshtext": "",
+      "refreshtitle": "Kargatu berriro datuak",
+      "searchtext": " ",
+      "searchtitle": "Bilatu informazioa",
+      "viewtext": "",
+      "viewtitle": "Ikusi hautatutako errenkada"
+    },
+    "new": "Gehitu",
+    "next": "Hurrengoa",
+    "noGrid": "Grid-ik gabe ezin da mantenimendurik sortu.",
+    "noRecordsFound": "Ez dago erregistrorik.",
+    "noReg": "Hautatu erregistro bat.",
+    "numResult": "Emaitz kopurua",
+    "ofPage": " orrialdeko elementuak.",
+    "pager": {
+      "anterior": "Aurrekoa",
+      "input": "Uneko orrialdea",
+      "primPag": "Lehenengo orrialdea",
+      "select": "Orrialdeko elementu kopurua",
+      "selected": "hautatuta",
+      "siguiente": "Hurrengoa",
+      "ultiPag": "Azken orrialdea"
+    },
+    "plugins": {
+      "filter": {
+        "filterCriteria": "Iragazketa irizpideak"
+      },
+      "jerarquia": {
+        "deselectChild": "Hautaketatik kendu semeak",
+        "deselectDescendent": "Hautaketatik kendu ondorengoak",
+        "filtered": "Elementuak iragazkia betetzen du",
+        "selectChild": "Hautatu semeak",
+        "selectDescendent": "Hautatu ondorengoak"
+      },
+      "multifilter": {
+        "apply": "Aplikatu",
+        "cancel": "Ezeztatu",
+        "close": "Itxi",
+        "defaultFilter": "Gutxiagozko iragazkia",
+        "emptyName": "Hautatu iragazki bat",
+        "error": "Errorea ekintza burutzean",
+        "errorNoexiste": "Ez da existitzen izen hori",
+        "errorValidate": "Baieztatu gabeko formularioa",
+        "filters": "Izena",
+        "input": "Sartu izen bat iragazkia identifikatzeko",
+        "noRecords": "Ez da existitzen iragazki bat izen horrekin",
+        "ok": "Ekintza ongi burutu da",
+        "remove": "Ezabatu",
+        "save": "Gorde",
+        "tittle": "Iragazki-kudeatzailea",
+        "tooLong": "Izen luzeegia"
+      },
+      "multiselection": {
+        "deselectAll": "Hautaketatik kendu guztiak",
+        "deselectAllPage": "Hautaketatik kendu ikusgaiak",
+        "selectAll": "Hautatu guztiak",
+        "selectAllPage": "Hautatu ikusgaiak"
+      },
+      "search": {
+        "matchedRecords": "{0} elementu aurkitu dira",
+        "matchedRecordsCount": "{1}-tik {0} erakusten",
+        "searchCriteria": "Bilaketa irizpideak"
+      }
+    },
+    "previous": "Aurrekoa",
+    "save": "Gorde",
+    "saveAndContinue": "Datuen aldaketak galduko dira, jarraitu nahi duzu?",
+    "search": {
+      "Find": "Bilatu",
+      "Reset": "Garbitu",
+      "caption": "Bilaketa...",
+      "groupOps": [
+        {
+          "op": "AND",
+          "text": "dena"
+        },
+        {
+          "op": "OR",
+          "text": "edozein"
+        }
+      ],
+      "matchText": "match",
+      "odata": [
 				"berdin",
 				"ez da hau:",
 				"hau baino txikiagoa:",
@@ -513,350 +421,152 @@
 				"badauka:",
 				"ez dauka:"
 			],
-			"groupOps": [{
-				"op": "AND",
-				"text": "dena"
-			}, {
-				"op": "OR",
-				"text": "edozein"
-			}],
-			"matchText": "match",
-			"rulesText": "arauak"
-		},
-		"edit": {
-			"addCaption": "Gehitu erregistroa",
-			"editCaption": "Aldatu erregistroa",
-			"bSubmit": "Gorde",
-			"bCancel": "Ezeztatu",
-			"bClose": "Itxi",
-			"saveData": "Datuak aldatu dira. Aldaketak gorde nahi al dituzu?",
-			"bYes": "Bai",
-			"bNo": "Ez",
-			"bExit": "Ezeztatu",
-			"msg": {
-				"required": "Derrigorrezko eremua",
-				"number": "Sartu zenbaki bat",
-				"minValue": "Gutxieneko balioa:",
-				"maxValue": "Gehienezko balioa: ",
-				"email": "Helbide elektronikoa ez da zuzena",
-				"integer": "Sartu zenbaki zuzen bat",
-				"date": "Sartu data zuzen bat",
-				"url": "URL-a ez da zuzena. Aurrizki hau izan behar du ('http://' or 'https://')",
-				"nodefined": " ez dago zehaztuta.",
-				"novalue": " itzulera-balioa nahitaez sartu behar da.",
-				"customarray": "Funtzio pertsonalizatuak array bat itzuli behar du.",
-				"customfcheck": "Baliozkotze pertsonalizatuaren kasuan funtzio pertsonalizatua egon behar da."
-			}
-		},
-		"view": {
-			"caption": "Kontsultatu erregistroa",
-			"bClose": "Itxi"
-		},
-		"del": {
-			"caption": "Ezabatu",
-			"msg": "Hautatutako erregistroak ezabatu nahi al dituzu?",
-			"bSubmit": "Ezabatu",
-			"bCancel": "Ezeztatu"
-		},
-		"nav": {
-			"edittext": " ",
-			"edittitle": "Aldatu hautatutako errenakada",
-			"addtext": " ",
-			"addtitle": "Gehitu beste errenkada bat",
-			"deltext": " ",
-			"deltitle": "Ezabatu hautatutako errenkada",
-			"searchtext": " ",
-			"searchtitle": "Bilatu informazioa",
-			"refreshtext": "",
-			"refreshtitle": "Kargatu berriro datuak",
-			"alertcap": "Oharra",
-			"alerttext": "Hautatu errenkada bat",
-			"viewtext": "",
-			"viewtitle": "Ikusi hautatutako errenkada"
-		},
-		"col": {
-			"caption": "Bistaratu/ezkutatu zutabeak",
-			"bSubmit": "Bidali",
-			"bCancel": "Ezeztatu"
-		},
-		"errors": {
-			"errcap": "Errorea",
-			"nourl": "Ez da URLrik zehaztu",
-			"norecords": "Ez dago daturik prozesatzeko",
-			"model": "Izenen eta ereduen zutabeak ezberdinak dira",
-			"errorOnGet": "Errorea gertatu da datuak berreskuratzen saiatzean"
-		},
-		"formatter": {
-			"integer": {
-				"thousandsSeparator": ".",
-				"defaultValue": "0"
-			},
-			"number": {
-				"decimalSeparator": ",",
-				"thousandsSeparator": ".",
-				"decimalPlaces": 2,
-				"defaultValue": "0,00"
-			},
-			"currency": {
-				"decimalSeparator": ",",
-				"thousandsSeparator": ".",
-				"decimalPlaces": 2,
-				"prefix": "",
-				"suffix": "",
-				"defaultValue": "0,00"
-			},
-			"date": {
-				"dayNames": [
-					"Ig",
-					"Al",
-					"Ar",
-					"Az",
-					"Og",
-					"Or",
-					"La",
-					"Igandea",
-					"Astelehena",
-					"Asteartea",
-					"Asteazkena",
-					"Osteguna",
-					"Ostirala",
-					"Larunbata"
-				],
-				"monthNames": [
-					"Urt",
-					"Ots",
-					"Mar",
-					"Api",
-					"Mai",
-					"Eka",
-					"Uzt",
-					"Abu",
-					"Ira",
-					"Urr",
-					"Aza",
-					"Abe",
-					"Urtarrila",
-					"Otsaila",
-					"Martxoa",
-					"Apirila",
-					"Maiatza",
-					"Ekaina",
-					"Uztaila",
-					"Abuztua",
-					"Iraila",
-					"Urria",
-					"Azaroa",
-					"Abendua"
-				],
-				"AmPm": [
-					"am",
-					"pm",
-					"AM",
-					"PM"
-				],
-				"S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-				"srcformat": "Y/m/d H:i:s",
-				"newformat": "Y/m/d",
-				"masks": {
-					"ISO8601Long": "Y-m-d H:i:s",
-					"ISO8601Short": "Y-m-d",
-					"ShortDate": "n/j/Y",
-					"LongDate": "l, F d, Y",
-					"FullDateTime": "l, F d, Y g:i:s A",
-					"MonthDay": "F d",
-					"ShortTime": "g:i A",
-					"LongTime": "g:i:s A",
-					"SortableDateTime": "Y-m-d\\TH:i:s",
-					"UniversalSortableDateTime": "Y-m-d H:i:sO",
-					"YearMonth": "F, Y",
-					"RupDate": "Y/m/d",
-					"RupDateTime": "Y/m/d H:i",
-					"RupDateTimeSec": "Y/m/d H:i:s",
-					"RupTime": "H:i",
-					"RupTimeSec": "H:i:s"
-				},
-				"reformatAfterEdit": false
-			},
-			"baseLinkUrl": "",
-			"showAction": "",
-			"target": "",
-			"checkbox": {
-				"disabled": true
-			},
-			"idName": "id"
-		},
-		"templates": {
-			"filter": {
-				"toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
-				"toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>",
-				"filterSummary": "<span id='{0}'></span>",
-				"toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>"
-			},
-			"message": {
-				"confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
-			},
-			"detailForm": {
-				"elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/basic-theme/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_maint_selectedElements_{0}'></div></div>",
-				"paginationBar": "<div style='float:right' id='pag_{0}'></div>",
-				"paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
-				"separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>",
-				"form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
-				"body": "<div id='{0}' style='padding-top:0.6em;'></div>",
-				"errorFeedback": "<div id='{0}' style='display:none'><span></span></div>"
-			},
-			"multiselection": {
-				"selectRemainingRecords": "<input type='button' id='rup_grid_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-				"deselectRemainingRecords": "<input type='button' id='rup_grid_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-			},
-			"search": {
-				"searchRow": "<tr class='search_row'></tr>",
-				"searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>",
-				"collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-				"collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
-				"collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-				"matchedLayer": "<div id='{0}' class='matched_layer'></div>",
-				"matchedLabel": "<span id='{0}'>{1}</span>",
-				"navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-				"navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
-				"navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
-				"navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>"
-			}
-		},
-		"plugins": {
-			"filter": {
-				"filterCriteria": "Iragazketa irizpideak"
-			},
-			"multifilter": {
-				"save": "Gorde",
-				"apply": "Aplikatu",
-				"remove": "Ezabatu",
-				"tittle": "Iragazki-kudeatzailea",
-				"close": "Itxi",
-				"filters": "Izena",
-				"defaultFilter": "Gutxiagozko iragazkia",
-				"cancel": "Ezeztatu",
-				"ok": "Ekintza ongi burutu da",
-				"error": "Errorea ekintza burutzean",
-				"emptyName": "Hautatu iragazki bat",
-				"noRecords": "Ez da existitzen iragazki bat izen horrekin",
-				"tooLong": "Izen luzeegia",
-				"input": "Sartu izen bat iragazkia identifikatzeko",
-				"errorNoexiste": "Ez da existitzen izen hori",
-				"errorValidate": "Baieztatu gabeko formularioa"
-
-
-
-			},
-
-			"search": {
-				"searchCriteria": "Bilaketa irizpideak",
-				"matchedRecords": "{0} elementu aurkitu dira",
-				"matchedRecordsCount": "{1}-tik {0} erakusten"
-			},
-			"multiselection": {
-				"selectAllPage": "Hautatu ikusgaiak",
-				"deselectAllPage": "Hautaketatik kendu ikusgaiak",
-				"selectAll": "Hautatu guztiak",
-				"deselectAll": "Hautaketatik kendu guztiak"
-			},
-			"jerarquia": {
-				"selectChild": "Hautatu semeak",
-				"selectDescendent": "Hautatu ondorengoak",
-				"deselectChild": "Hautaketatik kendu semeak",
-				"deselectDescendent": "Hautaketatik kendu ondorengoak"
-			}
-		},
-		"feedback": {
-			"deletedOK": "Elementua zuzen ezabatu da.",
-			"insertOK": "Elementua zuzen gehitu da.",
-			"modifyOK": "Elementua zuzen aldatu da.",
-			"insertError": "Akats bat sortu da elementua gordetzean.",
-			"validateError": "Hurrengo erroreak sortu dira:<br/>"
-		}
-	},
-	"rup_upload": {
-		"maxFileSizeError": "Fitxategiak tamaina muga handiena gainditzen da",
-		"minFileSizeError": "Fitxategiak ez da tamaina muga txikiena gainditzen",
-		"acceptFileTypesError": "Fitxategi mota ez du balio",
-		"maxNumberOfFilesError": "Fitxategi zenbaki muga handiena gainditzen da",
-		"startUpload": "Igo",
-		"cancelUpload": "Ezeztatu",
-		"deleteUploaded": "Ezabatu",
-		"openUploaded": "Ireki"
-	},
-	"rup_utils": {
-		"relToAbsUrlParamFormatError": "&#34$.rup_utils.relToAbsUrl&#34; funtzioaren parametroa ez da zuzena.<br/>Url-a string-mota izan behar da.",
-		"relToAbsUrlParamError": "<b style='color:red'>&#34",
-		"relToAbsUrlParamErrorEnd": "&#34</b><br/> &#34$.rup_utils.relToAbsUrl&#34; funtzioaren url-a ez da zuzena"
-	},
-	"rup_accordion": {
-		"strucPairError": "HTML egituraren errorea.<br/>Accordion-ek goiburu eta eduki objektu pareak behar ditu.<br/>Berrikusi kodea goiburu eta eduki objektu elkarrekikotasunaren erroreak ala HTMLko egituraren arazo orokorrak bilatzeko.",
-		"headFormatError": "HTML egituraren errorea.<br/>Accordion-ek htmlko &#34&#60a&#62&#34 objektu goiburu bakoitzaren barruan behar du.<br/>Berrikusi kodea goiburu eta eduki objektu elkarrekikotasunaren erroreak ala HTMLko egituraren arazo orokorrak bilatzeko."
-	},
-	"rup_wizard": {
-		"prev": "Aurrekoa",
-		"next": "Hurrengoa",
-		"summary": "Laburpena"
-	},
-	"rup_form": {},
-	"rup_validate": {
-		"messages": {
-			"required": "Eremu hau beharrezkoa da.",
-			"remote": "Mesedez, bete eremu hau.",
-			"email": "Mesedez, idatzi baliozko posta helbide bat.",
-			"url": "Mesedez, idatzi URL zuzen bat.",
-			"date": "Mesedez, idatzi data zuzen bat.",
-			"dateISO": "Mesedez, idatzi 'ISO' data zuzen bat.",
-			"number": "Mesedez, idatzi zenbaki oso zuzen bat.",
-			"digits": "Mesedez, idatzi digituak soilik.",
-			"creditcard": "Mesedez, idatzi txartel zenbaki zuzen bat.",
-			"equalTo": "Mesedez, idatzi berdina berriro ere.",
-			"accept": "Mesedez, idatzi onartutako telefono-luzapen zuzen bat.",
-			"maxlength": "Mesedez, ez idatzi {0} karaktere baino gehiago.",
-			"minlength": "Mesedez, ez idatzi {0} karaktere baino gutxiago.",
-			"rangelength": "Mesedez, idatzi {0} eta {1} karaktere arteko balio bat.",
-			"range": "Mesedez, idatzi {0} eta {1} arteko balio bat.",
-			"max": "Mesedez, idatzi {0} edo txikiagoa den balio bat.",
-			"min": "Mesedez, idatzi {0} edo handiagoa den balio bat.",
-			"dni": "Mesedez, idatzi NAN zuzen bat.",
-			"maxWords": "Mesedez, ez idatzi {0} hitz baino gehiago.",
-			"minWords": "Mesedez, ez idatzi {0} hitz baino gutxiago.",
-			"rangeWords": "Mesedez, idatzi {0} y {1} hitz arteko balio bat.",
-			"letterswithbasicpunc": "Mesedez, idatzi letrak eta puntuazio-markak bakarrik.",
-			"alphanumeric": "Mesedez, idatzi letrak, zenbakiak, hutsuneak edo azpi-marrak.",
-			"lettersonly": "Mesedez, idatzi letrak bakarrik.",
-			"nowhitespace": "Mesedez, ez idatzi hutsuneak.",
-			"integer": "Mesedez, idatzi positibo edo negatibo zenbaki osoa.",
-			"pattern": "Idatzitako formatua ez da baliozkoa."
-		},
-		"format": {
-			"date": "yyyy/mm/dd"
-		},
-		"regexp": {
-			"decimal": "^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
-		}
-	},
-	"rup_report": {
-		"waitTitle": "Behera kargatu txostena",
-		"waitMsg": "Agiria sortzen, itxaron, mesedez...",
-		"errorTitle": "Errorea agiria sortzean",
-		"errorMsg": "Errorea gertatu da agiria sortzean, saiatu berriro mesedez."
-	},
-	"rup_tree": {
-		"loading": "Cargando ..._eu",
-		"new_node": "Nuevo nodo_eu",
-		"create": "Nuevo_eu",
-		"rename": "Cambiar nombre_eu",
-		"remove": "Eliminar_eu",
-		"ccp": {
-			"label": "Edición_eu",
-			"copy": "Copiar_eu",
-			"paste": "Pegar_eu",
-			"cut": "Cortar_eu"
-		}
-	},
-	"rup_progressbar":{
-			"loading":"Cargando ..._eu",
-			"progress":"${value} de ${max}_eu"
-	}
+      "rulesText": "arauak"
+    },
+    "searchOptions": "Bilaketa irizpideak:",
+    "selectAll": "Hautatu ",
+    "selectAllRest": "gainerakoak",
+    "selectMsg": "{1}. orrialdeko {0} elementuak hautatu dira.",
+    "selectRestMsg": "Gainerako {0}ak hautatu.",
+    "selected": "hautatuta",
+    "selectedElems": "Hautatuko dira hurrengo ",
+    "summary": {
+      "cabecera": "Taularen goiburua",
+      "datos": "Taularen datuak",
+      "paginador": "Taularen orrikatzeko elementua",
+      "paginador_navegar": "Taularen orrikatzeko nabigazio elementua"
+    },
+    "templates": {
+      "detailForm": {
+        "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
+        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
+        "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
+        "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
+        "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
+        "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
+      },
+      "filter": {
+        "filterSummary": "<span id='{0}'></span>",
+        "toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
+        "toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>",
+        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
+      },
+      "message": {
+        "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
+      },
+      "multiselection": {
+        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+      },
+      "search": {
+        "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
+        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
+        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
+        "matchedLabel": "<span id='{0}'>{1}</span>",
+        "matchedLayer": "<div id='{0}' class='matched_layer'></div>",
+        "navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
+        "navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
+        "searchRow": "<tr class='search_row'></tr>",
+        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
+      }
+    },
+    "titleDelAll": "Erregistroak ezabatu",
+    "toolbarNewButtonError": "Botoi berri baten sortzean errore bat izan da.<br/>Botoi berri baten hiru ezaugarriak informatuta egon behar dira.",
+    "validateError": "Hurrengo erroreak sortu dira:<br/>",
+    "view": {
+      "bClose": "Itxi",
+      "caption": "Kontsultatu erregistroa"
+    }
+  },
+  "rup_tabs": {
+    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
+  },
+  "rup_time": {
+    "buttonText": "Ordua zabaldu",
+    "closeText": "Itxi",
+    "currentText": "Orain",
+    "hourText": "Ordu",
+    "mask": "(hh:mm)",
+    "minuteText": "Minutu",
+    "secondText": "Segundu",
+    "timeOnlyTitle": "Aukeratu denbora",
+    "timeText": "Denbora"
+  },
+  "rup_tree": {
+    "ccp": {
+      "copy": "Copiar_eu",
+      "cut": "Cortar_eu",
+      "label": "Edición_eu",
+      "paste": "Pegar_eu"
+    },
+    "create": "Nuevo_eu",
+    "loading": "Cargando ..._eu",
+    "new_node": "Nuevo nodo_eu",
+    "remove": "Eliminar_eu",
+    "rename": "Cambiar nombre_eu"
+  },
+  "rup_upload": {
+    "acceptFileTypesError": "Fitxategi mota ez du balio",
+    "cancelUpload": "Ezeztatu",
+    "deleteUploaded": "Ezabatu",
+    "maxFileSizeError": "Fitxategiak tamaina muga handiena gainditzen da",
+    "maxNumberOfFilesError": "Fitxategi zenbaki muga handiena gainditzen da",
+    "minFileSizeError": "Fitxategiak ez da tamaina muga txikiena gainditzen",
+    "openUploaded": "Ireki",
+    "startUpload": "Igo"
+  },
+  "rup_utils": {
+    "paramsError": "Aukeratutako parametroren bat 'null' edo 'undefined' da",
+    "relToAbsUrlParamError": "<b style='color:red'>&#34",
+    "relToAbsUrlParamErrorEnd": "&#34</b><br/> &#34$.rup_utils.relToAbsUrl&#34; funtzioaren url-a ez da zuzena",
+    "relToAbsUrlParamFormatError": "&#34$.rup_utils.relToAbsUrl&#34; funtzioaren parametroa ez da zuzena.<br/>Url-a string-mota izan behar da."
+  },
+  "rup_validate": {
+    "format": {
+      "date": "yyyy/mm/dd"
+    },
+    "messages": {
+      "accept": "Mesedez, idatzi onartutako telefono-luzapen zuzen bat.",
+      "alphanumeric": "Mesedez, idatzi letrak, zenbakiak, hutsuneak edo azpi-marrak.",
+      "creditcard": "Mesedez, idatzi txartel zenbaki zuzen bat.",
+      "date": "Mesedez, idatzi data zuzen bat.",
+      "dateISO": "Mesedez, idatzi 'ISO' data zuzen bat.",
+      "digits": "Mesedez, idatzi digituak soilik.",
+      "dni": "Mesedez, idatzi NAN zuzen bat.",
+      "email": "Mesedez, idatzi baliozko posta helbide bat.",
+      "equalTo": "Mesedez, idatzi berdina berriro ere.",
+      "integer": "Mesedez, idatzi positibo edo negatibo zenbaki osoa.",
+      "lettersonly": "Mesedez, idatzi letrak bakarrik.",
+      "letterswithbasicpunc": "Mesedez, idatzi letrak eta puntuazio-markak bakarrik.",
+      "max": "Mesedez, idatzi {0} edo txikiagoa den balio bat.",
+      "maxWords": "Mesedez, ez idatzi {0} hitz baino gehiago.",
+      "maxlength": "Mesedez, ez idatzi {0} karaktere baino gehiago.",
+      "min": "Mesedez, idatzi {0} edo handiagoa den balio bat.",
+      "minWords": "Mesedez, ez idatzi {0} hitz baino gutxiago.",
+      "minlength": "Mesedez, ez idatzi {0} karaktere baino gutxiago.",
+      "nowhitespace": "Mesedez, ez idatzi hutsuneak.",
+      "number": "Mesedez, idatzi zenbaki oso zuzen bat.",
+      "pattern": "Idatzitako formatua ez da baliozkoa.",
+      "range": "Mesedez, idatzi {0} eta {1} arteko balio bat.",
+      "rangeWords": "Mesedez, idatzi {0} y {1} hitz arteko balio bat.",
+      "rangelength": "Mesedez, idatzi {0} eta {1} karaktere arteko balio bat.",
+      "remote": "Mesedez, bete eremu hau.",
+      "required": "Eremu hau beharrezkoa da.",
+      "url": "Mesedez, idatzi URL zuzen bat."
+    },
+    "regexp": {
+      "decimal": "^-?(?:d+|d{1,3}(?:.d{3})+)(?:,d+)?$"
+    }
+  },
+  "rup_wizard": {
+    "next": "Hurrengoa",
+    "prev": "Aurrekoa",
+    "summary": "Laburpena"
+  },
+    "rup_button":{
+     "new": "Nuevo_eu"    
+    }
 }

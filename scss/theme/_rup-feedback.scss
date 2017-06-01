@@ -44,8 +44,15 @@
       }
     }
 
+
+    div.rup-feedback_closeLink.rup-bootstrap{
+      //visibility: hidden;
+      //
+    }
+
     div.rup-feedback_closeLink{
-      visibility: hidden;
+      //visibility: hidden;
+      text-decoration: none;
       float: right;
       padding-right: 0.5rem;
       margin: 0;

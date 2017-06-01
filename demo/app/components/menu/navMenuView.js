@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        "rup/navMenu"], function (Marionette, App) {
+        "rup/rup.navMenu"], function (Marionette, App) {
 
     var NavMenuView = Marionette.LayoutView.extend({
         template: App.Templates.demo.app.components.menu.navMenuTemplate,
