@@ -16,17 +16,17 @@ Para actualizar una aplicación UDA a la versión v3.1.0 se deben realizar las s
 
 #### Componentes RUP
 
-Se debe sustituir la carpeta xxxStatics\WebContent\rup por la carpeta incluida en el fichero [rup-v3.1.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.1.0/rup-v3.1.0.zip).
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.1.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.1.0/rup-v3.1.0.zip).
 
 #### Templates
 
-Para generar código correspondiente a la versión v3.1.0 de UDA mediante el plugin de generación de código de UDA se deberan de actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.1.0/templates-v3.1.0.zip).
+Para generar código correspondiente a la versión v3.1.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.1.0/templates-v3.1.0.zip).
 
 #### Includes
 
-Debido a ciertas modificaciones en la estructura de los recursos estáticos se deberán de modificar los siguientes ficheros existentes en el directorio ```xxxYYYWar/WebContent/WEB-INF/layouts/includes```.
+Debido a ciertas modificaciones en la estructura de los recursos estáticos se deberán modificar los siguientes ficheros existentes en el directorio ```xxxYYYWar/WebContent/WEB-INF/layouts/includes```.
 
-* rup.scipts.inc
+* rup.scripts.inc
 
 ```html
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
@@ -35,7 +35,7 @@ Debido a ciertas modificaciones en la estructura de los recursos estáticos se d
 <script src="${staticsUrl}/rup/js/externals/bt4.min.js" type="text/javascript"></script>
 ```
 
-* rup.scipts.inc
+* rup.scripts.inc
 
 ```html
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
@@ -81,9 +81,9 @@ Se deberá de crear un nuevo fichero ```rup.styles.portal.inc``` en el directori
 
 #### Templates
 
-Se deberán de actualizar las ```jsp``` de templates que se estén utilizando en la aplicación. Las modificaciones a realizar son las siguientes:
+Se deberán actualizar las ```jsp``` de _templates_ que se estén utilizando en la aplicación. Las modificaciones a realizar son las siguientes:
 
-Se deberá de sustituir la siguiente definición del tag html:
+Se deberá sustituir la siguiente definición del tag html:
 
 ```html
 
@@ -99,25 +99,25 @@ por la siguiente:
 <html class="no-js" lang="">
 ```
 
-Del mismo modo se deberá de mover el meta ```X-UA-Compatible``` para que sea el primer tag del ```head``` y configurarlo del siguiente modo:
+Del mismo modo se deberá mover el meta ```X-UA-Compatible``` para que sea el primer tag del ```head``` y configurarlo del siguiente modo:
 
 ```html
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 ```
 
-Si la aplicación esta integrada en la infraestructura de portales se deberá de incluir la siguiente sentencia ```@include``` para que se carguen los estilos portalizados:
+Si la aplicación está integrada en la infraestructura de portales se deberá incluir la siguiente sentencia ```@include``` para que se carguen los estilos portalizados:
 
 ```html
 <%-- Estilos RUP para integración con portales --%>
 <%@include file="/WEB-INF/layouts/includes/rup.styles.portal.inc" %>
 ```
 
-Como es lógico se deberá de comentar el que se estaba utilizando hasta ahora.
+Como es lógico se deberá comentar el que se estaba utilizando hasta ahora.
 
 
 #### Layout loader
 
-Para evitar los conflictos entre los widget button de JQueryUI y Bootstrap se deberá de incluir esta sentencia en el inicio del fichero ```/xxxStatics/WebContent/x21a/scripts/x21aApp/_layoutLoader.js```.
+Para evitar los conflictos entre los widget button de JQueryUI y Bootstrap se deberá incluir esta sentencia en el inicio del fichero ```/xxxStatics/WebContent/x21a/scripts/x21aApp/_layoutLoader.js```.
 
 ```js
   // Evitar conflictos entre Bootstrap y jQueryUI
@@ -126,9 +126,9 @@ Para evitar los conflictos entre los widget button de JQueryUI y Bootstrap se de
 
 #### main.css
 
-Con motivo de facilitar la integración de las aplicaciones en portales se han modificado los estilos de los componentes para que sean mas independientes de los estilos de la propia aplicación.
+Con el propósito de facilitar la integración de las aplicaciones en portales se han modificado los estilos de los componentes para que sean más independientes de los estilos de la propia aplicación.
 
-Por ello, se deberá de añadir en el fichero ```main.css``` existente en el proyecto de estáticos en el directorio ```/x21aStatics/WebContent/x21a/styles/``` las siguientes reglas de estilos:
+Por ello, se deberá añadir en el fichero ```main.css```, existente en el proyecto de estáticos en el directorio ```/x21aStatics/WebContent/x21a/styles/```, las siguientes reglas de estilos:
 
 ```css
 @charset "UTF-8";
@@ -157,7 +157,7 @@ body, .r01gContainer {
 
 #### Actualizar la versión de x38:
 
-Para actualizar la versión de la librería de x38 se deberán de seguir los siguientes pasos:
+Para actualizar la versión de la librería de x38 se deberán seguir los siguientes pasos:
 
 * Actualizar fichero ```pom.xml```
 
