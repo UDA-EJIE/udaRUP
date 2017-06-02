@@ -1,6 +1,6 @@
 # Actualizar
 
-En esta sección iremos indicando como mantenerse actualizado con las últimas versiones disponibles de los componentes de , es decir, cuando ya se dispone de una aplicación generada, y se desea incorporar las últimas actualizaciones.
+En este documento iremos indicando cómo actualizar las últimas versiones disponibles de los componentes en caso de que los cambios sean muy grandes.
 
 Para el proceso de actualización dan por sentados los siguientes supuestos:
 
@@ -178,11 +178,3 @@ Para actualizar la versión de la librería de x38 se deberán de seguir los sig
 * Sobre el proyecto xxxEAR pulsa F5 (Refresh)
 
 * Borra versión o versiones anteriores, en caso de que permanezca alguna.
-
-### v3.0.1 (27-Marzo-2017)
-
-Para modificar la versión de los componentes RUP
-
-Cambiar la carpeta xxxStatics\WebContent\rup por la carpeta incluida en el fichero rup-v3.0.1.zip
-
-No olvides actualizar las Plantillas (v3.0.1), o si lo prefieres el Eclipse NEON UDA (v3.0.1) completo.
