@@ -89,6 +89,8 @@
     "blueimp-tmpl": "3.4.0",
     "bootstrap": "4.0.0-alpha.5",
     "chart.js": "2.1.1",
+    "datatables.net": "^1.10.15",
+    "datatables.net-bs": "^1.10.15",
     "flexibility": "^2.0.1",
     "free-jqgrid": "4.13.4",
     "handlebars": "4.0.5",

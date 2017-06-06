@@ -34,13 +34,15 @@ define(["marionette",
         "responsiveGrid/mobileDesktop/mobileDesktopView",
         "responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView",
         "dashboard/dashboardView",
+        "datatable/datatableView"
 
       ], function(Marionette, MainView,  IndexView, StyleGuideView, Bt3StyleGuideView, Bt4StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
               MessageView, DialogView, ProgressbarView, ContextMenuView, ButtonView, ToolbarView, DateView,
               FormView, TimeView, AccordionView, SliderView, SpinnerView, UploadView, ValidateView, ChartView,
               TreeView, TreeDragDropView, TabsStaticView,
               WizardSimpleView, WizardDynamicView, ComboSimpleView,
-              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView, DashboardView){
+              TableFilterView, StackedHorizontalView, MobileDesktopView, MobileTabletDesktopView, DashboardView,
+              DatatableView){
 
     var RupResponsiveDemoApp = new Marionette.Application();
 
@@ -79,7 +81,8 @@ define(["marionette",
         'mobileDesktop': 'mobileDesktop',
         'mobileTabletDesktop': 'mobileTabletDesktop',
         'mobileTabletDesktop': 'mobileTabletDesktop',
-        'dashboard': 'dashboard'
+        'dashboard': 'dashboard',
+        'datatable': 'datatable'
       }
     });
 
@@ -187,6 +190,9 @@ define(["marionette",
         dashboard: function(){
           jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass("dashboard-content");
           RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
+        },
+        datatable: function(){
+          RupResponsiveDemoApp.mainView.Container.show(new DatatableView());
         }
     });
 
