@@ -18,7 +18,7 @@
   if (typeof define === "function" && define.amd) {
 
     // AMD. Register as an anonymous module.
-    define(["jquery", "./rup.utils"], factory);
+    define(["jquery", "./rup.utils","./adapter/rup.adapter"], factory);
   } else {
 
     // Browser globals
@@ -83,25 +83,6 @@
    * Tipo de dato entero.
    * @typedef {number} Integer
    */
-
-  var RUP_ADAPTERS = RUP_ADAPTERS || {
-    date_jqueryui: "DateJQueryUIAdapter",
-    date_bootstrap: "DateBootstrapAdapter",
-    time_jqueryui: "TimeJQueryUIAdapter",
-    time_bootstrap: "TimeBootstrapAdapter",
-    upload_jqueryui: "UploadJQueryUIAdapter",
-    upload_bootstrap: "UploadBootstrapAdapter",
-    button_jqueryui: "ButtonJQueryUIAdapter",
-    button_bootstrap: "ButtonBootstrapAdapter",
-    toolbar_jqueryui: "ToolbarJQueryUIAdapter",
-    toolbar_bootstrap: "ToolbarBootstrapAdapter",
-    table_jqueryui: "TableJQueryUIAdapter",
-    table_bootstrap: "TableBootstrapAdapter",
-    validate_jqueryui: "ValidateJQueryUIAdapter",
-    validate_bootstrap: "ValidateBootstrapAdapter",
-    feedback_jqueryui: "FeedbackJQueryUIAdapter",
-    feedback_bootstrap: "FeedbackBootstrapAdapter"
-  };
 
   String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -200,7 +181,7 @@
     }
   });
 
-  var matched = jQuery.uaMatch(navigator.userAgent);
+  var matched = $.rup._uaMatch(navigator.userAgent);
   var browser = {};
 
   if (matched.browser) {
@@ -359,36 +340,6 @@
     },
     //Funcion encargada de hacer las inicializaciones basicas de RUP
     iniRup: function () {
-
-      // Inicializar adapters
-      $.rup.adapter = {};
-      $.each(RUP_ADAPTERS, function (key, adapter) {
-        // if ($.isPlainObject(adapter)){
-        //   $.rup.adapter[key] = {};
-        //   $.each(adapter, function(subKey, subKeyAdapter){
-        //     if ( typeof define === "function" && define.amd ) {
-        //       require(["rup/adapter/"+subKeyAdapter], function(subKeyAdapter){
-        //         $.rup.adapter[key][subKey]= new subKeyAdapter;
-        //       });
-        //
-        //     }else{
-        //         $.rup.adapter[key][subKey]= new window[subKeyAdapter];
-        //     }
-        //   });
-        // }else{
-
-        if (typeof define === "function" && define.amd) {
-          require(["rup/adapter/" + adapter], function (adapter) {
-            $.rup.adapter[key] = new adapter;
-          });
-
-        } else {
-          $.rup.adapter[key] = new window[adapter];
-        }
-        // }
-
-      });
-
 
       //Inicializar variables de ficheros de recuros (rup y app)
       $.rup.i18n.app = {};

@@ -48,7 +48,7 @@ requirejs.config({
     //"highlight": "../../node_modules/highlight.js/lib/highlight",
     "highlight": "../js/highlight.pack",
     "templates": "../templates",
-    "blockUI": "../../node_modules/block-ui/jquery.blockUI",
+    "block-ui": "../../node_modules/block-ui/jquery.blockUI",
     "jquery-contextMenu": "../../node_modules/jquery-contextmenu/dist/jquery.contextMenu",
     "jquery.form": "../../node_modules/jquery-form/jquery.form",
     "jquery.validate": "../../node_modules/jquery-validation/dist/jquery.validate",

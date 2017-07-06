@@ -13,6 +13,8 @@
   function FeedbackBootstrapAdapter() {
 
   }
+  
+  FeedbackBootstrapAdapter.prototype.NAME = "feedback_bootstrap";
 
   FeedbackBootstrapAdapter.prototype.classComponent = function () {
     return "rup-bootstrap";
@@ -23,5 +25,10 @@
   }
 
 
-  return FeedbackBootstrapAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[FeedbackBootstrapAdapter.prototype.NAME ] = new FeedbackBootstrapAdapter;
+  
+  return $;
 }));

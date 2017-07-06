@@ -13,6 +13,8 @@
   function TableJQueryUIAdapter() {
 
   }
+  
+  TableJQueryUIAdapter.prototype.NAME = "table_jqueryui";
 
   TableJQueryUIAdapter.prototype.CONST = {
     core: {
@@ -175,5 +177,10 @@
 
   };
 
-  return TableJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[TableJQueryUIAdapter.prototype.NAME ] = new TableJQueryUIAdapter;
+  
+  return $;
 }));

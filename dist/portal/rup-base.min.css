@@ -5348,7 +5348,7 @@
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -5439,7 +5439,7 @@
   margin: -1px;
   cursor: pointer;
   border: 1px solid #999;
-  background: url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x #dadada;
+  background: url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x #dadada;
   color: #212121;
 }
 
@@ -5447,7 +5447,7 @@
   margin: -1px;
   cursor: pointer;
   border: 1px solid #999;
-  background: url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x #dadada;
+  background: url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x #dadada;
   color: #212121;
 }
 

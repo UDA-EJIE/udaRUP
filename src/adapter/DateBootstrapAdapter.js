@@ -13,6 +13,8 @@
   function DateBootstrapAdapter() {
 
   }
+  
+  DateBootstrapAdapter.prototype.NAME = "date_bootstrap";
 
   DateBootstrapAdapter.prototype.initIconTrigger = function (settings) {
     //Imagen del calendario
@@ -37,8 +39,11 @@
     $div = $("<div>").addClass("rup-date-input-group");
     $input.add($trigger).wrapAll($div);
   };
-
-
-
-  return DateBootstrapAdapter;
+  
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[DateBootstrapAdapter.prototype.NAME ] = new DateBootstrapAdapter;
+  
+  return $;
 }));

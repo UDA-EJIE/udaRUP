@@ -14,6 +14,8 @@
   function ButtonJQueryUIAdapter(){
 
   }
+  
+  ButtonJQueryUIAdapter.prototype.NAME = "button_jqueryui";
 
   ButtonJQueryUIAdapter.prototype.createDropdownButton = function (settings) {
 
@@ -31,5 +33,10 @@
   };
 
 
-  return ButtonJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {}; 
+  
+  $.rup.adapter[ButtonJQueryUIAdapter.prototype.NAME ] = new ButtonJQueryUIAdapter;
+  
+  return $;
 }));
