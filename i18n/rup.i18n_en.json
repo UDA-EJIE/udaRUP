@@ -555,15 +555,15 @@
       "url": "Please enter a valid URL."
     },
     "regexp": {
-      "decimal": "^-?(?:d+|d{1,3}(?:,d{3})+)(?:.d+)?$"
+      "decimal":"^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
     }
   },
   "rup_wizard": {
     "next": "Siguiente_en",
     "prev": "Anterior_en",
     "summary": "Resumen_en"
-  },    
+  },
     "rup_button":{
-     "new": "New"    
+     "new": "New"
     }
 }
