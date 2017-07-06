@@ -14,6 +14,8 @@
   function TimeBootstrapAdapter(){
 
   }
+  
+  TimeBootstrapAdapter.prototype.NAME = "time_bootstrap";
 
   TimeBootstrapAdapter.prototype.initIconTrigger = function (settings) {
     var $self = this,
@@ -55,5 +57,10 @@
     }
   };
 
-  return TimeBootstrapAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[TimeBootstrapAdapter.prototype.NAME ] = new TimeBootstrapAdapter;
+  
+  return $;
 }));

@@ -14,6 +14,8 @@
   function UploadJQueryUIAdapter(){
 
   }
+  
+  UploadJQueryUIAdapter.prototype.NAME = "upload_jqueryui";
 
   UploadJQueryUIAdapter.prototype.processdone = function (e, data) {
         $(e.target).find('.start').button('enable');
@@ -128,5 +130,10 @@
         return rows;
     };
 
-    return UploadJQueryUIAdapter;
+    $.rup = $.rup || {};
+    $.rup.adapter = $.rup.adapter || {};
+    
+    $.rup.adapter[UploadJQueryUIAdapter.prototype.NAME ] = new UploadJQueryUIAdapter;
+    
+    return $;
 }));

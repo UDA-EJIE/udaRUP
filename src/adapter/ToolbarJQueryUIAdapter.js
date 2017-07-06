@@ -14,6 +14,8 @@
   function ToolbarJQueryUIAdapter(){
 
   }
+  
+  ToolbarJQueryUIAdapter.prototype.NAME = "toolbar_jqueryui";
 
   ToolbarJQueryUIAdapter.prototype.addButton = function (obj, json_i18n) { //añade a la toolbar un 'button'
 
@@ -171,5 +173,10 @@
 			delete div;
 		};
 
-  return ToolbarJQueryUIAdapter;
+		$.rup = $.rup || {};
+		  $.rup.adapter = $.rup.adapter || {};
+		  
+		  $.rup.adapter[ToolbarJQueryUIAdapter.prototype.NAME ] = new ToolbarJQueryUIAdapter;
+		  
+		  return $;
 }));

@@ -14,6 +14,8 @@
   function TimeJQueryUIAdapter(){
 
   }
+  
+  TimeJQueryUIAdapter.prototype.NAME = "time_jqueryui";
 
   TimeJQueryUIAdapter.prototype.initIconTrigger = function (settings) {
     var $self = this;
@@ -43,5 +45,10 @@
 
 
 
-  return TimeJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[TimeJQueryUIAdapter.prototype.NAME ] = new TimeJQueryUIAdapter;
+  
+  return $;
 }));

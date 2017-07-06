@@ -14,6 +14,8 @@
   function ToolbarBootstrapAdapter(){
 
   }
+  
+  ToolbarBootstrapAdapter.prototype.NAME = "toolbar_bootstrap";
 
   ToolbarBootstrapAdapter.prototype.addButton = function (obj, json_i18n) {
     var buttonId, rightObjects;
@@ -191,5 +193,10 @@
     delete div;
   };
 
-  return ToolbarBootstrapAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[ToolbarBootstrapAdapter.prototype.NAME ] = new ToolbarBootstrapAdapter;
+  
+  return $;
 }));

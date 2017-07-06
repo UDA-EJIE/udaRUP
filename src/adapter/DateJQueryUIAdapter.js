@@ -14,6 +14,8 @@
 
   }
 
+  DateJQueryUIAdapter.prototype.NAME = "date_jqueryui";
+  
   DateJQueryUIAdapter.prototype.initIconTrigger = function (settings) {
     //Imagen del calendario
     settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/css/images/calendario.png");
@@ -33,5 +35,10 @@
 
 
 
-  return DateJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[DateJQueryUIAdapter.prototype.NAME ] = new DateJQueryUIAdapter;
+  
+  return $;
 }));

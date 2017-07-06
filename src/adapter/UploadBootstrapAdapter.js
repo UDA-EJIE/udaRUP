@@ -14,6 +14,8 @@
   function UploadBootstrapAdapter(){
 
   }
+  
+  UploadBootstrapAdapter.prototype.NAME = "upload_bootstrap";
 
   UploadBootstrapAdapter.prototype.processdone = function (e, data) {
         $(e.target).find('.start').removeAttr("disabled");
@@ -45,5 +47,10 @@
           });
     };
 
-    return UploadBootstrapAdapter;
+    $.rup = $.rup || {};
+    $.rup.adapter = $.rup.adapter || {};
+    
+    $.rup.adapter[UploadBootstrapAdapter.prototype.NAME ] = new UploadBootstrapAdapter;
+    
+    return $;
 }));

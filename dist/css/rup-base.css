@@ -5064,7 +5064,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
  *
  *      http://ec.europa.eu/idabc/eupl.html
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
@@ -5153,7 +5153,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   margin: -1px;
   cursor: pointer;
   border: 1px solid #999999;
-  background: #dadada url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+  background: #dadada url(./images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
   /*     font-weight: normal;  */
   color: #212121; }
 
@@ -5161,7 +5161,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   margin: -1px;
   cursor: pointer;
   border: 1px solid #999999;
-  background: #dadada url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  background: #dadada url(./images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
   /*     font-weight: normal;  */
   color: #212121; }
 

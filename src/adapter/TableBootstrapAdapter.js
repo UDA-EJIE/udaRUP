@@ -13,6 +13,8 @@
   function TableBootstrapAdapter() {
 
   }
+  
+  TableBootstrapAdapter.prototype.NAME = "table_bootstrap";
 
   TableBootstrapAdapter.prototype.CONST = {
     core: {
@@ -205,5 +207,10 @@
 
   };
 
-  return TableBootstrapAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[TableBootstrapAdapter.prototype.NAME ] = new TableBootstrapAdapter;
+  
+  return $;
 }));

@@ -3,7 +3,7 @@
  if ( typeof define === "function" && define.amd ) {
 
     // AMD. Register as an anonymous module.
-    define( ["jquery","../rup.base","../templates"], factory );
+    define( ["jquery", "../templates"], factory );
  } else {
 
     // Browser globals
@@ -14,6 +14,8 @@
   function ButtonBootstrapAdapter(){
 
   }
+  
+  ButtonBootstrapAdapter.prototype.NAME = "button_bootstrap";
 
   ButtonBootstrapAdapter.prototype.createDropdownButton = function (settings) {
     var $self = this, dropdownSettings = settings.dropdown;
@@ -44,7 +46,11 @@
       iconClasses: "ui-button-icon ui-icon rup-toolbar_menuButtonIcon"
     }));
   };
-
-
-  return ButtonBootstrapAdapter;
+  
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[ButtonBootstrapAdapter.prototype.NAME ] = new ButtonBootstrapAdapter;
+  
+  return $;
 }));

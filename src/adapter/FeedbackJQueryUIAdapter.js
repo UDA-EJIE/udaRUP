@@ -13,6 +13,8 @@
   function FeedbackJQueryUIAdapter() {
 
   }
+  
+  FeedbackJQueryUIAdapter.prototype.NAME = "feedback_jqueryui";
 
   FeedbackJQueryUIAdapter.prototype.classComponent = function () {
     return "rup-jqueryui";
@@ -23,5 +25,10 @@
   }
 
 
-  return FeedbackJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[FeedbackJQueryUIAdapter.prototype.NAME ] = new FeedbackJQueryUIAdapter;
+  
+  return $;
 }));

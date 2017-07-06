@@ -13,7 +13,8 @@
   function ValidateJQueryUIAdapter() {
 
   }
-
+  
+  ValidateJQueryUIAdapter.prototype.NAME = "validate_jqueryui";
 
   ValidateJQueryUIAdapter.prototype.forNameElement = function (fieldTmp, labelForName) {
     return fieldTmp.parent().find("label[for='" + labelForName + "']");
@@ -98,6 +99,10 @@
   };
 
 
-
-  return ValidateJQueryUIAdapter;
+  $.rup = $.rup || {};
+  $.rup.adapter = $.rup.adapter || {};
+  
+  $.rup.adapter[ValidateJQueryUIAdapter.prototype.NAME ] = new ValidateJQueryUIAdapter;
+  
+  return $;
 }));
