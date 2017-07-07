@@ -193,11 +193,6 @@
 
             $.rup_toolbar.showingMB = showingMB;
 
-            delete actualMB;
-            delete showingMB;
-            delete top;
-            delete self;
-
             return false;
         },
         /**
@@ -328,7 +323,6 @@
         $("[id='" + showingMB + "']").removeClass("rup-toolbar_menuButtonSlided");
         showingMB = null;
         $.rup_toolbar.showingMB = showingMB;
-        delete showingMB;
     };
 
     $.fn.getTotalHeight = function () { //Función auxilliar que obtiene el alto total del boton, teniendo en cuenta todos los posibles paddings

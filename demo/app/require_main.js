@@ -8,7 +8,7 @@ requirejs.config({
   packages: [
     {
       name: 'rup',
-      location: '../../src/',
+      location: '../../build/src/',
       main: 'rup.base'
         },
     {
@@ -85,7 +85,11 @@ requirejs.config({
     "gridstack": "../../node_modules/gridstack/dist/gridstack",
     "lodash": "../../node_modules/lodash/lodash",
     "jquery-jstree": "../../src/core/utils/jquery.jstree",
-    "jquery-hotkeys": "../../src/core/utils/jquery.hotkeys"
+    "jquery-hotkeys": "../../src/core/utils/jquery.hotkeys",
+
+
+    "datatables.net": "../../node_modules/datatables.net/js/jquery.dataTables",
+    "datatables.net-bs": "../../node_modules/datatables.net-bs/js/dataTables.bootstrap"
 
 
 

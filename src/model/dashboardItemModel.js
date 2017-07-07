@@ -45,7 +45,7 @@
         this.widgetOptions = $.proxy($el.find(".grid-stack-item-content"), widgetName)("getOptions");
     };
 
-     DashboardItem = function DashboardItem(obj){
+     var DashboardItem = function DashboardItem(obj){
         var defaultsValues = {
             type: null,
             x: null,

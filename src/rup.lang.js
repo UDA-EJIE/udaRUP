@@ -80,8 +80,10 @@
          */
         _create: function () {
 
+            var active;
 
-            this.options.active = $.rup.lang == null ? "[lang]" : $.rup.lang, active = this.options.active;
+            this.options.active = $.rup.lang == null ? "[lang]" : $.rup.lang;
+            active = this.options.active;
             this.options.languages = $.rup.AVAILABLE_LANGS.split(",");
             var self = this.element,
                 aChangeLang = $("<a>").attr("id", "rup_language_choice").addClass("rup-language_change_option").text($.rup.i18nParse($.rup.i18n.base, "rup_language.changeLanguage"));

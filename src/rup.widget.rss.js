@@ -4,7 +4,7 @@
  * Further changes: @peolanha
  * Licensed under the MIT license
  */
- 
+
 ;(function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
@@ -26,16 +26,16 @@
 }(function($) {
 
     function RssFeed() {
-    } 
+    }
 
     function RssChannel() {
-    } 
+    }
 
     function RssItem() {
-    } 
+    }
 
     // Animal methods
-    RssFeed.prototype = { 
+    RssFeed.prototype = {
         channel: []
     };
 
@@ -55,13 +55,13 @@
     };
 
 
- 
+
     // define our widget under a namespace of your choice
     // with additional parameters e.g.
     // $.widget( "namespace.widgetname", (optional) - an
     // existing widget prototype to inherit from, an object
     // literal to become the widget's prototype );
- 
+
     $.widget("rup.widget_rss", $.rup.widget, {
         options:{
             path: "widgets",
@@ -120,7 +120,6 @@
                 $self._getScript($self._configure.script).done(function(){
 
                     $.proxy(callback)($el, $self.$configDialog, $self._configure.data);
-                    delete callback;
 
                     if (options.configure._configurationData!==null){
                         $self.$ui.configure.$form.rup_form("populate", options.configure._configurationData);
@@ -160,27 +159,27 @@
         _preInitializeContainer: function(){
             var $self = this,
                 ops = $self.options;
-            
+
             if (ops.require!==null){
-                templateObj = $.rup_utils.getTemplateObj(ops.templateObj, require(ops.require));            
+                templateObj = $.rup_utils.getTemplateObj(ops.templateObj, require(ops.require));
             }else{
-                templateObj = $.rup_utils.getTemplateObj(ops.templateObj);            
+                templateObj = $.rup_utils.getTemplateObj(ops.templateObj);
             }
-            
+
             $self._configure = $self._configure || {};
-            
+
             $self._configure.template = templateObj[ops.widgetName+"/config/template"];
 
             $self._configure.data = $.rup_utils.getTemplateObj("Json")[ops.widgetName+"/config/data_"+$.rup.i18n.getLanguage()];
 
             $self._configure.script = ops.path+"/"+ops.widgetName+"/config/script.js";
-            
+
 //            $self._configure.script = $.rup_utils.getTemplateObj("Scripts")[ops.widgetName+"/config/script"];
-            
+
 //            this._getScript(ops.configScript, function(){
 //                $.proxy(callback)($el);
 //            });
-            
+
         },
         _initializeBody: function(){
             var $self = this,
@@ -190,44 +189,43 @@
                 templateObj,
                 i18nJson,
                 script;
-            
-            
+
+
             if (ops.require!==null){
-                templateObj = $.rup_utils.getTemplateObj(ops.templateObj, require(ops.require));            
+                templateObj = $.rup_utils.getTemplateObj(ops.templateObj, require(ops.require));
             }else{
-                templateObj = $.rup_utils.getTemplateObj(ops.templateObj);            
+                templateObj = $.rup_utils.getTemplateObj(ops.templateObj);
             }
-            
+
             template = templateObj[ops.widgetName+"/template"];
-            
+
             i18nJson = $.rup_utils.getTemplateObj("Json")[ops.widgetName+"/data_"+$.rup.i18n.getLanguage()];
-            
+
             $self.$ui.$widgetBody.append(template(i18nJson));
             $self.$ui.$widgetBody.parent().addClass("rssBottom");
-            
+
             //script = $.rup_utils.getTemplateObj("Scripts")[ops.widgetName+"/script"];
-            
+
 //            $.proxy(script.callback, $self)($el, i18nJson);
             if (null!==ops.defaultHeight)
                 $($el.parent()).attr("data-default-height",ops.defaultHeight);
             if (null!==ops.defaultWidth)
                 $($el.parent()).attr("data-default-width",ops.defaultWidth);
-            
+
             // Se procede a crear el diálogo de configuración a partir de las propiedades con las que se ha inicializado el widget
          /*   if (ops.buttons.btnConfig===true){
 
                 $self.$ui.configure = $self.$ui.configure || {};
                 $self._createConfigureDialog();
             }*/
-            
+
             $self._getScript(ops.path+"/"+ops.widgetName+"/script.js").done(function(){
                 $.proxy(callback)($el, i18nJson);
-                delete callback;
             });
-                            
+
         },
         reload: function(){
-            this.loadAjax();    
+            this.loadAjax();
         },
         getOptions: function(){
             return this.options;
@@ -262,7 +260,7 @@
                     dataType : 'xml',
                     data: JSON.stringify(data),
                     contentType : 'application/json',
-                    
+
                     success: function(data, textStatus, jqXHR){
                         var $XML = $(data);
                         var $rssFeed = new RssFeed();
@@ -290,7 +288,7 @@
                             });
                             $rssChannel.items = $items;
                             $channel.push($rssChannel);
-                            
+
 
                         });
                         $rssFeed.channel = $channel;
@@ -388,10 +386,10 @@
                                 valor =$('[for="'+key+'"]', $formulario).html();
                                 vuelta =valor;
                             }
-                            
+
                             //"combo"==$("#comboFamilia").attr("data-rup-type")
                         }else if ("combo"==$('[name="'+key+'"]', $formulario).attr("data-rup-type")) {
-                            
+
                             $('[name="'+key+'"]', $formulario).find("option").each(function(){
                                 if ($(this).val()==data[key]){
                                     valor = $(this).html();
@@ -417,7 +415,7 @@
             $(".widget-feedback", $($($self.$ui.$widgetBody)[0]).parent()).html("<i>"+final+"</i>");
         }
     });
-    
+
     $.widget.bridge("rup_widget_rss", $.rup.widget_rss);
-    
+
 }));

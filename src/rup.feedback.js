@@ -110,8 +110,6 @@ de la aplicación pueda cerrar la capa manualmente.
         }
         break;
       }
-      delete opciones;
-      delete element;
       $.Widget.prototype._setOption.apply(this, arguments);
     },
     /**
@@ -150,7 +148,6 @@ de la aplicación pueda cerrar la capa manualmente.
         this.set(opciones.message, opciones.type, opciones.imgClass);
       }
 
-      delete opciones;
     },
     /**
      * @description Añade el enlace de cierre.
@@ -164,7 +161,6 @@ de la aplicación pueda cerrar la capa manualmente.
         $("#" + opciones._idFeedback).rup_feedback("close");
       });
       this.element.prepend(opciones._divClose);
-      delete opciones;
     },
     /**
      * Elimina las modificaciones realizadas sobre la capa para convertirla en feedback volviendo a ser una simple capa.
@@ -184,7 +180,6 @@ de la aplicación pueda cerrar la capa manualmente.
         .stop().animate({
           opacity: '100'
         }); //Por si está desapareciendo (hide)
-      delete opciones;
       $.Widget.prototype.destroy.apply(this, arguments);
     },
     /**
@@ -257,8 +252,6 @@ de la aplicación pueda cerrar la capa manualmente.
       if (opciones.delay != null) {
         this.hide();
       }
-      delete element;
-      delete opciones;
     },
     /**
      * Oculta la capa del feedback con una animación. <br/><br/>
@@ -292,10 +285,6 @@ de la aplicación pueda cerrar la capa manualmente.
       });
 
       $("#" + this.options._idFeedback + "_closeDiv").hide();
-
-
-      delete opciones;
-      delete element;
     },
     /**
      * Oculta la capa del feedback sin animación alguna.<br/>
@@ -315,7 +304,6 @@ de la aplicación pueda cerrar la capa manualmente.
       if (notEmpty === undefined) {
         element.empty();
       }
-      delete element;
     },
     /**
      * Muesta la capa del feedback. <br/><br/>
@@ -344,7 +332,6 @@ de la aplicación pueda cerrar la capa manualmente.
 
       $("#" + this.options._idFeedback + "_closeDiv").show();
 
-      delete element;
       /**
        * Permite asociar una función que se ejecutará cuando se muestre el feedback.
        * @event module:rup_feedback#rupFeedback_show

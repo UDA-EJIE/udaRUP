@@ -27,5 +27,5 @@ gulp.task('rup:build:table', function (cb) {
           <%= contents %>
         }));
         `))
-        .pipe(gulp.dest('src'));
+        .pipe(gulp.dest('build/src'));
 });

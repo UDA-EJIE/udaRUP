@@ -14,7 +14,7 @@
   function ToolbarBootstrapAdapter(){
 
   }
-  
+
   ToolbarBootstrapAdapter.prototype.NAME = "toolbar_bootstrap";
 
   ToolbarBootstrapAdapter.prototype.addButton = function (obj, json_i18n) {
@@ -189,14 +189,12 @@
     // }
 
     //Borrar referencias
-    delete ul;
-    delete div;
   };
 
   $.rup = $.rup || {};
   $.rup.adapter = $.rup.adapter || {};
-  
+
   $.rup.adapter[ToolbarBootstrapAdapter.prototype.NAME ] = new ToolbarBootstrapAdapter;
-  
+
   return $;
 }));
