@@ -304,7 +304,6 @@
                 $self._getScript($self._configure.script).done(function(){
 
                     $.proxy(callback)($el, $self.$configDialog, $self._configure.data);
-                    delete callback;
 
                     if (options.configure._configurationData!==null){
                         $self.$ui.configure.$form.rup_form("populate", options.configure._configurationData);
@@ -549,8 +548,8 @@
         fncBtnConfigClick: function(){
             this.showConfig();
         },
-        execDashboard: function(arguments){
-          this.element.triggerHandler("rup.widget.execFunction", arguments);
+        execDashboard: function(args){
+          this.element.triggerHandler("rup.widget.execFunction", args);
         },
         getDashboardWidgetOptions: function(){
            return this.element.triggerHandler("rup.widget.getDashboardWidgetOptions");

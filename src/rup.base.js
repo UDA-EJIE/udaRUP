@@ -373,17 +373,17 @@
       $.rup.IFRAME_ONLY_SUPPORTED_METHODS = ["GET", "POST"];
 
       //Borrar las variables javascript externas
-      delete APP_RESOURCES;
-      delete CTX_PATH;
-      delete RUP;
-      delete STATICS;
-      delete WAR_NAME;
+      // delete APP_RESOURCES;
+      // delete CTX_PATH;
+      // delete RUP;
+      // delete STATICS;
+      // delete WAR_NAME;
       //model
-      delete AVAILABLE_LANGS;
-      delete LAYOUT;
+      // delete AVAILABLE_LANGS;
+      // delete LAYOUT;
       //mvc-config.xml
-      delete LOCALE_COOKIE_NAME;
-      delete LOCALE_PARAM_NAME;
+      // delete LOCALE_COOKIE_NAME;
+      // delete LOCALE_PARAM_NAME;
 
       var cookie = $.rup_utils.get($.rup.LOCALE_COOKIE_NAME);
       if (cookie !== null && cookie !== "") { //si tenemos cookie con el lenguaje

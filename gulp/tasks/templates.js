@@ -146,5 +146,5 @@ gulp.task('templates:rup', function () {
         }
         ));
         `))
-        .pipe(gulp.dest('src/'));
+        .pipe(gulp.dest('build/src/'));
 });

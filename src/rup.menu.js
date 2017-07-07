@@ -553,7 +553,6 @@
                             submenu = $("[uda-submenu = 'true']");
                             //Llamada recursiva para añadir subelementos del submenu
                             submenu.append(this._parseJSON(element.submenu, json_i18n, submenu));
-                            delete submenu;
                         }
 
                         if (element.disabled === true) {
@@ -567,7 +566,6 @@
                         }
                     }
                 }
-                delete element;
             }
         }
     });

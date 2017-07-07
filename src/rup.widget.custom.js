@@ -102,7 +102,6 @@
 
             $self._getScript(ops.path+"/"+ops.widgetName+"/script.js").done(function(){
                 $.proxy(callback)($el, i18nJson);
-                delete callback;
             });
         }
     });

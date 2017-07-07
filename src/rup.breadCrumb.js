@@ -199,7 +199,7 @@
                 "font-weight": "bold",
                 "color": "#333333"
             }));
-            delete lastCrum;
+            // delete lastCrum;
             //y por ultimo se añade todo el ul a div que lo contiene
             this.element.append(ulBreadCrumb);
             ulBreadCrumb.xBreadcrumbs();

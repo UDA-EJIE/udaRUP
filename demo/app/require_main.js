@@ -8,7 +8,7 @@ requirejs.config({
   packages: [
     {
       name: 'rup',
-      location: '../../src/',
+      location: '../../build/src/',
       main: 'rup.base'
         },
     {

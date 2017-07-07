@@ -142,8 +142,8 @@
               "rup.widget.getDashboardWidgetOptions": function(event){
                 return $self.getWidgetOptions($(this).parent());
               },
-              "rup.widget.execFunction": function(event, arguments){
-                $self.execFunction($(this).parent(), arguments);
+              "rup.widget.execFunction": function(event, args){
+                $self.execFunction($(this).parent(), args);
               }
             });
 
@@ -160,8 +160,8 @@
             $gridStackItem.data("options", dashboardItem);
 
         },
-        execFunction: function($el, arguments){
-            debugger;
+        execFunction: function($el, args){
+            
             return this.$gridstack.resize($el, width, height);
         },
         getWidgetOptions: function($el){

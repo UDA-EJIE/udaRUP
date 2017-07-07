@@ -96,7 +96,6 @@
       if (labelMaskId) {
         $("#" + labelMaskId).text("");
       }
-      delete labelMaskId;
       //Eliminar imagen (reloj)
       $(this).next("img").remove();
       $(this).timepicker("destroy");
