@@ -14,6 +14,8 @@
  * que establece la Licencia.
  */
 
+/*global jQuery */
+
 (function ($) {
 
 	/**
@@ -23,16 +25,16 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin("toolbar",{
+	jQuery.rup_table.registerPlugin('toolbar',{
 		loadOrder:3,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table("preConfigureToolbar", settings);
+			return $self.rup_table('preConfigureToolbar', settings);
 
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table("postConfigureToolbar", settings);
+			return $self.rup_table('postConfigureToolbar', settings);
 
 		}
 	});
@@ -50,7 +52,7 @@
 	 * postConfigureToolbar(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
 	 *
 	 */
-	jQuery.fn.rup_table("extend",{
+	jQuery.fn.rup_table('extend',{
 		/*
 		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
 		 *
@@ -62,26 +64,26 @@
 			/*
 			 * Inicialización de los identificadores por defecto de los componentes del toolbar
 			 */
-			toolbarSettings.id = toolbarSettings.id!==null?toolbarSettings.id:settings.id+"_toolbar";
+			toolbarSettings.id = toolbarSettings.id!==null?toolbarSettings.id:settings.id+'_toolbar';
 
 			/*
 			 * Inicialización del componente rup_toolbar
 			 */
-			if (jQuery("#"+toolbarSettings.id).length>0){
-				settings.$toolbar=(toolbarSettings.id[0]==="#"?$(toolbarSettings.id):$("#"+toolbarSettings.id));
-				if (!settings.$toolbar.hasClass("rup-toolbar")){
+			if (jQuery('#'+toolbarSettings.id).length>0){
+				settings.$toolbar=(toolbarSettings.id[0]==='#'?$(toolbarSettings.id):$('#'+toolbarSettings.id));
+				if (!settings.$toolbar.hasClass('rup-toolbar')){
 					settings.$toolbar.rup_toolbar({
 						 width: toolbarSettings.width
 					});
 				}
 
-//				toolbarSettings.self=$(toolbarSettings);
+				//				toolbarSettings.self=$(toolbarSettings);
 			}else{
 				// En caso de no indicarse un toolbar, se crea un toolbar por defecto.
 				// FIXME: Contemplar la posibilidad de no generar una toolbar por defecto
 				toolbarSettings = {};
-				toolbarSettings.id = "rup-maint_toolbar-" + settings.id;
-				toolbarSettings.self = $("<div/>").attr("id", toolbarSettings.id);
+				toolbarSettings.id = 'rup-maint_toolbar-' + settings.id;
+				toolbarSettings.self = $('<div/>').attr('id', toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
 					 width: toolbarSettings.width
@@ -92,7 +94,7 @@
 
 			// autoAjustToolbar: Realiza el autoajuste del toolbar al tamanyo del grid.
 			if (toolbarSettings.autoAjustToolbar) {
-				settings.$toolbar.css("width", $self.rup_table("getGridParam", "width") - 5);//-5 para ajustar el ancho
+				settings.$toolbar.css('width', $self.rup_table('getGridParam', 'width') - 5);//-5 para ajustar el ancho
 			}
 
 			// createDefaultToolButtons: Determina la creacion de los botones basicos por defecto del toolbar.
@@ -114,14 +116,14 @@
 				if (value===true){
 					operationCfg = settings.core.operations[buttonId];
 					if (operationCfg!==undefined){
-						toolbarSettings["btn"+buttonId.capitalize()] = settings.$toolbar.addButton({
-							id:"btn"+buttonId.capitalize(),
+						toolbarSettings['btn'+buttonId.capitalize()] = settings.$toolbar.addButton({
+							id:'btn'+buttonId.capitalize(),
 							i18nCaption: operationCfg.name,
 							css: operationCfg.icon,
 							index: counter++,
 							dropdown: operationCfg.dropdown,
 							right: operationCfg.right
-						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,"rup_table")).bind("click", function(event){
+						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table')).bind('click', function(event){
 							jQuery.proxy(operationCfg.callback,$self)($self, event);
 						});
 					}
@@ -134,16 +136,16 @@
 					if (object.json_i18n === undefined){
 						object.json_i18n = {};
 					}
-//					if (object.obj===undefined)
+					//					if (object.obj===undefined)
 
 
 					if (object.obj !== undefined && object.click !== undefined){
-						settings.$toolbar.addButton(object.obj, object.json_i18n).bind("click", object.click);
+						settings.$toolbar.addButton(object.obj, object.json_i18n).bind('click', object.click);
 					} else if (object.buttons !== undefined){
-					 	 var mButton = settings.$toolbar.addMButton(object, object.json_i18n).bind("click", settings.$toolbar.showMButton);
+					 	 var mButton = settings.$toolbar.addMButton(object, object.json_i18n).bind('click', settings.$toolbar.showMButton);
 					 	 settings.$toolbar.addButtonsToMButton(object.buttons, mButton, object.json_i18n);
 					}else{
-						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,"rup_table.toolbarNewButtonError"));
+						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,'rup_table.toolbarNewButtonError'));
 					}
 				});
 			}
@@ -152,35 +154,35 @@
 			 * EVENTOS
 			 */
 			$self.on({
-				"jqGridSelectRow.rupTable.toolbar jqGridLoadComplete.rupTable.toolbar jqGridInlineEditRow.rupTable.toolbar jqGridInlineAfterRestoreRow.rupTable.toolbar rupTableHighlightRowAsSelected.rupTable.toolbar rupTableSelectedRowNumberUpdated jqGridInlineAfterSaveRow rupTable_toolbarButtonsStateRefresh rupTable_afterDeleteRow.rupTable.toolbar rupTable_coreConfigFinished.toolbar rupTable_deleteAfterComplete.rupTable.toolbar": function(event, id, status, obj){
-					var $self = jQuery(this), settings = $self.data("settings");
+				'jqGridSelectRow.rupTable.toolbar jqGridLoadComplete.rupTable.toolbar jqGridInlineEditRow.rupTable.toolbar jqGridInlineAfterRestoreRow.rupTable.toolbar rupTableHighlightRowAsSelected.rupTable.toolbar rupTableSelectedRowNumberUpdated jqGridInlineAfterSaveRow rupTable_toolbarButtonsStateRefresh rupTable_afterDeleteRow.rupTable.toolbar rupTable_coreConfigFinished.toolbar rupTable_deleteAfterComplete.rupTable.toolbar': function(event, id, status, obj){
+					var $self = jQuery(this), settings = $self.data('settings');
 					// Existe elementos seleccionados para ser editados
 
 					function processButton($button, enable){
 						if ($button!==undefined){
 							if (enable){
-								$button.button("enable");
+								$button.button('enable');
 							}else{
-								$button.button("disable");
+								$button.button('disable');
 							}
 						}
 					}
 
 					jQuery.each(settings.core.operations, function(buttonId, operationCfg){
 
-//						if (value===true){
+						//						if (value===true){
 						if (settings.toolbar.showOperations[buttonId]===true){
-//							operationCfg = settings.core.operations[buttonId];
+							//							operationCfg = settings.core.operations[buttonId];
 							if (operationCfg!==undefined){
-								processButton(settings.toolbar["btn"+buttonId.capitalize()], jQuery.proxy(operationCfg.enabled, $self)());
+								processButton(settings.toolbar['btn'+buttonId.capitalize()], jQuery.proxy(operationCfg.enabled, $self)());
 							}
 						}
 					});
 
 				},
-				"rupTable_internalFeedbackClose": function(){
-					var $self = jQuery(this), settings = $self.data("settings");
-					settings.$internalFeedback.rup_feedback("close");
+				'rupTable_internalFeedbackClose': function(){
+					var $self = jQuery(this), settings = $self.data('settings');
+					settings.$internalFeedback.rup_feedback('close');
 				}
 			});
 
@@ -196,21 +198,21 @@
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.toolbar = {};
 	jQuery.fn.rup_table.plugins.toolbar.defaults = {
-			toolbar:{
-				id: null,
-				autoAjustToolbar: true,
-				createDefaultToolButtons: true,
-				defaultAdd : true,
-				defaultEdit : true,
-				defaultSave : true,
-				defaultClone : true,
-				defaultCancel : true,
-				defaultDelete : true,
-				defaultFilter : false,
-				defaultButtons:{},
-				showOperations:{},
-				width: 796
-			}
+		toolbar:{
+			id: null,
+			autoAjustToolbar: true,
+			createDefaultToolButtons: true,
+			defaultAdd : true,
+			defaultEdit : true,
+			defaultSave : true,
+			defaultClone : true,
+			defaultCancel : true,
+			defaultDelete : true,
+			defaultFilter : false,
+			defaultButtons:{},
+			showOperations:{},
+			width: 796
+		}
 	};
 
 

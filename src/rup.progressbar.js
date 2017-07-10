@@ -28,32 +28,35 @@
  * $("#idProgressbar").rup_progressbar(properties);
  */
 
+/*global define */
+/*global jQuery */
+
 (function (factory) {
-    if (typeof define === "function" && define.amd) {
+	if (typeof define === 'function' && define.amd) {
 
-        // AMD. Register as an anonymous module.
-        define(["jquery", "./rup.base"], factory);
-    } else {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './rup.base'], factory);
+	} else {
 
-        // Browser globals
-        factory(jQuery);
-    }
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($) {
 
-    //****************************************************************************************************************
-    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-    //****************************************************************************************************************
+	//****************************************************************************************************************
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	//****************************************************************************************************************
 
-    var rup_progressbar = {};
+	var rup_progressbar = {};
 
-    //Se configura el arranque de UDA para que alberge el nuevo patrón
-    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_progressbar", rup_progressbar));
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_progressbar', rup_progressbar));
 
-    //*******************************
-    // DEFINICIÓN DE MÉTODOS PÚBLICOS
-    //*******************************
-    $.fn.rup_progressbar("extend", {
-        /**
+	//*******************************
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	//*******************************
+	$.fn.rup_progressbar('extend', {
+		/**
          * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor de la barra de progreso.
          *
          * @name getRupValue
@@ -62,11 +65,11 @@
          * @example
          * $("#idProgressbar").rup_progressbar("getRupValue");
          */
-        getRupValue: function () {
-            var $self = this;
-            return $self.progressbar("value");
-        },
-        /**
+		getRupValue: function () {
+			var $self = this;
+			return $self.progressbar('value');
+		},
+		/**
 		 * Método utilizado para asignar el valor al componente. Este método es el utilizado por
 el resto de componentes RUP para estandarizar la asignación del valor a la barra de progreso.
 		 *
@@ -77,14 +80,14 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
 		 * @example
 		 * $("#idProgressbar").rup_progressbar("setRupValue", 50);
 		 */
-        setRupValue: function (param) {
-            var $self = this;
+		setRupValue: function (param) {
+			var $self = this;
 
-            $self.progressbar("value", param);
+			$self.progressbar('value', param);
 
-            return $self;
-        },
-        /**
+			return $self;
+		},
+		/**
          * Elimina las modificaciones realizadas sobre elemento del DOM.
          *
          * @name destroy
@@ -94,17 +97,17 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * // Elimina la barra de progreso
          * jQuery("#idProgressbar").rup_progressbar("destroy");
          */
-        destroy: function () {
-            var $self = this;
+		destroy: function () {
+			var $self = this;
 
-            $self.removeClass("rup_progressbar");
-            $self.removeAttr("ruptype");
-            $self.progressbar("destroy");
-            $self.find("div.rup-progressbar-label").remove();
+			$self.removeClass('rup_progressbar');
+			$self.removeAttr('ruptype');
+			$self.progressbar('destroy');
+			$self.find('div.rup-progressbar-label').remove();
 
-            return $self;
-        },
-        /**
+			return $self;
+		},
+		/**
          * Deshabilita la barra de progreso.
          *
          * @name disable
@@ -113,12 +116,12 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("disable");
          */
-        disable: function () {
-            this.progressbar("disable");
-            this.addClass("rup-progressbar-disabled");
-            return this;
-        },
-        /**
+		disable: function () {
+			this.progressbar('disable');
+			this.addClass('rup-progressbar-disabled');
+			return this;
+		},
+		/**
          * Habilita la barra de progreso.
          *
          * @name enable
@@ -127,12 +130,12 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("enable");
          */
-        enable: function () {
-            this.progressbar("enable");
-            this.removeClass("rup-progressbar-disabled");
-            return this;
-        },
-        /**
+		enable: function () {
+			this.progressbar('enable');
+			this.removeClass('rup-progressbar-disabled');
+			return this;
+		},
+		/**
          * Devuelve la instancia de jQueryUI asociada a la barra de progreso. Si no ha sido inicializada retorna undefined.
          *
          * @name instance
@@ -141,10 +144,10 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("instance");
          */
-        instance: function () {
-            return this.progressbar("instance");
-        },
-        /**
+		instance: function () {
+			return this.progressbar('instance');
+		},
+		/**
          * Devuelve un objeto clave/valor que contiene las propiedades de configuración de la barra de progreso.
          *
          * @name option
@@ -153,7 +156,7 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("option");
          */
-        /**
+		/**
          * Devuelve el valor asociado a la propiedad identificada por parámetro.
          *
          * @name option
@@ -163,7 +166,7 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("option", "value");
          */
-        /**
+		/**
          * Asigna un valor a la propiedad indentificada por parámetro.
          *
          * @name option
@@ -174,7 +177,7 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("option", "value", 50);
          */
-        /**
+		/**
          * Permite asignar el valor de una o varias propiedades de configuración.
          *
          * @name option
@@ -184,16 +187,16 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("option", {value:50, max:0});
          */
-        option: function () {
-            if (arguments.length === 0) {
-                return this.progressbar("option");
-            } else if (arguments.length === 1) {
-                return this.progressbar("option", arguments[0]);
-            } else {
-                return this.progressbar("option", arguments[0], arguments[1]);
-            }
-        },
-        /**
+		option: function () {
+			if (arguments.length === 0) {
+				return this.progressbar('option');
+			} else if (arguments.length === 1) {
+				return this.progressbar('option', arguments[0]);
+			} else {
+				return this.progressbar('option', arguments[0], arguments[1]);
+			}
+		},
+		/**
          * Devuelve el valor actual de la barra de progreso.
          *
          * @name value
@@ -202,7 +205,7 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("value");
          */
-        /**
+		/**
          * Asigna un valor a la barra de progreso.
          *
          * @name value
@@ -212,10 +215,10 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("value", 50);
          */
-        value: function (args) {
-            return this.progressbar("value", args);
-        },
-        /**
+		value: function (args) {
+			return this.progressbar('value', args);
+		},
+		/**
          * Devuelve el objeto widget de jQuery que contiene la barra de progreso.
          *
          * @name widget
@@ -224,53 +227,53 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
          * @example
          * jQuery("#idProgressbar").rup_progressbar("widget");
          */
-        widget: function () {
-            return this.progressbar("widget");
-        }
-    });
+		widget: function () {
+			return this.progressbar('widget');
+		}
+	});
 
 
-    $.fn.rup_progressbar("extend", {
-        _printLabel: function () {
-            var $self = this;
+	$.fn.rup_progressbar('extend', {
+		_printLabel: function () {
+			var $self = this;
 
 
-        }
-    });
+		}
+	});
 
 
-    //*******************************
-    // MÉTODO DE INICIALIZACION
-    //*******************************
-    $.fn.rup_progressbar("extend", {
-        _init: function (args) {
-            var $self = this,
-                settings = $.extend({}, $.fn.rup_progressbar.defaults, args[0]);
+	//*******************************
+	// MÉTODO DE INICIALIZACION
+	//*******************************
+	$.fn.rup_progressbar('extend', {
+		_init: function (args) {
+			var $self = this,
+				settings = $.extend({}, $.fn.rup_progressbar.defaults, args[0]);
 
-            $self.addClass("rup-progressbar");
-            $self.attr("ruptype", "progressbar");
-
-
+			$self.addClass('rup-progressbar');
+			$self.attr('ruptype', 'progressbar');
 
 
 
-            $self.progressbar(settings);
 
-            if (settings.label) {
-                settings.$label = $("<div>").addClass("rup-progressbar-label");
-                $self.append(settings.$label);
-                settings.$label.html(settings.label.replace("${value}", $self.rup_progressbar("getRupValue")).replace("${max}", $self.rup_progressbar("option", "max")));
-                $self.on("progressbarchange", function () {
-                    settings.$label.html(settings.label.replace("${value}", $self.rup_progressbar("getRupValue")).replace("${max}", $self.rup_progressbar("option", "max")));
-                });
-            }
-        }
-    });
 
-    //******************************************************
-    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-    //******************************************************
-    /**
+			$self.progressbar(settings);
+
+			if (settings.label) {
+				settings.$label = $('<div>').addClass('rup-progressbar-label');
+				$self.append(settings.$label);
+				settings.$label.html(settings.label.replace('${value}', $self.rup_progressbar('getRupValue')).replace('${max}', $self.rup_progressbar('option', 'max')));
+				$self.on('progressbarchange', function () {
+					settings.$label.html(settings.label.replace('${value}', $self.rup_progressbar('getRupValue')).replace('${max}', $self.rup_progressbar('option', 'max')));
+				});
+			}
+		}
+	});
+
+	//******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	//******************************************************
+	/**
      * @description Propiedades de configuración del componente.
      *
      * @name defaults
@@ -278,11 +281,11 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
      * @property {number} [max=100] - Indica el valor máximo que determinará el 100% de progreso.
      * @property {number} [value=0] - Determina el valor de progreso con el que se incializará la barra de progreso.
      */
-    $.fn.rup_progressbar.defaults = {
-        disabled: false,
-        max: 100,
-        value: 0,
-        label: undefined
-    };
+	$.fn.rup_progressbar.defaults = {
+		disabled: false,
+		max: 100,
+		value: 0,
+		label: undefined
+	};
 
 }));

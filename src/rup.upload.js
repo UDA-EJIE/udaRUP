@@ -23,577 +23,581 @@
  * @example
  * $("#idUpload").rup_upload({});
  */
+
+/*global define */
+/*global jQuery */
+
 (function (factory) {
-    if (typeof define === "function" && define.amd) {
+	if (typeof define === 'function' && define.amd) {
 
-        // AMD. Register as an anonymous module.
-        define(["jquery", "./rup.base",
-      "jquery.fileupload-ui",
-      "jquery.fileupload-jquery-ui",
-      "jquery.fileupload-process",
-      "jquery.fileupload-image",
-      "jquery.fileupload-audio",
-      "jquery.fileupload-process",
-      "jquery.fileupload-video",
-      "jquery.fileupload-validate",
-      "jquery.fileupload"
-    ], factory);
-    } else {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './rup.base',
+			'jquery.fileupload-ui',
+			'jquery.fileupload-jquery-ui',
+			'jquery.fileupload-process',
+			'jquery.fileupload-image',
+			'jquery.fileupload-audio',
+			'jquery.fileupload-process',
+			'jquery.fileupload-video',
+			'jquery.fileupload-validate',
+			'jquery.fileupload'
+		], factory);
+	} else {
 
-        // Browser globals
-        factory(jQuery);
-    }
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($) {
 
 
 
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-        options: {
-            errorMessages: {
-                maxFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxFileSizeError"),
-                minFileSize: $.rup.i18nParse($.rup.i18n.base, "rup_upload.minFileSizeError"),
-                acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, "rup_upload.acceptFileTypesError"),
-                maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, "rup_upload.maxNumberOfFilesError")
-            },
-            processdone: function (e, data) {
-                return $.proxy(data.self._ADAPTER.processdone, this)(e, data);
+	$.widget('blueimp.fileupload', $.blueimp.fileupload, {
+		options: {
+			errorMessages: {
+				maxFileSize: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.maxFileSizeError'),
+				minFileSize: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.minFileSizeError'),
+				acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.acceptFileTypesError'),
+				maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.maxNumberOfFilesError')
+			},
+			processdone: function (e, data) {
+				return $.proxy(data.self._ADAPTER.processdone, this)(e, data);
 
-            },
-            getFilesFromResponse: function (data) {
-                if (data.result && $.isArray(data.result)) {
-                    // return data.result;
-                    return data.result.map(function (elem, i) {
-                        return $.extend(elem, {
-                            deleteType: elem.delete_type,
-                            deleteUrl: elem.delete_url
-                        });
-                    });
-                }
-                return [];
-            }
-        },
+			},
+			getFilesFromResponse: function (data) {
+				if (data.result && $.isArray(data.result)) {
+					// return data.result;
+					return data.result.map(function (elem, i) {
+						return $.extend(elem, {
+							deleteType: elem.delete_type,
+							deleteUrl: elem.delete_url
+						});
+					});
+				}
+				return [];
+			}
+		},
 
-        // _renderUpload: function (files) {
-        //       var that = this,
-        //           options = this.options,
-        //           tmpl = this._renderUploadTemplate(files),
-        //           isValidated = this._validate(files);
-        //       if (!(tmpl instanceof $)) {
-        //           return $();
-        //       }
-        //       var settings = $.data(this.element[0], "settings");
-        //
-        //       tmpl.css('display', 'none');
-        //       // .slice(1).remove().end().first() removes all but the first
-        //       // element and selects only the first for the jQuery collection:
-        //       tmpl.find('.progress div').slice(
-        //           isValidated ? 1 : 0
-        //       ).remove().end().first()
-        //           .progressbar();
-        //       tmpl.find('.start button').slice(
-        //           this.options.autoUpload || !isValidated ? 0 : 1
-        //       ).remove().end().first()
-        //           .button({
-        //               text: true,
-        //               icons: {primary: 'ui-icon-circle-arrow-e'}
-        //           });
-        //       var cancelButton = tmpl.find('.cancel button').slice(1).remove().end().first()
-        //           .button({
-        //               text: true,
-        //               icons: {primary: 'ui-icon-cancel'}
-        //           });
-        //
-        //       if(settings.submitInForm){
-        //         cancelButton.bind("click",function(event){
-        //         	var newFileInput;
-        //             event.preventDefault();
-        //             that.options.fileInput.attr("value","");
-        //             newFileInput=that.options.fileInput.clone(true).attr("value","").insertAfter(that.options.fileInput);
-        //             that.options.fileInput.remove();
-        //             that.options.fileInput=newFileInput;
-        //
-        //         });
-        //       }
-        //
-        //       tmpl.find('.preview').each(function (index, node) {
-        //           that._loadImage(
-        //               files[index],
-        //               function (img) {
-        //                   $(img).hide().appendTo(node).fadeIn();
-        //               },
-        //               {
-        //                   maxWidth: options.previewMaxWidth,
-        //                   maxHeight: options.previewMaxHeight,
-        //                   fileTypes: options.previewFileTypes,
-        //                   canvas: options.previewAsCanvas
-        //               }
-        //           );
-        //       });
-        //       return tmpl;
-        //   },
-        // _renderDownload: function (files) {
-        //     var tmpl = this._renderDownloadTemplate(files);
-        //     if (!(tmpl instanceof $)) {
-        //         return $();
-        //     }
-        //     tmpl.css('display', 'none');
-        //     tmpl.find('.delete button').button({
-        //         text: true,
-        //         icons: {primary: 'ui-icon-trash'}
-        //     });
-        //     tmpl.find('a').each(this._enableDragToDesktop);
-        //     return tmpl;
-        // },
-        _renderUploadTemplate: function (files) {
-            var that = this,
-                rows = $();
+		// _renderUpload: function (files) {
+		//       var that = this,
+		//           options = this.options,
+		//           tmpl = this._renderUploadTemplate(files),
+		//           isValidated = this._validate(files);
+		//       if (!(tmpl instanceof $)) {
+		//           return $();
+		//       }
+		//       var settings = $.data(this.element[0], "settings");
+		//
+		//       tmpl.css('display', 'none');
+		//       // .slice(1).remove().end().first() removes all but the first
+		//       // element and selects only the first for the jQuery collection:
+		//       tmpl.find('.progress div').slice(
+		//           isValidated ? 1 : 0
+		//       ).remove().end().first()
+		//           .progressbar();
+		//       tmpl.find('.start button').slice(
+		//           this.options.autoUpload || !isValidated ? 0 : 1
+		//       ).remove().end().first()
+		//           .button({
+		//               text: true,
+		//               icons: {primary: 'ui-icon-circle-arrow-e'}
+		//           });
+		//       var cancelButton = tmpl.find('.cancel button').slice(1).remove().end().first()
+		//           .button({
+		//               text: true,
+		//               icons: {primary: 'ui-icon-cancel'}
+		//           });
+		//
+		//       if(settings.submitInForm){
+		//         cancelButton.bind("click",function(event){
+		//         	var newFileInput;
+		//             event.preventDefault();
+		//             that.options.fileInput.attr("value","");
+		//             newFileInput=that.options.fileInput.clone(true).attr("value","").insertAfter(that.options.fileInput);
+		//             that.options.fileInput.remove();
+		//             that.options.fileInput=newFileInput;
+		//
+		//         });
+		//       }
+		//
+		//       tmpl.find('.preview').each(function (index, node) {
+		//           that._loadImage(
+		//               files[index],
+		//               function (img) {
+		//                   $(img).hide().appendTo(node).fadeIn();
+		//               },
+		//               {
+		//                   maxWidth: options.previewMaxWidth,
+		//                   maxHeight: options.previewMaxHeight,
+		//                   fileTypes: options.previewFileTypes,
+		//                   canvas: options.previewAsCanvas
+		//               }
+		//           );
+		//       });
+		//       return tmpl;
+		//   },
+		// _renderDownload: function (files) {
+		//     var tmpl = this._renderDownloadTemplate(files);
+		//     if (!(tmpl instanceof $)) {
+		//         return $();
+		//     }
+		//     tmpl.css('display', 'none');
+		//     tmpl.find('.delete button').button({
+		//         text: true,
+		//         icons: {primary: 'ui-icon-trash'}
+		//     });
+		//     tmpl.find('a').each(this._enableDragToDesktop);
+		//     return tmpl;
+		// },
+		_renderUploadTemplate: function (files) {
+			var that = this,
+				rows = $();
 
-            var settings = $.data(this.element[0], "settings");
-
-
-            $.each(files, function (index, file) {
-                // file = that._uploadTemplateHelper(file);
-                var row = $(
-                    '<tr class="template-upload"><td>' +
-                    '<div class="formulario_columna_cnt">' +
-                    '<span class="izq_float file_icon">&nbsp;</span>' +
-                    '<div class="izq_float name"><b></b></div>' +
-                    '<div class="formulario_columna_cnt">' +
-                    '<div class="izq_float type"></div>' +
-                    '<div class="izq_float size"></div>' +
-                    (settings.submitInForm ?
-                        '<div class="izq_float cancel" style><button>' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.cancelUpload") + '</button></div>' :
-                        '') +
-                    '</div>' +
-                    (!settings.submitInForm ?
-                        '<div class="formulario_columna_cnt">' +
-                        (file.error ?
-                            '<div class="izq_float error" ></div>' :
-                            '<button>' +
-                            '<div class="izq_float progress"><div></div></div>' +
-                            '<div class="izq_float start fileupload-buttonbar ui-button">' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.startUpload") + '</button></div>'
-                        ) +
-                        '<div class="izq_float cancel"><button>' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.cancelUpload") + '</button></div>' +
-                        '</div>' : '<div class="izq_float start fileupload-buttonbar ui-button" style="display:none"><button>' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.startUpload") + '</button></div>') +
-                    '</td></tr>');
-                row.find('.name b').text(file.name);
-                row.find('.size').text(file.sizef);
-                row.find('.type').text(file.type);
-                if (file.error) {
-                    row.addClass('ui-state-error');
-                    row.find('.error').text(
-                        that.options.errorMessages[file.error] || file.error
-                    );
-                }
-
-                rows = rows.add(row);
-            });
-            return rows;
-        },
-        _renderDownloadTemplate: function (files) {
-            var that = this,
-                rows = $();
-            $.each(files, function (index, file) {
-                // file = that._downloadTemplateHelper(file);
-                var row = $('<tr class="template-download"><td>' +
-                    (file.error ?
-                        '<td class="file_icon"></td>' +
-                        '<td class="name"></td>' +
-                        '<td class="size"></td>' +
-                        '<td class="error" colspan="2"></td>' :
-                        '<div class="formulario_columna_cnt">' +
-                        '<span class="izq_float file_icon">&nbsp;</span>' +
-                        '<div class="izq_float name"><a></a></div>' +
-                        '</div>' +
-                        '<div class="formulario_columna_cnt">' +
-                        '<div class="izq_float type"></div>' +
-                        '<div class="izq_float size"></div>' +
-                        '</div>' +
-                        '<div class="formulario_columna_cnt">' +
-                        '<a><div class="izq_float">' +
-                        '<div class="file_download" >' +
-                        '<span class="file_download_icon">&nbsp;</span>' +
-                        '<span class="file_download_text">' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.openUploaded") + '</span></div>' +
-                        '</div></a>' +
-                        '<div class="izq_float delete"><button>' + $.rup.i18nParse($.rup.i18n.base, "rup_upload.deleteUploaded") + '</button></div>' +
-                        '</div>'
-                    ) +
-                    '</td></tr>');
-
-                row.find('.size').text(file.sizef);
-                row.find('.type').text(file.type);
-                if (file.error) {
-                    row.find('.name').text(file.name);
-                    row.addClass('ui-state-error');
-                    row.find('.error').text(
-                        that.options.errorMessages[file.error] || file.error
-                    );
-                } else {
-                    row.find('.name a').text(file.name);
-                    if (file.thumbnail_url) {
-                        row.find('.preview').append('<a><img></a>')
-                            .find('img').prop('src', file.thumbnail_url);
-                        row.find('a').prop('target', '_blank');
-                    }
-                    row.find('a').prop('href', $.rup_utils.setNoPortalParam(file.url));
-                    row.find('.delete button')
-                        .attr('data-type', file.delete_type)
-                        .attr('data-url', $.rup_utils.setNoPortalParam(file.delete_url));
-                }
-                rows = rows.add(row);
-            });
-            return rows;
-        },
-        _initFileUploadButtonBar: function () {
-            var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
-                filesList = this.element.find('.files'),
-                ns = this.options.namespace;
-            fileUploadButtonBar.find('.start button')
-                .button({
-                    icons: {
-                        primary: 'ui-icon-circle-arrow-e'
-                    }
-                })
-                .bind('click.' + ns, function (e) {
-                    e.preventDefault();
-                    filesList.find('.start button').click();
-                });
-            fileUploadButtonBar.find('.cancel')
-                .button({
-                    icons: {
-                        primary: 'ui-icon-cancel'
-                    }
-                })
-                .bind('click.' + ns, function (e) {
-                    e.preventDefault();
-                    filesList.find('.cancel button').click();
-                });
-            fileUploadButtonBar.find('.delete')
-                .button({
-                    icons: {
-                        primary: 'ui-icon-trash'
-                    }
-                })
-                .bind('click.' + ns, function (e) {
-                    e.preventDefault();
-                    //	                filesList.find('.delete input:checked')
-                    //	                    .siblings('button').click();
-                    filesList.find('.delete button').click();
-                });
-            fileUploadButtonBar.find('.toggle')
-                .bind('change.' + ns, function (e) {
-                    filesList.find('.delete input').prop(
-                        'checked',
-                        $(this).is(':checked')
-                    );
-                });
-        },
-        _getAJAXSettings: function (data) {
-            var options = $.extend({}, this.options, data);
-            this._initFormSettings(options);
-            this._initDataSettings(options);
-            return options;
-        }
-        //	    ,_initProgressListener: function (options) {
-        //            var that = this,
-        //                xhr = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
-        //            // Accesss to the native XHR object is required to add event listeners
-        //            // for the upload progress event:
-        //                if (options.pif ===null && xhr.upload) {
-        //    				//-- fix start --
-        //    				$( xhr.upload ).bind( "progress", function (e) {
-        //    				that._onProgress(e, options);
-        //    				});
-        //    				options.xhr = function () {
-        //                        return xhr;
-        //                    };
-        //    				//-- fix end --
-        //                }
-        //        }
-        //	    destroy: function (e, data) {
-        //            var that = $(this).data('fileupload');
-        //            if (data.url) {
-        //                $.rup_ajax(data)
-        //                    .success(function () {
-        //                        that._adjustMaxNumberOfFiles(1);
-        //                        $(this).fadeOut(function () {
-        //                            $(this).remove();
-        //                        });
-        //                    });
-        //            } else {
-        //                that._adjustMaxNumberOfFiles(1);
-        //                data.context.fadeOut(function () {
-        //                    $(this).remove();
-        //                });
-        //            }
-        //        }
-
-    });
-
-    //*********************************************
-    // ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
-    //*********************************************
-
-    //*****************************************************************************************************************
-    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-    //*****************************************************************************************************************
+			var settings = $.data(this.element[0], 'settings');
 
 
+			$.each(files, function (index, file) {
+				// file = that._uploadTemplateHelper(file);
+				var row = $(
+					'<tr class="template-upload"><td>' +
+																				'<div class="formulario_columna_cnt">' +
+																				'<span class="izq_float file_icon">&nbsp;</span>' +
+																				'<div class="izq_float name"><b></b></div>' +
+																				'<div class="formulario_columna_cnt">' +
+																				'<div class="izq_float type"></div>' +
+																				'<div class="izq_float size"></div>' +
+																				(settings.submitInForm ?
+																					'<div class="izq_float cancel" style><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.cancelUpload') + '</button></div>' :
+																					'') +
+																				'</div>' +
+																				(!settings.submitInForm ?
+																					'<div class="formulario_columna_cnt">' +
+																								(file.error ?
+																									'<div class="izq_float error" ></div>' :
+																									'<button>' +
+																												'<div class="izq_float progress"><div></div></div>' +
+																												'<div class="izq_float start fileupload-buttonbar ui-button">' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.startUpload') + '</button></div>'
+																								) +
+																								'<div class="izq_float cancel"><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.cancelUpload') + '</button></div>' +
+																								'</div>' : '<div class="izq_float start fileupload-buttonbar ui-button" style="display:none"><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.startUpload') + '</button></div>') +
+																				'</td></tr>');
+				row.find('.name b').text(file.name);
+				row.find('.size').text(file.sizef);
+				row.find('.type').text(file.type);
+				if (file.error) {
+					row.addClass('ui-state-error');
+					row.find('.error').text(
+						that.options.errorMessages[file.error] || file.error
+					);
+				}
 
-    var rup_upload = {};
+				rows = rows.add(row);
+			});
+			return rows;
+		},
+		_renderDownloadTemplate: function (files) {
+			var that = this,
+				rows = $();
+			$.each(files, function (index, file) {
+				// file = that._downloadTemplateHelper(file);
+				var row = $('<tr class="template-download"><td>' +
+																				(file.error ?
+																					'<td class="file_icon"></td>' +
+																								'<td class="name"></td>' +
+																								'<td class="size"></td>' +
+																								'<td class="error" colspan="2"></td>' :
+																					'<div class="formulario_columna_cnt">' +
+																								'<span class="izq_float file_icon">&nbsp;</span>' +
+																								'<div class="izq_float name"><a></a></div>' +
+																								'</div>' +
+																								'<div class="formulario_columna_cnt">' +
+																								'<div class="izq_float type"></div>' +
+																								'<div class="izq_float size"></div>' +
+																								'</div>' +
+																								'<div class="formulario_columna_cnt">' +
+																								'<a><div class="izq_float">' +
+																								'<div class="file_download" >' +
+																								'<span class="file_download_icon">&nbsp;</span>' +
+																								'<span class="file_download_text">' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.openUploaded') + '</span></div>' +
+																								'</div></a>' +
+																								'<div class="izq_float delete"><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.deleteUploaded') + '</button></div>' +
+																								'</div>'
+																				) +
+																				'</td></tr>');
 
-    //Se configura el arranque de UDA para que alberge el nuevo patrón
-    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_upload", rup_upload));
+				row.find('.size').text(file.sizef);
+				row.find('.type').text(file.type);
+				if (file.error) {
+					row.find('.name').text(file.name);
+					row.addClass('ui-state-error');
+					row.find('.error').text(
+						that.options.errorMessages[file.error] || file.error
+					);
+				} else {
+					row.find('.name a').text(file.name);
+					if (file.thumbnail_url) {
+						row.find('.preview').append('<a><img></a>')
+							.find('img').prop('src', file.thumbnail_url);
+						row.find('a').prop('target', '_blank');
+					}
+					row.find('a').prop('href', $.rup_utils.setNoPortalParam(file.url));
+					row.find('.delete button')
+						.attr('data-type', file.delete_type)
+						.attr('data-url', $.rup_utils.setNoPortalParam(file.delete_url));
+				}
+				rows = rows.add(row);
+			});
+			return rows;
+		},
+		_initFileUploadButtonBar: function () {
+			var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
+				filesList = this.element.find('.files'),
+				ns = this.options.namespace;
+			fileUploadButtonBar.find('.start button')
+				.button({
+					icons: {
+						primary: 'ui-icon-circle-arrow-e'
+					}
+				})
+				.bind('click.' + ns, function (e) {
+					e.preventDefault();
+					filesList.find('.start button').click();
+				});
+			fileUploadButtonBar.find('.cancel')
+				.button({
+					icons: {
+						primary: 'ui-icon-cancel'
+					}
+				})
+				.bind('click.' + ns, function (e) {
+					e.preventDefault();
+					filesList.find('.cancel button').click();
+				});
+			fileUploadButtonBar.find('.delete')
+				.button({
+					icons: {
+						primary: 'ui-icon-trash'
+					}
+				})
+				.bind('click.' + ns, function (e) {
+					e.preventDefault();
+					//	                filesList.find('.delete input:checked')
+					//	                    .siblings('button').click();
+					filesList.find('.delete button').click();
+				});
+			fileUploadButtonBar.find('.toggle')
+				.bind('change.' + ns, function (e) {
+					filesList.find('.delete input').prop(
+						'checked',
+						$(this).is(':checked')
+					);
+				});
+		},
+		_getAJAXSettings: function (data) {
+			var options = $.extend({}, this.options, data);
+			this._initFormSettings(options);
+			this._initDataSettings(options);
+			return options;
+		}
+		//	    ,_initProgressListener: function (options) {
+		//            var that = this,
+		//                xhr = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
+		//            // Accesss to the native XHR object is required to add event listeners
+		//            // for the upload progress event:
+		//                if (options.pif ===null && xhr.upload) {
+		//    				//-- fix start --
+		//    				$( xhr.upload ).bind( "progress", function (e) {
+		//    				that._onProgress(e, options);
+		//    				});
+		//    				options.xhr = function () {
+		//                        return xhr;
+		//                    };
+		//    				//-- fix end --
+		//                }
+		//        }
+		//	    destroy: function (e, data) {
+		//            var that = $(this).data('fileupload');
+		//            if (data.url) {
+		//                $.rup_ajax(data)
+		//                    .success(function () {
+		//                        that._adjustMaxNumberOfFiles(1);
+		//                        $(this).fadeOut(function () {
+		//                            $(this).remove();
+		//                        });
+		//                    });
+		//            } else {
+		//                that._adjustMaxNumberOfFiles(1);
+		//                data.context.fadeOut(function () {
+		//                    $(this).remove();
+		//                });
+		//            }
+		//        }
 
-    //********************************
-    // DEFINICIÓN DE MÉTODOS PÚBLICOS
-    //********************************
+	});
 
-    $.fn.rup_upload("extend", {
-        option: function (args) {
-            $(this).fileupload("option", args);
-        },
-        /**
+	//*********************************************
+	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
+	//*********************************************
+
+	//*****************************************************************************************************************
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	//*****************************************************************************************************************
+
+
+
+	var rup_upload = {};
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_upload', rup_upload));
+
+	//********************************
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	//********************************
+
+	$.fn.rup_upload('extend', {
+		option: function (args) {
+			$(this).fileupload('option', args);
+		},
+		/**
          * Elimina los objetos jQuery asociados al elemento identificado por el selector, durante el proceso de creación del componente upload
          * @function
          * @name destroy
          * @example
          * $(selector).rup_combo("destroy");
          */
-        destroy: function () {
-            $(this).fileupload("destroy");
-        },
-        /**
+		destroy: function () {
+			$(this).fileupload('destroy');
+		},
+		/**
          *
          * @function Habilita el componente upload
          * @name enable
          * @example
          * $(selector).rup_upload("enable");
          */
-        enable: function () {
-            $(this).fileupload("enable");
-        },
-        /**
+		enable: function () {
+			$(this).fileupload('enable');
+		},
+		/**
          * Deshabilita el componente upload
          * @function
          * @name disable
          * @example
          * $(selector).rup_upload("disable");
          */
-        disable: function () {
-            $(this).fileupload("disable");
-        },
-        /**
+		disable: function () {
+			$(this).fileupload('disable');
+		},
+		/**
          * Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente. muestre el desplegable del combo
          * @function
          * @name add
          * @listens add
          */
-        add: function (data) {
-            $(this).fileupload("add", data);
-        },
-        send: function (data) {
-            $(this).fileupload("send", data);
-        }
-    });
+		add: function (data) {
+			$(this).fileupload('add', data);
+		},
+		send: function (data) {
+			$(this).fileupload('send', data);
+		}
+	});
 
 
-    //********************************
-    // DEFINICIÓN DE MÉTODOS PRIVADOS
-    //********************************
+	//********************************
+	// DEFINICIÓN DE MÉTODOS PRIVADOS
+	//********************************
 
 
-    function fileuploadstart() {
-        var widget = $(this),
-            progressElement = $('#fileupload-progressbar').fadeIn(),
-            interval = 500,
-            total = 0,
-            loaded = 0,
-            loadedBefore = 0,
-            progressTimer,
-            progressHandler = function (e, data) {
-                loaded = data.loaded;
-                total = data.total;
-            },
-            stopHandler = function () {
-                widget
-                    .unbind('fileuploadprogressall', progressHandler)
-                    .unbind('fileuploadstop', stopHandler);
-                window.clearInterval(progressTimer);
-                progressElement.fadeOut(function () {
-                    progressElement.html('');
-                });
-            },
-            formatTime = function (seconds) {
-                var date = new Date(seconds * 1000);
-                return ('0' + date.getUTCHours()).slice(-2) + ':' +
-                    ('0' + date.getUTCMinutes()).slice(-2) + ':' +
-                    ('0' + date.getUTCSeconds()).slice(-2);
-            },
-            formatBytes = function (bytes) {
-                if (bytes >= 1000000000) {
-                    return (bytes / 1000000000).toFixed(2) + ' GB';
-                }
-                if (bytes >= 1000000) {
-                    return (bytes / 1000000).toFixed(2) + ' MB';
-                }
-                if (bytes >= 1000) {
-                    return (bytes / 1000).toFixed(2) + ' KB';
-                }
-                return bytes + ' B';
-            },
-            formatPercentage = function (floatValue) {
-                return (floatValue * 100).toFixed(2) + ' %';
-            },
-            updateProgressElement = function (loaded, total, bps) {
-                progressElement.html(
-                    formatBytes(bps) + 'ps | ' +
-                    formatTime((total - loaded) / bps) + ' | ' +
-                    formatPercentage(loaded / total) + ' | ' +
-                    formatBytes(loaded) + ' / ' + formatBytes(total)
-                );
-            },
-            intervalHandler = function () {
-                var diff = loaded - loadedBefore;
-                if (!diff) {
-                    return;
-                }
-                loadedBefore = loaded;
-                updateProgressElement(
-                    loaded,
-                    total,
-                    diff * (1000 / interval)
-                );
-            };
-        widget
-            .bind('fileuploadprogressall', progressHandler)
-            .bind('fileuploadstop', stopHandler);
-        progressTimer = window.setInterval(intervalHandler, interval);
-    }
+	function fileuploadstart() {
+		var widget = $(this),
+			progressElement = $('#fileupload-progressbar').fadeIn(),
+			interval = 500,
+			total = 0,
+			loaded = 0,
+			loadedBefore = 0,
+			progressTimer,
+			progressHandler = function (e, data) {
+				loaded = data.loaded;
+				total = data.total;
+			},
+			stopHandler = function () {
+				widget
+					.unbind('fileuploadprogressall', progressHandler)
+					.unbind('fileuploadstop', stopHandler);
+				window.clearInterval(progressTimer);
+				progressElement.fadeOut(function () {
+					progressElement.html('');
+				});
+			},
+			formatTime = function (seconds) {
+				var date = new Date(seconds * 1000);
+				return ('0' + date.getUTCHours()).slice(-2) + ':' +
+																				('0' + date.getUTCMinutes()).slice(-2) + ':' +
+																				('0' + date.getUTCSeconds()).slice(-2);
+			},
+			formatBytes = function (bytes) {
+				if (bytes >= 1000000000) {
+					return (bytes / 1000000000).toFixed(2) + ' GB';
+				}
+				if (bytes >= 1000000) {
+					return (bytes / 1000000).toFixed(2) + ' MB';
+				}
+				if (bytes >= 1000) {
+					return (bytes / 1000).toFixed(2) + ' KB';
+				}
+				return bytes + ' B';
+			},
+			formatPercentage = function (floatValue) {
+				return (floatValue * 100).toFixed(2) + ' %';
+			},
+			updateProgressElement = function (loaded, total, bps) {
+				progressElement.html(
+					formatBytes(bps) + 'ps | ' +
+																				formatTime((total - loaded) / bps) + ' | ' +
+																				formatPercentage(loaded / total) + ' | ' +
+																				formatBytes(loaded) + ' / ' + formatBytes(total)
+				);
+			},
+			intervalHandler = function () {
+				var diff = loaded - loadedBefore;
+				if (!diff) {
+					return;
+				}
+				loadedBefore = loaded;
+				updateProgressElement(
+					loaded,
+					total,
+					diff * (1000 / interval)
+				);
+			};
+		widget
+			.bind('fileuploadprogressall', progressHandler)
+			.bind('fileuploadstop', stopHandler);
+		progressTimer = window.setInterval(intervalHandler, interval);
+	}
 
-    $.fn.rup_upload("extend", {
-        _init: function (args) {
+	$.fn.rup_upload('extend', {
+		_init: function (args) {
 
-            var settings = $.extend({}, $.fn.rup_upload.defaults, args[0]),
-                upload = this;
+			var settings = $.extend({}, $.fn.rup_upload.defaults, args[0]),
+				upload = this;
 
-            upload._ADAPTER = $.rup.adapter[settings.adapter];
-            settings.self = upload;
+			upload._ADAPTER = $.rup.adapter[settings.adapter];
+			settings.self = upload;
 
-            // Se configura el uso del PIF
-            if (settings.pif !== null) {
-                var url = "",
-                    //						n38UidSesionCookie = $.rup_utils.readCookie("n38UidSesion"),
-                    //						n38DominioUidCookie = $.rup_utils.readCookie("n38DominioUid"),
-                    //						n38UidSesionGlobal = $.rup_utils.readCookie("n38UidSesionGlobal"),
-                    //						n38UidSistemasXLNetS = $.rup_utils.readCookie("n38UidSistemasXLNetS"),
-                    pifSettings = jQuery.extend(true, $.fn.rup_upload.pif.defaults, settings.pif);
+			// Se configura el uso del PIF
+			if (settings.pif !== null) {
+				var url = '',
+					//						n38UidSesionCookie = $.rup_utils.readCookie("n38UidSesion"),
+					//						n38DominioUidCookie = $.rup_utils.readCookie("n38DominioUid"),
+					//						n38UidSesionGlobal = $.rup_utils.readCookie("n38UidSesionGlobal"),
+					//						n38UidSistemasXLNetS = $.rup_utils.readCookie("n38UidSistemasXLNetS"),
+					pifSettings = jQuery.extend(true, $.fn.rup_upload.pif.defaults, settings.pif);
 
-                //					if (pifSettings.base_url===undefined){
-                //						alert("RUP_UPLOAD - No se ha especificado el valor del parámetro base_url para el uso del PIF.");
-                //						return -1;
-                //					}
-                if (pifSettings.userFolder !== true && pifSettings.folderPath === undefined) {
-                    alert("RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF.");
-                    return -1;
-                }
-
-
-                jQuery.extend(true, settings, {
-                    formData: {
-                        base_url: settings.url,
-                        hadoop_folder_path: pifSettings.folderPath,
-                        hadoop_preserve_name: pifSettings.preserveName,
-                        y31_ttl: pifSettings.fileTtl,
-                        securityToken: pifSettings.securityToken
-                    }
-                });
+				//					if (pifSettings.base_url===undefined){
+				//						alert("RUP_UPLOAD - No se ha especificado el valor del parámetro base_url para el uso del PIF.");
+				//						return -1;
+				//					}
+				if (pifSettings.userFolder !== true && pifSettings.folderPath === undefined) {
+					alert('RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF.');
+					return -1;
+				}
 
 
-                //					url += pifSettings.base_url;  // Url base del PIF
-                //					url += pifSettings._JANO_PUT_SERVLET; // Servlet PUT
-                //					url += "/"+n38UidSesionCookie; // Cookie XLNets n38UidSesionCookie
-                //					url += "/"+n38DominioUidCookie; // Cookie XLNets n38DominioUidCookie
-                //					url += "/"+n38UidSesionGlobal; // Cookie XLNets n38UidSesionGlobal
-                //					url += "/"+n38UidSistemasXLNetS; // Cookie XLNets n38UidSistemasXLNetS
-
-                // Se añaden los parámetros de configuración del PIF a la url
-
-                //					url +="?hadoop_folder_path="+pifSettings.folderPath; // Parámetro folderPath
-                //					url +="&hadoop_preserve_name="+pifSettings.preserveName; // Parámetro preserveName
-                //					url +="&y31_ttl="+pifSettings.fileTtl; // Parámetro fileTtl
+				jQuery.extend(true, settings, {
+					formData: {
+						base_url: settings.url,
+						hadoop_folder_path: pifSettings.folderPath,
+						hadoop_preserve_name: pifSettings.preserveName,
+						y31_ttl: pifSettings.fileTtl,
+						securityToken: pifSettings.securityToken
+					}
+				});
 
 
-                // Configruamos la url final
-                //					settings.url = url;
+				//					url += pifSettings.base_url;  // Url base del PIF
+				//					url += pifSettings._JANO_PUT_SERVLET; // Servlet PUT
+				//					url += "/"+n38UidSesionCookie; // Cookie XLNets n38UidSesionCookie
+				//					url += "/"+n38DominioUidCookie; // Cookie XLNets n38DominioUidCookie
+				//					url += "/"+n38UidSesionGlobal; // Cookie XLNets n38UidSesionGlobal
+				//					url += "/"+n38UidSistemasXLNetS; // Cookie XLNets n38UidSistemasXLNetS
 
-                //					settings.xhr = function(){
-                //
-                //					};
-            }
+				// Se añaden los parámetros de configuración del PIF a la url
 
-            $.data(this[0], "settings", settings);
+				//					url +="?hadoop_folder_path="+pifSettings.folderPath; // Parámetro folderPath
+				//					url +="&hadoop_preserve_name="+pifSettings.preserveName; // Parámetro preserveName
+				//					url +="&y31_ttl="+pifSettings.fileTtl; // Parámetro fileTtl
 
-            $(this).fileupload(settings);
 
-            if (settings.submitInForm) {
-                $(this).rup_upload("option", {
-                    singleFileUploads: false,
-                    maxNumberOfFiles: 1,
-                    replaceFileInput: false
-                });
-            }
+				// Configruamos la url final
+				//					settings.url = url;
 
-            $(this).bind('fileuploadadd', function (e, data) {
-                if (settings.submitInForm) {
-                    $(this).find(".template-upload").hide();
-                    $(this).find(".template-upload .cancel button").unbind("click");
-                    $(this).find(".template-upload .cancel button").click();
-                }
-            });
-            $(this).bind('fileuploadsend', function (e, data) {
-                data.url = $.rup_utils.setNoPortalParam(data.url);
-                //					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
-                //						data.url = data.url + (data.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
-                //					}
-            });
-        },
-        _private: function (settings) {
+				//					settings.xhr = function(){
+				//
+				//					};
+			}
 
-        }
-    });
+			$.data(this[0], 'settings', settings);
 
-    //*******************************************************
-    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-    //*******************************************************
+			$(this).fileupload(settings);
 
-    $.fn.rup_upload.defaults = {
-        // label:null,
-        // fileInput:null,
-        adapter: "upload_bootstrap",
-        submitInForm: false,
-        submitFormButton: undefined,
-        pif: null,
-        //filesContainer: '.files',
-        uploadTemplateId: false,
-        downloadTemplateId: false,
-        uploadTemplate: function (o) {
-            return $.proxy(o.options.self._ADAPTER.uploadTemplate, this)(o);
-        },
-        downloadTemplate: function (o) {
-            return $.proxy(o.options.self._ADAPTER.downloadTemplate, this)(o);
-        }
-    };
+			if (settings.submitInForm) {
+				$(this).rup_upload('option', {
+					singleFileUploads: false,
+					maxNumberOfFiles: 1,
+					replaceFileInput: false
+				});
+			}
 
-    $.fn.rup_upload.pif = {};
-    $.fn.rup_upload.pif.defaults = {
-        fileTtl: 129600,
-        preserveName: false,
-        _JANO_PUT_SERVLET: "/y31ApiJSWAR/Y31JanoServicePutServlet",
-        securityToken: "app"
-    };
+			$(this).bind('fileuploadadd', function (e, data) {
+				if (settings.submitInForm) {
+					$(this).find('.template-upload').hide();
+					$(this).find('.template-upload .cancel button').unbind('click');
+					$(this).find('.template-upload .cancel button').click();
+				}
+			});
+			$(this).bind('fileuploadsend', function (e, data) {
+				data.url = $.rup_utils.setNoPortalParam(data.url);
+				//					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
+				//						data.url = data.url + (data.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
+				//					}
+			});
+		},
+		_private: function (settings) {
 
-    /**
+		}
+	});
+
+	//*******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	//*******************************************************
+
+	$.fn.rup_upload.defaults = {
+		// label:null,
+		// fileInput:null,
+		adapter: 'upload_bootstrap',
+		submitInForm: false,
+		submitFormButton: undefined,
+		pif: null,
+		//filesContainer: '.files',
+		uploadTemplateId: false,
+		downloadTemplateId: false,
+		uploadTemplate: function (o) {
+			return $.proxy(o.options.self._ADAPTER.uploadTemplate, this)(o);
+		},
+		downloadTemplate: function (o) {
+			return $.proxy(o.options.self._ADAPTER.downloadTemplate, this)(o);
+		}
+	};
+
+	$.fn.rup_upload.pif = {};
+	$.fn.rup_upload.pif.defaults = {
+		fileTtl: 129600,
+		preserveName: false,
+		_JANO_PUT_SERVLET: '/y31ApiJSWAR/Y31JanoServicePutServlet',
+		securityToken: 'app'
+	};
+
+	/**
     * @description Propiedades de configuración del componente.
     * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link https://github.com/blueimp/jQuery-File-Upload/wiki/Options|jQuery File Upload}.
     *
@@ -615,11 +619,11 @@ subida de ficheros.
     */
 
 
-    /***********/
-    /* EVENTOS */
-    /***********/
+	/***********/
+	/* EVENTOS */
+	/***********/
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente.
      *
      * @event module:rup_upload#fileuploadadd
@@ -630,7 +634,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente.
      *
      * @event module:rup_upload#fileuploadsubmit
@@ -642,7 +646,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al iniciarse el envío de cada fichero.
      *
      * @event module:rup_upload#fileuploadsend
@@ -654,7 +658,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al realizarse de manera satisfactoria el envío de los ficheros.
      *
      * @event module:rup_upload#fileuploaddone
@@ -665,7 +669,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al producirse un error en el envío de los ficheros o al abortarse el envío.
      *
      * @event module:rup_upload#fileuploadfail
@@ -676,7 +680,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al producirse un envío correcto, erróneo o se aborte.
      *
      * @event module:rup_upload#fileuploadalways
@@ -687,7 +691,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al producirse un evento relacionado con el indicador de progreso del envío de ficheros.
      *
      * @event module:rup_upload#fileuploadprogress
@@ -698,7 +702,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al producirse un evento relacionado el indicador de progreso global de envío de ficheros.
      *
      * @event module:rup_upload#fileuploadprogressall
@@ -709,7 +713,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al inicio del envío de los ficheros.
      *
      * @event module:rup_upload#fileuploadstart
@@ -719,7 +723,7 @@ subida de ficheros.
      * });
      */
 
-    /**
+	/**
      * Permite asociar una función que se ejecutará al detenerse el proceso de envío de ficheros.
      *
      * @event module:rup_upload#fileuploadstop
