@@ -1,9 +1,9 @@
-@import "theme/mixins/gradients";
-@import "theme/mixins/border-radius";
-@import "theme/mixins/box-shadow";
-@import "theme/mixins/forms";
+@import 'theme/mixins/gradients';
+@import 'theme/mixins/border-radius';
+@import 'theme/mixins/box-shadow';
+@import 'theme/mixins/forms';
 
-@import "theme/rup-variables";
+@import 'theme/rup-variables';
 
 
 
@@ -345,8 +345,8 @@ section>h1, section>h2, section>h3, section>h4, section>h5, section>h6 {
 	display: none;
 }
 
-.promotionsDismissalsActionPanel_list li[rel="worker"]>a>.jstree-icon {
-	background-image: url("../images/worker.png");
+.promotionsDismissalsActionPanel_list li[rel='worker']>a>.jstree-icon {
+	background-image: url('../images/worker.png');
 	background-position: 0 0;
 	width: 16px;
 	height: 16px;

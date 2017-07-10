@@ -1,0 +1,7 @@
+files:
+  include: 'scss/**/*.s+(a|c)ss'
+  ignore:
+    - 'scss/main.scss'
+    - 'scss/rup-jqueryui-theme.scss'
+    - 'scss/rup-theme.scss'
+    - 'scss/rup-base.scss'
