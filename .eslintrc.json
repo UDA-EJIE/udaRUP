@@ -9,14 +9,12 @@
     },
     "rules": {
         "indent": [
-
             "error",
             "tab"
         ],
         "linebreak-style": [
-
             "off",
-            "windows"
+            "unix"
         ],
         "quotes": [
             "error",

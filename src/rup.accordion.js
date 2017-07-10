@@ -167,7 +167,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 	function create_default(event) {
 		$(event.target).addClass('rup_accordion_create');
 	}
-  
+
 
 	$.fn.rup_accordion('extend', {
 		_init: function (args) {

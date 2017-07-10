@@ -29,29 +29,33 @@
  *
  * $("#idTime").rup_time(properties);
  */
+
+/*global define */
+/*global jQuery */
+
 (function (factory) {
-  if (typeof define === "function" && define.amd) {
+	if (typeof define === 'function' && define.amd) {
 
-    // AMD. Register as an anonymous module.
-    define(["jquery", "./rup.base", "jquery-ui-timepicker"], factory);
-  } else {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './rup.base', 'jquery-ui-timepicker'], factory);
+	} else {
 
-    // Browser globals
-    factory(jQuery);
-  }
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($) {
 
 
-  // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 
-  var rup_time = {};
+	var rup_time = {};
 
-  //Se configura el arranque de UDA para que alberge el nuevo patrón
-  $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_time", rup_time));
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_time', rup_time));
 
-  // DEFINICIÓN DE MÉTODOS PÚBLICOS
-  $.fn.rup_time("extend", {
-    /**
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	$.fn.rup_time('extend', {
+		/**
      * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor.
      *
      * @name getRupValue
@@ -60,13 +64,13 @@
      * @example
      * $("#idTime").rup_time("getRupValue");
      */
-    getRupValue: function () {
-      var timeformat, dateObj;
-      timeformat = $(this).data("datepicker").settings.timeFormat;
-      dateObj = $.datepicker.parseTime(timeformat, $(this).rup_time("getTime"));
-      return dateObj ? $.timepicker._formatTime(dateObj, "hh:mm:ss") : "";
-    },
-    /**
+		getRupValue: function () {
+			var timeformat, dateObj;
+			timeformat = $(this).data('datepicker').settings.timeFormat;
+			dateObj = $.datepicker.parseTime(timeformat, $(this).rup_time('getTime'));
+			return dateObj ? $.timepicker._formatTime(dateObj, 'hh:mm:ss') : '';
+		},
+		/**
      * Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor.
      *
      * @name setRupValue
@@ -75,14 +79,14 @@
      * @example
      * $("#idTime").rup_time("setRupValue", "10:25:16");
      */
-    setRupValue: function (param) {
-      var timeformat, tmpDate, formattedTime;
-      timeformat = $(this).data("datepicker").settings.timeFormat;
-      tmpDate = $.datepicker.parseTime("hh:mm:ss", param);
-      formattedTime = tmpDate ? $.timepicker._formatTime(tmpDate, timeformat) : "";
-      $(this).val(formattedTime);
-    },
-    /**
+		setRupValue: function (param) {
+			var timeformat, tmpDate, formattedTime;
+			timeformat = $(this).data('datepicker').settings.timeFormat;
+			tmpDate = $.datepicker.parseTime('hh:mm:ss', param);
+			formattedTime = tmpDate ? $.timepicker._formatTime(tmpDate, timeformat) : '';
+			$(this).val(formattedTime);
+		},
+		/**
      * Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío.
      *
      * @name destroy
@@ -90,17 +94,17 @@
      * @example
      * $("#idTime").rup_time("destroy");
      */
-    destroy: function () {
-      //Eliminar máscara
-      var labelMaskId = $(this).data("datepicker").settings.labelMaskId;
-      if (labelMaskId) {
-        $("#" + labelMaskId).text("");
-      }
-      //Eliminar imagen (reloj)
-      $(this).next("img").remove();
-      $(this).timepicker("destroy");
-    },
-    /**
+		destroy: function () {
+			//Eliminar máscara
+			var labelMaskId = $(this).data('datepicker').settings.labelMaskId;
+			if (labelMaskId) {
+				$('#' + labelMaskId).text('');
+			}
+			//Eliminar imagen (reloj)
+			$(this).next('img').remove();
+			$(this).timepicker('destroy');
+		},
+		/**
      * Deshabilita el componente en pantalla no pudiendo introducirse ninguna hora ni se despliega el calendario.
      *
      * @name disable
@@ -108,10 +112,10 @@
      * @example
      * $("#idTime").rup_time("disable");
      */
-    disable: function () {
-      $(this).timepicker("disable");
-    },
-    /**
+		disable: function () {
+			$(this).timepicker('disable');
+		},
+		/**
      * Habilita el componente permitiendo introducir la hora tanto mediante teclado como mediante el desplegable.
      *
      * @name enable
@@ -119,10 +123,10 @@
      * @example
      * $("#idTime").rup_time("enable");
      */
-    enable: function () {
-      $(this).timepicker("enable");
-    },
-    /**
+		enable: function () {
+			$(this).timepicker('enable');
+		},
+		/**
      * Indica si el componente se encuentra deshabilitado o no.
      *
      * @name isDisabled
@@ -131,10 +135,10 @@
      * @example
      * $("#idTime").rup_time("isDisabled");
      */
-    isDisabled: function () {
-      return $(this).timepicker("isDisabled");
-    },
-    /**
+		isDisabled: function () {
+			return $(this).timepicker('isDisabled');
+		},
+		/**
      * Oculta el desplegable para seleccionar una hora.
      *
      * @function
@@ -142,10 +146,10 @@
      * @example
      * $("#idTime").rup_time("hide");
      */
-    hide: function () {
-      $(this).timepicker("hide");
-    },
-    /**
+		hide: function () {
+			$(this).timepicker('hide');
+		},
+		/**
      * Muestra el desplegable para seleccionar una hora.
      *
      * @function
@@ -153,10 +157,10 @@
      * @example
      * $("#idTime").rup_time("show");
      */
-    show: function () {
-      $(this).timepicker("show");
-    },
-    /**
+		show: function () {
+			$(this).timepicker('show');
+		},
+		/**
      * Devuelve la hora seleccionada, si no se ha seleccionado nada devuelve vacío.
      *
      * @name getTime
@@ -165,10 +169,10 @@
      * @example
      * $("#idTime").rup_time("getTime");
      */
-    getTime: function () {
-      return $(this).val();
-    },
-    /**
+		getTime: function () {
+			return $(this).val();
+		},
+		/**
      * Establece la hora del componente.
      *
      * @name setTime
@@ -177,11 +181,11 @@
      * @example
      * $("#idTime").rup_time("setTime", time);
      */
-    setTime: function (time) {
-      $(this).timepicker("refresh"); //Necesario para 'inicializar' el componente
-      $.datepicker._setTime($.datepicker._getInst($("#" + $(this).data("datepicker").settings.id)[0]), time);
-    },
-    /**
+		setTime: function (time) {
+			$(this).timepicker('refresh'); //Necesario para 'inicializar' el componente
+			$.datepicker._setTime($.datepicker._getInst($('#' + $(this).data('datepicker').settings.id)[0]), time);
+		},
+		/**
      * Refresca el calendario desplegado por si ha habido algún cambio.
      *
      * @name refresh
@@ -189,10 +193,10 @@
      * @example
      * $("#idTime").rup_time("refresh");
      */
-    refresh: function () {
-      $(this).timepicker("refresh");
-    },
-    /**
+		refresh: function () {
+			$(this).timepicker('refresh');
+		},
+		/**
      * Permite consultar y modificar la configuración del componente.
      *
      * @name option
@@ -207,130 +211,130 @@
      * // Establecer varias propiedad
      * $("#idTime").rup_time("option", {showSecond: true, showButtonPanel: true});
      */
-    option: function (optionName, value) {
-      $(this).timepicker("option", optionName, value);
-    }
-    //No soportadas: widget, dialog
-  });
+		option: function (optionName, value) {
+			$(this).timepicker('option', optionName, value);
+		}
+		//No soportadas: widget, dialog
+	});
 
-  // DEFINICIÓN DE MÉTODOS PRIVADOS
-  $.fn.rup_time("extend", {
-    /**
+	// DEFINICIÓN DE MÉTODOS PRIVADOS
+	$.fn.rup_time('extend', {
+		/**
      * Método de inicialización del componente
      *
      * @name _init
      * @function
      * @private
      */
-    _init: function (args) {
-      if (args.length > 1) {
-        $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, "rup_global.initError") + $(this).attr("id"));
-      } else {
-        //Se recogen y cruzan las paremetrizaciones del objeto
-        var $self = $(this),
-          self = $self[0],
-          settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
+		_init: function (args) {
+			if (args.length > 1) {
+				$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+			} else {
+				//Se recogen y cruzan las paremetrizaciones del objeto
+				var $self = $(this),
+					self = $self[0],
+					settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
 
-        self._ADAPTER = $.rup.adapter[settings.adapter];
+				self._ADAPTER = $.rup.adapter[settings.adapter];
 
-        //Se carga el identificador del padre del patron
-        settings.id = $self.attr("id");
+				//Se carga el identificador del padre del patron
+				settings.id = $self.attr('id');
 
-        $self.attr("ruptype", "time");
+				$self.attr('ruptype', 'time');
 
-        //Carga de propiedades/literales
-        var literales = $.rup.i18n.base["rup_time"];
-        for (var key in literales) {
-          $.timepicker._defaults[key] = literales[key];
-        }
+				//Carga de propiedades/literales
+				var literales = $.rup.i18n.base['rup_time'];
+				for (var key in literales) {
+					$.timepicker._defaults[key] = literales[key];
+				}
 
-        //Mostrar máscara
-        if (settings.labelMaskId) {
-          $("#" + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, "rup_time.mask") + " ");
-        }
+				//Mostrar máscara
+				if (settings.labelMaskId) {
+					$('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_time.mask') + ' ');
+				}
 
-        //Mostrar placeholder
-        if (settings.placeholderMask) {
-          $self.attr("placeholder", $.rup.i18nParse($.rup.i18n.base, "rup_time.mask"));
-        }
+				//Mostrar placeholder
+				if (settings.placeholderMask) {
+					$self.attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_time.mask'));
+				}
 
-        //Imagen del reloj
-        settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/css/images/clock.png");
+				//Imagen del reloj
+				settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : '/rup/css/images/clock.png');
 
-        //Atributos NO MODIFICABLES
+				//Atributos NO MODIFICABLES
 
-        //Timepicker
-        $self.timepicker(settings);
+				//Timepicker
+				$self.timepicker(settings);
 
-        //Max-Length
-        //$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
+				//Max-Length
+				//$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
 
-        //Añadir imagen
-        $.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
+				//Añadir imagen
+				$.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
 
-        //Ajuste para el comportamiento de portales
-        if ($.rup_utils.aplicatioInPortal() && !$self.is("div")) {
-          $(".r01gContainer").append($(".ui-datepicker:not(.r01gContainer .ui-datepicker)"));
-        }
+				//Ajuste para el comportamiento de portales
+				if ($.rup_utils.aplicatioInPortal() && !$self.is('div')) {
+					$('.r01gContainer').append($('.ui-datepicker:not(.r01gContainer .ui-datepicker)'));
+				}
 
-        //Deshabilitar
-        if (settings.disabled) {
-          $self.rup_time("disable");
-        }
+				//Deshabilitar
+				if (settings.disabled) {
+					$self.rup_time('disable');
+				}
 
-        // Se aplica el tooltip
-        $self.parent().find("[title]").rup_tooltip({
-          "applyToPortal": true
-        });
-      }
-    }
-  });
+				// Se aplica el tooltip
+				$self.parent().find('[title]').rup_tooltip({
+					'applyToPortal': true
+				});
+			}
+		}
+	});
 
-  // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-  $.fn.rup_time.defaults = {
-    adapter: "time_bootstrap",
-    placeholderMask: false,
-    stepHour: 1,
-    stepMinute: 1,
-    stepSecond: 1,
-    showButtonPanel: false,
-    timeOnly: true
-  };
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	$.fn.rup_time.defaults = {
+		adapter: 'time_bootstrap',
+		placeholderMask: false,
+		stepHour: 1,
+		stepMinute: 1,
+		stepSecond: 1,
+		showButtonPanel: false,
+		timeOnly: true
+	};
 
-  //Sobreescribir EVENTOS
-  $.datepicker._timepicker_doKeyPress = $.datepicker._doKeyPress;
-  $.datepicker._doKeyPress = function (event) {
-    var instance = $.datepicker._get($.datepicker._getInst(event.target), 'timepicker');
-    switch (event.keyCode) {
-      //Izquierda
-    case 37:
-      if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
-        instance.hour_slider.slider("option", "value", instance.hour_slider.slider("option", "value") - instance._defaults.stepHour);
-      } else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift
-        instance.minute_slider.slider("option", "value", instance.minute_slider.slider("option", "value") - instance._defaults.stepMinute);
-      } else if (event.ctrlKey && event.shiftKey && event.altKey) { //Ctrl + Shfit + Alt
-        instance.second_slider.slider("option", "value", instance.second_slider.slider("option", "value") - instance._defaults.stepSecond);
-      }
-      break;
-      //Derecha
-    case 39:
-      if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
-        instance.hour_slider.slider("option", "value", instance.hour_slider.slider("option", "value") + instance._defaults.stepHour);
-      } else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift
-        instance.minute_slider.slider("option", "value", instance.minute_slider.slider("option", "value") + instance._defaults.stepMinute);
-      } else if (event.ctrlKey && event.shiftKey && event.altKey) { //Ctrl + Shfit + Alt
-        instance.second_slider.slider("option", "value", instance.second_slider.slider("option", "value") + instance._defaults.stepSecond);
-      }
-      break;
-    }
-    if (instance) {
-      instance._onTimeChange();
-    }
-    return $.datepicker._timepicker_doKeyPress(event);
-  };
+	//Sobreescribir EVENTOS
+	$.datepicker._timepicker_doKeyPress = $.datepicker._doKeyPress;
+	$.datepicker._doKeyPress = function (event) {
+		var instance = $.datepicker._get($.datepicker._getInst(event.target), 'timepicker');
+		switch (event.keyCode) {
+			//Izquierda
+		case 37:
+			if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
+				instance.hour_slider.slider('option', 'value', instance.hour_slider.slider('option', 'value') - instance._defaults.stepHour);
+			} else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift
+				instance.minute_slider.slider('option', 'value', instance.minute_slider.slider('option', 'value') - instance._defaults.stepMinute);
+			} else if (event.ctrlKey && event.shiftKey && event.altKey) { //Ctrl + Shfit + Alt
+				instance.second_slider.slider('option', 'value', instance.second_slider.slider('option', 'value') - instance._defaults.stepSecond);
+			}
+			break;
+			//Derecha
+		case 39:
+			if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
+				instance.hour_slider.slider('option', 'value', instance.hour_slider.slider('option', 'value') + instance._defaults.stepHour);
+			} else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift
+				instance.minute_slider.slider('option', 'value', instance.minute_slider.slider('option', 'value') + instance._defaults.stepMinute);
+			} else if (event.ctrlKey && event.shiftKey && event.altKey) { //Ctrl + Shfit + Alt
+				instance.second_slider.slider('option', 'value', instance.second_slider.slider('option', 'value') + instance._defaults.stepSecond);
+			}
+			break;
+		}
+		if (instance) {
+			instance._onTimeChange();
+		}
+		return $.datepicker._timepicker_doKeyPress(event);
+	};
 
 
-  /**
+	/**
    * @description Propiedades de configuración del componente.
    *
    * @name defaults
@@ -370,9 +374,9 @@
    * @property {string} [secondText] - Texto que aparece delante de la barra de scroll de selección de segundos. Su valor por defecto se obtiene del fichero de idioma.
    */
 
-  //eventos
+	//eventos
 
-  /**
+	/**
    * Permite asociar una función que se ejecutará cuando se modifique alguno de los valores del desplegable (hora, minutos o segundos). Los parámetros recibidos son la hora seleccionada (texto) y la instancia del componente
    * @event module:rup_time#onSelect
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
@@ -380,7 +384,7 @@
    * $(selector).rup_time({ onSelect: function(dateText, inst){...} });
    */
 
-  /**
+	/**
    * Permite asociar una función que se ejecutará cuando se oculte el desplegable. Los parámetros recibidos son la hora seleccionada (texto) y la instancia del componente
    * @event module:rup_time#onClose
    * @property {Event} e - Objeto Event correspondiente al evento disparado.

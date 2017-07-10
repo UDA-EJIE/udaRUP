@@ -14,16 +14,19 @@
  * que establece la Licencia.
  */
 
- ;(function( factory ) {
- 	 if ( typeof define === "function" && define.amd ) {
+/*global define */
+/*global jQuery */
 
- 		 // AMD. Register as an anonymous module.
- 		 define(["jquery","./rup.base"], factory );
- 	 } else {
+(function( factory ) {
+	if ( typeof define === 'function' && define.amd ) {
 
- 		 // Browser globals
- 		 factory(jQuery);
- 	 }
+		// AMD. Register as an anonymous module.
+		define(['jquery','./rup.base'], factory );
+	} else {
+
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($) {
 
 	//****************************************************************************************************************
@@ -33,22 +36,22 @@
 	var rup_spinner = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_spinner", rup_spinner));
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_spinner', rup_spinner));
 
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
-	$.fn.rup_spinner("extend",{
+	$.fn.rup_spinner('extend',{
 		getRupValue: function() {
 			var $self = this, value;
-			value = this.spinner("value");
+			value = this.spinner('value');
 
 			return value;
 		},
 		setRupValue: function(value){
 			var $self = this;
 
-			$self.spinner("value", 5 );
+			$self.spinner('value', 5 );
 
 			return $self;
 		}
@@ -58,7 +61,7 @@
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 
-	$.fn.rup_spinner("extend",{
+	$.fn.rup_spinner('extend',{
 		_bar: function() {
 			return this;
 		}
@@ -67,13 +70,13 @@
 	//*******************************
 	// MÉTODO DE INICIALIZACION
 	//*******************************
-	$.fn.rup_spinner("extend", {
+	$.fn.rup_spinner('extend', {
 		_init : function(args){
 			var $self = this, settings = $.extend({}, $.fn.rup_spinner.defaults, args[0]);
 
 
-			$self.addClass("rup_spinner");
-			$self.attr("ruptype","spinner");
+			$self.addClass('rup_spinner');
+			$self.attr('ruptype','spinner');
 			$self.spinner(settings);
 
 		}
