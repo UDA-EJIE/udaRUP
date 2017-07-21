@@ -33,7 +33,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery-jstree', 'jquery-hotkeys'], factory);
+		define(['jquery', './rup.base', './core/utils/jquery.jstree', './core/utils/jquery.hotkeys'], factory);
 	} else {
 
 		// Browser globals

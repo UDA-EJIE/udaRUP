@@ -1,22 +1,23 @@
+/* global require */
 var express = require('express'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    http = require('http'),
+	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
+	http = require('http'),
 
-    //Table database
-    lokijs = require('lokijs'),
-    LokiDb = require('./lokiDb'),
-    lokiNativescriptAdapter = require('lokijs/src/loki-nativescript-adapter'),
-    routesNora = require('./demo/routes/nora'),
-    dummyjson = require('dummy-json'),
-    //Routes
-    routesTabs = require('./demo/routes/tabs'),
-    routesAutocomplete = require('./demo/routes/autocomplete'),
-    routesCombo = require('./demo/routes/combo'),
-    routesNora = require('./demo/routes/nora'),
-    routesTable = require('./demo/routes/table'),
-    routesUpload = require('./demo/routes/upload'),
-    dashboardTable = require('./demo/routes/dashboard');
+	//Table database
+	lokijs = require('lokijs'),
+	LokiDb = require('./lokiDb'),
+	lokiNativescriptAdapter = require('lokijs/src/loki-nativescript-adapter'),
+	routesNora = require('./demo/routes/nora'),
+	dummyjson = require('dummy-json'),
+	//Routes
+	routesTabs = require('./demo/routes/tabs'),
+	routesAutocomplete = require('./demo/routes/autocomplete'),
+	routesCombo = require('./demo/routes/combo'),
+	routesNora = require('./demo/routes/nora'),
+	routesTable = require('./demo/routes/table'),
+	routesUpload = require('./demo/routes/upload'),
+	dashboardTable = require('./demo/routes/dashboard');
 
 
 // db
@@ -24,7 +25,7 @@ var express = require('express'),
 
 //var ldb = new LokiDb();
 LokiDb.log();
-LokiDb.setText("Iniciando...");
+LokiDb.setText('Iniciando...');
 console.log(LokiDb.getText());
 LokiDb.initialize();
 
@@ -35,22 +36,22 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
 });
 
 app.use(express.static('./'));
 
 app.get('/', function(req, res){
-  if (req.cookies.language===undefined){
-    res.cookie("language" , 'es',{expire : new Date() + 9999});
-  }
-  res.redirect('/demo/index-bt4.html');
+	if (req.cookies.language===undefined){
+		res.cookie('language' , 'es',{expire : new Date() + 9999});
+	}
+	res.redirect('/demo/index-bt4.html');
 });
 
 app.get('/test', function(req, res){
-  res.redirect('/spec/specRunner_require.html');
+	res.redirect('/spec/specRunner_require.html');
 });
 
 app.get('/demo/fragmento1', routesTabs.tabsContent1);
@@ -81,7 +82,7 @@ app.put('/demo/jqGridUsuario', routesTable.put);
 app.post('/demo/jqGridUsuario', routesTable.post);
 
 // Upload
-app.post('/upload', routesUpload.upload)
+app.post('/upload', routesUpload.upload);
 
 app.post('/demo/jqGridUsuario/filter', routesTable.filter);
 app.get('/demo/jqGridUsuario/:id', routesTable.get);

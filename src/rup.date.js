@@ -54,7 +54,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery-ui-timepicker', 'jquery-ui-multidatespicker'], factory);
+		define(['jquery', './rup.base', './core/ui/jquery-ui.timepicker', './core/ui/jquery-ui.multidatespicker'], factory);
 	} else {
 
 		// Browser globals

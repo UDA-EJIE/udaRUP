@@ -25,10 +25,10 @@ var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 // });
 
 gulp.task('minimize:js:rup', function () {
-    console.log("Generando rup.js...");
-    gulp.src(minimizeConf.rupJsFiles)
-        .pipe(concat("rup.js"))
-        .pipe(gulp.dest('./build/js'));
+	console.log('Generando rup.js...');
+	gulp.src(minimizeConf.rupJsFiles)
+		.pipe(concat('rup.js'))
+		.pipe(gulp.dest('./build/js'));
 });
 //
 // gulp.task('minimize:js:rup-base', function () {

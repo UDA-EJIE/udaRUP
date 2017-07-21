@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery.fileDownload'], factory);
+		define(['jquery', './rup.base', './core/utils/jquery.fileDownload'], factory);
 	} else {
 
 		// Browser globals

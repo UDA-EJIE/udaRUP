@@ -7,12 +7,12 @@ var config = require('../config.js').config;
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 
 gulp.task('rup:build:table', function (cb) {
-    console.log("Minimizando RUP Table...");
-    return gulp.src(minimizeConf.rupTableFiles, {
-            cwd: "src"
-        })
-        .pipe(concat("rup.table.js"))
-        .pipe(wrap(`
+	console.log('Minimizando RUP Table...');
+	return gulp.src(minimizeConf.rupTableFiles, {
+		cwd: 'src'
+	})
+		.pipe(concat('rup.table.js'))
+		.pipe(wrap(`
         ( function( factory ) {
          if ( typeof define === "function" && define.amd ) {
 
@@ -27,5 +27,5 @@ gulp.task('rup:build:table', function (cb) {
           <%= contents %>
         }));
         `))
-        .pipe(gulp.dest('build/src'));
+		.pipe(gulp.dest('build/src'));
 });

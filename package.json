@@ -7,7 +7,19 @@
     "doc": "docs",
     "test": "test"
   },
-  "scripts": {},
+  "scripts": {
+    "install": "",
+    "build-demo": "gulp build && gulp build:babel",
+    "dist": "gulp dist && gulp dist:portal",
+    "all": "npm run build && npm run dist",
+    "demo": "webpack --config=./demo/webpack.config.js",
+    "demo:watch": "webpack --config=./demo/webpack.config.js --watch",
+    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
+    "build": "webpack --env build",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "karma start --single-run --no-auto-watch karma.conf.js",
+    "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UDA-EJIE/udaRUP.git"
@@ -20,6 +32,8 @@
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
     "amd-optimize": "^0.6.1",
+    "babel-istanbul": "^0.12.2",
+    "babel-istanbul-loader": "^0.1.0",
     "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
     "babel-preset-env": "^1.3.3",
     "backbone.marionette": "2.4.7",
@@ -56,6 +70,7 @@
     "gulp-watch": "4.3.10",
     "gulp-wrap": "0.13.0",
     "handlebars": "4.0.5",
+    "handlebars-loader": "^1.5.0",
     "highlight.js": "9.6.0",
     "html": "0.0.10",
     "jasmine": "~2.5.2",
@@ -65,6 +80,7 @@
     "jsdoc-to-markdown": "^3.0.0",
     "karma": "~1.5.0",
     "karma-chrome-launcher": "~1.0.1",
+    "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "~1.0.0",
     "karma-handlebars-preprocessor": "~0.3.0",
     "karma-html-reporter": "~0.2.7",
@@ -74,6 +90,9 @@
     "karma-mocha-reporter": "~2.2.2",
     "karma-phantomjs-launcher": "~1.0.4",
     "karma-requirejs": "~1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.31",
+    "karma-webpack": "^2.0.4",
     "lodash": "4.16.4",
     "lokijs": "1.3.19",
     "merge-stream": "1.0.0",
@@ -84,7 +103,9 @@
     "run-sequence": "^1.2.2",
     "sass-lint": "^1.10.2",
     "sass-module-importer": "^1.2.1",
-    "tether": "^1.3.7"
+    "tether": "^1.3.7",
+    "webpack": "2.6.1",
+    "webpack-dev-server": "2.4.5"
   },
   "dependencies": {
     "block-ui": "2.70.1",
@@ -96,6 +117,10 @@
     "chart.js": "2.1.1",
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^1.10.15",
+    "datatables.net-bs4": "^1.10.15",
+    "datatables.net-responsive": "^2.1.1",
+    "datatables.net-responsive-bs": "^2.1.1",
+    "datatables.net-responsive-bs4": "^2.1.1",
     "flexibility": "^2.0.1",
     "free-jqgrid": "4.13.4",
     "handlebars": "4.0.5",

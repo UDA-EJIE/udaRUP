@@ -2,6 +2,8 @@ node_modules
 _node_modules
 bower_components
 build
+coverage
+lib
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

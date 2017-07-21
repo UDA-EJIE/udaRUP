@@ -8,9 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-
-
-
           <link rel="stylesheet" href="../dist/css/externals/bt4.min.css"  crossorigin="anonymous">
 
           <!-- <link href="../node_modules/jquery-ui-dist/jquery-ui.css" rel="stylesheet" type="text/css" /> -->
@@ -20,11 +17,6 @@
 
           <link href="../dist/css/rup-base.css" rel="stylesheet" type="text/css" />
           <link href="../dist/css/rup-theme.css" rel="stylesheet" type="text/css" />
-
-
-
-
-
 
 
 
@@ -65,6 +57,8 @@
     	LOGGED_USER = "NULL",
     	DESTROY_XLNETS_SESSION = "false";
 
+      document.cookie="language=es";
+
 
     </script>
      <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
@@ -74,7 +68,8 @@
 
         <!-- <script src="js/main.js"></script> -->
 
-        <script data-main="app/require_main-bt4.js" src="../node_modules/requirejs/require.js"></script>
+        <!-- <script data-main="app/require_main-bt4.js" src="../node_modules/requirejs/require.js"></script> -->
+        <script src="dist/bt4-bundle.js"></script>
 
         <!-- <script src="../node_modules/highlight.js/lib/highlight.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> -->
