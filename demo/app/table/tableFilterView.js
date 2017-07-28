@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.table'], function(Marionette, App){
+        'rup.table'], function(Marionette, App){
 
   var TableFilterView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.table.tableFilterTemplate,

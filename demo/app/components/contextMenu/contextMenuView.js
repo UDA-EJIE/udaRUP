@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.contextMenu','rup/rup.tabs','rup/rup.button'], function(Marionette, App, ContextMenuBodyView, ContextMenuTestView, ComponentExampleCodeView){
+        'rup.contextMenu','rup.tabs','rup.button'], function(Marionette, App, ContextMenuBodyView, ContextMenuTestView, ComponentExampleCodeView){
 
   var ContextMenuView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

@@ -3,7 +3,7 @@ define(['marionette',
         './messageBodyView',
         './messageTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.message','rup/rup.tabs'], function(Marionette, App, MessagekBodyView, MessageTestView, ComponentExampleCodeView){
+        'rup.message','rup.tabs'], function(Marionette, App, MessagekBodyView, MessageTestView, ComponentExampleCodeView){
 
   var MessageView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

@@ -3,7 +3,7 @@ define(['marionette',
         './tooltipBodyView',
         './tooltipTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.tooltip'], function(Marionette, App, TooltipBodyView, TooltipTestView, ComponentExampleCodeView){
+        'rup.tooltip'], function(Marionette, App, TooltipBodyView, TooltipTestView, ComponentExampleCodeView){
 
   var TooltipView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

@@ -3,7 +3,7 @@
 //       if (typeof define === "function" && define.amd) {
 //
 //           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','jasmine-jquery','rup/rup.accordion'], factory);
+//           define(['jquery','handlebars','jasmine-jquery','rup.accordion'], factory);
 //       } else {
 //
 //           // Browser globals
@@ -14,7 +14,7 @@
 import 'jquery';
 import Handlebars from 'handlebars';
 import 'jasmine-jquery';
-import 'rup/rup.accordion';
+import 'rup.accordion';
 
 var customMatchers = {
 	toBeExpanded: function(util, customEqualityTesters) {

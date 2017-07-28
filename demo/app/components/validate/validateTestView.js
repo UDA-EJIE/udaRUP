@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.validate','rup/rup.button'], function(Marionette, App){
+        'rup.validate','rup.button'], function(Marionette, App){
 
   var ValidateTestView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.components.validate.validateTestTemplate,
@@ -74,7 +74,7 @@ define(['marionette',
   		showButtonPanel : true,
   		showOtherMonths : true,
   		noWeekend : true
-  		//, buttonImage : "/rup/basic-theme/images/exclamation.png"
+  		//, buttonImage : "/basic-theme/images/exclamation.png"
   	});
 
   	$("#fechaHora").rup_date({

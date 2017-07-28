@@ -3,7 +3,7 @@ define(['marionette',
         './dialogBodyView',
         './dialogTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.dialog'], function(Marionette, App, DialogBodyView, DialogTestView, ComponentExampleCodeView){
+        'rup.dialog'], function(Marionette, App, DialogBodyView, DialogTestView, ComponentExampleCodeView){
 
   var DialogView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

@@ -3,7 +3,7 @@ define(['marionette',
         './chartBodyView',
         './chartTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.chart'], function(Marionette, App, ChartBodyView, ChartTestView, ComponentExampleCodeView){
+        'rup.chart'], function(Marionette, App, ChartBodyView, ChartTestView, ComponentExampleCodeView){
 
   var ChartView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

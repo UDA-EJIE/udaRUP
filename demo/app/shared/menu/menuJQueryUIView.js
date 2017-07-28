@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.menu'], function (Marionette, App) {
+        'rup.menu'], function (Marionette, App) {
 
     var MenuView = Marionette.LayoutView.extend({
         template: App.Templates.demo.app.shared.menu.menuJQueryUITemplate,

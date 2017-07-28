@@ -3,7 +3,7 @@ define(['marionette',
         './formBodyView',
         './formTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.form'], function(Marionette, App, FormBodyView, FormTestView, ComponentExampleCodeView){
+        'rup.form'], function(Marionette, App, FormBodyView, FormTestView, ComponentExampleCodeView){
 
   var FormView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

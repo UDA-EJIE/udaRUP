@@ -103,8 +103,8 @@ requirejs.config({
 		'jquery-ui': {
 			'deps': ['jquery', 'jquery-migrate'],
 		},
-		'rup/compatibility': {
-			'deps': ['rup/base'],
+		'compatibility': {
+			'deps': ['base'],
 		},
 		'bootstrap': {
 			'deps': ['jquery', 'tether']

@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.autocomplete','rup/rup.tabs','rup/rup.button'], function(Marionette, App, AutocompleteBodyView, AutocompleteTestView, ComponentExampleCodeView){
+        'rup.autocomplete','rup.tabs','rup.button'], function(Marionette, App, AutocompleteBodyView, AutocompleteTestView, ComponentExampleCodeView){
 
   var AutocompleteView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

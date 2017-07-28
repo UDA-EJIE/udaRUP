@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.slider','rup/rup.button'], function(Marionette, App){
+        'rup.slider','rup.button'], function(Marionette, App){
 
   var SliderTestView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.slider.sliderTestTemplate,

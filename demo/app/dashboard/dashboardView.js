@@ -2,7 +2,7 @@ define(['marionette',
         'templates',
         './widget/dashboardService',
 
-        'rup/rup.dashboard','rup/rup.button','rup/rup.message' ], function(Marionette, App, DashboardService){
+        'rup.dashboard','rup.button','rup.message' ], function(Marionette, App, DashboardService){
 
   var DashboardView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.dashboard.dashboardTemplate,
@@ -323,7 +323,7 @@ define(['marionette',
 //         './dashboardBodyView',
 //         './dashboardTestView',
 //         '../shared/component/componentExampleCodeView',
-//         'rup/rup.message','rup/rup.tabs'], function(Marionette, App, DashboardBodyView, DashboardTestView, ComponentExampleCodeView){
+//         'rup.message','rup.tabs'], function(Marionette, App, DashboardBodyView, DashboardTestView, ComponentExampleCodeView){
 //
 //   var DashboardView = Marionette.LayoutView.extend({
 //       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

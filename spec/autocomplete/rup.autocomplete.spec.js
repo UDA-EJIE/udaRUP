@@ -4,7 +4,7 @@
 //       if (typeof define === "function" && define.amd) {
 //
 //           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','rup/rup.autocomplete'], factory);
+//           define(['jquery','handlebars','rup.autocomplete'], factory);
 //       } else {
 //
 //           // Browser globals
@@ -16,7 +16,7 @@
 import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
-import 'rup/rup.autocomplete';
+import 'rup.autocomplete';
 
 describe('RUP Autocomplete Tests', function(){
 

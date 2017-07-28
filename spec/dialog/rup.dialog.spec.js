@@ -3,7 +3,7 @@
 //       if (typeof define === "function" && define.amd) {
 //
 //           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','rup/rup.dialog'], factory);
+//           define(['jquery','handlebars','rup.dialog'], factory);
 //       } else {
 //
 //           // Browser globals
@@ -14,7 +14,7 @@
 import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
-import 'rup/rup.dialog';
+import 'rup.dialog';
 
 function executeSharedTests(createInstanceFn){
 

@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.tooltip','rup/rup.button'], function(Marionette, App){
+        'rup.tooltip','rup.button'], function(Marionette, App){
 
   var TooltipTestView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.components.tooltip.tooltipTestTemplate,

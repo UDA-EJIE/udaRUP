@@ -34,25 +34,23 @@ module.exports = {
 	],
 
 	module: {
-		rules: [{
-			test: /\.js$/,
-			include: path.resolve(__dirname, 'src'),
-			use: [{
-				loader: 'babel-loader',
-				// options: {
-				// 	presets: [
-				// 		['es2015', { modules: false }]
-				// 	]
-				// }
-			}]
-		}]
+		// loaders: [
+		// 	{
+		// 		test: /\.js$/,
+		//
+		// 		exclude: /(bower_components|node_modules)/,
+		// 		include: path.resolve(__dirname, 'src'),
+		// 		loader: 'babel-loader',
+		// 		query: {
+		// 			cacheDirectory: true,
+		// 		},
+		// 	}]
 	},
 	resolve:
 		{
-			
-			modules: ['node_modules', path.resolve(__dirname, 'app')],
+
+			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src'],
 			alias: {
-				'rup': path.resolve(__dirname, 'src/'),
 				'handlebars' : 'handlebars/dist/handlebars.js',
 				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
 				'jquery': 'jquery/dist/jquery.js',

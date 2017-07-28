@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.feedback'], function(Marionette, App){
+        'rup.feedback'], function(Marionette, App){
 
   var FeedbackBodyView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.components.feedback.feedbackBodyTemplate,

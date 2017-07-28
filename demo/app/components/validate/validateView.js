@@ -3,7 +3,7 @@ define(['marionette',
         './validateBodyView',
         './validateTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.validate'], function(Marionette, App, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
+        'rup.validate'], function(Marionette, App, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
 
   var ValidateView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

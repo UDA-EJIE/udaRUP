@@ -3,7 +3,7 @@ define(['marionette',
         './toolbarBodyView',
         './toolbarTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.message','rup/rup.tabs'], function(Marionette, App, ToolbarBodyView, ToolbarTestView, ComponentExampleCodeView){
+        'rup.message','rup.tabs'], function(Marionette, App, ToolbarBodyView, ToolbarTestView, ComponentExampleCodeView){
 
   var ToolbarView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

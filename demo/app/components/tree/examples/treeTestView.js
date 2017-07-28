@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.tree', 'rup/rup.button'], function (Marionette, App) {
+        'rup.tree', 'rup.button'], function (Marionette, App) {
 
     var TreeTestView = Marionette.LayoutView.extend({
         template: App.Templates.demo.app.components.tree.examples.treeTestTemplate,

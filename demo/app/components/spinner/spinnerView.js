@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.spinner','rup/rup.tabs','rup/rup.button'], function(Marionette, App, SpinnerBodyView, SpinnerTestView, ComponentExampleCodeView){
+        'rup.spinner','rup.tabs','rup.button'], function(Marionette, App, SpinnerBodyView, SpinnerTestView, ComponentExampleCodeView){
 
   var SpinnerView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

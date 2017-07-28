@@ -3,7 +3,7 @@ define(['marionette',
         './comboSimpleBodyView',
         './comboSimpleTestView',
         '../../../shared/component/componentExampleCodeView',
-        'rup/rup.combo'], function(Marionette, App, ComboSimpleBodyView, ComboSimpleTestView, ComponentExampleCodeView){
+        'rup.combo'], function(Marionette, App, ComboSimpleBodyView, ComboSimpleTestView, ComponentExampleCodeView){
 
   var ComboSimpleView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

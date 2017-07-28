@@ -4,7 +4,7 @@ define(['marionette',
         '../../../shared/component/componentExampleCodeView',
         './treeDragDropCodeView',
         './treeDragDropTestView',
-        'rup/rup.tree'], function (Marionette, App, TreeDragDropBodyView, ComponentExampleCodeView, TreeDragDropCodeView, TreeDragDropTestView) {
+        'rup.tree'], function (Marionette, App, TreeDragDropBodyView, ComponentExampleCodeView, TreeDragDropCodeView, TreeDragDropTestView) {
 
     var TreeView = Marionette.LayoutView.extend({
         template: App.Templates.demo.app.components.tree.dragDrop.treeDragDropLayoutTemplate,

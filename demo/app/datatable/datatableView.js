@@ -4,7 +4,7 @@ import * as App from 'templates';
 
 import $ from 'jquery';
 
-import RupDatatable from 'rup/datatable/rup.datatable';
+import RupDatatable from 'datatable/rup.datatable';
 
 
 // define(['marionette',

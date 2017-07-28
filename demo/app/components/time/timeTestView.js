@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.time','rup/rup.button'], function(Marionette, App){
+        'rup.time','rup.button'], function(Marionette, App){
 
   var TimeTestView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.time.timeTestTemplate,

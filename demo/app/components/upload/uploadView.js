@@ -3,7 +3,7 @@ define(['marionette',
         './uploadBodyView',
         './uploadTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.upload'], function(Marionette, App, UploadBodyView, UploadTestView, ComponentExampleCodeView){
+        'rup.upload'], function(Marionette, App, UploadBodyView, UploadTestView, ComponentExampleCodeView){
 
   var UploadView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

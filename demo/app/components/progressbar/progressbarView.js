@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.progressbar','rup/rup.tabs','rup/rup.button'], function(Marionette, App, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
+        'rup.progressbar','rup.tabs','rup.button'], function(Marionette, App, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
 
   var ProgressbarView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

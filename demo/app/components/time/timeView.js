@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.time','rup/rup.tabs','rup/rup.button'], function(Marionette, App, TimeBodyView, TimeTestView, ComponentExampleCodeView){
+        'rup.time','rup.tabs','rup.button'], function(Marionette, App, TimeBodyView, TimeTestView, ComponentExampleCodeView){
 
   var TimeView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

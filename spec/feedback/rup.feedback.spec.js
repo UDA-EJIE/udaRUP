@@ -1,8 +1,8 @@
 import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
-import 'rup/rup.feedback';
-import 'rup/rup.tooltip';
+import 'rup.feedback';
+import 'rup.tooltip';
 
 describe('RUP Feedback Tests', () => {
 

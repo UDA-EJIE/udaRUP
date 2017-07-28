@@ -1,6 +1,6 @@
 
 define(['marionette',
-        'templates', 'rup/rup.button','rup/rup.combo'], function(Marionette, App){
+        'templates', 'rup.button','rup.combo'], function(Marionette, App){
 
     var StyleGuideView = Marionette.LayoutView.extend({
         template: App.Templates.demo.app.styleGuide.bt3.styleGuideTemplate,

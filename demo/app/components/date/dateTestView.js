@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.date'], function (Marionette, App) {
+        'rup.date'], function (Marionette, App) {
 
   var DateTestView = Marionette.LayoutView.extend({
     template: App.Templates.demo.app.components.date.dateTestTemplate,
@@ -34,14 +34,14 @@ define(['marionette',
       showButtonPanel: true,
       showOtherMonths: true,
       noWeekend: true
-      //, buttonImage : "/rup/basic-theme/images/exclamation.png"
+      //, buttonImage : "/basic-theme/images/exclamation.png"
     });
 
     $view.ui.dateMultiple.rup_date({
       multiSelect: 3,
       //multiSelect: [0,5],
       labelMaskId: "fecha_multi-mask"
-      //, buttonImage : "/rup/basic-theme/images/exclamation.png"
+      //, buttonImage : "/basic-theme/images/exclamation.png"
     });
 
     $.rup_date({

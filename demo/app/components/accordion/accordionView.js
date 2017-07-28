@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.accordion','rup/rup.tabs','rup/rup.button'], function(Marionette, App, AccordionBodyView, AccordionTestView, ComponentExampleCodeView){
+        'rup.accordion','rup.tabs','rup.button'], function(Marionette, App, AccordionBodyView, AccordionTestView, ComponentExampleCodeView){
 
   var AccordionView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

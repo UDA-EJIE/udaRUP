@@ -3,7 +3,7 @@ define(['marionette',
         './dateBodyView',
         './dateTestView',
         '../../shared/component/componentExampleCodeView',
-        'rup/rup.date'], function(Marionette, App, DateBodyView, DateTestView, ComponentExampleCodeView){
+        'rup.date'], function(Marionette, App, DateBodyView, DateTestView, ComponentExampleCodeView){
 
   var DateView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

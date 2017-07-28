@@ -164,9 +164,9 @@ module.exports = function(config) {
 			},
 			resolve:
     		{
-    			modules: ['node_modules', 'build', path.resolve(__dirname, 'app')],
+    			modules: ['node_modules', 'src', path.resolve(__dirname, 'app')],
     			alias: {
-    				'rup': 'src',
+
     				'handlebars' : 'handlebars/dist/handlebars.js',
     				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
     				'jquery': 'jquery/dist/jquery.js',

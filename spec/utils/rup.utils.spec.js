@@ -3,7 +3,7 @@
 //       if (typeof define === "function" && define.amd) {
 //
 //           // AMD. Register as an anonymous module.
-//           define(['jquery','rup/rup.utils'], factory);
+//           define(['jquery','rup.utils'], factory);
 //       } else {
 //
 //           // Browser globals
@@ -15,7 +15,7 @@
 import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
-import 'rup/rup.utils';
+import 'rup.utils';
 
 describe('RUP Utils Tests', function(){
 

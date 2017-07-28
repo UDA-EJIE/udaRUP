@@ -5,7 +5,7 @@ define(['marionette',
         '../../shared/component/componentExampleCodeView',
         // 'highlight',
         // 'highlight-html',
-        'rup/rup.feedback','rup/rup.tabs','rup/rup.button'], function(Marionette, App, FeedbackBodyView, FeedbackTestView, ComponentExampleCodeView){
+        'rup.feedback','rup.tabs','rup.button'], function(Marionette, App, FeedbackBodyView, FeedbackTestView, ComponentExampleCodeView){
 
   var FeedbackView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,

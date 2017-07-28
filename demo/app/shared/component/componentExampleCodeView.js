@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'highlight','rup/rup.tabs'], function(Marionette, App, hljs){
+        'highlight','rup.tabs'], function(Marionette, App, hljs){
 
 
   var ComponentCodeView = Marionette.LayoutView.extend({
