@@ -1,6 +1,8 @@
+import './core/utils/form2object.js';
 import './core/jqGrid/jquery.jqGrid.src.js';
 import './core/jqGrid/jqGrid.rup.table.js';
 import './core/jqGrid/jqGrid.fluid.js';
+import './rup.report.js';
 import './rup_table/rup.table.core.js';
 import './rup_table/rup.table.contextMenu.js';
 import './rup_table/rup.table.filter.js';

@@ -5,13 +5,13 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', '../rup.base', '../templates'], factory);
+		define(['jquery', '../templates', '../rup.base', ], factory);
 	} else {
 
 		// Browser globals
 		root.TableBootstrapAdapter = factory(jQuery);
 	}
-}(this, function ($) {
+}(this, function ($, Rup) {
 
 	function TableBootstrapAdapter() {
 
