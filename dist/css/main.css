@@ -275,7 +275,7 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
 .promotionsDismissalsActionPanel_list .jstree-icon {
   display: none; }
 
-.promotionsDismissalsActionPanel_list li[rel="worker"] > a > .jstree-icon {
+.promotionsDismissalsActionPanel_list li[rel='worker'] > a > .jstree-icon {
   background-image: url("../images/worker.png");
   background-position: 0 0;
   width: 16px;

@@ -51,7 +51,10 @@
 			pagerName,
 			$pagerCenter,
 			pagerLeft,
-			pagerRight;
+			pagerRight,
+			$pagerLeft,
+			$pagerCenter,
+			$pagerRight;
 
 
 		if (settings.pager !== undefined && settings.pager !== null) {

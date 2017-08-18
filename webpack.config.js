@@ -4,12 +4,33 @@
 
 var path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const env = require('yargs').argv.env; // use --env with webpack 2
 
-module.exports = {
+let libraryName = 'rup';
+
+let plugins = [
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery'
+		})
+	], outputFile;
+
+if (env === 'build') {
+	plugins.push(new UglifyJsPlugin({ minimize: true }));
+	outputFile = libraryName + '.min.js';
+} else {
+	outputFile = libraryName + '.js';
+}
+
+module.exports = [{
 	entry: __dirname + '/src/index.js',
 	devtool: 'source-map',
 	output: {
-		filename: 'rup-bundle.js',
+		filename: outputFile,
+		library: libraryName,
+		libraryTarget: 'umd',
 		path: path.resolve(__dirname, 'dist/js')
 	},
 	module: {
@@ -24,6 +45,16 @@ module.exports = {
 			// 		options: '$'
 			// 	}]
 			// },
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['es2015']
+					}
+				}
+			},
 			{
 				test: require.resolve('tether'),
 				use: [{
@@ -43,17 +74,12 @@ module.exports = {
 		compress: true,
 		port: 9000
 	},
-	plugins: [
-		new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery'
-		})
-	],
+	plugins: plugins,
 	resolve:
 		{
 			modules: ['node_modules', path.resolve(__dirname, 'src')],
 			alias: {
-				
+
 				'handlebars' : 'handlebars/dist/handlebars.js',
 				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
 				'jquery': 'jquery/dist/jquery.js',
@@ -94,6 +120,4 @@ module.exports = {
 			}
 
 		}
-
-
-};
+}];

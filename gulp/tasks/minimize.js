@@ -1,3 +1,5 @@
+/*global require */
+
 var gulp = require('gulp');
 var fs = require('fs');
 var concat = require('gulp-concat');

@@ -74,7 +74,7 @@
 
 	$.fn.fmatter.rup_combo = function (cellval, opts, rwd, act) {
 
-		var labelProp, label;
+		var labelProp, label, settings;
 
 
 		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};

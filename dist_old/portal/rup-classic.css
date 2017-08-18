@@ -1,0 +1,7827 @@
+@charset "UTF-8";
+
+/*!
+ * jQuery UI CSS Framework 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/theming/
+ */
+
+/* Layout helpers
+----------------------------------*/
+
+.r01gContainer .ui-helper-hidden {
+  display: none;
+}
+
+.r01gContainer .ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.r01gContainer .ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+.r01gContainer .ui-helper-clearfix:before,
+.r01gContainer .ui-helper-clearfix:after {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+
+.r01gContainer .ui-helper-clearfix:after {
+  clear: both;
+}
+
+.r01gContainer .ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+  /* support: IE8 */
+}
+
+.r01gContainer .ui-front {
+  z-index: 100;
+}
+
+/* Interaction Cues
+----------------------------------*/
+
+.r01gContainer .ui-state-disabled {
+  cursor: default !important;
+  pointer-events: none;
+}
+
+/* Icons
+----------------------------------*/
+
+.r01gContainer .ui-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -.25em;
+  position: relative;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.r01gContainer .ui-widget-icon-block {
+  left: 50%;
+  margin-left: -8px;
+  display: block;
+}
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+
+.r01gContainer .ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*!
+ * jQuery UI Accordion 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/accordion/#theming
+ */
+
+.r01gContainer .ui-accordion .ui-accordion-header {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin: 2px 0 0 0;
+  padding: .5em .5em .5em .7em;
+  font-size: 100%;
+}
+
+.r01gContainer .ui-accordion .ui-accordion-content {
+  padding: 1em 2.2em;
+  border-top: 0;
+  overflow: auto;
+}
+
+/*!
+ * jQuery UI Autocomplete 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/autocomplete/#theming
+ */
+
+.r01gContainer .ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: default;
+}
+
+/*!
+ * jQuery UI Button 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/button/#theming
+ */
+
+.r01gContainer .ui-button {
+  padding: .4em 1em;
+  display: inline-block;
+  position: relative;
+  line-height: normal;
+  margin-right: .1em;
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Support: IE <= 11 */
+  overflow: visible;
+}
+
+.r01gContainer .ui-button,
+.r01gContainer .ui-button:link,
+.r01gContainer .ui-button:visited,
+.r01gContainer .ui-button:hover,
+.r01gContainer .ui-button:active {
+  text-decoration: none;
+}
+
+/* to make room for the icon, a width needs to be set here */
+
+.r01gContainer .ui-button-icon-only {
+  width: 2em;
+  box-sizing: border-box;
+  text-indent: -9999px;
+  white-space: nowrap;
+}
+
+/* no icon support for input elements */
+
+.r01gContainer input.ui-button.ui-button-icon-only {
+  text-indent: 0;
+}
+
+/* button icon element(s) */
+
+.r01gContainer .ui-button-icon-only .ui-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.r01gContainer .ui-button.ui-icon-notext .ui-icon {
+  padding: 0;
+  width: 2.1em;
+  height: 2.1em;
+  text-indent: -9999px;
+  white-space: nowrap;
+}
+
+.r01gContainer input.ui-button.ui-icon-notext .ui-icon {
+  width: auto;
+  height: auto;
+  text-indent: 0;
+  white-space: normal;
+  padding: .4em 1em;
+}
+
+/* workarounds */
+
+/* Support: Firefox 5 - 40 */
+
+.r01gContainer input.ui-button::-moz-focus-inner,
+.r01gContainer button.ui-button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/*!
+ * jQuery UI Checkboxradio 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/checkboxradio/#theming
+ */
+
+.r01gContainer .ui-checkboxradio-label .ui-icon-background {
+  box-shadow: inset 1px 1px 1px #ccc;
+  border-radius: .12em;
+  border: none;
+}
+
+.r01gContainer .ui-checkboxradio-radio-label .ui-icon-background {
+  width: 16px;
+  height: 16px;
+  border-radius: 1em;
+  overflow: visible;
+  border: none;
+}
+
+.r01gContainer .ui-checkboxradio-radio-label.ui-checkboxradio-checked .ui-icon,
+.r01gContainer .ui-checkboxradio-radio-label.ui-checkboxradio-checked:hover .ui-icon {
+  background-image: none;
+  width: 8px;
+  height: 8px;
+  border-width: 4px;
+  border-style: solid;
+}
+
+.r01gContainer .ui-checkboxradio-disabled {
+  pointer-events: none;
+}
+
+/*!
+ * jQuery UI Controlgroup 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/controlgroup/#theming
+ */
+
+.r01gContainer .ui-controlgroup {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.r01gContainer .ui-controlgroup > .ui-controlgroup-item {
+  float: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.r01gContainer .ui-controlgroup > .ui-controlgroup-item:focus,
+.r01gContainer .ui-controlgroup > .ui-controlgroup-item.ui-visual-focus {
+  z-index: 9999;
+}
+
+.r01gContainer .ui-controlgroup-vertical > .ui-controlgroup-item {
+  display: block;
+  float: none;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.r01gContainer .ui-controlgroup-vertical .ui-controlgroup-item {
+  box-sizing: border-box;
+}
+
+.r01gContainer .ui-controlgroup .ui-controlgroup-label {
+  padding: .4em 1em;
+}
+
+.r01gContainer .ui-controlgroup .ui-controlgroup-label span {
+  font-size: 80%;
+}
+
+.r01gContainer .ui-controlgroup-horizontal .ui-controlgroup-label + .ui-controlgroup-item {
+  border-left: none;
+}
+
+.r01gContainer .ui-controlgroup-vertical .ui-controlgroup-label + .ui-controlgroup-item {
+  border-top: none;
+}
+
+.r01gContainer .ui-controlgroup-horizontal .ui-controlgroup-label.ui-widget-content {
+  border-right: none;
+}
+
+.r01gContainer .ui-controlgroup-vertical .ui-controlgroup-label.ui-widget-content {
+  border-bottom: none;
+}
+
+/* Spinner specific style fixes */
+
+.r01gContainer .ui-controlgroup-vertical .ui-spinner-input {
+  /* Support: IE8 only, Android < 4.4 only */
+  width: 75%;
+  width: calc( 100% - 2.4em);
+}
+
+.r01gContainer .ui-controlgroup-vertical .ui-spinner .ui-spinner-up {
+  border-top-style: solid;
+}
+
+/*!
+ * jQuery UI Datepicker 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/datepicker/#theming
+ */
+
+.r01gContainer .ui-datepicker {
+  width: 17em;
+  padding: .2em .2em 0;
+  display: none;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-header {
+  position: relative;
+  padding: .2em 0;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-prev,
+.r01gContainer .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: 2px;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-prev-hover,
+.r01gContainer .ui-datepicker .ui-datepicker-next-hover {
+  top: 1px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-prev {
+  left: 2px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-next {
+  right: 2px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-prev-hover {
+  left: 1px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-next-hover {
+  right: 1px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-prev span,
+.r01gContainer .ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -8px;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-title select {
+  font-size: 1em;
+  margin: 1px 0;
+}
+
+.r01gContainer .ui-datepicker select.ui-datepicker-month,
+.r01gContainer .ui-datepicker select.ui-datepicker-year {
+  width: 45%;
+}
+
+.r01gContainer .ui-datepicker table {
+  width: 100%;
+  font-size: .9em;
+  border-collapse: collapse;
+  margin: 0 0 .4em;
+}
+
+.r01gContainer .ui-datepicker th {
+  padding: .7em .3em;
+  text-align: center;
+  font-weight: bold;
+  border: 0;
+}
+
+.r01gContainer .ui-datepicker td {
+  border: 0;
+  padding: 1px;
+}
+
+.r01gContainer .ui-datepicker td span,
+.r01gContainer .ui-datepicker td a {
+  display: block;
+  padding: .2em;
+  text-align: right;
+  text-decoration: none;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-buttonpane {
+  background-image: none;
+  margin: .7em 0 0 0;
+  padding: 0 .2em;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-buttonpane button {
+  float: right;
+  margin: .5em .2em .4em;
+  cursor: pointer;
+  padding: .2em .6em .3em .6em;
+  width: auto;
+  overflow: visible;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+  float: left;
+}
+
+/* with multiple calendars */
+
+.r01gContainer .ui-datepicker.ui-datepicker-multi {
+  width: auto;
+}
+
+.r01gContainer .ui-datepicker-multi .ui-datepicker-group {
+  float: left;
+}
+
+.r01gContainer .ui-datepicker-multi .ui-datepicker-group table {
+  width: 95%;
+  margin: 0 auto .4em;
+}
+
+.r01gContainer .ui-datepicker-multi-2 .ui-datepicker-group {
+  width: 50%;
+}
+
+.r01gContainer .ui-datepicker-multi-3 .ui-datepicker-group {
+  width: 33.3%;
+}
+
+.r01gContainer .ui-datepicker-multi-4 .ui-datepicker-group {
+  width: 25%;
+}
+
+.r01gContainer .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.r01gContainer .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+  border-left-width: 0;
+}
+
+.r01gContainer .ui-datepicker-multi .ui-datepicker-buttonpane {
+  clear: left;
+}
+
+.r01gContainer .ui-datepicker-row-break {
+  clear: both;
+  width: 100%;
+  font-size: 0;
+}
+
+/* RTL support */
+
+.r01gContainer .ui-datepicker-rtl {
+  direction: rtl;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-prev {
+  right: 2px;
+  left: auto;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-next {
+  left: 2px;
+  right: auto;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-prev:hover {
+  right: 1px;
+  left: auto;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-next:hover {
+  left: 1px;
+  right: auto;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-buttonpane {
+  clear: right;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-buttonpane button {
+  float: left;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-group {
+  float: right;
+}
+
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.r01gContainer .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+  border-right-width: 0;
+  border-left-width: 1px;
+}
+
+/* Icons */
+
+.r01gContainer .ui-datepicker .ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  left: .5em;
+  top: .3em;
+}
+
+/*!
+ * jQuery UI Dialog 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/dialog/#theming
+ */
+
+.r01gContainer .ui-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .2em;
+  outline: 0;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-titlebar {
+  padding: .4em 1em;
+  position: relative;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-title {
+  float: left;
+  margin: .1em 0;
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  right: .3em;
+  top: 50%;
+  width: 20px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-content {
+  position: relative;
+  border: 0;
+  padding: .5em 1em;
+  background: none;
+  overflow: auto;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-buttonpane {
+  text-align: left;
+  border-width: 1px 0 0 0;
+  background-image: none;
+  margin-top: .5em;
+  padding: .3em 1em .5em .4em;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  float: right;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-buttonpane button {
+  margin: .5em .4em .5em 0;
+  cursor: pointer;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-n {
+  height: 2px;
+  top: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-e {
+  width: 2px;
+  right: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-s {
+  height: 2px;
+  bottom: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-w {
+  width: 2px;
+  left: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-se,
+.r01gContainer .ui-dialog .ui-resizable-sw,
+.r01gContainer .ui-dialog .ui-resizable-ne,
+.r01gContainer .ui-dialog .ui-resizable-nw {
+  width: 7px;
+  height: 7px;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-se {
+  right: 0;
+  bottom: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-sw {
+  left: 0;
+  bottom: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-ne {
+  right: 0;
+  top: 0;
+}
+
+.r01gContainer .ui-dialog .ui-resizable-nw {
+  left: 0;
+  top: 0;
+}
+
+.r01gContainer .ui-draggable .ui-dialog-titlebar {
+  cursor: move;
+}
+
+/*!
+ * jQuery UI Draggable 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+.r01gContainer .ui-draggable-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+/*!
+ * jQuery UI Menu 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/menu/#theming
+ */
+
+.r01gContainer .ui-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  outline: 0;
+}
+
+.r01gContainer .ui-menu .ui-menu {
+  position: absolute;
+}
+
+.r01gContainer .ui-menu .ui-menu-item {
+  margin: 0;
+  cursor: pointer;
+  /* support: IE10, see #8844 */
+  list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+}
+
+.r01gContainer .ui-menu .ui-menu-item-wrapper {
+  position: relative;
+  padding: 3px 1em 3px .4em;
+}
+
+.r01gContainer .ui-menu .ui-menu-divider {
+  margin: 5px 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  border-width: 1px 0 0 0;
+}
+
+.r01gContainer .ui-menu .ui-state-focus,
+.r01gContainer .ui-menu .ui-state-active {
+  margin: -1px;
+}
+
+/* icon support */
+
+.r01gContainer .ui-menu-icons {
+  position: relative;
+}
+
+.r01gContainer .ui-menu-icons .ui-menu-item-wrapper {
+  padding-left: 2em;
+}
+
+/* left-aligned */
+
+.r01gContainer .ui-menu .ui-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: .2em;
+  margin: auto 0;
+}
+
+/* right-aligned */
+
+.r01gContainer .ui-menu .ui-menu-icon {
+  left: auto;
+  right: 0;
+}
+
+/*!
+ * jQuery UI Progressbar 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/progressbar/#theming
+ */
+
+.r01gContainer .ui-progressbar {
+  height: 2em;
+  text-align: left;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-progressbar .ui-progressbar-value {
+  margin: -1px;
+  height: 100%;
+}
+
+.r01gContainer .ui-progressbar .ui-progressbar-overlay {
+  background: url("data:image/gif;base64,R0lGODlhKAAoAIABAAAAAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJAQABACwAAAAAKAAoAAACkYwNqXrdC52DS06a7MFZI+4FHBCKoDeWKXqymPqGqxvJrXZbMx7Ttc+w9XgU2FB3lOyQRWET2IFGiU9m1frDVpxZZc6bfHwv4c1YXP6k1Vdy292Fb6UkuvFtXpvWSzA+HycXJHUXiGYIiMg2R6W459gnWGfHNdjIqDWVqemH2ekpObkpOlppWUqZiqr6edqqWQAAIfkECQEAAQAsAAAAACgAKAAAApSMgZnGfaqcg1E2uuzDmmHUBR8Qil95hiPKqWn3aqtLsS18y7G1SzNeowWBENtQd+T1JktP05nzPTdJZlR6vUxNWWjV+vUWhWNkWFwxl9VpZRedYcflIOLafaa28XdsH/ynlcc1uPVDZxQIR0K25+cICCmoqCe5mGhZOfeYSUh5yJcJyrkZWWpaR8doJ2o4NYq62lAAACH5BAkBAAEALAAAAAAoACgAAAKVDI4Yy22ZnINRNqosw0Bv7i1gyHUkFj7oSaWlu3ovC8GxNso5fluz3qLVhBVeT/Lz7ZTHyxL5dDalQWPVOsQWtRnuwXaFTj9jVVh8pma9JjZ4zYSj5ZOyma7uuolffh+IR5aW97cHuBUXKGKXlKjn+DiHWMcYJah4N0lYCMlJOXipGRr5qdgoSTrqWSq6WFl2ypoaUAAAIfkECQEAAQAsAAAAACgAKAAAApaEb6HLgd/iO7FNWtcFWe+ufODGjRfoiJ2akShbueb0wtI50zm02pbvwfWEMWBQ1zKGlLIhskiEPm9R6vRXxV4ZzWT2yHOGpWMyorblKlNp8HmHEb/lCXjcW7bmtXP8Xt229OVWR1fod2eWqNfHuMjXCPkIGNileOiImVmCOEmoSfn3yXlJWmoHGhqp6ilYuWYpmTqKUgAAIfkECQEAAQAsAAAAACgAKAAAApiEH6kb58biQ3FNWtMFWW3eNVcojuFGfqnZqSebuS06w5V80/X02pKe8zFwP6EFWOT1lDFk8rGERh1TTNOocQ61Hm4Xm2VexUHpzjymViHrFbiELsefVrn6XKfnt2Q9G/+Xdie499XHd2g4h7ioOGhXGJboGAnXSBnoBwKYyfioubZJ2Hn0RuRZaflZOil56Zp6iioKSXpUAAAh+QQJAQABACwAAAAAKAAoAAACkoQRqRvnxuI7kU1a1UU5bd5tnSeOZXhmn5lWK3qNTWvRdQxP8qvaC+/yaYQzXO7BMvaUEmJRd3TsiMAgswmNYrSgZdYrTX6tSHGZO73ezuAw2uxuQ+BbeZfMxsexY35+/Qe4J1inV0g4x3WHuMhIl2jXOKT2Q+VU5fgoSUI52VfZyfkJGkha6jmY+aaYdirq+lQAACH5BAkBAAEALAAAAAAoACgAAAKWBIKpYe0L3YNKToqswUlvznigd4wiR4KhZrKt9Upqip61i9E3vMvxRdHlbEFiEXfk9YARYxOZZD6VQ2pUunBmtRXo1Lf8hMVVcNl8JafV38aM2/Fu5V16Bn63r6xt97j09+MXSFi4BniGFae3hzbH9+hYBzkpuUh5aZmHuanZOZgIuvbGiNeomCnaxxap2upaCZsq+1kAACH5BAkBAAEALAAAAAAoACgAAAKXjI8By5zf4kOxTVrXNVlv1X0d8IGZGKLnNpYtm8Lr9cqVeuOSvfOW79D9aDHizNhDJidFZhNydEahOaDH6nomtJjp1tutKoNWkvA6JqfRVLHU/QUfau9l2x7G54d1fl995xcIGAdXqMfBNadoYrhH+Mg2KBlpVpbluCiXmMnZ2Sh4GBqJ+ckIOqqJ6LmKSllZmsoq6wpQAAAh+QQJAQABACwAAAAAKAAoAAAClYx/oLvoxuJDkU1a1YUZbJ59nSd2ZXhWqbRa2/gF8Gu2DY3iqs7yrq+xBYEkYvFSM8aSSObE+ZgRl1BHFZNr7pRCavZ5BW2142hY3AN/zWtsmf12p9XxxFl2lpLn1rseztfXZjdIWIf2s5dItwjYKBgo9yg5pHgzJXTEeGlZuenpyPmpGQoKOWkYmSpaSnqKileI2FAAACH5BAkBAAEALAAAAAAoACgAAAKVjB+gu+jG4kORTVrVhRlsnn2dJ3ZleFaptFrb+CXmO9OozeL5VfP99HvAWhpiUdcwkpBH3825AwYdU8xTqlLGhtCosArKMpvfa1mMRae9VvWZfeB2XfPkeLmm18lUcBj+p5dnN8jXZ3YIGEhYuOUn45aoCDkp16hl5IjYJvjWKcnoGQpqyPlpOhr3aElaqrq56Bq7VAAAOw==");
+  height: 100%;
+  filter: alpha(opacity=25);
+  /* support: IE8 */
+  opacity: 0.25;
+}
+
+.r01gContainer .ui-progressbar-indeterminate .ui-progressbar-value {
+  background-image: none;
+}
+
+/*!
+ * jQuery UI Resizable 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+.r01gContainer .ui-resizable {
+  position: relative;
+}
+
+.r01gContainer .ui-resizable-handle {
+  position: absolute;
+  font-size: 0.1px;
+  display: block;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.r01gContainer .ui-resizable-disabled .ui-resizable-handle,
+.r01gContainer .ui-resizable-autohide .ui-resizable-handle {
+  display: none;
+}
+
+.r01gContainer .ui-resizable-n {
+  cursor: n-resize;
+  height: 7px;
+  width: 100%;
+  top: -5px;
+  left: 0;
+}
+
+.r01gContainer .ui-resizable-s {
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.r01gContainer .ui-resizable-e {
+  cursor: e-resize;
+  width: 7px;
+  right: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.r01gContainer .ui-resizable-w {
+  cursor: w-resize;
+  width: 7px;
+  left: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.r01gContainer .ui-resizable-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  bottom: 1px;
+}
+
+.r01gContainer .ui-resizable-sw {
+  cursor: sw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  bottom: -5px;
+}
+
+.r01gContainer .ui-resizable-nw {
+  cursor: nw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  top: -5px;
+}
+
+.r01gContainer .ui-resizable-ne {
+  cursor: ne-resize;
+  width: 9px;
+  height: 9px;
+  right: -5px;
+  top: -5px;
+}
+
+/*!
+ * jQuery UI Selectable 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+.r01gContainer .ui-selectable {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.r01gContainer .ui-selectable-helper {
+  position: absolute;
+  z-index: 100;
+  border: 1px dotted black;
+}
+
+/*!
+ * jQuery UI Selectmenu 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/selectmenu/#theming
+ */
+
+.r01gContainer .ui-selectmenu-menu {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-menu {
+  overflow: auto;
+  overflow-x: hidden;
+  padding-bottom: 1px;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.5;
+  padding: 2px 0.4em;
+  margin: 0.5em 0 0 0;
+  height: auto;
+  border: 0;
+}
+
+.r01gContainer .ui-selectmenu-open {
+  display: block;
+}
+
+.r01gContainer .ui-selectmenu-text {
+  display: block;
+  margin-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.r01gContainer .ui-selectmenu-button.ui-button {
+  text-align: left;
+  white-space: nowrap;
+  width: 14em;
+}
+
+.r01gContainer .ui-selectmenu-icon.ui-icon {
+  float: right;
+  margin-top: 0;
+}
+
+/*!
+ * jQuery UI Sortable 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ */
+
+.r01gContainer .ui-sortable-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+/*!
+ * jQuery UI Slider 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/slider/#theming
+ */
+
+.r01gContainer .ui-slider {
+  position: relative;
+  text-align: left;
+}
+
+.r01gContainer .ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 1.2em;
+  height: 1.2em;
+  cursor: default;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.r01gContainer .ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* support: IE8 - See #6727 */
+
+.r01gContainer .ui-slider.ui-state-disabled .ui-slider-handle,
+.r01gContainer .ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+
+.r01gContainer .ui-slider-horizontal {
+  height: .8em;
+}
+
+.r01gContainer .ui-slider-horizontal .ui-slider-handle {
+  top: -.3em;
+  margin-left: -.6em;
+}
+
+.r01gContainer .ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+
+.r01gContainer .ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+
+.r01gContainer .ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+.r01gContainer .ui-slider-vertical {
+  width: .8em;
+  height: 100px;
+}
+
+.r01gContainer .ui-slider-vertical .ui-slider-handle {
+  left: -.3em;
+  margin-left: 0;
+  margin-bottom: -.6em;
+}
+
+.r01gContainer .ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+.r01gContainer .ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+.r01gContainer .ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+/*!
+ * jQuery UI Spinner 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/spinner/#theming
+ */
+
+.r01gContainer .ui-spinner {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.r01gContainer .ui-spinner-input {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: .222em 0;
+  margin: .2em 0;
+  vertical-align: middle;
+  margin-left: .4em;
+  margin-right: 2em;
+}
+
+.r01gContainer .ui-spinner-button {
+  width: 1.6em;
+  height: 50%;
+  font-size: .5em;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  position: absolute;
+  cursor: default;
+  display: block;
+  overflow: hidden;
+  right: 0;
+}
+
+/* more specificity required here to override default borders */
+
+.r01gContainer .ui-spinner a.ui-spinner-button {
+  border-top-style: none;
+  border-bottom-style: none;
+  border-right-style: none;
+}
+
+.r01gContainer .ui-spinner-up {
+  top: 0;
+}
+
+.r01gContainer .ui-spinner-down {
+  bottom: 0;
+}
+
+/*!
+ * jQuery UI Tabs 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/tabs/#theming
+ */
+
+.r01gContainer .ui-tabs {
+  position: relative;
+  /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+  padding: .2em;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav {
+  margin: 0;
+  padding: .2em .2em 0;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav li {
+  list-style: none;
+  float: left;
+  position: relative;
+  top: 0;
+  margin: 1px .2em 0 0;
+  border-bottom-width: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+  float: left;
+  padding: .5em 1em;
+  text-decoration: none;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  margin-bottom: -1px;
+  padding-bottom: 1px;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.r01gContainer .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.r01gContainer .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+  cursor: text;
+}
+
+.r01gContainer .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+  cursor: pointer;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-panel {
+  display: block;
+  border-width: 0;
+  padding: 1em 1.4em;
+  background: none;
+}
+
+/*!
+ * jQuery UI Tooltip 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/tooltip/#theming
+ */
+
+.r01gContainer .ui-tooltip {
+  padding: 8px;
+  position: absolute;
+  z-index: 9999;
+  max-width: 300px;
+}
+
+.r01gContainer body .ui-tooltip {
+  border-width: 2px;
+}
+
+/*
+ * jQuery File Upload UI Plugin CSS 5.0.6
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://creativecommons.org/licenses/MIT/
+ */
+
+.r01gContainer .fileupload-buttonbar .ui-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  border: solid transparent;
+  border-width: 0 0 100px 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -o-transform: translate(250px, -50px) scale(1);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+}
+
+.r01gContainer .fileinput-button {
+  overflow: hidden;
+}
+
+/* Fix for IE 6: */
+
+.r01gContainer * html .fileinput-button {
+  padding: 2px 0;
+}
+
+/* Fix for IE 7: */
+
+.r01gContainer * + html .fileinput-button {
+  padding: 2px 0;
+}
+
+.r01gContainer .fileupload-buttonbar {
+  padding: 0.2em 0.4em;
+}
+
+.r01gContainer .fileupload-buttonbar .ui-button {
+  vertical-align: middle;
+}
+
+.r01gContainer .fileupload-content {
+  padding: 0.2em 0.4em;
+  border-top-width: 0;
+}
+
+.r01gContainer .fileupload-content .ui-progressbar {
+  width: 200px;
+  height: 20px;
+}
+
+.r01gContainer .fileupload-content .ui-progressbar-value {
+  background: url(images/pbar-ani.gif);
+}
+
+.r01gContainer .fileupload-content .fileupload-progressbar {
+  width: 400px;
+  margin: 10px 0;
+}
+
+.r01gContainer .files {
+  margin: 10px 0;
+  border-collapse: collapse;
+}
+
+.r01gContainer .files td {
+  padding: 5px;
+  border-spacing: 5px;
+}
+
+.r01gContainer .files img {
+  border: none;
+}
+
+.r01gContainer .files .name {
+  padding: 0 10px;
+}
+
+.r01gContainer .files .size {
+  padding: 0 10px 0 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.r01gContainer .ui-state-disabled .ui-state-disabled {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.r01gContainer .ui-state-disabled input {
+  cursor: default;
+}
+
+/*Grid*/
+
+.r01gContainer .ui-jqgrid {
+  position: relative;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-view {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  padding: .0em;
+  font-size: 11px;
+}
+
+/* caption*/
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-titlebar {
+  padding: .3em .2em .2em .3em;
+  position: relative;
+  border-left: 0px none;
+  border-right: 0px none;
+  border-top: 0px none;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-title {
+  float: left;
+  margin: .1em 0 .2em;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-titlebar-close {
+  position: absolute;
+  top: 50%;
+  width: 19px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 18px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-titlebar-close span {
+  display: block;
+  margin: 1px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-titlebar-close:hover {
+  padding: 0;
+}
+
+/* header*/
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-hdiv {
+  position: relative;
+  margin: 0em;
+  padding: 0em;
+  overflow-x: hidden;
+  border-left: 0px none !important;
+  border-top: 0px none !important;
+  border-right: 0px none !important;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-hbox {
+  float: left;
+  padding-right: 20px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable {
+  table-layout: fixed;
+  margin: 0em;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th {
+  height: 22px;
+  padding: 0 2px 0 2px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th div {
+  overflow: hidden;
+  position: relative;
+  height: 17px;
+}
+
+.r01gContainer .ui-th-column,
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  border-top: 0px none;
+  border-bottom: 0px none;
+}
+
+.r01gContainer .ui-th-ltr,
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+  border-left: 0px none;
+}
+
+.r01gContainer .ui-th-rtl,
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th.ui-th-rtl {
+  border-right: 0px none;
+}
+
+.r01gContainer .ui-first-th-ltr {
+  border-right: 1px solid;
+}
+
+.r01gContainer .ui-first-th-rtl {
+  border-left: 1px solid;
+}
+
+.r01gContainer .ui-jqgrid .ui-th-div-ie {
+  white-space: nowrap;
+  zoom: 1;
+  height: 17px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-resize {
+  height: 20px !important;
+  position: relative;
+  cursor: e-resize;
+  display: inline;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .ui-grid-ico-sort {
+  overflow: hidden;
+  position: absolute;
+  display: inline;
+  cursor: pointer !important;
+}
+
+.r01gContainer .ui-jqgrid .ui-icon-asc {
+  margin-top: -3px;
+  height: 12px;
+}
+
+.r01gContainer .ui-jqgrid .ui-icon-desc {
+  margin-top: 3px;
+  height: 12px;
+}
+
+.r01gContainer .ui-jqgrid .ui-i-asc {
+  margin-top: 0px;
+  height: 16px;
+}
+
+.r01gContainer .ui-jqgrid .ui-i-desc {
+  margin-top: 0px;
+  margin-left: 13px;
+  height: 16px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: pointer;
+}
+
+.r01gContainer .ui-jqgrid tr.ui-search-toolbar th {
+  border-top-width: 1px !important;
+  border-top-color: inherit !important;
+  border-top-style: ridge !important;
+}
+
+.r01gContainer tr.ui-search-toolbar input {
+  margin: 1px 0px 0px 0px;
+}
+
+.r01gContainer tr.ui-search-toolbar select {
+  margin: 1px 0px 0px 0px;
+}
+
+/* body */
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-bdiv {
+  position: relative;
+  margin: 0em;
+  padding: 0;
+  overflow: auto;
+  text-align: left;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-btable {
+  table-layout: fixed;
+  margin: 0em;
+  outline-style: none;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgrow {
+  outline-style: none;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgroup {
+  outline-style: none;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgrow td {
+  font-weight: normal;
+  overflow: hidden;
+  white-space: pre;
+  height: 22px;
+  padding: 0 2px 0 2px;
+  border-bottom-width: 1px;
+  border-bottom-color: inherit;
+  border-bottom-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgfirstrow td {
+  padding: 0 2px 0 2px;
+  border-right-width: 1px;
+  border-right-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgroup td {
+  font-weight: normal;
+  overflow: hidden;
+  white-space: pre;
+  height: 22px;
+  padding: 0 2px 0 2px;
+  border-bottom-width: 1px;
+  border-bottom-color: inherit;
+  border-bottom-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.jqfoot td {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: pre;
+  height: 22px;
+  padding: 0 2px 0 2px;
+  border-bottom-width: 1px;
+  border-bottom-color: inherit;
+  border-bottom-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.ui-row-ltr td {
+  text-align: left;
+  border-right-width: 1px;
+  border-right-color: inherit;
+  border-right-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.ui-row-rtl td {
+  text-align: right;
+  border-left-width: 1px;
+  border-left-color: inherit;
+  border-left-style: solid;
+}
+
+.r01gContainer .ui-jqgrid td.jqgrid-rownum {
+  padding: 0 2px 0 2px;
+  margin: 0px;
+  border: 0px none;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-resize-mark {
+  width: 2px;
+  left: 0;
+  background-color: #777;
+  cursor: e-resize;
+  cursor: col-resize;
+  position: absolute;
+  top: 0;
+  height: 100px;
+  overflow: hidden;
+  display: none;
+  border: 0 none;
+  z-index: 99999;
+}
+
+/* footer */
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-sdiv {
+  position: relative;
+  margin: 0em;
+  padding: 0em;
+  overflow: hidden;
+  border-left: 0px none !important;
+  border-top: 0px none !important;
+  border-right: 0px none !important;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-ftable {
+  table-layout: fixed;
+  margin-bottom: 0em;
+}
+
+.r01gContainer .ui-jqgrid tr.footrow td {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 21px;
+  padding: 0 2px 0 2px;
+  border-top-width: 1px;
+  border-top-color: inherit;
+  border-top-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.footrow-ltr td {
+  text-align: left;
+  border-right-width: 1px;
+  border-right-color: inherit;
+  border-right-style: solid;
+}
+
+.r01gContainer .ui-jqgrid tr.footrow-rtl td {
+  text-align: right;
+  border-left-width: 1px;
+  border-left-color: inherit;
+  border-left-style: solid;
+}
+
+/* Pager*/
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-pager {
+  border-left: 0px none !important;
+  border-right: 0px none !important;
+  border-bottom: 0px none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  position: relative;
+  height: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 11px;
+}
+
+.r01gContainer .ui-jqgrid .ui-pager-control {
+  position: relative;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-table {
+  position: relative;
+  padding-bottom: 2px;
+  width: auto;
+  margin: 0em;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-table td {
+  font-weight: normal;
+  vertical-align: middle;
+  padding: 1px;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-button {
+  height: 19px !important;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-button span {
+  display: block;
+  margin: 1px;
+  float: left;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-button:hover {
+  padding: 0px;
+}
+
+.r01gContainer .ui-jqgrid .ui-state-disabled:hover {
+  padding: 1px;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-input {
+  height: 13px;
+  font-size: .8em;
+  margin: 0em;
+}
+
+.r01gContainer .ui-jqgrid .ui-pg-selbox {
+  font-size: .8em;
+  line-height: 18px;
+  display: block;
+  height: 18px;
+  margin: 0em;
+}
+
+.r01gContainer .ui-jqgrid .ui-separator {
+  height: 18px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  margin: 1px;
+  float: right;
+}
+
+.r01gContainer .ui-jqgrid .ui-paging-info {
+  font-weight: normal;
+  height: 19px;
+  margin-top: 3px;
+  margin-right: 4px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-pager .ui-pg-div {
+  padding: 1px 0;
+  float: left;
+  position: relative;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-pager .ui-pg-button {
+  cursor: pointer;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-pager .ui-pg-div span.ui-icon {
+  float: left;
+  margin: 0 2px;
+}
+
+.r01gContainer .ui-jqgrid td input,
+.r01gContainer .ui-jqgrid td select .ui-jqgrid td textarea {
+  margin: 0em;
+}
+
+.r01gContainer .ui-jqgrid td textarea {
+  width: auto;
+  height: auto;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-toppager {
+  border-left: 0px none !important;
+  border-right: 0px none !important;
+  border-top: 0px none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  position: relative;
+  height: 25px !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-toppager .ui-pg-div {
+  padding: 1px 0;
+  float: left;
+  position: relative;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-toppager .ui-pg-button {
+  cursor: pointer;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-toppager .ui-pg-div span.ui-icon {
+  float: left;
+  margin: 0 2px;
+}
+
+/*subgrid*/
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-btable .ui-sgcollapsed span {
+  display: block;
+}
+
+.r01gContainer .ui-jqgrid .ui-subgrid {
+  margin: 0em;
+  padding: 0em;
+  width: 100%;
+}
+
+.r01gContainer .ui-jqgrid .ui-subgrid table {
+  table-layout: fixed;
+}
+
+.r01gContainer .ui-jqgrid .ui-subgrid tr.ui-subtblcell td {
+  height: 18px;
+  border-right-width: 1px;
+  border-right-color: inherit;
+  border-right-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: inherit;
+  border-bottom-style: solid;
+}
+
+.r01gContainer .ui-jqgrid .ui-subgrid td.subgrid-data {
+  border-top: 0px none !important;
+}
+
+.r01gContainer .ui-jqgrid .ui-subgrid td.subgrid-cell {
+  border-width: 0px 0px 1px 0px;
+}
+
+.r01gContainer .ui-jqgrid .ui-th-subgrid {
+  height: 20px;
+}
+
+/* loading */
+
+.r01gContainer .ui-jqgrid .loading {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: auto;
+  z-index: 101;
+  padding: 6px;
+  margin: 5px;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+  border-width: 2px !important;
+  font-size: 11px;
+}
+
+.r01gContainer .ui-jqgrid .jqgrid-overlay {
+  display: none;
+  z-index: 100;
+}
+
+.r01gContainer * html .jqgrid-overlay {
+  width: expression(this.parentNode.offsetWidth+'px');
+  height: expression(this.parentNode.offsetHeight+'px');
+}
+
+.r01gContainer * .jqgrid-overlay iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: expression(this.parentNode.offsetWidth+'px');
+  height: expression(this.parentNode.offsetHeight+'px');
+}
+
+/* end loading div */
+
+/* toolbar */
+
+.r01gContainer .ui-jqgrid .ui-userdata {
+  border-left: 0px none;
+  border-right: 0px none;
+  height: 21px;
+  overflow: hidden;
+}
+
+/*Modal Window */
+
+.r01gContainer .ui-jqdialog {
+  display: none;
+  width: 300px;
+  position: absolute;
+  padding: .2em;
+  font-size: 11px;
+  overflow: visible;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqdialog-titlebar {
+  padding: .3em .2em;
+  position: relative;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqdialog-title {
+  margin: .1em 0 .2em;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqdialog-titlebar-close {
+  position: absolute;
+  top: 50%;
+  width: 19px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 18px;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqdialog-titlebar-close span {
+  display: block;
+  margin: 1px;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqdialog-titlebar-close:hover,
+.r01gContainer .ui-jqdialog .ui-jqdialog-titlebar-close:focus {
+  padding: 0;
+}
+
+.r01gContainer .ui-jqdialog-content,
+.r01gContainer .ui-jqdialog .ui-jqdialog-content {
+  border: 0;
+  padding: .3em .2em;
+  background: none;
+  height: auto;
+}
+
+.r01gContainer .ui-jqdialog .ui-jqconfirm {
+  padding: .4em 1em;
+  border-width: 3px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  overflow: visible;
+  display: none;
+  height: 80px;
+  width: 220px;
+  text-align: center;
+}
+
+/* end Modal window*/
+
+/* Form edit */
+
+.r01gContainer .ui-jqdialog-content .FormGrid {
+  margin: 0px;
+}
+
+.r01gContainer .ui-jqdialog-content .EditTable {
+  width: 100%;
+  margin-bottom: 0em;
+}
+
+.r01gContainer .ui-jqdialog-content .DelTable {
+  width: 100%;
+  margin-bottom: 0em;
+}
+
+.r01gContainer .EditTable td input,
+.r01gContainer .EditTable td select,
+.r01gContainer .EditTable td textarea {
+  margin: 0em;
+}
+
+.r01gContainer .EditTable td textarea {
+  width: auto;
+  height: auto;
+}
+
+.r01gContainer .ui-jqdialog-content td.EditButton {
+  text-align: right;
+  border-top: 0px none;
+  border-left: 0px none;
+  border-right: 0px none;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.r01gContainer .ui-jqdialog-content td.navButton {
+  text-align: center;
+  border-left: 0px none;
+  border-top: 0px none;
+  border-right: 0px none;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.r01gContainer .ui-jqdialog-content input.FormElement {
+  padding: .3em;
+}
+
+.r01gContainer .ui-jqdialog-content .data-line {
+  padding-top: .1em;
+  border: 0px none;
+}
+
+.r01gContainer .ui-jqdialog-content .CaptionTD {
+  vertical-align: middle;
+  border: 0px none;
+  padding: 2px;
+  white-space: nowrap;
+}
+
+.r01gContainer .ui-jqdialog-content .DataTD {
+  padding: 2px;
+  border: 0px none;
+  vertical-align: top;
+}
+
+.r01gContainer .ui-jqdialog-content .form-view-data {
+  white-space: pre;
+}
+
+.r01gContainer .fm-button {
+  display: inline-block;
+  margin: 0 4px 0 0;
+  padding: .4em .5em;
+  text-decoration: none !important;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  zoom: 1;
+}
+
+.r01gContainer .fm-button-icon-left {
+  padding-left: 1.9em;
+}
+
+.r01gContainer .fm-button-icon-right {
+  padding-right: 1.9em;
+}
+
+.r01gContainer .fm-button-icon-left .ui-icon {
+  right: auto;
+  left: .2em;
+  margin-left: 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.r01gContainer .fm-button-icon-right .ui-icon {
+  left: auto;
+  right: .2em;
+  margin-left: 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.r01gContainer #nData,
+.r01gContainer #pData {
+  float: left;
+  margin: 3px;
+  padding: 0;
+  width: 15px;
+}
+
+/* End Eorm edit */
+
+/*.ui-jqgrid .edit-cell {}*/
+
+.r01gContainer .ui-jqgrid .selected-row,
+.r01gContainer div.ui-jqgrid .selected-row td {
+  font-style: normal;
+  border-left: 0px none;
+}
+
+/* inline edit actions button*/
+
+.r01gContainer .ui-inline-del.ui-state-hover span,
+.r01gContainer .ui-inline-edit.ui-state-hover span,
+.r01gContainer .ui-inline-save.ui-state-hover span,
+.r01gContainer .ui-inline-cancel.ui-state-hover span {
+  margin: -1px;
+}
+
+/* Tree Grid */
+
+.r01gContainer .ui-jqgrid .tree-wrap {
+  float: left;
+  position: relative;
+  height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .tree-minus {
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .tree-plus {
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .tree-leaf {
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-jqgrid .treeclick {
+  cursor: pointer;
+}
+
+/* moda dialog */
+
+.r01gContainer * iframe.jqm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: expression(this.parentNode.offsetWidth+'px');
+  height: expression(this.parentNode.offsetHeight+'px');
+}
+
+.r01gContainer .ui-jqgrid-dnd tr td {
+  border-right-width: 1px;
+  border-right-color: inherit;
+  border-right-style: solid;
+  height: 20px;
+}
+
+/* RTL Support */
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-title-rtl {
+  float: right;
+  margin: .1em 0 .2em;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-hbox-rtl {
+  float: right;
+  padding-left: 20px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-resize-ltr {
+  float: right;
+  margin: -2px -2px -2px 0px;
+}
+
+.r01gContainer .ui-jqgrid .ui-jqgrid-resize-rtl {
+  float: left;
+  margin: -2px 0px -1px -3px;
+}
+
+.r01gContainer .ui-jqgrid .ui-sort-rtl {
+  left: 0px;
+}
+
+.r01gContainer .ui-jqgrid .tree-wrap-ltr {
+  float: left;
+}
+
+.r01gContainer .ui-jqgrid .tree-wrap-rtl {
+  float: right;
+}
+
+.r01gContainer .ui-jqgrid .ui-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.r01gContainer #qtip-overlay.blurs,
+.r01gContainer .qtip-close {
+  cursor: pointer;
+}
+
+.r01gContainer .qtip {
+  position: absolute;
+  left: -28000px;
+  top: -28000px;
+  display: none;
+  max-width: 280px;
+  min-width: 50px;
+  font-size: 10.5px;
+  line-height: 12px;
+  direction: ltr;
+  box-shadow: none;
+  padding: 0;
+}
+
+.r01gContainer .qtip-content,
+.r01gContainer .qtip-titlebar {
+  position: relative;
+  overflow: hidden;
+}
+
+.r01gContainer .qtip-content {
+  padding: 5px 9px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.r01gContainer .qtip-titlebar {
+  padding: 5px 35px 5px 10px;
+  border-width: 0 0 1px;
+  font-weight: 700;
+}
+
+.r01gContainer .qtip-titlebar + .qtip-content {
+  border-top-width: 0 !important;
+}
+
+.r01gContainer .qtip-close {
+  position: absolute;
+  right: -9px;
+  top: -9px;
+  z-index: 11;
+  outline: 0;
+  border: 1px solid transparent;
+}
+
+.r01gContainer .qtip-titlebar .qtip-close {
+  right: 4px;
+  top: 50%;
+  margin-top: -9px;
+}
+
+.r01gContainer * html .qtip-titlebar .qtip-close {
+  top: 16px;
+}
+
+.r01gContainer .qtip-icon .ui-icon,
+.r01gContainer .qtip-titlebar .ui-icon {
+  display: block;
+  text-indent: -1000em;
+  direction: ltr;
+}
+
+.r01gContainer .qtip-icon,
+.r01gContainer .qtip-icon .ui-icon {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.r01gContainer .qtip-icon .ui-icon {
+  width: 18px;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  text-indent: 0;
+  font: normal 700 10px/13px Tahoma,sans-serif;
+  color: inherit;
+  background: -100em -100em no-repeat;
+}
+
+.r01gContainer .qtip-default {
+  border: 1px solid #F1D031;
+  background-color: #FFFFA3;
+  color: #555;
+}
+
+.r01gContainer .qtip-default .qtip-titlebar {
+  background-color: #FFEF93;
+}
+
+.r01gContainer .qtip-default .qtip-icon {
+  border-color: #CCC;
+  background: #F1F1F1;
+  color: #777;
+}
+
+.r01gContainer .qtip-default .qtip-titlebar .qtip-close {
+  border-color: #AAA;
+  color: #111;
+}
+
+.r01gContainer .qtip-light {
+  background-color: #fff;
+  border-color: #E2E2E2;
+  color: #454545;
+}
+
+.r01gContainer .qtip-light .qtip-titlebar {
+  background-color: #f1f1f1;
+}
+
+.r01gContainer .qtip-dark {
+  background-color: #505050;
+  border-color: #303030;
+  color: #f3f3f3;
+}
+
+.r01gContainer .qtip-dark .qtip-titlebar {
+  background-color: #404040;
+}
+
+.r01gContainer .qtip-dark .qtip-icon {
+  border-color: #444;
+}
+
+.r01gContainer .qtip-dark .qtip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+.r01gContainer .qtip-cream {
+  background-color: #FBF7AA;
+  border-color: #F9E98E;
+  color: #A27D35;
+}
+
+.r01gContainer .qtip-red,
+.r01gContainer .qtip-red .qtip-icon,
+.r01gContainer .qtip-red .qtip-titlebar .ui-state-hover {
+  border-color: #D95252;
+}
+
+.r01gContainer .qtip-cream .qtip-titlebar {
+  background-color: #F0DE7D;
+}
+
+.r01gContainer .qtip-cream .qtip-close .qtip-icon {
+  background-position: -82px 0;
+}
+
+.r01gContainer .qtip-red {
+  background-color: #F78B83;
+  color: #912323;
+}
+
+.r01gContainer .qtip-red .qtip-titlebar {
+  background-color: #F06D65;
+}
+
+.r01gContainer .qtip-red .qtip-close .qtip-icon {
+  background-position: -102px 0;
+}
+
+.r01gContainer .qtip-green {
+  background-color: #CAED9E;
+  border-color: #90D93F;
+  color: #3F6219;
+}
+
+.r01gContainer .qtip-green .qtip-titlebar {
+  background-color: #B0DE78;
+}
+
+.r01gContainer .qtip-green .qtip-close .qtip-icon {
+  background-position: -42px 0;
+}
+
+.r01gContainer .qtip-blue {
+  background-color: #E5F6FE;
+  border-color: #ADD9ED;
+  color: #5E99BD;
+}
+
+.r01gContainer .qtip-blue .qtip-titlebar {
+  background-color: #D0E9F5;
+}
+
+.r01gContainer .qtip-blue .qtip-close .qtip-icon {
+  background-position: -2px 0;
+}
+
+.r01gContainer .qtip-shadow {
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.r01gContainer .qtip-bootstrap,
+.r01gContainer .qtip-rounded,
+.r01gContainer .qtip-tipsy {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.r01gContainer .qtip-rounded .qtip-titlebar {
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.r01gContainer .qtip-youtube {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 3px #333;
+  -moz-box-shadow: 0 0 3px #333;
+  box-shadow: 0 0 3px #333;
+  color: #fff;
+  border: 0 solid transparent;
+  background: #4A4A4A;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4A4A4A), color-stop(100%, #000));
+  background-image: -webkit-linear-gradient(top, #4A4A4A 0, #000 100%);
+  background-image: -moz-linear-gradient(top, #4A4A4A 0, #000 100%);
+  background-image: -ms-linear-gradient(top, #4A4A4A 0, #000 100%);
+  background-image: -o-linear-gradient(top, #4A4A4A 0, #000 100%);
+}
+
+.r01gContainer .qtip-youtube .qtip-titlebar {
+  background-color: #4A4A4A;
+  background-color: transparent;
+}
+
+.r01gContainer .qtip-youtube .qtip-content {
+  padding: .75em;
+  font: 12px arial,sans-serif;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#4a4a4a, EndColorStr=#000000);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);";
+}
+
+.r01gContainer .qtip-youtube .qtip-icon {
+  border-color: #222;
+}
+
+.r01gContainer .qtip-youtube .qtip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+.r01gContainer .qtip-jtools {
+  background: #232323;
+  background: rgba(0, 0, 0, 0.7);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#717171), to(#232323));
+  background-image: -moz-linear-gradient(top, #717171, #232323);
+  background-image: -webkit-linear-gradient(top, #717171, #232323);
+  background-image: -ms-linear-gradient(top, #717171, #232323);
+  background-image: -o-linear-gradient(top, #717171, #232323);
+  border: 2px solid #ddd;
+  border: 2px solid #f1f1f1;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 12px #333;
+  -moz-box-shadow: 0 0 12px #333;
+  box-shadow: 0 0 12px #333;
+}
+
+.r01gContainer .qtip-jtools .qtip-titlebar {
+  background-color: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171, endColorstr=#4A4A4A);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)";
+}
+
+.r01gContainer .qtip-jtools .qtip-content {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A, endColorstr=#232323);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)";
+}
+
+.r01gContainer .qtip-jtools .qtip-content,
+.r01gContainer .qtip-jtools .qtip-titlebar {
+  background: 0 0;
+  color: #fff;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .qtip-jtools .qtip-icon {
+  border-color: #555;
+}
+
+.r01gContainer .qtip-jtools .qtip-titlebar .ui-state-hover {
+  border-color: #333;
+}
+
+.r01gContainer .qtip-cluetip {
+  -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  background-color: #D9D9C2;
+  color: #111;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .qtip-cluetip .qtip-titlebar {
+  background-color: #87876A;
+  color: #fff;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .qtip-cluetip .qtip-icon {
+  border-color: #808064;
+}
+
+.r01gContainer .qtip-cluetip .qtip-titlebar .ui-state-hover {
+  border-color: #696952;
+  color: #696952;
+}
+
+.r01gContainer .qtip-tipsy {
+  background: #000;
+  background: rgba(0, 0, 0, 0.87);
+  color: #fff;
+  border: 0 solid transparent;
+  font-size: 11px;
+  font-family: 'Lucida Grande',sans-serif;
+  font-weight: 700;
+  line-height: 16px;
+  text-shadow: 0 1px #000;
+}
+
+.r01gContainer .qtip-tipsy .qtip-titlebar {
+  padding: 6px 35px 0 10px;
+  background-color: transparent;
+}
+
+.r01gContainer .qtip-tipsy .qtip-content {
+  padding: 6px 10px;
+}
+
+.r01gContainer .qtip-tipsy .qtip-icon {
+  border-color: #222;
+  text-shadow: none;
+}
+
+.r01gContainer .qtip-tipsy .qtip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+.r01gContainer .qtip-tipped {
+  border: 3px solid #959FA9;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #F9F9F9;
+  color: #454545;
+  font-weight: 400;
+  font-family: serif;
+}
+
+.r01gContainer .qtip-tipped .qtip-titlebar {
+  border-bottom-width: 0;
+  color: #fff;
+  background: #3A79B8;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D));
+  background-image: -webkit-linear-gradient(top, #3A79B8, #2E629D);
+  background-image: -moz-linear-gradient(top, #3A79B8, #2E629D);
+  background-image: -ms-linear-gradient(top, #3A79B8, #2E629D);
+  background-image: -o-linear-gradient(top, #3A79B8, #2E629D);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8, endColorstr=#2E629D);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)";
+}
+
+.r01gContainer .qtip-tipped .qtip-icon {
+  border: 2px solid #285589;
+  background: #285589;
+}
+
+.r01gContainer .qtip-tipped .qtip-icon .ui-icon {
+  background-color: #FBFBFB;
+  color: #555;
+}
+
+.r01gContainer .qtip-bootstrap {
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+  padding: 1px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-titlebar {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-titlebar .qtip-close {
+  right: 11px;
+  top: 45%;
+  border-style: none;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-content {
+  padding: 9px 14px;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-icon {
+  background: 0 0;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-icon .ui-icon {
+  width: auto;
+  height: auto;
+  float: right;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .2;
+  filter: alpha(opacity=20);
+}
+
+.r01gContainer #qtip-overlay,
+.r01gContainer #qtip-overlay div {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.r01gContainer .qtip-bootstrap .qtip-icon .ui-icon:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: .4;
+  filter: alpha(opacity=40);
+}
+
+.r01gContainer .qtip:not(.ie9haxors) div.qtip-content,
+.r01gContainer .qtip:not(.ie9haxors) div.qtip-titlebar {
+  filter: none;
+  -ms-filter: none;
+}
+
+.r01gContainer .qtip .qtip-tip {
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.r01gContainer .qtip .qtip-tip,
+.r01gContainer x:-o-prefocus {
+  visibility: hidden;
+}
+
+.r01gContainer .qtip .qtip-tip,
+.r01gContainer .qtip .qtip-tip .qtip-vml,
+.r01gContainer .qtip .qtip-tip canvas {
+  position: absolute;
+  color: #123456;
+  background: 0 0;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .qtip .qtip-tip canvas {
+  top: 0;
+  left: 0;
+}
+
+.r01gContainer .qtip .qtip-tip .qtip-vml {
+  behavior: url(#default#VML);
+  display: inline-block;
+  visibility: visible;
+}
+
+.r01gContainer #qtip-overlay {
+  position: fixed;
+}
+
+.r01gContainer #qtip-overlay div {
+  position: absolute;
+  background-color: #000;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+}
+
+.r01gContainer .qtipmodal-ie6fix {
+  position: absolute !important;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Enlaces */
+
+.r01gContainer a {
+  color: #0052c7;
+  text-decoration: underline;
+}
+
+.r01gContainer a:hover {
+  text-decoration: none;
+}
+
+/*Estilo basico para los botones con formato enlace*/
+
+.r01gContainer .rup-enlaceCancelar {
+  float: right;
+  margin: .5em .4em .5em 0;
+  cursor: pointer;
+  padding: .2em .6em .3em .6em;
+  line-height: 1.4em;
+  width: auto;
+  overflow: visible;
+  color: blue;
+}
+
+.r01gContainer input.ui-button {
+  padding: 0.2em 0.6em;
+}
+
+.r01gContainer .ui-state-highlight,
+.r01gContainer .ui-widget-content .ui-state-highlight,
+.r01gContainer .ui-widget-header .ui-state-highlight {
+  font-weight: bold;
+}
+
+/** ICONOS **/
+
+.r01gContainer .ui-icon {
+  margin-top: 0;
+}
+
+.r01gContainer .rup_icon {
+  float: left;
+  padding-right: 0.5em;
+}
+
+.r01gContainer .rup_external_link {
+  /* 	float: right; */
+  display: inline;
+  left: inherit !important;
+  margin-top: 0.15em !important;
+  position: static;
+}
+
+.r01gContainer .rup-icon,
+.r01gContainer .ui-icon.rup-icon,
+.r01gContainer .ui-button:hover .ui-icon.rup-icon {
+  background-image: url(images/rup-icons.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.r01gContainer .rup-icon-ajax-loader {
+  background-position: 0 0;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-alert-24 {
+  background-position: 0 -66px;
+  width: 24px;
+  height: 24px;
+}
+
+.r01gContainer .rup-icon-alert {
+  background-position: 0 -140px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-autocomplete {
+  background-position: 0 -206px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-cancel-disabled {
+  background-position: 0 -272px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-cancel {
+  background-position: 0 -338px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-check {
+  background-position: 0 -404px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-check_all {
+  background-position: 0 -470px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-child {
+  background-position: 0 -536px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-clone-disabled {
+  background-position: 0 -602px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-clone {
+  background-position: 0 -668px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-close-hover {
+  background-position: 0 -734px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-close {
+  background-position: 0 -800px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-confirm24 {
+  background-position: 0 -866px;
+  width: 24px;
+  height: 24px;
+}
+
+.r01gContainer .rup-icon-confirm {
+  background-position: 0 -940px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-add {
+  background-position: 0 -1006px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-check-all {
+  background-position: 0 -1072px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-check {
+  background-position: 0 -1138px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-child {
+  background-position: 0 -1204px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-clone {
+  background-position: 0 -1270px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-copy {
+  background-position: 0 -1336px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-cut {
+  background-position: 0 -1402px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-delete {
+  background-position: 0 -1468px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-descendent {
+  background-position: 0 -1534px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-door {
+  background-position: 0 -1600px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-edit {
+  background-position: 0 -1666px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-paste {
+  background-position: 0 -1732px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-uncheck-all {
+  background-position: 0 -1798px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-contextmenu-uncheck {
+  background-position: 0 -1864px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-date-calendar {
+  background-position: 0 -1930px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-delete-disabled {
+  background-position: -74px 0;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-delete {
+  background-position: -74px -66px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-door-out {
+  background-position: -74px -132px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-download {
+  background-position: -74px -198px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-dropdown {
+  background-position: -74px -264px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-edit-disabled {
+  background-position: -74px -330px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-edit {
+  background-position: -74px -396px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-element-count {
+  background-position: -74px -462px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-error-24 {
+  background-position: -74px -528px;
+  width: 24px;
+  height: 24px;
+}
+
+.r01gContainer .rup-icon-error {
+  background-position: -74px -602px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-exclamation {
+  background-position: -74px -668px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-csv {
+  background-position: -74px -734px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-dll {
+  background-position: -74px -800px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-doc {
+  background-position: -74px -866px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-exe {
+  background-position: -74px -932px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-gif {
+  background-position: -74px -998px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-jpg {
+  background-position: -74px -1064px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-js {
+  background-position: -74px -1130px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-ods {
+  background-position: -74px -1196px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-pdf {
+  background-position: -74px -1262px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-ppt {
+  background-position: -74px -1328px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-txt {
+  background-position: -74px -1394px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-xls {
+  background-position: -74px -1460px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file-zip {
+  background-position: -74px -1526px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-file {
+  background-position: -74px -1592px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-filter-disabled {
+  background-position: -74px -1658px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-filter {
+  background-position: -74px -1724px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-filtrar {
+  background-position: -74px -1790px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-hierarchy-down {
+  background-position: -74px -1856px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-hierarchy-up {
+  background-position: -74px -1922px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-new-disabled {
+  background-position: -148px 0;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-new {
+  background-position: -148px -66px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-ok-24 {
+  background-position: -148px -132px;
+  width: 24px;
+  height: 24px;
+}
+
+.r01gContainer .rup-icon-ok {
+  background-position: -148px -206px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-padlock {
+  background-position: -148px -272px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-parent {
+  background-position: -148px -338px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-print-disabled {
+  background-position: -148px -404px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-print {
+  background-position: -148px -470px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-save-disabled {
+  background-position: -148px -536px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-save {
+  background-position: -148px -602px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-search-disabled {
+  background-position: -148px -668px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-search {
+  background-position: -148px -734px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-separator-arrow {
+  background-position: -148px -800px;
+  width: 3px;
+  height: 5px;
+}
+
+.r01gContainer .rup-icon-table-search-edit-222222 {
+  background-position: -148px -855px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-table-search-edit-2e83ff {
+  background-position: -148px -921px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-table-search-edit {
+  background-position: -148px -987px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-time-clock {
+  background-position: -148px -1053px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-uncheck {
+  background-position: -148px -1119px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-unlock {
+  background-position: -148px -1185px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-upload {
+  background-position: -148px -1251px;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .rup-icon-wizard-arrow-current {
+  background-position: -148px -1317px;
+  width: 11px;
+  height: 35px;
+}
+
+.r01gContainer .rup-icon-wizard-arrow-done-last {
+  background-position: -148px -1402px;
+  width: 13px;
+  height: 35px;
+}
+
+.r01gContainer .rup-icon-wizard-arrow-last-current {
+  background-position: -148px -1487px;
+  width: 11px;
+  height: 35px;
+}
+
+.r01gContainer .rup-icon-wizard-arrow-last {
+  background-position: -148px -1572px;
+  width: 11px;
+  height: 35px;
+}
+
+.r01gContainer .rup-icon-wizard-arrow {
+  background-position: -148px -1657px;
+  width: 11px;
+  height: 35px;
+}
+
+.r01gContainer .rup-icon-wizard-next {
+  background-position: -148px -1742px;
+  width: 32px;
+  height: 32px;
+}
+
+.r01gContainer .rup-icon-wizard-prev {
+  background-position: -148px -1824px;
+  width: 32px;
+  height: 32px;
+}
+
+.r01gContainer .rup-icon-wizard-submit {
+  background-position: -148px -1906px;
+  width: 32px;
+  height: 32px;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup_accordion {
+  display: none;
+}
+
+.r01gContainer .ui-accordion .ui-accordion-header {
+  width: auto;
+}
+
+.r01gContainer .ui-accordion .ui-accordion-header.ui-state-active {
+  border-bottom: none;
+}
+
+.r01gContainer .ui-accordion.ui-accordion-disabled.ui-state-disabled {
+  opacity: 1.0;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Autocomplete
+----------------------------------*/
+
+.r01gContainer .ui-autocomplete {
+  position: absolute;
+  cursor: default;
+}
+
+.r01gContainer .ui-autocomplete-loading {
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat;
+}
+
+.r01gContainer .ui-autocomplete ul li,
+.r01gContainer .ui-autocomplete li {
+  list-style-type: none;
+}
+
+/* workarounds */
+
+.r01gContainer * html .ui-autocomplete {
+  width: 1px;
+}
+
+/* without this, the menu expands to 100% in IE6 */
+
+.r01gContainer .rup-autocomplete_label {
+  background-image: url(images/rup.autocomplete.png);
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 2em;
+  border: 0.5px solid #7F9DB9;
+}
+
+.r01gContainer .rup-autocomplete_loading {
+  background-image: url("images/rup.ajaxLoader.gif") !important;
+}
+
+.r01gContainer .rup-combobox {
+  position: relative;
+  display: inline-block;
+}
+
+.r01gContainer .rup-combobox-toggle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin-left: -1px;
+  padding: 0;
+}
+
+.r01gContainer .rup-combobox-input {
+  margin: 0;
+  background-color: white;
+  /*padding: 5px 10px;*/
+}
+
+.r01gContainer .ui-autocomplete-category {
+  text-decoration: underline;
+  font-weight: bold;
+  padding: .2em .4em;
+  margin: .8em 0 .2em;
+  line-height: 1.5;
+}
+
+.r01gContainer .matched-text {
+  font-weight: bold;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup-breadCrumb_main LI UL {
+  position: absolute;
+  float: left;
+}
+
+.r01gContainer .rup-breadCrumb_main,
+.r01gContainer .rup-breadCrumb_main LI,
+.r01gContainer .rup-breadCrumb_main UL,
+.r01gContainer .rup-breadCrumb_main UL LI {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.r01gContainer .rup-breadCrumb_main {
+  /*clear: both;*/
+}
+
+.r01gContainer .rup-breadCrumb_main,
+.r01gContainer .rup-breadCrumb_main LI {
+  float: left;
+}
+
+.r01gContainer .rup-breadCrumb_main UL {
+  display: none;
+}
+
+/*  Base style of rup-breadCrumb_main  */
+
+/*  Top Level  */
+
+.r01gContainer .rup-breadCrumb_main {
+  background: none;
+  /*width: 90%;*/
+  padding-right: 65em;
+  position: relative;
+}
+
+.r01gContainer .rup-breadCrumb_main LI {
+  border-right: none;
+  /*     background: url("images/rup.separatorArrow.gif") no-repeat right center; */
+  padding-right: 4px;
+  padding-left: 10px;
+  height: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: auto;
+}
+
+.r01gContainer .rup-breadCrumb_main LI.rup-breadCrumb_current {
+  border-right: none;
+  background: none;
+}
+
+.r01gContainer .rup-breadCrumb_main LI A {
+  text-decoration: underline;
+  color: #0A8ECC;
+}
+
+.r01gContainer .rup-breadCrumb_main LI A:HOVER,
+.r01gContainer .rup-breadCrumb_main LI.hover A {
+  color: #0A8ECC;
+}
+
+.r01gContainer .rup-breadCrumb_main LI IMG.rup-icon,
+.r01gContainer .rup-breadCrumb_main LI SPAN.rup-icon {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+/*  Top Level - Current Page  */
+
+.r01gContainer .rup-breadCrumb_main LI.rup-breadCrumb_current A {
+  color: #333333;
+  font-weight: bold;
+}
+
+/*  Sub-level  */
+
+.r01gContainer .rup-breadCrumb_main LI UL {
+  padding: 3px;
+  background: #333333;
+  font-size: 11px;
+  width: 180px;
+  top: 25px;
+  z-index: 1000;
+}
+
+.r01gContainer .rup-breadCrumb_main LI UL LI {
+  float: left;
+  width: 100%;
+  border-right: none;
+  height: auto;
+}
+
+.r01gContainer .rup-breadCrumb_main LI UL LI A,
+.r01gContainer .rup-breadCrumb_main LI UL LI A:visited {
+  text-decoration: none !important;
+  color: #CCCCCC !important;
+  display: block;
+  padding: 4px;
+  border-bottom: 1px dotted #666666;
+}
+
+.r01gContainer .rup-breadCrumb_main LI UL LI A:HOVER {
+  background: #444444;
+}
+
+.r01gContainer .rup-breadCrumb_main LI UL LI A:FOCUS {
+  background: #444444;
+  border-style: dotted;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */
+}
+
+.r01gContainer .rup-breadCrumbs {
+  width: 100%;
+  position: relative;
+  padding-bottom: 2.5em;
+  clear: both;
+}
+
+.r01gContainer .rup-breadCrumbs_span {
+  float: left;
+  padding-top: 0.5em;
+}
+
+.r01gContainer .rup-breadCrumb_root {
+  width: 100%;
+  float: left;
+  margin-bottom: 0.5em;
+}
+
+.r01gContainer .rup-breadCrumb_main {
+  padding-top: 0.1em;
+  padding-right: 0em;
+}
+
+.r01gContainer .rup-breadCrumb_logoutDiv {
+  float: right;
+  padding-top: 0.5em;
+}
+
+.r01gContainer .rup-breadCrumb_link {
+  cursor: pointer;
+  padding-left: 0.3em;
+}
+
+.r01gContainer .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg {
+  display: inline-block;
+  float: left;
+  background: url("images/rup.padlock.gif") no-repeat right center;
+}
+
+.r01gContainer .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active {
+  display: inline-block;
+  float: left;
+  background: url("images/rup.unlock.png") no-repeat right center;
+}
+
+.r01gContainer .rup-breadCrumb_logoutDiv .rup-breadCrumb_exitImg {
+  display: inline-block;
+  float: left;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup-dropdown-btn-group {
+  display: inline-block;
+}
+
+.r01gContainer .rup-dropdown {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-right: 0px;
+}
+
+.r01gContainer .rup-dropdown-button {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left: 0px;
+  /* 	left: -1px; */
+  width: 25px;
+}
+
+.r01gContainer .rup-dropdown-dialog {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+}
+
+.r01gContainer button.ui-button-icon-only.rup-dropdown-button {
+  width: 1.8em;
+}
+
+.r01gContainer .rup-dropdown-dialog > .ui-widget-header {
+  background: none;
+  border: 0px;
+}
+
+/* Dropdown HTML List */
+
+.r01gContainer .rup-dropdown-option-list {
+  display: none;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  list-style: outside none none;
+  margin: 2px 0 0;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 9000;
+  font-size: 1.1em;
+}
+
+.r01gContainer .rup-dropdown-option-list.open {
+  display: block;
+}
+
+.r01gContainer .rup-dropdown-option-list > li > a {
+  clear: both;
+  color: #333;
+  display: block;
+  font-weight: 400;
+  line-height: 1.42857;
+  padding: 3px 20px;
+  white-space: nowrap;
+}
+
+.r01gContainer .rup-dropdown-option-list.rup-toolbar_menuButtonContainer > li > a {
+  padding: 0px;
+}
+
+.r01gContainer .rup-dropdown-option-list .divider {
+  background-color: #e5e5e5;
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+}
+
+.r01gContainer .rup-dropdown-btn-group .rup-toolbar_button.rup-dropdown {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup-combo_loading {
+  background-image: url("images/rup.ajaxLoader.gif") !important;
+  color: black;
+  font-weight: bold;
+}
+
+.r01gContainer .rup-combo_loadingText {
+  color: black;
+  font-weight: bold;
+}
+
+/* Selectmenu
+----------------------------------*/
+
+.r01gContainer .ui-selectmenu {
+  display: inline-block;
+  position: relative;
+  height: 1.4em;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-selectmenu-icon {
+  position: absolute;
+  right: 6px;
+  margin-top: -8px;
+  top: 50%;
+}
+
+.r01gContainer .ui-selectmenu-menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.r01gContainer .ui-selectmenu-open {
+  visibility: visible;
+}
+
+.r01gContainer .ui-selectmenu-menu-popup {
+  margin-top: -1px;
+}
+
+.r01gContainer .ui-selectmenu-menu li {
+  padding: 0;
+  margin: 0;
+  display: block;
+  /*border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+  font-weight: normal !important;
+}
+
+.r01gContainer .ui-selectmenu-menu li a,
+.r01gContainer .ui-selectmenu-status {
+  line-height: 1.4em;
+  display: block;
+  padding: 0em 1em;
+  outline: none;
+  text-decoration: none;
+}
+
+/*.ui-selectmenu-menu li a:hover,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }*/
+
+.r01gContainer .ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.r01gContainer .ui-selectmenu-hasIcon .ui-selectmenu-status {
+  height: 2em;
+  padding-left: 20px;
+  position: relative;
+  margin-left: 5px;
+}
+
+.r01gContainer .ui-selectmenu-menu li .ui-icon,
+.r01gContainer .ui-selectmenu-status .ui-icon {
+  position: absolute;
+  top: 1em;
+  margin-top: -12px;
+  left: 0;
+}
+
+.r01gContainer .ui-selectmenu-status {
+  line-height: 1.4em;
+}
+
+.r01gContainer .ui-selectmenu-menu li span,
+.r01gContainer .ui-selectmenu-status span {
+  display: block;
+  margin-bottom: .2em;
+}
+
+.r01gContainer .ui-selectmenu-menu li .ui-selectmenu-item-header {
+  font-weight: bold;
+}
+
+/*.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }*/
+
+/*for optgroups*/
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group {
+  font-size: 1em;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
+  line-height: 1.4em;
+  display: block;
+  padding: .6em .5em 0;
+  font-weight: bold;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Selectmenu
+----------------------------------*/
+
+/*.ui-selectmenu { display: block; display: inline-block; position: relative; height: 1.4em; vertical-align: middle; text-decoration: none; overflow: hidden; zoom: 1; }*/
+
+/*.ui-selectmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }*/
+
+.r01gContainer .ui-selectmenu-menu {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  display: none;
+  z-index: 1005;
+}
+
+/* z-index: 1005 to make selectmenu work with dialog */
+
+.r01gContainer .ui-selectmenu-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.r01gContainer .ui-selectmenu-open {
+  display: block;
+}
+
+.r01gContainer ul.ui-selectmenu-menu-popup {
+  margin-top: -1px;
+}
+
+.r01gContainer .ui-selectmenu-menu li {
+  padding: 0;
+  margin: 0;
+  display: block;
+  /* border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+}
+
+.r01gContainer .ui-selectmenu-menu li a,
+.r01gContainer .ui-selectmenu-status {
+  line-height: 1.4em;
+  display: block;
+  padding: 0em 1em;
+  outline: none;
+  text-decoration: none;
+}
+
+.r01gContainer .ui-selectmenu-menu li.ui-state-disabled a,
+.r01gContainer .ui-state-disabled {
+  cursor: default;
+}
+
+.r01gContainer .ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.r01gContainer .ui-selectmenu-hasIcon .ui-selectmenu-status {
+  padding-left: 20px;
+  position: relative;
+  margin-left: 5px;
+}
+
+.r01gContainer .ui-selectmenu-menu li .ui-icon,
+.r01gContainer .ui-selectmenu-status .ui-icon {
+  position: absolute;
+  top: 1em;
+  margin-top: -12px;
+  left: 0;
+}
+
+.r01gContainer .ui-selectmenu-status {
+  line-height: 1.4em;
+}
+
+.r01gContainer .ui-selectmenu-menu li span,
+.r01gContainer .ui-selectmenu-status span {
+  display: block;
+  margin-bottom: .2em;
+}
+
+.r01gContainer .ui-selectmenu-menu li .ui-selectmenu-item-header {
+  font-weight: bold;
+}
+
+.r01gContainer .ui-selectmenu-menu li .ui-selectmenu-item-footer {
+  opacity: .8;
+}
+
+/* for optgroups */
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group {
+  font-size: 1em;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group .ui-selectmenu-group-label {
+  line-height: 1.4em;
+  display: block;
+  padding: .6em .5em 0;
+  font-weight: bold;
+}
+
+.r01gContainer .ui-selectmenu-menu .ui-selectmenu-group ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* IE6 workaround (dotted transparent borders) */
+
+.r01gContainer * html .ui-selectmenu-menu li {
+  border-color: pink;
+  filter: chroma(color=pink);
+  width: 100%;
+}
+
+.r01gContainer * html .ui-selectmenu-menu li a {
+  position: relative;
+}
+
+/* IE7 workaround (opacity disabled) */
+
+.r01gContainer * + html .ui-state-disabled,
+.r01gContainer * + html .ui-state-disabled a {
+  color: silver;
+}
+
+/* Multiselect
+----------------------------------*/
+
+.r01gContainer .ui-multiselect {
+  display: inline-block;
+  padding: 2px 0 2px 4px;
+  text-align: left;
+}
+
+.r01gContainer .ui-multiselect span.ui-icon {
+  float: right;
+}
+
+.r01gContainer .ui-multiselect-single .ui-multiselect-checkboxes input {
+  position: absolute !important;
+  top: auto !important;
+  left: -9999px;
+}
+
+.r01gContainer .ui-multiselect-single .ui-multiselect-checkboxes label {
+  padding: 5px !important;
+}
+
+.r01gContainer .ui-multiselect-header {
+  margin-bottom: 3px;
+  padding: 3px 0 3px 4px;
+}
+
+.r01gContainer .ui-multiselect-header ul {
+  font-size: 0.9em;
+}
+
+.r01gContainer .ui-multiselect-header ul li {
+  float: left;
+  padding: 0 10px 0 0;
+}
+
+.r01gContainer .ui-multiselect-header a {
+  text-decoration: none;
+}
+
+.r01gContainer .ui-multiselect-header a:hover {
+  text-decoration: underline;
+}
+
+.r01gContainer .ui-multiselect-header span.ui-icon {
+  float: left;
+}
+
+.r01gContainer .ui-multiselect-header span.ui-icon {
+  float: left;
+  margin-right: 2px;
+}
+
+.r01gContainer .ui-multiselect-header li.ui-multiselect-close {
+  float: right;
+  text-align: right;
+  padding-right: 0;
+}
+
+.r01gContainer .ui-multiselect-menu {
+  display: none;
+  padding: 3px;
+  position: absolute;
+  z-index: 10000;
+  text-align: left;
+}
+
+.r01gContainer .ui-multiselect-checkboxes {
+  position: relative;
+  overflow-y: scroll;
+}
+
+.r01gContainer .ui-multiselect-checkboxes label {
+  cursor: default;
+  display: block;
+  border: 1px solid transparent;
+  padding: 3px 1px;
+}
+
+.r01gContainer .ui-multiselect-checkboxes label input {
+  position: relative;
+  top: 1px;
+  margin-right: 4px;
+}
+
+.r01gContainer .ui-multiselect-checkboxes li {
+  clear: both;
+  font-size: 0.9em;
+  padding-right: 3px;
+}
+
+.r01gContainer .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
+  cursor: default;
+  margin-top: .8em;
+  border-bottom: 1px solid;
+}
+
+.r01gContainer .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label span {
+  font-weight: bold;
+}
+
+.r01gContainer .ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* remove label borders in IE6 because IE6 does not support transparency */
+
+.r01gContainer * html .ui-multiselect-checkboxes label {
+  border: none;
+}
+
+.r01gContainer .rup-combo_multiOptgroupIcon {
+  display: inline-table;
+  vertical-align: text-bottom;
+}
+
+/*** ESTILOS PROPIOS ***/
+
+.r01gContainer .ui-selectmenu,
+.r01gContainer .ui-selectmenu-status {
+  /* 	background: #d5d5d2 50% 50%; */
+}
+
+.r01gContainer .ui-selectmenu-menu li.ui-selectmenu-group ul {
+  overflow-y: hidden;
+}
+
+.r01gContainer .ui-selectmenu-menu-dropdown,
+.r01gContainer .ui-selectmenu-menu-popup {
+  /* 	background: #eaeaea 50% 50%; */
+}
+
+/*select with custom icons*/
+
+.r01gContainer .ui-selectmenu-item-icon {
+  height: 24px;
+  width: 24px;
+  background-repeat: no-repeat;
+}
+
+.r01gContainer .delete .ui-selectmenu-item-icon {
+  background-image: url(images/toolbar/borrar.png);
+}
+
+.r01gContainer .filter .ui-selectmenu-item-icon {
+  background-image: url(images/toolbar/filtrar.png);
+}
+
+.r01gContainer .print .ui-selectmenu-item-icon {
+  background-image: url(images/toolbar/imprimir.png);
+}
+
+/* PIJAMA */
+
+.r01gContainer .rup-combo_odd {
+  background-color: #EEE;
+}
+
+.r01gContainer .rup-combo_even {
+  background-color: #FFF;
+}
+
+.r01gContainer .rup-combo_groupOdd {
+  background-color: #FFF;
+}
+
+.r01gContainer .rup-combo_groupEven {
+  background-color: #FFF;
+}
+
+/*!
+ * jQuery contextMenu - Plugin for simple contextMenu handling
+ *
+ * Version: git-master
+ *
+ * Authors: Rodney Rehm, Addy Osmani (patches for FF)
+ * Web: http://medialize.github.com/jQuery-contextMenu/
+ *
+ * Licensed under
+ *   MIT License http://www.opensource.org/licenses/mit-license
+ *   GPL v3 http://opensource.org/licenses/GPL-3.0
+ *
+ */
+
+.r01gContainer .context-menu-root {
+  color: #000;
+}
+
+.r01gContainer .context-menu-item.icon-check {
+  background-image: url(images/contextmenu/check.png);
+}
+
+.r01gContainer .context-menu-item.icon-check_all {
+  background-image: url(images/contextmenu/check_all.png);
+}
+
+.r01gContainer .context-menu-item.icon-uncheck {
+  background-image: url(images/contextmenu/uncheck.png);
+}
+
+.r01gContainer .context-menu-item.icon-uncheck_all {
+  background-image: url(images/contextmenu/uncheck_all.png);
+}
+
+.r01gContainer .context-menu-item.icon-child {
+  background-image: url(images/contextmenu/child.png);
+}
+
+.r01gContainer .context-menu-item.icon-descendent {
+  background-image: url(images/contextmenu/descendent.png);
+}
+
+.r01gContainer .context-menu-list {
+  margin: 0;
+  padding: 0;
+  min-width: 120px;
+  max-width: 250px;
+  display: inline-block;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid #DDD;
+  background: #EEE;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.r01gContainer .context-menu-item {
+  padding: 2px 2px 2px 24px;
+  background-color: #EEE;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.r01gContainer .context-menu-separator {
+  padding-bottom: 0;
+  border-bottom: 1px solid #DDD;
+}
+
+.r01gContainer .context-menu-item > label > input,
+.r01gContainer .context-menu-item > label > textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.r01gContainer .context-menu-item.hover {
+  cursor: pointer;
+  background-color: #bababa;
+}
+
+.r01gContainer .context-menu-item.disabled {
+  color: #666;
+  cursor: default;
+}
+
+.r01gContainer .context-menu-input.hover,
+.r01gContainer .context-menu-item.disabled.hover {
+  cursor: default;
+  background-color: #EEE;
+}
+
+.r01gContainer .context-menu-submenu:after {
+  content: ">";
+  color: #666;
+  position: absolute;
+  top: 0;
+  right: 3px;
+  z-index: 1;
+}
+
+/* icons
+    #protip:
+    In case you want to use sprites for icons (which I would suggest you do) have a look at
+    http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
+    .context-menu-item.icon:before {}
+ */
+
+.r01gContainer .context-menu-item.icon {
+  min-height: 18px;
+  background-repeat: no-repeat;
+  background-position: 4px 2px;
+}
+
+.r01gContainer .context-menu-item.icon-edit {
+  background-image: url(images/contextmenu/page_white_edit.png);
+}
+
+.r01gContainer .context-menu-item.icon-cut {
+  background-image: url(images/contextmenu/cut.png);
+}
+
+.r01gContainer .context-menu-item.icon-copy {
+  background-image: url(images/contextmenu/page_white_copy.png);
+}
+
+.r01gContainer .context-menu-item.icon-clone {
+  background-image: url(images/contextmenu/page_white_clone.png);
+}
+
+.r01gContainer .context-menu-item.icon-paste {
+  background-image: url(images/contextmenu/page_white_paste.png);
+}
+
+.r01gContainer .context-menu-item.icon-delete {
+  background-image: url(images/contextmenu/page_white_delete.png);
+}
+
+.r01gContainer .context-menu-item.icon-add {
+  background-image: url(images/contextmenu/page_white_add.png);
+}
+
+.r01gContainer .context-menu-item.icon-quit {
+  background-image: url(images/contextmenu/door.png);
+}
+
+.r01gContainer .context-menu-item.icon-add {
+  background-image: url(images/contextmenu/page_white_add.png);
+}
+
+/* vertically align inside labels */
+
+.r01gContainer .context-menu-input > label > * {
+  vertical-align: top;
+}
+
+/* position checkboxes and radios as icons */
+
+.r01gContainer .context-menu-input > label > input[type="checkbox"],
+.r01gContainer .context-menu-input > label > input[type="radio"] {
+  margin-left: -17px;
+}
+
+.r01gContainer .context-menu-input > label > span {
+  margin-left: 5px;
+}
+
+.r01gContainer .context-menu-input > label,
+.r01gContainer .context-menu-input > label > input[type="text"],
+.r01gContainer .context-menu-input > label > textarea,
+.r01gContainer .context-menu-input > label > select {
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.r01gContainer .context-menu-input > label > textarea {
+  height: 100px;
+}
+
+.r01gContainer .context-menu-item > .context-menu-list {
+  display: none;
+  /* re-positioned by js */
+  right: -5px;
+  top: 5px;
+}
+
+.r01gContainer .context-menu-item.hover > .context-menu-list {
+  display: block;
+}
+
+.r01gContainer .context-menu-accesskey {
+  text-decoration: underline;
+}
+
+.r01gContainer .context-menu-item.icon.rup-icon {
+  display: block;
+}
+
+.r01gContainer .context-menu-item.rup-css-sprite {
+  padding: 2px;
+}
+
+.r01gContainer .context-menu-cursor {
+  cursor: url(cursors/context-menu.cur), default;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer #ui-datepicker-div {
+  display: none;
+}
+
+.r01gContainer .ui-datepicker-calendar td {
+  border: none !important;
+}
+
+/* Fin de semana (sab-dom) */
+
+.r01gContainer .ui-datepicker-week-end a {
+  font-weight: normal !important;
+  background: #FFC0CB none no-repeat scroll 50% 50% !important;
+  border: 0.1em solid red !important;
+  color: black !important;
+}
+
+/* Día de hoy (azul) */
+
+.r01gContainer .ui-datepicker-today a {
+  font-weight: normal !important;
+  background: #DDE7FF none no-repeat scroll 50% 50% !important;
+  border: 0.1em solid #195FFE !important;
+  color: black important;
+}
+
+/* Día seleccionado (verde)*/
+
+.r01gContainer .ui-datepicker-calendar .ui-state-highlight a,
+.r01gContainer .ui-datepicker-current-day a {
+  font-weight: normal !important;
+  background: #B4FDCC none no-repeat scroll 50% 50% !important;
+  border: 0.1em solid #175C2E !important;
+  color: black !important;
+}
+
+.r01gContainer .rup_dashboard {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.r01gContainer .grid-stack-item.hidden-content {
+  height: 40px;
+}
+
+.r01gContainer .grid-stack-item-content {
+  background: white none repeat scroll 0 0;
+  color: #2c3e50;
+  /*    text-align: center;*/
+}
+
+.r01gContainer .grid-stack-item-content {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.2s ease-in-out;
+}
+
+.r01gContainer .grid-stack-item-content:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.19), 0 8px 8px rgba(0, 0, 0, 0.23);
+}
+
+.r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-x {
+  overflow-x: hidden;
+}
+
+.r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
+  overflow-y: hidden;
+}
+
+.r01gContainer .glyphicon-refresh-animate {
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+/* Control del scroll */
+
+.r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content {
+  height: inherit;
+  overflow-y: hidden;
+}
+
+.r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget {
+  height: inherit;
+}
+
+.r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content > .widget > .widget-body {
+  height: 93%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.r01gContainer .loading-modal {
+  background-color: black;
+  height: inherit;
+  opacity: 0.2;
+  position: relative;
+  top: 0;
+  width: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: none;
+}
+
+.r01gContainer .config-required-modal {
+  background-color: black;
+  height: inherit;
+  opacity: 0.4;
+  position: relative;
+  top: 0;
+  width: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: none;
+}
+
+.r01gContainer .loading-modal > div,
+.r01gContainer .config-required-modal > div {
+  height: inherit;
+  width: inherit;
+  display: 100%;
+}
+
+.r01gContainer .loading-modal > div > div,
+.r01gContainer .config-required-modal > div > div {
+  /*display:table-cell;*/
+  vertical-align: middle;
+  color: white;
+  text-align: center;
+  width: inherit;
+  height: 100%;
+}
+
+.r01gContainer .loading-modal > div > div > span,
+.r01gContainer .config-required-modal > div > div > * {
+  color: white;
+  position: relative;
+  top: 15%;
+}
+
+.r01gContainer .loading-modal > div > div > span {
+  font-size: 7em;
+}
+
+.r01gContainer .widget-header {
+  cursor: move;
+}
+
+.r01gContainer .blurred-widget-content {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+/* include this only once */
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);
+    /* IE 9 */
+    transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);
+    /* IE 9 */
+    transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);
+    /* IE 9 */
+    transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);
+    /* IE 9 */
+    transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */
+  }
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Capa del feedback */
+
+.r01gContainer .rup-feedback {
+  border: 1px solid #C7C700;
+  background-color: #F6F6CE;
+  background-image: none;
+  /* Evitar imagen por defecto jQuery UI */
+  color: #000000;
+  overflow: hidden;
+  padding: 1em;
+}
+
+/* Capa de cierre del feedback (enlace+imagen) */
+
+.r01gContainer .rup-feedback_closeLink {
+  float: right;
+  background-image: url("images/rup.close.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-right: 1.5em;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.r01gContainer .rup-feedback_closeLink:hover {
+  background-image: url("images/rup.close_hover.png");
+  text-decoration: none;
+}
+
+/* Imagen fondo por defecto (valores generales) */
+
+.r01gContainer .rup-feedback_image {
+  background-repeat: no-repeat;
+  background-position: 8px 12px;
+  padding-bottom: 1em;
+  padding-left: 4.5em;
+  padding-right: 0.5em;
+  padding-top: 1em;
+}
+
+/* Imagenes por defecto (url fichero) [ok, alert, error] */
+
+.r01gContainer .rup-feedback_image_ok {
+  background-image: url("images/rup.ok.png");
+  background-color: #DFF2DF;
+  border: 1px solid #00B500;
+}
+
+.r01gContainer .rup-feedback_image_alert {
+  background-image: url("images/rup.alert.png");
+}
+
+.r01gContainer .rup-feedback_image_error {
+  background-image: url("images/rup.error.png");
+  background-color: #F6CECE;
+  border: 1px solid #FF0000;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/*
+ * PIJAMA
+ */
+
+.r01gContainer .rup-grid_evenRow {
+  background-color: #FFF !important;
+  background-image: none;
+}
+
+.r01gContainer .rup-grid_oddRow {
+  background-color: #EEE !important;
+  background-image: none;
+}
+
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
+
+/*
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #CCC;
+	background-image: none; 
+}
+*/
+
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+
+/* Padding de las celdas [IMPORTANT] */
+
+.r01gContainer .rup-grid_cellPadding_important {
+  padding: 0 15px !important;
+}
+
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+
+/*******************************************/
+
+/* Fila seleccionada con negrita */
+
+.r01gContainer .ui-th-column,
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+  font-weight: bold;
+}
+
+/* Paginador "Mostrando X-Y de Z" */
+
+.r01gContainer .ui-jqgrid .ui-paging-info {
+  height: auto;
+  margin: 0px;
+}
+
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
+
+.r01gContainer .ui-jqgrid tr.jqgrow td {
+  font-weight: inherit;
+}
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+
+.r01gContainer .ui-jqgrid-btable .trAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: 0em;
+}
+
+.r01gContainer .ui-jqgrid-btable .trAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: .2em !important;
+}
+
+.r01gContainer .ui-jqgrid-btable .tdAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+}
+
+.r01gContainer .ui-jqgrid-btable .tdAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+}
+
+.r01gContainer .ui-jqgrid-btable .addElement {
+  /* 	background-color: #E0E4EC; */
+}
+
+.r01gContainer .ui-jqgrid-btable .addElementBorder {
+  /* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+  /* 	background-color: #E0E4EC; */
+}
+
+.r01gContainer .ui-jqgrid tr.ui-row-ltr td:last-child {
+  border-right-style: none;
+}
+
+/* Animación para el mensaje de "Cargando..." */
+
+.r01gContainer .ui-jqgrid .loading {
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat;
+  font-weight: normal !important;
+}
+
+/**********
+ PAGINADOR 
+***********/
+
+/* Tamaño letra */
+
+.r01gContainer .ui-jqgrid-pager {
+  font-size: 0.85em;
+}
+
+/* Secciones */
+
+.r01gContainer .pager_left {
+  padding-left: 1.7em !important;
+}
+
+.r01gContainer .pager_center {
+  width: 60% !important;
+}
+
+.r01gContainer .pager_right {
+  padding-right: 1.7em !important;
+}
+
+/* Cada elemento de la sección central */
+
+.r01gContainer .pagControls {
+  padding-right: 1em !important;
+  border: 0px !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  /* Sobreescribir el ui-state-hover por defecto */
+}
+
+/* Links de paginacion */
+
+.r01gContainer .linkPaginacion {
+  text-decoration: underline !important;
+  color: #0052C7 !important;
+}
+
+.r01gContainer .linkPaginacion:hover {
+  text-decoration: none;
+  color: #0052C7;
+}
+
+.r01gContainer .linkPaginacion.ui-state-disabled:hover {
+  text-decoration: underline;
+}
+
+/* Para que en los links deshabilitados no se quite el subrayado*/
+
+.r01gContainer .ui-state-disabled > .linkPaginacion {
+  cursor: default;
+}
+
+/* Links deshabilitados sin cursor de mano */
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Estilo para icono vacío (al no encontrarlo) */
+
+.r01gContainer .ui-icon-none {
+  background-position: -900px -900px;
+}
+
+/* Estilo general para todos los niveles */
+
+.r01gContainer .rup-grid-jerarquia {
+  float: left;
+  cursor: pointer;
+}
+
+/* Estilo por nivel (hasta 10) */
+
+.r01gContainer .rup-grid-jerarquia_level_1 {
+  margin-left: 1em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_1 {
+  margin-right: -1em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_2 {
+  margin-left: 2em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_2 {
+  margin-right: -2em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_3 {
+  margin-left: 3em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_3 {
+  margin-right: -3em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_4 {
+  margin-left: 4em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_4 {
+  margin-right: -4em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_5 {
+  margin-left: 5em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_5 {
+  margin-right: -5em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_6 {
+  margin-left: 6em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_6 {
+  margin-right: -6em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_7 {
+  margin-left: 7em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_7 {
+  margin-right: -7em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_8 {
+  margin-left: 8em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_8 {
+  margin-right: -8em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_9 {
+  margin-left: 9em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_9 {
+  margin-right: -9em;
+}
+
+.r01gContainer .rup-grid-jerarquia_level_10 {
+  margin-left: 10em;
+}
+
+.r01gContainer .rup-grid-jerarquia_filter_10 {
+  margin-right: -10em;
+}
+
+/** MULTISELECCION **/
+
+/* Menu (UL) */
+
+.r01gContainer .rup-grid-jerarquia_checkmenu {
+  width: 200px;
+  position: absolute !important;
+}
+
+/* Elementos menu (A) */
+
+.r01gContainer .rup-grid-jerarquia_checkmenu a {
+  text-decoration: none !important;
+}
+
+/* Apertura menu (SPAN) */
+
+.r01gContainer .rup-grid-jerarquia_checkmenu_arrow {
+  display: inline;
+  position: absolute;
+  margin-left: -0.8em;
+  cursor: pointer;
+  background-position: -64px -16px;
+}
+
+/* Iconos multiselect */
+
+.r01gContainer .check_icon {
+  background-image: url("images/jerarquia/check.png") !important;
+}
+
+.r01gContainer .child_icon {
+  background-image: url("images/jerarquia/child.png") !important;
+}
+
+.r01gContainer .hierarchy-down_icon {
+  background-image: url("images/jerarquia/hierarchy_down.png") !important;
+}
+
+.r01gContainer .uncheck_icon {
+  background-image: url("images/jerarquia/uncheck.png") !important;
+}
+
+.r01gContainer .parent_icon {
+  background-image: url("images/jerarquia/parent.png") !important;
+}
+
+.r01gContainer .hierarchy-up_icon {
+  background-image: url("images/jerarquia/hierarchy_up.png") !important;
+}
+
+/********************/
+
+.r01gContainer .rup-grid-jerarquia_filter {
+  background-image: url("images/jerarquia/ui-icons.png") !important;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup-language_root {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+.r01gContainer .rup-language_root {
+  border-top: 1px solid #DADADA;
+  position: relative;
+  width: 100%;
+  line-height: 2em;
+  float: left;
+  margin-bottom: 0.7em;
+}
+
+.r01gContainer .rup-language_root div {
+  z-index: 900;
+}
+
+.r01gContainer .rup-language_root a {
+  color: #0052C7;
+}
+
+.r01gContainer .rup-language_root li {
+  float: left;
+  margin-right: 1em;
+  list-style-type: none;
+}
+
+.r01gContainer .rup-language_root ul {
+  margin: 0px;
+}
+
+.r01gContainer .rup-language_change a {
+  background: url("images/rup.dropdown.gif") no-repeat right;
+  padding: .2em 2.4em .2em .6em;
+}
+
+.r01gContainer .rup-language_close_languages {
+  float: right;
+  background-image: url("images/rup.close.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-right: 1.8em;
+  color: blue;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.r01gContainer .rup-language_close_languages:hover {
+  background-image: url("images/rup.close_hover.png");
+  text-decoration: none !important;
+}
+
+.r01gContainer .rup-language_language_list a:link {
+  text-decoration: none;
+}
+
+.r01gContainer .rup-language_language_list a:focus {
+  border-style: dotted;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */
+}
+
+.r01gContainer .rup-language_language_list ul a:link {
+  text-decoration: underline;
+}
+
+.r01gContainer .rup_language_link {
+  padding-right: 0.1em;
+}
+
+.r01gContainer .rup-language_change_option {
+  background: url("images/rup.dropdown.gif") no-repeat right;
+  padding: .2em 2.4em .2em .6em;
+  background-color: #F7F7F7;
+  border-top: 1px solid #ABABAB;
+  border-right: 1px solid #ABABAB;
+  border-left: 1px solid #ABABAB;
+  text-decoration: none;
+  color: #000000 !important;
+  line-height: 1.5em;
+  position: absolute;
+  text-decoration: none;
+}
+
+.r01gContainer .rup-language_language_list {
+  background-color: #F7F7F7;
+  border: 0.1em solid #ABABAB;
+  /* The value of padding-right and padding-left are specified in the component code */
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  position: absolute;
+  left: 0px;
+}
+
+.r01gContainer .rup-language_language_list ul li {
+  display: block !important;
+  float: none !important;
+}
+
+.r01gContainer .rup-language_language_list ul li a:hover {
+  color: #000000 !important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.r01gContainer .rup-language_hidden {
+  visibility: hidden;
+}
+
+.r01gContainer .rup-language_root .ui-state-active {
+  color: #0052C7;
+  border: none;
+  font-weight: bold;
+}
+
+.r01gContainer .rup-language_root .ui-state-active a:link {
+  text-decoration: none;
+}
+
+/* Estilos de modo portal */
+
+.r01gContainer .rup-language_portal li {
+  margin: 0px;
+}
+
+.r01gContainer .rup-language_portal_list {
+  float: left;
+  padding: 0px;
+  margin: 0px;
+  color: #000000 !important;
+}
+
+.r01gContainer .rup-language_portal_list:HOVER {
+  float: left;
+  padding: 0px;
+  margin: 0px;
+  text-decoration: underline;
+  color: #000000 !important;
+}
+
+.r01gContainer .rup-language_portal_list_active {
+  float: left;
+  padding: 0px;
+  margin: 0px;
+}
+
+.r01gContainer .rup-language_portal_separator {
+  float: left;
+  padding: 0px 0.5em;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Capa del feedback */
+
+.r01gContainer .rup-maint_feedbackUL li {
+  margin-left: 2em;
+  margin-top: 0.2em;
+}
+
+.r01gContainer .rup-maint_new {
+  background: transparent url("images/toolbar/nuevo.png") no-repeat !important;
+  width: 14px;
+}
+
+.r01gContainer .rup-maint_edit {
+  background: transparent url("images/toolbar/editar.png") no-repeat !important;
+  width: 14px;
+}
+
+.r01gContainer .rup-maint_cancel {
+  background: transparent url("images/toolbar/cancelar.png") no-repeat !important;
+  width: 14px;
+}
+
+.r01gContainer .rup-maint_delete {
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
+  width: 14px;
+}
+
+.r01gContainer .rup-maint_save {
+  background: transparent url("images/toolbar/guardar.png") no-repeat !important;
+  width: 14px;
+}
+
+.r01gContainer .rup-maint_filter {
+  background: transparent url("images/toolbar/filtrar.png") no-repeat !important;
+  width: 16px;
+}
+
+.r01gContainer .rup-maint_clone {
+  background: transparent url("images/toolbar/clonar.png") no-repeat !important;
+  width: 16px;
+}
+
+.r01gContainer .rup-maint_filter_pressed {
+  border: 1px solid #999999 !important;
+  font-weight: normal !important;
+  color: #212121 !important;
+}
+
+.r01gContainer .rup-maint_export {
+  background: transparent url("images/toolbar/filtrar.png") no-repeat !important;
+  width: 16px;
+}
+
+.r01gContainer .rup-maint_export_pressed {
+  border: 1px solid #999999 !important;
+  font-weight: normal !important;
+  color: #212121 !important;
+}
+
+/* Al mantenimiento Links de paginacion */
+
+.r01gContainer .rup-maint_linkPaginacionDetalle {
+  background: none;
+  border: none;
+  clear: none;
+  cursor: pointer;
+  float: left;
+  text-decoration: underline;
+  color: #0052C7 !important;
+  font-size: 0.88em;
+  padding-right: 1.3em;
+}
+
+.r01gContainer .rup-maint_searchCriteria {
+  background-color: #FFFACD;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .ui-menu {
+  list-style: none;
+  padding: 2px 0;
+  margin: 0;
+  display: block;
+  outline: none;
+}
+
+.r01gContainer .ui-menu .ui-menu {
+  margin-top: -3px;
+  position: absolute;
+}
+
+/* .ui-menu .ui-menu-item { margin: 0; padding: 0; zoom: 1; width: 100%; } */
+
+.r01gContainer .ui-menu .ui-menu-item {
+  zoom: 1;
+}
+
+.r01gContainer .ui-menu .ui-menu-divider {
+  margin: 5px -2px 5px -2px;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.r01gContainer .ui-menu .ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  line-height: 1.5;
+  zoom: 1;
+  padding-top: 0.1em;
+}
+
+.r01gContainer .ui-menu .ui-menu-item a.ui-state-focus,
+.r01gContainer .ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: normal;
+  margin: -1px;
+}
+
+.r01gContainer .ui-menu .ui-state-disabled {
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.r01gContainer .ui-menu .ui-state-disabled a {
+  cursor: default;
+  filter: Alpha(Opacity=35);
+}
+
+.r01gContainer .ui-menu .ui-state-disabled span {
+  filter: Alpha(Opacity=15);
+}
+
+/* icon support */
+
+.r01gContainer .ui-menu-icons {
+  position: relative;
+}
+
+/* left-aligned */
+
+.r01gContainer .ui-menu .ui-icon {
+  position: absolute;
+  top: .2em;
+  left: .2em;
+}
+
+.r01gContainer .ui-menu .rup_menu_vertical_horizontal .ui-icon {
+  top: .4em;
+}
+
+/* right-aligned */
+
+.r01gContainer .ui-menu .ui-menu-icon {
+  position: static;
+  float: right;
+}
+
+/* MENU GENERALES*/
+
+.r01gContainer .rup_invisible_menu {
+  visibility: hidden;
+  display: none;
+}
+
+.r01gContainer .ui-menu .ui-menu-item .rup_menu_vertical_horizontal a,
+.r01gContainer .rup_menu_vertical.ui-menu .ui-menu-item a {
+  padding: 0.2em 0.3em;
+}
+
+/* cursores */
+
+.r01gContainer .ui-menu li strong {
+  cursor: default;
+}
+
+.r01gContainer .ui-menu .ui-menu-item a {
+  cursor: pointer;
+}
+
+/* MENU HORIZONTAL */
+
+.r01gContainer .rup_menu_horizontal.ui-menu-icons .ui-menu-item a {
+  position: relative;
+}
+
+.r01gContainer .rup_menu_horizontal {
+  width: 100%;
+  float: left;
+  font-weight: normal;
+  z-index: 810;
+}
+
+.r01gContainer .ui-menu .rup_menu_horizontal_children.ui-menu-item {
+  list-style-image: none;
+}
+
+.r01gContainer .rup_menu_horizontal.ui-widget-header {
+  font-weight: normal;
+}
+
+.r01gContainer .rup_menu_horizontal_children {
+  float: left;
+  background: none;
+  border-style: none solid none none;
+  border-width: medium 1px medium medium;
+  border-right-color: #7C7676;
+  border-radius: 0px 0px 0px 0px;
+  text-align: center;
+  padding-left: .5em;
+  padding-right: .5em;
+  padding-bottom: .15em;
+  margin: .15em 0em;
+}
+
+.r01gContainer .rup_menu_horizontal_children_entry {
+  width: 100%;
+  float: left;
+}
+
+.r01gContainer .rup_menu_horizontal_children_icon {
+  left: -0.8em !important;
+}
+
+.r01gContainer .rup_menu_horizontal_childrenIcon {
+  padding-left: 1.2em;
+  padding-right: .2em;
+}
+
+.r01gContainer .rup_menu_horizontal_childrenMenuIcon {
+  padding-right: .2em;
+}
+
+.r01gContainer .ui-menu-icon.ui-icon.rup-menu_horizontalIcon {
+  margin-top: 3px;
+  margin-right: 0em;
+}
+
+.r01gContainer .rup_menu_horizontal_children_double {
+  padding-left: 1.6em;
+}
+
+.r01gContainer .rup_menu_horizontal_children_double .rup_menu_horizontal_children_icon {
+  left: -1em !important;
+}
+
+/* Estilo solo interpretado por los FF */
+
+/* Se ha añadido para mantener el color general en los separadores del menú */
+
+.r01gContainer body:first-of-type .rup_menu a.ui-button {
+  border-right-color: -moz-use-text-color;
+}
+
+.r01gContainer .rup_menu_horizontal_disabled {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.r01gContainer .rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus {
+  background: none;
+  border-style: none solid none none;
+  border-width: medium 1px medium medium;
+  border-right-color: #7C7676;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.r01gContainer .rup_menu_horizontal .rup_menu_horizontal_children.ui-state-focus a.rup_menu_horizontal_children_entry {
+  font-weight: bold;
+}
+
+.r01gContainer .rup_menu_horizontal .rup_menu_horizontal_children a.rup_menu_horizontal_children_entry.ui-state-active {
+  border: none;
+  background: none;
+  font-weight: bold;
+  margin: 0em;
+}
+
+.r01gContainer .rup_menu_horizontal_children_last,
+.r01gContainer .rup_menu_horizontal .rup_menu_horizontal_children_last.ui-state-focus {
+  border: none;
+}
+
+/* MENU VERTICAL */
+
+.r01gContainer .rup_menu_vertical {
+  float: left;
+  z-index: 800;
+}
+
+.r01gContainer .rup_menu_vertical_horizontal {
+  z-index: 810;
+  text-align: left;
+}
+
+.r01gContainer .rup_menu_vertical.ui-menu-icons .ui-menu-item a,
+.r01gContainer .ui-menu-icons .rup_menu_vertical_horizontal .ui-menu-item a {
+  position: relative;
+  /*padding-left: 2em;*/
+}
+
+.r01gContainer .rup_menu_vertical .ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+  z-index: 800;
+}
+
+.r01gContainer .ui-menu {
+  margin-bottom: 0.5em;
+}
+
+.r01gContainer .menu4 {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.r01gContainer .address-item {
+  border-bottom: 1px solid #999;
+}
+
+.r01gContainer .address-header {
+  display: block;
+  margin-bottom: .2em;
+  font-weight: bold;
+}
+
+.r01gContainer .address-content {
+  display: block;
+  margin-bottom: .2em;
+  padding-left: 10px;
+}
+
+/* jQuery ui 1.11*/
+
+.r01gContainer .ui-menu-icon.ui-icon.ui-icon-carat-1-s.rup-menu_horizontalIcon {
+  position: absolute;
+  right: 0.2em;
+  left: auto;
+}
+
+.r01gContainer .rup_menu_horizontal_children_entry:hover {
+  font-weight: bold;
+}
+
+.r01gContainer .ui-menu-item:not([aria-haspopup=true]),
+.r01gContainer .ui-menu-item:not([aria-haspopup=true]) > a {
+  text-decoration: underline;
+}
+
+.r01gContainer ul.ui-menu.rup_menu_vertical_horizontal li.ui-menu-item {
+  padding: 0;
+}
+
+.r01gContainer .rup_menu_horizontal_children.ui-menu-item {
+  padding-left: 0.5em;
+}
+
+.r01gContainer .ui-menu .ui-menu-item.rup_menu_horizontal_children_double,
+.r01gContainer .ui-menu .ui-menu-item.rup_menu_horizontal_childrenIcon {
+  padding-left: 1.6em;
+}
+
+.r01gContainer ul.rup_menu_horizontal.ui-widget.ui-widget-content {
+  border: 1px solid #aaaaaa;
+}
+
+.r01gContainer .rup_menu_horizontal.ui-menu .ui-menu-item-wrapper {
+  padding: 3px 1em 3px 0em;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* MENSAJES DE ERROR */
+
+/*Estilo de la capa con la imagen de error*/
+
+.r01gContainer .rup-message_icon-error {
+  background-image: url("images/rup.error.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  height: 24px;
+  margin-right: 0.9em;
+  padding-top: 2.1em;
+  vertical-align: middle;
+  width: 11%;
+}
+
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de error*/
+
+.r01gContainer .rup-message_msg-error {
+  padding-top: 1em;
+  text-align: left;
+  vertical-align: middle;
+  float: right;
+  width: 84%;
+}
+
+/* MENSAJES DE CONFIRMACION */
+
+/*Estilo de la capa con la imagen de confirmacion*/
+
+.r01gContainer .rup-message_icon-confirm {
+  background-image: url("images/rup.confirm.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  height: 24px;
+  margin-right: 0.9em;
+  padding-top: 1.5em;
+  vertical-align: middle;
+  width: 11%;
+}
+
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo confirmación*/
+
+.r01gContainer .rup-message_msg-confirm {
+  padding-top: 1em;
+  text-align: left;
+  vertical-align: middle;
+  float: right;
+  width: 84%;
+}
+
+/* MENSAJES DE OK */
+
+/*Estilo de la capa con la imagen de ok*/
+
+.r01gContainer .rup-message_icon-ok {
+  background-image: url("images/rup.ok.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  height: 24px;
+  margin-right: 0.9em;
+  padding-top: 1.5em;
+  vertical-align: middle;
+  width: 11%;
+}
+
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo ok*/
+
+.r01gContainer .rup-message_msg-ok {
+  padding-top: 1em;
+  text-align: left;
+  vertical-align: middle;
+  float: right;
+  width: 84%;
+}
+
+/* MENSAJES DE ALERTA */
+
+/*Estilo de la capa con la imagen de alerta*/
+
+.r01gContainer .rup-message_icon-alert {
+  background-image: url("images/rup.alert.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  height: 24px;
+  margin-right: 0.9em;
+  padding-top: 1.5em;
+  vertical-align: middle;
+  width: 11%;
+}
+
+/*Estilo de la capa con el texto a mostrar cuando el mensaje es de tipo alerta*/
+
+.r01gContainer .rup-message_msg-alert {
+  padding-top: 1em;
+  text-align: left;
+  vertical-align: middle;
+  float: right;
+  width: 84%;
+}
+
+.r01gContainer .ui-dialog .ui-dialog-title {
+  width: auto;
+  padding-right: 0.3em;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup_report .ui-progressbar {
+  height: 22px;
+  margin-top: 2em;
+  margin-bottom: 3em;
+  width: 100%;
+}
+
+.r01gContainer .rup_report .ui-progressbar-value {
+  background: url(images/pbar-ani.gif);
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
+
+.r01gContainer .rup-jerarquia_filter {
+  background-image: url("images/jerarquia/ui-icons.png") !important;
+  float: left;
+}
+
+/** MULTISELECCION flecha**/
+
+.r01gContainer .rup-jerarquia_checkmenu_arrow {
+  display: inline;
+  position: absolute;
+  margin-left: -0.8em;
+  cursor: pointer;
+  background-position: -64px -16px;
+}
+
+/* 
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #D0D0D0;
+	background-image: none; 
+}
+*/
+
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+
+/* Padding de las celdas [IMPORTANT] */
+
+.r01gContainer .rup-grid_cellPadding_important {
+  padding: 0 15px !important;
+}
+
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+
+/*******************************************/
+
+/* Fila seleccionada con negrita */
+
+.r01gContainer .ui-th-column,
+.r01gContainer .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+  font-weight: bold;
+}
+
+/* Paginador "Mostrando X-Y de Z" */
+
+.r01gContainer .ui-jqgrid .ui-paging-info {
+  height: auto;
+  margin: 0px;
+}
+
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
+
+.r01gContainer .ui-jqgrid tr.jqgrow td {
+  font-weight: inherit;
+}
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+
+.r01gContainer .ui-jqgrid-btable .trAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: 0em;
+}
+
+.r01gContainer .ui-jqgrid-btable .trAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+  height: .2em !important;
+}
+
+.r01gContainer .ui-jqgrid-btable .tdAddSeparator {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+}
+
+.r01gContainer .ui-jqgrid-btable .tdAddSeparator:HOVER {
+  /* 	background-color: #929292; */
+  /* 	border-color: #929292; */
+}
+
+.r01gContainer .ui-jqgrid-btable .addElement {
+  /* 	background-color: #E0E4EC; */
+}
+
+.r01gContainer .ui-jqgrid-btable .addElementBorder {
+  /* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+  /* 	background-color: #E0E4EC; */
+}
+
+.r01gContainer .ui-jqgrid tr.ui-row-ltr td:last-child {
+  border-right-style: none;
+}
+
+/* Animación para el mensaje de "Cargando..." */
+
+.r01gContainer .ui-jqgrid .loading {
+  background: white url("images/rup.ajaxLoader.gif") right center no-repeat;
+  font-weight: normal !important;
+}
+
+/**********
+ PAGINADOR 
+***********/
+
+/* Tamaño letra */
+
+.r01gContainer .ui-jqgrid-pager {
+  font-size: 0.85em;
+}
+
+/* Secciones */
+
+.r01gContainer .pager_left {
+  padding-left: 1.7em !important;
+}
+
+.r01gContainer .pager_center {
+  width: 60% !important;
+}
+
+.r01gContainer .pager_right {
+  padding-right: 1.7em !important;
+}
+
+/* Cada elemento de la sección central */
+
+.r01gContainer .pagControls {
+  padding-right: 1em !important;
+  border: 0px !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  /* Sobreescribir el ui-state-hover por defecto */
+}
+
+/* Links de paginacion */
+
+.r01gContainer .linkPaginacion {
+  text-decoration: underline !important;
+  color: #0052C7 !important;
+}
+
+.r01gContainer .linkPaginacion:hover {
+  text-decoration: none;
+  color: #0052C7;
+}
+
+.r01gContainer .linkPaginacion.ui-state-disabled:hover {
+  text-decoration: underline;
+}
+
+/* Para que en los links deshabilitados no se quite el subrayado*/
+
+.r01gContainer .ui-state-disabled > .linkPaginacion {
+  cursor: default;
+}
+
+/* Links deshabilitados sin cursor de mano */
+
+/* ************************ */
+
+/* AÑADIDOS PARA RUP.TABLE */
+
+/* ************************ */
+
+.r01gContainer .cursor_pointer {
+  cursor: pointer;
+}
+
+.r01gContainer .collapse_icon {
+  float: left;
+  cursor: pointer;
+}
+
+.r01gContainer .collapse_icon_right {
+  float: right;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.r01gContainer .collapse_icon_right {
+  float: right;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.r01gContainer .collapse_icon_right {
+  float: right;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.r01gContainer .collapse_label {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.r01gContainer .collapse_label,
+.r01gContainer .matched_layer {
+  font-weight: normal;
+}
+
+.r01gContainer .collapse_icon_right:hover {
+  opacity: 0.3;
+}
+
+.r01gContainer .cursor_pointer {
+  cursor: pointer;
+}
+
+.r01gContainer .matched_layer {
+  float: left;
+}
+
+.r01gContainer .search_row,
+.r01gContainer .ui-search-toolbar {
+  background: none repeat scroll 0 0 #F8F8F8;
+}
+
+.r01gContainer .search_row_header {
+  background: none repeat scroll 0 0 #F8F8F8;
+  border-top: 1px solid #AAAAAA;
+}
+
+.r01gContainer .search_row > th.ui-widget-header.ui-state-default {
+  border-top: 1px solid #AAAAAA;
+}
+
+.r01gContainer .search_collapse_layer {
+  float: left;
+}
+
+.r01gContainer .search_nav_layer {
+  float: right;
+}
+
+.r01gContainer .search_nav_layer {
+  float: rigth;
+}
+
+.r01gContainer .search_nav_button_icon {
+  height: 16px;
+  float: left;
+}
+
+.r01gContainer .ui-state-default a.rup-table_linkSearchNav {
+  background: none;
+  border: none;
+  clear: none;
+  cursor: pointer;
+  font-weight: normal;
+  float: left;
+  text-decoration: underline;
+  color: #0052C7 !important;
+  font-size: 0.88em;
+  padding: 0 1.3em 0 0;
+}
+
+.r01gContainer button.ui-button.rup-table_searchButton {
+  padding: 0 0.0em;
+  height: 16px;
+  width: 7em;
+}
+
+.r01gContainer .ui-state-default a.rup-table_linkSearchNav:hover {
+  text-decoration: none;
+  padding: 0 1.3em 0 0;
+}
+
+.r01gContainer .ui-state-default a.rup-table_linkClear {
+  float: right;
+}
+
+.r01gContainer .fm-button {
+  padding: 0.5em 1em;
+}
+
+.r01gContainer .white-space-normal {
+  white-space: normal;
+}
+
+.r01gContainer .EditTable,
+.r01gContainer .botoneraModal {
+  text-align: right;
+  width: 100%;
+}
+
+.r01gContainer .EditTable hr,
+.r01gContainer .botoneraModal hr {
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  padding-bottom: 1em;
+}
+
+.r01gContainer .EditTable tr:last-child td,
+.r01gContainer .botoneraModal tr:last-child td {
+  padding-bottom: 1em;
+}
+
+.r01gContainer .botonEnlace {
+  background-image: none;
+}
+
+.r01gContainer .fm-button.botonEnlace {
+  background: none repeat scroll 0 0 transparent;
+  color: #222222;
+  cursor: pointer;
+  float: right;
+  line-height: 1.4em;
+  margin: 0.1em 0.4em 0.5em 0;
+  overflow: visible;
+  padding: 0.2em 0.6em 0.3em;
+  width: auto;
+  border: none;
+  text-decoration: underline !important;
+}
+
+.r01gContainer .fm-button.botonEnlace:hover {
+  text-decoration: none !important;
+}
+
+.r01gContainer .ui-icon.icono_cancelar {
+  background-image: none;
+}
+
+.r01gContainer .ui-icon_collapse {
+  background-position: center;
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+}
+
+.r01gContainer .ui-jqgrid tr.jqgrow td.rupInfoCol {
+  margin: 0;
+  padding: 0;
+  border-right: 0px none;
+}
+
+.r01gContainer .ui-icon.ui-icon-rupInfoCol {
+  background-position: -300px -300px;
+}
+
+.r01gContainer .ui-icon.ui-icon-rupInfoCol.ui-icon-search {
+  background-position: -160px -112px;
+}
+
+.r01gContainer .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil {
+  background-position: -64px -112px;
+}
+
+.r01gContainer .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
+  background-image: url(images/rup.search_edit_222222.png);
+  background-position: 0px 0px;
+}
+
+.r01gContainer tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search {
+  background-image: url(images/rup.search_edit_2e83ff.png);
+}
+
+.r01gContainer .ui-icon_collapse:hover {
+  background-color: #E6E6E6;
+}
+
+.r01gContainer .form-column {
+  float: left;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  margin-top: 5px;
+  padding-right: 10px;
+  text-align: left;
+}
+
+.r01gContainer .one-column {
+  float: left;
+  margin: 0.5em 1.5em 0 0;
+}
+
+.r01gContainer .one-column label {
+  display: block;
+}
+
+.r01gContainer .rup_form_element {
+  border: 0.1em solid #D1D1D1;
+  color: #666666;
+  font-size: 100%;
+}
+
+.r01gContainer .FormElement {
+  border: 0.1em solid #D1D1D1;
+  color: #666666;
+  /*font-size:1.2em;*/
+  font-size: 100%;
+  /*width: 15em; */
+}
+
+/* Formulario de detalle */
+
+.r01gContainer .rup-table-buttonpane {
+  text-align: left;
+  border-width: 1px 0 0 0;
+  background-image: none;
+  margin: .5em 0 0 0;
+  padding: .3em 1em .5em .4em;
+}
+
+.r01gContainer .rup-table-buttonpane .ui-dialog-buttonset {
+  float: right;
+}
+
+.r01gContainer .rup-table-buttonpane button {
+  margin: .5em .4em .5em 0;
+  cursor: pointer;
+}
+
+.r01gContainer .rup-table-container {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.r01gContainer .rup-table-filter {
+  margin-top: 0.2em;
+  margin-bottom: 0.3em;
+  border: 1px solid #DADADA;
+}
+
+.r01gContainer .rup-table-filter-fieldset {
+  clear: both;
+}
+
+.r01gContainer .rup-table-formEdit-detail {
+  display: none;
+}
+
+.r01gContainer .rup-table_linkPaginacionDetalle {
+  background: none;
+  border: none;
+  clear: none;
+  cursor: pointer;
+  float: left;
+  text-decoration: underline;
+  color: #0052C7 !important;
+  font-size: 0.88em;
+  padding-right: 1.3em;
+}
+
+.r01gContainer .rup-table-filter-toggle-label {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.r01gContainer .ui-icon.rup-rss-icon-16 {
+  background: url("images/rup.rss.16.png") no-repeat !important;
+}
+
+.r01gContainer .ui-icon.rup-rss-icon-24 {
+  background: url("images/rup.rss.24.png") no-repeat !important;
+}
+
+/* MULTIFILTER */
+
+.r01gContainer .rup_multifilter_dropdown input {
+  margin-left: 0.3em;
+  /* 	margin-right:0.3em; */
+}
+
+.r01gContainer .rup_multifilter_dropdown input[type=checkbox] {
+  margin-right: 0.3em;
+}
+
+.r01gContainer .rup_multifilter_dropdown .rup-feedback {
+  padding-left: 2.5em;
+}
+
+.r01gContainer .rup_multifilter_selector {
+  background-image: none;
+  padding-left: 0.5em;
+  width: 23em;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .ui-tabs .ui-tabs-panel {
+  border-width: 1px;
+}
+
+/* Estilo asociado al error de carga de una pestaña */
+
+.r01gContainer .rup-loading_tab_error {
+  font-size: 2em;
+  margin: 1.5em 0.5em 1.5em 0.5em;
+  color: #F71229;
+}
+
+/* Estilo de la imagen de carga de cada pestañas */
+
+.r01gContainer .rup-tabs_loading {
+  float: left;
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.3em;
+  margin-right: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.r01gContainer .rup-tabs_loading_img {
+  vertical-align: middle;
+  background-image: url("images/rup.ajaxLoader.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: right;
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.3em;
+  margin-right: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+/* Estilo especifico para la separación entre las pestañas que albergan otras pestañas */
+
+.r01gContainer .ui-tabs .ui-tabs-panel.rup-tabs_container {
+  padding: 0.4em;
+}
+
+.r01gContainer .rup-tabs_title {
+  float: left;
+}
+
+/* Estilo para mostrar scrollbar cuando sea necesario */
+
+.r01gContainer .rup-tabs_overflow {
+  overflow: scroll;
+}
+
+/* Estilos para mostrar las pestañas abajo */
+
+.r01gContainer .tabs-bottom .ui-tabs-nav {
+  clear: left;
+  padding: 0 .2em .2em .2em;
+}
+
+.r01gContainer .tabs-bottom .ui-tabs-nav li {
+  top: auto;
+  margin: 0 .2em 1px 0;
+  border-bottom: 1px solid #d3d3d3;
+  border-top: 0;
+}
+
+.r01gContainer .tabs-bottom .ui-tabs-nav li.ui-state-active {
+  margin-top: -1px;
+  padding-top: 1px;
+}
+
+/*estilos para efecto hover del boton close de la pestaña*/
+
+.r01gContainer .rup-tabs-close {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  margin-left: 1px;
+}
+
+.r01gContainer .rup-tabs-close-hover {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
+/* Pestañas falsas */
+
+.r01gContainer .ui-tabs .ui-tabs-nav li a.rup-tabs-link-close {
+  padding: 1px;
+  position: relative;
+  right: 0.3em;
+  top: 50%;
+  width: 19px;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav li a.rup-tabs-link-close:hover {
+  margin: -1px;
+  cursor: pointer;
+  border: 1px solid #999999;
+  background: #dadada url(../custom-theme/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+  /*     font-weight: normal;  */
+  color: #212121;
+}
+
+.r01gContainer .ui-tabs .ui-tabs-nav li.ui-tabs-selected.ui-state-active a.rup-tabs-link-close:hover {
+  margin: -1px;
+  cursor: pointer;
+  border: 1px solid #999999;
+  background: #dadada url(../custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  /*     font-weight: normal;  */
+  color: #212121;
+}
+
+.r01gContainer .rup-tabs-close {
+  box-sizing: border-box;
+  float: left;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* css for timepicker */
+
+.r01gContainer .ui-timepicker-div .ui-widget-header {
+  margin-bottom: 8px;
+}
+
+.r01gContainer .ui-timepicker-div dl {
+  text-align: left;
+  margin-top: 0.5em;
+}
+
+.r01gContainer .ui-timepicker-div dl dt {
+  height: 25px;
+  margin-bottom: -25px;
+}
+
+.r01gContainer .ui-timepicker-div dl dd {
+  margin: 0 10px 10px 65px;
+}
+
+.r01gContainer .ui-timepicker-div td {
+  font-size: 90%;
+}
+
+.r01gContainer .ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.r01gContainer .ui-slider-handle {
+  z-index: 1 !important;
+}
+
+/*!
+ * Copyright 2015 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Toolbar */
+
+.r01gContainer .rup-toolbar {
+  overflow: hidden;
+  padding: 0.1em 0.4em 0.1em 0.4em;
+}
+
+/* Botones */
+
+.r01gContainer .rup-toolbar_button {
+  margin-right: 5px;
+}
+
+/* Menu-Botones */
+
+.r01gContainer .rup-toolbar_menuButton {
+  margin-right: 5px;
+}
+
+.r01gContainer .rup-toolbar_menuButtonSlided {
+  /* cuando tiene el menú de botones desplegado y no está encima el cursor */
+  background: #ece9d8;
+  color: #0000ff;
+}
+
+/* Contenedor Menu-Botones*/
+
+.r01gContainer .rup-toolbar_menuButtonContainer {
+  background-image: none;
+  overflow: hidden;
+  padding: 0.4em;
+  padding-top: 0.5em;
+}
+
+/* Estilo aplicado al Menu-Botones */
+
+.r01gContainer .rup-toolbar_menuButtonElement {
+  width: 100%;
+}
+
+/* Texto del botón del Menu-Botones */
+
+.r01gContainer .rup-toolbar_menuButtonElement .ui-button-text {
+  /*estilo del texto de los mbuttons*/
+  text-align: left;
+}
+
+/* Flechas del mbutton */
+
+.r01gContainer .rup-toolbar_menuButtonIcon {
+  background-position: -64px -16px;
+}
+
+.r01gContainer .rup-toolbar_menuButtonSlided .rup-toolbar_menuButtonIcon {
+  /* flecha cuando el mbutton está desplegado*/
+  background-position: -64px -16px;
+}
+
+/* Tamaño botones toolbar por defecto (18x18) */
+
+.r01gContainer .rup-toolbar_button .ui-button-icon-primary,
+.r01gContainer .rup-toolbar_button .ui-button-icon,
+.r01gContainer .rup-toolbar_menuButton .ui-button-icon-primary {
+  width: 18px;
+  height: 18px;
+}
+
+@media \0screen {
+  .r01gContainer .ui-state-disabled,
+  .r01gContainer .ui-widget-content .ui-state-disabled,
+  .r01gContainer .ui-widget-header .ui-state-disabled {
+    z-index: 0;
+  }
+}
+
+/*Posicionamiento derecho de botones en la botonera*/
+
+.r01gContainer .right_button {
+  float: right;
+}
+
+/******************/
+
+/* ICONOS TOOLBAR */
+
+/******************/
+
+.r01gContainer .borrar {
+  background: url("images/toolbar/borrar.png") no-repeat !important;
+}
+
+.r01gContainer .borrar.disabled {
+  background: url("images/toolbar/borrar_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .buscar {
+  background: url("images/toolbar/buscar.png") no-repeat !important;
+}
+
+.r01gContainer .buscar.disabled {
+  background: url("images/toolbar/buscar_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .cancelar {
+  background: url("images/toolbar/cancelar.png") no-repeat !important;
+}
+
+.r01gContainer .cancelar.disabled {
+  background: url("images/toolbar/cancelar_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .editar {
+  background: url("images/toolbar/editar.png") no-repeat !important;
+}
+
+.r01gContainer .editar.disabled {
+  background: url("images/toolbar/editar_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .filtrar {
+  background: url("images/toolbar/filtrar.png") no-repeat !important;
+}
+
+.r01gContainer .filtrar.disabled {
+  background: url("images/toolbar/filtrar_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .imprimir {
+  background: url("images/toolbar/imprimir.png") no-repeat !important;
+}
+
+.r01gContainer .imprimir.disabled {
+  background: url("images/toolbar/imprimir_disabled.png") no-repeat !important;
+}
+
+.r01gContainer .nuevo {
+  background: url("images/toolbar/nuevo.png") no-repeat !important;
+}
+
+.r01gContainer .nuevo.disabled {
+  background: url("images/toolbar/nuevo_disabled.png") no-repeat !important;
+}
+
+/***************************/
+
+/* ICONOS FICHEROS (files) */
+
+/***************************/
+
+.r01gContainer .csv {
+  background: url("images/files/csv.gif") no-repeat !important;
+}
+
+.r01gContainer .dll {
+  background: url("images/files/dll.gif") no-repeat !important;
+}
+
+.r01gContainer .doc {
+  background: url("images/files/doc.gif") no-repeat !important;
+}
+
+.r01gContainer .exe {
+  background: url("images/files/exe.gif") no-repeat !important;
+}
+
+.r01gContainer .gif {
+  background: url("images/files/gif.gif") no-repeat !important;
+}
+
+.r01gContainer .jpg {
+  background: url("images/files/jpg.gif") no-repeat !important;
+}
+
+.r01gContainer .js:not(html) {
+  background: url("images/files/js.gif") no-repeat !important;
+}
+
+.r01gContainer .ods {
+  background: url("images/files/ods.gif") no-repeat !important;
+}
+
+.r01gContainer .pdf {
+  background: url("images/files/pdf.gif") no-repeat !important;
+}
+
+.r01gContainer .ppt {
+  background: url("images/files/ppt.gif") no-repeat !important;
+}
+
+.r01gContainer .txt {
+  background: url("images/files/txt.gif") no-repeat !important;
+}
+
+.r01gContainer .xls {
+  background: url("images/files/xls.gif") no-repeat !important;
+}
+
+.r01gContainer .zip {
+  background: url("images/files/zip.gif") no-repeat !important;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Core qTip styles */
+
+.r01gContainer .ui-tooltip,
+.r01gContainer .qtip {
+  position: absolute;
+  left: -28000px;
+  top: -28000px;
+  display: none;
+  max-width: 280px;
+  min-width: 50px;
+  font-size: 10.5px;
+  line-height: 12px;
+}
+
+/* Fluid class for determining actual width in IE */
+
+.r01gContainer .ui-tooltip-fluid {
+  display: block;
+  visibility: hidden;
+  position: static !important;
+  float: left !important;
+}
+
+.r01gContainer .ui-tooltip-content {
+  position: relative;
+  padding: 5px 9px;
+  overflow: hidden;
+  border: 1px solid #000001;
+  text-align: left;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.r01gContainer .ui-tooltip-titlebar {
+  position: relative;
+  min-height: 14px;
+  padding: 5px 35px 5px 10px;
+  overflow: hidden;
+  border: 1px solid #000001;
+  border-width: 1px 1px 0;
+  font-weight: bold;
+}
+
+.r01gContainer .ui-tooltip-titlebar + .ui-tooltip-content {
+  border-top-width: 0px !important;
+}
+
+/*! Default close button class */
+
+.r01gContainer .ui-tooltip-titlebar .ui-state-default {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  margin-top: -9px;
+  cursor: pointer;
+  outline: medium none;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.r01gContainer * html .ui-tooltip-titlebar .ui-state-default {
+  top: 16px;
+}
+
+/* IE fix */
+
+.r01gContainer .ui-tooltip-titlebar .ui-icon,
+.r01gContainer .ui-tooltip-icon .ui-icon {
+  display: block;
+  text-indent: -1000em;
+}
+
+.r01gContainer .ui-tooltip-icon,
+.r01gContainer .ui-tooltip-icon .ui-icon {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.r01gContainer .ui-tooltip-icon .ui-icon {
+  width: 18px;
+  height: 14px;
+  text-align: center;
+  text-indent: 0;
+  font: normal bold 10px/13px Tahoma, sans-serif;
+  color: inherit;
+  background: transparent none no-repeat -100em -100em;
+}
+
+/* Applied to 'focused' tooltips e.g. most recently displayed/interacted with */
+
+/* Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively */
+
+/*! Default tooltip style */
+
+.r01gContainer .ui-tooltip-default .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-default .ui-tooltip-content {
+  border-color: #F1D031;
+  background-color: #FFFFA3;
+  color: #555;
+}
+
+.r01gContainer .ui-tooltip-default .ui-tooltip-titlebar {
+  background-color: #FFEF93;
+}
+
+.r01gContainer .ui-tooltip-default .ui-tooltip-icon {
+  border-color: #CCC;
+  background: #F1F1F1;
+  color: #777;
+}
+
+.r01gContainer .ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #AAA;
+  color: #111;
+}
+
+/* Modal plugin */
+
+.r01gContainer #qtip-overlay {
+  position: fixed;
+  left: -10000em;
+  top: -10000em;
+}
+
+/* Applied to modals with show.modal.blur set to true */
+
+.r01gContainer #qtip-overlay.blurs {
+  cursor: pointer;
+}
+
+/* Change opacity of overlay here */
+
+.r01gContainer #qtip-overlay div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+}
+
+/* Tips plugin */
+
+.r01gContainer .ui-tooltip .ui-tooltip-tip {
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.r01gContainer .ui-tooltip .ui-tooltip-tip,
+.r01gContainer .ui-tooltip .ui-tooltip-tip * {
+  position: absolute;
+  line-height: 0.1px !important;
+  font-size: 0.1px !important;
+  color: #123456;
+  background: transparent;
+  border: 0px dashed transparent;
+}
+
+.r01gContainer .ui-tooltip .ui-tooltip-tip canvas {
+  top: 0;
+  left: 0;
+}
+
+/*! Light tooltip style */
+
+.r01gContainer .ui-tooltip-light .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-light .ui-tooltip-content {
+  border-color: #E2E2E2;
+  color: #454545;
+}
+
+.r01gContainer .ui-tooltip-light .ui-tooltip-content {
+  background-color: white;
+}
+
+.r01gContainer .ui-tooltip-light .ui-tooltip-titlebar {
+  background-color: #f1f1f1;
+}
+
+/*! Dark tooltip style */
+
+.r01gContainer .ui-tooltip-dark .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-dark .ui-tooltip-content {
+  border-color: #303030;
+  color: #f3f3f3;
+}
+
+.r01gContainer .ui-tooltip-dark .ui-tooltip-content {
+  background-color: #505050;
+}
+
+.r01gContainer .ui-tooltip-dark .ui-tooltip-titlebar {
+  background-color: #404040;
+}
+
+.r01gContainer .ui-tooltip-dark .ui-tooltip-icon {
+  border-color: #444;
+}
+
+.r01gContainer .ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+/*! Cream tooltip style */
+
+.r01gContainer .ui-tooltip-cream .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-cream .ui-tooltip-content {
+  border-color: #F9E98E;
+  color: #A27D35;
+}
+
+.r01gContainer .ui-tooltip-cream .ui-tooltip-content {
+  background-color: #FBF7AA;
+}
+
+.r01gContainer .ui-tooltip-cream .ui-tooltip-titlebar {
+  background-color: #F0DE7D;
+}
+
+.r01gContainer .ui-tooltip-cream .ui-state-default .ui-tooltip-icon {
+  background-position: -82px 0;
+}
+
+/*! Red tooltip style */
+
+.r01gContainer .ui-tooltip-red .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-red .ui-tooltip-content {
+  border-color: #D95252;
+  color: #912323;
+}
+
+.r01gContainer .ui-tooltip-red .ui-tooltip-content {
+  background-color: #F78B83;
+}
+
+.r01gContainer .ui-tooltip-red .ui-tooltip-titlebar {
+  background-color: #F06D65;
+}
+
+.r01gContainer .ui-tooltip-red .ui-state-default .ui-tooltip-icon {
+  background-position: -102px 0;
+}
+
+.r01gContainer .ui-tooltip-red .ui-tooltip-icon {
+  border-color: #D95252;
+}
+
+.r01gContainer .ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #D95252;
+}
+
+/*! Green tooltip style */
+
+.r01gContainer .ui-tooltip-green .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-green .ui-tooltip-content {
+  border-color: #90D93F;
+  color: #3F6219;
+}
+
+.r01gContainer .ui-tooltip-green .ui-tooltip-content {
+  background-color: #CAED9E;
+}
+
+.r01gContainer .ui-tooltip-green .ui-tooltip-titlebar {
+  background-color: #B0DE78;
+}
+
+.r01gContainer .ui-tooltip-green .ui-state-default .ui-tooltip-icon {
+  background-position: -42px 0;
+}
+
+/*! Blue tooltip style */
+
+.r01gContainer .ui-tooltip-blue .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-blue .ui-tooltip-content {
+  border-color: #ADD9ED;
+  color: #5E99BD;
+}
+
+.r01gContainer .ui-tooltip-blue .ui-tooltip-content {
+  background-color: #E5F6FE;
+}
+
+.r01gContainer .ui-tooltip-blue .ui-tooltip-titlebar {
+  background-color: #D0E9F5;
+}
+
+.r01gContainer .ui-tooltip-blue .ui-state-default .ui-tooltip-icon {
+  background-position: -2px 0;
+}
+
+/*! Add shadows to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE6+, Safari 2+ */
+
+.r01gContainer .ui-tooltip-shadow {
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.r01gContainer .ui-tooltip-shadow .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-shadow .ui-tooltip-content {
+  filter: "progid : DXImageTransform.Microsoft.Shadow ( Color = 'gray', Direction = 135, Strength = 3 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)";
+}
+
+/*! Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
+
+.r01gContainer .ui-tooltip-rounded,
+.r01gContainer .ui-tooltip-rounded .ui-tooltip-content,
+.r01gContainer .ui-tooltip-tipsy,
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-content,
+.r01gContainer .ui-tooltip-youtube,
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-content {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.r01gContainer .ui-tooltip-rounded .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-titlebar {
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.r01gContainer .ui-tooltip-rounded .ui-tooltip-titlebar + .ui-tooltip-content,
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-titlebar + .ui-tooltip-content,
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-titlebar + .ui-tooltip-content {
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
+
+/*! Youtube tooltip style */
+
+.r01gContainer .ui-tooltip-youtube {
+  -webkit-box-shadow: 0 0 3px #333;
+  -moz-box-shadow: 0 0 3px #333;
+  box-shadow: 0 0 3px #333;
+}
+
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-content {
+  background: transparent;
+  background: rgba(0, 0, 0, 0.85);
+  filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
+  color: white;
+  border-color: #CCCCCC;
+}
+
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-icon {
+  border-color: #222;
+}
+
+.r01gContainer .ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+/* jQuery TOOLS Tooltip style */
+
+.r01gContainer .ui-tooltip-jtools {
+  background: #232323;
+  background: rgba(0, 0, 0, 0.7);
+  background-image: -moz-linear-gradient(top, #717171, #232323);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#717171), to(#232323));
+  border: 2px solid #ddd;
+  border: 2px solid #f1f1f1;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 12px #333;
+  -moz-box-shadow: 0 0 12px #333;
+  box-shadow: 0 0 12px #333;
+}
+
+/* IE Specific */
+
+/* csscssParserFix - .ui-tooltip-jtools .ui-tooltip-titlebar { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #717171, endColorstr = #4A4A4A ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)"; } */
+
+/* cssParserFix - .ui-tooltip-jtools .ui-tooltip-content { filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr =	#4A4A4A, endColorstr = #232323 ); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)"; }*/
+
+.r01gContainer .ui-tooltip-jtools .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-jtools .ui-tooltip-content {
+  background: transparent;
+  color: white;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .ui-tooltip-jtools .ui-tooltip-icon {
+  border-color: #555;
+}
+
+.r01gContainer .ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #333;
+}
+
+/* Cluetip style */
+
+.r01gContainer .ui-tooltip-cluetip {
+  -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+}
+
+.r01gContainer .ui-tooltip-cluetip .ui-tooltip-titlebar {
+  background-color: #87876A;
+  color: white;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .ui-tooltip-cluetip .ui-tooltip-content {
+  background-color: #D9D9C2;
+  color: #111;
+  border: 0 dashed transparent;
+}
+
+.r01gContainer .ui-tooltip-cluetip .ui-tooltip-icon {
+  border-color: #808064;
+}
+
+.r01gContainer .ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #696952;
+  color: #696952;
+}
+
+/* Tipsy style */
+
+.r01gContainer .ui-tooltip-tipsy {
+  border: 0;
+}
+
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-content {
+  background: transparent;
+  background: rgba(0, 0, 0, 0.87);
+  filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
+  color: white;
+  border: 0px transparent;
+  font-size: 11px;
+  font-family: 'Lucida Grande', sans-serif;
+  font-weight: bold;
+  line-height: 16px;
+  text-shadow: 0 1px black;
+}
+
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-titlebar {
+  padding: 6px 35px 0 10;
+}
+
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-content {
+  padding: 6px 10;
+}
+
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-icon {
+  border-color: #222;
+  text-shadow: none;
+}
+
+.r01gContainer .ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover {
+  border-color: #303030;
+}
+
+/* Tipped style */
+
+.r01gContainer .ui-tooltip-tipped .ui-tooltip-titlebar,
+.r01gContainer .ui-tooltip-tipped .ui-tooltip-content {
+  border: 3px solid #959FA9;
+  filter: none;
+  -ms-filter: none;
+}
+
+/* cssParserFix - .ui-tooltip-tipped .ui-tooltip-titlebar { background: #3A79B8; background-image: -moz-linear-gradient(top, #3A79B8, #2E629D); background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D) ); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #3A79B8, endColorstr = #2E629D ); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"; color: white; font-weight: normal; font-family: serif; border-bottom-width: 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; } */
+
+.r01gContainer .ui-tooltip-tipped .ui-tooltip-content {
+  background-color: #F9F9F9;
+  color: #454545;
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+}
+
+.r01gContainer .ui-tooltip-tipped .ui-tooltip-icon {
+  border: 2px solid #285589;
+  background: #285589;
+}
+
+.r01gContainer .ui-tooltip-tipped .ui-tooltip-icon .ui-icon {
+  background-color: #FBFBFB;
+  color: #555;
+}
+
+/* IE9 fix - removes all filters */
+
+/* cssParserFix - .ui-tooltip:not (.ie9haxors ) div.ui-tooltip-content, .ui-tooltip:not (.ie9haxors) div.ui-tooltip-titlebar { filter: none; -ms-filter: none;} */
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .fileupload-buttonbar .ui-button {
+  /*   background: none; */
+  /*   border: none; */
+}
+
+.r01gContainer .fileupload-buttonbar span.ui-icon-cancel {
+  background: transparent url("images/rup.cancel.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-buttonbar span.ui-icon-trash {
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-buttonbar span.ui-icon-circle-arrow-e {
+  background: transparent url("images/rup.upload.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary {
+  /* 	background:none; */
+  /* 	border:none; */
+  /* 	height: 15px; */
+}
+
+.r01gContainer .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-button-text {
+  /* 	padding: 0em 0em 0.3em 2em; */
+}
+
+.r01gContainer .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-circle-arrow-e {
+  background: transparent url("images/rup.upload.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-cancel {
+  background: transparent url("images/rup.cancel.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-trash {
+  background: transparent url("images/toolbar/borrar.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+}
+
+.r01gContainer .fileupload-content .file_icon {
+  background-image: url("images/rup.file.png");
+  width: 15px;
+}
+
+.r01gContainer .fileupload-content .file_download {
+  margin-top: 0.5em;
+}
+
+.r01gContainer .fileupload-content .file_download_icon {
+  background-image: url("images/rup.download.png");
+  width: 15px;
+  margin-top: 0.5em;
+  padding-left: 12px;
+}
+
+.r01gContainer .fileupload-content .file_download_text {
+  margin-left: 0.5em;
+  text-decoration: underline;
+}
+
+.r01gContainer .fileupload-buttonbar {
+  border-top: medium none;
+  border-left: medium none;
+  border-right: medium none;
+  padding-left: 0em;
+}
+
+.r01gContainer .fileupload-content .ui-progressbar {
+  height: 15px;
+  margin-top: 0.5em;
+}
+
+.r01gContainer .fileupload-content.ui-widget-content.ui-corner-bottom {
+  border-top: medium none;
+  border-left: medium none;
+  border-right: medium none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.r01gContainer .fileupload-content .izq_float {
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer form.rup_validate input.error {
+  border: 1px dotted red;
+}
+
+.r01gContainer form.rup_validate label.error {
+  color: red;
+  font-style: italic;
+}
+
+.r01gContainer .widget-header {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  padding-bottom: 0.5em;
+  padding-top: 0.35em;
+  border-color: -moz-use-text-color -moz-use-text-color #cbcbcb;
+  border-image: none;
+  border-style: none none solid;
+  border-width: 0 0 1px;
+  text-align: left;
+}
+
+.r01gContainer .widget-header-title {
+  text-align: left;
+  padding-left: 0.5em;
+  font-weight: bold;
+}
+
+.r01gContainer .widget-icon {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  cursor: pointer;
+  color: gray;
+}
+
+.r01gContainer .widget-icon:hover {
+  color: black;
+}
+
+.r01gContainer .widget-icon {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.r01gContainer .widget-icon-right {
+  float: right;
+}
+
+.r01gContainer .widget-body {
+  padding: 1em;
+}
+
+.r01gContainer .widget-header > div {
+  display: inline-flex;
+}
+
+.r01gContainer .widget-header > div.widget-header-controls {
+  float: right;
+  padding-top: 0.15em;
+  /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color; #fff;
+  background-clip:padding-box;*/
+}
+
+.r01gContainer .grid-stack > .grid-stack-item > .ui-resizable-se {
+  background-image: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full {
+  position: fixed;
+  /*transition-property: top, left, width, height;
+    transition-duration: 0.5s, 0.5s, 0.1s, 0.1s;
+    transition-delay: 0.5s, 0.5s, 0.1s, 0.1s;*/
+  top: 1%;
+  left: 1%;
+  width: 98%;
+  height: 95%;
+  z-index: 10000;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
+  display: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
+  display: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
+  display: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
+  display: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
+  display: none;
+}
+
+.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
+  display: block;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/* Contenedor pasos (UL) */
+
+.r01gContainer .rup-wizard_stepsDescContainer {
+  list-style: none;
+  width: 99%;
+  overflow: hidden;
+  height: 35px;
+}
+
+/* Paso */
+
+.r01gContainer .rup-wizard_stepDesc a {
+  font: arial,helvetica,clean,sans-serif !important;
+  cursor: pointer;
+  color: #0052C7;
+  float: left;
+  text-decoration: underline;
+  text-align: center;
+  height: 35px;
+  background: #EBEBEB url("images/wizard/arrow.gif") no-repeat right top;
+  font-size: 1.09em;
+  padding: 9px 25px 0 10px;
+  display: block;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.r01gContainer .rup-wizard_stepDesc a:hover {
+  text-decoration: none;
+}
+
+.r01gContainer .rup-wizard_stepDesc a:focus {
+  border-style: none;
+  border-width: thin;
+  outline: none;
+  /* evitar borde TAB */
+}
+
+/* Paso ACTIVO */
+
+.r01gContainer .rup-wizard_stepDesc.current a {
+  color: white;
+  text-decoration: none;
+  cursor: default;
+  background: #69C url("images/wizard/arrow_current.gif") no-repeat right top;
+}
+
+/* Paso ANTERIOR AL ACTIVO */
+
+.r01gContainer .rup-wizard_stepDesc.visited a {
+  text-decoration: underline;
+  cursor: default;
+  background: #EBEBEB url("images/wizard/arrow_done_last.gif") no-repeat right top;
+}
+
+/* Paso DESHABILITADO */
+
+.r01gContainer .rup-wizard_stepDesc.disabled a {
+  color: #D3D3D3;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Primer PASO */
+
+/* Último PASO */
+
+.r01gContainer .rup-wizard_lastStepDesc a {
+  background: #EBEBEB url("images/wizard/arrow_last.gif") no-repeat right top;
+}
+
+/* Paso RESUMEN  */
+
+/* Último PASO (activo)*/
+
+.r01gContainer .rup-wizard_lastStepDesc.current a {
+  color: white;
+  text-decoration: none;
+  cursor: default;
+  background: #69C url("images/wizard/arrow_last_current.gif") no-repeat right top;
+}
+
+/* Enlaces Siguiente/Anterior */
+
+.r01gContainer .rup-wizard_prev {
+  margin: 5px;
+  margin-left: 17px;
+  text-decoration: none;
+  color: #666565;
+  padding: 7px;
+  padding-left: 37px;
+  float: left;
+  cursor: pointer;
+  background: #EBEBEB url("images/wizard/prev.png") no-repeat left center;
+  border: 1px solid #BDBDBD;
+  text-align: center;
+  width: 55px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.r01gContainer .rup-wizard_prev:HOVER {
+  color: #666565;
+  text-decoration: underline;
+}
+
+.r01gContainer .rup-wizard_next {
+  margin: 5px;
+  margin-right: 17px;
+  text-decoration: none;
+  color: #666565;
+  padding: 7px;
+  padding-right: 37px;
+  float: right;
+  cursor: pointer;
+  background: #EBEBEB url("images/wizard/next.png") no-repeat right center;
+  border: 1px solid #BDBDBD;
+  text-align: center;
+  width: 55px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.r01gContainer .rup-wizard_next:HOVER {
+  color: #666565;
+  background: white url("images/wizard/next.png") no-repeat right center;
+  text-decoration: underline;
+}
+
+.r01gContainer .rup-wizard_submitButton {
+  margin: 5px;
+  margin-right: 17px;
+  text-decoration: none;
+  color: #666565;
+  padding: 7px;
+  padding-right: 37px;
+  padding-top: 11px;
+  float: right;
+  cursor: pointer;
+  background: #EBEBEB url("images/wizard/submit.png") no-repeat right center;
+  border: 1px solid #BDBDBD;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.r01gContainer .rup-wizard_submitButton:HOVER {
+  color: #666565;
+  background: white url("images/wizard/submit.png") no-repeat right center;
+  text-decoration: underline;
+}
+
+/* Tabs */
+
+.r01gContainer .rup-wizard_tabLevel-0 {
+  margin-left: 1em;
+  color: green;
+}
+
+.r01gContainer .rup-wizard_tabLevel-1 {
+  margin-left: 2em;
+  color: red;
+}
+
+.r01gContainer .rup-wizard_tabLevel-2 {
+  margin-left: 2.5em;
+  color: blue;
+}
+
+.r01gContainer .rup-wizard_tabContainerLevel-0 {
+  margin-left: 1em;
+}
+
+.r01gContainer .rup-wizard_tabContainerLevel-1 {
+  margin-left: 2em;
+}
+
+.r01gContainer .rup-wizard_tabContainerLevel-2 {
+  margin-left: 2.5em;
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+.r01gContainer .rup_tree {
+  visibility: hidden;
+}
+
+/* Estilos generales, por defecto, del componente */
+
+/*
+ * jsTree classic theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+.r01gContainer .jstree-rup-default li,
+.r01gContainer .jstree-rup-default ins {
+  background-image: url("images/tree/d.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+.r01gContainer .jstree-rup-default li {
+  background-position: -93px 0;
+  background-repeat: repeat-y;
+}
+
+.r01gContainer .jstree-rup-default li.jstree-last {
+  background: transparent;
+}
+
+.r01gContainer .jstree-rup-default .jstree-open > ins {
+  background-position: -72px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-closed > ins {
+  background-position: -54px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-leaf > ins {
+  background-position: -36px 0\9;
+  background-position: -37px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-hovered {
+  background: #e7f4f9;
+  border: 1px solid #e7f4f9;
+  padding: 0 2px 0 1px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-clicked {
+  background: navy;
+  border: 1px solid navy;
+  padding: 0 2px 0 1px;
+  color: white;
+}
+
+.r01gContainer .jstree-rup-default a .jstree-icon {
+  background-position: -56px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-open > a .jstree-icon {
+  background-position: -56px -36px;
+}
+
+.r01gContainer .jstree-rup-default a.jstree-loading .jstree-icon {
+  background: url("images/tree/throbber.gif") center center no-repeat !important;
+}
+
+.r01gContainer .jstree-rup-default.jstree-focused {
+  background: white;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child > li.jstree-leaf:first-child > ins {
+  background-position: -72px -36px;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child > li.jstree-open:first-child > ins {
+  background-position: -72px -54px;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child > li.jstree-closed:first-child > ins {
+  background-position: -54px -54px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-dots li,
+.r01gContainer .jstree-rup-default .jstree-no-dots .jstree-leaf > ins {
+  background: transparent;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-leaf:first-child > ins {
+  background: transparent;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-dots .jstree-open > ins {
+  background-position: -18px 0;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-open:first-child > ins {
+  background-position: -18px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-dots .jstree-closed > ins {
+  background-position: 0 0;
+}
+
+.r01gContainer .jstree-rup-default ul:first-child.jstree-no-dots > li.jstree-closed:first-child > ins {
+  background-position: 0 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-icons a .jstree-icon {
+  display: none;
+}
+
+.r01gContainer .jstree-rup-default .jstree-search {
+  font-style: italic;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-icons .jstree-checkbox {
+  display: inline-block;
+}
+
+.r01gContainer .jstree-rup-default .jstree-no-checkboxes .jstree-checkbox {
+  display: none !important;
+}
+
+.r01gContainer .jstree-rup-default .jstree-checked > a > .jstree-checkbox {
+  background-position: -38px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-unchecked > a > .jstree-checkbox {
+  background-position: -2px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-undetermined > a > .jstree-checkbox {
+  background-position: -20px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-checked > a > .jstree-checkbox:hover {
+  background-position: -38px -37px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-unchecked > a > .jstree-checkbox:hover {
+  background-position: -2px -37px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-undetermined > a > .jstree-checkbox:hover {
+  background-position: -20px -37px;
+}
+
+.r01gContainer #vakata-dragged.jstree-rup-default ins {
+  background: transparent !important;
+}
+
+.r01gContainer #vakata-dragged.jstree-rup-default .jstree-ok {
+  background: url("images/tree/d.png") -2px -53px no-repeat !important;
+}
+
+.r01gContainer #vakata-dragged.jstree-rup-default .jstree-invalid {
+  background: url("images/tree/d.png") -18px -53px no-repeat !important;
+}
+
+.r01gContainer #jstree-marker.jstree-rup-default {
+  background: url("images/tree/d.png") -41px -57px no-repeat !important;
+  text-indent: -100px;
+}
+
+.r01gContainer .jstree-rup-default a.jstree-search {
+  font-weight: bold;
+}
+
+.r01gContainer .jstree-rup-default .jstree-locked a {
+  color: silver;
+  cursor: default;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context,
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li ul {
+  background: #f0f0f0;
+  border: 1px solid #979797;
+  -moz-box-shadow: 1px 1px 2px #999;
+  -webkit-box-shadow: 1px 1px 2px #999;
+  box-shadow: 1px 1px 2px #999;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context a {
+  color: black;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context a:hover,
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context .vakata-hover > a {
+  padding: 0 5px;
+  background: #e8eff7;
+  border: 1px solid #aecff7;
+  color: black;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a,
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li.jstree-contextmenu-disabled a:hover {
+  color: silver;
+  background: transparent;
+  border: 0;
+  padding: 1px 4px;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li.vakata-separator {
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  margin: 0;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li ul {
+  margin-left: -4px;
+}
+
+/* IE6 BEGIN */
+
+.r01gContainer .jstree-rup-default li,
+.r01gContainer .jstree-rup-default ins,
+.r01gContainer #vakata-dragged.jstree-rup-default .jstree-invalid,
+.r01gContainer #vakata-dragged.jstree-rup-default .jstree-ok,
+.r01gContainer #jstree-marker.jstree-rup-default {
+  _background-image: url("images/tree/d.gif");
+}
+
+.r01gContainer .jstree-rup-default .jstree-open ins {
+  _background-position: -72px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-closed ins {
+  _background-position: -54px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-leaf ins {
+  _background-position: -36px 0;
+}
+
+.r01gContainer .jstree-rup-default .jstree-open a ins.jstree-icon {
+  _background-position: -56px -36px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-closed a ins.jstree-icon {
+  _background-position: -56px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-leaf a ins.jstree-icon {
+  _background-position: -56px -19px;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context ins {
+  _display: none;
+}
+
+.r01gContainer #vakata-contextmenu.jstree-rup-default-context li {
+  _zoom: 1;
+}
+
+.r01gContainer .jstree-rup-default .jstree-undetermined a .jstree-checkbox {
+  _background-position: -20px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-checked a .jstree-checkbox {
+  _background-position: -38px -19px;
+}
+
+.r01gContainer .jstree-rup-default .jstree-unchecked a .jstree-checkbox {
+  _background-position: -2px -19px;
+}
+
+/* IE6 END */

@@ -13,7 +13,8 @@ module.exports = {
 	},
 	output: {
 		filename: '[name]-bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.join(__dirname, 'build'),
+		publicPath: '/build/'
 	},
 	stats: {
 		colors: true
@@ -24,13 +25,21 @@ module.exports = {
 	devServer: {
 		// contentBase: path.join(__dirname, './'),
 		compress: true,
-		port: 9000
+		port: 9000,
+		hot: true,
+		hotOnly: true,
+		open: true,
+		openPage: 'demo/index-bt4.html',
+		watchContentBase: true,
+		inline:false
+
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery'
-		})
+		}),
+		new webpack.HotModuleReplacementPlugin()
 	],
 
 	module: {
