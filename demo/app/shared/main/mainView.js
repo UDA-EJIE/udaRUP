@@ -3,12 +3,12 @@
  * @exports MainView
  */
 define(['marionette',
-	'templates',
+	'./mainTemplate.hbs',
 	'shared/header/headerView',
 	'shared/language/languageView',
 	'shared/footer/footerView',
 	'shared/menu/menuView'
-], function(Marionette, App, HeaderView, LanguageView, FooterView, MenuView){
+], function(Marionette, MainTemplate, HeaderView, LanguageView, FooterView, MenuView){
 
 	'use strict';
 
@@ -26,7 +26,7 @@ define(['marionette',
      */
 	var MainView = Marionette.LayoutView.extend({/** @lends MainView.prototype */
 		el: 'body',
-		template: App.Templates.demo.app.shared.main.mainTemplate,
+		template: MainTemplate,
 		regions:{
 			Header:'#header',
 			Language: '#language',

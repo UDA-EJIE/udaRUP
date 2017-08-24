@@ -1,10 +1,12 @@
+/* global define */
+
 define(['marionette',
-        'templates',
-        'rup.combo'], function(Marionette, App){
+	'./comboSimpleBodyTemplate.hbs',
+	'rup.combo'], function(Marionette, ComboSimpleBodyTemplate){
 
-  var ComboSimpleBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.combo.comboSimple.comboSimpleBodyTemplate
-  });
+	var ComboSimpleBodyView = Marionette.LayoutView.extend({
+		template: ComboSimpleBodyTemplate
+	});
 
-  return ComboSimpleBodyView;
+	return ComboSimpleBodyView;
 });

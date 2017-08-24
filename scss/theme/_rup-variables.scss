@@ -14,6 +14,70 @@
 // $rup-color-primary-3: #3B84FF;
 // $rup-color-primary-4: #0D66FF;
 
+
+@mixin _assert-ascending($map, $map-name) {
+  $prev-key: null;
+  $prev-num: null;
+  @each $key, $num in $map {
+    @if $prev-num == null {
+      // Do nothing
+    } @else if not comparable($prev-num, $num) {
+      @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    } @else if $prev-num >= $num {
+      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    }
+    $prev-key: $key;
+    $prev-num: $num;
+  }
+}
+
+// Options
+
+$rup-enable-flex:               false !default;
+$rup-enable-rounded:            true !default;
+$rup-enable-shadows:            false !default;
+$rup-enable-gradients:          false !default;
+$rup-enable-transitions:        false !default;
+$rup-enable-hover-media-query:  false !default;
+$rup-enable-grid-classes:       true !default;
+$rup-enable-print-styles:       true !default;
+
+$rup-cursor-disabled:                not-allowed !default;
+
+
+$rup-grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+@include _assert-ascending($rup-grid-breakpoints, "$rup-grid-breakpoints");
+
+// Spacer
+
+$rup-spacer:   1rem !default;
+$rup-spacer-x: $rup-spacer !default;
+$rup-spacer-y: $rup-spacer !default;
+$rup-spacers: (
+  0: (
+    x: 0,
+    y: 0
+  ),
+  1: (
+    x: $rup-spacer-x,
+    y: $rup-spacer-y
+  ),
+  2: (
+    x: ($rup-spacer-x * 1.5),
+    y: ($rup-spacer-y * 1.5)
+  ),
+  3: (
+    x: ($rup-spacer-x * 3),
+    y: ($rup-spacer-y * 3)
+  )
+) !default;
+
 $rup-color-primary-0: #6FA4FF;	// Main Primary color */
 $rup-color-primary-1: #FBFCFF;
 $rup-color-primary-2: #69a3d6;
@@ -87,7 +151,10 @@ $rup-color-error-dark: darken($rup-color-error,25%);
 $rup-color-info-dark: darken($rup-color-info,25%);
 $rup-color-confirm-dark: darken($rup-color-confirm,25%);
 
+
+
 $rup-bg-color: #fff;
+$rup-body-color: darken($rup-bg-color, 5%);
 $rup-bg-color-hover: darken($rup-bg-color, 5%);
 
 
@@ -109,6 +176,9 @@ $rup-link-hover-decoration: underline !default;
 // Color: general
 
 $rup-color-ui-widget-hover: lighten($rup-color-primary-2,20%);
+
+$rup-color-component-active: #fff !default;
+$rup-color-component-active-bg:    $rup-brand-primary !default;
 
 // Color: Utillities: bubble
 
@@ -157,6 +227,41 @@ $rup-color-date-weekend-bg: $rup-color-error-light;
 $rup-color-date-weekend-border: 0.1em solid $rup-color-error-light !important;
 $rup-color-date-weekend-text: $rup-text-color-inverse;
 
+// Colors: dropdown
+
+$rup-color-dropdown-bg:                    #fff !default;
+$rup-color-dropdown-border:          rgba(0,0,0,.15) !default;
+$rup-color-dropdown-divider-bg:            #e5e5e5 !default;
+
+$rup-color-dropdown-link:            $rup-gray-dark !default;
+$rup-color-dropdown-link-hover:      darken($rup-gray-dark, 5%) !default;
+$rup-color-dropdown-link-hover-bg:         #f5f5f5 !default;
+
+$rup-color-dropdown-link-active:     $rup-color-component-active !default;
+$rup-color-dropdown-link-active-bg:        $rup-color-component-active-bg !default;
+
+$rup-color-dropdown-link-disabled:   $rup-gray-light !default;
+
+$rup-color-dropdown-header:          $rup-gray-light !default;
+
+// Colors: Nav
+
+$rup-color-nav-link-hover-bg:             $rup-gray-lighter !default;
+$rup-color-nav-disabled-link:       $rup-gray-light !default;
+$rup-color-nav-disabled-link-hover: $rup-gray-light !default;
+$rup-color-nav-disabled-link-hover-bg:    transparent !default;
+
+$rup-color-nav-tabs-border:                       #ddd !default;
+$rup-color-nav-tabs-link-hover-border:            $rup-gray-lighter !default;
+$rup-color-nav-tabs-active-link-hover:            $rup-gray !default;
+$rup-color-nav-tabs-active-link-hover-bg:               $rup-bg-color !default;
+$rup-color-nav-tabs-active-link-hover-border:     #ddd !default;
+$rup-color-nav-tabs-justified-link-border:        #ddd !default;
+$rup-color-nav-tabs-justified-active-link-border: $rup-bg-color !default;
+
+$rup-color-nav-pills-active-link: $rup-color-component-active !default;
+$rup-color-nav-pills-active-link-bg:    $rup-color-component-active-bg !default;
+
 // Colors: Navbar
 
 $rup-color-navbar-bg: $rup-color-primary-2;
@@ -167,6 +272,20 @@ $rup-color-navbar-item-bg: $rup-color-primary-3;
 $rup-color-navbar-item-hover-bg: $rup-color-primary-2;
 $rup-color-navbar-dropdown-item-hover-bg: $rup-color-primary-2;
 $rup-color-navbar-dropdown-menu: $rup-bg-color;
+
+$rup-color-navbar-dark:                 rgba(255, 255, 255, .5) !default;
+$rup-color-navbar-dark-hover:           rgba(255, 255, 255, .75) !default;
+$rup-color-navbar-dark-active:          rgba(255,255,255,1) !default;
+$rup-color-navbar-dark-disabled:        rgba(255,255,255,.25) !default;
+$rup-color-navbar-dark-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$rup-color-navbar-dark}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+$rup-color-navbar-dark-toggler-border:        rgba(255,255,255,.1) !default;
+
+$rup-color-navbar-light:                rgba(0,0,0,.5) !default;
+$rup-color-navbar-light-hover:          rgba(0,0,0,.7) !default;
+$rup-color-navbar-light-active:         rgba(0,0,0,.9) !default;
+$rup-color-navbar-light-disabled:       rgba(0,0,0,.3) !default;
+$rup-color-navbar-light-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$rup-color-navbar-light}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+$rup-color-navbar-light-toggler-border:       rgba(0,0,0,.1) !default;
 
 
 // Colors: Feedback
@@ -290,6 +409,8 @@ $rup-line-height-base: 1.25 !default;
 $rup-border-width: 1px !default;
 
 $rup-border-radius: 4px;
+$rup-border-radius-lg:       .3rem !default;
+$rup-border-radius-sm:       .2rem !default;
 $rup-border-radius-none: 0;
 
 // Styles: Utillities: bubble
@@ -312,7 +433,40 @@ $rup-accordion-active-border: 1px solid $rup-color-primary-3;
 
 // Styles: Feedback
 
+// Styles: Caret
+
+$rup-caret-width:            .3em !default;
+$rup-caret-width-lg:         $rup-caret-width !default;
+
+// Styles: Button
+
+$rup-button-line-height: 1.42857;
+$rup-button-border-radius:              $rup-border-radius !default;
+$rup-button-border-radius-lg:           $rup-border-radius-lg !default;
+$rup-button-border-radius-sm:           $rup-border-radius-sm !default;
+
+// Styles: Dropdown
+
+$rup-dropdown-min-width:             10rem !default;
+$rup-dropdown-padding-y:             .5rem !default;
+$rup-dropdown-margin-top:            .125rem !default;
+$rup-dropdown-border-width:          $rup-border-width !default;
+$rup-dropdown-box-shadow:            0 .5rem 1rem rgba(0,0,0,.175) !default;
+
+$rup-dropdown-item-padding-x:        1.5rem !default;
+
 // Styles: Dialog
+
+// Styles: Nav
+
+$rup-nav-item-margin:               .2rem !default;
+$rup-nav-item-inline-spacer:        1rem !default;
+$rup-nav-link-padding:              .5em 1em !default;
+
+$rup-nav-tabs-border-width:                       $rup-border-width !default;
+$rup-nav-tabs-border-radius:                      $rup-border-radius !default;
+
+$rup-nav-pills-border-radius:     $rup-border-radius !default;
 
 // Styles: Navbar
 
@@ -324,9 +478,22 @@ $rup-navbar-icon-font-size: $rup-fa-size-xlg;
 $rup-navbar-icon-text-font-size: 1.2rem;
 
 
-// Styles: Button
+$rup-navbar-border-radius:              $rup-border-radius !default;
+$rup-navbar-padding-x:                  $rup-spacer !default;
+$rup-navbar-padding-y:                  ($rup-spacer / 2) !default;
 
-$rup-button-line-height: 1.42857;
+$rup-navbar-brand-padding-y:            .25rem !default;
+
+$rup-navbar-divider-padding-y:          .425rem !default;
+
+$rup-navbar-toggler-padding-x:           .75rem !default;
+$rup-navbar-toggler-padding-y:           .5rem !default;
+$rup-navbar-toggler-font-size:           $rup-font-size-lg !default;
+$rup-navbar-toggler-border-radius:       $rup-button-border-radius !default;
+$rup-navbar-toggler-padding-x:           .75rem !default;
+$rup-navbar-toggler-padding-y:           .5rem !default;
+
+
 
 
 // Styles: Tabs
@@ -337,6 +504,18 @@ $rup-border-radius-dialog: $rup-border-radius-none;
 
 // Styles: validate
 
+
+// z-index
+
+$rup-zindex-dropdown-backdrop:  990 !default;
+$rup-zindex-navbar:            1000 !default;
+$rup-zindex-dropdown:          1000 !default;
+$rup-zindex-popover:           1060 !default;
+$rup-zindex-tooltip:           1070 !default;
+$rup-zindex-navbar-fixed:      1030 !default;
+$rup-zindex-navbar-sticky:     1030 !default;
+$rup-zindex-modal-bg:          1040 !default;
+$rup-zindex-modal:             1050 !default;
 
 
 $rup-validate-icon-line-height: 1.9;

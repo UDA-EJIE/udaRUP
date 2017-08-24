@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup.menu'], function(Marionette, App){
+	'./menuHorizontalTemplate.hbs',
+	'rup.menu'], function(Marionette, MenuHorizontalTemplate){
 
-  var MenuHorizontalView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.menu.menuHorizontalTemplate
+	var MenuHorizontalView = Marionette.LayoutView.extend({
+		template: MenuHorizontalTemplate
 
-  });
+	});
 
-  return MenuHorizontalView;
+	return MenuHorizontalView;
 });

@@ -1,9 +1,9 @@
 
 define(['marionette',
-	'templates', 'rup.button','rup.combo'], function(Marionette, App){
+	'./styleGuideTemplate.hbs', 'rup.button','rup.combo'], function(Marionette, StyleGuideTemplate){
 
 	var StyleGuideView = Marionette.LayoutView.extend({
-		template: App.Templates.demo.app.styleGuide.styleGuideTemplate,
+		template: StyleGuideTemplate,
 		ui:{
 			rupButtons: '.rup-button',
 			rupDropdown: '#dropdownHtmlListButton',
@@ -17,14 +17,14 @@ define(['marionette',
 		this.ui.rupButtons.rup_button();
 
 		this.ui.rupDropdown.rup_button({
-    		dropdown:{
-    			dropdownListId:'dropdownHtmlList'
-    		}
-    	});
+			dropdown:{
+				dropdownListId:'dropdownHtmlList'
+			}
+		});
 
 		this.ui.rupCombo.rup_combo({
 			loadFromSelect: true
-    	});
+		});
 	}
 
 	return StyleGuideView;

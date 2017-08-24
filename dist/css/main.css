@@ -8,7 +8,9 @@ body, .r01gContainer {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
   font-size: 1.1rem;
   margin: 0;
-  color: #333333; }
+  color: #333333;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
 
 /* html, .r01gContainer { */
 .r01gContainer {
@@ -276,7 +278,7 @@ section > h1, section > h2, section > h3, section > h4, section > h5, section > 
   display: none; }
 
 .promotionsDismissalsActionPanel_list li[rel='worker'] > a > .jstree-icon {
-  background-image: url("../images/worker.png");
+  background-image: url("../images/arbol/worker.png");
   background-position: 0 0;
   width: 16px;
   height: 16px;

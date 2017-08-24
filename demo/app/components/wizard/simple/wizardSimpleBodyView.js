@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup.wizard'], function(Marionette, App){
+	'./wizardSimpleBodyTemplate.hbs',
+	'rup.wizard'], function(Marionette, WizardSimpleBodyTemplate){
 
-  var WizardSimpleBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.wizard.simple.wizardSimpleBodyTemplate
+	var WizardSimpleBodyView = Marionette.LayoutView.extend({
+		template: WizardSimpleBodyTemplate
 
-  });
+	});
 
-  return WizardSimpleBodyView;
+	return WizardSimpleBodyView;
 });

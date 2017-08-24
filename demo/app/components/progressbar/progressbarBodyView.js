@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup.progressbar'], function(Marionette, App){
+	'./progressbarBodyTemplate.hbs',
+	'rup.progressbar'], function(Marionette, ProgressbarBodyTemplate){
 
-  var ProgressbarBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.progressbar.progressbarBodyTemplate
+	var ProgressbarBodyView = Marionette.LayoutView.extend({
+		template: ProgressbarBodyTemplate
 
-  });
+	});
 
-  return ProgressbarBodyView;
+	return ProgressbarBodyView;
 });

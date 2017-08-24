@@ -1,69 +1,69 @@
 define(['marionette',
-        'templates',
-        'rup.message'], function(Marionette, App){
+	'./messageTestTemplate.hbs',
+	'rup.message'], function(Marionette, MessageTestTemplate){
 
-  var MessageTestView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.message.messageTestTemplate,
-      ui:{
-        btnError: '#btnError',
-        btnConfirm: '#btnConfirm',
-        btnOK: '#btnOK',
-        btnAlert: '#btnAlert',
-        btnAlertJS: '#btnAlertJS',
-        buttons: "button.message-button"
-      },
-      events:{
-        "click @ui.btnError": fncClickBtnError,
-        "click @ui.btnConfirm": fncClickBtnConfirm,
-        "click @ui.btnOK": fncClickBtnOK,
-        "click @ui.btnAlert": fncClickAlert,
-        "click @ui.btnAlertJS": fncClickBtnAlertJS
-      },
-      onAttach: fncOnAttach
-  });
+	var MessageTestView = Marionette.LayoutView.extend({
+		template: MessageTestTemplate,
+		ui:{
+			btnError: '#btnError',
+			btnConfirm: '#btnConfirm',
+			btnOK: '#btnOK',
+			btnAlert: '#btnAlert',
+			btnAlertJS: '#btnAlertJS',
+			buttons: 'button.message-button'
+		},
+		events:{
+			'click @ui.btnError': fncClickBtnError,
+			'click @ui.btnConfirm': fncClickBtnConfirm,
+			'click @ui.btnOK': fncClickBtnOK,
+			'click @ui.btnAlert': fncClickAlert,
+			'click @ui.btnAlertJS': fncClickBtnAlertJS
+		},
+		onAttach: fncOnAttach
+	});
 
-  function fncOnAttach(){
-    
-    this.ui.buttons.rup_button({});
+	function fncOnAttach(){
 
-  }
+		this.ui.buttons.rup_button({});
 
-  function fncClickBtnError(){
-    $.rup_messages("msgError", {
-      title: "Error grave",
-      message: "<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>"
-    });
-  }
+	}
 
-  function fncClickBtnConfirm(){
-    $.rup_messages("msgConfirm", {
-      message: "¿Está seguro que desea cancelar?",
-      title: "Confirmación",
-      OKFunction : fncConfirmAcceptCallback
-    });
-  }
+	function fncClickBtnError(){
+		$.rup_messages('msgError', {
+			title: 'Error grave',
+			message: '<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>'
+		});
+	}
 
-  function fncClickBtnOK(){
-    $.rup_messages("msgOK", {
-      title: "Correcto",
-      message: "Todo ha ido OK."
-    });
-  }
+	function fncClickBtnConfirm(){
+		$.rup_messages('msgConfirm', {
+			message: '¿Está seguro que desea cancelar?',
+			title: 'Confirmación',
+			OKFunction : fncConfirmAcceptCallback
+		});
+	}
 
-  function fncClickAlert(){
-    $.rup_messages("msgAlert", {
-      title: "Alerta",
-      message: "Esto es una alerta."
-    });
-  }
+	function fncClickBtnOK(){
+		$.rup_messages('msgOK', {
+			title: 'Correcto',
+			message: 'Todo ha ido OK.'
+		});
+	}
 
-  function fncClickBtnAlertJS(){
-    alert("esto es un alert de javascript puro");
-  }
+	function fncClickAlert(){
+		$.rup_messages('msgAlert', {
+			title: 'Alerta',
+			message: 'Esto es una alerta.'
+		});
+	}
 
-  function fncConfirmAcceptCallback(){
-    alert("Aceptar");
-  }
+	function fncClickBtnAlertJS(){
+		alert('esto es un alert de javascript puro');
+	}
 
-  return MessageTestView;
+	function fncConfirmAcceptCallback(){
+		alert('Aceptar');
+	}
+
+	return MessageTestView;
 });

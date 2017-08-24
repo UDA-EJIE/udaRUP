@@ -1,33 +1,35 @@
 define(['marionette',
-        'templates',
-        './accordionBodyView',
-        './accordionTestView',
-        '../../shared/component/componentExampleCodeView',
-        // 'highlight',
-        // 'highlight-html',
-        'rup.accordion','rup.tabs','rup.button'], function(Marionette, App, AccordionBodyView, AccordionTestView, ComponentExampleCodeView){
+	'../../shared/component/componentLayoutTemplate.hbs',
+	'./accordionHtmlCodeTemplate.hbs',
+	'./accordionJsCodeTemplate.hbs',
+	'./accordionBodyView',
+	'./accordionTestView',
+	'../../shared/component/componentExampleCodeView',
+	// 'highlight',
+	// 'highlight-html',
+	'rup.accordion','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, AccordionHtmlCodeTemplate, AccordionJsCodeTemplate, AccordionBodyView, AccordionTestView, ComponentExampleCodeView){
 
-  var AccordionView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
-      regions:{
-        Main: "#componentMainBody",
-        Example: "#exampleCode",
-        Test: "#componentTest"
-      },
-      onRender: fncOnRender
-  });
+	var AccordionView = Marionette.LayoutView.extend({
+		template: ComponentLayoutTemplate,
+		regions:{
+			Main: '#componentMainBody',
+			Example: '#exampleCode',
+			Test: '#componentTest'
+		},
+		onRender: fncOnRender
+	});
 
-  function fncOnRender(){
-    var $view = this;
+	function fncOnRender(){
+		var $view = this;
 
-    $view.Main.show(new AccordionBodyView());
-    $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demo.app.components.accordion.accordionHtmlCodeTemplate,
-      templateJs: App.Templates.demo.app.components.accordion.accordionJsCodeTemplate
-    }));
-    $view.Test.show(new AccordionTestView());
-  }
+		$view.Main.show(new AccordionBodyView());
+		$view.Example.show(new ComponentExampleCodeView({
+			templateHtml: AccordionHtmlCodeTemplate,
+			templateJs: AccordionJsCodeTemplate
+		}));
+		$view.Test.show(new AccordionTestView());
+	}
 
 
-  return AccordionView;
+	return AccordionView;
 });

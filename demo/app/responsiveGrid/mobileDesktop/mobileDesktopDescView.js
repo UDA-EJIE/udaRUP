@@ -1,9 +1,9 @@
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./mobileDesktopDescTemplate.hbs'], function(Marionette, MobileDesktopDescTemplate){
 
-  var MobileDesktopDescView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.responsiveGrid.mobileDesktop.mobileDesktopDescTemplate,
-  });
+	var MobileDesktopDescView = Marionette.LayoutView.extend({
+		template: MobileDesktopDescTemplate,
+	});
 
-  return MobileDesktopDescView;
+	return MobileDesktopDescView;
 });

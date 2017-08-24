@@ -1,11 +1,12 @@
 define(['marionette',
-        'templates',
-        'rup.menu'], function(Marionette, App){
+	'./menuMixtoTemplate.hbs',
+	'rup.menu'], function(Marionette, MenuMixtoTemplate){
 
-  var MenuMixtoView = Marionette.LayoutView.extend({
-    template: App.Templates.demo.app.components.menu.menuMixtoTemplate
+	var MenuMixtoView = Marionette.LayoutView.extend({
+		template: MenuMixtoTemplate
 
-  });
+	});
 
-  return MenuMixtoView;
+	return MenuMixtoView;
+  
 });
