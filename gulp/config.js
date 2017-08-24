@@ -11,7 +11,7 @@ module.exports = {
 			distCss: './dist/css/',
 			distJs: './dist/js/',
 			build: './build/',
-			buildCss: './build/css/',
+			buildCss: './dist/css/',
 			buildJs: './build/js/',
 			sass: './scss/',
 			sassBootstrap: './scss/bootstrap/',

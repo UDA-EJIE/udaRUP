@@ -1,9 +1,9 @@
 define(['marionette',
-	'templates',
-	'rup.menu','rup.lang','rup.navbar'], function(Marionette, App){
+	'./menuTemplate.hbs',
+	'rup.menu','rup.lang','rup.navbar'], function(Marionette, MenuTemplate){
 
 	var MenuView = Marionette.LayoutView.extend({
-		template: App.Templates.demo.app.shared.menu.menuTemplate,
+		template: MenuTemplate,
 		redirectNavLink: fncRedirectNavLink,
 		ui:{
 			// menuElement: "#x21aResponsiveWar_menu",

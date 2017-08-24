@@ -1,3 +1,5 @@
+/* global require */
+
 var gulp = require('gulp');
 var fs = require('fs');
 var concat = require('gulp-concat');
@@ -17,7 +19,7 @@ gulp.task('rup:build:table', function (cb) {
          if ( typeof define === "function" && define.amd ) {
 
             // AMD. Register as an anonymous module.
-            define( ["jquery","./rup.base","./rup.form", "./rup.contextMenu", "./rup.toolbar","./rup.report","form2object"], factory );
+            define( ["jquery","./rup.base","./rup.form", "./rup.contextMenu", "./rup.toolbar","./rup.report","./core/utils/form2object"], factory );
          } else {
 
             // Browser globals
@@ -27,5 +29,5 @@ gulp.task('rup:build:table', function (cb) {
           <%= contents %>
         }));
         `))
-		.pipe(gulp.dest('build/src'));
+		.pipe(gulp.dest('src'));
 });

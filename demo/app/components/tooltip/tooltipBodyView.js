@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates',
-        'rup.tooltip'], function(Marionette, App){
+	'./tooltipBodyTemplate.hbs',
+	'rup.tooltip'], function(Marionette, TooltipBodyTemplate){
 
-  var TooltipBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.tooltip.tooltipBodyTemplate
-  });
+	var TooltipBodyView = Marionette.LayoutView.extend({
+		template: TooltipBodyTemplate
+	});
 
-  return TooltipBodyView;
+	return TooltipBodyView;
 });

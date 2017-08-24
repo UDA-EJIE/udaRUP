@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates',
-        'rup.message'], function(Marionette, App){
+	'./messageBodyTemplate.hbs',
+	'rup.message'], function(Marionette, MessageBodyTemplate){
 
-  var MessageBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.message.messageBodyTemplate,
-  });
+	var MessageBodyView = Marionette.LayoutView.extend({
+		template: MessageBodyTemplate,
+	});
 
-  return MessageBodyView;
+	return MessageBodyView;
 });

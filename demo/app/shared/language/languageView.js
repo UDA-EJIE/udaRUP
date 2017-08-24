@@ -1,12 +1,12 @@
 
 define(['marionette',
-	'templates',
+	'./languageTemplate.hbs',
 	'rup.base',
 	'rup.utils',
-	'rup.lang'], function(Marionette, App){
+	'rup.lang'], function(Marionette, LanguageTemplate){
 
 	var HeaderView = Marionette.LayoutView.extend({
-		template: App.Templates.demo.app.shared.language.languageTemplate,
+		template: LanguageTemplate,
 		ui:{
 			languageSelector: '#x21aResponsiveWar_language'
 		},

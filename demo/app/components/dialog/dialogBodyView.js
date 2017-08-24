@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates',
-        'rup.dialog'], function(Marionette, App){
+	'./dialogBodyTemplate.hbs',
+	'rup.dialog'], function(Marionette, DialogBodyTemplate){
 
-  var DialogBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.dialog.dialogBodyTemplate
-  });
+	var DialogBodyView = Marionette.LayoutView.extend({
+		template: DialogBodyTemplate
+	});
 
-  return DialogBodyView;
+	return DialogBodyView;
 });

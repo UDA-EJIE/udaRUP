@@ -308,19 +308,19 @@
 				// Capa que controla el colapso del formualario
 				$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+settings.id)),
 				$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+settings.id)),
-				$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria')));
-			// Capa que muestra el número de ocurrencias
-			$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+settings.id)),
-			$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+settings.id, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+				$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+				// Capa que muestra el número de ocurrencias
+				$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+settings.id)),
+				$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+settings.id, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
 
-			// Capa que controla la navegación entre las diferentes ocurrencias
-			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+settings.id)),
-			$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-			$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-			$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-			$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
-			$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+				// Capa que controla la navegación entre las diferentes ocurrencias
+				$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+settings.id)),
+				$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
+				$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
+				$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
+				$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
+				$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
+				$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
 
 			// Construcción del objeto final
 			$collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -392,7 +392,7 @@
 			});
 
 			// Se recubre con un form
-			$searchForm = jQuery('<form>').attr('id',settings.id+'_search_searchForm');
+			var $searchForm = jQuery('<form>').attr('id',settings.id+'_search_searchForm');
 			settings.search.$searchRow.parent().parent().wrap($searchForm);
 			settings.search.$searchForm = jQuery('#'+settings.id+'_search_searchForm');
 			settings.search.$searchRow.hide();

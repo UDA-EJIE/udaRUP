@@ -1,10 +1,11 @@
 
 define(['marionette',
-	'templates'], function(Marionette, App){
+	'./indexTemplate.hbs'], function(Marionette, IndexTemplate){
 
 	var IndexView = Marionette.LayoutView.extend({
-		template: App.Templates.demo.app.pages.index.indexTemplate
+		template: IndexTemplate
 	});
+
 
 	return IndexView;
 

@@ -1,9 +1,9 @@
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./dateBodyTemplate.hbs'], function(Marionette, DateBodyTemplate){
 
-  var DateBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.date.dateBodyTemplate,
-  });
+	var DateBodyView = Marionette.LayoutView.extend({
+		template: DateBodyTemplate,
+	});
 
-  return DateBodyView;
+	return DateBodyView;
 });

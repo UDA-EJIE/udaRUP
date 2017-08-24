@@ -168,7 +168,7 @@
 			var array = $.rup_utils.jsontoarray(obj);
 
 			var json = {};
-			for (key in array) {
+			for (var key in array) {
 				if (!$.isFunction(array[key])) {
 					json[key] = array[key];
 				}

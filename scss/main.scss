@@ -18,6 +18,9 @@ body, .r01gContainer{
   font-size: $rup-font-size-body;
   margin: 0;
   color: $rup-text-color;
+
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 
@@ -346,7 +349,7 @@ section>h1, section>h2, section>h3, section>h4, section>h5, section>h6 {
 }
 
 .promotionsDismissalsActionPanel_list li[rel='worker']>a>.jstree-icon {
-	background-image: url('../images/worker.png');
+	background-image: url('../images/arbol/worker.png');
 	background-position: 0 0;
 	width: 16px;
 	height: 16px;

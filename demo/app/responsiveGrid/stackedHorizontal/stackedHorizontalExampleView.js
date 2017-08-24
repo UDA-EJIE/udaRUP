@@ -1,9 +1,9 @@
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./stackedHorizontalExampleTemplate.hbs'], function(Marionette, StackedHorizontalExampleTemplate){
 
-  var StackedHorizontalDescView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.responsiveGrid.stackedHorizontal.stackedHorizontalExampleTemplate,
-  });
+	var StackedHorizontalDescView = Marionette.LayoutView.extend({
+		template: StackedHorizontalExampleTemplate,
+	});
 
-  return StackedHorizontalDescView;
+	return StackedHorizontalDescView;
 });

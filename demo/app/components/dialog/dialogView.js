@@ -1,31 +1,33 @@
 define(['marionette',
-        'templates',
-        './dialogBodyView',
-        './dialogTestView',
-        '../../shared/component/componentExampleCodeView',
-        'rup.dialog'], function(Marionette, App, DialogBodyView, DialogTestView, ComponentExampleCodeView){
+	'../../shared/component/componentLayoutTemplate.hbs',
+	'./dialogHtmlCodeTemplate.hbs',
+	'./dialogJsCodeTemplate.hbs',
+	'./dialogBodyView',
+	'./dialogTestView',
+	'../../shared/component/componentExampleCodeView',
+	'rup.dialog'], function(Marionette, ComponentLayoutTemplate, DialogHtmlCodeTemplate, DialogJsCodeTemplate, DialogBodyView, DialogTestView, ComponentExampleCodeView){
 
-  var DialogView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
-      regions:{
-        Main: "#componentMainBody",
-        Example: "#exampleCode",
-        Test: "#componentTest"
-      },
-      onRender: fncOnRender
-  });
+	var DialogView = Marionette.LayoutView.extend({
+		template: ComponentLayoutTemplate,
+		regions:{
+			Main: '#componentMainBody',
+			Example: '#exampleCode',
+			Test: '#componentTest'
+		},
+		onRender: fncOnRender
+	});
 
-  function fncOnRender(){
-    var $view = this;
+	function fncOnRender(){
+		var $view = this;
 
-    $view.Main.show(new DialogBodyView());
-    $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demo.app.components.dialog.dialogHtmlCodeTemplate,
-      templateJs: App.Templates.demo.app.components.dialog.dialogJsCodeTemplate
-    }));
-    $view.Test.show(new DialogTestView());
-  }
+		$view.Main.show(new DialogBodyView());
+		$view.Example.show(new ComponentExampleCodeView({
+			templateHtml: DialogHtmlCodeTemplate,
+			templateJs: DialogJsCodeTemplate
+		}));
+		$view.Test.show(new DialogTestView());
+	}
 
 
-  return DialogView;
+	return DialogView;
 });

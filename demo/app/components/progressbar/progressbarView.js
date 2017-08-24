@@ -1,33 +1,33 @@
 define(['marionette',
-        'templates',
-        './progressbarBodyView',
-        './progressbarTestView',
-        '../../shared/component/componentExampleCodeView',
-        // 'highlight',
-        // 'highlight-html',
-        'rup.progressbar','rup.tabs','rup.button'], function(Marionette, App, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
+	'../../shared/component/componentLayoutTemplate.hbs',
+	'./progressbarHtmlCodeTemplate.hbs',
+	'./progressbarJsCodeTemplate.hbs',
+	'./progressbarBodyView',
+	'./progressbarTestView',
+	'../../shared/component/componentExampleCodeView',
+	'rup.progressbar','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, ProgressbarHtmlCodeTemplate, ProgressbarJsCodeTemplate, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
 
-  var ProgressbarView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
-      regions:{
-        Main: "#componentMainBody",
-        Example: "#exampleCode",
-        Test: "#componentTest"
-      },
-      onRender: fncOnRender
-  });
+	var ProgressbarView = Marionette.LayoutView.extend({
+		template: ComponentLayoutTemplate,
+		regions:{
+			Main: '#componentMainBody',
+			Example: '#exampleCode',
+			Test: '#componentTest'
+		},
+		onRender: fncOnRender
+	});
 
-  function fncOnRender(){
-    var $view = this;
+	function fncOnRender(){
+		var $view = this;
 
-    $view.Main.show(new ProgressbarBodyView());
-    $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demo.app.components.progressbar.progressbarHtmlCodeTemplate,
-      templateJs: App.Templates.demo.app.components.progressbar.progressbarJsCodeTemplate
-    }));
-    $view.Test.show(new ProgressbarTestView());
-  }
+		$view.Main.show(new ProgressbarBodyView());
+		$view.Example.show(new ComponentExampleCodeView({
+			templateHtml: ProgressbarHtmlCodeTemplate,
+			templateJs: ProgressbarJsCodeTemplate
+		}));
+		$view.Test.show(new ProgressbarTestView());
+	}
 
 
-  return ProgressbarView;
+	return ProgressbarView;
 });

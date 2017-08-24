@@ -13,7 +13,8 @@ module.exports = {
 	},
 	output: {
 		filename: '[name]-bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.join(__dirname, 'demo')
+		// publicPath: 'demo'
 	},
 	stats: {
 		colors: true
@@ -21,19 +22,110 @@ module.exports = {
 	node: {
 		fs: 'empty'
 	},
-	devServer: {
-		// contentBase: path.join(__dirname, './'),
-		compress: true,
-		port: 9000
-	},
+	// devServer: {
+	// 	contentBase: path.join(__dirname, 'build'),
+	// 	compress: true,
+	// 	port: 9000,
+	// 	hot: true,
+	// 	open: true,
+	// 	openPage: 'demo/index-bt4.html',
+	// 	watchContentBase: true,
+	// 	inline:false
+	//
+	// },
 	plugins: [
 		new webpack.ProvidePlugin({
 			$: 'jquery',
-			jQuery: 'jquery'
-		})
+			jQuery: 'jquery',
+			Tether: 'tether',
+			Popper: ['popper.js', 'default'],
+			Util: 'exports-loader?Util!bootstrap/js/dist/util',
+			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown'
+		}),
+
+		new webpack.HotModuleReplacementPlugin()
 	],
 
 	module: {
+
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['es2015']
+					}
+				}
+			},
+			{ test: /\.hbs$/,
+				loader: 'handlebars-loader',
+				query:{
+					knownHelpers: ['i18n'],
+					helperDirs: [
+						__dirname + '/src/helper'
+
+					] }
+			},
+			{
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+				test: /\.scss$/,
+				use: [{
+					loader: 'style-loader' // creates style nodes from JS strings
+				}, {
+					loader: 'css-loader',
+					options: {
+						alias: {
+							// './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
+							'./images': path.join(__dirname, '../assets/images'),
+							'../images': path.join(__dirname, '../demo/images'),
+							'./cursors': path.join(__dirname, '../assets/cursors')
+
+						}
+					} // translates CSS into CommonJS
+				}, {
+					loader: 'postcss-loader', // Run post css actions
+					options: {
+						plugins: function () { // post css plugins, can be exported to postcss.config.js
+							return [
+								require('precss'),
+								require('autoprefixer')
+							];
+						}
+					}
+				}, {
+					loader: 'sass-loader',
+					options: {
+						// includePaths: [
+						// 	 path.join(__dirname, '../assets/images/jquery-ui')
+						// 	path.join(__dirname, '../assets/images/rup'),
+						// 	path.resolve('../assets/cursors'),
+						// ] // compiles Sass to CSS
+					}
+				}]
+			// },{
+			// 	test: /\.woff2?$|\.ttf$|\.png$|\.eot$|\.gif$|\.cur$|\.svg$/,
+			// 	use: [{
+			// 		loader: 'file-loader'
+			// 	}]
+			// },{
+			},{
+				test: /\.png$|\.gif$|\.cur$|\.svg$/,
+				use: [{
+					loader: 'file-loader'
+				}]
+			},{
+				test: /\.woff2?$|\.ttf$|\.eot$/,
+				use: [{
+					loader: 'url-loader'
+				}]
+			}
+		]
+
 		// loaders: [
 		// 	{
 		// 		test: /\.js$/,
@@ -49,7 +141,7 @@ module.exports = {
 	resolve:
 		{
 
-			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src'],
+			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src', 'dist'],
 			alias: {
 				'handlebars' : 'handlebars/dist/handlebars.js',
 				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
@@ -86,6 +178,7 @@ module.exports = {
 
 				'bt3':  path.resolve(__dirname, '../dist/js/externals/bt3.min.js'),
 				'bt4':  path.resolve(__dirname, '../dist/js/externals/bt4.min.js'),
+				'tether':  'tether/dist/js/tether.js',
 
 				'templates':  path.resolve(__dirname, 'templates.js')
 			}

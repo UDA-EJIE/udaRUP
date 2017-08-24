@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./headerJQueryUITemplate.hbs'], function(Marionette, HeaderJQueryUITemplate){
 
-    var HeaderView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.shared.header.headerJQueryUITemplate
-    });
+	var HeaderView = Marionette.LayoutView.extend({
+		template: HeaderJQueryUITemplate
+	});
 
-    return HeaderView;
+	return HeaderView;
 
 });

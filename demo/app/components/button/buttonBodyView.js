@@ -1,9 +1,9 @@
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./buttonBodyTemplate.hbs'], function(Marionette, ButtonBodyTemplate){
 
-  var ToolbarBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.button.buttonBodyTemplate,
-  });
+	var ToolbarBodyView = Marionette.LayoutView.extend({
+		template: ButtonBodyTemplate,
+	});
 
-  return ToolbarBodyView;
+	return ToolbarBodyView;
 });
