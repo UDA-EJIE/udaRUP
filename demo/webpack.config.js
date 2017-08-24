@@ -141,7 +141,7 @@ module.exports = {
 	resolve:
 		{
 
-			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src', 'dist'],
+			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src'],
 			alias: {
 				'handlebars' : 'handlebars/dist/handlebars.js',
 				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',

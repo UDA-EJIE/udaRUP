@@ -9,19 +9,29 @@
   },
   "scripts": {
     "install": "",
-    "build-demo": "gulp build && gulp build:babel",
+    "build-demo": "rungulp build && gulp build:babel",
     "dist": "gulp dist && gulp dist:portal",
     "all": "npm run build && npm run dist",
     "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
     "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
-    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
+
     "build": "gulp build && webpack --env dev && webpack --env build",
     "dev": "webpack --env dev",
     "watch": "gulp watch:src & webpack --progress --colors --watch --env dev",
-    "watch-x21a": "gulp watch:src & webpack --progress --colors --watch --env dev & gulp watch:x21a",
-    "build-dev": "webpack --progress --colors --watch --env dev",
+    "watch-x21a": "run-p watch:src webpack:watch watch:x21a",
+
+    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
     "test": "karma start --single-run --no-auto-watch karma.conf.js",
-    "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+
+    "webpack:watch" : "webpack --progress --colors --watch --env dev",
+    "webpack:dev" : "webpack --env dev",
+    "webpack:demo" : "webpack --config=./demo/webpack.config.js",
+    "webpack:demo:watch" : "webpack --config=./demo/webpack.config.js --watch",
+    "webpack:demo:watch" : "webpack --config=./demo/webpack.config.js --watch",
+    "watch:src" : "gulp watch:src",
+    "watch:x21a" : "gulp watch:x21a",
+    "demo:templates": "gulp templates:app:rup-classic"
+
   },
   "repository": {
     "type": "git",
@@ -109,6 +119,7 @@
     "lokijs": "1.3.19",
     "merge-stream": "1.0.0",
     "node-sass": "^4.5.3",
+    "npm-run-all": "^4.0.2",
     "path": "0.12.7",
     "popper.js": "^1.12.3",
     "postcss-loader": "^2.0.6",
