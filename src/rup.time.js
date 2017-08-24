@@ -37,7 +37,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery-ui-timepicker'], factory);
+		define(['jquery', './rup.base', './core/ui/jquery-ui.timepicker'], factory);
 	} else {
 
 		// Browser globals

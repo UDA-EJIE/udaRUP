@@ -55,13 +55,20 @@ $ gulp doc:api
 
 La documentación resultante se generará en el directorio doc/api
 
+## Modo desarrollo
+
+```sh
+$ npm run watch
+$ npm run watch-x21a
+```
+
+
 ## Generar ficheros distribuibles
 
 Para generar los ficheros distribuibles, ejecutar:
 
 ```sh
-$ gulp build
-$ gulp dist
+$ npm run build
 ```
 
 El contenido se generará en el directorio dist/
@@ -71,10 +78,28 @@ El contenido se generará en el directorio dist/
 Los test implementados mediante [Jasmine](http://jasmine.github.io/) se ejecutan con [Karma](https://karma-runner.github.io/1.0/index.html). Para lanzar el proceso, ejecutar:
 
 ```sh
-$ karma start
+$ npm run test
 ```
 
-El resultado de los test se genera en test/test_results.html
+El resultado de los test se muestra en la consola.
+
+
+## Tareas auxiliares
+
+La lista de tareas gulp empleadas para cada uno de los procesos realizados son:
+
+```sh
+$ gulp templates
+$ gulp templates:rup
+$ gulp templates:demo
+
+$ gulp sass:all
+$ gulp sass:rup-base
+$ gulp sass:rup-theme
+$ gulp sass:rup-jqueryui-theme
+
+
+```
 
 
 ## Migración desde aplicaciones UDA v2.x

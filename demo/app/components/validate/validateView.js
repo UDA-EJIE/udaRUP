@@ -1,31 +1,33 @@
 define(['marionette',
-        'templates',
-        './validateBodyView',
-        './validateTestView',
-        '../../shared/component/componentExampleCodeView',
-        'rup/rup.validate'], function(Marionette, App, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
+	'../../shared/component/componentLayoutTemplate.hbs',
+	'./validateHtmlCodeTemplate.hbs',
+	'./validateJsCodeTemplate.hbs',
+	'./validateBodyView',
+	'./validateTestView',
+	'../../shared/component/componentExampleCodeView',
+	'rup.validate'], function(Marionette, ComponentLayoutTemplate, ValidateHtmlCodeTemplate, ValidateJsCodeTemplate, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
 
-  var ValidateView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
-      regions:{
-        Main: "#componentMainBody",
-        Example: "#exampleCode",
-        Test: "#componentTest"
-      },
-      onRender: fncOnRender
-  });
+	var ValidateView = Marionette.LayoutView.extend({
+		template: ComponentLayoutTemplate,
+		regions:{
+			Main: '#componentMainBody',
+			Example: '#exampleCode',
+			Test: '#componentTest'
+		},
+		onRender: fncOnRender
+	});
 
-  function fncOnRender(){
-    var $view = this;
+	function fncOnRender(){
+		var $view = this;
 
-    $view.Main.show(new ValidateBodyView());
-    $view.Example.show(new ComponentExampleCodeView({
-      templateHtml: App.Templates.demo.app.components.validate.validateHtmlCodeTemplate,
-      templateJs: App.Templates.demo.app.components.validate.validateJsCodeTemplate
-    }));
-    $view.Test.show(new ValidateTestView());
-  }
+		$view.Main.show(new ValidateBodyView());
+		$view.Example.show(new ComponentExampleCodeView({
+			templateHtml: ValidateHtmlCodeTemplate,
+			templateJs: ValidateJsCodeTemplate
+		}));
+		$view.Test.show(new ValidateTestView());
+	}
 
 
-  return ValidateView;
+	return ValidateView;
 });

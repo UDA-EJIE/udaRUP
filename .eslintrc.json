@@ -24,5 +24,10 @@
             "error",
             "always"
         ]
+    },
+    "globals": {
+        "$": true,
+        "define": true,
+        "jQuery": true
     }
 }

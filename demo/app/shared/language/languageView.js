@@ -1,24 +1,24 @@
 
 define(['marionette',
-        'templates',
-        'rup/rup.base',
-        'rup/rup.utils',
-        'rup/rup.lang'], function(Marionette, App){
+	'./languageTemplate.hbs',
+	'rup.base',
+	'rup.utils',
+	'rup.lang'], function(Marionette, LanguageTemplate){
 
-    var HeaderView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.shared.language.languageTemplate,
-        ui:{
-            languageSelector: "#x21aResponsiveWar_language"
-        },
-        onDomRefresh: fncOnDomRefresh
-    });
+	var HeaderView = Marionette.LayoutView.extend({
+		template: LanguageTemplate,
+		ui:{
+			languageSelector: '#x21aResponsiveWar_language'
+		},
+		onDomRefresh: fncOnDomRefresh
+	});
 
-    function fncOnDomRefresh(){
-      var $view = this;
+	function fncOnDomRefresh(){
+		var $view = this;
 
-      $view.ui.languageSelector.rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY});
-    }
+		$view.ui.languageSelector.rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY});
+	}
 
-    return HeaderView;
+	return HeaderView;
 
 });

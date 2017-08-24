@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
+	'./treeDragDropCodeTemplate.hbs',
 
-        'rup/rup.tree'], function (Marionette, App) {
+	'rup.tree'], function (Marionette, TreeDragDropCodeTemplate) {
 
-    var TreeDragDropCodeView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.components.tree.dragDrop.treeDragDropCodeTemplate
-    });
+	var TreeDragDropCodeView = Marionette.LayoutView.extend({
+		template: TreeDragDropCodeTemplate
+	});
 
-    return TreeDragDropCodeView;
+	return TreeDragDropCodeView;
 });

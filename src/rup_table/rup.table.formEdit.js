@@ -61,7 +61,7 @@
 		preConfigureFormEdit: function (settings) {
 			var $self = this,
 				self = this[0],
-				colModel = settings.colModel;
+				colModel = settings.colModel, colModelObj;
 
 
 			settings.formEdit.navigationBarId = settings.formEdit.navigationBarId !== undefined ? settings.formEdit.navigationBarId : settings.id + '_detail_navigation';
@@ -224,7 +224,7 @@
 			}
 			//			else{
 			// No se configura un formulario de detalle
-			beforeSendUserEvent = settings.beforeSend;
+			var beforeSendUserEvent = settings.beforeSend;
 			var defaultBeforeSend = function (jqXHR, ajaxOptions) {
 				ajaxOptions.beforeSend = beforeSendUserEvent;
 				ajaxOptions.validate = settings.formEdit.validate;
@@ -260,7 +260,7 @@
 
 			settings.getDetailCurrentRowCount = function () {
 				var $self = this,
-					page, rowNum, rowId;
+					page, rowNum, rowId, rowsPerPage, cont;
 
 				// Obtenemos la pagina actual
 				page = parseInt($self.rup_table('getGridParam', 'page'), 10);
@@ -448,7 +448,7 @@
 					var settings = $self.data('settings'),
 						formEditSaveType = $self.data('tmp.formEditSaveType'),
 						id, compositeId = '',
-						$fieldRupCombo, labelProperty = null;
+						$fieldRupCombo, labelProperty = null, responseJson;
 					$self.removeData('tmp.formEditSaveType');
 
 					// Tratamiento concreto para los componentes RUP
@@ -1425,7 +1425,7 @@
 			}
 		},
 		setNulls: function () {
-			var $t = this;
+			var $t = this, postdata;
 			$.each($t.p.colModel, function (i, n) {
 				if (n.editoptions && n.editoptions.NullIfEmpty === true) {
 					if (postdata.hasOwnProperty(n.name) && postdata[n.name] === '') {
@@ -1454,6 +1454,7 @@
 		checkUpdates: function (extpost, okCallback) {
 			var $self = $(this),
 				settings = $self.data('settings'),
+				postdata, newData,
 				$t = this,
 				gID = $t.p.id,
 				frmgr = $.fn.jqGrid.rup.edit.detail.detailFormId + gID,
@@ -1517,9 +1518,9 @@
 				frmtb = '#' + $.jgrid.jqID(frmtborg),
 				rowsInGrid = $($t).jqGrid('getDataIDs'),
 				idGval = $('#id_g', settings.formEdit.$detailForm).val(),
-				selrow = idGval !== undefined && idGval !== '_empty' ? idGval : $self.jqGrid('getGridParam', 'selrow');
+				selrow = idGval !== undefined && idGval !== '_empty' ? idGval : $self.jqGrid('getGridParam', 'selrow'),
+				pos = $.inArray(selrow, rowsInGrid);
 
-			pos = $.inArray(selrow, rowsInGrid);
 			return [pos, rowsInGrid];
 		},
 		updateNav: function (cr, posarr) {
@@ -1734,7 +1735,7 @@
 						dw = isNaN(p.datawidth) ? p.datawidth : p.datawidth + 'px',
 						frm = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.form', frmgr, dh)).data('disabled', false),
 						tbl = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.body', frmtborg)),
-						showFrm = $($t).triggerHandler('jqGridAddEditBeforeInitData', [$('#' + frmgr), frmoper]);
+						showFrm = $($t).triggerHandler('jqGridAddEditBeforeInitData', [$('#' + frmgr), frmoper]), flr;
 					if (typeof (showFrm) == 'undefined') {
 						showFrm = true;
 					}

@@ -50,7 +50,6 @@
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
-
 	var rup_button = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón

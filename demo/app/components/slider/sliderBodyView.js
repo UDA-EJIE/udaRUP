@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.slider'], function(Marionette, App){
+	'./sliderBodyTemplate.hbs',
+	'rup.slider'], function(Marionette, SliderBodyTemplate){
 
-  var SliderBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.slider.sliderBodyTemplate
+	var SliderBodyView = Marionette.LayoutView.extend({
+		template: SliderBodyTemplate
 
-  });
+	});
 
-  return SliderBodyView;
+	return SliderBodyView;
 });

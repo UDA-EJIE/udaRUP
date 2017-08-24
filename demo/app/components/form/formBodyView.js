@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates',
-        'rup/rup.form'], function(Marionette, App){
+	'./formBodyTemplate.hbs',
+	'rup.form'], function(Marionette, FormBodyTemplate){
 
-  var FormBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.form.formBodyTemplate
-  });
+	var FormBodyView = Marionette.LayoutView.extend({
+		template: FormBodyTemplate
+	});
 
-  return FormBodyView;
+	return FormBodyView;
 });

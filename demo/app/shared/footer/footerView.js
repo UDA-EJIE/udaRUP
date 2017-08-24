@@ -1,11 +1,11 @@
 
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./footerTemplate.hbs'], function(Marionette, FooterTemplate){
 
-    var FooterView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.shared.footer.footerTemplate
-    });
+	var FooterView = Marionette.LayoutView.extend({
+		template: FooterTemplate
+	});
 
-    return FooterView;
+	return FooterView;
 
 });

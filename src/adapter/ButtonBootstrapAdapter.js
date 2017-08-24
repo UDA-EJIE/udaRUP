@@ -12,7 +12,7 @@
 		// Browser globals
 		root.ButtonBootstrapAdapter = factory( jQuery );
 	}
-} (this,  function( $ ) {
+} (this,  function( $, Rup ) {
 
 	function ButtonBootstrapAdapter(){
 

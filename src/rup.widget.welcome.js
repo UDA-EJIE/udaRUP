@@ -23,7 +23,7 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function($) {
+}(function($, Rup) {
 
 	// define our widget under a namespace of your choice
 	// with additional parameters e.g.

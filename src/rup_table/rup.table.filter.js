@@ -450,11 +450,11 @@
 		},
 		showSearchCriteria: function(){
 			var $self = this, settings = $self.data('settings'),
-				searchString = ' ', temp = '', aux, searchForm,
+				searchString = ' ', temp = '', label, numSelected,
 				field, fieldId, fieldName, fieldValue,
-				aux = settings.filter.$filterContainer.serializeArray();
-			searchForm = settings.filter.$filterContainer,
-			filterMulticombo = new Array();
+				aux = settings.filter.$filterContainer.serializeArray(),
+				searchForm = settings.filter.$filterContainer,
+				filterMulticombo = new Array();
 			var obj;
 
 			//añadir arbol
@@ -695,7 +695,7 @@
 			return formFieldLabel;
 		},
 		_getSearchFormFieldValue: function($field, $form){
-			var fieldValue = ' = ', filterMulticombo = [], numSelected;
+			var fieldValue = ' = ', filterMulticombo = [], numSelected, fieldName;
 
 			//VALUE
 			switch($field.prop('tagName')){

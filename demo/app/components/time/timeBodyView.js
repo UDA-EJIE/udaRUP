@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.time'], function(Marionette, App){
+	'./timeBodyTemplate.hbs',
+	'rup.time'], function(Marionette, TimeBodyTemplate){
 
-  var TimeBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.time.timeBodyTemplate
+	var TimeBodyView = Marionette.LayoutView.extend({
+		template: TimeBodyTemplate
 
-  });
+	});
 
-  return TimeBodyView;
+	return TimeBodyView;
 });
