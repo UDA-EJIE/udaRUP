@@ -1,6 +1,6 @@
 
 import * as Marionette from 'marionette';
-import * as App from 'templates';
+import DatatableTemplate from './datatableTemplate.hbs';
 
 import $ from 'jquery';
 
@@ -12,7 +12,7 @@ import RupDatatable from 'datatable/rup.datatable';
 // 	'datatables.net-bs'], function(Marionette, App){
 
 var DatatableView = Marionette.LayoutView.extend({
-	template: App.Templates.demo.app.datatable.datatableTemplate,
+	template: DatatableTemplate,
 	initialize: fncInitilize,
 	onDomRefresh: fncOnDomRefresh
 
