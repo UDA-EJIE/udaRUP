@@ -495,6 +495,13 @@
 									aClose.css('text-decoration', '');
 								});
 
+							if (linkButtonsLength > 0) { //si tenemos enlaces los añadimos
+								for (j = 0; j < linkButtonsLength; j++) {
+									$(this).rup_dialog('createBtnLinks', linkButtons[j][0], settings.id);
+								}
+								j = null;
+							}
+
 						} else { //borramos todos los posibles enlances que se hayan creado para esa capa
 							$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonset a').remove();
 
@@ -502,12 +509,7 @@
 								$('#ui-dialog-title-' + settings.id).text(settings.title);
 							}
 						}
-						if (linkButtonsLength > 0) { //si tenemos enlaces los añadimos
-							for (j = 0; j < linkButtonsLength; j++) {
-								$(this).rup_dialog('createBtnLinks', linkButtons[j][0], settings.id);
-							}
-							j = null;
-						}
+
 						if (autopen) { //si se auto abría lo mostramos
 							if (settings.type !== $.rup.dialog.AJAX) {
 								$self.rup_dialog('open');
