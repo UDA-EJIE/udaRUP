@@ -132,7 +132,9 @@ class RupDatatable {
 			'url': this._userOptions.urlBase + '/filter',
 			'dataSrc': this._ajaxSuccessData,
 			'type': 'POST',
-			'data': this._ajaxRequestData
+			'data': this._ajaxRequestData,
+			'contentType': 'application/json',
+			'dataType': 'json'
 
 		};
 	}
@@ -157,7 +159,9 @@ class RupDatatable {
 
 		data.filter = options.ajax.filter;
 		var datatableRequest = new DataTableRequest(data);
-		$.extend(data, datatableRequest.getData());
+		var json = $.extend({}, data, datatableRequest.getData());
+		return JSON.stringify(json);
+
 
 	}
 

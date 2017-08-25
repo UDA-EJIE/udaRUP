@@ -1562,17 +1562,23 @@ select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-con
   background-color: #fff; }
 
 .rup-date-input-group {
-  display: inline-flex; }
+  display: inline-table;
+  vertical-align: middle; }
   .rup-date-input-group .hasDatepicker {
     border-right: none;
     border-top-right-radius: 0;
-    border-bottom-right-radius: 0; }
+    border-bottom-right-radius: 0;
+    display: table-cell;
+    width: auto; }
   .rup-date-input-group .ui-datepicker-trigger {
-    padding: 0 0.5rem;
+    padding-bottom: 0.38rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0; }
+    border-bottom-left-radius: 0;
+    display: table-cell; }
     .rup-date-input-group .ui-datepicker-trigger * {
-      display: block; }
+      display: table-cell; }
 
 .ui-datepicker {
   background: #fff; }
