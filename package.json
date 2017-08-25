@@ -24,7 +24,7 @@
     "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
     "test": "karma start --single-run --no-auto-watch karma.conf.js",
 
-    "copy:x21a" : "dist:x21a",
+    "copy:x21a" : "gulp dist:x21a",
     "gulp:build" : "gulp build",
     "webpack:watch" : "webpack --progress --colors --watch --env dev",
     "webpack:build" : "webpack --env build",
