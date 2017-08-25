@@ -15,15 +15,19 @@
     "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
     "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
 
-    "build": "gulp build && webpack --env dev && webpack --env build",
+    "build": "run-p gulp:build  webpack:dev webpack:build",
+    "build:x21a": "run-p gulp:build  webpack:dev webpack:build copy:x21a",
     "dev": "webpack --env dev",
-    "watch": "gulp watch:src & webpack --progress --colors --watch --env dev",
+    "watch": "run-p watch:src webpack:watch",
     "watch-x21a": "run-p watch:src webpack:watch watch:x21a",
 
     "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
     "test": "karma start --single-run --no-auto-watch karma.conf.js",
 
+    "copy:x21a" : "dist:x21a",
+    "gulp:build" : "gulp build",
     "webpack:watch" : "webpack --progress --colors --watch --env dev",
+    "webpack:build" : "webpack --env build",
     "webpack:dev" : "webpack --env dev",
     "webpack:demo" : "webpack --config=./demo/webpack.config.js",
     "webpack:demo:watch" : "webpack --config=./demo/webpack.config.js --watch",
