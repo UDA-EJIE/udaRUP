@@ -16,7 +16,7 @@
     "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
 
     "build": "run-p gulp:build  webpack:dev webpack:build",
-    "build:x21a": "run-p gulp:build  webpack:dev webpack:build copy:x21a",
+    "build:x21a": "run-s gulp:build  webpack:dev webpack:build copy:x21a",
     "dev": "webpack --env dev",
     "watch": "run-p watch:src webpack:watch",
     "watch-x21a": "run-p watch:src webpack:watch watch:x21a",
