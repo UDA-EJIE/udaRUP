@@ -899,10 +899,13 @@
 			animated: 'bounceslide',
 			active: false,
 			autoHeight: false,
-			collapsible: true
+			collapsible: true,
+			heightStyle: 'content'
 		},
 		rupAccordion: {}, //accordion (config) definidos en el formulario
-		summaryAccordion: {}, //accordion (config) para generar resumen
+		summaryAccordion: {
+			
+		}, //accordion (config) para generar resumen
 		tabAccordion: {}, //accorion (config) para pestañas del resumen
 		rupTabsElement: '<h4 />',
 		labelElement: '<span />',
