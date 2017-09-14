@@ -37,7 +37,6 @@ class RupDatatable {
 	_initOptions() {
 
 		const options = Object.assign({}, this._userOptions);
-		//const i18nFile = require('json-loader!./file.json');
 
 		options.processing = true;
 		options.serverSide = true;
@@ -68,7 +67,7 @@ class RupDatatable {
 		options.ajax = this._ajaxOptions();
 
 		options.language = {
-			'url': '../../i18n/datatable_es.json'
+			'url': $.rup.RUP + '/resources/datatable_' + $.rup.lang + '.json'
 		};
 
 
@@ -94,7 +93,7 @@ class RupDatatable {
 
 	_clearFilter(options) {
 
-		// Se realiza el reset de los campos ordinarios
+		// Se realiza el reset de los campos ordinacomorios
 		//form.resetForm();
 		jQuery('input[type!=\'button\'][type!=\'checkbox\'][type!=\'radio\'], textarea', options.filterForm).val('');
 		jQuery('input[type=\'checkbox\']', options.filterForm).not('[name*=\'jqg_GRID_\']', options.filterForm).not('[disabled=\'disabled\']', options.filterForm).removeAttr('checked');
