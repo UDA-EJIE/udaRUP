@@ -67,9 +67,13 @@
 			//				return false;
 			//			};
 
-			settings.core.operations.clone.enabled = function () {
-				return settings.multiselection.numSelected === 1;
-			};
+			$.extend(true, settings.core.operations, {
+				clone:{
+					enabled : function () {
+						return settings.multiselection.numSelected === 1;
+					}
+				}
+			});			
 
 			settings.getActiveLineId = function () {
 				var $self = this,
@@ -509,7 +513,7 @@
 						// Actualización del número de registros seleccionados
 						$self.rup_table('updateSelectedRowNumber');
 						// Se cierra el feedback para (de)seleccionar el resto de registros
-						settings.$internalFeedback.rup_feedback('close');
+						$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 						// Se gestiona el icono de linea editable
 						$self.rup_table('clearHighlightedEditableRows');
@@ -626,7 +630,7 @@
 					$self.triggerHandler('rupTable_multiselectionUpdated');
 
 					// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-					settings.$internalFeedback.rup_feedback('close');
+					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 					// Se gestiona el icono de linea editable
 					if ($self._hasPageSelectedElements(page)) {
@@ -707,10 +711,10 @@
 							// En caso de existir registros sin seleccionar se muestra el mensaje junto con un botón para permitir la selecón de dichos elementos
 							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', elementosRestantes);
 							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
-							$self.rup_table('showFeedback', settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por seleccionar se muestra solo un mensaje informativo
-							$self.rup_table('showFeedback', settings.$internalFeedback, selectMsg, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg, 'alert']);
 						}
 
 						// Se asocia el handler al evento click del botón de seleccionar el resto de registros
@@ -724,10 +728,10 @@
 						if (settings.multiselection.numSelected > 0) {
 							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', settings.multiselection.numSelected);
 							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
-							$self.rup_table('showFeedback', settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por deseleccionar se muestra solo un mensaje informativo
-							$self.rup_table('showFeedback', settings.$internalFeedback, deselectMsg, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg, 'alert']);
 						}
 
 						// Se asocia el handler al evento click del botón de deseleccionar el resto de registros
@@ -990,7 +994,8 @@
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
 			$self.rup_table('updateSelectedRowNumber');
 
-			settings.$internalFeedback.rup_feedback('close');
+			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
+
 		},
 		deselectAllRows: function (event) {
 			var $self = this,
@@ -1019,7 +1024,7 @@
 			$self._initializeMultiselectionProps(settings);
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
 			$self.rup_table('updateSelectedRowNumber');
-			settings.$internalFeedback.rup_feedback('close');
+			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 		},
 		/*
      * Actualiza el contador de la tabla que indica los registros seleccionados.

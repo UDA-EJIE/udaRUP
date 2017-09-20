@@ -1912,7 +1912,10 @@
 							modal: true,
 							resizable: p.resize,
 							title: p.caption,
-							width: p.width
+							width: p.width,
+							onClose:function(){
+								alert('hez');
+							}
 						}, settings.formEdit.dialogOptions));
 
 						settings.formEdit.detailFormCreated = true;

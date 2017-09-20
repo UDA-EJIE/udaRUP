@@ -1211,13 +1211,14 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   color: #fffcfb;
   background: #337ab7; }
 
-.rup-combobox .rup-combobox-input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px; }
-
-.rup-combobox .rup-combobox-toggle {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px; }
+.rup-combobox {
+  margin-right: 2.5rem; }
+  .rup-combobox .rup-combobox-input {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; }
+  .rup-combobox .rup-combobox-toggle {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; }
 
 .rup-breadCrumb_root {
   background: lightgray;
@@ -2747,17 +2748,20 @@ div.right_buttons .rup-dropdown-btn-group {
         border-bottom-width: 1; }
 
 .rup-time-input-group {
-  display: inline-flex; }
+  display: inline-table;
+  vertical-align: middle; }
   .rup-time-input-group .hasDatepicker {
     border-right: none;
     border-top-right-radius: 0;
-    border-bottom-right-radius: 0; }
+    border-bottom-right-radius: 0;
+    display: table-cell; }
   .rup-time-input-group .ui-timepicker-trigger {
     padding: 0 0.5rem;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0; }
+    border-bottom-left-radius: 0;
+    display: table-cell; }
     .rup-time-input-group .ui-timepicker-trigger * {
-      display: block; }
+      display: table-cell; }
 
 .rup-toolbar {
   padding-top: 2px;

@@ -1055,6 +1055,13 @@
 			if (jQuery.isFunction(arg)) {
 				jQuery.proxy(arg, $self)(rp_ge[settings.id]._savedData);
 			}
+		},
+		isPluginLoaded: function(name){
+			var $self = this,
+				settings = $self.data('settings');
+
+			return settings.usePlugins.indexOf(name)===-1?false:true;
+
 		}
 	});
 

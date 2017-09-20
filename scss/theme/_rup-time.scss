@@ -1,10 +1,12 @@
 .rup-time-input-group{
-  display: inline-flex;
+  display: inline-table;
+  vertical-align: middle;
 
   .hasDatepicker{
     border-right: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    display: table-cell;
 
   }
   .ui-timepicker-trigger{
@@ -12,9 +14,9 @@
       padding: 0 0.5rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-
+      display: table-cell;
       *{
-        display: block;
+        display: table-cell;
       }
   }
 }

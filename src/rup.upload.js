@@ -32,15 +32,39 @@
 
 		// AMD. Register as an anonymous module.
 		define(['jquery', './rup.base',
-			'jquery.fileupload-ui',
-			'jquery.fileupload-jquery-ui',
-			'jquery.fileupload-process',
-			'jquery.fileupload-image',
-			'jquery.fileupload-audio',
-			'jquery.fileupload-process',
-			'jquery.fileupload-video',
-			'jquery.fileupload-validate',
-			'jquery.fileupload'
+			'jquery.fileupload/jquery.fileupload.js',
+			'jquery.fileupload/jquery.fileupload-ui.js',
+			// 'jquery.fileupload/jquery.fileupload-jquery-ui.js',
+			'jquery.fileupload/jquery.fileupload-process.js',
+			'jquery.fileupload/jquery.fileupload-image.js',
+			'jquery.fileupload/jquery.fileupload-audio.js',
+			'jquery.fileupload/jquery.fileupload-process.js',
+			'jquery.fileupload/jquery.fileupload-video.js',
+			'jquery.fileupload/jquery.fileupload-validate.js'
+			// 'jquery.fileupload/jquery.fileupload.js'
+
+			// 'blueimp-file-upload/js/jquery.fileupload-ui.js',
+			// 'jquery.fileupload-jquery-ui',
+			// 'jquery.fileupload-process',
+			// 'jquery.fileupload-image',
+			// 'jquery.fileupload-audio',
+			// 'jquery.fileupload-process',
+			// 'jquery.fileupload-video',
+			// 'jquery.fileupload-validate',
+			// 'jquery.fileupload'
+
+			// 'jquery.fileupload': 'blueimp-file-upload/js/jquery.fileupload.js',
+			// 'jquery.fileupload-ui': 'blueimp-file-upload/js/jquery.fileupload-ui.js',
+			// 'jquery.fileupload-jquery-ui': 'blueimp-file-upload/js/jquery.fileupload-jquery-ui.js',
+			// 'jquery.fileupload-process': 'blueimp-file-upload/js/jquery.fileupload-process.js',
+			// 'jquery.fileupload-image': 'blueimp-file-upload/js/jquery.fileupload-image.js',
+			// 'jquery.fileupload-audio': 'blueimp-file-upload/js/jquery.fileupload-audio.js',
+			// 'jquery.fileupload-video': 'blueimp-file-upload/js/jquery.fileupload-video.js',
+			// 'jquery.fileupload-validate': 'blueimp-file-upload/js/jquery.fileupload-validate.js',
+			// 'load-image': 'blueimp-load-image/js/load-image.js',
+			// 'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
+			// 'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
+			// 'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
 		], factory);
 	} else {
 

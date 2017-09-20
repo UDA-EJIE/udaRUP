@@ -178,6 +178,7 @@ define(['marionette',
 			rowList:[10,20,30],
 			sortname: 'id',
 			core:{
+				
 				operations:{
 					'operacion1': {
 						name: 'Operación 1',
@@ -223,15 +224,25 @@ define(['marionette',
 					,operacion2: ['nombre','apellido1']
 				}
 			},
+
 			formEdit:{
+
 				detailForm: '#table_detail_div',
+				dialogOptions:{
+					onClose: function(){
+						alert('cerrar');
+						return true;
+					}
+				},
 				validate:{
 					rules:{
 						'nombre':{required:true},
 						'apellido1':{required:true},
 						'fechaAlta':{date:true},
 						'fechaBaja':{date:true}
+
 					}
+
 				}
 			},
 			filter:{

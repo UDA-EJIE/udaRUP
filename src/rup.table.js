@@ -13533,6 +13533,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			if (jQuery.isFunction(arg)) {
 				jQuery.proxy(arg, $self)(rp_ge[settings.id]._savedData);
 			}
+		},
+		isPluginLoaded: function(name){
+			var $self = this,
+				settings = $self.data('settings');
+
+			return settings.usePlugins.indexOf(name)===-1?false:true;
+
 		}
 	});
 
@@ -16202,7 +16209,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				'rupTable_internalFeedbackClose': function(){
 					var $self = jQuery(this), settings = $self.data('settings');
-					settings.$internalFeedback.rup_feedback('close');
+					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
+					// if ($self.rup_table('isPluginLoaded', 'feedback')){
+					// 	settings.$internalFeedback.rup_feedback('close');
+					// }
 				}
 			});
 
@@ -16318,10 +16328,22 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 			if (!jQuery.isFunction(settings.loadError)){
-				settings.loadError = function(xhr,st,err){
+				settings.loadError = function(xhr){
 					$self.rup_table('showFeedback', settings.$feedback, xhr.responseText, 'error');
 				};
 			}
+
+			/*
+       * Definición del método serializeGridData para que añada al postData la información relativa a la multiseleccion.
+       */
+			$self.on({
+				'rupTable_feedbackClose': function (events, $feedback) {
+					$($feedback).rup_feedback('close');
+				},
+				'rupTable_feedbackShow': function (events, $feedback, msg, type, options){
+					$self.rup_table('showFeedback', $($feedback), msg, type, options);
+				}
+			});
 
 		},
 		/*
@@ -18457,7 +18479,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							modal: true,
 							resizable: p.resize,
 							title: p.caption,
-							width: p.width
+							width: p.width,
+							onClose:function(){
+								alert("hez");
+							}
 						}, settings.formEdit.dialogOptions));
 
 						settings.formEdit.detailFormCreated = true;
@@ -19874,9 +19899,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			//				return false;
 			//			};
 
-			settings.core.operations.clone.enabled = function () {
-				return settings.multiselection.numSelected === 1;
-			};
+			$.extend(true, settings.core.operations, {
+				clone:{
+					enabled : function () {
+						return settings.multiselection.numSelected === 1;
+					}
+				}
+			});			
 
 			settings.getActiveLineId = function () {
 				var $self = this,
@@ -20316,7 +20345,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						// Actualización del número de registros seleccionados
 						$self.rup_table('updateSelectedRowNumber');
 						// Se cierra el feedback para (de)seleccionar el resto de registros
-						settings.$internalFeedback.rup_feedback('close');
+						$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 						// Se gestiona el icono de linea editable
 						$self.rup_table('clearHighlightedEditableRows');
@@ -20433,7 +20462,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$self.triggerHandler('rupTable_multiselectionUpdated');
 
 					// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-					settings.$internalFeedback.rup_feedback('close');
+					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 					// Se gestiona el icono de linea editable
 					if ($self._hasPageSelectedElements(page)) {
@@ -20514,10 +20543,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							// En caso de existir registros sin seleccionar se muestra el mensaje junto con un botón para permitir la selecón de dichos elementos
 							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', elementosRestantes);
 							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
-							$self.rup_table('showFeedback', settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por seleccionar se muestra solo un mensaje informativo
-							$self.rup_table('showFeedback', settings.$internalFeedback, selectMsg, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg, 'alert']);
 						}
 
 						// Se asocia el handler al evento click del botón de seleccionar el resto de registros
@@ -20531,10 +20560,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						if (settings.multiselection.numSelected > 0) {
 							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', settings.multiselection.numSelected);
 							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
-							$self.rup_table('showFeedback', settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por deseleccionar se muestra solo un mensaje informativo
-							$self.rup_table('showFeedback', settings.$internalFeedback, deselectMsg, 'alert');
+							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg, 'alert']);
 						}
 
 						// Se asocia el handler al evento click del botón de deseleccionar el resto de registros
@@ -20797,7 +20826,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
 			$self.rup_table('updateSelectedRowNumber');
 
-			settings.$internalFeedback.rup_feedback('close');
+			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
+
 		},
 		deselectAllRows: function (event) {
 			var $self = this,
@@ -20826,7 +20856,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$self._initializeMultiselectionProps(settings);
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
 			$self.rup_table('updateSelectedRowNumber');
-			settings.$internalFeedback.rup_feedback('close');
+			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 		},
 		/*
      * Actualiza el contador de la tabla que indica los registros seleccionados.
@@ -23299,7 +23329,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-htable').parents('.ui-jqgrid-hbox').css('width', '100%');
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-hdiv').css('width', '100%');
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-pager').css('width', '100%');
-				$self.data('settings').$toolbar.css('width', '100%');
+				if ($self.data('settings').$toolbar){
+					$self.data('settings').$toolbar.css('width', '100%');
+				}
 				$.proxy(setColWidth, $self)();
 				$.proxy(reDefineColWidth, $self)();
 

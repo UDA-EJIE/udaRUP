@@ -182,7 +182,10 @@
 				},
 				'rupTable_internalFeedbackClose': function(){
 					var $self = jQuery(this), settings = $self.data('settings');
-					settings.$internalFeedback.rup_feedback('close');
+					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
+					// if ($self.rup_table('isPluginLoaded', 'feedback')){
+					// 	settings.$internalFeedback.rup_feedback('close');
+					// }
 				}
 			});
 

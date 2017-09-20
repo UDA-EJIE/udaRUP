@@ -32,7 +32,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './templates', 'jquery.scrollTo', './rup.base'], factory);
+		define(['jquery', './templates', 'jquery.scrollto', './rup.base'], factory);
 	} else {
 
 		// Browser globals

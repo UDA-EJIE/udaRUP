@@ -1,7 +1,7 @@
 define(['marionette',
 	'./uploadTestTemplate.hbs',
 	// 'rup.upload','rup.button'], function(Marionette, App){
-	'jquery.fileupload','rup.button'], function(Marionette, UploadTestTemplate){
+	'jquery.fileupload/jquery.fileupload.js','rup.button'], function(Marionette, UploadTestTemplate){
 
 	var UploadTestView = Marionette.LayoutView.extend({
 		template: UploadTestTemplate,

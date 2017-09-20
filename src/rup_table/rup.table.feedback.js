@@ -77,10 +77,22 @@
 			}
 
 			if (!jQuery.isFunction(settings.loadError)){
-				settings.loadError = function(xhr,st,err){
+				settings.loadError = function(xhr){
 					$self.rup_table('showFeedback', settings.$feedback, xhr.responseText, 'error');
 				};
 			}
+
+			/*
+       * Definición del método serializeGridData para que añada al postData la información relativa a la multiseleccion.
+       */
+			$self.on({
+				'rupTable_feedbackClose': function (events, $feedback) {
+					$($feedback).rup_feedback('close');
+				},
+				'rupTable_feedbackShow': function (events, $feedback, msg, type, options){
+					$self.rup_table('showFeedback', $($feedback), msg, type, options);
+				}
+			});
 
 		},
 		/*

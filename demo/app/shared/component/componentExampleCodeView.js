@@ -1,6 +1,6 @@
 define(['marionette',
 	'./componentExampleCodeTemplate.hbs',
-	'highlight','rup.tabs'], function(Marionette, ComponentExampleCodeTemplate, hljs){
+	'highlight.js','rup.tabs'], function(Marionette, ComponentExampleCodeTemplate, hljs){
 
 
 	var ComponentCodeView = Marionette.LayoutView.extend({

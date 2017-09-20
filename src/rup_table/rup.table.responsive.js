@@ -264,7 +264,9 @@
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-htable').parents('.ui-jqgrid-hbox').css('width', '100%');
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-hdiv').css('width', '100%');
 				$self.parents('.ui-jqgrid').find('.ui-jqgrid-pager').css('width', '100%');
-				$self.data('settings').$toolbar.css('width', '100%');
+				if ($self.data('settings').$toolbar){
+					$self.data('settings').$toolbar.css('width', '100%');
+				}
 				$.proxy(setColWidth, $self)();
 				$.proxy(reDefineColWidth, $self)();
 

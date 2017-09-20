@@ -38,7 +38,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery.validate', 'jquery.validate.additional'], factory);
+		define(['jquery', './rup.base', 'jquery-validation', 'jquery.validate.additional'], factory);
 	} else {
 
 		// Browser globals

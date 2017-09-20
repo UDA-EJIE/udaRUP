@@ -3,6 +3,8 @@ import 'expose-loader?$!jquery';
 
 global.$ = global.jQuery = $;
 
+import './helper/handlebars-helper-i18n.js';
+
 import './rup.base';
 import './rup.utils';
 import './rup.accordion';
@@ -36,4 +38,4 @@ import './rup.upload';
 import './rup.validate';
 import './rup.wizard';
 
-import 'tether';
+// import 'tether';

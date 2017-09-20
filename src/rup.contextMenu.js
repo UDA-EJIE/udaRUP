@@ -42,7 +42,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'jquery-contextMenu'], factory);
+		define(['jquery', './rup.base', 'jquery-contextmenu'], factory);
 	} else {
 
 		// Browser globals
