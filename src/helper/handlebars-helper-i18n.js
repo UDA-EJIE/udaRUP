@@ -15,20 +15,20 @@
  */
 
 /*global jQuery */
-/*global define */
+/*global Handlebars */
 
 
 ( function( factory ) {
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['handlebars'], factory );
+		define( ['jquery', 'handlebars'], factory );
 	} else {
 
 		// Browser globals
-		factory( Handlebars );
+		factory(jQuery, Handlebars );
 	}
-} ( function( Handlebars ) {
+} ( function($, Handlebars ) {
 	Handlebars.i18n = {};
 	Handlebars.i18n.languages=[];
 
@@ -39,9 +39,9 @@
 	Handlebars.registerHelper('i18nLanguage', function (options) {
 
 		var langJSON = {};
-		langJSON[options.hash.lang] =  jQuery.parseJSON('{'+options.fn(this)+'}');
+		langJSON[options.hash.lang] =  $.parseJSON('{'+options.fn(this)+'}');
 
-		options.data.languages = jQuery.extend(true, {}, options.data.languages, langJSON);
+		options.data.languages = $.extend(true, {}, options.data.languages, langJSON);
 
 
 	});
