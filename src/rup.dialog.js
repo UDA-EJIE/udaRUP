@@ -157,7 +157,7 @@
 			//Ajuste para portales
 			if ($.rup_utils.aplicatioInPortal()) {
 				if ($(this).data('uiDialog').overlay !== null) {
-					$overlayEl = $(this).data('uiDialog').overlay.$el;
+					$overlayEl = $(this).data('uiDialog').overlay;
 					$('.r01gContainer').append($overlayEl);
 					$overlayEl.css('height', docHeight).css('width', docWidth);
 
