@@ -570,6 +570,7 @@
 				$(this).attr('id', $(this).attr('id') + '_summary');
 				$(this).removeAttr('class');
 				$(this).children('h1').removeAttr('class');
+				$(this).children('h1').children('span.ui-icon').first().remove();
 				$(this).children('div').removeAttr('class');
 				if ($.isEmptyObject(settings.rupAccordion)) {
 					$(this).rup_accordion(settings.accordion);
@@ -904,7 +905,7 @@
 		},
 		rupAccordion: {}, //accordion (config) definidos en el formulario
 		summaryAccordion: {
-			
+
 		}, //accordion (config) para generar resumen
 		tabAccordion: {}, //accorion (config) para pestañas del resumen
 		rupTabsElement: '<h4 />',
