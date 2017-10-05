@@ -491,6 +491,7 @@
 							contains : false,
 							combobox : true,
 							menuAppendTo : $('#' + multifilterSettings.dropdownDialogId).parent(),
+							appendTo : $('#' + multifilterSettings.dropdownDialogId).parent(),
 
 							select : function() {
 
@@ -514,6 +515,10 @@
 
 							}
 						});
+
+					jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
+						$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+					});
 
 					$('.jstree').on('rup_filter_treeLoaded',function(event,data){
 						$(this).rup_tree('setRupValue',data);
