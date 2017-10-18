@@ -20,7 +20,7 @@
 	UploadBootstrapAdapter.prototype.NAME = 'upload_bootstrap';
 
 	UploadBootstrapAdapter.prototype.processdone = function (e, data) {
-		$(e.target).find('.start').removeAttr('disabled');
+		//$(e.target).find('.start').removeAttr('disabled');
 	};
 
 	UploadBootstrapAdapter.prototype.downloadTemplate = function(o){

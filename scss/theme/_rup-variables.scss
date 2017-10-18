@@ -145,13 +145,17 @@ $rup-color-error-light: lighten($rup-color-error,25%);
 $rup-color-info-light: lighten($rup-color-info,25%);
 $rup-color-confirm-light: lighten($rup-color-confirm,25%);
 
+$rup-color-ok-lightest: lighten($rup-color-ok,40%);
+$rup-color-alert-lightest: lighten($rup-color-alert,40%);
+$rup-color-error-lightest: lighten($rup-color-error,40%);
+$rup-color-info-lightest: lighten($rup-color-info,40%);
+$rup-color-confirm-lightest: lighten($rup-color-confirm,40%);
+
 $rup-color-ok-dark: darken($rup-color-ok,25%);
 $rup-color-alert-dark: darken($rup-color-alert,25%);
 $rup-color-error-dark: darken($rup-color-error,25%);
 $rup-color-info-dark: darken($rup-color-info,25%);
 $rup-color-confirm-dark: darken($rup-color-confirm,25%);
-
-
 
 $rup-bg-color: #fff;
 $rup-body-color: darken($rup-bg-color, 5%);
@@ -345,6 +349,12 @@ $rup-color-tabs-container-border: $rup-color-border;
 // Colors: Toolbar
 $rup-color-toolbar-border: 1px solid $rup-color-border;
 $rup-color-toolbar-background: #e9e9e9;
+
+// Colors: Upload
+
+$rup-color-upload-error-background: $rup-color-error-lightest;
+$rup-color-upload-error-border: $rup-color-error-dark;
+$rup-color-upload-error-text-color: $rup-color-error;
 
 // Fonts
 

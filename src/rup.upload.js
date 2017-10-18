@@ -36,11 +36,12 @@
 			'jquery.fileupload/jquery.fileupload-ui.js',
 			// 'jquery.fileupload/jquery.fileupload-jquery-ui.js',
 			'jquery.fileupload/jquery.fileupload-process.js',
+			'jquery.fileupload/jquery.fileupload-validate.js',
 			'jquery.fileupload/jquery.fileupload-image.js',
 			'jquery.fileupload/jquery.fileupload-audio.js',
 			'jquery.fileupload/jquery.fileupload-process.js',
-			'jquery.fileupload/jquery.fileupload-video.js',
-			'jquery.fileupload/jquery.fileupload-validate.js'
+			'jquery.fileupload/jquery.fileupload-video.js'
+
 			// 'jquery.fileupload/jquery.fileupload.js'
 
 			// 'blueimp-file-upload/js/jquery.fileupload-ui.js',
@@ -83,10 +84,11 @@
 				acceptFileTypes: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.acceptFileTypesError'),
 				maxNumberOfFiles: $.rup.i18nParse($.rup.i18n.base, 'rup_upload.maxNumberOfFilesError')
 			},
-			processdone: function (e, data) {
-				return $.proxy(data.self._ADAPTER.processdone, this)(e, data);
+			// processdone: function (e, data) {
+			// 	return $.proxy(data.self._ADAPTER.processdone, this)(e, data);
+			//
+			// },
 
-			},
 			getFilesFromResponse: function (data) {
 				if (data.result && $.isArray(data.result)) {
 					// return data.result;
@@ -564,6 +566,24 @@
 
 			$(this).fileupload(settings);
 
+			// $(this).data('blueimp-fileupload')._formatFileSize = function(size){
+			//
+			// 	function formatBytes (bytes) {
+			// 		if (bytes >= 1000000000) {
+			// 			return (bytes / 1000000000).toFixed(2) + ' GB';
+			// 		}
+			// 		if (bytes >= 1000000) {
+			// 			return (bytes / 1000000).toFixed(2) + ' MB';
+			// 		}
+			// 		if (bytes >= 1000) {
+			// 			return (bytes / 1000).toFixed(2) + ' KB';
+			// 		}
+			// 		return bytes + ' B';
+			// 	}
+			//
+			// 	return formatBytes(size);
+			// };
+
 			if (settings.submitInForm) {
 				$(this).rup_upload('option', {
 					singleFileUploads: false,
@@ -572,18 +592,24 @@
 				});
 			}
 
-			$(this).bind('fileuploadadd', function (e, data) {
+			$(this).on({fileuploadadd: function (e, data) {
 				if (settings.submitInForm) {
 					$(this).find('.template-upload').hide();
 					$(this).find('.template-upload .cancel button').unbind('click');
 					$(this).find('.template-upload .cancel button').click();
 				}
-			});
-			$(this).bind('fileuploadsend', function (e, data) {
-				data.url = $.rup_utils.setNoPortalParam(data.url);
+			},
+			fileuploadsend: function (e, data) {
+					data.url = $.rup_utils.setNoPortalParam(data.url);
 				//					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
 				//						data.url = data.url + (data.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
 				//					}
+				},
+			fileuploadprocessfail: function (e, data) {
+					data.context.addClass('error');
+
+				}
+
 			});
 		},
 		_private: function (settings) {
