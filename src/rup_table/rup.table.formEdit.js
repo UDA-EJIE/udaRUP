@@ -569,7 +569,10 @@
 					}
 				},
 				'jqGridAddEditAfterShowForm.rupTable.formEditing': function (event, $detailForm, frmoper) {
+					var $self = $(this),
+						settings = $self.data('settings');
 					// Ubicamos el foco en el primer elemento del formulario
+					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					jQuery(':focusable:enabled:not([readonly]):first', $detailForm).focus();
 				}
 			});
@@ -747,8 +750,11 @@
 			// Ocultamos el feedback de error
 			settings.formEdit.$feedback.hide();
 			jQuery('.rup-maint_validateIcon', $form).remove();
-			jQuery('.rup-maint_validateIcon', $form).remove();
 			jQuery('input.error', $form).removeClass('error');
+
+			if ($form.data('validator')){
+				$form.rup_validate('resetElements');
+			}
 
 		}
 	});
