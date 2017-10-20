@@ -309,7 +309,7 @@
 			self.unbind();
 		},
 		/**
-     * Se eliminan los menssajes de error de las reglas de validacion.
+     * Se realiza un reset del formulario y se eliminan los menssajes de error de las reglas de validacion.
      *
      * @function resetForm
      * @example
@@ -326,6 +326,19 @@
 
 			// Se reinician los mensajes de error.
 			self.validate().resetForm();
+		},
+		/**
+     * Se eliminan los menssajes de error de las reglas de validacion.
+     *
+     * @function resetForm
+     * @example
+     * $("#formValidaciones").rup_validate("resetElements");
+     */
+		resetElements: function(){
+			var self = this,
+				validator = self.validate();
+
+			validator.resetElements(validator.elements());
 		}
 	});
 
