@@ -59,7 +59,7 @@ var properties = {		url: "../tableUrl",		colNames: [			"id","nombre","..."]	
 ### "rupTable_checkOutOfGrid"
 Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -76,7 +76,7 @@ $("#idComponente").on("rupTable_checkOutOfGrid", function(event,$originalTarget
 ### "rupTable_serializeGridData"
 Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -93,7 +93,7 @@ $("#idComponente").on("rupTable_serializeGridData", function(event, data){});
 ### "rupTable_beforeProcessing"
 Evento que se lanza antes de que se procese la información recibida del servidor.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -112,7 +112,7 @@ $("#idComponente").on("rupTable_beforeProcessing", function(event, data, st,xhr
 ### "rupTableClearHighlightedRowAsSelected"
 Se produce cuando se elimina el resaltado de un registro de la tabla.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -129,7 +129,7 @@ $("#idComponente").on("rupTableClearHighlightedRowAsSelected", function(event, $
 ### "rupTableHighlightRowAsSelected"
 Se produce cuando se añade el resaltado a un registro de la tabla.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -146,7 +146,7 @@ $("#idComponente").on("rupTableHighlightedRowAsSelected", function(event, $row){
 ### "rupTable_coreConfigFinished"
 Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.
 
-**Kind**: event emitted by <code>[rup_table](#module_rup_table)</code>  
+**Kind**: event emitted by [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
@@ -162,7 +162,7 @@ $("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
 ### rup_table~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner property of [<code>rup_table</code>](#module_rup_table)  
 **See**: Para mas información consulte la documentación acerca de las opciones de configuración del componente [jqGrid](http://www.trirand.com/jqgridwiki/doku.php).  
 **Properties**
 
@@ -180,8 +180,8 @@ Propiedades de configuración del componente.
 | viewrecords | <code>boolean</code> | <code>true</code> | Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla. |
 | loadOnStartUp | <code>boolean</code> | <code>true</code> | Determina si se debe realizar automáticamente la búsqueda al cargar la página. |
 | multiplePkToken | <code>string</code> | <code>&quot;~&quot;</code> | Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado. |
-| operations | <code>[Operations](#module_rup_table..Operations)</code> |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
-| showOperations | <code>[ShowOperations](#module_rup_table..ShowOperations)</code> |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
+| operations | [<code>Operations</code>](#module_rup_table..Operations) |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
+| showOperations | [<code>ShowOperations</code>](#module_rup_table..ShowOperations) |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
 | startOnPage | <code>number</code> | <code>1</code> | Permite especificar el número de página inicial que se mostrará al cargar la página. |
 
 <a name="module_rup_table..preConfigureCore"></a>
@@ -189,8 +189,8 @@ Propiedades de configuración del componente.
 ### rup_table~preConfigureCore(settings)
 Metodo que realiza la pre-configuración del core del componente RUP Table.Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
-**Emits**: <code>[rupTable_checkOutOfGrid](#module_rup_table+event_rupTable_checkOutOfGrid)</code>, <code>[rupTable_serializeGridData](#module_rup_table+event_rupTable_serializeGridData)</code>, <code>[rupTable_beforeProcessing](#module_rup_table+event_rupTable_beforeProcessing)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
+**Emits**: [<code>rupTable_checkOutOfGrid</code>](#module_rup_table+event_rupTable_checkOutOfGrid), [<code>rupTable_serializeGridData</code>](#module_rup_table+event_rupTable_serializeGridData), [<code>rupTable_beforeProcessing</code>](#module_rup_table+event_rupTable_beforeProcessing)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -201,7 +201,7 @@ Metodo que realiza la pre-configuración del core del componente RUP Table.Este
 ### rup_table~postConfigureCore(settings)
 Metodo que realiza la post-configuración del core del componente RUP Table.Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -212,7 +212,7 @@ Metodo que realiza la post-configuración del core del componente RUP Table.Est
 ### rup_table~getColModel() ⇒ <code>object</code>
 Devuelve la propiedad colModel del jqGrid.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>object</code> - - Propiedad colModel del jqGrid.  
 **Example**  
 ```js
@@ -223,7 +223,7 @@ $("#idComponente").rup_table("getColModel");
 ### rup_table~getGridParam(pName) ⇒ <code>object</code>
 Devuelve el valor del parámetro del grid especificado.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>object</code> - - Valor del parámetro.  
 
 | Param | Type | Description |
@@ -239,7 +239,7 @@ $("#idComponente").rup_table("getGridParam","nombreParametro");
 ### rup_table~getGridParam(options) ⇒ <code>jQuery</code>
 Permite redimensionar la tabla de acuerdo a los parámetros indicados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -255,7 +255,7 @@ $("#idComponente").rup_table("gridResize",{});
 ### rup_table~getSelectedRows() ⇒ <code>Array.&lt;string&gt;</code>
 Devuelve un array con los identificadores de los registros seleccionados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>Array.&lt;string&gt;</code> - - Array con los identificadores de los registros seleccionados.  
 **Example**  
 ```js
@@ -266,7 +266,7 @@ $("#idComponente").rup_table("getSelectedRows");
 ### rup_table~getSelectedLines() ⇒ <code>Array.&lt;number&gt;</code>
 Devuelve un array con los índices de las líneas de los registros seleccionados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>Array.&lt;number&gt;</code> - - Array con los índices de las líneas de los registros seleccionados.  
 **Example**  
 ```js
@@ -277,7 +277,7 @@ $("#idComponente").rup_table("getSelectedLines");
 ### rup_table~getPkUrl(rowId) ⇒ <code>string</code>
 El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>string</code> - - Url para obtener los valores del registro correspondiente.  
 
 | Param | Type | Description |
@@ -293,7 +293,7 @@ $("#idComponente").rup_table("getPkUrl","0001");
 ### rup_table~reloadGrid(async)
 Lanza la recarga de la tabla.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -308,7 +308,7 @@ $("#idComponente").rup_table("reloadGrid", true);
 ### rup_table~resetForm($form) ⇒ <code>jQuery</code>
 Resetea el formulario indicado.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>jQuery</code> - - Referencia al propio objeto.  
 
 | Param | Type | Description |
@@ -324,7 +324,7 @@ $("#idComponente").rup_table("resetForm", $("#idFormulario"));
 ### rup_table~setGridParam(newParams) ⇒ <code>jQuery</code>
 Asigna a uno o varios parámetros del grid los valores indicados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>jQuery</code> - - Referencia al propio objeto.  
 
 | Param | Type | Description |
@@ -340,11 +340,11 @@ $("#idComponente").rup_table("setGridParam", {param1:value1, param2:value2});
 ### rup_table~setSelection(selectedRows, status)
 Selecciona o deselecciona los registros indicados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectedRows | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | Identificador o array de identificadores de los registros que se desea seleccionar o deseleccionar. |
+| selectedRows | <code>string</code> \| <code>Array.&lt;string&gt;</code> | Identificador o array de identificadores de los registros que se desea seleccionar o deseleccionar. |
 | status | <code>boolean</code> | En caso de ser true se seleccionarán los registros indicados. En caso de ser false se deseleccionarán. |
 
 **Example**  
@@ -356,7 +356,7 @@ $("#idComponente").rup_table("setSelection", ["3","7"], true);
 ### rup_table~showServerValidationFieldErrors($form, errors)
 Muestra en los campos del formulario los errores de validación indicados.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -372,8 +372,8 @@ $("#idComponente").rup_table("showServerValidationFieldErrors ", $("#idFormulari
 ### rup_table~rupTableClearHighlightedRowAsSelected($row)
 Elimina el resaltado de la línea especificada de la tabla.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
-**Emits**: <code>[rupTableClearHighlightedRowAsSelected](#module_rup_table+event_rupTableClearHighlightedRowAsSelected)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
+**Emits**: [<code>rupTableClearHighlightedRowAsSelected</code>](#module_rup_table+event_rupTableClearHighlightedRowAsSelected)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -388,8 +388,8 @@ $("#idComponente").rup_table("clearHighlightedRowAsSelected", $("#idFila"));
 ### rup_table~highlightRowAsSelected($row)
 Resalta la línea especificada de la tabla.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
-**Emits**: <code>[rupTableHighlightRowAsSelected](#module_rup_table+event_rupTableHighlightRowAsSelected)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
+**Emits**: [<code>rupTableHighlightRowAsSelected</code>](#module_rup_table+event_rupTableHighlightRowAsSelected)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -404,7 +404,7 @@ $("#idComponente").rup_table("highlightRowAsSelected", $("#idFila"));
 ### rup_table~updateDetailPagination(currentRowNumArg, totalRowNumArg)
 Actualiza el valor de los datos que se muestran en la barra de paginación.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -420,7 +420,7 @@ $("#idComponente").rup_table("updateDetailPagination", "1-10", "586" );
 ### rup_table~updateSavedData(arg)
 Permite modificar el objeto interno _savedData que se utiliza en el control de cambios en el modo de edición en formulario y edición en línea.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -435,7 +435,7 @@ $("#idComponente").rup_table("updateSavedData", function(savedData){});
 ### rup_table~configurePager(settings)
 Realiza la configuración interna del paginador de acuerdo a los parámetros de configuración indicados en la inicialización del componente.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -450,7 +450,7 @@ $("#idComponente").rup_table("configurePager", settings);
 ### rup_table~addRowData(rowid, data, position, srcrowid) ⇒ <code>jQuery</code>
 Añade una nueva línea a la tabla. Esta operación no realiza una inserción del registro en el sistema de persistencia, sino que únicamente añade una nueva fila de modo visual.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -469,7 +469,7 @@ $("#idComponente").rup_table("addRowData", "10", {campo1:valor1,campo2:valor2});
 ### rup_table~delRowData(rowid) ⇒ <code>jQuery</code>
 Elimina de la tabla un registro determinado. El registro no se elimina del sistema de persistencia. Solo se elimina de manera visual.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -485,7 +485,7 @@ $("#idComponente").rup_table("delRowData","10");
 ### rup_table~getActiveRowId() ⇒ <code>string</code>
 Devuelve el identificador de la línea activa.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>string</code> - - Identificador de la línea activa.  
 **Example**  
 ```js
@@ -496,7 +496,7 @@ $("#idComponente").rup_table("getActiveRowId");
 ### rup_table~getActiveLineId() ⇒ <code>string</code>
 Devuelve el índice de la línea activa.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>string</code> - - Índice de la línea activa.  
 **Example**  
 ```js
@@ -507,7 +507,7 @@ $("#idComponente").rup_table("getActiveLineId");
 ### rup_table~setRowData(rowid, data, cssp)
 Actualiza los valores de las columnas de un registro determinado. La actualización de loa datos se realiza solo de manera visual. Los nuevos datos no se persisten.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -524,7 +524,7 @@ $("#idComponente").rup_table("setRowData", "10", {campo1:valor1,campo2:valor2});
 ### rup_table~getRowData(rowid) ⇒ <code>object</code>
 Devuelve un objeto json con los valores de los campos del registro indicado.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>object</code> - - Objecto json con los valores del registro.  
 
 | Param | Type | Description |
@@ -540,7 +540,7 @@ $("#idComponente").rup_table("getRowData", "10");
 ### rup_table~getDataIDs() ⇒ <code>Array.&lt;string&gt;</code>
 Devuelve un array con los identificadores de los registros que se muestran actualmente en la página de la tabla.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>Array.&lt;string&gt;</code> - - Identificadores de lso registros mostrados en la página actual.  
 **Example**  
 ```js
@@ -551,7 +551,7 @@ $("#idComponente").rup_table("getDataIDs");
 ### rup_table~clearGridData(clearfooter)
 Limpia los registros mostrados en la tabla.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -566,7 +566,7 @@ $("#idComponente").rup_table("clearGridData", false);
 ### rup_table~getColModel() ⇒ <code>object</code>
 Devuelve el objeto colModel del componente jqGrid.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>object</code> - - Objeto colModel de la tabla.  
 **Example**  
 ```js
@@ -577,7 +577,7 @@ $("#idComponente").rup_table("getColModel");
 ### rup_table~getCol(rowid, colName)
 Devuelve el valor de la columna de la fila indicada.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -593,7 +593,7 @@ $("#idComponente").rup_table("getCol", "10", "nombre");
 ### rup_table~getSerializedForm(form, skipEmpty)
 Devuelve un objeto json que contiene la serialización del formulario.
 
-**Kind**: inner method of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -609,7 +609,7 @@ $("#idComponente").rup_table("getSerializedForm", $("#idFormulario"), false);
 ### rup_table~onOperation : <code>function</code>
 Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
 
-**Kind**: inner typedef of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner typedef of [<code>rup_table</code>](#module_rup_table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -625,7 +625,7 @@ callback: function(key, options){		alert("Operación 1");	}
 ### rup_table~isEnabled ⇒ <code>boolean</code>
 Función de callback que determina si la operación debe estar habilitada o no.
 
-**Kind**: inner typedef of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner typedef of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>boolean</code> - - Devuelve si la operación debe de estar habilitada o no.  
 **Example**  
 ```js
@@ -636,15 +636,15 @@ enabled: function(){		return true;	}
 ### rup_table~Operations : <code>Object</code>
 Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
 
-**Kind**: inner typedef of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner typedef of [<code>rup_table</code>](#module_rup_table)  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
 | name | <code>string</code> | Texto a mostrar al usuario a la hora de visualizar la operación. |
 | icon | <code>string</code> | Clase CSS correspondiente al icono que se quiere visualizar junto a la operación. |
-| enabled | <code>[isEnabled](#module_rup_table..isEnabled)</code> | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
-| callback | <code>[onOperation](#module_rup_table..onOperation)</code> | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
+| enabled | [<code>isEnabled</code>](#module_rup_table..isEnabled) | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
+| callback | [<code>onOperation</code>](#module_rup_table..onOperation) | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
 
 **Example**  
 ```js
@@ -655,7 +655,7 @@ core:{	operations:{			"operacion1": {				name: "Operación 1",				icon: "rup
 ### rup_table~ShowOperations
 Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
 
-**Kind**: inner typedef of <code>[rup_table](#module_rup_table)</code>  
+**Kind**: inner typedef of [<code>rup_table</code>](#module_rup_table)  
 **Example**  
 ```js
 core:{		showOperations:{			add:false;			clone:false;		}	}

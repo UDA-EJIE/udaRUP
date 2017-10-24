@@ -18,7 +18,7 @@ var properties={  // Propiedades de configuración};$("#idlanguage").rup_lan
 ### rup_language~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of <code>[rup_language](#module_rup_language)</code>  
+**Kind**: inner property of [<code>rup_language</code>](#module_rup_language)  
 **Properties**
 
 | Name | Type | Description |
@@ -31,7 +31,7 @@ Opciones por defecto de configuración del componente.
 ### rup_language~destroy()
 Elimina el componente.
 
-**Kind**: inner method of <code>[rup_language](#module_rup_language)</code>  
+**Kind**: inner method of [<code>rup_language</code>](#module_rup_language)  
 **Example**  
 ```js
 $("#idlanguage").rup_language("destroy");

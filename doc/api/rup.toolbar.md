@@ -30,26 +30,26 @@ var properties = {	width: 1000,	buttons:[		{i18nCaption:"buscar", css:"buscar
 ### rup_toolbar~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner property of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | width | <code>Integer</code> | <code></code> | Tamaño que tendrá la botonera. Por defecto ocupará toda la página. |
-| buttons | <code>[Array.&lt;button&gt;](#module_rup_toolbar..button)</code> |  | Array de botones a mostrar. |
-| mbuttons | <code>[Array.&lt;mButton&gt;](#module_rup_toolbar..mButton)</code> |  | Array de botones con menú a mostrar. |
+| buttons | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Array de botones a mostrar. |
+| mbuttons | [<code>Array.&lt;mButton&gt;</code>](#module_rup_toolbar..mButton) |  | Array de botones con menú a mostrar. |
 
 <a name="module_rup_toolbar..addButton"></a>
 
 ### rup_toolbar~addButton()
 Añade un nuevo botón a la botonera. Las características del botón se especifican en los parámetros del método.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| obj | <code>[button](#module_rup_toolbar..button)</code> | Objeto que define el botón a añadir. |
+| obj | [<code>button</code>](#module_rup_toolbar..button) | Objeto que define el botón a añadir. |
 | json_i18n | <code>object</code> | Objeto json con los recursos de i18n. |
 
 **Example**  
@@ -61,12 +61,12 @@ var button = {  i18nCaption:"editButton",  css:"editar"};$("#idToolbar").ru
 ### rup_toolbar~addMButton()
 Añade un nuevo menu button a la botonera. Las características del mButton se especifican en los parámetros del método.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| obj | <code>[mButton](#module_rup_toolbar..mButton)</code> | Objeto que define el mButton a añadir. |
+| obj | [<code>mButton</code>](#module_rup_toolbar..mButton) | Objeto que define el mButton a añadir. |
 | json_i18n | <code>object</code> | Objeto json con los recursos de i18n. |
 
 **Example**  
@@ -78,12 +78,12 @@ var mButton = {  id: "mbuton1", i18nCaption:"otros", buttons:[	    {i18nCaptio
 ### rup_toolbar~addButtonsToMButton()
 Se añaden un conjunto de botones a un menu button existente.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| buttons | <code>[Array.&lt;button&gt;](#module_rup_toolbar..button)</code> | Array de botones a añadir al menu button. |
+| buttons | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) | Array de botones a añadir al menu button. |
 | menuButton | <code>string</code> | Identificador del menu button al que vamos a añadir los botones. |
 | json_i18n | <code>object</code> | Objeto json con los recursos de i18n. |
 
@@ -96,7 +96,7 @@ var buttons = [	    {i18nCaption:"nuevo", css:"nuevo", click: handlerMButtons},
 ### rup_toolbar~showMButton()
 Se muestra la capa con los mButtons
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Example**  
 ```js
 $("#idToolbar").rup_date("showMButton");
@@ -106,7 +106,7 @@ $("#idToolbar").rup_date("showMButton");
 ### rup_toolbar~disableButton(id)
 Desabilita el botón correspondiente al identificador indicado.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -121,7 +121,7 @@ $("#idToolbar").rup_date("disableButton","idEditButton");
 ### rup_toolbar~enableButton(id)
 Habilita el botón correspondiente al identificador indicado.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -136,7 +136,7 @@ $("#idToolbar").rup_date("enableButton","idEditButton");
 ### rup_toolbar~pressButton(id, css)
 Añade el estilo de css indicado para simular un estado press en el botón.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -152,7 +152,7 @@ $("#idToolbar").rup_date("pressButton","idEditButton","preesed-button");
 ### rup_toolbar~unpressButton(id, css)
 Elimina el estilo de css indicado para simular un estado press en el botón.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -168,7 +168,7 @@ $("#idToolbar").rup_date("unpressButton","idEditButton","preesed-button");
 ### rup_toolbar~tooglePressButton(id, css)
 Alterna el estado del estilo de css indicado para simular un estado press en el botón.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -184,7 +184,7 @@ $("#idToolbar").rup_date("tooglePressButton","idEditButton","preesed-button");
 ### rup_toolbar~refresh(id)
 Actualiza el botón al estado que determina la configuración actual.
 
-**Kind**: inner method of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner method of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -199,7 +199,7 @@ $("#idToolbar").rup_date("refresh");
 ### rup_toolbar~buttonClick : <code>function</code>
 Función de callback a ejecutar cuando se realiza un click sobre un botón de la botonera.
 
-**Kind**: inner typedef of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner typedef of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -216,7 +216,7 @@ var newButton = {  i18nCaption:"editButton",  click: function(event){  }};
 ### rup_toolbar~button : <code>Object</code>
 Definición del tipo de objeto que representa un botón de la botonera.
 
-**Kind**: inner typedef of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner typedef of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -225,14 +225,14 @@ Definición del tipo de objeto que representa un botón de la botonera.
 | i18nCaption | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
 | css | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
 | right | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
-| click | <code>[buttonClick](#module_rup_toolbar..buttonClick)</code> |  | Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado. |
+| click | [<code>buttonClick</code>](#module_rup_toolbar..buttonClick) |  | Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado. |
 
 <a name="module_rup_toolbar..mButton"></a>
 
 ### rup_toolbar~mButton : <code>Object</code>
 Definición del tipo de objeto que representa un mButton de la botonera.
 
-**Kind**: inner typedef of <code>[rup_toolbar](#module_rup_toolbar)</code>  
+**Kind**: inner typedef of [<code>rup_toolbar</code>](#module_rup_toolbar)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -241,5 +241,5 @@ Definición del tipo de objeto que representa un mButton de la botonera.
 | i18nCaption | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
 | css | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
 | right | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
-| buttons | <code>[Array.&lt;button&gt;](#module_rup_toolbar..button)</code> |  | Botones que va a incluir el botón con menú. |
+| buttons | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Botones que va a incluir el botón con menú. |
 

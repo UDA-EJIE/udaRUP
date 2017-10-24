@@ -19,7 +19,7 @@ Permite al usuario introducir y seleccionar una fecha, tanto de forma manual com
         * ["onClose"](#module_rup_date+event_onClose)
     * _inner_
         * [~options](#module_rup_date..options)
-        * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> &#124; <code>array</code>
+        * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> \| <code>array</code>
         * [~setRupValue(param)](#module_rup_date..setRupValue)
         * [~destroy()](#module_rup_date..destroy)
         * [~disable()](#module_rup_date..disable)
@@ -37,7 +37,7 @@ Permite al usuario introducir y seleccionar una fecha, tanto de forma manual com
 ### "create"
 Función que se lanza cuando se crea el calendario. La invocación es automática por parte del componente
 
-**Kind**: event emitted by <code>[rup_date](#module_rup_date)</code>  
+**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $(selector).rup_date({ create: function(){...} });
@@ -47,7 +47,7 @@ $(selector).rup_date({ create: function(){...} });
 ### "beforeShow"
 Permite asociar una función que se ejecutará antes de que se muestre el calendario. Los parámetros recibidos son el campo del calendario y la instancia del componente.
 
-**Kind**: event emitted by <code>[rup_date](#module_rup_date)</code>  
+**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $(selector).rup_date({ beforeShow: function(input, inst){...} });
@@ -57,7 +57,7 @@ $(selector).rup_date({ beforeShow: function(input, inst){...} });
 ### "onChangeMonthYear"
 Permite asociar una función que se ejecutará cuando se cambie de mes o de año en el calendario. Los parámetros recibidos son el año y mes seleccionados así como la instancia del componente
 
-**Kind**: event emitted by <code>[rup_date](#module_rup_date)</code>  
+**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $(selector).rup_date({onChangeMonthYear: function(y,m,inst){...} });
@@ -67,7 +67,7 @@ $(selector).rup_date({onChangeMonthYear: function(y,m,inst){...} });
 ### "onSelect"
 Permite asociar una función que se ejecutará cuando se seleccione un valor del calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
 
-**Kind**: event emitted by <code>[rup_date](#module_rup_date)</code>  
+**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $(selector).rup_date({ onSelect: function(dateText, inst){...} });
@@ -77,7 +77,7 @@ $(selector).rup_date({ onSelect: function(dateText, inst){...} });
 ### "onClose"
 Permite asociar una función que se ejecutará cuando se oculte el calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
 
-**Kind**: event emitted by <code>[rup_date](#module_rup_date)</code>  
+**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $(selector).rup_date({ onClose: function(dateText, inst){...} });
@@ -87,7 +87,7 @@ $(selector).rup_date({ onClose: function(dateText, inst){...} });
 ### rup_date~options
 A continuación se muestran los posibles parámetros de configuración que recibe el componente.
 
-**Kind**: inner property of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner property of [<code>rup_date</code>](#module_rup_date)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -110,16 +110,16 @@ A continuación se muestran los posibles parámetros de configuración que recib
 | dayNames | <code>array</code> |  | Literales para los días [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | dayNamesMin | <code>array</code> |  | Literales para los días (mínimos) [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | dayNamesShort | <code>array</code> |  | Literales para los días (corto) [array]. Su valor por defecto se obtiene del fichero de idioma. |
-| defaultDate | <code>date</code> &#124; <code>string</code> &#124; <code>number</code> |  | fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver la explicación al final de este apartado). Por defecto se destaca la fecha del día. |
-| duration | <code>string</code> &#124; <code>number</code> | <code>&quot;normal&quot;</code> | Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos). |
+| defaultDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver la explicación al final de este apartado). Por defecto se destaca la fecha del día. |
+| duration | <code>string</code> \| <code>number</code> | <code>&quot;normal&quot;</code> | Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos). |
 | firstDay | <code>number</code> |  | Número que indica en qué día de la semana debe empezar el calendario. El valor 0 equivale al domingo, el 1 al lunes y así sucesivamente. |
 | hideIfNoPrevNext | <code>boolean</code> | <code>false</code> | Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan |
-| maxDate | <code>date</code> &#124; <code>string</code> &#124; <code>number</code> |  | Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite. |
-| minDate | <code>date</code> &#124; <code>string</code> &#124; <code>number</code> |  | Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite. |
+| maxDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite. |
+| minDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite. |
 | monthNames | <code>array</code> |  | Literales para los meses [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | monthNamesShort | <code>array</code> |  | Literales para los meses (corto) [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | nextText | <code>string</code> |  | Literal a mostrar en el enlace de siguiente. Su valor por defecto se obtiene del fichero de idioma. |
-| numberOfMonths | <code>number</code> &#124; <code>array</code> | <code>1</code> | Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]). |
+| numberOfMonths | <code>number</code> \| <code>array</code> | <code>1</code> | Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]). |
 | prevText | <code>string</code> |  | Literal a mostrar en el enlace de anterior. Su valor por defecto se obtiene del fichero de idioma. |
 | selectOtherMonths | <code>boolean</code> | <code>false</code> | Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths |
 | showAnim | <code>string</code> | <code>&quot;show&quot;</code> | Indica el tipo de animación que se emplea para mostrar el calendario en pantalla. |
@@ -135,15 +135,17 @@ A continuación se muestran los posibles parámetros de configuración que recib
 | noWeekend | <code>booelan</code> | <code>false</code> | Indica si se muestran o no los días del fin de semana (sábado y domingo). |
 | from | <code>string</code> |  | Indica el selector del campo inicial en los intervalos de fechas |
 | to | <code>string</code> |  | Indica el selector del campo final en los intervalos de fechas |
-| multiselect | <code>array</code> &#124; <code>number</code> |  | Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica. |
+| multiselect | <code>array</code> \| <code>number</code> |  | Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica. |
+| autoFillToField | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo hasta |
+| autoFillFromField | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo desde |
 
 <a name="module_rup_date..getRupValue"></a>
 
-### rup_date~getRupValue() ⇒ <code>string</code> &#124; <code>array</code>
+### rup_date~getRupValue() ⇒ <code>string</code> \| <code>array</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
-**Returns**: <code>string</code> &#124; <code>array</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Returns**: <code>string</code> \| <code>array</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
 $("#idDate").rup_date("getRupValue");
@@ -152,13 +154,13 @@ $("#idDate").rup_date("getRupValue");
 
 ### rup_date~setRupValue(param)
 Método utilizado para asignar el valor al componente. Este método es el utilizado por
-        el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
+    el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| param | <code>string</code> &#124; <code>array</code> | Valor que se va a asignar al componente. En caso de tratarse de uan configuración en la que se permite seleccionar varias fechas se indicará mediante un array. |
+| param | <code>string</code> \| <code>array</code> | Valor que se va a asignar al componente. En caso de tratarse de uan configuración en la que se permite seleccionar varias fechas se indicará mediante un array. |
 
 **Example**  
 ```js
@@ -169,7 +171,7 @@ Método utilizado para asignar el valor al componente. Este método es el utiliz
 ### rup_date~destroy()
 Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("destroy");
@@ -179,7 +181,7 @@ $("#idDate").rup_date("destroy");
 ### rup_date~disable()
 Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("disable");
@@ -189,7 +191,7 @@ $("#idDate").rup_date("disable");
 ### rup_date~enable()
 Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("enable");
@@ -199,7 +201,7 @@ $("#idDate").rup_date("enable");
 ### rup_date~isDisabled() ⇒ <code>boolean</code>
 Indica si el componente se encuentra deshabilitado o no.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Returns**: <code>boolean</code> - - Devuelve si el componente está deshabilitado o no.  
 **Example**  
 ```js
@@ -210,7 +212,7 @@ $("#idDate").rup_date("isDisabled");
 ### rup_date~hide()
 Oculta el calendario para seleccionar una fecha.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("hide");
@@ -220,7 +222,7 @@ $("#idDate").rup_date("hide");
 ### rup_date~show()
 Muestra el calendario para seleccionar una fecha.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("show");
@@ -230,7 +232,7 @@ $("#idDate").rup_date("show");
 ### rup_date~getDate() ⇒ <code>date</code>
 Devuelve la fecha seleccionada, si no se ha seleccionado nada devuelve vacío.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Returns**: <code>date</code> - - Fecha seleccionada.  
 **Example**  
 ```js
@@ -241,7 +243,7 @@ $("#idDate").rup_date("getDate");
 ### rup_date~setDate()
 Establece la fecha del componente. El parámetro debe ser un objeto date.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 
 | Type | Description |
 | --- | --- |
@@ -256,7 +258,7 @@ $("#idDate").rup_date("setDate", new Date());
 ### rup_date~refresh()
 Refresca el calendario desplegado por si ha habido algún cambio.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("refresh");
@@ -266,11 +268,11 @@ $("#idDate").rup_date("refresh");
 ### rup_date~option(optionName, [value])
 Permite consultar y modificar la configuración del componente.
 
-**Kind**: inner method of <code>[rup_date](#module_rup_date)</code>  
+**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionName | <code>string</code> &#124; <code>object</code> | Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades. |
+| optionName | <code>string</code> \| <code>object</code> | Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades. |
 | [value] |  | Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro. |
 
 **Example**  
