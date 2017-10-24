@@ -280,19 +280,19 @@ this["Rup"]["Templates"]["rup"]["upload"]["uploadTemplate"] = Handlebars.templat
 
   return "    <li class=\"list-group-item template-upload\">\r\n      <div class=\"row\">\r\n        <div class=\"col-xs-6 col-md-3\">\r\n          <p class=\"name text-xs-left\"><b>"
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
-    + "</b></p>\r\n          <span class=\"name text-xs-left\"><span class=\"type\">"
+    + "</b></p>\r\n          <span class=\"name text-xs-left\"><span class=\"type-text type\">"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "</span><span class=\"type\">"
+    + "</span><span class=\"name text-xs-left size-text size\">"
     + alias4(((helper = (helper = helpers.size || (depth0 != null ? depth0.size : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"size","hash":{},"data":data}) : helper)))
-    + "</span></span>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n"
+    + "</span></span>\r\n          <p class=\"name text-xs-left error-text error\"></p>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n"
     + ((stack1 = helpers["if"].call(alias1,(depths[1] != null ? depths[1].notSubmitInForm : depths[1]),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "                <span class=\"btn btn-secondary cancel\">\r\n                    <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\r\n                    <span>"
+    + "\r\n                <span class=\"btn btn-secondary cancel\">\r\n                    <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\r\n                    <span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"rup_upload.cancelUpload",{"name":"i18n","hash":{},"data":data}))
     + "</span>\r\n                </span>\r\n        </div>\r\n\r\n      </div>\r\n\r\n    </li>\r\n";
 },"2":function(container,depth0,helpers,partials,data) {
-    return "                <span class=\"btn btn-primary start\">\r\n                    <i class=\"fa fa-upload\" aria-hidden=\"true\"></i>\r\n                    <span>"
-    + container.escapeExpression((helpers.i18n || (depth0 && depth0.i18n) || helpers.helperMissing).call(depth0 != null ? depth0 : {},"rup_upload.openUploaded",{"name":"i18n","hash":{},"data":data}))
-    + "</span>\r\n                </span>\r\n";
+    return "                <button class=\"btn btn-primary start\" disabled=\"true\">\r\n                    <i class=\"fa fa-upload\" aria-hidden=\"true\"></i>\r\n                    <span>"
+    + container.escapeExpression((helpers.i18n || (depth0 && depth0.i18n) || helpers.helperMissing).call(depth0 != null ? depth0 : {},"rup_upload.startUpload",{"name":"i18n","hash":{},"data":data}))
+    + "</span>\r\n                </button>\r\n\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 

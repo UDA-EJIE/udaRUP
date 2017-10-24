@@ -12626,6 +12626,82 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 
+	$.fn.fmatter.rup_autocomplete = function (cellval, opts, rwd, act) {
+
+		var labelProp, label, settings;
+
+
+		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+
+		// Se añade la info del formatter
+		var formatterObj = {};
+		formatterObj['rup_autocomplete'] = {
+			value: cellval
+		};
+
+
+		//		formatterObj["rup_combo"] = cellval;
+
+		// Se añade la info de la columna
+		var colFormatter = {};
+		colFormatter[opts.colModel.name] = formatterObj;
+
+		// Se añade el id de la fila
+		var rowObj = {};
+		rowObj[opts.rowId] = colFormatter;
+
+
+
+		if (opts.colModel.formatoptions && opts.colModel.formatoptions.labelName) {
+			labelProp = opts.colModel.formatoptions.labelName;
+			label = $.rup_utils.getJson(rwd, labelProp);
+
+		} else {
+			if (typeof opts.colModel.editoptions.source === 'string') {
+				// Combo remoto
+				// Obtener la propiedad que corresponde al texto a visualizar
+				if (opts.colModel.name.indexOf('.') !== -1) {
+					labelProp = opts.colModel.name.substring(0, opts.colModel.name.lastIndexOf('.')) + '.' + opts.colModel.editoptions.sourceParam.label;
+				} else {
+					labelProp = opts.colModel.editoptions.sourceParam.label;
+				}
+				label = $.rup_utils.getJson(rwd, labelProp);
+
+			} else {
+				// Combo local
+
+				var labelArr = $.grep(opts.colModel.editoptions.source, function (elem, index) {
+					if (elem.value === cellval) {
+						return true;
+					}
+				});
+
+				if (labelArr.length === 1) {
+					if (labelArr[0].i18nCaption) {
+						label = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], labelArr[0].i18nCaption);
+					} else {
+						label = labelArr[0].label;
+					}
+				}
+
+			}
+		}
+		formatterObj['rup_autocomplete']['label'] = label;
+
+		$.extend(true, formatterData, rowObj);
+		$(this).data('rup.table.formatter', formatterData);
+
+		return label || '';
+
+	};
+
+	$.fn.fmatter.rup_autocomplete.unformat = function (cellvalue, options) {
+		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
+
+		return val || '';
+
+	};
+
 	/*
    * SOBREESCITURAS
    * Funciones extendidas (SOBREESCRITAS) del componente jqGrid
@@ -12811,7 +12887,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								if (operation === 'set') {
 									$elem['rup_' + ruptype]('setRupValue', value);
 								} else if (operation === 'get') {
-									return $elem['rup_' + ruptype]('getRupValue');
+									if (ruptype === 'autocomplete'){
+										return $('[id="'+$elem.attr('id').substring(0, $elem.attr('id').indexOf('_label'))+'"]')['rup_' + ruptype]('getRupValue');
+									}else{
+										return $elem['rup_' + ruptype]('getRupValue');
+									}
 								}
 							}
 						};
@@ -17136,7 +17216,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				},
 				'jqGridAddEditAfterShowForm.rupTable.formEditing': function (event, $detailForm, frmoper) {
+					var $self = $(this),
+						settings = $self.data('settings');
 					// Ubicamos el foco en el primer elemento del formulario
+					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					jQuery(':focusable:enabled:not([readonly]):first', $detailForm).focus();
 				}
 			});
@@ -17314,8 +17397,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// Ocultamos el feedback de error
 			settings.formEdit.$feedback.hide();
 			jQuery('.rup-maint_validateIcon', $form).remove();
-			jQuery('.rup-maint_validateIcon', $form).remove();
 			jQuery('input.error', $form).removeClass('error');
+
+			if ($form.data('validator')){
+				$form.rup_validate('resetElements');
+			}
 
 		}
 	});
@@ -18479,10 +18565,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							modal: true,
 							resizable: p.resize,
 							title: p.caption,
-							width: p.width,
-							onClose:function(){
-								alert("hez");
-							}
+							width: p.width							
 						}, settings.formEdit.dialogOptions));
 
 						settings.formEdit.detailFormCreated = true;
@@ -19368,7 +19451,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						$row= $(self.rows.namedItem(rowid));
 						$cell = $row.find('td:eq('+i+')');
-						ruptypeObj = $cell.find('[ruptype]');
+						ruptypeObj =  $cell.find('[ruptype]:not([autocomplete])');
 
 						if (ruptypeObj.attr('ruptype')==='combo'){
 
@@ -19376,6 +19459,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
 									'label':ruptypeObj.rup_combo('label'),
 									'value':ruptypeObj.rup_combo('getRupValue')
+								};
+							}
+						} else if (ruptypeObj.attr('ruptype')==='autocomplete' && ruptypeObj.attr('rup_autocomplete_label')){
+							if ($self.data('rup.table.formatter')!==undefined){
+								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
+									'label':$('[id="'+ruptypeObj.attr('id')+'_label"]').val(),
+									'value':ruptypeObj.rup_autocomplete('getRupValue')
 								};
 							}
 						}
@@ -19710,7 +19800,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$self.jqGrid('restoreRow', rowToRestore, afterrestorefunc);
 		},
 		restoreInlineRupFields: function (rowid, json){
-			var $self = this, self = this[0], $row, $cell, ruptypeObj;
+			var $self = this, self = this[0], $row, $cell, ruptypeObj, val;
 
 
 			$(self.p.colModel).each(function(i){
@@ -19722,7 +19812,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if ( this.rupType){
 					if (this.rupType==='combo'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							var val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							$cell.html(val);
+						}
+					} else if (this.rupType==='autocomplete'){
+						if ($self.data('rup.table.formatter')!==undefined){
+							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					}
@@ -22617,6 +22712,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							contains : false,
 							combobox : true,
 							menuAppendTo : $('#' + multifilterSettings.dropdownDialogId).parent(),
+							appendTo : $('#' + multifilterSettings.dropdownDialogId).parent(),
 
 							select : function() {
 
@@ -22640,6 +22736,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 							}
 						});
+
+					jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
+						$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+					});
 
 					$('.jstree').on('rup_filter_treeLoaded',function(event,data){
 						$(this).rup_tree('setRupValue',data);

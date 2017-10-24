@@ -1080,7 +1080,7 @@ body .ui-tooltip {
 
 .progress-animated .progress-bar,
 .progress-animated .bar {
-  background: url("../img/progressbar.gif") !important;
+  background: url("./images/progressbar.gif") !important;
   filter: none; }
 
 .fileupload-process {
@@ -1092,7 +1092,7 @@ body .ui-tooltip {
   display: block;
   width: 32px;
   height: 32px;
-  background: url("../img/loading.gif") center no-repeat;
+  background: url("./images/loading.gif") center no-repeat;
   background-size: contain; }
 
 .files audio,
