@@ -53,7 +53,7 @@ module.exports = {
 				query:{
 					knownHelpers: ['i18n'],
 					helperDirs: [
-						__dirname + '/src/helper'
+						path.join(__dirname, '../src/helper'),
 
 					] }
 			},

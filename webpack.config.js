@@ -45,6 +45,18 @@ module.exports = [{
 					}
 				}
 			},
+			{ test: /\.hbs$/,
+				use:{
+					loader: 'handlebars-loader',
+					query:{
+						// knownHelpers: ['i18n'],
+						helperDirs: [
+							__dirname + '/src/helper'
+
+						]
+					}
+				}
+			},
 			{
 				test: require.resolve('tether'),
 				use: [{
