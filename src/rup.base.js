@@ -29,6 +29,8 @@
 	}
 }(function ($) {
 
+	var rup_version = '3.2.0';
+
 	/**
    * jQuery definition to anchor JsDoc comments.
    *
@@ -206,6 +208,7 @@
 		i18n: {},
 		appResources: {}, //fichero de recursos de la aplicacion
 		lang: null,
+		version: rup_version,
 		//Funcion que rupera el idioma del navegador por defecto
 		getBrowserLenguage: function () {
 			return ((navigator.language || navigator.userLanguage).split('-')[0].toLowerCase());
