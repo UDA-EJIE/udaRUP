@@ -564,7 +564,7 @@
 
 						$row= $(self.rows.namedItem(rowid));
 						$cell = $row.find('td:eq('+i+')');
-						ruptypeObj = $cell.find('[ruptype]');
+						ruptypeObj =  $cell.find('[ruptype]:not([autocomplete])');
 
 						if (ruptypeObj.attr('ruptype')==='combo'){
 
@@ -572,6 +572,13 @@
 								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
 									'label':ruptypeObj.rup_combo('label'),
 									'value':ruptypeObj.rup_combo('getRupValue')
+								};
+							}
+						} else if (ruptypeObj.attr('ruptype')==='autocomplete' && ruptypeObj.attr('rup_autocomplete_label')){
+							if ($self.data('rup.table.formatter')!==undefined){
+								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
+									'label':$('[id="'+ruptypeObj.attr('id')+'_label"]').val(),
+									'value':ruptypeObj.rup_autocomplete('getRupValue')
 								};
 							}
 						}
@@ -906,7 +913,7 @@
 			$self.jqGrid('restoreRow', rowToRestore, afterrestorefunc);
 		},
 		restoreInlineRupFields: function (rowid, json){
-			var $self = this, self = this[0], $row, $cell, ruptypeObj;
+			var $self = this, self = this[0], $row, $cell, ruptypeObj, val;
 
 
 			$(self.p.colModel).each(function(i){
@@ -918,7 +925,12 @@
 				if ( this.rupType){
 					if (this.rupType==='combo'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							var val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							$cell.html(val);
+						}
+					} else if (this.rupType==='autocomplete'){
+						if ($self.data('rup.table.formatter')!==undefined){
+							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					}

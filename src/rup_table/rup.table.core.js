@@ -148,6 +148,82 @@
 	};
 
 
+	$.fn.fmatter.rup_autocomplete = function (cellval, opts, rwd, act) {
+
+		var labelProp, label, settings;
+
+
+		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+
+		// Se añade la info del formatter
+		var formatterObj = {};
+		formatterObj['rup_autocomplete'] = {
+			value: cellval
+		};
+
+
+		//		formatterObj["rup_combo"] = cellval;
+
+		// Se añade la info de la columna
+		var colFormatter = {};
+		colFormatter[opts.colModel.name] = formatterObj;
+
+		// Se añade el id de la fila
+		var rowObj = {};
+		rowObj[opts.rowId] = colFormatter;
+
+
+
+		if (opts.colModel.formatoptions && opts.colModel.formatoptions.labelName) {
+			labelProp = opts.colModel.formatoptions.labelName;
+			label = $.rup_utils.getJson(rwd, labelProp);
+
+		} else {
+			if (typeof opts.colModel.editoptions.source === 'string') {
+				// Combo remoto
+				// Obtener la propiedad que corresponde al texto a visualizar
+				if (opts.colModel.name.indexOf('.') !== -1) {
+					labelProp = opts.colModel.name.substring(0, opts.colModel.name.lastIndexOf('.')) + '.' + opts.colModel.editoptions.sourceParam.label;
+				} else {
+					labelProp = opts.colModel.editoptions.sourceParam.label;
+				}
+				label = $.rup_utils.getJson(rwd, labelProp);
+
+			} else {
+				// Combo local
+
+				var labelArr = $.grep(opts.colModel.editoptions.source, function (elem, index) {
+					if (elem.value === cellval) {
+						return true;
+					}
+				});
+
+				if (labelArr.length === 1) {
+					if (labelArr[0].i18nCaption) {
+						label = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], labelArr[0].i18nCaption);
+					} else {
+						label = labelArr[0].label;
+					}
+				}
+
+			}
+		}
+		formatterObj['rup_autocomplete']['label'] = label;
+
+		$.extend(true, formatterData, rowObj);
+		$(this).data('rup.table.formatter', formatterData);
+
+		return label || '';
+
+	};
+
+	$.fn.fmatter.rup_autocomplete.unformat = function (cellvalue, options) {
+		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
+
+		return val || '';
+
+	};
+
 	/*
    * SOBREESCITURAS
    * Funciones extendidas (SOBREESCRITAS) del componente jqGrid
@@ -333,7 +409,11 @@
 								if (operation === 'set') {
 									$elem['rup_' + ruptype]('setRupValue', value);
 								} else if (operation === 'get') {
-									return $elem['rup_' + ruptype]('getRupValue');
+									if (ruptype === 'autocomplete'){
+										return $('[id="'+$elem.attr('id').substring(0, $elem.attr('id').indexOf('_label'))+'"]')['rup_' + ruptype]('getRupValue');
+									}else{
+										return $elem['rup_' + ruptype]('getRupValue');
+									}
 								}
 							}
 						};
