@@ -39,10 +39,7 @@ El servidor se inicia mediante el siguiente comando:
 $ node server.js
 ```
 
-Por defecto el servidor escucha las peticiones por el puerto 8080. Las urls accesibles son:
-
-* [App de ejemplo]: Corriendo en la url http://localhost:8080/app.
-* [Tests de Jasmine]: Tests de Jasmine accesibles ejecutados en el navegador. Son accesibles desde http://localhost:8080/test.
+Por defecto el servidor escucha las peticiones por el puerto 8080. Se accederá a la aplicación de ejemplo mediante la url http://localhost:8080/webpack-dev-server/demo/index-bt4.html.
 
 
 ## Generar documentación
@@ -50,7 +47,7 @@ Por defecto el servidor escucha las peticiones por el puerto 8080. Las urls acce
 Para generar documentación a partir de los comentarios jsdoc existentes en las fuentes, ejecutar:
 
 ```sh
-$ gulp doc:api
+$ npm rup doc
 ```
 
 La documentación resultante se generará en el directorio doc/api
@@ -59,7 +56,6 @@ La documentación resultante se generará en el directorio doc/api
 
 ```sh
 $ npm run watch
-$ npm run watch-x21a
 ```
 
 
@@ -82,24 +78,6 @@ $ npm run test
 ```
 
 El resultado de los test se muestra en la consola.
-
-
-## Tareas auxiliares
-
-La lista de tareas gulp empleadas para cada uno de los procesos realizados son:
-
-```sh
-$ gulp templates
-$ gulp templates:rup
-$ gulp templates:demo
-
-$ gulp sass:all
-$ gulp sass:rup-base
-$ gulp sass:rup-theme
-$ gulp sass:rup-jqueryui-theme
-
-
-```
 
 
 ## Migración desde aplicaciones UDA v2.x

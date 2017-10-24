@@ -10,6 +10,43 @@ Para el proceso de actualización dan por sentados los siguientes supuestos:
 
 Si lo que buscas es información sobre como mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar).
 
+### v3.2.0 (25-Octubre-2017)
+
+Para actualizar una aplicación UDA a la versión v3.2.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.2.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.2.0/rup-v3.2.0.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.2.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.2.0/templates-v3.2.0.zip).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la versión de la librería de x38 se deberán seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.2.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+
 ### v3.1.0 (1-Junio-2017)
 
 Para actualizar una aplicación UDA a la versión v3.1.0 se deben realizar las siguientes modificaciones.
