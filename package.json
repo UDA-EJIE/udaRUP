@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
@@ -14,6 +14,8 @@
     "all": "npm run build && npm run dist",
     "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
     "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
+
+    "doc": "gulp doc:api",
 
     "build": "run-p gulp:build  webpack:dev webpack:build",
     "build:x21a": "run-s gulp:build  webpack:dev webpack:build copy:x21a",

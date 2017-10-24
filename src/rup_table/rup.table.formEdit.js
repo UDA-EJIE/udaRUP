@@ -1918,10 +1918,7 @@
 							modal: true,
 							resizable: p.resize,
 							title: p.caption,
-							width: p.width,
-							onClose:function(){
-								alert('hez');
-							}
+							width: p.width							
 						}, settings.formEdit.dialogOptions));
 
 						settings.formEdit.detailFormCreated = true;
