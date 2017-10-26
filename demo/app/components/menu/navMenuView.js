@@ -1,24 +1,23 @@
 define(['marionette',
-        'templates',
-        "rup/rup.navMenu"], function (Marionette, App) {
+	'./navMenuTemplate.hbs',
+	'rup.navMenu'], function (Marionette, NavMenuTemplate) {
 
-    var NavMenuView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.components.menu.navMenuTemplate,
-        ui: {
-            navMenuExample: "#example",
+	var NavMenuView = Marionette.LayoutView.extend({
+		template: NavMenuTemplate,
+		ui: {
+			navMenuExample: '#example',
 
-        },
-        onDomRefresh: fncOnDomRefresh
-    });
+		},
+		onDomRefresh: fncOnDomRefresh
+	});
 
-    function fncOnDomRefresh() {
-        var $view = this;
+	function fncOnDomRefresh() {
+		
+		this.ui.navMenuExample.rup_navMenu({
+			navigation: true,
+			visible: 3
+		});
 
-        this.ui.navMenuExample.rup_navMenu({
-            navigation: true,
-            visible: 3
-        });
-
-    }
-    return NavMenuView;
+	}
+	return NavMenuView;
 });

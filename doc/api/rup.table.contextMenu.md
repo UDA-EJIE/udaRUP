@@ -4,13 +4,28 @@
 Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
 
 **Summary**: Plugin de menú contextual del componente RUP Table.  
-<a name="module_rup_table/contextMenu..preConfigureCore"></a>
 
-### rup_table/contextMenu~preConfigureCore(settings)
-Metodo que realiza la pre-configuración del core del componente RUP Table.Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
+* [rup_table/contextMenu](#module_rup_table/contextMenu)
+    * [~preConfigureContextMenu(settings)](#module_rup_table/contextMenu..preConfigureContextMenu)
+    * [~postConfigureContextMenu(settings)](#module_rup_table/contextMenu..postConfigureContextMenu)
 
-**Kind**: inner method of <code>[rup_table/contextMenu](#module_rup_table/contextMenu)</code>  
-**Emits**: <code>module:rup_table#event:rupTable_checkOutOfGrid</code>, <code>module:rup_table#event:rupTable_serializeGridData</code>, <code>module:rup_table#event:rupTable_beforeProcessing</code>  
+<a name="module_rup_table/contextMenu..preConfigureContextMenu"></a>
+
+### rup_table/contextMenu~preConfigureContextMenu(settings)
+Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
+
+**Kind**: inner method of [<code>rup_table/contextMenu</code>](#module_rup_table/contextMenu)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| settings | <code>object</code> | Parámetros de configuración del componente. |
+
+<a name="module_rup_table/contextMenu..postConfigureContextMenu"></a>
+
+### rup_table/contextMenu~postConfigureContextMenu(settings)
+Metodo que realiza la post-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
+
+**Kind**: inner method of [<code>rup_table/contextMenu</code>](#module_rup_table/contextMenu)  
 
 | Param | Type | Description |
 | --- | --- | --- |

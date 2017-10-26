@@ -1,3 +1,5 @@
+/*global require */
+
 var gulp = require('gulp');
 var fs = require('fs');
 var concat = require('gulp-concat');
@@ -25,10 +27,10 @@ var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 // });
 
 gulp.task('minimize:js:rup', function () {
-    console.log("Generando rup.js...");
-    gulp.src(minimizeConf.rupJsFiles)
-        .pipe(concat("rup.js"))
-        .pipe(gulp.dest('./build/js'));
+	console.log('Generando rup.js...');
+	gulp.src(minimizeConf.rupJsFiles)
+		.pipe(concat('rup.js'))
+		.pipe(gulp.dest('./build/js'));
 });
 //
 // gulp.task('minimize:js:rup-base', function () {

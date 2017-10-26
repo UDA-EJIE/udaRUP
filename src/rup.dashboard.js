@@ -3,22 +3,27 @@
  * @author EJIE
  * @version 1.0.0
  */
- ;(function( factory ) {
-	if ( typeof define === "function" && define.amd ) {
+
+/*global define */
+/*global jQuery */
+/*global Rup */
+/*global DashboardItem */
+(function( factory ) {
+	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
 		define([
-			"jquery",
-      "./templates",
-      "./model/dashboardItemModel",
+			'jquery',
+			'./templates',
+			'./model/dashboardItemModel',
 			// "jquery-ui",
-			"./rup.base",
+			'./rup.base',
 
-      "gridstack",
-      "./rup.widget",
-      "./rup.widget.welcome",
-      "./rup.widget.template",
-      "./rup.widget.xhr"
+			'gridstack',
+			'./rup.widget',
+			'./rup.widget.welcome',
+			'./rup.widget.template',
+			'./rup.widget.xhr'
 
 		], factory );
 	} else {
@@ -28,7 +33,7 @@
 	}
 }(function($, Rup, DashboardItem) {
 
-    /**
+	/**
     * Componente Dashboard.
     *
     * @namespace rup.dashboard
@@ -36,7 +41,7 @@
     */
 
 
-     /**
+	/**
      * Objeto utilizado para configurar y definir los elementos que se muestran en el dashboard.
      *
      * @typedef {Object} rup.dashboard~DashboardItem
@@ -52,18 +57,18 @@
      * @property {object} widgetOptions - Objeto de configuración empleado para la inicialización del elemento correspondiente a crear dentro del dashboard.
      */
 
-     $.widget("rup.dashboard", {
+	$.widget('rup.dashboard', {
 
-        //Options to be used as defaults
-        options: {
-            url: null,
-            cellHeight:30,
-            draggable:{
-                handle: ".widget-header"
-            }
-        },
+		//Options to be used as defaults
+		options: {
+			url: null,
+			cellHeight:30,
+			draggable:{
+				handle: '.widget-header'
+			}
+		},
 
-        /**
+		/**
         * El método _create de ejecuta automáticamente la primera vez que se invoca el widget.
         *
         * @name rup.dashboard#_create
@@ -71,124 +76,124 @@
         * @private
         *
         */
-        _create: function () {
-            var $self = this,
-                $el = $self.element;
+		_create: function () {
+			var $self = this,
+				$el = $self.element;
 
-            $el.gridstack($self.options);
-            $el.addClass("rup_dashboard");
+			$el.gridstack($self.options);
+			$el.addClass('rup_dashboard');
 
-            $self._itemTemplate = Rup.Templates.rup.dashboard.item;
+			$self._itemTemplate = Rup.Templates.rup.dashboard.item;
 
-            $self.$gridstack = $el.data("gridstack");
-        },
-        /**
+			$self.$gridstack = $el.data('gridstack');
+		},
+		/**
         * Elimina el widget instanciado así como las modificaciones realizadas en el DOM.
         *
         * @name rup.dashboard#destroy
         * @function
         *
         */
-        destroy: function () {
-            $.Widget.prototype.destroy.call( this );
-        },
-        /**
+		destroy: function () {
+			$.Widget.prototype.destroy.call( this );
+		},
+		/**
         * Agrega un widget al dashboard.
         *
         * @name rup.dashboard#addWidget
         * @function
         * @param {rup.dashboard~DashboardItem} dashboardItem - Objeto de configuración del elemento que se desea agregar al dashboard.
         */
-        addWidget: function (dashboardItem) {
-            var $self= this,
-                widgetName,
-                $widget,
-                classArray=[],
-                $gridStackItem,
-                options;
+		addWidget: function (dashboardItem) {
+			var $self= this,
+				widgetName,
+				$widget,
+				classArray=[],
+				$gridStackItem,
+				options;
 
-            // Configuración de los valores que se van a incluir en la propiedad class del contenido del item.
-            classArray.push("grid-stack-item-content");
+			// Configuración de los valores que se van a incluir en la propiedad class del contenido del item.
+			classArray.push('grid-stack-item-content');
 
-            if (dashboardItem.overflowX===false){
-                classArray.push("no-scroll-x");
-            }
+			if (dashboardItem.overflowX===false){
+				classArray.push('no-scroll-x');
+			}
 
-            if (dashboardItem.overflowY===false){
-                classArray.push("no-scroll-y");
-            }
-            dashboardItem.itemClass = classArray.join(" ");
+			if (dashboardItem.overflowY===false){
+				classArray.push('no-scroll-y');
+			}
+			dashboardItem.itemClass = classArray.join(' ');
 
-            // Se crea el item a partir de la template y las opciones de configuración
-            $gridStackItem = $($self._itemTemplate(dashboardItem));
+			// Se crea el item a partir de la template y las opciones de configuración
+			$gridStackItem = $($self._itemTemplate(dashboardItem));
 
-            // Se obtiene la referencia del item-content
-            $widget = $gridStackItem.find(".grid-stack-item-content");
+			// Se obtiene la referencia del item-content
+			$widget = $gridStackItem.find('.grid-stack-item-content');
 
-            // Callbacks de los eventos generados por el rup.widget insertado
-            $widget.on({
-              "rup.widget.closed rup.widget.removed": function(){
-                $self.removeWidget($(this).parent());
-              },
-              "widgetConfigured.widget.rup": function(event, configData){
-                $self.element.trigger("rup.dashboard.widget.configured", this, configData)
-              },
-              "rup.widget.resize": function(event, width, height){
-                $self.resize($(this).parent(), width, height);
-              },
-              "rup.widget.minHeight": function(event, val){
-                $self.minHeight($(this).parent(), val);
-              },
-              "rup.widget.getDashboardWidgetOptions": function(event){
-                return $self.getWidgetOptions($(this).parent());
-              },
-              "rup.widget.execFunction": function(event, arguments){
-                $self.execFunction($(this).parent(), arguments);
-              }
-            });
+			// Callbacks de los eventos generados por el rup.widget insertado
+			$widget.on({
+				'rup.widget.closed rup.widget.removed': function(){
+					$self.removeWidget($(this).parent());
+				},
+				'widgetConfigured.widget.rup': function(event, configData){
+					$self.element.trigger('rup.dashboard.widget.configured', this, configData);
+				},
+				'rup.widget.resize': function(event, width, height){
+					$self.resize($(this).parent(), width, height);
+				},
+				'rup.widget.minHeight': function(event, val){
+					$self.minHeight($(this).parent(), val);
+				},
+				'rup.widget.getDashboardWidgetOptions': function(event){
+					return $self.getWidgetOptions($(this).parent());
+				},
+				'rup.widget.execFunction': function(event, args){
+					$self.execFunction($(this).parent(), args);
+				}
+			});
 
-            // Inicialización del rup.widget correspondiente. En el caso de que se especifique un tipo de item se configura el tipo correspondiente de rup_widget que se va a configurar
-            widgetType = dashboardItem.type?"rup_widget_"+dashboardItem.type:"rup_widget";
-            $.proxy($widget, widgetType)(dashboardItem.widgetOptions);
-            options = $widget.data("rupWidget_"+dashboardItem.type).options;
+			// Inicialización del rup.widget correspondiente. En el caso de que se especifique un tipo de item se configura el tipo correspondiente de rup_widget que se va a configurar
+			widgetType = dashboardItem.type?'rup_widget_'+dashboardItem.type:'rup_widget';
+			$.proxy($widget, widgetType)(dashboardItem.widgetOptions);
+			options = $widget.data('rupWidget_'+dashboardItem.type).options;
 
-            // Se invoca al plugin subyacente GridStack para que agregue el widget
-            // dashboardItem
-            // $self.$gridstack.addWidget($gridStackItem, options.x, options.y, options.width, options.height, options.autoPosition, options.minWidth, options.maxWidth, options.minHeight, options.maxHeight, options.id);
-            $self.$gridstack.addWidget($gridStackItem, dashboardItem.x, dashboardItem.y, dashboardItem.width, dashboardItem.height, dashboardItem.autoPosition, dashboardItem.minWidth, dashboardItem.maxWidth, dashboardItem.minHeight, dashboardItem.maxHeight, dashboardItem.id);
+			// Se invoca al plugin subyacente GridStack para que agregue el widget
+			// dashboardItem
+			// $self.$gridstack.addWidget($gridStackItem, options.x, options.y, options.width, options.height, options.autoPosition, options.minWidth, options.maxWidth, options.minHeight, options.maxHeight, options.id);
+			$self.$gridstack.addWidget($gridStackItem, dashboardItem.x, dashboardItem.y, dashboardItem.width, dashboardItem.height, dashboardItem.autoPosition, dashboardItem.minWidth, dashboardItem.maxWidth, dashboardItem.minHeight, dashboardItem.maxHeight, dashboardItem.id);
 
-            $gridStackItem.data("options", dashboardItem);
+			$gridStackItem.data('options', dashboardItem);
 
-        },
-        execFunction: function($el, arguments){
-            debugger;
-            return this.$gridstack.resize($el, width, height);
-        },
-        getWidgetOptions: function($el){
+		},
+		execFunction: function($el, args){
 
-          var $self = this, retNode;
+			return this.$gridstack.resize($el, width, height);
+		},
+		getWidgetOptions: function($el){
 
-          retNode = $.grep($self.$gridstack.grid.nodes, function(node){
-              return $el.is(node.el);
-          });
+			var $self = this, retNode;
 
-          return retNode.length === 1? retNode[0]:undefined;
-        },
-        resize: function($el, width, height){
-            this.$gridstack.resize($el, width, height);
-        },
-        minHeight: function($el, val){
-            this.$gridstack.minHeight($el, val);
-        },
-        removeWidget: function($el){
-            this.$gridstack.removeWidget($el);
+			retNode = $.grep($self.$gridstack.grid.nodes, function(node){
+				return $el.is(node.el);
+			});
 
-            this.element.trigger("rup.dashboard.widget.removed", $el);
-        },
-        removeAll: function($el){
-            this.$gridstack.remove_all();
-        },
-        /**
+			return retNode.length === 1? retNode[0]:undefined;
+		},
+		resize: function($el, width, height){
+			this.$gridstack.resize($el, width, height);
+		},
+		minHeight: function($el, val){
+			this.$gridstack.minHeight($el, val);
+		},
+		removeWidget: function($el){
+			this.$gridstack.removeWidget($el);
+
+			this.element.trigger('rup.dashboard.widget.removed', $el);
+		},
+		removeAll: function($el){
+			this.$gridstack.remove_all();
+		},
+		/**
         * Devuelve un array de objetos que determina la configuración del dashboard y los items mostrados en el.
         *
         * @name rup.dashboard#serialize
@@ -197,50 +202,50 @@
         * @example
         * $("#selector").rup_dashboard("serialize");
         */
-        serialize: function () {
-            var widgetName;
-            var res = $.map($('.grid-stack .grid-stack-item:visible'), function (el) {
-                var dashboardItem = new DashboardItem();
-                dashboardItem.setFromElement($(el));
-                return dashboardItem;
-            });
-            return res;
+		serialize: function () {
+			var widgetName;
+			var res = $.map($('.grid-stack .grid-stack-item:visible'), function (el) {
+				var dashboardItem = new DashboardItem();
+				dashboardItem.setFromElement($(el));
+				return dashboardItem;
+			});
+			return res;
 
-        },
-        serializeAsArray: function (event, options ) {
-            return JSON.stringify(this.serialize());
-        },
-        loadFromArray: function(arr){
+		},
+		serializeAsArray: function (event, options ) {
+			return JSON.stringify(this.serialize());
+		},
+		loadFromArray: function(arr){
 
-            var $self = this;
-            $self.$gridstack.batch_update();
+			var $self = this;
+			$self.$gridstack.batch_update();
 
-            if (arr!==null){
-                jQuery.each(arr, function(index, obj){
-                    $self.addWidget(obj);
-                });
-            }
-            $self.$gridstack.commit();
-        },
+			if (arr!==null){
+				jQuery.each(arr, function(index, obj){
+					$self.addWidget(obj);
+				});
+			}
+			$self.$gridstack.commit();
+		},
 
-        // Respond to any changes the user makes to the
-        // option method
-        _setOption: function ( key, value ) {
-            switch ( key ) {
-            case "someValue":
-                // this.options.someValue = doSomethingWith( value );
-                break;
-            default:
-                // this.options[ key ] = value;
-                break;
-            }
+		// Respond to any changes the user makes to the
+		// option method
+		_setOption: function ( key, value ) {
+			switch ( key ) {
+			case 'someValue':
+				// this.options.someValue = doSomethingWith( value );
+				break;
+			default:
+																// this.options[ key ] = value;
+				break;
+			}
 
-            // For UI 1.8, _setOption must be manually invoked
-            // from the base widget
-            $.Widget.prototype._setOption.apply( this, arguments );
-            // For UI 1.9 the _super method can be used instead
-            // this._super( "_setOption", key, value );
-        }
-    });
-    $.widget.bridge( "rup_dashboard", $.rup.dashboard );
+			// For UI 1.8, _setOption must be manually invoked
+			// from the base widget
+			$.Widget.prototype._setOption.apply( this, arguments );
+			// For UI 1.9 the _super method can be used instead
+			// this._super( "_setOption", key, value );
+		}
+	});
+	$.widget.bridge( 'rup_dashboard', $.rup.dashboard );
 }));

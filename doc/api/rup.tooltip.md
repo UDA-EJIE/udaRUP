@@ -23,7 +23,7 @@ $("[title]").rup_tooltip({});
 ### rup_tooltip~open()
 Muestra el tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 **Example**  
 ```js
 $("#idTooltip").rup_tooltip("open");
@@ -33,7 +33,7 @@ $("#idTooltip").rup_tooltip("open");
 ### rup_tooltip~close()
 Oculta el tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 **Example**  
 ```js
 $("#idTooltip").rup_tooltip("close");
@@ -43,7 +43,7 @@ $("#idTooltip").rup_tooltip("close");
 ### rup_tooltip~enable()
 Habilita el tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 **Example**  
 ```js
 $("#idTooltip").rup_tooltip("enable");
@@ -53,7 +53,7 @@ $("#idTooltip").rup_tooltip("enable");
 ### rup_tooltip~disable()
 Deshabilita el tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 **Example**  
 ```js
 $("#idTooltip").rup_tooltip("disable");
@@ -63,7 +63,7 @@ $("#idTooltip").rup_tooltip("disable");
 ### rup_tooltip~destroy()
 Elimina el tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 **Example**  
 ```js
 $("#idTooltip").rup_tooltip("destroy");
@@ -73,7 +73,7 @@ $("#idTooltip").rup_tooltip("destroy");
 ### rup_tooltip~option(option, [value])
 Obtiene o establece la configuración del tooltip.
 
-**Kind**: inner method of <code>[rup_tooltip](#module_rup_tooltip)</code>  
+**Kind**: inner method of [<code>rup_tooltip</code>](#module_rup_tooltip)  
 
 | Param | Type | Description |
 | --- | --- | --- |

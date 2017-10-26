@@ -1,6 +1,6 @@
 define(['marionette',
         'templates',
-        'rup/rup.dashboard'], function(Marionette, App){
+        'rup.dashboard'], function(Marionette, App){
 
   var DashboardTestView = Marionette.LayoutView.extend({
       template: App.Templates.demo.app.dashboard.dashboardTestTemplate,

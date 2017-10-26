@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.accordion'], function(Marionette, App){
+	'./accordionBodyTemplate.hbs',
+	'rup.accordion'], function(Marionette, AccordionBodyTemplate){
 
-  var AccordionBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.accordion.accordionBodyTemplate
+	var AccordionBodyView = Marionette.LayoutView.extend({
+		template: AccordionBodyTemplate
 
-  });
+	});
 
-  return AccordionBodyView;
+	return AccordionBodyView;
 });

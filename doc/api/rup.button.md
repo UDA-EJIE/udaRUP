@@ -18,7 +18,7 @@ Presenta un control de interación con el usuario. Se trata de extender los boto
 ### rup_button~dropdown_defaults
 Opciones por defecto del objeto de configuración del menú desplegable asociado al botón.
 
-**Kind**: inner property of <code>[rup_button](#module_rup_button)</code>  
+**Kind**: inner property of [<code>rup_button</code>](#module_rup_button)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -30,10 +30,10 @@ Opciones por defecto del objeto de configuración del menú desplegable asociado
 ### rup_button~defaults()
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner method of <code>[rup_button](#module_rup_button)</code>  
+**Kind**: inner method of [<code>rup_button</code>](#module_rup_button)  
 **Properties**
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| dropdown | <code>boolean</code> &#124; <code>Object</code> | <code>false</code> | Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo. |
+| dropdown | <code>boolean</code> \| <code>Object</code> | <code>false</code> | Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo. |
 

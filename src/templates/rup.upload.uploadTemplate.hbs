@@ -5,18 +5,21 @@
       <div class="row">
         <div class="col-xs-6 col-md-3">
           <p class="name text-xs-left"><b>{{name}}</b></p>
-          <span class="name text-xs-left"><span class="type">{{type}}</span><span class="type">{{size}}</span></span>
+          <span class="name text-xs-left"><span class="type-text type">{{type}}</span><span class="name text-xs-left size-text size">{{size}}</span></span>
+          <p class="name text-xs-left error-text error"></p>
 
 
         </div>
 
         <div class="col-xs-6 col-md-4 fileupload-buttonbar">
             {{#if ../notSubmitInForm}}
-                <span class="btn btn-primary start">
+                <button class="btn btn-primary start" disabled="true">
                     <i class="fa fa-upload" aria-hidden="true"></i>
-                    <span>{{i18n "rup_upload.openUploaded"}}</span>
-                </span>
+                    <span>{{i18n "rup_upload.startUpload"}}</span>
+                </button>
+
             {{/if}}
+
                 <span class="btn btn-secondary cancel">
                     <i class="fa fa-times-circle" aria-hidden="true"></i>
                     <span>{{i18n "rup_upload.cancelUpload"}}</span>

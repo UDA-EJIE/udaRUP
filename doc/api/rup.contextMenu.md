@@ -21,7 +21,7 @@ var properties = { items : {      "edit": {name: "Edit", icon: "edit"},      
 ### rup_contextMenu~defaults
 Propiedades de configuración del componente.
 
-**Kind**: inner property of <code>[rup_contextMenu](#module_rup_contextMenu)</code>  
+**Kind**: inner property of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -36,12 +36,12 @@ Propiedades de configuración del componente.
 | className | <code>string</code> |  | Nombres de clases adicionales que se van a aplicar al menú contextual. |
 | animation | <code>object</code> |  | Determina la animación que se va a aplicar a la hora de mostrar/ocultar el menúcontextual. La configuración es la misma que la que utiliza para realizar la de los métodos show y hide de jQuery. |
 | events | <code>object</code> |  | Los eventos show y hide se ejecutan antes de el menú se muestre o se oculte. Mediante esta propiedad es posible indicar funciones de callback para ser ejecutadas en estos casos. Permiten devolver false para evitar continuar con el evento. |
-| events.show | <code>[onShowEvent](#jQuery.rup_contextMenu..onShowEvent)</code> |  | Función a ejecutar antes de que se muestre el menú. |
-| events.hide | <code>[onHideEvent](#jQuery.rup_contextMenu..onHideEvent)</code> |  | Función a ejecutar antes de que se oculte el menú. |
-| position | <code>[position](#jQuery.rup_contextMenu..position)</code> |  | Función de callback que se ejecuta a partir de los eventos indicados en la propiedad trigger. |
+| events.show | [<code>onShowEvent</code>](#jQuery.rup_contextMenu..onShowEvent) |  | Función a ejecutar antes de que se muestre el menú. |
+| events.hide | [<code>onHideEvent</code>](#jQuery.rup_contextMenu..onHideEvent) |  | Función a ejecutar antes de que se oculte el menú. |
+| position | [<code>position</code>](#jQuery.rup_contextMenu..position) |  | Función de callback que se ejecuta a partir de los eventos indicados en la propiedad trigger. |
 | determinePosition | <code>string</code> |  | Determina la posición del menú contextual de acuerdo al elemento disparador. |
-| callback | <code>[callback](#jQuery.rup_contextMenu..callback)</code> |  | Esta propiedad permite especificar una función de callback por defecto para aquellos ítems que no hayan especificado una función propia. |
-| build | <code>[build](#jQuery.rup_contextMenu..build)</code> |  | Función de callback que devuelve el objeto de configuración del componente. En caso de especificar una función para la propiedad build la creación del menú no se realiza inicialmente sino que se demora hasta que se ejecuta el evento que lo muestra. |
+| callback | [<code>callback</code>](#jQuery.rup_contextMenu..callback) |  | Esta propiedad permite especificar una función de callback por defecto para aquellos ítems que no hayan especificado una función propia. |
+| build | [<code>build</code>](#jQuery.rup_contextMenu..build) |  | Función de callback que devuelve el objeto de configuración del componente. En caso de especificar una función para la propiedad build la creación del menú no se realiza inicialmente sino que se demora hasta que se ejecuta el evento que lo muestra. |
 | showCursor | <code>boolean</code> | <code>true</code> | Determina si se va a modificar el estilo del puntero del ratón al posicionarse sobre el elemento que dispone de menú contextual. El tipo de puntero se determina mediante la clase CSS context-menu-cursor. |
 | msieCursorCss | <code>string</code> | <code>&quot;\&quot;url(\&quot;+$.rup.RUP+\&quot;/css/cursors/context-menu.cur),default\&quot;&quot;</code> | Esta propiedad se emplea para poder modificar la apariencia del cursor en Internet Explorer al posicionarse sobre un elemento que dispone de un menú contextual. Esto es debido a que el modo en el que hay que realizar la asignación del nuevo cursor no se puede realizar mediante un class |
 
@@ -50,7 +50,7 @@ Propiedades de configuración del componente.
 ### rup_contextMenu~show()
 Muestra el menú contextual.
 
-**Kind**: inner method of <code>[rup_contextMenu](#module_rup_contextMenu)</code>  
+**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("show");
@@ -60,7 +60,7 @@ $("#contextMenu").rup_contextMenu("show");
 ### rup_contextMenu~enable()
 Habilita el menú contextual. El menú se mostrará al lanzarse el evento asociado.
 
-**Kind**: inner method of <code>[rup_contextMenu](#module_rup_contextMenu)</code>  
+**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("enable");
@@ -70,7 +70,7 @@ $("#contextMenu").rup_contextMenu("enable");
 ### rup_contextMenu~disable()
 Deshabilita el menú contextual. El menú no se mostrará aunque se lance el evento asociado.
 
-**Kind**: inner method of <code>[rup_contextMenu](#module_rup_contextMenu)</code>  
+**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("disable");
@@ -80,7 +80,7 @@ $("#contextMenu").rup_contextMenu("disable");
 ### rup_contextMenu~destroy()
 Elimina el menú contextual.
 
-**Kind**: inner method of <code>[rup_contextMenu](#module_rup_contextMenu)</code>  
+**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("destroy");

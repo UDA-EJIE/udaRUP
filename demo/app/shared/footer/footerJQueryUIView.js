@@ -1,11 +1,11 @@
 
 define(['marionette',
-        'templates'], function(Marionette, App){
+	'./footerJQueryUITemplate.hbs'], function(Marionette, FooterJQueryUITemplate){
 
-    var FooterView = Marionette.LayoutView.extend({
-        template: App.Templates.demo.app.shared.footer.footerJQueryUITemplate
-    });
+	var FooterView = Marionette.LayoutView.extend({
+		template: FooterJQueryUITemplate
+	});
 
-    return FooterView;
+	return FooterView;
 
 });

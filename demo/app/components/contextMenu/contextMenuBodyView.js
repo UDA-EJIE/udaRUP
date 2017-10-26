@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.contextMenu'], function(Marionette, App){
+	'./contextMenuBodyTemplate.hbs',
+	'rup.contextMenu'], function(Marionette, ContextMenuBodyTemplate){
 
-  var ContextMenuBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.contextMenu.contextMenuBodyTemplate
+	var ContextMenuBodyView = Marionette.LayoutView.extend({
+		template: ContextMenuBodyTemplate
 
-  });
+	});
 
-  return ContextMenuBodyView;
+	return ContextMenuBodyView;
 });
