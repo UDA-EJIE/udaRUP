@@ -14,6 +14,8 @@
  * que establece la Licencia.
  */
 
+/*global jQuery */
+
 (function ($) {
 
 	/**
@@ -22,11 +24,11 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin("fluid",{
+	jQuery.rup_table.registerPlugin('fluid',{
 		loadOrder:5,
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table("postConfigureFluid", settings);
+			return $self.rup_table('postConfigureFluid', settings);
 		}
 	});
 
@@ -46,7 +48,7 @@
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table("extend",{
+	jQuery.fn.rup_table('extend',{
 		/*
 		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
 		 *
@@ -55,51 +57,51 @@
 		postConfigureFluid: function(settings){
 			var $self = this, $fluidBaseLayer;
 
-			settings.fluid.baseLayer = $.rup_utils.getJQueryId(settings.fluid.baseLayer!==null?settings.fluid.baseLayer:settings.id+"_div");
+			settings.fluid.baseLayer = $.rup_utils.getJQueryId(settings.fluid.baseLayer!==null?settings.fluid.baseLayer:settings.id+'_div');
 			settings.fluid.$baseLayer = jQuery(settings.fluid.baseLayer);
 			if (settings.fluid.$baseLayer.length===0){
-				alert("El identificador "+settings.baseLayer+" especificado para la capa sobre la que se va a aplicar el diseño líquido no existe.");
+				alert('El identificador '+settings.baseLayer+' especificado para la capa sobre la que se va a aplicar el diseño líquido no existe.');
 				return;
 			}
 
 			$fluidBaseLayer = settings.fluid.fluidBaseLayer = settings.fluid.$baseLayer;
 
 			// Tratamiento del evento de redimiensionado del diseño líquido de la tabla
-			$self.bind("fluidWidth.resize", function(event, previousWidth, currentWidth){
-				if ($self.is(":visible")){
+			$self.bind('fluidWidth.resize', function(event, previousWidth, currentWidth){
+				if ($self.is(':visible')){
 					var feedBackPaddingLeft, feedBackPaddingRight, toolbarPaddingLeft, toolbarPaddingRight;
 					$self.setGridWidth(currentWidth);
 
 					// Se redimensionan las capas contenidas en el mantenimiento
 					$fluidBaseLayer.children().width(currentWidth);
-	//						prop.searchForm.parent().width(currentWidth+3)
+					//						prop.searchForm.parent().width(currentWidth+3)
 					// Se redimensiona el feedback
 					if (settings.$feedback){
-						feedBackPaddingLeft = parseInt(settings.$feedback.css("padding-left"));
-						feedBackPaddingRight = parseInt(settings.$feedback.css("padding-right"));
+						feedBackPaddingLeft = parseInt(settings.$feedback.css('padding-left'));
+						feedBackPaddingRight = parseInt(settings.$feedback.css('padding-right'));
 						settings.$feedback.width(currentWidth - (feedBackPaddingLeft+feedBackPaddingRight));
 					}
 
 					// Se redimensiona la toolbar
 					if (settings.$toolbar){
-						toolbarPaddingLeft = parseInt(settings.$toolbar.css("padding-left"));
-						toolbarPaddingRight = parseInt(settings.$toolbar.css("padding-right"));
+						toolbarPaddingLeft = parseInt(settings.$toolbar.css('padding-left'));
+						toolbarPaddingRight = parseInt(settings.$toolbar.css('padding-right'));
 						settings.$toolbar.width(currentWidth - (toolbarPaddingLeft+toolbarPaddingRight));
-						settings.$toolbar.css("width", currentWidth - (toolbarPaddingLeft+toolbarPaddingRight));
+						settings.$toolbar.css('width', currentWidth - (toolbarPaddingLeft+toolbarPaddingRight));
 					}
 				}
 			});
 
-//			$self.fluidWidth({
-//				fluidBaseLayer:settings.fluid.baseLayer,
-//				minWidth: 100,
-//				maxWidth: 2000,
-//				fluidOffset : 0
-//			});
+			//			$self.fluidWidth({
+			//				fluidBaseLayer:settings.fluid.baseLayer,
+			//				minWidth: 100,
+			//				maxWidth: 2000,
+			//				fluidOffset : 0
+			//			});
 
 			$self.fluidWidth(settings.fluid);
 
-			$self.on("rupTable_fluidUpdate", function(event){
+			$self.on('rupTable_fluidUpdate', function(event){
 				$self.fluidWidth(settings.fluid);
 			});
 
@@ -118,12 +120,12 @@
 	 */
 	jQuery.fn.rup_table.plugins.fluid = {};
 	jQuery.fn.rup_table.plugins.fluid.defaults = {
-			fluid:{
-				baseLayer:null,
-				minWidth: 100,
-				maxWidth: 2000,
-				fluidOffset : 0
-			}
+		fluid:{
+			baseLayer:null,
+			minWidth: 100,
+			maxWidth: 2000,
+			fluidOffset : 0
+		}
 	};
 
 

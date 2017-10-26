@@ -1680,6 +1680,10 @@
   background: #337ab7;
 }
 
+.r01gContainer .rup-combobox {
+  margin-right: 2.5rem;
+}
+
 .r01gContainer .rup-combobox .rup-combobox-input {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -2275,23 +2279,29 @@
 }
 
 .r01gContainer .rup-date-input-group {
-  display: inline-flex;
+  display: inline-table;
+  vertical-align: middle;
 }
 
 .r01gContainer .rup-date-input-group .hasDatepicker {
   border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  display: table-cell;
+  width: auto;
 }
 
 .r01gContainer .rup-date-input-group .ui-datepicker-trigger {
-  padding: 0 0.5rem;
+  padding-bottom: 0.38rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  display: table-cell;
 }
 
 .r01gContainer .rup-date-input-group .ui-datepicker-trigger * {
-  display: block;
+  display: table-cell;
 }
 
 .r01gContainer .ui-datepicker {
@@ -2600,38 +2610,100 @@
   color: #333333;
 }
 
-.r01gContainer .rup-navbar .fade {
-  opacity: 0;
-  transition: opacity .15s linear;
+.r01gContainer .rup-navbar .invisible {
+  visibility: hidden !important;
 }
 
-.r01gContainer .rup-navbar .fade.in {
-  opacity: 1;
+.r01gContainer .rup-navbar .hidden-xs-up {
+  display: none !important;
 }
 
-.r01gContainer .rup-navbar .collapse {
-  display: none;
+@media (max-width: 575px) {
+  .r01gContainer .rup-navbar .hidden-xs-down {
+    display: none !important;
+  }
 }
 
-.r01gContainer .rup-navbar .collapse.in {
-  display: block;
+@media (min-width: 576px) {
+  .r01gContainer .rup-navbar .hidden-sm-up {
+    display: none !important;
+  }
 }
 
-.r01gContainer .rup-navbar tr.collapse.in {
-  display: table-row;
+@media (max-width: 767px) {
+  .r01gContainer .rup-navbar .hidden-sm-down {
+    display: none !important;
+  }
 }
 
-.r01gContainer .rup-navbar tbody.collapse.in {
-  display: table-row-group;
+@media (min-width: 768px) {
+  .r01gContainer .rup-navbar .hidden-md-up {
+    display: none !important;
+  }
 }
 
-.r01gContainer .rup-navbar .collapsing {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  transition-timing-function: ease;
-  transition-duration: .35s;
-  transition-property: height;
+@media (max-width: 991px) {
+  .r01gContainer .rup-navbar .hidden-md-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .r01gContainer .rup-navbar .hidden-lg-up {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .r01gContainer .rup-navbar .hidden-lg-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .r01gContainer .rup-navbar .hidden-xl-up {
+    display: none !important;
+  }
+}
+
+.r01gContainer .rup-navbar .hidden-xl-down {
+  display: none !important;
+}
+
+.r01gContainer .rup-navbar .visible-print-block {
+  display: none !important;
+}
+
+@media print {
+  .r01gContainer .rup-navbar .visible-print-block {
+    display: block !important;
+  }
+}
+
+.r01gContainer .rup-navbar .visible-print-inline {
+  display: none !important;
+}
+
+@media print {
+  .r01gContainer .rup-navbar .visible-print-inline {
+    display: inline !important;
+  }
+}
+
+.r01gContainer .rup-navbar .visible-print-inline-block {
+  display: none !important;
+}
+
+@media print {
+  .r01gContainer .rup-navbar .visible-print-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media print {
+  .r01gContainer .rup-navbar .hidden-print {
+    display: none !important;
+  }
 }
 
 .r01gContainer .rup-navbar .dropup,
@@ -2671,20 +2743,23 @@
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #373a3c;
+  color: #f2f2f2;
   text-align: left;
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 0px;
+  -moz-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
 }
 
 .r01gContainer .rup-navbar .dropdown-divider {
-  height: 1px;
+  height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
-  background-color: #e5e5e5;
+  border-top: 1px solid #e5e5e5;
 }
 
 .r01gContainer .rup-navbar .dropdown-item {
@@ -2840,8 +2915,8 @@
   display: block;
   padding: 0.5em 1em;
   border: 1px solid transparent;
-  border-top-right-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
 }
 
 .r01gContainer .rup-navbar .nav-tabs .nav-link:focus,
@@ -2891,7 +2966,7 @@
 .r01gContainer .rup-navbar .nav-pills .nav-link {
   display: block;
   padding: 0.5em 1em;
-  border-radius: 0.25rem;
+  border-radius: 0px;
 }
 
 .r01gContainer .rup-navbar .nav-pills .nav-link.active,
@@ -2936,7 +3011,7 @@
 
 @media (min-width: 576px) {
   .r01gContainer .rup-navbar .navbar {
-    border-radius: 0.25rem;
+    border-radius: 0px;
   }
 }
 
@@ -2946,7 +3021,7 @@
 
 @media (min-width: 576px) {
   .r01gContainer .rup-navbar .navbar-full {
-    border-radius: 0;
+    border-radius: 0px;
   }
 }
 
@@ -2961,7 +3036,7 @@
 @media (min-width: 576px) {
   .r01gContainer .rup-navbar .navbar-fixed-top,
   .r01gContainer .rup-navbar .navbar-fixed-bottom {
-    border-radius: 0;
+    border-radius: 0px;
   }
 }
 
@@ -2982,7 +3057,7 @@
 
 @media (min-width: 576px) {
   .r01gContainer .rup-navbar .navbar-sticky-top {
-    border-radius: 0;
+    border-radius: 0px;
   }
 }
 
@@ -3029,7 +3104,7 @@
   background: transparent no-repeat center center;
   background-size: 24px 24px;
   border: 1px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0px;
 }
 
 .r01gContainer .rup-navbar .navbar-toggler:focus,
@@ -3353,6 +3428,10 @@
   }
 }
 
+.r01gContainer .rup-navbar ul {
+  margin-top: 0;
+}
+
 .r01gContainer .rup-navbar ul .dropdown-menu a i.fa {
   padding-right: 0.5rem;
 }
@@ -3367,6 +3446,7 @@
   height: 4rem;
   min-height: 4rem;
   margin-bottom: 0;
+  position: relative;
 }
 
 .r01gContainer .rup-navbar .nav {
@@ -3395,6 +3475,14 @@
 .r01gContainer .rup-navbar .navbar-toggler:focus,
 .r01gContainer .rup-navbar .navbar-toggler:hover {
   background-color: inherit;
+}
+
+.r01gContainer .rup-navbar .navbar-nav {
+  display: block;
+}
+
+.r01gContainer .rup-navbar .navbar-nav .dropdown-menu {
+  position: absolute;
 }
 
 .r01gContainer .rup-navbar .navbar-nav.rup-nav-tools .rup-nav-tool-icon {
@@ -3461,7 +3549,7 @@
 }
 
 .r01gContainer .rup-navbar .navbar-nav > .nav-item > .dropdown-menu {
-  border-radius: 0;
+  border-radius: 0px;
 }
 
 .r01gContainer .rup-navbar .navbar-nav > .nav-item > .dropdown-menu .dropdown-item {
@@ -3547,7 +3635,7 @@
 }
 
 .r01gContainer .navbar-nav > .nav-item > .dropdown-menu {
-  border-radius: 0;
+  border-radius: 0px;
 }
 
 .r01gContainer .navbar-nav > .nav-item > .dropdown-menu .dropdown-item {
@@ -3730,6 +3818,8 @@
 
 .r01gContainer .ui-progressbar .ui-progressbar-overlay {
   background-size: 40px 40px;
+  background-image: -webkit-linear-gradient(45deg, #204d71 25%, transparent 25%, transparent 50%, #204d71 50%, #204d71 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, #204d71 25%, transparent 25%, transparent 50%, #204d71 50%, #204d71 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, #204d71 25%, transparent 25%, transparent 50%, #204d71 50%, #204d71 75%, transparent 75%, transparent);
   animation: animate-stripes 1s linear infinite;
 }
@@ -3913,23 +4003,26 @@
 }
 
 .r01gContainer .rup-time-input-group {
-  display: inline-flex;
+  display: inline-table;
+  vertical-align: middle;
 }
 
 .r01gContainer .rup-time-input-group .hasDatepicker {
   border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  display: table-cell;
 }
 
 .r01gContainer .rup-time-input-group .ui-timepicker-trigger {
   padding: 0 0.5rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  display: table-cell;
 }
 
 .r01gContainer .rup-time-input-group .ui-timepicker-trigger * {
-  display: block;
+  display: table-cell;
 }
 
 .r01gContainer .rup-toolbar {
@@ -4211,6 +4304,25 @@
 
 .r01gContainer .fileupload-buttonbar a {
   text-decoration: none;
+}
+
+.r01gContainer .template-upload.error {
+  background-color: #fdf7f7;
+  border-color: #8b211e;
+}
+
+.r01gContainer .template-upload .error-text {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.r01gContainer .template-upload .type-text {
+  font-style: italic;
+}
+
+.r01gContainer .template-upload .size-text {
+  font-style: italic;
+  padding-left: .5rem;
 }
 
 .r01gContainer input.error {

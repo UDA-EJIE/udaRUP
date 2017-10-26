@@ -14,7 +14,7 @@
  * que establece la Licencia.
  */
 
- /**
+/**
  * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
  *
  * @summary Plugin de menú contextual del componente RUP Table.
@@ -29,15 +29,17 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin("contextMenu",{
+/*global jQuery */
+
+	jQuery.rup_table.registerPlugin('contextMenu',{
 		loadOrder:4,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table("preConfigureContextMenu", settings);
+			return $self.rup_table('preConfigureContextMenu', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table("postConfigureContextMenu", settings);
+			return $self.rup_table('postConfigureContextMenu', settings);
 		}
 	});
 
@@ -57,7 +59,7 @@
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table("extend",{
+	jQuery.fn.rup_table('extend',{
 		/**
 		 * Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.
 		 * Este método se ejecuta antes de la incialización del plugin.
@@ -89,7 +91,7 @@
 			function getTdIndex(thArray, name){
 
 				for(var i=0;i<thArray.length;i++){
-				    if (jQuery(thArray[i]).attr("id")===settings.id+"_"+name){
+				    if (jQuery(thArray[i]).attr('id')===settings.id+'_'+name){
 				        return i+1;
 				    }
 				}
@@ -99,12 +101,12 @@
 
 
 			$self.one({
-				"jqGridLoadComplete.rupTable.contextMenu": function(data){
+				'jqGridLoadComplete.rupTable.contextMenu': function(data){
 					var $tbodyTr = jQuery(settings.contextMenu.tbodySelector, $self), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray;
 
-//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
+					//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
 					jQuery.each(settings.contextMenu.showOperations, function(buttonId, value){
 						var operationCfg;
 						if (value!==false){
@@ -112,7 +114,7 @@
 							if (operationCfg!==undefined){
 								contextRowItems[buttonId]={
 									name: operationCfg.name,
-									id:settings.id+"_contextMenu_"+buttonId,
+									id:settings.id+'_contextMenu_'+buttonId,
 									cssSprite:operationCfg.icon,
 									disabled: function(){
 										return !jQuery.proxy(operationCfg.enabled,$self)();
@@ -138,20 +140,20 @@
 					jQuery.extend(true, contextRowItems, settings.contextMenu.items);
 
 					// En caso de especificar solo para unas columnas
-					thArray = jQuery(settings.contextMenu.theadThSelector, "#gview_"+settings.id);
+					thArray = jQuery(settings.contextMenu.theadThSelector, '#gview_'+settings.id);
 
 					// Eliminamos los contextMenu creados previamente
-					$("ul.context-menu-list", $tbodyTr).remove();
+					$('ul.context-menu-list', $tbodyTr).remove();
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, contextMenuSettings.colNames[i])+")", $self).rup_contextMenu({
+							jQuery(contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')', $self).rup_contextMenu({
 								items: contextRowItems
 							});
 						}
 					}else if (cellLevelContextMenu){
 
-//						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
+						//						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
 						if (!jQuery.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
 							    if (elem.hidden!==true){
@@ -180,7 +182,7 @@
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-						jQuery(contextMenuSettings.tbodyTdSelector+":nth-child("+getTdIndex(thArray, index)+")", $self).rup_contextMenu({
+							jQuery(contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')', $self).rup_contextMenu({
 								items: item
 							});
 						});
@@ -208,16 +210,16 @@
 	 */
 	jQuery.fn.rup_table.plugins.contextMenu = {};
 	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
-			contextMenu:{
-				colNames: null,
-				createDefaultRowOperations:true,
-				defaultRowOperations:{},
-				rowOperations:{},
-				tbodySelector:"tbody:first tr[role='row'].jqgrow",
-				tbodyTdSelector:"tbody:first tr.jqgrow td",
-				theadThSelector:"thead:first th",
-				items:{}
-			}
+		contextMenu:{
+			colNames: null,
+			createDefaultRowOperations:true,
+			defaultRowOperations:{},
+			rowOperations:{},
+			tbodySelector:'tbody:first tr[role=\'row\'].jqgrow',
+			tbodyTdSelector:'tbody:first tr.jqgrow td',
+			theadThSelector:'thead:first th',
+			items:{}
+		}
 	};
 
 

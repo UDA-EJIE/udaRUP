@@ -5,55 +5,57 @@
  * Licensed under the MIT license
  */
 
+/*global define */
+/*global jQuery */
 
- ;(function( factory ) {
-	if ( typeof define === "function" && define.amd ) {
+(function( factory ) {
+	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
 		define([
-			"jquery",
-      "./templates",
-			"jquery-ui/widget",
-            "./rup.widget"
+			'jquery',
+			'./templates',
+			'jquery-ui/widget',
+			'./rup.widget'
 		], factory );
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-}(function($) {
+}(function($, Rup) {
 
-    // define our widget under a namespace of your choice
-    // with additional parameters e.g.
-    // $.widget( "namespace.widgetname", (optional) - an
-    // existing widget prototype to inherit from, an object
-    // literal to become the widget's prototype );
+	// define our widget under a namespace of your choice
+	// with additional parameters e.g.
+	// $.widget( "namespace.widgetname", (optional) - an
+	// existing widget prototype to inherit from, an object
+	// literal to become the widget's prototype );
 
-    $.widget("rup.widget_welcome", $.rup.widget, {
-        options:{
-          template: Rup.Templates.rup.widget.welcome,
-          templateData: {},
-          title: "Welcome",
-          buttons:{
-              btnReload: false,
-              btnConfig: false,
-              btnResizeFull: false
-          },
-          configure:{
-            requiredByUser:false
-          }
+	$.widget('rup.widget_welcome', $.rup.widget, {
+		options:{
+			template: Rup.Templates.rup.widget.welcome,
+			templateData: {},
+			title: 'Welcome',
+			buttons:{
+				btnReload: false,
+				btnConfig: false,
+				btnResizeFull: false
+			},
+			configure:{
+				requiredByUser:false
+			}
 
-        },
-        _initializeBody: function(){
+		},
+		_initializeBody: function(){
 
-          var $self = this, $el = $self.element;
-          $self.$ui.$widgetBody.append($self.options.template($self.options.templateData));
-          $el.parent().addClass("dashboard-widget-welcome");
+			var $self = this, $el = $self.element;
+			$self.$ui.$widgetBody.append($self.options.template($self.options.templateData));
+			$el.parent().addClass('dashboard-widget-welcome');
 
-        }
+		}
 
-    });
+	});
 
-    $.widget.bridge("rup_widget_welcome", $.rup.widget_welcome);
+	$.widget.bridge('rup_widget_welcome', $.rup.widget_welcome);
 
 }));

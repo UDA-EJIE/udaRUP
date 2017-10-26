@@ -22,13 +22,13 @@ Herramientas para mostrar gráficas atractivas para mostrarinformacón al usuar
 ### rup_chart~destroy()
 Destruye la instancia del grafico creado, limpia cualquier referencia almacenada del componente. Debe ser utilizado antes de usar el canvas para un nuevo gráfico]
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 <a name="module_rup_chart..updateData"></a>
 
 ### rup_chart~updateData(param)
 Método utilizado para actualizar los datos de los gráficos en caliente, tanto los labels como los datos numéricos
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ Método utilizado para actualizar los datos de los gráficos en caliente, tanto 
 ### rup_chart~updateLabels(param)
 Método que actualiza los labels asociados a los datos
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ Método que actualiza los labels asociados a los datos
 ### rup_chart~updateDatasets(param)
 Método que actualiza los datasets con los valores numéricos a representar por el gráfico
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -63,33 +63,33 @@ Método que actualiza los datasets con los valores numéricos a representar por 
 ### rup_chart~getDatasets() ⇒ <code>object</code>
 Método que devuelve los datasets de datos del gráfico
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 **Returns**: <code>object</code> - - El conjunto de datasets de datos del componente  
 <a name="module_rup_chart..getLabels"></a>
 
 ### rup_chart~getLabels() ⇒ <code>object</code>
 Método que devuelve los labels asociados a los datasets del gráfico
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 **Returns**: <code>object</code> - - El conjunto de labels del componente  
 <a name="module_rup_chart..getData"></a>
 
 ### rup_chart~getData() ⇒ <code>object</code>
 Método que devuelve la estructura de datos de datasets y labels que definen el gráfico
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 **Returns**: <code>object</code> - - [El conjunto de datos del componente]  
 <a name="module_rup_chart..getChart"></a>
 
 ### rup_chart~getChart() ⇒ <code>object</code>
 Devuelve la instancia del objeto chart.js
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 **Returns**: <code>object</code> - - la instancia del objecto  
 <a name="module_rup_chart..toBase64Image"></a>
 
 ### rup_chart~toBase64Image() ⇒ <code>object</code>
 Devuelve el grafico en un string base64
 
-**Kind**: inner method of <code>[rup_chart](#module_rup_chart)</code>  
+**Kind**: inner method of [<code>rup_chart</code>](#module_rup_chart)  
 **Returns**: <code>object</code> - -  string en base64 del gráfico  

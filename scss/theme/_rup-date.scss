@@ -1,20 +1,25 @@
 .rup-date-input-group{
-  display: inline-flex;
+  display: inline-table;
+  vertical-align: middle;
 
   .hasDatepicker{
     border-right: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    display: table-cell;
+    width: auto;
 
   }
   .ui-datepicker-trigger{
-      
-      padding: 0 0.5rem;
+
+      padding-bottom: 0.38rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-
+      display: table-cell;
       *{
-        display: block;
+        display: table-cell;
       }
   }
 }

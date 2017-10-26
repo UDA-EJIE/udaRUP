@@ -21,7 +21,7 @@ $.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK."});
 ### rup_messages~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of <code>[rup_messages](#module_rup_messages)</code>  
+**Kind**: inner property of [<code>rup_messages</code>](#module_rup_messages)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -33,14 +33,14 @@ Opciones por defecto de configuración del componente.
 ### rup_messages~msgError(properties)
 Muestra un mensaje de error.
 
-**Kind**: inner method of <code>[rup_messages](#module_rup_messages)</code>  
+**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | properties | <code>Object</code> | Objeto de configuración del mensaje de error. |
 | properties.title | <code>String</code> | Función a ejecutar justo antes de que se cierre la ventana. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
-| properties.beforeClose | <code>[beforeCloseCallback](#jQuery.rup_messages..beforeCloseCallback)</code> | Texto que aparecerá en la barra del titulo del mensaje. |
+| properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Texto que aparecerá en la barra del titulo del mensaje. |
 
 **Example**  
 ```js
@@ -51,16 +51,16 @@ Muestra un mensaje de error.
 ### rup_messages~msgConfirm(properties)
 Muestra un mensaje de confirmación.
 
-**Kind**: inner method of <code>[rup_messages](#module_rup_messages)</code>  
+**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | properties | <code>Object</code> | Objeto de configuración del mensaje de error. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
-| properties.beforeClose | <code>[beforeCloseCallback](#jQuery.rup_messages..beforeCloseCallback)</code> | Función a ejecutar justo antes de que se cierre la ventana. |
-| properties.OKFunction | <code>[OKFunctionCallback](#jQuery.rup_messages..OKFunctionCallback)</code> | Función a ejecutar cuando el usuario pulsa el botón de Aceptar. |
-| properties.CANCELFunction | <code>[CANCELFunctionCallback](#jQuery.rup_messages..CANCELFunctionCallback)</code> | Función a ejecutar cuando el usuario pulsa el enlace de Cancelar. |
+| properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
+| properties.OKFunction | [<code>OKFunctionCallback</code>](#jQuery.rup_messages..OKFunctionCallback) | Función a ejecutar cuando el usuario pulsa el botón de Aceptar. |
+| properties.CANCELFunction | [<code>CANCELFunctionCallback</code>](#jQuery.rup_messages..CANCELFunctionCallback) | Función a ejecutar cuando el usuario pulsa el enlace de Cancelar. |
 
 **Example**  
 ```js
@@ -71,14 +71,14 @@ Muestra un mensaje de confirmación.
 ### rup_messages~msgOK(properties)
 Muestra un mensaje de aviso.
 
-**Kind**: inner method of <code>[rup_messages](#module_rup_messages)</code>  
+**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | properties | <code>Object</code> | Objeto de configuración del mensaje de aviso. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
-| properties.beforeClose | <code>[beforeCloseCallback](#jQuery.rup_messages..beforeCloseCallback)</code> | Función a ejecutar justo antes de que se cierre la ventana. |
+| properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
 
 **Example**  
 ```js
@@ -89,14 +89,14 @@ Muestra un mensaje de aviso.
 ### rup_messages~msgAlert(properties)
 Muestra un mensaje de alerta.
 
-**Kind**: inner method of <code>[rup_messages](#module_rup_messages)</code>  
+**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | properties | <code>Object</code> | Objeto de configuración del mensaje de alerta. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
-| properties.beforeClose | <code>[beforeCloseCallback](#jQuery.rup_messages..beforeCloseCallback)</code> | Función a ejecutar justo antes de que se cierre la ventana. |
+| properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
 
 **Example**  
 ```js

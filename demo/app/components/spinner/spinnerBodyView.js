@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.spinner'], function(Marionette, App){
+	'./spinnerBodyTemplate.hbs',
+	'rup.spinner'], function(Marionette, SpinnerBodyTemplate){
 
-  var SpinnerBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.spinner.spinnerBodyTemplate
+	var SpinnerBodyView = Marionette.LayoutView.extend({
+		template: SpinnerBodyTemplate
 
-  });
+	});
 
-  return SpinnerBodyView;
+	return SpinnerBodyView;
 });

@@ -1,10 +1,10 @@
 define(['marionette',
-        'templates',
-        'rup/rup.upload'], function(Marionette, App){
+	'./uploadBodyTemplate.hbs',
+	'rup.upload'], function(Marionette, UploadBodyTemplate){
 
-  var UploadBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.upload.uploadBodyTemplate
-  });
+	var UploadBodyView = Marionette.LayoutView.extend({
+		template: UploadBodyTemplate
+	});
 
-  return UploadBodyView;
+	return UploadBodyView;
 });

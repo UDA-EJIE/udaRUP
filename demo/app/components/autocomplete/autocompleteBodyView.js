@@ -1,11 +1,11 @@
 define(['marionette',
-        'templates',
-        'rup/rup.autocomplete'], function(Marionette, App){
+	'./autocompleteBodyTemplate.hbs',
+	'rup.autocomplete'], function(Marionette, AutocompleteBodyTemplate){
 
-  var AutocompleteBodyView = Marionette.LayoutView.extend({
-      template: App.Templates.demo.app.components.autocomplete.autocompleteBodyTemplate
+	var AutocompleteBodyView = Marionette.LayoutView.extend({
+		template: AutocompleteBodyTemplate
 
-  });
+	});
 
-  return AutocompleteBodyView;
+	return AutocompleteBodyView;
 });

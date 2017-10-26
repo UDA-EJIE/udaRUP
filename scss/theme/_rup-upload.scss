@@ -1,8 +1,31 @@
-.rup-upload{
+.rup-upload {
   @extend .rup-callout;
   @extend .rup-callout-primary;
 }
 
-.fileupload-buttonbar a{
-  text-decoration: none;
+.fileupload-buttonbar {
+  a {
+    text-decoration: none;
+  }
+}
+
+.template-upload {
+  &.error {
+    background-color: $rup-color-upload-error-background;
+    border-color: $rup-color-upload-error-border;
+  }
+
+  .error-text {
+    color: $rup-color-upload-error-text-color;
+    font-weight: bold;
+  }
+
+  .type-text {
+    font-style: italic;
+  }
+
+  .size-text {
+    font-style: italic;
+    padding-left: .5rem;
+  }
 }

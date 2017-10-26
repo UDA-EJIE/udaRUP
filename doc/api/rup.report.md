@@ -21,20 +21,20 @@ var properties={  // Propiedades de configuración};$.rup_report(properties)
 ### rup_report~options
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of <code>[rup_report](#module_rup_report)</code>  
+**Kind**: inner property of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
 | appendTo | <code>string</code> | Identificador del elemento al que se añadirá el botón o botones. Puede ser una capa, una botonera o un mbutton. En el caso de ser un mbutton sólo podrán añadirse botones, no mbuttons. |
-| buttons | <code>[array.&lt;button&gt;](#module_rup_report..button)</code> | Array de botones a añadir. Su declaración es similar a los del componente rup.toolbar pero tienen algunos parámetros extra |
-| dialog | <code>[dialog](#module_rup_report..dialog)</code> | Objeto para sobrescribir los literales por defecto del diálogo del componente y asociar funciones de callback |
-| customDialog | <code>[customDialog](#module_rup_report..customDialog)</code> | Objeto para definir los diálogos propios definidos por el usuario. Puede modificar simplemente los literales para un botón determinado o puede definir sus propias capas para sus diálogos completamente personalizados |
+| buttons | [<code>array.&lt;button&gt;</code>](#module_rup_report..button) | Array de botones a añadir. Su declaración es similar a los del componente rup.toolbar pero tienen algunos parámetros extra |
+| dialog | [<code>dialog</code>](#module_rup_report..dialog) | Objeto para sobrescribir los literales por defecto del diálogo del componente y asociar funciones de callback |
+| customDialog | [<code>customDialog</code>](#module_rup_report..customDialog) | Objeto para definir los diálogos propios definidos por el usuario. Puede modificar simplemente los literales para un botón determinado o puede definir sus propias capas para sus diálogos completamente personalizados |
 
 <a name="module_rup_report..button"></a>
 
 ### rup_report~button
-**Kind**: inner typedef of <code>[rup_report](#module_rup_report)</code>  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -43,9 +43,9 @@ Opciones por defecto de configuración del componente.
 | json_i18n | <code>string</code> |  | Objeto JSON del que se obtienen los literales a mostrar. |
 | css | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
 | click | <code>function</code> |  | Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado. La función podrá recibir un parámetro “event” que contendrá el identificador y el texto del botón y se accederá a ellos mediante la sentencia “event.data.id” y “event.data.caption” respectivamente. |
-| buttons | <code>[array.&lt;button&gt;](#module_rup_report..button)</code> |  | Array para definir sub-botones con lo que la definición se convierte en un mbutton. |
+| buttons | [<code>array.&lt;button&gt;</code>](#module_rup_report..button) |  | Array para definir sub-botones con lo que la definición se convierte en un mbutton. |
 | url | <code>string</code> |  | Ruta al Controller encargado de generar el informe |
-| columns | <code>[columns](#module_rup_report..columns)</code> |  | Objeto que define si se van a enviar los datos de las columnas (nombres y posiciones): |
+| columns | [<code>columns</code>](#module_rup_report..columns) |  | Objeto que define si se van a enviar los datos de las columnas (nombres y posiciones): |
 | customDialog | <code>string</code> |  | Identificador del dialogo propio definido en el componente |
 | isInline | <code>boolean</code> | <code>false</code> | Indica que el informe se genera en una pestaña nueva del navegador. Sólo soportado en PDF |
 
@@ -54,7 +54,7 @@ Opciones por defecto de configuración del componente.
 ### rup_report~columns
 Objeto que define si se van a enviar los datos de las columnas (nombres y posiciones):
 
-**Kind**: inner typedef of <code>[rup_report](#module_rup_report)</code>  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -68,7 +68,7 @@ Objeto que define si se van a enviar los datos de las columnas (nombres y posici
 ### rup_report~dialog
 Objeto para sobrescribir los literales por defecto del diálogo del componente y asociar funciones de callback
 
-**Kind**: inner typedef of <code>[rup_report](#module_rup_report)</code>  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |
@@ -87,7 +87,7 @@ Objeto para sobrescribir los literales por defecto del diálogo del componente y
 ### rup_report~customDialog
 Objeto para definir los diálogos propios definidos por el usuario. Puede modificar simplemente los literales para un botón determinado o puede definir sus propias capas para sus diálogos completamente personalizados
 
-**Kind**: inner typedef of <code>[rup_report](#module_rup_report)</code>  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |

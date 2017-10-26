@@ -39,10 +39,7 @@ El servidor se inicia mediante el siguiente comando:
 $ node server.js
 ```
 
-Por defecto el servidor escucha las peticiones por el puerto 8080. Las urls accesibles son:
-
-* [App de ejemplo]: Corriendo en la url http://localhost:8080/app.
-* [Tests de Jasmine]: Tests de Jasmine accesibles ejecutados en el navegador. Son accesibles desde http://localhost:8080/test.
+Por defecto el servidor escucha las peticiones por el puerto 8080. Se accederá a la aplicación de ejemplo mediante la url http://localhost:8080/webpack-dev-server/demo/index-bt4.html.
 
 
 ## Generar documentación
@@ -50,18 +47,24 @@ Por defecto el servidor escucha las peticiones por el puerto 8080. Las urls acce
 Para generar documentación a partir de los comentarios jsdoc existentes en las fuentes, ejecutar:
 
 ```sh
-$ gulp doc:api
+$ npm rup doc
 ```
 
 La documentación resultante se generará en el directorio doc/api
+
+## Modo desarrollo
+
+```sh
+$ npm run watch
+```
+
 
 ## Generar ficheros distribuibles
 
 Para generar los ficheros distribuibles, ejecutar:
 
 ```sh
-$ gulp build
-$ gulp dist
+$ npm run build
 ```
 
 El contenido se generará en el directorio dist/
@@ -71,10 +74,10 @@ El contenido se generará en el directorio dist/
 Los test implementados mediante [Jasmine](http://jasmine.github.io/) se ejecutan con [Karma](https://karma-runner.github.io/1.0/index.html). Para lanzar el proceso, ejecutar:
 
 ```sh
-$ karma start
+$ npm run test
 ```
 
-El resultado de los test se genera en test/test_results.html
+El resultado de los test se muestra en la consola.
 
 
 ## Migración desde aplicaciones UDA v2.x

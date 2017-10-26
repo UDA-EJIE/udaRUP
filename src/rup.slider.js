@@ -28,33 +28,36 @@
  * $("#idSlider").rup_slider(properties);
  */
 
+/*global define */
+/*global jQuery */
+
 (function (factory) {
-    if (typeof define === "function" && define.amd) {
+	if (typeof define === 'function' && define.amd) {
 
-        // AMD. Register as an anonymous module.
-        define(["jquery", "./rup.base"], factory);
-    } else {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './rup.base'], factory);
+	} else {
 
-        // Browser globals
-        factory(jQuery);
-    }
+		// Browser globals
+		factory(jQuery);
+	}
 }(function ($) {
 
-    //****************************************************************************************************************
-    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-    //****************************************************************************************************************
+	//****************************************************************************************************************
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	//****************************************************************************************************************
 
 
-    var rup_slider = {};
+	var rup_slider = {};
 
-    //Se configura el arranque de UDA para que alberge el nuevo patrón
-    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor("rup_slider", rup_slider));
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_slider', rup_slider));
 
-    //*******************************
-    // DEFINICIÓN DE MÉTODOS PÚBLICOS
-    //*******************************
-    $.fn.rup_slider("extend", {
-        /**
+	//*******************************
+	// DEFINICIÓN DE MÉTODOS PÚBLICOS
+	//*******************************
+	$.fn.rup_slider('extend', {
+		/**
          * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente Slider.
          *
          * @name getRupValue
@@ -63,19 +66,19 @@
          * @example
          * $("#idSlider").rup_slider("getRupValue");
          */
-        getRupValue: function () {
-            var $self = this,
-                value;
+		getRupValue: function () {
+			var $self = this,
+				value;
 
-            value = $self.slider("values");
+			value = $self.slider('values');
 
-            if (value.length === 0) {
-                return $self.slider("value");
-            } else {
-                return value;
-            }
-        },
-        /**
+			if (value.length === 0) {
+				return $self.slider('value');
+			} else {
+				return value;
+			}
+		},
+		/**
          * Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor al componente Slider.
          *
          * @name setRupValue
@@ -88,17 +91,17 @@
          * // Varios desplazadores
          * $("#idSlider").rup_slider("setRupValue", [10,60]);
          */
-        setRupValue: function (value) {
-            var $self = this;
+		setRupValue: function (value) {
+			var $self = this;
 
-            if ($.isArray(value)) {
-                $self.slider("values", value);
-            } else {
-                $self.slider("value", value);
-            }
-            return $self;
-        },
-        /**
+			if ($.isArray(value)) {
+				$self.slider('values', value);
+			} else {
+				$self.slider('value', value);
+			}
+			return $self;
+		},
+		/**
          * Elimina las modificaciones realizadas sobre elemento del DOM.
          *
          * @name destroy
@@ -108,16 +111,16 @@
          * // Elimina el control slider
          * jQuery("#idSlider").rup_slider("destroy");
          */
-        destroy: function () {
-            var $self = this;
+		destroy: function () {
+			var $self = this;
 
-            $self.slider("destroy");
-            $self.removeClass("rup-slider");
-            $self.removeAttr("ruptype");
+			$self.slider('destroy');
+			$self.removeClass('rup-slider');
+			$self.removeAttr('ruptype');
 
-            return $self;
-        },
-        /**
+			return $self;
+		},
+		/**
          * Habilita el control.
          *
          * @name enable
@@ -126,15 +129,15 @@
          * @example
          * jQuery("#idSlider").rup_slider("enable");
          */
-        enable: function () {
-            var $self = this;
+		enable: function () {
+			var $self = this;
 
-            $self.slider("enable");
-            $self.removeClass("rup-slider-disabled");
+			$self.slider('enable');
+			$self.removeClass('rup-slider-disabled');
 
-            return $self;
-        },
-        /**
+			return $self;
+		},
+		/**
          * Deshabilita el control.
          *
          * @name disable
@@ -143,15 +146,15 @@
          * @example
          * jQuery("#idSlider").rup_slider("disable");
          */
-        disable: function () {
-            var $self = this;
+		disable: function () {
+			var $self = this;
 
-            $self.slider("disable");
-            $self.addClass("rup-slider-disabled");
+			$self.slider('disable');
+			$self.addClass('rup-slider-disabled');
 
-            return $self;
-        },
-        /**
+			return $self;
+		},
+		/**
          * Devuelve la instancia de jQueryUI asociada al control. Si no ha sido inicializada retorna undefined.
          *
          * @name instance
@@ -160,10 +163,10 @@
          * @example
          * jQuery("#idSlider").rup_slider("instance");
          */
-        instance: function () {
-            return this.progressbar("instance");
-        },
-        /**
+		instance: function () {
+			return this.progressbar('instance');
+		},
+		/**
          * Devuelve un objeto clave/valor que contiene las propiedades de configuración del control.
          *
          * @name option
@@ -172,7 +175,7 @@
          * @example
          * jQuery("#idSlider").rup_slider("option");
          */
-        /**
+		/**
          * Devuelve el valor asociado a la propiedad identificada por parámetro.
          *
          * @name option
@@ -182,7 +185,7 @@
          * @example
          * jQuery("#idSlider").rup_slider("option", "min");
          */
-        /**
+		/**
          * Asigna un valor a la propiedad indentificada por parámetro.
          *
          * @name option
@@ -193,7 +196,7 @@
          * @example
          * jQuery("#idSlider").rup_slider("option", "min", 50);
          */
-        /**
+		/**
          * Permite asignar el valor de una o varias propiedades de configuración.
          *
          * @name option
@@ -203,60 +206,60 @@
          * @example
          * jQuery("#idSlider").rup_slider("option", {min:10, max:60});
          */
-        option: function () {
-            if (arguments.length === 0) {
-                return this.slider("option");
-            } else if (arguments.length === 1) {
-                return this.slider("option", arguments[0]);
-            } else {
-                return this.slider("option", arguments[0], arguments[1]);
-            }
-        },
-        value: function (args) {
-            return this.slider("value", args);
-        },
-        values: function (args) {
-            return this.slider("values", args);
-        },
-        widget: function () {
-            return this.slider("widget");
-        }
-    });
+		option: function () {
+			if (arguments.length === 0) {
+				return this.slider('option');
+			} else if (arguments.length === 1) {
+				return this.slider('option', arguments[0]);
+			} else {
+				return this.slider('option', arguments[0], arguments[1]);
+			}
+		},
+		value: function (args) {
+			return this.slider('value', args);
+		},
+		values: function (args) {
+			return this.slider('values', args);
+		},
+		widget: function () {
+			return this.slider('widget');
+		}
+	});
 
-    //*******************************
-    // DEFINICIÓN DE MÉTODOS PRIVADOS
-    //*******************************
+	//*******************************
+	// DEFINICIÓN DE MÉTODOS PRIVADOS
+	//*******************************
 
-    $.fn.rup_slider("extend", {
-        _bar: function () {
-            return this;
-        }
-    });
+	$.fn.rup_slider('extend', {
+		_bar: function () {
+			return this;
+		}
+	});
 
-    //*******************************
-    // MÉTODO DE INICIALIZACION
-    //*******************************
-    $.fn.rup_slider("extend", {
-        _init: function (args) {
-            var $self = this,
-                settings = $.extend({}, $.fn.rup_slider.defaults, args[0]);
-
-
-            $self.addClass("rup-slider");
-            $self.attr("ruptype", "slider");
-            $self.slider(settings);
-            // TODO : Invocación al plugin
+	//*******************************
+	// MÉTODO DE INICIALIZACION
+	//*******************************
+	$.fn.rup_slider('extend', {
+		_init: function (args) {
+			var $self = this,
+				settings = $.extend({}, $.fn.rup_slider.defaults, args[0]);
 
 
+			$self.addClass('rup-slider');
+			$self.attr('ruptype', 'slider');
+			$self.slider(settings);
+			// TODO : Invocación al plugin
 
-        }
-    });
 
-    //******************************************************
-    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-    //******************************************************
-    $.fn.rup_slider.defaults = {
-        foobar: false
-    };
+
+		}
+	});
+
+	//******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	//******************************************************
+	$.fn.rup_slider.defaults = {
+		foobar: false
+	};
 
 }));
