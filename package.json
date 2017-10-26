@@ -11,7 +11,9 @@
     "install": "",
     "build-demo": "rungulp build && gulp build:babel",
     "dist": "gulp dist && gulp dist:portal",
-    "all": "npm run build && npm run dist",
+    "all": "run-s build portal",
+    "all:x21a": "run-s build portal copy:x21a",
+    "portal": "gulp dist:portal",
     "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
     "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
 
