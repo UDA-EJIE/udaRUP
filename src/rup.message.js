@@ -103,7 +103,7 @@
          */
 		msgError: function (properties) {
 			//Se recogen y cruzan las paremetrizaciones del objeto
-			var settings = $.extend({}, $.rup_messages.defaults, properties),
+			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
 				docHeight, docWidth,
 				focused = $(document.activeElement);
 			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError'));
@@ -112,7 +112,7 @@
 			settings.close = function (event, ui) {
 				focused.focus();
 				if (settings._close !== undefined) {
-					settings._close(event, ui);
+					$this._destroy(self);
 				}
 			};
 
@@ -120,7 +120,7 @@
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
 				click: function () {
-					self.dialog('close');
+					$this._destroy(self);
 				}
 			}];
 
@@ -159,7 +159,7 @@
          */
 		msgConfirm: function (properties) {
 			//Se recogen y cruzan las paremetrizaciones del objeto
-			var settings = $.extend({}, $.rup_messages.defaults, properties),
+			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
 				docHeight, docWidth,
 				focused = $(document.activeElement);
 			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.confirmacion'));
@@ -168,7 +168,7 @@
 			settings.close = function (event, ui) {
 				focused.focus();
 				if (settings._close !== undefined) {
-					settings._close(event, ui);
+					$this._destroy(self);
 				}
 			};
 
@@ -182,7 +182,9 @@
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
 				click: function () {
 					settings.OKFunction.call(this, self);
-					self.dialog('close');
+
+					$this._destroy(self);
+
 				}
 			}];
 			self.dialog('option', 'buttons', aceptButton);
@@ -215,7 +217,7 @@
          */
 		msgOK: function (properties) {
 			//Se recogen y cruzan las paremetrizaciones del objeto
-			var settings = $.extend({}, $.rup_messages.defaults, properties),
+			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
 				docHeight, docWidth,
 				focused = $(document.activeElement);
 			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.correct'));
@@ -224,7 +226,7 @@
 			settings.close = function (event, ui) {
 				focused.focus();
 				if (settings._close !== undefined) {
-					settings._close(event, ui);
+					$this._destroy(self);
 				}
 			};
 
@@ -232,9 +234,9 @@
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
 				click: function () {
-					self.dialog('close');
+					$this._destroy(self);
 				}
-        	}];
+			}];
 
 			var self = this._createDiv().appendTo('body');
 			self.dialog(settings);
@@ -264,7 +266,7 @@
          */
 		msgAlert: function (properties) {
 			//Se recogen y cruzan las paremetrizaciones del objeto
-			var settings = $.extend({}, $.rup_messages.defaults, properties),
+			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
 				docHeight, docWidth,
 				focused = $(document.activeElement);
 			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'));
@@ -273,7 +275,7 @@
 			settings.close = function (event, ui) {
 				focused.focus();
 				if (settings._close !== undefined) {
-					settings._close(event, ui);
+					$this._destroy(self);
 				}
 			};
 
@@ -281,9 +283,9 @@
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
 				click: function () {
-					self.dialog('close');
+					$this._destroy(self);
 				}
-        	}];
+			}];
 
 			var self = this._createDiv().appendTo('body');
 			self.dialog(settings);
@@ -302,6 +304,9 @@
 	//********************************
 
 	$.rup_messages('extend', {
+		_destroy: function(self){
+			self.dialog('destroy').remove();
+		},
 		/**
          * Crea los divs de los mensajes.
          *
