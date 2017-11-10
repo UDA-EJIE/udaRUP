@@ -18136,7 +18136,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
 						title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
 						OKFunction: function () {
-							$(this).dialog('destroy').remove();
+
 							if (jQuery.isFunction(okCallback)) {
 								jQuery.proxy(okCallback, $self)();
 							}
@@ -18565,7 +18565,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							modal: true,
 							resizable: p.resize,
 							title: p.caption,
-							width: p.width							
+							width: p.width
 						}, settings.formEdit.dialogOptions));
 
 						settings.formEdit.detailFormCreated = true;
