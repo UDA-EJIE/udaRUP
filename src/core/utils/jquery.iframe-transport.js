@@ -37,6 +37,34 @@
                     // IE versions below IE8 cannot set the name property of
                     // elements that have already been added to the DOM,
                     // so we set the name along with the iframe HTML markup:
+
+                    if (options.url.indexOf('emulate_iframe_http_status') !==-1 && options.dataType.indexOf('iframe') !== -1){
+                    	options.dataType = options.dataType.split(' ')[1];
+                    	options.dataTypes = options.dataTypes.slice(1);
+                    }
+
+                    var xhr = { // mock object
+                			aborted: 0,
+                			responseText: null,
+                			responseXML: null,
+                			status: 200,
+                			statusText: 'success',
+                			getAllResponseHeaders: function() {},
+                			getResponseHeader: function() {},
+                			setRequestHeader: function() {},
+                			abort: function(status) {
+                				var e = (status === 'timeout' ? 'timeout' : 'aborted');
+                				log('aborting upload... ' + e);
+                				this.aborted = 1;
+                				$io.attr('src', s.iframeSrc); // abort op in progress
+                				xhr.error = e;
+                				s.error && s.error.call(s.context, xhr, e, status);
+                				g && $.event.trigger("ajaxError", [xhr, s, e]);
+                				s.complete && s.complete.call(s.context, xhr, e);
+                			}
+                		};
+
+
                     iframe = $(
                         '<iframe src="javascript:false;" name="iframe-transport-' +
                             (counter += 1) + '"></iframe>'
@@ -49,22 +77,57 @@
                                 // Wrap in a try/catch block to catch exceptions thrown
                                 // when trying to access cross-domain iframe contents:
                                 try {
-                                    response = iframe.contents();
-                                    // Google Chrome and Firefox do not throw an
-                                    // exception when calling iframe.contents() on
-                                    // cross-domain requests, so we unify the response:
-                                    if (!response.length || !response[0].firstChild) {
-                                        throw new Error();
-                                    }
+
+
+                                	response = iframe.contents();
+
+
+
+
+
+                                	var frame = response;
+
+                                	var doc = frame;
+                                	var docRoot = $(document).find("body");
+                                	var documentContent, isTextArea;
+                					// see if user embedded response in textarea
+                					try {
+                						documentContent = $($(doc).text());
+                						isTextArea = documentContent.is("textarea");
+                					}catch(e){
+                						isTextArea = false;
+                					}
+                					if (isTextArea) {
+//                						xhr.responseText = documentContent.text();
+                						// support for XHR 'status' & 'statusText' emulation :
+                						xhr.status = Number( documentContent.attr('status') ) || xhr.status;
+
+                						xhr.statusText = documentContent.attr('statusText') || xhr.statusText;
+
+                						xhr.responseText = {'text': documentContent.text()};
+                					}else{
+
+                						xhr.responseText = {'iframe': response};
+                                        // Google Chrome and Firefox do not throw an
+                                        // exception when calling iframe.contents() on
+                                        // cross-domain requests, so we unify the response:
+                                        if (!response.length || !response[0].firstChild) {
+                                            throw new Error();
+                                        }
+                					}
+
+
+
+
                                 } catch (e) {
                                     response = undefined;
                                 }
                                 // The complete callback returns the
                                 // iframe content document as response object:
                                 completeCallback(
-                                    200,
-                                    'success',
-                                    {'iframe': response}
+                                    xhr.status,
+                                    xhr.statusText,
+                                    xhr.responseText
                                 );
                                 // Fix for IE endless progress bar activity bug
                                 // (happens on form submits to iframe targets):
