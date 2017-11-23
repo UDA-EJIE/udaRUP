@@ -58,6 +58,21 @@ Para actualizar la versión de la librería de x38 se deberán seguir los siguie
 
 * Borra versión o versiones anteriores, en caso de que permanezca alguna.
 
+#### Layout loader
+
+Se debe de actualizar la invocación del componente de inicialización del componente NavBar.
+
+El el fichero ```_layoutLoader.js``` se deberá de modificar cambiando la línea exstente:
+
+```js
+$.fn.rup_navbar();
+```
+
+por la siguiente:
+
+```js
+$("#navbarResponsive").rup_navbar();
+```
 
 ### v3.1.0 (1-Junio-2017)
 
