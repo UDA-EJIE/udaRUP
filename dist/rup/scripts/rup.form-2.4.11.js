@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Form.
  * @author EJIE
- * @version 2.4.10
+ * @version 2.4.11
  */
 (function ($) {
 
@@ -358,7 +358,7 @@
 							$self.validate().submited=json.rupErrorFields;
 							$self.validate().showErrors(json.rupErrorFields);
 							if (json.rupFeedback!==undefined && $self.validate().settings.feedback!==undefined){
-								$self.validate().settings.feedback.rup_feedback("set", $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.imgClass!==undefined?json.rupFeedback.imgClass:null));
+								$self.validate().settings.feedback.rup_feedback("set", $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.style!==undefined?json.rupFeedback.style:null));
 							}
 						}catch(ex){
 							$self.validate().settings.feedback.rup_feedback("set", a.responseText, "error");

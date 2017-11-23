@@ -14,7 +14,7 @@ var cleanCSS = require('gulp-clean-css');
 var pump = require('pump');
 var fs = require('fs');
 
-var version = "2.4.10";
+var version = "2.4.11";
 
 var minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 

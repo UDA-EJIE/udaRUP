@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Date.
  * @author EJIE
- * @version 2.4.10
+ * @version 2.4.11
  */
 (function ($) {
 
