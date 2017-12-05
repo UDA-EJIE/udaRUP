@@ -250,25 +250,49 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["upload"] = this["Rup"]["Templates"]["rup"]["upload"] || {};
 this["Rup"]["Templates"]["rup"]["upload"]["downloadTemplate"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <li class=\"list-group-item template-download "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.error : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\">\r\n      <div class=\"row\">\r\n\r\n\r\n          <div class=\"col-xs-6 col-md-3\">\r\n            <p class=\"name text-xs-left\"><b>"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.error : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + "</b></p>\r\n            <span class=\"name text-xs-left\"><span class=\"type\">"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "</span></span>\r\n\r\n            <p class=\"name text-xs-left error-text error\">"
+    + alias4(((helper = (helper = helpers.error || (depth0 != null ? depth0.error : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"error","hash":{},"data":data}) : helper)))
+    + "</p>\r\n\r\n          </div>\r\n\r\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.error : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.program(10, data, 0),"data":data})) != null ? stack1 : "")
+    + "      </div>\r\n    </li>\r\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return "error";
+},"4":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return container.escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"name","hash":{},"data":data}) : helper)));
+},"6":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "    <li class=\"list-group-item template-download\">\r\n      <div class=\"row\">\r\n        <div class=\"col-xs-6 col-md-3\">\r\n          <p class=\"name text-xs-left\"><b><a href=\""
+  return "<a href=\""
     + alias4(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
-    + "</a></b></p>\r\n          <span class=\"name text-xs-left\"><span class=\"type\">"
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "</span></span>\r\n\r\n\r\n        </div>\r\n        <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n              <a href=\""
+    + "</a>";
+},"8":function(container,depth0,helpers,partials,data) {
+    return "\r\n";
+},"10":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "            <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n                  <a href=\""
     + alias4(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data}) : helper)))
-    + "\">\r\n                <span  class=\"btn btn-primary download\">\r\n                    <i class=\"fa fa-download\" aria-hidden=\"true\"></i>\r\n                    <span>"
+    + "\">\r\n                    <span  class=\"btn btn-primary download\">\r\n                        <i class=\"fa fa-download\" aria-hidden=\"true\"></i>\r\n                        <span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"rup_upload.openUploaded",{"name":"i18n","hash":{},"data":data}))
-    + "</span>\r\n                </span>\r\n              </a>\r\n\r\n                <span  class=\"btn btn-secondary delete\" data-type=\""
+    + "</span>\r\n                    </span>\r\n                  </a>\r\n\r\n                    <span  class=\"btn btn-secondary delete\" data-type=\""
     + alias4(((helper = (helper = helpers.delete_type || (depth0 != null ? depth0.delete_type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_type","hash":{},"data":data}) : helper)))
     + "\" data-url=\""
     + alias4(((helper = (helper = helpers.delete_url || (depth0 != null ? depth0.delete_url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_url","hash":{},"data":data}) : helper)))
-    + "\">\r\n                    <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                    <span>"
+    + "\">\r\n                        <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                        <span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"rup_upload.deleteUploaded",{"name":"i18n","hash":{},"data":data}))
-    + "</span>\r\n                </span>\r\n        </div>\r\n      </div>\r\n    </li>\r\n";
+    + "</span>\r\n                    </span>\r\n            </div>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
