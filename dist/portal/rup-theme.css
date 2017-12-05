@@ -4306,6 +4306,25 @@
   text-decoration: none;
 }
 
+.r01gContainer .template-download.error {
+  background-color: #fdf7f7;
+  border-color: #8b211e;
+}
+
+.r01gContainer .template-download .error-text {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.r01gContainer .template-download .type-text {
+  font-style: italic;
+}
+
+.r01gContainer .template-download .size-text {
+  font-style: italic;
+  padding-left: .5rem;
+}
+
 .r01gContainer .template-upload.error {
   background-color: #fdf7f7;
   border-color: #8b211e;
