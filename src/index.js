@@ -39,6 +39,7 @@ import './rup.tree';
 import './rup.upload';
 import './rup.validate';
 import './rup.wizard';
+import './rup.list';
 
 
 
