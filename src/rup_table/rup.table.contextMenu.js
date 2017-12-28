@@ -102,7 +102,7 @@
 
 			$self.one({
 				'jqGridLoadComplete.rupTable.contextMenu': function(data){
-					var $tbodyTr = jQuery(settings.contextMenu.tbodySelector, $self), contextRowItems={},
+					var $tbodyTr = jQuery("[id='"+$self.attr("id")+"'] tbody:first tr[role='row'].jqgrow"), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray;
 
@@ -140,14 +140,14 @@
 					jQuery.extend(true, contextRowItems, settings.contextMenu.items);
 
 					// En caso de especificar solo para unas columnas
-					thArray = jQuery(settings.contextMenu.theadThSelector, '#gview_'+settings.id);
+					thArray = jQuery("[id='gview_"+settings.id+"'] "+settings.contextMenu.theadThSelector);
 
 					// Eliminamos los contextMenu creados previamente
 					$('ul.context-menu-list', $tbodyTr).remove();
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							jQuery(contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')', $self).rup_contextMenu({
+							jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')').rup_contextMenu({
 								items: contextRowItems
 							});
 						}
@@ -182,7 +182,7 @@
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-							jQuery(contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')', $self).rup_contextMenu({
+							jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')').rup_contextMenu({
 								items: item
 							});
 						});
