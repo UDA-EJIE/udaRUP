@@ -159,9 +159,9 @@
 
 			// Se realiza la llamada ajax
 			if (typeof $.ajaxUDA === 'function') {
-				$.ajaxUDA(rup_ajax_settings);
+				return $.ajaxUDA(rup_ajax_settings);
 			} else {
-				$.ajax(rup_ajax_settings);
+				return $.ajax(rup_ajax_settings);
 			}
 		}
 	});
