@@ -104,7 +104,7 @@
 				'jqGridLoadComplete.rupTable.contextMenu': function(data){
 					var $tbodyTr = jQuery("[id='"+$self.attr("id")+"'] tbody:first tr[role='row'].jqgrow"), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
-						thArray;
+						thArray, $contextMenuSelector;
 
 					//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
 					jQuery.each(settings.contextMenu.showOperations, function(buttonId, value){
@@ -147,7 +147,9 @@
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')').rup_contextMenu({
+							$contextMenuSelector = jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')');
+							$.contextMenu( 'destroy', $contextMenuSelector );
+							$contextMenuSelector.rup_contextMenu({
 								items: contextRowItems
 							});
 						}
@@ -182,12 +184,16 @@
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-							jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')').rup_contextMenu({
+							
+							$contextMenuSelector = jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')');
+							$.contextMenu( 'destroy', $contextMenuSelector );
+							$contextMenuSelector.rup_contextMenu({
 								items: item
 							});
 						});
 
 					}else{
+						$.contextMenu( 'destroy', $tbodyTr );
 						$tbodyTr.rup_contextMenu({
 							items: contextRowItems
 						});
