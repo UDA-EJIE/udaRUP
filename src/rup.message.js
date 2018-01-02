@@ -181,10 +181,8 @@
 			aceptButton = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
 				click: function () {
-					settings.OKFunction.call(this, self);
-
 					$this._destroy(self);
-
+					settings.OKFunction.call(this, self);
 				}
 			}];
 			self.dialog('option', 'buttons', aceptButton);
