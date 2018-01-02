@@ -190,6 +190,12 @@
 
 		return this.optional(element) || $.rup_validate.checkDate(format, value);
 	});
+	
+	// Validacion email.De acuerdo a la oficial RFC 5322 http://www.ietf.org/rfc/rfc5322.txt
+	jQuery.validator.addMethod('email', function (value, element) {
+		var expr = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return this.optional(element) || expr.test(value);
+	});
 
 
 	//********************************
