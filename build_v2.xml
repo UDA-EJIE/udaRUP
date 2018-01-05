@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<project name="uda" default="buildVersion">
+    
+    
+    <property name="udaVersion" value="2.4.11"/>
+    <property name="previousUdaVersion" value="2.4.10"/>
+    <property name="udaLibVersion" value="2.4.10"/>
+    <property name="previousUdaLibVersion" value="2.4.9"/>
+    <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
+    
+    <property name="baseDir" value="../"/>
+    <property name="destDir" value="${baseDir}/dist"/>
+    
+    
+    <property name="udaLibBaseDir" value="${baseDir}/udaLib/x38ShLibClasses"/>
+    <property name="udaLibBuildDir" value="${udaLibBaseDir}/bin"/>
+    <property name="udaLibDestDir" value="${destDir}/udaLib/${udaLibVersion}"/>
+    
+    <property name="udaRupBaseDir" value="${baseDir}/udaRUP"/>
+    <property name="udaRupBuildDir" value="${udaRupBaseDir}/dist"/>
+    <property name="udaRupDestDir" value="${destDir}/udaRup/${udaVersion}"/>
+    <property name="udaRupFolder" value="rup"/>
+    <property name="udaRupZip" value="${udaRupDestDir}/rup-v${udaVersion}.zip"/>
+    
+    <property name="udaTemplatesBaseDir" value="${baseDir}/udaTemplates"/>
+    <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}/templates"/>
+    <property name="udaTemplatesDestDir" value="${destDir}/udaTemplates/${udaVersion}"/>
+    <property name="udaTemplatesFolder" value="templates"/>
+    <property name="udaTemplatesRupFolder" value="templates/statics/rup"/>
+    <property name="udaTemplatesAppFolder" value="templates/statics/xxx"/>
+    <property name="udaTemplatesZip" value="${udaTemplatesDestDir}/templates-v${udaVersion}.zip"/>
+    
+    
+    <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>
+    <property name="udaDemoAppStaticsDir" value="/x21aStatics"/>
+    <property name="udaDemoAppStaticsRupDir" value="${udaDemoAppStaticsDir}/WebContent/rup"/>
+    
+    
+    <!-- ***************************** -->
+    <!-- BUILD VERSION -->
+    <!-- ***************************** -->
+    
+    <!-- Realiza el build y generación de distribuibles de :
+        - Build y generación de distribuibles de udaRup
+        - Build y generación de distribuibles de udaLib
+        - Actualización de udaDemoApp con los fuentes de udaRup y los números de versión
+        - Actualización de udaTemplates con los fuentes de udaRup y los números de versión
+    -->
+    <target name="buildVersion" 
+            description="Genera los distribuibles para la versión de UDA" 
+            depends="buildUdaLibVersion, buildUdaRupVersion, buildUdaDemoAppVersion, buildUdaTemplatesVersion" >
+        
+    </target>
+    
+   
+    <!-- ***************************** -->
+    <!-- ******** udaLib ************* -->
+    <!-- ***************************** -->
+    
+    
+    <!-- Realiza el build de la versión de udaLib
+        - Actualiza los números de versión en los recursos correspondientes.
+        - Genera los jar correspondientes
+    -->
+    <target name="buildUdaLibVersion" 
+            description="Actualiza los recursos a la versión correspondiente de udaLib y genera los distribuibles" 
+            depends="udaLibRenameVersion, udaLibDist" >
+        
+    </target>
+    
+    
+    <!-- Actualiza el numero de versión en los siguientes recursos: 
+            - /pom.xml
+            - /build.xml
+            - /src/META-INF/MANIFEST.MF
+    -->
+    
+    <target name="udaLibRenameVersion" description="Modifica los numeros de versión de los entregables">
+        <echo>Updating resources version...</echo>
+        
+       <replace file="${udaLibBaseDir}/pom.xml">
+           <replacefilter 
+            token="&lt;version&gt;${previousUdaLibVersion}&lt;/version&gt;" 
+            value="&lt;version&gt;${udaLibVersion}&lt;/version&gt;"/>
+        </replace>
+        
+        <replace file="${udaLibBaseDir}/build.xml">
+           <replacefilter 
+            token="&lt;property name=&quot;version&quot; value=&quot;${previousUdaLibVersion}-RELEASE&quot;/&gt;" 
+            value="&lt;property name=&quot;version&quot; value=&quot;${udaLibVersion}-RELEASE&quot;/&gt;"
+            />
+        </replace>
+        
+         <replace file="${udaLibBaseDir}/src/META-INF/MANIFEST.MF">
+           <replacefilter 
+            token="Manifest-Version: ${previousUdaLibVersion}-RELEASE" 
+            value="Manifest-Version: ${udaLibVersion}-RELEASE"
+            />
+        </replace>
+        
+        
+    </target>
+    
+    <!-- Genera los diferentes jar de la librería x38 -->
+    <target name="udaLibDist" description="Genera los diferentes jar de x38">
+        
+
+        <echo>Creando distribuibles de udaLib...</echo>
+        
+        <echo>Eliminando ficheros existentes ...</echo>
+		<delete file="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar" />
+		<delete file="${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar" />
+		<delete file="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar" />
+		<delete file="${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar" />
+		<delete file="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar" />
+		<delete file="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar" />
+        
+        <echo>Generando ${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rss/**, com/ejie/x38/rup/**,  com/ejie/x38/cache/**" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+		
+		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/webdav/** LICENSE.txt NOTICE.txt" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+		
+		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/pif/** LICENSE.txt NOTICE.txt" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+		
+		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/rss/** LICENSE.txt NOTICE.txt" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+		
+		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/rup/** LICENSE.txt NOTICE.txt" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+		
+		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar ...</echo>
+		<jar destfile="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar">
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/cache/** LICENSE.txt NOTICE.txt" />
+			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
+			<manifest>
+		      	<attribute name="Main-Class" value=""/>
+		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
+		     	<attribute name="Created-By" value="UDA"/>
+		     </manifest>
+		</jar>
+        
+    </target>
+    
+    
+
+    <!-- ***************************** -->
+    <!-- ******** udaRup ************* -->
+    <!-- ***************************** -->
+    
+    <!-- Realiza el build y generación de distribuibles de udaRup:
+        - Actualiza los números de versión en los recursos de udaRup
+        - Realiza el build de udaRup ejecutando gulp dist
+        - Genera los ditribuibles en la carpeta dist
+    -->
+    <target name="buildUdaRupVersion" 
+            description="Actualiza los recursos a la versión correspondiente de udaDemoApp y genera los distribuibles" 
+            depends="udaRupRenameVersion, udaRupBuild, udaRupDist" >
+        
+    </target>
+    
+    <!-- Actualiza los números de versión en los siguientes recursos:
+        - gulpfile.js
+        - package.json
+        - src/**/*.js
+    -->
+    <target name="udaRupRenameVersion" description="Modifica los numeros de versión de los entregables">
+        <echo>Updating resources version...</echo>
+        
+       <replace file="${udaRupBaseDir}/gulpfile.js">
+           <replacefilter 
+            token="var version = &quot;${previousUdaVersion}&quot;;" 
+            value="var version = &quot;${udaVersion}&quot;;"/>
+        </replace>
+        
+        <replace file="${udaRupBaseDir}/package.json">
+           <replacefilter 
+            token="&quot;version&quot;: &quot;${previousUdaVersion}&quot;" 
+            value="&quot;version&quot;: &quot;${udaVersion}&quot;"/>
+        </replace>
+        
+        <replace dir="${udaRupBaseDir}/src">
+            <include name="**/*.js"/>
+           <replacefilter 
+            token="@version ${previousUdaVersion}" 
+            value="@version ${udaVersion}"/>
+        </replace>
+    </target>
+    
+    <!-- Realiza el build del proyecto de UDA RUP -->
+    <!-- Ejecuta la tarea gulp dist -->
+    <target name="udaRupBuild" description="Realiza el build de la versión actual de udaRUP">
+        <echo>Building udaRUP...</echo>
+        
+        <exec dir="${udaRupBaseDir}" executable="gulp" failonerror="true">
+            <arg value="dist" />            
+        </exec>
+    </target>
+    
+    <!-- Genera los distribuibles: Carpeta rup y zip -->
+    <target name="udaRupDist" description="Genera los distribuibles de RUP">
+        <echo>Limpiando...</echo>
+        <delete dir="${udaRupDestDir}/xxx" />
+        <delete dir="${udaRupDestDir}/${udaRupFolder}" />
+        <delete file="${udaRupZip}" />
+        
+        <echo>Generando carpeta rup...</echo>
+        
+        <copy todir="${udaRupDestDir}/${udaRupFolder}">
+            <fileset dir="${udaRupBuildDir}/${udaRupFolder}">
+              
+            </fileset>
+        </copy>
+        
+        <echo>Generando comprimido ${udaRupZip}...</echo>
+        <zip destfile="${udaRupZip}"
+            basedir="${udaRupDestDir}"
+            includes="${udaRupFolder}/**"
+            
+        />
+    </target>
+    
+    
+    <!-- ***************************** -->
+    <!-- ******** udaDemoApp ************* -->
+    <!-- ***************************** -->
+    
+    
+    <!-- Realiza el build y generación de distribuibles de udaDemoApp:
+        - Actualiza los números de versión en los recursos de udaDemoApp
+        - Copia los distribuibles de la carpeta rup dentro la la aplicación udaDemoApp
+        - Genera los ditribuibles en la carpeta dist
+    -->
+    <target name="buildUdaDemoAppVersion" 
+            description="Actualiza los recursos de la udaDemoApp con los fuentes de udaRup y con la versión correspondiente" 
+            depends="udaRupToUdaDemoApp, udaDemoAppRenameVersion" >
+        
+    </target>
+    
+    <!-- Modifica los numeros de versión de los recursos 
+        - rup.*.inc
+        - pom.xml
+    -->
+    <macrodef name="renameVersionWar">
+        <attribute name="warName"/>
+        
+        <sequential>
+            <replace dir="${udaDemoAppBaseDir}/@{warName}/WebContent/WEB-INF/layouts/includes">
+                <include name="**/rup*.inc"/>
+                <replacefilter 
+                    token="${previousUdaVersion}" 
+                    value="${udaVersion}"/>
+            </replace>
+        </sequential>
+    </macrodef>
+    
+    <target name="udaDemoAppRenameVersion" description="Modifica los numeros de versión de los resources de udaDemoApp" depends="udaRupToUdaDemoApp">
+        <echo>Updating resources version...</echo>
+        
+        <renameVersionWar warName="x21aPilotoPatronesWar"/>
+        <renameVersionWar warName="x21aMantenimientosWar"/>
+        
+        <replace file="${udaDemoAppBaseDir}/x21aEAR/pom.xml">
+           <replacefilter 
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+        </replace>
+    </target>  
+    
+    <!-- Copia los distribuibles de la carpeta rup dentro la la aplicación udaDemoApp -->
+    <target name="udaRupToUdaDemoApp" description="Copia los distribuibles de udaRup a la aplicación de ejemplo udaDemoApp">
+        
+        <echo>Limpiando...</echo>
+        <delete dir="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}" />
+                
+        <echo>Copiando fuentes...</echo>
+        <echo>Origen: ${udaRupDestDir}/${udaRupFolder}</echo>
+        <echo>Destino: ${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}</echo>
+        
+        
+        <copy todir="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}">
+            <fileset dir="${udaRupDestDir}/${udaRupFolder}">
+                
+            </fileset>
+        </copy>
+    </target>
+    
+    
+    <!-- ***************************** -->
+    <!-- ******** udaTemplates ************* -->
+    <!-- ***************************** -->
+    
+    
+    <!-- Realiza el build y generación de distribuibles de udaTemplates:
+        - Actualiza los números de versión en los recursos de udaTemplates
+        - Copia los distribuibles de la carpeta rup dentro la la aplicación udaTemplates
+        - Actualiza los rup*.inc de udaDemoApp dentro la la aplicación udaTemplates
+        - Genera los ditribuibles en la carpeta dist
+    -->
+    
+    <target name="buildUdaTemplatesVersion" 
+            description="Actualiza los recursos de udaTemplates con los fuentes de udaRup recursos de udaDemoApp y con la versión correspondiente" 
+            depends="udaRupToTemplates, udaTemplatesRenameVersion, udaTemplatesDist" >
+        
+    </target>
+    
+    
+    <!-- Copia los distribuibles de la carpeta rup dentro de los templates -->
+    <target name="udaRupToTemplates" description="Copia los distribuibles de udaRup a los templates">
+        
+        <echo>Limpiando...</echo>
+        <delete dir="${udaTemplatesBaseDir}/${udaTemplatesRupFolder}" />
+        <delete>
+            <fileset dir="${udaTemplatesSrcDir}/war/WebContent/WEB-INF/layouts/includes" includes="**/rup*.inc"/>
+        </delete>
+                
+        <echo>Copiando fuentes...</echo>
+        <echo>Origen: ${udaRupDestDir}/${udaRupFolder}</echo>
+        <echo>Destino: ${udaTemplatesBaseDir}/${udaTemplatesRupFolder}</echo>
+                
+        <copy todir="${udaTemplatesBaseDir}/${udaTemplatesRupFolder}">
+            <fileset dir="${udaRupDestDir}/${udaRupFolder}">
+                <exclude name="css/main.css"/>
+            </fileset>
+        </copy>
+        
+         <echo>Copiando includes...</echo>
+        <echo>Origen: ${udaDemoAppBaseDir}/x21aPilotoPatronesWar/WebContent/WEB-INF/layouts/includes</echo>
+        <echo>Destino: ${udaTemplatesSrcDir}/war/WebContent/WEB-INF/layouts/includes</echo>
+        
+        <copy todir="${udaTemplatesSrcDir}/war/WebContent/WEB-INF/layouts/includes">
+            <fileset dir="${udaDemoAppBaseDir}/x21aPilotoPatronesWar/WebContent/WEB-INF/layouts/includes">
+                <include name="**/rup*.inc"/>
+            </fileset>
+        </copy>
+        
+    </target>
+    
+    <!-- udaTemplates -->
+    
+    <!-- Modifica los numeros de versión de los recursos 
+        - rup.*.inc
+        - pom.xml
+    -->
+    <target name="udaTemplatesRenameVersion" description="Modifica los numeros de versión de los resources de udaTemplates">
+        <echo>Updating resources version...</echo>
+        
+        <replace file="${udaTemplatesSrcDir}/ear/pom.xml.ftl">
+           <replacefilter 
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+        </replace>
+    </target>  
+    
+    <!-- Genera los distribuibles: Carpeta templates y zip -->
+    <target name="udaTemplatesDist" description="Genera los distribuibles de los templates">
+        
+        <echo>Limpiando...</echo>
+        <delete dir="${udaTemplatesDestDir}/${udaTemplatesFolder}" />
+        <delete file="${udaTemplatesZip}" />
+        
+        
+        <echo>Generando carpeta templates...</echo>
+        
+        <copy todir="${udaTemplatesDestDir}/${udaTemplatesFolder}">
+            <fileset dir="${udaTemplatesSrcDir}"/>
+        </copy>
+        
+        <echo>Generando comprimido ${udaRupZip}...</echo>
+        <zip destfile="${udaTemplatesZip}"
+            basedir="${udaTemplatesDestDir}"
+            includes="${udaTemplatesFolder}/**"
+            excludes="${udaTemplatesFolder}/.settings/, ${udaTemplatesFolder}/.project"
+            update="true"
+        />
+    </target>
+    
+</project>
