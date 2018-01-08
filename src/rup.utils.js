@@ -309,6 +309,36 @@
 			}
 			return data;
 		},
+		/**
+         * Devuelve un string Con los caracteres sencillos
+         *
+         * @name jQuery.rup_utils#normalize
+         * @function
+         * @param {string} cadena - Cadena de caracteres inicial.
+         * @returns {string} - Cadena de caracteres sin accentFolding.
+         * @example
+         * // Convierte los caracteres de la cadena "áéíóu" -> "áeiou"
+         * $.rup_utils.normalize"áéíóu");
+         */
+		normalize: function (texto) {
+			var accentMap = {
+					 'á':'a',
+					 'é':'e',
+					 'í':'i',
+					 'ó':'o',
+					 'ú':'u',
+					 'Á':'A',
+					 'É':'E',
+					 'Í':'I',
+					 'Ó':'O',
+					 'Ú':'U'
+			};
+			var cadena = '';
+			 	for ( var i = 0; i < texto.length; i++ ) {
+			 		cadena += accentMap[ texto.charAt(i) ] || texto.charAt(i);
+			 	}
+			 return cadena.toLowerCase();
+		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
 			var ruptype, formElem;
 			var tree_data, selectorArray;
