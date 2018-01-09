@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Proporciona al componente RUP Table ciertas funcionalidades responsive.
+ *
+ * @summary Plugin de toolbar del componente RUP Table.
+ * @module rup_table/responsive
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["responsive"],
+ * 	responsive:{
+ * 		// Propiedades de configuración del plugin responsive
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -73,21 +88,28 @@
 	});
 
 	jQuery.fn.rup_table('extend', {
-		/*
-     * Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
-     *
-     * TODO: internacionalizar mensajes de error.
-     */
+		/**
+		* Metodo que realiza la pre-configuración del plugin responsive del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureResponsive
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureResponsive: function (settings) {
 			var $self = this;
 
 
 
 		},
-		/*
-     * Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
-     *
-     */
+		/**
+		* Metodo que realiza la post-configuración del plugin responsive del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureResponsive
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigureResponsive: function (settings) {
 
 			var $self = this,
@@ -301,6 +323,13 @@
 
 
 	jQuery.fn.rup_table('extend', {
+		/**
+		* Obtiene a partir de la configuración del colModel, la información correspondiente al comportamiento responsive de las columnas.
+		*
+		* @name getRwdColConfig
+		* @function
+		* @return {object[]} - Configuración responsive para las columnas de la tabla.
+		*/
 		getRwdColConfig: function () {
 			var $self = this,
 				rwdCols, retJson = {},
@@ -351,11 +380,16 @@
 
 
 	/**
-   * Parámetros de configuración por defecto para el feedback.
-   *
-   * feedback.config: Configuración por defecto del feedback principal.
-   * feedback.internalFeedbackConfig: Configuración por defecto del feedback interno.
-   */
+ 	* @description Propiedades de configuración del plugin responsive del componente RUP Table.
+ 	*
+ 	* @name options
+ 	*
+ 	* @property {object} [fluid] - Parametros de configuración
+ 	* @property {string[]} [excludeColumns] - Determina las columnas que van a ser excluidas de la generación del informe.
+ 	* @property {string[]} [sendPostDataParams] - Parámetros del jqGrid que van a ser enviados en la petición de generación del informe.
+ 	*/
+
+
 	jQuery.fn.rup_table.plugins.responsive = {};
 	jQuery.fn.rup_table.plugins.responsive.defaults = {
 		// autowidth:true,

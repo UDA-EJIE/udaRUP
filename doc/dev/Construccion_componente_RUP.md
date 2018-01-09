@@ -27,6 +27,18 @@ Un buen punto de partida para crear un nuevo componente RUP sería el uso de la 
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_empty', rup_empty));
 
 	//*******************************
+	// DEFINICIÓN DE MÉTODOS RUP
+	//*******************************
+	$.fn.rup_empty('extend',{
+		getRupValue: function() {
+			return null;
+		},
+		setRupValue: function(value) {
+
+		}
+	});
+
+	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_empty('extend',{
@@ -50,10 +62,17 @@ Un buen punto de partida para crear un nuevo componente RUP sería el uso de la 
 	//*******************************
 	$.fn.rup_empty('extend', {
 		_init : function(args){
-			var settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
+			var $self = this,
+				settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
 
+
+			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
+			$self.attr('ruptype', 'empty');
 
 			// TODO : Invocación al plugin
+
+			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
+			$self.data('settings', settings);
 
 		}
 	});
@@ -86,15 +105,31 @@ Las diferentes partes de un componente RUP son:
 		factory( jQuery );
 	}
 } ( function( $ ) {
+
 ```
 
-* **Inicialización del componente RUP**: Se genera el objeto base ```var rup_empty = {};``` y se invoca al contructor de componentes RUP.
+* **Inicialización del componente RUP** : Se genera el objeto base ```var rup_empty = {};``` y se invoca al contructor de componentes RUP.
 
 ```js
 var rup_empty = {};
 
 //Se configura el arranque de UDA para que alberge el nuevo patrón
 $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_empty', rup_empty));
+```
+
+* **Métodos comunes a los componentes RUP**: A la hora de desarrollar un componente RUP se definen dos métodos comunes a todos los componentes.
+	* **getRupValue**: Devuelve el *value* normalizado del componenente para ser utilizado por el resto de componentes. Por ejemplo cuando se obtiene desde un formulario para enviarlo al servidor.
+	* **setRupValue**: Asigna un *value* al componente. Por ejemplo cuando se inicializa el componente como parte de un campo utilizado en un formulario.
+
+```js
+$.fn.rup_empty('extend',{
+	getRupValue: function() {
+		return null;
+	},
+	setRupValue: function(value) {
+
+	}
+});
 ```
 
 * **Métodos públicos del componente**: En esta sección se implementarán los métodos que conformarán la API pública del componente. Estos métodos podrán ser invocados desde fuera del componente.
@@ -139,7 +174,7 @@ $.fn.rup_empty('extend', {
 ```
 En este método se sobreescriben las propiedades de configuración proporcionadas por el usuario en la inicialización del componente a las propiedades por defecto.
 
-Esto se realiza mediante la sentencia 
+Esto se realiza mediante la sentencia
 
 ```js
 var settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
@@ -185,12 +220,12 @@ Deberemos de realizarlo del siguiente modo:
 ```js
 $.fn.rup_empty('extend', {
 	_init : function(args){
-		var $self = this, 
+		var $self = this,
 			settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
 
 		$self.attr('value', 'texto'),
-		
-		
+
+
 	}
 });
 ```
@@ -201,7 +236,7 @@ Esta práctica debería de realizarse no solo en el método ```_init``` sino que
 $.fn.rup_empty('extend',{
 	foo: function() {
 		var $self = this;
-		
+
 		return $self;
 	}
 });
@@ -243,12 +278,12 @@ Si lo realizamos como en este ejemplo:
 $.fn.rup_empty('extend',{
 	foo: function(param) {
 		var $self = this;
-		
+
 		return $self;
 	},
 	bar: function(param) {
 		var $self = this;
-		
+
 		return $self;
 	}
 });
@@ -272,6 +307,14 @@ var $elem = $('#idElem');
 $elem.rup_empty({}).rup_empty("foo", "Value param").rup_empty("bar", "Value param");
 ```
 
+### Almacenar el objeto settings
+
+Una recomendación a la hora de construir un componente RUP es la de almacenar el objeto ```settings``` en el ```data``` del propio elementos del DOM. De esta manera el objeto será fácilmente accesible desde cualquier punto del componente.
+
+```js
+$self.data('settings', settings);
+```
+
 ### Manipulación del DOM
 
 #### Simplificar los selectores
@@ -280,7 +323,7 @@ Se debe de simplificar los selectores en la medida de lo posible para facilitar 
 
 En vez de esto
 
-```js 
+```js
 // Set's an element's title attribute using it's current text
 $(".container input#elem").attr("title", $(".container input#elem").text());
 
@@ -323,7 +366,7 @@ elem.fadeOut();
 
 #### Evitar modificaciones parciales del DOM
 
-Unas de las operaciones mas costosas en cuanto a tiempo de proceso son las relacionadas con la manipulación del DOM. 
+Unas de las operaciones mas costosas en cuanto a tiempo de proceso son las relacionadas con la manipulación del DOM.
 
 Por ello es preferible realizar las modificaciones del DOM lo mas agrupadas posibles en vez de realizar pequeñas modificaciones.
 
@@ -331,7 +374,7 @@ Por ejemplo, en el caso de tener que añadir nuevos ```<li>``` a un ```<ul>``` d
 
 En vez del siguiente ejemplo
 
-```js 
+```js
 // Dynamically building an unordered list from an array
 var localArr = ["Greg", "Peter", "Kyle", "Danny", "Mark"],
     list = $("ul.people");

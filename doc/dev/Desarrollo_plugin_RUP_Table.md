@@ -1,6 +1,6 @@
 ## Estructura de plugins
 
-Para los ejemplos supondremos la creación de un plugin llamado ```empty``` que se cargará en el
+Para los ejemplos supondremos la creación de un plugin llamado ```empty```.
 
 Los plugins desarrollados para el componente RUP Table tienen la siguiente estructura:
 
