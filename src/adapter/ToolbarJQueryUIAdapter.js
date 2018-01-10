@@ -69,10 +69,6 @@
 		//Añadir evento keydown
 		this._setKeyDown(boton);
 
-		if (obj.click) { //Añadir eventos
-			boton.click({i18nCaption: obj.i18nCaption}, obj.click);
-		}
-
 		// Al perder el foco se elimina el estilo de disponer del foco
 		boton.bind('focusout',function(){
 			$(this).removeClass('ui-state-focus');
