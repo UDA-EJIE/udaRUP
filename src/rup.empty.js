@@ -39,6 +39,18 @@
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_empty', rup_empty));
 
 	//*******************************
+	// DEFINICIÓN DE MÉTODOS RUP
+	//*******************************
+	$.fn.rup_empty('extend',{
+		getRupValue: function() {
+			return null;
+		},
+		setRupValue: function(value) {
+
+		}
+	});
+
+	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
 	$.fn.rup_empty('extend',{
@@ -62,10 +74,17 @@
 	//*******************************
 	$.fn.rup_empty('extend', {
 		_init : function(args){
-			var settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
+			var $self = this,
+				settings = $.extend({}, $.fn.rup_empty.defaults, args[0]);
 
+
+			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
+			$self.attr('ruptype', 'empty');
 
 			// TODO : Invocación al plugin
+
+			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
+			$self.data('settings', settings);
 
 		}
 	});

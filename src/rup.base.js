@@ -29,6 +29,7 @@
 	}
 }(function ($) {
 
+	// NO MODIFICAR: (AUTOGENERADO)
 	var rup_version = '3.2.1';
 
 	jQuery.migrateMute = true;
