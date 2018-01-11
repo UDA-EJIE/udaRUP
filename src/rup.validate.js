@@ -447,6 +447,11 @@
 				}
 				// Se eliminan los etilos de error previos
 				$('.' + self.settings.errorClass + ':not(.rup-maint_validateIcon)', self.currentForm).removeClass(self.settings.errorClass);
+				//Se eliminan los iconos duplicados
+				var elements = self.currentForm.getElementsByClassName('rup-validate-error-icon');
+				while(elements !== undefined && elements.length > 0){
+			        elements[0].parentNode.removeChild(elements[0]);
+			    }
 				// Se invoca al metodo por defecto del plugin subyacente
 				self.defaultShowErrors();
 			},
@@ -575,35 +580,23 @@
 				return $('[name=\'' + fieldName + '\']', form);
 			},
 			getFieldName: function (self, form, field) {
-				var ruptype = field.attr('ruptype'),
-					labelForName, labelElem, fieldTmp, labelForName, labelForId;
+				var labelForName, labelElem, fieldTmp, labelForId;
 
 				fieldTmp = jQuery(field.length > 1 ? field[0] : field);
 
 				labelForName = fieldTmp.attr('name');
 				labelForId = fieldTmp.attr('id');
 
-				if (ruptype !== undefined) {
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forIdElement(form, labelForId);
 
-					if (ruptype === 'combo') {
-						labelForId = labelForId + '-button';
-					}
-
-					if (ruptype === 'autocomplete') {
-						labelForId = labelForId + '_label';
-					}
+				if (labelElem !== undefined && labelElem.name !== undefined && labelElem.name !== '') {
+					return labelElem.name;
 				}
 
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forNameElement(fieldTmp, labelForName);
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forNameElement(form, labelForName);
 
-				if (labelElem.length > 0) {
-					return labelElem.text();
-				}
-
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forIdElement(fieldTmp, labelForId);
-
-				if (labelElem.length > 0) {
-					return labelElem.text();
+				if (labelElem !== undefined  && labelElem.length > 0) {
+					return labelElem.text().replace(':','');
 				}
 
 				return fieldTmp.attr('title');
