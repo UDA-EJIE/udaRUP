@@ -725,7 +725,7 @@
 				newPageIndex = arrParams[6];
 
 				if (execute){
-					$self.rup_table('hideFormErrors', settings.$detailForm);
+					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [linkType, settings.$detailForm, npos[1][npos[index]]]);
 					pagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
 
