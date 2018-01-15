@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Permite realizar una selección múltiple de los registros que se muestran en la tabla.
+ *
+ * @summary Plugin de multiselection del componente RUP Table.
+ * @module rup_table/multiselection
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["multiselection"],
+ * 	multiselection:{
+ * 		// Propiedades de configuración del plugin multiselection
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -53,6 +68,14 @@
    *
    */
 	jQuery.fn.rup_table('extend', {
+		/**
+		* Metodo que realiza la pre-configuración del plugin multiselection del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureMultiselection
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureMultiselection: function (settings) {
 			var $self = this;
 			// Añadimos la columna por defecto para mostrar la información del registro en edición
@@ -73,7 +96,7 @@
 						return settings.multiselection.numSelected === 1;
 					}
 				}
-			});			
+			});
 
 			settings.getActiveLineId = function () {
 				var $self = this,
@@ -173,6 +196,14 @@
 			});
 
 		},
+		/**
+		* Metodo que realiza la post-configuración del plugin multiselection del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureMultiselection
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigureMultiselection: function (settings) {
 			var $self = this;
 

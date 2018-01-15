@@ -16,6 +16,22 @@
 
 /*global jQuery */
 
+/**
+ * Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
+ *
+ * @summary Plugin de filtrado múltiple del componente RUP Table.
+ * @module rup_table/fluid
+ * @deprecated
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["fuild"],
+ * 	fuild:{
+ * 		// Propiedades de configuración del plugin fuild
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -54,6 +70,14 @@
 		 *
 		 * TODO: internacionalizar mensajes de error.
 		 */
+		/**
+		* Metodo que realiza la post-configuración del plugin fuild del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureFluid
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigureFluid: function(settings){
 			var $self = this, $fluidBaseLayer;
 
@@ -118,6 +142,16 @@
 	 * Parámetros de configuración por defecto para el plugin fluid.
 	 *
 	 */
+	/**
+ 	* @description Propiedades de configuración del plugin multifilter del componente RUP Table.
+ 	*
+ 	* @name options
+ 	*
+ 	* @property {string} [baseLayer] - Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”.
+ 	* @property {integer} [minWidth=100] - Determina la anchura máxima a la que se va a redimensionar la capa.
+ 	* @property {integer} [maxWidth=2000] -  Determina la anchura mínima a la que se va a redimensionar la capa.
+ 	* @property {integer} [fluidOffset=0] - Desplazamiento que se aplica a la capa redimensionada.
+ 	*/
 	jQuery.fn.rup_table.plugins.fluid = {};
 	jQuery.fn.rup_table.plugins.fluid.defaults = {
 		fluid:{

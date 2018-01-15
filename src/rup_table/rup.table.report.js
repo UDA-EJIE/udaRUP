@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Genera los controles necesarios para permitir al usuario la exportación de los datos mostrados en la tabla.
+ *
+ * @summary Plugin de reporting del componente RUP Table.
+ * @module rup_table/report
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["report"],
+ * 	report:{
+ * 		// Propiedades de configuración del report inlineEdit
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -50,11 +65,28 @@
 	 * postConfigureReport(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+		* Metodo que realiza la pre-configuración del plugin report del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureReport
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureReport: function(settings){
 			var $self = this;
 
 
 		},
+		/**
+		* Metodo que realiza la post-configuración del plugin report del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureReport
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		* @fires module:rup_table#rupTable_serializeReportData
+		*/
 		postConfigureReport: function(settings){
 			var $self = this,
 				colModel = $self.rup_table('getColModel'),
@@ -123,6 +155,17 @@
 
 
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Devuelve las columnas de la tabla para las que se va a generar el informe.
+     *
+     * @function _processMatchedRow
+		 * @private
+		 * @param {object} colModel - colModel correspondiente a la tabla.
+		 * @param {object} settings - Parámetros de configuración de la página.
+		 * @return {string[]} - Array con el nombre de las columnas.
+     * @example
+     * $self._getReportColumns(colModel, settings);
+     */
 		_getReportColumns: function(colModel, settings){
 			return jQuery.map(colModel, function(elem, index){
 				if (jQuery.inArray(elem.name, settings.report.excludeColumns) === -1){
@@ -139,10 +182,16 @@
 	//*******************************************************
 
 
+
 	/**
-	 * Parámetros de configuración por defecto para el plugin report.
-	 *
-	 */
+	* @description Propiedades de configuración del plugin report del componente RUP Table.
+	*
+	* @name options
+	*
+	* @property {object} [columns] - Permite especificar mediante un array, los identificadores de las columnas que van a ser mostradas en el informe.
+	* @property {string[]} [excludeColumns] - Determina las columnas que van a ser excluidas de la generación del informe.
+	* @property {string[]} [sendPostDataParams] - Parámetros del jqGrid que van a ser enviados en la petición de generación del informe.
+	*/
 	jQuery.fn.rup_table.plugins.report = {};
 	jQuery.fn.rup_table.plugins.report.defaults = {
 		report:{
@@ -151,6 +200,21 @@
 			sendPostDataParams: ['_search','core','nd','page','rows','sidx','sord']
 		}
 	};
+
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+   * Permite asociar un manejador al evento que se produce en el momento en el que se construye el objeto que se envía al servidor para solicitar la generación del informe. Permite la modificación del objeto postData para añadir, modificar o eliminar los parámetros que van a ser enviados.
+   *
+   * @event module:rup_table#rupTable_serializeReportData
+   * @property {Event} event - Objeto Event correspondiente al evento disparado.
+	 * @property {Event} dta - Linea de la tabla destinada a la búsqueda.
+   * @example
+   * $("#idComponente").on("rupTable_serializeReportData", function(event, data){ });
+   */
 
 
 })(jQuery);

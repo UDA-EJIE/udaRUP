@@ -15,11 +15,18 @@
  */
 
 /**
- * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
+ * Tiene como objetivo proporcionar al componente RUP Table de las funcionalidades que ofrece el uso de un menú contextual.
  *
  * @summary Plugin de menú contextual del componente RUP Table.
  * @module rup_table/contextMenu
- *
+ * @example
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ *	usePlugins:["contextMenu"],
+ *	contextMenu:{
+ * 		// Propiedades de configuración del plugin contextMenu
+ * 	}
+ * });
  */
 (function ($) {
 
@@ -102,7 +109,7 @@
 
 			$self.one({
 				'jqGridLoadComplete.rupTable.contextMenu': function(data){
-					var $tbodyTr = jQuery("[id='"+$self.attr("id")+"'] tbody:first tr[role='row'].jqgrow"), contextRowItems={},
+					var $tbodyTr = jQuery('[id=\''+$self.attr('id')+'\'] tbody:first tr[role=\'row\'].jqgrow'), contextRowItems={},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
@@ -140,14 +147,14 @@
 					jQuery.extend(true, contextRowItems, settings.contextMenu.items);
 
 					// En caso de especificar solo para unas columnas
-					thArray = jQuery("[id='gview_"+settings.id+"'] "+settings.contextMenu.theadThSelector);
+					thArray = jQuery('[id=\'gview_'+settings.id+'\'] '+settings.contextMenu.theadThSelector);
 
 					// Eliminamos los contextMenu creados previamente
 					$('ul.context-menu-list', $tbodyTr).remove();
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							$contextMenuSelector = jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')');
+							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')');
 							$.contextMenu( 'destroy', $contextMenuSelector );
 							$contextMenuSelector.rup_contextMenu({
 								items: contextRowItems
@@ -184,8 +191,8 @@
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-							
-							$contextMenuSelector = jQuery("[id='"+$self.attr("id")+"'] " + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')');
+
+							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')');
 							$.contextMenu( 'destroy', $contextMenuSelector );
 							$contextMenuSelector.rup_contextMenu({
 								items: item
@@ -211,9 +218,19 @@
 
 
 	/**
-	 * Parámetros de configuración por defecto para el plugin fluid.
-	 *
-	 */
+   * @description Propiedades de configuración del plugin contextMenu del componente RUP Table.
+   *
+   * @name options
+   *
+   * @property {string[]} [colNames=null] - Mediante un array se puede configurar las columnas para las cuales se va a mostrar el menú contextual. En caso de especificar el valor null se mostrará en todas las columnas.
+   * @property {boolean} [createDefaultRowOperations=true] - Propiedad que indica si el componente va a mostrar las operaciones por defecto como opciones dentro del menú contextual.
+   * @property {string} [tbodySelector='tbody:first tr[role=\'row\'].jqgrow'] - Selector de jQuery que identifica el tbody de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de tabla.
+	 * @property {string} [tbodyTdSelector='tbody:first tr.jqgrow td'] - Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna.
+	 * @property {string} [theadThSelector='thead:first th'] - Selector de jQuery que identifica las cabeceras de las columnas de la tabla.
+   * @property {object} [items={}}] - Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros.
+	 * @property {rup_table~Operations[]} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual.
+   */
+
 	jQuery.fn.rup_table.plugins.contextMenu = {};
 	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
 		contextMenu:{

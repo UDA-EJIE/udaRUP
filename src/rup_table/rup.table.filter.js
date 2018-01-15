@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Gestiona las operaciones de filtrado de datos sobre el origen de datos que utiliza el componente.
+ *
+ * @summary Plugin de filtrado del componente RUP Table.
+ * @module rup_table/filter
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["filter"],
+ * 	filter:{
+ * 		// Propiedades de configuración del plugin filter
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -58,6 +73,14 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+			* Metodo que realiza la pre-configuración del plugin filter del componente RUP Table.
+			* Este método se ejecuta antes de la incialización del plugin.
+			*
+			* @name preConfigureFilter
+			* @function
+			* @param {object} settings - Parámetros de configuración del componente.
+			*/
 		preConfigureFilter: function(settings){
 			var $self = this, tableId = settings.id, filterSettings = settings.filter, filterFormId,
 				toggleIcon1Tmpl,toggleLabelTmpl,filterSummaryTmpl,toggleIcon2Tmpl,$toggleIcon1,$toggleLabel,$filterSummary,$toggleIcon2;
@@ -349,10 +372,13 @@
 			}
 
 		},
-		/*
-		 * Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
+		/**
+		 * Metodo que realiza la post-configuración del plugin filter del componente RUP Table.
+		 * Este método se ejecuta después de la incialización del plugin.
 		 *
-		 * TODO: internacionalizar mensajes de error.
+		 * @name postConfigureFilter
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
 		 */
 		postConfigureFilter: function(settings){
 			var $self = this, filterFormId, filterSettings;
@@ -373,6 +399,15 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Limpia los campos del formulario de filtrado.
+     *
+     * @function  cleanFilterForm
+		 * @fires module:rup_table#rupTable_filter_beforeCleanFilterForm
+		 * @fires module:rup_table#rupTable_filter_afterCleanFilterForm
+     * @example
+     * $("#idComponente").rup_table("cleanFilterForm");
+     */
 		cleanFilterForm : function () {
 			var $self = this,
 				settings = $self.data('settings');
@@ -382,7 +417,15 @@
 
 			return $self;
 		},
-		filter : function(async){
+		/**
+     * Realiza el filtrado de acuerdo a los datos existentes en el formulario de filtrado.
+     *
+     * @function  filter
+		 * @fires module:rup_table#rupTable_beforeFilter
+     * @example
+     * $("#idComponente").rup_table("filter");
+     */
+		filter : function(){
 			var $self = this,
 				settings = $self.data('settings');
 
@@ -399,12 +442,26 @@
 
 			$self.trigger('reloadGrid');
 		},
+		/**
+     * Devuelve los parámetros de filtrado empleados en el filtrado.
+     *
+     * @function  getFilterParams
+     * @example
+     * $("#idComponente").rup_table("getFilterParams");
+     */
 		getFilterParams : function(){
 			var $self = this,
 				settings = $self.data('settings');
 
 			return form2object(settings.filter.$filterContainer[0]);
 		},
+		/**
+     *  Oculta el formulario de filtrado.
+     *
+     * @function  hideFilterForm
+     * @example
+     * $("#idComponente").rup_table("hideFilterForm");
+     */
 		hideFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
 
@@ -416,6 +473,13 @@
 			filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
 			filterSettings.$filterSummary.parent().addClass('rup-maint_searchCriteria');
 		},
+		/**
+     * Muestra el formulario de filtrado.
+     *
+     * @function showFilterForm
+     * @example
+     * $("#idComponente").rup_table("showFilterForm");
+     */
 		showFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
 			// Se muestra el formulario de búsqueda
@@ -434,7 +498,14 @@
 
 			//			filterSettings.$collapsableRowShow.hide(settings.filter.transitionConfig);
 		},
-		toggleFilterForm: function(filterCriteriaLoad){
+		/**
+     * Alterna el estado del formulario de filtrado entre visible y oculto.
+     *
+     * @function toggleFilterForm
+     * @example
+     * $("#idComponente").rup_table("toggleFilterForm");
+     */
+		toggleFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
 
 			if (filterSettings.$collapsableLayer.is(':hidden')) {
@@ -448,6 +519,13 @@
 
 			return $self;
 		},
+		/**
+     * Actualiza el resumen de los criterios de filtrado a partir de los valores existentes en el formulario.
+     *
+     * @function showSearchCriteria
+     * @example
+     * $("#idComponente").rup_table("showSearchCriteria");
+     */
 		showSearchCriteria: function(){
 			var $self = this, settings = $self.data('settings'),
 				searchString = ' ', temp = '', label, numSelected,
@@ -665,6 +743,17 @@
 	//*******************************
 
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Obtiene el label correspondiente a un campo por el qeu se realiza el filtrado.
+     *
+     * @function _getSearchFormFieldLabel
+		 * @private
+		 * @param {object} $field Referencia jQuery a un campo del formulario de filtrado.
+		 * @param {object} $form Referencia jQuery al formulario de filtrado.
+		 * @return {string} - Label identificador al campo del formulario indicado por parámetro.
+     * @example
+     * $self._getSearchFormFieldLabel($field, $form);
+     */
 		_getSearchFormFieldLabel: function($field, $form){
 			var fieldId = $field.attr('id'), $label, formFieldLabel='', rupType = $field.attr('ruptype');
 
@@ -694,6 +783,17 @@
 
 			return formFieldLabel;
 		},
+		/**
+     * Obtiene el value del campo por el que se está filtrando.
+     *
+     * @function _getSearchFormFieldLabel
+		 * @private
+		 * @param {object} $field Referencia jQuery a un campo del formulario de filtrado.
+		 * @param {object} $form Referencia jQuery al formulario de filtrado.
+		 * @return {string} - Value correspondiente al campo del formulario indicado por parámetro.
+     * @example
+     * $self._getSearchFormFieldValue($field, $form);
+     */
 		_getSearchFormFieldValue: function($field, $form){
 			var fieldValue = ' = ', filterMulticombo = [], numSelected, fieldName;
 
@@ -744,6 +844,16 @@
 	 * Parámetros de configuración por defecto para el plugin filter.
 	 *
 	 */
+	/**
+ 	* @description Propiedades de configuración del plugin filter del componente RUP Table.
+ 	*
+ 	* @name options
+ 	*
+ 	* @property {boolean} [showHidden=false] -  Determina si el formulario de filtrado se debe de mostrar inicialmente oculto o no.
+ 	* @property {string} [url=null] - Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /filter).
+ 	* @property {object} [transitionConfig] - Configuración del efecto de la animación de mostrar/ocultar el formulario defiltrado.
+ 	* @property {function} [fncSearchCriteria] - Permite especificar una función de callback en la cual es posible modificar la cadena de texto con la que se muestra el resumen de los parámetros de filtrado.
+ 	*/
 	jQuery.fn.rup_table.plugins.filter = {};
 	jQuery.fn.rup_table.plugins.filter.defaults = {
 		core:{
@@ -758,6 +868,37 @@
 			}
 		}
 	};
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+   *  Se lanza antes de producirse la petición de filtrado.
+   *
+   * @event module:rup_table#rupTable_beforeFilter
+   * @property {Event} e - Objeto Event correspondiente al evento disparado.
+   * @example
+   * $("#idComponente").on("rupTable_beforeFilter", function(event){ });
+   */
+
+	/**
+    *   El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza antes de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
+    *
+    * @event module:rup_table#rupTable_filter_beforeCleanFilterForm
+    * @property {Event} e - Objeto Event correspondiente al evento disparado.
+    * @example
+    * $("#idComponente").on("rupTable_filter_beforeCleanFilterForm", function(event){ });
+    */
+
+	/**
+    *   El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza después de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
+    *
+    * @event module:rup_table#rupTable_filter_afterCleanFilterForm
+    * @property {Event} e - Objeto Event correspondiente al evento disparado.
+    * @example
+    * $("#idComponente").on("rupTable_filter_afterCleanFilterForm", function(event,){ });
+    */
 
 
 
