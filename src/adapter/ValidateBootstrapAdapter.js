@@ -19,20 +19,12 @@
 
 	ValidateBootstrapAdapter.prototype.NAME = 'validate_bootstrap';
 
-	ValidateBootstrapAdapter.prototype.forNameElement = function (fieldTmp, labelForName) {
-		if (fieldTmp.parent().hasClass('rup-validate-field-error')) {
-			return fieldTmp.parent().parent().find('label[for=\'' + labelForName + '\']');
-		} else {
-			return fieldTmp.parent().find('label[for=\'' + labelForName + '\']');
-		}
+	ValidateBootstrapAdapter.prototype.forNameElement = function (contextForm, labelForName) {
+		return $(contextForm).find("label[for='"+labelForName+"']");
 	};
 
-	ValidateBootstrapAdapter.prototype.forIdElement = function (fieldTmp, labelForId) {
-		if (fieldTmp.parent().hasClass('rup-validate-field-error')) {
-			return fieldTmp.parent().parent().find('label[for=\'' + labelForId + '\']');
-		} else {
-			return fieldTmp.parent().find('label[for=\'' + labelForId + '\']');
-		}
+	ValidateBootstrapAdapter.prototype.forIdElement = function (contextForm, labelForId) {
+		return contextForm.elements[labelForId];
 	};
 
 	ValidateBootstrapAdapter.prototype.highlight = function (element, errorClass) {
