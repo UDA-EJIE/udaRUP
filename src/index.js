@@ -30,6 +30,7 @@ import './rup.progressbar';
 import './rup.report';
 import './rup.slider';
 import './rup.spinner';
+import './rup.sticky';
 import './rup.table';
 import './rup.tabs';
 import './rup.time';
