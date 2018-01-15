@@ -1561,6 +1561,10 @@ select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-con
 
 .context-menu-item {
   background-color: #fff; }
+  .context-menu-item.context-menu-disabled {
+    color: #818a91; }
+    .context-menu-item.context-menu-disabled * {
+      color: #818a91; }
 
 .rup-date-input-group {
   display: inline-table;
@@ -2446,6 +2450,11 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
             background: #69a3d6;
             color: #fffcfb; }
 
+.rup-navbar-sticky {
+  position: fixed;
+  width: 100%;
+  top: 0; }
+
 #overlay {
   display: none;
   position: fixed;
@@ -2552,7 +2561,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
           -moz-border-radius: 0;
           border-radius: 0; }
           .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-            background-color: #e6e6e6; }
+            background-color: #e6e5e5; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -2800,6 +2809,12 @@ a.rup-toolbar_menuButton.ui-button span {
   padding: 0; }
   .rup-wizard_stepsDescContainer li a {
     font-size: 1.1rem; }
+
+.rup-wizard_stepsDescContainer-sticky {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  z-index: 98; }
 
 .rup-wizard a.rup-wizard_next, .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-wizard_submitButton {
   width: auto;
