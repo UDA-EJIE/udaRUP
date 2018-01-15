@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', 'jquery-form', './rup.base', './rup.validate'], factory);
+		define(['jquery', './core/utils/jquery.form', './rup.base', './rup.validate'], factory);
 	} else {
 
 		// Browser globals
@@ -281,6 +281,8 @@
 
 			if (settings.useJsonIfPossible && !hasFileInputs) {
 				settings.contentType = 'application/json';
+			}else{
+				settings.contentType = 'multipart/form-data';
 			}
 
 			// BeforeSend
@@ -294,7 +296,7 @@
 				if (ret === false) {
 					return false;
 				} else if (ret !== 'skip') {
-					if (ajaxOptions.contentType.indexOf('application/json') !== -1) {
+					if (ajaxOptions.contentType !== false && ajaxOptions.contentType.indexOf('application/json') !== -1) {
 						var jsonData = $self.rup_form('formToJson');
 						if (settings.multimodel !== null) {
 							xhr.setRequestHeader('RUP_MULTI_ENTITY', 'true');
@@ -367,7 +369,7 @@
 							$self.validate().submited = json.rupErrorFields;
 							$self.validate().showErrors(json.rupErrorFields);
 							if (json.rupFeedback !== undefined && $self.validate().settings.feedback !== undefined) {
-								$self.validate().settings.feedback.rup_feedback('set', $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.imgClass !== undefined ? json.rupFeedback.imgClass : null));
+								$self.validate().settings.feedback.rup_feedback('set', $.rup_utils.printMsg(json.rupFeedback.message), (json.rupFeedback.style !== undefined ? json.rupFeedback.style : null));
 							}
 						} catch (ex) {
 							$self.validate().settings.feedback.rup_feedback('set', a.responseText, 'error');
@@ -406,7 +408,6 @@
 			// Determinamos si se ha introducido configuracion para el componente validacion.
 			// Settings de configuracion
 			settings = $.extend(true, {}, $.fn.rup_form.defaults, args[0]);
-
 			// Anadimos al formulario el class rup_form para identificarlo como componente formulario.
 			$self.addClass('rup_form');
 			$self.attr('ruptype', 'form');

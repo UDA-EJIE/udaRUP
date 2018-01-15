@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
@@ -9,24 +9,32 @@
   },
   "scripts": {
     "install": "",
-    "build-demo": "rungulp build && gulp build:babel",
-    "dist": "gulp dist && gulp dist:portal",
     "all": "run-s build portal",
     "all:x21a": "run-s build portal copy:x21a",
-    "portal": "gulp dist:portal",
-    "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
-    "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
-
-    "doc": "gulp doc:api",
 
     "build": "run-p gulp:build  webpack:dev webpack:build",
     "build:x21a": "run-s gulp:build  webpack:dev webpack:build copy:x21a",
-    "dev": "webpack --env dev",
-    "watch": "run-p watch:src webpack:watch",
-    "watch-x21a": "run-p watch:src webpack:watch watch:x21a",
 
-    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
+    "portal": "gulp dist:portal",
+
+    "doc": "gulp doc:api",
+
     "test": "karma start --single-run --no-auto-watch karma.conf.js",
+    "test:dev": "karma start --browsers Chrome karma.conf.js",
+
+    "dev": "node server.js",
+
+    "watch": "run-p watch:src webpack:watch",
+    "watch:x21a": "run-p watch:src webpack:watch watch-x21a",
+
+    "demo": "gulp templates:app:rup-classic && webpack --config=./demo/webpack.config.js",
+    "demo:watch": "webpack --config=./demo/webpack.config.js --watch & gulp watch:table",
+
+    "dev": "webpack --env dev",
+
+
+
+
 
     "copy:x21a" : "gulp dist:x21a",
     "gulp:build" : "gulp build",
@@ -37,8 +45,12 @@
     "webpack:demo:watch" : "webpack --config=./demo/webpack.config.js --watch",
     "webpack:demo:watch" : "webpack --config=./demo/webpack.config.js --watch",
     "watch:src" : "gulp watch:src",
-    "watch:x21a" : "gulp watch:x21a",
-    "demo:templates": "gulp templates:app:rup-classic"
+    "watch-x21a" : "gulp watch:x21a",
+    "demo:templates": "gulp templates:app:rup-classic",
+
+    "build-demo": "rungulp build && gulp build:babel",
+    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
+    "dist": "gulp dist && gulp dist:portal"
 
   },
   "repository": {
@@ -126,7 +138,7 @@
     "lodash": "4.16.4",
     "lokijs": "1.3.19",
     "merge-stream": "1.0.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.7.2",
     "npm-run-all": "^4.0.2",
     "path": "0.12.7",
     "popper.js": "^1.12.3",

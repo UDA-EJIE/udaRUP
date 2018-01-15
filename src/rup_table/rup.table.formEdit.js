@@ -16,6 +16,24 @@
 
 /*global jQuery */
 
+/**
+ * Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra dentro de un diálogo y ofrece las siguientes funcionalidades:
+ * - Añadir un nuevo registro o modificar uno ya existente.
+ * - Cancelar la inserción o edición de un registro.
+ * - Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre losdiferentes elementos.
+ *
+ * @summary Plugin de edición en formulario del componente RUP Table.
+ * @module rup_table/formEdit
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["formEdit"],
+ * 	formEdit:{
+ * 		// Propiedades de configuración del plugin formEdit
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -58,6 +76,14 @@
      *
      */
 	jQuery.fn.rup_table('extend', {
+		/**
+		* Metodo que realiza la pre-configuración del plugin formEdit del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureFormEdit
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureFormEdit: function (settings) {
 			var $self = this,
 				self = this[0],
@@ -184,11 +210,15 @@
 			settings.formEdit.addOptions = $.extend(true, {}, settings.formEdit.addEditOptions, settings.formEdit.addOptions);
 			settings.formEdit.editOptions = $.extend(true, {}, settings.formEdit.addEditOptions, settings.formEdit.editOptions);
 		},
-		/*
-         * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
-         *
-         * TODO: internacionalizar mensajes de error.
-         */
+		
+		/**
+	 * Metodo que realiza la post-configuración del plugin formEdit del componente RUP Table.
+	 * Este método se ejecuta antes de la incialización del plugin.
+	 *
+	 * @name postConfigureFormEdit
+	 * @function
+	 * @param {object} settings - Parámetros de configuración del componente.
+	 */
 		postConfigureFormEdit: function (settings) {
 			var $self = this,
 				$objDetailForm;
@@ -594,15 +624,33 @@
      *
      */
 	jQuery.fn.rup_table('extend', {
+		/**
+     * Devuelve la template HTML correspondiente a la capa de navegación del fomulario de filtrado.
+     *
+     * @function  createDetailNavigation
+		 * @return {object} - Template correspondiente a la capa de navegación.
+     * @example
+     * $("#idTable").rup_table("createDetailNavigation");
+     */
 		createDetailNavigation: function () {
 			var $self = $(this);
 
 			return $.proxy($self[0]._ADAPTER.createDetailNavigation, $self)();
 
 		},
-		/*
-         * Realiza el borrado de un registro determinado.
-         */
+		/**
+		 * Elimina el registro correspondiente al identificador indicado y utilizando las opciones de borrado especificadas.
+		 *
+		 * @function  deleteElement
+		 * @param {string} rowId - Identificador del registro que se desea eliminar.
+		 * @param {object} options - Opciones de configuración de la operación de borrado.
+		 * @return {object} - Referencia al propio objecto jQuery.
+		 * @fires module:rup_table#rupTable_deleteAfterSubmit
+		 * @fires module:rup_table#rupTable_afterDeleteRow
+		 * @fires module:rup_table#rupTable_beforeDeleteRow
+		 * @example
+		 * $("#idComponente").rup_table("deleteElement", rowId, options);
+		 */
 		deleteElement: function (rowId, options) {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -647,9 +695,17 @@
 
 			return $self;
 		},
-		/*
-         * Lanza la edición de un registro medainte un formulario de detalle.
-         */
+		/**
+		 * Edita el registro correspondiente al identificador indicado y utilizando las opciones de edición especificadas.
+		 *
+		 * @function  editElement
+		 * @param {string} rowId - Identificador del registro que se desea editar.
+		 * @param {object} options - Opciones de configuración de la operación de edición.
+		 * @return {object} - Referencia al propio objecto jQuery.
+		 * @fires module:rup_table#rupTable_beforeEditRow
+		 * @example
+		 * $("#idComponente").rup_table("editElement", rowId, options);
+		 */
 		editElement: function (rowId, options) {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -680,9 +736,16 @@
 
 			return $self;
 		},
-		/*
-         * Inicia el proceso de inserción de un nuevo registro.
-         */
+		/**
+		 * Muestra el formulario de detalle para permitir al usuario insertar un nuevo registro.
+		 *
+		 * @function  newElement
+		 * @param {boolean} addEvent - Determina si se debe lanzar (true) o no (false) el evento rupTable_beforeAddRow.
+		 * @return {object} - Referencia al propio objecto jQuery.
+		 * @fires module:rup_table#rupTable_beforeAddRow
+		 * @example
+		 * $("#idComponente").rup_table("newElement", true);
+		 */
 		newElement: function (addEvent) {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -711,6 +774,18 @@
 
 			return $self;
 		},
+		/**
+		 * Clona el registro correspondiente al identificador indicado y utilizando las opciones de clonado especificadas.
+		 *
+		 * @function  cloneElement
+		 * @param {string} rowId - Identificador del registro que se desea clonar.
+		 * @param {object} options - Opciones de configuración de la operación de clonado.
+		 * @param {boolean} cloneEvent - Determina si se debe lanzar (true) o no (false) el evento rupTable_beforeCloneRow.
+		 * @return {object} - Referencia al propio objecto jQuery.
+		 * @fires module:rup_table#rupTable_beforeCloneRow
+		 * @example
+		 * $("#idComponente").rup_table("cloneElement", rowId, options, cloneEvent);
+		 */
 		cloneElement: function (rowId, options, cloneEvent) {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -741,9 +816,14 @@
 
 			return $self;
 		},
-		/*
-         * Oculta los mensajes de error del formulario indicado
-         */
+		/**
+		 *  Oculta los mensajes de error del formulario indicado.
+		 *
+		 * @function  hideFormErrors
+		 * @param {object} $form - Formulario del que se desea ocultar los mensajes de error.
+		 * @example
+		 * $("#idComponente").rup_table("hideFormErrors", $form);
+		 */
 		hideFormErrors: function ($form) {
 			var $self = this,
 				settings = $self.data('settings');
@@ -2140,6 +2220,20 @@
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
+
+	/**
+	* @description Propiedades de configuración del plugin formEdit del componente RUP Table.
+	* @see Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.
+	* @name options
+	*
+	* @property {object} [addEditOptions] - Propiedades de configuración comunes a las acciones de edición e inserciónde un registro.
+	* @property {object} [addOptions] - Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions.
+	* @property {object} [editOptions] - Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions.
+	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
+	* @property {object} [detailOptions] - Propiedades de configuración de la acción de mostrar un registro mediante el formulario de detalle.
+	* @property {boolean} [defaultCompareData] - Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true.
+	* @property {object} [dialogOptions] - Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo.
+	*/
 	jQuery.fn.rup_table.plugins.formEdit = {};
 	jQuery.fn.rup_table.plugins.formEdit.defaults = {
 		toolbar: {
@@ -2235,5 +2329,110 @@
 			contentType: 'application/json'
 		}
 	};
+
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+	*  Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
+	*
+	* @event module:rup_table#rupTable_beforeDeleteRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} deleteOptions - Opciones de configuración de la operación de borrado.
+	* @property {string} selectedRow - Identificador de la fila que se desea eliminar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeDeleteRow", function(event, deleteOptions, selectedRow){ });
+	*/
+
+	/**
+	*  Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
+	*
+	* @event module:rup_table#rupTable_beforeEditRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} editOptions - Opciones de configuración de la operación de edición.
+	* @property {string} selectedRow - Identificador de la fila que se desea editar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeEditRow", function(event, editOptions, selectedRow){ });
+	*/
+
+	/**
+	*  Evento que se lanza justo después de realizarse la petición de borrado de un registro.
+	*
+	* @event module:rup_table#rupTable_deleteAfterSubmit
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @example
+	* $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
+	*/
+
+	/**
+	*  Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
+	*
+	* @event module:rup_table#rupTable_beforeAddRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} addOptions -  Opciones de configuración de la acción de insertar un elemento.
+	* @example
+	* $("#idComponente").on("rupTable_beforeAddRow", function(event, addOptions){ });
+	*/
+
+	/**
+	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
+	*
+	* @event module:rup_table#rupTable_beforeCloneRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
+	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, selectedRow){ });
+	*/
+	/**
+	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
+	*
+	* @event module:rup_table#rupTable_beforeCloneRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
+	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, selectedRow){ });
+	*/
+
+
+	/**
+	*  Evento lanzado después de que ha finalizado correctamente el proceso de eliminar un registro..
+	*
+	* @event module:rup_table#rupTable_afterDeleteRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @example
+	* $("#idComponente").on("rupTable_afterDeleteRow", function(event){ });
+	*/
+
+	/**
+	*  Evento lanzado después de que ha finalizado correctamente el proceso de carga de datos en el formulario de edición a partir de una petición al servidor de aplicaciones.
+	*
+	* @event module:rup_table#rupTable_afterFormFillDataServerSide
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} xhr - Objeto enviado como respuesta desde el servidor.
+	* @property {object} $detailFormToPopulate - Referencia al formulario de detalle.
+	* @property {object} ajaxOptions - Opciones de configuración de la petición AJAX.
+	* @example
+	* $("#idComponente").on("rupTable_afterFormFillDataServerSide", function(event, xhr, $detailFormToPopulate, ajaxOptions){ });
+	*/
+	/**
+	*  : Permite asociar manejadores de eventos para ejecutar
+	código que indique al proceso de control de cambios si se han producido modificaciones o no.
+
+	*
+	* @event module:rup_table#rupTable_formEditCompareData
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} savedData - Objeto que contiene los valores iniciales del formulario a partir de la serialización del mismo.
+	* @property {object} newData - Objeto que contiene los valores actuales del formulario a partir de la serialización del mismo.
+	* @example
+	* $("#idComponente").on("rupTable_formEditCompareData ", function(event,	savedData, newData){
+	*		// Se realizan las comprobaciones necesarias para determinar si se han producido cambios en el formulario de detalle
+	*		event.isDifferent = true; // En caso de que se hayan producido cambios.
+	*  	event.isDifferent = false; // En caso de que no hayan producido cambios.
+	* });
+	*/
 
 })(jQuery);

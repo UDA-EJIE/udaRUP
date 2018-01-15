@@ -8,4 +8,12 @@
 
 .context-menu-item {
   background-color: #fff;
+  
+  &.context-menu-disabled{
+    color : $rup-color-contextMenu-item-disabled;
+    
+    *{
+        color : $rup-color-contextMenu-item-disabled;
+    }
+  }
 }

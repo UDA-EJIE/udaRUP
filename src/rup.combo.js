@@ -971,6 +971,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			if (!settings.multiselect) {
 				//Simple > selectmenu
 				$('#' + settings.id).selectmenu(settings);
+				if(settings.selected === undefined || settings.selected === ''){
+					$('#' + settings.id).rup_combo("setRupValue", '');
+				}else{
+					$('#' + settings.id).rup_combo("setRupValue", settings.selected);
+				}
+				
 			} else {
 				//Multiple > multiselect
 				$('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño

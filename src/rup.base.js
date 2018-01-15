@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -29,7 +29,8 @@
 	}
 }(function ($) {
 
-	var rup_version = '3.2.0';
+	// NO MODIFICAR: (AUTOGENERADO)
+	var rup_version = '3.3.0';
 
 	jQuery.migrateMute = true;
 
@@ -160,9 +161,9 @@
 
 			// Se realiza la llamada ajax
 			if (typeof $.ajaxUDA === 'function') {
-				$.ajaxUDA(rup_ajax_settings);
+				return $.ajaxUDA(rup_ajax_settings);
 			} else {
-				$.ajax(rup_ajax_settings);
+				return $.ajax(rup_ajax_settings);
 			}
 		}
 	});

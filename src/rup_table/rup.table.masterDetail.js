@@ -16,6 +16,26 @@
 
 /*global jQuery */
 
+/**
+ * Permite relacionar dos tablas de modo que tengan una relación maestro-detalle. De este modo, los resultados de la tabla detalle se muestran a partir del seleccionado en la tabla maestro.
+ *
+ * @summary Plugin de edición en línea del componente RUP Table.
+ * @module rup_table/masterDetail
+ * @example
+ *
+ * $("#idComponenteMaestro").rup_table({
+ *	url: "../jqGridUsuarioMaestro",
+ * });
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuarioDetalle",
+ * 	usePlugins:["masterDetail"],
+ * 	inlineEdit:{
+ * 		master: "#idComponenteMaestro"
+ * 		// Propiedades de configuración del plugin inlineEdit
+ * 	}
+ * });
+ */
 (function ($) {
 
 
@@ -50,11 +70,15 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
-		/*
-		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
-		 *
-		 * TODO: internacionalizar mensajes de error.
-		 */
+
+	 /**
+ 		* Metodo que realiza la pre-configuración del plugin masterDetail del componente RUP Table.
+ 		* Este método se ejecuta antes de la incialización del plugin.
+ 		*
+ 		* @name preConfigureMasterDetail
+ 		* @function
+ 		* @param {object} settings - Parámetros de configuración del componente.
+ 		*/
 		preConfigureMasterDetail: function(settings){
 			var $self = this, $master;
 
@@ -113,6 +137,15 @@
 	});
 
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
+     *
+     * @function getMasterTablePkObject
+		 * @param {object} options - Opciones de configuración de la acción de inserción.
+		 * @return {object} - Objeto json con la clave primaria del registro correspondiente de la tabla maestra
+     * @example
+     * $("#idTable").rup_table("getMasterTablePkObject");
+     */
 		getMasterTablePkObject: function(){
 			var $self = this, settings = $self.data('settings'), $master = settings.masterDetail.$master,
 				masterPkValue = $master.rup_table('getSelectedRows'),
@@ -157,6 +190,14 @@
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
 
+	/**
+	* @description Propiedades de configuración del plugin masterDetail del componente RUP Table.
+	*
+	* @name options
+	*
+	* @property {string} master - Selector jQuery que referencia al componente maestro.
+	* @property {string} masterPrimaryKey -  Clave primaria del componente maestro.
+	*/
 
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.masterDetail = {};

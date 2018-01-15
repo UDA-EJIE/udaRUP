@@ -16,6 +16,22 @@
 
 /*global jQuery */
 
+/**
+ * El objetivo principal del módulo Jerarquía es la presentación de un conjunto de datos (tabla) ordenados jerárquicamente en base a una relación existente entre ellos.
+ *
+ * @summary Plugin de edición en línea del componente RUP Table.
+ * @module rup_table/jerarquia
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["jerarquia"],
+ * 	jerarquia:{
+ * 		// Propiedades de configuración del plugin jerarquia
+ * 	}
+ * });
+ */
+
 (function (jQuery) {
 
 	jQuery.rup_table.registerPlugin('jerarquia', {
@@ -35,6 +51,14 @@
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
 	jQuery.fn.rup_table('extend', {
+		/**
+		* Metodo que realiza la pre-configuración del plugin jerarquia del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigurejerarquia
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigurejerarquia: function (settings) {
 
 			var $self = this,
@@ -234,6 +258,14 @@
 			//Activar contextMenu
 			settings.multiselection.rowContextMenu_enabled = settings.jerarquia.contextMenu;
 		},
+		/**
+		* Metodo que realiza la post-configuración del plugin jerarquia del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigurejerarquia
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigurejerarquia: function (settings) {
 			var $self = this,
 				jerarquiaSettings = settings.jerarquia;
@@ -249,6 +281,13 @@
    */
 	jQuery.fn.rup_table('extend', {
 		//Reiniciar los elementos expandidos
+		/**
+     * Colapsa los nodos que han sido expandidos.
+     *
+     * @function reset
+     * @example
+     * $("#idTable").rup_table("reset");
+     */
 		reset: function () {
 			jQuery(this).data('tree', []);
 			jQuery(this).jqGrid('setGridParam', {
@@ -271,6 +310,15 @@
    * _getJerarquiaChildren($trigger, key, options : Obtener los hijos/descendientes para seleccionar/deseleccionar
    */
 	jQuery.fn.rup_table('extend', {
+		/**
+     * Colapsa los nodos que han sido expandidos.
+     *
+     * @function _parseParentNodes
+		 * @param {object} parentNodes - Referencia a los nodos padre.
+		 * @private
+     * @example
+     * $self._parseParentNodes(parentNodes);
+     */
 		_parseParentNodes: function (parentNodes) {
 			var parentNodesTooltipFnc = this.data('settings')['jerarquia']['parentNodesTooltipFnc'],
 				nodes = parentNodes.split(this.data('settings')['jerarquia']['token']).slice(1); //filtrar primer separador
@@ -292,6 +340,7 @@
 			}
 		},
 		//f(x) del contextMenu de multiselect con jerarquia
+
 		_getJerarquiaChildren: function ($trigger, key, options) {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -345,7 +394,24 @@
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	// Parámetros de configuración por defecto para la jerarquía.
+	// Parámetros de configuración por defecto para la jerarquía
+
+	/**
+	* @description Propiedades de configuración del plugin jerarquia del componente RUP Table.
+	* @name options
+	*
+	* @property {string} [treedatatype=json] - Determina el tipo de dato empleado para obtener la representación jerárquica.
+	* @property {string} [token] - Carácter separador utilizado para concatenar diferentes identificadores de los registros mostrados en la jerarquía. (por defecto “/”).
+	* @property {object} [icons] - Estilos utilizados para cada uno de los elementos visuales de la jerarquía.
+	* @property {object} icons.plus - Icono para expandir el nodo.
+	* @property {object} icons.minus - Icono para contraer el nodo.
+	* @property {object} icons.leaf - Icono correspondiente a un nodo hoja.
+	* @property {object} icons.filter - Icono para indicar que el nodo satisface los parámetros de filtrado.
+	* @property {boolean} [parentNodesTooltip=true] - Determina si se debe de mostrar un tooltip para cada nodo, en el cual se representa la jerarquía que ocupa respecto a los padres.
+	* @property {function} [parentNodesTooltipFnc=null] - Función de callback que permite personalizar el tooltip a mostrar.
+	* @property {boolean} [contextMenu=true] - Determina si se muestra el menú contextual para cada nodo.
+	*/
+
 	jQuery.fn.rup_table.plugins.jerarquia = {};
 	jQuery.fn.rup_table.plugins.jerarquia.defaults = {
 		treedatatype: 'json',

@@ -25,6 +25,22 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
+
+	/**
+	 * Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
+	 *
+	 * @summary Plugin de edición en línea del componente RUP Table.
+	 * @module rup_table/inlineEdit
+	 * @example
+	 *
+	 * $("#idComponente").rup_table({
+	 * 	url: "../jqGridUsuario",
+	 * 	usePlugins:["inlineEdit"],
+	 * 	inlineEdit:{
+	 * 		// Propiedades de configuración del plugin inlineEdit
+	 * 	}
+	 * });
+	 */
 	jQuery.rup_table.registerPlugin('inlineEdit',{
 		loadOrder:7,
 		preConfiguration: function(settings){
@@ -54,6 +70,14 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+		* Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureInlineEdit
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureInlineEdit: function(settings){
 			var $self = $(this), self = $self[0],
 				//				formId = "inlineForm_" + settings.id,
@@ -671,6 +695,14 @@
 			}
 
 		},
+		/**
+	 * Metodo que realiza la post-configuración del plugin inlineEdit del componente RUP Table.
+	 * Este método se ejecuta antes de la incialización del plugin.
+	 *
+	 * @name postConfigureInlineEdit
+	 * @function
+	 * @param {object} settings - Parámetros de configuración del componente.
+	 */
 		postConfigureInlineEdit:function(settings){
 			var $self = this,
 				formId = 'inlineForm_' + settings.id,
@@ -719,6 +751,16 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
+     *
+     * @function addRow
+		 * @param {object} options - Opciones de configuración de la acción de inserción.
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_beforeAddRow
+     * @example
+     * $("#idTable").rup_table("addRow", options);
+     */
 		addRow: function(options){
 			var $self = this,
 				settings = $self.data('settings'),
@@ -751,6 +793,17 @@
 
 			return $self;
 		},
+		/**
+		 * Clona un registro determinado. Añade una nueva línea con el contenido del registro a partir del cual se desea clonar.
+     *
+     * @function cloneRow
+		 * @param {string} rowId -  Identificador del registro a partir del cual se desea realizar el clonado.
+		 * @param {object} options - Opciones de configuración de la acción de clonado.
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_beforeCloneRow
+     * @example
+     * $("#idTable").rup_table("cloneRow", rowId, options);
+     */
 		cloneRow: function(rowId, options){
 			var $self = this,
 				settings = $self.data('settings'),
@@ -783,9 +836,18 @@
 
 				$self.rup_table('editRow', clonedRowId, {}, true);
 			}
-
-
 		},
+		/**
+     * Pone el registro indicado en modo edición para permitir la edición de sus datos.
+     *
+     * @function editRow
+		 * @param {string} rowId - Identificador del registro que se desea editar.
+		 * @param {object} options - Opciones de configuración de la acción de modificación.
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_beforeEditRow
+     * @example
+     * $("#idTable").rup_table("editRow", rowId, options, true);
+     */
 		editRow: function (rowId, options, skipFieldCheck){
 			var $self = this,
 				settings = $self.data('settings'),
@@ -814,6 +876,19 @@
 
 			return $self;
 		},
+		/**
+     * Elimina el registro indicado.
+     *
+     * @function deleteRow
+		 * @param {string} rowId - Identificador del registro que se desea eliminar.
+		 * @param {object} options - Opciones de configuración de la acción de borrado..
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_deleteAfterSubmit
+		 * @fires module:rup_table#rupTable_deleteAfterComplete
+		 * @fires module:rup_table#rupTable_beforeDeleteRow
+     * @example
+     * $("#idTable").rup_table("deleteRow", rowId, options);
+     */
 		deleteRow: function (rowId, options){
 
 
@@ -860,40 +935,22 @@
 			}
 
 			return $self;
-
-			//			var $self = this,
-			//				settings = $self.data("settings"),
-			////				deleteOptions = jQuery.extend(true, {}, jQuery.fn.rup_table.defaults.deleteOptions, options),
-			//				deleteOptions = jQuery.extend(true, {}, settings.inlineEdit.deleteOptions, options),
-			//				selectedRow = (rowId===undefined?$self.jqGrid('getGridParam','selrow'):rowId);
-			//
-			//			// En caso de especificarse el uso del método HTTP DELETE, se anyade el identificador como PathParameter
-			//			if (deleteOptions.mtype==="DELETE"){
-			//				deleteOptions.url = settings.baseUrl+"/"+selectedRow;
-			//			}
-			//
-			//
-			//
-			//			$self.jqGrid('delGridRow',selectedRow, deleteOptions);
-			//
-			//			return $self;
 		},
+		/**
+     *  Guarda el registro modificado. Se almacenan los datos introducidos en la línea en modo edición.
+     *
+     * @function saveRow
+		 * @param {string} rowId - Identificador del registro que se desea guardar.
+		 * @param {object} options - Opciones de configuración de la acción de guardado..
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_beforeSaveRow
+     * @example
+     * $("#idTable").rup_table("saveRow", rowId, options);
+     */
 		saveRow : function(rowId, options){
 			var $self = this, settings = $self.data('settings'),
 				selectedRow = (rowId===undefined?$self.jqGrid('getGridParam','selrow'):rowId);
 
-			//			var userBeforeSend = settings.ajaxRowOptions.beforeSend;
-			//			self.p.ajaxRowOptions.beforeSend = function(jqXHR, ajaxOptions){
-			//				var rupFormSettings = {};
-			//				jQuery.extend(true, rupFormSettings, ajaxOptions, {validate: settings.validation});
-			//				if (jQuery.isFunction(userBeforeSend)){
-			//					rupFormSettings.beforeSend = userBeforeSend;
-			//				}else{
-			//					rupFormSettings.beforeSend = null;
-			//				}
-			//				settings.$inlineForm.rup_form("ajaxSubmit", rupFormSettings);
-			//				return false;
-			//			};
 			$self.triggerHandler('rupTable_beforeSaveRow', [selectedRow, options]);
 			if(selectedRow.indexOf('jqg')!==-1){
 				$self[0].p.ajaxRowOptions = settings.inlineEdit.addOptions.ajaxRowOptions;
@@ -905,15 +962,37 @@
 
 			return $self;
 		},
+		/**
+     * Restaura la fila indicada al estado anterior a habilitarse el modo edición.
+     *
+     * @function restoreRow
+		 * @param {string} rowId - Identificador de la línea que se desea guardar.
+		 * @param {function} afterrestorefunc - Función de callback que se ejecuta después de restaurar la fila.
+		 * @return {object} - Referencia jQuery a la propia tabla.
+		 * @fires module:rup_table#rupTable_beforeRestoreRow
+     * @example
+     * $("#idTable").rup_table("restoreRow", rowId, function(){});
+     */
 		restoreRow: function(rowId, afterrestorefunc){
 			var $self = this,
 				rowToRestore = (rowId===undefined?$self.jqGrid('getGridParam','selrow'):rowId);
 
 			$self.triggerHandler('rupTable_beforeRestoreRow', [rowId]);
 			$self.jqGrid('restoreRow', rowToRestore, afterrestorefunc);
+
+			return $self;
 		},
-		restoreInlineRupFields: function (rowid, json){
-			var $self = this, self = this[0], $row, $cell, ruptypeObj, val;
+		/**
+     * Restaura los campos RUP existentes en una fila de edición en línea.
+     *
+     * @function restoreRow
+		 * @param {string} rowId - Identificador de la línea que se desea guardar.
+		 * @return {object} - Referencia jQuery a la propia tabla.
+     * @example
+     * $("#idTable").rup_table("restoreRow", rowId, options);
+     */
+		restoreInlineRupFields: function (rowid){
+			var $self = this, self = this[0], $row, $cell, val;
 
 
 			$(self.p.colModel).each(function(i){
@@ -936,6 +1015,8 @@
 					}
 				}
 			});
+
+			return $self;
 		}
 	});
 
@@ -956,6 +1037,18 @@
 	 * onCellSelect:
 	 * onSelectRow:
 	 */
+
+	/**
+	* @description Propiedades de configuración del plugin inlineEdit del componente RUP Table.
+	* @see Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.
+	* @name options
+	*
+	* @property {object} [addEditOptions] - Propiedades de configuración comunes a las acciones de edición e inserciónde un registro.
+	* @property {object} [addOptions] - Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions.
+	* @property {object} [editOptions] - Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions.
+	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
+	*/
+
 	jQuery.fn.rup_table.plugins.inlineEdit = {};
 	jQuery.fn.rup_table.plugins.inlineEdit.defaults = {
 		toolbar:{
@@ -1035,5 +1128,63 @@
 	jQuery.jgrid.inlineEdit = {
 		keys:false
 	};
+
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+	*  Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
+	*
+	* @event module:rup_table#rupTable_beforeDeleteRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} deleteOptions - Opciones de configuración de la operación de borrado.
+	* @property {string} selectedRow - Identificador de la fila que se desea eliminar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeDeleteRow", function(event, deleteOptions, selectedRow){ });
+	*/
+
+	/**
+	*  Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
+	*
+	* @event module:rup_table#rupTable_beforeEditRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} editOptions - Opciones de configuración de la operación de edición.
+	* @property {string} selectedRow - Identificador de la fila que se desea editar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeEditRow", function(event, editOptions, selectedRow){ });
+	*/
+
+	/**
+	*  Evento que se lanza justo después de realizarse la petición de borrado de un registro.
+	*
+	* @event module:rup_table#rupTable_deleteAfterSubmit
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @example
+	* $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
+	*/
+
+	/**
+	*  Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
+	*
+	* @event module:rup_table#rupTable_beforeAddRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} addOptions -  Opciones de configuración de la acción de insertar un elemento.
+	* @example
+	* $("#idComponente").on("rupTable_beforeAddRow", function(event, addOptions){ });
+	*/
+
+	/**
+	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
+	*
+	* @event module:rup_table#rupTable_beforeCloneRow
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
+	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
+	* @example
+	* $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, selectedRow){ });
+	*/
+	
 
 })(jQuery);

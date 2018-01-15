@@ -2278,6 +2278,14 @@
   background-color: #fff;
 }
 
+.r01gContainer .context-menu-item.context-menu-disabled {
+  color: #818a91;
+}
+
+.r01gContainer .context-menu-item.context-menu-disabled * {
+  color: #818a91;
+}
+
 .r01gContainer .rup-date-input-group {
   display: inline-table;
   vertical-align: middle;
@@ -3562,6 +3570,12 @@
   color: #fffcfb;
 }
 
+.r01gContainer .rup-navbar-sticky {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
 .r01gContainer #overlay {
   display: none;
   position: fixed;
@@ -3715,7 +3729,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -4100,6 +4114,13 @@
   font-size: 1.1rem;
 }
 
+.r01gContainer .rup-wizard_stepsDescContainer-sticky {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  z-index: 98;
+}
+
 .r01gContainer .rup-wizard a.rup-wizard_next,
 .r01gContainer .rup-wizard a.rup-wizard_prev,
 .r01gContainer .rup-wizard .rup-wizard_submitButton {
@@ -4304,6 +4325,25 @@
 
 .r01gContainer .fileupload-buttonbar a {
   text-decoration: none;
+}
+
+.r01gContainer .template-download.error {
+  background-color: #fdf7f7;
+  border-color: #8b211e;
+}
+
+.r01gContainer .template-download .error-text {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.r01gContainer .template-download .type-text {
+  font-style: italic;
+}
+
+.r01gContainer .template-download .size-text {
+  font-style: italic;
+  padding-left: .5rem;
 }
 
 .r01gContainer .template-upload.error {

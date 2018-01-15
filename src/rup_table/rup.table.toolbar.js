@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
+ *
+ * @summary Plugin de toolbar del componente RUP Table.
+ * @module rup_table/toolbar
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["toolbar"],
+ * 	toolbar:{
+ * 		// Propiedades de configuración del plugin toolbar
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -53,11 +68,14 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
-		/*
-		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
-		 *
-		 * TODO: internacionalizar mensajes de error.
-		 */
+		/**
+		* Metodo que realiza la pre-configuración del plugin toolbar del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureToolbar
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureToolbar: function(settings){
 			var $self = this, toolbarSettings = settings.toolbar;
 
@@ -107,6 +125,15 @@
 			toolbarSettings.buttons = jQuery.extend(true, {}, toolbarSettings.newButtons, toolbarSettings.buttons);
 
 		},
+		/**
+		* Metodo que realiza la post-configuración del plugin toolbar del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureToolbar
+		* @function
+		* @fires module:rup_table#rupTable_feedbackClose
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigureToolbar: function(settings){
 			var $self = this, toolbarSettings = settings.toolbar, counter=1;
 
@@ -198,7 +225,17 @@
 	//*******************************************************
 
 
-	// Parámetros de configuración por defecto para la acción de eliminar un registro.
+	/**
+	* @description Propiedades de configuración del plugin toolbar del componente RUP Table.
+	*
+	* @name options
+	*
+	* @property {string} [id] - En caso de que se vaya a utilizar un identificador diferente al esperado por defecto, se deberá de indicar mediante esta propiedad.
+	* @property {boolean} [createDefaultToolButtons=true] - Determina (true/false) si se deben visualizar los botones correspondientes a las operaciones por defecto del componente.
+	* @property {object} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como botones. Cada operación puede tomar uno de los siguientes valores:  true: Valor por defecto. Se mostrará la operación como opción en la botonera.  true: Valor por defecto. Se mostrará la operación como opción en la  false: La operación no se mostrará como opción en la botonera.
+	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
+	* @property {object} [buttons] - Permite definir nuevos botones que se mostrarán en la toolbar. Los nuevos botones se especificarán del mismo modo que se describe en el componente rup_toolbar.
+	*/
 	jQuery.fn.rup_table.plugins.toolbar = {};
 	jQuery.fn.rup_table.plugins.toolbar.defaults = {
 		toolbar:{
@@ -217,6 +254,21 @@
 			width: 796
 		}
 	};
+
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+	*  Evento que se lanza cuando se cierra el feedback.
+	*
+	* @event module:rup_table#rupTable_feedbackClose
+	* @property {Event} event - Objeto Event correspondiente al evento disparado.
+	* @property {object} $feedback - Referencia jQuery al feedback interno.
+	* @example
+	* $("#idComponente").on("rupTable_feedbackClose", function(event, $internalFeedback){ });
+	*/
 
 
 

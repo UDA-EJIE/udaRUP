@@ -15,7 +15,21 @@
  */
 
 /*global jQuery */
-
+/**
+ * Permite al usuario realizar una búsqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
+ *
+ * @summary Plugin de search del componente RUP Table.
+ * @module rup_table/search
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ * 	usePlugins:["search"],
+ * 	search:{
+ * 		// Propiedades de configuración del plugin search
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -52,6 +66,14 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+		* Metodo que realiza la pre-configuración del plugin search del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name preConfigureSearch
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		preConfigureSearch: function(settings){
 			// Añadimos la columna por defecto para mostrar la información de registros encontrados
 			//			settings.colNames = $.merge([""], settings.colNames);
@@ -63,11 +85,14 @@
 			}
 
 		},
-		/*
-		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
-		 *
-		 * TODO: internacionalizar mensajes de error.
-		 */
+		/**
+		* Metodo que realiza la post-configuración del plugin search del componente RUP Table.
+		* Este método se ejecuta antes de la incialización del plugin.
+		*
+		* @name postConfigureSearch
+		* @function
+		* @param {object} settings - Parámetros de configuración del componente.
+		*/
 		postConfigureSearch: function(settings){
 			var $self = this;
 
@@ -173,6 +198,13 @@
 	 *
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+     *  Muestra/Oculta el formulario de búsqueda.
+     *
+     * @function toggleSearchForm
+     * @example
+     * $("#idTable").rup_table("toggleSearchForm");
+     */
 		toggleSearchForm: function(){
 			var $self = this, settings = $self.data('settings'), prop = $self[0].p, trow, trow2;
 
@@ -213,6 +245,14 @@
 
 			}
 		},
+		/**
+     * Genera la barra de controles para gestionar la búsqueda.
+     *
+     * @function createSearchToolbar
+		 * @fires module:rup_table#rupTable_searchAfterCreateToolbar
+     * @example
+     * $("#idTable").rup_table("createSearchToolbar");
+     */
 		createSearchToolbar: function(){
 			var $self = this, settings =  $self.data('settings'), prop = $self[0].p,
 				$searchRow = jQuery('<tr>').attr({
@@ -286,6 +326,14 @@
 
 
 		},
+		/**
+     * Genera la barra de controles para gestionar la búsqueda.
+     *
+     * @function createSearchRow
+		 * @param {object} settings - Genera la línea de busqueda de acuerdo a las propiedades de configuración especificadas.
+     * @example
+     * $("#idTable").rup_table("createSearchRow", settings);
+     */
 		createSearchRow: function(settings){
 			var $self = this,
 				$gridHead = jQuery('table thead','#gview_'+settings.id),
@@ -398,10 +446,26 @@
 			settings.search.$searchRow.hide();
 
 		},
+		/**
+     *  Navega hasta el elemento indicado que se ajusta a los criterios de búsqueda indicados.
+     *
+     * @function navigateToMatchedRow
+		 * @param {string} matchedRow - Identificador de la línea a la cual se quiere navegar.
+     * @example
+     * $("#idTable").rup_table("navigateToMatchedRow", matchedRow);
+     */
 		navigateToMatchedRow: function(matchedRow){
 			var $self = this, retNavParams  = $self.rup_table('fncGetSearchNavigationParams', matchedRow);
 			$self.rup_table('doSearchNavigation', retNavParams);
 		},
+		/**
+     * Lanza la operación de búsqueda además del evento previo.
+     *
+     * @function search
+		 * @fires module:rup_table#rupTable_beforeSearch
+     * @example
+     * $("#idTable").rup_table("search");
+     */
 		search : function(){
 			var $self = this,
 				settings = $self.data('settings');
@@ -417,6 +481,14 @@
 
 			$self.rup_table('doSearch');
 		},
+		/**
+     *  Lanza la operación de búsqueda.
+     *
+     * @function navigateToMatchedRow
+		 * @fires module:rup_table#rupTable_searchBeforeSubmit.rupTable.masterDetail
+     * @example
+     * $("#idTable").rup_table("doSearch");
+     */
 		doSearch: function(){
 			var $self = this, settings = $self.data('settings'),ret, jsonData={},
 				page = parseInt($self.rup_table('getGridParam', 'page'),10),
@@ -463,6 +535,14 @@
 				}
 			});
 		},
+		/**
+     * Navega hasta el primer elemento que se ajusta a los criterios de búsqueda. En caso de no existir elementos adecuados en la página actual se navega hasta el primer elemento.
+     *
+     * @function goToFirstMatched
+		 * @param {paramPage} paramPage - En caso de indicarse una página se utilizará en vez de la página actual.
+     * @example
+     * $("#idTable").rup_table("goToFirstMatched", paramPage);
+     */
 		goToFirstMatched: function(paramPage){
 			var $self = this, settings = $self.data('settings'),
 				page = (typeof paramPage ==='string'?parseInt(paramPage,10):paramPage);
@@ -484,6 +564,15 @@
 
 
 		},
+		/**
+     * Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
+     *
+     * @function fncGetSearchNavigationParams
+		 * @param {paramPage} linkType - Tipo de parámetro first, prev, next o last.-
+		 * @return {object} - Parametros de configuración asociados al tipo de enlace.
+     * @example
+     * $("#idTable").rup_table("fncGetSearchNavigationParams", linkType);
+     */
 		fncGetSearchNavigationParams : function(linkType){
 			var $self = this, settings = $self.data('settings'), execute = false, changePage = false, index=0, newPageIndex=0,
 				npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
@@ -615,7 +704,15 @@
 
 			return [linkType, execute, changePage, index-1, npos, newPage, newPageIndex-1];
 		},
-		doSearchNavigation: function(arrParams, execute, changePage, index, npos, newPage, newPageIndex ){
+		/**
+     * Realiza la navegación entre los elementos que se ajustan a los criterios de bús
+     *
+     * @function fncGetSearchNavigationParams
+		 * @param {object[]} arrParams - Array de parámetros que determinan la navegación.
+     * @example
+     * $("#idTable").rup_table("doSearchNavigation", arrParams);
+     */
+		doSearchNavigation: function(arrParams){
 			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
 
 			if ($.isArray(arrParams)){
@@ -628,7 +725,7 @@
 				newPageIndex = arrParams[6];
 
 				if (execute){
-					$self.rup_table('hideFormErrors', settings.$detailForm);
+					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [linkType, settings.$detailForm, npos[1][npos[index]]]);
 					pagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
 
@@ -677,6 +774,13 @@
 				}
 			}
 		},
+		/**
+     * Limpia los criterios de búsqueda introducidos por el usuario.
+     *
+     * @function clearSearch
+     * @example
+     * $("#idTable").rup_table("clearSearch");
+     */
 		clearSearch: function(){
 			var $self = this, settings = $self.data('settings');
 			$self._initializeSearchProps(settings);
@@ -685,10 +789,25 @@
 			jQuery('input,textarea','#gview_'+settings.id+' table thead tr.ui-search-toolbar').val('');
 			jQuery('table thead tr.ui-search-toolbar [ruptype=\'combo\']','#gview_'+settings.id).rup_combo('clear');
 		},
+		/**
+     * Elimina el resaltado de los registros que se ajustan a los criterios de busqueda.
+     *
+     * @function clearHighlightedMatchedRows
+     * @example
+     * $("#idTable").rup_table("clearHighlightedMatchedRows");
+     */
 		clearHighlightedMatchedRows: function(){
 			var $self = this, settings = $self.data('settings');
 			$self.find('td[aria-describedby=\''+settings.id+'_rupInfoCol\'] span.ui-icon.ui-icon-search').removeClass('ui-icon-search');
 		},
+		/**
+     * Resalta los registros que se ajustan a los criterios de búsqueda.
+     *
+     * @function highlightMatchedRowsInPage
+		 * @param {string} page - Identificador de la página en la que se desean resaltar los registos.
+     * @example
+     * $("#idTable").rup_table("highlightMatchedRowsInPage", page);
+     */
 		highlightMatchedRowsInPage:function(page){
 			var $self = this, settings = $self.data('settings'), internalProps = $self[0].p, $row;
 
@@ -705,10 +824,26 @@
 				//				}
 			}
 		},
+		/**
+     * Resalta como ocurrencia de la búsqueda la línea especificada.
+     *
+     * @function highlightMatchedRow
+		 * @param {string} $row - Objeto jQuery que referencia la línea de la tabla que se quiere resaltar.
+     * @example
+     * $("#idTable").rup_table("highlightMatchedRow", $("#idRow"));
+     */
 		highlightMatchedRow: function($row){
 			var $self = this, settings = $self.data('settings');
 			$row.find('td[aria-describedby=\''+settings.id+'_rupInfoCol\'] span').addClass('ui-icon ui-icon-rupInfoCol ui-icon-search');
 		},
+		/**
+     * Actualiza los valores de la navegación entre registros.
+     *
+     * @function updateSearchPagination
+		 * @param {string} paramRowId - Identificador de la página.
+     * @example
+     * $("#idTable").rup_table("updateSearchPagination", paramRowId);
+     */
 		updateSearchPagination:function(paramRowId){
 			var $self = this, settings = $self.data('settings'),
 				rowId, pagePos, currentArrayIndex,
@@ -784,6 +919,14 @@
 				}
 			}
 		},
+		/**
+     *  Devuelve, para una linea determinada, la posición en que se encuentra dentro del total de registros que se ajustan a los criterios de búsqueda
+     *
+     * @function getSearchCurrentRowCount
+		 * @param {string} selectedRowId - Identificador del registro.
+     * @example
+     * $("#idTable").rup_table("getSearchCurrentRowCount", "05");
+     */
 		getSearchCurrentRowCount : function(selectedRowId){
 			var $self = this, settings = $self.data('settings'),
 				page = parseInt($self.rup_table('getGridParam', 'page'),10),
@@ -819,6 +962,16 @@
 	 * _processMatchedRow(settings, matchedElem): Se gestiona el registro indicado.
 	 */
 	jQuery.fn.rup_table('extend',{
+		/**
+     * Devuelve true/false dependiendo si la página tiene registros que coinciden con los criterios de búsqueda o no.
+     *
+     * @function _hasPageMatchedElements
+		 * @private
+		 * @param {string} paramPage - Identificador del registro.
+		 * @return {boolean} - true/false dependiendo si la página tiene registros que coinciden con los criterios de búsqueda o no.
+     * @example
+     * $self._hasPageMatchedElements("1");
+     */
 		_hasPageMatchedElements: function(paramPage){
 			var $self = this, settings = $self.data('settings'),
 				page = (typeof paramPage ==='string'?parseInt(paramPage,10):paramPage);
@@ -826,6 +979,16 @@
 				// Comprobamos si en la página indicada se ha encontrado un elemento
 			return (jQuery.inArray(page, settings.search.matchedPages)!== -1);
 		},
+		/**
+     * Se realiza la inicialización de los componentes del plugin search.
+     *
+     * @function _initializeSearchProps
+		 * @private
+		 * @param {object} settings - Parámetros de configuración de la página.
+		 * @return {boolean} - true/false dependiendo si la página tiene registros que coinciden con los criterios de búsqueda o no.
+     * @example
+     * $self._initializeSearchProps(settings);
+     */
 		_initializeSearchProps: function(settings){
 			// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
 			if (settings.search===undefined){
@@ -840,6 +1003,16 @@
 			settings.search.matchedIds=[];
 			settings.search.matchedPages=[];
 		},
+		/**
+     * Se gestiona el registro indicado.
+     *
+     * @function _processMatchedRow
+		 * @private
+		 * @param {object} settings - Parámetros de configuración de la página.
+		 * @param {object} - Referencia al elemento.
+     * @example
+     * $self._processMatchedRow(settings, matchedElem);
+     */
 		_processMatchedRow: function(settings, matchedElem){
 			var lineIndex;
 
@@ -867,7 +1040,15 @@
 	//*******************************************************
 
 
-	// Parámetros de configuración por defecto para la acción de eliminar un registro.
+
+	/**
+ 	* @description Propiedades de configuración del plugin search del componente RUP Table.
+ 	*
+ 	* @name options
+ 	*
+ 	* @property {string} [url=null] - Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search).
+	* @property {object} [validate] - Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation.
+ 	*/
 	jQuery.fn.rup_table.plugins.search = {};
 	jQuery.fn.rup_table.plugins.search.defaults = {
 		showGridInfoCol:true,
@@ -886,6 +1067,41 @@
 			}
 		}
 	};
+
+
+	/* ********* */
+	/* EVENTOS
+  /* ********* */
+
+	/**
+   *  Se lanza al finalizar la creación de la linea de búsqueda de la tabla.
+   *
+   * @event module:rup_table#rupTable_searchAfterCreateToolbar
+   * @property {Event} event - Objeto Event correspondiente al evento disparado.
+	 * @property {Event} $searchRow - Linea de la tabla destinada a la búsqueda.
+   * @example
+   * $("#idComponente").on("rupTable_searchAfterCreateToolbar", function(event, $searchRow){ });
+   */
+
+	/**
+    * Evento lanzado antes de realizarse la búsqueda.
+    *
+    * @event module:rup_table#rupTable_beforeSearch
+    * @property {Event} event - Objeto Event correspondiente al evento disparado.
+    * @example
+    * $("#idComponente").on("rupTable_beforeSearch", function(event){ });
+    */
+
+	/**
+    * Evento lanzado antes de realizarse la petición de búsqueda al servidor
+    *
+    * @event module:rup_table#rupTable_searchBeforeSubmit.rupTable.masterDetail
+    * @property {Event} event - Objeto Event correspondiente al evento disparado.
+		* @property {object} postData - Objeto data que va a ser enviado en la petición.
+		* @property {object} jsonData - Objeto json con los parámetros de búsqueda.
+    * @example
+    * $("#idComponente").on("rupTable_searchBeforeSubmit.rupTable.masterDetail", function(event, postData, jsonData){ });
+    */
 
 
 })(jQuery);

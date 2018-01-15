@@ -21,7 +21,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base','./external/util','./external/dropdown'], factory);
+		define(['jquery', './rup.base', './rup.sticky', './external/util','./external/dropdown'], factory);
 	} else {
 
 		// Browser globals
@@ -231,9 +231,7 @@
 			return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
 		},
 		_init: function (args) {
-			var $self = this,
-				settings = $.extend({}, $.fn.rup_navbar.defaults, $(this).data(), args[0]),
-				changed, headerOuterHeight, headerSize, headerNavSize;
+			var $self = this;
 
 			$self._isTransitioning = false;
 			$self._element         = $self[0];
@@ -257,69 +255,6 @@
 			// if (this._config.toggle) {
 			// 	this.toggle();
 			// }
-
-
-			if (settings.sticky === true){
-				changed = false;
-
-				headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0;
-				headerSize = $('header').length !=0 ? headerOuterHeight - $('header').offset().top : 0;
-
-				headerNavSize = headerOuterHeight + $('nav').outerHeight(true);
-				// $("nav.rup-navbar [data-toggle='dropdown']").dropdown();
-				// $("nav.rup-navbar [data-toggle='collapse']").collapse();
-
-				window.scrollHeight = 0;
-				$(window).scroll(function () {
-
-					if ($(this).scrollTop() === 0) {
-						changed = false;
-						$('header').removeAttr('style');
-						$('.rup-navbar.navbar').removeAttr('style');
-						$('.rup-breadCrumb_root').removeAttr('style');
-					} else if ($(this).scrollTop() >= headerSize && !changed) {
-						changed = true;
-						$('header').css('margin-top', -headerSize);
-						$('.rup-navbar.navbar').css({
-							'position': 'fixed',
-							'width': '100%'
-						});
-						$('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
-							return parseInt(curValue, 10) + headerNavSize + 'px';
-						});
-					} else if ($(this).scrollTop() < headerSize && changed) {
-						changed = false;
-						$('header').css('margin-top', 0);
-						$('.rup-navbar.navbar').css({
-							'position': 'relative',
-							'width': '100%'
-						});
-						$('.rup-breadCrumb_root').css('margin-top', function (index, curValue) {
-							return parseInt(curValue, 10) - headerNavSize + 'px';
-						});
-					}
-
-					var height = $(window).scrollTop();
-
-					if (height > headerNavSize) {
-						$('nav .swingTop').addClass('on');
-					} else {
-						$('nav .swingTop').removeClass('on');
-					}
-				});
-
-
-				// El reescalado de la pantalla navega al inicio del contenido
-				$(window).resize(function () {
-					headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0;
-					headerSize = $('header').length !=0 ? headerOuterHeight - $('header').offset().top : 0;
-
-					headerNavSize = headerOuterHeight + $('nav').outerHeight(true);
-					$.rup_utils.swing2Top();
-				});
-			}
-
-
 
 			// El botón de volver a la parte superior del contenido
 			$('nav .swingTop')
@@ -377,7 +312,4 @@
 		}
 	});
 
-	$.fn.rup_navbar.defaults = {
-		sticky: true
-	};
 }));

@@ -40,7 +40,8 @@
 			'jquery.fileupload/jquery.fileupload-image.js',
 			'jquery.fileupload/jquery.fileupload-audio.js',
 			'jquery.fileupload/jquery.fileupload-process.js',
-			'jquery.fileupload/jquery.fileupload-video.js'
+			'jquery.fileupload/jquery.fileupload-video.js',
+			'./core/utils/jquery.iframe-transport'
 
 			// 'jquery.fileupload/jquery.fileupload.js'
 
@@ -601,9 +602,9 @@
 			},
 			fileuploadsend: function (e, data) {
 					data.url = $.rup_utils.setNoPortalParam(data.url);
-				//					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
-				//						data.url = data.url + (data.url.match("\\?") === null ? "?" : "&") + "_emulate_iframe_http_status=true";
-				//					}
+					if (!$.rup.browser.xhrFileUploadSupport || settings.forceIframeTransport===true){
+						data.url = data.url + (data.url.match('\\?') === null ? '?' : '&') + '_emulate_iframe_http_status=true';
+					}
 				},
 			fileuploadprocessfail: function (e, data) {
 					data.context.addClass('error');

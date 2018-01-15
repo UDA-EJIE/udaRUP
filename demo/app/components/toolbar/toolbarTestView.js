@@ -231,7 +231,8 @@ define(['marionette',
 			alert ('Se ha pulsado el boton');
 		}
 		function handlerMButtons(event){
-			alert ('MButton:' + event.data.i18nCaption);
+			//alert ('MButton:' + event.data.i18nCaption);
+			alert("MButton");
 		}
 	}
 
