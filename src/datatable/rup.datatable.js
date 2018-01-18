@@ -21,7 +21,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect'], factory );
 	} else {
 
 		// Browser globals
@@ -71,7 +71,7 @@
 			options.processing = true;
 			options.serverSide = true;
 			options.responsive = true;
-			options.columns = $self._getColumns();
+			options.columns = options.columns || $self._getColumns();
 
 
 			//filter
