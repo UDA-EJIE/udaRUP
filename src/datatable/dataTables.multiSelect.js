@@ -469,7 +469,7 @@ function info ( api )
 	}
 
 	var rows    = api.rows( { selected: true } ).flatten().length;
-	var columns = api.size;//api.columns( { selected: true } ).flatten().length;
+	var columns = api.columns( { selected: true } ).flatten().length;
 	var cells   = api.cells( { selected: true } ).flatten().length;
 
 	var add = function ( el, name, num ) {
