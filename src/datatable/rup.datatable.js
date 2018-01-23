@@ -71,7 +71,7 @@
 			options.processing = true;
 			options.serverSide = true;
 			options.responsive = true;
-			options.columns = options.columns || $self._getColumns();
+			options.columns = options.columns || $self._getColumns(options);
 
 
 			//filter
@@ -105,12 +105,23 @@
 
 			return options;
 		},
-		_getColumns() {
-			return this.find('th[data-col-prop]').map((i, e) => {
+		_getColumns(options) {
+			if(options.columnDefs !== undefined && options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox'){
+				//Se crear el th thead
+				$('<th data-col-prop="."></th>').insertBefore(this[0].tHead.rows[0].cells[0])
+				//se crea el th tfoot
+				$('<th></th>').insertBefore(this[0].tFoot.rows[0].cells[0])
+				//Se aseguro que no sea orderable
+				options.columnDefs[0].orderable = false;
+			}
+
+			var columns = this.find('th[data-col-prop]').map((i, e) => {
 				return {
-					data: e.getAttribute('data-col-prop')
+					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')
 				};
 			});
+
+			return columns;
 		},
 		_doFilter(options) {
 			var $self = this;
@@ -151,7 +162,7 @@
 
 
 		_ajaxRequestData(data, options) {
-
+			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
 			var datatableRequest = new DataTableRequest(data);
 			var json = $.extend({}, data, datatableRequest.getData());
@@ -181,6 +192,8 @@
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
+			
+
 
 		}
 	});

@@ -467,10 +467,13 @@ function info ( api )
 	if ( api.multiSelect.style() === 'api' ) {
 		return;
 	}
-
+	var DataTable = $.fn.dataTable;
+	
 	var rows    = api.rows( { selected: true } ).flatten().length;
 	var columns = api.columns( { selected: true } ).flatten().length;
 	var cells   = api.cells( { selected: true } ).flatten().length;
+	
+	
 
 	var add = function ( el, name, num ) {
 		el.append( $('<span class="select-item"/>').append( api.i18n(
@@ -480,6 +483,7 @@ function info ( api )
 		) ) );
 	};
 
+	rows = DataTable.multiSelect.multiselection.selectedIds.length;
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
 		el = $(el);
@@ -575,6 +579,7 @@ function init ( ctx ) {
 	// Update the table information element with selected item summary
 	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
 		info( api );
+		drawSelectId(api);
 	} );
 
 	// Clean up and release
@@ -582,6 +587,24 @@ function init ( ctx ) {
 		disableMouseSelection( api );
 		api.off( '.dtSelect' );
 	} );
+}
+
+function drawSelectId(api){
+	var DataTable = $.fn.dataTable;
+	$.each(DataTable.multiSelect.multiselection.selectedIds, function( index, value ) {
+		var idx = -1;
+		$.each(api.context[0].aoData, function( indexData, valueData ) {
+			if(value === valueData._aData.id){
+				idx = indexData;
+				return false;
+			}
+		});
+		if(idx >= 0){
+			api.context[0].aoData[ idx ]._multiSelect_selected = true;
+			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+		}
+	});
+	
 }
 
 /**
@@ -894,12 +917,18 @@ function _initializeMultiselectionProps (  ) {
 
 apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( multiSelect ) {
 	var api = this;
+	var DataTable = $.fn.dataTable;
 
 	if ( multiSelect === false ) {
-		api.size = api.size - 1;
+		var indexInArray = jQuery.inArray(api.data().id, DataTable.multiSelect.multiselection.selectedIds);
+		if(indexInArray > -1){
+			DataTable.multiSelect.multiselection.selectedIds.splice(indexInArray,1);
+		}
 		return this.deselect();
 	}
-	api.size = api.size + 1;
+	if(api.data().id !== undefined){
+		DataTable.multiSelect.multiselection.selectedIds.push(api.data().id);
+	}
 	this.iterator( 'row', function ( ctx, idx ) {
 		clear( ctx );
 

@@ -23,7 +23,7 @@
 			sidx, sord;
 
 		if (data.order.length>0){
-			sidx = data.columns[data.order[0].column].data;
+			sidx ? data.columns[data.order[0].column].sidx :  data.columns[data.order[0].column].data;
 			sord = data.order[0].dir;
 		}
 
