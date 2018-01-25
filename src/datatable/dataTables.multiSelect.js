@@ -74,6 +74,32 @@ DataTable.multiSelect.init = function ( dt ) {
 	var setStyle = false;
 
 	ctx._multiSelect = {};
+	
+	var columnDefs = ctx.oInit.aoColumnDefs;
+	if(columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox'){
+		//Se rellena todo, la columna select.
+
+		var divHead =  $("<div/>").attr('id','divSelectTableHead'+ctx.sTableId).css({"text-align":"center"});
+		var divFoot =  $("<div/>").attr('id','divSelectTableFoot'+ctx.sTableId).css({"text-align":"center"});
+		var input =  $("<input/>").attr('type','checkbox');
+		var link = $("<a/>").addClass("ui-icon rup-datatable_checkmenu_arrow");
+		var inputFoot =  $("<input/>").attr('type','checkbox');
+		var linkFoot = $("<a/>").addClass("ui-icon rup-datatable_checkmenu_arrow");
+		divHead.append(input,link);
+		divFoot.append(inputFoot,linkFoot);
+		
+		if(ctx.nTable.tHead !== null){
+			var th = $(ctx.nTable.tHead.rows[0].cells[0]) 
+			th.append(divHead);
+		}
+		//se crea el th tfoot
+		if(ctx.nTable.TFoot !== null){
+			var th = $(ctx.nTable.tFoot.rows[0].cells[0]) 
+			th.append(divFoot);
+		}
+		//Se aseguro que no sea orderable
+		columnDefs[0].orderable = false;
+	}
 
 	// Initialisation customisations
 	if ( opts === true ) {
@@ -589,6 +615,7 @@ function init ( ctx ) {
 	} );
 }
 
+//Pinta los selecionables, orque tiene los ids almacenados y mete la clase que se le indica.
 function drawSelectId(api){
 	var DataTable = $.fn.dataTable;
 	$.each(DataTable.multiSelect.multiselection.selectedIds, function( index, value ) {

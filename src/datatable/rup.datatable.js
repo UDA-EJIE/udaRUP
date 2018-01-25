@@ -107,10 +107,17 @@
 		},
 		_getColumns(options) {
 			if(options.columnDefs !== undefined && options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox'){
-				//Se crear el th thead
-				$('<th data-col-prop="."></th>').insertBefore(this[0].tHead.rows[0].cells[0])
+				//Se crear el th thead, se añade la columnal.
+				$self = this;
+				var th = $("<th/>").attr('data-col-prop','');
+				
+				if($self[0].tHead !== null){
+					$(th).insertBefore($self[0].tHead.rows[0].cells[0])
+				}
 				//se crea el th tfoot
-				$('<th></th>').insertBefore(this[0].tFoot.rows[0].cells[0])
+				if($self[0].tFoot !== null){
+					$('<th/>').insertBefore($self[0].tFoot.rows[0].cells[0])
+				}
 				//Se aseguro que no sea orderable
 				options.columnDefs[0].orderable = false;
 			}
@@ -162,6 +169,8 @@
 
 
 		_ajaxRequestData(data, options) {
+			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
+			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
 			var datatableRequest = new DataTableRequest(data);
@@ -192,8 +201,6 @@
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
-			
-
 
 		}
 	});
