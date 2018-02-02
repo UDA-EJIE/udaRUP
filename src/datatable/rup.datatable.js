@@ -21,7 +21,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.buttons'], factory );
 	} else {
 
 		// Browser globals
@@ -209,7 +209,20 @@
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 	$.fn.rup_datatable.defaults = {
-		foobar: false
+		foobar: false,
+		headerContextMenu: {
+			show: true,
+			selectAllPage: true,
+			deselectAllPage: true,
+			separator: true,
+			selectAll: true,
+			deselectAll: true,
+			items: {}
+		},
+	    fixedHeader: {
+	        header: false,
+	        footer: true
+	    }
 	};
 
 }));
