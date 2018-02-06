@@ -24,7 +24,7 @@
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery', 'datatables.net','../rup.contextMenu'], function ( $ ) {
+		define( ['jquery', 'datatables.net','../rup.contextMenu','../rup.feedback'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -642,10 +642,9 @@ function _paintCheckboxSelect(ctx){
 		input.click(function () {
 			var dt = new DataTable.Api( ctx );
 			if(input.is(':checked')) {  
-				dt['rows']().multiSelect();  
+				selectAllPage(dt);  
 	        } else {  
-	        	DataTable.multiSelect.multiselection.accion = "uncheck";
-	        	dt['rows']().deselect();  
+	        	deselectAllPage(dt);  
 	        }
 	    });
 		
@@ -705,6 +704,10 @@ function _paintCheckboxSelect(ctx){
 
 		//Se aseguro que no sea orderable
 		columnDefs[0].orderable = false;
+		
+		//Se genera el div para el feedback del datatable.
+		var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
+		DataTable.multiSelect.multiselection.internalFeedback = divFeedback;
 	}
 }
 
@@ -739,9 +742,7 @@ function _createContexMenuSelect(id,ctx){
 					//
 				},
 				callback: function (key, options) {
-					DataTable.multiSelect.multiselection.accion = "checkAll";
-					dt['rows']().multiSelect();
-					$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+					selectAllPage(dt);
 				}
 			}
 		});
@@ -756,9 +757,7 @@ function _createContexMenuSelect(id,ctx){
 					//
 				},
 				callback: function (key, options) {
-					DataTable.multiSelect.multiselection.accion = "uncheck";
-					dt['rows']().deselect();
-					$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+					deselectAllPage(dt);
 				}
 			}
 		});
@@ -777,13 +776,7 @@ function _createContexMenuSelect(id,ctx){
 					//
 				},
 				callback: function (key, options) {
-					DataTable.multiSelect.multiselection.selectedAll = true;
-					DataTable.multiSelect.multiselection.deselectedIds = [];
-					DataTable.multiSelect.multiselection.numSelected = DataTable.settings[0].json.recordsTotal;
-					DataTable.multiSelect.multiselection.accion = "checkAll";
-					$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
-					$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
-					dt['rows']().multiSelect();
+					selectAll(dt);
 				}
 			}
 		});
@@ -797,9 +790,7 @@ function _createContexMenuSelect(id,ctx){
 					//
 				},
 				callback: function (key, options) {
-					DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
-					DataTable.multiSelect.multiselection.accion = "uncheckAll";
-					dt['rows']().deselect();
+					deselectAll(dt);
 				}
 			}
 		});
@@ -816,6 +807,62 @@ function _createContexMenuSelect(id,ctx){
 		}
 	});
 }
+
+function selectAllPage(dt){
+	DataTable.multiSelect.multiselection.accion = "checkAll";
+	dt['rows']().multiSelect();
+	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	//FeedBack
+	var countPage = dt.page()+1;
+	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', DataTable.settings[0].json.recordsTotal);
+	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
+	if(!DataTable.multiSelect.multiselection.selectedAll || 
+			(DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.deselectedIds.length  > 0)){
+		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
+	}
+	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
+		selectAll(dt);
+	});
+	
+}
+
+function deselectAllPage(dt){
+	DataTable.multiSelect.multiselection.accion = "uncheck";
+	dt['rows']().deselect();
+	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+	//FeedBack
+	var countPage = dt.page()+1;
+	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', DataTable.multiSelect.multiselection.numSelected);
+	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
+	if(DataTable.multiSelect.multiselection.numSelected  > 0){
+		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
+	}
+	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
+		deselectAll(dt);
+	});
+
+}
+
+function selectAll(dt){
+	DataTable.multiSelect.multiselection.selectedAll = true;
+	DataTable.multiSelect.multiselection.deselectedIds = [];
+	DataTable.multiSelect.multiselection.numSelected = DataTable.settings[0].json.recordsTotal;
+	DataTable.multiSelect.multiselection.accion = "checkAll";
+	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
+	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	dt['rows']().multiSelect();
+}
+
+function deselectAll(dt){
+	DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
+
+	DataTable.multiSelect.multiselection.accion = "uncheckAll";
+	dt['rows']().deselect();
+
+}
+
 
 /**
  * Add one or more items (rows or columns) to the selection when shift clicking
@@ -1105,6 +1152,9 @@ function _initializeMultiselectionProps (  ) {
 	if ($self.multiselection === undefined) {
 		$self.multiselection = {};
 	}
+	if(DataTable.multiSelect.multiselection !== undefined){
+		$self.multiselection.internalFeedback = DataTable.multiSelect.multiselection.internalFeedback;
+	}
 	// Flag indicador de selección de todos los registros
 	$self.multiselection.selectedAll = false;
 	// Numero de registros seleccionados
@@ -1163,10 +1213,25 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	var DataTable = $.fn.dataTable;
 	var pagina = true;
 	//Al pagina comprobar el checkGeneral.
+	
+	//Se miral si hay feedback y en ese caso se elimina.
+	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1){
+		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback('destroy');
+		//Al reiniciar las properties
+		//Se genera el div para el feedback del datatable.
+		//var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + dt.context[0].sTableId).insertBefore('#' + dt.context[0].sTableId).css('width','100%');
+		//DataTable.multiSelect.multiselection.internalFeedback = divFeedback;
+		DataTable.multiSelect.multiselection.internalFeedback.css('width','100%');
+	}
 
 	if ( multiSelect === false ) {
+		maintIdsRows(DataTable,api.data().id,0,pagina);
+		//Cuando se resta de 1 en 1 la accion es empty
+		DataTable.multiSelect.multiselection.accion = '';
 		var deselectes = this.deselect();
 		return deselectes;
+		//maintIdsRows(DataTable,api.data().id,0,pagina);
+		//return this.deselect();
 	}
 	
 
@@ -1278,6 +1343,12 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 	var DataTable = $.fn.dataTable;
 	
+	//Se miral si hay feedback y en ese caso se elimina.
+	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1){
+		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback('destroy');
+		DataTable.multiSelect.multiselection.internalFeedback.css('width','100%');
+	}
+	
 	this.iterator( 'row', function ( ctx, idx ) {
 		ctx.aoData[ idx ]._multiSelect_selected = false;
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
@@ -1293,6 +1364,8 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		if((DataTable.multiSelect.multiselection.numSelected > 0 && DataTable.multiSelect.multiselection.accion === "uncheckAll")
 			|| (DataTable.multiSelect.multiselection.numSelected >= 0 && DataTable.multiSelect.multiselection.accion === "uncheck")){
 			maintIdsRows(DataTable,id,0,false);
+		}else if(DataTable.multiSelect.multiselection.accion === ""){//es que se resta uno solo.
+			DataTable.multiSelect.multiselection.numSelected--;
 		}
 
 	} );

@@ -178,6 +178,32 @@
 			return JSON.stringify(json);
 
 
+		},
+		
+		_createSearchPaginator(tabla,settingsT){
+			//buscar la paginación.
+			if($($self.selector+'_paginate').length === 1){
+				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
+				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
+				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
+				var input = $('<input/>').attr({type: "text", size: "3",value:settingsT.json.page,maxlength:"3"})
+							.addClass('ui-pg-input')
+				liSearch.append(textPagina);
+				liSearch.append(input);
+				liSearch.append(toPagina);
+				$($self.selector+'_paginate ul').prepend(liSearch);
+				input.keypress(function (e) {
+					 if(e.which === 13)  // the enter key code
+					  {
+						 var oTable = $('#example').dataTable();
+						 oTable.fnPageChange( 'next' );
+					    return false;  
+					  }
+					});
+			}else{
+				//Sacar un error
+			}
+			
 		}
 	});
 
@@ -193,11 +219,13 @@
 			$self.attr('ruptype', 'datatable');
 
 			$self._initOptions(settings);
-
-
-			$self.DataTable(settings);
-
-			// TODO : Invocación al plugin
+			
+			var tabla = $self.DataTable(settings);
+			if(settings.searchPaginator){
+				tabla.on( 'draw', function (e,settingsTable) {
+					$self._createSearchPaginator(tabla,settingsTable);
+				  });
+			}
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
@@ -222,7 +250,9 @@
 	    fixedHeader: {
 	        header: false,
 	        footer: true
-	    }
+	    },
+	    dom: 'fitprl',
+	    searchPaginator:true
 	};
 
 }));
