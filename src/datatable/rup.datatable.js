@@ -21,7 +21,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.buttons'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.buttons','./dataTables.editForm'], factory );
 	} else {
 
 		// Browser globals
@@ -195,8 +195,10 @@
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
 					  {
-						 var oTable = $('#example').dataTable();
-						 oTable.fnPageChange( 'next' );
+						 var page = parseInt(this.value);
+						 if($.isNumeric(page) && page > 0){
+							 tabla.dataTable().fnPageChange( page-1 );
+						 }
 					    return false;  
 					  }
 					});
@@ -223,7 +225,7 @@
 			var tabla = $self.DataTable(settings);
 			if(settings.searchPaginator){
 				tabla.on( 'draw', function (e,settingsTable) {
-					$self._createSearchPaginator(tabla,settingsTable);
+					$self._createSearchPaginator($(this),settingsTable);
 				  });
 			}
 

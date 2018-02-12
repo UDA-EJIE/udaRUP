@@ -69,7 +69,7 @@ DataTable.multiSelect.init = function ( dt ) {
 	var style = 'api';
 	var blurable = false;
 	var info = true;
-	var selector = 'td, th';
+	var selector = 'td:first-child';
 	var className = 'selected';
 	var setStyle = false;
 
@@ -1559,7 +1559,7 @@ $.each( [ 'Row', 'Column', 'Cell' ], function ( i, item ) {
 
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+/* * * ** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
  */
 
