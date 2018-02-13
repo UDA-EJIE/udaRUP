@@ -68,12 +68,7 @@ DataTable.editForm.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'dblclick.DT','tr',  function () {
-		var idTableDetail = '#table_detail_div';//ira en una propiedad o por defecto o pasada por el usuario.
-		var idForm = $(idTableDetail).find('form');
-		var row = ctx.json.rows[this._DT_RowIndex];
-		$.rup_utils.populateForm(row, idForm);
-		$(idTableDetail).rup_dialog("open");
-		save(ctx,row,idTableDetail,idForm);
+		_save(dt,ctx,this._DT_RowIndex);
 	} );
 
 };
@@ -182,17 +177,43 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
-function save(ctx,row,idTableDetail,idForm){
+function _save(dt,ctx,idRow){
+	var idTableDetail = '#'+ctx.oInit.idTableDetail;//ira en una propiedad o por defecto o pasada por el usuario.
+	var idForm = $(idTableDetail).find('form');
+	
+	var row = ctx.json.rows[idRow];
+	$.rup_utils.populateForm(row, idForm);
+	$(idTableDetail).rup_dialog("open");
+	
+	//se añade el boton de guardar
 	var button = $(idTableDetail).find('#table_detail_button_save');
 	button.unbind( "click" );
 	button.bind('click', function() {
-	//Comprobar si row ha sido modificada
-	row = $.rup_utils.queryStringToJson(idForm.formSerialize());
-	callSaveAjax(ctx,row)
+		//Comprobar si row ha sido modificada
+		row = $.rup_utils.queryStringToJson(idForm.formSerialize());
+		var row2 = returnCheckEmpty(idForm,idForm.formSerialize());
+		$(idTableDetail).rup_dialog("close");
+		_callSaveAjax(dt,ctx,row,idRow,false,idTableDetail);
+	});
+	
+	//se añade el boton de guardar y continuar
+	var buttonContinue = $(idTableDetail).find('#table_detail_button_save_repeat');
+	buttonContinue.unbind( "click" );
+	buttonContinue.bind('click', function() {
+		//Comprobar si row ha sido modificada
+		row = $.rup_utils.queryStringToJson(idForm.formSerialize());
+		_callSaveAjax(dt,ctx,row,idRow,true,idTableDetail)
+	});
+
+	//se añade el boton de cancelar
+	var buttoCancel = $(idTableDetail).find('#table_detail_link_cancel');
+	buttoCancel.unbind( "click" );
+	buttoCancel.bind('click', function() {
+		$(idTableDetail).rup_dialog("close");
 	});
 }
 
-function callSaveAjax(ctx,row){
+function _callSaveAjax(dt,ctx,row,idRow,continuar,idTableDetail){
 	// add Filter
 	$.rup_ajax({
 		url : ctx.oInit.urlBase,
@@ -206,15 +227,37 @@ function callSaveAjax(ctx,row){
 			//return $self.triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
 		},
 		success : function(data, status, xhr) {
-
-			alert('Correcto');
-
+			if(continuar){
+				_callFeedbackOk(ctx,$(idTableDetail).find('#table_detail_navigation'));//Se informa
+			}else{
+				_callFeedbackOk(ctx,DataTable.multiSelect.multiselection.internalFeedback);//Se informa
+			}
+			dt.row(idRow).data(row);// se actualiza
+			ctx.json.rows[idRow] = row;
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
-			alert('Errors');
+			console.log('Errors '+thrownError);
 
 		}
 	});
+}
+
+function _callFeedbackOk(ctx,feedback){
+	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
+	feedback.rup_feedback({message:$.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK'),type:"ok"});
+	//Aseguramos que el estilo es correcto.
+	setTimeout(function(){
+		feedback.rup_feedback('destroy');
+		feedback.css('width','100%');
+	}, confDelay);
+}
+
+function returnCheckEmpty(idForm,values){
+	var maps = jQuery(idForm.selector+' input[type=checkbox]:not(:checked)').map(
+                    function() {
+                        return "&"+this.name+"='0'"
+                    }).get().toString();
+	return values+maps;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

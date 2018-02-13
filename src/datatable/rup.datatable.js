@@ -253,6 +253,13 @@
 	        header: false,
 	        footer: true
 	    },
+		feedback:{
+			okFeedbackConfig:{
+				closeLink: true,
+				delay:1000
+			}
+		},
+	    idTableDetail:'table_detail_div',
 	    dom: 'fitprl',
 	    searchPaginator:true
 	};
