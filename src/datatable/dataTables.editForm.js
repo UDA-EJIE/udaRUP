@@ -178,14 +178,15 @@ function eventTrigger ( api, type, args, any )
 }
 
 function _save(actionType,dt,ctx,idRow){
-	var idTableDetail = '#'+ctx.oInit.idTableDetail;//ira en una propiedad o por defecto o pasada por el usuario.
+	var idTableDetail = '#'+ctx.oInit.idTableDetail;// ira en una propiedad o por defecto o pasada por el usuario.
 	var idForm = $(idTableDetail).find('form');
 	
 	var row = ctx.json.rows[idRow];
+	var rowArray = $.rup_utils.jsontoarray(row);
 	
 	if (actionType === 'PUT') {
 		console.log("******* TABLA / EDITAR *******");
-		$.rup_utils.populateForm(row, idForm);
+		$.rup_utils.populateForm(rowArray, idForm);
 	} else if(actionType === 'POST'){
 		console.log("******* AÑADIR *******");
 		$.rup_utils.populateForm(null, idForm);
@@ -219,7 +220,7 @@ function _save(actionType,dt,ctx,idRow){
 		row = returnCheckEmpty(idForm,idForm.formSerialize());
 		//Se transforma
 		row = $.rup_utils.queryStringToJson(row);
-		_callSaveAjax(dt,ctx,row,idRow,true,idTableDetail)
+		_callSaveAjax(actionType,dt,ctx,row,idRow,true,idTableDetail)
 	});
 
 	//se añade el boton de cancelar
