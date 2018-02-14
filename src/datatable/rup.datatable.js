@@ -269,6 +269,10 @@
 						className: 'datatable_toolbar_btnAdd',
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
+							var idTableDetail = ctx.oInit.formEdit.detailForm;
+							// Limpiamos el formulario
+							$(idTableDetail).find('form')[0].reset();
+							// Abrimos el formulario
 							DataTable.Api().editForm.save('POST', dt, ctx, null);
             }
         },
