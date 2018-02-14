@@ -304,6 +304,10 @@ apiRegister( 'multiSelect.blurable()', function ( flag ) {
 	} );
 } );
 
+apiRegister( 'editForm.save()', function ( actionType,dt,ctx,idRow ) {
+	_save(actionType,dt,ctx,idRow);
+} );
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
  */
