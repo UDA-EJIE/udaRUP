@@ -33,6 +33,7 @@
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
+	var DataTable = $.fn.dataTable;
 	var rup_datatable = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
@@ -259,9 +260,53 @@
 				delay:1000
 			}
 		},
-	    idTableDetail:'table_detail_div',
-	    dom: 'fitprl',
-	    searchPaginator:true
+    idTableDetail:'table_detail_div',
+    dom: 'Bfitprl',
+    searchPaginator:true,
+		buttons: [
+        {
+            text: 'Añadir',
+						className: 'datatable_toolbar_btnAdd',
+						action: function ( e, dt, node, config ) {
+							var ctx = dt.settings()[0];
+							DataTable.Api().editForm.save('POST', dt, ctx, null);
+            }
+        },
+				{
+            text: 'Editar',
+						className: 'datatable_toolbar_btnEdit',
+						action: function ( e, dt, node, config ) {
+							var ctx = dt.settings()[0];
+							DataTable.Api().editForm.save('PUT', dt, ctx, null);
+            }
+        },
+				{
+            text: 'Clonar',
+						className: 'datatable_toolbar_btnClone',
+						action: function ( e, dt, node, config ) {
+							var ctx = dt.settings()[0];
+							alert("TODO: formulario de clonación");
+							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+            }
+        },
+				{
+            text: 'Eliminar',
+						className: 'datatable_toolbar_btnDelete',
+						action: function ( e, dt, node, config ) {
+							var ctx = dt.settings()[0];
+							DataTable.Api().editForm.save('DELETE', dt, ctx, null);
+            }
+        },
+				{
+            text: 'Informes',
+						className: 'datatable_toolbar_btnReports',
+						action: function ( e, dt, node, config ) {
+							var ctx = dt.settings()[0];
+							alert("TODO: generación de informes");
+							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+            }
+        }
+    ]
 	};
 
 }));

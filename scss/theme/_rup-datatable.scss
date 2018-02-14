@@ -1,0 +1,20 @@
+// Toolbar
+.dt-buttons {
+  width: 100%;
+  margin: 15px 0 15px 0;
+  padding: 6px;
+  background-color: #e9e9e9;
+}
+
+.dt-buttons > .dt-button:last-child {
+  float: right;
+}
+
+// Botones del toolbar
+.dt-button {
+  margin-top: 0.333em;
+}
+
+.dt-button:last-child {
+  margin-right: 0;
+}
