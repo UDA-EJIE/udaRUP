@@ -177,7 +177,7 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
-function _save(dt,ctx,idRow,actionType){
+function _save(actionType,dt,ctx,idRow){
 	var idTableDetail = '#'+ctx.oInit.idTableDetail;//ira en una propiedad o por defecto o pasada por el usuario.
 	var idForm = $(idTableDetail).find('form');
 	
