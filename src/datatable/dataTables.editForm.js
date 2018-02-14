@@ -68,7 +68,7 @@ DataTable.editForm.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'dblclick.DT','tr',  function () {
-		_save(dt,ctx,this._DT_RowIndex);
+		_save('PUT',dt,ctx,this._DT_RowIndex);
 	} );
 
 };
@@ -177,12 +177,20 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
-function _save(dt,ctx,idRow){
+function _save(dt,ctx,idRow,actionType){
 	var idTableDetail = '#'+ctx.oInit.idTableDetail;//ira en una propiedad o por defecto o pasada por el usuario.
 	var idForm = $(idTableDetail).find('form');
 	
 	var row = ctx.json.rows[idRow];
-	$.rup_utils.populateForm(row, idForm);
+	
+	if (actionType === 'PUT') {
+		console.log("******* TABLA / EDITAR *******");
+		$.rup_utils.populateForm(row, idForm);
+	} else if(actionType === 'POST'){
+		console.log("******* AÑADIR *******");
+		$.rup_utils.populateForm(null, idForm);
+	}
+
 	$(idTableDetail).rup_dialog("open");
 	
 	//se añade el boton de guardar
@@ -190,10 +198,14 @@ function _save(dt,ctx,idRow){
 	button.unbind( "click" );
 	button.bind('click', function() {
 		//Comprobar si row ha sido modificada
-		row = $.rup_utils.queryStringToJson(idForm.formSerialize());
-		var row2 = returnCheckEmpty(idForm,idForm.formSerialize());
+		//Se serializa el formulario con los cambios
+		row = idForm.formSerialize();
+		//Verificar los checkbox vacíos.
+		row = returnCheckEmpty(idForm,idForm.formSerialize());
+		//Se transforma
+		row = $.rup_utils.queryStringToJson(row);		
 		$(idTableDetail).rup_dialog("close");
-		_callSaveAjax(dt,ctx,row,idRow,false,idTableDetail);
+		_callSaveAjax(actionType,dt,ctx,row,idRow,false,idTableDetail);
 	});
 	
 	//se añade el boton de guardar y continuar
@@ -201,7 +213,12 @@ function _save(dt,ctx,idRow){
 	buttonContinue.unbind( "click" );
 	buttonContinue.bind('click', function() {
 		//Comprobar si row ha sido modificada
-		row = $.rup_utils.queryStringToJson(idForm.formSerialize());
+		//Se serializa el formulario con los cambios
+		row = idForm.formSerialize();
+		//Verificar los checkbox vacíos.
+		row = returnCheckEmpty(idForm,idForm.formSerialize());
+		//Se transforma
+		row = $.rup_utils.queryStringToJson(row);
 		_callSaveAjax(dt,ctx,row,idRow,true,idTableDetail)
 	});
 
@@ -213,11 +230,11 @@ function _save(dt,ctx,idRow){
 	});
 }
 
-function _callSaveAjax(dt,ctx,row,idRow,continuar,idTableDetail){
+function _callSaveAjax(actionType,dt,ctx,row,idRow,continuar,idTableDetail){
 	// add Filter
 	$.rup_ajax({
 		url : ctx.oInit.urlBase,
-		type : 'PUT',
+		type : actionType,
 		data : $.toJSON(row),
 		dataType : 'json',
 		showLoading : false,
@@ -255,7 +272,7 @@ function _callFeedbackOk(ctx,feedback){
 function returnCheckEmpty(idForm,values){
 	var maps = jQuery(idForm.selector+' input[type=checkbox]:not(:checked)').map(
                     function() {
-                        return "&"+this.name+"='0'"
+                        return "&"+this.name+"=0"
                     }).get().toString();
 	return values+maps;
 }
