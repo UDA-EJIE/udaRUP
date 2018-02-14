@@ -260,7 +260,6 @@
 				delay:1000
 			}
 		},
-    idTableDetail:'table_detail_div',
     dom: 'Bfitprl',
     searchPaginator:true,
 		buttons: [
@@ -306,7 +305,9 @@
 							//DataTable.Api().editForm.save('POST', dt, ctx, null);
             }
         }
-    ]
+    ],formEdit:{//Revisar si se mete en el plugin
+        	detailForm: "#table_detail_div",
+     }
 	};
 
 }));

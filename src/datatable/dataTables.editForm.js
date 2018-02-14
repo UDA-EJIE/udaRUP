@@ -178,8 +178,20 @@ function eventTrigger ( api, type, args, any )
 }
 
 function _save(actionType,dt,ctx,idRow){
-	var idTableDetail = '#'+ctx.oInit.idTableDetail;// ira en una propiedad o por defecto o pasada por el usuario.
+	var idTableDetail = ctx.oInit.formEdit.detailForm;// ira en una propiedad o por defecto o pasada por el usuario.
 	var idForm = $(idTableDetail).find('form');
+	
+	//Comprobar si hay validaciones
+	if(ctx.oInit.formEdit.validate !== undefined && ctx.oInit.formEdit.validate.rules !== undefined){
+		idForm.rup_validate({
+			feedback: $(idTableDetail).find('#table_detail_navigation'),
+			liveCheckingErrors: false,
+			showFieldErrorAsDefault: true,
+			showErrorsInFeedback: true,
+			showFieldErrorsInFeedback:true, 
+			rules:ctx.oInit.formEdit.validate.rules
+		});
+	}
 	
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
