@@ -65,11 +65,64 @@ DataTable.editForm.init = function ( dt ) {
 		defaults :
 		init;
 	
+	//DetailForm se convierte en function
+	//Se inicializan los botones
+	ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
+	ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
+	//se añade el boton de cancelar
+	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#table_detail_link_cancel');
+	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
+		ctx.oInit.formEdit.okCallBack = false;
+		var feedback = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+		//Se limpia los elementos.
+		if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
+			ctx.oInit.formEdit.idForm.rup_validate("resetElements");
+		}
+		//Se cierran los mensajes del feedback
+		if(feedback[0].className !== ''){
+			feedback.rup_feedback('hide');
+		}
+		//Se cierra el dialog
+		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+	});
+	var idRow = 'a';
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'dblclick.DT','tr',  function () {
-		_save('PUT',dt,ctx,this._DT_RowIndex);
+		idRow = this._DT_RowIndex;
+		_openSaveDialog('PUT',dt,ctx,this._DT_RowIndex);
 	} );
+	
+	//Se captura evento de cierre
+	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
+		// si es igual no hacer nada.
+		var formSerializado = ctx.oInit.formEdit.idForm.formSerialize();
+		if(ctx.oInit.formEdit.dataOrigin === formSerializado){
+			return true;
+		}
+		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
+			
+			$.rup_messages('msgConfirm', {
+				message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
+				title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+				OKFunction: function () {
+					ctx.oInit.formEdit.okCallBack = true;
+					ctx.oInit.formEdit.detailForm.rup_dialog("close");
+					},
+				CANCELFunction: function (){
+					ctx.oInit.formEdit.okCallBack = false
+					} 	
+			});
+			
+			
+		}
+		//En caso de aceptar se cierrar y se limpia.
+		if(!ctx.oInit.formEdit.okCallBack || ctx.oInit.formEdit.okCallBack === undefined){
+			return false;
+		}
+		
+	} );
+	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
 
 };
 
@@ -177,22 +230,9 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
-function _save(actionType,dt,ctx,idRow){
-	var idTableDetail = ctx.oInit.formEdit.detailForm;// ira en una propiedad o por defecto o pasada por el usuario.
-	var idForm = $(idTableDetail).find('form');
-	
-	//Comprobar si hay validaciones
-	if(ctx.oInit.formEdit.validate !== undefined && ctx.oInit.formEdit.validate.rules !== undefined){
-		idForm.rup_validate({
-			feedback: $(idTableDetail).find('#table_detail_navigation'),
-			liveCheckingErrors: false,
-			showFieldErrorAsDefault: true,
-			showErrorsInFeedback: true,
-			showFieldErrorsInFeedback:true, 
-			rules:ctx.oInit.formEdit.validate.rules
-		});
-	}
-	
+function _openSaveDialog(actionType,dt,ctx,idRow){
+	var idForm = ctx.oInit.formEdit.idForm;
+
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
 	
@@ -203,62 +243,66 @@ function _save(actionType,dt,ctx,idRow){
 		console.log("******* AÑADIR *******");
 		$.rup_utils.populateForm(null, idForm);
 	}
-
-	$(idTableDetail).rup_dialog("open");
+	
+	ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
+	ctx.oInit.formEdit.detailForm.rup_dialog("open");
+	
+	//Se guardan los datos originales
+	ctx.oInit.formEdit.dataOrigin = idForm.formSerialize();
+	ctx.oInit.formEdit.okCallBack = false
 	
 	//se añade el boton de guardar
-	var button = $(idTableDetail).find('#table_detail_button_save');
+	var button = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save');
 	button.unbind( "click" );
 	button.bind('click', function() {
 		//Comprobar si row ha sido modificada
 		//Se serializa el formulario con los cambios
 		row = idForm.formSerialize();
 		//Verificar los checkbox vacíos.
-		row = returnCheckEmpty(idForm,idForm.formSerialize());
+		row = _returnCheckEmpty(idForm,idForm.formSerialize());
 		//Se transforma
 		row = $.rup_utils.queryStringToJson(row);		
-		$(idTableDetail).rup_dialog("close");
-		_callSaveAjax(actionType,dt,ctx,row,idRow,false,idTableDetail);
+		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		_callSaveAjax(actionType,dt,ctx,row,idRow,false,ctx.oInit.formEdit.detailForm);
 	});
 	
 	//se añade el boton de guardar y continuar
-	var buttonContinue = $(idTableDetail).find('#table_detail_button_save_repeat');
+	var buttonContinue = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save_repeat');
 	buttonContinue.unbind( "click" );
 	buttonContinue.bind('click', function() {
 		//Comprobar si row ha sido modificada
 		//Se serializa el formulario con los cambios
 		row = idForm.formSerialize();
 		//Verificar los checkbox vacíos.
-		row = returnCheckEmpty(idForm,idForm.formSerialize());
+		row = _returnCheckEmpty(idForm,idForm.formSerialize());
 		//Se transforma
 		row = $.rup_utils.queryStringToJson(row);
-		_callSaveAjax(actionType,dt,ctx,row,idRow,true,idTableDetail)
+		_callSaveAjax(actionType,dt,ctx,row,idRow,true,ctx.oInit.formEdit.detailForm)
 	});
 
-	//se añade el boton de cancelar
-	var buttoCancel = $(idTableDetail).find('#table_detail_link_cancel');
-	buttoCancel.unbind( "click" );
-	buttoCancel.bind('click', function() {
-		$(idTableDetail).rup_dialog("close");
-	});
+
 }
 
 function _callSaveAjax(actionType,dt,ctx,row,idRow,continuar,idTableDetail){
 	// add Filter
-	$.rup_ajax({
+	var feed = idTableDetail.find('#table_detail_feedback');
+	var ajaxOptions = {
 		url : ctx.oInit.urlBase,
+		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+			'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+			'text':'text/plain','xml':'application/xml, text/xml'},
 		type : actionType,
-		data : $.toJSON(row),
+		data : row,
 		dataType : 'json',
 		showLoading : false,
 		contentType : 'application/json',
-		async : false,
+		async : true,
 		beforeSend : function(xhr, options) {
 			//return $self.triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
 		},
 		success : function(data, status, xhr) {
 			if(continuar){
-				_callFeedbackOk(ctx,$(idTableDetail).find('#table_detail_navigation'));//Se informa
+				_callFeedbackOk(ctx,idTableDetail.find('#table_detail_navigation'));//Se informa
 			}else{
 				_callFeedbackOk(ctx,DataTable.multiSelect.multiselection.internalFeedback);//Se informa
 			}
@@ -268,13 +312,17 @@ function _callSaveAjax(actionType,dt,ctx,row,idRow,continuar,idTableDetail){
 		error : function(xhr, ajaxOptions,thrownError) {
 			console.log('Errors '+thrownError);
 
-		}
-	});
+		},
+		validate:ctx.oInit.formEdit.validate,
+		feedback:feed.rup_feedback({type:"ok",block:false})
+	};
+	
+	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
 function _callFeedbackOk(ctx,feedback){
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:$.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK'),type:"ok"});
+	feedback.rup_feedback({message:$.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK'),type:"ok",block:false});
 	//Aseguramos que el estilo es correcto.
 	setTimeout(function(){
 		feedback.rup_feedback('destroy');
@@ -282,12 +330,16 @@ function _callFeedbackOk(ctx,feedback){
 	}, confDelay);
 }
 
-function returnCheckEmpty(idForm,values){
+function _returnCheckEmpty(idForm,values){
 	var maps = jQuery(idForm.selector+' input[type=checkbox]:not(:checked)').map(
                     function() {
                         return "&"+this.name+"=0"
                     }).get().toString();
 	return values+maps;
+}
+
+function fncCancelLink(){
+	
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -317,8 +369,8 @@ apiRegister( 'multiSelect.blurable()', function ( flag ) {
 	} );
 } );
 
-apiRegister( 'editForm.save()', function ( actionType,dt,ctx,idRow ) {
-	_save(actionType,dt,ctx,idRow);
+apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,ctx,idRow ) {
+	_openSaveDialog(actionType,dt,ctx,idRow);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
