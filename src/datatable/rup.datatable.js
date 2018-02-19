@@ -272,7 +272,7 @@
 							// Limpiamos el formulario
 							$(idTableDetail).find('form')[0].reset();
 							// Abrimos el formulario
-							DataTable.Api().editForm.save('POST', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         },
 				{
@@ -280,7 +280,7 @@
 						className: 'datatable_toolbar_btnEdit',
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.save('PUT', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('PUT', dt, ctx, null);
             }
         },
 				{
@@ -289,7 +289,7 @@
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
 							alert("TODO: formulario de clonación");
-							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         },
 				{
@@ -297,7 +297,7 @@
 						className: 'datatable_toolbar_btnDelete',
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.save('DELETE', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
             }
         },
 				{
@@ -306,7 +306,7 @@
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
 							alert("TODO: generación de informes");
-							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         }
     ],formEdit:{//Revisar si se mete en el plugin
