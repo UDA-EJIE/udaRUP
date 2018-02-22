@@ -294,7 +294,7 @@
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
 							alert("TODO: formulario de clonación");
-							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         },
 				{
@@ -311,7 +311,7 @@
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
 							alert("TODO: generación de informes");
-							//DataTable.Api().editForm.save('POST', dt, ctx, null);
+							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         }
     ],formEdit:{//Revisar si se mete en el plugin
