@@ -487,6 +487,7 @@ function info ( api )
 	};
 	
 	rows = DataTable.multiSelect.multiselection.numSelected;
+	//Antes de mostrar la info se ha de ordenar.
 	
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
@@ -1160,10 +1161,11 @@ function _initializeMultiselectionProps (  ) {
 	// Numero de registros seleccionados
 	$self.multiselection.numSelected = 0;
 	// Propiedades de selección de registros
-	//$self.multiselection.selectedRowsPerPage = [];
+	$self.multiselection.selectedRowsPerPage = [];
 	//$self.multiselection.selectedLinesPerPage = [];
 	//$self.multiselection.selectedRows = [];
 	$self.multiselection.selectedIds = [];
+	$self.multiselection.lastSelectedId = "";
 	//$self.multiselection.selectedPages = [];
 	// Propiedades de deselección de registros
 	//$self.multiselection.deselectedRowsPerPage = [];
@@ -1178,7 +1180,7 @@ function _initializeMultiselectionProps (  ) {
 } ;
 
 //1 select, 0 deselect
-function maintIdsRows(DataTable,id,select,pagina){
+function maintIdsRows(DataTable,id,select,pagina,line){
 	var indexInArray = -1;
 	if(select){// se elimina de los deselecionados		
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds)
@@ -1189,13 +1191,43 @@ function maintIdsRows(DataTable,id,select,pagina){
 			}
 		}
 		if(id !== undefined && DataTable.multiSelect.multiselection.selectedIds.indexOf(id) < 0){
-			DataTable.multiSelect.multiselection.selectedIds.push(id);
+			var pos = 0;
+			var arra = {id:id,page:DataTable.settings[0].json.page,line:line};
+			//DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
+			//DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:DataTable.settings[0].json.page,line:line});
+			
+			//Inicio de ordenacion, Se ordena los selected ids.			
+
+			$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
+			  if(arra.page < p.page){
+				  pos = index;
+				  return false;
+			  }else if(arra.page === p.page){
+			  // mirar linea
+			  	if(arra.line < p.line){
+			  		pos = index;
+			  		return false;
+			    }else{
+			   	 pos = index+1;//Posible
+			    }
+			  }else if(arra.page > p.page){
+				  pos = index+1;//Posible
+			  }
+			});
+			
+			DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
+			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,arra);
+			DataTable.multiSelect.multiselection.lastSelectedId = id;
+			
+			//FIn ordenacion
 		}
 	}else{
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.selectedIds);//Se elimina el ids
 		
-		if(indexInArray > -1){
+		if(indexInArray > -1){//se borra
 			DataTable.multiSelect.multiselection.selectedIds.splice(indexInArray,1);
+			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(indexInArray,1);
+			DataTable.multiSelect.multiselection.lastSelectedId = "";
 			if(DataTable.multiSelect.multiselection.numSelected === 0){
 				DataTable.multiSelect.multiselection.selectedAll = false
 			}
@@ -1249,21 +1281,31 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		}
 		
 		//para seleccionar todos los de la pagina actual.
-		maintIdsRows(DataTable,id,1,pagina);
+		maintIdsRows(DataTable,id,1,pagina,idx);
 
 	} );
-	if(DataTable.multiSelect.multiselection.selectedAll && pagina){//Si pagina y están todos sleccionados se pintan.
-		var ctx = api.settings()[0]; 
-		$.each(api.context[0].aoData, function( idx ) {
-			var id = ctx.aoData[ idx ]._aData.id;
-			//Si esta en la lista de deselecionados, significa que no debería marcarse.
-			if(jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds) === -1){
-				ctx.aoData[ idx ]._multiSelect_selected = true;
-				$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
-				
-				//para seleccionar todos los de la pagina actual.
-				maintIdsRows(DataTable,id,1,pagina);
-			}
+	if(pagina){//Cuando se pagina, se filtra, o se reordena.
+		if(DataTable.multiSelect.multiselection.selectedAll){//Si pagina y están todos sleccionados se pintan.
+			var ctx = api.settings()[0]; 
+			$.each(api.context[0].aoData, function( idx ) {
+				var id = ctx.aoData[ idx ]._aData.id;
+				//Si esta en la lista de deselecionados, significa que no debería marcarse.
+				if(jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds) === -1){
+					ctx.aoData[ idx ]._multiSelect_selected = true;
+					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+					
+					//para seleccionar todos los de la pagina actual.
+					maintIdsRows(DataTable,id,1,pagina);
+				}
+			});
+		}
+		//Se mira la nueva reordenacion y se ordena.
+		DataTable.multiSelect.multiselection.selectedIds = [];
+		DataTable.multiSelect.multiselection.selectedRowsPerPage = [];
+		$.each(DataTable.settings[0].json.reorderedSelection,function(index,p) {
+			var arra = {id:p.pk.id,page:p.page,line:p.pageLine};
+			DataTable.multiSelect.multiselection.selectedIds.splice(index,0,arra.id);
+			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(index,0,arra);
 		});
 	}
 	this.iterator( 'table', function ( ctx, i ) {
