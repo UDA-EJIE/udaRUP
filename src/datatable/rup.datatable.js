@@ -264,54 +264,84 @@
     searchPaginator:true,
 		buttons: [
         {
-            text: 'Añadir',
+						text: 'Añadir',
 						className: 'datatable_toolbar_btnAdd',
+						enabled: true,
+						init: function ( dt, node, config ) {
+							var that = this;
+							var buttonName = 'addButton';
+							var onlyWhenRowSelected = false;
+              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+            },
 						action: function ( e, dt, node, config ) {
-							var ctx = dt.settings()[0];
-							var idTableDetail = ctx.oInit.formEdit.detailForm;
-							// Limpiamos el formulario
-							$(idTableDetail).find('form')[0].reset();
-							// Abrimos el formulario
-							DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+							var type = "add";
+							DataTable.Api().buttons.actions(dt, type);
             }
         },
 				{
             text: 'Editar',
 						className: 'datatable_toolbar_btnEdit',
+						enabled: false,
+						init: function ( dt, node, config ) {
+							var that = this;
+							var buttonName = 'editButton';
+							var onlyWhenRowSelected = true;
+              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+            },
 						action: function ( e, dt, node, config ) {
-							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.openSaveDialog('PUT', dt, ctx, null);
+							var type = "edit";
+							DataTable.Api().buttons.actions(dt, type);
             }
         },
 				{
             text: 'Clonar',
 						className: 'datatable_toolbar_btnClone',
+						enabled: false,
+						init: function ( dt, node, config ) {
+							var that = this;
+							var buttonName = 'cloneButton';
+							var onlyWhenRowSelected = true;
+              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+            },
 						action: function ( e, dt, node, config ) {
-							var ctx = dt.settings()[0];
-							alert("TODO: formulario de clonación");
-							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+							var type = "clone";
+							DataTable.Api().buttons.actions(dt, type);
             }
         },
 				{
             text: 'Eliminar',
 						className: 'datatable_toolbar_btnDelete',
+						enabled: false,
+						init: function ( dt, node, config ) {
+							var that = this;
+							var buttonName = 'deleteButton';
+							var onlyWhenRowSelected = true;
+              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+            },
 						action: function ( e, dt, node, config ) {
-							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
+							var type = "delete";
+							DataTable.Api().buttons.actions(dt, type);
             }
         },
 				{
             text: 'Informes',
 						className: 'datatable_toolbar_btnReports',
+						enabled: true,
+						init: function ( dt, node, config ) {
+							var that = this;
+							var buttonName = 'reportsButton';
+							var onlyWhenRowSelected = false;
+              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+            },
 						action: function ( e, dt, node, config ) {
-							var ctx = dt.settings()[0];
-							alert("TODO: generación de informes");
-							//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+							var type = "reports";
+							DataTable.Api().buttons.actions(dt, type);
             }
         }
-    ],formEdit:{//Revisar si se mete en el plugin
-        	detailForm: "#table_detail_div",
-     }
+    ],
+		formEdit:{//Revisar si se mete en el plugin
+      detailForm: "#table_detail_div",
+    }
 	};
 
 }));

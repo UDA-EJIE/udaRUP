@@ -1608,6 +1608,62 @@ DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
 	};
 } );
 
+// TODO: falta la descripcion
+DataTable.Api.register( 'buttons.init()', function ( that, dt, node, buttonName, onlyWhenRowSelected ) {
+	// Solamente se activara el evento en aquellos botones que asi se haya
+	// especificado.
+	if (onlyWhenRowSelected) {
+		// Añadimos el evento al boton con el que se detecta si hay alguna fila
+		// de la tabla marcada o no. En caso de haber alguna marcada, habilitamos
+		// el boton, si no, se queda oculto.
+		dt.on( 'select.dt.DT deselect.dt.DT', function () {
+				var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+				that.enable( numOfSelectedRows ? true : false );
+		} );
+
+		that.disable();
+	}
+
+	var ctx = dt.settings()[0];
+	var idTableDetail = ctx.oInit.formEdit.detailForm;
+	// Le damos un id unico al boton
+	node.attr('id', buttonName + '##' + ctx.nTable.id);
+} );
+
+// TODO: falta la descripcion
+DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
+	var ctx = dt.settings()[0];
+	// Añade aquí las funciones de tus botones
+	switch (type) {
+		case 'add':
+			var idTableDetail = ctx.oInit.formEdit.detailForm;
+			// Limpiamos el formulario
+			$(idTableDetail).find('form')[0].reset();
+			// Abrimos el formulario
+			DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+			break;
+		case 'edit':
+			// Abrimos el formulario
+			DataTable.Api().editForm.openSaveDialog('PUT', dt, ctx, null);
+			break;
+		case 'clone':
+			// Abrimos el formulario
+			//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+			alert("TODO: funcioanlidad botón CLONE");
+			break;
+		case 'delete':
+			// Abrimos el formulario
+			//DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
+			alert("TODO: funcioanlidad botón DELETE");
+			break;
+		case 'reports':
+			alert("TODO: funcionalidad botón REPORTS")
+			break;
+		default:
+			console.log("Algo fue mal...");
+	}
+} );
+
 
 
 /**
