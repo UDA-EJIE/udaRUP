@@ -58,22 +58,35 @@ DataTable.editForm.version = '1.2.4';
 
 DataTable.editForm.init = function ( dt ) {
 	DataTable.editForm.iniciado = '';
+	var api = $.fn.dataTable;
 	var ctx = dt.settings()[0];
 	var init = ctx.oInit.multiSelect;
 	var defaults = DataTable.defaults.multiSelect;
-	var opts = init === undefined ?
-		defaults :
-		init;
+	var opts = init === undefined ?	defaults :	init;
 	
 	//DetailForm se convierte en function
 	//Se inicializan los botones
 	ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
 	ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
+	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
+	
+	//Se coge el adapter, y se crea la barrade navegación
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation;
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
+	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+	//Se inicializa el editFrom la info
+	_updateDetailPagination(ctx,1,1);
+		
 	//se añade el boton de cancelar
 	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#table_detail_link_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
 		ctx.oInit.formEdit.okCallBack = false;
 		var feedback = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+
+		//Se cierra el dialog
+		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		//Despues de cerrar
 		//Se limpia los elementos.
 		if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
 			ctx.oInit.formEdit.idForm.rup_validate("resetElements");
@@ -82,15 +95,15 @@ DataTable.editForm.init = function ( dt ) {
 		if(feedback[0].className !== ''){
 			feedback.rup_feedback('hide');
 		}
-		//Se cierra el dialog
-		ctx.oInit.formEdit.detailForm.rup_dialog("close");
 	});
-	var idRow = 'a';
+	var idRow;
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'dblclick.DT','tr',  function () {
 		idRow = this._DT_RowIndex;
-		_openSaveDialog('PUT',dt,ctx,this._DT_RowIndex);
+		//Añadir la seleccion del mismo.
+		dt['row'](idRow).multiSelect();		
+		_openSaveDialog('PUT',dt,ctx,idRow);
 	} );
 	
 	//Se captura evento de cierre
@@ -202,12 +215,6 @@ function init ( ctx ) {
 		} );
 	} );
 
-	// Update the table information element with selected item summary
-	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
-		info( api );
-		_drawSelectId(api);
-	} );
-
 	// Clean up and release
 	api.on( 'destroy.dtSelect', function () {
 		disableMouseSelection( api );
@@ -239,9 +246,13 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 	if (actionType === 'PUT') {
 		console.log("******* TABLA / EDITAR *******");
 		$.rup_utils.populateForm(rowArray, idForm);
+		var multiselection = DataTable.multiSelect.multiselection;
+		_updateDetailPagination(ctx,1,multiselection.numSelected);
+		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
 		console.log("******* AÑADIR *******");
 		$.rup_utils.populateForm(null, idForm);
+		ctx.oInit.formEdit.$navigationBar.hide();
 	}
 	
 	ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
@@ -261,7 +272,8 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 		//Verificar los checkbox vacíos.
 		row = _returnCheckEmpty(idForm,idForm.formSerialize());
 		//Se transforma
-		row = $.rup_utils.queryStringToJson(row);		
+		row = $.rup_utils.queryStringToJson(row);	
+		ctx.oInit.formEdit.okCallBack = true;
 		ctx.oInit.formEdit.detailForm.rup_dialog("close");
 		_callSaveAjax(actionType,dt,ctx,row,idRow,false,ctx.oInit.formEdit.detailForm);
 	});
@@ -301,8 +313,12 @@ function _callSaveAjax(actionType,dt,ctx,row,idRow,continuar,idTableDetail){
 			//return $self.triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
 		},
 		success : function(data, status, xhr) {
-			if(continuar){
-				_callFeedbackOk(ctx,idTableDetail.find('#table_detail_navigation'));//Se informa
+			if(continuar){//Se crea un feddback_ok,para que no se pise con el de los errores
+				var divOkFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+				if(divOkFeedback.length === 0){
+					divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+				}
+				_callFeedbackOk(ctx,divOkFeedback);//Se informa
 			}else{
 				_callFeedbackOk(ctx,DataTable.multiSelect.multiselection.internalFeedback);//Se informa
 			}
@@ -338,9 +354,23 @@ function _returnCheckEmpty(idForm,values){
 	return values+maps;
 }
 
-function fncCancelLink(){
-	
+function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
+	var formId = ctx.oInit.formEdit.id;
+	var tableId = ctx.oInit.formEdit.$navigationBar[0].id;
+	if (currentRowNum === 1) {
+		$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).addClass('ui-state-disabled');
+	} else {
+		$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
+	}
+	if (currentRowNum === totalRowNum) {
+		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).addClass('ui-state-disabled');
+	} else {
+		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
+	}
+
+	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
@@ -351,26 +381,13 @@ function fncCancelLink(){
 
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
-var apiRegisterPlural = DataTable.Api.registerPlural;
-
-apiRegister( 'multiSelect()', function () {
-	return this.iterator( 'table', function ( ctx ) {
-		DataTable.multiSelect.init( new DataTable.Api( ctx ) );
-	} );
-} );
-
-apiRegister( 'multiSelect.blurable()', function ( flag ) {
-	if ( flag === undefined ) {
-		return this.context[0]._multiSelect.blurable;
-	}
-
-	return this.iterator( 'table', function ( ctx ) {
-		ctx._multiSelect.blurable = flag;
-	} );
-} );
 
 apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,ctx,idRow ) {
 	_openSaveDialog(actionType,dt,ctx,idRow);
+} );
+
+apiRegister( 'editForm.updateDetailPagination()', function ( ctx,currentRowNum,totalRowNum ) {
+	_updateDetailPagination(ctx,currentRowNum,totalRowNum)
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -174,6 +174,11 @@
 			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
+			data.multiselection = undefined;
+			if(DataTable.multiSelect.multiselection !== undefined && 
+					(DataTable.multiSelect.multiselection.selectedIds.length > 0 || DataTable.multiSelect.multiselection.selectedAll === true)){
+				data.multiselection = DataTable.multiSelect.multiselection;
+			}
 			var datatableRequest = new DataTableRequest(data);
 			var json = $.extend({}, data, datatableRequest.getData());
 			return JSON.stringify(json);
@@ -272,7 +277,7 @@
 							// Limpiamos el formulario
 							$(idTableDetail).find('form')[0].reset();
 							// Abrimos el formulario
-							DataTable.Api().editForm.save('POST', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
             }
         },
 				{
@@ -280,7 +285,7 @@
 						className: 'datatable_toolbar_btnEdit',
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.save('PUT', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('PUT', dt, ctx, null);
             }
         },
 				{
@@ -297,7 +302,7 @@
 						className: 'datatable_toolbar_btnDelete',
 						action: function ( e, dt, node, config ) {
 							var ctx = dt.settings()[0];
-							DataTable.Api().editForm.save('DELETE', dt, ctx, null);
+							DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
             }
         },
 				{
