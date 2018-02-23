@@ -244,13 +244,12 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 	var rowArray = $.rup_utils.jsontoarray(row);
 	
 	if (actionType === 'PUT') {
-		console.log("******* TABLA / EDITAR *******");
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = DataTable.multiSelect.multiselection;
-		_updateDetailPagination(ctx,1,multiselection.numSelected);
+		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds)
+		_updateDetailPagination(ctx,indexInArray,multiselection.numSelected);
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
-		console.log("******* AÑADIR *******");
 		$.rup_utils.populateForm(null, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
 	}
