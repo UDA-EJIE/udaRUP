@@ -70,11 +70,8 @@ DataTable.editForm.init = function ( dt ) {
 	ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
 	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
 	
-	//Se coge el adapter, y se crea la barrade navegación
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
-	var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation;
-	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
-	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+	//Se coge el adapter, y se crea la barra de navegación
+	_callNavigationBar(dt);
 	//Se inicializa el editFrom la info
 	_updateDetailPagination(ctx,1,1);
 		
@@ -103,7 +100,7 @@ DataTable.editForm.init = function ( dt ) {
 		idRow = this._DT_RowIndex;
 		//Añadir la seleccion del mismo.
 		dt['row'](idRow).multiSelect();		
-		_openSaveDialog('PUT',dt,ctx,idRow);
+		_openSaveDialog('PUT',dt,idRow);
 	} );
 	
 	//Se captura evento de cierre
@@ -237,7 +234,8 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
-function _openSaveDialog(actionType,dt,ctx,idRow){
+function _openSaveDialog(actionType,dt,idRow){
+	var ctx = dt.settings()[0];
 	var idForm = ctx.oInit.formEdit.idForm;
 
 	var row = ctx.json.rows[idRow];
@@ -247,7 +245,7 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = DataTable.multiSelect.multiselection;
 		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds)
-		_updateDetailPagination(ctx,indexInArray,multiselection.numSelected);
+		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(null, idForm);
@@ -274,7 +272,7 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 		row = $.rup_utils.queryStringToJson(row);	
 		ctx.oInit.formEdit.okCallBack = true;
 		ctx.oInit.formEdit.detailForm.rup_dialog("close");
-		_callSaveAjax(actionType,dt,ctx,row,idRow,false,ctx.oInit.formEdit.detailForm);
+		_callSaveAjax(actionType,dt,row,idRow,false,ctx.oInit.formEdit.detailForm);
 	});
 	
 	//se añade el boton de guardar y continuar
@@ -288,13 +286,14 @@ function _openSaveDialog(actionType,dt,ctx,idRow){
 		row = _returnCheckEmpty(idForm,idForm.formSerialize());
 		//Se transforma
 		row = $.rup_utils.queryStringToJson(row);
-		_callSaveAjax(actionType,dt,ctx,row,idRow,true,ctx.oInit.formEdit.detailForm)
+		_callSaveAjax(actionType,dt,row,idRow,true,ctx.oInit.formEdit.detailForm)
 	});
 
 
 }
 
-function _callSaveAjax(actionType,dt,ctx,row,idRow,continuar,idTableDetail){
+function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail){
+	var ctx = dt.settings()[0];
 	// add Filter
 	var feed = idTableDetail.find('#table_detail_feedback');
 	var ajaxOptions = {
@@ -370,7 +369,171 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
+function _callNavigationBar(dt){
+	var ctx = dt.settings()[0];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
+	var settings = {};
+	//Funcion para obtener los parametros de navegacion.
+	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
+		var $self = this,
+			settings = $self.data('settings'),
+			execute = false,
+			changePage = false,
+			index = 0,
+			newPageIndex = 0,
+			npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
+			page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+			newPage = page,
+			lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records') / $self.rup_table('getGridParam', 'rowNum')), 10),
+			currentArrayIndex, selectedLines;
+		var multiselection = DataTable.multiSelect.multiselection;
+		npos[0] = parseInt(npos[0], 10);
+		//$('#' + settings.formEdit.feedbackId, settings.formEdit.$detailForm).hide();
+		switch (linkType) {
+		case 'first':
+			// Navegar al primer elemento seleccionado
+			execute = true;
+			// Si no se han seleccionado todos los elementos
+			if (!multiselection.selectedAll) {
+				// Se comprueba si la página en la que nos encontramos es la primera en la que se han seleccionado registros
+				if (multiselection.selectedPages[0] !== page) {
+					// Marcamos el flag changePage para indicar que se debe de realizar una paginación
+					changePage = true;
+					// La nueva página será la primera página en la que se ha realizado una selección de registros
+					newPage = multiselection.selectedPages[0];
+				}
+			} else {
+				// En el caso de que se hayan seleccionado todos los elementos de la tabla
+				// Recorremos las páginas buscando la primera en la que existan elementos seleccionados
+				for (var pageAux = 1; pageAux <= lastPage; pageAux++) {
+					if ($self._hasPageSelectedElements(pageAux)) {
+						if (pageAux !== page) {
+							newPage = pageAux;
+							changePage = true;
+						}
+						break;
+					}
+				}
+			}
+			// Recuperamos el primer registro seleccionado del la página
+			index = $self._getFirstSelectedElementOfPage(newPage);
+			newPageIndex = index;
+			break;
+		case 'prev':
+			// Navegar al anterior elemento seleccionado
+			execute = true;
+			// Obtenemos un array con los index de los registros seleccionados en la página actual
+			selectedLines = $self._getSelectedLinesOfPage(page);
+			// Obtenemos la posición que ocupa el elemento actual en el array de seleccionados
+			currentArrayIndex = jQuery.inArray(npos[0] + 1, selectedLines);
+			// Se comprueba si ocupa el lugar del primer elemento seleccionado
+			if (currentArrayIndex === 0) {
+				// En caso de tratarse del primer elemento seleccionado de la página, se deberá de realizar una navegación a la página anterior que disponga de elementos seleccionados
+				changePage = true;
+				// Recorremos las páginas anteriores
+				for (var pageAux = page - 1; pageAux >= 0; pageAux--) {
+					// En caso de que la página disponga de elementos selecciondados.
+					if ($self._hasPageSelectedElements(pageAux)) {
+						newPage = pageAux;
+						// Obtenemos los identificadores de los registros seleccionados de la nueva página
+						selectedLines = $self._getSelectedLinesOfPage(pageAux);
+						// Obtenemos el último registro seleccionado
+						index = selectedLines[selectedLines.length - 1];
+						break;
+					}
+				}
+			} else {
+				// En caso de no tratarse del último elemento de la página, recuperamos el elemento anterior que haya sido seleccionado también
+				index = selectedLines[currentArrayIndex - 1];
+			}
 
+			newPageIndex = index;
+			break;
+		case 'next':
+			// Navegar al siguiente elemento seleccionado
+			execute = true;
+			// Obtenemos un array con los index de los registros seleccionados en la página actual
+			selectedLines = $self._getSelectedLinesOfPage(page);
+			// Obtenemos la posición que ocupa el elemento actual en el array de seleccionados
+			currentArrayIndex = jQuery.inArray(npos[0] + 1, selectedLines);
+			// Se comprueba si ocupa el lugar del último elemento seleccionado
+			if (currentArrayIndex === selectedLines.length - 1) {
+				// En caso de tratarse del último elemento seleccionado de la página, se deberá de realizar una navegación a la página siguiente que disponga de elementos seleccionados
+				changePage = true;
+				// Recorremos las páginas siguientes
+				for (var pageAux = page + 1; pageAux <= lastPage; pageAux++) {
+					// En caso de que la página disponga de elementos selecciondados.
+					if ($self._hasPageSelectedElements(pageAux)) {
+						newPage = pageAux;
+						// Obtenemos los identificadores de los registros seleccionados de la nueva página
+						selectedLines = $self._getSelectedLinesOfPage(pageAux);
+						// Obtenemos el primer registro seleccionado
+						index = selectedLines[0];
+						break;
+					}
+				}
+			} else {
+				// En caso de no tratarse del último elemento de la página, recuperamos el elemento anterior que haya sido seleccionado también
+				index = selectedLines[currentArrayIndex + 1];
+			}
+
+			newPageIndex = index;
+			break;
+		case 'last':
+								// Navegar al ultimo elemento seleccionado
+			execute = true;
+								// Si no se han seleccionado todos los elementos
+			if (!multiselection.selectedAll) {
+										// Se comprueba si la página en la que nos encontramos es la primera en la que se han seleccionado registros
+				if (multiselection.selectedPages[multiselection.selectedPages.length - 1] !== page) {
+												// Marcamos el flag changePage para indicar que se debe de realizar una paginación
+					changePage = true;
+												// La nueva página será la primera página en la que se ha realizado una selección de registros
+					newPage = multiselection.selectedPages[settings.multiselection.selectedPages.length - 1];
+				}
+			} else {
+										// En el caso de que se hayan seleccionado todos los elementos de la tabla
+										// Recorremos las páginas buscando la primera en la que existan elementos seleccionados
+				for (var pageAux = lastPage; pageAux > 0; pageAux--) {
+					if ($self._hasPageSelectedElements(pageAux)) {
+						if (pageAux !== page) {
+							newPage = pageAux;
+							changePage = true;
+						}
+						break;
+					}
+				}
+			}
+			selectedLines = $self._getSelectedLinesOfPage(newPage);
+								// Recuperamos el último registro seleccionado del la página
+			index = selectedLines[selectedLines.length - 1];
+			newPageIndex = index;
+		}
+
+		return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
+	};
+	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+}
+
+function _getRowSelected(dt){
+	var ctx = dt.settings()[0];
+	var rowDefault = {id:0,page:1,line:1};
+	$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
+		if(p.id === DataTable.multiSelect.multiselection.lastSelectedId){
+			//En caso de estar en una pagina distinta , navegamos a ella
+			if(dt.page()+1 !== p.page){
+				var table = $('#'+ctx.sTableId).DataTable();						 
+				table.page( p.page-1 ).draw( 'page' );
+			}
+			rowDefault.line = p.line-1;
+			return false;
+		}
+	});	
+	return rowDefault;
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -381,12 +544,16 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
 
-apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,ctx,idRow ) {
-	_openSaveDialog(actionType,dt,ctx,idRow);
+apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,idRow ) {
+	_openSaveDialog(actionType,dt,idRow);
 } );
 
 apiRegister( 'editForm.updateDetailPagination()', function ( ctx,currentRowNum,totalRowNum ) {
 	_updateDetailPagination(ctx,currentRowNum,totalRowNum)
+} );
+
+apiRegister( 'editForm.getRowSelected()', function ( dt ) {
+	return _getRowSelected(dt);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

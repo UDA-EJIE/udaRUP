@@ -1640,23 +1640,13 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 			// Limpiamos el formulario
 			$(idTableDetail).find('form')[0].reset();
 			// Abrimos el formulario
-			DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
+			DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 			break;
 		case 'edit':
 			// Abrimos el formulario
 			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = 1;
-			$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
-				if(p.id === DataTable.multiSelect.multiselection.lastSelectedId){
-					//En caso de estar en una pagina distinta , navegamos a ella
-					if(dt.page()+1 !== p.page){
-						var table = $('#'+ctx.sTableId).DataTable();						 
-						table.page( p.page-1 ).draw( 'page' );
-					}
-					return false;
-				}
-			});			
-			DataTable.Api().editForm.openSaveDialog('PUT', dt, ctx, idRow);
+			var idRow = DataTable.Api().editForm.getRowSelected(dt).line;		
+			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			break;
 		case 'clone':
 			// Abrimos el formulario
