@@ -1302,8 +1302,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		//Se mira la nueva reordenacion y se ordena.
 		DataTable.multiSelect.multiselection.selectedIds = [];
 		DataTable.multiSelect.multiselection.selectedRowsPerPage = [];
+		//Viene del servidor por eso la linea de la pagina es 1 menos.
 		$.each(DataTable.settings[0].json.reorderedSelection,function(index,p) {
-			var arra = {id:p.pk.id,page:p.page,line:p.pageLine};
+			var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
 			DataTable.multiSelect.multiselection.selectedIds.splice(index,0,arra.id);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(index,0,arra);
 		});
