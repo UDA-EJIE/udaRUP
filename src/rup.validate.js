@@ -423,19 +423,22 @@
 				        }
 			        }
 
-			        labelElem = fieldTmp.parent().find("label[for='"+labelForName+"']");
+			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForName);
 
 			        if (labelElem.length>0){
 			            return labelElem.text();
 			        }
 
-			        labelElem = fieldTmp.parent().find("label[for='"+labelForId+"']");
+			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForId);
 
 			        if (labelElem.length>0){
 			            return labelElem.text();
 			        }
 
 			        return fieldTmp.attr("title");
+			    },
+			    findLabelByFor: function(self, form, field, labelFor) {
+			        return field.parent().find("label[for='"+labelFor+"']");
 			    },
 				getFieldErrorLabel: function(self, form, field, errorLabel){
 					return $("<li>").append("<b>" + errorLabel + ":</b>");
