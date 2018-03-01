@@ -309,135 +309,11 @@
 	// INICIALIZACION DE VARIABLES
 	//*****************************
 
-	// Propiedades de configuracion predeterminadas para cada una de las posibles parametrizaciones de los errores.
-	var presetSettings = {
-		// Configruacion del componente por defecto
-		defaultPresetSettings:{
-			showErrors:function(errors){
-				var self = this, invalid, errorText, feedback, field, errorKey, fieldError, fieldErrorMsg, error, label;
-
-				// Se comprueba si el parametro que contiene los errores está vacío. En este caso se
-				if (self.currentElements.length===1){
-					if ($.isEmptyObject(errors)){
-						delete self.invalid[self.currentElements.attr("name")];
-					}
-				}
-
-				/*
-				 * Mostrar mensaje de error de validaciones en el feedback
-				 */
-				feedback = self.settings.feedback;
-				if (self.settings.showErrorsInFeedback && feedback!==undefined && feedback!==null){
-					errorText = $("<ul>").addClass("rup-maint_feedbackUL").prepend(self.settings.feedbackErrorConfig.errorMsg);
-
-					if (jQuery.isEmptyObject(self.invalid)){
-							feedback.rup_feedback("close");
-					}else{
-
-						if (self.settings.showFieldErrorsInFeedback){
-							$.each((!jQuery.isEmptyObject(self.submitted)?self.submitted:self.invalid), function(key,value){
-
-								if (self.invalid[key]!==undefined){
-									field = self.settings.feedbackErrorConfig.getField(self, self.currentForm, key);
-									errorKey = self.settings.feedbackErrorConfig.getFieldName(self, self.currentForm, field);
-									fieldError = self.settings.feedbackErrorConfig.getFieldErrorLabel(self, self.currentForm, field, errorKey);
-
-									fieldErrorMsg = self.settings.feedbackErrorConfig.getFieldErrorMsg(self, self.currentForm, field, value);
-									fieldError.append(fieldErrorMsg);
-									errorText.append(fieldError);
-								}
-
-							});
-						}
-						feedback.rup_feedback("option",self.settings.feedbackOptions);
-						feedback.rup_feedback("set", errorText, "error");
-					}
-				}
-
-				/*
-				 * Mostrar detalle de errores en el feedback
-				 */
-				if (self.settings.showFieldErrorAsDefault){
-					for ( var i = 0; self.errorList[i]; i++ ) {
-
-						error = self.errorList[i];
-
-						if (error.element!==undefined){
-
-							label = self.errorsFor( error.element );
-							if ( label.length ) {
-								label.remove();
-							}
-						}
-					}
-				}
-
-				/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
-				 * no es posible indicarle varios mensajes de error para un campo.
-				 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
-				 */
-				for (var i=0;i<self.errorList.length;i++){
-//					if (self.settings.showFieldErrorAsDefault){
-//						self.errorList[i].message="";
-//					}else
-					if (self.errorList[i].element===undefined){
-						alert("El campo validado no existe en el formulario");
-					}
-					if ($.isArray(self.errorList[i].message)){
-						// En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
-						var newMessage="";
-						for (var j=0;j<self.errorList[i].message.length;j++){
-							newMessage+=self.errorList[i].message[j];
-							if (j!==self.errorList[i].message.length-1){
-								newMessage+=", ";
-							}
-						}
-						self.errorList[i].message=newMessage;
-					}
-				}
-				// Se eliminan los etilos de error previos
-				$("."+self.settings.errorClass+":not(.rup-maint_validateIcon)",self.currentForm).removeClass(self.settings.errorClass);
-				// Se invoca al metodo por defecto del plugin subyacente
-				self.defaultShowErrors();
-			},
-			showErrorsInFeedback:function(errors){
-
-			},
-			errorPlacement:function(label,element){
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						label.insertAfter(comboElem);
-					}
-				}else{
-					label.insertAfter(element);
-				}
-			}
-		},
-		// Configuracion de las propiedades a aplicar en caso de que se deban mostrar los errores mediante la visualizacion por defecto.
-		showFieldErrorAsDefault:{
-			errorElement:"img",
-			errorPlacement: function(error, element) {
-				var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						errorElem.insertAfter(comboElem);
-					}
-				}else{
-					errorElem.insertAfter(element);
-				}
-			}
-		}
-	};
-
 	$.fn.rup_validate("extend",{
 		_init : function(args){
 
 			var self=this,
-			settings = $.extend(true,{},$.fn.rup_validate.defaults, presetSettings.defaultPresetSettings, args[0]);
+			settings = $.extend(true,{},$.fn.rup_validate.defaults, $.fn.rup_validate.presetSettings.defaultPresetSettings, args[0]);
 //			settings = $.extend(true, {}, defaultSettings, args[0]);
 
 
@@ -452,7 +328,7 @@
 
 			// En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
 			if (settings.showFieldErrorAsDefault){
-				settings = $.extend(true,settings,presetSettings.showFieldErrorAsDefault);
+				settings = $.extend(true,settings,$.fn.rup_validate.presetSettings.showFieldErrorAsDefault);
 			}
 			settings = $.extend(true, {}, settings, args[0]);
 			// Se realiza la invocacion al plugin jquery.validate
@@ -588,6 +464,129 @@
 			errorImage:$.rup.STATICS+"/rup/basic-theme/images/exclamation.png"
 	};
 
+	// Propiedades de configuracion predeterminadas para cada una de las posibles parametrizaciones de los errores.
+	$.fn.rup_validate.presetSettings = {
+		// Configruacion del componente por defecto
+		defaultPresetSettings:{
+			showErrors:function(errors){
+				var self = this, invalid, errorText, feedback, field, errorKey, fieldError, fieldErrorMsg, error, label;
+
+				// Se comprueba si el parametro que contiene los errores está vacío. En este caso se
+				if (self.currentElements.length===1){
+					if ($.isEmptyObject(errors)){
+						delete self.invalid[self.currentElements.attr("name")];
+					}
+				}
+
+				/*
+				 * Mostrar mensaje de error de validaciones en el feedback
+				 */
+				feedback = self.settings.feedback;
+				if (self.settings.showErrorsInFeedback && feedback!==undefined && feedback!==null){
+					errorText = $("<ul>").addClass("rup-maint_feedbackUL").prepend(self.settings.feedbackErrorConfig.errorMsg);
+
+					if (jQuery.isEmptyObject(self.invalid)){
+							feedback.rup_feedback("close");
+					}else{
+
+						if (self.settings.showFieldErrorsInFeedback){
+							$.each((!jQuery.isEmptyObject(self.submitted)?self.submitted:self.invalid), function(key,value){
+
+								if (self.invalid[key]!==undefined){
+									field = self.settings.feedbackErrorConfig.getField(self, self.currentForm, key);
+									errorKey = self.settings.feedbackErrorConfig.getFieldName(self, self.currentForm, field);
+									fieldError = self.settings.feedbackErrorConfig.getFieldErrorLabel(self, self.currentForm, field, errorKey);
+
+									fieldErrorMsg = self.settings.feedbackErrorConfig.getFieldErrorMsg(self, self.currentForm, field, value);
+									fieldError.append(fieldErrorMsg);
+									errorText.append(fieldError);
+								}
+
+							});
+						}
+						feedback.rup_feedback("option",self.settings.feedbackOptions);
+						feedback.rup_feedback("set", errorText, "error");
+					}
+				}
+
+				/*
+				 * Mostrar detalle de errores en el feedback
+				 */
+				if (self.settings.showFieldErrorAsDefault){
+					for ( var i = 0; self.errorList[i]; i++ ) {
+
+						error = self.errorList[i];
+
+						if (error.element!==undefined){
+
+							label = self.errorsFor( error.element );
+							if ( label.length ) {
+								label.remove();
+							}
+						}
+					}
+				}
+
+				/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
+				 * no es posible indicarle varios mensajes de error para un campo.
+				 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
+				 */
+				for (var i=0;i<self.errorList.length;i++){
+//					if (self.settings.showFieldErrorAsDefault){
+//						self.errorList[i].message="";
+//					}else
+					if (self.errorList[i].element===undefined){
+						alert("El campo validado no existe en el formulario");
+					}
+					if ($.isArray(self.errorList[i].message)){
+						// En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
+						var newMessage="";
+						for (var j=0;j<self.errorList[i].message.length;j++){
+							newMessage+=self.errorList[i].message[j];
+							if (j!==self.errorList[i].message.length-1){
+								newMessage+=", ";
+							}
+						}
+						self.errorList[i].message=newMessage;
+					}
+				}
+				// Se eliminan los etilos de error previos
+				$("."+self.settings.errorClass+":not(.rup-maint_validateIcon)",self.currentForm).removeClass(self.settings.errorClass);
+				// Se invoca al metodo por defecto del plugin subyacente
+				self.defaultShowErrors();
+			},
+			showErrorsInFeedback:function(errors){
+
+			},
+			errorPlacement:function(label,element){
+
+				if (element.attr("ruptype")==='combo'){
+					var comboElem = $("#"+element.attr("id")+"-button");
+					if (comboElem){
+						label.insertAfter(comboElem);
+					}
+				}else{
+					label.insertAfter(element);
+				}
+			}
+		},
+		// Configuracion de las propiedades a aplicar en caso de que se deban mostrar los errores mediante la visualizacion por defecto.
+		showFieldErrorAsDefault:{
+			errorElement:"img",
+			errorPlacement: function(error, element) {
+				var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
+
+				if (element.attr("ruptype")==='combo'){
+					var comboElem = $("#"+element.attr("id")+"-button");
+					if (comboElem){
+						errorElem.insertAfter(comboElem);
+					}
+				}else{
+					errorElem.insertAfter(element);
+				}
+			}
+		}
+	};
 
 /**
 * Función de callback que se ejecutará cuando el formulario sea válido.
