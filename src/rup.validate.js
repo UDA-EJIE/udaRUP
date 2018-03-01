@@ -558,33 +558,31 @@
 			showErrorsInFeedback:function(errors){
 
 			},
-			errorPlacement:function(label,element){
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						label.insertAfter(comboElem);
-					}
-				}else{
-					label.insertAfter(element);
-				}
-			}
+			errorPlacement:function(error,element){
+                var modifiedError = this.decorateError.call( this, error);
+                this.placeError.call( this, modifiedError, element);
+            },
+            decorateError: function(error) { return error; },
+            placeError: function(error, element) {
+                if (element.attr("ruptype")==='combo') {
+                    var comboElem = $("#"+element.attr("id")+"-button");
+                    if (comboElem) {
+                        error.insertAfter(comboElem);
+                    }
+                } else {
+                    error.insertAfter(element);
+                }
+            }
 		},
 		// Configuracion de las propiedades a aplicar en caso de que se deban mostrar los errores mediante la visualizacion por defecto.
 		showFieldErrorAsDefault:{
 			errorElement:"img",
-			errorPlacement: function(error, element) {
-				var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						errorElem.insertAfter(comboElem);
-					}
-				}else{
-					errorElem.insertAfter(element);
-				}
-			}
+            decorateError: function(error) {
+                return error.attr("src", this.errorImage)
+                        .addClass("rup-maint_validateIcon")
+                        .html('')
+                        .rup_tooltip({"applyToPortal" : true});
+            }
 		}
 	};
 
@@ -652,7 +650,7 @@
 */
 
 /**
-* Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+* Función de callback que permite personalizar el posicionamiento de los mensajes de error.
 *
 * @callback jQuery.rup_validate~onErrorPlacement
 * @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
@@ -661,6 +659,34 @@
 * $("#myform").validate({
 *   errorPlacement: function(error, element) {
 *       error.appendTo( element.parent("td").next("td") );
+*   }
+* });
+*/
+
+/**
+* Función de callback que permite decorar los mensajes de error antes de su posicionamiento.
+*
+* @callback jQuery.rup_validate~onDecorateError
+* @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
+* @example
+* $("#myform").validate({
+*   decorateError: function(error) {
+*       return error.addClass('someClass').wrap($('<span'>)).parent();
+*   }
+* });
+*/
+
+/**
+* Función de callback que posiciona los mensajes de error, ya decorados, en el DOM.
+*
+* @callback jQuery.rup_validate~onPlaceError
+* @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
+* @param {jQuery} element - Referencia al campo validado.
+* @example
+* $("#myform").validate({
+*   placeError: function(error, element) {
+*       var target = element.hasClass('wrapped') ? element.parent() : element;
+*       $.fn.rup_validate.presetSettings.defaultPresetSettings.placeError.call(this, error, target);
 *   }
 * });
 */
@@ -731,7 +757,9 @@
 * @property {Selector} [errorContainer] - Determina un contenedor adicional para los mensajes de error.
 * @property {boolean} [ignoreTitle=false] - Determina si se evita el obtener los mensajes a partir del atributo title.
 * @property {jQuery.rup_validate~onShowErrors} [showErrors] - Función callback para realizar un tratamiento  personalizado de los errores de validación.
-* @property {jQuery.rup_validate~onErrorPlacement} [errorPlacement] - Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+* @property {jQuery.rup_validate~onErrorPlacement} [errorPlacement] - Función de callback que permite personalizar el posicionamiento de los mensajes de error.
+* @property {jQuery.rup_validate~onDecorateError} [decorateError] - Función de callback que permite decorar los mensajes de error antes de su posicionamiento.
+* @property {jQuery.rup_validate~onPlaceError} [placeError] - Función de callback que posiciona los mensajes de error, ya decorados, en el DOM.
 * @property {jQuery.rup_validate~onHighlight} [highlight] - Función de callback para determinar como se debe resaltar los campos inválidos.
 * @property {jQuery.rup_validate~onUnhighlight} [unhighlight] - Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight.
 */
