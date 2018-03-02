@@ -849,6 +849,7 @@ function deselectAllPage(dt){
 function selectAll(dt){
 	DataTable.multiSelect.multiselection.selectedAll = true;
 	DataTable.multiSelect.multiselection.deselectedIds = [];
+	DataTable.multiSelect.multiselection.deselectedRowsPerPage = [];
 	DataTable.multiSelect.multiselection.numSelected = DataTable.settings[0].json.recordsTotal;
 	DataTable.multiSelect.multiselection.accion = "checkAll";
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
@@ -1168,7 +1169,7 @@ function _initializeMultiselectionProps (  ) {
 	$self.multiselection.lastSelectedId = "";
 	//$self.multiselection.selectedPages = [];
 	// Propiedades de deselección de registros
-	//$self.multiselection.deselectedRowsPerPage = [];
+	$self.multiselection.deselectedRowsPerPage = [];
 	//$self.multiselection.deselectedLinesPerPage = [];
 	//$self.multiselection.deselectedRows = [];
 	$self.multiselection.deselectedIds = [];
@@ -1186,6 +1187,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds)
 		if(indexInArray > -1 && !pagina){//Si se encuentra y además no se está paginando.
 			DataTable.multiSelect.multiselection.deselectedIds.splice(indexInArray,1);
+			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(indexInArray,1);
 			if(DataTable.multiSelect.multiselection.numSelected === DataTable.settings[0].json.recordsTotal){
 				DataTable.multiSelect.multiselection.selectedAll = true;
 			}
@@ -1234,7 +1236,31 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 		}
 		//Se mete el id para mantener el selectAll o no.
 		if(id !== undefined && DataTable.multiSelect.multiselection.deselectedIds.indexOf(id) < 0){
-			DataTable.multiSelect.multiselection.deselectedIds.push(id);
+			
+			var pos = 0;
+			var arra = {id:id,page:DataTable.settings[0].json.page,line:line};
+			
+			//Inicio de ordenacion, Se ordena los selected ids.			
+			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+			  if(arra.page < p.page){
+				  pos = index;
+				  return false;
+			  }else if(arra.page === p.page){
+			  // mirar linea
+			  	if(arra.line < p.line){
+			  		pos = index;
+			  		return false;
+			    }else{
+			   	 pos = index+1;//Posible
+			    }
+			  }else if(arra.page > p.page){
+				  pos = index+1;//Posible
+			  }
+			});
+			
+			DataTable.multiSelect.multiselection.deselectedIds.splice(pos,0,id);
+			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(pos,0,arra);
+			DataTable.multiSelect.multiselection.lastSelectedId = '';
 		}
 	}
 }

@@ -175,8 +175,7 @@
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiSelect.multiselection !== undefined && 
-					(DataTable.multiSelect.multiselection.selectedIds.length > 0 || DataTable.multiSelect.multiselection.selectedAll === true)){
+			if(DataTable.multiSelect.multiselection !== undefined && DataTable.multiSelect.multiselection.selectedIds.length > 0){
 				data.multiselection = DataTable.multiSelect.multiselection;
 			}
 			var datatableRequest = new DataTableRequest(data);
