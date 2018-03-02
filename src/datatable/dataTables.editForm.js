@@ -58,7 +58,7 @@ DataTable.editForm.version = '1.2.4';
 
 DataTable.editForm.init = function ( dt ) {
 	DataTable.editForm.iniciado = '';
-	//var api = $.fn.dataTable;
+
 	var ctx = dt.settings()[0];
 	var init = ctx.oInit.multiSelect;
 	var defaults = DataTable.defaults.multiSelect;
@@ -140,7 +140,6 @@ DataTable.editForm.init = function ( dt ) {
 			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 			//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
 			if(DataTable.multiSelect.multiselection.selectedAll){
-				var linkType = 'next';
 				var linea = -1;
 				if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 					linea = ctx.json.rows.length;
@@ -270,6 +269,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
+		//Se limina el lapicero indicador.
+		$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+		//se añade el span con el lapicero
+		var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil');
+		$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil)
+		//Se guarda el ultimo id editado.
+		DataTable.multiSelect.multiselection.lastSelectedId = row.id;
+		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(null, idForm);
@@ -401,7 +408,6 @@ function _callNavigationBar(dt){
 	//Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
 		var $self = this,
-			settings = $self.data('settings'),
 			execute = false,
 			changePage = false,
 			index = 0,
@@ -459,8 +465,8 @@ function _callNavigationBar(dt){
 			}else{
 				ctx.oInit.formEdit.$navigationBar.numPosition++;
 				//2 casos: Si hay que navegar o no.
-				var linea = _getLineByPageSelected(ctx,ctx.oInit.formEdit.$navigationBar.currentPos.line);
-				if(linea === -1){//Es que hay que cambiar de pagina.
+				var lineaNext = _getLineByPageSelected(ctx,ctx.oInit.formEdit.$navigationBar.currentPos.line);
+				if(lineaNext === -1){//Es que hay que cambiar de pagina.
 					//buscarPAgina.
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 					rowSelected.page = _getNextPageSelected (ctx,page+1,'next');
