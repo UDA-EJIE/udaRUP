@@ -405,30 +405,17 @@
 					return $("[name='" + fieldName+"']",form);
 				},
 				getFieldName: function(self, form, field){
-			        var ruptype = field.attr("ruptype"), labelForName, labelElem, fieldTmp, labelForName, labelForId;
+			        var fieldTmp, labelForName, labelForId, labelElem;
 
 			        fieldTmp = jQuery(field.length>1?field[0]:field);
-
-			        labelForName = fieldTmp.attr("name");
-			        labelForId = fieldTmp.attr("id");
-
-			        if (ruptype!==undefined){
-
-			        	if(ruptype==="combo"){
-			        		labelForId = labelForId+"-button";
-			        	}
-
-			        	if(ruptype==="autocomplete"){
-				            labelForId = labelForId+"_label";
-				        }
-			        }
-
+			        labelForName = this.getFieldNameForLabel(self, fieldTmp);
 			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForName);
 
 			        if (labelElem.length>0){
 			            return labelElem.text();
 			        }
 
+                    labelForId = this.getFieldIdForLabel(self, fieldTmp);
 			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForId);
 
 			        if (labelElem.length>0){
@@ -436,6 +423,22 @@
 			        }
 
 			        return fieldTmp.attr("title");
+			    },
+                getFieldNameForLabel: function(self, field) {
+                    return field.attr("name");
+                },
+			    getFieldIdForLabel: function(self, field) {
+			        var ruptype = field.attr("ruptype"),
+			            idForLabel = field.attr("id");
+                    if (typeof ruptype !== 'undefined') {
+                        if (ruptype === 'combo') {
+                            idForLabel = labelForId + '-button';
+                        }
+                        if (ruptype === 'autocomplete'){
+                            idForLabel = labelForId + '_label';
+                        }
+                    }
+                    return idForLabel;
 			    },
 			    findLabelByFor: function(self, form, field, labelFor) {
 			        return field.parent().find("label[for='"+labelFor+"']");
