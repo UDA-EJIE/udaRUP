@@ -1124,7 +1124,7 @@ Buttons.buttonSelector = function ( insts, selector )
  * @static
  */
 Buttons.defaults = {
-	buttons: [ 'copy', 'excel', 'csv', 'pdf', 'print' ],
+	buttons: [ 'copy', 'excel', 'csv', 'pdf', 'print', 'copyCustom' ],
 	name: 'main',
 	tabIndex: 0,
 	dom: {
@@ -1310,6 +1310,11 @@ $.extend( _dtButtons, {
 		}
 		if ( _dtButtons.pdfFlash && _dtButtons.pdfFlash.available( dt, conf ) ) {
 			return 'pdfFlash';
+		}
+	},
+	copyCustom: function ( dt, conf ) {
+		if ( _dtButtons.copyCustom ) {
+			return 'copyCustom';
 		}
 	},
 	pageLength: function ( dt ) {
@@ -1657,9 +1662,6 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 			// Abrimos el formulario
 			//DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
 			alert("TODO: funcioanlidad botón DELETE");
-			break;
-		case 'reports':
-			alert("TODO: funcionalidad botón REPORTS")
 			break;
 		default:
 			console.log("Algo fue mal...");

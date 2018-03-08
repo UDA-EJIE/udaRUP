@@ -21,7 +21,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.buttons','./dataTables.editForm'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.editForm', './addons/buttons.custom'], factory );
 	} else {
 
 		// Browser globals
@@ -328,20 +328,14 @@
             }
         },
 				{
+						extend: 'collection',
             text: 'Informes',
-						className: 'datatable_toolbar_btnReports',
-						enabled: true,
-						init: function ( dt, node, config ) {
-							var that = this;
-							var buttonName = 'reportsButton';
-							var onlyWhenRowSelected = false;
-              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
-            },
-						action: function ( e, dt, node, config ) {
-							var type = "reports";
-							DataTable.Api().buttons.actions(dt, type);
-            }
-        }
+						className: 'align-right',
+						autoClose: true,
+						buttons: [
+							'copyCustom'
+						]
+				}
     ],
 		formEdit:{//Revisar si se mete en el plugin
       detailForm: "#table_detail_div",
