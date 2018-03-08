@@ -575,6 +575,11 @@ function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
 	var rowDefault = {id:0,page:1,line:0};
 	if(!DataTable.multiSelect.multiselection.selectedAll){
+		//Si no hay un ultimo señalado se coge el ultimo;
+		var lastSelectedId = DataTable.multiSelect.multiselection.lastSelectedId;
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			DataTable.multiSelect.multiselection.lastSelectedId = DataTable.multiSelect.multiselection.selectedRowsPerPage[0].id;
+		}
 		$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
 			if(p.id === DataTable.multiSelect.multiselection.lastSelectedId){
 				rowDefault.id = p.id;
