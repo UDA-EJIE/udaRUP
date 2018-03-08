@@ -1644,24 +1644,34 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 			var idTableDetail = ctx.oInit.formEdit.detailForm;
 			// Limpiamos el formulario
 			$(idTableDetail).find('form')[0].reset();
-			// Abrimos el formulario
-			DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+			if(DataTable.multiSelect.multiselection.numSelected > 0){
+				$.rup_messages('msgConfirm', {
+					message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
+					title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					OKFunction: function () {
+						// Abrimos el formulario
+						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
+						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+					}
+				});	
+			}else{
+				DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+			}		
 			break;
 		case 'edit':
 			// Abrimos el formulario
 			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = DataTable.Api().editForm.getRowSelected(dt).line;		
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;		
 			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			break;
 		case 'clone':
 			// Abrimos el formulario
-			//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
-			alert("TODO: funcioanlidad botón CLONE");
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;		
+			DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
 			break;
 		case 'delete':
-			// Abrimos el formulario
-			//DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
-			alert("TODO: funcioanlidad botón DELETE");
+			// borramos todos los seleccioandos.
+			DataTable.Api().editForm.deleteAllSelects(dt);
 			break;
 		default:
 			console.log("Algo fue mal...");
