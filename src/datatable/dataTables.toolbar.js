@@ -1656,18 +1656,17 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 		case 'edit':
 			// Abrimos el formulario
 			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = DataTable.Api().editForm.getRowSelected(dt).line;		
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;		
 			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			break;
 		case 'clone':
 			// Abrimos el formulario
-			//DataTable.Api().editForm.openSaveDialog('POST', dt, ctx, null);
-			alert("TODO: funcioanlidad botón CLONE");
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;		
+			DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
 			break;
 		case 'delete':
-			// Abrimos el formulario
-			//DataTable.Api().editForm.openSaveDialog('DELETE', dt, ctx, null);
-			alert("TODO: funcioanlidad botón DELETE");
+			// borramos todos los seleccioandos.
+			DataTable.Api().editForm.deleteAllSelects(dt);
 			break;
 		case 'reports':
 			alert("TODO: funcionalidad botón REPORTS")

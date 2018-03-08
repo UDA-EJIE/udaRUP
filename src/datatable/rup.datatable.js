@@ -162,6 +162,7 @@
 			ret.recordsTotal = json.records;
 			ret.recordsFiltered = json.records;
 			ret.data = json.rows;
+			DataTable.Api().multiSelect.reorderDataFromServer(json);
 			return ret.data;
 
 		},
@@ -265,6 +266,8 @@
 			}
 		},
     dom: 'Bfitprl',
+    multiplePkToken: '~',
+    primaryKey:["id"],
     searchPaginator:true,
 		buttons: [
         {

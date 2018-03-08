@@ -585,6 +585,19 @@ function init ( ctx ) {
 	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
 		info( api );
 		_drawSelectId(api);
+		//Comprobar si hay algun feedback activado
+		var feedback = DataTable.multiSelect.multiselection.internalFeedback;
+		 if(feedback.type !== undefined && feedback.type === 'eliminar'){
+			 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
+				feedback.rup_feedback({message:feedback.msgFeedBack,type:"ok",block:false});
+				//Aseguramos que el estilo es correcto.
+				setTimeout(function(){
+					feedback.rup_feedback('destroy');
+					feedback.css('width','100%');
+				}, confDelay);
+				feedback.type = '';
+				feedback.msgFeedBack = '';
+		 }
 	} );
 
 	// Clean up and release
@@ -821,6 +834,7 @@ function selectAllPage(dt){
 	if(!DataTable.multiSelect.multiselection.selectedAll || 
 			(DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.deselectedIds.length  > 0)){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
+		DataTable.multiSelect.multiselection.internalFeedback.type = 'fijo';
 	}
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
@@ -841,6 +855,7 @@ function deselectAllPage(dt){
 	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
 	if(DataTable.multiSelect.multiselection.numSelected  > 0){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
+		DataTable.multiSelect.multiselection.internalFeedback.type = 'fijo';
 	}
 	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
 		deselectAll(dt);
@@ -1273,6 +1288,22 @@ apiRegister( 'multiSelect.deselectAll()', function ( dt ) {
 	deselectAll(dt);
 } );
 
+apiRegister( 'multiSelect.reorderDataFromServer()', function ( json ) {
+	//Se mira la nueva reordenacion y se ordena.
+	DataTable.multiSelect.multiselection.selectedIds = [];
+	DataTable.multiSelect.multiselection.selectedRowsPerPage = [];
+	//Viene del servidor por eso la linea de la pagina es 1 menos.
+	$.each(json.reorderedSelection,function(index,p) {
+		var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
+		DataTable.multiSelect.multiselection.selectedIds.splice(index,0,arra.id);
+		DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(index,0,arra);
+	});
+	if(!DataTable.multiSelect.multiselection.selectedAll){
+		DataTable.multiSelect.multiselection.numSelected = DataTable.multiSelect.multiselection.selectedIds.length;
+	}
+} );
+
+
 apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( multiSelect ) {
 	var api = this;
 	var DataTable = $.fn.dataTable;
@@ -1280,12 +1311,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	//Al pagina comprobar el checkGeneral.
 	
 	//Se miral si hay feedback y en ese caso se elimina.
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1){
+	var feedBack = DataTable.multiSelect.multiselection.internalFeedback;
+	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback('destroy');
-		//Al reiniciar las properties
-		//Se genera el div para el feedback del datatable.
-		//var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + dt.context[0].sTableId).insertBefore('#' + dt.context[0].sTableId).css('width','100%');
-		//DataTable.multiSelect.multiselection.internalFeedback = divFeedback;
 		DataTable.multiSelect.multiselection.internalFeedback.css('width','100%');
 	}
 
@@ -1332,15 +1360,6 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 				}
 			});
 		}
-		//Se mira la nueva reordenacion y se ordena.
-		DataTable.multiSelect.multiselection.selectedIds = [];
-		DataTable.multiSelect.multiselection.selectedRowsPerPage = [];
-		//Viene del servidor por eso la linea de la pagina es 1 menos.
-		$.each(DataTable.settings[0].json.reorderedSelection,function(index,p) {
-			var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
-			DataTable.multiSelect.multiselection.selectedIds.splice(index,0,arra.id);
-			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(index,0,arra);
-		});
 	}
 	this.iterator( 'table', function ( ctx, i ) {
 		eventTrigger( api, 'select', [ 'row', api[i] ], true );
@@ -1420,7 +1439,8 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	var DataTable = $.fn.dataTable;
 	
 	//Se miral si hay feedback y en ese caso se elimina.
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1){
+	var feedBack = DataTable.multiSelect.multiselection.internalFeedback;
+	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback('destroy');
 		DataTable.multiSelect.multiselection.internalFeedback.css('width','100%');
 	}
