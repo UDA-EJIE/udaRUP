@@ -277,8 +277,8 @@
 						init: function ( dt, node, config ) {
 							var that = this;
 							var buttonName = 'addButton';
-							var onlyWhenRowSelected = false;
-              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+							var displayRegex = /^\d+$/; // Se muestra siempre que sea un numero positivo o neutro
+              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
             },
 						action: function ( e, dt, node, config ) {
 							var type = "add";
@@ -292,8 +292,8 @@
 						init: function ( dt, node, config ) {
 							var that = this;
 							var buttonName = 'editButton';
-							var onlyWhenRowSelected = true;
-              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+							var displayRegex = /^[1-9][0-9]*$/; // Se muestra siempre que sea un numero mayor a 0
+              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
             },
 						action: function ( e, dt, node, config ) {
 							var type = "edit";
@@ -307,8 +307,8 @@
 						init: function ( dt, node, config ) {
 							var that = this;
 							var buttonName = 'cloneButton';
-							var onlyWhenRowSelected = true;
-              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+							var displayRegex = /^1$/; // Se muestra solo cuando sea igual a 1
+              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
             },
 						action: function ( e, dt, node, config ) {
 							var type = "clone";
@@ -322,8 +322,8 @@
 						init: function ( dt, node, config ) {
 							var that = this;
 							var buttonName = 'deleteButton';
-							var onlyWhenRowSelected = true;
-              DataTable.Api().buttons.init(that, dt, node, buttonName, onlyWhenRowSelected);
+							var displayRegex = /^[1-9][0-9]*$/; // Se muestra siempre que sea un numero mayor a 0
+              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
             },
 						action: function ( e, dt, node, config ) {
 							var type = "delete";

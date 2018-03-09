@@ -1614,20 +1614,19 @@ DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
 } );
 
 // TODO: falta la descripcion
-DataTable.Api.register( 'buttons.init()', function ( that, dt, node, buttonName, onlyWhenRowSelected ) {
-	// Solamente se activara el evento en aquellos botones que asi se haya
-	// especificado.
-	if (onlyWhenRowSelected) {
-		// Añadimos el evento al boton con el que se detecta si hay alguna fila
-		// de la tabla marcada o no. En caso de haber alguna marcada, habilitamos
-		// el boton, si no, se queda oculto.
-		dt.on( 'select.dt.DT deselect.dt.DT', function () {
-				var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
-				that.enable( numOfSelectedRows ? true : false );
-		} );
-
-		that.disable();
-	}
+DataTable.Api.register( 'buttons.init()', function ( that, dt, node, buttonName, displayRegex ) {
+	// Evento que detecta cuando se marca una fila del datatable
+	dt.on( 'select.dt.DT deselect.dt.DT', function () {
+		  var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+			// oculto
+			if (displayRegex.test(numOfSelectedRows)) {
+				that.enable();
+			} else {
+				that.disable();
+			}
+	} );
 
 	var ctx = dt.settings()[0];
 	var idTableDetail = ctx.oInit.formEdit.detailForm;
