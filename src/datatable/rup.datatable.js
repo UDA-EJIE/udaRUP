@@ -272,14 +272,11 @@
 		buttons: [
         {
 						text: 'Añadir',
+						id: 'addButton_1',
 						className: 'datatable_toolbar_btnAdd',
 						enabled: true,
-						init: function ( dt, node, config ) {
-							var that = this;
-							var buttonName = 'addButton';
-							var displayRegex = /^\d+$/; // Se muestra siempre que sea un numero positivo o neutro
-              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
-            },
+						displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+						insideContextMenu: true,
 						action: function ( e, dt, node, config ) {
 							var type = "add";
 							DataTable.Api().buttons.actions(dt, type);
@@ -287,14 +284,11 @@
         },
 				{
             text: 'Editar',
+						id: 'editButton_1',
 						className: 'datatable_toolbar_btnEdit',
 						enabled: false,
-						init: function ( dt, node, config ) {
-							var that = this;
-							var buttonName = 'editButton';
-							var displayRegex = /^[1-9][0-9]*$/; // Se muestra siempre que sea un numero mayor a 0
-              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
-            },
+						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+						insideContextMenu: true,
 						action: function ( e, dt, node, config ) {
 							var type = "edit";
 							DataTable.Api().buttons.actions(dt, type);
@@ -302,14 +296,11 @@
         },
 				{
             text: 'Clonar',
+						id: 'cloneButton_1',
 						className: 'datatable_toolbar_btnClone',
 						enabled: false,
-						init: function ( dt, node, config ) {
-							var that = this;
-							var buttonName = 'cloneButton';
-							var displayRegex = /^1$/; // Se muestra solo cuando sea igual a 1
-              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
-            },
+						displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
+						insideContextMenu: true,
 						action: function ( e, dt, node, config ) {
 							var type = "clone";
 							DataTable.Api().buttons.actions(dt, type);
@@ -317,14 +308,11 @@
         },
 				{
             text: 'Eliminar',
+						id: 'deleteButton_1',
 						className: 'datatable_toolbar_btnDelete',
 						enabled: false,
-						init: function ( dt, node, config ) {
-							var that = this;
-							var buttonName = 'deleteButton';
-							var displayRegex = /^[1-9][0-9]*$/; // Se muestra siempre que sea un numero mayor a 0
-              DataTable.Api().buttons.init(that, dt, node, buttonName, displayRegex);
-            },
+						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+						insideContextMenu: true,
 						action: function ( e, dt, node, config ) {
 							var type = "delete";
 							DataTable.Api().buttons.actions(dt, type);
@@ -333,6 +321,7 @@
 				{
 						extend: 'collection',
             text: 'Informes',
+						id: 'informes_01',
 						className: 'align-right',
 						autoClose: true,
 						buttons: [

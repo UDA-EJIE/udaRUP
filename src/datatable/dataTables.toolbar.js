@@ -39,6 +39,9 @@ var _instCounter = 0;
 // Button namespacing counter for namespacing events on individual buttons
 var _buttonCounter = 0;
 
+// Default ID naming counter
+var _buttonIdCounter = 1;
+
 var _dtButtons = DataTable.ext.buttons;
 
 /**
@@ -587,6 +590,13 @@ $.extend( Buttons.prototype, {
 
 		if ( config.enabled === false ) {
 			button.addClass( buttonDom.disabled );
+		}
+
+		if ( config.id ) {
+			button.attr( 'id', config.id );
+		} else {
+			config.id = 'toolbarButton_'+(_buttonIdCounter++);
+			button.attr( 'id', config.id );
 		}
 
 		if ( config.className ) {
@@ -1614,27 +1624,6 @@ DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
 } );
 
 // TODO: falta la descripcion
-DataTable.Api.register( 'buttons.init()', function ( that, dt, node, buttonName, displayRegex ) {
-	// Evento que detecta cuando se marca una fila del datatable
-	dt.on( 'select.dt.DT deselect.dt.DT', function () {
-		  var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
-			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
-			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
-			// oculto
-			if (displayRegex.test(numOfSelectedRows)) {
-				that.enable();
-			} else {
-				that.disable();
-			}
-	} );
-
-	var ctx = dt.settings()[0];
-	var idTableDetail = ctx.oInit.formEdit.detailForm;
-	// Le damos un id unico al boton
-	node.attr('id', buttonName + '##' + ctx.nTable.id);
-} );
-
-// TODO: falta la descripcion
 DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 	var ctx = dt.settings()[0];
 	// Añade aquí las funciones de tus botones
@@ -1912,6 +1901,27 @@ $(document).on( 'init.dt plugin-init.dt', function (e, settings) {
 	if ( opts && ! settings._buttons ) {
 		new Buttons( settings, opts ).container();
 	}
+} );
+
+$(document).on( 'init.dt', function (e, settings) {
+	var opts = settings._buttons[0].inst.s.buttons;
+	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
+	$('#' + settings.sTableId).DataTable().on( 'select deselect', function ( e, dt, type, indexes ) {
+		var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+		$.each(opts, function (i) {
+			// Comprueba si tiene un regex asociado
+			if (opts[i].conf.displayRegex != undefined) {
+				// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+				// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+				// oculto
+				if (opts[i].conf.displayRegex.test(numOfSelectedRows)) {
+					$('#' + opts[i].conf.id).removeClass('disabled');
+				} else {
+					$('#' + opts[i].conf.id).addClass('disabled');
+				}
+			}
+		});
+	} );
 } );
 
 // DataTables `dom` feature option
