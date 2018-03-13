@@ -104,6 +104,22 @@ DataTable.editForm.init = function ( dt ) {
 		DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
 	} );
 	
+	//Crear COntext menu
+	var prueba = false;
+	if(DataTable.multiSelect.multiselection.selectedIds.length > 0){
+		prueba = true;
+	}
+	var trs = $('#'+ctx.sTableId+' > tbody > tr');
+	trs.rup_contextMenu({
+		callback: function(key, options) {
+			alert("clicked: " + key); 
+	    },
+		items: {
+	        "edit": {name: "Clickable", icon: "edit", disabled: false},
+	        "cut": {name: "Disabled", icon: "cut", disabled: prueba}
+		}
+	});
+	
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
 		// si es igual no hacer nada.
@@ -258,6 +274,13 @@ function eventTrigger ( api, type, args, any )
 DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idRow){
 	var ctx = dt.settings()[0];
 	var idForm = ctx.oInit.formEdit.idForm;
+	
+	//Se limpia los errores. Si hubiese
+	var feed = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+	var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#'+feed[0].id + '_ok');
+	if(divErrorFeedback.length > 0){
+		divErrorFeedback.hide();
+	}
 	
 	//se añade el boton de guardar
 	var button = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save');
