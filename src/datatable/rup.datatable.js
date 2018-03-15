@@ -21,7 +21,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.editForm', './addons/buttons.custom'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.toolbar','./dataTables.editForm','./dataTables.seeker', './addons/buttons.custom'], factory );
 	} else {
 
 		// Browser globals
@@ -163,6 +163,7 @@
 			ret.recordsFiltered = json.records;
 			ret.data = json.rows;
 			DataTable.Api().multiSelect.reorderDataFromServer(json);
+
 			return ret.data;
 
 		},
@@ -212,6 +213,13 @@
 				//Sacar un error
 			}
 			
+		},
+		_clearFilter(options) {
+			var $self = this;
+
+			options.$filterForm.resetForm();
+			$self.DataTable().ajax.reload();
+
 		}
 	});
 
@@ -265,7 +273,7 @@
 				delay:1000
 			}
 		},
-    dom: 'Bfitprl',
+    dom: 'Bitprl',
     multiplePkToken: '~',
     primaryKey:["id"],
     searchPaginator:true,
