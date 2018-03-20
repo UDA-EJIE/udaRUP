@@ -588,10 +588,6 @@ $.extend( Buttons.prototype, {
 			button.html( text( config.text ) );
 		}
 
-		if ( config.enabled === false ) {
-			button.addClass( buttonDom.disabled );
-		}
-
 		if ( config.id ) {
 			button.attr( 'id', config.id );
 		} else {
@@ -613,6 +609,33 @@ $.extend( Buttons.prototype, {
 
 		if ( ! config.namespace ) {
 			config.namespace = '.dt-button-'+(_buttonCounter++);
+		}
+
+		if ( !config.icon ) {
+			// Comprueba si es alguno de los botones con iconos definidos por defecto
+			switch (config.type) {
+				case 'add':
+					config.icon = "fa-file-o";
+					break;
+				case 'edit':
+					config.icon = "fa-pencil-square-o";
+					break;
+				case 'clone':
+					config.icon = "fa-clone";
+					break;
+				case 'delete':
+					config.icon = "fa-trash-o";
+					break;
+				case 'reports':
+					config.icon = "fa-cog";
+					break;
+				case 'copyCustom':
+					config.icon = "fa-clipboard";
+					break;
+				default:
+					// TODO: hay que elegir un icono por defecto
+					config.icon = "";
+			}
 		}
 
 		var buttonContainer = this.c.dom.buttonContainer;
@@ -1624,10 +1647,10 @@ DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
 } );
 
 // TODO: falta la descripcion
-DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
+DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 	var ctx = dt.settings()[0];
 	// Añade aquí las funciones de tus botones
-	switch (type) {
+	switch (config.type) {
 		case 'add':
 			var idTableDetail = ctx.oInit.formEdit.detailForm;
 			// Limpiamos el formulario
@@ -1641,28 +1664,28 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, type ) {
 						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
 						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 					}
-				});	
+				});
 			}else{
 				DataTable.Api().editForm.openSaveDialog('POST', dt, null);
-			}		
+			}
 			break;
 		case 'edit':
 			// Abrimos el formulario
 			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;		
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
 			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			break;
 		case 'clone':
 			// Abrimos el formulario
-			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;		
+			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;
 			DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
 			break;
 		case 'delete':
-			// borramos todos los seleccioandos.
+			// borramos todos los seleccionados.
 			DataTable.Api().editForm.deleteAllSelects(dt);
 			break;
 		default:
-			console.log("Algo fue mal...");
+			// TODO: dar algun comportamiento por defecto
 	}
 } );
 
@@ -1875,6 +1898,72 @@ var _exportData = function ( dt, inOpts )
 	};
 };
 
+/**
+ * Activa el boton y su opcion dentro del context menu
+ *
+ * @param {string} id	Id of the button
+ */
+var _enableButtonAndContextMenuOption = function ( id )
+{
+	$('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledDatatable');
+};
+
+/**
+ * Desactiva el boton y su opcion dentro del context menu
+ *
+ * @param {string} id	Id of the button
+ */
+var _disableButtonAndContextMenuOption = function ( id )
+{
+	$('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledDatatable');
+};
+
+/**
+ * Gestiona la propiedad de activado/desactivado de los botones y de sus opciones
+ * dentro del context menu.
+ *
+ * @param {object} opts	Buttons properties
+ * @param {int} numOfSelectedRows	Number of selected rows
+ * @param {undefined|string} collectionId	Id of the collection
+ */
+var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionId )
+{
+	// Entran los botones que pertenecen a una coleccion
+	if (opts.inCollection) {
+		// Si el boton padre de la coleccion esta deshabilitado, desactiva los hijos
+		// independientemente de su configuracion
+		if ($('#' + collectionId).hasClass('disabledDatatable')) {
+			// Deshabilita el boton y su opcion dentro del context menu
+			_disableButtonAndContextMenuOption(opts.conf.id);
+		} else {
+			// Habilita el boton y su opcion dentro del context menu
+			_enableButtonAndContextMenuOption(opts.conf.id);
+		}
+	}
+	// Entran los botones que ni forman ni pertenecen a una coleccion
+	else {
+		// Si el boton no tiene un regex definido, permanecera siempre desactivado
+		if (opts.conf.displayRegex === undefined) {
+			// Deshabilita el boton y su opcion dentro del context menu
+			_disableButtonAndContextMenuOption(opts.conf.id);
+		}
+		// Si tiene un regex definido, lo activa y desactiva en funcion de este
+		else if (opts.conf.displayRegex !== undefined) {
+			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+			// oculto
+			if (opts.conf.displayRegex.test(numOfSelectedRows)) {
+				// Habilita el boton y su opcion dentro del context menu
+				_enableButtonAndContextMenuOption(opts.conf.id);
+			} else {
+				// Deshabilita el boton y su opcion dentro del context menu
+				_disableButtonAndContextMenuOption(opts.conf.id);
+			}
+		}
+	}
+};
+
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables interface
@@ -1905,20 +1994,55 @@ $(document).on( 'init.dt plugin-init.dt', function (e, settings) {
 
 $(document).on( 'init.dt', function (e, settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+	var collectionId;
+
+	$.each(opts, function (i) {
+		// Activa/desactiva los botones en el inicio en funcion del regex que tengan
+		// asociado
+		collectionId = null;
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionId);
+		// Comprueba si tiene botones hijos
+		if (this.buttons.length > 0) {
+			collectionId = this.conf.id;
+			$.each(this.buttons, function (i) {
+				_manageButtonsAndButtonsContextMenu(this, numOfSelectedRows, collectionId);
+			});
+		}
+		// Comprueba si tiene un icono asociado
+		if (this.conf.icon !== undefined) {
+			// Establece el icono de los botones
+			$('#' + this.conf.id).prepend('<i class="fa ' + this.conf.icon + ' right-separator" aria-hidden="true"></i>');
+			// Comprueba si tiene botones hijos
+			if (this.buttons.length > 0) {
+				// Añadimos un evento para cuando se pulse sobre el boton padre, se le
+				// asignen los iconos a los hijos
+				$('#' + this.conf.id)[0].addEventListener('click', function eventHandler() {
+					var that = this;
+					$.each(opts[i].buttons, function (i) {
+						var selectorCollection = $('#' + this.conf.id);
+						// Establece el icono de los botones hijos
+						selectorCollection.prepend('<i class="fa ' + this.conf.icon + ' right-separator" aria-hidden="true"></i>');
+						that.removeEventListener('click', eventHandler);
+					});
+				}, false);
+			}
+		}
+	});
+
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'select deselect', function ( e, dt, type, indexes ) {
+	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function ( e, dt, type, indexes ) {
 		var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+		var collectionId;
 		$.each(opts, function (i) {
-			// Comprueba si tiene un regex asociado
-			if (opts[i].conf.displayRegex != undefined) {
-				// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
-				// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
-				// oculto
-				if (opts[i].conf.displayRegex.test(numOfSelectedRows)) {
-					$('#' + opts[i].conf.id).removeClass('disabled');
-				} else {
-					$('#' + opts[i].conf.id).addClass('disabled');
-				}
+			collectionId = null;
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionId);
+			// Comprueba si tiene botones hijos
+			if (this.buttons.length > 0) {
+				collectionId = this.conf.id;
+				$.each(this.buttons, function (i) {
+					_manageButtonsAndButtonsContextMenu(this, numOfSelectedRows, collectionId);
+				});
 			}
 		});
 	} );

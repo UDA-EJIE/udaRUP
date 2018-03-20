@@ -98,15 +98,19 @@ var _reportsCopyAllDataToClipBoard = function ( dt, that, exportDataRows, hidden
 // Copy to clipboard
 //
 DataTable.ext.buttons.copyCustom = {
+	text: 'Copiar',
 	className: 'buttons-copyCustom',
-
-	text: function ( dt ) {
-		return dt.i18n( 'buttons.copy', 'Copy' );
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	insideContextMenu: true,
+	type: 'copyCustom',
+	init: function ( dt, node, config ) {
+		DataTable.ext.buttons.copyCustom.eventDT = dt;
 	},
-
 	action: function ( e, dt, button, config ) {
 		// TODO: hay que controlar el caso de copia, si es multiple, todos, etc.
-		this.processing( true );
+		if (this.processing !== undefined) {
+			this.processing( true );
+		}
 
 		var that = this;
 		var ctx = dt.settings()[0];
@@ -146,7 +150,9 @@ DataTable.ext.buttons.copyCustom = {
 				CANCELFunction: function (){
 					ctx.oInit.formEdit.okCallBack = false
 
-					that.processing( false ); // FIXME: si cerramos con el aspa no lo hace
+					if (this.processing !== undefined) {
+						this.processing( false ); // FIXME: si cerramos con el aspa no lo hace
+					}
 				}
 			});
 		});

@@ -274,48 +274,44 @@
 						text: 'Añadir',
 						id: 'addButton_1',
 						className: 'datatable_toolbar_btnAdd',
-						enabled: true,
 						displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
 						insideContextMenu: true,
+						type: 'add',
 						action: function ( e, dt, node, config ) {
-							var type = "add";
-							DataTable.Api().buttons.actions(dt, type);
+							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
             text: 'Editar',
 						id: 'editButton_1',
 						className: 'datatable_toolbar_btnEdit',
-						enabled: false,
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 						insideContextMenu: true,
+						type: 'edit',
 						action: function ( e, dt, node, config ) {
-							var type = "edit";
-							DataTable.Api().buttons.actions(dt, type);
+							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
             text: 'Clonar',
 						id: 'cloneButton_1',
 						className: 'datatable_toolbar_btnClone',
-						enabled: false,
 						displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
 						insideContextMenu: true,
+						type: 'clone',
 						action: function ( e, dt, node, config ) {
-							var type = "clone";
-							DataTable.Api().buttons.actions(dt, type);
+							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
             text: 'Eliminar',
 						id: 'deleteButton_1',
 						className: 'datatable_toolbar_btnDelete',
-						enabled: false,
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 						insideContextMenu: true,
+						type: 'delete',
 						action: function ( e, dt, node, config ) {
-							var type = "delete";
-							DataTable.Api().buttons.actions(dt, type);
+							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
@@ -323,7 +319,9 @@
             text: 'Informes',
 						id: 'informes_01',
 						className: 'align-right',
+						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 						autoClose: true,
+						type: 'reports',
 						buttons: [
 							'copyCustom'
 						]
