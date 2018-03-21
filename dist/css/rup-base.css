@@ -5734,6 +5734,11 @@ table.dataTable, table.dataTable th, table.dataTable td {
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em; } }
 
+tfoot input {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box; }
+
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
 
