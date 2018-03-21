@@ -6090,7 +6090,9 @@ div.dt-button-background {
 @media screen and (max-width: 640px) {
   div.dt-buttons {
     float: none !important;
-    text-align: center; } }
+    text-align: center; }
+  .align-right {
+    float: none !important; } }
 
 button.dt-button.processing, .dt-button.processing.ui-button.rup-button, .rup-dropdown-btn-group .dt-button.processing.rup-dropdown-button, a.dt-button.processing.rup-toolbar_menuButton.ui-button, .rup-wizard a.dt-button.processing.rup-wizard_next, .rup-wizard a.dt-button.processing.rup-wizard_prev, .rup-wizard .dt-button.processing.rup-wizard_submitButton, div.dt-button.processing, a.dt-button.processing {
   color: rgba(0, 0, 0, 0.2); }
