@@ -841,6 +841,7 @@ function selectAllPage(dt){
 	});
 	//Se deja marcado el primero de la pagina.
 	DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
+	DataTable.Api().multiSelect.selectPencil(dt.settings()[0],0);
 }
 
 function deselectAllPage(dt){
@@ -1044,6 +1045,7 @@ function _initializeMultiselectionProps (  ) {
 	//$self.multiselection.deselectedPages = [];
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+	DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 	return $self.multiselection;
 } ;
 
@@ -1087,6 +1089,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,arra);
 			DataTable.multiSelect.multiselection.lastSelectedId = id;
+			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],line);
 			
 			//FIn ordenacion
 		}
@@ -1097,6 +1100,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			DataTable.multiSelect.multiselection.selectedIds.splice(indexInArray,1);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(indexInArray,1);
 			DataTable.multiSelect.multiselection.lastSelectedId = "";
+			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 			if(DataTable.multiSelect.multiselection.numSelected === 0){
 				DataTable.multiSelect.multiselection.selectedAll = false
 			}
@@ -1128,6 +1132,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			DataTable.multiSelect.multiselection.deselectedIds.splice(pos,0,id);
 			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(pos,0,arra);
 			DataTable.multiSelect.multiselection.lastSelectedId = '';
+			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 		}
 	}
 }
@@ -1303,6 +1308,15 @@ apiRegister( 'multiSelect.reorderDataFromServer()', function ( json ) {
 	}
 } );
 
+apiRegister( 'multiSelect.selectPencil()', function ( ctx,idRow ) {
+	//Se limina el lapicero indicador.
+	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+	//se añade el span con el lapicero
+	if(idRow >= 0){
+		var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil').css('float','right');
+		$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+	}
+} );
 
 apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( multiSelect ) {
 	var api = this;

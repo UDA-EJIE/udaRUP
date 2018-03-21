@@ -182,6 +182,7 @@
 			}
 			var datatableRequest = new DataTableRequest(data);
 			var json = $.extend({}, data, datatableRequest.getData());
+			options.aBaseJson = json;
 			return JSON.stringify(json);
 
 
@@ -240,6 +241,14 @@
 			if(settings.searchPaginator){
 				tabla.on( 'draw', function (e,settingsTable) {
 					$self._createSearchPaginator($(this),settingsTable);
+					//Si el seeker esta vacio ocultarlo
+					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined && DataTable.seeker.search.$searchRow !== undefined){
+						if(settingsTable._iRecordsDisplay > 0){
+							DataTable.seeker.search.$searchRow.show();
+						}else{
+							DataTable.seeker.search.$searchRow.hide();
+						}
+					}
 				  });
 			}
 

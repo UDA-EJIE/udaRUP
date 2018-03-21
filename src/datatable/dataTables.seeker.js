@@ -62,6 +62,28 @@ DataTable.seeker.init = function ( dt ) {
 	
 	_createFilterColumn(dt,ctx);
 	
+	var ajaxOptions = {
+			url : ctx.oInit.urlBase+'/search',
+			accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+				'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+				'text':'text/plain','xml':'application/xml, text/xml'},
+			type : 'POST',
+			data : _getDatos(ctx),
+			dataType : 'json',
+			showLoading : false,
+			contentType : 'application/json',
+			async : true,
+			success : function(data, status, xhr) {
+				_processData(dt,ctx,data);
+			},
+			error : function(xhr, ajaxOptions,thrownError) {
+				console.log('Errors '+thrownError+ ": "+xhr.responseText);
+
+			}
+		};
+	
+	DataTable.seeker.ajaxOption = ajaxOptions;
+	
 	//Ver el buscador interno de la tabla.
 	if(ctx.fnRecordsTotal() === 0){
 		DataTable.seeker.search.$searchRow.hide();
@@ -97,7 +119,9 @@ function _createFilterColumn(dt,ctx){
 	   $('#'+idTabla+' tfoot th').each( function () {
 	        var title = $(this).text();
 	        if($(this).index() > 0){
-	        	$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+	        	var position = $(this).index()+1;
+	        	var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
+	        	$(this).html( '<input type="text" placeholder="Search '+title+'" name="'+nombre+'"/>' );
 	        }
 	    } );
 	   
@@ -106,31 +130,9 @@ function _createFilterColumn(dt,ctx){
 		   if(colIdx > 0){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
 		        	this.focus();
-		        	if (ev.keyCode === 13) { //Se hace la llamada de busqueda.
-		        		var datos = $self._ajaxRequestData;
-		        		var ajaxOptions = {
-		        				url : ctx.oInit.urlBase+'/search',
-		        				accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
-		        					'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-		        					'text':'text/plain','xml':'application/xml, text/xml'},
-		        				type : 'POST',
-		        				data : datos,
-		        				dataType : 'json',
-		        				showLoading : false,
-		        				contentType : 'application/json',
-		        				async : true,
-		        				success : function(data, status, xhr) {
-		        					
-		        						
-		        					
-		        				},
-		        				error : function(xhr, ajaxOptions,thrownError) {
-		        					console.log('Errors '+thrownError+ ": "+xhr.responseText);
-
-		        				}
-		        			};
-		        			
-		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        	if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
+		        		DataTable.seeker.ajaxOption.data = _getDatos(ctx);	
+		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', DataTable.seeker.ajaxOption);
 
 		        	}
 		        } );
@@ -200,7 +202,6 @@ function _createSearchRow (dt,ctx){
 		DataTable.seeker.search = DataTable.seeker.search  || {};
 
 		DataTable.seeker.search.created = false;
-		//			settings.search.url = settings.search.url || settings.url+"../search";
 
 		DataTable.seeker.search.$collapseIcon = $collapseIcon;
 		DataTable.seeker.search.$searchRow = $searchRow;
@@ -229,13 +230,16 @@ function _createSearchRow (dt,ctx){
 
 		// Evento de búsqueda asociado al botón
 		$navSearchButton.on('click', function(){
-			$self.rup_table('search');
+			DataTable.seeker.ajaxOption.data = _getDatos(ctx);	
+    		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', DataTable.seeker.ajaxOption);
 		});
 
 		// Evento asociado a limpiar el fomulario de búsqueda
 		$navClearLink.on('click', function(){
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
 			jQuery('tfoot [ruptype=\'combo\']','#'+idTabla).rup_combo('clear');
+			DataTable.seeker.search.funcionParams = {};
+			_processData(dt,ctx,[]);
 		});
 
 		$navLayer.hide();
@@ -248,22 +252,27 @@ function _createSearchRow (dt,ctx){
 
 		// Elemento primero
 		$firstNavLink.on('click', function(){
-			doSearchLinkNavigation(jQuery(this), 'first');
+			DataTable.seeker.search.pos = 0;
+			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
 		});
 
 		// Elemento anterior
 		$backNavLink.on('click', function(){
-			doSearchLinkNavigation(jQuery(this), 'prev');
+			DataTable.seeker.search.pos--;
+			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
 		});
 
 		// Elemento siguiente
 		$forwardNavLink.on('click', function(){
-			doSearchLinkNavigation(jQuery(this), 'next');
+			DataTable.seeker.search.accion = 'next';
+			DataTable.seeker.search.pos++;
+			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
 		});
 
 		// Elemento ultimo
 		$lastNavLink.on('click', function(){
-			doSearchLinkNavigation(jQuery(this), 'last');
+			DataTable.seeker.search.pos = DataTable.seeker.search.funcionParams.length-1;
+			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
 		});
 
 		// Se recubre con un form
@@ -272,8 +281,103 @@ function _createSearchRow (dt,ctx){
 		DataTable.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		DataTable.seeker.search.$searchRow.hide();
         $('#'+idTabla).wrapAll($searchForm);
+        DataTable.seeker.search.pos = 0;
+        DataTable.seeker.search.accion = '';
 }
 
+function _selectSearch(dt,ctx,rows){
+	//Se limina el lapicero indicador.
+	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
+	
+	var accion = DataTable.seeker.search.accion;
+	
+	//se añade el span con el lapicero
+	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
+		/*$.each(rows,function(index,row) {
+			if((row.page !== Number(ctx.json.page) && accion === '') || (row.page > Number(ctx.json.page) && accion === 'next')){//En caso de que los resultados sean de otras paginas, no hacer ya nada.
+				return false;
+			}
+			if(Number(ctx.json.page) === row.page && row.pk.id === ctx.json.rows[row.pageLine-1].id){
+				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search').css('float','right');
+				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[row.pageLine-1]).append(spanSearch);
+				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[row.pageLine-1]).css('padding-right','3px');//Ajustamos el padding.
+			}
+		});*/
+		//Se selecconar el primero y se limpian los datos.
+		var rowSelected = '';
+		
+		$.each(ctx.json.rows, function( idx ,value) {
+			if(rows[DataTable.seeker.search.pos].pageLine-1 === idx){
+				rowSelected = dt.rows().nodes()[idx];				
+			}
+			var result = $.grep(rows, function(v,i) {    
+				return v.pk.id === value.id;	
+			});
+			if(result.length === 1){
+				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search').css('float','right');
+				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch).css('padding-right','3px');//Ajustamos el padding.
+			}
+		});
+		var rowUnique = rows[DataTable.seeker.search.pos];
+		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
+				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id){//si no esta ya seleccionada.
+			dt['row'](rowUnique.pageLine-1).multiSelect();
+		}
+		DataTable.seeker.search.accion = '';
+	}
+}
+
+function _paginar(ctx,dato){
+	var paginar = false;
+	if(dato !== undefined && dato.page !== Number(ctx.json.page)){
+		paginar = true;
+	}
+	
+	return paginar;
+}
+
+function _updateDetailSeekPagination(currentRowNum,totalRowNum){
+
+	if (currentRowNum === 1) {
+		DataTable.seeker.search.$firstNavLink.addClass('ui-state-disabled');
+		DataTable.seeker.search.$backNavLink.addClass('ui-state-disabled');
+	} else {
+		DataTable.seeker.search.$firstNavLink.removeClass('ui-state-disabled');
+		DataTable.seeker.search.$backNavLink.removeClass('ui-state-disabled');
+	}
+	if (currentRowNum === totalRowNum) {
+		DataTable.seeker.search.$forwardNavLink.addClass('ui-state-disabled');
+		DataTable.seeker.search.$lastNavLink.addClass('ui-state-disabled');
+	} else {
+		DataTable.seeker.search.$forwardNavLink.removeClass('ui-state-disabled');
+		DataTable.seeker.search.$lastNavLink.removeClass('ui-state-disabled');
+	}
+
+	DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+}
+
+function _processData(dt,ctx,data){
+	DataTable.Api().multiSelect.deselectAll(dt);
+	if(!_paginar(ctx,data[DataTable.seeker.search.pos])){
+		_selectSearch(dt,ctx,data);
+	}else{
+		var tabla = $('#'+ctx.sTableId);
+		tabla.dataTable().fnPageChange( data[DataTable.seeker.search.pos].page-1 );
+	}
+	DataTable.seeker.search.funcionParams = data;
+	if (data.length === 0){
+		DataTable.seeker.search.$firstNavLink.add(DataTable.seeker.search.$backNavLink).add(DataTable.seeker.search.$forwardNavLink).add(DataTable.seeker.search.$lastNavLink).addClass('ui-state-disabled');
+		DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
+	}else{
+		_updateDetailSeekPagination(DataTable.seeker.search.pos + 1,data.length);
+	}
+}
+
+function _getDatos(ctx){
+	var datos = ctx.aBaseJson;
+	datos.search = form2object($(DataTable.seeker.search.$searchForm.selector)[0]);
+	return datos;
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -288,6 +392,9 @@ apiRegister( 'seeker.eventTrigger()', function ( api, type, args, any ) {
 	DataTable.seeker._eventTrigger(api, type, args, any );
 } );
 
+apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
+	_selectSearch(dt,ctx,rows );
+} );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
