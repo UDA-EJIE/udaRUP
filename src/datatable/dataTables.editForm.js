@@ -217,6 +217,9 @@ DataTable.editForm.init = function ( dt ) {
 			}
 			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+		}else if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek
+					ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+				DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);	
 		}
 	} );
 
@@ -354,11 +357,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
-		//Se limina el lapicero indicador.
-		$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
-		//se añade el span con el lapicero
-		var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil');
-		$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil)
+		DataTable.Api().multiSelect.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
 		DataTable.multiSelect.multiselection.lastSelectedId = row.id;
 		//Se muestra el dialog.
