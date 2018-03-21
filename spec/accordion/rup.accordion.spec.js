@@ -241,6 +241,19 @@ describe('RUP Accordion Tests', function(){
 				});
 			});
 
+			//Implementacion del test de resize
+			describe('$(\'#accordion\').rup_accordion(\'resize\');', () => {
+				let originalHeight;
+				beforeAll(() =>{
+					originalHeight = $accordion.height;
+				});
+
+				it('El tamaño debe cambiar', () => {
+					$accordion.rup_accordion('resize');
+					expect($accordion.height).not.toBe(originalHeight);
+				});
+			});
+			
 			describe('$(\'#accordion\').rup_accordion(\'destroy\');', function(){
 
 				beforeAll(function(){
