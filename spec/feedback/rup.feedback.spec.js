@@ -108,7 +108,16 @@ describe('RUP Feedback Tests', () => {
 			});
 		});
 
+		describe('No mostrar el feedback tras usar close', () => {
+			beforeAll(() => {
+				$feedback.rup_feedback('close');
+			});
+			it('Debe ser visible', () => {
+				expect($feedback.css('visibility')).toBe('hidden');
+			});
+		});
 
+		generalFunc($feedback, ['destroy']);
 
 	});
 
