@@ -20,5 +20,15 @@
     "oAria": {
         "sSortAscending":  ": Zutabea goranzko eran ordenatzeko aktibatu ",
         "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
+    },
+    "toolbar": {
+      "add": "Gehitu",
+      "edit": "Editatu",
+      "clone": "Klonatu",
+      "delete": "Ezabatu",
+      "reports": {
+        "main": "Txostenak",
+        "copyCustom": "Kopiatu"
+      }
     }
 }

@@ -288,7 +288,9 @@
     searchPaginator:true,
 		buttons: [
         {
-						text: 'Añadir',
+						text: function ( dt ) {
+							return dt.i18n( 'toolbar.add', 'Add' );
+						},
 						id: 'addButton_1',
 						className: 'datatable_toolbar_btnAdd',
 						displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
@@ -299,7 +301,9 @@
             }
         },
 				{
-            text: 'Editar',
+						text: function ( dt ) {
+							return dt.i18n( 'toolbar.edit', 'Editar' );
+						},
 						id: 'editButton_1',
 						className: 'datatable_toolbar_btnEdit',
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
@@ -310,7 +314,9 @@
             }
         },
 				{
-            text: 'Clonar',
+						text: function ( dt ) {
+							return dt.i18n( 'toolbar.clone', 'Clonar' );
+						},
 						id: 'cloneButton_1',
 						className: 'datatable_toolbar_btnClone',
 						displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
@@ -321,7 +327,9 @@
             }
         },
 				{
-            text: 'Eliminar',
+						text: function ( dt ) {
+							return dt.i18n( 'toolbar.delete', 'Eliminar' );
+						},
 						id: 'deleteButton_1',
 						className: 'datatable_toolbar_btnDelete',
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
@@ -333,7 +341,9 @@
         },
 				{
 						extend: 'collection',
-            text: 'Informes',
+						text: function ( dt ) {
+							return dt.i18n( 'toolbar.reports.main', 'Informes' );
+						},
 						id: 'informes_01',
 						className: 'align-right',
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0

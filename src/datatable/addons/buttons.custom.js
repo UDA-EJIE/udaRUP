@@ -98,7 +98,9 @@ var _reportsCopyAllDataToClipBoard = function ( dt, that, exportDataRows, hidden
 // Copy to clipboard
 //
 DataTable.ext.buttons.copyCustom = {
-	text: 'Copiar',
+	text: function ( dt ) {
+		return dt.i18n( 'toolbar.reports.copyCustom', 'Copiar' );
+	}
 	className: 'buttons-copyCustom',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 	insideContextMenu: true,

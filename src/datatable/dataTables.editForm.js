@@ -112,10 +112,10 @@ DataTable.editForm.init = function ( dt ) {
 			// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
 			if (this.conf.insideContextMenu) {
 				// Poblamos el objeto 'items' con los botones habilitados
-				items[this.conf.text.toLowerCase()] =
+				items[this.conf.text(dt).toLowerCase()] =
 				{
 					id: this.conf.id + '_contextMenuToolbar',
-					name: this.conf.text,
+					name: this.conf.text(dt),
 					inCollection: this.inCollection,
 					idCollection: undefined
 				}
@@ -127,10 +127,10 @@ DataTable.editForm.init = function ( dt ) {
 					// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
 					if (this.conf.insideContextMenu) {
 						// Poblamos el objeto 'items' con los botones habilitados
-						items[this.conf.text.toLowerCase()] =
+						items[this.conf.text(dt).toLowerCase()] =
 						{
 							id: this.conf.id + '_contextMenuToolbar',
-							name: this.conf.text,
+							name: this.conf.text(dt),
 							inCollection: this.inCollection,
 							idCollection: idCollection
 						}
