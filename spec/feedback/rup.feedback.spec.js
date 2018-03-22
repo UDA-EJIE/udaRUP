@@ -99,6 +99,15 @@ describe('RUP Feedback Tests', () => {
 			});
 		});
 
+		describe('Mostrar el feedback con la función show', () => {
+			beforeAll(() => {
+				$feedback.rup_feedback('show');
+			});
+			it('Debe ser visible', () => {
+				expect($feedback.css('visibility')).toBe('visible');
+			});
+		});
+
 
 
 	});
