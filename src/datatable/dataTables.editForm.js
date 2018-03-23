@@ -217,7 +217,8 @@ DataTable.editForm.init = function ( dt ) {
 			}
 			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
-		}else if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek
+		}
+		if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
 					ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
 				DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);	
 		}

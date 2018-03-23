@@ -3509,6 +3509,11 @@ table.dataTable, table.dataTable th, table.dataTable td {
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em; } }
 
+tfoot input {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box; }
+
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
 
@@ -3884,3 +3889,18 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   -ms-animation: dtb-spinner 1500ms infinite linear;
   -webkit-animation: dtb-spinner 1500ms infinite linear;
   -moz-animation: dtb-spinner 1500ms infinite linear; }
+
+.dt-buttons {
+  width: 100%;
+  margin: 15px 0;
+  padding: 6px;
+  background-color: #e9e9e9; }
+
+.dt-button {
+  margin-top: 0.333em; }
+
+.align-right {
+  float: right; }
+
+.right-separator {
+  margin-right: 5px; }

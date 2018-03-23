@@ -21,6 +21,8 @@
         "sSortAscending":  ": Zutabea goranzko eran ordenatzeko aktibatu ",
         "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
     },
+    "pagina": "{0} orrialdetik  ",
+    "toPagina": "",
     "toolbar": {
       "add": "Gehitu",
       "edit": "Editatu",
