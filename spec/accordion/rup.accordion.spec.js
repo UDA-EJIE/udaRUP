@@ -240,18 +240,6 @@ describe('RUP Accordion Tests', function(){
 					});
 				});
 			});
-
-			describe('$(\'#accordion\').rup_accordion(\'resize\');', () => {
-				var originalHeight;
-				beforeAll( () => {
-					originalHeight = $accordion.height;
-					$accordion.rup_accordion('resize');
-				});
-				it('Debe cambiar la altura.', () => {
-					expect($accordion.height).not.toBe(originalHeight);
-				});
-			});
-
 			describe('$(\'#accordion\').rup_accordion(\'destroy\');', function(){
 
 				beforeAll(function(){
