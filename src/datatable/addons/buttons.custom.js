@@ -37,21 +37,145 @@ var DataTable = $.fn.dataTable;
  */
 
 /**
+* TODO: descripcion
+*
+*/
+var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
+{
+	$.rup_messages('msgConfirm', {
+		title: dt.i18n( 'changes', 'Copia de registros en clipboard' ),
+		message: dt.i18n( 'saveAndContinue', {
+			1: '¿Desea copiar un registro?',
+			_: '¿Desea copiar %d registros?'
+
+		}, exportDataRows ),
+		OKFunction: function () {
+			ctx.oInit.formEdit.okCallBack = true;
+
+			// TODO: controlar los diferentes casos de uso
+			_reportsCopyAllDataToClipBoard(dt, that, exportDataRows, hiddenDiv, textarea);
+
+			ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		},
+		beforeClose: function (){
+			ctx.oInit.formEdit.okCallBack = false
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (that.processing !== undefined) {
+				that.processing( false );
+			}
+		}
+	});
+};
+
+/**
  * TODO: descripcion
  *
  */
-var _reportsRequestAllData = function ()
+var _reportsRequestAllData = function ( ctx )
 {
 	var deferred = $.Deferred();
 	$.ajax({
 		method: "GET",
 		dataType: "json",
-		url: window.location.origin + "/x21aAppWar/jqGridUsuario"
+		url: ctx.oInit.urlBase
 	})
 		.done(function( data ) {
 			deferred.resolve(data);
 		});
 	return deferred.promise();
+};
+
+/**
+ * TODO: descripcion
+ *
+ */
+var _reportsTypeOfCopy = function (ctx, type, selectedRows)
+{
+	var deferred = $.Deferred();
+	var exportData;
+
+	switch (type) {
+		case 'selected':
+			console.log("SELECTED");
+			exportData = selectedRows;
+			deferred.resolve(exportData);
+			break;
+		case 'all':
+			console.log("ALL");
+			$.when(_reportsRequestAllData(ctx)).then(function (data) {
+				ctx.oInit.buttons.allData = data;
+				exportData = ctx.oInit.buttons.allData;
+				deferred.resolve(exportData);
+			});
+			break;
+		// TODO: hacer el case que necesitara un filtro
+		case 'all-deselected':
+			console.log("ALL - DESELECTED");
+
+			//////////////// PROBANDO ////////////////
+			console.log("////////////////////////////////");
+			var datos = $self._ajaxRequestData;
+			var ajaxOptions = {
+				url : ctx.oInit.urlBase,
+				usePlugins:["filter"],
+				filter:{
+					// Propiedades de configuración del plugin filter
+					id: ["05"],
+					nombre: ["as"],
+					fechaAlta: ["13/03/2018"]
+				},
+				success : function(data, status, xhr) {
+					console.log("SUCCESS");
+					deferred.resolve(data);
+					console.log(data);
+				},
+				error : function(xhr, ajaxOptions,thrownError) {
+					console.log('Errors '+thrownError+ ": "+xhr.responseText);
+
+				}
+			};
+			$('#id_filter_table').rup_form('ajaxSubmit', ajaxOptions);
+			console.log("////////////////////////////////");
+			//////////////// PROBANDO ////////////////
+
+			break;
+		default:
+			// TODO: falta dar accion por defecto
+			console.log("DEFAULT");
+	}
+
+	return deferred.promise();
+};
+
+/**
+ * TODO: descripcion
+ *
+ */
+var _reportsCopyData = function ( dt, that, config, type, selectedIds, selectedRows )
+{
+	var ctx = dt.settings()[0];
+	var info = dt.buttons.exportInfo( config );
+
+	$.when(_reportsTypeOfCopy(ctx, type, selectedRows)).then(function (exportData) {
+		var exportDataRows = exportData.length;
+
+		var hiddenDiv = $('<div/>')
+			.css( {
+				height: 1,
+				width: 1,
+				overflow: 'hidden',
+				position: 'fixed',
+				top: 0,
+				left: 0
+			} );
+
+		var textarea = $('<textarea readonly/>')
+			.val( exportData )
+			.appendTo( hiddenDiv );
+
+		_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
+	});
 };
 
 /**
@@ -72,20 +196,66 @@ var _reportsCopyAllDataToClipBoard = function ( dt, that, exportDataRows, hidden
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n( 'buttons.copyTitle', 'Copy to clipboard' ),
-					dt.i18n( 'buttons.copySuccess', {
-						1: 'Copied one row to clipboard',
-						_: 'Copied %d rows to clipboard'
+					dt.i18n( 'changes', 'Copia de registros en clipboard' ),
+					dt.i18n( 'saved', {
+						1: 'Copiado un registro al portapapeles',
+						_: 'Copiados %d registros al portapapeles'
 					}, exportDataRows ),
 					2000
 				);
-
-				that.processing( false );
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (that.processing !== undefined) {
+					that.processing( false );
+				}
 				return;
 			}
 		}
 		catch (t) {}
 	}
+
+	// Otherwise we show the text box and instruct the user to use it
+	var message = $('<span>'+dt.i18n( 'copyKeys',
+		'Presiona <i>ctrl</i> o <i>\u2318</i> + <i>C</i> para copiar los datos de la tabla<br>al portapapeles.<br><br>'+
+    'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.' )+'</span>'
+	)
+	.append( hiddenDiv );
+
+	dt.buttons.info( dt.i18n( 'copyTitle', 'Copiar al portapapeles' ), message, 0 );
+
+	// Select the text so when the user activates their system clipboard
+	// it will copy that text
+	textarea[0].focus();
+	textarea[0].select();
+
+	// Event to hide the message when the user is done
+	var container = $(message).closest('.dt-button-info');
+	var close = function () {
+		container.off( 'click.buttons-copy' );
+		$(document).off( '.buttons-copy' );
+		dt.buttons.info( false );
+		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+		// del if evita un error
+		if (that.processing !== undefined) {
+			that.processing( false );
+		}
+	};
+
+	container.on( 'click.buttons-copy', close );
+	$(document)
+		.on( 'keydown.buttons-copy', function (e) {
+			if ( e.keyCode === 27 ) { // esc
+				close();
+			}
+		} )
+		.on( 'copy.buttons-copy cut.buttons-copy', function () {
+			close();
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (that.processing !== undefined) {
+				that.processing( false );
+			}
+		} );
 };
 
 
@@ -109,56 +279,41 @@ DataTable.ext.buttons.copyCustom = {
 		DataTable.ext.buttons.copyCustom.eventDT = dt;
 	},
 	action: function ( e, dt, button, config ) {
-		// TODO: hay que controlar el caso de copia, si es multiple, todos, etc.
+		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+		// del if evita un error
 		if (this.processing !== undefined) {
 			this.processing( true );
 		}
 
 		var that = this;
-		var ctx = dt.settings()[0];
-		var info = dt.buttons.exportInfo( config );
+		var multiselection = DataTable.multiSelect.multiselection;
+		var selectedRows = multiselection.selectedRowsPerPage;
+		var numOfSelectedRows = multiselection.numSelected;
+		var selectedAll = multiselection.selectedAll;
+		var selectedIds = multiselection.selectedIds;
+		var deselectedIds = multiselection.deselectedIds;
 
-		$.when(_reportsRequestAllData()).then(function (data) {
-			ctx.oInit.buttons.allData = data;
-			var exportData = ctx.oInit.buttons.allData;
-			var exportDataRows = exportData.length;
-
-			var hiddenDiv = $('<div/>')
-				.css( {
-					height: 1,
-					width: 1,
-					overflow: 'hidden',
-					position: 'fixed',
-					top: 0,
-					left: 0
-				} );
-
-			var textarea = $('<textarea readonly/>')
-				.val( exportData )
-				.appendTo( hiddenDiv );
-
-			$.rup_messages('msgConfirm', {
-				//message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-				//title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
-				message: "¿Desea copiar " + exportDataRows + " registros?",
-				title: "Copia de registros en clipboard",
-				OKFunction: function () {
-					ctx.oInit.formEdit.okCallBack = true;
-
-					_reportsCopyAllDataToClipBoard(dt, that, exportDataRows, hiddenDiv, textarea);
-
-					ctx.oInit.formEdit.detailForm.rup_dialog("close");
-				},
-				CANCELFunction: function (){
-					ctx.oInit.formEdit.okCallBack = false
-
-					if (this.processing !== undefined) {
-						this.processing( false ); // FIXME: si cerramos con el aspa no lo hace
-					}
-				}
-			});
-		});
-
+		if (selectedAll) {
+			console.log("SELECTALL = TRUE");
+			if (deselectedIds.length > 0) {
+				// TODO: Este caso es para cuando se selecciona todo y despues se
+				// deseleccionan algunos registros
+				console.log("TODO - ALGO");
+				console.log(deselectedIds);
+				var type = "all-deselected";
+				_reportsCopyData(dt, that, config, type, selectedIds, selectedRows);
+			} else {
+				// Este caso es para cuando se seleccionan todos los registros
+				console.log("TODO");
+				var type = "all";
+				_reportsCopyData(dt, that, config, type, selectedIds, selectedRows);
+			}
+		} else {
+			// Este caso para cuando hay determinados registros seleccionados manualmente
+			console.log("SELECTALL = FALSE");
+			var type = "selected";
+			_reportsCopyData(dt, that, config, type, selectedIds, selectedRows);
+		}
 	}
 };
 
