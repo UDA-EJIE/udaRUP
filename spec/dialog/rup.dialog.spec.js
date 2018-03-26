@@ -73,7 +73,7 @@ describe('Test Dialog', () => {
 				});
 			});
 			
-			generalFunc($dialogo,[enable,disable,destroy]);
+			generalFunc($dialogo, 'rup_dialog', ['enable','disable','destroy']);
 		});
 	}
 	
