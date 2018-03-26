@@ -21,7 +21,7 @@ describe('RUP BreadCrumb Test:', () => {
         });
 
         describe('Test de los métodos públicos', () => {
-            generalFunc($breadcrumb,['destroy']);
+            generalFunc($breadcrumb, 'rup_breadCrumb', ['destroy']);
         });
     });
 });
