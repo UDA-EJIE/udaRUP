@@ -100,5 +100,18 @@ describe('Test Combo', () => {
         describe('Método order', () => {
             //La documentcion no muestra la manera de usar este comando, las opciones que he probado no funcionan
         });
+
+        generalFunc($combo,'rup_combo',['getRupValue','setRupValue','enable','disable']);
     });
 });
+/**
+ * POR IMPLEMENTAR:
+ * - checkAll
+ * - select      -> Para combos Múltiples
+ * - selectLabel -> Para combos Múltiples
+ * - disableChild
+ * - disableOpt
+ * - disableOptArr
+ * - enableOpt
+ * - enableOptArr
+ */
