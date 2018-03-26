@@ -44,6 +44,6 @@ describe('Test Slider', () => {
                 expect($slider.rup_slider('options').min).toBe(10);
             });
         });
-        generalFunc($slider, ['enable','disable','getRupValue','setRupValue','destroy']);
+        generalFunc($slider, 'rup_slider', ['enable','disable','getRupValue','setRupValue','destroy']);
     });
 });
