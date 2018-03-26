@@ -619,6 +619,7 @@ function init ( ctx ) {
  */
 function _drawSelectId(api){
 	var DataTable = $.fn.dataTable;
+	var pos = -1;
 	$.each(DataTable.multiSelect.multiselection.selectedIds, function( index, value ) {
 		var idx = -1;
 		$.each(api.context[0].aoData, function( indexData, valueData ) {
@@ -630,9 +631,17 @@ function _drawSelectId(api){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			if(DataTable.multiSelect.multiselection.lastSelectedId === value){
+				pos = idx;
+			}
+			if(pos === -1 && DataTable.multiSelect.multiselection.lastSelectedId === ''){//En caso de que no hay ninguna coincidencia se pone el ultimo.
+				pos = idx;
+			}
 		}
 	});
-	
+	if(pos >= 0){
+		DataTable.Api().multiSelect.selectPencil(api.context[0],pos);
+	}
 }
 
 /**
@@ -824,6 +833,8 @@ function _createContexMenuSelect(id,ctx){
 
 function selectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "checkAll";
+	//Se deja marcado el primero de la pagina.
+	DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
 	dt['rows']().multiSelect();
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	//FeedBack
@@ -839,9 +850,8 @@ function selectAllPage(dt){
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
 	});
-	//Se deja marcado el primero de la pagina.
-	DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
-	DataTable.Api().multiSelect.selectPencil(dt.settings()[0],0);
+
+	//DataTable.Api().multiSelect.selectPencil(dt.settings()[0],0);
 }
 
 function deselectAllPage(dt){
@@ -874,6 +884,11 @@ function selectAll(dt){
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	dt['rows']().multiSelect();
+	if(dt.page() === 0){
+		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],0);
+	}else{
+		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
+	}
 }
 
 function deselectAll(dt){
@@ -1089,7 +1104,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,arra);
 			DataTable.multiSelect.multiselection.lastSelectedId = id;
-			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],line);
+			//DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],line);
 			
 			//FIn ordenacion
 		}
