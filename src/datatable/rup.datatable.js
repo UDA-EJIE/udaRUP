@@ -71,7 +71,6 @@
 
 			options.processing = true;
 			options.serverSide = true;
-			options.responsive = true;
 			options.columns = options.columns || $self._getColumns(options);
 
 
@@ -285,6 +284,7 @@
     dom: 'Bitprl',
     multiplePkToken: '~',
     primaryKey:["id"],
+	responsive: true,
     searchPaginator:true,
 		buttons: [
         {
