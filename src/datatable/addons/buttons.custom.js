@@ -337,9 +337,9 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 	}
 
 	// Otherwise we show the text box and instruct the user to use it
-	var message = $('<span>'+dt.i18n('copyKeys',
-		'Presiona <i>ctrl</i> o <i>\u2318</i> + <i>C</i> para copiar los datos de la tabla<br>al portapapeles.<br><br>'+
-    'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.')+'</span>'
+	var message = $('<span>' + dt.i18n('copyKeys',
+		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
+		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
 	)
 	.append(hiddenDiv);
 

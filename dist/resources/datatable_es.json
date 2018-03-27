@@ -42,5 +42,6 @@
       "_": "Copiado un registro al portapapeles",
       "1": "Copiados %d registros al portapapeles"
     },
-    "copyTitle": "Copiar al portapapeles"
+    "copyTitle": "Copiar al portapapeles",
+    "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
 }
