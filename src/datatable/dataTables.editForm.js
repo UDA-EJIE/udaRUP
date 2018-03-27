@@ -56,6 +56,17 @@ DataTable.editForm = {};
 
 DataTable.editForm.version = '1.2.4';
 
+/**
+* Se inicializa el componente editForm
+*
+* @name init
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @return 
+* @example
+* 
+*/
 DataTable.editForm.init = function ( dt ) {
 	DataTable.editForm.iniciado = '';
 
@@ -324,6 +335,19 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
+/**
+* Función que lleva todo el comportamiento para abrir el dialog y editar un resgistro.
+*
+* @name openSaveDialog
+* @private
+* @function
+* @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
+* @param {object} dt - Es el objeto datatable.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+* @return 
+* @example
+* 
+*/
 DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idRow){
 	var ctx = dt.settings()[0];
 	var idForm = ctx.oInit.formEdit.idForm;
@@ -356,6 +380,10 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds);
 		if(DataTable.multiSelect.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
+		}
+		if(indexInArray === undefined){
+			indexInArray = 0;
+			ctx.oInit.formEdit.$navigationBar.numPosition = 0;
 		}
 		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
 		DataTable.Api().multiSelect.selectPencil(ctx,idRow);
@@ -409,6 +437,24 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 
 }
 
+
+/**
+* Llamada al servidor con los datos de edición.
+*
+* @name openSaveDialog
+* @private
+* @function
+* @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
+* @param {object} dt - Es el objeto datatable.
+* @param {object} row - son los datos que se cargan.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierrar el dialog.
+* @param {string} idTableDetail - Identificdor del detail de la table.
+* @param {string} url - Url que se añade para llmar  al controller.
+* @return 
+* @example
+* 
+*/
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
 	// add Filter
@@ -492,6 +538,20 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
+/**
+* Llamada para crear el feedback detro del dialog.
+*
+* @name callFeedbackOk
+* @private
+* @function
+* @param {object} ctx - Settings object to operate on.
+* @param {object} feedback - Div donde se va ejecutar el feedback.
+* @param {string} msgFeedBack - Mensaje para el feedback.
+* @param {string} type - Tipos del feedback, mirar en el rup.feedback..
+* @return 
+* @example
+* 
+*/
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
@@ -505,6 +565,19 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	}
 }
 
+
+/**
+* Se verifican los check vacios dentro de un formulario.
+*
+* @name returnCheckEmpty
+* @private
+* @function
+* @param {object} idForm - Identificador del formulario.
+* @param {string} values - Values ya añadidos al formulario.
+* @return String con los values
+* @example
+* 
+*/
 function _returnCheckEmpty(idForm,values){
 	var maps = jQuery(idForm.selector+' input[type=checkbox]:not(:checked)').map(
                     function() {
@@ -513,6 +586,19 @@ function _returnCheckEmpty(idForm,values){
 	return values+maps;
 }
 
+/**
+* Actualiza la navegación del dialogo.
+*
+* @name updateDetailPagination
+* @private
+* @function
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
+* @param {integer} totalRowNum - Número total de registros seleccionados.
+* @return 
+* @example
+* 
+*/
 function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 	var formId = ctx.oInit.formEdit.id;
 	var tableId = ctx.oInit.formEdit.$navigationBar[0].id;
@@ -530,6 +616,17 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
+/**
+* Constructor de la barra de navegación.
+*
+* @name callNavigatorBar
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @return 
+* @example
+* 
+*/
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
 	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
@@ -643,12 +740,26 @@ function _callNavigationBar(dt){
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
+
+/**
+* Metodo que obtiene la fila siguiente seleccionada.
+*
+* @name getRowSelected
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {string} actionType - Es el objeto datatable.
+* @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
+* @example
+* 
+*/
 function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
 	var rowDefault = {id:0,page:1,line:0};
+	var lastSelectedId = DataTable.multiSelect.multiselection.lastSelectedId;
 	if(!DataTable.multiSelect.multiselection.selectedAll){
 		//Si no hay un ultimo señalado se coge el ultimo;
-		var lastSelectedId = DataTable.multiSelect.multiselection.lastSelectedId;
+		
 		if(lastSelectedId === undefined || lastSelectedId === ''){
 			DataTable.multiSelect.multiselection.lastSelectedId = DataTable.multiSelect.multiselection.selectedRowsPerPage[0].id;
 		}
@@ -664,9 +775,25 @@ function _getRowSelected(dt,actionType){
 		});	
 	}else{
 		ctx.oInit.formEdit.$navigationBar.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
-		
-		rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
-		rowDefault.line = _getLineByPageSelected(ctx,-1);
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
+			rowDefault.line = _getLineByPageSelected(ctx,-1);
+		}else{
+			//buscar la posicion y pagina
+			var result = $.grep(DataTable.multiSelect.multiselection.selectedRowsPerPage, function(v) {    
+				return v.id === DataTable.multiSelect.multiselection.lastSelectedId;	
+			});
+			rowDefault.page = result[0].page;
+			rowDefault.line = result[0].line;
+			var index = ctx._iDisplayLength * (Number(ctx.json.page)-1);
+			index = index+1+rowDefault.line;
+			//Hay que restar los deselecionados.
+			 result = $.grep(DataTable.multiSelect.multiselection.deselectedRowsPerPage, function(v) {    
+					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));	
+				});
+			rowDefault.indexSelected = index-result.length;//Buscar indice
+			ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected-1;
+		}
 		
 		ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
 	}
@@ -681,6 +808,19 @@ function _getRowSelected(dt,actionType){
 	return rowDefault;
 }
 
+/**
+* Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getNextPageSelected
+* @private
+* @function
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
+* @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
+* @return integer - devuele la página
+* @example
+* 
+*/
 function _getNextPageSelected(ctx,pageInit,orden){
 	var pagina = pageInit;
 	var pageTotals = ctx.json.total;
@@ -715,6 +855,19 @@ function _getNextPageSelected(ctx,pageInit,orden){
 	return pagina;
 }
 
+
+/**
+* Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getLineByPageSelected
+* @private
+* @function
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
+* @return integer - devuele la linea
+* @example
+* 
+*/
 function _getLineByPageSelected(ctx,lineInit){
 	var line = -1;
 	var rows = ctx.json.rows;
@@ -733,6 +886,18 @@ function _getLineByPageSelected(ctx,lineInit){
 	return line;
 }
 
+/**
+* Metodo que obtiene la última linea siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getLineByPageSelectedReverse
+* @private
+* @function
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} lineInit - Linea a partir de la cual hay que mirar.
+* @return integer - devuele la linea
+* @example
+* 
+*/
 function _getLineByPageSelectedReverse(ctx,lineInit){
 	var line = -1;
 	var rows = ctx.json.rows;
@@ -752,6 +917,17 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 	return line;
 }
 
+/**
+* Metodo que elimina todos los registros seleccionados.
+*
+* @name deleteAllSelects
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @return 
+* @example
+* 
+*/
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
 	var row = DataTable.multiSelect.multiselection.selectedIds;

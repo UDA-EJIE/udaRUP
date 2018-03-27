@@ -56,6 +56,17 @@ DataTable.multiSelect = {};
 
 DataTable.multiSelect.version = '1.2.4';
 
+/**
+* Se inicializa el componente multiselect
+*
+* @name init
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @return 
+* @example
+* 
+*/
 DataTable.multiSelect.init = function ( dt ) {
 	var ctx = dt.settings()[0];
 	var init = ctx.oInit.multiSelect;
@@ -608,7 +619,7 @@ function init ( ctx ) {
 }
 
 /**
- * Pinta los selecionables, orque tiene los ids almacenados y mete la clase que se le indica.
+ * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
  * 
  *
  * This will occur _after_ the initial DataTables initialisation, although
@@ -734,6 +745,18 @@ function _paintCheckboxSelect(ctx){
 	}
 }
 
+/**
+* Metodo que comprueba  que todos los checks de la página están seleccionados
+*
+* @name checkPageSelectedAll
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {boolean} selected - Etrue o false para saber cual de los 2 quieres buscar.
+* @return 
+* @example
+* 
+*/
 function checkPageSelectedAll(dt,selected){
 	var count = 0;
 
@@ -751,6 +774,18 @@ function checkPageSelectedAll(dt,selected){
 	return false;
 }
 
+/**
+* Metodo que crea el contexMenu de la tabla
+*
+* @name createContexMenuSelect
+* @private
+* @function
+* @param {string} id - Es el identificador del datatable.
+* @param {object} ctx - datatable.settings.
+* @return 
+* @example
+* 
+*/
 function _createContexMenuSelect(id,ctx){
 	var items = {};
 	var options = ctx.oInit;
@@ -831,10 +866,20 @@ function _createContexMenuSelect(id,ctx){
 	});
 }
 
+/**
+* Metodo que selecciona todos los elementos de una misma página.
+*
+* @name selectAllPage
+* @private
+* @function
+* @param {object} dt - Datatable.
+* @return 
+* @example
+* 
+*/
 function selectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "checkAll";
-	//Se deja marcado el primero de la pagina.
-	DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
+
 	dt['rows']().multiSelect();
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	//FeedBack
@@ -851,9 +896,22 @@ function selectAllPage(dt){
 		selectAll(dt);
 	});
 
-	//DataTable.Api().multiSelect.selectPencil(dt.settings()[0],0);
+	//Se deja marcado el primero de la pagina.
+	DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
+	DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],0);
 }
 
+/**
+* Metodo que deselecciona todos los elementos de una misma página.
+*
+* @name deselectAllPage
+* @private
+* @function
+* @param {object} dt - Datatable.
+* @return 
+* @example
+* 
+*/
 function deselectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "uncheck";
 	dt['rows']().deselect();
@@ -875,6 +933,17 @@ function deselectAllPage(dt){
 
 }
 
+/**
+* Metodo que selecciona todos los elementos.
+*
+* @name selectAll
+* @private
+* @function
+* @param {object} dt - Datatable.
+* @return 
+* @example
+* 
+*/
 function selectAll(dt){
 	DataTable.multiSelect.multiselection.selectedAll = true;
 	DataTable.multiSelect.multiselection.deselectedIds = [];
@@ -886,11 +955,25 @@ function selectAll(dt){
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
 		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],0);
+		DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
 	}else{
 		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
+		DataTable.multiSelect.multiselection.lastSelectedId = ''; 
 	}
 }
 
+
+/**
+* Metodo que deselecciona todos los elementos.
+*
+* @name deselectAll
+* @private
+* @function
+* @param {object} dt - Datatable.
+* @return 
+* @example
+* 
+*/
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
 	DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
@@ -1031,6 +1114,17 @@ function typeSelect ( e, dt, ctx, type, idx )
 	}
 }
 
+/**
+* Metodo que inicialida las propiedades para el multiselect.
+*
+* @name initializeMultiselectionProps
+* @private
+* @function
+* @param 
+* @return 
+* @example
+* 
+*/
 function _initializeMultiselectionProps (  ) {
 	var $self = {};
 	// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
@@ -1064,6 +1158,21 @@ function _initializeMultiselectionProps (  ) {
 	return $self.multiselection;
 } ;
 
+/**
+* Metodo que añade y quita los seleccionados.
+*
+* @name _nitializeMultiselectionProps
+* @private
+* @function
+ * @param  {DataTables.Api}     DataTable   DataTable
+ * @param  {string}     id   - id seleccionado
+ * @param  {boolean}    select   si es seleccionado o no
+ * @param  {integer}    pagina   página en la que se encuentra el seleccionado
+ * @param  {integer}    line   linea en la que se encuentra el seleccionado
+* @return 
+* @example
+* 
+*/
 //1 select, 0 deselect
 function maintIdsRows(DataTable,id,select,pagina,line){
 	var indexInArray = -1;
@@ -1103,18 +1212,20 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			
 			DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,arra);
-			DataTable.multiSelect.multiselection.lastSelectedId = id;
+			
 			//DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],line);
 			
 			//FIn ordenacion
 		}
-	}else{
+	}else{//Deselect
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.selectedIds);//Se elimina el ids
 		
 		if(indexInArray > -1){//se borra
 			DataTable.multiSelect.multiselection.selectedIds.splice(indexInArray,1);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(indexInArray,1);
-			DataTable.multiSelect.multiselection.lastSelectedId = "";
+			if(DataTable.multiSelect.multiselection.lastSelectedId === id){
+				DataTable.multiSelect.multiselection.lastSelectedId = "";
+			}
 			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 			if(DataTable.multiSelect.multiselection.numSelected === 0){
 				DataTable.multiSelect.multiselection.selectedAll = false
@@ -1122,31 +1233,41 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 		}
 		//Se mete el id para mantener el selectAll o no.
 		if(id !== undefined && DataTable.multiSelect.multiselection.deselectedIds.indexOf(id) < 0){
-			
-			var pos = 0;
-			var arra = {id:id,page:DataTable.settings[0].json.page,line:line};
+			if(line === undefined){
+				$.each(DataTable.settings[0].json.rows, function( index, value ) { 
+ 					if (value.id === id){
+						line = index;						
+						return false;
+					}	
+				});
+				
+			}
+			var posDeselect = 0;
+			var arraDeselect = {id:id,page:DataTable.settings[0].json.page,line:line};
 			
 			//Inicio de ordenacion, Se ordena los selected ids.			
 			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
-			  if(arra.page < p.page){
-				  pos = index;
+			  if(arraDeselect.page < p.page){
+				  posDeselect = index;
 				  return false;
-			  }else if(arra.page === p.page){
+			  }else if(arraDeselect.page === p.page){
 			  // mirar linea
-			  	if(arra.line < p.line){
-			  		pos = index;
+			  	if(arraDeselect.line < p.line){
+			  		posDeselect = index;
 			  		return false;
 			    }else{
-			   	 pos = index+1;//Posible
+			    	posDeselect = index+1;//Posible
 			    }
-			  }else if(arra.page > p.page){
-				  pos = index+1;//Posible
+			  }else if(arraDeselect.page > p.page){
+				  posDeselect = index+1;//Posible
 			  }
 			});
 			
-			DataTable.multiSelect.multiselection.deselectedIds.splice(pos,0,id);
-			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(pos,0,arra);
-			DataTable.multiSelect.multiselection.lastSelectedId = '';
+			DataTable.multiSelect.multiselection.deselectedIds.splice(posDeselect,0,id);
+			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(posDeselect,0,arraDeselect);
+			if(DataTable.multiSelect.multiselection.lastSelectedId === id){
+				DataTable.multiSelect.multiselection.lastSelectedId = '';
+			}
 			DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 		}
 	}
@@ -1372,6 +1493,8 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		
 		//para seleccionar todos los de la pagina actual.
 		maintIdsRows(DataTable,id,1,pagina,idx);
+		//Se marca el ultimo.
+		DataTable.multiSelect.multiselection.lastSelectedId = id;
 
 	} );
 	if(pagina){//Cuando se pagina, se filtra, o se reordena.

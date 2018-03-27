@@ -74,6 +74,16 @@
 		}
 	};
 
+	/**
+	* Obtiene el objeto a mapear en el multiselect.
+	*
+	* @name getData
+	* @private
+	* @function
+	* @return DataTableRequest
+	* @example
+	* 
+	*/
 	DataTableRequest.prototype.getData = function(){
 
 		return {

@@ -56,6 +56,17 @@ DataTable.seeker = {};
 
 DataTable.seeker.version = '1.2.4';
 
+/**
+* Se inicializa el componente seeker
+*
+* @name init
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @return 
+* @example
+* 
+*/
 DataTable.seeker.init = function ( dt ) {
 	
 	var ctx = dt.settings()[0];
@@ -111,8 +122,18 @@ function _eventTrigger ( api, type, args, any )
 
 	$(api.table().node()).trigger( type, args );
 }
-
-
+/**
+* Crea los componentes principales del buscador.
+*
+* @name createFilterColumn
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @return 
+* @example
+* 
+*/
 function _createFilterColumn(dt,ctx){
 
 	var idTabla = ctx.sTableId;
@@ -151,13 +172,17 @@ function _createFilterColumn(dt,ctx){
 	   _createRupComponent(dt,ctx);
 }
 /**
- * Genera la barra de controles para gestionar la búsqueda.
- *
- * @function createSearchRow
-	 * @param {object} settings - Genera la línea de busqueda de acuerdo a las propiedades de configuración especificadas.
- * @example
- * $("#idTable").rup_table("createSearchRow", settings);
- */
+* Genera la barra de controles para gestionar la búsqueda..
+*
+* @name createSearchRow
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @return 
+* @example
+* 
+*/
 function _createSearchRow (dt,ctx){
 		var idTabla = ctx.sTableId;
 		var	$gridHead = jQuery('tfoot','#'+idTabla),
@@ -299,6 +324,19 @@ function _createSearchRow (dt,ctx){
         DataTable.seeker.search.accion = '';
 }
 
+/**
+* Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
+*
+* @name selectSearch
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} rows - Filas del datatable de la página actual.
+* @return 
+* @example
+* 
+*/
 function _selectSearch(dt,ctx,rows){
 	//Se limina el lapicero indicador.
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
@@ -330,6 +368,18 @@ function _selectSearch(dt,ctx,rows){
 	}
 }
 
+/**
+* Metodo para saber si hay que paginar o no.
+*
+* @name paginar
+* @private
+* @function
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dato - Son los datos de las filas que viene del controller..
+* @return 
+* @example
+* 
+*/
 function _paginar(ctx,dato){
 	var paginar = false;
 	if(dato !== undefined && dato.page !== Number(ctx.json.page)){
@@ -339,6 +389,18 @@ function _paginar(ctx,dato){
 	return paginar;
 }
 
+/**
+* Actualiza la navegación del seeker.
+*
+* @name updateDetailSeekPagination
+* @private
+* @function
+* @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
+* @param {integer} totalRowNum - Número total de registros seleccionados.
+* @return 
+* @example
+* 
+*/
 function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 
 	if (currentRowNum === 1) {
@@ -359,6 +421,19 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 	DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
+/**
+* Metodo para procesar los datos provinientes del controller.
+*
+* @name processData
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dato - Son los datos de las filas que viene del controller.
+* @return 
+* @example
+* 
+*/
 function _processData(dt,ctx,data){
 	DataTable.Api().multiSelect.deselectAll(dt);
 	if(!_paginar(ctx,data[DataTable.seeker.search.pos])){
@@ -376,12 +451,35 @@ function _processData(dt,ctx,data){
 	}
 }
 
+/**
+* Se obtienen los datos del formulario del seeker.
+*
+* @name getDatos
+* @private
+* @function
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @return {object} Devuelve el objeto mapeado de todos los campos.
+* @example
+* 
+*/
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
 	datos.search = form2object($(DataTable.seeker.search.$searchForm.selector)[0]);
 	return datos;
 }
 
+/**
+* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo..
+*
+* @name createRupComponent
+* @private
+* @function
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @return 
+* @example
+* 
+*/
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.formEdit.colModel, searchEditOptions;
 
