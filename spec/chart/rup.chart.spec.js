@@ -4,23 +4,31 @@ import 'jasmine-jquery';
 import 'rup.chart';
 
 describe('Test Chart', () => {
+    var $chart;
     describe('Creacion de la chart', () => {
-        var options, $chart;
         beforeAll(() => {
-            options = {
-                labels: ['data1', 'data2', 'data3'],
-                datasets: [
-                    {
-                        label: 'data1',
-                        data: [2,6,3,4],
-                    },
-                    {
-                        label: 'data2',
-                        data: [5,3,6,2],
+            var options = {
+                type: 'line',
+                data:{
+                    labels:['label1', 'label2', 'label3'],
+                    datasets:[
+                        {
+                            label:'dataset1',
+                            data:[10, 20, 40]
+                        }
+                    ]
+                },
+                options:{
+                    legend:{
+                        display:true
                     }
-                ]
+                }
             };
-            var html = '<canvas id="exampleChart"></canvas>';
+            var html = '<div class="col-xl-6  col-xs-12  col-sm-5">' +
+			                '<div class="butstyle">' +
+				                '<canvas id="exampleChart" ></canvas>' +
+			                '</div>' +
+		                '</div>';
             $('body').append(html);
             $chart = $('#exampleChart');
         });
@@ -30,8 +38,63 @@ describe('Test Chart', () => {
         });
     });
     describe('Métodos públicos', () => {
-        describe('Método updateData', () => {
-            //No entiendo que hace 
+        describe('Métodos updateData y getData', () => {
+            var dataUpdate;
+            beforeAll(() => {
+                dataUpdate = {
+                    datasets:[{
+                        label: 'dataset1',
+                        data:[3, 8, 4]
+                    }],
+                    labels:['label1.1','label2.1','label3.1']
+                };
+            });
+            it('No debe lanzar errores al actualizarse', () => {
+                expect($chart.rup_chart('updateData', dataUpdate)).not.toThrowError();
+            });
+            it('Los valores recogidos deben ser correctos', () => {
+                expect($chart.rup_chart('getData')).toBe(dataUpdate);
+            });
+        });
+        describe('Métodos updateLabels y getLabels', () => {
+            var dataUpdate;
+            beforeAll(() => {
+                dataUpdate = ['label1.1','label2.1','label3.1'];
+            });
+            it('No debe lanzar errores al actualizarse', () => {
+                expect($chart.rup_chart('updateLabels', dataUpdate)).not.toThrowError();
+            });
+            it('Los valores recogidos deben ser correctos', () => {
+                expect($chart.rup_chart('getLabels')).toBe(dataUpdate);
+            });
+        });
+        describe('Métodos updateDatasets y getDatasets', () => {
+            var dataUpdate;
+            beforeAll(() => {
+                dataUpdate = [{
+                    label: 'dataset1',
+                    data:[3, 8, 4]
+                }];
+            });
+            it('No debe lanzar errores al actualizarse', () => {
+                expect($chart.rup_chart('updateDatasets', dataUpdate)).not.toThrowError();
+            });
+            it('Los valores recogidos deben ser correctos', () => {
+                expect($chart.rup_chart('getDatasets')).toBe(dataUpdate);
+            });
+        });
+        describe('Método getChart', () => {
+            var expresion = $chart.rup_chart('getChart');
+            expect(expresion instanceof ChartController).toBeTruthy();
+        });
+        describe('Método toBase64Image', () => {
+            let resp;
+            beforeAll(() => {
+                resp = $chart.rup_chart('toBase64Image');
+            });
+            it('Debe ser un string', () => {
+                expect(typeof(resp)).toBeTruthy();
+            });
         });
     });
 });
