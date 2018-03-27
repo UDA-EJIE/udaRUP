@@ -42,7 +42,5 @@
       "_": "Copiado un registro al portapapeles",
       "1": "Copiados %d registros al portapapeles"
     },
-    "copyTitle": "Copiar al portapapeles",
-    "copyKeys": "Press <i>ctrl</i> or <i>\u2318</i> + <i>C</i> to copy the table data<br>to your system clipboard.<br><br>'+
-    'To cancel, click this message or press escape."
+    "copyTitle": "Copiar al portapapeles"
 }
