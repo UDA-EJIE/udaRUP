@@ -7,7 +7,7 @@
     "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
     "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
     "sInfoPostFix":    "",
-    "sSearch":         "Buscar:4",
+    "sSearch":         "Buscar:",
     "sUrl":            "",
     "sInfoThousands":  ",",
     "sLoadingRecords": "Cargando...",
@@ -32,5 +32,17 @@
         "main": "Informes",
         "copyCustom": "Copiar"
       }
-    }
+    },
+    "changes": "Copia de registros en portapapeles",
+    "saveAndContinue": {
+      "_": "¿Desea copiar %d registros?",
+      "1": "¿Desea copiar un registro?"
+    },
+    "saved": {
+      "_": "Copiado un registro al portapapeles",
+      "1": "Copiados %d registros al portapapeles"
+    },
+    "copyTitle": "Copiar al portapapeles",
+    "copyKeys": "Presiona <i>ctrl</i> o <i>\u2318</i> + <i>C</i> para copiar los datos de la tabla<br>al portapapeles.<br><br>'+
+    'Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
 }

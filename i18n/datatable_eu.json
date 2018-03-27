@@ -21,6 +21,8 @@
         "sSortAscending":  ": Zutabea goranzko eran ordenatzeko aktibatu ",
         "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
     },
+    "pagina": "{0} orrialdetik  ",
+    "toPagina": "",
     "toolbar": {
       "add": "Gehitu",
       "edit": "Editatu",
@@ -30,5 +32,17 @@
         "main": "Txostenak",
         "copyCustom": "Kopiatu"
       }
-    }
+    },
+    "changes": "Copia de registros en portapapeles",
+    "saveAndContinue": {
+      "_": "¿Desea copiar %d registros?",
+      "1": "¿Desea copiar un registro?"
+    },
+    "saved": {
+      "_": "Copiado un registro al portapapeles",
+      "1": "Copiados %d registros al portapapeles"
+    },
+    "copyTitle": "Copiar al portapapeles",
+    "copyKeys": "Press <i>ctrl</i> or <i>\u2318</i> + <i>C</i> to copy the table data<br>to your system clipboard.<br><br>'+
+    'To cancel, click this message or press escape."
 }
