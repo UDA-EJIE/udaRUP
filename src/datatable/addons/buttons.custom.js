@@ -44,13 +44,13 @@
 var DataTable = $.fn.dataTable;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Local (private) functions
+ * Funciones locales (privadas)
  */
 
 
 /**
-	* Establece el tipo de llamada necesario para obtener los datos segun lo seleccionado
-	* e inicia la gestion para finalmente obtenerlos
+	* Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+	* e inicia la gestión para finalmente obtenerlos
 	* @name _reportsCopyData
 	* @function
 	* @private
@@ -104,7 +104,7 @@ var _reportsCopyData = function (dt, that, config)
 };
 
 /**
-	* Segun el tipo de funcion de copia solicitada, realiza unas u otras comprobaciones
+	* Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones
 	* antes de solicitar los datos al servidor
 	* @name _reportsTypeOfCopy
 	* @function
@@ -193,7 +193,7 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 };
 
 /**
-	* Se encarga de generar las opciones de configuracion con las que se llamara a la API
+	* Se encarga de generar las opciones de configuración con las que se llamara a la API
 	* @name _reportsPrepareRequestData
 	* @function
 	* @param {object} ajaxOptions Parametros de la llamada Ajax
@@ -274,8 +274,8 @@ var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, te
 	$.rup_messages('msgConfirm', {
 		title: dt.i18n('changes', 'Copia de registros en clipboard'),
 		message: dt.i18n('saveAndContinue', {
-			1: '¿Desea copiar un registro?',
-			_: '¿Desea copiar %d registros?'
+			_: '¿Desea copiar %d registros?',
+			1: '¿Desea copiar un registro?'
 		}, exportDataRows),
 		OKFunction: function () {
 			ctx.oInit.formEdit.okCallBack = true;
@@ -306,7 +306,7 @@ var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, te
  */
 var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv, textarea)
 {
-	// For browsers that support the copy execCommand, try to use it
+	// Para los navegadores que soportan el comando de copia 'execCommand'
 	if (document.queryCommandSupported('copy')) {
 		hiddenDiv.appendTo(dt.table().container());
 		textarea[0].focus();
@@ -318,10 +318,10 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('changes', 'Copia de registros en clipboard'),
+					dt.i18n('changes', 'Copia de registros en portapapeles'),
 					dt.i18n('saved', {
-						1: 'Copiado un registro al portapapeles',
-						_: 'Copiados %d registros al portapapeles'
+						_: 'Copiados %d registros al portapapeles',
+						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
 					2000
 				);
@@ -336,7 +336,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 		catch (t) {}
 	}
 
-	// Otherwise we show the text box and instruct the user to use it
+	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
+	// con las instrucciones de como copiar los elementos seleccionados
 	var message = $('<span>' + dt.i18n('copyKeys',
 		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
 		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
@@ -345,12 +346,12 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 	dt.buttons.info(dt.i18n('copyTitle', 'Copiar al portapapeles'), message, 0);
 
-	// Select the text so when the user activates their system clipboard
-	// it will copy that text
+	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
+	// se le pegue ese texto
 	textarea[0].focus();
 	textarea[0].select();
 
-	// Event to hide the message when the user is done
+	// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
 	var container = $(message).closest('.dt-button-info');
 	var close = function () {
 		container.off('click.buttons-copy');
@@ -386,7 +387,7 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
  */
 
 //
-// Copy to clipboard
+// Copia al portapapeles
 //
 DataTable.ext.buttons.copyCustom = {
 	text: function (dt) {
