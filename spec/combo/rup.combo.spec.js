@@ -160,6 +160,76 @@ describe('Test Combo', () => {
                     }
                 });
                 expect(ok).toBeTruthy();
+                expect(okMulti).toBeTruthy();
+            });
+        });
+        describe('Método clear', () => {
+            beforeAll(() => {
+                $combo.rup_combo('clear');
+                $comboMulti.rup_combo('clear');
+            });
+            afterAll(() => {
+                $combo.rup_combo('refesh');
+                $comboMulti.rup_combo('refresh');
+            });
+            it('Deben estar vacios', () => {
+                expect($combo.rup_combo('value')).toBe('0');
+                expect($comboMulti.rup_combo('value')).toBe('0');
+            });
+        });
+        describe('Método checkAll', () => {
+            beforeAll(() => {
+                $comboMulti.rup_combo('checkAll');
+            });
+            afterAll(() => {
+                $comboMulti.rup_combo('refresh');
+            });
+            it('Debe estar todo seleccionado', () => {
+                expect($comboMulti.rup_combo('value').length).toBe($comboMulti[0].options.length);
+            });
+        });
+        describe('Métodos enableOpt y disableOpt', () => {
+            describe('Método disableOpt: ', () => {
+                beforeAll(() => {
+                    $comboMulti.rup_combo('disableOpt', '3');
+                });
+                it('La option debe estar deshabilitada', () => {
+                    let valor = $comboMulti.children('[disabled="disabled"]').attr('value');
+                    expect(val).toBe('3');
+                });
+            });
+            describe('Método enableOpt', () => {
+                beforeAll(() => {
+                    $comboMulti.rup_combo('enableOpt', '3');
+                });
+                it('No debe haber ninguna option deshabilitada', () => {
+                    let selector = $comboMulti.children('[disabled="disabled"]');
+                    expect(selector.length).toBe(0);
+                });
+            });
+        });
+        describe('Métodos enableOptArr y disableOptArr', () => {
+            describe('Método disableOpt: ', () => {
+                beforeAll(() => {
+                    $comboMulti.rup_combo('disableOptArr', ['3', '4']);
+                });
+                it('La option debe estar deshabilitada', () => {
+                    let res = $comboMulti.children('[disabled="disabled"]').map((idx, cur) => {return $(cur).attr('value')});
+                    let vals = [];
+                    for(let i = 0; i < res.length; i++) {
+                        vals.push(res[i]);
+                    }
+                    expect(vals).toEqual(['3','4']);
+                });
+            });
+            describe('Método enableOpt', () => {
+                beforeAll(() => {
+                    $comboMulti.rup_combo('enableOptArr', ['3', '4']);
+                });
+                it('No debe haber ninguna option deshabilitada', () => {
+                    let selector = $comboMulti.children('[disabled="disabled"]');
+                    expect(selector.length).toBe(0);
+                });
             });
         });
         describe('Método order', () => {
@@ -167,16 +237,10 @@ describe('Test Combo', () => {
         });
 
         generalFunc($combo,'rup_combo',['getRupValue','setRupValue','enable','disable']);
+        generalFunc($comboMulti,'rup_combo',['getRupValue','setRupValue','enable','disable']);
     });
 });
 /**
  * POR IMPLEMENTAR:
- * - checkAll
- * - select      -> Para combos Múltiples
- * - selectLabel -> Para combos Múltiples
  * - disableChild
- * - disableOpt
- * - disableOptArr
- * - enableOpt
- * - enableOptArr
  */
