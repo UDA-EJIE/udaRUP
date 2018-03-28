@@ -1646,7 +1646,7 @@ DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
 	};
 } );
 
-// TODO: falta la descripcion
+// Gestiona las acciones de los botones
 DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 	var ctx = dt.settings()[0];
 	// Añade aquí las funciones de tus botones
@@ -1684,8 +1684,6 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			// borramos todos los seleccionados.
 			DataTable.Api().editForm.deleteAllSelects(dt);
 			break;
-		default:
-			// TODO: dar algun comportamiento por defecto
 	}
 } );
 

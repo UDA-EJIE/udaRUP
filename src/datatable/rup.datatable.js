@@ -65,6 +65,14 @@
 	//*******************************
 
 	$.fn.rup_datatable('extend',{
+
+		/**
+			* Inicializa ciertas opciones del componente
+			* @name _initOptions
+			* @function
+			* @private
+			* @param {object} options Opciones del componente
+		*/
 		_initOptions: function(options) {
 			var $self = this;
 
@@ -105,12 +113,20 @@
 
 			return options;
 		},
+
+		/**
+			* Obtiene las columnas
+			* @name _getColumns
+			* @function
+			* @private
+			* @param {object} options Opciones del componente
+		*/
 		_getColumns(options) {
 			if(options.columnDefs !== undefined && options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox'){
 				//Se crear el th thead, se añade la columnal.
 				$self = this;
 				var th = $("<th/>").attr('data-col-prop','');
-				
+
 				if($self[0].tHead !== null){
 					$(th).insertBefore($self[0].tHead.rows[0].cells[0])
 				}
@@ -130,6 +146,14 @@
 
 			return columns;
 		},
+
+		/**
+			* Filtrado
+			* @name _doFilter
+			* @function
+			* @private
+			* @param {object} options Opciones del componente
+		*/
 		_doFilter(options) {
 			var $self = this;
 
@@ -137,6 +161,14 @@
 			$self.DataTable().ajax.reload();
 
 		},
+
+		/**
+			* Prepara el objeto necesario para la consulta de registros al servidor
+			* @name _ajaxOptions
+			* @function
+			* @private
+			* @param {object} options Opciones del componente
+		*/
 		_ajaxOptions(options) {
 			var ajaxData = {
 				'url': options.urls.filter,
@@ -152,6 +184,13 @@
 			return ajaxData;
 		},
 
+		/**
+			* Obtiene los datos devueltos por el servidor de manera ordenada
+			* @name _ajaxSuccessData
+			* @function
+			* @private
+			* @param {object} json Información de los registros de la página actual
+		*/
 		_ajaxSuccessData(json) {
 			var ret = {};
 
@@ -167,9 +206,14 @@
 
 		},
 
-
-
-
+		/**
+			* Solicita los datos al servidor
+			* @name _ajaxRequestData
+			* @function
+			* @private
+			* @param {object} data Opciones del datatable
+			* @param {object} options Opciones del componente
+		*/
 		_ajaxRequestData(data, options) {
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
@@ -186,7 +230,15 @@
 
 
 		},
-		
+
+		/**
+			* Gestiona la paginación
+			* @name _createSearchPaginator
+			* @function
+			* @private
+			* @param {object} tabla Objeto que contiene la tabla
+			* @param {object} settingsT Opciones del componente
+		*/
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
 			if($($self.selector+'_paginate').length === 1){
@@ -206,14 +258,22 @@
 						 if($.isNumeric(page) && page > 0){
 							 tabla.dataTable().fnPageChange( page-1 );
 						 }
-					    return false;  
+					    return false;
 					  }
 					});
 			}else{
 				//Sacar un error
 			}
-			
+
 		},
+
+		/**
+			* Limpia el filtro
+			* @name _clearFilter
+			* @function
+			* @private
+			* @param {object} options Opciones del componente
+		*/
 		_clearFilter(options) {
 			var $self = this;
 
@@ -288,7 +348,7 @@
     searchPaginator:true,
 		buttons: [
         {
-						text: function ( dt ) {
+						text: function (dt) {
 							return dt.i18n( 'toolbar.add', 'Add' );
 						},
 						id: 'addButton_1',
@@ -296,12 +356,12 @@
 						displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
 						insideContextMenu: true,
 						type: 'add',
-						action: function ( e, dt, node, config ) {
+						action: function (e, dt, node, config) {
 							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
-						text: function ( dt ) {
+						text: function (dt) {
 							return dt.i18n( 'toolbar.edit', 'Editar' );
 						},
 						id: 'editButton_1',
@@ -309,12 +369,12 @@
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 						insideContextMenu: true,
 						type: 'edit',
-						action: function ( e, dt, node, config ) {
+						action: function (e, dt, node, config) {
 							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
-						text: function ( dt ) {
+						text: function (dt) {
 							return dt.i18n( 'toolbar.clone', 'Clonar' );
 						},
 						id: 'cloneButton_1',
@@ -322,12 +382,12 @@
 						displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
 						insideContextMenu: true,
 						type: 'clone',
-						action: function ( e, dt, node, config ) {
+						action: function (e, dt, node, config) {
 							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
-						text: function ( dt ) {
+						text: function (dt) {
 							return dt.i18n( 'toolbar.delete', 'Eliminar' );
 						},
 						id: 'deleteButton_1',
@@ -335,13 +395,13 @@
 						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 						insideContextMenu: true,
 						type: 'delete',
-						action: function ( e, dt, node, config ) {
+						action: function (e, dt, node, config) {
 							DataTable.Api().buttons.actions(dt, config);
             }
         },
 				{
 						extend: 'collection',
-						text: function ( dt ) {
+						text: function (dt) {
 							return dt.i18n( 'toolbar.reports.main', 'Informes' );
 						},
 						id: 'informes_01',
