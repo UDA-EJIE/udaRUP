@@ -274,8 +274,8 @@ var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, te
 	$.rup_messages('msgConfirm', {
 		title: dt.i18n('changes', 'Copia de registros en clipboard'),
 		message: dt.i18n('saveAndContinue', {
-			1: '¿Desea copiar un registro?',
-			_: '¿Desea copiar %d registros?'
+			_: '¿Desea copiar %d registros?',
+			1: '¿Desea copiar un registro?'
 		}, exportDataRows),
 		OKFunction: function () {
 			ctx.oInit.formEdit.okCallBack = true;
@@ -318,10 +318,10 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('changes', 'Copia de registros en clipboard'),
+					dt.i18n('changes', 'Copia de registros en portapapeles'),
 					dt.i18n('saved', {
-						1: 'Copiado un registro al portapapeles',
-						_: 'Copiados %d registros al portapapeles'
+						_: 'Copiados %d registros al portapapeles',
+						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
 					2000
 				);
