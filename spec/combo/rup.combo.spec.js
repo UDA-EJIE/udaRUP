@@ -7,7 +7,9 @@ describe('Test Combo', () => {
     describe('Creación', () => {
         beforeAll(() => {
             var html = '<select id="exampleCombo"></select>'
-                    +  '<select id="exampleComboMulti"></select>';
+                    +  '<select id="exampleComboMulti"></select>'
+                    +  '<select id="exampleComboPadre"></select>'
+                    +  '<select id="exampleComboHijo"></select>';
             var source = [
                     {
                         i18nCaption: 'OpcionUno',
@@ -46,8 +48,25 @@ describe('Test Combo', () => {
                 selected: ['2'],
                 multiselect:true
             }
+            var optionsPadre = {
+                source:[
+                    {i18nCaption:'Opt1', value:'1'},
+                    {i18nCaption:'Opt2', value:'2'}
+                ],
+                selected:'1'
+            };
+            var optionsHijo = {
+                parent:['exampleComboPadre'],
+                source:{
+                    '1':[{i18nCaption:'Subopt11', value:'1.1'},{i18nCaption:'Subopt12', value:'1.2'}],
+                    '2':[{i18nCaption:'Subopt21', value:'2.1'},{i18nCaption:'Subopt22', value:'2.2'}]
+                },
+                selected:'1.1'
+            };
             $('#exampleCombo').rup_combo(optionsSimple);
             $('#exampleComboMulti').rup_combo(optionsMulti);
+            $('#exampleComboPadre').rup_combo(optionsPadre);
+            $('#exampleComboHijo').rup_combo(optionsHijo);
             $combo = $('#exampleCombo');
             $comboMulti = $('#exampleComboMulti');
             $combo.on('change', () => {
@@ -232,6 +251,21 @@ describe('Test Combo', () => {
                 });
             });
         });
+        describe('Método disableChild', () => {
+            beforeAll(() => {
+                $('#exampleComboPadre').rup_combo('disableChild');
+            });
+            it('Combo padre debe estar vacio y deshabilitado', () => {
+                let length = $('#exampleComboPadre').children().length;
+                expect(length).toBe(0);
+                expect($('#exampleComboPadre')).toBeDisabled();
+            });
+            it('Los hijos deben estar vacíos y deshabilitados', () => {
+                let length = $('#exampleComboHijo').children().length;
+                expect(length).toBe(0);
+                expect($('#exampleComboHijo')).toBeDisabled();
+            });
+        });
         describe('Método order', () => {
             //La documentcion no muestra la manera de usar este comando, las opciones que he probado no funcionan
         });
@@ -240,7 +274,3 @@ describe('Test Combo', () => {
         generalFunc($comboMulti,'rup_combo',['getRupValue','setRupValue','enable','disable']);
     });
 });
-/**
- * POR IMPLEMENTAR:
- * - disableChild
- */
