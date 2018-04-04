@@ -490,9 +490,12 @@ function info ( api )
 	
 
 	var add = function ( el, name, num ) {
+		name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
+		var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionadas');
+		var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionada');
 		el.append( $('<span class="select-item"/>').append( api.i18n(
 			'select.'+name+'s',
-			{ _: '%d '+name+'s selected', 0: '', 1: '1 '+name+' selected' },
+			{ _: '%d '+name+'s '+sels+'', 0: '', 1: '1 '+name+' '+sel+'' },
 			num
 		) ) );
 	};
