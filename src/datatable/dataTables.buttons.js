@@ -1157,7 +1157,7 @@ Buttons.buttonSelector = function ( insts, selector )
  * @static
  */
 Buttons.defaults = {
-	buttons: [ 'copy', 'excel', 'csv', 'pdf', 'print', 'copyCustom' ],
+	buttons: [ 'copyCustom' ],
 	name: 'main',
 	tabIndex: 0,
 	dom: {
@@ -1310,43 +1310,8 @@ $.extend( _dtButtons, {
 			'aria-haspopup': true
 		}
 	},
-	copy: function ( dt, conf ) {
-		if ( _dtButtons.copyHtml5 ) {
-			return 'copyHtml5';
-		}
-		if ( _dtButtons.copyFlash && _dtButtons.copyFlash.available( dt, conf ) ) {
-			return 'copyFlash';
-		}
-	},
-	csv: function ( dt, conf ) {
-		// Common option that will use the HTML5 or Flash export buttons
-		if ( _dtButtons.csvHtml5 && _dtButtons.csvHtml5.available( dt, conf ) ) {
-			return 'csvHtml5';
-		}
-		if ( _dtButtons.csvFlash && _dtButtons.csvFlash.available( dt, conf ) ) {
-			return 'csvFlash';
-		}
-	},
-	excel: function ( dt, conf ) {
-		// Common option that will use the HTML5 or Flash export buttons
-		if ( _dtButtons.excelHtml5 && _dtButtons.excelHtml5.available( dt, conf ) ) {
-			return 'excelHtml5';
-		}
-		if ( _dtButtons.excelFlash && _dtButtons.excelFlash.available( dt, conf ) ) {
-			return 'excelFlash';
-		}
-	},
-	pdf: function ( dt, conf ) {
-		// Common option that will use the HTML5 or Flash export buttons
-		if ( _dtButtons.pdfHtml5 && _dtButtons.pdfHtml5.available( dt, conf ) ) {
-			return 'pdfHtml5';
-		}
-		if ( _dtButtons.pdfFlash && _dtButtons.pdfFlash.available( dt, conf ) ) {
-			return 'pdfFlash';
-		}
-	},
 	copyCustom: function ( dt, conf ) {
-		if ( _dtButtons.copyCustom ) {
+		if ( _dtButtons.copyCustom && _dtButtons.copyCustom.available( dt, conf ) ) {
 			return 'copyCustom';
 		}
 	},
