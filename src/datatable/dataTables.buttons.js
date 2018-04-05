@@ -615,7 +615,7 @@ $.extend( Buttons.prototype, {
 			// Comprueba si es alguno de los botones con iconos definidos por defecto
 			switch (config.type) {
 				case 'add':
-					config.icon = "fa-file-o";
+					config.icon = "fa-plus";
 					break;
 				case 'edit':
 					config.icon = "fa-pencil-square-o";
@@ -627,14 +627,13 @@ $.extend( Buttons.prototype, {
 					config.icon = "fa-trash-o";
 					break;
 				case 'reports':
-					config.icon = "fa-cog";
+					config.icon = "fa-file-o";
 					break;
 				case 'copyCustom':
 					config.icon = "fa-clipboard";
 					break;
 				default:
-					// TODO: hay que elegir un icono por defecto
-					config.icon = "";
+					config.icon = "fa-cog";
 			}
 		}
 
