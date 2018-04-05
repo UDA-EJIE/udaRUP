@@ -1,11 +1,11 @@
 # RUP Table - Edición en formulario
 
 Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
-dentro de un diÃ¡logo y ofrece las siguientes funcionalidades:
+dentro de un diálogo y ofrece las siguientes funcionalidades:
 
-* AÃ±adir un nuevo registro o modificar uno ya existente.
+* Añadir un nuevo registro o modificar uno ya existente.
 * Cancelar la inserción o edición de un registro.
-* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas Ã¡gil sobre los diferentes elementos.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
 
 ![Imagen 1](img/rup.datatable.formEdit_1.png)
 

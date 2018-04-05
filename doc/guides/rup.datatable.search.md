@@ -1,19 +1,19 @@
 # RUP Table - B煤squeda
 
-Permite al usuario realizar una b煤squeda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de b煤squeda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
+Permite al usuario realizar una b鷔ueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de b鷖queda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
 
 ![Imagen 1](img/rup.datatable.search_1.png)
 
-## 1. Declaraci贸n y configuraci贸n
+## 1. Declaraci髇 y configuraci髇
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor search. La configuraci贸n del plugin se especifica en la propiedad search.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor search. La configuraci髇 del plugin se especifica en la propiedad search.
 
 ```js
 $("#idComponente").rup_datatable({
   url: "../jqGridUsuario",
   usePlugins:["search"],
   search:{
-    // Propiedades de configuraci贸n del plugin search
+    // Propiedades de configuraci髇 del plugin search
   }
 });
 ```

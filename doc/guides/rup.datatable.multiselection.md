@@ -30,7 +30,7 @@ var multiselectionObj = DataTable.multiSelect.multiselection;
 Se puede acceder a los métodos de la api del multiSelect
 ``DataTable.Api().multiSelect.metodoEjemplo()`
 
-AdemÃ¡s de las propiedades de configuraciÃ³n asociadas a la configuraciÃ³n del plugin de multiselecciÃ³n se pueden observar las siguientes propiedades.
+Además de las propiedades de configuración asociadas a la configuración del plugin de multiselección se pueden observar las siguientes propiedades.
 
 
 ```js
@@ -48,12 +48,12 @@ AdemÃ¡s de las propiedades de configuraciÃ³n asociadas a la configuraciÃ³n del p
 
 La función de cada propiedad es la siguiente:
 
-* **numSelected**: NÃºmero de registros seleccionados en la tabla.
+* **numSelected**: Número de registros seleccionados en la tabla.
 * **selectedAll**: Indica si se han seleccionado todos los elementos de la tabla.
 * **selectedIds**: Array que almacena los identificadores de los registros *seleccionados*.
-* **selectedRowsPerPage**: Array que almacena la informaciÃ³n de los registros *seleccionados* por cada pÃ¡gina.
+* **selectedRowsPerPage**: Array que almacena la información de los registros *seleccionados* por cada página.
 * **deselectedIds**: Array que almacena los identificadores de los registros *deseleccionados*.
-* **deselectedRowsPerPage**: Array que almacena la informaciÃ³n de los registros *deseleccionados* por cada pÃ¡gina.
+* **deselectedRowsPerPage**: Array que almacena la información de los registros *deseleccionados* por cada página.
 * **lastSelectedId**: -identificador con el último registro seleccionado*.
 * **accion**: Variable para distingir la acción de checkAll, uncheckAll, checkAllPage y uncheckAllPage*.
 
@@ -71,7 +71,7 @@ En este caso la selección de registros se realiza de manera normal. Cuando se se
 
 Supongamos el siguiente ejemplo.
 
-Se accede a la aplicaciÃ³n y sobre un componente RUP Table con el plugin de multiselecciÃ³n activado se procede a seleccionar los siguientes registros:
+Se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado se procede a seleccionar los siguientes registros:
 
 * Pagina 1, registro de la línea 3 con el id "47"
 * Pagina 1, registro de la línea 6 con el id "56"
@@ -120,7 +120,7 @@ El número de registros totales es de 1500 elementos. Se seleccionan todos los re
 * Pagina 4, registro de la línea 7 con el id "176"
 * Pagina 4, registro de la línea 8 con el id "201"
 
-DespuÃ©s de realizar las multiselecciÃ³n sobre los registros el estado de la estructura serÃ¡ la siguiente:
+Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 
 ```js
 {
