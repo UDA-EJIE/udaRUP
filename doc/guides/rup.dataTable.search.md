@@ -1,4 +1,4 @@
-# RUP Table - Búsqueda
+# RUP dataTable - Búsqueda
 
 Permite al usuario realizar una búqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
 
