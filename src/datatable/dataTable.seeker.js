@@ -1,25 +1,10 @@
-/*! seeker for DataTables 1.2.4
- * 2015-2017 SpryMedia Ltd - datatables.net/license/mit
+/*! seeker for DataTables 1.0.0
  */
 
 /**
- * @summary     Seeker for DataTables
- * @description A collection of API methods, events and buttons for DataTables
- *   that provides selection options of the items in a DataTable
- * @version     1.2.4
+ * @summary     seeker for DataTables
+ * @version     1.0.0
  * @file        dataTable.seeker.js
- * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     datatables.net/forums
- * @copyright   Copyright 2015-2017 SpryMedia Ltd.
- *
- * This source file is free software, available under the following license:
- *   MIT license - http://datatables.net/license/mit
- *
- * This source file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
- *
- * For details please refer to: http://www.datatables.net/extensions/select
  */
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {

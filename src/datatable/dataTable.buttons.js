@@ -1,5 +1,10 @@
-/*! Buttons for DataTables 1.5.1
- * ©2016-2017 SpryMedia Ltd - datatables.net/license
+/*! buttons for DataTables 1.5.1
+ */
+
+/**
+ * @summary     buttons for DataTables
+ * @version     1.5.1
+ * @file        dataTable.buttons.js
  */
 
 (function( factory ){
