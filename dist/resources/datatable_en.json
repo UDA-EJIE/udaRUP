@@ -23,6 +23,9 @@
     },
     "pagina": "[EN]Página ",
     "toPagina": " [EN]de {0}",
+     "seleccionada": "selected",
+    "seleccionadas": "selecteds",
+    "fila": "row",
     "toolbar": {
       "add": "[EN]Añadir",
       "edit": "[EN]Editar",
