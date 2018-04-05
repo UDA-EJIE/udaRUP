@@ -1,24 +1,24 @@
-# RUP dataTable - Edición en formulario
+# RUP dataTable - Ediciï¿½n en formulario
 
-Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
-dentro de un diálogo y ofrece las siguientes funcionalidades:
+Permite la ediciï¿½n de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
+dentro de un diï¿½logo y ofrece las siguientes funcionalidades:
 
-* Añadir un nuevo registro o modificar uno ya existente.
-* Cancelar la inserción o edición de un registro.
-* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
+* Aï¿½adir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserciï¿½n o ediciï¿½n de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ï¿½gil sobre los diferentes elementos.
 
 ![Imagen 1](img/rup.datatable.formEdit_1.png)
 
-# 1. Declaración y configuración
+# 1. Declaraciï¿½n y configuraciï¿½n
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor formEdit. La configuración del plugin se especifica en la propiedad formEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor formEdit. La configuraciï¿½n del plugin se especifica en la propiedad formEdit.
 
 ```js
-$("#idComponente").rup_datatable({
+$("#idComponente").rup_dataTable({
   url: "../jqGridUsuario",
   usePlugins:["formEdit"],
   formEdit:{
-  // Propiedades de configuración del plugin formEdit
+  // Propiedades de configuraciï¿½n del plugin formEdit
   }
 });
 ```

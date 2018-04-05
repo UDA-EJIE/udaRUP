@@ -34,15 +34,15 @@
 	//****************************************************************************************************************
 
 	var DataTable = $.fn.dataTable;
-	var rup_datatable = {};
+	var rup_dataTable = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_datatable', rup_datatable));
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_dataTable', rup_dataTable));
 
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS RUP
 	//*******************************
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_dataTable('extend',{
 		getRupValue: function() {
 			return null;
 		},
@@ -54,7 +54,7 @@
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_dataTable('extend',{
 		foo: function() {
 			return this;
 		}
@@ -64,7 +64,7 @@
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_dataTable('extend',{
 
 		/**
 			* Inicializa ciertas opciones del componente
@@ -105,7 +105,7 @@
 			options.ajax = this._ajaxOptions(options);
 
 			options.language = {
-				'url': $.rup.RUP + '/resources/datatable_' + $.rup.lang + '.json'
+				'url': $.rup.RUP + '/resources/dataTable_' + $.rup.lang + '.json'
 			};
 
 
@@ -286,13 +286,13 @@
 	//*******************************
 	// MÉTODO DE INICIALIZACION
 	//*******************************
-	$.fn.rup_datatable('extend', {
+	$.fn.rup_dataTable('extend', {
 		_init : function(args){
 			var $self = this,
-				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
+				settings = $.extend({}, $.fn.rup_dataTable.defaults, $self[0].dataset, args[0]);
 
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
-			$self.attr('ruptype', 'datatable');
+			$self.attr('ruptype', 'dataTable');
 
 			$self._initOptions(settings);
 
@@ -320,7 +320,7 @@
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
-	$.fn.rup_datatable.defaults = {
+	$.fn.rup_dataTable.defaults = {
 		foobar: false,
 		headerContextMenu: {
 			show: true,

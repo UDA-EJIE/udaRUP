@@ -9,7 +9,7 @@ El uso del plugin en el componente puede realizarse de dos maneras:
 - La primera sería mediante la definición de las propiedades del botón siendo la función 'action' la encargada de toda la lógica.
 
 ```js
-  $('#idComponente').rup_datatable({
+  $('#idComponente').rup_dataTable({
     buttons: [
       {
         displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
@@ -25,7 +25,7 @@ El uso del plugin en el componente puede realizarse de dos maneras:
 - La segunda en cambio hace uso de un botón predefinido.
 
 ```js
-$('#idComponente').rup_datatable({
+$('#idComponente').rup_dataTable({
   buttons: [
   	'copyCustom'
   ]
@@ -37,7 +37,7 @@ $('#idComponente').rup_datatable({
 A continuación se va a mostrar un ejemplo de definición de un caso complejo de las opciones del toolbar:
 
 ```js
-$('#idComponente').rup_datatable({
+$('#idComponente').rup_dataTable({
   buttons: [
     {
     	text: function (dt) {
