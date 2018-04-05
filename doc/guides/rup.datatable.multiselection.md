@@ -66,8 +66,8 @@ Existen dos modos de selección de registros en la tabla.
 
 En este caso la selección de registros se realiza de manera normal. Cuando se selecciona un registro de la tabla se:
 
-* Incrementa el contador de la propiedad ```numSelected```.
-* Se almacena el último id seleccionado ``lastSelectedId```.
+* Incrementa el contador de la propiedad ``numSelected``.
+* Se almacena el último id seleccionado ``lastSelectedId``.
 
 Supongamos el siguiente ejemplo.
 
@@ -105,8 +105,8 @@ La selección inversa se realiza cuando el usuario ha seleccionado todos los regi
 
 Cuando se deselecciona un registro de la tabla se:
 
-* Disminuye el contador de la propiedad ```numSelected```.
-* Se almacena la información del registro en las propiedades ```deselected```.
+* Disminuye el contador de la propiedad ``numSelected``.
+* Se almacena la información del registro en las propiedades ``deselected``.
 
 Supongamos el siguiente ejemplo.
 
