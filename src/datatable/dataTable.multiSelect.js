@@ -7,7 +7,7 @@
  * @description A collection of API methods, events and buttons for DataTables
  *   that provides selection options of the items in a DataTable
  * @version     1.2.4
- * @file        dataTables.multiSelect.js
+ * @file        dataTable.multiSelect.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net/forums
  * @copyright   Copyright 2015-2017 SpryMedia Ltd.
@@ -63,9 +63,9 @@ DataTable.multiSelect.version = '1.2.4';
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 DataTable.multiSelect.init = function ( dt ) {
 	var ctx = dt.settings()[0];
@@ -85,10 +85,10 @@ DataTable.multiSelect.init = function ( dt ) {
 	var setStyle = false;
 
 	ctx._multiSelect = {};
-	
+
 	//se Inicializa las propiedades de los select.
 	DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
-	
+
 	_paintCheckboxSelect(ctx);
 
 	// Initialisation customisations
@@ -191,7 +191,7 @@ The `_select` object contains the following properties:
 
 ```
 {
-	items:string     - Can be `rows`, `columns` or `cells`. Defines what item 
+	items:string     - Can be `rows`, `columns` or `cells`. Defines what item
 	                   will be selected if the user is allowed to activate row
 	                   selection using the mouse.
 	style:string     - Can be `none`, `single`, `multi` or `os`. Defines the
@@ -228,7 +228,7 @@ handler that will select the items using the API methods.
  * in the visible grid rather than by index in sequence. For example, if you
  * click first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1
  * should also be selected (and not 1-3, 1-4. etc)
- * 
+ *
  * @param  {DataTable.Api} dt   DataTable
  * @param  {object}        idx  Cell index to select to
  * @param  {object}        last Cell index to select from
@@ -245,13 +245,13 @@ function cellRange( dt, idx, last )
 			end = start;
 			start = tmp;
 		}
-		
+
 		var record = false;
 		return dt.columns( ':visible' ).indexes().filter( function (i) {
 			if ( i === start ) {
 				record = true;
 			}
-			
+
 			if ( i === end ) { // not else if, as start might === end
 				record = false;
 				return true;
@@ -276,7 +276,7 @@ function cellRange( dt, idx, last )
 			if ( i === start ) {
 				record = true;
 			}
-			
+
 			if ( i === end ) {
 				record = false;
 				return true;
@@ -466,7 +466,7 @@ function eventTrigger ( api, type, args, any )
 /**
  * Update the information element of the DataTable showing information about the
  * items selected. This is done by adding tags to the existing text
- * 
+ *
  * @param {DataTable.Api} api DataTable to update
  * @private
  */
@@ -482,12 +482,12 @@ function info ( api )
 		return;
 	}
 	var DataTable = $.fn.dataTable;
-	
+
 	var rows    = api.rows( { selected: true } ).flatten().length;
 	var columns = api.columns( { selected: true } ).flatten().length;
 	var cells   = api.cells( { selected: true } ).flatten().length;
-	
-	
+
+
 
 	var add = function ( el, name, num ) {
 		name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
@@ -499,10 +499,10 @@ function info ( api )
 			num
 		) ) );
 	};
-	
+
 	rows = DataTable.multiSelect.multiselection.numSelected;
 	//Antes de mostrar la info se ha de ordenar.
-	
+
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
 		el = $(el);
@@ -539,7 +539,7 @@ function init ( ctx ) {
 	// Row callback so that classes can be added to rows and cells if the item
 	// was selected before the element was created. This will happen with the
 	// `deferRender` option enabled.
-	// 
+	//
 	// This method of attaching to `aoRowCreatedCallback` is a hack until
 	// DataTables has proper events for row manipulation If you are reviewing
 	// this code to create your own plug-ins, please do not do this!
@@ -623,12 +623,12 @@ function init ( ctx ) {
 
 /**
  * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
- * 
+ *
  *
  * This will occur _after_ the initial DataTables initialisation, although
  * before Ajax data is rendered
  *
- * @param  {DataTable.api} ctx 
+ * @param  {DataTable.api} ctx
  * @private
  */
 function _drawSelectId(api){
@@ -660,7 +660,7 @@ function _drawSelectId(api){
 
 /**
  * Pinta la cabecera y pie del datatable con el checkbox all.
- * 
+ *
  *
  *
  * * @param  {DataTable.ctx} ctx Settings object to operate on
@@ -672,19 +672,19 @@ function _paintCheckboxSelect(ctx){
 		//Se rellena todo, la columna select.
 
 		var divHead =  $("<div/>").attr('id','divSelectTableHead'+ctx.sTableId).css({"text-align":"center"});
-		
+
 		var input =  $("<input/>").attr('type','checkbox');
 		var link = $("<a/>").addClass("ui-icon rup-datatable_checkmenu_arrow").attr('id','linkSelectTableHead'+ctx.sTableId);
-		
+
 		input.click(function () {
 			var dt = new DataTable.Api( ctx );
-			if(input.is(':checked')) {  
-				selectAllPage(dt);  
-	        } else {  
-	        	deselectAllPage(dt);  
+			if(input.is(':checked')) {
+				selectAllPage(dt);
+	        } else {
+	        	deselectAllPage(dt);
 	        }
 	    });
-		
+
 		link.click(function () {
 			var dt = new DataTable.Api( ctx );
 			//Marcar todos
@@ -693,14 +693,14 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
-			}; 
+			};
 			//Desmarcar todos
 			if(!DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.selectedIds.length  === 0){
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
-			}; 
+			};
 			if(DataTable.multiSelect.multiselection.selectedIds.length  > 0){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 			}
@@ -716,7 +716,7 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 			}
-			
+
 			//Si la pagina esta completamente deseleccionada
 			if(checkPageSelectedAll(dt,false)){
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
@@ -726,22 +726,22 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 			}
-			
+
 	    });
-		
+
 		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContex
 			_createContexMenuSelect($('#'+link[0].id),ctx)
 			divHead.append(input,link);
 		}
 
 		if(ctx.nTable.tHead !== null){
-			var th = $(ctx.nTable.tHead.rows[0].cells[0]) 
+			var th = $(ctx.nTable.tHead.rows[0].cells[0])
 			th.append(divHead);
 		}
 
 		//Se aseguro que no sea orderable
 		columnDefs[0].orderable = false;
-		
+
 		//Se genera el div para el feedback del datatable.
 		var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
 		DataTable.multiSelect.multiselection.internalFeedback = divFeedback;
@@ -756,9 +756,9 @@ function _paintCheckboxSelect(ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {boolean} selected - Etrue o false para saber cual de los 2 quieres buscar.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function checkPageSelectedAll(dt,selected){
 	var count = 0;
@@ -773,7 +773,7 @@ function checkPageSelectedAll(dt,selected){
 	if(dt.rows().nodes().flatten().length === count){
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -785,15 +785,15 @@ function checkPageSelectedAll(dt,selected){
 * @function
 * @param {string} id - Es el identificador del datatable.
 * @param {object} ctx - datatable.settings.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _createContexMenuSelect(id,ctx){
 	var items = {};
 	var options = ctx.oInit;
 	var dt = new DataTable.Api( ctx );
-	
+
 	if (options.headerContextMenu.selectAllPage) {
 		jQuery.extend(items, {
 			'selectAllPage': {
@@ -807,7 +807,7 @@ function _createContexMenuSelect(id,ctx){
 				}
 			}
 		});
-		
+
 	}
 	if (options.headerContextMenu.deselectAllPage) {
 		jQuery.extend(items, {
@@ -856,7 +856,7 @@ function _createContexMenuSelect(id,ctx){
 			}
 		});
 	}
-	
+
 	id.rup_contextMenu({
 		trigger: 'left',
 		items: items,
@@ -876,9 +876,9 @@ function _createContexMenuSelect(id,ctx){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function selectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "checkAll";
@@ -890,7 +890,7 @@ function selectAllPage(dt){
 	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
 	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', DataTable.settings[0].json.recordsTotal);
 	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
-	if(!DataTable.multiSelect.multiselection.selectedAll || 
+	if(!DataTable.multiSelect.multiselection.selectedAll ||
 			(DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.deselectedIds.length  > 0)){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
 		DataTable.multiSelect.multiselection.internalFeedback.type = 'fijo';
@@ -911,9 +911,9 @@ function selectAllPage(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function deselectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "uncheck";
@@ -943,9 +943,9 @@ function deselectAllPage(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function selectAll(dt){
 	DataTable.multiSelect.multiselection.selectedAll = true;
@@ -961,7 +961,7 @@ function selectAll(dt){
 		DataTable.multiSelect.multiselection.lastSelectedId = dt.data()[0].id;
 	}else{
 		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
-		DataTable.multiSelect.multiselection.lastSelectedId = ''; 
+		DataTable.multiSelect.multiselection.lastSelectedId = '';
 	}
 }
 
@@ -973,9 +973,9 @@ function selectAll(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
@@ -1045,7 +1045,7 @@ function clear( ctx, force )
 {
 	if ( force || ctx._multiSelect.style === 'single' ) {
 		var api = new DataTable.Api( ctx );
-		
+
 		api.rows( { selected: true } ).deselect();
 		api.columns( { selected: true } ).deselect();
 		api.cells( { selected: true } ).deselect();
@@ -1123,10 +1123,10 @@ function typeSelect ( e, dt, ctx, type, idx )
 * @name initializeMultiselectionProps
 * @private
 * @function
-* @param 
-* @return 
+* @param
+* @return
 * @example
-* 
+*
 */
 function _initializeMultiselectionProps (  ) {
 	var $self = {};
@@ -1172,14 +1172,14 @@ function _initializeMultiselectionProps (  ) {
  * @param  {boolean}    select   si es seleccionado o no
  * @param  {integer}    pagina   página en la que se encuentra el seleccionado
  * @param  {integer}    line   linea en la que se encuentra el seleccionado
-* @return 
+* @return
 * @example
-* 
+*
 */
 //1 select, 0 deselect
 function maintIdsRows(DataTable,id,select,pagina,line){
 	var indexInArray = -1;
-	if(select){// se elimina de los deselecionados		
+	if(select){// se elimina de los deselecionados
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds)
 		if(indexInArray > -1 && !pagina){//Si se encuentra y además no se está paginando.
 			DataTable.multiSelect.multiselection.deselectedIds.splice(indexInArray,1);
@@ -1193,8 +1193,8 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			var arra = {id:id,page:DataTable.settings[0].json.page,line:line};
 			//DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
 			//DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:DataTable.settings[0].json.page,line:line});
-			
-			//Inicio de ordenacion, Se ordena los selected ids.			
+
+			//Inicio de ordenacion, Se ordena los selected ids.
 
 			$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
 			  if(arra.page < p.page){
@@ -1212,17 +1212,17 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 				  pos = index+1;//Posible
 			  }
 			});
-			
+
 			DataTable.multiSelect.multiselection.selectedIds.splice(pos,0,id);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(pos,0,arra);
-			
+
 			//DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],line);
-			
+
 			//FIn ordenacion
 		}
 	}else{//Deselect
 		indexInArray = jQuery.inArray(id, DataTable.multiSelect.multiselection.selectedIds);//Se elimina el ids
-		
+
 		if(indexInArray > -1){//se borra
 			DataTable.multiSelect.multiselection.selectedIds.splice(indexInArray,1);
 			DataTable.multiSelect.multiselection.selectedRowsPerPage.splice(indexInArray,1);
@@ -1237,18 +1237,18 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 		//Se mete el id para mantener el selectAll o no.
 		if(id !== undefined && DataTable.multiSelect.multiselection.deselectedIds.indexOf(id) < 0){
 			if(line === undefined){
-				$.each(DataTable.settings[0].json.rows, function( index, value ) { 
+				$.each(DataTable.settings[0].json.rows, function( index, value ) {
  					if (value.id === id){
-						line = index;						
+						line = index;
 						return false;
-					}	
+					}
 				});
-				
+
 			}
 			var posDeselect = 0;
 			var arraDeselect = {id:id,page:DataTable.settings[0].json.page,line:line};
-			
-			//Inicio de ordenacion, Se ordena los selected ids.			
+
+			//Inicio de ordenacion, Se ordena los selected ids.
 			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
 			  if(arraDeselect.page < p.page){
 				  posDeselect = index;
@@ -1265,7 +1265,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 				  posDeselect = index+1;//Posible
 			  }
 			});
-			
+
 			DataTable.multiSelect.multiselection.deselectedIds.splice(posDeselect,0,id);
 			DataTable.multiSelect.multiselection.deselectedRowsPerPage.splice(posDeselect,0,arraDeselect);
 			if(DataTable.multiSelect.multiselection.lastSelectedId === id){
@@ -1403,7 +1403,7 @@ apiRegister( 'multiSelect.style()', function ( style ) {
 		// API selection is available
 		var dt = new DataTable.Api( ctx );
 		disableMouseSelection( dt );
-		
+
 		if ( style !== 'api' ) {
 			enableMouseSelection( dt );
 		}
@@ -1462,7 +1462,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	var DataTable = $.fn.dataTable;
 	var pagina = true;
 	//Al pagina comprobar el checkGeneral.
-	
+
 	//Se miral si hay feedback y en ese caso se elimina.
 	var feedBack = DataTable.multiSelect.multiselection.internalFeedback;
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
@@ -1479,7 +1479,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		//maintIdsRows(DataTable,api.data().id,0,pagina);
 		//return this.deselect();
 	}
-	
+
 
 	this.iterator( 'row', function ( ctx, idx ) {
 		clear( ctx );
@@ -1487,13 +1487,13 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		ctx.aoData[ idx ]._multiSelect_selected = true;
 		$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
 		var id = ctx.aoData[ idx ]._aData.id;
-		
+
 		//Se mira el contador para sumar seleccionados
 		if(DataTable.multiSelect.multiselection.numSelected < DataTable.settings[0].json.recordsTotal &&
 				id !== undefined && DataTable.multiSelect.multiselection.selectedIds.indexOf(id) < 0){
 			DataTable.multiSelect.multiselection.numSelected++;
 		}
-		
+
 		//para seleccionar todos los de la pagina actual.
 		maintIdsRows(DataTable,id,1,pagina,idx);
 		//Se marca el ultimo.
@@ -1502,14 +1502,14 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	} );
 	if(pagina){//Cuando se pagina, se filtra, o se reordena.
 		if(DataTable.multiSelect.multiselection.selectedAll){//Si pagina y están todos sleccionados se pintan.
-			var ctx = api.settings()[0]; 
+			var ctx = api.settings()[0];
 			$.each(api.context[0].aoData, function( idx ) {
 				var id = ctx.aoData[ idx ]._aData.id;
 				//Si esta en la lista de deselecionados, significa que no debería marcarse.
 				if(jQuery.inArray(id, DataTable.multiSelect.multiselection.deselectedIds) === -1){
 					ctx.aoData[ idx ]._multiSelect_selected = true;
 					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
-					
+
 					//para seleccionar todos los de la pagina actual.
 					maintIdsRows(DataTable,id,1,pagina);
 				}
@@ -1521,7 +1521,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	this.iterator( 'table', function ( ctx, i ) {
 		eventTrigger( api, 'select', [ 'row', api[i] ], true );
 	} );
-	
+
 	//al paginar
 	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
 	if(checkPageSelectedAll(api,true)){
@@ -1594,25 +1594,25 @@ apiRegisterPlural( 'cells().multiSelect()', 'cell().multiSelect()', function ( m
 apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 	var DataTable = $.fn.dataTable;
-	
+
 	//Se miral si hay feedback y en ese caso se elimina.
 	var feedBack = DataTable.multiSelect.multiselection.internalFeedback;
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback('destroy');
 		DataTable.multiSelect.multiselection.internalFeedback.css('width','100%');
 	}
-	
+
 	this.iterator( 'row', function ( ctx, idx ) {
 		ctx.aoData[ idx ]._multiSelect_selected = false;
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
 		var id = ctx.aoData[ idx ]._aData.id;
-		
+
 		//Se mira el contador para restar deselecionados.
 		if(DataTable.multiSelect.multiselection.numSelected > 0 &&
 				id !== undefined && DataTable.multiSelect.multiselection.deselectedIds.indexOf(id) < 0){
 			DataTable.multiSelect.multiselection.numSelected--;
 		}
-		
+
 		//para deseleccionar todos los de la pagina actual.
 		if((DataTable.multiSelect.multiselection.numSelected > 0 && DataTable.multiSelect.multiselection.accion === "uncheckAll")
 			|| (DataTable.multiSelect.multiselection.numSelected >= 0 && DataTable.multiSelect.multiselection.accion === "uncheck")){

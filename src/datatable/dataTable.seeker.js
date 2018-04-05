@@ -7,7 +7,7 @@
  * @description A collection of API methods, events and buttons for DataTables
  *   that provides selection options of the items in a DataTable
  * @version     1.2.4
- * @file        dataTables.seeker.js
+ * @file        dataTable.seeker.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net/forums
  * @copyright   Copyright 2015-2017 SpryMedia Ltd.
@@ -63,16 +63,16 @@ DataTable.seeker.version = '1.2.4';
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return 
+* @return
 * @example
-* 
+*
 */
 DataTable.seeker.init = function ( dt ) {
-	
+
 	var ctx = dt.settings()[0];
-	
+
 	_createFilterColumn(dt,ctx);
-	
+
 	var ajaxOptions = {
 			url : ctx.oInit.urlBase+'/search',
 			accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
@@ -93,9 +93,9 @@ DataTable.seeker.init = function ( dt ) {
 
 			}
 		};
-	
+
 	DataTable.seeker.ajaxOption = ajaxOptions;
-	
+
 	//Ver el buscador interno de la tabla.
 	if(ctx.fnRecordsTotal() === 0){
 		DataTable.seeker.search.$searchRow.hide();
@@ -130,9 +130,9 @@ function _eventTrigger ( api, type, args, any )
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _createFilterColumn(dt,ctx){
 
@@ -146,14 +146,14 @@ function _createFilterColumn(dt,ctx){
 	        	$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
 	        }
 	    } );
-	   
+
 
 	   dt.columns().eq(0).each(function(colIdx) {
 		   if(colIdx > 0){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
 		        	this.focus();
 		        	if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
-		        		DataTable.seeker.ajaxOption.data = _getDatos(ctx);	
+		        		DataTable.seeker.ajaxOption.data = _getDatos(ctx);
 		        		var ajaxOptions =  $.extend(true, [], DataTable.seeker.ajaxOption);
 		        		//Se pasa sin el internalFeedback ya que no es necesario.
 		        		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
@@ -165,7 +165,7 @@ function _createFilterColumn(dt,ctx){
 		        } );
 		   }
 	   });
-	   
+
 	   _createSearchRow(dt,ctx);
 	   DataTable.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
 	   DataTable.seeker.searchForm.hide();
@@ -179,9 +179,9 @@ function _createFilterColumn(dt,ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _createSearchRow (dt,ctx){
 		var idTabla = ctx.sTableId;
@@ -263,7 +263,7 @@ function _createSearchRow (dt,ctx){
 
 		// Evento de búsqueda asociado al botón
 		$navSearchButton.on('click', function(){
-			DataTable.seeker.ajaxOption.data = _getDatos(ctx);	
+			DataTable.seeker.ajaxOption.data = _getDatos(ctx);
     		var ajaxOptions =  $.extend(true, [], DataTable.seeker.ajaxOption);
     		//Se pasa sin el internalFeedback ya que no es necesario.
     		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
@@ -316,7 +316,7 @@ function _createSearchRow (dt,ctx){
 
 		// Se recubre con un form
 		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
-		
+
 		DataTable.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		DataTable.seeker.search.$searchRow.hide();
         $('#'+idTabla).wrapAll($searchForm);
@@ -333,25 +333,25 @@ function _createSearchRow (dt,ctx){
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} rows - Filas del datatable de la página actual.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _selectSearch(dt,ctx,rows){
 	//Se limina el lapicero indicador.
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
-	
+
 	//se añade el span con el lapicero
 	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
 		//Se selecconar el primero y se limpian los datos.
 		var rowSelected = '';
-		
+
 		$.each(ctx.json.rows, function( idx ,value) {
 			if(rows[DataTable.seeker.search.pos].pageLine-1 === idx){
-				rowSelected = dt.rows().nodes()[idx];				
+				rowSelected = dt.rows().nodes()[idx];
 			}
-			var result = $.grep(rows, function(v) {    
-				return v.pk.id === value.id;	
+			var result = $.grep(rows, function(v) {
+				return v.pk.id === value.id;
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search').css('float','right');
@@ -360,7 +360,7 @@ function _selectSearch(dt,ctx,rows){
 		});
 		var rowUnique = rows[DataTable.seeker.search.pos];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
-				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id && 
+				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id &&
 				(ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
 			dt['row'](rowUnique.pageLine-1).multiSelect();
 		}
@@ -376,16 +376,16 @@ function _selectSearch(dt,ctx,rows){
 * @function
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _paginar(ctx,dato){
 	var paginar = false;
 	if(dato !== undefined && dato.page !== Number(ctx.json.page)){
 		paginar = true;
 	}
-	
+
 	return paginar;
 }
 
@@ -397,9 +397,9 @@ function _paginar(ctx,dato){
 * @function
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 
@@ -430,9 +430,9 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _processData(dt,ctx,data){
 	DataTable.Api().multiSelect.deselectAll(dt);
@@ -442,7 +442,7 @@ function _processData(dt,ctx,data){
 		var tabla = $('#'+ctx.sTableId);
 		tabla.dataTable().fnPageChange( data[DataTable.seeker.search.pos].page-1 );
 	}
-	
+
 	if (data.length === 0){
 		DataTable.seeker.search.$firstNavLink.add(DataTable.seeker.search.$backNavLink).add(DataTable.seeker.search.$forwardNavLink).add(DataTable.seeker.search.$lastNavLink).addClass('ui-state-disabled');
 		DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
@@ -460,7 +460,7 @@ function _processData(dt,ctx,data){
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 * @example
-* 
+*
 */
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
@@ -476,9 +476,9 @@ function _getDatos(ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return 
+* @return
 * @example
-* 
+*
 */
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.formEdit.colModel, searchEditOptions;
@@ -487,7 +487,7 @@ function _createRupComponent(dt,ctx){
 		if(i > 0){//La primera columna no vale es la de los select
 			var cellColModel = colModel[i-1];
 			var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
-	
+
 			var colModelName = cellColModel.name;
 			var $elem = $('[name=\''+colModelName+'\']',DataTable.seeker.searchForm);
 			// Se añade el title de los elementos de acuerdo al colname
@@ -495,11 +495,11 @@ function _createRupComponent(dt,ctx){
 				'title': ctx.aoColumns[i-1].sTitle,
 				'class': 'editable customelement'
 			}).removeAttr('readOnly');
-	
+
 			// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 			if(searchRupType!==undefined) {
 				searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-	
+
 				/*
 				 * PRE Configuración de los componentes RUP
 				 */
@@ -510,7 +510,7 @@ function _createRupComponent(dt,ctx){
 					$elem.css('max-width','80px');
 					$elem.css('min-width','75px');
 				}
-	
+
 				// Invocación al componente RUP
 				$elem['rup_'+searchRupType](searchEditOptions);
 			}
