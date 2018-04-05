@@ -1,4 +1,4 @@
-# RUP DataTable - Multiselection
+# RUP dataTable - Multiselection
 
 Permite realizar una selección múltiple de los registros que se muestran en la tabla.
 

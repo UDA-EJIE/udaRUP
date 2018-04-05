@@ -1,4 +1,4 @@
-# RUP Table - Edición en formulario
+# RUP dataTable - Edición en formulario
 
 Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
 dentro de un diálogo y ofrece las siguientes funcionalidades:
