@@ -37,13 +37,30 @@ gulp.task('doc:api', function () {
 	runJsdoc2md(fileSource, outputPath);
 	//rup_table
 	fileSource = 'src/rup_table/rup*.js';
-	//outputPath = './doc/api/table/';
+	//outputPath = './doc/api/';
+	runJsdoc2md(fileSource, outputPath);
+	//rup_datatable
+	fileSource = 'src/datatable/*.js';
+	//outputPath = './doc/api/';
+	runJsdoc2md(fileSource, outputPath);
+	//rup_datatable addons
+	fileSource = 'src/datatable/addons/*.js';
+	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
 });
 
 gulp.task('jsdocFile', function () {
 	var filePath = 'src/rup_table/';
 	var basename = 'rup.table.report';
+	var outputPath = './doc/api/';
+	jsdoc2md.render({
+		files: filePath + basename + '.js'
+	}).then(output => fs.writeFile(outputPath + basename + '.md', output));
+});
+
+gulp.task('jsdocFile', function () {
+	var filePath = 'src/datatable/';
+	var basename = 'rup.datatable.report';
 	var outputPath = './doc/api/';
 	jsdoc2md.render({
 		files: filePath + basename + '.js'

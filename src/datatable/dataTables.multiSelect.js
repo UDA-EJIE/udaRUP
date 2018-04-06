@@ -65,8 +65,6 @@ DataTable.multiSelect.version = '1.2.4';
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return
-* @example
 *
 */
 DataTable.multiSelect.init = function ( dt ) {
@@ -758,8 +756,6 @@ function _paintCheckboxSelect(ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {boolean} selected - Etrue o false para saber cual de los 2 quieres buscar.
-* @return
-* @example
 *
 */
 function checkPageSelectedAll(dt,selected){
@@ -787,8 +783,6 @@ function checkPageSelectedAll(dt,selected){
 * @function
 * @param {string} id - Es el identificador del datatable.
 * @param {object} ctx - datatable.settings.
-* @return
-* @example
 *
 */
 function _createContexMenuSelect(id,ctx){
@@ -878,8 +872,6 @@ function _createContexMenuSelect(id,ctx){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return
-* @example
 *
 */
 function selectAllPage(dt){
@@ -913,8 +905,6 @@ function selectAllPage(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return
-* @example
 *
 */
 function deselectAllPage(dt){
@@ -945,8 +935,6 @@ function deselectAllPage(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return
-* @example
 *
 */
 function selectAll(dt){
@@ -975,8 +963,6 @@ function selectAll(dt){
 * @private
 * @function
 * @param {object} dt - Datatable.
-* @return
-* @example
 *
 */
 function deselectAll(dt){
@@ -1126,8 +1112,6 @@ function typeSelect ( e, dt, ctx, type, idx )
 * @private
 * @function
 * @param
-* @return
-* @example
 *
 */
 function _initializeMultiselectionProps (  ) {
@@ -1174,8 +1158,6 @@ function _initializeMultiselectionProps (  ) {
  * @param  {boolean}    select   si es seleccionado o no
  * @param  {integer}    pagina   página en la que se encuentra el seleccionado
  * @param  {integer}    line   linea en la que se encuentra el seleccionado
-* @return
-* @example
 *
 */
 //1 select, 0 deselect

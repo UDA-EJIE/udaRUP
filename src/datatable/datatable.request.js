@@ -81,8 +81,7 @@
 	* @private
 	* @function
 	* @return DataTableRequest
-	* @example
-	* 
+	*
 	*/
 	DataTableRequest.prototype.getData = function(){
 

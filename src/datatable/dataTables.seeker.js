@@ -65,8 +65,6 @@ DataTable.seeker.version = '1.2.4';
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return
-* @example
 *
 */
 DataTable.seeker.init = function ( dt ) {
@@ -132,8 +130,6 @@ function _eventTrigger ( api, type, args, any )
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return
-* @example
 *
 */
 function _createFilterColumn(dt,ctx){
@@ -181,8 +177,6 @@ function _createFilterColumn(dt,ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return
-* @example
 *
 */
 function _createSearchRow (dt,ctx){
@@ -335,8 +329,6 @@ function _createSearchRow (dt,ctx){
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} rows - Filas del datatable de la página actual.
-* @return
-* @example
 *
 */
 function _selectSearch(dt,ctx,rows){
@@ -378,8 +370,6 @@ function _selectSearch(dt,ctx,rows){
 * @function
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
-* @return
-* @example
 *
 */
 function _paginar(ctx,dato){
@@ -399,8 +389,6 @@ function _paginar(ctx,dato){
 * @function
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
-* @return
-* @example
 *
 */
 function _updateDetailSeekPagination(currentRowNum,totalRowNum){
@@ -432,8 +420,6 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller.
-* @return
-* @example
 *
 */
 function _processData(dt,ctx,data){
@@ -461,7 +447,6 @@ function _processData(dt,ctx,data){
 * @function
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @return {object} Devuelve el objeto mapeado de todos los campos.
-* @example
 *
 */
 function _getDatos(ctx){
@@ -478,8 +463,6 @@ function _getDatos(ctx){
 * @function
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @return
-* @example
 *
 */
 function _createRupComponent(dt,ctx){

@@ -65,8 +65,6 @@ DataTable.editForm.version = '1.2.4';
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return
-* @example
 *
 */
 DataTable.editForm.init = function ( dt ) {
@@ -346,8 +344,6 @@ function eventTrigger ( api, type, args, any )
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
-* @return
-* @example
 *
 */
 DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idRow){
@@ -453,8 +449,6 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 * @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierrar el dialog.
 * @param {string} idTableDetail - Identificdor del detail de la table.
 * @param {string} url - Url que se añade para llmar  al controller.
-* @return
-* @example
 *
 */
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
@@ -552,8 +546,6 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 * @param {object} feedback - Div donde se va ejecutar el feedback.
 * @param {string} msgFeedBack - Mensaje para el feedback.
 * @param {string} type - Tipos del feedback, mirar en el rup.feedback..
-* @return
-* @example
 *
 */
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
@@ -578,8 +570,6 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 * @function
 * @param {object} idForm - Identificador del formulario.
 * @param {string} values - Values ya añadidos al formulario.
-* @return String con los values
-* @example
 *
 */
 function _returnCheckEmpty(idForm,values){
@@ -599,8 +589,6 @@ function _returnCheckEmpty(idForm,values){
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
-* @return
-* @example
 *
 */
 function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
@@ -627,8 +615,6 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return
-* @example
 *
 */
 function _callNavigationBar(dt){
@@ -754,7 +740,6 @@ function _callNavigationBar(dt){
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
 * @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
-* @example
 *
 */
 function _getRowSelected(dt,actionType){
@@ -822,7 +807,6 @@ function _getRowSelected(dt,actionType){
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
 * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
 * @return integer - devuele la página
-* @example
 *
 */
 function _getNextPageSelected(ctx,pageInit,orden){
@@ -869,7 +853,6 @@ function _getNextPageSelected(ctx,pageInit,orden){
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
 * @return integer - devuele la linea
-* @example
 *
 */
 function _getLineByPageSelected(ctx,lineInit){
@@ -899,7 +882,6 @@ function _getLineByPageSelected(ctx,lineInit){
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
 * @return integer - devuele la linea
-* @example
 *
 */
 function _getLineByPageSelectedReverse(ctx,lineInit){
@@ -928,8 +910,6 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 * @private
 * @function
 * @param {object} dt - Es el objeto datatable.
-* @return
-* @example
 *
 */
 function _deleteAllSelects(dt){

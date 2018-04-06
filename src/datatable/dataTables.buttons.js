@@ -13,7 +13,7 @@
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
- 
+
 /*! buttons for DataTables 1.5.1
  */
 
@@ -67,8 +67,8 @@ var _dtButtons = DataTable.ext.buttons;
 
 /**
  * [Buttons description]
- * @param {[type]}
- * @param {[type]}
+ * @param {object} dt
+ * @param {object} config
  */
 var Buttons = function( dt, config )
 {
