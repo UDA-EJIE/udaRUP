@@ -57,12 +57,3 @@ gulp.task('jsdocFile', function () {
 		files: filePath + basename + '.js'
 	}).then(output => fs.writeFile(outputPath + basename + '.md', output));
 });
-
-gulp.task('jsdocFile', function () {
-	var filePath = 'src/datatable/';
-	var basename = 'rup.datatable.report';
-	var outputPath = './doc/api/';
-	jsdoc2md.render({
-		files: filePath + basename + '.js'
-	}).then(output => fs.writeFile(outputPath + basename + '.md', output));
-});

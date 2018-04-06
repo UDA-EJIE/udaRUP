@@ -1,27 +1,25 @@
-/*!
- * Copyright 2018 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
-
-/*! buttons.custom for DataTables 1.0.0
- */
-
 /**
- * @summary     buttons.custom for DataTables
- * @version     1.0.0
- * @file        buttons.custom.js
- */
+  * Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+  * e inicia la gestión para finalmente obtenerlos
+  *
+  * @summary 		Extensión del componente RUP Datatable
+  * @module			"buttons.custom"
+  * @version     1.0.0
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 (function(factory){
 	if (typeof define === 'function' && define.amd) {
@@ -60,13 +58,16 @@ var DataTable = $.fn.dataTable;
 /**
 	* Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
 	* e inicia la gestión para finalmente obtenerlos
+	*
 	* @name _reportsCopyData
 	* @function
-	* @private
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} dt Instancia del datatable
 	* @param {object} that Objeto del boton
 	* @param {object} config Configuracion del boton
-*/
+	*
+  */
 var _reportsCopyData = function (dt, that, config)
 {
 	var ctx = dt.settings()[0];
@@ -115,16 +116,20 @@ var _reportsCopyData = function (dt, that, config)
 /**
 	* Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones
 	* antes de solicitar los datos al servidor
+	*
 	* @name _reportsTypeOfCopy
 	* @function
-	* @private
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} dt Instancia del datatable
 	* @param {string} type Tipo de funcion de copia a ejecutar
 	* @param {object} multiselection Propiedades de la multiseleccion
 	* @param {boolean} selectedAll Cuando es true significa que todas las filas estan marcadas
 	* @param {array} [deselectedIds] ID's de las filas deseleccionadas
+	*
 	* @return {object}
-*/
+	*
+  */
 var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, deselectedIds)
 {
 	var ctx = dt.settings()[0];
@@ -203,8 +208,11 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 
 /**
 	* Se encarga de generar las opciones de configuración con las que se llamara a la API
+	*
 	* @name _reportsPrepareRequestData
 	* @function
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} ajaxOptions Parametros de la llamada Ajax
 	* @param {string} urlAjax Parametro para la URL
 	* @param {string} typeAjax Tipo de llamada a la API
@@ -214,9 +222,10 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 	* @param {boolean} selectedAll Cuando es true significa que todas las filas estan marcadas
 	* @param {array} [deselectedIds] ID's de las filas deseleccionadas
 	* @param {array} [selectedIds] ID's de las filas seleccionadas
-	* @private
+	*
 	* @return {object}
- */
+	*
+  */
 var _reportsPrepareRequestData = function (ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds)
 {
 	var row = {};
@@ -250,12 +259,16 @@ var _reportsPrepareRequestData = function (ajaxOptions, urlAjax, typeAjax, conte
 
 /**
 	* Se encarga de llamar a la API y de devolver los datos recibidos
+	*
 	* @name _reportsRequestData
 	* @function
-	* @private
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} ajaxOptions Parametros de la llamada Ajax
+	*
 	* @return {object}
- */
+	*
+  */
 var _reportsRequestData = function (ajaxOptions)
 {
 	var deferred = $.Deferred();
@@ -268,16 +281,19 @@ var _reportsRequestData = function (ajaxOptions)
 
 /**
 	* Gestiona la apertura/cierre del mensaje de confirmación de copia
+	*
 	* @name _reportsOpenMessage
 	* @function
-	* @private
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} dt Instancia del datatable
 	* @param {object} ctx Contexto
 	* @param {object} that Objeto del boton
 	* @param {int} exportDataRows Numero de filas a ser exportadas
 	* @param {object} hiddenDiv Elemento del DOM
 	* @param {object} textarea Elemento del DOM
-*/
+	*
+  */
 var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
 {
 	$.rup_messages('msgConfirm', {
@@ -304,15 +320,18 @@ var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, te
 
 /**
 	* Copia los datos recibidos al portapapeles
+	*
 	* @name _reportsCopyDataToClipboard
 	* @function
-	* @private
+	* @since UDA 3.4.0 // Datatable 1.0.0
+	*
 	* @param {object} dt Instancia del datatable
 	* @param {object} that Objeto del boton
 	* @param {int} exportDataRows Numero de filas a ser exportadas
 	* @param {object} hiddenDiv Elemento del DOM
 	* @param {object} textarea Elemento del DOM
- */
+	*
+  */
 var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv, textarea)
 {
 	// Para los navegadores que soportan el comando de copia 'execCommand'
