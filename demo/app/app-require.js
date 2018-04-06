@@ -36,8 +36,8 @@ define(['marionette',
 	'responsiveGrid/mobileDesktop/mobileDesktopView',
 	'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView',
 	'dashboard/dashboardView',
-	'datatable/dataTableView'
-
+	'datatable/datatableView'
+	
 
 ], function(Marionette, MainView,  IndexView, StyleGuideView, Bt3StyleGuideView, Bt4StyleGuideView, AutocompleteView, FeedbackView, TooltipView,
 		MessageView, DialogView, ProgressbarView, ContextMenuView, ButtonView, ToolbarView, DateView,
@@ -85,7 +85,7 @@ define(['marionette',
 			'mobileTabletDesktop': 'mobileTabletDesktop',
 			'mobileTabletDesktop': 'mobileTabletDesktop',
 			'dashboard': 'dashboard',
-			'dataTable': 'dataTable'
+			'datatable': 'datatable'
 		}
 	});
 
@@ -194,8 +194,8 @@ define(['marionette',
 			jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass('dashboard-content');
 			RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
 		},
-		dataTable: function(){
-			RupResponsiveDemoApp.mainView.Container.show(new DataTableView());
+		datatable: function(){
+			RupResponsiveDemoApp.mainView.Container.show(new DatatableView());
 		}
 	});
 

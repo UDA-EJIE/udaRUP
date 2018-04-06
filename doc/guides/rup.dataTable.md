@@ -253,7 +253,7 @@ jQuery(function($){
 
 	jQuery("#rol_detail_table").rup_combo(options_role_combo);
 
-	$('#example').rup_dataTable({
+	$('#example').rup_datatable({
 
         multiSelect: {
             style:    'multi'

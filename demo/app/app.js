@@ -35,7 +35,7 @@ import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHoriz
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
 // import DashboardView from 'dashboard/dashboardView';
-import DataTableView from 'datatable/dataTableView';
+import DatatableView from 'datatable/datatableView';
 
 var RupResponsiveDemoApp = new Marionette.Application();
 
@@ -75,7 +75,7 @@ var MyRouter = Marionette.AppRouter.extend({
 		'mobileTabletDesktop': 'mobileTabletDesktop',
 		// 'mobileTabletDesktop': 'mobileTabletDesktop',
 		// 'dashboard': 'dashboard',
-		'dataTable': 'dataTable'
+		'datatable': 'datatable'
 	}
 });
 
@@ -184,8 +184,8 @@ var RouteController = Marionette.Controller.extend({
 	// 	jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass('dashboard-content');
 	// 	RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
 	// },
-	dataTable: function(){
-		RupResponsiveDemoApp.mainView.Container.show(new DataTableView());
+	datatable: function(){
+		RupResponsiveDemoApp.mainView.Container.show(new DatatableView());
 	}
 });
 

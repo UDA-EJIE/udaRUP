@@ -1,19 +1,19 @@
-# RUP dataTable - Bï¿½squeda
+# RUP dataTable - Búsqueda
 
-Permite al usuario realizar una bï¿½queda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de bï¿½squeda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
+Permite al usuario realizar una búqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
 
 ![Imagen 1](img/rup.datatable.search_1.png)
 
-## 1. Declaraciï¿½n y configuraciï¿½n
+## 1. Declaración y configuración
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor search. La configuraciï¿½n del plugin se especifica en la propiedad search.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor search. La configuración del plugin se especifica en la propiedad search.
 
 ```js
-$("#idComponente").rup_dataTable({
+$("#idComponente").rup_datatable({
   url: "../jqGridUsuario",
   usePlugins:["search"],
   search:{
-    // Propiedades de configuraciï¿½n del plugin search
+    // Propiedades de configuración del plugin search
   }
 });
 ```
