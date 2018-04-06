@@ -23,9 +23,9 @@
     },
     "pagina": "{0} orrialdetik  ",
     "toPagina": "",
-    "seleccionada": "seleccionada_eu",
-    "seleccionadas": "seleccionadas_eu",
-    "fila": "fila_eu",
+    "seleccionada": "[EU]seleccionada",
+    "seleccionadas": "[EU]seleccionadas",
+    "fila": "[EU]fila",
     "toolbar": {
       "add": "Gehitu",
       "edit": "Editatu",

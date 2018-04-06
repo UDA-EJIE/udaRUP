@@ -23,9 +23,9 @@
     },
     "pagina": "[FR]Página ",
     "toPagina": " [FR]de {0}",
-    "seleccionada": "seleccionada_fr",
-    "seleccionadas": "seleccionadas_fr",
-    "fila": "fila_fr",
+    "seleccionada": "[FR]seleccionada",
+    "seleccionadas": "[FR]seleccionadas",
+    "fila": "[FR]fila",
     "toolbar": {
       "add": "[FR]Añadir",
       "edit": "[FR]Editar",
