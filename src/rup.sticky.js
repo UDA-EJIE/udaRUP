@@ -53,7 +53,7 @@
 	    *
 	    * @name stickyManager
   		* @function
-  		* @since UDA 3.4.0 // Datatable 1.0.0
+  		* @since UDA 3.3.0 // Sticky 1.0.0
 			*
 	    */
 		stickyManager: function() {
@@ -80,7 +80,7 @@
 			*
 	    * @name _navbarSticky
   		* @function
-  		* @since UDA 3.4.0 // Datatable 1.0.0
+  		* @since UDA 3.3.0 // Sticky 1.0.0
 			*
 			*/
 		_navbarSticky() {
@@ -119,7 +119,7 @@
 			*
 	    * @name _wizardSticky
   		* @function
-  		* @since UDA 3.4.0 // Datatable 1.0.0
+  		* @since UDA 3.3.0 // Sticky 1.0.0
 			*
 			*/
 		_wizardSticky() {
