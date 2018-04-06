@@ -14,6 +14,15 @@
  * que establece la Licencia.
  */
 
+/*! buttons.custom for DataTables 1.0.0
+ */
+
+/**
+ * @summary     buttons.custom for DataTables
+ * @version     1.0.0
+ * @file        buttons.custom.js
+ */
+
 (function(factory){
 	if (typeof define === 'function' && define.amd) {
 		// AMD
