@@ -167,8 +167,8 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-
-			if (!$link.hasClass('ui-state-disabled')) {
+			//Se comprueba el parametro 7 mientras este en convivencia con el rup.table el rup.datatable.
+			if (retNavParams[7] === undefined && !$link.hasClass('ui-state-disabled')) {
 				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 					$.proxy(settings.doNavigation, $self)(retNavParams);
 				})) {

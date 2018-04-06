@@ -23,7 +23,7 @@
 			sidx, sord;
 
 		if (data.order.length>0){
-			sidx = data.columns[data.order[0].column].data;
+			sidx = data.columns[data.order[0].column].colSidx ||  data.columns[data.order[0].column].data;
 			sord = data.order[0].dir;
 		}
 
@@ -74,6 +74,16 @@
 		}
 	};
 
+	/**
+	* Obtiene el objeto a mapear en el multiselect.
+	*
+	* @name getData
+	* @private
+	* @function
+	* @return DataTableRequest
+	* @example
+	* 
+	*/
 	DataTableRequest.prototype.getData = function(){
 
 		return {
