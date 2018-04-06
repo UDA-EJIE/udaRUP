@@ -1,27 +1,24 @@
-/*!
- * Copyright 2018 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
-
-/*! seeker for DataTables 1.0.0
- */
-
 /**
- * @summary     seeker for DataTables
- * @version     1.0.0
- * @file        dataTables.seeker.js
- */
+  * Buscador interno del datatable
+  *
+  * @summary 		Extensión del componente RUP Datatable
+  * @module			"dataTables.seeker"
+  * @version     1.0.0
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
@@ -59,11 +56,13 @@ DataTable.seeker = {};
 DataTable.seeker.version = '1.2.4';
 
 /**
+ * 
 * Se inicializa el componente seeker
 *
 * @name init
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 *
 */
@@ -126,8 +125,9 @@ function _eventTrigger ( api, type, args, any )
 * Crea los componentes principales del buscador.
 *
 * @name createFilterColumn
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 *
@@ -173,8 +173,9 @@ function _createFilterColumn(dt,ctx){
 * Genera la barra de controles para gestionar la búsqueda..
 *
 * @name createSearchRow
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 *
@@ -324,8 +325,9 @@ function _createSearchRow (dt,ctx){
 * Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
 *
 * @name selectSearch
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} rows - Filas del datatable de la página actual.
@@ -366,8 +368,9 @@ function _selectSearch(dt,ctx,rows){
 * Metodo para saber si hay que paginar o no.
 *
 * @name paginar
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
 *
@@ -385,8 +388,9 @@ function _paginar(ctx,dato){
 * Actualiza la navegación del seeker.
 *
 * @name updateDetailSeekPagination
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
 *
@@ -415,8 +419,9 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 * Metodo para procesar los datos provinientes del controller.
 *
 * @name processData
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller.
@@ -443,9 +448,11 @@ function _processData(dt,ctx,data){
 * Se obtienen los datos del formulario del seeker.
 *
 * @name getDatos
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
 */
@@ -459,8 +466,9 @@ function _getDatos(ctx){
 * Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo..
 *
 * @name createRupComponent
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
 *

@@ -1,27 +1,24 @@
-/*!
- * Copyright 2018 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
-
-/*! editForm for DataTables 1.0.0
- */
-
 /**
- * @summary     editForm for DataTables
- * @version     1.0.0
- * @file        dataTables.editForm.js
- */
+  * Módulo que habilita la edicción mediante un formulario.
+  *
+  * @summary 		Extensión del componente RUP Datatable
+  * @module			"dataTables.editForm"
+  * @version     1.0.0
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
@@ -62,8 +59,9 @@ DataTable.editForm.version = '1.2.4';
 * Se inicializa el componente editForm
 *
 * @name init
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 *
 */
@@ -248,8 +246,12 @@ DataTable.editForm.init = function ( dt ) {
  * This will occur _after_ the initial DataTables initialisation, although
  * before Ajax data is rendered, if there is ajax data
  *
+ * @name init
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ * 
  * @param  {DataTable.settings} ctx Settings object to operate on
- * @private
+ * 
  */
 function init ( ctx ) {
 	var api = new DataTable.Api( ctx );
@@ -339,8 +341,9 @@ function eventTrigger ( api, type, args, any )
 * Función que lleva todo el comportamiento para abrir el dialog y editar un resgistro.
 *
 * @name openSaveDialog
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
@@ -440,8 +443,9 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 * Llamada al servidor con los datos de edición.
 *
 * @name openSaveDialog
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {object} row - son los datos que se cargan.
@@ -540,8 +544,9 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 * Llamada para crear el feedback detro del dialog.
 *
 * @name callFeedbackOk
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
 * @param {string} msgFeedBack - Mensaje para el feedback.
@@ -566,8 +571,9 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 * Se verifican los check vacios dentro de un formulario.
 *
 * @name returnCheckEmpty
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} idForm - Identificador del formulario.
 * @param {string} values - Values ya añadidos al formulario.
 *
@@ -584,8 +590,9 @@ function _returnCheckEmpty(idForm,values){
 * Actualiza la navegación del dialogo.
 *
 * @name updateDetailPagination
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -612,8 +619,9 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 * Constructor de la barra de navegación.
 *
 * @name callNavigatorBar
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 *
 */
@@ -735,10 +743,12 @@ function _callNavigationBar(dt){
 * Metodo que obtiene la fila siguiente seleccionada.
 *
 * @name getRowSelected
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
+* 
 * @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
 */
@@ -801,11 +811,13 @@ function _getRowSelected(dt,actionType){
 * Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
 *
 * @name getNextPageSelected
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
 * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
+* 
 * @return integer - devuele la página
 *
 */
@@ -848,10 +860,12 @@ function _getNextPageSelected(ctx,pageInit,orden){
 * Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento seleccionado.
 *
 * @name getLineByPageSelected
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
+* 
 * @return integer - devuele la linea
 *
 */
@@ -877,10 +891,12 @@ function _getLineByPageSelected(ctx,lineInit){
 * Metodo que obtiene la última linea siguiente donde esta el primer elemento o elemento seleccionado.
 *
 * @name getLineByPageSelectedReverse
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
+* 
 * @return integer - devuele la linea
 *
 */
@@ -907,8 +923,9 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 * Metodo que elimina todos los registros seleccionados.
 *
 * @name deleteAllSelects
-* @private
 * @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
 * @param {object} dt - Es el objeto datatable.
 *
 */
