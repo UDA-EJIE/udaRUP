@@ -512,7 +512,9 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
 					dt['row']().multiSelect();
 					//Se actualiza la linea
-					DataTable.multiSelect.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+					if(ctx.json.reorderedSelection !== null){
+						DataTable.multiSelect.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+					}
 				}
 
 			}else{//Al eliminar hacer un reload.
