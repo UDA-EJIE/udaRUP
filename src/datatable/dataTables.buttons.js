@@ -1,27 +1,24 @@
-/*!
- * Copyright 2018 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
-
-/*! buttons for DataTables 1.5.1
- */
-
 /**
- * @summary     buttons for DataTables
- * @version     1.5.1
- * @file        dataTables.buttons.js
- */
+  * Genera los botones del datatable
+  *
+  * @summary 		Extensión del componente RUP Datatable
+  * @module			"dataTables.buttons"
+  * @version     1.5.1
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
@@ -66,10 +63,16 @@ var _buttonIdCounter = 1;
 var _dtButtons = DataTable.ext.buttons;
 
 /**
- * [Buttons description]
- * @param {object} dt
- * @param {object} config
- */
+  * Botones
+  *
+  * @name Buttons
+  * @function
+  * @since UDA 3.4.0 // Datatable 1.0.0
+  *
+  * @param {object} dt
+  * @param {object} config
+  *
+  */
 var Buttons = function( dt, config )
 {
 	// If there is no config set it to an empty object
@@ -115,15 +118,28 @@ $.extend( Buttons.prototype, {
 	 * Public methods
 	 */
 
-	/**
+ /**
 	 * Get the action of a button
+	 *
+	 * @name action
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {int|string} Button index
 	 * @return {function}
-	 *//**
+	 *
+	 */
+ /**
 	 * Set the action of a button
+	 *
+	 * @name action
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button element
 	 * @param  {function} action Function to set
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	action: function ( node, action )
 	{
@@ -141,9 +157,15 @@ $.extend( Buttons.prototype, {
 	/**
 	 * Add an active class to the button to make to look active or get current
 	 * active state.
+	 *
+	 * @name active
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button element
 	 * @param  {boolean} [flag] Enable / disable flag
 	 * @return {Buttons} Self for chaining or boolean for getter
+	 *
 	 */
 	active: function ( node, flag ) {
 		var button = this._nodeToButton( node );
@@ -161,9 +183,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Add a new button
+	 *
+	 * @name add
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param {object} config Button configuration object, base string name or function
 	 * @param {int|string} [idx] Button index for where to insert the button
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	add: function ( config, idx )
 	{
@@ -189,7 +217,13 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get the container node for the buttons
+	 *
+	 * @name container
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @return {jQuery} Buttons node
+	 *
 	 */
 	container: function ()
 	{
@@ -198,8 +232,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Disable a button
+	 *
+	 * @name disable
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	disable: function ( node ) {
 		var button = this._nodeToButton( node );
@@ -212,7 +252,13 @@ $.extend( Buttons.prototype, {
 	/**
 	 * Destroy the instance, cleaning up event handlers and removing DOM
 	 * elements
+	 *
+	 * @name destroy
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	destroy: function ()
 	{
@@ -246,9 +292,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Enable / disable a button
+	 *
+	 * @name enable
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @param  {boolean} [flag=true] Enable / disable flag
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	enable: function ( node, flag )
 	{
@@ -264,7 +316,13 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get the instance name for the button set selector
+	 *
+	 * @name name
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @return {string} Instance name
+	 *
 	 */
 	name: function ()
 	{
@@ -273,8 +331,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get a button's node
+	 *
+	 * @name node
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @return {jQuery} Button element
+	 *
 	 */
 	node: function ( node )
 	{
@@ -284,8 +348,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Set / get a processing class on the selected button
+	 *
+	 * @name processing
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {boolean} flag true to add, false to remove, undefined to get
 	 * @return {boolean|Buttons} Getter value or this if a setter.
+	 *
 	 */
 	processing: function ( node, flag )
 	{
@@ -302,8 +372,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Remove a button.
+	 *
+	 * @name remove
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	remove: function ( node )
 	{
@@ -335,13 +411,26 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get the text for a button
+	 *
+	 * @name text
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {int|string} node Button index
 	 * @return {string} Button text
-	 *//**
+	 *
+	 */
+ /**
 	 * Set the text for a button
+	 *
+	 * @name text
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {int|string|function} node Button index
 	 * @param  {string} label Text
 	 * @return {Buttons} Self for chaining
+	 *
 	 */
 	text: function ( node, label )
 	{
@@ -381,7 +470,11 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Buttons constructor
-	 * @private
+	 *
+	 * @name _constructor
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 */
 	_constructor: function ()
 	{
@@ -428,8 +521,13 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Add a new button to the key press listener
+	 *
+	 * @name _addKey
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param {object} conf Resolved button configuration object
-	 * @private
+	 *
 	 */
 	_addKey: function ( conf )
 	{
@@ -442,9 +540,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Insert the buttons into the container. Call without parameters!
+	 *
+	 * @name _draw
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} [container] Recursive only - Insert point
 	 * @param  {array} [buttons] Recursive only - Buttons array
-	 * @private
+	 *
 	 */
 	_draw: function ( container, buttons )
 	{
@@ -467,10 +570,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Create buttons from an array of buttons
+	 *
+	 * @name _expandButton
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {array} attachTo Buttons array to attach to
 	 * @param  {object} button Button definition
 	 * @param  {boolean} inCollection true if the button is in a collection
-	 * @private
+	 *
 	 */
 	_expandButton: function ( attachTo, button, inCollection, attachPoint )
 	{
@@ -529,10 +637,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Create an individual button
+	 *
+	 * @name _buildButton
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {object} config            Resolved button configuration
 	 * @param  {boolean} inCollection `true` if a collection button
 	 * @return {jQuery} Created button node (jQuery)
-	 * @private
+	 *
 	 */
 	_buildButton: function ( config, inCollection )
 	{
@@ -683,10 +796,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get the button object from a node (recursive)
+	 *
+	 * @name _nodeToButton
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @param  {array} [buttons] Button array, uses base if not defined
 	 * @return {object} Button object
-	 * @private
+	 *
 	 */
 	_nodeToButton: function ( node, buttons )
 	{
@@ -711,10 +829,15 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get container array for a button from a button node (recursive)
+	 *
+	 * @name _nodeToHost
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {node} node Button node
 	 * @param  {array} [buttons] Button array, uses base if not defined
 	 * @return {array} Button's host array
-	 * @private
+	 *
 	 */
 	_nodeToHost: function ( node, buttons )
 	{
@@ -740,9 +863,14 @@ $.extend( Buttons.prototype, {
 	/**
 	 * Handle a key press - determine if any button's key configured matches
 	 * what was typed and trigger the action if so.
+	 *
+	 * @name _keypress
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {string} character The character pressed
 	 * @param  {object} e Key event that triggered this call
-	 * @private
+	 *
 	 */
 	_keypress: function ( character, e )
 	{
@@ -803,8 +931,13 @@ $.extend( Buttons.prototype, {
 	/**
 	 * Remove a key from the key listener for this instance (to be used when a
 	 * button is removed)
+	 *
+	 * @name _removeKey
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {object} conf Button configuration
-	 * @private
+	 *
 	 */
 	_removeKey: function ( conf )
 	{
@@ -824,9 +957,14 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Resolve a button configuration
+	 *
+	 * @name _resolveExtends
+   * @function
+   * @since UDA 3.4.0 // Datatable 1.0.0
+	 *
 	 * @param  {string|function|object} conf Button config to resolve
 	 * @return {object} Button configuration
-	 * @private
+	 *
 	 */
 	_resolveExtends: function ( conf )
 	{
@@ -948,10 +1086,17 @@ $.extend( Buttons.prototype, {
 
 /**
  * Show / hide a background layer behind a collection
+ *
+ * @name Buttons.background
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param  {boolean} Flag to indicate if the background should be shown or
  *   hidden
  * @param  {string} Class to assign to the background
+ *
  * @static
+ *
  */
 Buttons.background = function ( show, className, fade ) {
 	if ( fade === undefined ) {
@@ -979,12 +1124,19 @@ Buttons.background = function ( show, className, fade ) {
  * Instance selector - select Buttons instances based on an instance selector
  * value from the buttons assigned to a DataTable. This is only useful if
  * multiple instances are attached to a DataTable.
+ *
+ * @name Buttons.instanceSelector
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param  {string|int|array} Instance selector - see `instance-selector`
  *   documentation on the DataTables site
  * @param  {array} Button instance array that was attached to the DataTables
  *   settings object
  * @return {array} Buttons instances
+ *
  * @static
+ *
  */
 Buttons.instanceSelector = function ( group, buttons )
 {
@@ -1036,12 +1188,19 @@ Buttons.instanceSelector = function ( group, buttons )
 /**
  * Button selector - select one or more buttons from a selector input so some
  * operation can be performed on them.
+ *
+ * @name Buttons.buttonSelector
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param  {array} Button instances array that the selector should operate on
  * @param  {string|int|node|jQuery|array} Button selector - see
  *   `button-selector` documentation on the DataTables site
  * @return {array} Array of objects containing `inst` and `idx` properties of
  *   the selected buttons so you know which instance each button belongs to.
+ *
  * @static
+ *
  */
 Buttons.buttonSelector = function ( insts, selector )
 {
@@ -1173,8 +1332,15 @@ Buttons.buttonSelector = function ( insts, selector )
 /**
  * Buttons defaults. For full documentation, please refer to the docs/option
  * directory or the DataTables site.
+ *
+ * @name Buttons.defaults
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @type {Object}
+ *
  * @static
+ *
  */
 Buttons.defaults = {
 	buttons: [ 'copyCustom' ],
@@ -1204,8 +1370,15 @@ Buttons.defaults = {
 
 /**
  * Version information
+ *
+ * @name Buttons.version
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @type {string}
+ *
  * @static
+ *
  */
 Buttons.version = '1.5.1';
 
@@ -1677,8 +1850,13 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 /**
  * Get the file name for an exported file.
  *
+ * @name _filename
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {object}	config Button configuration
  * @param {boolean} incExtension Include the file name extension
+ *
  */
 var _filename = function ( config )
 {
@@ -1713,8 +1891,14 @@ var _filename = function ( config )
 /**
  * Simply utility method to allow parameters to be given as a function
  *
+ * @name _stringOrFunction
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {undefined|string|function} option Option
+ *
  * @return {null|string} Resolved value
+ *
  */
 var _stringOrFunction = function ( option )
 {
@@ -1730,7 +1914,12 @@ var _stringOrFunction = function ( option )
 /**
  * Get the title for an exported file.
  *
+ * @name _title
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {object} config	Button configuration
+ *
  */
 var _title = function ( config )
 {
@@ -1884,7 +2073,12 @@ var _exportData = function ( dt, inOpts )
 /**
  * Activa el boton y su opcion dentro del context menu
  *
+ * @name _enableButtonAndContextMenuOption
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {string} id	Id of the button
+ *
  */
 var _enableButtonAndContextMenuOption = function ( id )
 {
@@ -1894,7 +2088,12 @@ var _enableButtonAndContextMenuOption = function ( id )
 /**
  * Desactiva el boton y su opcion dentro del context menu
  *
+ * @name _disableButtonAndContextMenuOption
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {string} id	Id of the button
+ *
  */
 var _disableButtonAndContextMenuOption = function ( id )
 {
@@ -1905,9 +2104,14 @@ var _disableButtonAndContextMenuOption = function ( id )
  * Gestiona la propiedad de activado/desactivado de los botones y de sus opciones
  * dentro del context menu.
  *
+ * @name _manageButtonsAndButtonsContextMenu
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
  * @param {object} opts	Buttons properties
  * @param {int} numOfSelectedRows	Number of selected rows
  * @param {undefined|string} collectionId	Id of the collection
+ *
  */
 var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionId )
 {

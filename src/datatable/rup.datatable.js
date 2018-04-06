@@ -1,18 +1,24 @@
-/*!
- * Copyright 2014 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
+/**
+  * Genera un datatable
+  *
+  * @summary 		Componente RUP Datatable
+  * @module			"rup.datatable"
+  * @version     1.0.0
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 /*global define */
 /*global jQuery */
@@ -68,11 +74,14 @@
 
 		/**
 			* Inicializa ciertas opciones del componente
+			*
 			* @name _initOptions
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_initOptions: function(options) {
 			var $self = this;
 
@@ -116,11 +125,14 @@
 
 		/**
 			* Obtiene las columnas
+			*
 			* @name _getColumns
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_getColumns(options) {
 			if(options.columnDefs !== undefined && options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox'){
 				//Se crear el th thead, se añade la columnal.
@@ -149,11 +161,14 @@
 
 		/**
 			* Filtrado
+			*
 			* @name _doFilter
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_doFilter(options) {
 			var $self = this;
 
@@ -164,11 +179,14 @@
 
 		/**
 			* Prepara el objeto necesario para la consulta de registros al servidor
+			*
 			* @name _ajaxOptions
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_ajaxOptions(options) {
 			var ajaxData = {
 				'url': options.urls.filter,
@@ -186,11 +204,14 @@
 
 		/**
 			* Obtiene los datos devueltos por el servidor de manera ordenada
+			*
 			* @name _ajaxSuccessData
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} json Información de los registros de la página actual
-		*/
+			*
+		  */
 		_ajaxSuccessData(json) {
 			var ret = {};
 
@@ -208,12 +229,15 @@
 
 		/**
 			* Solicita los datos al servidor
+			*
 			* @name _ajaxRequestData
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} data Opciones del datatable
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_ajaxRequestData(data, options) {
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
@@ -233,12 +257,15 @@
 
 		/**
 			* Gestiona la paginación
+			*
 			* @name _createSearchPaginator
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} tabla Objeto que contiene la tabla
 			* @param {object} settingsT Opciones del componente
-		*/
+			*
+		  */
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
 			if($($self.selector+'_paginate').length === 1){
@@ -269,11 +296,14 @@
 
 		/**
 			* Limpia el filtro
+			*
 			* @name _clearFilter
 			* @function
-			* @private
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
 			* @param {object} options Opciones del componente
-		*/
+			*
+		  */
 		_clearFilter(options) {
 			var $self = this;
 
@@ -295,7 +325,7 @@
 			$self.attr('ruptype', 'datatable');
 
 			$self._initOptions(settings);
-			
+
 			var tabla = $self.DataTable(settings);
 			if(settings.searchPaginator){
 				tabla.on( 'draw', function (e,settingsTable) {
