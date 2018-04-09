@@ -93,7 +93,7 @@ describe('Test Chart', () => {
                 resp = $chart.rup_chart('toBase64Image');
             });
             it('Debe ser un string', () => {
-                expect(typeof(resp)).toBeTruthy();
+                expect(typeof(resp) == "string").toBeTruthy();
             });
         });
     });
