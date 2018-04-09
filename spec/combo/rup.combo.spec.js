@@ -1,6 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.combo';
+import 'rup.generalFunc';
 
 describe('Test Combo', () => {
     var $combo, $comboMulti;
