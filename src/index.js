@@ -7,7 +7,6 @@ import './helper/handlebars-helper-i18n.js';
 
 import 'jquery-migrate';
 
-import './rup.generalFunc';
 import './rup.base';
 import './rup.utils';
 import './rup.accordion';
