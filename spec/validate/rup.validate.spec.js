@@ -1,6 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.validate';
+import 'rup.generalFunc';
 
 describe('Test Validate: ', () => {
     var $validate;
