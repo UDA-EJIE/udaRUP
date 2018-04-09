@@ -79,6 +79,9 @@ describe('Test Combo', () => {
         });
         it('Debe tener la clase rup_combo', () => {
             expect($('#exampleCombo').hasClass('rup_combo')).toBeTruthy();
+            expect($('#exampleComboMulti').hasClass('rup_combo')).toBeTruthy();
+            expect($('#exampleComboPadre').hasClass('rup_combo')).toBeTruthy();
+            expect($('#exampleComboHijo').hasClass('rup_combo')).toBeTruthy();
         });
     });
     describe('Métodos públicos', () => {
