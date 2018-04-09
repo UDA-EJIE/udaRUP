@@ -1,6 +1,7 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.date'
+import 'rup.generalFunc';
 
 describe('TEST Date:',   () => {
     var $date;
