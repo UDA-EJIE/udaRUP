@@ -10,7 +10,7 @@
 import 'jquery'
 import 'jasmine-jquery'
 
-function componentTestRunner($element, rupComponent, methods) {
+export function componentTestRunner($element, rupComponent, methods) {
 	var rupObj = (args) =>{
 		eval('$element.' + rupComponent + '.apply(this, ' + args + ')');
 	};
