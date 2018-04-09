@@ -3,8 +3,8 @@ import 'jasmine-jquery';
 import 'rup.progressbar';
 
 describe('TEST ProgressBar', () => {
+    var $progressbar;
     describe('Creación', () => {
-        var $progressbar;
         beforeAll(() => {
             var html = '<div id="exampleProgressbar"></div>';
             $('body').append(html);
