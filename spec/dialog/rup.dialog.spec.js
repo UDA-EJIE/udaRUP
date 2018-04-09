@@ -2,7 +2,7 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Dialog', () => {
 	function testDialogType(type) {
@@ -74,7 +74,7 @@ describe('Test Dialog', () => {
 				});
 			});
 			
-			generalFunc($dialogo, 'rup_dialog', ['enable','disable','destroy']);
+			componentTestRunner($dialogo, 'rup_dialog', ['enable','disable','destroy']);
 		});
 	}
 	
