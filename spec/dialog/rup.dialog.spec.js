@@ -2,6 +2,7 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
+import 'rup.generalFunc';
 
 describe('Test Dialog', () => {
 	function testDialogType(type) {
