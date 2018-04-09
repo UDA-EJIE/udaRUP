@@ -20,5 +20,31 @@
     "oAria": {
         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
+    },
+    "pagina": "Página ",
+    "toPagina": " de {0}",
+    "seleccionada": "seleccionada",
+    "seleccionadas": "seleccionadas",
+    "fila": "fila",
+    "toolbar": {
+      "add": "Añadir",
+      "edit": "Editar",
+      "clone": "Clonar",
+      "delete": "Eliminar",
+      "reports": {
+        "main": "Informes",
+        "copyCustom": "Copiar"
+      }
+    },
+    "changes": "Copia de registros en portapapeles",
+    "saveAndContinue": {
+      "_": "¿Desea copiar %d registros?",
+      "1": "¿Desea copiar un registro?"
+    },
+    "saved": {
+      "_": "Copiados %d registros al portapapeles",
+      "1": "Copiado un registro al portapapeles"
+    },
+    "copyTitle": "Copiar al portapapeles",
+    "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
 }
