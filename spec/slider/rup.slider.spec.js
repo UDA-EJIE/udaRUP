@@ -2,6 +2,7 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.slider';
+import 'rup.generalFunc';
 
 describe('Test Slider', () => {
     describe('Creacion', () => {
