@@ -1001,7 +1001,7 @@ $(document).on( 'init.dt plugin-init.dt', function (e, ctx) {
 			autoOpen: false,
 			modal: true,
 			resizable: '',
-			title: 'Titulo cualquiera',
+			title: ctx.oInit.formEdit.tittleForm,
 			width: 569
 		}, {}));
 	}

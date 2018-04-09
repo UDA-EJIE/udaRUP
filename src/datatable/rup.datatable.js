@@ -446,6 +446,7 @@
     ],
 		formEdit:{//Revisar si se mete en el plugin
       detailForm: "#table_detail_div",
+      tittleForm: "Edición"
     }
 	};
 
