@@ -1,5 +1,4 @@
 import 'jquery';
-import Handlebars from 'handlebars';
 import 'jasmine-jquery';
 import 'rup.breadcrumb';
 
