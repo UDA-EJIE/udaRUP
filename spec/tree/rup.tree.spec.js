@@ -1,7 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tree';
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Tree:', () => {
     var $tree;
@@ -30,6 +30,6 @@ describe('Test Tree:', () => {
         });
     });
     describe('Métodos públicos:', () => {
-        generalFunc($tree, 'rup_tree', ['getRupValue','setRupValue']);
+        componentTestRunner($tree, 'rup_tree', ['getRupValue','setRupValue']);
     });
 });
