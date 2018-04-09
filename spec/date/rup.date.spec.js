@@ -20,7 +20,7 @@ describe('TEST Date:',   () => {
         });
 
     });
-    describe('Test métodos públicos de ' + type, () => {
+    describe('Test métodos públicos de date', () => {
         describe('Método isDisabled', () => {
             beforeAll(() => {
                 $date.rup_date('disable');
