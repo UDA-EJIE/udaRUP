@@ -1,7 +1,7 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.date'
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('TEST Date:',   () => {
     var $date;
@@ -89,7 +89,7 @@ describe('TEST Date:',   () => {
             });
         });
 
-        generalFunc($date, 'rup_date', ['getRupValue','setRupValue','enable','disable','destroy']);
+        componentTestRunner($date, 'rup_date', ['getRupValue','setRupValue','enable','disable','destroy']);
         
     });
 });
