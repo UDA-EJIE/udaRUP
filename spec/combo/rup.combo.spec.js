@@ -1,7 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.combo';
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Combo', () => {
     var $combo, $comboMulti;
@@ -271,7 +271,7 @@ describe('Test Combo', () => {
             //La documentcion no muestra la manera de usar este comando, las opciones que he probado no funcionan
         });
 
-        generalFunc($combo,'rup_combo',['getRupValue','setRupValue','enable','disable']);
-        generalFunc($comboMulti,'rup_combo',['getRupValue','setRupValue','enable','disable']);
+        componentTestRunner($combo,'rup_combo',['getRupValue','setRupValue','enable','disable']);
+        componentTestRunner($comboMulti,'rup_combo',['getRupValue','setRupValue','enable','disable']);
     });
 });
