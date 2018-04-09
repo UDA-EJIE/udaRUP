@@ -1,7 +1,7 @@
 import 'jquery';
-
 import 'jasmine-jquery';
 import 'rup.tree';
+import 'rup.generalFunc';
 
 describe('Test Tree:', () => {
     var $tree;
