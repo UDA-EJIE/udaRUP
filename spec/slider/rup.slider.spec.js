@@ -2,7 +2,7 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.slider';
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Slider', () => {
     describe('Creacion', () => {
@@ -45,6 +45,6 @@ describe('Test Slider', () => {
                 expect($slider.rup_slider('options').min).toBe(10);
             });
         });
-        generalFunc($slider, 'rup_slider', ['enable','disable','getRupValue','setRupValue','destroy']);
+        componentTestRunner($slider, 'rup_slider', ['enable','disable','getRupValue','setRupValue','destroy']);
     });
 });
