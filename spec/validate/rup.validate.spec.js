@@ -1,7 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.validate';
-import 'rup.generalFunc';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Validate: ', () => {
     var $validate;
@@ -78,6 +78,6 @@ describe('Test Validate: ', () => {
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
-        generalFunc($validate, 'rup_validate', ['destroy']);
+        componentTestRunner($validate, 'rup_validate', ['destroy']);
     });
 });
