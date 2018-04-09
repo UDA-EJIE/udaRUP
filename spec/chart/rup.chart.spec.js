@@ -30,6 +30,7 @@ describe('Test Chart', () => {
 			                '</div>' +
 		                '</div>';
             $('body').append(html);
+            $('#exampleChart').rup_chart(options);
             $chart = $('#exampleChart');
         });
         
