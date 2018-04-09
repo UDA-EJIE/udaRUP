@@ -1,7 +1,7 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.tooltip'
-import 'rup.generalFunc'
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('TEST Tooltip', () => {
     describe('Creación', () => {
@@ -52,6 +52,6 @@ describe('TEST Tooltip', () => {
                 expect($tooltip.rup_tooltip('option', 'show').modal).toBeTruthy();
             });
         });
-        generalFunc($tooltip, 'rup_tooltip', ['enable', 'disable', 'destroy']);
+        componentTestRunner($tooltip, 'rup_tooltip', ['enable', 'disable', 'destroy']);
     });
 });
