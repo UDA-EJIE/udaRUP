@@ -1,7 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.breadcrumb';
-import '../helpers/componentTestRunner';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('RUP BreadCrumb Test:', () => {
     describe('Creación del elemento: ', () => {
@@ -21,7 +21,7 @@ describe('RUP BreadCrumb Test:', () => {
         });
 
         describe('Test de los métodos públicos', () => {
-            generalFunc($breadcrumb, 'rup_breadCrumb', ['destroy']);
+            componentTestRunner($breadcrumb, 'rup_breadCrumb', ['destroy']);
         });
     });
 });
