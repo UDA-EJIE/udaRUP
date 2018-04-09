@@ -20,8 +20,9 @@ describe('RUP BreadCrumb Test:', () => {
             expect($breadCrum[0].firstChild.className).toBe('rup-breadCrumbs_span');
         });
 
-        describe('Test de los métodos públicos', () => {
-            componentTestRunner($breadcrumb, 'rup_breadCrumb', ['destroy']);
-        });
+        
+    });
+    describe('Test de los métodos públicos', () => {
+        componentTestRunner($breadcrumb, 'rup_breadCrumb', ['destroy']);
     });
 });
