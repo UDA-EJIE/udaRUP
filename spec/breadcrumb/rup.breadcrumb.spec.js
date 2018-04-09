@@ -1,7 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.breadcrumb';
-import 'rup.generalFunc';
+import '../helpers/componentTestRunner';
 
 describe('RUP BreadCrumb Test:', () => {
     describe('Creación del elemento: ', () => {
