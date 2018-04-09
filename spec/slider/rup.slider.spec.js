@@ -5,8 +5,9 @@ import 'rup.slider';
 import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Slider', () => {
+    var $slider;
     describe('Creacion', () => {
-        var html, options, $slider;
+        var html, options;
         beforeAll(() => {
             html = '<div id="exampleSlider"></div>';
             $('body').append(html);
