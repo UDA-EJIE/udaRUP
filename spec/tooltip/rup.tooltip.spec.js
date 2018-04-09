@@ -4,8 +4,8 @@ import 'rup.tooltip'
 import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('TEST Tooltip', () => {
+    var $tooltip;
     describe('Creación', () => {
-        var $tooltip;
         beforeAll(() => {
             var html = '<input id="exampleTooltip"></input>';
             $('body').append(html);
