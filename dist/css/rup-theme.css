@@ -1930,6 +1930,14 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   right: 0;
   left: auto; }
 
+.rup-navbar .dropdown-menu-right:before {
+  right: 12px;
+  left: initial !important; }
+
+.rup-navbar .dropdown-menu-right:after {
+  right: 13px;
+  left: initial !important; }
+
 .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0; }

@@ -21,7 +21,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', './rup.sticky', './external/util','./external/dropdown'], factory);
+		define(['jquery', './rup.base', './external/util', './external/dropdown', './rup.sticky'], factory);
 	} else {
 
 		// Browser globals
