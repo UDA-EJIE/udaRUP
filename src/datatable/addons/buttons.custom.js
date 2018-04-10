@@ -185,8 +185,8 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 			ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
 			$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
-				ctx.oInit.buttons.allData = data;
-				exportData = ctx.oInit.buttons.allData;
+				DataTable.ext.buttons.allData = data;
+				exportData = DataTable.ext.buttons.allData;
 				deferred.resolve(exportData);
 			});
 			break;
