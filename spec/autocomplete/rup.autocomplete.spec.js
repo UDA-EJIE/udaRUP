@@ -17,6 +17,7 @@
 	import Handlebars from 'handlebars';
 	import 'jasmine-jquery';
 	import 'rup.autocomplete';
+	import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 	describe('RUP Autocomplete Tests', function(){
 
@@ -82,8 +83,9 @@
 
 		});
 		describe('Test de métodos públicos', () => {
-			generalFunc($autocomplete,[
-				'getRupValue',
+			componentTestRunner($autocomplete,
+				'rup_autocomplete',
+				['getRupValue',
 				'setRupValue',
 				'destroy',
 				'enable',
