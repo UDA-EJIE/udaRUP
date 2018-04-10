@@ -3365,7 +3365,9 @@ table.dataTable, table.dataTable th, table.dataTable td {
   position: relative;
   clear: both;
   *zoom: 1;
-  zoom: 1; }
+  zoom: 1;
+  padding-left: 2px;
+  padding-right: 3px; }
 
 .dataTables_wrapper .dataTables_length {
   float: left; }
