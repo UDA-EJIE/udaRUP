@@ -14,28 +14,28 @@
 
 
 	import 'jquery';
-	import 'handlebars';
+	import Handlebars from 'handlebars';
 	import 'jasmine-jquery';
 	import 'rup.autocomplete';
-	
+
 	describe('RUP Autocomplete Tests', function(){
-	
+
 		var source, template, $content, $autocomplete, idAutocomplete='autocomplete';
-	
+
 		beforeAll(function(){
-	
+
 			var sourceTemplate = '<input type="text" id="{{id}}" />';
 			template = Handlebars.compile(sourceTemplate);
 			$content = $('#content');
-	
+
 			var templateJson={
 				id:idAutocomplete
 			};
-	
+
 			$content.html(template(templateJson));
-	
+
 			$autocomplete = $('#idAutocomplete');
-	
+
 			var sourceJson = [
 				{i18nCaption: 'asp',        value:'asp_value'},
 				{i18nCaption: 'c',          value:'c_value'},
@@ -51,15 +51,15 @@
 				{i18nCaption: 'ruby',       value:'ruby_value'},
 				{i18nCaption: 'scala',      value:'scala_value'}
 			];
-	
+
 			$autocomplete.rup_autocomplete({
 				source :       sourceJson,
 				defaultValue : 'java',
 				contains :     false
 			});
-	
+
 		});
-	
+
 		describe('Creación de un autocomplete local', function(){
 			it('debe estar definido', () => {
 				expect($autocomplete).toBeDefined();
@@ -69,17 +69,17 @@
 			  expect($autocomplete).toHaveClass("rup-autocomplete_label ui-autocomplete-input");
 			  expect($autocomplete.data("ui-autocomplete")).not.toBe(undefined);
 			});
-			
+
 			it("deberia de tener un id con sufijo '_label'", function(){
 			  expect($autocomplete).toHaveId(idAutocomplete+"_label");
 			});
-			
+
 			it("debería de generarse el hidden que contenga el value del RUP Autocomplete", function(){
 			  var $hiddenAutocomplete = $("#"+idAutocomplete);
 			  expect($hiddenAutocomplete).toExist();
 			  expect($hiddenAutocomplete).toEqual("input[type='hidden']");
 			});
-	
+
 		});
 		describe('Test de métodos públicos', () => {
 			generalFunc($autocomplete,[
@@ -138,7 +138,6 @@
 				});
 			});
 		});
-	
+
 	});
 	// }));
-	
