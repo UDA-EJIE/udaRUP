@@ -272,7 +272,8 @@ function _createSearchRow (dt,ctx){
 		// Evento asociado a limpiar el fomulario de búsqueda
 		$navClearLink.on('click', function(){
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
-			jQuery('tfoot [ruptype=\'combo\']','#'+idTabla).rup_combo('clear');
+			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
+			jQuery('.ui-selectmenu-status','table tfoot').text('--');
 			DataTable.seeker.search.funcionParams = {};
 			DataTable.seeker.search.pos = 0;
 			_processData(dt,ctx,[]);

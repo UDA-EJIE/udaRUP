@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.buttons','./dataTables.editForm','./dataTables.seeker', './addons/buttons.custom'], factory );
+		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.buttons','./dataTables.editForm','./dataTables.seeker', './addons/buttons.custom','./dataTables.colReorder'], factory );
 	} else {
 
 		// Browser globals
@@ -171,8 +171,7 @@
 		  */
 		_doFilter(options) {
 			var $self = this;
-
-			// $self.DataTable().settings().ajax.filter = form2object(options.$filterForm);
+			$self._showSearchCriteria();
 			$self.DataTable().ajax.reload();
 
 		},
@@ -309,8 +308,293 @@
 
 			options.$filterForm.resetForm();
 			$self.DataTable().ajax.reload();
+			options.filter.$filterSummary.html(' <i></i>');
+			jQuery('input,textarea').val('');
+			jQuery('.ui-selectmenu-status','.rup-table-filter').text('--');
+			$.rup_utils.populateForm([], options.$filterForm)
 
-		}
+		},
+		/**
+		* Metodo que realiza la configuración del plugin filter del componente RUP DataTable.
+		*
+		* @name preConfigureFilter
+		* @function
+		*
+		* @param {object} settings - Parámetros de configuración del componente.
+		*
+		*/
+		_ConfigureFiltern(settings){
+			var $self = this, tableId = this[0].id, filterSettings = settings.filter,
+				toggleIcon1Tmpl,toggleLabelTmpl,filterSummaryTmpl,toggleIcon2Tmpl,$toggleIcon1,$toggleLabel,$filterSummary,$toggleIcon2;
+
+			/*
+			 * Inicialización de los identificadores y componentes por defecto de los componentes de filtrado
+			 */
+			filterSettings.id = (filterSettings.id!==undefined?filterSettings.id:tableId+'_filter_form');
+			filterSettings.filterToolbarId = (filterSettings.filterToolbar!==undefined?filterSettings.filterToolbar:tableId+'_filter_toolbar');
+
+			filterSettings.collapsableLayerId = (filterSettings.collapsableLayerId!==undefined?filterSettings.collapsableLayerId:tableId+'_filter_fieldset');
+
+			filterSettings.toggleIcon1Id = (filterSettings.toggleIcon1!==undefined?filterSettings.toggleIcon1:tableId+'_filter_toggle_icon1');
+			filterSettings.toggleLabelId = (filterSettings.toggleLabelId!==undefined?filterSettings.toggleLabelId:tableId+'_filter_toggle_label');
+			filterSettings.filterSummaryId = (filterSettings.filterSummaryId!==undefined?filterSettings.filterSummaryId:tableId+'_filter_summary');
+			filterSettings.toggleIcon2Id = (filterSettings.toggleIcon2!==undefined?filterSettings.toggleIcon2:tableId+'_filter_toggle_icon2');
+
+			filterSettings.$filterContainer = jQuery('#'+filterSettings.id);
+			filterSettings.$filterToolbar = jQuery('#'+filterSettings.filterToolbarId);
+
+			settings.filter.showHidden = false;
+
+
+			if (filterSettings.$filterContainer.length===0){
+				alert('El identificador especificado para el fomulario de búsqueda no existe.');
+			}else if (filterSettings.$filterToolbar.length===0){
+				alert('El identificador especificado para la barra de controles del formulario de filtrado no existe.');
+			}else{
+				/*
+				 * Se almacena la referencia de los diferentes componentes
+				 *
+				 * $filterContainer : Contenedor del formulario de filtrado
+				 * $filterButton : Botón que realiza el filtrado
+				 * $cleanLink : Enlace para limpiar el formulario
+				 * $collapsableLayer : Capa que puede ser ocultada/mostrada
+				 * $toggleIcon1Id : Control que oculta muestra el fomulario
+				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
+				 */
+				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon1');
+				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleLabel');
+				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.filterSummary');
+				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon2');
+
+				$toggleIcon1 = $(jQuery.jgrid.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
+				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
+				$filterSummary = $(jQuery.jgrid.format(filterSummaryTmpl, filterSettings.filterSummaryId));
+				$toggleIcon2 = $(jQuery.jgrid.format(toggleIcon2Tmpl, filterSettings.toggleIcon2Id));
+
+				filterSettings.$filterToolbar.append($toggleIcon1).append($toggleLabel).append($filterSummary).append($toggleIcon2);
+
+				filterSettings.$filterContainer = jQuery('#'+filterSettings.id);
+
+				filterSettings.$collapsableLayer = jQuery('#'+filterSettings.collapsableLayerId);
+
+				filterSettings.$toggleIcon1 = $toggleIcon1;
+				filterSettings.$toggleLabel = $toggleLabel;
+				filterSettings.$filterSummary = $filterSummary;
+				filterSettings.$toggleIcon2 = $toggleIcon2;
+
+
+
+				// Se asigna a la tecla ENTER la funcion de busqueda.
+				filterSettings.$filterContainer.bind('keydown', function(evt) {
+					if (evt.keyCode === 13) {
+						$self._doFilter(settings);
+					}
+				});
+
+
+				filterSettings.$toggleIcon1.add(filterSettings.$toggleLabel).add(filterSettings.$toggleIcon2)
+					.attr('tabindex','0')
+					.on({
+						'keydown':function(evt) {
+							if (evt.keyCode === 13) {
+								$self.rup_table('toggleFilterForm');
+							}
+						}
+					});
+
+				filterSettings.$filterToolbar.addClass('cursor_pointer').on({
+					'click':function(){
+						if(settings.filter.showHidden === false){
+							filterSettings.$collapsableLayer.hide();
+							settings.filter.showHidden = true;
+						}else{
+							filterSettings.$collapsableLayer.show();
+							settings.filter.showHidden = false;
+						}
+					}
+				});
+
+				if (settings.filter.showHidden === true){
+					filterSettings.$collapsableLayer.hide();
+					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-n').addClass('ui-icon-triangle-1-s');
+					filterSettings.$filterSummary.parent().addClass('rup-maint_searchCriteria');
+				}
+
+			}
+
+		},
+		/**
+	     * Actualiza el resumen de los criterios de filtrado a partir de los valores existentes en el formulario.
+	     *
+	     * @name showSearchCriteria
+	     * @function
+	     *
+	     */
+			_showSearchCriteria(){
+				var $self = this, settings = $self.data('settings'),
+					searchString = ' ', label, numSelected,
+					field, fieldId, fieldName, fieldValue,
+					aux = settings.filter.$filterContainer.serializeArray(),
+					searchForm = settings.filter.$filterContainer,
+					filterMulticombo = new Array();
+				var obj;
+
+				//añadir arbol
+
+				var arboles=	$('.jstree',settings.filter.$filterContainer);
+				$.each(arboles,function( index,item ){
+					obj= new Object();
+					obj.name=$(item).attr('name');
+					obj.value=$(item).rup_tree('getRupValue').length;
+					obj.type='rup_tree';
+					aux.push(obj);
+				});
+
+				for (var i = 0; i < aux.length; i++) {
+					if (aux[i].value !== ''  && $.inArray(aux[i].name,settings.filter.excludeSummary)!== 0) {
+
+						//CAMPO a tratar
+						field = $('[name=\'' + aux[i].name + '\']',searchForm);
+
+						//Comprobar si se debe excluir el campo
+						if ($.inArray(field.attr('id'), settings.filter.filterExclude) !== -1){
+							continue;
+						}
+
+						//Seleccionar radio
+						if (field.length > 1){
+							field = $('[name=\'' + aux[i].name + '\']:checked',searchForm);
+						}
+						//Omitir campos hidden
+						if ($(field).attr('type') === 'hidden'){
+							continue;
+						}
+
+						//ID del campo
+						fieldId = $(field).attr('id');
+						//ID para elementos tipo rup.combo
+						if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0){
+								fieldId += '-button';
+						}
+						//ID para elementos tipo rup.autocomplete
+						if ($(field).attr('ruptype') === 'autocomplete'){
+							fieldId = fieldId.substring(0, fieldId.indexOf('_label'));
+						}
+
+						//NAME
+						label = $('label[for^=\'' + fieldId + '\']',searchForm);
+						if (label.length>0){
+							// <label for='xxx' />
+							fieldName = label.html();
+						} else {
+							// <div />
+							// <div />
+							if ($(field).attr('ruptype') !== 'combo'){
+								fieldName= $('[name=\'' + aux[i].name + '\']',searchForm).prev('div').find('label').first().html();
+							} else {
+
+								// Buscamos el label asociado al combo
+								// Primero por id
+								var $auxField = $('[name=\'' + aux[i].name + '\']',searchForm), $labelField;
+
+								$labelField = jQuery('[for=\''+$auxField.attr('id')+'\']');
+
+								if ($labelField.length>0){
+									fieldName = $labelField.first().text();
+								}else{
+
+									fieldName= $('[name=\'' + aux[i].name + '\']',searchForm).parent().prev('div').find('label').first().html();
+
+								}
+							}
+						}
+						if (fieldName === null || fieldName === undefined){
+							fieldName = '';
+						}
+
+						//VALUE
+						fieldValue = ' = ';
+						switch($(field)[0].tagName){
+						case 'INPUT':
+							fieldValue = fieldValue + $(field).val();
+							if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio'){
+								fieldValue = '';
+							}
+							break;
+							//Rup-tree
+						case 'DIV':
+							$.each(aux,function( index,item ){
+								if (item.name===field.attr('id')){
+									if (item.value!=0){
+										fieldValue +=' = '+ item.value;
+									}
+								} else {
+									fieldValue = '';
+								}
+
+
+							});
+							if (fieldValue===''){
+								fieldName = '';
+							}
+							break;
+						case 'SELECT':
+							if (field.next('.ui-multiselect').length===0){
+								fieldValue = fieldValue + $('option[value=\''+aux[i].value+'\']',field).html();
+							} else {
+								if ($.inArray($(field).attr('id'), filterMulticombo)===-1){
+									numSelected = field.rup_combo('value').length;
+									if (numSelected !== 0){
+										fieldValue += numSelected;
+									} else {
+										fieldName = '';
+										fieldValue = '';
+									}
+									filterMulticombo.push($(field).attr('id'));
+								} else {
+									fieldName = '';
+									fieldValue = '';
+								}
+							}
+							break;
+						}
+
+						//Parsear NAME
+						var parseableChars = new Array(':','=');
+						for (var j=0; j<parseableChars.length; j++){
+							if (fieldName !== '' && fieldName.indexOf(parseableChars[j])!== -1){
+								fieldName = fieldName.substring(0,fieldName.indexOf(parseableChars[j]));
+								break;
+							}
+						}
+
+						//Controlar rup.combo con valor vacío
+						while (fieldValue.indexOf('&amp;nbsp;')!==-1){
+							fieldValue = fieldValue.replace ('&amp;nbsp;','');
+						}
+
+						//Si no tiene NAME sacar solo el valor
+						if (fieldName === '' && fieldValue.indexOf(' = ')!==-1){
+							fieldValue = fieldValue.substring(2, fieldValue.length);
+						}
+
+
+						//Si no tiene NAME ni VALUE omitir
+						if (fieldName === '' && $.trim(fieldValue) === ''){
+							continue;
+						}
+						searchString = searchString + fieldName + fieldValue + ', ';
+					}
+				}
+
+					//Añadir criterios
+
+					settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
+
+
+
+
+			}
 	});
 
 	//*******************************
@@ -347,6 +631,8 @@
 				DataTable.Buttons.defaults.buttons
 			).container().insertBefore($('#table_filter_form'));
 
+			$self._ConfigureFiltern(settings);
+
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
 
@@ -382,10 +668,18 @@
     primaryKey:["id"],
 		responsive: true,
     searchPaginator:true,
+    colReorder: {
+			fixedColumnsLeft: 1
+		},
 		formEdit:{//Revisar si se mete en el plugin
-      detailForm: "#table_detail_div",
-      tittleForm: "Edición"
-    }
+			detailForm: "#table_detail_div",
+			titleForm: "Edición",
+		},
+    filter:{
+  	  id:"table_filter_form",
+  	  filterToolbar:"table_filter_toolbar",
+  	  collapsableLayerId:"table_filter_fieldset"
+     }
 	};
 
 }));
