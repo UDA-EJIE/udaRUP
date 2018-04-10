@@ -17027,7 +17027,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["fuild"],
  * 	fuild:{
- * 		// Propiedades de configuración del plugin fuild
+ * 		// Propiedades de configuración del plugin fluid
  * 	}
  * });
  */
