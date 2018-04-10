@@ -823,7 +823,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.selectAllPage) {
 		jQuery.extend(items, {
 			'selectAllPage': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.selectAllPage'),
 				icon: 'check',
 				disabled: function (key, opt) {
 					//
@@ -838,7 +838,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.deselectAllPage) {
 		jQuery.extend(items, {
 			'deselectAllPage': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.deselectAllPage'),
 				icon: 'uncheck',
 				disabled: function (key, opt){
 					//
@@ -857,7 +857,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.selectAll) {
 		jQuery.extend(items, {
 			'selectAll': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.selectAll'),
 				icon: 'check_all',
 				disabled: function (key, opt) {
 					//
@@ -871,7 +871,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.deselectAll) {
 		jQuery.extend(items, {
 			'deselectAll': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.deselectAll'),
 				icon: 'uncheck_all',
 				disabled: function (key, opt) {
 					//
@@ -912,9 +912,9 @@ function selectAllPage(dt){
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	//FeedBack
 	var countPage = dt.page()+1;
-	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', DataTable.settings[0].json.recordsTotal);
-	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
+	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', DataTable.settings[0].json.recordsTotal);
+	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'selectAll'));
 	if(!DataTable.multiSelect.multiselection.selectedAll ||
 			(DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.deselectedIds.length  > 0)){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
@@ -946,9 +946,9 @@ function deselectAllPage(dt){
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	//FeedBack
 	var countPage = dt.page()+1;
-	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', DataTable.multiSelect.multiselection.numSelected);
-	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
+	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', DataTable.multiSelect.multiselection.numSelected);
+	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'deSelectAll'));
 	if(DataTable.multiSelect.multiselection.numSelected  > 0){
 		DataTable.multiSelect.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
 		DataTable.multiSelect.multiselection.internalFeedback.type = 'fijo';

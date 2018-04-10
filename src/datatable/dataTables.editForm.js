@@ -165,11 +165,11 @@ DataTable.editForm.init = function ( dt ) {
 				// Comprobamos si existe el elemento con este id
 				if (inCollection && idCollection !== undefined) {
 					// Obtenemos la info necesaria del boton y la guardamos en variables
-					var eventConfig = DataTable.ext.buttons.copyCustom;
+					var eventConfig = DataTable.ext.buttons.copyButton;
 					var eventDT = eventConfig.eventDT;
 					// Llamamos directamente al action para no hacer aparecer y desaparecer
 					// el boton, empeorando la UX
-					DataTable.ext.buttons.copyCustom.action(undefined, eventDT, undefined, eventConfig);
+					DataTable.ext.buttons.copyButton.action(undefined, eventDT, undefined, eventConfig);
 				} else {
 					$('#' + buttonId).trigger('click');
 				}
@@ -188,8 +188,8 @@ DataTable.editForm.init = function ( dt ) {
 		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
 
 			$.rup_messages('msgConfirm', {
-				message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-				title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+				message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.saveAndContinue'),
+				title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 				OKFunction: function () {
 					ctx.oInit.formEdit.okCallBack = true;
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
@@ -459,9 +459,9 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
 	// add Filter
 	var feed = idTableDetail.find('#table_detail_feedback');
-	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
+	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
-		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
+		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -612,7 +612,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**
@@ -934,8 +934,8 @@ function _deleteAllSelects(dt){
 	var row = DataTable.multiSelect.multiselection.selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
-		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
-		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
 		OKFunction: function () {
 			if(DataTable.multiSelect.multiselection.selectedIds.length > 1){
 				var row = {};

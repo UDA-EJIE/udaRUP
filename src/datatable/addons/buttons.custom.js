@@ -297,8 +297,8 @@ var _reportsRequestData = function (ajaxOptions)
 var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
 {
 	$.rup_messages('msgConfirm', {
-		title: dt.i18n('changes', 'Copia de registros en clipboard'),
-		message: dt.i18n('saveAndContinue', {
+		title: dt.i18n('rup_datatable.changes', 'Copia de registros en clipboard'),
+		message: dt.i18n('rup_datatable.saveAndContinue', {
 			_: '¿Desea copiar %d registros?',
 			1: '¿Desea copiar un registro?'
 		}, exportDataRows),
@@ -346,8 +346,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('changes', 'Copia de registros en portapapeles'),
-					dt.i18n('saved', {
+					dt.i18n('rup_datatable.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_datatable.saved', {
 						_: 'Copiados %d registros al portapapeles',
 						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
@@ -366,7 +366,7 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
 	// con las instrucciones de como copiar los elementos seleccionados
-	var message = $('<span>' + dt.i18n('copyKeys',
+	var message = $('<span>' + dt.i18n('rup_datatable.copyKeys',
 		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
 		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
 	)
@@ -417,16 +417,16 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 //
 // Copia al portapapeles
 //
-DataTable.ext.buttons.copyCustom = {
+DataTable.ext.buttons.copyButton = {
 	text: function (dt) {
-		return dt.i18n('toolbar.reports.copyCustom', 'Copiar');
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
 	},
-	className: 'buttons-copyCustom',
+	className: 'buttons-copyButton',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 	insideContextMenu: true,
-	type: 'copyCustom',
+	type: 'copyButton',
 	init: function (dt, node, config) {
-		DataTable.ext.buttons.copyCustom.eventDT = dt;
+		DataTable.ext.buttons.copyButton.eventDT = dt;
 	},
 	action: function (e, dt, button, config) {
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -437,6 +437,77 @@ DataTable.ext.buttons.copyCustom = {
 		var that = this;
 		_reportsCopyData(dt, that, config);
 	}
+};
+
+DataTable.ext.buttons.addButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
+	},
+	id: 'addButton_1',
+	className: 'datatable_toolbar_btnAdd',
+	displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+	insideContextMenu: true,
+	type: 'add',
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.editButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
+	},
+	id: 'editButton_1',
+	className: 'datatable_toolbar_btnEdit',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	insideContextMenu: true,
+	type: 'edit',
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.cloneButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
+	},
+	id: 'cloneButton_1',
+	className: 'datatable_toolbar_btnClone',
+	displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
+	insideContextMenu: true,
+	type: 'clone',
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.deleteButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
+	},
+	id: 'deleteButton_1',
+	className: 'datatable_toolbar_btnDelete',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	insideContextMenu: true,
+	type: 'delete',
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.reportsButton = {
+	extend: 'collection',
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.main');
+	},
+	id: 'informes_01',
+	className: 'align-right',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	autoClose: true,
+	type: 'reports',
+	buttons: [
+		'copyButton'
+	]
 };
 
 

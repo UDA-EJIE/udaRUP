@@ -27,7 +27,7 @@ El uso del plugin en el componente puede realizarse de dos maneras:
 ```js
 $('#idComponente').rup_datatable({
   buttons: [
-  	'copyCustom'
+  	'copyButton'
   ]
 });
 ```
@@ -102,7 +102,7 @@ $('#idComponente').rup_datatable({
       autoClose: true,
       type: 'reports',
       buttons: [
-      	'copyCustom'
+      	'copyButton'
       ]
     }
   ]

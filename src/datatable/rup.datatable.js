@@ -114,7 +114,7 @@
 			options.ajax = this._ajaxOptions(options);
 
 			options.language = {
-				'url': $.rup.RUP + '/resources/datatable_' + $.rup.lang + '.json'
+				'url': $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json'
 			};
 
 
@@ -341,6 +341,12 @@
 				  });
 			}
 
+			// Toolbar por defecto del datatable
+			new $.fn.dataTable.Buttons(
+				tabla,
+				DataTable.Buttons.defaults.buttons
+			).container().insertBefore($('#table_filter_form'));
+
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
 
@@ -371,79 +377,11 @@
 				delay:1000
 			}
 		},
-    dom: 'Bitprl',
+    dom: 'itprl',
     multiplePkToken: '~',
     primaryKey:["id"],
-	responsive: true,
+		responsive: true,
     searchPaginator:true,
-		buttons: [
-        {
-						text: function (dt) {
-							return dt.i18n( 'toolbar.add', 'Add' );
-						},
-						id: 'addButton_1',
-						className: 'datatable_toolbar_btnAdd',
-						displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
-						insideContextMenu: true,
-						type: 'add',
-						action: function (e, dt, node, config) {
-							DataTable.Api().buttons.actions(dt, config);
-            }
-        },
-				{
-						text: function (dt) {
-							return dt.i18n( 'toolbar.edit', 'Editar' );
-						},
-						id: 'editButton_1',
-						className: 'datatable_toolbar_btnEdit',
-						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-						insideContextMenu: true,
-						type: 'edit',
-						action: function (e, dt, node, config) {
-							DataTable.Api().buttons.actions(dt, config);
-            }
-        },
-				{
-						text: function (dt) {
-							return dt.i18n( 'toolbar.clone', 'Clonar' );
-						},
-						id: 'cloneButton_1',
-						className: 'datatable_toolbar_btnClone',
-						displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
-						insideContextMenu: true,
-						type: 'clone',
-						action: function (e, dt, node, config) {
-							DataTable.Api().buttons.actions(dt, config);
-            }
-        },
-				{
-						text: function (dt) {
-							return dt.i18n( 'toolbar.delete', 'Eliminar' );
-						},
-						id: 'deleteButton_1',
-						className: 'datatable_toolbar_btnDelete',
-						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-						insideContextMenu: true,
-						type: 'delete',
-						action: function (e, dt, node, config) {
-							DataTable.Api().buttons.actions(dt, config);
-            }
-        },
-				{
-						extend: 'collection',
-						text: function (dt) {
-							return dt.i18n( 'toolbar.reports.main', 'Informes' );
-						},
-						id: 'informes_01',
-						className: 'align-right',
-						displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-						autoClose: true,
-						type: 'reports',
-						buttons: [
-							'copyCustom'
-						]
-				}
-    ],
 		formEdit:{//Revisar si se mete en el plugin
       detailForm: "#table_detail_div",
       tittleForm: "Edición"

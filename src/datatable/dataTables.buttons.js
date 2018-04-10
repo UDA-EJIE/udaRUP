@@ -763,7 +763,7 @@ $.extend( Buttons.prototype, {
 				case 'reports':
 					config.icon = "fa-file-o";
 					break;
-				case 'copyCustom':
+				case 'copyButton':
 					config.icon = "fa-clipboard";
 					break;
 				default:
@@ -1331,7 +1331,7 @@ Buttons.buttonSelector = function ( insts, selector )
 
 /**
  * Buttons defaults. For full documentation, please refer to the docs/option
- * directory or the DataTables site.
+ * directory or the DataTables site. Contiene los botones expuestos en el toolbar.
  *
  * @name Buttons.defaults
  * @function
@@ -1343,7 +1343,7 @@ Buttons.buttonSelector = function ( insts, selector )
  *
  */
 Buttons.defaults = {
-	buttons: [ 'copyCustom' ],
+	buttons: [ 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton' ],
 	name: 'main',
 	tabIndex: 0,
 	dom: {
@@ -1386,7 +1386,7 @@ Buttons.version = '1.5.1';
 $.extend( _dtButtons, {
 	collection: {
 		text: function ( dt ) {
-			return dt.i18n( 'buttons.collection', 'Collection' );
+			return $.rup.i18nParse($.rup.i18n.base, 'rup.datatable.collection');
 		},
 		className: 'buttons-collection',
 		action: function ( e, dt, button, config ) {
@@ -1503,9 +1503,29 @@ $.extend( _dtButtons, {
 			'aria-haspopup': true
 		}
 	},
-	copyCustom: function ( dt, conf ) {
-		if ( _dtButtons.copyCustom && _dtButtons.copyCustom.available( dt, conf ) ) {
-			return 'copyCustom';
+	addButton: function ( dt, conf ) {
+		if ( _dtButtons.addButton && _dtButtons.addButton.available( dt, conf ) ) {
+			return 'addButton';
+		}
+	},
+	editButton: function ( dt, conf ) {
+		if ( _dtButtons.editButton && _dtButtons.editButton.available( dt, conf ) ) {
+			return 'editButton';
+		}
+	},
+	cloneButton: function ( dt, conf ) {
+		if ( _dtButtons.cloneButton && _dtButtons.cloneButton.available( dt, conf ) ) {
+			return 'cloneButton';
+		}
+	},
+	deleteButton: function ( dt, conf ) {
+		if ( _dtButtons.deleteButton && _dtButtons.deleteButton.available( dt, conf ) ) {
+			return 'deleteButton';
+		}
+	},
+	reportsButton: function ( dt, conf ) {
+		if ( _dtButtons.reportsButton && _dtButtons.reportsButton.available( dt, conf ) ) {
+			return 'reportsButton';
 		}
 	},
 	pageLength: function ( dt ) {
@@ -1513,7 +1533,7 @@ $.extend( _dtButtons, {
 		var vals = $.isArray( lengthMenu[0] ) ? lengthMenu[0] : lengthMenu;
 		var lang = $.isArray( lengthMenu[0] ) ? lengthMenu[1] : lengthMenu;
 		var text = function ( dt ) {
-			return dt.i18n( 'buttons.pageLength', {
+			return dt.i18n( 'rup_datatable.pageLength', {
 				"-1": 'Show all rows',
 				_:    'Show %d rows'
 			}, dt.page.len() );
@@ -1815,8 +1835,8 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			$(idTableDetail).find('form')[0].reset();
 			if(DataTable.multiSelect.multiselection.numSelected > 0){
 				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
 						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
