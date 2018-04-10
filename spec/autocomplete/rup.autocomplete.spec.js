@@ -14,7 +14,7 @@
 
 
 import 'jquery';
-import 'handlebars';
+import Handlebars from 'handlebars';
 import 'jasmine-jquery';
 import 'rup.autocomplete';
 
