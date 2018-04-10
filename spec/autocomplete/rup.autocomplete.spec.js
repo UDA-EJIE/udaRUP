@@ -34,7 +34,7 @@
 
 			$content.html(template(templateJson));
 
-			$autocomplete = $('#idAutocomplete');
+			$autocomplete = $('#'+idAutocomplete);
 
 			var sourceJson = [
 				{i18nCaption: 'asp',        value:'asp_value'},
