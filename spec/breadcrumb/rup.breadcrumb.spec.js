@@ -17,7 +17,7 @@ describe('RUP BreadCrumb Test:', () => {
         });
 
         it('El breadcrumb debe estar definido', () => {
-            expect($breadCrum[0].firstChild.className).toBe('rup-breadCrumbs_span');
+            expect($breadcrum[0].firstChild.className).toBe('rup-breadCrumbs_span');
         });
 
         
