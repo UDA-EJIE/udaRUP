@@ -7,8 +7,8 @@
  * @param {Array} methods
  */
 
-import 'jquery'
-import 'jasmine-jquery'
+import 'jquery';
+import 'jasmine-jquery';
 
 export function componentTestRunner($element, rupComponent, methods) {
   var rupObj = (args) => {
