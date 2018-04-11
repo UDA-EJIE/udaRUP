@@ -679,7 +679,9 @@
   	  id:"table_filter_form",
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
-     }
+    },
+		// adapter: "datatable_jqueryui",
+		adapter: 'datatable_bootstrap'
 	};
 
 }));
