@@ -1,7 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.validate';
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Validate: ', () => {
     var $validate;
@@ -24,7 +23,7 @@ describe('Test Validate: ', () => {
             liveCheckingErrors: false,
             showFieldErrorAsDefault: true,
             showErrorsInFeedback: true,
-            showFieldErrorsInFeedback:true, 
+            showFieldErrorsInFeedback:true,
             rules:{
                 "campoUno": {required: true},
                 "campoDos": {required: true}
@@ -78,6 +77,13 @@ describe('Test Validate: ', () => {
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
-        componentTestRunner($validate, 'rup_validate', ['destroy']);
+        describe('Método destroy', () => {
+            beforeAll(() => {
+                $validate.rup_date('destroy');
+            });
+            it('No debe existir', () => {
+                expect($validate.rup_date('destroy')).toThrowError();
+            });
+        });
     });
 });
