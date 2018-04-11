@@ -29,6 +29,7 @@ describe('Test Form', () => {
     });
   });
   describe('Métodos públicos', () => {
+    // TODO: Evaluar el usar spy en lugar de jasmine-ajax
     describe('Métodos de envío de formulario', () => {
       describe('Método ajaxSubmit', () => {
         beforeAll(() => {
