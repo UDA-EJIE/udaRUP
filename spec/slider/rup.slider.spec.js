@@ -2,7 +2,6 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.slider';
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Slider', () => {
     var $slider;
@@ -46,6 +45,48 @@ describe('Test Slider', () => {
                 expect($slider.rup_slider('options').min).toBe(10);
             });
         });
-        componentTestRunner($slider, 'rup_slider', ['enable','disable','getRupValue','setRupValue','destroy']);
+        describe('Método getRupValue:', () => {
+            it('Devuelve un valor:', () => {
+                expect($slider.rup_date('getRupValue')).toBeDefined();
+            });
+        });
+        describe('Método setRupValue', () => {
+            beforeAll(() => {
+                $slider.rup_date('setRupValue', 50);
+            });
+            it('Debe actualizar el valor:', () => {
+                expect($slider.rup_date('getRupValue')).toBe(50);
+            });
+        });
+        describe('Método disable', () => {
+            beforeAll(() => {
+              if($slider.is(':disabled')){
+                  $slider.enable();
+              }
+              $slider.rup_date('disable');
+            });
+            it('Debe poder deshabilitarse', () => {
+              expect($slider).toBeDisabled();
+            });
+        });
+        describe('Método enable', () => {
+            beforeAll(() => {
+              if($slider.is(':enabled') && 'disable' in methods){
+                  $slider.disable();
+              }
+              $slider.rup_date('enable');
+            });
+            it('Debe poder habilitarse', () => {
+              expect($slider).not.toBeDisabled();
+            });
+        });
+        describe('Método destroy', () => {
+            beforeAll(() => {
+                $slider.rup_date('destroy');
+            });
+            it('No debe existir', () => {
+                expect($slider.rup_date('destroy')).toThrowError();
+            });
+        });
     });
 });
