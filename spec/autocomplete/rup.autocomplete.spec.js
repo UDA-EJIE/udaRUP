@@ -120,14 +120,6 @@ describe('RUP Autocomplete Tests', function() {
 
   });
   describe('Test de métodos públicos', () => {
-    // componentTestRunner($autocomplete,
-    // 	'rup_autocomplete',
-    // 	['getRupValue',
-    // 	'setRupValue',
-    // 	'destroy',
-    // 	'enable',
-    // 	'disable'
-    // ]);
     describe('Metodos On y Off', () => {
       it('metodo off no debe lanzar excepcion', () => {
         expect(() => {
@@ -159,14 +151,14 @@ describe('RUP Autocomplete Tests', function() {
     });
 
     describe('Método search:', () => {
-			it('No debe dar error', () => {
+      it('No debe dar error', () => {
         expect(() => {
           $autocomplete.rup_autocomplete('search', 'ruby');
         }).not.toThrowError();
       });
       it('Abre el menú de resultados de búsqueda', () => {
         expect(() => {
-					$autocomplete.rup_autocomplete('search', 'ruby');
+          $autocomplete.rup_autocomplete('search', 'ruby');
           return $('#' + idAutocomplete + '_menu').is(':visible');
         }).toBe(true);
       });
@@ -178,9 +170,9 @@ describe('RUP Autocomplete Tests', function() {
           $autocomplete.rup_autocomplete('close');
         }).not.toThrowError();
       });
-			it('Cierra el menú de resultados de búsqueda', () => {
+      it('Cierra el menú de resultados de búsqueda', () => {
         expect(() => {
-					$autocomplete.rup_autocomplete('search', 'ruby');
+          $autocomplete.rup_autocomplete('search', 'ruby');
           return $('#' + idAutocomplete + '_menu').is(':visible');
         }).toBe(false);
       });
@@ -201,6 +193,54 @@ describe('RUP Autocomplete Tests', function() {
       });
       it('Debe establecer el valor indicado', () => {
         expect($autocomplete.val()).toBe('Otr');
+      });
+    });
+    
+    describe('Método getRupValue:', () => {
+      it('Devuelve un valor:', () => {
+        expect($autocomplete.rup_date('getRupValue')).toBeDefined();
+      });
+    });
+
+    describe('Método setRupValue', () => {
+      beforeAll(() => {
+        $autocomplete.rup_date('setRupValue', 50);
+      });
+      it('Debe actualizar el valor:', () => {
+        expect($autocomplete.rup_date('getRupValue')).toBe(50);
+      });
+    });
+
+    describe('Método disable', () => {
+      beforeAll(() => {
+        if ($autocomplete.is(':disabled')) {
+          $autocomplete.enable();
+        }
+        $autocomplete.rup_date('disable');
+      });
+      it('Debe poder deshabilitarse', () => {
+        expect($autocomplete).toBeDisabled();
+      });
+    });
+
+    describe('Método enable', () => {
+      beforeAll(() => {
+        if ($autocomplete.is(':enabled') && 'disable' in methods) {
+          $autocomplete.disable();
+        }
+        $autocomplete.rup_date('enable');
+      });
+      it('Debe poder habilitarse', () => {
+        expect($autocomplete).not.toBeDisabled();
+      });
+    });
+
+    describe('Método destroy', () => {
+      beforeAll(() => {
+        $autocomplete.rup_date('destroy');
+      });
+      it('No debe existir', () => {
+        expect($autocomplete.rup_date('destroy')).toThrowError();
       });
     });
   });
