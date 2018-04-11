@@ -5591,7 +5591,8 @@ table.dataTable, table.dataTable th, table.dataTable td {
   clear: both;
   *zoom: 1;
   zoom: 1;
-  padding: 0 3px; }
+  padding-left: 2px;
+  padding-right: 3px; }
 
 .dataTables_wrapper .dataTables_length {
   float: left; }
@@ -5979,8 +5980,7 @@ button.dt-button:focus:not(.disabled), .dt-button.ui-button.rup-button:focus:not
   outline: none; }
 
 div.dt-buttons {
-  position: relative;
-  float: left; }
+  position: relative; }
 
 div.dt-buttons.buttons-right {
   float: right; }
@@ -6093,7 +6093,6 @@ div.dt-button-background {
 
 @media screen and (max-width: 640px) {
   div.dt-buttons {
-    float: none !important;
     text-align: center; }
   .align-right {
     float: none !important; } }
