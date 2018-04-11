@@ -3755,8 +3755,7 @@ button.dt-button:focus:not(.disabled), .dt-button.ui-button.rup-button:focus:not
   outline: none; }
 
 div.dt-buttons {
-  position: relative;
-  float: left; }
+  position: relative; }
 
 div.dt-buttons.buttons-right {
   float: right; }
@@ -3869,7 +3868,6 @@ div.dt-button-background {
 
 @media screen and (max-width: 640px) {
   div.dt-buttons {
-    float: none !important;
     text-align: center; }
   .align-right {
     float: none !important; } }
