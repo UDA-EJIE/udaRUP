@@ -18,11 +18,11 @@ import Handlebars from 'handlebars';
 import 'jasmine-jquery';
 import 'rup.autocomplete';
 
-describe('RUP Autocomplete Tests', function() {
+describe('RUP Autocomplete Tests', function () {
 
   var source, template, $content, $autocomplete, idAutocomplete = 'autocomplete';
 
-  beforeAll(function() {
+  beforeAll(function () {
 
     var sourceTemplate = '<input type="text" id="{{id}}" />';
     template = Handlebars.compile(sourceTemplate);
@@ -98,21 +98,21 @@ describe('RUP Autocomplete Tests', function() {
 
   });
 
-  describe('Creación de un autocomplete local', function() {
+  describe('Creación de un autocomplete local', function () {
     it('debe estar definido', () => {
       expect($autocomplete).toBeDefined();
     });
-    it("debería de inicializarse el RUP Autocomplete", function() {
+    it("debería de inicializarse el RUP Autocomplete", function () {
       expect($autocomplete).toHaveAttr("ruptype", "autocomplete");
       expect($autocomplete).toHaveClass("rup-autocomplete_label ui-autocomplete-input");
       expect($autocomplete.data("ui-autocomplete")).not.toBe(undefined);
     });
 
-    it("deberia de tener un id con sufijo '_label'", function() {
+    it("deberia de tener un id con sufijo '_label'", function () {
       expect($autocomplete).toHaveId(idAutocomplete + "_label");
     });
 
-    it("debería de generarse el hidden que contenga el value del RUP Autocomplete", function() {
+    it("debería de generarse el hidden que contenga el value del RUP Autocomplete", function () {
       var $hiddenAutocomplete = $("#" + idAutocomplete);
       expect($hiddenAutocomplete).toExist();
       expect($hiddenAutocomplete).toEqual("input[type='hidden']");
@@ -151,63 +151,63 @@ describe('RUP Autocomplete Tests', function() {
     });
 
     describe('Método search:', () => {
-      it('No debe dar error', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('search', 'ruby');
-        }).not.toThrowError();
-      });
       it('Abre el menú de resultados de búsqueda', () => {
-        expect(() => {
+        beforeAll(()=>{
           $autocomplete.rup_autocomplete('search', 'ruby');
-          return $('#' + idAutocomplete + '_menu').is(':visible');
-        }).toBe(true);
+        });
+        expect($('#' + idAutocomplete + '_menu').is(':visible')).toBeTruthy();
       });
     });
 
     describe('Método close:', () => {
-      it('No debe dar error', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('close');
-        }).not.toThrowError();
+      beforeAll(() => {
+        $autocomplete.rup_autocomplete('search', 'ruby');
+        $autocomplete.rup_autocomplete('close');
       });
       it('Cierra el menú de resultados de búsqueda', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('search', 'ruby');
-          return $('#' + idAutocomplete + '_menu').is(':visible');
-        }).toBe(false);
+        expect($('#' + idAutocomplete + '_menu').is(':visible')).toBeFalsy();
       });
     });
 
     describe('Método val', () => {
       beforeAll(() => {
-        $autocomplete.rup_autocomplete('search', 'ruby');
+        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
       });
-      it('Debe devolver el valor especificado', () => {
-        expect($autocomplete.rup_autocomplete('val')).toBe('ruby');
+      it('Debe devolver el valor del elemento seleccionado', () => {
+        expect($autocomplete.rup_autocomplete('val')).toBe('ruby_value');
+      });
+      it('Debe devolver la descripción del elemento seleccionado', () => {
+        expect($autocomplete.val()).toBe('ruby');
       });
     });
 
     describe('Método set', () => {
       beforeAll(() => {
-        $autocomplete.rup_autocomplete('set', '6', 'Otr');
+        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
       });
       it('Debe establecer el valor indicado', () => {
-        expect($autocomplete.val()).toBe('Otr');
+        expect($autocomplete.val()).toBe('ruby_value');
       });
     });
-    
+
     describe('Método getRupValue:', () => {
+      beforeAll(() => {
+        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
+      });
       it('Devuelve un valor:', () => {
-        expect($autocomplete.rup_date('getRupValue')).toBeDefined();
+        expect($autocomplete.rup_autocomplete('getRupValue')).toBeDefined();
+      });
+      it('Devuelve un valor:', () => {
+        expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ruby_value');
       });
     });
 
     describe('Método setRupValue', () => {
       beforeAll(() => {
-        $autocomplete.rup_date('setRupValue', 50);
+        $autocomplete.rup_autocomplete('setRupValue', 'ruby_value');
       });
       it('Debe actualizar el valor:', () => {
-        expect($autocomplete.rup_date('getRupValue')).toBe(50);
+        expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ruby_value');
       });
     });
 
@@ -216,7 +216,7 @@ describe('RUP Autocomplete Tests', function() {
         if ($autocomplete.is(':disabled')) {
           $autocomplete.enable();
         }
-        $autocomplete.rup_date('disable');
+        $autocomplete.rup_autocomplete('disable');
       });
       it('Debe poder deshabilitarse', () => {
         expect($autocomplete).toBeDisabled();
@@ -228,7 +228,7 @@ describe('RUP Autocomplete Tests', function() {
         if ($autocomplete.is(':enabled') && 'disable' in methods) {
           $autocomplete.disable();
         }
-        $autocomplete.rup_date('enable');
+        $autocomplete.rup_autocomplete('enable');
       });
       it('Debe poder habilitarse', () => {
         expect($autocomplete).not.toBeDisabled();
@@ -237,10 +237,12 @@ describe('RUP Autocomplete Tests', function() {
 
     describe('Método destroy', () => {
       beforeAll(() => {
-        $autocomplete.rup_date('destroy');
+        $autocomplete.rup_autocomplete('destroy');
       });
       it('No debe existir', () => {
-        expect($autocomplete.rup_date('destroy')).toThrowError();
+        expect(() => {
+          $autocomplete.rup_autocomplete('destroy');
+        }).toThrowError();
       });
     });
   });
