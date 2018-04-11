@@ -1,7 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tree';
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Tree:', () => {
     var $tree;
@@ -30,6 +29,18 @@ describe('Test Tree:', () => {
         });
     });
     describe('Métodos públicos:', () => {
-        componentTestRunner($tree, 'rup_tree', ['getRupValue','setRupValue']);
+      describe('Método getRupValue:', () => {
+          it('Devuelve un valor:', () => {
+              expect($tree.rup_date('getRupValue')).toBeDefined();
+          });
+      });
+      describe('Método setRupValue', () => {
+          beforeAll(() => {
+              $tree.rup_date('setRupValue', 50);
+          });
+          it('Debe actualizar el valor:', () => {
+              expect($tree.rup_date('getRupValue')).toBe(50);
+          });
+      });
     });
 });
