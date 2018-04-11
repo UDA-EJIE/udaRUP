@@ -1,7 +1,6 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.tooltip'
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('TEST Tooltip', () => {
     var $tooltip;
@@ -52,6 +51,35 @@ describe('TEST Tooltip', () => {
                 expect($tooltip.rup_tooltip('option', 'show').modal).toBeTruthy();
             });
         });
-        componentTestRunner($tooltip, 'rup_tooltip', ['enable', 'disable', 'destroy']);
+        describe('Método disable', () => {
+            beforeAll(() => {
+              if($tooltip.is(':disabled')){
+                  $tooltip.enable();
+              }
+              $tooltip.rup_date('disable');
+            });
+            it('Debe poder deshabilitarse', () => {
+              expect($tooltip).toBeDisabled();
+            });
+        });
+        describe('Método enable', () => {
+            beforeAll(() => {
+              if($tooltip.is(':enabled') && 'disable' in methods){
+                  $tooltip.disable();
+              }
+              $tooltip.rup_date('enable');
+            });
+            it('Debe poder habilitarse', () => {
+              expect($tooltip).not.toBeDisabled();
+            });
+        });
+        describe('Método destroy', () => {
+            beforeAll(() => {
+                $tooltip.rup_date('destroy');
+            });
+            it('No debe existir', () => {
+                expect($tooltip.rup_date('destroy')).toThrowError();
+            });
+        });
     });
 });
