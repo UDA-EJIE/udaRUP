@@ -77,6 +77,12 @@ describe('Test Form', () => {
         expect($form.rup_form('fieldValue')).toBe(out);
       });
     });
+    describe('Método formToJson', () => {
+      it('Debe devolver los datos en un string en formato Json', () => {
+        let out = {input1:'txt1', input2:'txt2', input3:'opt1'};
+        expect(JSON.parse($form.rup_form('formToJson'))).toBe(out);
+      });
+    });
     // TODO: Conseguir el objeto de configuracion del form y probar esto.
     describe('Métodos formReset, formClear y clearFields', () => {
       beforeAll(() => {
