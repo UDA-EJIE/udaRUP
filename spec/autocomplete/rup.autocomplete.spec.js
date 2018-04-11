@@ -241,7 +241,7 @@ describe('RUP Autocomplete Tests', function () {
       });
       it('No debe existir', () => {
         expect(() => {
-          $autocomplete.rup_autocomplete('destroy')
+          $autocomplete.rup_autocomplete('destroy');
         }).toThrowError();
       });
     });
