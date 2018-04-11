@@ -1,7 +1,6 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.spinner'
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Spinner: ', () => {
     var $spinner;
@@ -18,6 +17,26 @@ describe('Test Spinner: ', () => {
         });
     });
     describe('Métodos públicos:', () => {
-        componentTestRunner($spinner, 'rup_spinner', ['getRupValue','setRupValue', 'destroy']);
+      describe('Método getRupValue:', () => {
+          it('Devuelve un valor:', () => {
+              expect($spinner.rup_date('getRupValue')).toBeDefined();
+          });
+      });
+      describe('Método setRupValue', () => {
+          beforeAll(() => {
+              $spinner.rup_date('setRupValue', 50);
+          });
+          it('Debe actualizar el valor:', () => {
+              expect($spinner.rup_date('getRupValue')).toBe(50);
+          });
+      });
+      describe('Método destroy', () => {
+          beforeAll(() => {
+              $spinner.rup_date('destroy');
+          });
+          it('No debe existir', () => {
+              expect($spinner.rup_date('destroy')).toThrowError();
+          });
+      });
     });
 });
