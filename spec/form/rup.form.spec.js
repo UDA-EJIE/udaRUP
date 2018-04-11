@@ -6,6 +6,7 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'jasmine-ajax'; // TODO: Hay que pillarlo de npm
 import 'rup.form';
+import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Form', () => {
   var $form;
@@ -86,5 +87,7 @@ describe('Test Form', () => {
         expect($('#input2')).toBe('');
       });
     });
+
+    componentTestRunner($form, 'rup_form', ['destroy']);
   });
 });
