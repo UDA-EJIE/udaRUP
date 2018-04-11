@@ -1,7 +1,6 @@
 import 'jquery'
 import 'jasmine-jquery'
 import 'rup.date'
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('TEST Date:',   () => {
     var $date;
@@ -88,8 +87,49 @@ describe('TEST Date:',   () => {
                 })
             });
         });
+        describe('Método getRupValue:', () => {
+      	    it('Devuelve un valor:', () => {
+      		      expect($date.rup_date('getRupValue')).toBeDefined();
+      	    });
+      	});
+        describe('Método setRupValue', () => {
+      	    beforeAll(() => {
+      		      $date.rup_date('setRupValue', 50);
+      	    });
+      	    it('Debe actualizar el valor:', () => {
+      		      expect($date.rup_date('getRupValue')).toBe(50);
+      	    });
+      	});
+        describe('Método disable', () => {
+      	    beforeAll(() => {
+          		if($date.is(':disabled')){
+          		    $date.enable();
+          		}
+              $date.rup_date('disable');
+      	    });
+      	    it('Debe poder deshabilitarse', () => {
+          		expect($date).toBeDisabled();
+      	    });
+      	});
+        describe('Método enable', () => {
+      	    beforeAll(() => {
+          		if($date.is(':enabled') && 'disable' in methods){
+          		    $date.disable();
+          		}
+              $date.rup_date('enable');
+      	    });
+      	    it('Debe poder habilitarse', () => {
+          		expect($date).not.toBeDisabled();
+      	    });
+      	});
+        describe('Método destroy', () => {
+      	    beforeAll(() => {
+      		      $date.rup_date('destroy');
+      	    });
+      	    it('No debe existir', () => {
+      		      expect($date.rup_date('destroy')).toThrowError();
+      	    });
+      	});
 
-        componentTestRunner($date, 'rup_date', ['getRupValue','setRupValue','enable','disable','destroy']);
-        
     });
 });
