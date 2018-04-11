@@ -1,9 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.breadcrumb';
-import {
-  componentTestRunner
-} from '../helpers/rup.componentTestRunner.spec';
 
 describe('RUP BreadCrumb Test:', () => {
   var $breadcrumb;
@@ -29,6 +26,13 @@ describe('RUP BreadCrumb Test:', () => {
 
   });
   describe('Test de los métodos públicos', () => {
-    componentTestRunner($breadcrumb, 'rup_breadCrumb', ['destroy']);
+    describe('Método destroy', () => {
+      beforeAll(() => {
+        rupObj('destroy');
+      });
+      it('No debe existir', () => {
+        expect(rupObj('destroy')).toThrowError();
+      });
+    });
   });
 });
