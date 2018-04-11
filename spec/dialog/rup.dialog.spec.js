@@ -2,7 +2,6 @@ import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Dialog', () => {
 	function testDialogType(type) {
@@ -73,11 +72,39 @@ describe('Test Dialog', () => {
 					expect($dialogo.rup_dialog('getOption','width')).toBe(260);
 				});
 			});
-			
-			componentTestRunner($dialogo, 'rup_dialog', ['enable','disable','destroy']);
+			describe('Método disable', () => {
+			    beforeAll(() => {
+			      if($dialogo.is(':disabled')){
+			          $dialogo.enable();
+			      }
+			      $dialogo.rup_date('disable');
+			    });
+			    it('Debe poder deshabilitarse', () => {
+			      expect($dialogo).toBeDisabled();
+			    });
+			});
+			describe('Método enable', () => {
+			    beforeAll(() => {
+			      if($dialogo.is(':enabled') && 'disable' in methods){
+			          $dialogo.disable();
+			      }
+			      $dialogo.rup_date('enable');
+			    });
+			    it('Debe poder habilitarse', () => {
+			      expect($dialogo).not.toBeDisabled();
+			    });
+			});
+			describe('Método destroy', () => {
+			    beforeAll(() => {
+			        $dialogo.rup_date('destroy');
+			    });
+			    it('No debe existir', () => {
+			        expect($dialogo.rup_date('destroy')).toThrowError();
+			    });
+			});
 		});
 	}
-	
+
 	testDialogType($.rup.dialog.TEXT);
 	testDialogType($.rup.dialog.DIV);
 
