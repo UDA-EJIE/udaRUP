@@ -47,15 +47,15 @@ describe('Test Slider', () => {
         });
         describe('Método getRupValue:', () => {
             it('Devuelve un valor:', () => {
-                expect($slider.rup_date('getRupValue')).toBeDefined();
+                expect($slider.rup_slider('getRupValue')).toBeDefined();
             });
         });
         describe('Método setRupValue', () => {
             beforeAll(() => {
-                $slider.rup_date('setRupValue', 50);
+                $slider.rup_slider('setRupValue', 50);
             });
             it('Debe actualizar el valor:', () => {
-                expect($slider.rup_date('getRupValue')).toBe(50);
+                expect($slider.rup_slider('getRupValue')).toBe(50);
             });
         });
         describe('Método disable', () => {
@@ -63,7 +63,7 @@ describe('Test Slider', () => {
               if($slider.is(':disabled')){
                   $slider.enable();
               }
-              $slider.rup_date('disable');
+              $slider.rup_slider('disable');
             });
             it('Debe poder deshabilitarse', () => {
               expect($slider).toBeDisabled();
@@ -74,7 +74,7 @@ describe('Test Slider', () => {
               if($slider.is(':enabled') && 'disable' in methods){
                   $slider.disable();
               }
-              $slider.rup_date('enable');
+              $slider.rup_slider('enable');
             });
             it('Debe poder habilitarse', () => {
               expect($slider).not.toBeDisabled();
@@ -82,10 +82,10 @@ describe('Test Slider', () => {
         });
         describe('Método destroy', () => {
             beforeAll(() => {
-                $slider.rup_date('destroy');
+                $slider.rup_slider('destroy');
             });
             it('No debe existir', () => {
-                expect($slider.rup_date('destroy')).toThrowError();
+                expect($slider.rup_slider('destroy')).toThrowError();
             });
         });
     });
