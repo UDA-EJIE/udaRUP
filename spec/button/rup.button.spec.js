@@ -4,8 +4,9 @@ import 'jasmine-jquery';
 import 'rup.button';
 
 describe('TEST Button', () => {
+    var $button;
     describe('Creacion', () => {
-        var $button;
+        
         beforeAll(() => {
             var html= '<button id="exampleButton"></button>';
             $('body').append(html);
