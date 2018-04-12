@@ -340,8 +340,8 @@ var _reportsRequestData = function (ajaxOptions)
 var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
 {
 	$.rup_messages('msgConfirm', {
-		title: dt.i18n('rup_datatable.changes', 'Copia de registros en clipboard'),
-		message: dt.i18n('rup_datatable.saveAndContinue', {
+		title: dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en clipboard'),
+		message: dt.i18n('rup_datatable.copyButton.saveAndContinue', {
 			_: '¿Desea copiar %d registros?',
 			1: '¿Desea copiar un registro?'
 		}, exportDataRows),
@@ -389,8 +389,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('rup_datatable.changes', 'Copia de registros en portapapeles'),
-					dt.i18n('rup_datatable.saved', {
+					dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_datatable.copyButton.saved', {
 						_: 'Copiados %d registros al portapapeles',
 						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
@@ -409,13 +409,13 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
 	// con las instrucciones de como copiar los elementos seleccionados
-	var message = $('<span>' + dt.i18n('rup_datatable.copyKeys',
+	var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
 		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
 		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
 	)
 	.append(hiddenDiv);
 
-	dt.buttons.info(dt.i18n('copyTitle', 'Copiar al portapapeles'), message, 0);
+	dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
 
 	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
 	// se le pegue ese texto

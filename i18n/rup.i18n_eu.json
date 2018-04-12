@@ -583,21 +583,23 @@
         "copyButton": "Kopiatu"
       }
     },
-    "changes": "Copia de registros en portapapeles",
-    "saveAndContinue": {
-      "_": "¿Desea copiar %d registros?",
-      "1": "¿Desea copiar un registro?"
+    "copyButton": {
+      "changes": "[EU]Copia de registros en portapapeles",
+      "saveAndContinue": {
+        "_": "[EU]¿Desea copiar %d registros?",
+        "1": "[EU]¿Desea copiar un registro?"
+      },
+      "saved": {
+        "_": "[EU]Copiados %d registros al portapapeles",
+        "1": "[EU]Copiado un registro al portapapeles"
+      },
+      "copyTitle": "[EU]Copiar al portapapeles",
+      "copyKeys": "[EU]Press ctrl or ⌘ + C to copy the table data to your system clipboard. To cancel, click this message or press escape."
     },
-    "saved": {
-      "_": "Copiados %d registros al portapapeles",
-      "1": "Copiado un registro al portapapeles"
-    },
-    "copyTitle": "Copiar al portapapeles",
-    "copyKeys": "Press ctrl or ⌘ + C to copy the table data to your system clipboard. To cancel, click this message or press escape.",
-    "collection": "Collection",
+    "collection": "[EU]Collection",
     "pageLength": {
-      "-1": "Show all rows",
-      "_": "Show %d rows"
+      "-1": "[EU]Show all rows",
+      "_": "[EU]Show %d rows"
     },
     "cancel": "Ezeztatu",
     "changes": "Aldaketaren egiaztapena",

@@ -538,17 +538,19 @@
         "copyButton": "Copiar"
       }
     },
-    "changes": "Copia de registros en portapapeles",
-    "saveAndContinue": {
-      "_": "¿Desea copiar %d registros?",
-      "1": "¿Desea copiar un registro?"
+    "copyButton": {
+      "changes": "Copia de registros en portapapeles",
+      "saveAndContinue": {
+        "_": "¿Desea copiar %d registros?",
+        "1": "¿Desea copiar un registro?"
+      },
+      "saved": {
+        "_": "Copiados %d registros al portapapeles",
+        "1": "Copiado un registro al portapapeles"
+      },
+      "copyTitle": "Copiar al portapapeles",
+      "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
     },
-    "saved": {
-      "_": "Copiados %d registros al portapapeles",
-      "1": "Copiado un registro al portapapeles"
-    },
-    "copyTitle": "Copiar al portapapeles",
-    "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape.",
     "collection": "Collection",
     "pageLength": {
       "-1": "Show all rows",
