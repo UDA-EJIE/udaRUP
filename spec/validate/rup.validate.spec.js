@@ -3,7 +3,7 @@ import 'jasmine-jquery';
 import 'rup.validate';
 
 describe('Test Validate: ', () => {
-    var $validate;
+    var $validate, $feedBack;
     describe('Creación: ', () => {
         var html = '<form id="exampleValidate">'
                 +  '<input type="text" name="campoUno" id="campoUno">Campo 1</input>'
@@ -17,7 +17,7 @@ describe('Test Validate: ', () => {
             closeLink: true,
             block:false
         };
-        var $feedBack = $('#feedback').rup_feedback(optsFeedback);
+        $feedBack = $('#feedback').rup_feedback(optsFeedback);
         var optsValidate = {
             feedback: $feedBack,
             liveCheckingErrors: false,
@@ -35,14 +35,14 @@ describe('Test Validate: ', () => {
             expect($validate.hasClass('rup_validate')).toBeTruthy();
         });
         it('El feedback debe estar oculto', () => {
-            expect($feedBack.css('display')).toBe('none');
+            expect($feedBack.is(':visible')).toBeFalsy();
         });
         describe('La validación funciona:', () => {
             beforeAll(() => {
                 $('#btnInput').click();
             });
             it('Debe mostrarse el feedback', () => {
-                expect($feedBack.css('display')).toBe('block');
+                expect($feedBack.is(':visible')).toBeTruthy();
             });
             it('Cada campo del form debe tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeTruthy();
@@ -57,7 +57,7 @@ describe('Test Validate: ', () => {
                 $validate.rup_validate('resetForm');
             });
             it('Debe desaparecer el feedback', () => {
-                expect($feedBack.css('display')).toBe('none');
+                expect($feedBack.is(':visible')).toBeFalsy();
             });
             it('Los campos del form no deben tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
@@ -70,7 +70,7 @@ describe('Test Validate: ', () => {
                 $validate.rup_validate('resetElements');
             });
             it('Debe mantenerse el feedback', () => {
-                expect($feedBack.css('display')).toBe('block');
+                expect($feedBack.is(':visible')).toBeTruthy();
             });
             it('Los campos del form no deben tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
@@ -79,10 +79,10 @@ describe('Test Validate: ', () => {
         });
         describe('Método destroy', () => {
             beforeAll(() => {
-                $validate.rup_date('destroy');
+                $validate.rup_validate('destroy');
             });
             it('No debe existir', () => {
-                expect($validate.rup_date('destroy')).toThrowError();
+                expect($validate.rup_validate('destroy')).toThrowError();
             });
         });
     });
