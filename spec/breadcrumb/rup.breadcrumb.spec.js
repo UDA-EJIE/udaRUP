@@ -28,6 +28,6 @@ describe('RUP BreadCrumb Test:', () => {
 			it('No debe existir', () => {
 					expect(() => {$breadcrumb.rup_breadcrumb('destroy')}).toThrowError();
 			});
-	});
+		});
 	});
 });
