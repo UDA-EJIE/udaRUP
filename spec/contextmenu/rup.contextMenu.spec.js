@@ -49,7 +49,7 @@ describe('TEST contextMenu', () => {
             beforeAll(() => {
                 $context.rup_contextMenu('hide');
             });
-            it('Debe mostrarse', () => {
+            it('Debe estar oculto', () => {
                 expect($context.is(':visible')).toBeFalsy();
             });
         });
@@ -58,7 +58,7 @@ describe('TEST contextMenu', () => {
               if($context.is(':disabled')){
                   $context.enable();
               }
-              $context.rup_date('disable');
+              $context.rup_contextMenu('disable');
             });
             it('Debe poder deshabilitarse', () => {
               expect($context[0]).toBeDisabled();
@@ -69,7 +69,7 @@ describe('TEST contextMenu', () => {
               if($context.is(':enabled')){
                   $context.disable();
               }
-              $context.rup_date('enable');
+              $context.rup_contextMenu('enable');
             });
             it('Debe poder habilitarse', () => {
               expect($context[0]).not.toBeDisabled();
@@ -77,10 +77,10 @@ describe('TEST contextMenu', () => {
         });
         describe('Método destroy', () => {
             beforeAll(() => {
-                $context.rup_date('destroy');
+                $context.rup_contextMenu('destroy');
             });
             it('No debe existir', () => {
-                expect($context.rup_date('destroy')).toThrowError();
+                expect(() => {$context.rup_contextMenu('destroy')}).toThrowError();
             });
         });
     });
