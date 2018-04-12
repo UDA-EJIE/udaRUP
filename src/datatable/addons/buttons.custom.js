@@ -105,6 +105,7 @@ var _reportsCopyData = function (dt, that, config)
 				left: 0
 			});
 
+		exportDataParsed = _convertToTabulador(exportDataParsed,true);
 		var textarea = $('<textarea readonly/>')
 			.val(exportDataParsed)
 			.appendTo(hiddenDiv);
@@ -112,6 +113,48 @@ var _reportsCopyData = function (dt, that, config)
 		_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
 	});
 };
+
+/**
+* Se encarga de mapear los datos de json a datos separados por el tabulador.
+*
+* @name ConvertToTabulador
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} objArray Objeto que contiene los datos a exportar
+* @param {boolean} true en caso de querer que se mueste la cabecera
+*
+* @return {object}
+*
+*/
+var _convertToTabulador = function(objArray,showLabel) {
+    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    if (showLabel) {
+        var row = "";
+
+        $.each(array[0], function(index) {
+            row += index + '	';
+        });
+        row = row.slice(0, -1);
+        str += row + '\r\n';
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line !== '') {
+            	line += '	'
+            }
+
+            line += array[i][index];
+        }
+
+        str += line + '\r\n';
+    }
+
+    return str;
+}
 
 /**
 	* Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones

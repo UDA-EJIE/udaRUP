@@ -118,7 +118,13 @@
 			};
 
 
-
+			//Extend 
+			/*{targets:   4,data: "download_link",render: function (  ) {
+		         return '<a href="">Download</a>';
+		     }}*/
+			var defes = {};
+			var columnDefs = $.extend({}, options.columnDefs, defes);
+			//options.columnDefs = columnDefs;
 
 			return options;
 		},
@@ -151,6 +157,15 @@
 			}
 
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
+				if(e.getAttribute('data-col-type') === 'checkbox'){
+					options.columnDefs.push({targets:i,data: "",render: function (data  ) {
+						var checked = '';
+						if(data === '1'){
+							checked = 'checked';
+						}
+				         return '<input type="checkbox" '+checked+' onclick="return false">';
+				     }});
+				}
 				return {
 					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')
 				};
@@ -361,10 +376,10 @@
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
 				 */
-				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.filter.toggleIcon1');
-				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.filter.toggleLabel');
-				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.filter.filterSummary');
-				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.filter.toggleIcon2');
+				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon1');
+				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleLabel');
+				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.filterSummary');
+				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon2');
 
 				$toggleIcon1 = $(jQuery.jgrid.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
 				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
@@ -663,11 +678,17 @@
 				delay:1000
 			}
 		},
-    dom: 'itprl',
+    dom: 'tiprl',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
 		responsive: true,
     searchPaginator:true,
+    columnDefs: [ {
+        orderable: false,
+        className: 'select-checkbox',
+        targets:   0
+    	}
+    ],
     colReorder: {
 			fixedColumnsLeft: 1
 		},
@@ -679,7 +700,7 @@
   	  id:"table_filter_form",
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
-    },
+     },
 		// adapter: "datatable_jqueryui",
 		adapter: 'datatable_bootstrap'
 	};
