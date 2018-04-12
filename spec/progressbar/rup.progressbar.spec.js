@@ -61,8 +61,5 @@ describe('TEST ProgressBar', () => {
                 expect($progressbar.rup_progressbar('value')).toBe(50);
             });
         });
-        describe('Método widget', () => {
-            expect($progressbar.rup_progressbar('widget')[0]).toBeDefined();
-        });
     });
 });
