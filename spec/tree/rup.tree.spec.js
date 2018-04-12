@@ -21,8 +21,8 @@ describe('Test Tree:', () => {
                 +       '</ul>'
                 +  '</div>'
         $('body').append(html);
-        $('exampleTree').rup_tree({});
-        $tree = $('exampleTree');
+        $('#exampleTree').rup_tree({});
+        $tree = $('#exampleTree');
 
         it('Debe tener el attr ruptype = tree', () => {
             expect($tree.attr('ruptype')).toBe('tree');
@@ -31,15 +31,15 @@ describe('Test Tree:', () => {
     describe('Métodos públicos:', () => {
       describe('Método getRupValue:', () => {
           it('Devuelve un valor:', () => {
-              expect($tree.rup_date('getRupValue')).toBeDefined();
+              expect($tree.rup_tree('getRupValue')).toBeDefined();
           });
       });
       describe('Método setRupValue', () => {
           beforeAll(() => {
-              $tree.rup_date('setRupValue', 50);
+              $tree.rup_tree('setRupValue', 50);
           });
           it('Debe actualizar el valor:', () => {
-              expect($tree.rup_date('getRupValue')).toBe(50);
+              expect($tree.rup_tree('getRupValue')).toBe(50);
           });
       });
     });
