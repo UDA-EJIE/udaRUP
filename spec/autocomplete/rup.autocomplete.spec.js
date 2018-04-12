@@ -151,33 +151,40 @@ describe('RUP Autocomplete Tests', function () {
     });
 
     describe('Método search:', () => {
+      let rdo = false;
       it('Abre el menú de resultados de búsqueda', () => {
-        beforeAll(()=>{
+        beforeAll(() => {
           $autocomplete.rup_autocomplete('search', 'ruby');
+          rdo = $('#' + idAutocomplete + '_menu').is(':visible');
         });
-        expect($('#' + idAutocomplete + '_menu').is(':visible')).toBeTruthy();
+        expect(rdo).toBeTruthy();
       });
     });
 
     describe('Método close:', () => {
+      let rdo = true;
       beforeAll(() => {
         $autocomplete.rup_autocomplete('search', 'ruby');
         $autocomplete.rup_autocomplete('close');
+        rdo = $('#' + idAutocomplete + '_menu').is(':visible');
       });
       it('Cierra el menú de resultados de búsqueda', () => {
-        expect($('#' + idAutocomplete + '_menu').is(':visible')).toBeFalsy();
+        expect(rdo).toBeFalsy();
       });
     });
 
     describe('Método val', () => {
+      let rdoVal,rdoDesc;
       beforeAll(() => {
         $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
+        rdoVal = $autocomplete.rup_autocomplete('val');
+        rdoDesc = $autocomplete.val();
       });
       it('Debe devolver el valor del elemento seleccionado', () => {
-        expect($autocomplete.rup_autocomplete('val')).toBe('ruby_value');
+        expect(rdoVal).toBe('ruby_value');
       });
       it('Debe devolver la descripción del elemento seleccionado', () => {
-        expect($autocomplete.val()).toBe('ruby');
+        expect(rdoDesc).toBe('ruby');
       });
     });
 
