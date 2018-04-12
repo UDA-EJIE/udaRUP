@@ -79,7 +79,7 @@ describe('TEST Date:',   () => {
             describe('Establecer varias propiedades', () => {
                 afterAll();
                 it('No debe lanzar errores en la asignacion', () => {
-                    expect($date.rup_date('option', {autoSize:true, showWeek:true}));
+                    expect(() => {$date.rup_date('option', {autoSize:true, showWeek:true})}).not.toThrowError();
                 });
                 it('Los valores deben estar actualizados', () => {
                     expect($date.rup_date('option','autoSize')).toBeTruthy();
