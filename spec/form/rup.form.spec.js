@@ -6,7 +6,6 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'jasmine-ajax'; // TODO: Hay que pillarlo de npm
 import 'rup.form';
-import {componentTestRunner} from '../helpers/rup.componentTestRunner.spec';
 
 describe('Test Form', () => {
   var $form;
@@ -62,7 +61,7 @@ describe('Test Form', () => {
     });
     describe('Método formSerialize', () => {
       it('Debe devolver un string con los datos',() => {
-        let out = 'input1=txt1&input2=txt2&input3=opt1',
+        let out = 'input1=txt1&input2=txt2&input3=opt1';
         expect($form.rup_form('formSerialize')).toBe(out);
       });
     });
@@ -95,6 +94,13 @@ describe('Test Form', () => {
       });
     });
 
-    componentTestRunner($form, 'rup_form', ['destroy']);
+    describe('Método destroy', () => {
+        beforeAll(() => {
+            $form.rup_form('destroy');
+        });
+        it('No debe existir', () => {
+          expect($form.rup_form('destroy')).toThrowError();
+        });
+    });
   });
 });
