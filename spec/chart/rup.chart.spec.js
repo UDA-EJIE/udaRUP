@@ -35,7 +35,7 @@ describe('Test Chart', () => {
         });
         
         it('Debe estar definido', () => {
-            expect($chart instanceof Chart).toBeTruthy();
+            expect($chart).toHaveClass('rup-chart');
         });
     });
     describe('Métodos públicos', () => {
@@ -51,7 +51,7 @@ describe('Test Chart', () => {
                 };
             });
             it('No debe lanzar errores al actualizarse', () => {
-                expect($chart.rup_chart('updateData', dataUpdate)).not.toThrowError();
+                expect(() => {$chart.rup_chart('updateData', dataUpdate)}).not.toThrowError();
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getData')).toBe(dataUpdate);
@@ -63,7 +63,7 @@ describe('Test Chart', () => {
                 dataUpdate = ['label1.1','label2.1','label3.1'];
             });
             it('No debe lanzar errores al actualizarse', () => {
-                expect($chart.rup_chart('updateLabels', dataUpdate)).not.toThrowError();
+                expect(() => {$chart.rup_chart('updateLabels', dataUpdate)}).not.toThrowError();
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getLabels')).toBe(dataUpdate);
@@ -78,7 +78,7 @@ describe('Test Chart', () => {
                 }];
             });
             it('No debe lanzar errores al actualizarse', () => {
-                expect($chart.rup_chart('updateDatasets', dataUpdate)).not.toThrowError();
+                expect(() =>{$chart.rup_chart('updateDatasets', dataUpdate)}).not.toThrowError();
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getDatasets')).toBe(dataUpdate);
