@@ -19,23 +19,23 @@ describe('Test Spinner: ', () => {
     describe('Métodos públicos:', () => {
       describe('Método getRupValue:', () => {
           it('Devuelve un valor:', () => {
-              expect($spinner.rup_date('getRupValue')).toBeDefined();
+              expect($spinner.rup_spinner('getRupValue')).toBeDefined();
           });
       });
       describe('Método setRupValue', () => {
           beforeAll(() => {
-              $spinner.rup_date('setRupValue', 50);
+              $spinner.rup_spinner('setRupValue', 50);
           });
           it('Debe actualizar el valor:', () => {
-              expect($spinner.rup_date('getRupValue')).toBe(50);
+              expect($spinner.rup_spinner('getRupValue')).toBe(50);
           });
       });
       describe('Método destroy', () => {
           beforeAll(() => {
-              $spinner.rup_date('destroy');
+              $spinner.rup_spinner('destroy');
           });
           it('No debe existir', () => {
-              expect($spinner.rup_date('destroy')).toThrowError();
+              expect(() => {$spinner.rup_spinner('destroy');}).toThrowError();
           });
       });
     });
