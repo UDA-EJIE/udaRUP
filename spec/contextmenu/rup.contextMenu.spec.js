@@ -28,11 +28,11 @@ describe('TEST contextMenu', () => {
             $context = $('#exampleContext');
         });
         it('El div debe poseer la clase del cursor cmenu', () => {
-            expect($context).toHaveClass('context-menu-cursor');
+            expect($context[0]).toHaveClass('context-menu-cursor');
         });
         it('El contextMenu debe existir y ser invisible', () => {
-            expect('ul').toExist();
-            expect('ul').toBeHidden();
+            expect($('ul')[0]).toExist();
+            expect($('ul')[0]).toBeHidden();
         });
     });
     describe('Métodos públicos:', () => {
@@ -42,7 +42,7 @@ describe('TEST contextMenu', () => {
                 $context.rup_contextMenu('show');
             });
             it('Debe mostrarse', () => {
-                expect($context).not.toBeHidden();
+                expect($context[0]).not.toBeHidden();
             });
         });
         describe('Método show', () => {
@@ -50,7 +50,7 @@ describe('TEST contextMenu', () => {
                 $context.rup_contextMenu('hide');
             });
             it('Debe mostrarse', () => {
-                expect($context).toBeHidden();
+                expect($context[0]).toBeHidden();
             });
         });
         describe('Método disable', () => {
@@ -61,18 +61,18 @@ describe('TEST contextMenu', () => {
               $context.rup_date('disable');
             });
             it('Debe poder deshabilitarse', () => {
-              expect($context).toBeDisabled();
+              expect($context[0]).toBeDisabled();
             });
         });
         describe('Método enable', () => {
             beforeAll(() => {
-              if($context.is(':enabled') && 'disable' in methods){
+              if($context.is(':enabled')){
                   $context.disable();
               }
               $context.rup_date('enable');
             });
             it('Debe poder habilitarse', () => {
-              expect($context).not.toBeDisabled();
+              expect($context[0]).not.toBeDisabled();
             });
         });
         describe('Método destroy', () => {
