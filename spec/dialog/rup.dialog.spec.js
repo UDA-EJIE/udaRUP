@@ -4,9 +4,10 @@ import 'jasmine-jquery';
 import 'rup.dialog';
 
 describe('Test Dialog', () => {
+	var $dialogo;
 	function testDialogType(type) {
 		describe('Test de creacion', () => {
-			var $dialogo;
+			
 			beforeAll( () => {
 				var html = '<div id="exampleDialogo"></div>'
 				$('body').append(html);
@@ -43,10 +44,10 @@ describe('Test Dialog', () => {
 					$dialogo.rup_dialog('close');
 				});
 				it('No debe ser visible:', () => {
-					expect($dialogo.css('display')).toBe('none');
+					expect($dialogo.is(':visible')).toBeFalsy();
 				});
 				it('No debe estar abierto', () => {
-					expect($dialogo.rup_dialog('isOpen')).toBe(false);
+					expect($dialogo.rup_dialog('isOpen')).toBeFalsy();
 				});
 			});
 			describe('Método widget', () => {
@@ -56,7 +57,7 @@ describe('Test Dialog', () => {
 			});
 			describe('Metodo moveToTop', () => {
 				it('No debe lanzar error', () => {
-					expect($dialogo.rup_dialog('moveToTop')).not.toThrowError();
+					expect(() => {$dialogo.rup_dialog('moveToTop')}).not.toThrowError();
 				});
 			});
 			describe('Método getOption', () => {
@@ -77,29 +78,29 @@ describe('Test Dialog', () => {
 			      if($dialogo.is(':disabled')){
 			          $dialogo.enable();
 			      }
-			      $dialogo.rup_date('disable');
+			      $dialogo.rup_dialog('disable');
 			    });
 			    it('Debe poder deshabilitarse', () => {
-			      expect($dialogo).toBeDisabled();
+			      expect($dialogo.is(':disabled')).toBeTruthy();
 			    });
 			});
 			describe('Método enable', () => {
 			    beforeAll(() => {
-			      if($dialogo.is(':enabled') && 'disable' in methods){
+			      if($dialogo.is(':enabled')){
 			          $dialogo.disable();
 			      }
-			      $dialogo.rup_date('enable');
+			      $dialogo.rup_dialog('enable');
 			    });
 			    it('Debe poder habilitarse', () => {
-			      expect($dialogo).not.toBeDisabled();
+					expect($dialogo.is(':disabled')).toBeFalsy();
 			    });
 			});
 			describe('Método destroy', () => {
 			    beforeAll(() => {
-			        $dialogo.rup_date('destroy');
+			        $dialogo.rup_dialog('destroy');
 			    });
 			    it('No debe existir', () => {
-			        expect($dialogo.rup_date('destroy')).toThrowError();
+			        expect(() => {$dialogo.rup_dialog('destroy')}).toThrowError();
 			    });
 			});
 		});
