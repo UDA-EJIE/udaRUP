@@ -421,9 +421,10 @@ DataTable.ext.buttons.copyButton = {
 	text: function (dt) {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
 	},
+	id: 'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'buttons-copyButton',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-	insideContextMenu: true,
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'copyButton',
 	init: function (dt, node, config) {
 		DataTable.ext.buttons.copyButton.eventDT = dt;
@@ -443,11 +444,14 @@ DataTable.ext.buttons.addButton = {
 	text: function (dt) {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
 	},
-	id: 'addButton_1',
+	id: 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'datatable_toolbar_btnAdd',
 	displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
-	insideContextMenu: true,
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'add',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.addButton.eventDT = dt;
+	},
 	action: function (e, dt, node, config) {
 		DataTable.Api().buttons.actions(dt, config);
 	}
@@ -457,11 +461,14 @@ DataTable.ext.buttons.editButton = {
 	text: function (dt) {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
 	},
-	id: 'editButton_1',
+	id: 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'datatable_toolbar_btnEdit',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-	insideContextMenu: true,
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'edit',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.editButton.eventDT = dt;
+	},
 	action: function (e, dt, node, config) {
 		DataTable.Api().buttons.actions(dt, config);
 	}
@@ -471,11 +478,14 @@ DataTable.ext.buttons.cloneButton = {
 	text: function (dt) {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
 	},
-	id: 'cloneButton_1',
+	id: 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'datatable_toolbar_btnClone',
 	displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
-	insideContextMenu: true,
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'clone',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.cloneButton.eventDT = dt;
+	},
 	action: function (e, dt, node, config) {
 		DataTable.Api().buttons.actions(dt, config);
 	}
@@ -485,11 +495,14 @@ DataTable.ext.buttons.deleteButton = {
 	text: function (dt) {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
 	},
-	id: 'deleteButton_1',
+	id: 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'datatable_toolbar_btnDelete',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-	insideContextMenu: true,
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'delete',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.deleteButton.eventDT = dt;
+	},
 	action: function (e, dt, node, config) {
 		DataTable.Api().buttons.actions(dt, config);
 	}

@@ -653,6 +653,7 @@ $.extend( Buttons.prototype, {
 		var linerDom = this.c.dom.buttonLiner;
 		var collectionDom = this.c.dom.collection;
 		var dt = this.s.dt;
+		var ctx = dt.settings()[0];
 		var text = function ( opt ) {
 			return typeof opt === 'function' ?
 				opt( dt, button, config ) :
@@ -725,7 +726,10 @@ $.extend( Buttons.prototype, {
 		if ( config.id ) {
 			button.attr( 'id', config.id );
 		} else {
-			config.id = 'toolbarButton_'+(_buttonIdCounter++);
+			// Se desactiva el acceso desde el contextMenu por no tener un id establecido
+			config.insideContextMenu = false;
+			// Se asigna un id dinamico en funcion del nombre del datatable al que pertenece
+			config.id = ctx.sTableId + '_button_' + (_buttonIdCounter++);
 			button.attr( 'id', config.id );
 		}
 

@@ -121,7 +121,7 @@ DataTable.editForm.init = function ( dt ) {
 			// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
 			if (this.conf.insideContextMenu) {
 				// Poblamos el objeto 'items' con los botones habilitados
-				items[this.conf.text(dt).toLowerCase()] =
+				items[this.conf.id] =
 				{
 					id: this.conf.id + '_contextMenuToolbar',
 					name: this.conf.text(dt),
@@ -136,7 +136,7 @@ DataTable.editForm.init = function ( dt ) {
 					// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
 					if (this.conf.insideContextMenu) {
 						// Poblamos el objeto 'items' con los botones habilitados
-						items[this.conf.text(dt).toLowerCase()] =
+						items[this.conf.id] =
 						{
 							id: this.conf.id + '_contextMenuToolbar',
 							name: this.conf.text(dt),
@@ -165,11 +165,22 @@ DataTable.editForm.init = function ( dt ) {
 				// Comprobamos si existe el elemento con este id
 				if (inCollection && idCollection !== undefined) {
 					// Obtenemos la info necesaria del boton y la guardamos en variables
-					var eventConfig = DataTable.ext.buttons.copyButton;
-					var eventDT = eventConfig.eventDT;
+					var buttonName;
+					var eventDT;
+					var eventConfig;
+
+					$.each( DataTable.ext.buttons, function( key ) {
+						var buttonObject = DataTable.ext.buttons[key];
+						if (buttonObject.id === buttonId) {
+							buttonName = key;
+							eventDT = buttonObject.eventDT;
+							eventConfig = buttonObject;
+						}
+					});
+					
 					// Llamamos directamente al action para no hacer aparecer y desaparecer
 					// el boton, empeorando la UX
-					DataTable.ext.buttons.copyButton.action(undefined, eventDT, undefined, eventConfig);
+					DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
 				} else {
 					$('#' + buttonId).trigger('click');
 				}
