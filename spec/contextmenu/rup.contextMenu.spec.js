@@ -45,6 +45,14 @@ describe('TEST contextMenu', () => {
                 expect($context).not.toBeHidden();
             });
         });
+        describe('Método show', () => {
+            beforeAll(() => {
+                $context.rup_contextMenu('hide');
+            });
+            it('Debe mostrarse', () => {
+                expect($context).toBeHidden();
+            });
+        });
         describe('Método disable', () => {
             beforeAll(() => {
               if($context.is(':disabled')){
