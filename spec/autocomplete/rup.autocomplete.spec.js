@@ -1,18 +1,3 @@
-//
-//
-// (function (factory) {
-//       if (typeof define === "function" && define.amd) {
-//
-//           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','rup.autocomplete'], factory);
-//       } else {
-//
-//           // Browser globals
-//           factory(jQuery);
-//       }
-//   }(function ($, Handlebars) {
-
-
 import 'jquery';
 import Handlebars from 'handlebars';
 import 'jasmine-jquery';
@@ -255,4 +240,3 @@ describe('RUP Autocomplete Tests', function () {
   });
 
 });
-// }));
