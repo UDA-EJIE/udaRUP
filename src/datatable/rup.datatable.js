@@ -683,6 +683,7 @@
     primaryKey:["id"],
 		responsive: true,
     searchPaginator:true,
+    pagingType: "full",
     columnDefs: [ {
         orderable: false,
         className: 'select-checkbox',
@@ -694,7 +695,7 @@
 		},
 		formEdit:{//Revisar si se mete en el plugin
 			detailForm: "#table_detail_div",
-			titleForm: "Edición",
+			titleForm: "Modificar Registro",
 		},
     filter:{
   	  id:"table_filter_form",
