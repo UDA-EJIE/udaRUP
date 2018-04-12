@@ -56,7 +56,7 @@ describe('TEST Tooltip', () => {
               if($tooltip.is(':disabled')){
                   $tooltip.enable();
               }
-              $tooltip.rup_date('disable');
+              $tooltip.rup_tooltip('disable');
             });
             it('Debe poder deshabilitarse', () => {
               expect($tooltip).toBeDisabled();
@@ -64,10 +64,10 @@ describe('TEST Tooltip', () => {
         });
         describe('Método enable', () => {
             beforeAll(() => {
-              if($tooltip.is(':enabled') && 'disable' in methods){
+              if($tooltip.is(':enabled')){
                   $tooltip.disable();
               }
-              $tooltip.rup_date('enable');
+              $tooltip.rup_tooltip('enable');
             });
             it('Debe poder habilitarse', () => {
               expect($tooltip).not.toBeDisabled();
@@ -75,10 +75,10 @@ describe('TEST Tooltip', () => {
         });
         describe('Método destroy', () => {
             beforeAll(() => {
-                $tooltip.rup_date('destroy');
+                $tooltip.rup_tooltip('destroy');
             });
             it('No debe existir', () => {
-                expect($tooltip.rup_date('destroy')).toThrowError();
+                expect(() => {$tooltip.rup_tooltip('destroy');}).toThrowError();
             });
         });
     });
