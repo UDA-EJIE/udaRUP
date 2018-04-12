@@ -31,8 +31,8 @@ describe('TEST contextMenu', () => {
             expect($context[0]).toHaveClass('context-menu-cursor');
         });
         it('El contextMenu debe existir y ser invisible', () => {
-            expect($('ul')[0]).toExist();
-            expect($('ul')[0]).toBeHidden();
+            console.log($('ul')[0]);
+            expect($('#contextMenu1').is(':visible')).toBeFalsy();
         });
     });
     describe('Métodos públicos:', () => {
@@ -42,15 +42,15 @@ describe('TEST contextMenu', () => {
                 $context.rup_contextMenu('show');
             });
             it('Debe mostrarse', () => {
-                expect($context[0]).not.toBeHidden();
+                expect($context.is(':visible')).toBeTruthy();
             });
         });
-        describe('Método show', () => {
+        describe('Método hide', () => {
             beforeAll(() => {
                 $context.rup_contextMenu('hide');
             });
             it('Debe mostrarse', () => {
-                expect($context[0]).toBeHidden();
+                expect($context.is(':visible')).toBeFalsy();
             });
         });
         describe('Método disable', () => {
