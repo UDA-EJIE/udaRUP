@@ -622,6 +622,15 @@
 
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
+			
+			//Comprobar plugin dependientes
+			if(settings.multiSelect === undefined){
+				settings.buttons = undefined;
+				settings.editForm = undefined;
+			}
+			if(settings.formEdit === undefined){
+				settings.buttons = undefined;
+			}
 
 			$self._initOptions(settings);
 
@@ -639,12 +648,14 @@
 					}
 				  });
 			}
-
-			// Toolbar por defecto del datatable
-			new $.fn.dataTable.Buttons(
-				tabla,
-				DataTable.Buttons.defaults.buttons
-			).container().insertBefore($('#table_filter_form'));
+			
+			if(settings.buttons !== undefined){
+				// Toolbar por defecto del datatable
+				new $.fn.dataTable.Buttons(
+					tabla,
+					DataTable.Buttons.defaults.buttons
+				).container().insertBefore($('#table_filter_form'));
+			}
 
 			$self._ConfigureFiltern(settings);
 
@@ -657,9 +668,9 @@
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
-	$.fn.rup_datatable.defaults = {
-		foobar: false,
-		headerContextMenu: {
+$.fn.rup_datatable.defaults = {
+	foobar: false,
+	headerContextMenu: {
 			show: true,
 			selectAllPage: true,
 			deselectAllPage: true,
@@ -668,11 +679,11 @@
 			deselectAll: true,
 			items: {}
 		},
-	    fixedHeader: {
+	 fixedHeader: {
 	        header: false,
 	        footer: true
 	    },
-		feedback:{
+	feedback:{
 			okFeedbackConfig:{
 				closeLink: true,
 				delay:1000
@@ -683,26 +694,20 @@
     primaryKey:["id"],
 		responsive: true,
     searchPaginator:true,
+    pagingType: "full",
     columnDefs: [ {
         orderable: false,
         className: 'select-checkbox',
         targets:   0
     	}
     ],
-    colReorder: {
-			fixedColumnsLeft: 1
-		},
-		formEdit:{//Revisar si se mete en el plugin
-			detailForm: "#table_detail_div",
-			titleForm: "Edición",
-		},
     filter:{
   	  id:"table_filter_form",
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
 		// adapter: "datatable_jqueryui",
-		adapter: 'datatable_bootstrap'
+	adapter: 'datatable_bootstrap'
 	};
 
 }));

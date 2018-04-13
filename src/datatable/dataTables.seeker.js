@@ -542,8 +542,11 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
-
-	DataTable.seeker.init( new DataTable.Api( ctx ) );
+	if(ctx.oInit.seeker !== undefined){
+		DataTable.seeker.init( new DataTable.Api( ctx ) );
+	}else{
+		$('tfoot').hide();
+	}
 
 } );
 

@@ -114,80 +114,82 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 
 	// Creacion del Context Menu
-	var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
-	var items = {};
-	$.when(
-		$.each(botonesToolbar, function (i) {
-			// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-			if (this.conf.insideContextMenu) {
-				// Poblamos el objeto 'items' con los botones habilitados
-				items[this.conf.id] =
-				{
-					id: this.conf.id + '_contextMenuToolbar',
-					name: this.conf.text(dt),
-					inCollection: this.inCollection,
-					idCollection: undefined
-				}
-			}
-			// Comprueba si tiene botones hijos
-			if (this.buttons.length > 0) {
-				var idCollection = this.conf.id;
-				$.each(this.buttons, function (i) {
-					// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-					if (this.conf.insideContextMenu) {
-						// Poblamos el objeto 'items' con los botones habilitados
-						items[this.conf.id] =
-						{
-							id: this.conf.id + '_contextMenuToolbar',
-							name: this.conf.text(dt),
-							inCollection: this.inCollection,
-							idCollection: idCollection
-						}
+	if (DataTable.settings[0].oInit.buttons !== undefined) {
+		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(dt),
+						inCollection: this.inCollection,
+						idCollection: undefined
 					}
-				});
-			}
-		})
-	).done(function () {
-		var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
-		tableTr.rup_contextMenu({
-			callback: function(key, options) {
-				var selector = items[key];
-				// Recogemos el id de la accion pulsada en el context menu
-				var contextMenuActionId = selector.id;
-				// Le quitamos la extension '_contextMenuToolbar' para tener asi
-				// el id del boton que queremos accionar
-				var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
-				// Variable que nos dira si esta dentro de una coleccion
-				var inCollection = selector.inCollection;
-				// Variable que almacena el id de la coleccion (si no pertenece a una
-				// siempre sera 'undefined')
-				var idCollection = selector.idCollection;
-				// Comprobamos si existe el elemento con este id
-				if (inCollection && idCollection !== undefined) {
-					// Obtenemos la info necesaria del boton y la guardamos en variables
-					var buttonName;
-					var eventDT;
-					var eventConfig;
-
-					$.each( DataTable.ext.buttons, function( key ) {
-						var buttonObject = DataTable.ext.buttons[key];
-						if (buttonObject.id === buttonId) {
-							buttonName = key;
-							eventDT = buttonObject.eventDT;
-							eventConfig = buttonObject;
+				}
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(dt),
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
 						}
 					});
-					
-					// Llamamos directamente al action para no hacer aparecer y desaparecer
-					// el boton, empeorando la UX
-					DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
-				} else {
-					$('#' + buttonId).trigger('click');
 				}
-		  },
-			items
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			tableTr.rup_contextMenu({
+				callback: function(key, options) {
+					var selector = items[key];
+					// Recogemos el id de la accion pulsada en el context menu
+					var contextMenuActionId = selector.id;
+					// Le quitamos la extension '_contextMenuToolbar' para tener asi
+					// el id del boton que queremos accionar
+					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+					// Variable que nos dira si esta dentro de una coleccion
+					var inCollection = selector.inCollection;
+					// Variable que almacena el id de la coleccion (si no pertenece a una
+					// siempre sera 'undefined')
+					var idCollection = selector.idCollection;
+					// Comprobamos si existe el elemento con este id
+					if (inCollection && idCollection !== undefined) {
+						// Obtenemos la info necesaria del boton y la guardamos en variables
+						var buttonName;
+						var eventDT;
+						var eventConfig;
+	
+						$.each( DataTable.ext.buttons, function( key ) {
+							var buttonObject = DataTable.ext.buttons[key];
+							if (buttonObject.id === buttonId) {
+								buttonName = key;
+								eventDT = buttonObject.eventDT;
+								eventConfig = buttonObject;
+							}
+						});
+						
+						// Llamamos directamente al action para no hacer aparecer y desaparecer
+						// el boton, empeorando la UX
+						DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+					} else {
+						$('#' + buttonId).trigger('click');
+					}
+			  },
+				items
+			});
 		});
-	});
+	}
 
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
@@ -238,9 +240,11 @@ DataTable.editForm.init = function ( dt ) {
 			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 		}
-		if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-					ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-				DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
+		if(DataTable.seeker.search !== undefined){
+			if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+						ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+					DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
+			}
 		}
 	} );
 

@@ -1546,8 +1546,10 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 				}
 			});
 		}
-		//Mirar la propiedad para el contex menu y dejar la clase marcada.
-		$('#'+api.settings()[0].sTableId+' > tbody > tr').addClass('context-menu-cursor');
+		if (DataTable.settings[0].oInit.buttons !== undefined) {
+			//Mirar la propiedad para el contex menu y dejar la clase marcada.
+			$('#'+api.settings()[0].sTableId+' > tbody > tr').addClass('context-menu-cursor');
+		}
 	}
 	this.iterator( 'table', function ( ctx, i ) {
 		eventTrigger( api, 'select', [ 'row', api[i] ], true );
