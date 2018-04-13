@@ -5,40 +5,37 @@ import 'rup.chart';
 
 describe('Test Chart', () => {
     var $chart;
-    describe('Creacion de la chart', () => {
-        beforeAll(() => {
-            var options = {
-                type: 'line',
-                data:{
-                    labels:['label1', 'label2', 'label3'],
-                    datasets:[
-                        {
-                            label:'dataset1',
-                            data:[10, 20, 40]
-                        }
-                    ]
-                },
-                options:{
-                    legend:{
-                        display:true
+    beforeAll(() => {
+        var options = {
+            type: 'line',
+            data:{
+                labels:['label1', 'label2', 'label3'],
+                datasets:[
+                    {
+                        label:'dataset1',
+                        data:[10, 20, 40]
                     }
+                ]
+            },
+            options:{
+                legend:{
+                    display:true
                 }
-            };
-            var html = '<div class="col-xl-6  col-xs-12  col-sm-5">' +
-			                '<div class="butstyle">' +
-				                '<canvas id="exampleChart" ></canvas>' +
-			                '</div>' +
-		                '</div>';
-            $('body').append(html);
-            $('#exampleChart').rup_chart(options);
-            $chart = $('#exampleChart');
-        });
-        
+            }
+        };
+        var html = '<div class="butstyle">' +
+			                '<canvas id="exampleChart" ></canvas>' +
+		            '</div>';
+        $('body').append(html);
+        $('#exampleChart').rup_chart(options);
+        $chart = $('#exampleChart');
+    });
+    describe('Creacion >', () => {
         it('Debe estar definido', () => {
             expect($chart).toHaveClass('rup-chart');
         });
     });
-    describe('Métodos públicos', () => {
+    describe('Métodos públicos >', () => {
         describe('Métodos updateData y getData', () => {
             var dataUpdate;
             beforeAll(() => {
@@ -85,8 +82,9 @@ describe('Test Chart', () => {
             });
         });
         describe('Método getChart', () => {
-            var expresion = $chart.rup_chart('getChart');
-            expect(expresion instanceof ChartController).toBeTruthy();
+            it('Debe devolver una instancia de Chart.Controller', () => {
+                expect($chart.rup_chart('getChart') instanceof Chart.Controller).toBeTruthy();
+            });
         });
         describe('Método toBase64Image', () => {
             let resp;
