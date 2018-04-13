@@ -17,7 +17,9 @@ describe('TEST Button', () => {
     });
     describe('Métodos públicos', () => {
         describe('Método defaults', () => {
-            expect($button.rup_button('defaults')).toBeDefined();
+            it('El objeto debe estar definido', () => {
+                expect($button.rup_button('defaults')).toBeDefined();
+            });
         });
     });
 });
