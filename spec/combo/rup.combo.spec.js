@@ -7,61 +7,63 @@ describe('Test Combo', () => {
 		describe('Creación', () => {
 				beforeAll(() => {
 						var html = '<select id="exampleCombo"></select>'
-										+  '<select id="exampleComboMulti"></select>'
-										+  '<select id="exampleComboPadre"></select>'
-										+  '<select id="exampleComboHijo"></select>';
+								+  '<select id="exampleComboMulti"></select>'
+								+  '<select id="exampleComboPadre"></select>'
+								+  '<select id="exampleComboHijo"></select>';
 						var source = [
-										{
-												i18nCaption: 'OpcionUno',
-												value: '1'
-										},
-										{
-												i18nCaption: 'OpcionDos',
-												value: '2'
-										},
-										{
-												i18nCaption: 'OpcionTres',
-												value: '3'
-										},
-										{
-												i18nCaption: 'OpcionCuatro',
-												value: '4'
-										},
-										{
-												i18nCaption: 'OpcionCinco',
-												value: '5'
-										},
-										{
-												i18nCaption: 'OpcionSeis',
-												value: '6'
-										}
-								]
+							{
+								i18nCaption: 'Opcion1',
+								value: '1'
+							},
+							{
+								i18nCaption: 'Opcion2',
+								value: '2'
+							},
+							{
+								i18nCaption: 'Opcion3',
+								value: '3'
+							},
+							{
+								i18nCaption: 'Opcion4',
+								value: '4'
+							},
+							{
+								i18nCaption: 'Opcion5',
+								value: '5'
+							},
+							{
+								i18nCaption: 'Opcion6',
+								value: '6'
+							}
+						];
 						$('body').append(html);
 						var optionsSimple = {
-								source: source,
-								blank: '0',
-								selected: '2'
+							change: () =>{$('#exampleCombo').addClass('randomClass');},
+							source: source,
+							blank: '0',
+							selected: '2'
 						}
 						var optionsMulti = {
-								source: source,
-								blank: '0',
-								selected: ['2'],
-								multiselect:true
+							change: () =>{$('#exampleComboMulti').addClass('randomClass');},
+							source: source,
+							blank: '0',
+							selected: ['2'],
+							multiselect:true
 						}
 						var optionsPadre = {
-								source:[
-										{i18nCaption:'Opt1', value:'1'},
-										{i18nCaption:'Opt2', value:'2'}
-								],
-								selected:'1'
+							source:[
+								{i18nCaption:'Opt1', value:'1'},
+								{i18nCaption:'Opt2', value:'2'}
+							],
+							selected:'1'
 						};
 						var optionsHijo = {
-								parent:['exampleComboPadre'],
-								source:{
-										'1':[{i18nCaption:'Subopt11', value:'1.1'},{i18nCaption:'Subopt12', value:'1.2'}],
-										'2':[{i18nCaption:'Subopt21', value:'2.1'},{i18nCaption:'Subopt22', value:'2.2'}]
-								},
-								selected:'1.1'
+							parent:['exampleComboPadre'],
+							source:{
+								'1':[{i18nCaption:'Subopt11', value:'1.1'},{i18nCaption:'Subopt12', value:'1.2'}],
+								'2':[{i18nCaption:'Subopt21', value:'2.1'},{i18nCaption:'Subopt22', value:'2.2'}]
+							},
+							selected:'1.1'
 						};
 						$('#exampleCombo').rup_combo(optionsSimple);
 						$('#exampleComboMulti').rup_combo(optionsMulti);
@@ -69,12 +71,6 @@ describe('Test Combo', () => {
 						$('#exampleComboHijo').rup_combo(optionsHijo);
 						$combo = $('#exampleCombo');
 						$comboMulti = $('#exampleComboMulti');
-						$combo.on('change', () => {
-								return 'Event';
-						});
-						$comboMulti.on('change', () => {
-								return 'Event';
-						});
 				});
 				it('Debe tener la clase rup_combo', () => {
 						expect($('#exampleCombo').hasClass('rup_combo')).toBeTruthy();
@@ -86,9 +82,13 @@ describe('Test Combo', () => {
 		describe('Métodos públicos', () => {
 				describe('Método change', () => {
 						//Lanza el evento change
-						it('Debe devolver el valor definido en el evento', () => {
-								expect($combo.rup_combo('change')).toBe('Event');
-								expect($comboMulti.rup_combo('change')).toBe('Event');
+						beforeAll(() => {
+							$combo.rup_combo('change');
+							$comboMulti.rup_combo('change');
+						});
+						it('Debe ejecutar el evento', () => {
+								expect($combo.hasClass('randomClass')).toBeTruthy();
+								expect($comboMulti.hasClass('randomClass')).toBeTruthy();
 						});
 				});
 				describe('Métodos select, selectLabel y reset', () => {
@@ -114,40 +114,42 @@ describe('Test Combo', () => {
 								$comboMulti.rup_combo('reset');
 							});
 							it('Comprobamos que esta en su estado inicial (val = 2)', () => {
-								expect($combo.val()).toBe('2');
-								expect($comboMulti.val()).toBe(['2']);
+								expect($combo.rup_combo('getRupValue')).toBe('2');
+								expect($comboMulti.rup_combo('getRupValue').join()).toBe('2');
 							});
 						});
 						describe('Método selectLabel', () => {
 							beforeAll(() => {
 									$combo.rup_combo('selectLabel', 'Opcion1');
-									$comboMulti.rup_combo('selectLabel', ['OpcionUno','OpcionDos']);
+									$comboMulti.rup_combo('selectLabel', ['Opcion3','Opcion2']);
+							});
+							
+							it('Comprobamos que haya cambiado la seleccion', () => {
+									expect($combo.rup_combo('getRupValue')).toBe('1');
+									expect($comboMulti.rup_combo('getRupValue').sort().join()).toBe('2,3');
 							});
 							afterAll(() => {
 									$combo.rup_combo('reset');
 									$comboMulti.rup_combo('reset');
 							});
-							it('Comprobamos que haya cambiado la seleccion', () => {
-									expect($combo.val()).toBe('1');
-									expect($comboMulti.val()).toBe(['1','2']);
-							});
 					});
 				});
 				describe('Métodos value, label e index',() => {
 					beforeAll(() => {
-							$comboMulti.rup_combo('select',['1','2']);
+						$combo.rup_combo('select',1);
+						$comboMulti.rup_combo('select',[1,2]);
 					});
 					it('Debe devolver el valor actual',() => {
-							expect($combo.rup_combo('value')).toBe('2');
-							expect($comboMulti.rup_combo('value')).toBe(['1', '2']);
+							expect($combo.rup_combo('value')).toBe('1');
+							expect($comboMulti.rup_combo('value').sort().join()).toBe('2,3');
 					});
 					it('Debe devolver la label del valor actual',() => {
-							expect($combo.rup_combo('label')).toBe('OpcionDos');
-							expect($comboMulti.rup_combo('label')).toBe(['Opcion1','OpcionDos']);
+							expect($combo.rup_combo('label')).toBe('Opcion1');
+							expect($comboMulti.rup_combo('label').sort().join()).toBe('Opcion2,Opcion3');
 					});
 					it('Debe devolver el index del valor actual',() => {
 							expect($combo.rup_combo('index')).toBe(1);
-							expect($comboMulti.rup_combo('index')).toBe([0, 1]);
+							expect($comboMulti.rup_combo('index').sort().join()).toBe('2,3');
 					});
 				});
 				describe('Método isDisabled',() => {
@@ -173,14 +175,17 @@ describe('Test Combo', () => {
 					it('Debe tener el valor añadido', () => {
 							let ok = false;
 							let okMulti = false;
-							let opts = $combo[0].options.concat($comboMulti[0].options);
+							let opts = $combo.children();
+							let optsMulti = $comboMulti.children();
 							$.each(opts, (cur) => {
 									if(opts[cur].innerText === 'IntrusoZ') {
 											ok = true;
 									}
-									if(opts[cur].innerText === 'IntrusoZ') {
-											okMulti = true;
-									}
+							});
+							$.each(optsMulti, (cur) => {
+								if(optsMulti[cur].innerText === 'MazingerZ') {
+										okMulti = true;
+								}
 							});
 							expect(ok).toBeTruthy();
 							expect(okMulti).toBeTruthy();
@@ -197,7 +202,7 @@ describe('Test Combo', () => {
 					});
 					it('Deben estar vacios', () => {
 							expect($combo.rup_combo('value')).toBe('0');
-							expect($comboMulti.rup_combo('value')).toBe('0');
+							expect($comboMulti.rup_combo('value').join()).toBe('');
 					});
 				});
 				describe('Método checkAll', () => {
@@ -217,7 +222,7 @@ describe('Test Combo', () => {
 							$comboMulti.rup_combo('disableOpt', '3');
 						});
 						it('La option debe estar deshabilitada', () => {
-									let valor = $comboMulti.children('[disabled="disabled"]').attr('value');
+									let val = $comboMulti.children('[disabled="disabled"]').attr('value');
 									expect(val).toBe('3');
 						});
 					});
@@ -261,13 +266,13 @@ describe('Test Combo', () => {
 					});
 					it('Combo padre debe estar vacio y deshabilitado', () => {
 							let length = $('#exampleComboPadre').children().length;
-							expect(length).toBe(0);
-							expect($('#exampleComboPadre').is(':disabled')).toBeTruthy();
+							expect(length).toBe(1);
+							expect($('#exampleComboPadre')).toHaveClass('ui-state-disabled');
 					});
 					it('Los hijos deben estar vacíos y deshabilitados', () => {
 						let length = $('#exampleComboHijo').children().length;
-						expect(length).toBe(0);
-						expect($('#exampleComboHijo').is(':disabled')).toBeTruthy();
+						expect(length).toBe(1);
+						expect($('#exampleComboHijo')).toHaveClass('ui-state-disabled');
 					});
 				});
 				describe('Método order', () => {
@@ -281,28 +286,25 @@ describe('Test Combo', () => {
 				});
 				describe('Método setRupValue', () => {
 					beforeAll(() => {
-						$combo.rup_combo('setRupValue', 50);
-						$comboMulti.rup_combo('setRupValue', 50);
+						$combo.rup_combo('setRupValue', '3');
+						$comboMulti.rup_combo('setRupValue', ['2']);
 					});
-					it('Debe actualizar el valor:', () => {
-						expect($combo.rup_combo('getRupValue')).toBe(50);
-						expect($comboMulti.rup_combo('getRupValue')).toBe(50);
+					it('Debe obtener el valor correcto', () => {
+						expect($combo.rup_combo('getRupValue')).toBe('3');
+						expect($comboMulti.rup_combo('getRupValue')).toBe(['2']);
 					});
 				});
 				describe('Método disable', () => {
 					beforeAll(() => {
-						if($combo.is(':disabled')){
-								$combo.enable();
-						}
-						if($comboMulti.is(':disabled')){
-								$comboMulti.enable();
-						}
+						$combo.enable();
+						$comboMulti.enable();
+
 						$combo.rup_combo('disable');
 						$comboMulti.rup_combo('disable');
 					});
 					it('Debe poder deshabilitarse', () => {
-						expect($combo.is(':disabled')).toBeTruthy();
-						expect($comboMulti.is(':disabled')).toBeTruthy();
+						expect($comboMulti.isDisabled()).toBeTruthy();
+						expect($combo.isDisabled()).toBeTruthy();
 					});
 				});
 				describe('Método enable', () => {
