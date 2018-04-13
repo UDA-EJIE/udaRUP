@@ -8,6 +8,7 @@ describe('TEST ProgressBar', () => {
         beforeAll(() => {
             var html = '<div id="exampleProgressbar"></div>';
             $('body').append(html);
+            $progressbar = $('#exampleProgressbar');
             $progressbar.rup_progressbar({value:0});
         });
         it('Se crea el elemento (Tiene la clase de progressbar)', () => {
