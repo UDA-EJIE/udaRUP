@@ -23,7 +23,7 @@ describe('TEST contextMenu', () => {
                     "edit": {name: "Clickable", icon: "edit", disabled: false},
                     "cut": {name: "Disabled", icon: "cut", disabled: true}
                 }
-            }
+            };
             $('#exampleContext').rup_contextMenu(props);
             $context = $('#exampleContext');
         });
@@ -42,7 +42,7 @@ describe('TEST contextMenu', () => {
                 $context.rup_contextMenu('show');
             });
             it('Debe mostrarse', () => {
-                expect($context.is(':visible')).toBeTruthy();
+                expect($('#contextMenu1').is(':visible')).toBeTruthy();
             });
         });
         describe('Método hide', () => {
@@ -50,7 +50,7 @@ describe('TEST contextMenu', () => {
                 $context.rup_contextMenu('hide');
             });
             it('Debe estar oculto', () => {
-                expect($context.is(':visible')).toBeFalsy();
+                expect($('#contextMenu1').is(':visible')).toBeFalsy();
             });
         });
         describe('Método disable', () => {
@@ -61,7 +61,7 @@ describe('TEST contextMenu', () => {
               $context.rup_contextMenu('disable');
             });
             it('Debe poder deshabilitarse', () => {
-              expect($context[0]).toBeDisabled();
+              expect($context.hasClass('context-menu-disabled')).toBeTruthy();
             });
         });
         describe('Método enable', () => {
@@ -72,15 +72,16 @@ describe('TEST contextMenu', () => {
               $context.rup_contextMenu('enable');
             });
             it('Debe poder habilitarse', () => {
-              expect($context[0]).not.toBeDisabled();
+                expect($context.hasClass('context-menu-disabled')).toBeFalsy();
             });
         });
         describe('Método destroy', () => {
             beforeAll(() => {
                 $context.rup_contextMenu('destroy');
+                $context.rup_contextMenu('show');
             });
             it('No debe existir', () => {
-                expect(() => {$context.rup_contextMenu('destroy')}).toThrowError();
+                expect($('#contextMenu1').is(':visible')).toBeFalsy();
             });
         });
     });
