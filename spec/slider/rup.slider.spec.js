@@ -30,19 +30,19 @@ describe('Test Slider', () => {
         describe('Test options', () => {
             it('Debe devolver el objeto de propiedades:', () => {
                 //Si tiene cualquiera de los campos con el valor correcto es que devuelve el objeto bien.
-                expect($slider.rup_slider('options').max).toBe(500);
+                expect($slider.rup_slider('option').max).toBe(500);
             });
             it('Debe devolver el valor de una propiedad concreta', () => {
                 expect($slider.rup_slider('option', 'min')).toBe(0);
             });
             it('Debe ser capaz de modificar el valor de una propiedad', () => {
-                $slider.rup_slider('options','step', 5);
+                $slider.rup_slider('option','step', 5);
                 expect($slider.rup_slider('option', 'step')).toBe(5);
             });
             it('Debe ser capaz de modificar los valores de varias propiedades', () => {
-                $slider.rup_slider('options',{max: 550, min: 10});
-                expect($slider.rup_slider('options').max).toBe(550);
-                expect($slider.rup_slider('options').min).toBe(10);
+                $slider.rup_slider('option',{max: 550, min: 10});
+                expect($slider.rup_slider('option').max).toBe(550);
+                expect($slider.rup_slider('option').min).toBe(10);
             });
         });
         describe('Método getRupValue:', () => {
@@ -66,7 +66,7 @@ describe('Test Slider', () => {
               $slider.rup_slider('disable');
             });
             it('Debe poder deshabilitarse', () => {
-              expect($slider).toBeDisabled();
+              expect($slider.hasClass('ui-state-disabled')).toBeTruthy();
             });
         });
         describe('Método enable', () => {
@@ -77,7 +77,7 @@ describe('Test Slider', () => {
               $slider.rup_slider('enable');
             });
             it('Debe poder habilitarse', () => {
-              expect($slider).not.toBeDisabled();
+              expect($slider.hasClass('ui-state-disabled')).toBeFalsy();
             });
         });
         describe('Método destroy', () => {
@@ -85,7 +85,7 @@ describe('Test Slider', () => {
                 $slider.rup_slider('destroy');
             });
             it('No debe existir', () => {
-                expect($slider.rup_slider('destroy')).toThrowError();
+                expect(() => {$slider.rup_slider('destroy')}).toThrowError();
             });
         });
     });
