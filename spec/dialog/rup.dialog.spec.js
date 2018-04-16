@@ -79,7 +79,8 @@ describe('Test Dialog', () => {
 			          $dialogo.enable();
 			      }
 			      $dialogo.rup_dialog('disable');
-			    });
+				});
+				// TODO: Hay que comprobar como se deshabilita-.
 			    it('Debe poder deshabilitarse', () => {
 			      expect($dialogo.is(':disabled')).toBeTruthy();
 			    });
