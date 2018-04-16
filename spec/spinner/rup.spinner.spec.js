@@ -32,10 +32,10 @@ describe('Test Spinner: ', () => {
       });
       describe('Método destroy', () => {
           beforeAll(() => {
-              $spinner.rup_spinner('destroy');
+              $spinner.spinner('destroy');
           });
           it('No debe existir', () => {
-              expect(() => {$spinner.rup_spinner('destroy');}).toThrowError();
+              expect(() => {$spinner.spinner('destroy');}).toThrowError();
           });
       });
     });
