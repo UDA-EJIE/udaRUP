@@ -331,7 +331,7 @@
 			$self.DataTable().ajax.reload();
 			options.filter.$filterSummary.html(' <i></i>');
 			jQuery('input,textarea').val('');
-			jQuery('.ui-selectmenu-status','.rup-table-filter').text('--');
+			jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
 			$.rup_utils.populateForm([], options.$filterForm)
 
 		},
