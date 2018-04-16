@@ -2,25 +2,23 @@ import 'jquery'
 import 'jasmine-jquery'
 import 'rup.date'
 
-describe('TEST Date:',   () => {
+describe('TEST Date >',   () => {
     var $date;
-    describe('Creación', () => {
-        beforeAll(() => {
-            var html = '<input id="exampleDate"></input>';
-            $('body').append(html);
-            var props = {
-                placeholderMask : true,
-                showButtonPanel : true,
-                showOtherMonths : true,
-                noWeekend       : false
-            };
-            $('#exampleDate').rup_date(props);
-            $date = $('#exampleDate');
-        });
-
+    beforeAll(() => {
+        var html = '<input id="exampleDate"></input>';
+        $('body').append(html);
+        var props = {
+            autoSize        : true,
+            placeholderMask : true,
+            showButtonPanel : true,
+            showOtherMonths : true,
+            noWeekend       : false
+        };
+        $('#exampleDate').rup_date(props);
+        $date = $('#exampleDate');
     });
-    describe('Test métodos públicos de date', () => {
-        describe('Método isDisabled', () => {
+    describe('Test métodos públicos de date >', () => {
+        describe('Método isDisabled >', () => {
             beforeAll(() => {
                 $date.rup_date('disable');
             });
@@ -31,16 +29,17 @@ describe('TEST Date:',   () => {
                 expect($date.rup_date('isDisabled')).toBeTruthy();
             });
         });
-        describe('Métodos hide y show', () => {
-            describe('Método hide', () => {
+        describe('Métodos hide y show >', () => {
+            describe('Método hide >', () => {
                 beforeAll(() => {
                     $date.rup_date('hide');
                 });
                 it('Debe estar oculto', () => {
-                    expect($('.ui-datepicker').css('display')).toBe('none');
+                    console.log($('.ui-datepicker'));
+                    expect($('.ui-datepicker').is(':visible')).toBeTruthy();
                 });
             });
-            describe('Método show', () => {
+            describe('Método show >', () => {
                 beforeAll(() => {
                     $date.rup_date('show');
                 });
@@ -49,37 +48,33 @@ describe('TEST Date:',   () => {
                 });
             });
         });
-        describe('Métodos setDate y getDate', () => {
-            beforeAll(() =>{
+        describe('Métodos setDate y getDate >', () => {
+            beforeEach(() =>{
                 $date.rup_date('setDate', new Date('01-01-2018'));
             });
-            describe('Método setDate', () => {
+            describe('Método setDate >', () => {
                 it('Debe cambiar el valor de input a lo establecido', () => {
                     expect($date.val()).toBe('01/01/2018');
                 });
             });
-            describe('Método getDate', () => {
+            describe('Método getDate >', () => {
                 it('Debe obtener el mismo valor que se ha mostrado', () => {
                     expect($date.rup_date('getDate')).toBe($date.val());
                 });
             });
         });
-        describe('Método option', () => {
-            describe('Establecer una propiedad y que se obtenga el valor cambiado', () => {
-                afterAll(() => {
-                    $date.rup_date('option','disabled', false);
-                });
-                it('No debe haber errores al establecer el valor de la propiedad', () => {
-                    expect($date.rup_date('option','disabled', true)).not.toThrowError();
+        describe('Método option >', () => {
+            describe('Establecer una propiedad y que se obtenga el valor cambiado >', () => {
+                beforeAll(() => {
+                    $date.rup_date('option','autoSize', false);
                 });
                 it('Al obtener el valor de la propiedad este debe ser el establecido anteriormente', () => {
-                    expect($date.rup_date('option', 'disabled')).toBeTruthy();
+                    expect($date.rup_date('option', 'autoSize')).toBeFalsy();
                 });
             });
-            describe('Establecer varias propiedades', () => {
-                afterAll();
-                it('No debe lanzar errores en la asignacion', () => {
-                    expect(() => {$date.rup_date('option', {autoSize:true, showWeek:true})}).not.toThrowError();
+            describe('Establecer varias propiedades >', () => {
+                beforeAll(() => {
+                    $date.rup_date('option', {autoSize:true, showWeek:true});
                 });
                 it('Los valores deben estar actualizados', () => {
                     expect($date.rup_date('option','autoSize')).toBeTruthy();
@@ -87,20 +82,20 @@ describe('TEST Date:',   () => {
                 })
             });
         });
-        describe('Método getRupValue:', () => {
+        describe('Método getRupValue >', () => {
       	    it('Devuelve un valor:', () => {
       		      expect($date.rup_date('getRupValue')).toBeDefined();
       	    });
       	});
-        describe('Método setRupValue', () => {
+        describe('Método setRupValue >', () => {
       	    beforeAll(() => {
-      		      $date.rup_date('setRupValue', 50);
+      		      $date.rup_date('setRupValue', '50');
       	    });
       	    it('Debe actualizar el valor:', () => {
-      		      expect($date.rup_date('getRupValue')).toBe(50);
+      		      expect($date.rup_date('getRupValue')).toBe('50');
       	    });
       	});
-        describe('Método disable', () => {
+        describe('Método disable >', () => {
       	    beforeAll(() => {
           		if($date.is(':disabled')){
           		    $date.enable();
@@ -111,7 +106,7 @@ describe('TEST Date:',   () => {
           		expect($date).toBeDisabled();
       	    });
       	});
-        describe('Método enable', () => {
+        describe('Método enable >', () => {
       	    beforeAll(() => {
           		if($date.is(':enabled') && 'disable' in methods){
           		    $date.disable();
@@ -122,12 +117,12 @@ describe('TEST Date:',   () => {
           		expect($date).not.toBeDisabled();
       	    });
       	});
-        describe('Método destroy', () => {
+        describe('Método destroy >', () => {
       	    beforeAll(() => {
       		      $date.rup_date('destroy');
       	    });
       	    it('No debe existir', () => {
-      		      expect($date.rup_date('destroy')).toThrowError();
+      		      expect(() =>{$date.rup_date('destroy') }).toThrowError();
       	    });
       	});
 
