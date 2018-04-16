@@ -104,139 +104,156 @@ describe('RUP Autocomplete Tests', function () {
     });
 
   });
-  describe('Test de métodos públicos', () => {
-    describe('Metodos On y Off', () => {
-      it('metodo off no debe lanzar excepcion', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('off');
-        }).not.toThrowError();
-      });
-      it('metodo on no debe lanzar excepcion', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('on');
-        }).not.toThrowError();
-      });
-    });
+  	describe('Test de métodos públicos', () => {
+		describe('Métdodo on', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete('close');
+				$autocomplete.rup_autocomplete('on');
+				$autocomplete.rup_autocomplete('search', 'j');
+			});
+			it('Debe aparecer el autocomplete', () => {
+				expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+			});
+		  });
+		  describe('Métdodo off', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete('close');
+				$autocomplete.rup_autocomplete('off');
+				$autocomplete.rup_autocomplete('search', 'j');
+			});
+			it('Debe aparecer el autocomplete', () => {
+				expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+			});
+	  	});
 
-    describe('Método option', () => {
-      it('cambia el valor de una propiedad: ', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete("option", "minLegth", 2);
-        }).not.toThrowError();
-      });
-      it('cambia el valor de varias propiedades: ', () => {
-        let options = {
-          minLegth: 2,
-          delay: 1000
-        };
-        expect(() => {
-          $autocomplete.rup_autocomplete("option", options);
-        }).not.toThrowError();
-      });
-    });
+    	describe('Método option', () => {
+			describe('Cambiar el valor de una propiedad', () => {
+				let param = 'r';
+				beforeAll(() => {
+					$autocomplete.rup_autocomplete('close');
+					$autocomplete.rup_autocomplete("option", "minLegth", 2);
+				});
+				beforeEach(() => {
+					//No funciona el ver el valor de las opciones así que comprobamos que el
+					//método search solo muestra el menú si hay al menos 2 letras
+					$autocomplete.rup_autocomplete('search', param);
+				});
+				afterEach(() => {
+					param = 'ru';
+				});
+				it('No debe mostrar el menu', () => {
+					expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+				});
+				it('Debe mostrar el menu', () => {
+					console.log(param);
+					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+				});
+			});
+      		describe('cambia el valor de varias propiedades: ', () => {
+				let options;
+				beforeAll(() => {
+					options = {
+					minLegth: 1,
+					contains: false
+					};
+					$autocomplete.rup_autocomplete('option', options);
+					$autocomplete.rup_autocomplete('search', 'j');
+				});
+				it('Los cambios deben haber hecho efecto',() => {
+					console.log($autocomplete.val());
+					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+				});
+      		});
+    	});
 
-    describe('Método search:', () => {
-      let rdo = false;
-      it('Abre el menú de resultados de búsqueda', () => {
-        beforeAll(() => {
-          $autocomplete.rup_autocomplete('search', 'ruby');
-          rdo = $('#' + idAutocomplete + '_menu').is(':visible');
-        });
-        expect(rdo).toBeTruthy();
-      });
-    });
+    	describe('Método search:', () => {
+			beforeAll(() => {
+          		$autocomplete.rup_autocomplete('search', 'ruby');
+        	});
+      		it('Abre el menú de resultados de búsqueda', () => {
+        		expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+      		});
+    	});
 
-    describe('Método close:', () => {
-      let rdo = true;
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete('search', 'ruby');
-        $autocomplete.rup_autocomplete('close');
-        rdo = $('#' + idAutocomplete + '_menu').is(':visible');
-      });
-      it('Cierra el menú de resultados de búsqueda', () => {
-        expect(rdo).toBeFalsy();
-      });
-    });
+    	describe('Método close:', () => {
+      		beforeAll(() => {
+        		$autocomplete.rup_autocomplete('search', 'ru');
+        		$autocomplete.rup_autocomplete('close');
+      		});
+      		it('Cierra el menú de resultados de búsqueda', () => {
+        		expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+      		});
+   		});
 
-    describe('Método val', () => {
-      let rdoVal,rdoDesc;
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
-        rdoVal = $autocomplete.rup_autocomplete('val');
-        rdoDesc = $autocomplete.val();
-      });
-      it('Debe devolver el valor del elemento seleccionado', () => {
-        expect(rdoVal).toBe('ruby_value');
-      });
-      it('Debe devolver la descripción del elemento seleccionado', () => {
-        expect(rdoDesc).toBe('ruby');
-      });
-    });
+    	describe('Método val', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete("search", "ru");
+			});
+			it('Debe devolver el valor del elemento seleccionado', () => {
+				expect($autocomplete.rup_autocomplete('val')).toBe($autocomplete.val());
+			});
+    	});
 
-    describe('Método set', () => {
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
-      });
-      it('Debe establecer el valor indicado', () => {
-        expect($autocomplete.val()).toBe('ruby_value');
-      });
-    });
+    	describe('Método set', () => {
+      		beforeAll(() => {
+        		$autocomplete.rup_autocomplete("set", "ruby", "ruby_value");
+      		});
+      		it('Debe establecer el valor indicado', () => {
+        		expect($autocomplete.val()).toBe('ruby');
+      		});
+    	});
 
-    describe('Método getRupValue:', () => {
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete("set", "ruby_value", "ruby");
-      });
-      it('Devuelve un valor:', () => {
-        expect($autocomplete.rup_autocomplete('getRupValue')).toBeDefined();
-      });
-      it('Devuelve un valor:', () => {
-        expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ruby_value');
-      });
-    });
+		describe('Método getRupValue:', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete("search", "ruby");
+			});
+			it('Debe obtener el valor establecido', () => {
+				expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ruby');
+			});
+		});
 
-    describe('Método setRupValue', () => {
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete('setRupValue', 'ruby_value');
-      });
-      it('Debe actualizar el valor:', () => {
-        expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ruby_value');
-      });
-    });
+		describe('Método setRupValue', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete('setRupValue', 'asp');
+			});
+			it('Debe actualizar el valor:', () => {
+				expect($autocomplete.rup_autocomplete('getRupValue')).toBe('asp');
+			});
+		});
 
-    describe('Método disable', () => {
-      beforeAll(() => {
-        if ($autocomplete.is(':disabled')) {
-          $autocomplete.enable();
-        }
-        $autocomplete.rup_autocomplete('disable');
-      });
-      it('Debe poder deshabilitarse', () => {
-        expect($autocomplete).toBeDisabled();
-      });
-    });
+		describe('Método disable', () => {
+			beforeAll(() => {
+				if ($autocomplete.is(':disabled')) {
+					$autocomplete.enable();
+				}
+				$autocomplete.rup_autocomplete('disable');
+			});
+			it('Debe poder deshabilitarse', () => {
+				expect($autocomplete.is(':disabled')).toBeTruthy();
+			});
+		});
 
-    describe('Método enable', () => {
-      beforeAll(() => {
-        if ($autocomplete.is(':enabled') && 'disable' in methods) {
-          $autocomplete.disable();
-        }
-        $autocomplete.rup_autocomplete('enable');
-      });
-      it('Debe poder habilitarse', () => {
-        expect($autocomplete).not.toBeDisabled();
-      });
-    });
+		describe('Método enable', () => {
+			beforeAll(() => {
+				if ($autocomplete.is(':enabled')) {
+					$autocomplete.disable();
+				}
+				$autocomplete.rup_autocomplete('enable');
+			});
+			it('Debe poder habilitarse', () => {
+				expect($autocomplete.is('disabled')).toBeFalsy();
+			});
+		});
 
-    describe('Método destroy', () => {
-      beforeAll(() => {
-        $autocomplete.rup_autocomplete('destroy');
-      });
-      it('No debe existir', () => {
-        expect(() => {
-          $autocomplete.rup_autocomplete('destroy');
-        }).toThrowError();
-      });
-    });
+		describe('Método destroy', () => {
+			beforeAll(() => {
+				$autocomplete.rup_autocomplete('destroy');
+				$autocomplete.rup_autocomplete('search', 'p');
+			});
+			it('No debe existir', () => {
+				expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+			});
+		});
   });
 
 });
