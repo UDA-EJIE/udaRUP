@@ -140,7 +140,10 @@
 			*
 		  */
 		_getColumns(options) {
-			if(options.columnDefs !== undefined && options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox'){
+			//Se crea la columna del select.
+			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
+					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
+					options.multiSelect !== undefined){
 				//Se crear el th thead, se añade la columnal.
 				$self = this;
 				var th = $("<th/>").attr('data-col-prop','');
@@ -235,7 +238,10 @@
 			ret.recordsTotal = json.records;
 			ret.recordsFiltered = json.records;
 			ret.data = json.rows;
-			DataTable.Api().multiSelect.reorderDataFromServer(json);
+			var settings = $self.data('settings');
+			if(settings !== undefined && settings.multiSelect !== undefined){
+				DataTable.Api().multiSelect.reorderDataFromServer(json);
+			}
 
 			return ret.data;
 
@@ -282,7 +288,7 @@
 		  */
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
-			if($($self.selector+'_paginate').length === 1){
+			if($('#'+tabla[0].id+'_paginate').length === 1){
 				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
 				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
 				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
@@ -291,7 +297,7 @@
 				liSearch.append(textPagina);
 				liSearch.append(input);
 				liSearch.append(toPagina);
-				$($self.selector+'_paginate ul').prepend(liSearch);
+				$('#'+tabla[0].id+'_paginate ul').prepend(liSearch);
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
 					  {
@@ -609,6 +615,43 @@
 
 
 
+			},
+			/**
+		     * Crea un evente para mantener la multiseleccin y el seeker.
+		     *
+		     * @name createEventSelect
+		     * @function
+		     *
+		     * @param {object} tabla - LA configuración de la tabla.
+		     *
+		     */
+			_createEventSelect(tabla){
+				tabla.on( 'draw.dtSelect.dt select.dtSelect.dt', function () {//Si lleva parametros es que estamos en la navegacion interna.
+					var ctx = tabla.context[0];
+					if(ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.$navigationBar !== undefined &&
+							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
+						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
+						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
+						if(DataTable.multiSelect.multiselection.selectedAll){
+							var linea = -1;
+							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
+								linea = ctx.json.rows.length;
+								params[2] = _getLineByPageSelectedReverse(ctx,linea);
+							}else{
+								params[2] = _getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
+							}
+
+						}
+						DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
+						ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+					}
+					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
+						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
+						}
+					}
+				} );
 			}
 	});
 
@@ -627,6 +670,9 @@
 			if(settings.multiSelect === undefined){
 				settings.buttons = undefined;
 				settings.editForm = undefined;
+				settings.seeker = undefined;
+				settings.formEdit = undefined;
+				settings.columnDefs = [];
 			}
 			if(settings.formEdit === undefined){
 				settings.buttons = undefined;
@@ -635,6 +681,7 @@
 			$self._initOptions(settings);
 
 			var tabla = $self.DataTable(settings);
+			
 			if(settings.searchPaginator){
 				tabla.on( 'draw', function (e,settingsTable) {
 					$self._createSearchPaginator($(this),settingsTable);
@@ -657,11 +704,12 @@
 				).container().insertBefore($('#table_filter_form'));
 			}
 
-			$self._ConfigureFiltern(settings);
-
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings', settings);
-
+			if(settings.multiSelect !== undefined){
+				$self._createEventSelect(tabla);				
+			}
+			$self._ConfigureFiltern(settings);
 		}
 	});
 
