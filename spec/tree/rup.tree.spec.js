@@ -21,7 +21,13 @@ describe('Test Tree:', () => {
                 +       '</ul>'
                 +  '</div>'
         $('body').append(html);
-        $('#exampleTree').rup_tree({});
+        $('#exampleTree').rup_tree({
+            core:{
+                getValue: ($item, itemData) => {
+                    return itemData.id;
+                }
+            }
+        });
         $tree = $('#exampleTree');
 
         it('Debe tener el attr ruptype = tree', () => {
@@ -36,10 +42,10 @@ describe('Test Tree:', () => {
       });
       describe('Método setRupValue', () => {
           beforeAll(() => {
-              $tree.rup_tree('setRupValue', 50);
+              $tree.rup_tree('setRupValue', 'node1');
           });
           it('Debe actualizar el valor:', () => {
-              expect($tree.rup_tree('getRupValue')).toBe(50);
+              expect($tree.rup_tree('getRupValue')).toBe('node1');
           });
       });
     });
