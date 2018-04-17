@@ -4,10 +4,10 @@ import 'rup.tabs';
 
 describe('Test Tabs: ', () => {
     var $tabs;
-    describe('Creacion', () => () => {
+    beforeAll(() => {
         var html = '<div id="exampleTabs"></div>'
-                 + '<div id="cont1" style="display:none">Contenido 1</div>'
-                 + '<div id="cont2" style="display:none">Contenido 2</div>';
+                 + '<div id="cont1" style="display:none;">Contenido 1</div>'
+                 + '<div id="cont2" style="display:none;">Contenido 2</div>';
         $('body').append(html);
         var opts = {
             tabs:[
@@ -15,8 +15,13 @@ describe('Test Tabs: ', () => {
                 {i18nCaption:'Tab2', layer:'#cont2'}
             ]
         };
-        $('exampleTabs').rup_tabs(opts);
-        $tabs = $('exampleTabs');
+        $('#exampleTabs').rup_tabs(opts);
+        $tabs = $('#exampleTabs');
+    });
+    describe('Creacion', () => () => {
+        it('El contenedor debe tener las classes apropiadas', () => {
+            expect($tabs.hasClass('rup-tabs_container ui-tabs ui-corner-all ui-widget ui-widget-content')).toBeTruthy();
+        });
     });
     describe('Métodos Públicos', () => {
         describe('Métodos enableTabs y disableTabs', () => {
