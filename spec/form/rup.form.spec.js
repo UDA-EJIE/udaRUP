@@ -1,16 +1,11 @@
-/**
-* Para las peticiones AJAX habría qque instalar por npm
-* 'jasmine-ajax' y hacer el require
-*/
 import 'jquery';
 import 'jasmine-jquery';
-import 'jasmine-ajax'; // TODO: Hay que pillarlo de npm
 import 'rup.form';
 
 describe('Test Form', () => {
   	var $form;
   	describe('Creación', () => {
-		var html = '<form id ="exampleForm" method="POST" action="/dir/to/resp">'
+		var html = '<form id ="exampleForm">'
               		+   '<input type="text" value="txt1" id="input1"></input>'
               		+   '<input type="text" value="txt2" id="input2"></input>'
               		+   '<select id="input3">'
@@ -32,10 +27,32 @@ describe('Test Form', () => {
 		describe('Métodos de envío de formulario', () => {
 			describe('Método ajaxSubmit', () => {
 				beforeAll(() => {
-					
+					spyOn($form,'rup_form').and.callFake((strParam) => {
+						let obj = {
+							estatus: 200,
+							responseContent:{}
+						};
+						return obj;
+					});
+				});
+				it('La llamada Ajax debe tener éxito', () => {
+					expect($form.rup_form('ajaxSubmit').estatus).toBe(200);
 				});
 			});
-			describe('Método ajaxFormSubmit',() => {});
+			describe('Método ajaxFormSubmit',() => {
+				beforeAll(() => {
+					spyOn($form,'rup_form').and.callFake((strParam) => {
+						let obj = {
+							estatus: 200,
+							responseContent:{}
+						};
+						return obj;
+					});
+				});
+				it('La llamada Ajax debe tener éxito', () => {
+					expect($form.rup_form('ajaxFormSubmit').estatus).toBe(200);
+				});
+			});
 		});
 		describe('Método formSerialize', () => {
 			it('Debe devolver un string con los datos',() => {
