@@ -32,9 +32,7 @@ describe('RUP Feedback Tests', () => {
 		});
 
 		it('debería reservar el área de visualización', () => {
-			expect($feedback).toHaveCss({
-				'display': 'block'
-			});
+			expect($feedback.css('display')).toBe('block');
 		});
 
 		describe('Asignación de un mensaje al feedback', () => {

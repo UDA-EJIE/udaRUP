@@ -4,7 +4,7 @@ import 'rup.validate';
 
 describe('Test Validate: ', () => {
     var $validate, $feedBack;
-    describe('Creación: ', () => {
+    beforeAll(() => {
         var html = '<form id="exampleValidate">'
                 +  '<input type="text" name="campoUno" id="campoUno">Campo 1</input>'
                 +  '<input type="text" name="campoDos" id="campoDos">Campo 2</input>'
@@ -30,24 +30,27 @@ describe('Test Validate: ', () => {
             }
         };
         $validate = $('#exampleValidate').rup_validate(optsValidate);
-
+    });
+    describe('Creación: ', () => {
         it('El formulario tiene que tener la clase rup_validate', () => {
             expect($validate.hasClass('rup_validate')).toBeTruthy();
         });
         it('El feedback debe estar oculto', () => {
             expect($feedBack.is(':visible')).toBeFalsy();
         });
-        describe('La validación funciona:', () => {
-            beforeAll(() => {
-                $('#btnInput').click();
-            });
-            it('Debe mostrarse el feedback', () => {
-                expect($feedBack.is(':visible')).toBeTruthy();
-            });
-            it('Cada campo del form debe tener la clase error', () => {
-                expect($('#campoUno').hasClass('error')).toBeTruthy();
-                expect($('#campoDos').hasClass('error')).toBeTruthy();
-            });
+
+        
+    });
+    describe('La validación funciona:', () => {
+        beforeAll(() => {
+            $('#btnInput').click();
+        });
+        it('Debe mostrarse el feedback', () => {
+            expect($feedBack.is(':visible')).toBeTruthy();
+        });
+        it('Cada campo del form debe tener la clase error', () => {
+            expect($('#campoUno').hasClass('error')).toBeTruthy();
+            expect($('#campoDos').hasClass('error')).toBeTruthy();
         });
     });
     describe('Métodos públicos', () => {
@@ -56,8 +59,8 @@ describe('Test Validate: ', () => {
                 $('#btnInput').click();
                 $validate.rup_validate('resetForm');
             });
-            it('Debe desaparecer el feedback', () => {
-                expect($feedBack.is(':visible')).toBeFalsy();
+            it('Debe mantenerse el feedback', () => {
+                expect($feedBack.is(':visible')).toBeTruthy();
             });
             it('Los campos del form no deben tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
@@ -80,9 +83,11 @@ describe('Test Validate: ', () => {
         describe('Método destroy', () => {
             beforeAll(() => {
                 $validate.rup_validate('destroy');
+                $('#btnInput').click();
             });
             it('No debe existir', () => {
-                expect($validate.rup_validate('destroy')).toThrowError();
+                expect($('#campoUno').hasClass('error')).toBeFalsy();
+                expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
     });
