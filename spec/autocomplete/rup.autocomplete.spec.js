@@ -78,7 +78,8 @@ describe('RUP Autocomplete Tests', function () {
     $autocomplete.rup_autocomplete({
       source: sourceJson,
       defaultValue: 'java',
-      contains: false
+	  contains: false,
+	  delay:0
     });
 
   });
@@ -133,19 +134,12 @@ describe('RUP Autocomplete Tests', function () {
 					$autocomplete.rup_autocomplete('close');
 					$autocomplete.rup_autocomplete("option", "minLegth", 2);
 				});
-				beforeEach(() => {
-					//No funciona el ver el valor de las opciones así que comprobamos que el
-					//método search solo muestra el menú si hay al menos 2 letras
-					$autocomplete.rup_autocomplete('search', param);
-				});
-				afterEach(() => {
-					param = 'ru';
-				});
 				it('No debe mostrar el menu', () => {
+					$autocomplete.rup_autocomplete('search', 'r');
 					expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
 				});
 				it('Debe mostrar el menu', () => {
-					console.log(param);
+					$autocomplete.rup_autocomplete('search', 'ru');
 					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
 				});
 			});
