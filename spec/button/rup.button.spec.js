@@ -40,7 +40,12 @@ describe('TEST Button', () => {
         $button  = $('#exampleButton');
         $mButton = $('#exampleMButton');
     });
-
+    describe('Creación >', () => {
+        it('Deben ser rup-buttons',() => {
+            expect($button.hasClass('rup-button')).toBeTruthy();
+            expect($mButton.hasClass('rup-button')).toBeTruthy();
+        });
+    });
     describe('Métodos públicos >', () => {
         describe('Método defaults >', () => {
             it('El objeto debe estar definido', () => {
