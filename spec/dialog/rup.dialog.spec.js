@@ -82,7 +82,9 @@ describe('Test Dialog', () => {
 				});
 				// TODO: Hay que comprobar como se deshabilita-.
 			    it('Debe poder deshabilitarse', () => {
-			      expect($dialogo.is(':disabled')).toBeTruthy();
+					//No funciona en ejie.eus así que no sé si se habilita
+					//o deshabilita mediante una clase o algo mas
+			    	expect($dialogo.is(':disabled')).toBeTruthy();
 			    });
 			});
 			describe('Método enable', () => {
@@ -93,6 +95,7 @@ describe('Test Dialog', () => {
 			      $dialogo.rup_dialog('enable');
 			    });
 			    it('Debe poder habilitarse', () => {
+					//Como no finciona el disable tampoco puedo estar seguro de este
 					expect($dialogo.is(':disabled')).toBeFalsy();
 			    });
 			});
