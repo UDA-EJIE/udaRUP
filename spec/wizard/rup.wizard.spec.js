@@ -20,8 +20,9 @@ describe('Test Wizard > ', () => {
                 +        '</fieldset>'
                 +        '<fieldset>'
                 +            '<legend class="wizardLegend">Paso3</legend>'
-                +            '<input type="submit" value="submit" id="btnSubmit">'
+                +            '<input type="email" name="in3" id="input3">'
                 +        '</fieldset>'
+                +        '<input type="submit" value="submit" id="btnSubmit">'
                 +    '</form>';
         $('body').append(html);
         let opts = {
