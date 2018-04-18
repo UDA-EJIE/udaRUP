@@ -32,7 +32,7 @@ describe('Test Wizard > ', () => {
                 '2': () => {}
             }
         };
-        $('#exampleWizard').rup_wizard(props);
+        $('#exampleWizard').rup_wizard(opts);
         $wizard = $('#exampleWizard');
     });
     afterAll(() => {
