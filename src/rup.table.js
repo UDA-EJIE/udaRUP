@@ -13367,11 +13367,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name reloadGrid
      * @function
      * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
-     * * @param {boolean} noSelect - Indica si debe seleccionar el primer elemento o no.
      * @example
      * $("#idComponente").rup_table("reloadGrid", true);
      */
-		reloadGrid: function (async, notSelect) {
+		reloadGrid: function (async) {
 			var $self = this,
 				settings = $self.data('settings'),
 				page = $self.rup_table('getGridParam', 'page');
@@ -13391,11 +13390,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$self.jqGrid('setGridParam', {
 				ajaxGridOptions: ajaxOptions
 			});
-			
-			if(!notSelect){
-				var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
-				$self.jqGrid('setSelection', nextPagePos[1][0]);
-			}
+			var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
+			$self.jqGrid('setSelection', nextPagePos[1][0]);
 		},
 		/**
      * Resetea el formulario indicado.
@@ -15735,7 +15731,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Objetos
 				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
-				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
+				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length-$gridHead.find('th:hidden').length)),
 				// Capa que controla el colapso del formualario
 				$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+settings.id)),
 				$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+settings.id)),
