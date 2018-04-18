@@ -66,8 +66,6 @@ DataTable.editForm.version = '1.2.4';
 *
 */
 DataTable.editForm.init = function ( dt ) {
-	DataTable.editForm.iniciado = '';
-
 	var ctx = dt.settings()[0];
 	var init = ctx.oInit.multiSelect;
 	var defaults = DataTable.defaults.multiSelect;
@@ -222,7 +220,7 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
 
-	var api = new DataTable.Api( ctx );
+/*	var api = new DataTable.Api( ctx );
 	api.on( 'draw.dtSelect.dt select.dtSelect.dt', function () {//Si lleva parametros es que estamos en la navegacion interna.
 		if(ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
@@ -247,7 +245,7 @@ DataTable.editForm.init = function ( dt ) {
 			}
 		}
 	} );
-
+*/
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -642,6 +640,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
@@ -748,7 +747,8 @@ function _callNavigationBar(dt){
 
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
-	var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
@@ -1003,14 +1003,14 @@ apiRegister( 'editForm.deleteAllSelects()', function ( dt ) {
 // this required that the table be in the document! If it isn't then something
 // needs to trigger this method unfortunately. The next major release of
 // DataTables will rework the events and address this.
-$(document).on( 'init.dt plugin-init.dt', function (e, ctx) {
+$(document).on( 'plugin-init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
 
-	if(DataTable.editForm.iniciado === undefined){
+	if(ctx.oInit.formEdit !== undefined){
 		DataTable.editForm.init( new DataTable.Api( ctx ) );
-		$('#table_detail_div').rup_dialog($.extend({}, {
+		$(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
 			type: $.rup.dialog.DIV,
 			autoOpen: false,
 			modal: true,

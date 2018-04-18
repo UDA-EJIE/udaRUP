@@ -358,7 +358,7 @@ function _selectSearch(dt,ctx,rows){
 		var rowUnique = rows[DataTable.seeker.search.pos];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
 				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id &&
-				(ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
+				(ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
 			dt['row'](rowUnique.pageLine-1).multiSelect();
 		}
 		DataTable.seeker.search.accion = '';
@@ -475,7 +475,7 @@ function _getDatos(ctx){
 *
 */
 function _createRupComponent(dt,ctx){
-	var colModel = ctx.oInit.formEdit.colModel, searchEditOptions;
+	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
 
 	$('#'+ ctx.sTableId+' tfoot th').each( function(i) {
 		if(i > 0){//La primera columna no vale es la de los select

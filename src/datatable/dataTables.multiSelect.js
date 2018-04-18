@@ -1542,6 +1542,10 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	var api = this;
 	var DataTable = $.fn.dataTable;
 	var pagina = true;
+	
+	if(DataTable.multiSelect.multiselection === undefined){
+		return false;
+	}
 	//Al pagina comprobar el checkGeneral.
 
 	//Se miral si hay feedback y en ese caso se elimina.
@@ -1922,8 +1926,9 @@ $(document).on( 'preInit.dt.dtSelect', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
-
-	DataTable.multiSelect.init( new DataTable.Api( ctx ) );
+	if(ctx.oInit.multiSelect !== undefined){
+		DataTable.multiSelect.init( new DataTable.Api( ctx ) );
+	}
 } );
 
 
