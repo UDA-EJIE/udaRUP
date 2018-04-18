@@ -3,8 +3,8 @@ import 'jasmine-jquery';
 import 'rup.form';
 
 describe('Test Form', () => {
-  	var $form;
-  	describe('Creación', () => {
+	var $form;
+	beforeAll(() => {
 		var html = '<form id ="exampleForm">'
               		+   '<input type="text" value="txt1" id="input1"></input>'
               		+   '<input type="text" value="txt2" id="input2"></input>'
@@ -17,15 +17,16 @@ describe('Test Form', () => {
 		$('body').append(html);
 		$('#exampleForm').rup_form(opts);
 		$form = $('#exampleForm');
-
+	});
+  	describe('Creación', () => {
 		it('Debe tener las clases de rup_form', () => {
 			expect($form).toHaveClass('rup_form');
 		});
   	});
-	describe('Métodos públicos', () => {
+	describe('Métodos públicos >', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
-		describe('Métodos de envío de formulario', () => {
-			describe('Método ajaxSubmit', () => {
+		describe('Métodos de envío de formulario >', () => {
+			describe('Método ajaxSubmit >', () => {
 				beforeAll(() => {
 					spyOn($form,'rup_form').and.callFake((strParam) => {
 						let obj = {
@@ -39,7 +40,7 @@ describe('Test Form', () => {
 					expect($form.rup_form('ajaxSubmit').estatus).toBe(200);
 				});
 			});
-			describe('Método ajaxFormSubmit',() => {
+			describe('Método ajaxFormSubmit >',() => {
 				beforeAll(() => {
 					spyOn($form,'rup_form').and.callFake((strParam) => {
 						let obj = {
@@ -54,13 +55,13 @@ describe('Test Form', () => {
 				});
 			});
 		});
-		describe('Método formSerialize', () => {
+		describe('Método formSerialize >', () => {
 			it('Debe devolver un string con los datos',() => {
 				let out = 'input1=txt1&input2=txt2&input3=opt1';
 				expect($form.rup_form('formSerialize')).toBe(out);
 			});
 		});
-		describe('Método fieldSerialize',() => {
+		describe('Método fieldSerialize >',() => {
 			it('Debe devolver un string con los datos de los fields', () => {
 				let out = 'input1=txt1&input2=txt2';
 				expect($form.rup_form('fieldSerialize')).toBe(out);
