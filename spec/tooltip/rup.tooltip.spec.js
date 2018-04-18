@@ -75,9 +75,6 @@ describe('TEST Tooltip', () => {
         });
         describe('Método disable', () => {
             beforeAll(() => {
-              if($tooltip.is(':disabled')){
-                  $tooltip.enable();
-              }
               $tooltip.rup_tooltip('disable');
             });
             it('Debe poder deshabilitarse', () => {
