@@ -49,7 +49,7 @@ describe('TEST Date >',   () => {
             });
         });
         describe('Métodos setDate y getDate >', () => {
-            beforeEach(() =>{
+            beforeAll(() =>{
                 $date.rup_date('setDate', new Date('01-01-2018'));
             });
             describe('Método setDate >', () => {
@@ -82,17 +82,12 @@ describe('TEST Date >',   () => {
                 })
             });
         });
-        describe('Método getRupValue >', () => {
-      	    it('Devuelve un valor:', () => {
-      		      expect($date.rup_date('getRupValue')).toBeDefined();
-      	    });
-      	});
-        describe('Método setRupValue >', () => {
+        describe('Método getRupValue y setRupValue >', () => {
       	    beforeAll(() => {
-      		      $date.rup_date('setRupValue', '50');
+      		      $date.rup_date('setRupValue', '08/08/2018');
       	    });
       	    it('Debe actualizar el valor:', () => {
-      		      expect($date.rup_date('getRupValue')).toBe('50');
+      		      expect($date.rup_date('getRupValue')).toBe('08/08/2018');
       	    });
       	});
         describe('Método disable >', () => {
