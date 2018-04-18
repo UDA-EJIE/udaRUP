@@ -95,7 +95,7 @@ describe('Test Form', () => {
 				$form.rup_form('destroy');
 			});
 			it('No debe existir', () => {
-			expect($form.rup_form('destroy')).toThrowError();
+				expect(() => {$form.rup_form('destroy')}).toThrowError();
 			});
 		});
 	});
