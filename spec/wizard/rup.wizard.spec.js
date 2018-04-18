@@ -74,7 +74,7 @@ describe('Test Wizard > ', () => {
                 expect($('#step3').is(':visible')).toBeFalsy();
             });
         });
-        describe('Método last > '  , () => {
+        describe('Método last > ' , () => {
             beforeAll(() => {
                 $wizard.rup_wizard('step', 1);
                 $wizard.rup_wizard('last');
@@ -88,29 +88,110 @@ describe('Test Wizard > ', () => {
                 expect($('#step2').is(':visible')).toBeFalsy();
             });
         });
-        describe('Método getCurrentStep > '         , () => {
-            it('Debe devolver el paso en el que estamos', () => {});
+        describe('Método getCurrentStep > ' , () => {
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 2);
+            });
+            it('Debe devolver el paso en el que estamos', () => {
+                expect($wizard.rup_wizard('getCurrentStep')).toBe(2);
+            });
         });
-        describe('Método isCurrentStep > '          , () => {
-            it('Debe establecer si el paso es el actual', () => {});
+        describe('Método isCurrentStep > ' , () => {
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 1);
+            });
+            it('Debe establecer si el paso es el actual', () => {
+                expect($wizard.rup_wizard('isCurrentStep', 1)).toBeTruthy();
+                expect($wizard.rup_wizard('isCurrentStep', 2)).toBeFalsy();
+            });
         });
-        describe('Método isCurrentStepFirst > '     , () => {
-            it('Debe establecer si estamos en el primer paso', () => {});
+        describe('Método isCurrentStepFirst > ' , () => {
+            let tests = 0, step = 0;
+            beforeEach(() => {
+                if(tests !== 0) {
+                    step ++;
+                }
+                else {
+                    tests ++;
+                }
+                $wizard.rup_wizard('step', step);
+            });
+            it('Debe devolver true si estamos en el primer paso', () => {
+                expect($wizard.rup_wizard('isCurrentStepFirst')).toBeTruthy();
+            });
+            it('Debe devolver false en caso contrario', () => {
+                expect($wizard.rup_wizard('isCurrentStepFirst')).toBeFalsy();
+            });
         });
-        describe('Método isCurrentStepLast > '      , () => {
-            it('Debe establecer si estamos en el último paso', () => {});
+        describe('Método isCurrentStepLast > ' , () => {
+            let tests = 0, step = 2;
+            beforeEach(() => {
+                if(tests !== 0) {
+                    step ++;
+                }
+                else {
+                    tests ++;
+                }
+                $wizard.rup_wizard('step', step);
+            });
+            it('Debe devolver true si estamos en el primer paso', () => {
+                expect($wizard.rup_wizard('isCurrentStepLast')).toBeFalsy();
+            });
+            it('Debe devolver false en caso contrario', () => {
+                expect($wizard.rup_wizard('isCurrentStepLast')).toBeTruthy();
+            });
         });
-        describe('Método isCurrentStepSummary > '   , () => {
-            it('Debe establecer si estamos en el paso de resumen');
+        describe('Método isCurrentStepSummary > ' , () => {
+            let tests = 0, step = 2;
+            beforeEach(() => {
+                if(tests !== 0) {
+                    step ++;
+                }
+                else {
+                    tests ++;
+                }
+                $wizard.rup_wizard('step', step);
+            });
+            it('Debe devolver true si estamos en el primer paso', () => {
+                expect($wizard.rup_wizard('isCurrentStepSummary')).toBeFalsy();
+            });
+            it('Debe devolver false en caso contrario', () => {
+                expect($wizard.rup_wizard('isCurrentStepSummary')).toBeTruthy();
+            });
         });
-        describe('Método enableStep > '     , () => {
-            it('El step debe estar habilitado', () => {});
+        describe('Método enableStep > ' , () => {
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 0);
+                $wizard.rup_wizard('disableStep', 1);
+                $wizard.rup_wizard('enableStep', 1);
+            });
+            it('El step debe estar habilitado', () => {
+                expect($wizard.rup_wizard('step', 1)).toBeUndefined();
+            });
         });
-        describe('Método disableStep > '    , () => {
-            it('El step debe estar deshabilitado', () => {});
+        describe('Método disableStep > ' , () => {
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 0);
+                $wizard.rup_wizard('disableStep', 1);
+            });
+            afterAll(() => {
+                $wizard.rup_wizard('enableStep', 1);
+            });
+            it('El step debe estar deshabilitado', () => {
+                expect($wizard.rup_wizard('step', 1)).toBeFalsy();
+            });
         });
         describe('Método isStepDisabled > ' , () => {
-            it('Debe establecer si el paso esta deshabilitado');
+            beforeAll(() => {
+                $wizard.rup_wizard('disableStep', 1);
+            });
+            afterAll(() => {
+                $wizard.rup_wizard('enableStep', 1);
+            });
+            it('Debe establecer si el paso esta deshabilitado', () => {
+                expect($wizard.rup_wizard('isStepDisabled', 1)).toBeTruthy();
+                expect($wizard.rup_wizard('isStepDisabled', 2)).toBeFalsy();
+            });
         });
     });
 });
