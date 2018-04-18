@@ -39,8 +39,12 @@ describe('Test Wizard > ', () => {
         $('body').html('');
     });
     describe('Creación > ', () => {
-        it('Debe tener la clase rup_wizard', () => {});
-        it('Debe crear un <ul> con la clase de los steps', () => {});
+        it('Debe tener la clase rup_wizard', () => {
+            expect($wizard).toHaveClass('rup-wizard');
+        });
+        it('Debe crear un <ul> con la clase de los steps', () => {
+            expect($('ul.rup-wizard_stepsDescContainer').length).toBe(1);
+        });
     });
     describe('Métodos públicos > ', () =>{
         describe('Método step > '  , () => {
