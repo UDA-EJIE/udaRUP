@@ -1010,7 +1010,7 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 
 	if(ctx.oInit.formEdit !== undefined){
 		DataTable.editForm.init( new DataTable.Api( ctx ) );
-		$('#table_detail_div').rup_dialog($.extend({}, {
+		$(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
 			type: $.rup.dialog.DIV,
 			autoOpen: false,
 			modal: true,
