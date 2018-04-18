@@ -155,16 +155,15 @@
 				//Se aseguro que no sea orderable
 				options.columnDefs[0].orderable = false;
 			}
-
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
 				if(e.getAttribute('data-col-type') === 'checkbox'){
-					options.columnDefs.push({targets:i,data: "",render: function (data  ) {
-						var checked = '';
+					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
+						var iconCheck = 'fa fa-times';
 						if(data === '1'){
-							checked = 'checked';
+							iconCheck = 'fa fa-check';
 						}
-				         return '<input type="checkbox" '+checked+' onclick="return false">';
-				     }});
+				    return '<div class="datatable_checkbox"><i class="' + iconCheck + '"></i></div>';
+			    }});
 				}
 				return {
 					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')

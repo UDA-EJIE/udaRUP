@@ -79,13 +79,13 @@ DataTable.multiSelect.init = function ( dt ) {
 	var blurable = false;
 	var info = true;
 	var selector = 'td:first-child';
-	var className = 'selected';
+	var className = 'selected tr-highlight';
 	var setStyle = false;
 
 	ctx._multiSelect = {};
 
 	//se Inicializa las propiedades de los select.
-	DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
+	DataTable.multiSelect.multiselection = _initializeMultiselectionProps(ctx);
 
 	_paintCheckboxSelect(ctx);
 
@@ -692,25 +692,40 @@ function _drawSelectId(api){
  * @since UDA 3.4.0 // Datatable 1.0.0
  *
  * @param  {DataTable.ctx} ctx Settings object to operate on
- * 
+ *
  */
 function _paintCheckboxSelect(ctx){
 	var columnDefs = ctx.oInit.aoColumnDefs;
 	if(columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox'){
 		//Se rellena todo, la columna select.
 
-		var divHead =  $("<div/>").attr('id','divSelectTableHead'+ctx.sTableId).css({"text-align":"center"});
+		var divHead =  $("<div/>").attr('id','divSelectTableHead'+ctx.sTableId).addClass("divSelectTableHead");
 
-		var input =  $("<input/>").attr('type','checkbox');
-		var link = $("<a/>").addClass("ui-icon rup-datatable_checkmenu_arrow").attr('id','linkSelectTableHead'+ctx.sTableId);
+		var input =  $("<input/>")
+									.attr('id','inputSelectTableHead'+ctx.sTableId)
+									.attr('type','checkbox')
+									.addClass("hiddenInput");
+
+		var label = $("<label/>")
+									.attr('id', 'labelSelectTableHead'+ctx.sTableId)
+									.attr('for','inputSelectTableHead'+ctx.sTableId)
+									.addClass("selectTableHead");
+
+		var link = $("<a/>")
+							 	 .addClass("ui-icon rup-datatable_checkmenu_arrow")
+								 .attr('id','linkSelectTableHead'+ctx.sTableId);
 
 		input.click(function () {
 			var dt = new DataTable.Api( ctx );
 			if(input.is(':checked')) {
+				label.addClass("selectTableHeadCheck");
+				link.addClass("rup-datatable_checkmenu_arrow_margin");
 				selectAllPage(dt);
-	        } else {
-	        	deselectAllPage(dt);
-	        }
+      } else {
+				label.removeClass("selectTableHeadCheck");
+				link.removeClass("rup-datatable_checkmenu_arrow_margin");
+      	deselectAllPage(dt);
+      }
 	    });
 
 		link.click(function () {
@@ -721,6 +736,9 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
+				// Marcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
 			};
 			//Desmarcar todos
 			if(!DataTable.multiSelect.multiselection.selectedAll && DataTable.multiSelect.multiselection.selectedIds.length  === 0){
@@ -728,6 +746,9 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				// Desmarcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 			};
 			if(DataTable.multiSelect.multiselection.selectedIds.length  > 0){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
@@ -740,9 +761,15 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+				// Marcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
 			}else{
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
+				// Desmarcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 			}
 
 			//Si la pagina esta completamente deseleccionada
@@ -750,16 +777,22 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+				// Desmarcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 			}else{
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
+				// Marcamos el check del tHead
+				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
 			}
 
 	    });
 
 		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContex
 			_createContexMenuSelect($('#'+link[0].id),ctx)
-			divHead.append(input,link);
+			divHead.append(input, label, link);
 		}
 
 		if(ctx.nTable.tHead !== null){
@@ -777,14 +810,14 @@ function _paintCheckboxSelect(ctx){
 }
 
 /**
-* Metodo que comprueba  que todos los checks de la página están seleccionados
+* Metodo que comprueba que todos los checks de la página están seleccionados
 *
 * @name checkPageSelectedAll
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
-* @param {boolean} selected - Etrue o false para saber cual de los 2 quieres buscar.
+* @param {boolean} selected - Es true o false para saber cual de los 2 quieres buscar.
 *
 */
 function checkPageSelectedAll(dt,selected){
@@ -901,15 +934,19 @@ function _createContexMenuSelect(id,ctx){
 * @name selectAllPage
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Datatable.
 *
 */
 function selectAllPage(dt){
 	DataTable.multiSelect.multiselection.accion = "checkAll";
-
 	dt['rows']().multiSelect();
+	var ctx = dt.settings()[0];
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	// Marcamos el check del tHead
+	$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
+	$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+
 	//FeedBack
 	var countPage = dt.page()+1;
 	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
@@ -944,6 +981,10 @@ function deselectAllPage(dt){
 	dt['rows']().deselect();
 	var ctx = dt.settings()[0];
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+	// Desmarcamos el check del tHead
+	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+
 	//FeedBack
 	var countPage = dt.page()+1;
 	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
@@ -966,11 +1007,12 @@ function deselectAllPage(dt){
 * @name selectAll
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Datatable.
 *
 */
 function selectAll(dt){
+	var ctx = dt.settings()[0];
 	DataTable.multiSelect.multiselection.selectedAll = true;
 	DataTable.multiSelect.multiselection.deselectedIds = [];
 	DataTable.multiSelect.multiselection.deselectedRowsPerPage = [];
@@ -978,6 +1020,10 @@ function selectAll(dt){
 	DataTable.multiSelect.multiselection.accion = "checkAll";
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	// Marcamos el check del tHead
+	$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
+	$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
 		DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],0);
@@ -995,13 +1041,13 @@ function selectAll(dt){
 * @name deselectAll
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Datatable.
 *
 */
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
-	DataTable.multiSelect.multiselection = _initializeMultiselectionProps();
+	DataTable.multiSelect.multiselection = _initializeMultiselectionProps(ctx);
 
 	DataTable.multiSelect.multiselection.accion = "uncheckAll";
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
@@ -1157,10 +1203,10 @@ function typeSelect ( e, dt, ctx, type, idx )
 * @name initializeMultiselectionProps
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 *
 */
-function _initializeMultiselectionProps (  ) {
+function _initializeMultiselectionProps ( ctx ) {
 	var $self = {};
 	// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
 	if ($self.multiselection === undefined) {
@@ -1189,6 +1235,10 @@ function _initializeMultiselectionProps (  ) {
 	//$self.multiselection.deselectedPages = [];
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+	// Desmarcamos el check del tHead
+	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+
 	DataTable.Api().multiSelect.selectPencil(DataTable.settings[0],-1);
 	return $self.multiselection;
 } ;
@@ -1483,7 +1533,7 @@ apiRegister( 'multiSelect.selectPencil()', function ( ctx,idRow ) {
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
 	//se añade el span con el lapicero
 	if(idRow >= 0){
-		var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil').css('float','right');
+		var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
 		$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
 	}
 } );
@@ -1557,10 +1607,17 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 
 	//al paginar
 	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
+	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
+	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+
 	if(checkPageSelectedAll(api,true)){
-		input.attr('checked',true)
+		input.attr('checked',true);
+		label.addClass("selectTableHeadCheck");
+		link.addClass("rup-datatable_checkmenu_arrow_margin");
 	}else{
-		input.attr('checked',false)
+		input.attr('checked',false);
+		label.removeClass("selectTableHeadCheck");
+		link.removeClass("rup-datatable_checkmenu_arrow_margin");
 	}
 
 	return this;
@@ -1662,11 +1719,19 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 
 	//al paginar
 	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
+	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
+	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+
 	if(checkPageSelectedAll(api,true)){
-		input.attr('checked',true)
+		input.attr('checked',true);
+		label.addClass("selectTableHeadCheck");
+		link.addClass("rup-datatable_checkmenu_arrow_margin");
 	}else{
-		input.attr('checked',false)
+		input.attr('checked',false);
+		label.removeClass("selectTableHeadCheck");
+		link.removeClass("rup-datatable_checkmenu_arrow_margin");
 	}
+
 	return this;
 } );
 
