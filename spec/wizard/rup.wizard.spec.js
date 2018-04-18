@@ -48,14 +48,45 @@ describe('Test Wizard > ', () => {
     });
     describe('Métodos públicos > ', () =>{
         describe('Método step > '  , () => {
-            it('Debe mostrarse el paso seleccionado', () => {});
-            it('El resto de pasos debe estar ocultos', () => {});
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 1);
+            });
+            it('Debe mostrarse el paso seleccionado', () => {
+                expect($('#step1').is(':visible')).toBeTruthy();
+            });
+            it('El resto de pasos debe estar ocultos', () => {
+                expect($('#step0').is(':visible')).toBeFalsy();
+                expect($('#step2').is(':visible')).toBeFalsy();
+                expect($('#step3').is(':visible')).toBeFalsy();
+            });
         });
         describe('Método first > ' , () => {
-            it('Debe seleccionar el primer paso', () => {});
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 2);
+                $wizard.rup_wizard('first');
+            });
+            it('Debe seleccionar el primer paso', () => {
+                expect($('#step0').is(':visible')).toBeTruthy();
+            });
+            it('El resto debe estar oculto', () => {
+                expect($('#step1').is(':visible')).toBeFalsy();
+                expect($('#step2').is(':visible')).toBeFalsy();
+                expect($('#step3').is(':visible')).toBeFalsy();
+            });
         });
         describe('Método last > '  , () => {
-            it('Debe seleccionar el último paso', () => {});
+            beforeAll(() => {
+                $wizard.rup_wizard('step', 1);
+                $wizard.rup_wizard('last');
+            });
+            it('Debe seleccionar el último paso', () => {
+                expect($('#step3').is(':visible')).toBeTruthy();
+            });
+            it('El resto debe estar oculto', () => {
+                expect($('#step0').is(':visible')).toBeFalsy();
+                expect($('#step1').is(':visible')).toBeFalsy();
+                expect($('#step2').is(':visible')).toBeFalsy();
+            });
         });
         describe('Método getCurrentStep > '         , () => {
             it('Debe devolver el paso en el que estamos', () => {});
