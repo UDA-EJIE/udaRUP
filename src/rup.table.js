@@ -13179,6 +13179,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$obj.triggerHandler('mouseenter.qtip-' + toolipTmpId + '-create');
 							//							$obj.triggerHandler("mouseenter");
 							$obj.rup_tooltip('option', 'show.delay', 500);
+							$obj.rup_tooltip('open');
 						}
 					});
 				}
