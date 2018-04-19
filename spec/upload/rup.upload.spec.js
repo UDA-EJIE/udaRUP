@@ -1,5 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
+import 'blueimp-file-upload';
 import 'rup.upload';
 
 describe('Test Upload > ', () => {
