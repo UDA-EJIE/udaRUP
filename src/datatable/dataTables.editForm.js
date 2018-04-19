@@ -66,8 +66,6 @@ DataTable.editForm.version = '1.2.4';
 *
 */
 DataTable.editForm.init = function ( dt ) {
-	DataTable.editForm.iniciado = '';
-
 	var ctx = dt.settings()[0];
 	var init = ctx.oInit.multiSelect;
 	var defaults = DataTable.defaults.multiSelect;
@@ -114,69 +112,82 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 
 	// Creacion del Context Menu
-	var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
-	var items = {};
-	$.when(
-		$.each(botonesToolbar, function (i) {
-			// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-			if (this.conf.insideContextMenu) {
-				// Poblamos el objeto 'items' con los botones habilitados
-				items[this.conf.text(dt).toLowerCase()] =
-				{
-					id: this.conf.id + '_contextMenuToolbar',
-					name: this.conf.text(dt),
-					inCollection: this.inCollection,
-					idCollection: undefined
-				}
-			}
-			// Comprueba si tiene botones hijos
-			if (this.buttons.length > 0) {
-				var idCollection = this.conf.id;
-				$.each(this.buttons, function (i) {
-					// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-					if (this.conf.insideContextMenu) {
-						// Poblamos el objeto 'items' con los botones habilitados
-						items[this.conf.text(dt).toLowerCase()] =
-						{
-							id: this.conf.id + '_contextMenuToolbar',
-							name: this.conf.text(dt),
-							inCollection: this.inCollection,
-							idCollection: idCollection
-						}
+	if (DataTable.settings[0].oInit.buttons !== undefined) {
+		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(dt),
+						inCollection: this.inCollection,
+						idCollection: undefined
 					}
-				});
-			}
-		})
-	).done(function () {
-		var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
-		tableTr.rup_contextMenu({
-			callback: function(key, options) {
-				var selector = items[key];
-				// Recogemos el id de la accion pulsada en el context menu
-				var contextMenuActionId = selector.id;
-				// Le quitamos la extension '_contextMenuToolbar' para tener asi
-				// el id del boton que queremos accionar
-				var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
-				// Variable que nos dira si esta dentro de una coleccion
-				var inCollection = selector.inCollection;
-				// Variable que almacena el id de la coleccion (si no pertenece a una
-				// siempre sera 'undefined')
-				var idCollection = selector.idCollection;
-				// Comprobamos si existe el elemento con este id
-				if (inCollection && idCollection !== undefined) {
-					// Obtenemos la info necesaria del boton y la guardamos en variables
-					var eventConfig = DataTable.ext.buttons.copyCustom;
-					var eventDT = eventConfig.eventDT;
-					// Llamamos directamente al action para no hacer aparecer y desaparecer
-					// el boton, empeorando la UX
-					DataTable.ext.buttons.copyCustom.action(undefined, eventDT, undefined, eventConfig);
-				} else {
-					$('#' + buttonId).trigger('click');
 				}
-		  },
-			items
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(dt),
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
+						}
+					});
+				}
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			tableTr.rup_contextMenu({
+				callback: function(key, options) {
+					var selector = items[key];
+					// Recogemos el id de la accion pulsada en el context menu
+					var contextMenuActionId = selector.id;
+					// Le quitamos la extension '_contextMenuToolbar' para tener asi
+					// el id del boton que queremos accionar
+					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+					// Variable que nos dira si esta dentro de una coleccion
+					var inCollection = selector.inCollection;
+					// Variable que almacena el id de la coleccion (si no pertenece a una
+					// siempre sera 'undefined')
+					var idCollection = selector.idCollection;
+					// Comprobamos si existe el elemento con este id
+					if (inCollection && idCollection !== undefined) {
+						// Obtenemos la info necesaria del boton y la guardamos en variables
+						var buttonName;
+						var eventDT;
+						var eventConfig;
+	
+						$.each( DataTable.ext.buttons, function( key ) {
+							var buttonObject = DataTable.ext.buttons[key];
+							if (buttonObject.id === buttonId) {
+								buttonName = key;
+								eventDT = buttonObject.eventDT;
+								eventConfig = buttonObject;
+							}
+						});
+						
+						// Llamamos directamente al action para no hacer aparecer y desaparecer
+						// el boton, empeorando la UX
+						DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+					} else {
+						$('#' + buttonId).trigger('click');
+					}
+			  },
+				items
+			});
 		});
-	});
+	}
 
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
@@ -188,8 +199,8 @@ DataTable.editForm.init = function ( dt ) {
 		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
 
 			$.rup_messages('msgConfirm', {
-				message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-				title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+				message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.saveAndContinue'),
+				title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 				OKFunction: function () {
 					ctx.oInit.formEdit.okCallBack = true;
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
@@ -209,7 +220,7 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
 
-	var api = new DataTable.Api( ctx );
+/*	var api = new DataTable.Api( ctx );
 	api.on( 'draw.dtSelect.dt select.dtSelect.dt', function () {//Si lleva parametros es que estamos en la navegacion interna.
 		if(ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
@@ -227,12 +238,14 @@ DataTable.editForm.init = function ( dt ) {
 			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 		}
-		if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-					ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-				DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
+		if(DataTable.seeker.search !== undefined){
+			if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+						ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+					DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
+			}
 		}
 	} );
-
+*/
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -459,9 +472,9 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
 	// add Filter
 	var feed = idTableDetail.find('#table_detail_feedback');
-	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
+	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
-		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
+		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -612,7 +625,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**
@@ -621,13 +634,13 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 * @name callNavigatorBar
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 *
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
@@ -734,7 +747,8 @@ function _callNavigationBar(dt){
 
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
-	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
@@ -934,8 +948,8 @@ function _deleteAllSelects(dt){
 	var row = DataTable.multiSelect.multiselection.selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
-		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
-		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
 		OKFunction: function () {
 			if(DataTable.multiSelect.multiselection.selectedIds.length > 1){
 				var row = {};
@@ -989,19 +1003,19 @@ apiRegister( 'editForm.deleteAllSelects()', function ( dt ) {
 // this required that the table be in the document! If it isn't then something
 // needs to trigger this method unfortunately. The next major release of
 // DataTables will rework the events and address this.
-$(document).on( 'init.dt plugin-init.dt', function (e, ctx) {
+$(document).on( 'plugin-init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
 
-	if(DataTable.editForm.iniciado === undefined){
+	if(ctx.oInit.formEdit !== undefined){
 		DataTable.editForm.init( new DataTable.Api( ctx ) );
-		$('#table_detail_div').rup_dialog($.extend({}, {
+		$(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
 			type: $.rup.dialog.DIV,
 			autoOpen: false,
 			modal: true,
 			resizable: '',
-			title: ctx.oInit.formEdit.tittleForm,
+			title: ctx.oInit.formEdit.titleForm,
 			width: 569
 		}, {}));
 	}

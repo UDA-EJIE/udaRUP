@@ -184,36 +184,36 @@ function _createSearchRow (dt,ctx){
 		var idTabla = ctx.sTableId;
 		var	$gridHead = jQuery('tfoot','#'+idTabla),
 			// Templates
-			searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRowHeader'),
-			collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLayer'),
-			collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseIcon'),
-			collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLabel'),
-			matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLayer'),
-			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
-			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
-			navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLink'),
-			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
-			navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearLink'),
+			searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.searchRowHeader'),
+			collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.collapseLayer'),
+			collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.collapseIcon'),
+			collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.collapseLabel'),
+			matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLayer'),
+			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLabel'),
+			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLayer'),
+			navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLink'),
+			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navSearchButton'),
+			navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navClearLink'),
 
 			// Objetos
-			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
+			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.searchRow')),
 			$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
 			// Capa que controla el colapso del formualario
 			$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
 			$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
-			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.searchCriteria'))),
 			// Capa que muestra el número de ocurrencias
 			$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
-			$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+			$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),0))),
 
 			// Capa que controla la navegación entre las diferentes ocurrencias
 			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-			$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-			$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-			$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-			$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-			$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+			$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.first'))),
+			$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.previous'))),
+			$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.next'))),
+			$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.last'))),
+			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Find'))),
+			$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Reset')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -272,7 +272,8 @@ function _createSearchRow (dt,ctx){
 		// Evento asociado a limpiar el fomulario de búsqueda
 		$navClearLink.on('click', function(){
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
-			jQuery('tfoot [ruptype=\'combo\']','#'+idTabla).rup_combo('clear');
+			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
+			jQuery('.ui-selectmenu-status','table tfoot').text('--');
 			DataTable.seeker.search.funcionParams = {};
 			DataTable.seeker.search.pos = 0;
 			_processData(dt,ctx,[]);
@@ -350,14 +351,14 @@ function _selectSearch(dt,ctx,rows){
 				return v.pk.id === value.id;
 			});
 			if(result.length === 1){
-				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search').css('float','right');
-				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch).css('padding-right','3px');//Ajustamos el padding.
+				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
+				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
 			}
 		});
 		var rowUnique = rows[DataTable.seeker.search.pos];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
 				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id &&
-				(ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
+				(ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
 			dt['row'](rowUnique.pageLine-1).multiSelect();
 		}
 		DataTable.seeker.search.accion = '';
@@ -412,7 +413,7 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 		DataTable.seeker.search.$lastNavLink.removeClass('ui-state-disabled');
 	}
 
-	DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+	DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
 /**
@@ -438,7 +439,7 @@ function _processData(dt,ctx,data){
 
 	if (data.length === 0){
 		DataTable.seeker.search.$firstNavLink.add(DataTable.seeker.search.$backNavLink).add(DataTable.seeker.search.$forwardNavLink).add(DataTable.seeker.search.$lastNavLink).addClass('ui-state-disabled');
-		DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
+		DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(DataTable.seeker.search.pos + 1,data.length);
 	}
@@ -474,7 +475,7 @@ function _getDatos(ctx){
 *
 */
 function _createRupComponent(dt,ctx){
-	var colModel = ctx.oInit.formEdit.colModel, searchEditOptions;
+	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
 
 	$('#'+ ctx.sTableId+' tfoot th').each( function(i) {
 		if(i > 0){//La primera columna no vale es la de los select
@@ -541,8 +542,11 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
-
-	DataTable.seeker.init( new DataTable.Api( ctx ) );
+	if(ctx.oInit.seeker !== undefined){
+		DataTable.seeker.init( new DataTable.Api( ctx ) );
+	}else{
+		$('tfoot').hide();
+	}
 
 } );
 

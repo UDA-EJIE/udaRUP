@@ -653,6 +653,7 @@ $.extend( Buttons.prototype, {
 		var linerDom = this.c.dom.buttonLiner;
 		var collectionDom = this.c.dom.collection;
 		var dt = this.s.dt;
+		var ctx = dt.settings()[0];
 		var text = function ( opt ) {
 			return typeof opt === 'function' ?
 				opt( dt, button, config ) :
@@ -725,7 +726,10 @@ $.extend( Buttons.prototype, {
 		if ( config.id ) {
 			button.attr( 'id', config.id );
 		} else {
-			config.id = 'toolbarButton_'+(_buttonIdCounter++);
+			// Se desactiva el acceso desde el contextMenu por no tener un id establecido
+			config.insideContextMenu = false;
+			// Se asigna un id dinamico en funcion del nombre del datatable al que pertenece
+			config.id = ctx.sTableId + '_button_' + (_buttonIdCounter++);
 			button.attr( 'id', config.id );
 		}
 
@@ -763,7 +767,7 @@ $.extend( Buttons.prototype, {
 				case 'reports':
 					config.icon = "fa-file-o";
 					break;
-				case 'copyCustom':
+				case 'copyButton':
 					config.icon = "fa-clipboard";
 					break;
 				default:
@@ -1331,7 +1335,7 @@ Buttons.buttonSelector = function ( insts, selector )
 
 /**
  * Buttons defaults. For full documentation, please refer to the docs/option
- * directory or the DataTables site.
+ * directory or the DataTables site. Contiene los botones expuestos en el toolbar.
  *
  * @name Buttons.defaults
  * @function
@@ -1343,7 +1347,7 @@ Buttons.buttonSelector = function ( insts, selector )
  *
  */
 Buttons.defaults = {
-	buttons: [ 'copyCustom' ],
+	buttons: [ 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton' ],
 	name: 'main',
 	tabIndex: 0,
 	dom: {
@@ -1386,7 +1390,7 @@ Buttons.version = '1.5.1';
 $.extend( _dtButtons, {
 	collection: {
 		text: function ( dt ) {
-			return dt.i18n( 'buttons.collection', 'Collection' );
+			return $.rup.i18nParse($.rup.i18n.base, 'rup.datatable.collection');
 		},
 		className: 'buttons-collection',
 		action: function ( e, dt, button, config ) {
@@ -1503,9 +1507,29 @@ $.extend( _dtButtons, {
 			'aria-haspopup': true
 		}
 	},
-	copyCustom: function ( dt, conf ) {
-		if ( _dtButtons.copyCustom && _dtButtons.copyCustom.available( dt, conf ) ) {
-			return 'copyCustom';
+	addButton: function ( dt, conf ) {
+		if ( _dtButtons.addButton && _dtButtons.addButton.available( dt, conf ) ) {
+			return 'addButton';
+		}
+	},
+	editButton: function ( dt, conf ) {
+		if ( _dtButtons.editButton && _dtButtons.editButton.available( dt, conf ) ) {
+			return 'editButton';
+		}
+	},
+	cloneButton: function ( dt, conf ) {
+		if ( _dtButtons.cloneButton && _dtButtons.cloneButton.available( dt, conf ) ) {
+			return 'cloneButton';
+		}
+	},
+	deleteButton: function ( dt, conf ) {
+		if ( _dtButtons.deleteButton && _dtButtons.deleteButton.available( dt, conf ) ) {
+			return 'deleteButton';
+		}
+	},
+	reportsButton: function ( dt, conf ) {
+		if ( _dtButtons.reportsButton && _dtButtons.reportsButton.available( dt, conf ) ) {
+			return 'reportsButton';
 		}
 	},
 	pageLength: function ( dt ) {
@@ -1513,7 +1537,7 @@ $.extend( _dtButtons, {
 		var vals = $.isArray( lengthMenu[0] ) ? lengthMenu[0] : lengthMenu;
 		var lang = $.isArray( lengthMenu[0] ) ? lengthMenu[1] : lengthMenu;
 		var text = function ( dt ) {
-			return dt.i18n( 'buttons.pageLength', {
+			return dt.i18n( 'rup_datatable.pageLength', {
 				"-1": 'Show all rows',
 				_:    'Show %d rows'
 			}, dt.page.len() );
@@ -1815,8 +1839,8 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			$(idTableDetail).find('form')[0].reset();
 			if(DataTable.multiSelect.multiselection.numSelected > 0){
 				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
 						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
@@ -2071,6 +2095,36 @@ var _exportData = function ( dt, inOpts )
 };
 
 /**
+ * Activa la coleccion
+ *
+ * @name _enableCollection
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
+ * @param {string} id	Id of the button
+ *
+ */
+var _enableCollection = function ( id )
+{
+	$('#' + id).removeClass('disabledDatatable');
+};
+
+/**
+ * Desactiva la coleccion
+ *
+ * @name _disableCollection
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
+ * @param {string} id	Id of the button
+ *
+ */
+var _disableCollection = function ( id )
+{
+	$('#' + id).addClass('disabledDatatable');
+};
+
+/**
  * Activa el boton y su opcion dentro del context menu
  *
  * @name _enableButtonAndContextMenuOption
@@ -2110,42 +2164,94 @@ var _disableButtonAndContextMenuOption = function ( id )
  *
  * @param {object} opts	Buttons properties
  * @param {int} numOfSelectedRows	Number of selected rows
- * @param {undefined|string} collectionId	Id of the collection
+ * @param {null|object} collectionObject	Collection button properties
  *
  */
-var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionId )
+var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionObject )
 {
-	// Entran los botones que pertenecen a una coleccion
-	if (opts.inCollection) {
-		// Si el boton padre de la coleccion esta deshabilitado, desactiva los hijos
-		// independientemente de su configuracion
-		if ($('#' + collectionId).hasClass('disabledDatatable')) {
-			// Deshabilita el boton y su opcion dentro del context menu
-			_disableButtonAndContextMenuOption(opts.conf.id);
-		} else {
+	// Si pertenece a un collection o es un collection
+	if (opts.collection !== null && collectionObject) {
+		var collectionId = collectionObject.conf.id;
+		var collectionDisplayRegex = collectionObject.conf.displayRegex;
+		var alreadyExecuted = false;
+		// Recorre todos los botones dentro del collection
+		$.each(collectionObject.buttons, function(key, value) {
+			// Activa/desactiva en funcion de la propiedad 'displayRegex' del padre y los hijos
+			if (collectionDisplayRegex !== undefined && value.conf.displayRegex !== undefined) {
+				if (collectionDisplayRegex.test(numOfSelectedRows) && value.conf.displayRegex.test(numOfSelectedRows)) {
+					_enableButtonAndContextMenuOption(value.conf.id);
+				}
+				else {
+					_disableButtonAndContextMenuOption(value.conf.id);
+				}
+			}
+			// Activa/desactiva en funcion de la propiedad 'displayRegex' de sus hijos
+			else if (collectionDisplayRegex === undefined && value.conf.displayRegex !== undefined) {
+				// Habilita la coleccion si cumple el regex (solo se ejecuta una vez como
+				// maximo gracias al booleano 'alreadyExecuted')
+				if (value.conf.displayRegex.test(numOfSelectedRows) && !alreadyExecuted) {
+					_enableCollection(collectionId);
+					alreadyExecuted = true;
+				}
+				// Habilita el boton si cumple el displayRegex
+				if (value.conf.displayRegex.test(numOfSelectedRows)) {
+					_enableButtonAndContextMenuOption(value.conf.id);
+				}
+				// Como este boton no cumple el 'displayRegex' para ser habilitado, se deshabilitan
+				// tanto el boton como su opcion en el contextMenu
+				else {
+					_disableButtonAndContextMenuOption(value.conf.id);
+				}
+				// En caso de que ningun regex cumpliese, se fuerza la deshabilitacion
+				if (!alreadyExecuted) {
+					_disableCollection(collectionId);
+				}
+			}
+			// Desactiva todo si ni el collection ni los hijos tienen la propiedad 'displayRegex'
+			// o simplemente si los hijos no tienen la propiedad
+			else {
+				_disableButtonAndContextMenuOption(value.conf.id);
+				if (!alreadyExecuted) {
+					_disableCollection(collectionId);
+					alreadyExecuted = true;
+				}
+			}
+		});
+		// Genera un evento encargado de ocultar los botones dentro del collection.
+		// Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
+		// el rendimiento
+		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
+			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
+			// el valor recibido cuando se creo el evento
+			var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+			$.each(collectionObject.buttons, function(key, value) {
+				// Habilita el boton dentro del collection
+				if (value.conf.displayRegex.test(numOfSelectedRows)) {
+					_enableButtonAndContextMenuOption(value.conf.id);
+				}
+				// Deshabilita el boton dentro del collection
+				else {
+					_disableButtonAndContextMenuOption(value.conf.id);
+				}
+			});
+		} );
+	}
+	// Si el boton no tiene un regex definido, permanecera siempre desactivado
+	else if (opts.conf.displayRegex === undefined) {
+		// Deshabilita el boton y su opcion dentro del context menu
+		_disableButtonAndContextMenuOption(opts.conf.id);
+	}
+	// Si tiene un regex definido, lo activa y desactiva en funcion de este
+	else if (opts.conf.displayRegex !== undefined) {
+		// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+		// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+		// oculto
+		if (opts.conf.displayRegex.test(numOfSelectedRows)) {
 			// Habilita el boton y su opcion dentro del context menu
 			_enableButtonAndContextMenuOption(opts.conf.id);
-		}
-	}
-	// Entran los botones que ni forman ni pertenecen a una coleccion
-	else {
-		// Si el boton no tiene un regex definido, permanecera siempre desactivado
-		if (opts.conf.displayRegex === undefined) {
+		} else {
 			// Deshabilita el boton y su opcion dentro del context menu
 			_disableButtonAndContextMenuOption(opts.conf.id);
-		}
-		// Si tiene un regex definido, lo activa y desactiva en funcion de este
-		else if (opts.conf.displayRegex !== undefined) {
-			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
-			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
-			// oculto
-			if (opts.conf.displayRegex.test(numOfSelectedRows)) {
-				// Habilita el boton y su opcion dentro del context menu
-				_enableButtonAndContextMenuOption(opts.conf.id);
-			} else {
-				// Deshabilita el boton y su opcion dentro del context menu
-				_disableButtonAndContextMenuOption(opts.conf.id);
-			}
 		}
 	}
 };
@@ -2167,34 +2273,30 @@ $.fn.DataTable.Buttons = Buttons;
 // create the buttons instance here so they can be inserted into the document
 // using the API. Listen for `init` for compatibility with pre 1.10.10, but to
 // be removed in future.
-$(document).on( 'init.dt plugin-init.dt', function (e, settings) {
+$(document).on( 'plugin-init.dt', function (e, settings) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
 
-	var opts = settings.oInit.buttons || DataTable.defaults.buttons;
-
-	if ( opts && ! settings._buttons ) {
-		new Buttons( settings, opts ).container();
+	if ( settings.oInit.buttons !== undefined && settings._buttons ) {
+		inicio(settings);
 	}
 } );
 
-$(document).on( 'init.dt', function (e, settings) {
+function inicio(settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
 	var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
-	var collectionId;
+	var collectionObject;
 
 	$.each(opts, function (i) {
-		// Activa/desactiva los botones en el inicio en funcion del regex que tengan
-		// asociado
-		collectionId = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionId);
+		// Activa/desactiva los botones en el inicio en funcion de la propiedad
+		// 'displayRegex' que tengan asociada
+		collectionObject = null;
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
-			collectionId = this.conf.id;
-			$.each(this.buttons, function (i) {
-				_manageButtonsAndButtonsContextMenu(this, numOfSelectedRows, collectionId);
-			});
+			collectionObject = this;
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
 		}
 		// Comprueba si tiene un icono asociado
 		if (this.conf.icon !== undefined) {
@@ -2220,20 +2322,18 @@ $(document).on( 'init.dt', function (e, settings) {
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function ( e, dt, type, indexes ) {
 		var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
-		var collectionId;
+		var collectionObject;
 		$.each(opts, function (i) {
-			collectionId = null;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionId);
+			collectionObject = null;
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
 			// Comprueba si tiene botones hijos
 			if (this.buttons.length > 0) {
-				collectionId = this.conf.id;
-				$.each(this.buttons, function (i) {
-					_manageButtonsAndButtonsContextMenu(this, numOfSelectedRows, collectionId);
-				});
+				collectionObject = this;
+				_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
 			}
 		});
 	} );
-} );
+} ;
 
 // DataTables `dom` feature option
 DataTable.ext.feature.push( {

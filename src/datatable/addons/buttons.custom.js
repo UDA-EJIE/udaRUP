@@ -105,6 +105,7 @@ var _reportsCopyData = function (dt, that, config)
 				left: 0
 			});
 
+		exportDataParsed = _convertToTabulador(exportDataParsed,true);
 		var textarea = $('<textarea readonly/>')
 			.val(exportDataParsed)
 			.appendTo(hiddenDiv);
@@ -112,6 +113,48 @@ var _reportsCopyData = function (dt, that, config)
 		_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
 	});
 };
+
+/**
+* Se encarga de mapear los datos de json a datos separados por el tabulador.
+*
+* @name ConvertToTabulador
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} objArray Objeto que contiene los datos a exportar
+* @param {boolean} true en caso de querer que se mueste la cabecera
+*
+* @return {object}
+*
+*/
+var _convertToTabulador = function(objArray,showLabel) {
+    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    if (showLabel) {
+        var row = "";
+
+        $.each(array[0], function(index) {
+            row += index + '	';
+        });
+        row = row.slice(0, -1);
+        str += row + '\r\n';
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line !== '') {
+            	line += '	'
+            }
+
+            line += array[i][index];
+        }
+
+        str += line + '\r\n';
+    }
+
+    return str;
+}
 
 /**
 	* Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones
@@ -185,8 +228,8 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 			ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
 			$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
-				ctx.oInit.buttons.allData = data;
-				exportData = ctx.oInit.buttons.allData;
+				DataTable.ext.buttons.allData = data;
+				exportData = DataTable.ext.buttons.allData;
 				deferred.resolve(exportData);
 			});
 			break;
@@ -297,8 +340,8 @@ var _reportsRequestData = function (ajaxOptions)
 var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
 {
 	$.rup_messages('msgConfirm', {
-		title: dt.i18n('changes', 'Copia de registros en clipboard'),
-		message: dt.i18n('saveAndContinue', {
+		title: dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en clipboard'),
+		message: dt.i18n('rup_datatable.copyButton.saveAndContinue', {
 			_: '¿Desea copiar %d registros?',
 			1: '¿Desea copiar un registro?'
 		}, exportDataRows),
@@ -346,8 +389,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('changes', 'Copia de registros en portapapeles'),
-					dt.i18n('saved', {
+					dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_datatable.copyButton.saved', {
 						_: 'Copiados %d registros al portapapeles',
 						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
@@ -366,13 +409,13 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 
 	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
 	// con las instrucciones de como copiar los elementos seleccionados
-	var message = $('<span>' + dt.i18n('copyKeys',
+	var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
 		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
 		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
 	)
 	.append(hiddenDiv);
 
-	dt.buttons.info(dt.i18n('copyTitle', 'Copiar al portapapeles'), message, 0);
+	dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
 
 	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
 	// se le pegue ese texto
@@ -417,16 +460,17 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 //
 // Copia al portapapeles
 //
-DataTable.ext.buttons.copyCustom = {
+DataTable.ext.buttons.copyButton = {
 	text: function (dt) {
-		return dt.i18n('toolbar.reports.copyCustom', 'Copiar');
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
 	},
-	className: 'buttons-copyCustom',
+	id: 'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	className: 'buttons-copyButton',
 	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-	insideContextMenu: true,
-	type: 'copyCustom',
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	type: 'copyButton',
 	init: function (dt, node, config) {
-		DataTable.ext.buttons.copyCustom.eventDT = dt;
+		DataTable.ext.buttons.copyButton.eventDT = dt;
 	},
 	action: function (e, dt, button, config) {
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -437,6 +481,89 @@ DataTable.ext.buttons.copyCustom = {
 		var that = this;
 		_reportsCopyData(dt, that, config);
 	}
+};
+
+DataTable.ext.buttons.addButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
+	},
+	id: 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	className: 'datatable_toolbar_btnAdd',
+	displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	type: 'add',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.addButton.eventDT = dt;
+	},
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.editButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
+	},
+	id: 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	className: 'datatable_toolbar_btnEdit',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	type: 'edit',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.editButton.eventDT = dt;
+	},
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.cloneButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
+	},
+	id: 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	className: 'datatable_toolbar_btnClone',
+	displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	type: 'clone',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.cloneButton.eventDT = dt;
+	},
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.deleteButton = {
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
+	},
+	id: 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	className: 'datatable_toolbar_btnDelete',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	type: 'delete',
+	init: function (dt, node, config) {
+		DataTable.ext.buttons.deleteButton.eventDT = dt;
+	},
+	action: function (e, dt, node, config) {
+		DataTable.Api().buttons.actions(dt, config);
+	}
+};
+
+DataTable.ext.buttons.reportsButton = {
+	extend: 'collection',
+	text: function (dt) {
+		return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.main');
+	},
+	id: 'informes_01',
+	className: 'align-right',
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	autoClose: true,
+	type: 'reports',
+	buttons: [
+		'copyButton'
+	]
 };
 
 
