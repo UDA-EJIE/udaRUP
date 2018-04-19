@@ -277,9 +277,9 @@
 				linkButtonsLength = linkButtons.length;
 				//Si tiene mas de dos botones y ninguno de ellos es de tipo link, entonces le mostrar una alerta diciendo que no cumple arista.
 				if (btnsLength > 1 && linkButtonsLength === 0 /*&& settings.rupCheckStyle*/ ) {
-					$.rup.msgAlert({
-						message: $.rup.i18nParse($.rup.i18n, 'base.rup_global.rupCheckStyleError')
-					});
+					$.rup_messages("msgAlert",{
+			            message: $.rup.i18nParse($.rup.i18n, 'base.rup_global.rupCheckStyleError') 
+			        });
 					return false;
 				}
 				$(this).dialog('option', opt, value);
@@ -450,9 +450,9 @@
 							linkButtonsLength = linkButtons.length;
 							//Si tiene mas de dos botones y ninguno de ellos es de tipo link, entonces le mostrar una alerta diciendo que no cumple arista.
 							if (btnsLength > 1 && linkButtonsLength === 0 && settings.rupCheckStyle) {
-								$(document).rup().msgAlert({
-									message: $.rup.i18nParse($.rup.i18n.base, 'rup_global.rupCheckStyleError')
-								});
+								$.rup_messages("msgAlert",{
+						            message: $.rup.i18nParse($.rup.i18n.base, 'rup_global.rupCheckStyleError') 
+						        });
 								settings.stack = false;
 								settings.modal = false;
 								settings.zIndex = 9999;
@@ -539,10 +539,10 @@
 		_ajaxLoad: function (settings) {
 			//Si el tipo de dialogo es AJAX y no se establece url se muestra un error y se devuelve el control
 			if (!settings.url || settings.url === null || settings.url === '') {
-				$.rup.msgAlert({
+				$.rup_messages("msgAlert",{
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'),
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_dialog.noURL')
-				});
+		            message: $.rup.i18nParse($.rup.i18n.base, 'rup_dialog.noURL')
+		        });
 				return false;
 			}
 
@@ -570,12 +570,13 @@
 			};
 			ajaxOptions.error = function (XMLHttpRequest, textStatus, errorThrown) { //en caso de error mostramos un mensaje de alerta
 				$.unblockUI();
-				$(document).rup().msgAlert({
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_dialog.errorLoadingData')
-				});
 
-				if (settings.ajaxOptions.error !== undefined && settings.ajaxOptions.error !== null && typeof settings.ajaxOptions.error === 'function') {
+				if (settings.ajaxOptions && settings.ajaxOptions.error !== undefined && settings.ajaxOptions.error !== null && typeof settings.ajaxOptions.error === 'function') {
 					settings.ajaxOptions.error(XMLHttpRequest, textStatus, errorThrown);
+				}else{
+					$.rup_messages("msgAlert",{
+			            message: $.rup.i18nParse($.rup.i18n.base, 'rup_dialog.errorLoadingData')
+			        });
 				}
 			};
 			ajaxOptions.url = $.rup_utils.setNoPortalParam(settings.url);
@@ -589,7 +590,7 @@
 
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//*******************************************************
+	//*******************************************************Rme
 
 	/**
    * Propiedades de configuración de la petición Ajax.
