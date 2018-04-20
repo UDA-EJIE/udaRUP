@@ -4,24 +4,32 @@ import 'rup.report';
 
 function testear($report) {
     describe('Test Report > ', () => {
-        beforeAll(() => {});
         describe('Creación > ', () => {});
         describe('Validar el funcionamiento > ', () => {});
     });
 };
 
 let $report;
-let reportSel = '#exampleReport';
-let html = '';
+let html = '<div id="exampleReport"></div>';
 let confs = [
-    {},
-    {} // Configuraciones para distintos tipos de reports
+    {
+        appendTo:'#exampleReport',
+        buttons:[
+            {
+                i18nCaption:'Exportar',
+                click: (event) => {
+                    let clase = event.data.id + '-' + event.data.caption;
+                    $('#exampleReport').addClass(clase);
+                }
+            }
+        ]
+    } // Configuraciones para distintos tipos de reports
 ]
 
 confs.forEach((cur) => {
     $('body').append(html);
-    $(reportSel).rup_report(cur);
-    $report = $(reportSel);
+    $('#exampleReport').rup_report(cur);
+    $report = $('#exampleReport');
     testear($report);
     $('body').html('');
 });
