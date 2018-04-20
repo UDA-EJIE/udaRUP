@@ -412,3 +412,8 @@ nav.rup-navbar a {
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+nav > div.no-gutter {
+    padding-right: 0;
+    padding-left: 0;
+}
