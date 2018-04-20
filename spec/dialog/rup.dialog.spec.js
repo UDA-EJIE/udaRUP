@@ -6,21 +6,23 @@ import 'rup.dialog';
 describe('Test Dialog', () => {
 	var $dialogo;
 	function testDialogType(type) {
+		beforeAll( () => {
+			let html = '<div id="exampleDialogo"></div>'
+			$('body').append(html);
+			let opciones = {
+				type: type,
+				autoOpen: false,
+				width: 200,
+				title: 'TituloDialogo',
+				message: 'MensajeDialogo'
+			};
+			$dialogo = $('#exampleDialogo');
+			$dialogo.rup_dialog(opciones);
+		});
+		afterAll(() => {
+			$('body').html('');
+		});
 		describe('Test de creacion', () => {
-			
-			beforeAll( () => {
-				var html = '<div id="exampleDialogo"></div>'
-				$('body').append(html);
-				let opciones = {
-					type: type,
-					autoOpen: false,
-					width: 200,
-					title: 'TituloDialogo',
-					message: 'MensajeDialogo'
-				};
-				$dialogo = $('#exampleDialogo');
-				$dialogo.rup_dialog(opciones);
-			});
 			it('debe existir:', () => {
 				expect($('.ui-dialog')).toExist();
 			});
