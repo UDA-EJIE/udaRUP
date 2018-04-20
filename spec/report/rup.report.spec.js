@@ -1,5 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
+import 'rup.button';
 import 'rup.report';
 
 function testear() {
