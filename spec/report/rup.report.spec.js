@@ -22,10 +22,36 @@ function testear() {
     });
 };
 
-let html = '<div id="exampleReport"></div>';
+let html = '<div class="rup-mbutton">'
+        +       '<button type="button" id="exampleMButton" data-mbutton="true">'
+        +           '<i class="fa fa-cog" aria-hidden="true"></i> <span'
+        +              'class="rup-ui-button-text hidden-md-down">MButton</span>'
+        +       '</button>'
+        +       '<ul id="mbuttonContainer" class="rup-mbutton-container"'
+        +            'aria-labelledby="exampleMButton">'
+        +            '<li>'
+        +                '<button type="button" id="mbutton-buttonNew">'
+        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
+        +                        'class="rup-ui-button-text hidden-md-down">Nuevo</span>'
+        +                '</button>'
+        +            '</li>'
+        +            '<li>'
+        +                '<button type="button" id="mbutton-buttonEdit">'
+        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
+        +                        'class="rup-ui-button-text hidden-md-down">Editar</span>'
+        +                '</button>'
+        +            '</li>'
+        +            '<li>'
+        +                '<button type="button" id="mbutton-buttonCancel">'
+        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
+        +                        'class="rup-ui-button-text hidden-md-down">Cancelar</span>'
+        +                '</button>'
+        +            '</li>'
+        +        '</ul>'
+        +    '</div>';
 let confs = [
     {
-        appendTo:'exampleReport',
+        appendTo:'exampleMButton',
         buttons:[
             {
                 id:'btnExport',
@@ -33,7 +59,7 @@ let confs = [
                 url: 'ruta/a/archivo.pdf',
                 click: (event) => {
                     let clase = event.data.id + '-' + event.data.caption;
-                    $('#exampleReport').addClass(clase);
+                    $('#exampleMButton').addClass(clase);
                 }
             }
         ],
@@ -53,7 +79,7 @@ let confs = [
 confs.forEach((cur) => {
     $('body').append(html);
     console.log(cur);
-    $('#exampleReport').rup_toolbar({});
+    $('#exampleMbutton').rup_button({});
     jQuery.rup_report(cur);
     testear();
     $('body').html('');
