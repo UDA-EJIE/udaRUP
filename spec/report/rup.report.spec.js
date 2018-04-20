@@ -22,7 +22,17 @@ let confs = [
                     $('#exampleReport').addClass(clase);
                 }
             }
-        ]
+        ],
+        dialog:{
+            wait:{
+                title: 'Procesando',
+                msg  : 'Se está generando el informe'
+            },
+            error:{
+                title: 'Error',
+                msg  : 'Se ha producido un error en la generación del informe'
+            }         
+        }
     } // Configuraciones para distintos tipos de reports
 ];
 
