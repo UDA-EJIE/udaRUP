@@ -13,10 +13,11 @@ let $report;
 let html = '<div id="exampleReport"></div>';
 let confs = [
     {
-        appendTo:'#exampleReport',
+        appendTo:'exampleReport',
         buttons:[
             {
                 i18nCaption:'Exportar',
+                url: 'ruta/a/archivo.pdf',
                 click: (event) => {
                     let clase = event.data.id + '-' + event.data.caption;
                     $('#exampleReport').addClass(clase);
@@ -38,6 +39,7 @@ let confs = [
 
 confs.forEach((cur) => {
     $('body').append(html);
+    console.log(cur);
     $('#exampleReport').rup_report(cur);
     $report = $('#exampleReport');
     testear($report);
