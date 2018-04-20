@@ -2,20 +2,32 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.report';
 
-function testear($report) {
+function testear() {
     describe('Test Report > ', () => {
-        describe('Creación > ', () => {});
-        describe('Validar el funcionamiento > ', () => {});
+        describe('Creación > ', () => {
+            it('Debe crear un botón', () => {
+                expect($('[id="exampleReport##btnExport"]')).toExist();
+            });
+            it('El boton debe tener las clases correspondientes', () => {
+                expect($('[id="exampleReport##btnExport"]'))
+                    .toHaveClass('rup-button ui-button ui-corner-all ui-widget');
+            });
+        });
+        describe('Validar el funcionamiento > ', () => {
+            /**
+             * TODO: PAW!!
+             */
+        });
     });
 };
 
-let $report;
 let html = '<div id="exampleReport"></div>';
 let confs = [
     {
         appendTo:'exampleReport',
         buttons:[
             {
+                id:'btnExport',
                 i18nCaption:'Exportar',
                 url: 'ruta/a/archivo.pdf',
                 click: (event) => {
@@ -40,8 +52,8 @@ let confs = [
 confs.forEach((cur) => {
     $('body').append(html);
     console.log(cur);
-    $('#exampleReport').rup_report(cur);
-    $report = $('#exampleReport');
-    testear($report);
+    $('#exampleReport').rup_toolbar({});
+    jQuery.rup_report(cur);
+    testear();
     $('body').html('');
 });
