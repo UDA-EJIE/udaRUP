@@ -3,9 +3,9 @@ import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
-describe('Test Dialog', () => {
-	var $dialogo;
-	function testDialogType(type) {
+function testDialogType(type) {
+	describe('Test Dialog', () => {
+		var $dialogo;
 		beforeAll( () => {
 			let html = '<div id="exampleDialogo"></div>'
 			$('body').append(html);
@@ -16,8 +16,8 @@ describe('Test Dialog', () => {
 				title: 'TituloDialogo',
 				message: 'MensajeDialogo'
 			};
+			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
-			$dialogo.rup_dialog(opciones);
 		});
 		afterAll(() => {
 			$('body').html('');
@@ -110,9 +110,10 @@ describe('Test Dialog', () => {
 			    });
 			});
 		});
-	}
+	});
+}
 
 	testDialogType($.rup.dialog.TEXT);
 	testDialogType($.rup.dialog.DIV);
 
-});
+
