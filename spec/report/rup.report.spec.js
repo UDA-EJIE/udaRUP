@@ -24,7 +24,7 @@ let confs = [
             }
         ]
     } // Configuraciones para distintos tipos de reports
-]
+];
 
 confs.forEach((cur) => {
     $('body').append(html);
