@@ -78,8 +78,8 @@ describe('RUP Autocomplete Tests', function () {
     $autocomplete.rup_autocomplete({
       source: sourceJson,
       defaultValue: 'java',
-	  contains: false,
-	  delay:0
+  	  contains: false,
+  	  delay:0
     });
 
   });
@@ -128,45 +128,45 @@ describe('RUP Autocomplete Tests', function () {
 	  	});
 
     	describe('Método option', () => {
-			describe('Cambiar el valor de una propiedad', () => {
-				let param = 'r';
-				beforeAll(() => {
-					$autocomplete.rup_autocomplete('close');
-					$autocomplete.rup_autocomplete("option", "minLegth", 2);
-				});
-				it('No debe mostrar el menu', () => {
-					$autocomplete.rup_autocomplete('search', 'r');
-					expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
-				});
-				it('Debe mostrar el menu', () => {
-					$autocomplete.rup_autocomplete('search', 'ru');
-					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
-				});
-			});
+    			describe('Cambiar el valor de una propiedad', () => {
+    				let param = 'r';
+    				beforeAll(() => {
+    					$autocomplete.rup_autocomplete('close');
+    					$autocomplete.rup_autocomplete("option", "minLegth", 2);
+    				});
+    				it('No debe mostrar el menu', () => {
+    					$autocomplete.rup_autocomplete('search', 'r');
+    					expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+    				});
+    				it('Debe mostrar el menu', () => {
+    					$autocomplete.rup_autocomplete('search', 'ru');
+    					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+    				});
+    			});
       		describe('cambia el valor de varias propiedades: ', () => {
-				let options;
-				beforeAll(() => {
-					options = {
-					minLegth: 1,
-					contains: false
-					};
-					$autocomplete.rup_autocomplete('option', options);
-					$autocomplete.rup_autocomplete('search', 'j');
-				});
-				it('Los cambios deben haber hecho efecto',() => {
-					console.log($autocomplete.val());
-					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
-				});
+    				let options;
+    				beforeAll(() => {
+    					options = {
+    					minLegth: 1,
+    					contains: false
+    					};
+    					$autocomplete.rup_autocomplete('option', options);
+    					$autocomplete.rup_autocomplete('search', 'j');
+    				});
+    				it('Los cambios deben haber hecho efecto',() => {
+    					console.log($autocomplete.val());
+    					expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+    				});
       		});
     	});
 
     	describe('Método search:', () => {
-			beforeAll(() => {
-          		$autocomplete.rup_autocomplete('search', 'ruby');
-        	});
-      		it('Abre el menú de resultados de búsqueda', () => {
-        		expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
-      		});
+			     beforeAll(() => {
+             $autocomplete.rup_autocomplete('search', 'ruby');
+        	 });
+      		 it('Abre el menú de resultados de búsqueda', () => {
+        	    expect($('#autocomplete_menu').is(':visible')).toBeTruthy();
+      		 });
     	});
 
     	describe('Método close:', () => {
@@ -180,12 +180,12 @@ describe('RUP Autocomplete Tests', function () {
    		});
 
     	describe('Método val', () => {
-			beforeAll(() => {
-				$autocomplete.rup_autocomplete("search", "ru");
-			});
-			it('Debe devolver el valor del elemento seleccionado', () => {
-				expect($autocomplete.rup_autocomplete('val')).toBe($autocomplete.val());
-			});
+  			beforeAll(() => {
+  				$autocomplete.rup_autocomplete("search", "ru");
+  			});
+  			it('Debe devolver el valor del elemento seleccionado', () => {
+  				expect($autocomplete.rup_autocomplete('val')).toBe($autocomplete.val());
+  			});
     	});
 
     	describe('Método set', () => {
