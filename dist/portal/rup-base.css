@@ -6443,6 +6443,7 @@
     position: absolute;
     z-index: 99;
     width: 100%;
+    height: 0;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav {
@@ -6574,6 +6575,15 @@
   -webkit-border-radius: 6px 0 6px 6px;
   -moz-border-radius: 6px 0 6px 6px;
   border-radius: 6px 0 6px 6px;
+}
+
+.r01gContainer nav > div.no-gutter {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.r01gContainer nav > div > ul > li > div.dropdown-menu.show {
+  display: block;
 }
 
 .r01gContainer .ui-progressbar {
