@@ -351,8 +351,8 @@ function _selectSearch(dt,ctx,rows){
 				return v.pk.id === value.id;
 			});
 			if(result.length === 1){
-				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search').css('float','right');
-				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch).css('padding-right','3px');//Ajustamos el padding.
+				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
+				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
 			}
 		});
 		var rowUnique = rows[DataTable.seeker.search.pos];
