@@ -635,9 +635,9 @@
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
-								params[2] = _getLineByPageSelectedReverse(ctx,linea);
+								params[2] = DataTable.Api().editForm.getLineByPageSelectedReverse(ctx,linea);
 							}else{
-								params[2] = _getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
+								params[2] = DataTable.Api().editForm.getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
 							}
 
 						}
