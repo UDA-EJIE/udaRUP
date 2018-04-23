@@ -41,7 +41,7 @@ describe('Test Upload > ', () => {
                  */
             });
             it('#txtVar debe tener la clase add-worked', () => {
-                expect($('#txtVar')).toHaveClass('add-worked');
+                expect($('#txtVar').hasClass('add-worked')).toBeTruthy();
             });
         });
         describe('Método disable > ', () => {
