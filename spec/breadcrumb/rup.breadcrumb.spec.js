@@ -14,7 +14,6 @@ describe('Test BreadCrumb >', () => {
 		$breadcrumb = $('#exampleBreadcrumb');
 	});
 	describe('Creación > ', () => {
-		// FIXME: $breadcrumb es undefined
 		it('El breadcrumb debe estar definido', () => {
 			expect($breadcrumb.find('span.rup-breadCrumbs_span:first').length).toBe(1);
 		});
