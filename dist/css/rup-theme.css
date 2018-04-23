@@ -2533,7 +2533,8 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
     margin-top: 4rem;
     position: absolute;
     z-index: 99;
-    width: 100%; }
+    width: 100%;
+    height: 0; }
     .navbar-toggleable-md .navbar-nav {
       margin: 0; }
       .navbar-toggleable-md .navbar-nav.rup-nav-tools {
@@ -2637,6 +2638,9 @@ nav.rup-navbar a {
 nav > div.no-gutter {
   padding-right: 0;
   padding-left: 0; }
+
+nav > div > ul > li > div.dropdown-menu.show {
+  display: block; }
 
 .ui-progressbar {
   height: 2em;
