@@ -590,7 +590,7 @@
 
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//*******************************************************Rme
+	//*******************************************************
 
 	/**
    * Propiedades de configuración de la petición Ajax.
