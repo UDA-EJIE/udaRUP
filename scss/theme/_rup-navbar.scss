@@ -275,6 +275,7 @@
         position: absolute;
         z-index: 99;
         width: 100%;
+        height: 0;
 
         .navbar-nav {
             margin: 0;
@@ -411,4 +412,13 @@ nav.rup-navbar a {
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+nav > div.no-gutter {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+nav > div > ul > li > div.dropdown-menu.show {
+  display: block;
 }
