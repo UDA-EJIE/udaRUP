@@ -995,6 +995,14 @@ apiRegister( 'editForm.deleteAllSelects()', function ( dt ) {
 	return _deleteAllSelects(dt);
 } );
 
+apiRegister( 'editForm.getLineByPageSelected()', function ( ctx,linea ) {
+	return _getLineByPageSelected(ctx,linea);
+} );
+
+apiRegister( 'editForm.getLineByPageSelectedReverse()', function ( ctx,linea ) {
+	return _getLineByPageSelectedReverse(ctx,linea);
+} );
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
  */
