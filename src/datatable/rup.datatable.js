@@ -172,7 +172,9 @@
 					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')
 				};
 			});
-
+			
+			columns[0].sDefaultContent = ''; 
+			
 			return columns;
 		},
 
