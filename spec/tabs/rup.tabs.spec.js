@@ -38,7 +38,7 @@ describe('Test Tabs > ', () => {
                     });
                 });
                 it('Debe tener la clase que deshabilita la pestaña', () => {
-                    expect($('li[aria-labelledby="Tab2"').hasClass('ui-state-disabled')).toBeTruthy();
+                    expect($('li[aria-labelledby="Tab2"]').hasClass('ui-state-disabled')).toBeTruthy();
                 });
             });
             describe('Método enableTabs > ', () => {
@@ -53,7 +53,7 @@ describe('Test Tabs > ', () => {
                     });
                 });
                 it('No debe tener la clase que deshabilita la pestaña', () => {
-                    expect($('li[aria-labelledby="Tab2"').hasClass('ui-state-disabled')).toBeFalsy();
+                    expect($('li[aria-labelledby="Tab2"]').hasClass('ui-state-disabled')).toBeFalsy();
                 });
             });
         });
