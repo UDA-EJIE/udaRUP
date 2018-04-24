@@ -3050,7 +3050,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
 
 .bubble-top-left:after, .rup-navbar .navbar-nav > .nav-item > .dropdown-menu:after, .navbar-nav > .nav-item > .dropdown-menu:after, .bubble-top-left:before, .rup-navbar .navbar-nav > .nav-item > .dropdown-menu:before, .navbar-nav > .nav-item > .dropdown-menu:before {
   bottom: 100%;
-  left: 25%; }
+  left: 20%; }
 
 .bubble-top-right:after, .bubble-top-right:before {
   bottom: 100%;
@@ -4380,11 +4380,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-navbar .navbar-toggleable-xs .navbar-brand {
     display: block;
     float: none;
-    margin-top: .5rem;
-    margin-right: 0; }
+    margin: 0; }
   .rup-navbar .navbar-toggleable-xs .navbar-nav {
-    margin-top: .5rem;
-    margin-bottom: .5rem; }
+    margin: 0; }
     .rup-navbar .navbar-toggleable-xs .navbar-nav .dropdown-menu {
       position: static;
       float: none; } }
@@ -4402,11 +4400,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-navbar .navbar-toggleable-sm .navbar-brand {
     display: block;
     float: none;
-    margin-top: .5rem;
-    margin-right: 0; }
+    margin: 0; }
   .rup-navbar .navbar-toggleable-sm .navbar-nav {
-    margin-top: .5rem;
-    margin-bottom: .5rem; }
+    margin: 0; }
     .rup-navbar .navbar-toggleable-sm .navbar-nav .dropdown-menu {
       position: static;
       float: none; } }
@@ -4424,11 +4420,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-navbar .navbar-toggleable-md .navbar-brand {
     display: block;
     float: none;
-    margin-top: .5rem;
-    margin-right: 0; }
+    margin: 0; }
   .rup-navbar .navbar-toggleable-md .navbar-nav {
-    margin-top: .5rem;
-    margin-bottom: .5rem; }
+    margin: 0; }
     .rup-navbar .navbar-toggleable-md .navbar-nav .dropdown-menu {
       position: static;
       float: none; } }
@@ -4446,11 +4440,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-navbar .navbar-toggleable-lg .navbar-brand {
     display: block;
     float: none;
-    margin-top: .5rem;
-    margin-right: 0; }
+    margin: 0; }
   .rup-navbar .navbar-toggleable-lg .navbar-nav {
-    margin-top: .5rem;
-    margin-bottom: .5rem; }
+    margin: 0; }
     .rup-navbar .navbar-toggleable-lg .navbar-nav .dropdown-menu {
       position: static;
       float: none; } }
@@ -4468,11 +4460,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-navbar .navbar-toggleable-xl .navbar-brand {
     display: block;
     float: none;
-    margin-top: .5rem;
-    margin-right: 0; }
+    margin: 0; }
   .rup-navbar .navbar-toggleable-xl .navbar-nav {
-    margin-top: .5rem;
-    margin-bottom: .5rem; }
+    margin: 0; }
     .rup-navbar .navbar-toggleable-xl .navbar-nav .dropdown-menu {
       position: static;
       float: none; }
@@ -4606,7 +4596,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   border: 0 none #204d71;
   background: #69a3d6;
   border-radius: 0;
-  padding: 0 0 1rem;
+  padding: 0;
   z-index: 99;
   height: 4rem;
   min-height: 4rem;
@@ -4626,9 +4616,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
     border-color: #eceeef;
     color: #eceeef;
     border-radius: 0;
-    margin-top: 0.7rem;
-    margin-left: 0.7rem;
-    float: left; }
+    margin: 9px 0 9px 9px; }
     .rup-navbar .navbar-toggler:focus, .rup-navbar .navbar-toggler:hover {
       background-color: inherit; }
   .rup-navbar .navbar-nav {
@@ -4755,11 +4743,11 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   .rup-open > .dropdown-menu {
     max-height: 20rem !important; }
   .navbar-toggleable-md {
-    margin-top: 4rem;
-    position: absolute;
+    margin-top: 0;
+    position: relative;
     z-index: 99;
     width: 100%;
-    height: 0; }
+    height: 48px; }
     .navbar-toggleable-md .navbar-nav {
       margin: 0; }
       .navbar-toggleable-md .navbar-nav.rup-nav-tools {
