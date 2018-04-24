@@ -5,14 +5,15 @@ import 'rup.toolbar';
 describe('Test ToolBar > ', () => {
     var $toolbar;
     beforeAll(() => {
+        $('body').html('');
         let html = '<div id="exampleToolbar"></div>';
         let options = {
             buttons:[
-                {id:'searchBtn',i18nCaption:'buscar',click:() =>{alert('click searchBtn')}},
+                {id:'searchBtn',i18nCaption:'buscar'},
                 {id: "mbutton1", i18nCaption:"botones", buttons:[
-                    {id:'searchMBtn',i18nCaption:'buscar',click:() =>{alert('click searchMBtn')}},
-                    {id:'editMBtn',i18nCaption:'editar',click:() =>{alert('click editMBtn')}},
-                    {id:'copyMBtn',i18nCaption:'copiar',click:() =>{alert('click copyMBtn')}}
+                    {id:'searchMBtn',i18nCaption:'buscar'},
+                    {id:'editMBtn',i18nCaption:'editar'},
+                    {id:'copyMBtn',i18nCaption:'copiar'}
                 ]}
             ]
         };
