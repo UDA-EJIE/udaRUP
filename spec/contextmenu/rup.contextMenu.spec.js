@@ -2,6 +2,7 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
 
+
 describe('TEST contextMenu', () => {
     var $context;
     describe('Creación', () => {
@@ -49,8 +50,10 @@ describe('TEST contextMenu', () => {
             beforeAll(() => {
                 $context.rup_contextMenu('hide');
             });
-            it('Debe estar oculto', () => {
-                expect($('#contextMenu1').is(':visible')).toBeFalsy();
+            it('Debe estar oculto tras usar hide', () => {
+                setTimeout(() => {
+                    expect($('#contextMenu1').is(':visible')).toBeFalsy();
+                }, 1500);
             });
         });
         describe('Método disable', () => {
