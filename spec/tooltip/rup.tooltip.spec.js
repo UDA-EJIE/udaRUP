@@ -57,7 +57,9 @@ describe('TEST Tooltip', () => {
                 $tooltip.rup_tooltip('close');
             });
             it('No debe ser visible', () => {
-                expect($('.qtip').is(':visible')).toBeFalsy();
+                setTimeout(() => {
+                    expect($('.qtip').is(':visible')).toBeFalsy();
+                }, 1500);
             });
         });
         describe('Método option', () => {
@@ -75,10 +77,12 @@ describe('TEST Tooltip', () => {
         });
         describe('Método disable', () => {
             beforeAll(() => {
-              $tooltip.rup_tooltip('disable');
+                $tooltip.rup_tooltip('disable');
             });
             it('Debe poder deshabilitarse', () => {
-              expect($tooltip.hasClass('qtip-disabled')).toBeTruthy();
+                setTimeout(() => {
+                    expect($tooltip.hasClass('qtip-disabled')).toBeTruthy();
+                }, 1500);
             });
         });
         describe('Método enable', () => {
@@ -98,7 +102,10 @@ describe('TEST Tooltip', () => {
                 $tooltip.rup_tooltip('open');
             });
             it('No debe existir', () => {
-                expect($('.qtip').css('display')).toBe('none');
+                setTimeout(() => {
+                    expect($('.qtip').css('display')).toBe('none');
+                }, 1500);
+                
             });
         });
     });
