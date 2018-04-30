@@ -6,7 +6,7 @@ import 'rup.toolbar';
 describe('Test Toolbar > ', () => {
     var $toolbar;
     beforeEach(() => {
-        const handler = () => {
+        var handler = () => {
             console.log('XXX');
         };
         let html = '<div id="exampleToolbar"></div>';
@@ -21,7 +21,7 @@ describe('Test Toolbar > ', () => {
             ]
         };
         $('body').append(html);
-        $('#exampleToolbar').rup_toolbar(options);
+        $('#exampleToolbar').rup_toolbar(/*options*/);
         $toolbar = $('#exampleToolbar');
     });
     afterEach(() => {
