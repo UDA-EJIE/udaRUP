@@ -1,8 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.form';
-import 'form2object';
-
 describe('Test Form', () => {
 	var $form;
 	beforeAll(() => {
@@ -77,7 +75,7 @@ describe('Test Form', () => {
 		describe('Método formToJson', () => {
 			it('Debe devolver los datos en un string en formato Json', () => {
 				let out = {input1:'txt1', input2:'txt2', input3:'opt1'};
-				expect($form.rup_form('formToJson')).toBe(out);
+				expect($form.rup_form('formToJson')).toEqual(out);
 			});
 		});
 		// TODO: Conseguir el objeto de configuracion del form y probar esto.
