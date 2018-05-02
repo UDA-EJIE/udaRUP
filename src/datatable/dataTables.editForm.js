@@ -672,6 +672,8 @@ function _callNavigationBar(dt){
 				rowSelected.page = _getNextPageSelected (ctx,1,'next');
 				if(Number(rowSelected.page) === page){//Si es la misma pagina.buscar la linea
 					rowSelected.line = _getLineByPageSelected(ctx,-1);
+				}else{
+					rowSelected.line = 0; // luego hay que buscar la linea
 				}
 			}
 			break;
@@ -708,6 +710,7 @@ function _callNavigationBar(dt){
 					//buscarPAgina.
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 					rowSelected.page = _getNextPageSelected (ctx,page+1,'next');
+					rowSelected.line = 0; // luego hay que buscar la linea
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 				}
