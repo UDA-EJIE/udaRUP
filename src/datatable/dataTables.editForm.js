@@ -798,7 +798,7 @@ function _getRowSelected(dt,actionType){
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
-			var index = ctx._iDisplayLength * (Number(ctx.json.page)-1);
+			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
 			index = index+1+rowDefault.line;
 			//Hay que restar los deselecionados.
 			 result = $.grep(DataTable.multiSelect.multiselection.deselectedRowsPerPage, function(v) {
@@ -812,7 +812,7 @@ function _getRowSelected(dt,actionType){
 	}
 
 	//En caso de estar en una pagina distinta , navegamos a ella
-	if(dt.page()+1 !== rowDefault.page){
+	if(dt.page()+1 !== Number(rowDefault.page)){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];

@@ -639,6 +639,9 @@
 								linea = ctx.json.rows.length;
 								params[2] = DataTable.Api().editForm.getLineByPageSelectedReverse(ctx,linea);
 							}else{
+								if(params[2] !== undefined && params[2] > 0){
+									linea = params[2]-1;
+								}
 								params[2] = DataTable.Api().editForm.getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
 							}
 
