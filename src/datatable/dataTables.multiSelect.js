@@ -1526,6 +1526,8 @@ apiRegister( 'multiSelect.reorderDataFromServer()', function ( json ) {
 	if(!DataTable.multiSelect.multiselection.selectedAll){
 		DataTable.multiSelect.multiselection.numSelected = DataTable.multiSelect.multiselection.selectedIds.length;
 	}
+	// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+	DataTable.Api().buttons.displayRegex();
 } );
 
 apiRegister( 'multiSelect.selectPencil()', function ( ctx,idRow ) {

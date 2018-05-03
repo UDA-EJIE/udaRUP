@@ -1869,6 +1869,23 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 	}
 } );
 
+// Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
+// los botones
+DataTable.Api.register( 'buttons.displayRegex()', function () {
+	var opts = DataTable.settings[0]._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+	var collectionObject;
+	$.each(opts, function (i) {
+		collectionObject = null;
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+		// Comprueba si tiene botones hijos
+		if (this.buttons.length > 0) {
+			collectionObject = this;
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+		}
+	});
+} );
+
 
 
 /**
@@ -2320,18 +2337,8 @@ function inicio(settings) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function ( e, dt, type, indexes ) {
-		var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
-		var collectionObject;
-		$.each(opts, function (i) {
-			collectionObject = null;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
-			// Comprueba si tiene botones hijos
-			if (this.buttons.length > 0) {
-				collectionObject = this;
-				_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
-			}
-		});
+	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function () {
+		DataTable.Api().buttons.displayRegex();
 	} );
 } ;
 
