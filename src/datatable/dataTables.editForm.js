@@ -108,6 +108,7 @@ DataTable.editForm.init = function ( dt ) {
 		idRow = this._DT_RowIndex;
 		//Añadir la seleccion del mismo.
 		dt['row'](idRow).multiSelect();
+		_getRowSelected(dt,'PUT');
 		DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
 	} );
 
@@ -384,7 +385,10 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	}else{
 		buttonContinue.show();
 	}
-
+	
+	if(idRow < 0){
+		idRow = 1;
+	}
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
 
@@ -655,7 +659,7 @@ function _callNavigationBar(dt){
 			newPage = page,
 			lastPage = ctx.json.total;
 		var multiselection = DataTable.multiSelect.multiselection;
-		npos[0] = parseInt(npos[0], 10);
+		//npos[0] = parseInt(npos[0], 10);
 		var rowSelected;
 
 		switch (linkType) {
@@ -689,9 +693,11 @@ function _callNavigationBar(dt){
 				if(linea === -1){//Es que hay que cambiar de pagina.
 					//buscarPAgina.
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-					rowSelected.page = _getNextPageSelected (ctx,page-1,'prev');
+					rowSelected.page = _getPrevPageSelected (ctx,page-1);
+					//rowSelected.line = -1;
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
+					rowSelected.line = 0;
 				}
 			}
 
@@ -726,7 +732,7 @@ function _callNavigationBar(dt){
 			} else {
 				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiSelect.multiselection.numSelected - 1;
 				rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-				rowSelected.page = _getNextPageSelected (ctx,lastPage,'prev');
+				rowSelected.page = _getPrevPageSelected (ctx,lastPage);
 				if(Number(rowSelected.page) === page){//Si es la misma pagina.buscar la linea
 					rowSelected.line = _getLineByPageSelectedReverse(ctx,-1);
 				}
@@ -867,6 +873,49 @@ function _getNextPageSelected(ctx,pageInit,orden){
 			}else if(orden === 'prev'){
 				page--;
 			}
+		}
+	}
+	return pagina;
+}
+
+/**
+* Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getPrevPageSelected
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+* 
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
+* 
+* @return integer - devuele la página
+*
+*/
+function _getPrevPageSelected(ctx,pageInit){
+	var pagina = pageInit;
+	var pageTotals = 1;
+	if(DataTable.multiSelect.multiselection.deselectedRowsPerPage.length > 0){
+		var maxPagina = ctx.json.rows.length;
+		if(ctx.json.total === pagina){//Es ultima pagina, calcular los registros{
+			maxPagina =  ctx.json.records % ctx._iDisplayLength;
+		}
+		var count = 0;
+		//Buscar la pagina donde va estar el seleccionado.
+		for (var page=pageInit; pageTotals <= page;) {
+			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+				if(Number(page) === Number(p.page)){
+					count++;
+				}
+				if(count === maxPagina){
+					return false;
+				}
+			});
+			if(count < maxPagina){
+				pagina = page;
+				pageTotals = ctx.json.total;//Se pone el total para salir del bucle.
+			}
+			count = 0;
+			page--;
 		}
 	}
 	return pagina;
