@@ -10,7 +10,7 @@ Para el proceso de actualización dan por sentados los siguientes supuestos:
 
 Si lo que buscas es información sobre como mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar).
 
-### v3.4.0 (09-Abril-2018)
+### v3.4.0 (04-Mayo-2018)
 
 Para actualizar una aplicación UDA a la versión v3.4.0 se deben realizar las siguientes modificaciones.
 
