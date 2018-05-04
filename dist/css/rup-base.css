@@ -6880,8 +6880,7 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 
 .table td, .table th {
   padding: .75rem;
-  vertical-align: top;
-  border-top: 1px solid #eceeef; }
+  vertical-align: top; }
 
 .table thead th {
   vertical-align: bottom;
@@ -6895,12 +6894,6 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 
 .table-sm td, .table-sm th {
   padding: .3rem; }
-
-.table-bordered {
-  border: 1px solid #eceeef; }
-
-.table-bordered td, .table-bordered th {
-  border: 1px solid #eceeef; }
 
 .table-bordered thead td, .table-bordered thead th {
   border-bottom-width: 2px; }
@@ -6987,11 +6980,7 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   display: block;
   white-space: nowrap; }
 
-.table-reflow td, .table-reflow th {
-  border-top: 1px solid #eceeef;
-  border-left: 1px solid #eceeef; }
-
-.table-reflow td:last-child, .table-reflow th:last-child {
+.table-reflow td, .table-reflow td:last-child, .table-reflow th:last-child {
   border-right: 1px solid #eceeef; }
 
 .table-reflow tbody:last-child tr:last-child td, .table-reflow tbody:last-child tr:last-child th, .table-reflow tfoot:last-child tr:last-child td,
