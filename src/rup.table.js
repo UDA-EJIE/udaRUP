@@ -13179,6 +13179,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$obj.triggerHandler('mouseenter.qtip-' + toolipTmpId + '-create');
 							//							$obj.triggerHandler("mouseenter");
 							$obj.rup_tooltip('option', 'show.delay', 500);
+							$obj.rup_tooltip('open');
 						}
 					});
 				}
@@ -15731,7 +15732,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Objetos
 				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
-				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
+				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length-$gridHead.find('th:hidden').length)),
 				// Capa que controla el colapso del formualario
 				$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+settings.id)),
 				$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+settings.id)),

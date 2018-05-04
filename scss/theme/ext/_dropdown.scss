@@ -132,6 +132,14 @@
   left: auto; // Reset the default from `.dropdown-menu`
 }
 
+.dropdown-menu-right:before {
+  right: 12px;
+  left: initial !important; }
+
+.dropdown-menu-right:after {
+  right: 13px;
+  left: initial !important; }
+
 .dropdown-menu-left {
   right: auto;
   left: 0;
