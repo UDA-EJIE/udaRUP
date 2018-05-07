@@ -697,7 +697,6 @@ function _callNavigationBar(dt){
 					//rowSelected.line = -1;
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-					rowSelected.line = 0;
 				}
 			}
 
