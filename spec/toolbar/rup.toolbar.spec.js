@@ -21,6 +21,7 @@ describe('Test Toolbar > ', () => {
             ]
         };
         $('body').append(html);
+        // TODO: Si creamos el toolbar con las opciones se rompe.
         $('#exampleToolbar').rup_toolbar(/*options*/);
         $toolbar = $('#exampleToolbar');
     });
@@ -35,7 +36,10 @@ describe('Test Toolbar > ', () => {
         });
     });
     describe('Métodos públicos > ', () => {
-        describe('Método addButton > ', () => {});
+        describe('Método addButton > ', () => {
+            let buttonObj;
+            beforeEach(() => {});
+        });
         describe('Método addMButton > ', () => {});
         describe('Método addButtonsToMButton >', () => {});
         describe('Método showMButton > ', () => {});
