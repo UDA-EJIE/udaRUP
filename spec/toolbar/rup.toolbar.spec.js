@@ -1,5 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
+import 'rup.button';
 import 'rup.toolbar';
 
 // TODO: Algo no le gusta a PhantomJS. Copiando el codigo en la consolaJS de Chrome funciona sin problemas.
@@ -22,7 +23,7 @@ describe('Test Toolbar > ', () => {
         };
         $('body').append(html);
         // TODO: Si creamos el toolbar con las opciones se rompe.
-        $('#exampleToolbar').rup_toolbar(/*options*/);
+        $('#exampleToolbar').rup_toolbar(options);
         $toolbar = $('#exampleToolbar');
     });
     afterEach(() => {
