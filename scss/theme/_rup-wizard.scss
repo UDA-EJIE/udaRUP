@@ -8,6 +8,13 @@
     }
 }
 
+.rup-wizard_stepsDescContainer-sticky {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  z-index: 98;
+}
+
 %rup-wizard-step {
     width: auto;
     text-decoration: none;

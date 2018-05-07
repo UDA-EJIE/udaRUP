@@ -16,6 +16,21 @@
 
 /*global jQuery */
 
+/**
+ * Permite configurar un área para informar al usuario de cómo interactuar con el componente. Mediante el componente feedback se mostraran al usuario mensajes de confirmación, avisos y errores que faciliten y mejoren la interacción del usuario con la aplicación.
+ *
+ * @summary Plugin de feedback del componente RUP Table.
+ * @module rup_table/feedback
+ * @example
+ *
+ * $("#idComponente").rup_table({
+ * 	url: "../jqGridUsuario",
+ *	usePlugins:["feedback"],
+ * 	feedback:{
+ * 		// Propiedades de configuración del plugin feedback
+ * 	}
+ * });
+ */
 (function ($) {
 
 	/**
@@ -53,12 +68,22 @@
 	 * settings.$$internalFeedback : Referencia al feedback interno.
 	 *
 	 */
+
+
 	jQuery.fn.rup_table('extend',{
 		/*
 		 * Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 		 *
 		 * TODO: internacionalizar mensajes de error.
 		 */
+		/**
+			* Metodo que realiza la pre-configuración del plugin feedback del componente RUP Table.
+			* Este método se ejecuta antes de la incialización del plugin.
+			*
+			* @name preConfigureFeedback
+			* @function
+			* @param {object} settings - Parámetros de configuración del componente.
+			*/
 		preConfigureFeedback: function(settings){
 			var $self = this, feedbackId, feedbackSettings = settings.feedback, $feedback;
 
@@ -95,9 +120,13 @@
 			});
 
 		},
-		/*
-		 * Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
+		/**
+		 * Metodo que realiza la post-configuración del plugin feedback del componente RUP Table.
+		 * Este método se ejecuta después de la incialización del plugin.
 		 *
+		 * @name postConfigureFeedback
+		 * @function
+		 * @param {object} settings - Parámetros de configuración del componente.
 		 */
 		postConfigureFeedback: function(settings){
 			// Definición del feedback interno
@@ -108,6 +137,18 @@
 
 
 	jQuery.fn.rup_table('extend',{
+
+		/**
+     * Muestra el feedback indicado con la configuración especificada.
+     *
+     * @function  showFeedback
+     * @param {object} $feedback - Objeto jQuery que referencia al componente feedback.
+     * @param {string} msg - : Mensaje a mostrar en el feedback.
+		 * @param {string} type -  Clase de feedback a mostrar.
+		 * @param {object} options - Propiedades de configuración del feedback
+     * @example
+     * $("#idTable").rup_table("showFeedback", $("#idFeedback"), "Texto...", "ok"), {};
+     */
 		showFeedback: function($feedback, msg, type, options){
 			var $self = this, settings = $self.data('settings'), options_backup, default_options;
 
@@ -141,6 +182,18 @@
 	 * feedback.config: Configuración por defecto del feedback principal.
 	 * feedback.internalFeedbackConfig: Configuración por defecto del feedback interno.
 	 */
+	/**
+	* @description Propiedades de configuración del plugin feedback del componente RUP Table.
+	*
+	* @name options
+	*
+	* @property {string} [id=null] - Nombre del identificador a utilizar en el feedback. Se utiliza en caso de no querer utilizar el por defecto.
+	* @property {object} [config] - Determina la configuración por defecto del feedback.
+	* @property {object} [okFeedbackConfig] - Determina la configuración por defecto del feedback en los casos de mensajes tipo .
+	* @property {object} [errorFeedbackConfig] - Determina la configuración por defecto del feedback en los casos de mensajes tipo ERROR.
+	* @property {object} [alertFeedbackConfig] - Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT.
+	* @property {object} [internalFeedbackConfig] - Determina la configuración por defecto del feedback interno de la tabla.
+	*/
 	jQuery.fn.rup_table.plugins.feedback = {};
 	jQuery.fn.rup_table.plugins.feedback.defaults = {
 		loadError : function(xhr,st,err){

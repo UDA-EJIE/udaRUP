@@ -433,9 +433,13 @@ input.
 				stock = settings.id;
 			}
 
-
-			var data, matcher = settings.contains ? $.ui.autocomplete.escapeRegex(request.term) : '^' + $.ui.autocomplete.escapeRegex(request.term),
+			var textoOrigen = request.term;
+			if(settings.accentFolding){
+				textoOrigen = $.rup_utils.normalize(request.term);
+			}
+			var data, matcher = settings.contains ? $.ui.autocomplete.escapeRegex(textoOrigen) : '^' + $.ui.autocomplete.escapeRegex(textoOrigen),
 				json_i18n = $.rup.i18n.app[settings.i18nId];
+
 			matcher = new RegExp(matcher, 'i');
 			data = $.map(settings.data, function (item) {
 				var label = item,
@@ -453,12 +457,33 @@ input.
 					if (settings.category)
 						category = item.category;
 				}
-				if (!request.term || matcher.test(label)) {
+				var labelLimpio = label;
+				if(settings.accentFolding){
+					labelLimpio = $.rup_utils.normalize(label);
+				}
+				if (!request.term || matcher.test(labelLimpio)) {
+					var termLimpio = $.rup_utils.normalize(request.term);
 					if (settings.category)
-						returnValue = settings._parseResponse(request.term, label, value, category);
+						returnValue = settings._parseResponse(termLimpio, labelLimpio, value, category);
 					else
-						returnValue = settings._parseResponse(request.term, label, value);
+						returnValue = settings._parseResponse(termLimpio, labelLimpio, value);
 					loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
+					
+					if(settings.accentFolding && labelLimpio !== label){//limpiar acentos y mayúsculas
+						//parte delantera
+						//returnValue.label = literal.substr(0,nDelante)+label.substr(0,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
+						
+						var literal = returnValue.label;
+						var nDelante = literal.indexOf(termLimpio);
+						var n = labelLimpio.indexOf(termLimpio);
+						returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
+						//parte trasera
+						//var nAtras = literal.indexOf(labelLimpio.substr(termLimpio.length));
+						
+						var nAtras = literal.indexOf("</strong>")+9;
+						literal = returnValue.label;
+						returnValue.label = literal.substr(0,nAtras)+label.substr(n+termLimpio.length);
+					}
 					return returnValue;
 				}
 			});
@@ -546,13 +571,29 @@ input.
 							return null;
 						}
 						response($.map(data, function (item) {
+							var labelLimpio = item.label;
+							if(settings.accentFolding){
+								labelLimpio = $.rup_utils.normalize(item.label);
+							}
+							var termLimpio = $.rup_utils.normalize(request.term);
 							if (settings.category == true)
-								returnValue = settings._parseResponse(request.term, item.label, item.value, item.category);
+								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value, item.category);
 							else
 
-								returnValue = settings._parseResponse(request.term, item.label, item.value);
+								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value);
 
 							loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
+							if(settings.accentFolding && labelLimpio !== item.label){//limpiar acentos y mayúsculas
+								//parte delantera
+								var literal = returnValue.label;
+								var nDelante = literal.indexOf(termLimpio);
+								var n = labelLimpio.indexOf(termLimpio);
+								returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
+								//parte trasera
+								var nAtras = literal.indexOf("</strong>")+9;
+								literal = returnValue.label;
+								returnValue.label = literal.substr(0,nAtras)+item.label.substr(n+termLimpio.length);
+							}
 							return returnValue;
 						}));
 
@@ -871,9 +912,9 @@ input.
 							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
 						}
 					} else {
-						if (loadObjects[autoCompObject.val()] !== undefined) {
-							$('#' + settings.id).val(loadObjects[autoCompObject.val()]);
-							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[autoCompObject.val()]);
+						if (loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
+							$('#' + settings.id).val(loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
+							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
 						} else {
 
 							$('#' + settings.id).val('');
@@ -947,7 +988,8 @@ input.
 		combobox: false,
 		menuMaxHeight: false,
 		menuAppendTo: null,
-		disabled: false
+		disabled: false,
+		accentFolding: true
 	};
 
 	/**
