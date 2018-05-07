@@ -2,7 +2,7 @@
   * Encargado de mapear el objeto de base de datos al multiSelect
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"datatable.request"
+  * @module			"rup.table.request"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -37,7 +37,7 @@
 	}
 }(typeof self !== 'undefined' ? self : this, function () {
 
-	var DataTableRequest = function(data){
+	var TableRequest = function(data){
 
 		var start = data.start,
 			length = data.length,
@@ -62,7 +62,7 @@
 		this._filter = data.filter;
 	};
 
-	DataTableRequest.prototype = {
+	TableRequest.prototype = {
 
 		set rows(rows) {
 			this._rows = rows;
@@ -103,10 +103,10 @@
 		* @function
 		* @since UDA 3.4.0 // Datatable 1.0.0
 		*
-		* @return {DataTableRequest}
+		* @return {TableRequest}
 		*
 	  */
-	DataTableRequest.prototype.getData = function(){
+	TableRequest.prototype.getData = function(){
 
 		return {
 			rows: this._rows,
@@ -123,6 +123,6 @@
 
 	};
 
-	return DataTableRequest;
+	return TableRequest;
 
 }));

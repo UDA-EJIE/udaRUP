@@ -27,13 +27,13 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.buttons','./dataTables.editForm','./dataTables.seeker', './addons/buttons.custom','./dataTables.colReorder'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder'], factory );
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} ( function( $ , DataTableRequest) {
+} ( function( $ , TableRequest) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -268,8 +268,8 @@
 			if(DataTable.multiSelect.multiselection !== undefined && DataTable.multiSelect.multiselection.selectedIds.length > 0){
 				data.multiselection = DataTable.multiSelect.multiselection;
 			}
-			var datatableRequest = new DataTableRequest(data);
-			var json = $.extend({}, data, datatableRequest.getData());
+			var tableRequest = new TableRequest(data);
+			var json = $.extend({}, data, tableRequest.getData());
 			options.aBaseJson = json;
 			return JSON.stringify(json);
 
