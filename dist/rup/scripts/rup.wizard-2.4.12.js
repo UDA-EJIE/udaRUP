@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**                                                                   
 * @fileOverview Implementa el patrón RUP Wizard.
 * @author EJIE
-* @version 2.4.11                                                                                               
+* @version 2.4.12                                                                                               
 */
 (function ($) {
 	
@@ -926,7 +926,7 @@
 * @property {jQuery.rup_validate~onSummaryFnc_INTER} [summaryFnc_INTER] -Función que se ejecuta una vez ha comenzado la generación del paso resumen. Se habrá generado la capa contenedora y duplicado el contenido de los pasos anteriores pero sin llegar a procesarse (cambiarse por texto plano). En caso de devolver false no se continuaría con el procesado del contenido de los pasos. 
 * @property {jQuery.rup_validate~onSummaryFnc_POST} [summaryFnc_POST] - Función que se ejecuta una vez se ha generado el paso resumen.
 * @property {object} [stepFnc] - Objeto json que contiene las diferentes funciones a ejecutar al navegar hacia cada uno de los pasos. En caso de devolver false no se continuaría la navegación hacia dicho paso. La clave de cada elemento será el número del paso y el valor será la función a ejecutar.
-* @property {Integer[]} [disabled] - Array que indica los pasos a deshabilitar al inicio. En caso de que el elemento del array sea un número (numeric) se deshabilitará dicho paso y en caso de que sea un literal (string) se procesará como un intervalo que deberá definirse como “X-Y”.
+* @property {Integer[]} [disabled] - Array que indica los pasos a deshabilitar al inicio. En caso de que el elemento del array sea un número (numeric) se deshabilitará dicho paso y en caso de que sea un literal (string) se procesará como un intervalo que deberá definirse como “X-Y�?.
 * @property {object} [accordion] - Define de forma general el funcionamiento del componente rup_accordion en el paso de resumen.
 * @property {object} [rupAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen (de los objetos rup_accordion existentes en los pasos anteriores). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
 * @property {object} [summaryAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen para cada uno de los pasos que lo componen (si configura la generación de resumen y conversión de pasos en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.

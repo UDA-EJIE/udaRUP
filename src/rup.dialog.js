@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -31,12 +31,12 @@
 /**
  * @fileOverview Implementa el patrón RUP Dialog.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
 	//*********************************************
-	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
+	// ESPECIFICAC�?ON DE LOS TIPOS BASE DEL PATRÓN
 	//*********************************************
 
 	$.extend($.rup, {
@@ -599,7 +599,7 @@
      * @property {jQuery.rup_dialog~ajaxOptions} ajaxOptions - Establece las todas las propiedades para configurar la petición ajax.
      * @property {boolean} [showLoading=true] - Esta propiedad mostrará una capa de cargando datos en los diálogos de tipo Ajax durante la carga del mismo.
      * @property {boolean} [disabled=false] - Propiedad que deshabilita o no el diálogo.
-     * @property {boolean} [autoOpen=true] - Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)).
+     * @property {boolean} [autoOpen=true] - Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open�? (.rup_dialog(“open�?)).
      * @property {Object} [buttons] - Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo.
      * @property {boolean} [closeOnEscape=true] - Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC.
      * @property {string} dialogClass - Porpiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes.

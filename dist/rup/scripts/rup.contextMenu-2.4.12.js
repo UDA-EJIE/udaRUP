@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**                                                                   
  * @fileOverview Implementa el patrón RUP ContextMenu.
  * @author EJIE
- * @version 2.4.11                                                                                               
+ * @version 2.4.12                                                                                               
  */ 
 (function ($) {
 	
@@ -256,7 +256,7 @@
      * @property {string} [appendTo] - Selector de jQuery que identifica el elemento del DOM a partir del cual se va a añadir el menú contextual generado.    
      * @property {string} [trigger] - Determina el evento que va a lanzar la visualización del menú contextual. ("right","left", "hover", "none").    
      * @property {boolean} [reposition] - Determina si un menú debe ser reposicionado (true) o reconstruido (false) en el caso de que el evento que lanza la visualización del menú contextual se ejecute por segunda vez. 
-     * @property {number} [delay=200] - Determina el tiempo de retardo antes de mostrar el menú contextual. Solo se aplica sobre el evento “hover”.
+     * @property {number} [delay=200] - Determina el tiempo de retardo antes de mostrar el menú contextual. Solo se aplica sobre el evento “hover�?.
      * @property {boolean} [autoHide=false] - Indica si el menú contextual debe de ocultarse automáticamente cuando el cursor del ratón abandona la posición del menú contextual y el elemento que lo lanza.
      * @property {number} [zIndex=1] - Especifica el desplazamiento de zIndex que se aplica al calculado.
      * @property {string} [className] - Nombres de clases adicionales que se van a aplicar al menú contextual.

@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Feedback.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
@@ -244,7 +244,7 @@ de la aplicación pueda cerrar la capa manualmente.
 		},
 		/**
      * Oculta la capa del feedback con una animación. <br/><br/>
-     * Si no se definen los parámetros se tomaran los definidos con anterioridad (creación del feedback por ejemplo) o si no los valores por defecto (null, null) que implica una animación sin espera con una “velocidad” de 400 ms.
+     * Si no se definen los parámetros se tomaran los definidos con anterioridad (creación del feedback por ejemplo) o si no los valores por defecto (null, null) que implica una animación sin espera con una “velocidad�? de 400 ms.
      *
      * @name jQuery.rup_feedback#hide
      * @function

@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**
 * @fileOverview Implementa el patrón RUP Upload.
 * @author EJIE
-* @version 2.4.11
+* @version 2.4.12
 */
 (function ($) {
 
@@ -277,7 +277,7 @@
 	});
 
 	//*********************************************
-	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
+	// ESPECIFICAC�?ON DE LOS TIPOS BASE DEL PATRÓN
 	//*********************************************
 
 	//*****************************************************************************************************************
@@ -509,7 +509,7 @@
     * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link https://github.com/blueimp/jQuery-File-Upload/wiki/Options|jQuery File Upload}.
     *
     * @name jQuery.rup_upload#options
-    * @property {string} [namespace] - Se utiliza para asociar el capturador de eventos del dropZone y del fileInpurt. Por defecto toma el valor del widget (“fileupload”).
+    * @property {string} [namespace] - Se utiliza para asociar el capturador de eventos del dropZone y del fileInpurt. Por defecto toma el valor del widget (“fileupload�?).
     * @property {jQuery} [dropZone=$(document)] - Indica el objeto jQuery que representa el área de dropZone. Para deshabilitar el soporte drag & drop se deberá indicar el valor null.
     * @property {jQuery} [fileInput] - Objeto jQuery sobre el cual se monitorizarán los eventos de cambio del mismo. En caso de no especificarse se tomarán los input de tipo file existentes dentro del objeto sobre el que se ha creado el componente upload. Para deshabilitar el capturador de eventos se deberá indicar el valor null.
     * @property {boolean} [replaceFileInput=true] - Determinar si el campo file es reemplazado por un nuevo objeto a partir de un clone.
