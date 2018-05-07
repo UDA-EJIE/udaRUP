@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Autocomplete.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
@@ -875,9 +875,9 @@ input.
    * @name jQuery.rup_autocomplete#defaults
    *
    * @property {jQuery.rup_autocomplete~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
-   * @property {boolean} [contains=true] - Valor que determina si la búsqueda debe ser del tipo “contiene” (se buscarán elementos que contengan en cualquier posición el literal introducido) o del tipo “comienza por” (se buscarán elementos que comiencen por el literal introducido).
+   * @property {boolean} [contains=true] - Valor que determina si la búsqueda debe ser del tipo “contiene�? (se buscarán elementos que contengan en cualquier posición el literal introducido) o del tipo “comienza por�? (se buscarán elementos que comiencen por el literal introducido).
    * @property {string} [valueName=null] - Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el identificador del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente.
-   * @property {string} [labelName=null] - Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el texto del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente, añadiéndole el sufijo “_label”.
+   * @property {string} [labelName=null] - Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el texto del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente, añadiéndole el sufijo “_label�?.
    * @property {boolean} [getText=false] - En caso de ser true el componente devolverá como resultado seleccionado el texto en vez del value del elemento.
    * @property {boolean} [combobox=false] - Habilita/deshabilita el modo de funcionamiento combobox.
    * @property {number} [menuMaxHeight=false] - Determina la altura máxima que podrá tener la capa del menú desplegable antes de mostrar scroll.

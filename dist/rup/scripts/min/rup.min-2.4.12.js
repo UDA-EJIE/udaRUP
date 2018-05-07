@@ -882,7 +882,7 @@ function(e,t){function i(e){for(var t,i=e.split(/\s+/),r=[],a=0;t=i[a];a++)t=t[0
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -897,7 +897,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -912,7 +912,7 @@ function(e){var t={};e.extend(e.ui.autocomplete.prototype,{_renderMenu:function(
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -927,7 +927,7 @@ function(e){e.widget("$.rup_breadCrumb",{options:{showSpeed:"fast",hideSpeed:"",
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -942,7 +942,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -957,7 +957,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -972,7 +972,7 @@ function(e){var t={},i={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstruct
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -987,7 +987,7 @@ function(e){jQuery.rup_dav={},e.extend(jQuery.rup_dav,{editOnline:function(t){va
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1002,7 +1002,7 @@ function(e){e.extend(e.rup,{dialog:{DIV:"dialogDIV",TEXT:"textDialog",AJAX:"ajax
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1017,7 +1017,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1032,7 +1032,7 @@ function($){$.widget("$.rup_feedback",{options:{type:null,imgClass:null,delay:nu
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1077,7 +1077,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1109,7 +1109,7 @@ message:e.rup.i18nParse(e.rup.i18n.base,"rup_maint.checkAddedSelectedElems"),tit
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1124,7 +1124,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupObjectConstructor("rup_messa
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1139,7 +1139,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupObjectConstructor("rup_repor
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1365,7 +1365,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1380,7 +1380,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1395,7 +1395,7 @@ function(e){e.rup_toolbar=e.rup_toolbar||{},e.extend(e.rup_toolbar,{extend:funct
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1410,7 +1410,7 @@ function(e){var t={};e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("r
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -1425,11 +1425,11 @@ function(e){e.widget("blueimpUIX.fileupload",e.blueimpUI.fileupload,{options:{er
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-function(e){function t(e){if(9===e.length){var t=e.substr(0,8);typeof e.substr(e.length-1,e.length);t%=23;var i="TRWAGMYFPDXBNJZSQVHLCKET";return i=i.substring(t,t+1),i==e.substr(e.length-1,e.length).toUpperCase()}return!1}function i(e){return e.replace(/<.[^<>]*?>/g," ").replace(/&nbsp;|&#160;/gi," ").replace(/[0-9.(),;:!?%#$'"_+=\/-]*/g,"")}var r={};e.rup_validate={},e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("rup_validate",r));var a={},n=new RegExp("\\{\\d\\}");e.each(e.rup.i18n.base.rup_validate.messages,function(e,t){null!==t.match(n)?a[e]=jQuery.validator.format(t):a[e]=t});new RegExp(e.rup.i18n.base.rup_validate.regexp.decimal);e.extend(e.validator.messages,a),jQuery.validator.addMethod("dni",function(e,t){return this.optional(t)||euroNif(e)}),jQuery.validator.addMethod("dni",function(e,i){return this.optional(i)||t(e)}),jQuery.validator.addMethod("maxWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length<r}),jQuery.validator.addMethod("minWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length>=r}),jQuery.validator.addMethod("rangeWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length>=r[0]&&e.match(/bw+b/g).length<r[1]}),jQuery.validator.addMethod("letterswithbasicpunc",function(e,t){return this.optional(t)||/^[a-z-.,()'\"\s]+$/i.test(e)}),jQuery.validator.addMethod("alphanumeric",function(e,t){return this.optional(t)||/^\w+$/i.test(e)}),jQuery.validator.addMethod("lettersonly",function(e,t){return this.optional(t)||/^[a-z]+$/i.test(e)}),jQuery.validator.addMethod("nowhitespace",function(e,t){return this.optional(t)||/^\S+$/i.test(e)}),jQuery.validator.addMethod("integer",function(e,t){return this.optional(t)||/^-?\d+$/.test(e)}),jQuery.validator.addMethod("pattern",function(e,t,i){return this.optional(t)||i.test(e)}),jQuery.validator.addMethod("number",function(t,i){var r=new RegExp(e.rup.i18n.base.rup_validate.regexp.decimal);return this.optional(i)||r.test(t)}),jQuery.validator.addMethod("date",function(t,i,r){var a;if("boolean"==typeof r){if(r!==!0)return!0;a=e.rup.i18n.base.rup_validate.format.date}else a=r;return this.optional(i)||e.rup_validate.checkDate(a,t)}),e.extend(e.rup_validate,{checkDate:function(e,t){var i,r=function(e){return e%4!==0||e%100===0&&e%400!==0?28:29},a=function(e){for(var t=1;t<=e;t++)this[t]=31,4!=t&&6!=t&&9!=t&&11!=t||(this[t]=30),2==t&&(this[t]=29);return this},n={};if(e=e.toLowerCase(),i=e.indexOf("/")!=-1?"/":e.indexOf("-")!=-1?"-":e.indexOf(".")!=-1?".":"/",e=e.split(i),t=t.split(i),3!=t.length)return!1;for(var s,o=-1,l=-1,d=-1,u=0;u<e.length;u++){var c=null===t[u]||""===t[u]||isNaN(t[u])?0:parseInt(t[u],10);n[e[u]]=c,s=e[u],s.indexOf("y")!=-1&&(o=u),s.indexOf("m")!=-1&&(d=u),s.indexOf("d")!=-1&&(l=u)}s="y"==e[o]||"yyyy"==e[o]?4:"yy"==e[o]?2:-1;var p,h=a(12);return o!==-1&&(p=n[e[o]].toString(),2==s&&1==p.length&&(s=1),p.length==s&&(0!==n[e[o]]||"00"==t[o])&&(d!==-1&&(p=n[e[d]].toString(),!(p.length<1||n[e[d]]<1||n[e[d]]>12)&&(l!==-1&&(p=n[e[l]].toString(),!(p.length<1||n[e[l]]<1||n[e[l]]>31||2==n[e[d]]&&n[e[l]]>r(n[e[o]])||n[e[l]]>h[n[e[d]]]))))))}}),e.fn.rup_validate("extend",{destroy:function(){var t=this;t.rup_validate("resetForm"),e.removeData(t[0]),t.unbind()},resetForm:function(){var e=this,t=e.data("settings");null!=t&&void 0!==t.feedback&&t.showErrorsInFeedback&&t.feedback.rup_feedback("hide"),e.validate().resetForm()}}),e.fn.rup_validate("extend",{});var s={defaultPresetSettings:{showErrors:function(t){var i,r,a,n,s,o,l,d,u=this;if(1===u.currentElements.length&&e.isEmptyObject(t)&&delete u.invalid[u.currentElements.attr("name")],r=u.settings.feedback,u.settings.showErrorsInFeedback&&void 0!==r&&null!==r&&(i=e("<ul>").addClass("rup-maint_feedbackUL").prepend(u.settings.feedbackErrorConfig.errorMsg),jQuery.isEmptyObject(u.invalid)?r.rup_feedback("close"):(u.settings.showFieldErrorsInFeedback&&e.each(jQuery.isEmptyObject(u.submitted)?u.invalid:u.submitted,function(e,t){void 0!==u.invalid[e]&&(a=u.settings.feedbackErrorConfig.getField(u,u.currentForm,e),n=u.settings.feedbackErrorConfig.getFieldName(u,u.currentForm,a),s=u.settings.feedbackErrorConfig.getFieldErrorLabel(u,u.currentForm,a,n),o=u.settings.feedbackErrorConfig.getFieldErrorMsg(u,u.currentForm,a,t),s.append(o),i.append(s))}),r.rup_feedback("option",u.settings.feedbackOptions),r.rup_feedback("set",i,"error"))),u.settings.showFieldErrorAsDefault)for(var c=0;u.errorList[c];c++)l=u.errorList[c],void 0!==l.element&&(d=u.errorsFor(l.element),d.length&&d.remove());for(var c=0;c<u.errorList.length;c++)if(void 0===u.errorList[c].element&&alert("El campo validado no existe en el formulario"),e.isArray(u.errorList[c].message)){for(var p="",h=0;h<u.errorList[c].message.length;h++)p+=u.errorList[c].message[h],h!==u.errorList[c].message.length-1&&(p+=", ");u.errorList[c].message=p}e("."+u.settings.errorClass+":not(.rup-maint_validateIcon)",u.currentForm).removeClass(u.settings.errorClass),u.defaultShowErrors()},showErrorsInFeedback:function(e){},errorPlacement:function(t,i){if("combo"===i.attr("ruptype")){var r=e("#"+i.attr("id")+"-button");r&&t.insertAfter(r)}else t.insertAfter(i)}},showFieldErrorAsDefault:{errorElement:"img",errorPlacement:function(t,i){var r=t.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html("").rup_tooltip({applyToPortal:!0});if("combo"===i.attr("ruptype")){var a=e("#"+i.attr("id")+"-button");a&&r.insertAfter(a)}else r.insertAfter(i)}}};e.fn.rup_validate("extend",{_init:function(t){var i=this,r=e.extend(!0,{},e.fn.rup_validate.defaults,s.defaultPresetSettings,t[0]);i.addClass("rup_validate"),i.attr("ruptype","validate"),r.showFieldErrorAsDefault&&(r=e.extend(!0,r,s.showFieldErrorAsDefault)),r=e.extend(!0,{},r,t[0]),i.validate(r),r.showFieldErrorAsDefault&&(i.validate().showLabel=function(t,i){var a=this.errorsFor(t);a.length?(a.removeClass(this.settings.validClass).addClass(this.settings.errorClass),a.attr("generated")&&a.html(i)):(a=r.showFieldErrorAsDefault?e("<"+this.settings.errorElement+"/>").attr({"for":this.idOrName(t),generated:!0}).addClass(this.settings.errorClass).attr("title",i||""):e("<"+this.settings.errorElement+"/>").attr({"for":this.idOrName(t),generated:!0}).addClass(this.settings.errorClass).html(i||""),this.settings.wrapper&&(a=a.hide().show().wrap("<"+this.settings.wrapper+"/>").parent()),this.labelContainer.append(a).length||(this.settings.errorPlacement?this.settings.errorPlacement(a,e(t)):a.insertAfter(t))),!i&&this.settings.success&&(a.text(""),"string"==typeof this.settings.success?a.addClass(this.settings.success):this.settings.success(a)),this.toShow=this.toShow.add(a)}),r.liveCheckingErrors||i.unbind("click").unbind("focusin").unbind("focusout").unbind("keyup"),i.on("invalid-form.rupValidate_formValidationError",function(e){i.off("invalid-form.rupValidate_formValidationError"),i.triggerHandler("rupValidate_formValidationError",[this])}),i.data("settings",r)}}),e.fn.rup_validate.defaults={ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",feedbackOptions:{gotoTop:!1,fadeSpeed:null,delay:null},feedbackErrorConfig:{errorMsg:e.rup.i18nParse(e.rup.i18n.base,"rup_maint.validateError"),getField:function(t,i,r){return e("[name='"+r+"']",i)},getFieldName:function(e,t,i){var r,a,n,r,s,o=i.attr("ruptype");return n=jQuery(i.length>1?i[0]:i),r=n.attr("name"),s=n.attr("id"),void 0!==o&&("combo"===o&&(s+="-button"),"autocomplete"===o&&(s+="_label")),a=n.parent().find("label[for='"+r+"']"),a.length>0?a.text():(a=n.parent().find("label[for='"+s+"']"),a.length>0?a.text():n.attr("title"))},getFieldErrorLabel:function(t,i,r,a){return e("<li>").append("<b>"+a+":</b>")},getFieldErrorMsg:function(t,i,r,a){if(e.isArray(a)){for(var n=e("<ul>"),s=0;s<a.length;s++)n.append(e("<li>").append(a[s]));return n}return e("<ul>").append(e("<li>").append(a))}},liveCheckingErrors:!1,showErrorsInFeedback:!0,showFieldErrorAsDefault:!0,showFieldErrorsInFeedback:!0,errorImage:e.rup.STATICS+"/rup/basic-theme/images/exclamation.png"}}(jQuery),/*!
+function(e){function t(e){if(9===e.length){var t=e.substr(0,8);typeof e.substr(e.length-1,e.length);t%=23;var i="TRWAGMYFPDXBNJZSQVHLCKET";return i=i.substring(t,t+1),i==e.substr(e.length-1,e.length).toUpperCase()}return!1}function i(e){return e.replace(/<.[^<>]*?>/g," ").replace(/&nbsp;|&#160;/gi," ").replace(/[0-9.(),;:!?%#$'"_+=\/-]*/g,"")}var r={};e.rup_validate={},e.extend(e.rup.iniRup,e.rup.rupSelectorObjectConstructor("rup_validate",r));var a={},n=new RegExp("\\{\\d\\}");e.each(e.rup.i18n.base.rup_validate.messages,function(e,t){null!==t.match(n)?a[e]=jQuery.validator.format(t):a[e]=t});new RegExp(e.rup.i18n.base.rup_validate.regexp.decimal);e.extend(e.validator.messages,a),jQuery.validator.addMethod("dni",function(e,t){return this.optional(t)||euroNif(e)}),jQuery.validator.addMethod("dni",function(e,i){return this.optional(i)||t(e)}),jQuery.validator.addMethod("maxWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length<r}),jQuery.validator.addMethod("minWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length>=r}),jQuery.validator.addMethod("rangeWords",function(e,t,r){return this.optional(t)||i(e).match(/\b\w+\b/g).length>=r[0]&&e.match(/bw+b/g).length<r[1]}),jQuery.validator.addMethod("letterswithbasicpunc",function(e,t){return this.optional(t)||/^[a-z-.,()'\"\s]+$/i.test(e)}),jQuery.validator.addMethod("alphanumeric",function(e,t){return this.optional(t)||/^\w+$/i.test(e)}),jQuery.validator.addMethod("lettersonly",function(e,t){return this.optional(t)||/^[a-z]+$/i.test(e)}),jQuery.validator.addMethod("nowhitespace",function(e,t){return this.optional(t)||/^\S+$/i.test(e)}),jQuery.validator.addMethod("integer",function(e,t){return this.optional(t)||/^-?\d+$/.test(e)}),jQuery.validator.addMethod("pattern",function(e,t,i){return this.optional(t)||i.test(e)}),jQuery.validator.addMethod("number",function(t,i){var r=new RegExp(e.rup.i18n.base.rup_validate.regexp.decimal);return this.optional(i)||r.test(t)}),jQuery.validator.addMethod("date",function(t,i,r){var a;if("boolean"==typeof r){if(r!==!0)return!0;a=e.rup.i18n.base.rup_validate.format.date}else a=r;return this.optional(i)||e.rup_validate.checkDate(a,t)}),e.extend(e.rup_validate,{checkDate:function(e,t){var i,r=function(e){return e%4!==0||e%100===0&&e%400!==0?28:29},a=function(e){for(var t=1;t<=e;t++)this[t]=31,4!=t&&6!=t&&9!=t&&11!=t||(this[t]=30),2==t&&(this[t]=29);return this},n={};if(e=e.toLowerCase(),i=e.indexOf("/")!=-1?"/":e.indexOf("-")!=-1?"-":e.indexOf(".")!=-1?".":"/",e=e.split(i),t=t.split(i),3!=t.length)return!1;for(var s,o=-1,l=-1,d=-1,u=0;u<e.length;u++){var c=null===t[u]||""===t[u]||isNaN(t[u])?0:parseInt(t[u],10);n[e[u]]=c,s=e[u],s.indexOf("y")!=-1&&(o=u),s.indexOf("m")!=-1&&(d=u),s.indexOf("d")!=-1&&(l=u)}s="y"==e[o]||"yyyy"==e[o]?4:"yy"==e[o]?2:-1;var p,h=a(12);return o!==-1&&(p=n[e[o]].toString(),2==s&&1==p.length&&(s=1),p.length==s&&(0!==n[e[o]]||"00"==t[o])&&(d!==-1&&(p=n[e[d]].toString(),!(p.length<1||n[e[d]]<1||n[e[d]]>12)&&(l!==-1&&(p=n[e[l]].toString(),!(p.length<1||n[e[l]]<1||n[e[l]]>31||2==n[e[d]]&&n[e[l]]>r(n[e[o]])||n[e[l]]>h[n[e[d]]]))))))}}),e.fn.rup_validate("extend",{destroy:function(){var t=this;t.rup_validate("resetForm"),e.removeData(t[0]),t.unbind()},resetForm:function(){var e=this,t=e.data("settings");null!=t&&void 0!==t.feedback&&t.showErrorsInFeedback&&t.feedback.rup_feedback("hide"),e.validate().resetForm()}}),e.fn.rup_validate("extend",{}),e.fn.rup_validate("extend",{_init:function(t){var i=this,r=e.extend(!0,{},e.fn.rup_validate.defaults,e.fn.rup_validate.presetSettings.defaultPresetSettings,t[0]);i.addClass("rup_validate"),i.attr("ruptype","validate"),r.showFieldErrorAsDefault&&(r=e.extend(!0,r,e.fn.rup_validate.presetSettings.showFieldErrorAsDefault)),r=e.extend(!0,{},r,t[0]),i.validate(r),r.showFieldErrorAsDefault&&(i.validate().showLabel=function(t,i){var a=this.errorsFor(t);a.length?(a.removeClass(this.settings.validClass).addClass(this.settings.errorClass),a.attr("generated")&&a.html(i)):(a=r.showFieldErrorAsDefault?e("<"+this.settings.errorElement+"/>").attr({"for":this.idOrName(t),generated:!0}).addClass(this.settings.errorClass).attr("title",i||""):e("<"+this.settings.errorElement+"/>").attr({"for":this.idOrName(t),generated:!0}).addClass(this.settings.errorClass).html(i||""),this.settings.wrapper&&(a=a.hide().show().wrap("<"+this.settings.wrapper+"/>").parent()),this.labelContainer.append(a).length||(this.settings.errorPlacement?this.settings.errorPlacement(a,e(t)):a.insertAfter(t))),!i&&this.settings.success&&(a.text(""),"string"==typeof this.settings.success?a.addClass(this.settings.success):this.settings.success(a)),this.toShow=this.toShow.add(a)}),r.liveCheckingErrors||i.unbind("click").unbind("focusin").unbind("focusout").unbind("keyup"),i.on("invalid-form.rupValidate_formValidationError",function(e){i.off("invalid-form.rupValidate_formValidationError"),i.triggerHandler("rupValidate_formValidationError",[this])}),i.data("settings",r)}}),e.fn.rup_validate.defaults={ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",feedbackOptions:{gotoTop:!1,fadeSpeed:null,delay:null},feedbackErrorConfig:{errorMsg:e.rup.i18nParse(e.rup.i18n.base,"rup_maint.validateError"),getField:function(t,i,r){return e("[name='"+r+"']",i)},getFieldName:function(e,t,i){var r,a,n,s;return r=jQuery(i.length>1?i[0]:i),a=this.getFieldNameForLabel(e,r),s=this.findLabelByFor(e,t,r,a),s.length>0?s.text():(n=this.getFieldIdForLabel(e,r),s=this.findLabelByFor(e,t,r,n),s.length>0?s.text():r.attr("title"))},getFieldNameForLabel:function(e,t){return t.attr("name")},getFieldIdForLabel:function(e,t){var i=t.attr("ruptype"),r=t.attr("id");return"undefined"!=typeof i&&("combo"===i&&(r=labelForId+"-button"),"autocomplete"===i&&(r=labelForId+"_label")),r},findLabelByFor:function(e,t,i,r){return i.parent().find("label[for='"+r+"']")},getFieldErrorLabel:function(t,i,r,a){return e("<li>").append("<b>"+a+":</b>")},getFieldErrorMsg:function(t,i,r,a){if(e.isArray(a)){for(var n=e("<ul>"),s=0;s<a.length;s++)n.append(e("<li>").append(a[s]));return n}return e("<ul>").append(e("<li>").append(a))}},liveCheckingErrors:!1,showErrorsInFeedback:!0,showFieldErrorAsDefault:!0,showFieldErrorsInFeedback:!0,errorImage:e.rup.STATICS+"/rup/basic-theme/images/exclamation.png"},e.fn.rup_validate.presetSettings={defaultPresetSettings:{showErrors:function(t){var i,r,a,n,s,o,l,d,u=this;if(1===u.currentElements.length&&e.isEmptyObject(t)&&delete u.invalid[u.currentElements.attr("name")],r=u.settings.feedback,u.settings.showErrorsInFeedback&&void 0!==r&&null!==r&&(i=e("<ul>").addClass("rup-maint_feedbackUL").prepend(u.settings.feedbackErrorConfig.errorMsg),jQuery.isEmptyObject(u.invalid)?r.rup_feedback("close"):(u.settings.showFieldErrorsInFeedback&&e.each(jQuery.isEmptyObject(u.submitted)?u.invalid:u.submitted,function(e,t){void 0!==u.invalid[e]&&(a=u.settings.feedbackErrorConfig.getField(u,u.currentForm,e),n=u.settings.feedbackErrorConfig.getFieldName(u,u.currentForm,a),s=u.settings.feedbackErrorConfig.getFieldErrorLabel(u,u.currentForm,a,n),o=u.settings.feedbackErrorConfig.getFieldErrorMsg(u,u.currentForm,a,t),s.append(o),i.append(s))}),r.rup_feedback("option",u.settings.feedbackOptions),r.rup_feedback("set",i,"error"))),u.settings.showFieldErrorAsDefault)for(var c=0;u.errorList[c];c++)l=u.errorList[c],void 0!==l.element&&(d=u.errorsFor(l.element),d.length&&d.remove());for(var c=0;c<u.errorList.length;c++)if(void 0===u.errorList[c].element&&alert("El campo validado no existe en el formulario"),e.isArray(u.errorList[c].message)){for(var p="",h=0;h<u.errorList[c].message.length;h++)p+=u.errorList[c].message[h],h!==u.errorList[c].message.length-1&&(p+=", ");u.errorList[c].message=p}e("."+u.settings.errorClass+":not(.rup-maint_validateIcon)",u.currentForm).removeClass(u.settings.errorClass),u.defaultShowErrors()},showErrorsInFeedback:function(e){},errorPlacement:function(e,t){var i=this.decorateError.call(this,e);this.placeError.call(this,i,t)},decorateError:function(e){return e},placeError:function(t,i){if("combo"===i.attr("ruptype")){var r=e("#"+i.attr("id")+"-button");r&&t.insertAfter(r)}else t.insertAfter(i)}},showFieldErrorAsDefault:{errorElement:"img",decorateError:function(e){return e.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html("").rup_tooltip({applyToPortal:!0})}}}}(jQuery),/*!
  * Copyright 2016 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -1440,7 +1440,7 @@ function(e){function t(e){if(9===e.length){var t=e.substr(0,8);typeof e.substr(e
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */

@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Date.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
@@ -661,7 +661,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al compon
    * @property {boolean} [disabled=false] - indica si el componente debe aparecer deshabilitado o no.
    * @property {string} [altField] - Identificador de un campo adicional para que muestre la fecha en otro formato.
    * @property {string} [altFormat] - Formato que debe seguir la fecha en el campo adicional.
-   * @property {string} [appendText] - Texto que se puede añadir detrás de cada campo de fecha. Por defecto no se define. Se recomienda el uso del atributo “labelMaskId” que se detalla a continuación en lugar de este atributo.
+   * @property {string} [appendText] - Texto que se puede añadir detrás de cada campo de fecha. Por defecto no se define. Se recomienda el uso del atributo “labelMaskId�? que se detalla a continuación en lugar de este atributo.
    * @property {string} [labelMaskId] - Identificador del label que contendrá la máscara que indica el formato de la fecha.
    * @property {string} [mask] - Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma.
    * @property {boolean} [autoSize=false] - Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido.

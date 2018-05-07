@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
  /**
   * @fileOverview Implementa el patrón RUP Table.
   * @author EJIE
-  * @version 2.4.11
+  * @version 2.4.12
   */
 (function ($) {
 
@@ -1201,7 +1201,7 @@
 		 * @function
 		 * @private
 		 * @param {string} rowId - Identificador del registro.
-		 * @return {number} - Índice de la línea.
+		 * @return {number} - �?ndice de la línea.
 		 */
 		_getLineIndex: function(rowId){
 			var $self = this, settings = $self.data("settings"),
@@ -1295,7 +1295,7 @@
 		 *
 		 * @name jQuery.rup_table#getActiveLineId
 		 * @function
-		 * @return {string} - Índice de la línea activa.
+		 * @return {string} - �?ndice de la línea activa.
 		 * @example
 		 * $("#idComponente").rup_table("getActiveLineId");
 		 */

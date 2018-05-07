@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -28,12 +28,12 @@
 /**
  * @fileOverview Implementa el patrón RUP Combo.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
 	//****************************************************************************************************************
-	// DEFINICIÓN BASE DEL PATRÁN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	// DEFINICIÓN BASE DEL PATR�?N (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
     /**
@@ -240,7 +240,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
         /**
-         * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
+         * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank�?. En el caso de la selección múltiple se devolverá un array.
          *
          * @name jQuery.rup_combo#value
          * @function
@@ -291,7 +291,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          *
          * @name jQuery.rup_combo#index
          * @function
-         * @return {number | number[]} - Índice del elemento o elementos seleccionados.
+         * @return {number | number[]} - �?ndice del elemento o elementos seleccionados.
          * @example
          * $("#idCombo").rup_combo("index");
          */

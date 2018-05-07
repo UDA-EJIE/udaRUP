@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -44,7 +44,7 @@
 /**                                                                   
  * @fileOverview Implementa el patrón RUP Language.
  * @author EJIE
- * @version 2.4.11                                                                                               
+ * @version 2.4.12                                                                                               
  */
 (function ($) {
     
@@ -248,8 +248,8 @@
     * Opciones por defecto de configuración del componente. 
     * @name jQuery.rup_language#options                                        
     * 
-    * @property {object} languages - Conjunto de idiomas que serán gestionados con el componente. El listado de los mismos, por configuración general, se gestiona a través de la variable jQuery “$.rup.AVAILABLE_LANGS_ARRAY”. Para mas información, consultar el documento “Anexo-Gestion_idiomatica.doc” de la documentación de UDA.
-    * @property {string} [modo] - Determina el tipo de maquetación que utilizara el componente para presentar las diferentes opciones idiomáticas. Si el valor especificado es “portal”, los idiomas se presentaran en un listado horizontal separado por barras (ver ejemplo visual del capítulo/Sección “2. Ejemplo”). En cualquier otro caso, se mostrara el modo por defecto (ver ejemplo visual del capítulo/Sección “2. Ejemplo”).
+    * @property {object} languages - Conjunto de idiomas que serán gestionados con el componente. El listado de los mismos, por configuración general, se gestiona a través de la variable jQuery “$.rup.AVAILABLE_LANGS_ARRAY�?. Para mas información, consultar el documento “Anexo-Gestion_idiomatica.doc�? de la documentación de UDA.
+    * @property {string} [modo] - Determina el tipo de maquetación que utilizara el componente para presentar las diferentes opciones idiomáticas. Si el valor especificado es “portal�?, los idiomas se presentaran en un listado horizontal separado por barras (ver ejemplo visual del capítulo/Sección “2. Ejemplo�?). En cualquier otro caso, se mostrara el modo por defecto (ver ejemplo visual del capítulo/Sección “2. Ejemplo�?).
     */
     
 })(jQuery);

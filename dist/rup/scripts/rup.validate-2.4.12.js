@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,14 +17,14 @@
 /**
 * @fileOverview Implementa el patrón RUP Validate.
 * @author EJIE
-* @version 2.4.11
+* @version 2.4.12
 */
 (function ($) {
 
 
 
 	//*********************************************
-	// ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
+	// ESPECIFICAC�?ON DE LOS TIPOS BASE DEL PATRÓN
 	//*********************************************
 
 	//*****************************************************************************************************************
@@ -309,8 +309,169 @@
 	// INICIALIZACION DE VARIABLES
 	//*****************************
 
+	$.fn.rup_validate("extend",{
+		_init : function(args){
+
+			var self=this,
+			settings = $.extend(true,{},$.fn.rup_validate.defaults, $.fn.rup_validate.presetSettings.defaultPresetSettings, args[0]);
+//			settings = $.extend(true, {}, defaultSettings, args[0]);
+
+
+			// Anadimos al formulario el class rup_validate para identificarlo como componente formulario.
+			self.addClass("rup_validate");
+			// Anadimos el ruptype validate
+			self.attr("ruptype","validate");
+
+			/*
+			 * Configuracion del componente de validaciones.
+			 */
+
+			// En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
+			if (settings.showFieldErrorAsDefault){
+				settings = $.extend(true,settings,$.fn.rup_validate.presetSettings.showFieldErrorAsDefault);
+			}
+			settings = $.extend(true, {}, settings, args[0]);
+			// Se realiza la invocacion al plugin jquery.validate
+			self.validate(settings);
+
+			if (settings.showFieldErrorAsDefault){
+				self.validate().showLabel = function(element, message){
+					var label = this.errorsFor( element );
+					if ( label.length ) {
+						// refresh error/success class
+						label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
+
+						// check if we have a generated label, replace the message then
+						label.attr("generated") && label.html(message);
+					} else {
+						// create label
+						if (settings.showFieldErrorAsDefault){
+							label = $("<" + this.settings.errorElement + "/>")
+							.attr({"for":  this.idOrName(element), generated: true})
+							.addClass(this.settings.errorClass)
+							.attr("title",message || "");
+						}else{
+							label = $("<" + this.settings.errorElement + "/>")
+								.attr({"for":  this.idOrName(element), generated: true})
+								.addClass(this.settings.errorClass)
+								.html(message || "");
+						}
+						if ( this.settings.wrapper ) {
+							// make sure the element is visible, even in IE
+							// actually showing the wrapped element is handled elsewhere
+							label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
+						}
+						if ( !this.labelContainer.append(label).length )
+							this.settings.errorPlacement
+								? this.settings.errorPlacement(label, $(element) )
+								: label.insertAfter(element);
+					}
+					if ( !message && this.settings.success ) {
+						label.text("");
+						typeof this.settings.success == "string"
+							? label.addClass( this.settings.success )
+							: this.settings.success( label );
+					}
+					this.toShow = this.toShow.add(label);
+				};
+			}
+
+			// Si se ha configurado el componente para que no se realicen validaciones al vuelo de los campos, se eliminan los eventos correspondientes.
+			if (!settings.liveCheckingErrors){
+				self.unbind("click").unbind("focusin").unbind("focusout").unbind("keyup");
+			}
+
+			// Se captura el evento invalid-form del plugin subyacente para generar un evento propio
+			self.on("invalid-form.rupValidate_formValidationError", function(event){
+				self.off("invalid-form.rupValidate_formValidationError");
+				self.triggerHandler("rupValidate_formValidationError",[this]);
+			});
+
+			// Se almacena la configuracion del componente en el objeto dom para poder recuperarla en sucesivas invocaciones a los metodos del componente.
+			self.data("settings", settings);
+		}
+	});
+
+	//*******************************************************
+	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+	//*******************************************************
+
+	$.fn.rup_validate.defaults = {
+			ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",
+			feedbackOptions: {gotoTop: false, fadeSpeed: null, delay: null},
+			feedbackErrorConfig:{
+				errorMsg:$.rup.i18nParse($.rup.i18n.base,"rup_maint.validateError"),
+				getField:function(self, form, fieldName){
+					return $("[name='" + fieldName+"']",form);
+				},
+				getFieldName: function(self, form, field){
+			        var fieldTmp, labelForName, labelForId, labelElem;
+
+			        fieldTmp = jQuery(field.length>1?field[0]:field);
+			        labelForName = this.getFieldNameForLabel(self, fieldTmp);
+			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForName);
+
+			        if (labelElem.length>0){
+			            return labelElem.text();
+			        }
+
+                    labelForId = this.getFieldIdForLabel(self, fieldTmp);
+			        labelElem = this.findLabelByFor(self, form, fieldTmp, labelForId);
+
+			        if (labelElem.length>0){
+			            return labelElem.text();
+			        }
+
+			        return fieldTmp.attr("title");
+			    },
+                getFieldNameForLabel: function(self, field) {
+                    return field.attr("name");
+                },
+			    getFieldIdForLabel: function(self, field) {
+			        var ruptype = field.attr("ruptype"),
+			            idForLabel = field.attr("id");
+                    if (typeof ruptype !== 'undefined') {
+                        if (ruptype === 'combo') {
+                            idForLabel = labelForId + '-button';
+                        }
+                        if (ruptype === 'autocomplete'){
+                            idForLabel = labelForId + '_label';
+                        }
+                    }
+                    return idForLabel;
+			    },
+			    findLabelByFor: function(self, form, field, labelFor) {
+			        return field.parent().find("label[for='"+labelFor+"']");
+			    },
+				getFieldErrorLabel: function(self, form, field, errorLabel){
+					return $("<li>").append("<b>" + errorLabel + ":</b>");
+				},
+				getFieldErrorMsg: function(self, form, field, errorMsg){
+					/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
+					 * no es posible indicarle varios mensajes de error para un campo.
+					 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
+					 */
+					if ($.isArray(errorMsg)){
+						// En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
+						var baseUl = $("<ul>");
+						for (var i=0;i<errorMsg.length;i++){
+							baseUl.append($("<li>").append(errorMsg[i]));
+						}
+						return baseUl;
+					}else{
+						return $("<ul>").append($("<li>").append(errorMsg));
+					}
+				}
+			},
+			liveCheckingErrors:false,
+			showErrorsInFeedback:true,
+			showFieldErrorAsDefault:true,
+			showFieldErrorsInFeedback:true,
+			errorImage:$.rup.STATICS+"/rup/basic-theme/images/exclamation.png"
+	};
+
 	// Propiedades de configuracion predeterminadas para cada una de las posibles parametrizaciones de los errores.
-	var presetSettings = {
+	$.fn.rup_validate.presetSettings = {
 		// Configruacion del componente por defecto
 		defaultPresetSettings:{
 			showErrors:function(errors){
@@ -403,191 +564,33 @@
 			showErrorsInFeedback:function(errors){
 
 			},
-			errorPlacement:function(label,element){
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						label.insertAfter(comboElem);
-					}
-				}else{
-					label.insertAfter(element);
-				}
-			}
+			errorPlacement:function(error,element){
+                var modifiedError = this.decorateError.call( this, error);
+                this.placeError.call( this, modifiedError, element);
+            },
+            decorateError: function(error) { return error; },
+            placeError: function(error, element) {
+                if (element.attr("ruptype")==='combo') {
+                    var comboElem = $("#"+element.attr("id")+"-button");
+                    if (comboElem) {
+                        error.insertAfter(comboElem);
+                    }
+                } else {
+                    error.insertAfter(element);
+                }
+            }
 		},
 		// Configuracion de las propiedades a aplicar en caso de que se deban mostrar los errores mediante la visualizacion por defecto.
 		showFieldErrorAsDefault:{
 			errorElement:"img",
-			errorPlacement: function(error, element) {
-				var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
-
-				if (element.attr("ruptype")==='combo'){
-					var comboElem = $("#"+element.attr("id")+"-button");
-					if (comboElem){
-						errorElem.insertAfter(comboElem);
-					}
-				}else{
-					errorElem.insertAfter(element);
-				}
-			}
+            decorateError: function(error) {
+                return error.attr("src", this.errorImage)
+                        .addClass("rup-maint_validateIcon")
+                        .html('')
+                        .rup_tooltip({"applyToPortal" : true});
+            }
 		}
 	};
-
-	$.fn.rup_validate("extend",{
-		_init : function(args){
-
-			var self=this,
-			settings = $.extend(true,{},$.fn.rup_validate.defaults, presetSettings.defaultPresetSettings, args[0]);
-//			settings = $.extend(true, {}, defaultSettings, args[0]);
-
-
-			// Anadimos al formulario el class rup_validate para identificarlo como componente formulario.
-			self.addClass("rup_validate");
-			// Anadimos el ruptype validate
-			self.attr("ruptype","validate");
-
-			/*
-			 * Configuracion del componente de validaciones.
-			 */
-
-			// En caso de que se deban mostrar los errores mediante la visualizacion predeterminada se configuran los presets correspondientes.
-			if (settings.showFieldErrorAsDefault){
-				settings = $.extend(true,settings,presetSettings.showFieldErrorAsDefault);
-			}
-			settings = $.extend(true, {}, settings, args[0]);
-			// Se realiza la invocacion al plugin jquery.validate
-			self.validate(settings);
-
-			if (settings.showFieldErrorAsDefault){
-				self.validate().showLabel = function(element, message){
-					var label = this.errorsFor( element );
-					if ( label.length ) {
-						// refresh error/success class
-						label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
-
-						// check if we have a generated label, replace the message then
-						label.attr("generated") && label.html(message);
-					} else {
-						// create label
-						if (settings.showFieldErrorAsDefault){
-							label = $("<" + this.settings.errorElement + "/>")
-							.attr({"for":  this.idOrName(element), generated: true})
-							.addClass(this.settings.errorClass)
-							.attr("title",message || "");
-						}else{
-							label = $("<" + this.settings.errorElement + "/>")
-								.attr({"for":  this.idOrName(element), generated: true})
-								.addClass(this.settings.errorClass)
-								.html(message || "");
-						}
-						if ( this.settings.wrapper ) {
-							// make sure the element is visible, even in IE
-							// actually showing the wrapped element is handled elsewhere
-							label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
-						}
-						if ( !this.labelContainer.append(label).length )
-							this.settings.errorPlacement
-								? this.settings.errorPlacement(label, $(element) )
-								: label.insertAfter(element);
-					}
-					if ( !message && this.settings.success ) {
-						label.text("");
-						typeof this.settings.success == "string"
-							? label.addClass( this.settings.success )
-							: this.settings.success( label );
-					}
-					this.toShow = this.toShow.add(label);
-				};
-			}
-
-			// Si se ha configurado el componente para que no se realicen validaciones al vuelo de los campos, se eliminan los eventos correspondientes.
-			if (!settings.liveCheckingErrors){
-				self.unbind("click").unbind("focusin").unbind("focusout").unbind("keyup");
-			}
-
-			// Se captura el evento invalid-form del plugin subyacente para generar un evento propio
-			self.on("invalid-form.rupValidate_formValidationError", function(event){
-				self.off("invalid-form.rupValidate_formValidationError");
-				self.triggerHandler("rupValidate_formValidationError",[this]);
-			});
-
-			// Se almacena la configuracion del componente en el objeto dom para poder recuperarla en sucesivas invocaciones a los metodos del componente.
-			self.data("settings", settings);
-		}
-	});
-
-	//*******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//*******************************************************
-
-	$.fn.rup_validate.defaults = {
-			ignore:":hidden[ruptype!='autocomplete'][ruptype!='combo']",
-			feedbackOptions: {gotoTop: false, fadeSpeed: null, delay: null},
-			feedbackErrorConfig:{
-				errorMsg:$.rup.i18nParse($.rup.i18n.base,"rup_maint.validateError"),
-				getField:function(self, form, fieldName){
-					return $("[name='" + fieldName+"']",form);
-				},
-				getFieldName: function(self, form, field){
-			        var ruptype = field.attr("ruptype"), labelForName, labelElem, fieldTmp, labelForName, labelForId;
-
-			        fieldTmp = jQuery(field.length>1?field[0]:field);
-
-			        labelForName = fieldTmp.attr("name");
-			        labelForId = fieldTmp.attr("id");
-
-			        if (ruptype!==undefined){
-
-			        	if(ruptype==="combo"){
-			        		labelForId = labelForId+"-button";
-			        	}
-
-			        	if(ruptype==="autocomplete"){
-				            labelForId = labelForId+"_label";
-				        }
-			        }
-
-			        labelElem = fieldTmp.parent().find("label[for='"+labelForName+"']");
-
-			        if (labelElem.length>0){
-			            return labelElem.text();
-			        }
-
-			        labelElem = fieldTmp.parent().find("label[for='"+labelForId+"']");
-
-			        if (labelElem.length>0){
-			            return labelElem.text();
-			        }
-
-			        return fieldTmp.attr("title");
-			    },
-				getFieldErrorLabel: function(self, form, field, errorLabel){
-					return $("<li>").append("<b>" + errorLabel + ":</b>");
-				},
-				getFieldErrorMsg: function(self, form, field, errorMsg){
-					/* En caso de utilizar el tratamiento por defecto del componente de jquery.validate,
-					 * no es posible indicarle varios mensajes de error para un campo.
-					 * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
-					 */
-					if ($.isArray(errorMsg)){
-						// En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
-						var baseUl = $("<ul>");
-						for (var i=0;i<errorMsg.length;i++){
-							baseUl.append($("<li>").append(errorMsg[i]));
-						}
-						return baseUl;
-					}else{
-						return $("<ul>").append($("<li>").append(errorMsg));
-					}
-				}
-			},
-			liveCheckingErrors:false,
-			showErrorsInFeedback:true,
-			showFieldErrorAsDefault:true,
-			showFieldErrorsInFeedback:true,
-			errorImage:$.rup.STATICS+"/rup/basic-theme/images/exclamation.png"
-	};
-
 
 /**
 * Función de callback que se ejecutará cuando el formulario sea válido.
@@ -653,7 +656,7 @@
 */
 
 /**
-* Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+* Función de callback que permite personalizar el posicionamiento de los mensajes de error.
 *
 * @callback jQuery.rup_validate~onErrorPlacement
 * @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
@@ -662,6 +665,34 @@
 * $("#myform").validate({
 *   errorPlacement: function(error, element) {
 *       error.appendTo( element.parent("td").next("td") );
+*   }
+* });
+*/
+
+/**
+* Función de callback que permite decorar los mensajes de error antes de su posicionamiento.
+*
+* @callback jQuery.rup_validate~onDecorateError
+* @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
+* @example
+* $("#myform").validate({
+*   decorateError: function(error) {
+*       return error.addClass('someClass').wrap($('<span'>)).parent();
+*   }
+* });
+*/
+
+/**
+* Función de callback que posiciona los mensajes de error, ya decorados, en el DOM.
+*
+* @callback jQuery.rup_validate~onPlaceError
+* @param {jQuery} error - Referencia al objeto label que va a ser insertado en el DOM para visualizar los errores.
+* @param {jQuery} element - Referencia al campo validado.
+* @example
+* $("#myform").validate({
+*   placeError: function(error, element) {
+*       var target = element.hasClass('wrapped') ? element.parent() : element;
+*       $.fn.rup_validate.presetSettings.defaultPresetSettings.placeError.call(this, error, target);
 *   }
 * });
 */
@@ -732,7 +763,9 @@
 * @property {Selector} [errorContainer] - Determina un contenedor adicional para los mensajes de error.
 * @property {boolean} [ignoreTitle=false] - Determina si se evita el obtener los mensajes a partir del atributo title.
 * @property {jQuery.rup_validate~onShowErrors} [showErrors] - Función callback para realizar un tratamiento  personalizado de los errores de validación.
-* @property {jQuery.rup_validate~onErrorPlacement} [errorPlacement] - Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
+* @property {jQuery.rup_validate~onErrorPlacement} [errorPlacement] - Función de callback que permite personalizar el posicionamiento de los mensajes de error.
+* @property {jQuery.rup_validate~onDecorateError} [decorateError] - Función de callback que permite decorar los mensajes de error antes de su posicionamiento.
+* @property {jQuery.rup_validate~onPlaceError} [placeError] - Función de callback que posiciona los mensajes de error, ya decorados, en el DOM.
 * @property {jQuery.rup_validate~onHighlight} [highlight] - Función de callback para determinar como se debe resaltar los campos inválidos.
 * @property {jQuery.rup_validate~onUnhighlight} [unhighlight] - Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight.
 */

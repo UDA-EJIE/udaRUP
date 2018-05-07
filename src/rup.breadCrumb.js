@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP BreadCrumb.
  * @author EJIE
- * @version 2.4.11
+ * @version 2.4.12
  */
 (function ($) {
 
@@ -59,8 +59,8 @@
      *
      * @name jQuery.rup_breadCrumb#options
      *
-     * @property {string}  [showSpeed=fast] - Propiedad que indica la velocidad de despliegue del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal”,”slow”)..
-     * @property {string}  [hideSpeed=''] - Propiedad que indica la velocidad de colapso del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal”,”slow”)..
+     * @property {string}  [showSpeed=fast] - Propiedad que indica la velocidad de despliegue del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal�?,�?slow�?)..
+     * @property {string}  [hideSpeed=''] - Propiedad que indica la velocidad de colapso del subnivel en milisegundos o en términos de jQuery (posibles valores: “normal�?,�?slow�?)..
      * @property {boolean}  [collapsible=false] - Propiedad que indica si el primer nivel es plegable.
      * @property {Number}  [collapsedWidth=10] - Propiedad de indica el tamaño del texto cuando está colapsado (en pixeles).
      * @property {object} breadCrumb - La estructura de las migas se define mediante un array en notación json cuyo nombre será el mismo que el identificador del elemento sobre el que se aplica el componente.
