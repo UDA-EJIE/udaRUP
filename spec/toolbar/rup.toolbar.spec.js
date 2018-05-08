@@ -39,9 +39,39 @@ describe('Test Toolbar > ', () => {
     describe('Métodos públicos > ', () => {
         describe('Método addButton > ', () => {
             let buttonObj;
-            beforeEach(() => {});
+            beforeEach(() => {
+                buttonObj = {
+                    id: 'addedButton',
+                    i18nCaption: 'Added Button'
+                }
+                $toolbar.rup_toolbar('addButton', buttonObj);
+            });
+            it('Debe existir el boton', () => {
+                expect($('[id="exampleToolbar##addedButton"]').length).toBe(1);
+            });
         });
-        describe('Método addMButton > ', () => {});
+        describe('Método addMButton > ', () => {
+            let mButton;
+            beforeEach(() => {
+                mButton = {
+                    id: "addedMButton", i18nCaption:"addedMButton", buttons:[
+                        {id: 'new', i18nCaption:"nuevo", css:"nuevo", click: () =>{alert('KEKEKEKEKE')}},
+                        {id: 'editar', i18nCaption:"editar", css:"editar", click: () =>{alert('KEKEKEKEKE')}},
+                        {id: 'cancelar', i18nCaption:"cancelar", css:"cancelar", click: () =>{alert('KEKEKEKEKE')}}
+                    ]
+                };
+                $toolbar.rup_toolbar('addMButton', mButton);
+            });
+            
+            it('Debe existir el mButton', () => {
+                expect($('[id="exampleToolbar##addedMButton"]').length).toBe(1);
+            });
+            it('Deben existir los botones hijos del MButton', () => {
+                expect($('[id="exampleToolbar##addedMButton##new"]').length).toBe(1);
+                expect($('[id="exampleToolbar##addedMButton##editar"]').length).toBe(1);
+                expect($('[id="exampleToolbar##addedMButton##cancelar"]').length).toBe(1);
+            });
+        });
         describe('Método addButtonsToMButton >', () => {});
         describe('Método showMButton > ', () => {});
         describe('Método disableButton > ', () => {});
