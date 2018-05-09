@@ -62,7 +62,7 @@ describe('Test Toolbar > ', () => {
                 };
                 $toolbar.rup_toolbar('addMButton', mButton);
             });
-            
+
             it('Debe existir el mButton', () => {
                 expect($('[id="exampleToolbar##addedMButton"]').length).toBe(1);
             });
@@ -72,10 +72,42 @@ describe('Test Toolbar > ', () => {
                 expect($('[id="exampleToolbar##addedMButton##cancelar"]').length).toBe(1);
             });
         });
-        describe('Método addButtonsToMButton >', () => {});
-        describe('Método showMButton > ', () => {});
-        describe('Método disableButton > ', () => {});
-        describe('Método enableButton > ', () => {});
+        describe('Método addButtonsToMButton >', () => {
+            beforeEach(() => {
+                let button = {
+                    id: 'addedButton',
+                    i18nCaption: 'boton',
+                    click: () => { alert('XXX')}
+                };
+
+                $toolbar.rup_toolbar('addButtonsToMButton', 'mbutton1', [button]);
+            });
+
+            it('Debe existir el botón añadido', () => {
+                expect($('[id="exampleToolbar##mbutton1##addedButton"]').length).toBe(1);
+            })
+        });
+        describe('Método showMButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('showMButton', 'mbutton1');
+            });
+            it('Debe tener la clase de "abierto" ', () => {
+                expect($toolbar.hasClass('rup-mbutton-open')).toBeTruthy();
+            });
+        });
+        describe('Método disableButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('disableButton','searchBtn');
+            });
+            // TODO: No funciona en ejie.eus así que no sé como se deshabilita
+        });
+        describe('Método enableButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('disableButton','searchBtn');
+                $toolbar.rup_toolbar('enableButton','searchBtn');
+            });
+            // TODO: No funciona en ejie.eus así que no sé como se habilita
+        });
         describe('Método pressButton > ', () => {});
         describe('Método unpressButton > ', () => {});
         describe('Método tooglePressButton > ', () => {});
@@ -208,18 +240,18 @@ describe('Test ToolBar > ', () => {
             beforeAll(() => {
                 $toolbar.rup_toolbar('disableButton','exampleToolbar##searchBtn');
             });
-            //No funciona en ejie.eus asi que no sé si se deshabilita añadiendo 
+            //No funciona en ejie.eus asi que no sé si se deshabilita añadiendo
             //una clase o de alguna otra manera.
-            // TODO: 
+            // TODO:
             it('Debe estar deshabilitado', () => {});
         });
         describe('Método enableButton >' ,     () => {
             beforeAll(() => {
                 $toolbar.rup_toolbar('enableButton','exampleToolbar##searchBtn');
             });
-            //No funciona en ejie.eus asi que no sé si se habilita quitando 
+            //No funciona en ejie.eus asi que no sé si se habilita quitando
             //una clase o de alguna otra manera.
-            // TODO: 
+            // TODO:
             it('Debe estar habilitado', () => {});
         });
         describe('Método pressButton >',       () => {
