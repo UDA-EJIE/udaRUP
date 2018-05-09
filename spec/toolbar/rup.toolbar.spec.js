@@ -108,9 +108,32 @@ describe('Test Toolbar > ', () => {
             });
             // TODO: No funciona en ejie.eus así que no sé como se habilita
         });
-        describe('Método pressButton > ', () => {});
-        describe('Método unpressButton > ', () => {});
-        describe('Método tooglePressButton > ', () => {});
+        describe('Método pressButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
+            });
+            it('Debe tener la clase de presionado ', () => {
+                expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeTruthy();
+            });
+        });
+        describe('Método unpressButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
+                $toolbar.rup_toolbar('unpressButton','searchBtn','pressed-button');
+            });
+            it('Debe tener la clase de presionado ', () => {
+                expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
+            });
+        });
+        describe('Método tooglePressButton > ', () => {
+            beforeEach(() => {
+                $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
+                $toolbar.rup_toolbar('togglePressButton','searchBtn','pressed-button');
+            });
+            it('Debe tener la clase de presionado ', () => {
+                expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
+            });
+        });
         describe('Método refresh > ', () => {});
         describe('Método buttonClick > ', () => {});
     });
