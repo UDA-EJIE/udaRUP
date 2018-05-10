@@ -6,7 +6,7 @@ import 'rup.button';
 describe('TEST Button', () => {
     var $button;
     beforeEach(() => {
-        var html= '<button id="exampleButton"></button>\
+        var html= '<button id="exampleButton">Btn</button>\
                   <div class="rup-mbutton">\
                        <button type="button" id="exampleMButton" data-mbutton="true">\
                            <i class="fa fa-cog" aria-hidden="true"></i> <span\
@@ -33,7 +33,8 @@ describe('TEST Button', () => {
                                 </button>\
                             </li>\
                         </ul>\
-                    </div>';
+                    </div>\
+                    <button id="dropdownButton">Btn</button>';
         $('body').append(html);
         $('#exampleButton').rup_button({});
         $('#exampleMButton').rup_button({});
