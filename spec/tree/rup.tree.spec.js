@@ -45,7 +45,7 @@ describe('Test Tree:', () => {
           });
       });
       describe('Método setRupValue', () => {
-          beforeAll(() => {
+          beforeEach(() => {
               $tree.rup_tree('setRupValue', 'node1');
           });
           it('Debe actualizar el valor:', () => {
