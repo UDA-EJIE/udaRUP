@@ -121,7 +121,7 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
                 $toolbar.rup_toolbar('unpressButton','searchBtn','pressed-button');
             });
-            it('Debe tener la clase de presionado ', () => {
+            it('No debe tener la clase de presionado ', () => {
                 expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
             });
         });
@@ -130,12 +130,11 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
                 $toolbar.rup_toolbar('togglePressButton','searchBtn','pressed-button');
             });
-            it('Debe tener la clase de presionado ', () => {
+            it('No debe tener la clase de presionado ', () => {
                 expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
             });
         });
         describe('Método refresh > ', () => {});
-        describe('Método buttonClick > ', () => {});
     });
 });
 //###############################################################################################################
