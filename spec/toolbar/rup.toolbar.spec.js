@@ -134,7 +134,16 @@ describe('Test Toolbar > ', () => {
                 expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
             });
         });
-        describe('Método refresh > ', () => {});
+        describe('Método refresh > ', () => {
+            beforeEach(() => {
+                $('[id = "exampleToolbar##searchBtn"]').addClass('clase-anadida');
+                $toolbar.rup_toolbar('refresh', 'searchBtn');
+            });
+
+            it('Debe devolver el botón seleccionado al estado que presenta en la configuración', () => {
+                expect($('[id = "exampleToolbar##searchBtn"]').hasClass('clase-anadida')).toBeFalsy();
+            });
+        });
     });
 });
 //###############################################################################################################
