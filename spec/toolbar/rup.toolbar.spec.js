@@ -134,10 +134,10 @@ describe('Test Toolbar > ', () => {
                 expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeFalsy();
             });
         });
-        describe('Método refresh > ', () => {
+        describe('Método refreshButton > ', () => {
             beforeEach(() => {
                 $('[id = "exampleToolbar##searchBtn"]').addClass('clase-anadida');
-                $toolbar.rup_toolbar('refresh', 'searchBtn');
+                $toolbar.rup_toolbar('refreshButton', 'searchBtn');
             });
 
             it('Debe devolver el botón seleccionado al estado que presenta en la configuración', () => {
