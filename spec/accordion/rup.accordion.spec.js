@@ -1,16 +1,3 @@
-
-// (function (factory) {
-//       if (typeof define === "function" && define.amd) {
-//
-//           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','jasmine-jquery','rup.accordion'], factory);
-//       } else {
-//
-//           // Browser globals
-//           factory(jQuery);
-//       }
-//   }(function ($, Handlebars) {
-
 import 'jquery';
 import Handlebars from 'handlebars';
 import 'jasmine-jquery';
@@ -35,7 +22,22 @@ var customMatchers = {
 	}
 };
 
+describe('Test Accordion > ', () => {
+	beforeEach(() => {});
+	describe('Creación > ', () => {});
+	describe('Funcionalidad > ', () => {});
+	describe('Métodos públicos > ', () => {
+		describe('Método activate > ',() => {});
+		describe('Método option > ', () => {});
+		describe('Método disable > ', () => {});
+		describe('Método enable > ', () => {});
+		describe('Método widget > ', () => {});
+		describe('Método destroy > ', () => {});
+	});
+});
 
+
+/*
 describe('RUP Accordion Tests', function(){
 
 
@@ -262,3 +264,4 @@ describe('RUP Accordion Tests', function(){
 	});
 });
 // }));
+*/
