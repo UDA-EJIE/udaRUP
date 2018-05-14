@@ -13078,7 +13078,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				settings.core.showOperations[index] = true;
 			});
 
-			jQuery.extend(true, settings.core.defaultOperations, settings.core.operations);
+			jQuery.extend(true, settings.core.operations, settings.core.defaultOperations);
 
 			$self.on({
 				'jqGridBeforeRequest': function () {
@@ -19755,12 +19755,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				return false;
 			};
 
-			// Configuración de edit/add
-			// Se procede a añadir sobre los settings de configuración los correspondientes a la edición en línea.
-			settings.inlineEdit.addOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.addOptions);
-			settings.inlineEdit.editOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.editOptions);
-
-
 			// Fuerza la configuración para que solo se pueda seleccionar mediante el checkbox
 			settings.multiboxonly = true;
 
@@ -19773,7 +19767,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			/* DEFINICION DE OPERACIONES BASICAS CON LOS REGISTROS */
 
-			settings.core.operations = {
+			settings.core.defaultOperations = {
 				'add': {
 					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.new'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
@@ -19876,6 +19870,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				}
 			};
+			
+			$.extend(true, settings.core.operations, settings.core.defaultOperations);
+			
+			// Configuración de edit/add
+			// Se procede a añadir sobre los settings de configuración los correspondientes a la edición en línea.
+			settings.inlineEdit.addOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.addOptions);
+			settings.inlineEdit.editOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.editOptions);
 
 
 			/* =======
@@ -20278,7 +20279,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				'rupTable_checkOutOfGrid.rupTable.inlineEditing': function(event, $target){
 					var $self = $(this), settings = $self.data('settings'),
-						operationCfg = settings.core.operations['save'];
+						operationCfg = settings.core.defaultOperations['save'];
 					if (jQuery.proxy(operationCfg.enabled, $self)()){
 						jQuery.proxy(operationCfg.callback,$self)($self, event);
 					}
