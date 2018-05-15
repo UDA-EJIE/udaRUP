@@ -3,7 +3,6 @@ import 'jasmine-jquery';
 import 'rup.button';
 import 'rup.toolbar';
 
-// TODO: Algo no le gusta a PhantomJS. Copiando el codigo en la consolaJS de Chrome funciona sin problemas.
 describe('Test Toolbar > ', () => {
     var $toolbar;
     beforeEach(() => {
@@ -22,7 +21,6 @@ describe('Test Toolbar > ', () => {
             ]
         };
         $('body').append(html);
-        // TODO: Si creamos el toolbar con las opciones se rompe.
         $('#exampleToolbar').rup_toolbar(options);
         $toolbar = $('#exampleToolbar');
     });
@@ -47,7 +45,9 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('addButton', buttonObj);
             });
             it('Debe existir el boton', () => {
-                expect($('[id="exampleToolbar##addedButton"]').length).toBe(1);
+                setTimeout(() => {
+                    expect($('[id="exampleToolbar##addedButton"]').length).toBe(1);
+                }, 1500);
             });
         });
         describe('Método addMButton > ', () => {
@@ -64,12 +64,16 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe existir el mButton', () => {
-                expect($('[id="exampleToolbar##addedMButton"]').length).toBe(1);
+                setTimeout(() => {
+                    expect($('[id="exampleToolbar##addedMButton"]').length).toBe(1);
+                }, 1500);
             });
             it('Deben existir los botones hijos del MButton', () => {
-                expect($('[id="exampleToolbar##addedMButton##new"]').length).toBe(1);
-                expect($('[id="exampleToolbar##addedMButton##editar"]').length).toBe(1);
-                expect($('[id="exampleToolbar##addedMButton##cancelar"]').length).toBe(1);
+                setTimeout(() => {
+                    expect($('[id="exampleToolbar##addedMButton##new"]').length).toBe(1);
+                    expect($('[id="exampleToolbar##addedMButton##editar"]').length).toBe(1);
+                    expect($('[id="exampleToolbar##addedMButton##cancelar"]').length).toBe(1);
+                }, 1500);
             });
         });
         describe('Método addButtonsToMButton >', () => {
@@ -84,7 +88,9 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe existir el botón añadido', () => {
-                expect($('[id="exampleToolbar##mbutton1##addedButton"]').length).toBe(1);
+                setTimeout(() => {
+                    expect($('[id="exampleToolbar##mbutton1##addedButton"]').length).toBe(1);
+                }, 1500);
             })
         });
         describe('Método showMButton > ', () => {
@@ -92,14 +98,20 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('showMButton', 'mbutton1');
             });
             it('Debe tener la clase de "abierto" ', () => {
-                expect($toolbar.hasClass('rup-mbutton-open')).toBeTruthy();
+                setTimeout(() => {
+                    expect($toolbar.hasClass('rup-mbutton-open')).toBeTruthy();
+                }, 1500);
             });
         });
         describe('Método disableButton > ', () => {
             beforeEach(() => {
                 $toolbar.rup_toolbar('disableButton','searchBtn');
             });
-            // TODO: No funciona en ejie.eus así que no sé como se deshabilita
+            // TODO: Imagino que deberia quedar como un jquery ui button('disable')
+            it('Debe tener las clases que lo deshabilitan', () => {
+                expect($('[id="exampleToolbar##searchBtn"]').hasClass('ui-button-disabled ui-state-disabled'))
+                    .toBe(true);
+            });
         });
         describe('Método enableButton > ', () => {
             beforeEach(() => {
@@ -107,13 +119,19 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('enableButton','searchBtn');
             });
             // TODO: No funciona en ejie.eus así que no sé como se habilita
+            it('No debe tener las clases que lo deshabilitan', () => {
+                expect($('[id="exampleToolbar##searchBtn"]').hasClass('ui-button-disabled ui-state-disabled'))
+                    .toBe(false);
+            });
         });
         describe('Método pressButton > ', () => {
             beforeEach(() => {
                 $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
             });
             it('Debe tener la clase de presionado ', () => {
-                expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeTruthy();
+                setTimeout(() => {
+                    expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeTruthy();
+                }, 1500);
             });
         });
         describe('Método unpressButton > ', () => {
@@ -141,7 +159,9 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe devolver el botón seleccionado al estado que presenta en la configuración', () => {
-                expect($('[id = "exampleToolbar##searchBtn"]').hasClass('clase-anadida')).toBeFalsy();
+                setTimeout(() => {
+                    expect($('[id = "exampleToolbar##searchBtn"]').hasClass('clase-anadida')).toBeFalsy();
+                }, 1500);
             });
         });
     });
