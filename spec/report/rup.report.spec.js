@@ -1,86 +1,66 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.button';
+import 'rup.toolbar';
 import 'rup.report';
 
-function testear() {
-    describe('Test Report > ', () => {
-        describe('Creación > ', () => {
-            it('Debe crear un botón', () => {
-                expect($('[id="exampleReport##btnExport"]')).toExist();
-            });
-            it('El boton debe tener las clases correspondientes', () => {
-                expect($('[id="exampleReport##btnExport"]'))
-                    .toHaveClass('rup-button ui-button ui-corner-all ui-widget');
-            });
-        });
-        describe('Validar el funcionamiento > ', () => {
-            /**
-             * TODO: PAW!!
-             */
+describe('Test Report > ', () => {
+    var $report;
+    beforeEach(() => {
+        var handler = () => {
+            console.log('XXX');
+        };
+        let html = '<div id="exampleToolbar"></div>';
+        let options = {
+            buttons:[
+                {id:'searchBtn',css:'fa fa-search',i18nCaption:'buscar', click:handler},
+                {id: "mbutton1", i18nCaption:"botones", buttons:[
+                    {id:'searchMBtn',i18nCaption:'buscar', click:handler},
+                    {id:'editMBtn',i18nCaption:'editar', click:handler},
+                    {id:'copyMBtn',i18nCaption:'copiar', click:handler}
+                ]}
+            ]
+        };
+        $('body').append(html);
+        $('#exampleToolbar').rup_toolbar(options);
+
+        let reportOpts = {
+            appendTo: 'exampleToolbar',
+            buttons:[
+                {
+                    i18nCaption:'exportar',
+                    url:'./export',
+                    right: true
+                }
+            ]
+        }
+
+        $.rup_report(reportOpts);
+        $report = $('[id="exampleToolbar##exportar"]');
+    });
+    describe('Creación > ', () => {
+        it('El botón de exportar debe de haberse creado:', () => {
+            setTimeout(() => {
+                expect($('[id="exampleToolbar##exportar"]').length).toBe(1);
+            }, 1500);
         });
     });
-};
-
-let html = '<div class="rup-mbutton">'
-        +       '<button type="button" id="exampleMButton" data-mbutton="true">'
-        +           '<i class="fa fa-cog" aria-hidden="true"></i> <span'
-        +              'class="rup-ui-button-text hidden-md-down">MButton</span>'
-        +       '</button>'
-        +       '<ul id="mbuttonContainer" class="rup-mbutton-container"'
-        +            'aria-labelledby="exampleMButton">'
-        +            '<li>'
-        +                '<button type="button" id="mbutton-buttonNew">'
-        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
-        +                        'class="rup-ui-button-text hidden-md-down">Nuevo</span>'
-        +                '</button>'
-        +            '</li>'
-        +            '<li>'
-        +                '<button type="button" id="mbutton-buttonEdit">'
-        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
-        +                        'class="rup-ui-button-text hidden-md-down">Editar</span>'
-        +                '</button>'
-        +            '</li>'
-        +            '<li>'
-        +                '<button type="button" id="mbutton-buttonCancel">'
-        +                    '<i class="fa fa-cog" aria-hidden="true"></i> <span'
-        +                        'class="rup-ui-button-text hidden-md-down">Cancelar</span>'
-        +                '</button>'
-        +            '</li>'
-        +        '</ul>'
-        +    '</div>';
-let confs = [
-    {
-        appendTo:'exampleMButton',
-        buttons:[
-            {
-                id:'btnExport',
-                i18nCaption:'Exportar',
-                url: 'ruta/a/archivo.pdf',
-                click: (event) => {
-                    let clase = event.data.id + '-' + event.data.caption;
-                    $('#exampleMButton').addClass(clase);
-                }
-            }
-        ],
-        dialog:{
-            wait:{
-                title: 'Procesando',
-                msg  : 'Se está generando el informe'
-            },
-            error:{
-                title: 'Error',
-                msg  : 'Se ha producido un error en la generación del informe'
-            }         
-        }
-    } // Configuraciones para distintos tipos de reports
-];
-
-confs.forEach((cur) => {
-    $('body').append(html);
-    console.log(cur);
-    $('#exampleMbutton').rup_button({});
-    jQuery.rup_report(cur);
-    testear();
-    $('body').html('');
+    describe('Funcionalidad > ', () => {
+        beforeAll(() => {
+            $report.trigger('click');
+        });
+        /**
+         * // TODO: Comprobar:
+         *  -- que se abre una ventana con el elemento de progressbar
+         *  -- que se realiza una llamada a esa url
+         */
+        describe('Abre ventana emergente > ', () => {
+            it('Debe abrir una ventana emergente:', () => {
+                setTimeout(() => {
+                    expect($('.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+                        .is(':visible')).toBe(true);
+                }, 1500);
+            });
+        });
+    });
 });
