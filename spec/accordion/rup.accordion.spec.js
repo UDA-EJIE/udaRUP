@@ -33,6 +33,9 @@ describe('Test Accordion > ', () => {
 		$defAccordion = $('#defaultAccordion');
 		$altAccordion = $('#alterAccordion');
 	});
+	afterEach(() => {
+		$('body').html('');
+	});
 	describe('Creación > ', () => {
 		describe('Accordion con parametros por defecto > ', () => {
 			it('Debe tener las clases apropiadas', () => {
