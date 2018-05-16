@@ -1837,7 +1837,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			var idTableDetail = ctx.oInit.formEdit.detailForm;
 			// Limpiamos el formulario
 			$(idTableDetail).find('form')[0].reset();
-			if(DataTable.multiSelect.multiselection.numSelected > 0){
+			if(DataTable.multiselection.numSelected > 0){
 				$.rup_messages('msgConfirm', {
 					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
@@ -1873,7 +1873,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 // los botones
 DataTable.Api.register( 'buttons.displayRegex()', function () {
 	var opts = DataTable.settings[0]._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+	var numOfSelectedRows = DataTable.multiselection.numSelected;
 	var collectionObject;
 	$.each(opts, function (i) {
 		collectionObject = null;
@@ -2240,7 +2240,7 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
 			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
 			// el valor recibido cuando se creo el evento
-			var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+			var numOfSelectedRows = DataTable.multiselection.numSelected;
 			$.each(collectionObject.buttons, function(key, value) {
 				// Habilita el boton dentro del collection
 				if (value.conf.displayRegex.test(numOfSelectedRows)) {
@@ -2302,7 +2302,7 @@ $(document).on( 'plugin-init.dt', function (e, settings) {
 
 function inicio(settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiSelect.multiselection.numSelected;
+	var numOfSelectedRows = DataTable.multiselection.numSelected;
 	var collectionObject;
 
 	$.each(opts, function (i) {

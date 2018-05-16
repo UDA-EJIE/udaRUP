@@ -125,6 +125,17 @@
 			var defes = {};
 			var columnDefs = $.extend({}, options.columnDefs, defes);
 			//options.columnDefs = columnDefs;
+			
+			//Se cargan los metodos en la API
+			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
+					//Se limina el lapicero indicador.
+					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+					//se añade el span con el lapicero
+					if(idRow >= 0){
+						var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
+						$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+					}
+				} );
 
 			return options;
 		},
@@ -159,7 +170,7 @@
 				options.columnDefs[0].orderable = false;
 			}
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
-				if(e.getAttribute('data-col-type') === 'checkbox'){
+				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
 						var iconCheck = 'fa fa-times';
 						if(data === '1'){
@@ -265,8 +276,8 @@
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiSelect.multiselection !== undefined && DataTable.multiSelect.multiselection.selectedIds.length > 0){
-				data.multiselection = DataTable.multiSelect.multiselection;
+			if(DataTable.multiselection !== undefined && DataTable.multiselection.selectedIds.length > 0){
+				data.multiselection = DataTable.multiselection;
 			}
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
@@ -633,7 +644,7 @@
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-						if(DataTable.multiSelect.multiselection.selectedAll){
+						if(DataTable.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
@@ -656,7 +667,52 @@
 						}
 					}
 				} );
-			}
+			},
+			/**
+			* Metodo que inicialida las propiedades para el multiselect.
+			*
+			* @name initializeMultiselectionProps
+			* @function
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
+			*
+			*/
+			_initializeMultiselectionProps (  ) {
+				var $self = {};
+				// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
+				if ($self.multiselection === undefined) {
+					$self.multiselection = {};
+				}
+				if(DataTable.multiselection !== undefined){
+					$self.multiselection.internalFeedback = DataTable.multiselection.internalFeedback;
+				}
+				// Flag indicador de selección de todos los registros
+				$self.multiselection.selectedAll = false;
+				// Numero de registros seleccionados
+				$self.multiselection.numSelected = 0;
+				// Propiedades de selección de registros
+				$self.multiselection.selectedRowsPerPage = [];
+				//$self.multiselection.selectedLinesPerPage = [];
+				//$self.multiselection.selectedRows = [];
+				$self.multiselection.selectedIds = [];
+				$self.multiselection.lastSelectedId = "";
+				//$self.multiselection.selectedPages = [];
+				// Propiedades de deselección de registros
+				$self.multiselection.deselectedRowsPerPage = [];
+				//$self.multiselection.deselectedLinesPerPage = [];
+				//$self.multiselection.deselectedRows = [];
+				$self.multiselection.deselectedIds = [];
+				$self.multiselection.accion = "";//uncheckAll,uncheck
+				//$self.multiselection.deselectedPages = [];
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				// Desmarcamos el check del tHead
+				$("#labelSelectTableHead" + DataTable.settings[0].sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + DataTable.settings[0].sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+
+				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+				DataTable.multiselection =  $self.multiselection;
+			} 
 	});
 
 	//*******************************
@@ -683,8 +739,10 @@
 			}
 
 			$self._initOptions(settings);
-
+			
 			var tabla = $self.DataTable(settings);
+			
+			$self._initializeMultiselectionProps();
 			
 			if(settings.searchPaginator){
 				tabla.on( 'draw', function (e,settingsTable) {

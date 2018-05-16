@@ -73,7 +73,7 @@ var _reportsCopyData = function (dt, that, config)
 	var ctx = dt.settings()[0];
 	var info = dt.buttons.exportInfo(config);
 	var type;
-	var multiselection = DataTable.multiSelect.multiselection;
+	var multiselection = DataTable.multiselection;
 	var selectedAll = multiselection.selectedAll;
 	var deselectedIds = multiselection.deselectedIds;
 

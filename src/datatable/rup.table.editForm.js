@@ -226,7 +226,7 @@ DataTable.editForm.init = function ( dt ) {
 		if(ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 			//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-			if(DataTable.multiSelect.multiselection.selectedAll){
+			if(DataTable.multiselection.selectedAll){
 				var linea = -1;
 				if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 					linea = ctx.json.rows.length;
@@ -394,9 +394,9 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 
 	if (actionType === 'PUT') {
 		$.rup_utils.populateForm(rowArray, idForm);
-		var multiselection = DataTable.multiSelect.multiselection;
+		var multiselection = DataTable.multiselection;
 		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds);
-		if(DataTable.multiSelect.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
+		if(DataTable.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		if(indexInArray === undefined){
@@ -404,9 +404,9 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			ctx.oInit.formEdit.$navigationBar.numPosition = 0;
 		}
 		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
-		DataTable.Api().multiSelect.selectPencil(ctx,idRow);
+		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
-		DataTable.multiSelect.multiselection.lastSelectedId = row.id;
+		DataTable.multiselection.lastSelectedId = row.id;
 		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
@@ -505,7 +505,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					_callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa,feedback del formulario
 				}else{
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
-					_callFeedbackOk(ctx,DataTable.multiSelect.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+					_callFeedbackOk(ctx,DataTable.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 
 				if(actionType === 'PUT'){//Modificar
@@ -528,13 +528,13 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					dt['row']().multiSelect();
 					//Se actualiza la linea
 					if(ctx.json.reorderedSelection !== null){
-						DataTable.multiSelect.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+						DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
 				}
 
 			}else{//Al eliminar hacer un reload.
-				DataTable.multiSelect.multiselection.internalFeedback.type = 'eliminar';
-				DataTable.multiSelect.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
+				DataTable.multiselection.internalFeedback.type = 'eliminar';
+				DataTable.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
 				DataTable.Api().multiSelect.deselectAll(dt);
 				 dt.ajax.reload();
 			}
@@ -658,7 +658,7 @@ function _callNavigationBar(dt){
 			page = dt.page()+1,
 			newPage = page,
 			lastPage = ctx.json.total;
-		var multiselection = DataTable.multiSelect.multiselection;
+		var multiselection = DataTable.multiselection;
 		//npos[0] = parseInt(npos[0], 10);
 		var rowSelected;
 
@@ -697,7 +697,7 @@ function _callNavigationBar(dt){
 					//rowSelected.line = -1;
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-					rowSelected.line = 0;
+					//rowSelected.line = 0;
 				}
 			}
 
@@ -730,7 +730,7 @@ function _callNavigationBar(dt){
 				rowSelected = multiselection.selectedRowsPerPage[indexLast];
 				rowSelected.indexSelected = indexLast;
 			} else {
-				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiSelect.multiselection.numSelected - 1;
+				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiselection.numSelected - 1;
 				rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 				rowSelected.page = _getPrevPageSelected (ctx,lastPage);
 				if(Number(rowSelected.page) === page){//Si es la misma pagina.buscar la linea
@@ -778,15 +778,15 @@ function _callNavigationBar(dt){
 function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
 	var rowDefault = {id:0,page:1,line:0};
-	var lastSelectedId = DataTable.multiSelect.multiselection.lastSelectedId;
-	if(!DataTable.multiSelect.multiselection.selectedAll){
+	var lastSelectedId = DataTable.multiselection.lastSelectedId;
+	if(!DataTable.multiselection.selectedAll){
 		//Si no hay un ultimo señalado se coge el ultimo;
 
 		if(lastSelectedId === undefined || lastSelectedId === ''){
-			DataTable.multiSelect.multiselection.lastSelectedId = DataTable.multiSelect.multiselection.selectedRowsPerPage[0].id;
+			DataTable.multiselection.lastSelectedId = DataTable.multiselection.selectedRowsPerPage[0].id;
 		}
-		$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
-			if(p.id === DataTable.multiSelect.multiselection.lastSelectedId){
+		$.each(DataTable.multiselection.selectedRowsPerPage,function(index,p) {
+			if(p.id === DataTable.multiselection.lastSelectedId){
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
@@ -802,15 +802,15 @@ function _getRowSelected(dt,actionType){
 			rowDefault.line = _getLineByPageSelected(ctx,-1);
 		}else{
 			//buscar la posicion y pagina
-			var result = $.grep(DataTable.multiSelect.multiselection.selectedRowsPerPage, function(v) {
-				return v.id === DataTable.multiSelect.multiselection.lastSelectedId;
+			var result = $.grep(DataTable.multiselection.selectedRowsPerPage, function(v) {
+				return v.id === DataTable.multiselection.lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
 			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
 			index = index+1+rowDefault.line;
 			//Hay que restar los deselecionados.
-			 result = $.grep(DataTable.multiSelect.multiselection.deselectedRowsPerPage, function(v) {
+			 result = $.grep(DataTable.multiselection.deselectedRowsPerPage, function(v) {
 					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
 				});
 			rowDefault.indexSelected = index-result.length;//Buscar indice
@@ -850,12 +850,12 @@ function _getNextPageSelected(ctx,pageInit,orden){
 	if(orden === 'prev'){//Si es previo se resta.
 		pageTotals = 1;
 	}
-	if(DataTable.multiSelect.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; page<pageTotals;) {
-			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
 				if(page === Number(p.page)){
 					count++;
 				}
@@ -894,7 +894,7 @@ function _getNextPageSelected(ctx,pageInit,orden){
 function _getPrevPageSelected(ctx,pageInit){
 	var pagina = pageInit;
 	var pageTotals = 1;
-	if(DataTable.multiSelect.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		if(ctx.json.total === pagina){//Es ultima pagina, calcular los registros{
 			maxPagina =  ctx.json.records % ctx._iDisplayLength;
@@ -902,7 +902,7 @@ function _getPrevPageSelected(ctx,pageInit){
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; pageTotals <= page;) {
-			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
 				if(Number(page) === Number(p.page)){
 					count++;
 				}
@@ -941,7 +941,7 @@ function _getLineByPageSelected(ctx,lineInit){
 
 	$.each(rows, function( index, row ) {
 		if(index > lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiSelect.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(row.id, DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
@@ -973,7 +973,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 	for (var index=rows.length-1; index>=0;index--) {
 		var row = rows[index];
 		if(index < lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiSelect.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(row.id, DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
@@ -997,25 +997,25 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	var row = DataTable.multiSelect.multiselection.selectedIds;
+	var row = DataTable.multiselection.selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
 		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
 		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
 		OKFunction: function () {
-			if(DataTable.multiSelect.multiselection.selectedIds.length > 1){
+			if(DataTable.multiselection.selectedIds.length > 1){
 				var row = {};
 				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
 				row.multiselection = {};
-				row.multiselection.selectedAll = DataTable.multiSelect.multiselection.selectedAll;
+				row.multiselection.selectedAll = DataTable.multiselection.selectedAll;
 				if(row.multiselection.selectedAll){
-					row.multiselection.selectedIds = DataTable.multiSelect.multiselection.deselectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection.deselectedIds;
 				}else{
-					row.multiselection.selectedIds = DataTable.multiSelect.multiselection.selectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection.selectedIds;
 				}
 				_callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
 			}else{
-				row = DataTable.multiSelect.multiselection.selectedIds[0];
+				row = DataTable.multiselection.selectedIds[0];
 				_callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
 			}
 		}
