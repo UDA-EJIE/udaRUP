@@ -442,9 +442,39 @@ describe('Test Combo > ', () => {
 				expect($comboHijo.rup_combo('isDisabled')).toBe(true);
 			});
 		});
-		describe('Método disableOpt > ', () => {});
-		describe('Método disableOptArr > ', () => {});
-		describe('Método enableOpt > ', () => {});
+		describe('Método disableOpt > ', () => {
+			beforeEach(() => {
+				$comboMulti.rup_combo('disableOpt', '4');
+			});
+			it('Debe tener el atributo de deshabilitado', () => {
+				let context = $('#rup-multiCombo_comboMulti > ul > li > label:contains("Opcion4")');
+				expect($('input[disabled="disabled"]', context).length).toBe(1);
+			});
+		});
+		describe('Método disableOptArr > ', () => {
+			beforeEach(() => {
+				$comboMulti.rup_combo('disableOptArr', ['4','5']);
+			});
+			it('Deben deshabilitarse las opciones especificadas', () => {
+				let labels = ['Opcion4', 'Opcion5'];
+				labels
+					.map(x => $('#rup-multiCombo_comboMulti > ul > li > label:contains("'+ x +'")'))
+					.forEach(cur => {
+						expect($('input[disabled="disabled"]',cur).length).toBe(1);
+					});
+
+			});
+		});
+		describe('Método enableOpt > ', () => {
+			beforeEach(() => {
+				$comboMulti.rup_combo('disableOpt', '4');
+				$comboMulti.rup_combo('enableOpt', '4');
+			});
+			it('Debe tener el atributo de deshabilitado', () => {
+				let context = $('#rup-multiCombo_comboMulti > ul > li > label:contains("Opcion4")');
+				expect($('input[disabled="disabled"]', context).length).toBe(0);
+			});
+		});
 		describe('Método enableOptArr > ', () => {});
 		describe('Método refresh > ', () => {
 			describe('Combo simple > ', () => {});
