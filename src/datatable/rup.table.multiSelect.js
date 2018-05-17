@@ -1512,23 +1512,6 @@ apiRegister( 'multiSelect.deselectAll()', function ( dt ) {
 	deselectAll(dt);
 } );
 
-apiRegister( 'multiSelect.reorderDataFromServer()', function ( json ) {
-	//Se mira la nueva reordenacion y se ordena.
-	DataTable.multiselection.selectedIds = [];
-	DataTable.multiselection.selectedRowsPerPage = [];
-	//Viene del servidor por eso la linea de la pagina es 1 menos.
-	$.each(json.reorderedSelection,function(index,p) {
-		var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
-		DataTable.multiselection.selectedIds.splice(index,0,arra.id);
-		DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
-	});
-	if(!DataTable.multiselection.selectedAll){
-		DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
-	}
-	// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-	DataTable.Api().buttons.displayRegex();
-} );
-
 apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( multiSelect ) {
 	var api = this;
 	var DataTable = $.fn.dataTable;

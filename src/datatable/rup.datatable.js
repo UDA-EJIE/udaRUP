@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select'], factory );
 	} else {
 
 		// Browser globals
@@ -126,7 +126,9 @@
 			var columnDefs = $.extend({}, options.columnDefs, defes);
 			//options.columnDefs = columnDefs;
 			
-			//Se cargan los metodos en la API
+			//Se cargan los metodos en la API, Se referencia al Register
+			var apiRegister = DataTable.Api.register;
+			
 			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
 					//Se limina el lapicero indicador.
 					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
@@ -135,7 +137,24 @@
 						var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
 						$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
 					}
-				} );
+			} );
+			 
+			apiRegister( 'rupTable.reorderDataFromServer()', function ( json ) {
+					//Se mira la nueva reordenacion y se ordena.
+					DataTable.multiselection.selectedIds = [];
+					DataTable.multiselection.selectedRowsPerPage = [];
+					//Viene del servidor por eso la linea de la pagina es 1 menos.
+					$.each(json.reorderedSelection,function(index,p) {
+						var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
+						DataTable.multiselection.selectedIds.splice(index,0,arra.id);
+						DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
+					});
+					if(!DataTable.multiselection.selectedAll){
+						DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
+					}
+					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+					DataTable.Api().buttons.displayRegex();
+			} );
 
 			return options;
 		},
@@ -151,12 +170,13 @@
 			*
 		  */
 		_getColumns(options) {
+			$self = this;
 			//Se crea la columna del select.
 			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
 					options.multiSelect !== undefined){
 				//Se crear el th thead, se añade la columnal.
-				$self = this;
+				
 				var th = $("<th/>").attr('data-col-prop','');
 
 				if($self[0].tHead !== null){
@@ -250,9 +270,12 @@
 			ret.recordsTotal = json.records;
 			ret.recordsFiltered = json.records;
 			ret.data = json.rows;
+
+//			$self = $('#'+DataTable.settings[0].sTableId);
+
 			var settings = $self.data('settings');
-			if(settings !== undefined && settings.multiSelect !== undefined){
-				DataTable.Api().multiSelect.reorderDataFromServer(json);
+			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
+				DataTable.Api().rupTable.reorderDataFromServer(json);
 			}
 
 			return ret.data;
@@ -629,7 +652,7 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccin y el seeker.
+		     * Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
@@ -727,13 +750,24 @@
 			$self.attr('ruptype', 'datatable');
 			
 			//Comprobar plugin dependientes
-			if(settings.multiSelect === undefined){
+			if(settings.multiSelect !== undefined){
+				settings.columnDefs.push({
+			        orderable: false,
+			        className: 'select-checkbox',
+			        targets:   0
+			    	});
+				//Modulo incompatible
+				settings.select = undefined;
+			}
+			
+			//PRUEBAS
+			/*if(settings.multiSelect === undefined){
 				settings.buttons = undefined;
 				settings.editForm = undefined;
 				settings.seeker = undefined;
 				settings.formEdit = undefined;
-				settings.columnDefs = [];
-			}
+			}*/
+			
 			if(settings.formEdit === undefined){
 				settings.buttons = undefined;
 			}
@@ -744,8 +778,8 @@
 			
 			$self._initializeMultiselectionProps();
 			
-			if(settings.searchPaginator){
-				tabla.on( 'draw', function (e,settingsTable) {
+			tabla.on( 'draw', function (e,settingsTable) {
+				if(settings.searchPaginator){//Mirar el crear paginador
 					$self._createSearchPaginator($(this),settingsTable);
 					//Si el seeker esta vacio ocultarlo
 					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined && DataTable.seeker.search.$searchRow !== undefined){
@@ -755,8 +789,12 @@
 							DataTable.seeker.search.$searchRow.hide();
 						}
 					}
-				  });
-			}
+				}
+				if(settings.select !== undefined){//AL repintar vigilar el select.
+					DataTable.Api().select.drawSelectId();
+				}
+			  });
+			
 			
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
@@ -805,12 +843,7 @@ $.fn.rup_datatable.defaults = {
 		responsive: true,
     searchPaginator:true,
     pagingType: "full",
-    columnDefs: [ {
-        orderable: false,
-        className: 'select-checkbox',
-        targets:   0
-    	}
-    ],
+    columnDefs: [],
     filter:{
   	  id:"table_filter_form",
   	  filterToolbar:"table_filter_toolbar",
