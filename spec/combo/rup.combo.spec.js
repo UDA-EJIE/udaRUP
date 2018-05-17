@@ -224,16 +224,72 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método selectLabel > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('selectLabel', 'Opcion1');
+				});
+				it('Debe modificar la ui ', () => {
+					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+				});
+				it('Debe reflejarse en el método getRupValue', () => {
+					expect($combo.rup_combo('getRupValue')).toBe('1');
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('selectLabel', 'Opt2');
+				});
+				it('Debe modificar la ui ', () => {
+					expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
+				});
+				it('Debe reflejarse en el método getRupValue', () => {
+					expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					$comboHijo.rup_combo('selectLabel', 'Subopt12');
+				});
+				it('Debe modificar la ui ', () => {
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
+				});
+				it('Debe reflejarse en el método getRupValue', () => {
+					expect($comboHijo.rup_combo('getRupValue')).toBe('1.2');
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('selectLabel', ['Opcion3', 'Opcion4']);
+				});
+				it('Debe modificar la ui ', () => {
+					expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+				});
+				it('Debe reflejarse en el método getRupValue', () => {
+					expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
+				});
+			});
 		});
 		describe('Método value > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				it('Debe devolver el valor del componente', () => {
+					expect($combo.rup_combo('value')).toBe('2');
+				});
+			});
+			describe('Combo padre > ', () => {
+				it('Debe devolver el valor del componente', () => {
+					expect($comboPadre.rup_combo('value')).toBe('1');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				it('Debe devolver el valor del componente', () => {
+					expect($comboHijo.rup_combo('value')).toBe('1.1');
+				});
+			});
+			describe('Combo multiple > ', () => {
+				it('Debe devolver el valor del componente', () => {
+					expect($comboMulti.rup_combo('value')).toEqual(['2']);
+				});
+			});
 		});
 		describe('Método label > ', () => {
 			describe('Combo simple > ', () => {});
