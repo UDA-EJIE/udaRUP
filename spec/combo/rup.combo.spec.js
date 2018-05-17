@@ -3,33 +3,188 @@ import 'jasmine-jquery';
 import 'rup.combo';
 
 describe('Test Combo > ', () => {
-	beforeEach(() => {});
-	describe('Creacion > ', () => {});
-	describe('Funcionamiento > ', () => {});
+	var $combo, $comboPadre, $comboHijo, $comboMulti;
+	beforeEach(() => {
+		setupCombos();
+
+		$combo      = $('#combo');
+		$comboMulti = $('#comboMulti');
+		$comboPadre = $('#comboPadre');
+		$comboHijo  = $('#comboHijo');
+	});
+	describe('Creacion > ', () => {
+		describe('Combo simple >', () => {
+			it('Debe tener el valor por defecto: ', () => {
+				expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion2');
+			});
+		});
+		describe('Combo padre >', () => {
+			it('Debe tener el valor por defecto: ', () => {
+				expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt1');
+			});
+		});
+		describe('Combo hijo >', () => {
+			it('Debe tener el valor por defecto: ', () => {
+				expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt11');
+			});
+		});
+		describe('Combo multiple >', () => {
+			it('Debe tener el valor por defecto: ', () => {
+				expect($('#comboMulti-button > span:not([class])').text()).toBe('1 seleccionado(s)');
+			});
+		});
+	});
 	describe('Métodos públicos > ', () => {
-		describe('Métodos getRupValue y setRupValue > ', () => {});
-		describe('Método clear > ', () => {});
-		describe('Método change > ', () => {});
-		describe('Método checkAll > ', () => {});
-		describe('Método select > ', () => {});
-		describe('Método selectLabel > ', () => {});
-		describe('Método value > ', () => {});
-		describe('Método label > ', () => {});
-		describe('Método index > ', () => {});
-		describe('Método disable > ', () => {});
-		describe('Método enable > ', () => {});
-		describe('Método isDisabled > ', () => {});
+		describe('Métodos getRupValue y setRupValue > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método clear > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método change > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método checkAll > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método select > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método selectLabel > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método value > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método label > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método index > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método disable e isDisabled > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método enable e isDisabled > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
 		describe('Método disableChild > ', () => {});
 		describe('Método disableOpt > ', () => {});
 		describe('Método disableOptArr > ', () => {});
 		describe('Método enableOpt > ', () => {});
 		describe('Método enableOptArr > ', () => {});
-		describe('Método refresh > ', () => {});
-		describe('Método reload > ', () => {});
-		describe('Método order > ', () => {});
+		describe('Método refresh > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método reload > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
+		describe('Método order > ', () => {
+			describe('Combo simple > ', () => {});
+			describe('Combo padre > ', () => {});
+			describe('Combo hijo > ', () => {});
+			describe('Combo multiple > ', () => {});
+		});
 	});
 });
 
+function setupCombos(){
+	let html = '<select id="combo"></select>\
+		<select id="comboMulti"></select>\
+		<select id="comboPadre"></select>\
+		<select id="comboHijo"></select>';
+	$('body').append(html);
+
+	let source = [
+		{i18nCaption: 'Opcion1', value: '1'},
+		{i18nCaption: 'Opcion2', value: '2'},
+		{i18nCaption: 'Opcion3', value: '3'},
+		{i18nCaption: 'Opcion4', value: '4'},
+		{i18nCaption: 'Opcion5', value: '5'},
+		{i18nCaption: 'Opcion6', value: '6'}
+	];
+	let optionsSimple = {
+		change: () =>{$('#combo').addClass('randomClass');},
+		source: source,
+		blank: '0',
+		selected: '2'
+	};
+	let optionsMulti = {
+		change: () =>{$('#comboMulti').addClass('randomClass');},
+		source: source,
+		selected: ['2'],
+		multiselect:true
+	};
+	let optionsPadre = {
+		change: () =>{$('#comboPadre').addClass('randomClass');},
+		source:[
+			{i18nCaption:'Opt1', value:'1'},
+			{i18nCaption:'Opt2', value:'2'}
+		],
+		blank: '0',
+		selected:'1'
+	};
+	let optionsHijo = {
+		change: () =>{$('#comboHijo').addClass('randomClass');},
+		parent:['comboPadre'],
+		source:{
+			'1':[{i18nCaption:'Subopt11', value:'1.1'},{i18nCaption:'Subopt12', value:'1.2'}],
+			'2':[{i18nCaption:'Subopt21', value:'2.1'},{i18nCaption:'Subopt22', value:'2.2'}]
+		},
+		blank: '0',
+		selected:'1.1'
+	};
+
+	$('#combo').rup_combo(optionsSimple);
+	$('#comboMulti').rup_combo(optionsMulti);
+	$('#comboPadre').rup_combo(optionsPadre);
+	$('#comboHijo').rup_combo(optionsHijo);
+
+	//Mete automaticamente randomClass asi que lo quitamos
+	$('#combo').removeClass('randomClass');
+	$('#comboMulti').removeClass('randomClass');
+	$('#comboPadre').removeClass('randomClass');
+	$('#comboHijo').removeClass('randomClass');
+};
 
 /*
 describe('Test Combo', () => {
