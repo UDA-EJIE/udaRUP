@@ -12,6 +12,9 @@ describe('Test Combo > ', () => {
 		$comboPadre = $('#comboPadre');
 		$comboHijo  = $('#comboHijo');
 	});
+	afterEach(() => {
+		$('body').html('');
+	});
 	describe('Creacion > ', () => {
 		describe('Combo simple >', () => {
 			it('Debe tener el valor por defecto: ', () => {
@@ -36,10 +39,50 @@ describe('Test Combo > ', () => {
 	});
 	describe('Métodos públicos > ', () => {
 		describe('Métodos getRupValue y setRupValue > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('setRupValue','1');
+				});
+				it('Debe actualizarse la ui: ', () => {
+					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+				});
+				it('Debe reflejarse en getRupValue: ', () => {
+					expect($combo.rup_combo('getRupValue')).toBe('1');
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('setRupValue','2');
+				});
+				it('Debe actualizarse la ui: ', () => {
+					expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
+				});
+				it('Debe reflejarse en getRupValue: ', () => {
+					expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					$comboHijo.rup_combo('setRupValue','1.2');
+				});
+				it('Debe actualizarse la ui: ', () => {
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($comboHijo.rup_combo('getRupValue')).toBe('1.2');
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('setRupValue', ['3', '4']);
+				});
+				it('Debe actualizarse ', () => {
+					expect($('#comboMulti-button > span:not([class])').text()).toBe('2 seleccionado(s)');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($comboMulti.rup_combo('getRupValue')).toEqual(['3', '4']);
+				});
+			});
 		});
 		describe('Método clear > ', () => {
 			describe('Combo simple > ', () => {});
