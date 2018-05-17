@@ -292,10 +292,26 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método label > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				it('Debe devolver la label de la seleccion', () => {
+					expect($combo.rup_combo('label')).toBe('Opcion2');
+				});
+			});
+			describe('Combo padre > ', () => {
+				it('Debe devolver la label de la seleccion', () => {
+					expect($comboPadre.rup_combo('label')).toBe('Opt1');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				it('Debe devolver la label de la seleccion', () => {
+					expect($comboHijo.rup_combo('label')).toBe('Subopt11');
+				});
+			});
+			describe('Combo multiple > ', () => {
+				it('Debe devolver la label de la seleccion', () => {
+					expect($comboMulti.rup_combo('label')).toEqual(['Opcion2']);
+				});
+			});
 		});
 		describe('Método index > ', () => {
 			describe('Combo simple > ', () => {});
