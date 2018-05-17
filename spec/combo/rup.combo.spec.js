@@ -431,7 +431,17 @@ describe('Test Combo > ', () => {
 				});
 			});
 		});
-		describe('Método disableChild > ', () => {});
+		describe('Método disableChild > ', () => {
+			beforeEach(() => {
+				$comboPadre.rup_combo('disableChild');
+			});
+			it('Debe deshabilitar el combo padre', () => {
+				expect($comboPadre.rup_combo('isDisabled')).toBe(true);
+			});
+			it('Debe deshabilitar el combo hijo', () => {
+				expect($comboHijo.rup_combo('isDisabled')).toBe(true);
+			});
+		});
 		describe('Método disableOpt > ', () => {});
 		describe('Método disableOptArr > ', () => {});
 		describe('Método enableOpt > ', () => {});
