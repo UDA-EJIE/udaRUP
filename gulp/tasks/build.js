@@ -71,7 +71,7 @@ gulp.task('build:resources', function (callback) {
 	console.log('externals ');
 	
 	// bootstrap
-	console.log('bootstrap (v3, v4)');
+	console.log('bootstrap (v4.1.0)');
 	gulp.src(['./assets/css/externals/**/*.*'])
 		.pipe(gulp.dest('dist/css/externals/bootstrap'));
 
