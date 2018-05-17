@@ -85,10 +85,52 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método clear > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('clear');
+				});
+				it('Debe actualizar la ui ', () => {
+					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('[Seleccione un elemento]');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($combo.rup_combo('getRupValue')).toEqual('0');
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('clear');
+				});
+				it('Debe actualizar la ui ', () => {
+					expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('----');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($comboPadre.rup_combo('getRupValue')).toEqual('0');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				describe('Combo padre > ', () => {
+					beforeEach(() => {
+						$comboHijo.rup_combo('clear');
+					});
+					it('Debe actualizar la ui ', () => {
+						expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
+					});
+					it('El método getRupValue debe devolver el valor establecido', () => {
+						expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
+					});
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('clear');
+				});
+				it('Debe actualizar la ui ', () => {
+					expect($('#comboMulti-button > span:not([class])').text()).toBe('Seleccione las opciones');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($comboMulti.rup_combo('getRupValue')).toEqual([]);
+				});
+			});
 		});
 		describe('Método change > ', () => {
 			describe('Combo simple > ', () => {});
