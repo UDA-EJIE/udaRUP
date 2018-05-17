@@ -314,22 +314,122 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método index > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				it('Debe devolver el indice de la seleccion', () => {
+					expect($combo.rup_combo('index')).toBe(2);
+				});
+			});
+			describe('Combo padre > ', () => {
+				it('Debe devolver el indice de la seleccion', () => {
+					expect($comboPadre.rup_combo('index')).toBe(1);
+				});
+			});
+			describe('Combo hijo > ', () => {
+				it('Debe devolver el indice de la seleccion', () => {
+					expect($comboHijo.rup_combo('index')).toBe(2);
+				});
+			});
+			describe('Combo multiple > ', () => {
+				it('Debe devolver el indice de la seleccion', () => {
+					expect($comboMulti.rup_combo('index')).toEqual([1]);
+				});
+			});
 		});
 		describe('Método disable e isDisabled > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('disable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($combo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+				});
+				it('El metodo isDisabled debe devolver true', () => {
+					expect($combo.rup_combo('isDisabled')).toBe(true);
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('disable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboPadre.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+				});
+				it('El metodo isDisabled debe devolver true', () => {
+					expect($comboPadre.rup_combo('isDisabled')).toBe(true);
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					$comboHijo.rup_combo('disable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+				});
+				it('El metodo isDisabled debe devolver true', () => {
+					expect($comboHijo.rup_combo('isDisabled')).toBe(true);
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('disable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboMulti.attr('disabled')).toBe('disabled');
+				});
+				it('El metodo isDisabled debe devolver true', () => {
+					expect($comboMulti.rup_combo('isDisabled')).toBe(true);
+				});
+			});
 		});
 		describe('Método enable e isDisabled > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('disable');
+					$combo.rup_combo('enable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($combo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+				});
+				it('El metodo isDisabled debe devolver false', () => {
+					expect($combo.rup_combo('isDisabled')).toBe(false);
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('disable');
+					$comboPadre.rup_combo('enable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboPadre.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+				});
+				it('El metodo isDisabled debe devolver false', () => {
+					expect($comboPadre.rup_combo('isDisabled')).toBe(false);
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					$comboHijo.rup_combo('disable');
+					$comboHijo.rup_combo('enable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+				});
+				it('El metodo isDisabled debe devolver false', () => {
+					expect($comboHijo.rup_combo('isDisabled')).toBe(false);
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('disable');
+					$comboMulti.rup_combo('enable');
+				});
+				it('Debe tener las clases de deshabilitado', () => {
+					expect($comboMulti.attr('disabled')).toBe(undefined);
+				});
+				it('El metodo isDisabled debe devolver false', () => {
+					expect($comboMulti.rup_combo('isDisabled')).toBe(false);
+				});
+			});
 		});
 		describe('Método disableChild > ', () => {});
 		describe('Método disableOpt > ', () => {});
