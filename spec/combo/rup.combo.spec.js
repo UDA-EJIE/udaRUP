@@ -133,10 +133,38 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método change > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					$combo.rup_combo('change');
+				});
+				it('Debe aparecer la clase ', () => {
+					expect($combo.hasClass('randomClass')).toBe(true);
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					$comboPadre.rup_combo('change');
+				});
+				it('Debe aparecer la clase ', () => {
+					expect($comboPadre.hasClass('randomClass')).toBe(true);
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					$comboHijo.rup_combo('change');
+				});
+				it('Debe aparecer la clase ', () => {
+					expect($comboHijo.hasClass('randomClass')).toBe(true);
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					$comboMulti.rup_combo('change');
+				});
+				it('Debe aparecer la clase ', () => {
+					expect($comboMulti.hasClass('randomClass')).toBe(true);
+				});
+			});
 		});
 		describe('Método checkAll > ', () => {
 			describe('Combo simple > ', () => {});
