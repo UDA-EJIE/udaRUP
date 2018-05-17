@@ -45,10 +45,8 @@ gulp.task('build:uglify', function(callback){
 gulp.task('build:resources', function (callback) {
 
 	// Generamos la carpeta de distribuibles
-
-	// font-awesome
-	gulp.src(['./node_modules/font-awesome/css/font-awesome.css','./node_modules/font-awesome/css/font-awesome.min.css']).pipe(gulp.dest('./dist/css'));
-
+	console.log('Generando la carpeta de distribuibles...');
+	
 	// dist/css/images
 	console.log('dist/css/images');
 	gulp.src(['./assets/images/**/*.*'])
@@ -67,16 +65,31 @@ gulp.task('build:resources', function (callback) {
 	// fonts
 	console.log('dist/fonts');
 	gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
-		.pipe(gulp.dest('dist/fonts'));
+		.pipe(gulp.dest('dist/css/externals/fonts'));
 
 	// externals
 	console.log('externals ');
+	
+	// bootstrap
 	console.log('bootstrap (v3, v4)');
 	gulp.src(['./assets/css/externals/**/*.*'])
-		.pipe(gulp.dest('dist/css/externals'));
+		.pipe(gulp.dest('dist/css/externals/bootstrap'));
 
 	gulp.src(['./assets/js/externals/**/*.*'])
-		.pipe(gulp.dest('dist/js/externals'));
-
+		.pipe(gulp.dest('dist/js/externals/bootstrap'));
+	
+	// font-awesome
+	console.log('font-awesome');
+	gulp.src(['./node_modules/font-awesome/css/*.*'])
+		.pipe(gulp.dest('./dist/css/externals/font-awesome'));
+	
+	// tether
+	console.log('tether');
+	gulp.src(['./node_modules/tether/dist/css/*.*'])
+	.pipe(gulp.dest('./dist/css/externals/tether'));
+	
+	gulp.src(['./node_modules/tether/dist/js/*.*'])
+		.pipe(gulp.dest('./dist/js/externals/tether'));
+	
 	callback();
 });
