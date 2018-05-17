@@ -462,7 +462,6 @@ describe('Test Combo > ', () => {
 					.forEach(cur => {
 						expect($('input[disabled="disabled"]',cur).length).toBe(1);
 					});
-
 			});
 		});
 		describe('Método enableOpt > ', () => {
