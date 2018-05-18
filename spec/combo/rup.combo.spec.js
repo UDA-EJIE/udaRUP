@@ -538,9 +538,39 @@ describe('Test Combo > ', () => {
 			describe('Combo multiple > ', () => {});
 		});
 		describe('Método order > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$combo.append(newOpt);
+					$combo.rup_combo('refresh');
+					$combo.rup_combo('order');
+				});
+				it('Intruso debe ser la primera opcion', () => {
+					expect($('#combo-menu > li').eq(1).text()).toBe('Intruso');
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboPadre.append(newOpt);
+					$comboPadre.rup_combo('refresh');
+					$comboPadre.rup_combo('order');
+				});
+				it('Intruso debe ser la primera opcion', () => {
+					expect($('#comboPadre-menu > li').eq(1).text()).toBe('Intruso');
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboHijo.append(newOpt);
+					$comboHijo.rup_combo('refresh');
+					$comboHijo.rup_combo('order');
+				});
+				it('Intruso debe ser la primera opcion', () => {
+					expect($('#comboHijo-menu > li').eq(2).text()).toBe('Intruso');
+				});
+			});
 			describe('Combo multiple > ', () => {});
 		});
 	});
@@ -589,7 +619,7 @@ function setupCombos(){
 			'1':[{i18nCaption:'Subopt11', value:'1.1'},{i18nCaption:'Subopt12', value:'1.2'}],
 			'2':[{i18nCaption:'Subopt21', value:'2.1'},{i18nCaption:'Subopt22', value:'2.2'}]
 		},
-		blank: '0',
+		blank:'0',
 		selected:'1.1'
 	};
 
