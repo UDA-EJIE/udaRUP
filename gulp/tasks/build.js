@@ -80,15 +80,15 @@ gulp.task('build:resources', function (callback) {
 	
 	// font-awesome
 	console.log('font-awesome');
-	gulp.src(['./node_modules/font-awesome/css/*.*'])
+	gulp.src(['./node_modules/font-awesome/css/font-awesome.min.css', './node_modules/font-awesome/css/font-awesome.css.map'])
 		.pipe(gulp.dest('./dist/css/externals/font-awesome'));
 	
 	// tether
 	console.log('tether');
-	gulp.src(['./node_modules/tether/dist/css/*.*'])
+	gulp.src(['./node_modules/tether/dist/css/*min*.*'])
 	.pipe(gulp.dest('./dist/css/externals/tether'));
 	
-	gulp.src(['./node_modules/tether/dist/js/*.*'])
+	gulp.src(['./node_modules/tether/dist/js/*min*.*'])
 		.pipe(gulp.dest('./dist/js/externals/tether'));
 	
 	callback();
