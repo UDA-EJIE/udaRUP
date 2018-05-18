@@ -490,10 +490,46 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método refresh > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			describe('Combo simple > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$combo.append(newOpt);
+					$combo.rup_combo('refresh');
+				});
+				it('Debe haber metido el elemento:', () => {
+					expect($('#combo-menu > li > a:contains("Intruso")').length).toBe(1);
+				});
+			});
+			describe('Combo padre > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboPadre.append(newOpt);
+					$comboPadre.rup_combo('refresh');
+				});
+				it('Debe haber metido el elemento:', () => {
+					expect($('#comboPadre-menu > li > a:contains("Intruso")').length).toBe(1);
+				});
+			});
+			describe('Combo hijo > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboHijo.append(newOpt);
+					$comboHijo.rup_combo('refresh');
+				});
+				it('Debe haber metido el elemento:', () => {
+					expect($('#comboHijo-menu > li > a:contains("Intruso")').length).toBe(1);
+				});
+			});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboMulti.append(newOpt);
+					$comboMulti.rup_combo('refresh');
+				});
+				it('Debe haber metido el elemento:', () => {
+					expect($('#rup-multiCombo_comboMulti > ul > li > label > span:contains("Intruso")').length).toBe(1);
+				});
+			});
 		});
 		describe('Método reload > ', () => {
 			describe('Combo simple > ', () => {});
