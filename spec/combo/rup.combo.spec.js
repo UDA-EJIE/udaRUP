@@ -532,10 +532,10 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método reload > ', () => {
-			describe('Combo simple > ', () => {});
-			describe('Combo padre > ', () => {});
-			describe('Combo hijo > ', () => {});
-			describe('Combo multiple > ', () => {});
+			// TODO: Implementar reload
+			/**
+			 * No puedo implementarlo hasta que consiga meter un controlador.
+			 */
 		});
 		describe('Método order > ', () => {
 			describe('Combo simple > ', () => {
