@@ -474,7 +474,21 @@ describe('Test Combo > ', () => {
 				expect($('input[disabled="disabled"]', context).length).toBe(0);
 			});
 		});
-		describe('Método enableOptArr > ', () => {});
+		describe('Método enableOptArr > ', () => {
+			beforeEach(() => {
+				$comboMulti.rup_combo('disableOptArr', ['4', '5']);
+				$comboMulti.rup_combo('enableOptArr', ['4', '5']);
+			});
+			it('Deben deshabilitarse las opciones especificadas: ', () => {
+				let labels = ['Opcion4','Opcion5'];
+
+				labels
+					.map(x => $('#rup-multiCombo_comboMulti > ul > li > label:contains("'+ x +'")'))
+					.forEach(cur => {
+						expect($('input[disabled="disabled"]',cur).length).toBe(0);
+					});
+			});
+		});
 		describe('Método refresh > ', () => {
 			describe('Combo simple > ', () => {});
 			describe('Combo padre > ', () => {});
