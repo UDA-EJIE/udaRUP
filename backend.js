@@ -64,6 +64,7 @@ module.exports = (PORT) => {
 	app.get('/demo/autocomplete/remote', routesAutocomplete.remote);
 	// Combo
 	app.get('/demo/comboSimple/remote', routesCombo.comboSimple.remote);
+	app.get('/demo/comboSimple/remoteDos', routesCombo.comboSimple.remoteDos);
 	app.get('/demo/comboSimple/remoteGroup', routesCombo.comboSimple.remoteGroup);
 	app.get('/demo/comboSimple/remoteGroupEnlazado', routesCombo.comboSimple.remoteGroupEnlazado);
 	app.get('/demo/comboEnlazadoSimple/remoteEnlazadoProvincia', routesCombo.comboEnlazadoSimple.remoteEnlazadoProvincia);

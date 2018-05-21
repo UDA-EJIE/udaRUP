@@ -2,6 +2,8 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.combo';
 
+const webRoot = "http://localhost:8081";
+
 describe('Test Combo > ', () => {
 	var $combo, $comboPadre, $comboHijo, $comboMulti;
 	beforeEach(() => {
@@ -540,9 +542,14 @@ describe('Test Combo > ', () => {
 				let html = '<select id="comboRemoto"></select>';
 				$('body').append(html);
 				$('#comboRemoto').rup_combo({
-					source: '/demo/comboEnlazadoSimple/remoteEnlazadoProvincia'
+					source: webRoot + '/demo/comboSimple/remote',
+					sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
 				});
-
+				$('#comboRemoto').selectmenu('option', 'source', webRoot + '/demo/comboSimple/remoteDos');
+				$('#comboRemoto').rup_combo('reload')
+			});
+			it('Debe crearse', () => {
+				expect($('#comboRemoto-menu > li > a:contains("A2")').length).toBe(1);
 			});
 		});
 		describe('Método order > ', () => {
