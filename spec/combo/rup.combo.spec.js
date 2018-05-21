@@ -534,7 +534,7 @@ describe('Test Combo > ', () => {
 		describe('Método reload > ', () => {
 			// TODO: Implementar reload
 			/**
-			 *  ¿COmo cambio los valores del servidor para que me devuelva algo distinto?
+			 *  ¿Cómo cambio los valores del servidor para que me devuelva algo distinto?
 			 */
 			beforeEach(() => {
 				let html = '<select id="comboRemoto"></select>';
@@ -542,6 +542,7 @@ describe('Test Combo > ', () => {
 				$('#comboRemoto').rup_combo({
 					source: '/demo/comboEnlazadoSimple/remoteEnlazadoProvincia'
 				});
+
 			});
 		});
 		describe('Método order > ', () => {
@@ -578,7 +579,17 @@ describe('Test Combo > ', () => {
 					expect($('#comboHijo-menu > li').eq(2).text()).toBe('Intruso');
 				});
 			});
-			describe('Combo multiple > ', () => {});
+			describe('Combo multiple > ', () => {
+				beforeEach(() => {
+					let newOpt = new Option('Intruso', 'intruso_value');
+					$comboMulti.append(newOpt);
+					$comboMulti.rup_combo('refresh');
+					$comboMulti.rup_combo('order');
+				});
+				it('Intruso debe ser la primera opcion', () => {
+					expect($('#rup-multiCombo_comboMulti > ul > li').eq(0).text()).toBe('Intruso');
+				});
+			});
 		});
 	});
 });
