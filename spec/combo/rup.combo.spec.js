@@ -534,8 +534,15 @@ describe('Test Combo > ', () => {
 		describe('Método reload > ', () => {
 			// TODO: Implementar reload
 			/**
-			 * No puedo implementarlo hasta que consiga meter un controlador.
+			 *  ¿COmo cambio los valores del servidor para que me devuelva algo distinto?
 			 */
+			beforeEach(() => {
+				let html = '<select id="comboRemoto"></select>';
+				$('body').append(html);
+				$('#comboRemoto').rup_combo({
+					source: '/demo/comboEnlazadoSimple/remoteEnlazadoProvincia'
+				});
+			});
 		});
 		describe('Método order > ', () => {
 			describe('Combo simple > ', () => {

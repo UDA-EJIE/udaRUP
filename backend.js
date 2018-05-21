@@ -105,4 +105,5 @@ module.exports = (PORT) => {
 	app.listen(PORT);
 
 	console.log(`Listening on port ${PORT}...`);
+	return;
 };
