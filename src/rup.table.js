@@ -13078,7 +13078,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				settings.core.showOperations[index] = true;
 			});
 
-			jQuery.extend(true, settings.core.operations, settings.core.defaultOperations);
+			jQuery.extend(true, settings.core.defaultOperations, settings.core.operations);
 
 			$self.on({
 				'jqGridBeforeRequest': function () {
