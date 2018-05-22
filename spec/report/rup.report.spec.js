@@ -4,6 +4,8 @@ import 'rup.button';
 import 'rup.toolbar';
 import 'rup.report';
 
+const webRoot = 'http://localhost:8081';
+
 describe('Test Report > ', () => {
     var $report;
     beforeEach(() => {
@@ -29,7 +31,7 @@ describe('Test Report > ', () => {
             buttons:[
                 {
                     i18nCaption:'exportar',
-                    url:'./export',
+                    url: webRoot + '/demo/resources/w_n_p.pdf',
                     right: true
                 }
             ]
@@ -52,11 +54,6 @@ describe('Test Report > ', () => {
         beforeEach(() => {
             $report.trigger('click');
         });
-        /**
-         * // TODO: Comprobar:
-         *  -- que se abre una ventana con el elemento de progressbar
-         *  -- que se realiza una llamada a esa url
-         */
         describe('Abre ventana emergente > ', () => {
             it('Debe abrir una ventana emergente:', () => {
                 setTimeout(() => {
@@ -76,10 +73,11 @@ describe('Test Report > ', () => {
             });
         });
         describe('Obtiene el archivo > ', () => {
-            // TODO:
-            /**
-             * Tengo que hacerme un mock de un controlador para probarlo
-             */
+            beforeEach(() => {
+                $('[id="exampleToolbar##exportar"]').trigger('click');
+            });
+
+            // TODO: PhantomJS no soporta la descarga de archivos así que no se puede probar
         });
     });
 });
