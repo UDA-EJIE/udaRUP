@@ -174,7 +174,7 @@
 			//Se crea la columna del select.
 			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
-					options.multiSelect !== undefined){
+					(options.multiSelect !== undefined)){
 				//Se crear el th thead, se añade la columnal.
 				
 				var th = $("<th/>").attr('data-col-prop','');
@@ -187,7 +187,9 @@
 					$('<th/>').insertBefore($self[0].tFoot.rows[0].cells[0])
 				}
 				//Se aseguro que no sea orderable
-				options.columnDefs[0].orderable = false;
+				if(options.columnDefs.length > 0){
+					options.columnDefs[0].orderable = false;
+				}
 			}
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
@@ -277,6 +279,10 @@
 			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 				DataTable.Api().rupTable.reorderDataFromServer(json);
 			}
+			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
+					&& json.reorderedSeeker !== undefined){
+				 DataTable.seeker.search.funcionParams = json.reorderedSeeker;
+			}
 
 			return ret.data;
 
@@ -301,6 +307,14 @@
 			data.multiselection = undefined;
 			if(DataTable.multiselection !== undefined && DataTable.multiselection.selectedIds.length > 0){
 				data.multiselection = DataTable.multiselection;
+			}
+			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
+					&& DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0){
+				data.seeker = {};
+				data.seeker.selectedIds = [];
+				$.each(DataTable.seeker.search.funcionParams,function(index,p) {
+					data.seeker.selectedIds.splice(index,0,p.pk.id);
+				});
 			}
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
@@ -683,16 +697,11 @@
 						DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 						ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 					}
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
-						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
-						}
-					}
+
 				} );
 			},
 			/**
-			* Metodo que inicialida las propiedades para el multiselect.
+			* Metodo que inicialida las propiedades para el multiselect y el Select.
 			*
 			* @name initializeMultiselectionProps
 			* @function
@@ -790,8 +799,18 @@
 						}
 					}
 				}
-				if(settings.select !== undefined){//AL repintar vigilar el select.
-					DataTable.Api().select.drawSelectId();
+
+				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
+					if(settings.select !== undefined){//AL repintar vigilar el select.
+						DataTable.Api().select.drawSelectId();
+					}
+					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
+						var ctx = tabla.context[0];
+						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
+						}
+					}
 				}
 			  });
 			

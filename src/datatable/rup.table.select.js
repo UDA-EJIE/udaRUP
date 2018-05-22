@@ -72,21 +72,7 @@ DataTable.select.init = function ( dt ) {
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr',  function () {
 		var idRow = this._DT_RowIndex;
-		DataTable.multiselection.selectedRowsPerPage = [];
-		if($(this).hasClass( "tr-highlight" )){
-			$(this).removeClass('selected tr-highlight');
-			DataTable.multiselection.numSelected = 0;
-			DataTable.multiselection.selectedIds = [];
-		}else{
-			$('tr',rowsBody).removeClass('selected tr-highlight');
-			$(this).addClass('selected tr-highlight');
-			var row = ctx.json.rows[idRow];
-			var arra = {id:row.id,page:dt.page()+1,line:idRow};
-			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
-			DataTable.multiselection.numSelected = 1;
-			DataTable.multiselection.selectedIds = [row.id];
-		}
-		DataTable.Api().buttons.displayRegex();
+		 _selectRowIndex(dt,idRow,$(this));
 
 	} );
 
@@ -126,6 +112,41 @@ function _drawSelectId(){
 	}
 }
 
+/**
+ * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
+ *
+ *
+ * This will occur _after_ the initial DataTables initialisation, although
+ * before Ajax data is rendered
+ *
+ * @name drawSelectId
+ * @function
+ * @since UDA 3.4.0 // Datatable 1.0.0
+ *
+ * 
+ */
+function _selectRowIndex(dt,index,tr){
+	var ctx = dt.settings()[0];
+	DataTable.multiselection.selectedRowsPerPage = [];
+	var rowsBody = $( ctx.nTBody);
+	if(tr.hasClass( "tr-highlight" )){
+		tr.removeClass('selected tr-highlight');
+		DataTable.multiselection.numSelected = 0;
+		DataTable.multiselection.selectedIds = [];
+	}else{
+		$('tr',rowsBody).removeClass('selected tr-highlight');
+		tr.addClass('selected tr-highlight');
+		var row = ctx.json.rows[index];
+		if(row !== undefined){
+			var arra = {id:row.id,page:dt.page()+1,line:index};
+			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
+			DataTable.multiselection.numSelected = 1;
+			DataTable.multiselection.selectedIds = [row.id];
+		}
+	}
+	DataTable.Api().buttons.displayRegex();
+}
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables selectors
@@ -151,6 +172,20 @@ apiRegister( 'select()', function () {
 
 apiRegister( 'select.drawSelectId()', function ( ) {
 	_drawSelectId();
+} );
+
+apiRegister( 'select.deselect()', function (ctx ) {
+	var rowsBody = $( ctx.nTBody);
+	$('tr',rowsBody).removeClass('selected tr-highlight');
+	DataTable.multiselection.numSelected = 0;
+	DataTable.multiselection.selectedIds = [];
+} );
+
+apiRegister( 'select.selectRowIndex()', function (dt,index ) {
+	var ctx = dt.settings()[0];
+	var rowsBody = $( ctx.nTBody);
+	var tr = $('tr:nth-child('+index+')',rowsBody);
+	_selectRowIndex(dt,index,tr);
 } );
 
 

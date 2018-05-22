@@ -221,32 +221,6 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
 
-/*	var api = new DataTable.Api( ctx );
-	api.on( 'draw.dtSelect.dt select.dtSelect.dt', function () {//Si lleva parametros es que estamos en la navegacion interna.
-		if(ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
-			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
-			//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-			if(DataTable.multiselection.selectedAll){
-				var linea = -1;
-				if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
-					linea = ctx.json.rows.length;
-					params[2] = _getLineByPageSelectedReverse(ctx,linea);
-				}else{
-					params[2] = _getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
-				}
-
-			}
-			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
-			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
-		}
-		if(DataTable.seeker.search !== undefined){
-			if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-						ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-					DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
-			}
-		}
-	} );
-*/
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
