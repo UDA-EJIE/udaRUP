@@ -12,7 +12,7 @@ describe('Test Form', () => {
               		+     '<option value="opt2">Opcion 2</input>'
               		+   '</select>'
               		+'</form>';
-		var opts = {}; // TODO: Hacer obj de configuracion.
+		var opts = {};
 		$('body').append(html);
 		$('#exampleForm').rup_form(opts);
 		$form = $('#exampleForm');
@@ -93,10 +93,14 @@ describe('Test Form', () => {
 
 		describe('Método destroy', () => {
 			beforeAll(() => {
+				$form.on('mouseenter', () => { $form.addClass("someClass")});
 				$form.rup_form('destroy');
 			});
 			it('No debe existir', () => {
-				expect(() => {$form.rup_form('destroy')}).toThrowError();
+				$form.trigger('mouseenter');
+				setTimeout(() => {
+					expect($form.hasClass("someClass")).toBe(true);
+				}, 1500);
 			});
 		});
 	});
