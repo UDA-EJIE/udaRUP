@@ -24,10 +24,12 @@ describe('Test Upload > ', () => {
     afterAll(() => {
         $('body').html('');
     });
-    describe('Creación > ', () => {/**
-     * No se crea ningún cambio en el DOM que nos dé pistas de si se crea o no correctamente
-     * el elmento rup. Consideramos que se pasa bien si los métodos públicos no fallan
-     */});
+    describe('Creación > ', () => {
+        /**
+         * No se crea ningún cambio en el DOM que nos dé pistas de si se crea o no correctamente
+         * el elmento rup. Consideramos que se pasa bien si los métodos públicos no fallan
+         */
+    });
     describe('Métodos públicos > ', () => {
         describe('Método add > ', () => {
             beforeAll(() => {
@@ -38,10 +40,15 @@ describe('Test Upload > ', () => {
                  * No se puede añadir programáticamente archivos a un
                  * input type:"file"
                  *  https://stackoverflow.com/questions/15194365/appending-dropped-file-to-input-type-file-multiple
+                 * 
+                 * Así que se hará un trigger
                  */
+                $('#txtVar').trigger('add');
             });
             it('#txtVar debe tener la clase add-worked', () => {
-                expect($('#txtVar').hasClass('add-worked')).toBeTruthy();
+                setTimeout(() => {
+                    expect($('#txtVar').hasClass('add-worked')).toBeTruthy();
+                }, 1500);
             });
         });
         describe('Método disable > ', () => {
