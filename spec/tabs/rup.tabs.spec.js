@@ -66,7 +66,25 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método loadTab > ', () => {
-            //Requiere recarga desde servidor
+            beforeEach(() => {
+                $tabs.rup_tabs('addTab', {
+                    idTab:'exampleTabs',
+                    label: 'Tab3',
+                    position: 2,
+                    url: '/demo/fragmento3'
+                });
+
+                $tabs.rup_tabs('loadTab', {
+                    idTab:'exampleTabs',
+                    position: 2
+                });
+            });
+            it('Debe añadir contenido a la tab:', () => {
+                let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
+                    .parent().attr('aria-controls');
+                console.info($('[id="' + controlador + '"]').html());
+                expect($('[id="' + controlador + '"]').html()).not.toBe('');
+            });
         });
         describe('Método changeUrlTab > ', () => {
             //Requiere llamadas xhr
@@ -98,15 +116,15 @@ describe('Test Tabs > ', () => {
                     idTab:'exampleTabs',
                     label: 'Tab3',
                     position: 2,
-                    url: '/demo/fragmento3'
+                    url: '/demo/tab3Fragment'
                 });
             });
             it('Debe crear la tab:', () => {
-                expect($('#exampleTabs > ul > li > a[href="/demo/fragmento3"]').length).toBe(1);
-                expect($('#exampleTabs > ul > li > a[href="/demo/fragmento3"]').text()).toBe('Tab3');
+                expect($('#exampleTabs > ul > li > a[href="/demo/tab3Fragment"]').length).toBe(1);
+                expect($('#exampleTabs > ul > li > a[href="/demo/tab3Fragment"]').text()).toBe('Tab3');
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]').parent().attr('aria-controls');
+                let controlador = $('#exampleTabs > ul > li > a[href="/demo/tab3Fragment"]').parent().attr('aria-controls');
                 console.info($('[id="' + controlador + '"]').html());
                 expect($('[id="' + controlador + '"]').html()).not.toBe('');
             });
