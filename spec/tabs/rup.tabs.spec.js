@@ -87,7 +87,31 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método changeUrlTab > ', () => {
-            //Requiere llamadas xhr
+            let original;
+            beforeEach(() => {
+                $tabs.rup_tabs('addTab', {
+                    idTab:'exampleTabs',
+                    label: 'Tab3',
+                    position: 2,
+                    url: '/demo/fragmento3'
+                });
+
+                $tabs.rup_tabs('loadTab', {
+                    idTab:'exampleTabs',
+                    position: 2
+                });
+
+                let idOriginal = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
+                    .parent().attr('aria-controls');
+                original = $('#'+idOriginal).html();
+            });
+            it('Debe añadir contenido a la tab:', () => {
+                let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
+                    .parent().attr('aria-controls');
+                console.info($('[id="' + controlador + '"]').html());
+                expect($('[id="' + controlador + '"]').html()).not.toBe('');
+                expect($('[id="' + controlador + '"]').html()).not.toBe(original);
+            });
         });
         describe('Método changeLayerTab > ', () => {
             beforeEach(() => {
