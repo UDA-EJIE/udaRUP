@@ -5,6 +5,9 @@
 var path = require('path');
 const webpack = require('webpack');
 
+var back = require('./backend');
+back(8081);
+
 module.exports = function(config) {
 	config.set({
 
