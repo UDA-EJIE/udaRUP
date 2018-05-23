@@ -83,10 +83,10 @@ DataTable.editForm.init = function ( dt ) {
 	_updateDetailPagination(ctx,1,1);
 
 	//se añade el boton de cancelar
-	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#table_detail_link_cancel');
+	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_link_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
 		ctx.oInit.formEdit.okCallBack = false;
-		var feedback = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+		var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
 
 		//Despues de cerrar
 		//Se limpia los elementos.
@@ -342,16 +342,16 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	var idForm = ctx.oInit.formEdit.idForm;
 
 	//Se limpia los errores. Si hubiese
-	var feed = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+	var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
 	var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#'+feed[0].id + '_ok');
 	if(divErrorFeedback.length > 0){
 		divErrorFeedback.hide();
 	}
 
 	//se añade el boton de guardar
-	var button = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save');
+	var button = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_save');
 	//se añade el boton de guardar y continuar
-	var buttonContinue = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save_repeat');
+	var buttonContinue = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_save_repeat');
 
 	if(actionType === 'CLONE'){//En caso de ser clonado, solo se debe guardar.
 		actionType = 'POST';
@@ -449,7 +449,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
 	// add Filter
-	var feed = idTableDetail.find('#table_detail_feedback');
+	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
@@ -603,7 +603,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_table_selectedElements_table','#'+tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**
@@ -619,7 +619,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
 	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
-	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {

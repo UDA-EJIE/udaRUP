@@ -2324,7 +2324,7 @@ function inicio(settings) {
 			// Establece el icono de los botones
 			$('#' + this.conf.id).prepend('<i class="fa ' + this.conf.icon + ' right-separator" aria-hidden="true"></i>');
 			// Comprueba si tiene botones hijos
-			if (this.buttons.length > 0) {
+			if (this.buttons.length > 0 && $('#' + this.conf.id).length > 0) {
 				// Añadimos un evento para cuando se pulse sobre el boton padre, se le
 				// asignen los iconos a los hijos
 				$('#' + this.conf.id)[0].addEventListener('click', function eventHandler() {

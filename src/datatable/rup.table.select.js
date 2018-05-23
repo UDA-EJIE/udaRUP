@@ -144,7 +144,9 @@ function _selectRowIndex(dt,index,tr){
 			DataTable.multiselection.selectedIds = [row.id];
 		}
 	}
-	DataTable.Api().buttons.displayRegex();
+	if(ctx.buttons !== undefined){
+		DataTable.Api().buttons.displayRegex();
+	}
 }
 
 

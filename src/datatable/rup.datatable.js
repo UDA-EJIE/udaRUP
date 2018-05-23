@@ -153,7 +153,9 @@
 						DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-					DataTable.Api().buttons.displayRegex();
+					if(options.buttons !== undefined){
+						DataTable.Api().buttons.displayRegex();
+					}
 			} );
 
 			return options;
@@ -820,7 +822,7 @@
 				new $.fn.dataTable.Buttons(
 					tabla,
 					DataTable.Buttons.defaults.buttons
-				).container().insertBefore($('#table_filter_form'));
+				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
 			}
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
