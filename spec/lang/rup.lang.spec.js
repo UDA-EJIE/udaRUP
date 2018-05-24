@@ -4,7 +4,7 @@ import 'rup.lang';
 
 describe('Test Lang >', () => {
     var $lang;
-    beforeAll(() => {
+    beforeEach(() => {
         var html = '<a class="nav-link rup-nav-tool-icon" href="#" ' +
                     'id="exampleLang" data-toggle="dropdown">' +
                         '<i class="fa fa-globe" aria-hidden="true"></i>' +
@@ -14,17 +14,23 @@ describe('Test Lang >', () => {
         $('#exampleLang').rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY});
         $lang = $('#exampleLang');
     });
+    afterEach(() => {
+        $('body').html('');
+    });
     describe('Creación >', () => {
         it('Debe tener las clases correspondientes', () => {
-            expect($lang).toHaveClass('ui-widget dropdown-toggle');
+            expect($lang).toHaveClass('nav-link rup-nav-tool-icon ui-widget dropdown-toggle');
         });
         it('Debe rellenarse el dropdown', () => {
             expect($lang.children().length).toBeGreaterThan(0);
         });
+        it('Debe mostrar el lenguaje por defecto (Castellano)', () => {
+            expect($('#exampleLang > span').text()).toBe('Castellano');
+        });
     });
     describe('Métodos públicos >', () => {
         describe('Método destroy >', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $lang.rup_language('destroy');
             });
             it('No debe existir', () => {
