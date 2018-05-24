@@ -3,89 +3,107 @@ import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.slider';
 
-describe('Test Slider', () => {
+describe('Test Slider > ', () => {
     var $slider;
-    describe('Creacion', () => {
-        var html, options;
-        beforeAll(() => {
-            html = '<div id="exampleSlider"></div>';
-            $('body').append(html);
+    beforeEach(() => {
+        let html = '<div id="exampleSlider"></div>';
+        let options = {
+            min: 0,
+            max: 500
+        };
 
-            options = {
-                min:0,
-                max:500
-            };
+        $('body').append(html);
+        $('#exampleSlider').rup_slider(options);
 
-            $slider = $('#exampleSlider');
-            $slider.rup_slider(options);
+        $slider = $('#exampleSlider');
+    });
+    afterEach(() => {
+        $('body').html('');
+    });
+    describe('Creación > ', () => {
+        it('Debe crear el slider', () => {
+            expect($slider.hasClass('rup-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content'))
+                .toBe(true);
         });
-        it('Debe existir', () => {
-            expect($slider).toExist();
-        });
-        it('Debe tener la clase rup-slider', () => {
-            expect($slider.hasClass('rup-slider')).toBeTruthy();
+        it('Debe crearse el icono arrastrable del slider', () => {
+            expect($('span.ui-slider-handle.ui-corner-all.ui-state-default').length).toBe(1);
         });
     });
-    describe('Métodos públicos', () => {
-        describe('Test options', () => {
-            it('Debe devolver el objeto de propiedades:', () => {
-                //Si tiene cualquiera de los campos con el valor correcto es que devuelve el objeto bien.
-                expect($slider.rup_slider('option').max).toBe(500);
+    describe('Métodos públicos > ', () => {
+        describe('Métodos setRupValue y getRupValue > ', () => {
+            beforeEach(() => {
+                $slider.rup_slider('setRupValue', 241);
             });
-            it('Debe devolver el valor de una propiedad concreta', () => {
-                expect($slider.rup_slider('option', 'min')).toBe(0);
-            });
-            it('Debe ser capaz de modificar el valor de una propiedad', () => {
-                $slider.rup_slider('option','step', 5);
-                expect($slider.rup_slider('option', 'step')).toBe(5);
-            });
-            it('Debe ser capaz de modificar los valores de varias propiedades', () => {
-                $slider.rup_slider('option',{max: 550, min: 10});
-                expect($slider.rup_slider('option').max).toBe(550);
-                expect($slider.rup_slider('option').min).toBe(10);
+            it('Debe actualizar el valor', () => {
+                expect($slider.rup_slider('getRupValue')).toBe(241);
             });
         });
-        describe('Método getRupValue:', () => {
-            it('Devuelve un valor:', () => {
-                expect($slider.rup_slider('getRupValue')).toBeDefined();
+        describe('Método disable > ', () => {
+            beforeEach(() => {
+                $slider.rup_slider('disable');
+            });
+            it('Debe marcarse como deshabilitado',() => {
+                expect($slider.hasClass('ui-slider-disabled ui-state-disabled rup-slider-disabled'))
+                    .toBe(true);
             });
         });
-        describe('Método setRupValue', () => {
-            beforeAll(() => {
-                $slider.rup_slider('setRupValue', 50);
+        describe('Método enable > ', () => {
+            beforeEach(() => {
+                $slider.rup_slider('disable');
+                $slider.rup_slider('enable');
             });
-            it('Debe actualizar el valor:', () => {
-                expect($slider.rup_slider('getRupValue')).toBe(50);
-            });
-        });
-        describe('Método disable', () => {
-            beforeAll(() => {
-              if($slider.is(':disabled')){
-                  $slider.enable();
-              }
-              $slider.rup_slider('disable');
-            });
-            it('Debe poder deshabilitarse', () => {
-              expect($slider.hasClass('ui-state-disabled')).toBeTruthy();
+            it('Debe marcarse como deshabilitado',() => {
+                expect($slider.hasClass('ui-slider-disabled ui-state-disabled rup-slider-disabled'))
+                    .toBe(false);
             });
         });
-        describe('Método enable', () => {
-            beforeAll(() => {
-              if($slider.is(':enabled') && 'disable' in methods){
-                  $slider.disable();
-              }
-              $slider.rup_slider('enable');
+        describe('Método option > ', () => {
+            beforeEach(() => {
+                $slider.rup_slider('option', 'max', 400);
+                //Tras cambiar el max el objeto debe quedar así:
+                objConf = {
+                    "classes": {
+                        "ui-slider": "ui-corner-all",
+                        "ui-slider-handle": "ui-corner-all",
+                        "ui-slider-range": "ui-corner-all ui-widget-header"
+                    },
+                    "disabled": false,
+                    "create": null,
+                    "cancel": "input, textarea, button, select, option",
+                    "distance": 0,
+                    "delay": 0,
+                    "animate": false,
+                    "max": 400,
+                    "min": 0,
+                    "orientation": "horizontal",
+                    "range": false,
+                    "step": 1,
+                    "value": 0,
+                    "values": null,
+                    "change": null,
+                    "slide": null,
+                    "start": null,
+                    "stop": null,
+                    "foobar": false
+                }
             });
-            it('Debe poder habilitarse', () => {
-              expect($slider.hasClass('ui-state-disabled')).toBeFalsy();
+            it('El valor de la propiedad debe cambiar', () => {
+                expect($slider.rup_slider('option', 'max')).toBe(400);
+            });
+            it('El objeto de propiedades debe variar', () => {
+                expect($slider.rup_slider('option')).toEqual(objConf);
             });
         });
-        describe('Método destroy', () => {
-            beforeAll(() => {
+        describe('Método destroy > ', () => {
+            beforeEach(() => {
                 $slider.rup_slider('destroy');
             });
-            it('No debe existir', () => {
-                expect(() => {$slider.rup_slider('destroy')}).toThrowError();
+            it('Debe desaparecer el slider', () => {
+                expect($slider.hasClass('rup-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content'))
+                    .toBe(false);
+            });
+            it('Debe desaparecer el icono arrastrable del slider', () => {
+                expect($('span.ui-slider-handle.ui-corner-all.ui-state-default').length).toBe(0);
             });
         });
     });
