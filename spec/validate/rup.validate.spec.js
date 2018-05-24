@@ -2,9 +2,9 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.validate';
 
-describe('Test Validate: ', () => {
+describe('Test Validate >  ', () => {
     var $validate, $feedBack;
-    beforeAll(() => {
+    beforeEach(() => {
         var html = '<form id="exampleValidate">'
                 +  '<input type="text" name="campoUno" id="campoUno">Campo 1</input>'
                 +  '<input type="text" name="campoDos" id="campoDos">Campo 2</input>'
@@ -31,7 +31,10 @@ describe('Test Validate: ', () => {
         };
         $validate = $('#exampleValidate').rup_validate(optsValidate);
     });
-    describe('Creación: ', () => {
+    afterEach(() => {
+        $('body').html('');
+    });
+    describe('Creación > ', () => {
         it('El formulario tiene que tener la clase rup_validate', () => {
             expect($validate.hasClass('rup_validate')).toBeTruthy();
         });
@@ -41,8 +44,8 @@ describe('Test Validate: ', () => {
 
         
     });
-    describe('La validación funciona:', () => {
-        beforeAll(() => {
+    describe('La validación funciona > ', () => {
+        beforeEach(() => {
             $('#btnInput').click();
         });
         it('Debe mostrarse el feedback', () => {
@@ -53,9 +56,9 @@ describe('Test Validate: ', () => {
             expect($('#campoDos').hasClass('error')).toBeTruthy();
         });
     });
-    describe('Métodos públicos', () => {
-        describe('Método resetForm', () => {
-            beforeAll(() => {
+    describe('Métodos públicos > ', () => {
+        describe('Método resetForm > ', () => {
+            beforeEach(() => {
                 $('#btnInput').click();
                 $validate.rup_validate('resetForm');
             });
@@ -67,8 +70,8 @@ describe('Test Validate: ', () => {
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
-        describe('Método resetElements', () => {
-            beforeAll(() => {
+        describe('Método resetElements > ', () => {
+            beforeEach(() => {
                 $('#btnInput').click();
                 $validate.rup_validate('resetElements');
             });
@@ -80,8 +83,8 @@ describe('Test Validate: ', () => {
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
-        describe('Método destroy', () => {
-            beforeAll(() => {
+        describe('Método destroy > ', () => {
+            beforeEach(() => {
                 $validate.rup_validate('destroy');
                 $('#btnInput').click();
             });
