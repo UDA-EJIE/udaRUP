@@ -4,26 +4,26 @@ import 'rup.wizard';
 
 describe('Test Wizard > ', () => {
     var $wizard;
-    beforeAll(() => {
-        let html =  '<form id="exampleWizard">'
-                +        '<fieldset>'
-                +            '<legend class="wizardLegend">Paso1</legend>'
-                +            '<input type="text" name="in1" id="input1">'
-                +            '<input type="text" name="in2" id="input2">'
-                +        '</fieldset>'
-                +        '<fieldset>'
-                +            '<legend class="wizardLegend">Paso2</legend>'
-                +            '<select name="select" id="sel1">'
-                +                '<option value="opt1">Opt1</option>'
-                +                '<option value="opt2">Opt2</option>'
-                +            '</select>'
-                +        '</fieldset>'
-                +        '<fieldset>'
-                +            '<legend class="wizardLegend">Paso3</legend>'
-                +            '<input type="email" name="in3" id="input3">'
-                +        '</fieldset>'
-                +        '<input type="submit" value="submit" id="btnSubmit">'
-                +    '</form>';
+    beforeEach(() => {
+        let html =  '<form id="exampleWizard">\
+                        <fieldset>\
+                            <legend class="wizardLegend">Paso1</legend>\
+                            <input type="text" name="in1" id="input1">\
+                            <input type="text" name="in2" id="input2">\
+                        </fieldset>\
+                        <fieldset>\
+                            <legend class="wizardLegend">Paso2</legend>\
+                            <select name="select" id="sel1">\
+                                <option value="opt1">Opt1</option>\
+                                <option value="opt2">Opt2</option>\
+                            </select>\
+                        </fieldset>\
+                        <fieldset>\
+                             <legend class="wizardLegend">Paso3</legend>\
+                            <input type="email" name="in3" id="input3">\
+                        </fieldset>\
+                        <input type="submit" value="submit" id="btnSubmit">\
+                    </form>';
         $('body').append(html);
         let opts = {
             submitButton:'btnSubmit',
@@ -36,7 +36,7 @@ describe('Test Wizard > ', () => {
         $('#exampleWizard').rup_wizard(opts);
         $wizard = $('#exampleWizard');
     });
-    afterAll(() => {
+    afterEach(() => {
         $('body').html('');
     });
     describe('Creación > ', () => {
@@ -49,7 +49,7 @@ describe('Test Wizard > ', () => {
     });
     describe('Métodos públicos > ', () =>{
         describe('Método step > '  , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 1);
             });
             it('Debe mostrarse el paso seleccionado', () => {
@@ -62,7 +62,7 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método first > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 2);
                 $wizard.rup_wizard('first');
             });
@@ -76,7 +76,7 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método last > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 1);
                 $wizard.rup_wizard('last');
             });
@@ -90,7 +90,7 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método getCurrentStep > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 2);
             });
             it('Debe devolver el paso en el que estamos', () => {
@@ -98,7 +98,7 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método isCurrentStep > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 1);
             });
             it('Debe establecer si el paso es el actual', () => {
@@ -161,7 +161,7 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método enableStep > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 0);
                 $wizard.rup_wizard('disableStep', 1);
                 $wizard.rup_wizard('enableStep', 1);
@@ -171,11 +171,11 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método disableStep > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('step', 0);
                 $wizard.rup_wizard('disableStep', 1);
             });
-            afterAll(() => {
+            afterEach(() => {
                 $wizard.rup_wizard('enableStep', 1);
             });
             it('El step debe estar deshabilitado', () => {
@@ -183,10 +183,10 @@ describe('Test Wizard > ', () => {
             });
         });
         describe('Método isStepDisabled > ' , () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $wizard.rup_wizard('disableStep', 1);
             });
-            afterAll(() => {
+            afterEach(() => {
                 $wizard.rup_wizard('enableStep', 1);
             });
             it('Debe establecer si el paso esta deshabilitado', () => {
