@@ -5,7 +5,7 @@ import 'rup.chart';
 
 describe('Test Chart', () => {
     var $chart;
-    beforeAll(() => {
+    beforeEach(() => {
         var options = {
             type: 'line',
             data:{
@@ -30,6 +30,9 @@ describe('Test Chart', () => {
         $('#exampleChart').rup_chart(options);
         $chart = $('#exampleChart');
     });
+    afterEach(() => {
+        $('body').html('');
+    });
     describe('Creacion >', () => {
         it('Debe estar definido', () => {
             expect($chart).toHaveClass('rup-chart');
@@ -38,7 +41,7 @@ describe('Test Chart', () => {
     describe('Métodos públicos >', () => {
         describe('Métodos updateData y getData', () => {
             var dataUpdate;
-            beforeAll(() => {
+            beforeEach(() => {
                 dataUpdate = {
                     datasets:[{
                         label: 'dataset1',
@@ -46,9 +49,7 @@ describe('Test Chart', () => {
                     }],
                     labels:['label1.1','label2.1','label3.1']
                 };
-            });
-            it('No debe lanzar errores al actualizarse', () => {
-                expect(() => {$chart.rup_chart('updateData', dataUpdate)}).not.toThrowError();
+                $chart.rup_chart('updateData', dataUpdate)
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getData')).toBe(dataUpdate);
@@ -56,11 +57,9 @@ describe('Test Chart', () => {
         });
         describe('Métodos updateLabels y getLabels', () => {
             var dataUpdate;
-            beforeAll(() => {
+            beforeEach(() => {
                 dataUpdate = ['label1.1','label2.1','label3.1'];
-            });
-            it('No debe lanzar errores al actualizarse', () => {
-                expect(() => {$chart.rup_chart('updateLabels', dataUpdate)}).not.toThrowError();
+                $chart.rup_chart('updateLabels', dataUpdate)
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getLabels')).toBe(dataUpdate);
@@ -68,14 +67,12 @@ describe('Test Chart', () => {
         });
         describe('Métodos updateDatasets y getDatasets', () => {
             var dataUpdate;
-            beforeAll(() => {
+            beforeEach(() => {
                 dataUpdate = [{
                     label: 'dataset1',
                     data:[3, 8, 4]
                 }];
-            });
-            it('No debe lanzar errores al actualizarse', () => {
-                expect(() =>{$chart.rup_chart('updateDatasets', dataUpdate)}).not.toThrowError();
+                $chart.rup_chart('updateDatasets', dataUpdate)
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getDatasets')).toBe(dataUpdate);
@@ -88,11 +85,16 @@ describe('Test Chart', () => {
         });
         describe('Método toBase64Image', () => {
             let resp;
-            beforeAll(() => {
+            beforeEach(() => {
                 resp = $chart.rup_chart('toBase64Image');
             });
             it('Debe ser un string', () => {
                 expect(typeof(resp) == "string").toBeTruthy();
+            });
+            it('Debe comenzar con una secuencia de caracteres concreta', () => {
+                console.info(resp.indexOf('data:image/png'));
+                console.info(resp.indexOf('base64'));
+                expect(resp.indexOf('data:image/png') >= 0 && resp.indexOf('base64') >= 0).toBe(true);
             });
         });
     });
