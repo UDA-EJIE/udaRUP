@@ -133,6 +133,7 @@ function _selectRowIndex(dt,index,tr){
 		tr.removeClass('selected tr-highlight');
 		DataTable.multiselection.numSelected = 0;
 		DataTable.multiselection.selectedIds = [];
+		DataTable.multiselection.lastSelectedId = '';
 	}else{
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
@@ -142,9 +143,10 @@ function _selectRowIndex(dt,index,tr){
 			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
 			DataTable.multiselection.numSelected = 1;
 			DataTable.multiselection.selectedIds = [row.id];
+			DataTable.multiselection.lastSelectedId = row.id;
 		}
 	}
-	if(ctx.buttons !== undefined){
+	if(ctx.oInit.buttons !== undefined){
 		DataTable.Api().buttons.displayRegex();
 	}
 }
@@ -183,10 +185,14 @@ apiRegister( 'select.deselect()', function (ctx ) {
 	DataTable.multiselection.selectedIds = [];
 } );
 
-apiRegister( 'select.selectRowIndex()', function (dt,index ) {
+apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {
 	var ctx = dt.settings()[0];
 	var rowsBody = $( ctx.nTBody);
-	var tr = $('tr:nth-child('+index+')',rowsBody);
+	var countTr = index;
+	if(isDoubleClick !== undefined){
+		countTr = countTr+1;
+	}
+	var tr = $('tr:nth-child('+countTr+')',rowsBody);
 	_selectRowIndex(dt,index,tr);
 } );
 

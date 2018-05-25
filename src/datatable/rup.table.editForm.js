@@ -104,16 +104,23 @@ DataTable.editForm.init = function ( dt ) {
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
-	rowsBody.on( 'dblclick.DT','tr',  function () {
-		idRow = this._DT_RowIndex;
-		//Añadir la seleccion del mismo.
-		dt['row'](idRow).multiSelect();
-		_getRowSelected(dt,'PUT');
-		DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
-	} );
+	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) { 
+		rowsBody.on( 'dblclick.DT','tr',  function () {
+			idRow = this._DT_RowIndex;
+			//Añadir la seleccion del mismo.
+			if (ctx.oInit.multiSelect !== undefined) {
+				dt['row'](idRow).multiSelect();
+			}else{
+				$('tr',rowsBody).removeClass('selected tr-highlight');
+				DataTable.Api().select.selectRowIndex(dt,idRow,true);
+			}
+			_getRowSelected(dt,'PUT');
+			DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
+		} );
+	}
 
 	// Creacion del Context Menu
-	if (DataTable.settings[0].oInit.buttons !== undefined) {
+	if (ctx.oInit.buttons !== undefined) {
 		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
 		var items = {};
 		$.when(
