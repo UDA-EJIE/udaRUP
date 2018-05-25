@@ -4,9 +4,9 @@ import 'jasmine-jquery';
 import 'rup.dialog';
 
 function testDialogType(type) {
-	describe('Test Dialog', () => {
+	describe('Test Dialog > ', () => {
 		var $dialogo;
-		beforeAll( () => {
+		beforeEach( () => {
 			let html = '<div id="exampleDialogo"></div>'
 			$('body').append(html);
 			let opciones = {
@@ -19,17 +19,18 @@ function testDialogType(type) {
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
 		});
-		afterAll(() => {
+		afterEach(() => {
 			$('body').html('');
 		});
-		describe('Test de creacion', () => {
+		describe('Creacion > ', () => {
 			it('debe existir:', () => {
-				expect($('.ui-dialog')).toExist();
+				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').length)
+					.toBe(1);
 			});
 		});
 		describe('Métodos públicos:', () => {
 			describe('Método open e isOpen', () => {
-				beforeAll( () => {
+				beforeEach( () => {
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe ser visible:', () => {
@@ -42,7 +43,7 @@ function testDialogType(type) {
 				});
 			});
 			describe('Método close e isOpen', () => {
-				beforeAll( () => {
+				beforeEach( () => {
 					$dialogo.rup_dialog('close');
 				});
 				it('No debe ser visible:', () => {
@@ -68,46 +69,26 @@ function testDialogType(type) {
 				});
 			});
 			describe('Método setOption', () => {
-				beforeAll(() => {
+				beforeEach(() => {
 					$dialogo.rup_dialog('setOption', 'width', 260);
 				});
 				it('Establece la opcion correctamente', () => {
 					expect($dialogo.rup_dialog('getOption','width')).toBe(260);
 				});
 			});
-			describe('Método disable', () => {
-			    beforeAll(() => {
-			      if($dialogo.is(':disabled')){
-			          $dialogo.enable();
-			      }
-			      $dialogo.rup_dialog('disable');
-				});
-				// TODO: Hay que comprobar como se deshabilita-.
-			    it('Debe poder deshabilitarse', () => {
-					//No funciona en ejie.eus así que no sé si se habilita
-					//o deshabilita mediante una clase o algo mas
-			    	expect($dialogo.is(':disabled')).toBeTruthy();
-			    });
-			});
-			describe('Método enable', () => {
-			    beforeAll(() => {
-			      if($dialogo.is(':enabled')){
-			          $dialogo.disable();
-			      }
-			      $dialogo.rup_dialog('enable');
-			    });
-			    it('Debe poder habilitarse', () => {
-					//Como no finciona el disable tampoco puedo estar seguro de este
-					expect($dialogo.is(':disabled')).toBeFalsy();
-			    });
-			});
+			/*
+			//No existen estos metodos en el subyacente
+			describe('Método disable', () => {});
+			describe('Método enable', () => {});
+			*/
 			describe('Método destroy', () => {
-			    beforeAll(() => {
+			    beforeEach(() => {
 			        $dialogo.rup_dialog('destroy');
 			    });
-			    it('No debe existir', () => {
-			        expect(() => {$dialogo.rup_dialog('destroy')}).toThrowError();
-			    });
+			    it('No debe existir:', () => {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').length)
+						.toBe(0);
+				});
 			});
 		});
 	});
