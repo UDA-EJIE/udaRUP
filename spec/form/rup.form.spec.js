@@ -3,22 +3,25 @@ import 'jasmine-jquery';
 import 'rup.form';
 describe('Test Form', () => {
 	var $form;
-	beforeAll(() => {
-		var html = '<form name = "exampleForm" id ="exampleForm">'
-              		+   '<input type="text" value="txt1" name="input1" id="input1"></input>'
-              		+   '<input type="text" value="txt2" name="input2" id="input2"></input>'
-              		+   '<select name="input3" id="input3">'
-              		+     '<option value="opt1">Opcion 1</input>'
-              		+     '<option value="opt2">Opcion 2</input>'
-              		+   '</select>'
-              		+'</form>';
+	beforeEach(() => {
+		var html = '<form name = "exampleForm" id ="exampleForm">\
+              		   <input type="text" value="txt1" name="input1" id="input1"></input>\
+              		   <input type="text" value="txt2" name="input2" id="input2"></input>\
+              		   <select name="input3" id="input3">\
+              		     <option value="opt1">Opcion 1</input>\
+              		     <option value="opt2">Opcion 2</input>\
+              		   </select>\
+              		</form>';
 		var opts = {};
 		$('body').append(html);
 		$('#exampleForm').rup_form(opts);
 		$form = $('#exampleForm');
 	});
+	afterEach(() => {
+		$('body').html();
+	});
   	describe('Creación', () => {
-		it('Debe tener las clases de rup_form', () => {
+		it('Debe tener la clase de rup_form', () => {
 			expect($form).toHaveClass('rup_form');
 		});
   	});
