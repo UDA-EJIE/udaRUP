@@ -29,7 +29,7 @@ describe('Test Form', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
-				beforeAll(() => {
+				beforeEach(() => {
 					spyOn($form,'rup_form').and.callFake((strParam) => {
 						let obj = {
 							estatus: 200,
@@ -43,7 +43,7 @@ describe('Test Form', () => {
 				});
 			});
 			describe('Método ajaxFormSubmit >',() => {
-				beforeAll(() => {
+				beforeEach(() => {
 					spyOn($form,'rup_form').and.callFake((strParam) => {
 						let obj = {
 							estatus: 200,
@@ -83,7 +83,7 @@ describe('Test Form', () => {
 		});
 		// TODO: Conseguir el objeto de configuracion del form y probar esto.
 		describe('Métodos formReset, formClear y clearFields', () => {
-			beforeAll(() => {
+			beforeEach(() => {
 				$form.rup_form('formClear');
 			});
 			it('Deben quedar todos los inputs vacíos', () => {
@@ -95,7 +95,7 @@ describe('Test Form', () => {
 		});
 
 		describe('Método destroy', () => {
-			beforeAll(() => {
+			beforeEach(() => {
 				$form.on('mouseenter', () => { $form.addClass("someClass")});
 				$form.rup_form('destroy');
 			});
