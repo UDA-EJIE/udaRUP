@@ -890,10 +890,11 @@
      * @name reloadGrid
      * @function
      * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
+     * @param {boolean} noSelect - Indica si debe seleccionar el primer elemento o no.
      * @example
      * $("#idComponente").rup_table("reloadGrid", true);
      */
-		reloadGrid: function (async) {
+		reloadGrid: function (async, notSelect) {
 			var $self = this,
 				settings = $self.data('settings'),
 				page = $self.rup_table('getGridParam', 'page');
@@ -913,8 +914,10 @@
 			$self.jqGrid('setGridParam', {
 				ajaxGridOptions: ajaxOptions
 			});
-			var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
-			$self.jqGrid('setSelection', nextPagePos[1][0]);
+			if(!notSelect){
+				var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
+				$self.jqGrid('setSelection', nextPagePos[1][0]);
+			}
 		},
 		/**
      * Resetea el formulario indicado.
