@@ -13368,7 +13368,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name reloadGrid
      * @function
      * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
-     * @param {boolean} noSelect - Indica si debe seleccionar el primer elemento o no.
+     * @param {boolean} notSelect - Indica si debe seleccionar el primer elemento o no.
      * @example
      * $("#idComponente").rup_table("reloadGrid", true);
      */
