@@ -20605,18 +20605,19 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$(self.p.colModel).each(function(i){
 
 				$row= $(self.rows.namedItem(rowid));
+				$tempRowId = $self.data('settings').inlineEditingRow;
 				$cell = $row.find('td:eq('+i+')');
 				//ruptypeObj = $cell.find("[ruptype]");
 				//				ruptypeObj = this.editoptions.ruptype;
 				if ( this.rupType){
 					if (this.rupType==='combo'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					} else if (this.rupType==='autocomplete'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					}
@@ -21646,6 +21647,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$self.rup_table('updateSelectedRowNumber');
 				},
 				'rupTable_beforeAddRow.multiselection': function (event, addCloneOptions) {
+					// Si la edición en línea no está activada, no comprobamos los elementos seleccionados y devolvemos true
+					if ($self[0].p.inlineEdit) {
+						return true;
+					}
 					$self._checkSelectedElements(function () {
 						$self.jqGrid('editGridRow', 'new', addCloneOptions);
 						$self.rup_table('resetSelection');
