@@ -13179,6 +13179,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$obj.triggerHandler('mouseenter.qtip-' + toolipTmpId + '-create');
 							//							$obj.triggerHandler("mouseenter");
 							$obj.rup_tooltip('option', 'show.delay', 500);
+							$obj.rup_tooltip('open');
 						}
 					});
 				}
@@ -15731,7 +15732,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Objetos
 				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
-				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
+				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length-$gridHead.find('th:hidden').length)),
 				// Capa que controla el colapso del formualario
 				$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+settings.id)),
 				$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+settings.id)),
@@ -19754,12 +19755,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				return false;
 			};
 
-			// Configuración de edit/add
-			// Se procede a añadir sobre los settings de configuración los correspondientes a la edición en línea.
-			settings.inlineEdit.addOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.addOptions);
-			settings.inlineEdit.editOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.editOptions);
-
-
 			// Fuerza la configuración para que solo se pueda seleccionar mediante el checkbox
 			settings.multiboxonly = true;
 
@@ -19772,7 +19767,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			/* DEFINICION DE OPERACIONES BASICAS CON LOS REGISTROS */
 
-			settings.core.operations = {
+			settings.core.defaultOperations = {
 				'add': {
 					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.new'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
@@ -19875,6 +19870,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				}
 			};
+			
+			$.extend(true, settings.core.operations, settings.core.defaultOperations);
+			
+			// Configuración de edit/add
+			// Se procede a añadir sobre los settings de configuración los correspondientes a la edición en línea.
+			settings.inlineEdit.addOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.addOptions);
+			settings.inlineEdit.editOptions = $.extend(true,{}, settings.inlineEdit.addEditOptions, settings.inlineEdit.editOptions);
 
 
 			/* =======
@@ -20277,7 +20279,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				'rupTable_checkOutOfGrid.rupTable.inlineEditing': function(event, $target){
 					var $self = $(this), settings = $self.data('settings'),
-						operationCfg = settings.core.operations['save'];
+						operationCfg = settings.core.defaultOperations['save'];
 					if (jQuery.proxy(operationCfg.enabled, $self)()){
 						jQuery.proxy(operationCfg.callback,$self)($self, event);
 					}
@@ -20603,18 +20605,19 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$(self.p.colModel).each(function(i){
 
 				$row= $(self.rows.namedItem(rowid));
+				$tempRowId = $self.data('settings').inlineEditingRow;
 				$cell = $row.find('td:eq('+i+')');
 				//ruptypeObj = $cell.find("[ruptype]");
 				//				ruptypeObj = this.editoptions.ruptype;
 				if ( this.rupType){
 					if (this.rupType==='combo'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					} else if (this.rupType==='autocomplete'){
 						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[rowid][this.name]['rup_'+this.rupType]['label'];
+							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					}
@@ -21644,6 +21647,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$self.rup_table('updateSelectedRowNumber');
 				},
 				'rupTable_beforeAddRow.multiselection': function (event, addCloneOptions) {
+					// Si la edición en línea no está activada, no comprobamos los elementos seleccionados y devolvemos true
+					if ($self[0].p.inlineEdit) {
+						return true;
+					}
 					$self._checkSelectedElements(function () {
 						$self.jqGrid('editGridRow', 'new', addCloneOptions);
 						$self.rup_table('resetSelection');

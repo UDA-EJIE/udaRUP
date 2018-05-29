@@ -474,7 +474,7 @@
     "startUpload": "Subir"
   },
   "rup_utils": {
-    "paramsError": "Alguno de los parÃ¡metros especificados es 'null' o 'undefined'",
+    "paramsError": "Alguno de los parámetros especificados es 'null' o 'undefined'",
     "relToAbsUrlParamError": "La url => <b style='color:red'>&#34",
     "relToAbsUrlParamErrorEnd": "&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta.",
     "relToAbsUrlParamFormatError": "Parametro del método &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String."
@@ -521,7 +521,368 @@
     "prev": "Anterior",
     "summary": "Resumen"
   },
-    "rup_button":{
-     "new": "Nuevo"
+  "rup_button":{
+   "new": "Nuevo"
+  },
+  "rup_datatable": {
+    "seleccionada": "seleccionada",
+    "seleccionadas": "seleccionadas",
+    "fila": "fila",
+    "toolbar": {
+      "add": "Añadir",
+      "edit": "Editar",
+      "clone": "Clonar",
+      "delete": "Eliminar",
+      "reports": {
+        "main": "Informes",
+        "copyButton": "Copiar"
+      }
+    },
+    "copyButton": {
+      "changes": "Copia de registros en portapapeles",
+      "saveAndContinue": {
+        "_": "¿Desea copiar %d registros?",
+        "1": "¿Desea copiar un registro?"
+      },
+      "saved": {
+        "_": "Copiados %d registros al portapapeles",
+        "1": "Copiado un registro al portapapeles"
+      },
+      "copyTitle": "Copiar al portapapeles",
+      "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
+    },
+    "collection": "Collection",
+    "pageLength": {
+      "-1": "Show all rows",
+      "_": "Show %d rows"
+    },
+    "cancel": "Cancelar",
+    "changes": "Control de cambios",
+    "checkAddedSelectedElems": "Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
+    "checkSelectedElems": "Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
+    "clearSelection": "deshacer selección",
+    "clone": "Clonar",
+    "col": {
+      "bCancel": "Cancelar",
+      "bSubmit": "Enviar",
+      "caption": "Mostrar/ocultar columnas"
+    },
+    "de": "de",
+    "deSelectAll": "deseleccionar los ",
+    "deSelectedElems": "Se han deseleccionado los ",
+    "defaults": {
+      "detailForm_pager": "Mostrando {0} de {1}",
+      "emptyrecords": "Sin registros que mostrar",
+      "loadtext": "Cargando...",
+      "pgtext": "Página {0} de {1}",
+      "recordtext": "Mostrando {0} - {1} de {2}"
+    },
+    "del": {
+      "bCancel": "Cancelar",
+      "bSubmit": "Eliminar",
+      "caption": "Eliminar",
+      "msg": "¿Desea eliminar los registros seleccionados?"
+    },
+    "delete": "Eliminar",
+    "deleteAll": "¿Está seguro que desea eliminar todos los registros seleccionados?",
+    "deletedOK": "El elemento se ha borrado correctamente.",
+    "deselectMsg": "Se han deseleccionado los {0} elementos de la página {1}.",
+    "deselectRestMsg": "Deseleccionar los {0} restantes",
+    "detailTitle": "Detalle de registro",
+    "edit": {
+      "addCaption": "Agregar registro",
+      "bCancel": "Cancelar",
+      "bClose": "Cerrar",
+      "bExit": "Cancelar",
+      "bNo": "No",
+      "bSubmit": "Guardar",
+      "bYes": "Sí",
+      "editCaption": "Modificar registro",
+      "msg": {
+        "customarray": "La función personalizada debe devolver un array.",
+        "customfcheck": "La función personalizada debe estar presente en el caso de validación personalizada.",
+        "date": "Introduza una fecha correcta ",
+        "email": "No es una dirección de correo válida",
+        "integer": "Introduzca un valor entero",
+        "maxValue": "El valor debe ser menor o igual a ",
+        "minValue": "El valor debe ser mayor o igual a ",
+        "nodefined": " no está definido.",
+        "novalue": " valor de retorno es requerido.",
+        "number": "Introduzca un número",
+        "required": "Campo obligatorio",
+        "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
+      },
+      "saveData": "Se han modificado los datos, ¿guardar cambios?"
+    },
+    "element(s)": "Elemento(s)",
+    "elements": "Elementos",
+    "emptyChanges": "No se han realizado cambios.",
+    "errors": {
+      "errcap": "Error",
+      "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
+      "model": "Las columnas de nombres son diferentes de las columnas de modelo",
+      "norecords": "No hay datos para procesar",
+      "nourl": "No se ha especificado una URL"
+    },
+    "feedback": {
+      "deletedOK": "El elemento se ha borrado correctamente.",
+      "insertError": "Error al insertar el elemento.",
+      "insertOK": "El elemento se ha añadido correctamente.",
+      "modifyOK": "El elemento se ha modificado correctamente.",
+      "validateError": "Se han producido los siguientes errores:<br/>"
+    },
+    "filter": "Filtrar",
+    "first": "Primero",
+    "formatter": {
+      "baseLinkUrl": "",
+      "checkbox": {
+        "disabled": "true"
+      },
+      "currency": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "prefix": "",
+        "suffix": "",
+        "thousandsSeparator": "."
+      },
+      "date": {
+        "AmPm" :["am","pm","AM", "PM"],
+        "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
+        "dayNames":["Do","Lu","Ma","Mi","Ju","Vi","Sa","Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
+        "masks": {
+          "FullDateTime": "l, F d, Y g:i:s A",
+          "ISO8601Long": "Y-m-d H:i:s",
+          "ISO8601Short": "Y-m-d",
+          "LongDate": "l, F d, Y",
+          "LongTime": "g:i:s A",
+          "MonthDay": "F d",
+          "RupDate": "d/m/Y",
+          "RupDateTime": "d/m/Y H:i",
+          "RupDateTimeSec": "d/m/Y H:i:s",
+          "RupTime": "H:i",
+          "RupTimeSec": "H:i:s",
+          "ShortDate": "n/j/Y",
+          "ShortTime": "g:i A",
+          "SortableDateTime": "Y-m-dTH:i:s",
+          "UniversalSortableDateTime": "Y-m-d H:i:sO",
+          "YearMonth": "F, Y"
+        },
+        "monthNames":["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+        "newformat": "d/m/Y",
+        "reformatAfterEdit": "false",
+        "srcformat": "d/m/y H:i:s"
+      },
+      "idName": "id",
+      "integer": {
+        "defaultValue": "0",
+        "thousandsSeparator": "."
+      },
+      "number": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "thousandsSeparator": "."
+      },
+      "showAction": "",
+      "target": ""
+    },
+    "insertError": "Error al insertar el elemento.",
+    "insertOK": "El elemento se ha añadido correctamente.",
+    "invalidRowId": "El identificador de la fila no es válido. No se puede completar la acción",
+    "last": "Último",
+    "modify": "Editar",
+    "modifyOK": "El elemento se ha modificado correctamente.",
+    "multiselectHeader": "Seleccionar todos los elementos de la página",
+    "nav": {
+      "addtext": " ",
+      "addtitle": "Agregar nueva fila",
+      "alertcap": "Aviso",
+      "alerttext": "Seleccione una fila",
+      "deltext": " ",
+      "deltitle": "Eliminar fila seleccionada",
+      "edittext": " ",
+      "edittitle": "Modificar fila seleccionada",
+      "refreshtext": "",
+      "refreshtitle": "Recargar datos",
+      "searchtext": " ",
+      "searchtitle": "Buscar información",
+      "viewtext": "",
+      "viewtitle": "Ver fila seleccionada"
+    },
+    "new": "Añadir",
+    "next": "Siguiente",
+    "noGrid": "No es posible crear un mantenimiento sin un grid.",
+    "noRecordsFound": "No hay registros.",
+    "noReg": "Seleccione un registro.",
+    "numResult": "Número de resultados",
+    "ofPage": " elementos de la página.",
+    "pager": {
+      "anterior": "Anterior",
+      "input": "Página actual",
+      "primPag": "Primera Página",
+      "select": "Número de elementos por página",
+      "selected": "seleccionados",
+      "siguiente": "Siguiente",
+      "ultiPag": "Última Página"
+    },
+    "plugins": {
+      "filter": {
+        "filterCriteria": "Criterios de filtrado"
+      },
+      "jerarquia": {
+        "deselectChild": "Deseleccionar hijos",
+        "deselectDescendent": "Deseleccionar descendientes",
+        "filtered": "El elemento cumple el filtro",
+        "selectChild": "Seleccionar hijos",
+        "selectDescendent": "Seleccionar descendientes"
+      },
+      "multifilter": {
+        "apply": "Aplicar",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "defaultFilter": "Filtro por defecto",
+        "emptyName": "Seleccione un filtro",
+        "error": "Error al completar la acción",
+        "errorNoexiste": "Nombre de filtro inexistente",
+        "errorValidate": "Formulario sin validar",
+        "filters": "Nombre",
+        "input": "Introduzca un nombre para el filtro",
+        "noRecords": "No existe un filtro con ese nombre",
+        "ok": "Acción completada con éxito",
+        "remove": "Eliminar",
+        "save": "Guardar",
+        "tittle": "Administrador de filtros",
+        "tooLong": "Nombre demasiado largo"
+      },
+      "multiselection": {
+        "deselectAll": "Desmarcar todos",
+        "deselectAllPage": "Desmarcar visibles",
+        "selectAll": "Marcar todos",
+        "selectAllPage": "Marcar visibles"
+      },
+      "search": {
+        "matchedRecords": "{0} elementos encontrados",
+        "matchedRecordsCount": "Elemento {0} de {1} encontrados",
+        "searchCriteria": "Criterios de búsqueda"
+      }
+    },
+    "previous": "Anterior",
+    "save": "Guardar",
+    "saveAndContinue": "Se perderán los cambios en los datos modificados, ¿desea continuar?",
+    "search": {
+      "Find": "Buscar",
+      "Reset": "Limpiar",
+      "caption": "Búsqueda...",
+      "groupOps": [
+        {
+          "op": "AND",
+          "text": "todo"
+        },
+        {
+          "op": "OR",
+          "text": "cualquier"
+        }
+      ],
+      "matchText": " match",
+      "odata":[
+                "igual",
+                "no igual a",
+                "menor que",
+                "menor o igual que",
+                "mayor que",
+                "mayor o igual a",
+                "empiece por",
+                "no empiece por",
+                "está en",
+                "no está en",
+                "termina por",
+                "no termina por",
+                "contiene",
+                "no contiene"
+      ],
+      "rulesText": " reglas"
+    },
+    "searchOptions": "Criterios de búsqueda:",
+    "selectAll": "seleccionar los ",
+    "selectAllRest": "restantes",
+    "selectMsg": "Se han seleccionado los {0} elementos de la página {1}.",
+    "selectRestMsg": "Seleccionar los {0} restantes",
+    "selected": "seleccionados",
+    "selectedElems": "Se han seleccionado los ",
+    "summary": {
+      "cabecera": "Cabecera de la tabla",
+      "datos": "Datos de la tabla",
+      "paginador": "Elemento de paginación de la tabla",
+      "paginador_navegar": "Elemento de navegación de la paginación de la tabla"
+    },
+    "templates": {
+      "detailForm": {
+        "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
+        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
+        "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
+        "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
+        "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
+        "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
+      },
+      "filter": {
+        "filterSummary": "<span id='{0}'></span>",
+        "toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
+        "toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>",
+        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
+      },
+      "message": {
+        "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
+      },
+      "multiselection": {
+        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+      },
+      "search": {
+        "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
+        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
+        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
+        "matchedLabel": "<span id='{0}'>{1}</span>",
+        "matchedLayer": "<div id='{0}' class='matched_layer'></div>",
+        "navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
+        "navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
+        "searchRow": "<tr class='search_row'></tr>",
+        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
+      }
+    },
+    "titleDelAll": "Eliminar los registros",
+    "toolbarNewButtonError": "Error al crear un nuevo botón. <br/>Las tres variables de todo nuevo botón deben estar informadas.",
+    "validateError": "Se han producido los siguientes errores:<br/>",
+    "view": {
+      "bClose": "Cerrar",
+      "caption": "Consultar registro"
     }
+  },
+  "sProcessing":     "Procesando...",
+  "sLengthMenu":     "Mostrar _MENU_ registros",
+  "sZeroRecords":    "No se encontraron resultados",
+  "sEmptyTable":     "Ningún dato disponible en esta tabla",
+  "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+  "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+  "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+  "sInfoPostFix":    "",
+  "sSearch":         "Buscar:",
+  "sUrl":            "",
+  "sInfoThousands":  ",",
+  "sLoadingRecords": "Cargando...",
+  "oPaginate": {
+      "sFirst":    "Primero",
+      "sLast":     "Último",
+      "sNext":     "Siguiente",
+      "sPrevious": "Anterior"
+  },
+  "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+  },
+  "pagina": "Página ",
+  "toPagina": " de {0}"
 }
