@@ -82,8 +82,10 @@ describe('Test Tabs > ', () => {
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
                     .parent().attr('aria-controls');
-                console.info($('[id="' + controlador + '"]').html());
-                expect($('[id="' + controlador + '"]').html()).not.toBe('');
+                setTimeout(() => {
+                    console.info($('[id="' + controlador + '"]').html());
+                    expect($('[id="' + controlador + '"]').html()).not.toBe('');
+                });
             });
         });
         describe('Método changeUrlTab > ', () => {
