@@ -10,8 +10,7 @@ describe('Test Accordion > ', () => {
 			collapsible: true,
 			disabled:    true,
 			active:      1,
-			event:       'mouseenter' /*,
-			header:    'h1.accordion-header'*/
+			event:       'mouseenter'
 		};
 
 		let html = '<div id="defaultAccordion" class="rup_accordion">\
