@@ -75,7 +75,10 @@ DataTable.select.init = function ( dt ) {
 		 _selectRowIndex(dt,idRow,$(this));
 
 	} );
-
+	
+	//Se genera el div para el feedback del datatable.
+	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
+	DataTable.multiselection.internalFeedback = divFeedback;
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -104,7 +107,7 @@ function _drawSelectId(){
 		var row = DataTable.multiselection.selectedRowsPerPage[0];
 		var rowSelectAux = ctx.json.rows[row.line];
 
-		if(rowSelectAux !== undefined && row.id === rowSelectAux.id){
+		if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
 			var rowsBody = $( ctx.nTBody);
 			var line = row.line + 1;
 			$('tr:nth-child('+line+')',rowsBody).addClass('selected tr-highlight');
@@ -139,11 +142,11 @@ function _selectRowIndex(dt,index,tr){
 		tr.addClass('selected tr-highlight');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){
-			var arra = {id:row.id,page:dt.page()+1,line:index};
+			var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
 			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
 			DataTable.multiselection.numSelected = 1;
-			DataTable.multiselection.selectedIds = [row.id];
-			DataTable.multiselection.lastSelectedId = row.id;
+			DataTable.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
+			DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		}
 	}
 	if(ctx.oInit.buttons !== undefined){

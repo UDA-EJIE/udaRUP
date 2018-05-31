@@ -349,7 +349,7 @@ function _selectSearch(dt,ctx,rows){
 				rowSelected = dt.rows().nodes()[idx];
 			}
 			var result = $.grep(rows, function(v) {
-				return v.pk.id === value.id;
+				return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
@@ -361,8 +361,9 @@ function _selectSearch(dt,ctx,rows){
 			}
 		});
 		var rowUnique = rows[DataTable.seeker.search.pos];
+		var rowList = ctx.json.rows[rowUnique.pageLine-1];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
-				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id &&
+				&& DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
 				(ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
 			if(ctx.oInit.multiSelect !== undefined){
 				dt['row'](rowUnique.pageLine-1).multiSelect();

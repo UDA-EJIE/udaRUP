@@ -660,10 +660,11 @@ function init ( ctx ) {
 function _drawSelectId(api){
 	var DataTable = $.fn.dataTable;
 	var pos = -1;
+	
 	$.each(DataTable.multiselection.selectedIds, function( index, value ) {
 		var idx = -1;
-		$.each(api.context[0].aoData, function( indexData, valueData ) {
-			if(value === valueData._aData.id){
+		$.each(api.context[0].json.rows, function( indexData, valueData ) {
+			if(value === DataTable.Api().rupTable.getIdPk(valueData)){
 				idx = indexData;
 				return false;
 			}
@@ -1027,7 +1028,7 @@ function selectAll(dt){
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
 		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],0);
-		DataTable.multiselection.lastSelectedId = dt.data()[0].id;
+		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
 	}else{
 		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
 		DataTable.multiselection.lastSelectedId = '';
@@ -1318,7 +1319,7 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 		if(id !== undefined && DataTable.multiselection.deselectedIds.indexOf(id) < 0){
 			if(line === undefined){
 				$.each(DataTable.settings[0].json.rows, function( index, value ) {
- 					if (value.id === id){
+ 					if (DataTable.Api().rupTable.getIdPk(value) === id){
 						line = index;
 						return false;
 					}
@@ -1530,13 +1531,12 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	}
 
 	if ( multiSelect === false ) {
-		maintIdsRows(DataTable,api.data().id,0,pagina);
+		maintIdsRows(DataTable,DataTable.Api().rupTable.getIdPk(api.data()),0,pagina);
 		//Cuando se resta de 1 en 1 la accion es empty
 		DataTable.multiselection.accion = '';
 		var deselectes = this.deselect();
 		return deselectes;
-		//maintIdsRows(DataTable,api.data().id,0,pagina);
-		//return this.deselect();
+
 	}
 
 
@@ -1545,7 +1545,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		pagina = false;
 		ctx.aoData[ idx ]._multiSelect_selected = true;
 		$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
-		var id = ctx.aoData[ idx ]._aData.id;
+		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para sumar seleccionados
 		if(DataTable.multiselection.numSelected < DataTable.settings[0].json.recordsTotal &&
@@ -1563,7 +1563,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		if(DataTable.multiselection.selectedAll){//Si pagina y están todos sleccionados se pintan.
 			var ctx = api.settings()[0];
 			$.each(api.context[0].aoData, function( idx ) {
-				var id = ctx.aoData[ idx ]._aData.id;
+				var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 				//Si esta en la lista de deselecionados, significa que no debería marcarse.
 				if(jQuery.inArray(id, DataTable.multiselection.deselectedIds) === -1){
 					ctx.aoData[ idx ]._multiSelect_selected = true;
@@ -1673,7 +1673,7 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	this.iterator( 'row', function ( ctx, idx ) {
 		ctx.aoData[ idx ]._multiSelect_selected = false;
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
-		var id = ctx.aoData[ idx ]._aData.id;
+		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para restar deselecionados.
 		if(DataTable.multiselection.numSelected > 0 &&

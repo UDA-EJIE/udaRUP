@@ -376,7 +376,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	if (actionType === 'PUT') {
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = DataTable.multiselection;
-		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds);
+		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
 		if(DataTable.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
@@ -387,7 +387,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
-		DataTable.multiselection.lastSelectedId = row.id;
+		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
@@ -922,10 +922,10 @@ function _getLineByPageSelected(ctx,lineInit){
 
 	$.each(rows, function( index, row ) {
 		if(index > lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				return false;
 			}
@@ -954,10 +954,10 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 	for (var index=rows.length-1; index>=0;index--) {
 		var row = rows[index];
 		if(index < lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				index = -1;
 			}
