@@ -145,7 +145,7 @@
 					DataTable.multiselection.selectedRowsPerPage = [];
 					//Viene del servidor por eso la linea de la pagina es 1 menos.
 					$.each(json.reorderedSelection,function(index,p) {
-						var arra = {id:p.pk.id,page:p.page,line:p.pageLine-1};
+						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
 						DataTable.multiselection.selectedIds.splice(index,0,arra.id);
 						DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
 					});
@@ -157,6 +157,20 @@
 						DataTable.Api().buttons.displayRegex();
 					}
 			} );
+			
+			apiRegister( 'rupTable.getIdPk()', function ( json ) {
+
+				var id = '';
+
+				$.each(options.primaryKey,function(index,key) {
+					id = id + json[key];
+					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
+						id = id+options.multiplePkToken;
+					}
+				});
+				
+				return id;
+		} );
 
 			return options;
 		},
@@ -315,11 +329,14 @@
 				data.seeker = {};
 				data.seeker.selectedIds = [];
 				$.each(DataTable.seeker.search.funcionParams,function(index,p) {
-					data.seeker.selectedIds.splice(index,0,p.pk.id);
+					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
 				});
 			}
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
+
+			json.core.pkNames = options.oInit.primaryKey;
+
 			options.aBaseJson = json;
 			return JSON.stringify(json);
 
@@ -759,6 +776,10 @@
 
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
+			
+			if(args[0].primaryKey !== undefined){
+				settings.primaryKey = args[0].primaryKey.split(";");
+			}
 			
 			//Comprobar plugin dependientes
 			if(settings.multiSelect !== undefined){

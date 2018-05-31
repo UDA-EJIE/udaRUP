@@ -203,7 +203,7 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 				$.each(selectedRows, function(key, value) {
 					var idPadre = value.id;
 					$.each(ctx.json.rows, function(key, value) {
-						if (value.id === idPadre) {
+						if (DataTable.Api().rupTable.getIdPk(value) === idPadre) {
 							exportData.push(value);
 						}
 					});
