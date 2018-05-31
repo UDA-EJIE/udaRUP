@@ -678,10 +678,7 @@ function _callNavigationBar(dt){
 					//rowSelected.line = -1;
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-<<<<<<< HEAD:src/datatable/dataTables.editForm.js
-=======
 					//rowSelected.line = 0;
->>>>>>> origin/feat-rup.datatable-refactor:src/datatable/rup.table.editForm.js
 				}
 			}
 
