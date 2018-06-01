@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.accordion';
@@ -78,8 +80,7 @@ describe('Test Accordion > ', () => {
 				});
 			});
 			it('El contenido del div activo debe tener las clases apropiadas y ser visible', () => {
-				let id = $('#alterAccordion > h1.ui-accordion-header-active')
-							.attr('id');
+				let id = $($('#alterAccordion > h1')[1]).attr('id');
 				expect($('#alterAccordion > div[aria-labelledby="'+ id +'"]')
 					.hasClass('ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'))
 					.toBeTruthy();
