@@ -5,7 +5,6 @@ import 'rup.accordion';
 describe('Test Accordion > ', () => {
 	var $defAccordion, $altAccordion;
 	beforeEach(() => {
-		// TODO: Hay que ver que funcionalidad tiene "header" para probarlo bien
 		let confAlternativa = {
 			collapsible: true,
 			disabled:    true,
