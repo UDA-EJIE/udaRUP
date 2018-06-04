@@ -5,12 +5,12 @@ import 'rup.validate';
 describe('Test Validate >  ', () => {
     var $validate, $feedBack;
     beforeEach(() => {
-        var html = '<form id="exampleValidate">'
-                +  '<input type="text" name="campoUno" id="campoUno">Campo 1</input>'
-                +  '<input type="text" name="campoDos" id="campoDos">Campo 2</input>'
-                +  '<input id="btnInput" type="submit">Validar</input>'
-                +  '</form>'
-                +  '<div id="feedback"></div>';
+        var html = '<form id="exampleValidate">\
+                        <input type="text" name="campoUno" id="campoUno">Campo 1</input>\
+                        <input type="text" name="campoDos" id="campoDos">Campo 2</input>\
+                        <input id="btnInput" type="submit">Validar</input>\
+                    </form>\
+                    <div id="feedback"></div>';
         $('body').append(html);
         var optsFeedback = {
             type: "ok",
