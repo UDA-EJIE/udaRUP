@@ -51,7 +51,7 @@
 		setRupValue: function(value){
 			var $self = this;
 
-			$self.spinner('value', value );
+			$self.spinner('value', 5 );
 
 			return $self;
 		}
