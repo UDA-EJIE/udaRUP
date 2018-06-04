@@ -81,16 +81,35 @@ describe('Test Form', () => {
 				expect($form.rup_form('formToJson')).toEqual(out);
 			});
 		});
-		// TODO: Conseguir el objeto de configuracion del form y probar esto.
-		describe('Métodos formReset, formClear y clearFields', () => {
+		describe('Método clearForm > ', () => {
 			beforeEach(() => {
-				$form.rup_form('formClear');
+				$form.rup_form('clearForm');
 			});
-			it('Deben quedar todos los inputs vacíos', () => {
-				setTimeout(() => {
-					expect($('#input1').val()).toBe('');
-					expect($('#input2').val()).toBe('');
-				}, 1500);
+			it('Debe haber limpiado todos los campos:', () => {
+				expect($('#input1').val()).toBe('');
+				expect($('#input2').val()).toBe('');
+				expect($('#input3').val()).toBe(null);
+			});
+		});
+		describe('Método resetForm > ', () => {
+			beforeEach(() => {
+				$form.rup_form('clearForm');
+				$form.rup_form('resetForm');
+			});
+			it('Debe tener los valores originales:', () => {
+				expect($('#input1').val()).toBe('txt1');
+				expect($('#input2').val()).toBe('txt2');
+				expect($('#input3').val()).toBe('opt1');
+			});
+		});
+		describe('Método clearFields > ', () => {
+			beforeEach(() => {
+				$('input', $form).rup_form('clearFields');
+			});
+			it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
+				expect($('#input1').val()).toBe('');
+				expect($('#input2').val()).toBe('');
+				expect($('#input3').val()).toBe('opt1');
 			});
 		});
 
