@@ -131,6 +131,7 @@ function _drawSelectId(){
 function _selectRowIndex(dt,index,tr){
 	var ctx = dt.settings()[0];
 	DataTable.multiselection.selectedRowsPerPage = [];
+	ctx.oInit.select.funcionParams = '';
 	var rowsBody = $( ctx.nTBody);
 	if(tr.hasClass( "tr-highlight" )){
 		tr.removeClass('selected tr-highlight');

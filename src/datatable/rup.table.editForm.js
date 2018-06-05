@@ -78,7 +78,11 @@ DataTable.editForm.init = function ( dt ) {
 	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
 
 	//Se coge el adapter, y se crea la barra de navegación
-	_callNavigationBar(dt);
+	if(ctx.oInit.multiSelect === undefined){// si es de select
+		_callNavigationSelectBar(dt);
+	}else{//si es de multiselect
+		_callNavigationBar(dt);
+	}
 	//Se inicializa el editFrom la info
 	_updateDetailPagination(ctx,1,1);
 
@@ -384,7 +388,13 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			indexInArray = 0;
 			ctx.oInit.formEdit.$navigationBar.numPosition = 0;
 		}
-		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
+		var numTotal = multiselection.numSelected;
+		if(ctx.oInit.multiSelect === undefined){
+			numTotal = ctx.json.recordsTotal;
+			indexInArray = (Number(ctx.json.page)-1) * 10;
+			indexInArray = indexInArray + idRow;
+		}
+		_updateDetailPagination(ctx,indexInArray+1,numTotal);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
 		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
@@ -630,8 +640,7 @@ function _callNavigationBar(dt){
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
-		var $self = this,
-			execute = false,
+		var execute = false,
 			changePage = false,
 			index = 0,
 			newPageIndex = 0,
@@ -640,7 +649,6 @@ function _callNavigationBar(dt){
 			newPage = page,
 			lastPage = ctx.json.total;
 		var multiselection = DataTable.multiselection;
-		//npos[0] = parseInt(npos[0], 10);
 		var rowSelected;
 
 		switch (linkType) {
@@ -675,10 +683,9 @@ function _callNavigationBar(dt){
 					//buscarPAgina.
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 					rowSelected.page = _getPrevPageSelected (ctx,page-1);
-					//rowSelected.line = -1;
+
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
-					//rowSelected.line = 0;
 				}
 			}
 
@@ -742,6 +749,79 @@ function _callNavigationBar(dt){
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
+/**
+* Constructor de la barra de navegación.
+*
+* @name callNavigatorSelectBar
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
+function _callNavigationSelectBar(dt){
+	var ctx = dt.settings()[0];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
+	var settings = {};
+	
+	//Funcion para obtener los parametros de navegacion.
+	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
+		var execute = false,
+			changePage = false,
+			index = 0,
+			newPageIndex = 0,
+			npos = ctx.oInit.formEdit.$navigationBar.currentPos,
+			page = dt.page()+1,
+			newPage = page,
+			lastPage = ctx.json.total;
+		var futurePage = page;
+
+		switch (linkType) {
+		case 'first':
+			futurePage = 1;
+			DataTable.multiselection.selectedRowsPerPage[0].line = 0;
+			break;
+		case 'prev':
+			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line-1;
+			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+				futurePage = futurePage-1;
+			}
+			break;
+		case 'next':
+			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line+1;
+			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+				futurePage = futurePage+1;
+			}
+			break;
+		case 'last':
+			futurePage = lastPage;
+			DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.rows.length-1;
+
+		}
+		//Cambio de pagina
+		if(Number(futurePage) !== page){
+			var table = $('#'+ctx.sTableId).DataTable();
+			DataTable.select.selectedRowsPerPage = {};
+			DataTable.select.selectedRowsPerPage.cambio = linkType;
+			DataTable.select.selectedRowsPerPage.page = futurePage;
+			table.page( futurePage-1 ).draw( 'page' );
+		}else{//Si nose pagina se abre directamente la funcion.
+			DataTable.editForm.fnOpenSaveDialog('PUT',dt,DataTable.multiselection.selectedRowsPerPage[0].line);
+			var rowSelectAux = ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line];
+			DataTable.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+			DataTable.Api().select.deselect(ctx);
+			DataTable.Api().select.drawSelectId();
+		}
+
+	};
+
+
+	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
+	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
+	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+}
 
 /**
 * Metodo que obtiene la fila siguiente seleccionada.

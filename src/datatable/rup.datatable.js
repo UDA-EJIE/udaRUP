@@ -792,13 +792,6 @@
 				settings.select = undefined;
 			}
 			
-			//PRUEBAS
-			/*if(settings.multiSelect === undefined){
-				settings.buttons = undefined;
-				settings.editForm = undefined;
-				settings.seeker = undefined;
-				settings.formEdit = undefined;
-			}*/
 			
 			if(settings.formEdit === undefined){
 				settings.buttons = undefined;
@@ -825,6 +818,24 @@
 
 				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
 					if(settings.select !== undefined){//AL repintar vigilar el select.
+						if(DataTable.select.selectedRowsPerPage !== undefined){
+							//viene de la navegacion buscar el id.
+							var line = 0;
+							var ctx = tabla.context[0];
+							if(DataTable.select.selectedRowsPerPage.cambio === 'prev' || DataTable.select.selectedRowsPerPage.cambio === 'last'){
+								line = ctx.json.rows.length-1;
+							}
+							
+							DataTable.multiselection.selectedRowsPerPage = [];
+							var rowSelectAux = ctx.json.rows[line];
+							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+							DataTable.multiselection.selectedRowsPerPage.push({line:line,page:DataTable.select.selectedRowsPerPage.page,id:id});
+							DataTable.select.selectedRowsPerPage = undefined;
+							var numTotal = ctx.json.recordsTotal;
+							var index = (Number(ctx.json.page)-1) * 10;
+							index = index + line + 1;
+							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
+						}
 						DataTable.Api().select.drawSelectId();
 					}
 					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){

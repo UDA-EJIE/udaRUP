@@ -167,11 +167,11 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-			if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
+		/*	if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 				$.proxy(settings.doNavigation, $self)(retNavParams);
 			})) {
 				$.proxy(settings.doNavigation, $self)(retNavParams);
-			}
+			}*/
 		}
 
 
