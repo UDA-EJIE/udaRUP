@@ -6,12 +6,12 @@ import 'rup.upload';
 describe('Test Upload > ', () => {
     var $upload;
     beforeAll(() => {
-        let html =   '<span class="btn btn-success fileinput-button">'
-                +       '<i class="glyphicon glyphicon-plus"></i>'
-                +       '<span>Seleccionar...</span>'
-                +       '<input id="exampleUpload" type="file" name="files[]" data-url="../upload" multiple="multiple" />'
-                +    '</span>'
-                +    '<p id="txtVar"></p>';
+        let html =     '<span class="btn btn-success fileinput-button">\
+                            <i class="glyphicon glyphicon-plus"></i>\
+                            <span>Seleccionar...</span>\
+                            <input id="exampleUpload" type="file" name="files[]" data-url="../upload" multiple="multiple" />\
+                        </span>\
+                        <p id="txtVar"></p>';
         let props = {
             dataType: 'json',
             uploadTemplateId:false,
