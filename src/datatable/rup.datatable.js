@@ -480,24 +480,17 @@
 					}
 				});
 
-
-				filterSettings.$toggleIcon1.add(filterSettings.$toggleLabel).add(filterSettings.$toggleIcon2)
-					.attr('tabindex','0')
-					.on({
-						'keydown':function(evt) {
-							if (evt.keyCode === 13) {
-								$self.rup_table('toggleFilterForm');
-							}
-						}
-					});
-
 				filterSettings.$filterToolbar.addClass('cursor_pointer').on({
 					'click':function(){
 						if(settings.filter.showHidden === false){
 							filterSettings.$collapsableLayer.hide();
+							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
 							settings.filter.showHidden = true;
-						}else{
+						} else{
 							filterSettings.$collapsableLayer.show();
+							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -505,8 +498,14 @@
 
 				if (settings.filter.showHidden === true){
 					filterSettings.$collapsableLayer.hide();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-n').addClass('ui-icon-triangle-1-s');
-					filterSettings.$filterSummary.parent().addClass('rup-maint_searchCriteria');
+					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+					settings.filter.showHidden = true;
+				} else {
+					filterSettings.$collapsableLayer.show();
+					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+					settings.filter.showHidden = false;
 				}
 
 			}
