@@ -6,7 +6,8 @@ describe('Test Autocomplete > ', () => {
     var $autocomplete, $autocomplete2, $autocompleteLabel, $autocompleteLabel2;
     beforeEach(() => {
         let html = '<input type="text" id="exampleAutocomplete">\
-                    <input type="text" id="exampleAutocompleteDos">';
+                    <input type="text" id="exampleAutocompleteDos">\
+                    <input type="text" id="exampleAutocompleteTres">';
 		$('body').append(html);
         let sourceJson = [
             { i18nCaption:'ab', value:'ab_value' },
@@ -31,11 +32,21 @@ describe('Test Autocomplete > ', () => {
 			defaultValue: 'a',
 			contains: true,
 			delay:0
-		});
+        });
+        $('#exampleAutocompleteTres').rup_autocomplete({
+            source: 'api/autocomplete/remote',
+            sourceParam: {
+                label: 'descEs',
+                value: 'code'
+            },
+            minLength: 4
+        });
 		$autocomplete = $('#exampleAutocomplete');
-		$autocomplete2 = $('#exampleAutocompleteDos');
+        $autocomplete2 = $('#exampleAutocompleteDos');
+        $autocomplete3 = $('#exampleAutocompleteTres');
 		$autocompleteLabel = $('#exampleAutocomplete_label');
 		$autocompleteLabel2 = $('#exampleAutocompleteDos_label');
+		$autocompleteLabel3 = $('#exampleAutocompleteTres_label');
     });
     afterEach(() => {
       	$('body').html('');
@@ -47,6 +58,8 @@ describe('Test Autocomplete > ', () => {
                 expect($autocomplete.hasClass('rup-autocomplete_label ui-autocomplete-input')).toBeTruthy();
                 expect($autocomplete2.attr('ruptype')).toBe('autocomplete');
 				expect($autocomplete2.hasClass('rup-autocomplete_label ui-autocomplete-input')).toBeTruthy();
+				expect($autocomplete3.attr('ruptype')).toBe('autocomplete');
+				expect($autocomplete3.hasClass('rup-autocomplete_label ui-autocomplete-input')).toBeTruthy();
 			}, 1500);
 		});
     });
@@ -61,13 +74,18 @@ describe('Test Autocomplete > ', () => {
                     $autocompleteLabel2.rup_autocomplete('close');
 					$autocompleteLabel2.rup_autocomplete('off');
 					$autocompleteLabel2.rup_autocomplete('on');
-					$autocompleteLabel2.rup_autocomplete('search','u');
+					$autocompleteLabel2.rup_autocomplete('search', 'u');
+					$autocompleteLabel3.rup_autocomplete('close');
+					$autocompleteLabel3.rup_autocomplete('off');
+					$autocompleteLabel3.rup_autocomplete('on');
+					$autocompleteLabel3.rup_autocomplete('search', 'u');
 				}, 1500);
             });
             it('Debe mostrarse el menu', () => {
 				setTimeout(() => {
 					expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
 					expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
+					expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeTruthy();
 				}, 1500);
             });
         });
