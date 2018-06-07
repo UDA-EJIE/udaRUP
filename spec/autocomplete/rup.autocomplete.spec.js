@@ -11,46 +11,17 @@ describe('Test Autocomplete > ', () => {
                     <input type="text" id="exampleAutocompleteDos">\
                     <input type="text" id="exampleAutocompleteTres">';
         $('body').append(html);
-        let sourceJson = [{
-                i18nCaption: 'ab',
-                value: 'ab_value'
-            },
-            {
-                i18nCaption: 'tc',
-                value: 'tc_value'
-            },
-            {
-                i18nCaption: 'ud',
-                value: 'ud_value'
-            },
-            {
-                i18nCaption: 'le',
-                value: 'le_value'
-            },
-            {
-                i18nCaption: 'af',
-                value: 'af_value'
-            },
-            {
-                i18nCaption: 'mg',
-                value: 'mg_value'
-            },
-            {
-                i18nCaption: 'ah',
-                value: 'ah_value'
-            },
-            {
-                i18nCaption: 'ui',
-                value: 'ui_value'
-            },
-            {
-                i18nCaption: 'uj',
-                value: 'uj_value'
-            },
-            {
-                i18nCaption: 'ak',
-                value: 'ak_value'
-            }
+        let sourceJson = [
+            {i18nCaption: 'ab', value: 'ab_value'},
+            {i18nCaption: 'tc', value: 'tc_value'},
+            {i18nCaption: 'ud', value: 'ud_value'},
+            {i18nCaption: 'le', value: 'le_value'},
+            {i18nCaption: 'af', value: 'af_value'},
+            {i18nCaption: 'mg', value: 'mg_value'},
+            {i18nCaption: 'ah', value: 'ah_value'},
+            {i18nCaption: 'ui', value: 'ui_value'},
+            {i18nCaption: 'uj', value: 'uj_value'},
+            {i18nCaption: 'ak', value: 'ak_value'}
         ];
         $('#exampleAutocomplete').rup_autocomplete({
             source: sourceJson,
@@ -95,7 +66,7 @@ describe('Test Autocomplete > ', () => {
     describe('Métodos públicos > ', () => {
         describe('Método on > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     $autocompleteLabel.rup_autocomplete('close');
                     $autocompleteLabel.rup_autocomplete('off');
                     $autocompleteLabel.rup_autocomplete('on');
@@ -108,14 +79,14 @@ describe('Test Autocomplete > ', () => {
                     $autocompleteLabel3.rup_autocomplete('off');
                     $autocompleteLabel3.rup_autocomplete('on');
                     $autocompleteLabel3.rup_autocomplete('search', 'u');
-                }, 1500);
+                //}, 1500);
             });
             it('Debe mostrarse el menu', () => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
                     expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
                     expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeTruthy();
-                }, 1500);
+                //}, 1500);
             });
         });
         describe('Método off > ', () => {
