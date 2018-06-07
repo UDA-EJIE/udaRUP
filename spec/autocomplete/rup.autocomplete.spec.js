@@ -1,4 +1,4 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
 import 'jasmine-jquery';
