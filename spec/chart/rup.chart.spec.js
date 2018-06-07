@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'handlebars';
 import 'jasmine-jquery';
@@ -8,24 +10,22 @@ describe('Test Chart', () => {
     beforeEach(() => {
         var options = {
             type: 'line',
-            data:{
-                labels:['label1', 'label2', 'label3'],
-                datasets:[
-                    {
-                        label:'dataset1',
-                        data:[10, 20, 40]
-                    }
-                ]
+            data: {
+                labels: ['label1', 'label2', 'label3'],
+                datasets: [{
+                    label: 'dataset1',
+                    data: [10, 20, 40]
+                }]
             },
-            options:{
-                legend:{
-                    display:true
+            options: {
+                legend: {
+                    display: true
                 }
             }
         };
         var html = '<div class="butstyle">' +
-			                '<canvas id="exampleChart" ></canvas>' +
-		            '</div>';
+            '<canvas id="exampleChart" ></canvas>' +
+            '</div>';
         $('body').append(html);
         $('#exampleChart').rup_chart(options);
         $chart = $('#exampleChart');
@@ -43,13 +43,13 @@ describe('Test Chart', () => {
             var dataUpdate;
             beforeEach(() => {
                 dataUpdate = {
-                    datasets:[{
+                    datasets: [{
                         label: 'dataset1',
-                        data:[3, 8, 4]
+                        data: [3, 8, 4]
                     }],
-                    labels:['label1.1','label2.1','label3.1']
+                    labels: ['label1.1', 'label2.1', 'label3.1']
                 };
-                $chart.rup_chart('updateData', dataUpdate)
+                $chart.rup_chart('updateData', dataUpdate);
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getData')).toBe(dataUpdate);
@@ -58,8 +58,8 @@ describe('Test Chart', () => {
         describe('Métodos updateLabels y getLabels', () => {
             var dataUpdate;
             beforeEach(() => {
-                dataUpdate = ['label1.1','label2.1','label3.1'];
-                $chart.rup_chart('updateLabels', dataUpdate)
+                dataUpdate = ['label1.1', 'label2.1', 'label3.1'];
+                $chart.rup_chart('updateLabels', dataUpdate);
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getLabels')).toBe(dataUpdate);
@@ -70,9 +70,9 @@ describe('Test Chart', () => {
             beforeEach(() => {
                 dataUpdate = [{
                     label: 'dataset1',
-                    data:[3, 8, 4]
+                    data: [3, 8, 4]
                 }];
-                $chart.rup_chart('updateDatasets', dataUpdate)
+                $chart.rup_chart('updateDatasets', dataUpdate);
             });
             it('Los valores recogidos deben ser correctos', () => {
                 expect($chart.rup_chart('getDatasets')).toBe(dataUpdate);
@@ -89,7 +89,7 @@ describe('Test Chart', () => {
                 resp = $chart.rup_chart('toBase64Image');
             });
             it('Debe ser un string', () => {
-                expect(typeof(resp) == "string").toBeTruthy();
+                expect(typeof (resp) == "string").toBeTruthy();
             });
             it('Debe comenzar con una secuencia de caracteres concreta', () => {
                 console.info(resp.indexOf('data:image/png'));
