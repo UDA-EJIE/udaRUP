@@ -1,3 +1,5 @@
+/* jslint multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.breadCrumb';
@@ -12,20 +14,37 @@ describe('Test BreadCrumb >', () => {
 		$('#exampleBreadcrumb').rup_breadCrumb({
 			breadCrumb: {}
 		});
+		window.history.pushState({
+			urlPath: '/patrones/ptrUno'
+		}, "", './patrones/ptrUno');
 		$('#subLeveledBreadCrumb').rup_breadCrumb({
 			"breadCrumb": {
-				"patrones":{
+				"patrones": {
 					//Literal mostrado:
-					"i18nCaption":"Varios patrones",
+					"i18nCaption": "Varios patrones",
 					//Elementos:
-					"ptrUno": {"i18nCaption":"ptrUno"},
-					"ptrDos": {"i18nCaption":"ptrDos"},
-					"ptrTres": {"i18nCaption":"ptrTres"},
+					"ptrUno": {
+						"i18nCaption": "ptrUno"
+					},
+					"ptrDos": {
+						"i18nCaption": "ptrDos"
+					},
+					"ptrTres": {
+						"i18nCaption": "ptrTres"
+					},
 					//Sublevel
-					"subLevel": [
-						{"i18nCaption":"ptrUno", "url":"./ptr/uno"},
-						{"i18nCaption":"ptrDos", "url":"./ptr/dos"},
-						{"i18nCaption":"ptrTres", "url":"./ptr/tres"}
+					"subLevel": [{
+							"i18nCaption": "ptrUno",
+							"url": "./ptr/uno"
+						},
+						{
+							"i18nCaption": "ptrDos",
+							"url": "./ptr/dos"
+						},
+						{
+							"i18nCaption": "ptrTres",
+							"url": "./ptr/tres"
+						}
 					]
 				}
 			}
@@ -72,45 +91,35 @@ describe('Test BreadCrumb >', () => {
 					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main').length).toBe(1);
 				});
 				it('Debe tener dos hijos', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main').children().length).toBe(2);
-					},1500);
+					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main').children().length).toBe(3);
 				});
 				it('El primer hijo debe ser el "Inicio" y debe ser un enlace', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li > a').html()).toBe('Inicio');
-					},1500);
+					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li > a').html()).toBe('Inicio');
 				});
 				it('El primer hijo debe tener un icono de flecha', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li > span')
-							.hasClass('ui-icon rup-icon rup-icon-separator-arrow')).toBeTruthy();
-					},1500);
+					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li > span')
+						.hasClass('ui-icon rup-icon rup-icon-separator-arrow')).toBeTruthy();
 				});
 				it('El segundo hijo debemostrarse como el actual', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li')
-							.hasClass('rup-breadCrumb_current')).toBeTruthy();
-					},1500);
+					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li')
+						.hasClass('rup-breadCrumb_current')).toBeTruthy();
 				});
 				it('El texto del segundo hijo debe ser "Varios patrones"', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > span')
-							.html()).toBe('Varios patrones');
-					},1500);
+					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > span')
+						.html()).toBe('Varios patrones');
 				});
 				it('El segundo hijo debe contener un ul oculto', () => {
 					setTimeout(() => {
 						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul').length).toBe(1);
 						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
 							.css('display')).toBe('none');
-					},1500);
+					}, 1500);
 				});
 				it('El ul oculto debe tener tres hijos (Los sublevel)', () => {
 					setTimeout(() => {
 						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
 							.children().length).toBe(3);
-					},1500);
+					}, 1500);
 				});
 				it('Los hijos deben ser los especificados en la configuracion', () => {
 					setTimeout(() => {
@@ -126,7 +135,7 @@ describe('Test BreadCrumb >', () => {
 							.children()[2]).html()).toBe('ptrTres');
 						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
 							.children()[2]).attr('href')).toBe('./ptr/tres');
-					},1500);
+					}, 1500);
 				});
 			});
 		});
@@ -150,7 +159,9 @@ describe('Test BreadCrumb >', () => {
 				$breadcrumb.rup_breadCrumb('destroy');
 			});
 			it('No debe existir', () => {
-				expect(() => {$breadcrumb.rup_breadCrumb('destroy')}).toThrowError();
+				expect(() => {
+					$breadcrumb.rup_breadCrumb('destroy');
+				}).toThrowError();
 			});
 		});
 	});
