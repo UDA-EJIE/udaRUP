@@ -91,55 +91,57 @@ describe('Test Autocomplete > ', () => {
         });
         describe('Método off > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('on');
                     $autocompleteLabel.rup_autocomplete('off');
                     $autocompleteLabel.rup_autocomplete('search', 'u');
                     $autocompleteLabel2.rup_autocomplete('close');
-                    $autocompleteLabel2.rup_autocomplete('on');
                     $autocompleteLabel2.rup_autocomplete('off');
                     $autocompleteLabel2.rup_autocomplete('search', 'u');
-                }, 1500);
+                    $autocompleteLabel3.rup_autocomplete('close');
+                    $autocompleteLabel3.rup_autocomplete('off');
+                    $autocompleteLabel3.rup_autocomplete('search', 'u');
+                //}, 1500);
             });
             it('Debe mostrarse el menu', () => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     expect($('#exampleAutocomplete_menu').is(':visible')).toBeFalsy();
                     expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeFalsy();
-                }, 1500);
+                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeFalsy();
+                //}, 1500);
             });
         });
         describe('Método option > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     $autocompleteLabel.rup_autocomplete('close');
                     $autocompleteLabel.rup_autocomplete('option', 'combobox', true);
                     $autocompleteLabel2.rup_autocomplete('close');
                     $autocompleteLabel2.rup_autocomplete('option', 'combobox', true);
-                }, 1500);
+                //}, 1500);
             });
             it('Debe tener la clase de combobox', () => {
-                setTimeout(() => {
+                //setTimeout(() => {
                     expect($autocompleteLabel.hasClass('rup-combobox-input')).toBeTruthy();
                     expect($autocompleteLabel2.hasClass('rup-combobox-input')).toBeTruthy();
-                }, 1500);
+                //}, 1500);
             });
         });
         describe('Método search > ', () => {
             describe('Empieza por una letra > ', () => {
                 beforeEach(() => {
-                    setTimeout(() => {
+                    //setTimeout(() => {
                         $autocomplete.rup_autocomplete('close');
                         $autocomplete.rup_autocomplete('search', 'u');
                         $autocomplete2.rup_autocomplete('close');
                         $autocomplete2.rup_autocomplete('search', 'u');
-                    }, 1500);
+                    //}, 1500);
                 });
                 it('Deben mostrarse ambos autocomplete:', () => {
-                    setTimeout(() => {
+                    //setTimeout(() => {
                         expect($('#exampleAutocomplete_menu').is(':visible')).toBe(true);
                         expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
-                    }, 1500);
+                    //}, 1500);
                 });
             });
             describe('Contiene una letra > ', () => {
