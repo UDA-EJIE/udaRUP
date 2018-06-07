@@ -66,206 +66,160 @@ describe('Test Autocomplete > ', () => {
     describe('Métodos públicos > ', () => {
         describe('Método on > ', () => {
             beforeEach(() => {
-                //setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('off');
-                    $autocompleteLabel.rup_autocomplete('on');
-                    $autocompleteLabel.rup_autocomplete('search', 'u');
-                    $autocompleteLabel2.rup_autocomplete('close');
-                    $autocompleteLabel2.rup_autocomplete('off');
-                    $autocompleteLabel2.rup_autocomplete('on');
-                    $autocompleteLabel2.rup_autocomplete('search', 'u');
-                    $autocompleteLabel3.rup_autocomplete('close');
-                    $autocompleteLabel3.rup_autocomplete('off');
-                    $autocompleteLabel3.rup_autocomplete('on');
-                    $autocompleteLabel3.rup_autocomplete('search', 'u');
-                //}, 1500);
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('off');
+                $autocomplete.rup_autocomplete('on');
+                $autocomplete.rup_autocomplete('search', 'u');
+                $autocomplete2.rup_autocomplete('close');
+                $autocomplete2.rup_autocomplete('off');
+                $autocomplete2.rup_autocomplete('on');
+                $autocomplete2.rup_autocomplete('search', 'u');
+                $autocomplete3.rup_autocomplete('close');
+                $autocomplete3.rup_autocomplete('off');
+                $autocomplete3.rup_autocomplete('on');
+                $autocomplete3.rup_autocomplete('search', 'u');
             });
             it('Debe mostrarse el menu', () => {
-                //setTimeout(() => {
-                    expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
-                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
-                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeTruthy();
-                //}, 1500);
+                expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
+                expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
+                expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeTruthy();
             });
         });
         describe('Método off > ', () => {
             beforeEach(() => {
-                //setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('off');
-                    $autocompleteLabel.rup_autocomplete('search', 'u');
-                    $autocompleteLabel2.rup_autocomplete('close');
-                    $autocompleteLabel2.rup_autocomplete('off');
-                    $autocompleteLabel2.rup_autocomplete('search', 'u');
-                    $autocompleteLabel3.rup_autocomplete('close');
-                    $autocompleteLabel3.rup_autocomplete('off');
-                    $autocompleteLabel3.rup_autocomplete('search', 'u');
-                //}, 1500);
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('off');
+                $autocomplete.rup_autocomplete('search', 'u');
+                $autocomplete2.rup_autocomplete('close');
+                $autocomplete2.rup_autocomplete('off');
+                $autocomplete2.rup_autocomplete('search', 'u');
+                $autocomplete3.rup_autocomplete('close');
+                $autocomplete3.rup_autocomplete('off');
+                $autocomplete3.rup_autocomplete('search', 'u');
             });
             it('Debe mostrarse el menu', () => {
-                //setTimeout(() => {
-                    expect($('#exampleAutocomplete_menu').is(':visible')).toBeFalsy();
-                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeFalsy();
-                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeFalsy();
-                //}, 1500);
+                expect($('#exampleAutocomplete_menu').is(':visible')).toBeFalsy();
+                expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeFalsy();
+                expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeFalsy();
             });
         });
         describe('Método option > ', () => {
             beforeEach(() => {
-                //setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('option', 'combobox', true);
-                    $autocompleteLabel2.rup_autocomplete('close');
-                    $autocompleteLabel2.rup_autocomplete('option', 'combobox', true);
-                //}, 1500);
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('option', 'combobox', true);
+                $autocomplete2.rup_autocomplete('close');
+                $autocomplete2.rup_autocomplete('option', 'combobox', true);
+                $autocomplete3.rup_autocomplete('close');
+                $autocomplete3.rup_autocomplete('option', 'combobox', true);
             });
             it('Debe tener la clase de combobox', () => {
-                //setTimeout(() => {
-                    expect($autocompleteLabel.hasClass('rup-combobox-input')).toBeTruthy();
-                    expect($autocompleteLabel2.hasClass('rup-combobox-input')).toBeTruthy();
-                //}, 1500);
+                expect($autocompleteLabel.hasClass('rup-combobox-input')).toBeTruthy();
+                expect($autocompleteLabel2.hasClass('rup-combobox-input')).toBeTruthy();
+                expect($autocompleteLabel3.hasClass('rup-combobox-input')).toBeTruthy();
             });
         });
         describe('Método search > ', () => {
             describe('Empieza por una letra > ', () => {
                 beforeEach(() => {
-                    //setTimeout(() => {
-                        $autocomplete.rup_autocomplete('close');
-                        $autocomplete.rup_autocomplete('search', 'u');
-                        $autocomplete2.rup_autocomplete('close');
-                        $autocomplete2.rup_autocomplete('search', 'u');
-                    //}, 1500);
+                    $autocomplete.rup_autocomplete('close');
+                    $autocomplete.rup_autocomplete('search', 'u');
+                    $autocomplete2.rup_autocomplete('close');
+                    $autocomplete2.rup_autocomplete('search', 'u');
+                    $autocomplete3.rup_autocomplete('close');
+                    $autocomplete3.rup_autocomplete('search', 'u');
                 });
                 it('Deben mostrarse ambos autocomplete:', () => {
-                    //setTimeout(() => {
-                        expect($('#exampleAutocomplete_menu').is(':visible')).toBe(true);
-                        expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
-                    //}, 1500);
+                    expect($('#exampleAutocomplete_menu').is(':visible')).toBe(true);
+                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
+                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBe(true);
                 });
             });
             describe('Contiene una letra > ', () => {
                 beforeEach(() => {
-                    setTimeout(() => {
-                        $autocomplete.rup_autocomplete('close');
-                        $autocomplete.rup_autocomplete('search', 'j');
-                        $autocomplete2.rup_autocomplete('close');
-                        $autocomplete2.rup_autocomplete('search', 'j');
-                    }, 1500);
+                    $autocomplete.rup_autocomplete('close');
+                    $autocomplete.rup_autocomplete('search', 'j');
+                    $autocomplete2.rup_autocomplete('close');
+                    $autocomplete2.rup_autocomplete('search', 'j');
                 });
                 it('Solo debe mostrarse el segundo autocomplete:', () => {
-                    setTimeout(() => {
-                        expect($('#exampleAutocomplete_menu').is(':visible')).toBe(false);
-                        expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
-                    }, 1500);
+                    expect($('#exampleAutocomplete_menu').is(':visible')).toBe(false);
+                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
                 });
             });
         });
         describe('Método close > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                }, 1500);
+                $autocomplete.rup_autocomplete('close');
             });
             it('Deben mostrarse la opciones', () => {
-                setTimeout(() => {
-                    expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
-                }, 1500);
+                expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
             });
         });
         describe('Método val > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('search', 'ui');
-                }, 1500);
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('search', 'ui');
             });
             it('Debe devolver el valor seleccionado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.rup_autocomplete('val')).toBe('ui_value');
-                }, 1500);
+                expect($autocomplete.rup_autocomplete('val')).toBe('ui_value');
             });
         });
         describe('Método set > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('set', 'ui', 'ui_value');
-                }, 1500);
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('set', 'ui', 'ui_value');
             });
             it('Debe devolver el valor seleccionado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.rup_autocomplete('val')).toBe('ui_value');
-                }, 1500);
+                expect($autocomplete.rup_autocomplete('val')).toBe('ui_value');
             });
         });
         describe('Método getRupValue > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('set', 'ui', 'ui_value');
-                }, 1500);
+                $autocompleteLabel.rup_autocomplete('close');
+                $autocompleteLabel.rup_autocomplete('set', 'ui', 'ui_value');
             });
             it('Debe devolver el valor seleccionado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
-                }, 1500);
+                expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
             });
         });
         describe('Método setRupValue > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('close');
-                    $autocompleteLabel.rup_autocomplete('setRupValue', 'ui_value');
-                }, 1500);
+                $autocompleteLabel.rup_autocomplete('close');
+                $autocompleteLabel.rup_autocomplete('setRupValue', 'ui_value');
             });
             it('Debe devolver el valor seleccionado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
-                }, 1500);
+                expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
             });
         });
         describe('Método disable > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('disable');
-                }, 1500);
+                $autocompleteLabel.rup_autocomplete('disable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.attr('disabled')).toBe('disabled');
-                }, 1500);
+                expect($autocompleteLabel.attr('disabled')).toBe('disabled');
             });
         });
         describe('Método enable > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocompleteLabel.rup_autocomplete('disable');
-                    $autocompleteLabel.rup_autocomplete('enable');
-                }, 1500);
+                $autocompleteLabel.rup_autocomplete('disable');
+                $autocompleteLabel.rup_autocomplete('enable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                setTimeout(() => {
-                    expect($autocompleteLabel.attr('disabled')).toBeUndefined();
-                }, 1500);
+                expect($autocompleteLabel.attr('disabled')).toBeUndefined();
             });
         });
         describe('Método destroy > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $autocomplete.rup_autocomplete('destroy');
-                    $autocomplete2.rup_autocomplete('destroy');
-                }, 1500);
+                $autocomplete.rup_autocomplete('destroy');
+                $autocomplete2.rup_autocomplete('destroy');
             });
             it('Intentar volver a destruir el objeto debe dar error', () => {
-                setTimeout(() => {
                     expect(() => {
                         $autocomplete.rup_autocomplete('destroy');
                     }).toThrowError();
                     expect(() => {
                         $autocomplete2.rup_autocomplete('destroy');
                     }).toThrowError();
-                }, 1500);
             });
         });
     });
