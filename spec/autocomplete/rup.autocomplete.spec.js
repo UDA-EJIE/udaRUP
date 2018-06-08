@@ -175,37 +175,37 @@ describe('Test Autocomplete > ', () => {
         });
         describe('Método getRupValue > ', () => {
             beforeEach(() => {
-                $autocompleteLabel.rup_autocomplete('close');
-                $autocompleteLabel.rup_autocomplete('set', 'ui', 'ui_value');
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('set', 'ui', 'ui_value');
             });
             it('Debe devolver el valor seleccionado', () => {
-                expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
+                expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ui_value');
             });
         });
         describe('Método setRupValue > ', () => {
             beforeEach(() => {
-                $autocompleteLabel.rup_autocomplete('close');
-                $autocompleteLabel.rup_autocomplete('setRupValue', 'ui_value');
+                $autocomplete.rup_autocomplete('close');
+                $autocomplete.rup_autocomplete('setRupValue', 'ui_value');
             });
             it('Debe devolver el valor seleccionado', () => {
-                expect($autocompleteLabel.rup_autocomplete('getRupValue')).toBe('ui_value');
+                expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ui_value');
             });
         });
         describe('Método disable > ', () => {
             beforeEach(() => {
-                $autocompleteLabel.rup_autocomplete('disable');
+                $autocomplete.rup_autocomplete('disable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                expect($autocompleteLabel.attr('disabled')).toBe('disabled');
+                expect($autocomplete.attr('disabled')).toBe('disabled');
             });
         });
         describe('Método enable > ', () => {
             beforeEach(() => {
-                $autocompleteLabel.rup_autocomplete('disable');
-                $autocompleteLabel.rup_autocomplete('enable');
+                $autocomplete.rup_autocomplete('disable');
+                $autocomplete.rup_autocomplete('enable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                expect($autocompleteLabel.attr('disabled')).toBeUndefined();
+                expect($autocomplete.attr('disabled')).toBeUndefined();
             });
         });
         describe('Método destroy > ', () => {
