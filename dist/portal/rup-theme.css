@@ -5207,6 +5207,10 @@
   visibility: hidden;
 }
 
+.r01gContainer .dtr-data {
+  display: inline-block;
+}
+
 .r01gContainer table.dataTable tbody > tr.selected,
 .r01gContainer table.dataTable tbody > tr > .selected {
   background-color: #B0BED9;

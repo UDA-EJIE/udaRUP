@@ -3565,6 +3565,9 @@ table.dataTable tbody > tr:hover {
 .hiddenInput {
   visibility: hidden; }
 
+.dtr-data {
+  display: inline-block; }
+
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
 
