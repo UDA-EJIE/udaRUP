@@ -9,10 +9,17 @@ describe('Test Lang >', () => {
                     id="exampleLang" data-toggle="dropdown">\
                         <i class="fa fa-globe" aria-hidden="true"></i>\
                         <span data-rup-lang-current=""></span></a>\
+                    <div class="dropdown-menu" aria-labelledby="exampleLang"></div>\
+                    <a class="nav-link rup-nav-tool-icon" href="#" \
+                    id="exampleLang2" data-toggle="dropdown">\
+                        <i class="fa fa-globe" aria-hidden="true"></i>\
+                        <span data-rup-lang-current=""></span></a>\
                     <div class="dropdown-menu" aria-labelledby="exampleLang"></div>';
         $('body').append(html);
         $('#exampleLang').rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY});
+        $('#exampleLang2').rup_language({languages: jQuery.rup.AVAILABLE_LANGS_ARRAY, modo:'portal'});
         $lang = $('#exampleLang');
+        $lang2 = $('#exampleLang2');
     });
     afterEach(() => {
         $('body').html('');
