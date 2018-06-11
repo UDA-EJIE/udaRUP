@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
