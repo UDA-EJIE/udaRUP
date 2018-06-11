@@ -15,36 +15,22 @@ describe('Test BreadCrumb >', () => {
 			breadCrumb: {}
 		});
 		window.history.pushState({
-			urlPath: '/patrones/ptrUno'
-		}, "", './patrones/ptrUno');
+			urlPath: '/x21aAppWar/patrones/ptrUno'
+		}, "", './x21aAppWar/patrones/ptrUno');
 		$('#subLeveledBreadCrumb').rup_breadCrumb({
 			"breadCrumb": {
 				"patrones": {
 					//Literal mostrado:
 					"i18nCaption": "Varios patrones",
 					//Elementos:
-					"ptrUno": {
-						"i18nCaption": "ptrUno"
-					},
-					"ptrDos": {
-						"i18nCaption": "ptrDos"
-					},
-					"ptrTres": {
-						"i18nCaption": "ptrTres"
-					},
+					"ptrUno": {"i18nCaption": "ptrUno"},
+					"ptrDos": {"i18nCaption": "ptrDos"},
+					"ptrTres": {"i18nCaption": "ptrTres"},
 					//Sublevel
-					"subLevel": [{
-							"i18nCaption": "ptrUno",
-							"url": "./ptr/uno"
-						},
-						{
-							"i18nCaption": "ptrDos",
-							"url": "./ptr/dos"
-						},
-						{
-							"i18nCaption": "ptrTres",
-							"url": "./ptr/tres"
-						}
+					"subLevel": [
+						{"i18nCaption": "ptrUno", "url": "./patrones/ptrUno"},
+						{"i18nCaption": "ptrDos", "url": "./patrones/ptrDos"},
+						{"i18nCaption": "ptrTres", "url": "./patrones/ptrTres"}
 					]
 				}
 			}
@@ -104,52 +90,40 @@ describe('Test BreadCrumb >', () => {
 					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li')
 						.hasClass('rup-breadCrumb_current')).toBeTruthy();
 				});
-				it('El texto del segundo hijo debe ser "Varios patrones"', () => {
+				it('El texto del hijo seleccionado debe ser "ptrUno"', () => {
 					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > span')
-						.html()).toBe('Varios patrones');
+						.html()).toBe('ptrUno');
 				});
 				it('El segundo hijo debe contener un ul oculto', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul').length).toBe(1);
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.css('display')).toBe('none');
-					}, 1500);
+						let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
+						expect($('ul', varPatrones).length).toBe(1);
+						expect($('ul', varPatrones).css('display')).toBe('none');
 				});
 				it('El ul oculto debe tener tres hijos (Los sublevel)', () => {
-					setTimeout(() => {
-						expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children().length).toBe(3);
-					}, 1500);
+					let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
+					expect($('ul',varPatrones).children().length).toBe(3);
 				});
 				it('Los hijos deben ser los especificados en la configuracion', () => {
-					setTimeout(() => {
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[0]).html()).toBe('ptrUno');
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[0]).attr('href')).toBe('./ptr/uno');
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[1]).html()).toBe('ptrDos');
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[1]).attr('href')).toBe('./ptr/dos');
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[2]).html()).toBe('ptrTres');
-						expect($('a', $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-							.children()[2]).attr('href')).toBe('./ptr/tres');
-					}, 1500);
+					let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
+					expect($('a', $('ul',varPatrones).children()[0]).html()).toBe('ptrUno');
+					expect($('a', $('ul',varPatrones).children()[0]).attr('href')).toBe('./patrones/ptrUno');
+					expect($('a', $('ul',varPatrones).children()[1]).html()).toBe('ptrDos');
+					expect($('a', $('ul',varPatrones).children()[1]).attr('href')).toBe('./patrones/ptrDos');
+					expect($('a', $('ul',varPatrones).children()[2]).html()).toBe('ptrTres');
+					expect($('a', $('ul',varPatrones).children()[2]).attr('href')).toBe('./patrones/ptrTres');
 				});
 			});
 		});
 	});
 	describe('Test de funcionamiento > ', () => {
 		describe('Mostrar sublevels haciendo hover en "Varios patrones"', () => {
+			// TODO: REVISAR.
+			let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
 			beforeEach(() => {
-				$('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').mouseenter();
+				varPatrones.trigger('mouseenter');
 			});
 			it('Debe mostrarse', () => {
-				setTimeout(() => {
-					expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current > ul')
-						.css('display')).toBe('block');
-				}, 1500);
+				expect($('ul', varPatrones).css('display')).toBe('block');
 			});
 		});
 	});
