@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.combo';
@@ -546,7 +548,7 @@ describe('Test Combo > ', () => {
 					sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
 				});
 				$('#comboRemoto').selectmenu('option', 'source', webRoot + '/demo/comboSimple/remoteDos');
-				$('#comboRemoto').rup_combo('reload')
+				$('#comboRemoto').rup_combo('reload');
 			});
 			it('Debe crearse', () => {
 				expect($('#comboRemoto-menu > li > a:contains("A2")').length).toBe(1);
@@ -658,7 +660,7 @@ function setupCombos(){
 	$('#comboMulti').removeClass('randomClass');
 	$('#comboPadre').removeClass('randomClass');
 	$('#comboHijo').removeClass('randomClass');
-};
+}
 
 /*
 describe('Test Combo', () => {
