@@ -45,13 +45,13 @@ describe('TEST Button', () => {
         });
         $button  = $('#exampleButton');
         $mButton = $('#exampleMButton');
-        $dropButton = $('#dropdownButton');
+        $dropdownButton = $('#dropdownButton');
     });
     afterEach(() => {
         $('body').html('');
     });
     describe('Creación >', () => {
-        describe('Button y mButton > ', () => {
+        describe('Button > ', () => {
             it('Debe tener la clase rup-button',() => {
                 expect($button.hasClass('rup-button')).toBeTruthy();
             });
@@ -62,20 +62,21 @@ describe('TEST Button', () => {
             });
             it('El mButton debe tener los botones hijos ', () => {});
         });
-        describe('DropdownButton', () => {});
-        it('El dropdownButton debe crear un contenedor para el y el dropdown ', () => {
-            expect($('.rup-dropdown-btn-group').length).toBe(1);
-        });
-        it('El contenedor debe tener dos hijos ', () => {
-            expect($('.rup-dropdown-btn-group').children().length).toBe(2);
-        });
+        describe('DropdownButton', () => {
+            it('Debe tener las clases apropiadas:', () => {
+                expect($dropdownButton.hasClass('rup-button rup-dropdown'))
+            });
+            it('El dropdownButton debe crear un contenedor para el y el dropdown ', () => {
+                expect($('.rup-dropdown-btn-group').length).toBe(1);
+            });
+            it('El contenedor debe tener dos hijos ', () => {
+                expect($('.rup-dropdown-btn-group').children().length).toBe(2);
+            });
+        }); 
     });
     describe('Métodos públicos >', () => {
-        describe('Método defaults >', () => {
-            it('El objeto debe estar definido', () => {
-                expect($button.rup_button('defaults')).toBeDefined();
-                expect($mButton.rup_button('defaults')).toBeDefined();
-            });
-        });
+        /**
+         * No hay ninguno implementado.
+         */
     });
 });
