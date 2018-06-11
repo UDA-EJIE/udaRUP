@@ -588,10 +588,6 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método reload > ', () => {
-			// TODO: Implementar reload
-			/**
-			 *  ¿Cómo cambio los valores del servidor para que me devuelva algo distinto?
-			 */
 			beforeEach(() => {
 				let html = '<select id="comboRemoto"></select>';
 				$('body').append(html);
@@ -599,11 +595,12 @@ describe('Test Combo > ', () => {
 					source: webRoot + '/demo/comboSimple/remote',
 					sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
 				});
-				$('#comboRemoto').selectmenu('option', 'source', webRoot + '/demo/comboSimple/remoteDos');
+				$('#comboRemoto').append('<option class="intruso">intruso</option>');
+				$('#comboRemoto').rup_combo('refresh');
 				$('#comboRemoto').rup_combo('reload');
 			});
 			it('Debe crearse', () => {
-				expect($('#comboRemoto-menu > li > a:contains("A2")').length).toBe(1);
+				expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
 			});
 		});
 		describe('Método order > ', () => {
