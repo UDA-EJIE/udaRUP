@@ -183,47 +183,99 @@ describe('Test Combo > ', () => {
 		});
 		describe('Método select > ', () => {
 			describe('Combo simple > ', () => {
-				beforeEach(() => {
-					$combo.rup_combo('select', '1');
+				describe('Selección por valor > ', () => {
+					beforeEach(() => {
+						$combo.rup_combo('select', '1');
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($combo.rup_combo('getRupValue')).toBe('1');
+					});
 				});
-				it('Debe modificar la ui ', () => {
-					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
-				});
-				it('Debe reflejarse en el método getRupValue', () => {
-					expect($combo.rup_combo('getRupValue')).toBe('1');
+				describe('Selección por índice > ', () => {
+					beforeEach(() => {
+						$combo.rup_combo('select', 1);
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($combo.rup_combo('getRupValue')).toBe('1');
+					});
 				});
 			});
 			describe('Combo padre > ', () => {
-				beforeEach(() => {
-					$comboPadre.rup_combo('select', '2');
+				describe('Selección por valor > ', () => {
+					beforeEach(() => {
+						$comboPadre.rup_combo('select', '2');
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+					});
 				});
-				it('Debe modificar la ui ', () => {
-					expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
-				});
-				it('Debe reflejarse en el método getRupValue', () => {
-					expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+				describe('Selección por índice > ', () => {
+					beforeEach(() => {
+						$comboPadre.rup_combo('select', 2);
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+					});
 				});
 			});
 			describe('Combo hijo > ', () => {
-				beforeEach(() => {
-					$comboHijo.rup_combo('select', '1.2');
+				describe('Selección por valor > ', () => {
+					beforeEach(() => {
+						$comboHijo.rup_combo('select', '1.2');
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboHijo.rup_combo('getRupValue')).toBe('1.2');
+					});
 				});
-				it('Debe modificar la ui ', () => {
-					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
-				});
-				it('Debe reflejarse en el método getRupValue', () => {
-					expect($comboHijo.rup_combo('getRupValue')).toBe('1.2');
+				describe('Selección por índice > ', () => {
+					beforeEach(() => {
+						$comboHijo.rup_combo('select', 3);
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboHijo.rup_combo('getRupValue')).toBe('1.2');
+					});
 				});
 			});
 			describe('Combo multiple > ', () => {
-				beforeEach(() => {
-					$comboMulti.rup_combo('select', ['3', '4']);
+				describe('Selección por valor > ', () => {
+					beforeEach(() => {
+						$comboMulti.rup_combo('select', ['3', '4']);
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
+					});
 				});
-				it('Debe modificar la ui ', () => {
-					expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
-				});
-				it('Debe reflejarse en el método getRupValue', () => {
-					expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
+				describe('Selección por índice > ', () => {
+					beforeEach(() => {
+						$comboMulti.rup_combo('select', [2, 3]);
+					});
+					it('Debe modificar la ui ', () => {
+						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+					});
+					it('Debe reflejarse en el método getRupValue', () => {
+						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
+					});
 				});
 			});
 		});
