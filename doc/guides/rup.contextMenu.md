@@ -79,7 +79,7 @@ $(selector).rup_contextMenu(properties);
 ```
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
 
-## 6	API
+##	6	API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.contextMenu.md).
 
 ##	7	Sobreescritura del theme
