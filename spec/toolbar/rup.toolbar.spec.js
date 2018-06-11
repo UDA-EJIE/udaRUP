@@ -45,9 +45,7 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('addButton', buttonObj);
             });
             it('Debe existir el boton', () => {
-                setTimeout(() => {
                     expect($('[id="exampleToolbar##addedButton"]').length).toBe(1);
-                }, 1500);
             });
         });
         describe('Método addMButton > ', () => {
@@ -64,16 +62,12 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe existir el mButton', () => {
-                setTimeout(() => {
                     expect($('[id="exampleToolbar##addedMButton"]').length).toBe(1);
-                }, 1500);
             });
             it('Deben existir los botones hijos del MButton', () => {
-                setTimeout(() => {
                     expect($('[id="exampleToolbar##addedMButton##new"]').length).toBe(1);
                     expect($('[id="exampleToolbar##addedMButton##editar"]').length).toBe(1);
                     expect($('[id="exampleToolbar##addedMButton##cancelar"]').length).toBe(1);
-                }, 1500);
             });
         });
         describe('Método addButtonsToMButton >', () => {
@@ -88,9 +82,7 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe existir el botón añadido', () => {
-                setTimeout(() => {
                     expect($('[id="exampleToolbar##mbutton1##addedButton"]').length).toBe(1);
-                }, 1500);
             })
         });
         describe('Método showMButton > ', () => {
@@ -98,9 +90,7 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('showMButton', 'mbutton1');
             });
             it('Debe tener la clase de "abierto" ', () => {
-                setTimeout(() => {
                     expect($toolbar.hasClass('rup-mbutton-open')).toBeTruthy();
-                }, 1500);
             });
         });
         describe('Método disableButton > ', () => {
@@ -129,9 +119,7 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('pressButton','searchBtn','pressed-button');
             });
             it('Debe tener la clase de presionado ', () => {
-                setTimeout(() => {
                     expect($('[id="exampleToolbar##searchBtn"]').hasClass('pressed-button')).toBeTruthy();
-                }, 1500);
             });
         });
         describe('Método unpressButton > ', () => {
@@ -159,9 +147,7 @@ describe('Test Toolbar > ', () => {
             });
 
             it('Debe devolver el botón seleccionado al estado que presenta en la configuración', () => {
-                setTimeout(() => {
                     expect($('[id = "exampleToolbar##searchBtn"]').hasClass('clase-anadida')).toBeFalsy();
-                }, 1500);
             });
         });
     });
