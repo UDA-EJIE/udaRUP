@@ -45,9 +45,7 @@ describe('Test Report > ', () => {
     });
     describe('Creación > ', () => {
         it('El botón de exportar debe de haberse creado:', () => {
-            setTimeout(() => {
                 expect($('[id="exampleToolbar##exportar"]').length).toBe(1);
-            }, 1500);
         });
     });
     describe('Funcionalidad > ', () => {
@@ -56,20 +54,16 @@ describe('Test Report > ', () => {
         });
         describe('Abre ventana emergente > ', () => {
             it('Debe abrir una ventana emergente:', () => {
-                setTimeout(() => {
                     expect($('.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
                         .is(':visible')).toBe(true);
-                }, 1500);
             });
             it('Debe tener un boton para cerrar el dialog:', () => {
-                setTimeout(() => {
-                    expect($('button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close').length).toBe(1);
-                },1500);
+                let element = $('button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close');
+                expect(element.length).toBe(1);
             });
             it('Debe tener un progressbar:', () => {
-                setTimeout(() => {
-                    expect($('div.ui-progressbar.ui-progressbar-value.ui-corner-left.ui-corner-right').length).toBe(1);
-                }, 1500);
+                let element = $('div.ui-progressbar.ui-progressbar-value.ui-corner-left.ui-corner-right');
+                expect(element.length).toBe(1);
             });
         });
         describe('Obtiene el archivo > ', () => {
