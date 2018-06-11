@@ -173,7 +173,7 @@ describe('Test Combo > ', () => {
 				$comboMulti.rup_combo('checkAll');
 			});
 			it('Debe modificar el ui ', () => {
-				expect($('#comboMulti-button > spa:not([class])').text())
+				expect($('#comboMulti-button > span:not([class])').text()).toBe('6 seleccionado(s)');
 			});
 			it('Debe reflejarse en el getRupValue ', () => {
 				expect($comboMulti.rup_combo('getRupValue')).toEqual(['1', '2', '3', '4', '5', '6']);
