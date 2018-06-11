@@ -1,5 +1,4 @@
 import 'jquery';
-import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.slider';
 
