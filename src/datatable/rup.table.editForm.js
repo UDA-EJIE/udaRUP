@@ -61,7 +61,7 @@ DataTable.editForm.version = '1.2.4';
 * @name init
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 *
 */
@@ -108,7 +108,7 @@ DataTable.editForm.init = function ( dt ) {
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
-	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) { 
+	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
 		rowsBody.on( 'dblclick.DT','tr',  function () {
 			idRow = this._DT_RowIndex;
 			//Añadir la seleccion del mismo.
@@ -179,7 +179,7 @@ DataTable.editForm.init = function ( dt ) {
 						var buttonName;
 						var eventDT;
 						var eventConfig;
-	
+
 						$.each( DataTable.ext.buttons, function( key ) {
 							var buttonObject = DataTable.ext.buttons[key];
 							if (buttonObject.id === buttonId) {
@@ -188,7 +188,7 @@ DataTable.editForm.init = function ( dt ) {
 								eventConfig = buttonObject;
 							}
 						});
-						
+
 						// Llamamos directamente al action para no hacer aparecer y desaparecer
 						// el boton, empeorando la UX
 						DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
@@ -248,9 +248,9 @@ DataTable.editForm.init = function ( dt ) {
  * @name init
  * @function
  * @since UDA 3.4.0 // Datatable 1.0.0
- * 
+ *
  * @param  {DataTable.settings} ctx Settings object to operate on
- * 
+ *
  */
 function init ( ctx ) {
 	var api = new DataTable.Api( ctx );
@@ -342,7 +342,7 @@ function eventTrigger ( api, type, args, any )
 * @name openSaveDialog
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
@@ -370,7 +370,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	}else{
 		buttonContinue.show();
 	}
-	
+
 	if(idRow < 0){
 		idRow = 1;
 	}
@@ -453,7 +453,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 * @name openSaveDialog
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {object} row - son los datos que se cargan.
@@ -554,7 +554,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 * @name callFeedbackOk
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
 * @param {string} msgFeedBack - Mensaje para el feedback.
@@ -581,7 +581,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 * @name returnCheckEmpty
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} idForm - Identificador del formulario.
 * @param {string} values - Values ya añadidos al formulario.
 *
@@ -600,7 +600,7 @@ function _returnCheckEmpty(idForm,values){
 * @name updateDetailPagination
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -635,7 +635,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
@@ -745,7 +745,7 @@ function _callNavigationBar(dt){
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
-	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
@@ -761,10 +761,10 @@ function _callNavigationBar(dt){
 */
 function _callNavigationSelectBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
-	
+
 	//Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
 		var execute = false,
@@ -819,7 +819,7 @@ function _callNavigationSelectBar(dt){
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
-	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
@@ -829,10 +829,10 @@ function _callNavigationSelectBar(dt){
 * @name getRowSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
-* 
+*
 * @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
 */
@@ -897,11 +897,11 @@ function _getRowSelected(dt,actionType){
 * @name getNextPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
 * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
-* 
+*
 * @return integer - devuele la página
 *
 */
@@ -945,10 +945,10 @@ function _getNextPageSelected(ctx,pageInit,orden){
 * @name getPrevPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
-* 
+*
 * @return integer - devuele la página
 *
 */
@@ -989,10 +989,10 @@ function _getPrevPageSelected(ctx,pageInit){
 * @name getLineByPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
-* 
+*
 * @return integer - devuele la linea
 *
 */
@@ -1020,10 +1020,10 @@ function _getLineByPageSelected(ctx,lineInit){
 * @name getLineByPageSelectedReverse
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
-* 
+*
 * @return integer - devuele la linea
 *
 */
@@ -1052,7 +1052,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 * @name deleteAllSelects
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 *
 */
