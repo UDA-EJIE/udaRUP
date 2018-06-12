@@ -51,7 +51,7 @@ describe('Test Combo > ', () => {
 				expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
 			});
 			it('El combo debe disponer de 2 optGroups:', () => {
-				expect($('optgroup',$comboGroup.length).toBe(2));
+				expect($('optgroup',$comboGroup).length).toBe(2);
 			});
 		});
 	});
@@ -105,6 +105,17 @@ describe('Test Combo > ', () => {
 					expect($comboMulti.rup_combo('getRupValue')).toEqual(['3', '4']);
 				});
 			});
+			describe('Combo optGroup > ', () => {
+				beforeEach(() => {
+					$comboGroup.rup_combo('setRupValue','2.2');
+				});
+				it('Debe actualizarse:',() => {
+					expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt22');
+				});
+				it('El método getRupValue debe devolver el valor establecido:', () => {
+					expect($comboGroup.rup_combo('getRupValue')).toBe('2.2');
+				});
+			});
 		});
 		describe('Método clear > ', () => {
 			describe('Combo simple > ', () => {
@@ -152,6 +163,14 @@ describe('Test Combo > ', () => {
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboMulti.rup_combo('getRupValue')).toEqual([]);
+				});
+			});
+			describe('Combo optGroup > ', () => {
+				beforeEach(() => {
+					$comboGroup.rup_combo('clear');
+				});
+				it('Debe actualizar la ui:', () => {
+
 				});
 			});
 		});
@@ -744,7 +763,8 @@ function setupCombos(){
 	let optionsGroup = {
 		change: () =>{$('#comboGroup').addClass('randomClass');},
 		sourceGroup: sourceGroup,
-		selected: '1.1'
+		blank:'0',
+		selected: '2.1'
 	};
 
 	$('#combo').rup_combo(optionsSimple);
