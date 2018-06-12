@@ -90,10 +90,9 @@ describe('TEST Tooltip', () => {
         describe('Método destroy', () => {
             beforeEach(() => {
                 $tooltip.rup_tooltip('destroy');
-                $tooltip.rup_tooltip('open');
             });
             it('No debe existir', () => {
-                expect($('.qtip').css('display')).toBe('none');
+                expect($('#qtip-exampleTooltip').attr('aria-disabled')).toBe(true);
             });
         });
     });
