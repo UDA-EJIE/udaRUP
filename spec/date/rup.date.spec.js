@@ -61,20 +61,16 @@ describe('TEST Date >',   () => {
         });
         describe('Métodos setDate y getDate >', () => {
             beforeEach(() =>{
-                $date.rup_date('setDate', new Date('01-01-2018'));
+                $date.rup_date('setDate', new Date('01/01/2018'));
             });
             describe('Método setDate >', () => {
                 it('Debe cambiar el valor de input a lo establecido', () => {
-                    setTimeout(() => {
-                        expect($date.val()).toBe('01/01/2018');
-                    }, 1500);
+                    expect($date.val()).toBe('01/01/2018');
                 });
             });
             describe('Método getDate >', () => {
                 it('Debe obtener el mismo valor que se ha mostrado', () => {
-                    setTimeout(() => {
-                        expect($date.rup_date('getDate')).toBe($date.val());
-                    }, 1500);
+                    expect($date.rup_date('getDate')).toBe($date.val());
                 });
             });
         });
@@ -91,9 +87,7 @@ describe('TEST Date >',   () => {
               $date.rup_date('disable');
       	    });
       	    it('Debe poder deshabilitarse', () => {
-                setTimeout(() => {
-                    expect($date.attr('disabled')).toBe('disabled');
-                }, 1500);
+                expect($date.attr('disabled')).toBe('disabled');
       	    });
       	});
         describe('Método enable >', () => {
@@ -102,9 +96,7 @@ describe('TEST Date >',   () => {
                 $date.rup_date('enable');
             });
             it('Debe poder deshabilitarse', () => {
-                setTimeout(() => {
-                    expect($date.attr('disabled')).toBeUndefined();
-                }, 1500);
+                expect($date.attr('disabled')).toBeUndefined();
             });
       	});
         describe('Método destroy >', () => {
