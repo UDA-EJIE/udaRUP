@@ -7,7 +7,7 @@ import 'rup.combo';
 const webRoot = "http://localhost:8081";
 
 describe('Test Combo > ', () => {
-	var $combo, $comboPadre, $comboHijo, $comboMulti;
+	var $combo, $comboPadre, $comboHijo, $comboMulti, $comboGroup;
 	beforeEach(() => {
 		setupCombos();
 
@@ -15,6 +15,7 @@ describe('Test Combo > ', () => {
 		$comboMulti = $('#comboMulti');
 		$comboPadre = $('#comboPadre');
 		$comboHijo  = $('#comboHijo');
+		$comboGroup  = $('#comboGroup');
 	});
 	afterEach(() => {
 		$('body').html('');
@@ -43,6 +44,14 @@ describe('Test Combo > ', () => {
 			it('Debe haber un unico valor seleccionado:', () => {
 				let checked = $('#rup-multiCombo_comboMulti > ul > li > label > input:checked');
 				expect(checked.length).toBe(1);
+			});
+		});
+		describe('Combo optGroup', () => {
+			it('Debe tener el valor por defecto:', () => {
+				expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
+			});
+			it('El combo debe disponer de 2 optGroups:', () => {
+				expect($('optgroup',$comboGroup.length).toBe(2));
 			});
 		});
 	});
@@ -678,7 +687,9 @@ function setupCombos(){
 	let html = '<select id="combo"></select>\
 		<select id="comboMulti"></select>\
 		<select id="comboPadre"></select>\
-		<select id="comboHijo"></select>';
+		<select id="comboHijo"></select>\
+		<select id="comboGroup"></select>';
+
 	$('body').append(html);
 
 	let source = [
@@ -688,6 +699,16 @@ function setupCombos(){
 		{i18nCaption: 'Opcion4', value: '4'},
 		{i18nCaption: 'Opcion5', value: '5'},
 		{i18nCaption: 'Opcion6', value: '6'}
+	];
+	let sourceGroup = [
+		{'Opt1':[
+			{i18nCaption: 'Opt11', value: '1.1'},
+			{i18nCaption: 'Opt12', value: '1.2'}
+		]},
+		{'Opt2':[
+			{i18nCaption: 'Opt21', value: '2.1'},
+			{i18nCaption: 'Opt22', value: '2.2'}
+		]}
 	];
 	let optionsSimple = {
 		change: () =>{$('#combo').addClass('randomClass');},
@@ -720,15 +741,23 @@ function setupCombos(){
 		blank:'0',
 		selected:'1.1'
 	};
+	let optionsGroup = {
+		change: () =>{$('#comboGroup').addClass('randomClass');},
+		sourceGroup: sourceGroup,
+		selected: '1.1'
+	};
 
 	$('#combo').rup_combo(optionsSimple);
 	$('#comboMulti').rup_combo(optionsMulti);
 	$('#comboPadre').rup_combo(optionsPadre);
 	$('#comboHijo').rup_combo(optionsHijo);
+	$('#comboGroup').rup_combo(optionsGroup);
+
 
 	//Mete automaticamente randomClass asi que lo quitamos
 	$('#combo').removeClass('randomClass');
 	$('#comboMulti').removeClass('randomClass');
 	$('#comboPadre').removeClass('randomClass');
 	$('#comboHijo').removeClass('randomClass');
+	$('#comboGroup').removeClass('randomClass');
 }
