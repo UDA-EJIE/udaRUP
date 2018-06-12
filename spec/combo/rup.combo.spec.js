@@ -37,7 +37,12 @@ describe('Test Combo > ', () => {
 		});
 		describe('Combo multiple >', () => {
 			it('Debe tener el valor por defecto: ', () => {
-				expect($('#comboMulti-button > span:not([class])').text()).toBe('1 seleccionado(s)');
+				//expect($('#comboMulti-button > span:not([class])').text()).toBe('1 seleccionado(s)');
+				expect($('#comboMulti-button > span:not([class])').text()).toMatch(/[1]\w*/);
+			});
+			it('Debe haber un unico valor seleccionado:', () => {
+				let checked = $('#rup-multiCombo_comboMulti > ul > li > label > input:checked');
+				expect(checked.length).toBe(1);
 			});
 		});
 	});
