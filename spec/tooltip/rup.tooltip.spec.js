@@ -1,9 +1,20 @@
-import 'jquery'
-import 'jasmine-jquery'
-import 'rup.tooltip'
+/* jslint esnext: true, multistr: true */
+
+import 'jquery';
+import 'jasmine-jquery';
+import 'rup.tooltip';
+
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
 
 describe('TEST Tooltip', () => {
     var $tooltip;
+    var $qtip;
     beforeEach(() => {
         var html = '<div class="input-group">\
                        <input id="inputExample" name="inputExample" type="text" class="form-control">\
@@ -47,18 +58,24 @@ describe('TEST Tooltip', () => {
         describe('Método open', () => {
             beforeEach(() => {
                 $tooltip.rup_tooltip('open');
+                $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
             });
             it('Debe ser visible', () => {
-                expect($('.qtip').css('display')).toBe('block');
+                expect($qtip.is(':visible')).toBeTruthy();
             });
         });
         describe('Método close', () => {
             beforeEach(() => {
                 $tooltip.rup_tooltip('open');
                 $tooltip.rup_tooltip('close');
+                $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
             });
             it('No debe ser visible', () => {
-                expect($('.qtip').is(':visible')).toBeFalsy();
+                $tooltip.rup_tooltip('close');
+                testTrace('body - html', $('body').html());
+                testTrace('qtip - visible', $qtip.is(':visible'));
+                testTrace('qtip - aria-hidden', $qtip.attr('aria-hidden'));
+                expect($qtip.is(':visible')).toBeFalsy();
             });
         });
         describe('Método option', () => {
@@ -66,33 +83,44 @@ describe('TEST Tooltip', () => {
                 expect($tooltip.rup_tooltip('option', 'content').text).toBe('Texto Prueba');
             });
             it('Debe actualizar las propiedades', () => {
-                $tooltip.rup_tooltip('option', 'show', {modal:true});
+                $tooltip.rup_tooltip('option', 'show', {
+                    modal: true
+                });
                 expect($tooltip.rup_tooltip('option', 'show').modal).toBeTruthy();
             });
         });
         describe('Método disable', () => {
             beforeEach(() => {
+                $tooltip.rup_tooltip('open');
+                $tooltip.rup_tooltip('close');
                 $tooltip.rup_tooltip('disable');
+                $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
             });
             it('Debe poder deshabilitarse', () => {
-                expect($('#qtip-exampleTooltip').hasClass('qtip-disabled')).toBeTruthy();
+                expect($qtip.hasClass('qtip-disabled')).toBeTruthy();
             });
         });
         describe('Método enable', () => {
             beforeEach(() => {
-              $tooltip.rup_tooltip('disable');
-              $tooltip.rup_tooltip('enable');
+                $tooltip.rup_tooltip('open');
+                $tooltip.rup_tooltip('close');
+                $tooltip.rup_tooltip('disable');
+                $tooltip.rup_tooltip('enable');
+                $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
             });
             it('Debe poder habilitarse', () => {
-                expect($('#qtip-exampleTooltip').hasClass('qtip-disabled')).toBe(false);
+                expect($qtip.hasClass('qtip-disabled')).toBe(false);
             });
         });
         describe('Método destroy', () => {
             beforeEach(() => {
+                $tooltip.rup_tooltip('open');
+                $tooltip.rup_tooltip('close');
                 $tooltip.rup_tooltip('destroy');
+                $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
             });
             it('No debe existir', () => {
-                expect($('#qtip-exampleTooltip').attr('aria-disabled')).toBe(true);
+                expect($qtip.attr('aria-disabled')).toBe('true');
             });
         });
     });
