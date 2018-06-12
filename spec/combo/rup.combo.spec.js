@@ -64,6 +64,10 @@ describe('Test Combo > ', () => {
 				it('Debe reflejarse en getRupValue: ', () => {
 					expect($comboPadre.rup_combo('getRupValue')).toBe('2');
 				});
+				it('El cambio debe reflejarse en el combo hijo:', () => {
+					expect($comboHijo.children()[2].value).toBe('2.1');
+					expect($comboHijo.children()[3].value).toBe('2.2');
+				});
 			});
 			describe('Combo hijo > ', () => {
 				beforeEach(() => {
@@ -110,18 +114,19 @@ describe('Test Combo > ', () => {
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboPadre.rup_combo('getRupValue')).toEqual('0');
 				});
+				it('El combo hijo debe deshabilitarse:', () =>{
+					expect($comboHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+				});
 			});
 			describe('Combo hijo > ', () => {
-				describe('Combo padre > ', () => {
-					beforeEach(() => {
-						$comboHijo.rup_combo('clear');
-					});
-					it('Debe actualizar la ui ', () => {
-						expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
-					});
-					it('El método getRupValue debe devolver el valor establecido', () => {
-						expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
-					});
+				beforeEach(() => {
+					$comboHijo.rup_combo('clear');
+				});
+				it('Debe actualizar la ui ', () => {
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
+				});
+				it('El método getRupValue debe devolver el valor establecido', () => {
+					expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
 				});
 			});
 			describe('Combo multiple > ', () => {
@@ -217,6 +222,10 @@ describe('Test Combo > ', () => {
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($comboPadre.rup_combo('getRupValue')).toBe('2');
 					});
+					it('Debe reflejarse en el combo Hijo:', () => {
+						expect($comboHijo.children()[2].value).toBe('2.1');
+						expect($comboHijo.children()[3].value).toBe('2.2');
+					});
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
@@ -227,6 +236,10 @@ describe('Test Combo > ', () => {
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+					});
+					it('Debe reflejarse en el combo Hijo:', () => {
+						expect($comboHijo.children()[2].value).toBe('2.1');
+						expect($comboHijo.children()[3].value).toBe('2.2');
 					});
 				});
 			});
@@ -300,6 +313,10 @@ describe('Test Combo > ', () => {
 				});
 				it('Debe reflejarse en el método getRupValue', () => {
 					expect($comboPadre.rup_combo('getRupValue')).toBe('2');
+				});
+				it('Debe reflejarse en el combo Hijo:', () => {
+					expect($comboHijo.children()[2].value).toBe('2.1');
+					expect($comboHijo.children()[3].value).toBe('2.2');
 				});
 			});
 			describe('Combo hijo > ', () => {
