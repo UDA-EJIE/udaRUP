@@ -108,13 +108,8 @@ DataTable.editForm.init = function ( dt ) {
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
-<<<<<<< Updated upstream
-	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
-		rowsBody.on( 'dblclick.DT','tr',  function () {
-=======
 	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) { 
 		rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
->>>>>>> Stashed changes
 			idRow = this._DT_RowIndex;
 			//Añadir la seleccion del mismo.
 			if (ctx.oInit.multiSelect !== undefined) {
