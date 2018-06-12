@@ -3,6 +3,17 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
+import {
+    EHOSTUNREACH
+} from 'constants';
+
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
 
 describe('Test ContextMenu > ', () => {
     var $context;
@@ -14,55 +25,55 @@ describe('Test ContextMenu > ', () => {
                                     <center>Prueba Context Menu\
                                 </h2>\
                             </div>\
-		                </div>';
-            $('body').append(html);
-            var props = {
-                callback: function(key, options) {
-                    alert("clicked: " + key); 
+                        </div>\
+                        <div id="menu"></div>';
+        $('#content').append(html);
+        var props = {
+            appendTo: '#menu',
+            items: {
+                "edit": {
+                    name: "Clickable",
+                    icon: "edit",
+                    disabled: false
                 },
-                items: {
-                    "edit": {name: "Clickable", icon: "edit", disabled: false},
-                    "cut": {name: "Disabled", icon: "cut", disabled: true}
+                "cut": {
+                    name: "Disabled",
+                    icon: "cut",
+                    disabled: true
                 }
-            };
-            $('#exampleContext').rup_contextMenu(props);
-            $context = $('#exampleContext');
+            }
+        };
+        $('#exampleContext').rup_contextMenu(props);
+        $context = $('#exampleContext');
     });
     afterEach(() => {
-        $('body').html('');
+        $context.rup_contextMenu('destroy');
+        $('#content').html('');
     });
     describe('Creación > ', () => {
         it('Debe crear el elemento', () => {
-            expect($('#contextMenu1').hasClass('context-menu-list context-menu-root')).toBe(true);
+            expect($('#menu .context-menu-list').hasClass('context-menu-list context-menu-root')).toBe(true);
         });
         it('Debe ser invisible', () => {
-            expect($('#contextMenu1').is(':visible')).toBe(false);
+            expect($('#menu .context-menu-list').is(':visible')).toBe(false);
         });
     });
     describe('Métodos públicos > ', () => {
         describe('Método show > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $context.rup_contextMenu('show');
-                }, 1500);
+                $context.rup_contextMenu('show');
             });
             it('Debe mostrarse:', () => {
-                setTimeout(() => {
-                    expect($('#contextMenu1').is(':visible')).toBe(true);
-                }, 1500);
+                expect($('#menu .context-menu-list').is(':visible')).toBe(true);
             });
         });
         describe('Método hide > ', () => {
             beforeEach(() => {
-                setTimeout(() => {
-                    $context.rup_contextMenu('show');
-                    $context.rup_contextMenu('hide');
-                });
+                $context.rup_contextMenu('show');
+                $context.rup_contextMenu('hide');
             });
             it('No debe mostrarse:', () => {
-                setTimeout(() => {
-                    expect($('#contextMenu1').is(':visible')).toBe(false);
-                }, 1500);
+                expect($('#menu .context-menu-list').is(':visible')).toBe(false);
             });
         });
         describe('Método disable > :', () => {
@@ -87,7 +98,7 @@ describe('Test ContextMenu > ', () => {
                 $context.rup_contextMenu('destroy');
             });
             it('Debe eliminar el ul del DOM:', () => {
-                expect($('#contextMenu1').length).toBe(0);
+                expect($('#menu .context-menu-list').length).toBe(0);
             });
         });
     });
