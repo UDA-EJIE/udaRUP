@@ -4,15 +4,15 @@ import 'rup.tooltip'
 
 describe('TEST Tooltip', () => {
     var $tooltip;
-    beforeAll(() => {
-        var html = '<div class="input-group">'
-                +       '<input id="inputExample" name="inputExample" type="text" class="form-control">'
-                +           '<span class="input-group-btn">'
-                +               '<button id="exampleTooltip" class="btn btn-secondary" type="button">'
-                +                   '<i class="fa fa-question-circle" aria-hidden="true"></i>'
-                +               '</button>'
-                +           '</span>'
-                +   '</div>';
+    beforeEach(() => {
+        var html = '<div class="input-group">\
+                       <input id="inputExample" name="inputExample" type="text" class="form-control">\
+                           <span class="input-group-btn">\
+                               <button id="exampleTooltip" class="btn btn-secondary" type="button">\
+                                   <i class="fa fa-question-circle" aria-hidden="true"></i>\
+                               </button>\
+                           </span>\
+                   </div>';
 
         $('body').append(html);
         let props = {
@@ -31,12 +31,12 @@ describe('TEST Tooltip', () => {
         $('#exampleTooltip').rup_tooltip(props);
         $tooltip = $('#exampleTooltip');
     });
+    afterEach(() => {
+        $('body').html('');
+    });
     describe('Creación', () => {
-        beforeAll(() => {
+        beforeEach(() => {
             $tooltip.rup_tooltip('open');
-        });
-        afterAll(() => {
-            $tooltip.rup_tooltip('close');
         });
         it('Debe existir el elemento con clase .qtip', () => {
             //Se crea un .qtip
@@ -45,7 +45,7 @@ describe('TEST Tooltip', () => {
     });
     describe('Métodos públicos', () => {
         describe('Método open', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $tooltip.rup_tooltip('open');
             });
             it('Debe ser visible', () => {
@@ -53,59 +53,47 @@ describe('TEST Tooltip', () => {
             });
         });
         describe('Método close', () => {
-            beforeAll(() => {
+            beforeEach(() => {
+                $tooltip.rup_tooltip('open');
                 $tooltip.rup_tooltip('close');
             });
             it('No debe ser visible', () => {
-                setTimeout(() => {
-                    expect($('.qtip').is(':visible')).toBeFalsy();
-                }, 1500);
+                expect($('.qtip').is(':visible')).toBeFalsy();
             });
         });
         describe('Método option', () => {
-
-            afterAll(() => {
-                $tooltip.rup_tooltip('optioon', 'show', {modal:false});
-            });
             it('Debe recibir los valores correctamente', () => {
                 expect($tooltip.rup_tooltip('option', 'content').text).toBe('Texto Prueba');
             });
             it('Debe actualizar las propiedades', () => {
-                $tooltip.rup_tooltip('optioon', 'show', {modal:true});
+                $tooltip.rup_tooltip('option', 'show', {modal:true});
                 expect($tooltip.rup_tooltip('option', 'show').modal).toBeTruthy();
             });
         });
         describe('Método disable', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $tooltip.rup_tooltip('disable');
             });
             it('Debe poder deshabilitarse', () => {
-                setTimeout(() => {
-                    expect($tooltip.hasClass('qtip-disabled')).toBeTruthy();
-                }, 1500);
+                expect($('#qtip-exampleTooltip').hasClass('qtip-disabled')).toBeTruthy();
             });
         });
         describe('Método enable', () => {
-            beforeAll(() => {
-              if($tooltip.is(':enabled')){
-                  $tooltip.disable();
-              }
+            beforeEach(() => {
+              $tooltip.rup_tooltip('disable');
               $tooltip.rup_tooltip('enable');
             });
             it('Debe poder habilitarse', () => {
-              expect($tooltip).not.toBeDisabled();
+                expect($('#qtip-exampleTooltip').hasClass('qtip-disabled')).toBe(false);
             });
         });
         describe('Método destroy', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $tooltip.rup_tooltip('destroy');
                 $tooltip.rup_tooltip('open');
             });
             it('No debe existir', () => {
-                setTimeout(() => {
-                    expect($('.qtip').css('display')).toBe('none');
-                }, 1500);
-                
+                expect($('.qtip').css('display')).toBe('none');
             });
         });
     });
