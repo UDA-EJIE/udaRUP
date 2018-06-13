@@ -19811,8 +19811,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
-					callback: function(key, options){
-						$self.rup_table('saveRow');
+					callback: function(){
+						//$self.rup_table('saveRow');
 					}
 				},
 				'clone': {
