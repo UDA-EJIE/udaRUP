@@ -504,7 +504,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.json.rows[idRow] = row;
 				}else{
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					DataTable.Api().multiSelect.deselectAll(dt);
+					if(ctx.oInit.multiSelect !== undefined){
+						DataTable.Api().multiSelect.deselectAll(dt);
+					}else if(ctx.oInit.select !== undefined){
+						DataTable.Api().select.deselect(ctx);
+					}
 					var rowAux = row;
 					$.each(ctx.json.rows,function(index,r) {
 						var rowNext = r;
@@ -526,7 +530,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			}else{//Al eliminar hacer un reload.
 				DataTable.multiselection.internalFeedback.type = 'eliminar';
 				DataTable.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
-				DataTable.Api().multiSelect.deselectAll(dt);
+				if(ctx.oInit.multiSelect !== undefined){
+					DataTable.Api().multiSelect.deselectAll(dt);
+				}else if(ctx.oInit.select !== undefined){
+					DataTable.Api().select.deselect(ctx);
+				}
 				 dt.ajax.reload();
 			}
 
@@ -1077,6 +1085,7 @@ function _deleteAllSelects(dt){
 				_callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
 			}else{
 				row = DataTable.multiselection.selectedIds[0];
+				row = row.replace(ctx.oInit.multiplePkToken,'/');
 				_callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
 			}
 		}

@@ -762,7 +762,25 @@
 
 				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
 				DataTable.multiselection =  $self.multiselection;
-			} 
+			}, _createTooltip (id) {
+				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
+					id.rup_tooltip({
+						content: {
+							text: id.text()
+						},
+						show: {
+							event: 'hover'
+						},
+						position: {
+							viewport: $(window),
+							adjust: {
+								method: 'flip'
+							}
+						}
+						
+					});
+				}
+			}
 	});
 
 	//*******************************
@@ -801,6 +819,11 @@
 			var tabla = $self.DataTable(settings);
 			
 			$self._initializeMultiselectionProps();
+			
+			//Crear tooltips cabecera;
+			$.each($('#'+$self[0].id+' thead th'),function( ){
+				$self._createTooltip($(this));
+			});
 			
 			tabla.on( 'draw', function (e,settingsTable) {
 				if(settings.searchPaginator){//Mirar el crear paginador
@@ -845,6 +868,11 @@
 						}
 					}
 				}
+				
+				//Crear tooltips tds;
+				$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
+					$self._createTooltip($(this));
+				});
 			  });
 			
 			
