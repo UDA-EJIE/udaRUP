@@ -11151,7 +11151,7 @@ var xmlJsonClass = {
 						grp.counters =[];
 						for(i=0;i<grp.groupField.length;i++) {
 							if(!grp.groupOrder[i]) {
-								grp.groupOrder[i] = 'asc';
+								grp.groupOrder[i] = '';
 							}
 							if(!grp.groupText[i]) {
 								grp.groupText[i] = '{0}';
