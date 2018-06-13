@@ -27,7 +27,7 @@ describe('Test ContextMenu > ', () => {
                             </div>\
                         </div>\
                         <div id="menu"></div>';
-        $('#content').append(html);
+        $('body').append(html);
         var props = {
             appendTo: '#menu',
             items: {
@@ -48,7 +48,7 @@ describe('Test ContextMenu > ', () => {
     });
     afterEach(() => {
         $context.rup_contextMenu('destroy');
-        $('#content').html('');
+        $('body').html('');
     });
     describe('Creación > ', () => {
         it('Debe crear el elemento', () => {
