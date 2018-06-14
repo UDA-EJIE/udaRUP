@@ -3,7 +3,28 @@ import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
+testDialogType($.rup.dialog.TEXT);
+testDialogType($.rup.dialog.DIV);
+
 function testDialogType(type) {
+	describe('Test Dialog > ', () => {
+		var $dialog;
+		beforeEach(() => {});
+		describe('Creación > ', () => {});
+		describe('Métodos públicos > ', () => {
+			describe('Método open e isOpen > ', () => {});
+			describe('Método close e isOpen > ', () => {});
+			describe('Método disable > ', () => {});
+			describe('Método enable > ', () => {});
+			describe('Método moveToTop > ', () => {});
+			describe('Método getOption > ', () => {});
+			describe('Método setOption > ',() => {});
+			// TODO: Faltan metodos 
+		});
+	});
+}
+
+/*function testDialogType(type) {
 	describe('Test Dialog > ', () => {
 		var $dialogo;
 		beforeEach( () => {
@@ -80,7 +101,7 @@ function testDialogType(type) {
 			//No existen estos metodos en el subyacente
 			describe('Método disable', () => {});
 			describe('Método enable', () => {});
-			*/
+			*//*
 			describe('Método destroy', () => {
 			    beforeEach(() => {
 			        $dialogo.rup_dialog('destroy');
@@ -95,6 +116,6 @@ function testDialogType(type) {
 }
 
 	testDialogType($.rup.dialog.TEXT);
-	testDialogType($.rup.dialog.DIV);
+	testDialogType($.rup.dialog.DIV);*/
 
 
