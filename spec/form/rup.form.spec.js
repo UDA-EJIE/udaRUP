@@ -117,7 +117,7 @@ describe('Test Form', () => {
 
 		describe('Método destroy', () => {
 			beforeEach(() => {
-				$form.on('mouseenter', () => { $form.addClass("someClass")});
+				$form.on('mouseenter', () => { $form.addClass("someClass");});
 				$form.rup_form('destroy');
 			});
 			it('No debe existir', () => {
