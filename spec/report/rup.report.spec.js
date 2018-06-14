@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.button';
@@ -23,7 +25,7 @@ describe('Test Report > ', () => {
                 ]}
             ]
         };
-        $('body').append(html);
+        $('#content').append(html);
         $('#exampleToolbar').rup_toolbar(options);
 
         let reportOpts = {
@@ -35,13 +37,15 @@ describe('Test Report > ', () => {
                     right: true
                 }
             ]
-        }
+        };
 
         $.rup_report(reportOpts);
         $report = $('[id="exampleToolbar##exportar"]');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#exampleToolbar').rup_toolbar('destroy');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creación > ', () => {
         it('El botón de exportar debe de haberse creado:', () => {
