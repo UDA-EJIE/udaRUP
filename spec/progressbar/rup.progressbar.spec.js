@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.progressbar';
@@ -70,7 +72,7 @@ describe('Test progressbar > ', () => {
                         "value": 0,
                         "change": null,
                         "complete": null
-                    }
+                    };
                 });
                 it('Debe obtener el objeto', () => {
                     expect($progressbar.rup_progressbar('option')).toEqual(obj);
