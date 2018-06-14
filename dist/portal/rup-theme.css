@@ -4594,7 +4594,7 @@
   clear: both;
 }
 
-.r01gContainer table.dataTable {
+.r01gContainer able.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -4956,11 +4956,7 @@
   margin-top: 5px;
 }
 
-.r01gContainer .dataTables_wrapper .dataTables_length {
-  float: left;
-}
-
-.r01gContainer .dataTables_wrapper .dataTables_filter {
+.r01gContainer .dataTables_wrapper .dataTables_wrapper .dataTables_filter {
   float: right;
   text-align: right;
 }
@@ -4969,7 +4965,7 @@
   margin-left: 0.5em;
 }
 
-.r01gContainer .dataTables_wrapper .dataTables_info {
+.r01gContainer .dataTables_wrapper {
   clear: both;
   float: left;
   padding-top: 0.755em;
@@ -4978,7 +4974,6 @@
 .r01gContainer .dataTables_wrapper .dataTables_paginate {
   float: right;
   text-align: right;
-  padding-top: 0.25em;
 }
 
 .r01gContainer .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -5107,8 +5102,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .r01gContainer .dataTables_wrapper .dataTables_info,
-  .r01gContainer .dataTables_wrapper .dataTables_paginate {
+  .r01gContainer .dataTables_wrapper .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center;
   }
@@ -5209,6 +5203,38 @@
 
 .r01gContainer .dtr-data {
   display: inline-block;
+}
+
+.r01gContainer .recolocatedPagination_container {
+  display: inline-block;
+  width: 65%;
+  float: none !important;
+  padding-top: 0;
+}
+
+.r01gContainer .dataTables_length {
+  float: none;
+}
+
+.r01gContainer .recolocatedPagination_length {
+  display: inline-block;
+  padding: 7px 10px 10px 10px;
+}
+
+.r01gContainer .recolocatedPagination_rellenoCtr {
+  display: inline-block;
+}
+
+.r01gContainer .dataTables_info {
+  float: right;
+  padding-top: 0;
+}
+
+.r01gContainer .recolocatedPagination_rellenoDrc {
+  display: inline-block;
+  text-align: right;
+  float: right;
+  line-height: 3.5em;
 }
 
 .r01gContainer table.dataTable tbody > tr.selected,
@@ -5374,7 +5400,7 @@
 
 .r01gContainer .searchPaginator {
   float: left;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .r01gContainer .selected-pencil {
@@ -5408,6 +5434,10 @@
   margin-top: -16px;
   text-align: center;
   color: #000;
+}
+
+.r01gContainer .recolocatedPagination_select {
+  height: 100% !important;
 }
 
 @keyframes dtb-spinner {
@@ -5654,9 +5684,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 150px;
+  width: 110px;
   margin-top: 3px;
-  padding: 8px 8px 4px 8px;
+  padding: 8px 8px 8px 8px;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: white;
@@ -5670,6 +5700,17 @@
   -ms-column-gap: 8px;
   -o-column-gap: 8px;
   column-gap: 8px;
+}
+
+.r01gContainer div.dt-button-collection > button,
+.r01gContainer div.dt-button-collection > .ui-button.rup-button,
+.r01gContainer .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button,
+.r01gContainer div.dt-button-collection > a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-wizard div.dt-button-collection > a.rup-wizard_next,
+.r01gContainer .rup-wizard div.dt-button-collection > a.rup-wizard_prev,
+.r01gContainer .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
+  display: block;
+  margin: auto;
 }
 
 .r01gContainer div.dt-button-collection button.dt-button,

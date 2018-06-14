@@ -3164,7 +3164,7 @@ div.right_buttons .rup-dropdown-btn-group {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
 
-table.dataTable {
+able.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -3378,25 +3378,21 @@ table.dataTable, table.dataTable th, table.dataTable td {
   padding-right: 3px;
   margin-top: 5px; }
 
-.dataTables_wrapper .dataTables_length {
-  float: left; }
-
-.dataTables_wrapper .dataTables_filter {
+.dataTables_wrapper .dataTables_wrapper .dataTables_filter {
   float: right;
   text-align: right; }
 
 .dataTables_wrapper .dataTables_filter input {
   margin-left: 0.5em; }
 
-.dataTables_wrapper .dataTables_info {
+.dataTables_wrapper {
   clear: both;
   float: left;
   padding-top: 0.755em; }
 
 .dataTables_wrapper .dataTables_paginate {
   float: right;
-  text-align: right;
-  padding-top: 0.25em; }
+  text-align: right; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   box-sizing: border-box;
@@ -3495,7 +3491,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
   height: 0; }
 
 @media screen and (max-width: 767px) {
-  .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+  .dataTables_wrapper .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center; }
   .dataTables_wrapper .dataTables_paginate {
@@ -3567,6 +3563,32 @@ table.dataTable tbody > tr:hover {
 
 .dtr-data {
   display: inline-block; }
+
+.recolocatedPagination_container {
+  display: inline-block;
+  width: 65%;
+  float: none !important;
+  padding-top: 0; }
+
+.dataTables_length {
+  float: none; }
+
+.recolocatedPagination_length {
+  display: inline-block;
+  padding: 7px 10px 10px 10px; }
+
+.recolocatedPagination_rellenoCtr {
+  display: inline-block; }
+
+.dataTables_info {
+  float: right;
+  padding-top: 0; }
+
+.recolocatedPagination_rellenoDrc {
+  display: inline-block;
+  text-align: right;
+  float: right;
+  line-height: 3.5em; }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
@@ -3667,7 +3689,7 @@ table.dataTable thead th:hover, table.dataTable tfoot th:hover {
 
 .searchPaginator {
   float: left;
-  margin-top: 10px; }
+  margin-top: 5px; }
 
 .selected-pencil {
   float: right;
@@ -3696,6 +3718,9 @@ table.dataTable thead th:hover, table.dataTable tfoot th:hover {
   margin-top: -16px;
   text-align: center;
   color: #000; }
+
+.recolocatedPagination_select {
+  height: 100% !important; }
 
 @keyframes dtb-spinner {
   100% {
@@ -3846,7 +3871,7 @@ div.dt-button-collection {
   left: 0;
   width: 110px;
   margin-top: 3px;
-  padding: 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: white;
@@ -3861,9 +3886,10 @@ div.dt-button-collection {
   -o-column-gap: 8px;
   column-gap: 8px; }
 
-div.dt-button-collection > button {
-  display:block;margin:auto }
-  
+div.dt-button-collection > button, div.dt-button-collection > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button, div.dt-button-collection > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-button-collection > a.rup-wizard_next, .rup-wizard div.dt-button-collection > a.rup-wizard_prev, .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
+  display: block;
+  margin: auto; }
+
 div.dt-button-collection button.dt-button, div.dt-button-collection .dt-button.ui-button.rup-button, div.dt-button-collection .rup-dropdown-btn-group .dt-button.rup-dropdown-button, .rup-dropdown-btn-group div.dt-button-collection .dt-button.rup-dropdown-button, div.dt-button-collection a.dt-button.rup-toolbar_menuButton.ui-button, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_next, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_next, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_prev, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_prev, div.dt-button-collection .rup-wizard .dt-button.rup-wizard_submitButton, .rup-wizard div.dt-button-collection .dt-button.rup-wizard_submitButton, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button {
   position: relative;
   left: 0;

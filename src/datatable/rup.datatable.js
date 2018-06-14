@@ -365,7 +365,7 @@
 				liSearch.append(textPagina);
 				liSearch.append(input);
 				liSearch.append(toPagina);
-				$('#'+tabla[0].id+'_paginate ul').prepend(liSearch);
+				$('#'+tabla[0].id+'_previous').after(liSearch);
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
 					  {
@@ -379,6 +379,20 @@
 			}else{
 				//Sacar un error
 			}
+			
+			// Crea un div que albergara la lista de botones de paginacion
+			$('#'+tabla[0].id+'_paginate').prepend(
+					"<div id='" + tabla[0].id + "_buttons' class='recolocatedPagination_buttons' />"
+			);
+			
+			// Inserta la lista de botones de paginacion al div anteriormente creado
+			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
+			
+			// Añadimos clases para acabar con la recolocacion
+			$('#'+tabla[0].id+'_paginate').addClass('recolocatedPagination_container');
+			$('#'+tabla[0].id+'_buttons').addClass('recolocatedPagination_rellenoCtr');
+			$('#'+tabla[0].id+'_info').addClass('recolocatedPagination_rellenoDrc');
+			$('#'+tabla[0].id+'_length').addClass('recolocatedPagination_length');
 
 		},
 
