@@ -1,6 +1,16 @@
-import 'jquery'
-import 'jasmine-jquery'
-import 'rup.date'
+/* jslint esnext: true, multistr: true */
+
+import 'jquery';
+import 'jasmine-jquery';
+import 'rup.date';
+
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
 
 describe('Test Date > ', () => {
     var $date, $altDate;
@@ -9,11 +19,11 @@ describe('Test Date > ', () => {
                     <input id="altDate"></input>';
         $('#content').append(html);
         var props = {
-            autoSize        : true,
-            placeholderMask : true,
-            showButtonPanel : true,
-            showOtherMonths : true,
-            noWeekend       : false
+            autoSize: true,
+            placeholderMask: true,
+            showButtonPanel: true,
+            showOtherMonths: true,
+            noWeekend: false
         };
         var altProps = {
             datetimepicker: true,
@@ -30,7 +40,8 @@ describe('Test Date > ', () => {
     afterEach(() => {
         $date.rup_date('destroy');
         $altDate.rup_date('destroy');
-        $('#content').html();
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creación > ', () => {
         describe('Date normal > ', () => {
@@ -45,7 +56,7 @@ describe('Test Date > ', () => {
             });
             it('Debe tener los select para cambiar mes y año:', () => {
                 expect($('select', $('.ui-datepicker-title')).length).toBe(2);
-                });
+            });
         });
         describe('Date alternativo > ', () => {
             beforeEach(() => {
@@ -86,7 +97,7 @@ describe('Test Date > ', () => {
                 beforeEach(() => {
                     $date.rup_date('show');
                 });
-                it('Debe mostrarse el datepicker:',() => {
+                it('Debe mostrarse el datepicker:', () => {
                     expect($('#ui-datepicker-div').is(':visible')).toBe(true);
                 });
                 it('Debe tener los select para cambiar mes y año:', () => {
@@ -97,7 +108,7 @@ describe('Test Date > ', () => {
                 beforeEach(() => {
                     $altDate.rup_date('show');
                 });
-                it('Debe mostrarse el datepicker:',() => {
+                it('Debe mostrarse el datepicker:', () => {
                     expect($('#ui-datepicker-div').is(':visible')).toBe(true);
                 });
                 it('No debe tener los select para cambiar mes y año:', () => {
@@ -111,7 +122,8 @@ describe('Test Date > ', () => {
                     $date.rup_date('show');
                     $date.rup_date('hide');
                 });
-                it('Debe mostrarse el datepicker:',() => {
+                it('Debe mostrarse el datepicker:', () => {
+                    testTrace('body - html', $('body').html());
                     expect($('#ui-datepicker-div').is(':visible')).toBe(false);
                 });
             });
@@ -120,7 +132,7 @@ describe('Test Date > ', () => {
                     $altDate.rup_date('show');
                     $altDate.rup_date('hide');
                 });
-                it('Debe mostrarse el datepicker:',() => {
+                it('Debe mostrarse el datepicker:', () => {
                     expect($('#ui-datepicker-div').is(':visible')).toBe(false);
                 });
             });
