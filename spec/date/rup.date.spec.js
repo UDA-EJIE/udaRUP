@@ -2,6 +2,140 @@ import 'jquery'
 import 'jasmine-jquery'
 import 'rup.date'
 
+describe('Test Date > ', () => {
+    var $date, $altDate;
+    beforeEach(() => {
+        var html = '<input id="exampleDate"></input>\
+                    <input id="altDate"></input>';
+        $('#content').append(html);
+        var props = {
+            autoSize        : true,
+            placeholderMask : true,
+            showButtonPanel : true,
+            showOtherMonths : true,
+            noWeekend       : false
+        };
+        var altProps = {
+            datetimepicker: true,
+            changeMonth: false,
+            changeYear: false,
+            showWeek: true,
+            defaultDate: '01/01/2000'
+        };
+        $('#exampleDate').rup_date(props);
+        $('#altDate').rup_date(altProps);
+        $date = $('#exampleDate');
+        $altDate = $('#altDate');
+    });
+    afterEach(() => {
+        $date.rup_date('destroy');
+        $altDate.rup_date('destroy');
+        $('#content').html();
+    });
+    describe('Creación > ', () => {
+        describe('Date normal > ', () => {
+            beforeEach(() => {
+                $date.rup_date('show');
+            });
+            it('Debe tener la clase del datepicker', () => {
+                expect($date.hasClass('hasDatepicker')).toBeTruthy();
+            });
+            it('Debe crear un botón', () => {
+                expect($('button.ui-datepicker-trigger')).toExist();
+            });
+            it('Debe tener los select para cambiar mes y año:', () => {
+                expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+                });
+        });
+        describe('Date alternativo > ', () => {
+            beforeEach(() => {
+                $altDate.rup_date('show');
+            });
+            it('Debe tener la clase del datepicker', () => {
+                expect($altDate.hasClass('hasDatepicker')).toBeTruthy();
+            });
+            it('Debe crear un timepicker:', () => {
+                expect($('#ui-timepicker-div-altDate').length).toBe(1);
+            });
+            it('No debe tener los select para cambiar mes y año:', () => {
+                expect($('select', $('.ui-datepicker-title')).length).toBe(0);
+            });
+        });
+    });
+    describe('Métodos públicos > ', () => {
+        describe('Métodos setRupValue y getRupValue > ', () => {
+            describe('Date normal > ', () => {
+                beforeEach(() => {
+                    $date.rup_date('setRupValue', '08/08/2018');
+                });
+                it('Debe actualizar el valor:', () => {
+                    expect($date.rup_date('getRupValue')).toBe('08/08/2018');
+                });
+            });
+            describe('Date alternativo > ', () => {
+                beforeEach(() => {
+                    $altDate.rup_date('setRupValue', '08/08/2018 00:00:00');
+                });
+                it('Debe actualizar el valor:', () => {
+                    expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00:00');
+                });
+            });
+        });
+        describe('Método show > ', () => {
+            describe('Date normal > ', () => {
+                beforeEach(() => {
+                    $date.rup_date('show');
+                });
+                it('Debe mostrarse el datepicker:',() => {
+                    expect($('#ui-datepicker-div').is(':visible')).toBe(true);
+                });
+                it('Debe tener los select para cambiar mes y año:', () => {
+                    expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+                });
+            });
+            describe('Date alternativa > ', () => {
+                beforeEach(() => {
+                    $altDate.rup_date('show');
+                });
+                it('Debe mostrarse el datepicker:',() => {
+                    expect($('#ui-datepicker-div').is(':visible')).toBe(true);
+                });
+                it('No debe tener los select para cambiar mes y año:', () => {
+                    expect($('select', $('.ui-datepicker-title')).length).toBe(0);
+                });
+            });
+        });
+        describe('Método hide > ', () => {
+            describe('Date normal > ', () => {
+                beforeEach(() => {
+                    $date.rup_date('show');
+                    $date.rup_date('hide');
+                });
+                it('Debe mostrarse el datepicker:',() => {
+                    expect($('#ui-datepicker-div').is(':visible')).toBe(false);
+                });
+            });
+            describe('Date alternativa > ', () => {
+                beforeEach(() => {
+                    $altDate.rup_date('show');
+                    $altDate.rup_date('hide');
+                });
+                it('Debe mostrarse el datepicker:',() => {
+                    expect($('#ui-datepicker-div').is(':visible')).toBe(false);
+                });
+            });
+        });
+        describe('Métodos setDate y getDate > ', () => {});
+        describe('Método refresh > ', () => {});
+        describe('Método option > ', () => {});
+        describe('Método disable e isDisabled > ', () => {});
+        describe('Método enable e isDisabled > ', () => {});
+        describe('Método destroy > ', () => {});
+    });
+});
+
+
+/*
 describe('TEST Date >',   () => {
     var $date;
     beforeEach(() => {
@@ -109,4 +243,4 @@ describe('TEST Date >',   () => {
       	});
 
     });
-});
+});*/
