@@ -137,9 +137,57 @@ describe('Test Date > ', () => {
                 });
             });
         });
-        describe('Métodos setDate y getDate > ', () => {});
-        describe('Método refresh > ', () => {});
-        describe('Método option > ', () => {});
+        describe('Métodos setDate y getDate > ', () => {
+            describe('Date normal > ', () => {
+                beforeEach(() => {
+                    $date.rup_date('setDate', '06/02/1995');
+                });
+                it('Debe cambiar en la UI:', () => {
+                    expect($date.val()).toBe('02/06/1995');
+                });
+                it('Debe reflejarse en el método getDate:', () => {
+                    expect($date.rup_date('getDate')).toBe('02/06/1995');
+                });
+            });
+            describe('Date alternativa > ', () => {
+                beforeEach(() => {
+                    $altDate.rup_date('setDate', '06/02/1995');
+                });
+                it('Debe cambiar en la UI:', () => {
+                    expect($altDate.val()).toBe('02/06/1995 00:00');
+                });
+                it('Debe reflejarse en el método getDate:', () => {
+                    expect($altDate.rup_date('getDate')).toBe('02/06/1995 00:00');
+                });
+            });
+        });
+        describe('Método refresh > ', () => {
+            // TODO: Esperando respuesta de sergio
+        });
+        describe('Método option > ', () => {
+            describe('Date normal > ', () => {
+                beforeEach(() => {
+                    $date.rup_date('option', 'currentText', 'Tururu');
+                    $date.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
+                });
+                it('Debe cambiar el valor:', () => {
+                    expect($date.rup_date('option', 'currentText')).toBe('Tururu');
+                    expect($date.rup_date('option', 'minDate')).toBe('01/01/1900');
+                    expect($date.rup_date('option', 'maxDate')).toBe('01/01/2200');
+                });
+            });
+            describe('Date alternativa > ', () => {
+                beforeEach(() => {
+                    $altDate.rup_date('option', 'currentText', 'Tururu');
+                    $altDate.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
+                });
+                it('Debe cambiar el valor:', () => {
+                    expect($altDate.rup_date('option', 'currentText')).toBe('Tururu');
+                    expect($altDate.rup_date('option', 'minDate')).toBe('01/01/1900');
+                    expect($altDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
+                });
+            });
+        });
         describe('Método disable e isDisabled > ', () => {});
         describe('Método enable e isDisabled > ', () => {});
         describe('Método destroy > ', () => {});
