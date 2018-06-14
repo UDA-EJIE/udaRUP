@@ -38,8 +38,12 @@ describe('Test Date > ', () => {
         $altDate = $('#altDate');
     });
     afterEach(() => {
-        $date.rup_date('destroy');
-        $altDate.rup_date('destroy');
+        if($date.hasClass('hasDatepicker')) {
+            $date.rup_date('destroy');
+        }
+        if($altDate.hasClass('hasDatepicker')) {
+            $altDate.rup_date('destroy');
+        }
         $('#content').html('');
         $('#content').nextAll().remove();
     });
