@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.lang';
@@ -41,7 +43,7 @@ describe('Test Lang >', () => {
                 $lang.rup_language('destroy');
             });
             it('No debe existir', () => {
-                expect(() => {$lang.rup_language('destroy')}).toThrowError();
+                expect(() => {$lang.rup_language('destroy');}).toThrowError();
             });
         });
     });
