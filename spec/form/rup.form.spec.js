@@ -3,21 +3,31 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.form';
+import './rup.form.aux';
+
 describe('Test Form', () => {
-	var $form;
+	var $form, $formAlt;
 	beforeEach(() => {
-		var html = '<form name = "exampleForm" id ="exampleForm">\
-              		   <input type="text" value="txt1" name="input1" id="input1"></input>\
-              		   <input type="text" value="txt2" name="input2" id="input2"></input>\
-              		   <select name="input3" id="input3">\
-              		     <option value="opt1">Opcion 1</input>\
-              		     <option value="opt2">Opcion 2</input>\
-              		   </select>\
-              		</form>';
-		var opts = {};
+		var html = formHtml;
 		$('body').append(html);
+		configurar();
+		var opts = {};
+		var optsAlt = {
+			url:'form/multientidades',
+			feedback:$('#feedbackMensajes'),
+			success:function(xhr){
+				$view.ui.feedback.rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
+			},
+			validate:{
+				rules:{
+					'departamento.code':{digits:true}
+				}
+			}
+		};
 		$('#exampleForm').rup_form(opts);
+		$('#formHttpSubmit').rup_form(optsAlt);
 		$form = $('#exampleForm');
+		$formAlt = $('#formHttpSubmit');
 	});
 	afterEach(() => {
 		$('body').html();
