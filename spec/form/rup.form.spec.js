@@ -6,6 +6,7 @@ import 'rup.combo';
 import 'rup.feedback';
 import 'rup.form';
 
+const webRoot = 'http://localhost:8081/';
 const formHtml = '<div id="feedbackMensajes"></div>\
                 <div id="tabsFormulario"></div>\
                 <div id="divformHttpSubmit">\
@@ -132,31 +133,43 @@ function configurar() {
         i18nId:'sexo'
     });
     $('#pais').rup_combo({
-        source : 'api/nora/pais',
+        source : webRoot + 'demo/nora/pais',
         sourceParam : {label:'dsO', value:'id'},
         blank : '0'
     });
     $('#autonomia').rup_combo({
-        source : 'api/nora/autonomia',
+        source : webRoot + 'demo/nora/autonomia',
         sourceParam : {label:'dsO', value:'id'},
         width : 400,
         blank : ''
     });
     $('#provincia').rup_combo({
         parent: ['autonomia'],
-        source : '../api/nora/provincia',
+        source : webRoot + 'demo/nora/provincia',
         firstLoad:[{'value':'01','label':'Alava/Araba'},{'value':'20','label':'Gipuzkoa'},{'value':'48','label':'Bizkaia'}],
         sourceParam : {label:'dsO', value:'id'},
         width : 300,
         blank : ''
-    });
+	});
+	let sourceJson = [
+		{i18nCaption: 'ab', value: 'ab_value'},
+		{i18nCaption: 'tc', value: 'tc_value'},
+		{i18nCaption: 'ud', value: 'ud_value'},
+		{i18nCaption: 'le', value: 'le_value'},
+		{i18nCaption: 'af', value: 'af_value'},
+		{i18nCaption: 'mg', value: 'mg_value'},
+		{i18nCaption: 'ah', value: 'ah_value'},
+		{i18nCaption: 'ui', value: 'ui_value'},
+		{i18nCaption: 'uj', value: 'uj_value'},
+		{i18nCaption: 'ak', value: 'ak_value'}
+	]
     $('#municipio').rup_autocomplete({
-        source : '../api/nora/municipio',
+        source : sourceJson,
         sourceParam : {label:'dsO', value:'id'},
         minLength: 4
     });
     $('#calle').rup_autocomplete({
-        source : '../api/nora/calle',
+        source : sourceJson,
         sourceParam : {label:'dsO', value:'id'},
         minLength: 4
     });
@@ -175,7 +188,7 @@ describe('Test Form', () => {
 			url:'form/multientidades',
 			feedback:$('#feedbackMensajes'),
 			success:function(xhr){
-				$view.ui.feedback.rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
+				$('#feedback').rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
 			},
 			validate:{
 				rules:{
@@ -207,100 +220,190 @@ describe('Test Form', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
-				/*beforeEach(() => {
-					spyOn($form,'rup_form').and.callFake((strParam) => {
-						let obj = {
-							estatus: 200,
-							responseContent:{}
-						};
-						return obj;
-					});
-				});*/
+				beforeEach(() => {
+					$form.rup_form('ajaxSubmit')
+				});
 				it('La llamada Ajax debe tener éxito', () => {
-					expect($formAlt.rup_form('ajaxSubmit')).toBe(200);
+					let padre = $('#feedbackMensajes');
+					console.info(padre);
+					expect($('span.rup-feedback-icon', padre).length).toBe(1);
+					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
+					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
+					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
+
 				});
 			});
 			describe('Método ajaxFormSubmit >',() => {
 				beforeEach(() => {
-					spyOn($form,'rup_form').and.callFake((strParam) => {
-						let obj = {
-							estatus: 200,
-							responseContent:{}
-						};
-						return obj;
-					});
+					$formAlt.rup_form('ajaxFormSubmit')
 				});
 				it('La llamada Ajax debe tener éxito', () => {
-					expect($form.rup_form('ajaxFormSubmit').estatus).toBe(200);
+					let padre = $('#feedbackMensajes');
+					expect($('span.rup-feedback-icon', padre).length).toBe(1);
+					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
+					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
+					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
 				});
 			});
 		});
 		describe('Método formSerialize >', () => {
-			it('Debe devolver un string con los datos',() => {
-				let out = 'input1=txt1&input2=txt2&input3=opt1';
-				expect($form.rup_form('formSerialize')).toBe(out);
+			describe('Form por defecto > ', () => {
+				it('Debe devolver un string con los datos',() => {
+					let out = 'input1=txt1&input2=txt2&input3=opt1';
+					expect($form.rup_form('formSerialize')).toBe(out);
+				});
 			});
+			describe('Form alternativo > ', () => {
+				it('Debe devolver un string con los datos',() => {
+					let out = 'nombre=&apellido1=&apellido2=&sexo=F&fechaNacimiento=&telefono=&dni=&usuario=' +
+					'&password=&password_confirm=&email=&email_confirm=&provincia.id=&municipio.id_label=&municipio.id_label=' +
+					'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id=&calle.id_label=' +
+					'&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id=';
+					expect($formAlt.rup_form('formSerialize')).toBe(out);
+				});
+			});
+			
 		});
 		describe('Método fieldSerialize >',() => {
-			it('Debe devolver un string con los datos de los fields', () => {
-				let out = 'input1=txt1&input2=txt2';
-				expect($('input', $form).rup_form('fieldSerialize')).toBe(out);
+			describe('Form por defecto > ', () => {
+				it('Debe devolver un string con los datos de los fields', () => {
+					let out = 'input1=txt1&input2=txt2';
+					expect($('input', $form).rup_form('fieldSerialize')).toBe(out);
+				});
+			});
+			describe('Form alternativo > ', () => {
+				it('Debe devolver un string con los datos de los fields:', () => {
+					let out = 'nombre=&apellido1=&apellido2=&fechaNacimiento=&telefono=&dni=&usuario=&password='+
+						'&password_confirm=&email=&email_confirm=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
+						'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
+						'&municipio.id=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label='+
+						'&calle.id_label=&calle.id_label=&calle.id_label=&calle.id=';
+					expect($('input', $formAlt).rup_form('fieldSerialize')).toBe(out);
+				});
 			});
 		});
 		describe('Método fieldValue', () => {
-			it('Debe devolver los valores en un array', () => {
-				let out = 'txt1,txt2';
-				expect($('input', $form).rup_form('fieldValue').join()).toBe(out);
+			describe('Form por defecto > ', () => {
+				it('Debe devolver los valores en un array', () => {
+					let out = 'txt1,txt2';
+					expect($('input', $form).rup_form('fieldValue').join()).toBe(out);
+				});
+			});
+			describe('Form alternativo > ', () => {
+				it('Debe devolver los valores en un array', () => {
+					let out = [ '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+								 '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ];
+					expect($('input', $formAlt).rup_form('fieldValue')).toEqual(out);
+				});
 			});
 		});
 		describe('Método formToJson', () => {
-			it('Debe devolver los datos en un string en formato Json', () => {
-				let out = {input1:'txt1', input2:'txt2', input3:'opt1'};
-				expect($form.rup_form('formToJson')).toEqual(out);
+			describe('Form por defecto > ', () => {
+				it('Debe devolver los datos en un string en formato Json', () => {
+					let out = {input1:'txt1', input2:'txt2', input3:'opt1'};
+					expect($form.rup_form('formToJson')).toEqual(out);
+				});
+			});
+			describe('Form alternativo > ', () => {
+				it('Debe devolver los datos rellenados en formato JSON:', () => {
+					let out = {sexo:'F'};
+					expect($formAlt.rup_form('formToJson')).toEqual(out);
+				});
 			});
 		});
 		describe('Método clearForm > ', () => {
-			beforeEach(() => {
-				$form.rup_form('clearForm');
+			describe('Form por defecto > ', () => {
+				beforeEach(() => {
+					$form.rup_form('clearForm');
+				});
+				it('Debe haber limpiado todos los campos:', () => {
+					expect($('#input1').val()).toBe('');
+					expect($('#input2').val()).toBe('');
+					expect($('#input3').val()).toBe(null);
+				});
 			});
-			it('Debe haber limpiado todos los campos:', () => {
-				expect($('#input1').val()).toBe('');
-				expect($('#input2').val()).toBe('');
-				expect($('#input3').val()).toBe(null);
+			describe('Form alternativo > ', () => {
+				beforeEach(() => {
+					$('#nombre').val('Peppa');
+					$('#apellido1').val('Pig');
+					$('#apellido2').val('Dinosaurio');
+					$formAlt.rup_form('clearForm');
+				});
+				it('Debe haber limpiado todos los campos:', () => {
+					expect($('#nombre').val()).toBe('');
+					expect($('#apellido1').val()).toBe('');
+					expect($('#apellido2').val()).toBe('');
+				});
 			});
 		});
 		describe('Método resetForm > ', () => {
-			beforeEach(() => {
-				$form.rup_form('clearForm');
-				$form.rup_form('resetForm');
+			describe('Form por defecto > ', () => {
+				beforeEach(() => {
+					$form.rup_form('clearForm');
+					$form.rup_form('resetForm');
+				});
+				it('Debe tener los valores originales:', () => {
+					expect($('#input1').val()).toBe('txt1');
+					expect($('#input2').val()).toBe('txt2');
+					expect($('#input3').val()).toBe('opt1');
+				});
 			});
-			it('Debe tener los valores originales:', () => {
-				expect($('#input1').val()).toBe('txt1');
-				expect($('#input2').val()).toBe('txt2');
-				expect($('#input3').val()).toBe('opt1');
+			describe('Form alternativo > ', () => {
+				beforeEach(() => {
+					$('#nombre').val('Peppa');
+					$('#apellido1').val('Pig');
+					$('#apellido2').val('Dinosaurio');
+					$formAlt.rup_form('resetForm');
+				});
+				it('Debe quedar en su estado original > ', () => {
+					expect($('#nombre').val()).toBe('');
+					expect($('#apellido1').val()).toBe('');
+					expect($('#apellido2').val()).toBe('');
+				});
 			});
 		});
 		describe('Método clearFields > ', () => {
-			beforeEach(() => {
-				$('input', $form).rup_form('clearFields');
+			describe('Form por defecto > ', () => {
+				beforeEach(() => {
+					$('input', $form).rup_form('clearFields');
+				});
+				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
+					expect($('#input1').val()).toBe('');
+					expect($('#input2').val()).toBe('');
+					expect($('#input3').val()).toBe('opt1');
+				});
 			});
-			it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
-				expect($('#input1').val()).toBe('');
-				expect($('#input2').val()).toBe('');
-				expect($('#input3').val()).toBe('opt1');
+			describe('Form alternativo > ', () => {
+				beforeEach(() => {
+					$('#nombre').val('Peppa');
+					$('#apellido1').val('Pig');
+					$('#apellido2').val('Dinosaurio');
+					$('input#apellido2', $form).rup_form('clearFields');
+				});
+				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
+					expect($('#nombre').val()).toBe('Peppa');
+					expect($('#apellido1').val()).toBe('Pig');
+					expect($('#apellido2').val()).toBe('');
+				});
 			});
 		});
 
 		describe('Método destroy', () => {
-			beforeEach(() => {
-				$form.on('mouseenter', () => { $form.addClass("someClass");});
-				$form.rup_form('destroy');
+			describe('Form por defecto > ', () => {
+				beforeEach(() => {
+					$form.rup_form('destroy');
+				});
+				it('No debe existir', () => {
+					expect($form.rup_form('clearForm')).toBeFalsy();
+				});
 			});
-			it('No debe existir', () => {
-				$form.trigger('mouseenter');
-				setTimeout(() => {
-					expect($form.hasClass("someClass")).toBe(true);
-				}, 1500);
+			describe('Form alternativo > ', () => {
+				beforeEach(() => {
+					$formAlt.rup_form('destroy');
+				});
+				it('No debe existir', () => {
+					expect($formAlt.rup_form('clearForm')).toBeFalsy();
+				});
 			});
 		});
 	});
