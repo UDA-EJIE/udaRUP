@@ -24,7 +24,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                     <div class="two-col" >\
                             <div class="col1">\
                             <label for="nombre" class="label">Nombre</label>\
-                                <input type="text" name="nombre" class="formulario_linea_input" size="20" id="nombre" />\
+                                <input type="text" name="nombre" class="formulario_linea_input" size="20" id="nombre" value="pop" />\
                             </div>\
                             <div class="col1">\
                                 <label for="apellido1" class="label">Primer apellido</label>\
@@ -192,7 +192,7 @@ describe('Test Form', () => {
 			},
 			validate:{
 				rules:{
-					'departamento.code':{digits:true}
+					'nombre':{required:true}
 				}
 			}
 		};
@@ -215,7 +215,17 @@ describe('Test Form', () => {
 				expect($formAlt).toHaveClass('rup_form rup_validate');
 			});
 		});
-  	});
+	});
+	describe('Integracion con validate y feedback > ', () => {
+		beforeEach(() => {
+			$('#nombre').val('');
+			$('input[type="submit"]').trigger('click');
+		});
+		it('Debe mostrarse el feedback con el contenido:', () => {
+			expect($('#feedbackMensajes_content').text())
+				.toBe('Se han producido los siguientes errores:nombre:Campo obligatorio.');
+		});
+	});
 	describe('Métodos públicos >', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
@@ -255,7 +265,7 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos',() => {
-					let out = 'nombre=&apellido1=&apellido2=&sexo=F&fechaNacimiento=&telefono=&dni=&usuario=' +
+					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=&telefono=&dni=&usuario=' +
 					'&password=&password_confirm=&email=&email_confirm=&provincia.id=&municipio.id_label=&municipio.id_label=' +
 					'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id=&calle.id_label=' +
 					'&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id=';
@@ -273,7 +283,7 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos de los fields:', () => {
-					let out = 'nombre=&apellido1=&apellido2=&fechaNacimiento=&telefono=&dni=&usuario=&password='+
+					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=&dni=&usuario=&password='+
 						'&password_confirm=&email=&email_confirm=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
 						'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
 						'&municipio.id=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label='+
@@ -291,7 +301,7 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver los valores en un array', () => {
-					let out = [ '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+					let out = [ 'pop', '', '', '', '', '', '', '', '', '', '', '', '', '',
 								 '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ];
 					expect($('input', $formAlt).rup_form('fieldValue')).toEqual(out);
 				});
@@ -306,7 +316,7 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver los datos rellenados en formato JSON:', () => {
-					let out = {sexo:'F'};
+					let out = {nombre:'pop',sexo:'F'};
 					expect($formAlt.rup_form('formToJson')).toEqual(out);
 				});
 			});
@@ -356,7 +366,7 @@ describe('Test Form', () => {
 					$formAlt.rup_form('resetForm');
 				});
 				it('Debe quedar en su estado original > ', () => {
-					expect($('#nombre').val()).toBe('');
+					expect($('#nombre').val()).toBe('pop');
 					expect($('#apellido1').val()).toBe('');
 					expect($('#apellido2').val()).toBe('');
 				});
