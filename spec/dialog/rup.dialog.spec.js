@@ -9,7 +9,31 @@ testDialogType($.rup.dialog.DIV);
 function testDialogType(type) {
 	describe('Test Dialog > ', () => {
 		var $dialog;
-		beforeEach(() => {});
+		beforeEach(() => {
+			let html, opciones;
+			if(type == $.rup.dialog.TEXT) {
+				html = '<div id="exampleDialogo"></div>'
+				opciones = {
+					type: type,
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo',
+					message: 'MensajeDialogo'
+				};
+			}
+			else {
+				html = '<div id="exampleDialogo">MensajeDialogo</div>'
+				opciones = {
+					type: type,
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo'
+				};
+			}
+			$('body').append(html);
+			$('#exampleDialogo').rup_dialog(opciones);
+			$dialogo = $('#exampleDialogo');
+		});
 		describe('Creación > ', () => {});
 		describe('Métodos públicos > ', () => {
 			describe('Método open e isOpen > ', () => {});
@@ -19,7 +43,7 @@ function testDialogType(type) {
 			describe('Método moveToTop > ', () => {});
 			describe('Método getOption > ', () => {});
 			describe('Método setOption > ',() => {});
-			// TODO: Faltan metodos 
+			describe('Método createBtnLinks > ', () => {});
 		});
 	});
 }
