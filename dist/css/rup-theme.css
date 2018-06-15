@@ -3398,7 +3398,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.25em;
   margin-left: 2px;
   text-align: center;
   text-decoration: none !important;
@@ -3575,7 +3575,10 @@ table.dataTable tbody > tr:hover {
 
 .recolocatedPagination_length {
   display: inline-block;
-  padding: 7px 10px 10px 10px; }
+  padding: 7px 10px 8px 10px; }
+
+.recolocatedPagination_length label {
+  margin-bottom: 0; }
 
 .recolocatedPagination_rellenoCtr {
   display: inline-block; }
@@ -3586,9 +3589,56 @@ table.dataTable tbody > tr:hover {
 
 .recolocatedPagination_rellenoDrc {
   display: inline-block;
+  padding-right: 10px;
   text-align: right;
   float: right;
   line-height: 3.5em; }
+
+.tableFit {
+  width: calc(100% - 1px);
+  max-width: calc(100% - 1px);
+  margin-bottom: 0; }
+
+.pagination {
+  margin-bottom: 0; }
+
+.paginationContainer {
+  border: 1px solid #dee2e6;
+  border-top: none; }
+
+@media (max-width: 930px) {
+  .recolocatedPagination_container {
+    width: 60%; } }
+
+@media (max-width: 930px) and (min-width: 851px) {
+  .paginate_button {
+    padding-left: 0 !important;
+    padding-right: 0 !important; } }
+
+@media (min-width: 851px) {
+  .recolocatedPagination_iconButton a {
+    display: initial; }
+  .recolocatedPagination_iconButton i {
+    display: none; } }
+
+@media (max-width: 850px) {
+  .recolocatedPagination_iconButton a {
+    display: none; }
+  .recolocatedPagination_iconButton i {
+    display: block; }
+  .searchPaginator {
+    margin-top: 0 !important;
+    padding-top: 3px !important; } }
+
+@media (max-width: 850px) and (min-width: 651px) {
+  .recolocatedPagination_container {
+    width: 50%; } }
+
+@media (max-width: 650px) {
+  .recolocatedPagination_container {
+    width: 45%; }
+  .recolocatedPagination_length {
+    padding: 7px 0 8px; } }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
@@ -3718,9 +3768,6 @@ table.dataTable thead th:hover, table.dataTable tfoot th:hover {
   margin-top: -16px;
   text-align: center;
   color: #000; }
-
-.recolocatedPagination_select {
-  height: 100% !important; }
 
 @keyframes dtb-spinner {
   100% {

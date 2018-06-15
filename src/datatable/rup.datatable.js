@@ -385,6 +385,20 @@
 					"<div id='" + tabla[0].id + "_buttons' class='recolocatedPagination_buttons' />"
 			);
 			
+			// Añade iconos para versiones moviles/tablets
+			$('#'+tabla[0].id+'_first')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-double-left'/>");
+			$('#'+tabla[0].id+'_previous')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-left'/>");
+			$('#'+tabla[0].id+'_next')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-right'/>");
+			$('#'+tabla[0].id+'_last')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-double-right'/>");
+			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
 			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
 			
@@ -931,7 +945,7 @@ $.fn.rup_datatable.defaults = {
 				delay:1000
 			}
 		},
-    dom: 'tiprl',//i: Info, t: table, p:pagination, r: procesing , l:length:
+    dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
 		responsive: true,

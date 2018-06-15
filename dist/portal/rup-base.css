@@ -7733,7 +7733,7 @@
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.25em;
   margin-left: 2px;
   text-align: center;
   text-decoration: none !important;
@@ -7971,7 +7971,11 @@
 
 .r01gContainer .recolocatedPagination_length {
   display: inline-block;
-  padding: 7px 10px 10px 10px;
+  padding: 7px 10px 8px 10px;
+}
+
+.r01gContainer .recolocatedPagination_length label {
+  margin-bottom: 0;
 }
 
 .r01gContainer .recolocatedPagination_rellenoCtr {
@@ -7985,9 +7989,79 @@
 
 .r01gContainer .recolocatedPagination_rellenoDrc {
   display: inline-block;
+  padding-right: 10px;
   text-align: right;
   float: right;
   line-height: 3.5em;
+}
+
+.r01gContainer .tableFit {
+  width: calc(100% - 1px);
+  max-width: calc(100% - 1px);
+  margin-bottom: 0;
+}
+
+.r01gContainer .pagination {
+  margin-bottom: 0;
+}
+
+.r01gContainer .paginationContainer {
+  border: 1px solid #dee2e6;
+  border-top: none;
+}
+
+@media (max-width: 930px) {
+  .r01gContainer .recolocatedPagination_container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 930px) and (min-width: 851px) {
+  .r01gContainer .paginate_button {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 851px) {
+  .r01gContainer .recolocatedPagination_iconButton a {
+    display: initial;
+  }
+
+  .r01gContainer .recolocatedPagination_iconButton i {
+    display: none;
+  }
+}
+
+@media (max-width: 850px) {
+  .r01gContainer .recolocatedPagination_iconButton a {
+    display: none;
+  }
+
+  .r01gContainer .recolocatedPagination_iconButton i {
+    display: block;
+  }
+
+  .r01gContainer .searchPaginator {
+    margin-top: 0 !important;
+    padding-top: 3px !important;
+  }
+}
+
+@media (max-width: 850px) and (min-width: 651px) {
+  .r01gContainer .recolocatedPagination_container {
+    width: 50%;
+  }
+}
+
+@media (max-width: 650px) {
+  .r01gContainer .recolocatedPagination_container {
+    width: 45%;
+  }
+
+  .r01gContainer .recolocatedPagination_length {
+    padding: 7px 0 8px;
+  }
 }
 
 .r01gContainer table.dataTable tbody > tr.selected,
@@ -8187,10 +8261,6 @@
   margin-top: -16px;
   text-align: center;
   color: #000;
-}
-
-.r01gContainer .recolocatedPagination_select {
-  height: 100% !important;
 }
 
 @keyframes dtb-spinner {
