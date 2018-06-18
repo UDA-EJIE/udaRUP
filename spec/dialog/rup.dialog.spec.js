@@ -8,7 +8,7 @@ testDialogType($.rup.dialog.DIV);
 
 function testDialogType(type) {
 	describe('Test Dialog > ', () => {
-		var $dialog;
+		var $dialogo;
 		beforeEach(() => {
 			let html, opciones;
 			if(type == $.rup.dialog.TEXT) {
@@ -34,15 +34,106 @@ function testDialogType(type) {
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
 		});
-		describe('Creación > ', () => {});
+		afterEach(() => {
+			$('body').html('');
+		});
+		describe('Creación > ', () => {
+			it('Debe crearse el contenedor del dialogo:', () => {
+				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+					.length).toBe(1);
+			});
+			it('El contenedor no debe ser visible:', () => {
+				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+					.is(':visible')).toBe(false);
+			});
+			it('Debe contener el texto establecido:', () => {
+				expect($dialogo.text()).toBe('MensajeDialogo');
+			});
+		});
 		describe('Métodos públicos > ', () => {
-			describe('Método open e isOpen > ', () => {});
-			describe('Método close e isOpen > ', () => {});
-			describe('Método disable > ', () => {});
-			describe('Método enable > ', () => {});
-			describe('Método moveToTop > ', () => {});
-			describe('Método getOption > ', () => {});
-			describe('Método setOption > ',() => {});
+			describe('Método open e isOpen > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+				});
+				it('Debe ser visible:', () => {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.is(':visible')).toBe(true);
+				});
+				it('Debe devolver correctamente el resultado de isOpen:', () => {
+					expect($dialogo.rup_dialog('isOpen')).toBe(true);
+				});
+			});
+			describe('Método close e isOpen > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+					$dialogo.rup_dialog('close');
+				});
+				it('Debe ser visible:', () => {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.is(':visible')).toBe(false);
+				});
+				it('Debe devolver correctamente el resultado de isOpen:', () => {
+					expect($dialogo.rup_dialog('isOpen')).toBe(false);
+				});
+			});
+			describe('Método disable > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('disable');
+				});
+				it('Los métodos no deberían funcionar:', () => {
+					$dialogo.rup_dialog('open');
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.is(':visible')).toBe(false);
+				});
+			});
+			describe('Método enable > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('disable');
+					$dialogo.rup_dialog('enable');
+				});
+				it('Los métodos no deberían funcionar:', () => {
+					$dialogo.rup_dialog('open');
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.is(':visible')).toBe(true);
+				});
+			});
+			describe('Método moveToTop > ', () => {
+				beforeEach(() => {
+					let aux = '<div id="auxDialog"></div>';
+					$('body').append(aux);
+					let opts = {
+						type: $.rup.dialog.TEXT,
+						autoOpen: true,
+						width: 200,
+						title: 'TituloDialogo',
+						message: 'MensajeDialogo'
+					};
+					$dialogo.rup_dialog('open');
+					$('#auxDialog').rup_dialog(opts);
+					$dialogo.rup_dialog('moveToTop');
+				});
+				it('El dialog debe estar encima del aux:', () => {
+					expect($dialogo.parent().css('z-index'))
+						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
+				});
+			});
+			describe('Método getOption > ', () => {
+				it('Debe devolver los valores esperados:', () => {
+					expect($dialogo.rup_dialog('getOption', 'width')).toBe(200);
+					expect($dialogo.rup_dialog('getOption', 'type')).toBe(type);
+				});
+			});
+			describe('Método setOption > ',() => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('setOption', 'width', 400);
+					$dialogo.rup_dialog('setOption', 'draggable', false);
+				});
+				it('Debe devolver los valores esperados:', () => {
+					expect($dialogo.rup_dialog('getOption', 'width')).toBe(400);
+					expect($dialogo.rup_dialog('getOption', 'draggable')).toBe(false);
+				});
+			});
+			// TODO: No entiendo el objetivo de este método
 			describe('Método createBtnLinks > ', () => {});
 		});
 	});
