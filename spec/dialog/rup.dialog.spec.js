@@ -1,3 +1,5 @@
+import scss1 from '../../dist/css/rup-base.css';
+import scss2 from '../../dist/css/rup-theme.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
@@ -33,6 +35,17 @@ function testDialogType(type) {
 			}
 			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-base.css" />');
 			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-theme.css" />');
+			// TODO: Webpack ya pilla bien el css falta encontrar en que ruta lo deja.
+			$.ajax({
+				type: 'GET',
+				url: '${./dist/css/rup-base.css}',
+				success: function() {
+					console.info('CHUSCA !=================================================');
+				},
+				error: function() {
+					console.info('NO CHUSCA !=================================================');
+				}            
+			});
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
@@ -89,7 +102,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('close');
 				});
 				it('Debe ser visible:', () => {
-					console.info($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').html());
+					console.info($('html').html());
 					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
 						.is(':visible')).toBe(false);
 				});
