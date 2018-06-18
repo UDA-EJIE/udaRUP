@@ -31,12 +31,16 @@ function testDialogType(type) {
 					modal: true
 				};
 			}
+			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-base.css" />');
+			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-theme.css" />');
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
 		});
 		afterEach(() => {
 			$dialogo.rup_dialog('destroy');
+			$('link[href="/base/dist/css/rup-base.css"]','head').remove();
+			$('link[href="/base/dist/css/rup-theme.css"]','head').remove();
 			$('#content').nextAll().remove();
 			$('#content').html('');
 		});

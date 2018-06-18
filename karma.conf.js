@@ -72,7 +72,8 @@ module.exports = function(config) {
 		],
 		proxies: {
 			'/dist/resources/': '/base/i18n/',
-			'/demo/x21a/resources/': '/base/demo/x21a/resources/'
+			'/demo/x21a/resources/': '/base/demo/x21a/resources/',
+			'/dist/css/':'/base/dist/css'
 		},
 
 
