@@ -5852,7 +5852,6 @@ table.dataTable tbody > tr:hover {
   .recolocatedPagination_iconButton i {
     display: block; }
   .searchPaginator {
-    margin-top: 0 !important;
     padding-top: 3px !important; } }
 
 @media (max-width: 850px) and (min-width: 651px) {
@@ -5961,10 +5960,6 @@ table.dataTable thead th:hover, table.dataTable tfoot th:hover {
 .disabledDatatable {
   pointer-events: none;
   opacity: 0.6; }
-
-.searchPaginator {
-  float: left;
-  margin-top: 5px; }
 
 .selected-pencil {
   float: right;

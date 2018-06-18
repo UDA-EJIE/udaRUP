@@ -8043,7 +8043,6 @@
   }
 
   .r01gContainer .searchPaginator {
-    margin-top: 0 !important;
     padding-top: 3px !important;
   }
 }
@@ -8223,11 +8222,6 @@
 .r01gContainer .disabledDatatable {
   pointer-events: none;
   opacity: 0.6;
-}
-
-.r01gContainer .searchPaginator {
-  float: left;
-  margin-top: 5px;
 }
 
 .r01gContainer .selected-pencil {
