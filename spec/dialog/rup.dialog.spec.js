@@ -42,8 +42,15 @@ function testDialogType(type) {
 		});
 		describe('Creación > ', () => {
 			it('Debe crearse el contenedor del dialogo:', () => {
-				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-					.length).toBe(1);
+				if(type == $.rup.dialog.TEXT) {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.length).toBe(1);
+				}
+				if(type == $.rup.dialog.DIV) {
+					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
+					expect(selector.length).toBe(1);
+					expect(selector.hasClass('ui-resizable')).toBe(false);
+				}
 			});
 			it('El contenedor no debe ser visible:', () => {
 				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
@@ -59,8 +66,14 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe ser visible:', () => {
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-						.is(':visible')).toBe(true);
+					if(type == $.rup.dialog.TEXT) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
+					if(type == $.rup.dialog.DIV) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
 				});
 				it('Debe devolver correctamente el resultado de isOpen:', () => {
 					expect($dialogo.rup_dialog('isOpen')).toBe(true);
@@ -86,8 +99,15 @@ function testDialogType(type) {
 				});
 				it('Los métodos no deberían funcionar:', () => {
 					$dialogo.rup_dialog('open');
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-						.is(':visible')).toBe(false);
+					if(type == $.rup.dialog.TEXT) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+							.is(':visible')).toBe(false);
+					}
+					if(type == $.rup.dialog.DIV) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(false);
+					}
+					
 				});
 			});
 			describe('Método enable > ', () => {
@@ -97,8 +117,15 @@ function testDialogType(type) {
 				});
 				it('Los métodos no deberían funcionar:', () => {
 					$dialogo.rup_dialog('open');
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-						.is(':visible')).toBe(true);
+
+					if(type == $.rup.dialog.TEXT) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
+					if(type == $.rup.dialog.DIV) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
 				});
 			});
 			describe('Método moveToTop > ', () => {
