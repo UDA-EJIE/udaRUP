@@ -1,5 +1,4 @@
 import 'jquery';
-import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
@@ -12,7 +11,7 @@ function testDialogType(type) {
 		beforeEach(() => {
 			let html, opciones;
 			if(type == $.rup.dialog.TEXT) {
-				html = '<div id="exampleDialogo"></div>'
+				html = '<div id="exampleDialogo"></div>';
 				opciones = {
 					type: type,
 					autoOpen: false,
@@ -22,20 +21,24 @@ function testDialogType(type) {
 				};
 			}
 			else {
-				html = '<div id="exampleDialogo">MensajeDialogo</div>'
+				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
 					type: type,
 					autoOpen: false,
 					width: 200,
-					title: 'TituloDialogo'
+					title: 'TituloDialogo',
+					resizable: false,
+					modal: true
 				};
 			}
-			$('body').append(html);
+			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');
 		});
 		afterEach(() => {
-			$('body').html('');
+			$dialogo.rup_dialog('destroy');
+			$('#content').nextAll().remove();
+			$('#content').html('');
 		});
 		describe('Creación > ', () => {
 			it('Debe crearse el contenedor del dialogo:', () => {
@@ -69,6 +72,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('close');
 				});
 				it('Debe ser visible:', () => {
+					console.info($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').html());
 					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
 						.is(':visible')).toBe(false);
 				});
@@ -113,6 +117,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('moveToTop');
 				});
 				it('El dialog debe estar encima del aux:', () => {
+					console.info($('body').html());
 					expect($dialogo.parent().css('z-index'))
 						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
 				});
