@@ -127,8 +127,12 @@ describe('Test Date > ', () => {
                     $date.rup_date('hide');
                 });
                 it('Debe mostrarse el datepicker:', () => {
+                    //Tal vez la versión de ejie eus sea distinta y en esta 
+                    //solo cambie el opacity pero siga visible
                     testTrace('body - html', $('body').html());
-                    expect($('#ui-datepicker-div').is(':visible')).toBe(false);
+                    let test1 = $('#ui-datepicker-div').css('opacity') != 0;
+                    let test2 = $('#ui-datepicker-div').is(':visible');
+                    expect(test1 && test2).toBe(false);
                 });
             });
             describe('Date alternativa > ', () => {
@@ -137,7 +141,9 @@ describe('Test Date > ', () => {
                     $altDate.rup_date('hide');
                 });
                 it('Debe mostrarse el datepicker:', () => {
-                    expect($('#ui-datepicker-div').is(':visible')).toBe(false);
+                    let test1 = $('#ui-datepicker-div').css('opacity') != 0;
+                    let test2 = $('#ui-datepicker-div').is(':visible');
+                    expect(test1 && test2).toBe(false);
                 });
             });
         });
