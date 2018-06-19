@@ -23,9 +23,9 @@ describe('Test Chart', () => {
                 }
             }
         };
-        var html = '<div class="butstyle">' +
-            '<canvas id="exampleChart" ></canvas>' +
-            '</div>';
+        var html = '<div class="butstyle">\
+                        <canvas id="exampleChart" ></canvas>\
+                    </div>';
         $('body').append(html);
         $('#exampleChart').rup_chart(options);
         $chart = $('#exampleChart');
