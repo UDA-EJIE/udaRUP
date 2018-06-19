@@ -200,9 +200,10 @@ describe('Test Form', () => {
 		$('#formHttpSubmit').rup_form(optsAlt);
 		$form = $('#exampleForm');
 		$formAlt = $('#formHttpSubmit');
+		//console.info($('body').html());
 	});
 	afterEach(() => {
-		$('body').html();
+		$('body').html('');
 	});
   	describe('Creación > ', () => {
 		describe('Form por defecto > ', () => {
@@ -266,10 +267,7 @@ describe('Test Form', () => {
 				it('Debe devolver un string con los datos',() => {
 					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
 					'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-					'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
 					'&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
-					console.info('=======================================================================');
-					console.info(out);
 					expect($formAlt.rup_form('formSerialize')).toBe(out);
 				});
 			});
@@ -392,7 +390,7 @@ describe('Test Form', () => {
 					$('#nombre').val('Peppa');
 					$('#apellido1').val('Pig');
 					$('#apellido2').val('Dinosaurio');
-					$('input#apellido2', $form).rup_form('clearFields');
+					$('input#apellido2', $formAlt).rup_form('clearFields');
 				});
 				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
 					expect($('#nombre').val()).toBe('Peppa');
