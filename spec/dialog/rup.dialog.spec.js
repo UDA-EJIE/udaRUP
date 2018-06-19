@@ -53,8 +53,8 @@ function testDialogType(type) {
 		});
 		afterEach(() => {
 			$dialogo.rup_dialog('destroy');
-			$('link[href="/base/dist/css/rup-base.css"]','head').remove();
-			$('link[href="/base/dist/css/rup-theme.css"]','head').remove();
+			$('link[href="http://localhost:8081/dist/css/rup-base.css"]','head').remove();
+			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]','head').remove();
 			$('#content').nextAll().remove();
 			$('#content').html('');
 		});
