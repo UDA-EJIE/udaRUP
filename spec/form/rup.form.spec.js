@@ -235,7 +235,6 @@ describe('Test Form', () => {
 				});
 				it('La llamada Ajax debe tener éxito', () => {
 					let padre = $('#feedbackMensajes');
-					console.info(padre);
 					expect($('span.rup-feedback-icon', padre).length).toBe(1);
 					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
 					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
@@ -265,10 +264,12 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos',() => {
-					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=&telefono=&dni=&usuario=' +
-					'&password=&password_confirm=&email=&email_confirm=&provincia.id=&municipio.id_label=&municipio.id_label=' +
-					'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id=&calle.id_label=' +
-					'&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id=';
+					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
+					'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+					'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+					'&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
+					console.info('=======================================================================');
+					console.info(out);
 					expect($formAlt.rup_form('formSerialize')).toBe(out);
 				});
 			});
@@ -283,11 +284,9 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos de los fields:', () => {
-					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=&dni=&usuario=&password='+
-						'&password_confirm=&email=&email_confirm=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
-						'&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label=&municipio.id_label='+
-						'&municipio.id=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label=&calle.id_label='+
-						'&calle.id_label=&calle.id_label=&calle.id_label=&calle.id=';
+					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=' +
+					'&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+					'&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
 					expect($('input', $formAlt).rup_form('fieldSerialize')).toBe(out);
 				});
 			});
@@ -301,8 +300,10 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver los valores en un array', () => {
-					let out = [ 'pop', '', '', '', '', '', '', '', '', '', '', '', '', '',
-								 '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ];
+					let out = [
+						"pop", "", "", "", "", "", "",
+						"", "", "", "", "", "", "", ""
+					  ];
 					expect($('input', $formAlt).rup_form('fieldValue')).toEqual(out);
 				});
 			});
@@ -316,7 +317,10 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver los datos rellenados en formato JSON:', () => {
-					let out = {nombre:'pop',sexo:'F'};
+					let out = {
+						"nombre": "pop",
+						"sexo": "F"
+					  };
 					expect($formAlt.rup_form('formToJson')).toEqual(out);
 				});
 			});
