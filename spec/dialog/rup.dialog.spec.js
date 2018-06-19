@@ -33,19 +33,20 @@ function testDialogType(type) {
 					modal: true
 				};
 			}
-			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-base.css" />');
-			$('head').append('<link rel="stylesheet" type="text/css" href="/base/dist/css/rup-theme.css" />');
-			// TODO: Webpack ya pilla bien el css falta encontrar en que ruta lo deja.
+			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
+			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
+			/*
+			//El AJAX Chusca :)
 			$.ajax({
 				type: 'GET',
-				url: '${./dist/css/rup-base.css}',
+				url: 'http://localhost:8081/dist/css/rup-base.css',
 				success: function() {
 					console.info('CHUSCA !=================================================');
 				},
 				error: function() {
 					console.info('NO CHUSCA !=================================================');
 				}            
-			});
+			});*/
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
 			$dialogo = $('#exampleDialogo');

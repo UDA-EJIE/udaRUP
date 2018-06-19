@@ -5,8 +5,8 @@
 var path = require('path');
 const webpack = require('webpack');
 
-const createFrontendServer = require('./frontend.js');
-createFrontendServer(8080, 8081);
+const createBackendServer = require('./backend.js');
+createBackendServer(8081);
 
 module.exports = function (config) {
 	config.set({
