@@ -6,6 +6,7 @@ import 'rup.dialog';
 
 testDialogType($.rup.dialog.TEXT);
 testDialogType($.rup.dialog.DIV);
+testDialogType($.rup.dialog.AJAX);
 
 function testDialogType(type) {
 	describe('Test Dialog > ', () => {
@@ -22,7 +23,7 @@ function testDialogType(type) {
 					message: 'MensajeDialogo'
 				};
 			}
-			else {
+			if(type == $.rup.dialog.DIV) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
 					type: type,
@@ -33,8 +34,30 @@ function testDialogType(type) {
 					modal: true
 				};
 			}
+			if(type == $.rup.dialog.TEXT) {
+				html = '<div id="exampleDialogo">MensajeDialogo</div>';
+				opciones = {
+					type: type,
+					url: 'http://localhost:8081/demo/demo-idx.html',
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo',
+					resizable: false
+				};
+			}
 			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
 			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
+			
+			$.ajax({
+				type: 'GET',
+				url: 'http://localhost:8081/demo/demo-idx.html',
+				success: function() {
+					console.info('CHUSCA !=================================================');
+				},
+				error: function() {
+					console.info('NO CHUSCA !=================================================');
+				}            
+			});
 			/*
 			//El AJAX Chusca :)
 			$.ajax({
@@ -49,6 +72,12 @@ function testDialogType(type) {
 			});*/
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
+			/**
+			 * En el caso de AJAX $dialogo es undefined:
+			 *  a) No obtiene correctamente el contenido de la url
+			 *  b) Al ser asíncrono tarda demasiado y se ejecutan los test
+			 * 	 antes de que se defina $dialogo.
+			 */
 			$dialogo = $('#exampleDialogo');
 		});
 		afterEach(() => {
@@ -69,9 +98,15 @@ function testDialogType(type) {
 					expect(selector.length).toBe(1);
 					expect(selector.hasClass('ui-resizable')).toBe(false);
 				}
+				if(type == $.rup.dialog.AJAX) {
+					console.info('************************************************************************************');
+					console.info($dialogo);
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.length).toBe(1)
+				}
 			});
 			it('El contenedor no debe ser visible:', () => {
-				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
 					.is(':visible')).toBe(false);
 			});
 			it('Debe contener el texto establecido:', () => {
@@ -188,99 +223,3 @@ function testDialogType(type) {
 		});
 	});
 }
-
-/*function testDialogType(type) {
-	describe('Test Dialog > ', () => {
-		var $dialogo;
-		beforeEach( () => {
-			let html = '<div id="exampleDialogo"></div>'
-			$('body').append(html);
-			let opciones = {
-				type: type,
-				autoOpen: false,
-				width: 200,
-				title: 'TituloDialogo',
-				message: 'MensajeDialogo'
-			};
-			$('#exampleDialogo').rup_dialog(opciones);
-			$dialogo = $('#exampleDialogo');
-		});
-		afterEach(() => {
-			$('body').html('');
-		});
-		describe('Creacion > ', () => {
-			it('debe existir:', () => {
-				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').length)
-					.toBe(1);
-			});
-		});
-		describe('Métodos públicos:', () => {
-			describe('Método open e isOpen', () => {
-				beforeEach( () => {
-					$dialogo.rup_dialog('open');
-				});
-				it('Debe ser visible:', () => {
-					expect($dialogo.css('display')).toBe('block');
-				});
-				describe('Método isOpen:', () => {
-					it('debe estar abierto:',  () => {
-						expect($dialogo.rup_dialog('isOpen')).toBe(true);
-					});
-				});
-			});
-			describe('Método close e isOpen', () => {
-				beforeEach( () => {
-					$dialogo.rup_dialog('close');
-				});
-				it('No debe ser visible:', () => {
-					expect($dialogo.is(':visible')).toBeFalsy();
-				});
-				it('No debe estar abierto', () => {
-					expect($dialogo.rup_dialog('isOpen')).toBeFalsy();
-				});
-			});
-			describe('Método widget', () => {
-				it('No debe devolver undefined', () => {
-					expect($dialogo.rup_dialog('widget')).toBeDefined();
-				});
-			});
-			describe('Metodo moveToTop', () => {
-				it('No debe lanzar error', () => {
-					expect(() => {$dialogo.rup_dialog('moveToTop')}).not.toThrowError();
-				});
-			});
-			describe('Método getOption', () => {
-				it('Obtiene la opcion correctamente', () => {
-					expect($dialogo.rup_dialog('getOption','width')).toBe(200);
-				});
-			});
-			describe('Método setOption', () => {
-				beforeEach(() => {
-					$dialogo.rup_dialog('setOption', 'width', 260);
-				});
-				it('Establece la opcion correctamente', () => {
-					expect($dialogo.rup_dialog('getOption','width')).toBe(260);
-				});
-			});
-			/*
-			//No existen estos metodos en el subyacente
-			describe('Método disable', () => {});
-			describe('Método enable', () => {});
-			*//*
-			describe('Método destroy', () => {
-			    beforeEach(() => {
-			        $dialogo.rup_dialog('destroy');
-			    });
-			    it('No debe existir:', () => {
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog').length)
-						.toBe(0);
-				});
-			});
-		});
-	});
-}
-
-	testDialogType($.rup.dialog.TEXT);
-	testDialogType($.rup.dialog.DIV);*/
-
-
