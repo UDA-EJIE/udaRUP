@@ -1,7 +1,6 @@
 /* jslint esnext: true, multistr: true */
 
 import 'jquery';
-import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.chart';
 
