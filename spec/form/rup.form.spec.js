@@ -232,7 +232,7 @@ describe('Test Form', () => {
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
 				beforeEach(() => {
-					$form.rup_form('ajaxSubmit')
+					$form.rup_form('ajaxSubmit');
 				});
 				it('La llamada Ajax debe tener éxito', () => {
 					let padre = $('#feedbackMensajes');
@@ -245,7 +245,7 @@ describe('Test Form', () => {
 			});
 			describe('Método ajaxFormSubmit >',() => {
 				beforeEach(() => {
-					$formAlt.rup_form('ajaxFormSubmit')
+					$formAlt.rup_form('ajaxFormSubmit');
 				});
 				it('La llamada Ajax debe tener éxito', () => {
 					let padre = $('#feedbackMensajes');
