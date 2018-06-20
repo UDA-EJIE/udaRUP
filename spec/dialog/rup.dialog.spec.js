@@ -9,7 +9,7 @@ testDialogType($.rup.dialog.DIV);
 testDialogType($.rup.dialog.AJAX);
 
 function testDialogType(type) {
-	describe('Test Dialog > ', () => {
+	describe('Test Dialog '+ type +' > ', () => {
 		var $dialogo;
 		beforeEach(() => {
 			let html, opciones;
@@ -34,7 +34,7 @@ function testDialogType(type) {
 					modal: true
 				};
 			}
-			if(type == $.rup.dialog.TEXT) {
+			if(type == $.rup.dialog.AJAX) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
 					type: type,
@@ -119,14 +119,8 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe ser visible:', () => {
-					if(type == $.rup.dialog.TEXT) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-							.is(':visible')).toBe(true);
-					}
-					if(type == $.rup.dialog.DIV) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-							.is(':visible')).toBe(true);
-					}
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.is(':visible')).toBe(true);
 				});
 				it('Debe devolver correctamente el resultado de isOpen:', () => {
 					expect($dialogo.rup_dialog('isOpen')).toBe(true);
@@ -138,8 +132,8 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('close');
 				});
 				it('Debe ser visible:', () => {
-					console.info($('html').html());
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
 						.is(':visible')).toBe(false);
 				});
 				it('Debe devolver correctamente el resultado de isOpen:', () => {
@@ -152,15 +146,8 @@ function testDialogType(type) {
 				});
 				it('Los métodos no deberían funcionar:', () => {
 					$dialogo.rup_dialog('open');
-					if(type == $.rup.dialog.TEXT) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-							.is(':visible')).toBe(false);
-					}
-					if(type == $.rup.dialog.DIV) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-							.is(':visible')).toBe(false);
-					}
-					
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.is(':visible')).toBe(false);
 				});
 			});
 			describe('Método enable > ', () => {
@@ -170,15 +157,8 @@ function testDialogType(type) {
 				});
 				it('Los métodos no deberían funcionar:', () => {
 					$dialogo.rup_dialog('open');
-
-					if(type == $.rup.dialog.TEXT) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
-							.is(':visible')).toBe(true);
-					}
-					if(type == $.rup.dialog.DIV) {
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-							.is(':visible')).toBe(true);
-					}
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.is(':visible')).toBe(true);
 				});
 			});
 			describe('Método moveToTop > ', () => {
