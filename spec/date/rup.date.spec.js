@@ -13,29 +13,35 @@ function testTrace(title, toTrace) {
 }
 
 describe('Test Date > ', () => {
-    var $date, $altDate;
+    var $date, $altDate, $multiDate;
     beforeEach(() => {
         var html = '<input id="exampleDate"></input>\
-                    <input id="altDate"></input>';
+                    <input id="altDate"></input>\
+                    <input id="multiDate"></input>';
         $('#content').append(html);
-        var props = {
+        let props = {
             autoSize: true,
             placeholderMask: true,
             showButtonPanel: true,
             showOtherMonths: true,
             noWeekend: false
         };
-        var altProps = {
+        let altProps = {
             datetimepicker: true,
             changeMonth: false,
             changeYear: false,
             showWeek: true,
             defaultDate: '01/01/2000'
         };
+        let multiProps = {
+            multiSelect:3
+        };
         $('#exampleDate').rup_date(props);
         $('#altDate').rup_date(altProps);
+        $('#multiDate').rup_date(multiProps);
         $date = $('#exampleDate');
         $altDate = $('#altDate');
+        $multiDate = $('#multiDate');
     });
     afterEach(() => {
         if($date.hasClass('hasDatepicker')) {
@@ -43,6 +49,9 @@ describe('Test Date > ', () => {
         }
         if($altDate.hasClass('hasDatepicker')) {
             $altDate.rup_date('destroy');
+        }
+        if($multiDate.hasClass('hasDatepicker')) {
+            $multiDate.rup_date('destroy');
         }
         $('#content').html('');
         $('#content').nextAll().remove();
@@ -56,7 +65,7 @@ describe('Test Date > ', () => {
                 expect($date.hasClass('hasDatepicker')).toBeTruthy();
             });
             it('Debe crear un botón', () => {
-                expect($('button.ui-datepicker-trigger')).toExist();
+                expect($('button.ui-datepicker-trigger', $date.parent()).length).toBe(1);
             });
             it('Debe tener los select para cambiar mes y año:', () => {
                 expect($('select', $('.ui-datepicker-title')).length).toBe(2);
@@ -76,6 +85,20 @@ describe('Test Date > ', () => {
                 expect($('select', $('.ui-datepicker-title')).length).toBe(0);
             });
         });
+        describe('Date múltiple > ', () => {
+            beforeEach(() => {
+                $multiDate.rup_date('show');
+            })
+            it('Debe tener la clase del datepicker', () => {
+                expect($multiDate.hasClass('hasDatepicker')).toBe(true);
+            });
+            it('Debe crearse un botón:', () => {
+                expect($('button.ui-datepicker-trigger', $multiDate.parent()).length).toBe(1);
+            });
+            it('Debe tener los select para cambiar mes y año:', () => {
+                expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+            });
+        });
     });
     describe('Métodos públicos > ', () => {
         describe('Métodos setRupValue y getRupValue > ', () => {
@@ -93,6 +116,14 @@ describe('Test Date > ', () => {
                 });
                 it('Debe actualizar el valor:', () => {
                     expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00:00');
+                });
+            });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('setRupValue', ['08/08/2018', '09/08/2018']);
+                });
+                it('Debe actualizar el valor:', () => {
+                    expect($multiDate.rup_date('getRupValue')).toBe('08/08/2018,09/08/2018');
                 });
             });
         });
@@ -119,6 +150,17 @@ describe('Test Date > ', () => {
                     expect($('select', $('.ui-datepicker-title')).length).toBe(0);
                 });
             });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('show');
+                });
+                it('Debe mostrarse el datepicker:', () => {
+                    expect($('#ui-datepicker-div').is(':visible')).toBe(true);
+                });
+                it('Debe tener los select para cambiar mes y año:', () => {
+                    expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+                });
+            });
         });
         describe('Método hide > ', () => {
             describe('Date normal > ', () => {
@@ -126,7 +168,7 @@ describe('Test Date > ', () => {
                     $date.rup_date('show');
                     $date.rup_date('hide');
                 });
-                it('Debe mostrarse el datepicker:', () => {
+                it('No debe mostrarse el datepicker:', () => {
                     //Tal vez la versión de ejie eus sea distinta y en esta 
                     //solo cambie el opacity pero siga visible
                     testTrace('body - html', $('body').html());
@@ -140,7 +182,18 @@ describe('Test Date > ', () => {
                     $altDate.rup_date('show');
                     $altDate.rup_date('hide');
                 });
-                it('Debe mostrarse el datepicker:', () => {
+                it('No debe mostrarse el datepicker:', () => {
+                    let test1 = $('#ui-datepicker-div').css('opacity') != 0;
+                    let test2 = $('#ui-datepicker-div').is(':visible');
+                    expect(test1 && test2).toBe(false);
+                });
+            });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('show');
+                    $multiDate.rup_date('hide');
+                });
+                it('No debe mostrarse el datepicker:', () => {
                     let test1 = $('#ui-datepicker-div').css('opacity') != 0;
                     let test2 = $('#ui-datepicker-div').is(':visible');
                     expect(test1 && test2).toBe(false);
@@ -172,6 +225,14 @@ describe('Test Date > ', () => {
                     expect($altDate.rup_date('getDate')).toBe('06/02/1995 00:00');
                 });
             });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('setDate', ['06/02/1995','07/02/1995']);
+                });
+                it('Debe modificar la UI:', () => {
+                    expect($multiDate.val()).toBe('06/02/1995,07/02/1995');
+                });
+            });
         });
         describe('Método refresh > ', () => {
             // TODO: Esperando respuesta de sergio
@@ -199,6 +260,17 @@ describe('Test Date > ', () => {
                     expect($altDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
                 });
             });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('option', 'currentText', 'Tururu');
+                    $multiDate.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
+                });
+                it('Debe cambiar el valor:', () => {
+                    expect($multiDate.rup_date('option', 'currentText')).toBe('Tururu');
+                    expect($multiDate.rup_date('option', 'minDate')).toBe('01/01/1900');
+                    expect($multiDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
+                });
+            });
         });
         describe('Método disable e isDisabled > ', () => {
             describe('Date normal > ', () => {
@@ -221,6 +293,17 @@ describe('Test Date > ', () => {
                 });
                 it('Debe reflejarse en isDisabled:', () => {
                     expect($altDate.rup_date('isDisabled')).toBe(true);
+                });
+            });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('disable');
+                });
+                it('Debe marcarse como deshabilitada', () => {
+                    expect($multiDate.attr('disabled')).toBe('disabled');
+                });
+                it('Debe reflejarse en isDisabled:', () => {
+                    expect($multiDate.rup_date('isDisabled')).toBe(true);
                 });
             });
         });
@@ -249,6 +332,18 @@ describe('Test Date > ', () => {
                     expect($altDate.rup_date('isDisabled')).toBe(false);
                 });
             });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('disable');
+                    $multiDate.rup_date('enable');
+                });
+                it('Debe marcarse como deshabilitada', () => {
+                    expect($multiDate.attr('disabled')).toBe(undefined);
+                });
+                it('Debe reflejarse en isDisabled:', () => {
+                    expect($multiDate.rup_date('isDisabled')).toBe(false);
+                });
+            });
         });
         describe('Método destroy > ', () => {
             describe('Date normal > ', () => {
@@ -265,6 +360,14 @@ describe('Test Date > ', () => {
                 });
                 it('Debe retirarse elementos:', () => {
                     expect($('button',$altDate.parent()).length).toBe(0);
+                });
+            });
+            describe('Date múltiple > ', () => {
+                beforeEach(() => {
+                    $multiDate.rup_date('destroy');
+                });
+                it('Debe retirarse elementos:', () => {
+                    expect($('button',$multiDate.parent()).length).toBe(0);
                 });
             });
         });
