@@ -12,3 +12,6 @@ exports.provincia = function(req, res) {
   var json = require('./json/nora.provincia.json');
   res.status(200).json(json);
 };
+exports.submit = (req, res) => {
+  res.status(200);
+};

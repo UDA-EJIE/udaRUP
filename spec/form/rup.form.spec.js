@@ -18,7 +18,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         <option value="opt2">Opcion 2</input>\
                     </select>\
                 </form>\
-                <form id="formHttpSubmit" action="form/ejemplo" >\
+                <form id="formHttpSubmit" action="/demo/nora" >\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos personales</legend>\
                     <div class="two-col" >\
@@ -231,10 +231,15 @@ describe('Test Form', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
-				beforeEach(() => {
-					$form.rup_form('ajaxSubmit');
+				var res;
+				beforeEach((done) => {
+					res = $form.rup_form('ajaxSubmit', {success: done()});
 				});
-				it('La llamada Ajax debe tener éxito', () => {
+				it('La llamada debe tener éxito:', (done) => {
+					console.info(res);
+					expect(res.status).toBe(200);
+				});
+				it('Debe mostrar feedback', () => {
 					let padre = $('#feedbackMensajes');
 					expect($('span.rup-feedback-icon', padre).length).toBe(1);
 					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
