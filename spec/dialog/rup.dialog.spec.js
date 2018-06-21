@@ -48,6 +48,8 @@ function testDialogType(type) {
 			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
 			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
 			
+			/*
+			//El AJAX Chusca :)
 			$.ajax({
 				type: 'GET',
 				url: 'http://localhost:8081/demo/demo-idx.html',
@@ -58,8 +60,7 @@ function testDialogType(type) {
 					console.info('NO CHUSCA !=================================================');
 				}            
 			});
-			/*
-			//El AJAX Chusca :)
+
 			$.ajax({
 				type: 'GET',
 				url: 'http://localhost:8081/dist/css/rup-base.css',
@@ -82,6 +83,7 @@ function testDialogType(type) {
 		});
 		afterEach(() => {
 			$dialogo.rup_dialog('destroy');
+			$dialogo = undefined;
 			$('link[href="http://localhost:8081/dist/css/rup-base.css"]','head').remove();
 			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]','head').remove();
 			$('#content').nextAll().remove();
@@ -100,9 +102,9 @@ function testDialogType(type) {
 				}
 				if(type == $.rup.dialog.AJAX) {
 					console.info('************************************************************************************');
-					console.info($dialogo);
+					console.info($dialogo.parent());
 					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-						.length).toBe(1)
+						.length).toBe(1);
 				}
 			});
 			it('El contenedor no debe ser visible:', () => {
@@ -177,7 +179,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('moveToTop');
 				});
 				it('El dialog debe estar encima del aux:', () => {
-					console.info($('body').html());
+					//console.info($('body').html());
 					expect($dialogo.parent().css('z-index'))
 						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
 				});
