@@ -73,12 +73,7 @@ function testDialogType(type) {
 			});*/
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
-			/**
-			 * En el caso de AJAX $dialogo es undefined:
-			 *  a) No obtiene correctamente el contenido de la url
-			 *  b) Al ser asíncrono tarda demasiado y se ejecutan los test
-			 * 	 antes de que se defina $dialogo.
-			 */
+			
 			$dialogo = $('#exampleDialogo');
 		});
 		afterEach(() => {
