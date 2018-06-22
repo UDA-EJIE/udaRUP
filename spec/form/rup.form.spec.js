@@ -18,7 +18,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         <option value="opt2">Opcion 2</input>\
                     </select>\
                 </form>\
-                <form id="formHttpSubmit" action="/demo/nora" >\
+                <form id="formHttpSubmit" action="http://localhost:8081/demo/nora" >\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos personales</legend>\
                     <div class="two-col" >\
@@ -185,7 +185,7 @@ describe('Test Form', () => {
 		configurar();
 		var opts = {};
 		var optsAlt = {
-			url:'form/multientidades',
+			url:'http://localhost:8081/demo/nora',
 			feedback:$('#feedbackMensajes'),
 			success:function(xhr){
 				$('#feedback').rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
@@ -231,11 +231,16 @@ describe('Test Form', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
-				var res;
+				var res = undefined;
 				beforeEach((done) => {
-					res = $form.rup_form('ajaxSubmit', {success: done()});
+					$form.rup_form('ajaxSubmit', {
+						url:'http://localhost:8081/demo/nora',
+						success: (data) => {console.info(data);res = data;done();},
+						error: (data) => {console.info(data);res = data;done();}
+						
+					});
 				});
-				it('La llamada debe tener éxito:', (done) => {
+				it('La llamada debe tener éxito:', () => {
 					console.info(res);
 					expect(res.status).toBe(200);
 				});

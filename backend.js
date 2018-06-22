@@ -76,7 +76,7 @@ module.exports = (PORT) => {
 	app.get('/demo/nora/pais', routesNora.pais);
 	app.get('/demo/nora/autonomia', routesNora.autonomia);
 	app.get('/demo/nora/provincia', routesNora.provincia);
-	app.post('/demo/nora', routesNora.submit);
+	app.get('/demo/nora', routesNora.submit);
 	// Table
 	app.post('/demo/jqGridUsuario/filter', routesTable.filter);
 	app.get('/demo/jqGridUsuario/:id', routesTable.get);
