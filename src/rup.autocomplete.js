@@ -91,7 +91,7 @@
 				.appendTo($li);
 			var settings = this.options;
 			$li.find('a').mousedown(function(event){
-				var ui = {item:{label:item.label}};
+				var ui = {item:{label:item.label,value:item.value}};
 			    settings.select(event,ui);
 			 });
 			return $li;
@@ -723,6 +723,7 @@ input.
 					$('#' + settings.id).attr('rup_autocomplete_label', selected_value);
 					$('#' + settings.id).data('selected', true);
 					$self.triggerHandler('rupAutocomplete_select', [ui]);
+					$('#' + settings.id).val(ui.item.value);
 					return false;
 				};
 				settings.focus = function (event, ui) {
