@@ -186,6 +186,7 @@ describe('Test Form', () => {
 		var opts = {};
 		var optsAlt = {
 			url:'http://localhost:8081/demo/nora',
+			type:'POST',
 			feedback:$('#feedbackMensajes'),
 			success:function(xhr){
 				$('#feedback').rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
@@ -231,13 +232,14 @@ describe('Test Form', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
-				var res = undefined;
+				var res;
 				beforeEach((done) => {
-					$form.rup_form('ajaxSubmit', {
+					res = undefined;
+					$formAlt.rup_form('ajaxSubmit', {
 						url:'http://localhost:8081/demo/nora',
+						type:'POST',
 						success: (data) => {console.info(data);res = data;done();},
 						error: (data) => {console.info(data);res = data;done();}
-						
 					});
 				});
 				it('La llamada debe tener éxito:', () => {
