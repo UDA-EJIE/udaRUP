@@ -89,8 +89,11 @@
 			$('<a/>').attr('href', '#')
 				.html(label)
 				.appendTo($li);
-
-
+			var settings = this.options;
+			$li.find('a').mousedown(function(event){
+				var ui = {item:{label:item.label}};
+			    settings.select(event,ui);
+			 });
 			return $li;
 
 		}
