@@ -45,8 +45,12 @@ function testDialogType(type) {
 					resizable: false
 				};
 			}
-			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
-			$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
+
+			//$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
+			//$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
+
+			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
+			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
 			
 			/*
 			//El AJAX Chusca :)
@@ -167,13 +171,19 @@ function testDialogType(type) {
 						autoOpen: true,
 						width: 200,
 						title: 'TituloDialogo',
-						message: 'MensajeDialogo'
+						message: 'MensajeDialogoAux'
 					};
 					$dialogo.rup_dialog('open');
 					$('#auxDialog').rup_dialog(opts);
+					$('#auxDialog').rup_dialog('open');
 					$dialogo.rup_dialog('moveToTop');
 				});
 				it('El dialog debe estar encima del aux:', () => {
+					//No hay Z-Index
+					console.info('||||||||| AFTER moveToTop (dialogo) ||||||||');
+					console.info($('html').html());
+					console.info('||||||||| Stylesheet ||||||||');
+					console.info(document.styleSheets);
 					//console.info($('body').html());
 					expect($dialogo.parent().css('z-index'))
 						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
