@@ -17,7 +17,9 @@ describe('Test Date > ', () => {
     beforeEach(() => {
         var html = '<input id="exampleDate"></input>\
                     <input id="altDate"></input>\
-                    <input id="multiDate"></input>';
+                    <input id="multiDate"></input>\
+                    <input id="desde"></input>\
+                    <input id="hasta"></input>';
         $('#content').append(html);
         let props = {
             autoSize: true,
@@ -36,9 +38,14 @@ describe('Test Date > ', () => {
         let multiProps = {
             multiSelect:3
         };
+        let fromToProps = {
+            from: 'desde',
+            to: 'hasta'
+        };
         $('#exampleDate').rup_date(props);
         $('#altDate').rup_date(altProps);
         $('#multiDate').rup_date(multiProps);
+        $.rup_date(fromToProps);
         $date = $('#exampleDate');
         $altDate = $('#altDate');
         $multiDate = $('#multiDate');
