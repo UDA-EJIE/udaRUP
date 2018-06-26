@@ -73,7 +73,7 @@ var _reportsCopyData = function (dt, that, config)
 	var ctx = dt.settings()[0];
 	var info = dt.buttons.exportInfo(config);
 	var type;
-	var multiselection = DataTable.multiSelect.multiselection;
+	var multiselection = DataTable.multiselection;
 	var selectedAll = multiselection.selectedAll;
 	var deselectedIds = multiselection.deselectedIds;
 
@@ -203,7 +203,7 @@ var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, desele
 				$.each(selectedRows, function(key, value) {
 					var idPadre = value.id;
 					$.each(ctx.json.rows, function(key, value) {
-						if (value.id === idPadre) {
+						if (DataTable.Api().rupTable.getIdPk(value) === idPadre) {
 							exportData.push(value);
 						}
 					});

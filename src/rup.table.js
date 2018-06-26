@@ -11163,7 +11163,7 @@ var xmlJsonClass = {
 						grp.counters =[];
 						for(i=0;i<grp.groupField.length;i++) {
 							if(!grp.groupOrder[i]) {
-								grp.groupOrder[i] = 'asc';
+								grp.groupOrder[i] = '';
 							}
 							if(!grp.groupText[i]) {
 								grp.groupText[i] = '{0}';
@@ -13368,10 +13368,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name reloadGrid
      * @function
      * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
+     * @param {boolean} notSelect - Indica si debe seleccionar el primer elemento o no.
      * @example
      * $("#idComponente").rup_table("reloadGrid", true);
      */
-		reloadGrid: function (async) {
+		reloadGrid: function (async, notSelect) {
 			var $self = this,
 				settings = $self.data('settings'),
 				page = $self.rup_table('getGridParam', 'page');
@@ -13391,8 +13392,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$self.jqGrid('setGridParam', {
 				ajaxGridOptions: ajaxOptions
 			});
-			var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
-			$self.jqGrid('setSelection', nextPagePos[1][0]);
+			if(!notSelect){
+				var nextPagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
+				$self.jqGrid('setSelection', nextPagePos[1][0]);
+			}
 		},
 		/**
      * Resetea el formulario indicado.
@@ -19808,8 +19811,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
-					callback: function(key, options){
-						$self.rup_table('saveRow');
+					callback: function(){
+						//$self.rup_table('saveRow');
 					}
 				},
 				'clone': {
