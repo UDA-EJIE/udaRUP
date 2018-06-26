@@ -256,10 +256,20 @@ describe('Test Form', () => {
 				});
 			});
 			describe('Método ajaxFormSubmit >',() => {
+				var res;
 				beforeEach(() => {
-					$formAlt.rup_form('ajaxFormSubmit');
+					res = undefined;
+					$formAlt.rup_form('ajaxFormSubmit', {
+						url:'http://localhost:8081/demo/nora',
+						type:'POST',
+						success: (data) => {console.info(data);res = data;done();},
+						error: (data) => {console.info(data);res = data;done();}
+					});
 				});
-				it('La llamada Ajax debe tener éxito', () => {
+				it('La llamada debe tener éxito:', () => {
+					expect(res.status).toBe(200);
+				});
+				it('Debe mostrar el feedBack:', () => {
 					let padre = $('#feedbackMensajes');
 					expect($('span.rup-feedback-icon', padre).length).toBe(1);
 					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
