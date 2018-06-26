@@ -118,61 +118,119 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                 </form>';
 
 function configurar() {
-    $('#feedbackMensajes').rup_feedback({
-        type: 'ok',
-        closeLink: true,
-        delay: 1000,
-        fadeSpeed: 500,
-         block:true
-    });
-    $('#sexo').rup_combo({
-        source : [
-            {i18nCaption: 'masculino', value:'M'},
-            {i18nCaption: 'femenino', value:'F'}
-        ],
-        i18nId:'sexo'
-    });
-    $('#pais').rup_combo({
-        source : webRoot + 'demo/nora/pais',
-        sourceParam : {label:'dsO', value:'id'},
-        blank : '0'
-    });
-    $('#autonomia').rup_combo({
-        source : webRoot + 'demo/nora/autonomia',
-        sourceParam : {label:'dsO', value:'id'},
-        width : 400,
-        blank : ''
-    });
-    $('#provincia').rup_combo({
-        parent: ['autonomia'],
-        source : webRoot + 'demo/nora/provincia',
-        firstLoad:[{'value':'01','label':'Alava/Araba'},{'value':'20','label':'Gipuzkoa'},{'value':'48','label':'Bizkaia'}],
-        sourceParam : {label:'dsO', value:'id'},
-        width : 300,
-        blank : ''
+	$('#feedbackMensajes').rup_feedback({
+		type: 'ok',
+		closeLink: true,
+		delay: 1000,
+		fadeSpeed: 500,
+		block: true
 	});
-	let sourceJson = [
-		{i18nCaption: 'ab', value: 'ab_value'},
-		{i18nCaption: 'tc', value: 'tc_value'},
-		{i18nCaption: 'ud', value: 'ud_value'},
-		{i18nCaption: 'le', value: 'le_value'},
-		{i18nCaption: 'af', value: 'af_value'},
-		{i18nCaption: 'mg', value: 'mg_value'},
-		{i18nCaption: 'ah', value: 'ah_value'},
-		{i18nCaption: 'ui', value: 'ui_value'},
-		{i18nCaption: 'uj', value: 'uj_value'},
-		{i18nCaption: 'ak', value: 'ak_value'}
+	$('#sexo').rup_combo({
+		source: [{
+				i18nCaption: 'masculino',
+				value: 'M'
+			},
+			{
+				i18nCaption: 'femenino',
+				value: 'F'
+			}
+		],
+		i18nId: 'sexo'
+	});
+	$('#pais').rup_combo({
+		source: webRoot + 'demo/nora/pais',
+		sourceParam: {
+			label: 'dsO',
+			value: 'id'
+		},
+		blank: '0'
+	});
+	$('#autonomia').rup_combo({
+		source: webRoot + 'demo/nora/autonomia',
+		sourceParam: {
+			label: 'dsO',
+			value: 'id'
+		},
+		width: 400,
+		blank: ''
+	});
+	$('#provincia').rup_combo({
+		parent: ['autonomia'],
+		source: webRoot + 'demo/nora/provincia',
+		firstLoad: [{
+			'value': '01',
+			'label': 'Alava/Araba'
+		}, {
+			'value': '20',
+			'label': 'Gipuzkoa'
+		}, {
+			'value': '48',
+			'label': 'Bizkaia'
+		}],
+		sourceParam: {
+			label: 'dsO',
+			value: 'id'
+		},
+		width: 300,
+		blank: ''
+	});
+	let sourceJson = [{
+			i18nCaption: 'ab',
+			value: 'ab_value'
+		},
+		{
+			i18nCaption: 'tc',
+			value: 'tc_value'
+		},
+		{
+			i18nCaption: 'ud',
+			value: 'ud_value'
+		},
+		{
+			i18nCaption: 'le',
+			value: 'le_value'
+		},
+		{
+			i18nCaption: 'af',
+			value: 'af_value'
+		},
+		{
+			i18nCaption: 'mg',
+			value: 'mg_value'
+		},
+		{
+			i18nCaption: 'ah',
+			value: 'ah_value'
+		},
+		{
+			i18nCaption: 'ui',
+			value: 'ui_value'
+		},
+		{
+			i18nCaption: 'uj',
+			value: 'uj_value'
+		},
+		{
+			i18nCaption: 'ak',
+			value: 'ak_value'
+		}
 	]
-    $('#municipio').rup_autocomplete({
-        source : sourceJson,
-        sourceParam : {label:'dsO', value:'id'},
-        minLength: 4
-    });
-    $('#calle').rup_autocomplete({
-        source : sourceJson,
-        sourceParam : {label:'dsO', value:'id'},
-        minLength: 4
-    });
+	$('#municipio').rup_autocomplete({
+		source: sourceJson,
+		sourceParam: {
+			label: 'dsO',
+			value: 'id'
+		},
+		minLength: 4
+	});
+	$('#calle').rup_autocomplete({
+		source: sourceJson,
+		sourceParam: {
+			label: 'dsO',
+			value: 'id'
+		},
+		minLength: 4
+	});
 }
 /**XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -185,15 +243,17 @@ describe('Test Form', () => {
 		configurar();
 		var opts = {};
 		var optsAlt = {
-			url:'http://localhost:8081/demo/nora',
-			type:'POST',
-			feedback:$('#feedbackMensajes'),
-			success:function(xhr){
-				$('#feedback').rup_feedback('set',$.rup_utils.printMsg(jQuery.toJSON(xhr)),'ok');
+			url: 'http://localhost:8081/demo/nora',
+			type: 'POST',
+			feedback: $('#feedbackMensajes'),
+			success: function (xhr) {
+				$('#feedback').rup_feedback('set', $.rup_utils.printMsg(jQuery.toJSON(xhr)), 'ok');
 			},
-			validate:{
-				rules:{
-					'nombre':{required:true}
+			validate: {
+				rules: {
+					'nombre': {
+						required: true
+					}
 				}
 			}
 		};
@@ -206,7 +266,7 @@ describe('Test Form', () => {
 	afterEach(() => {
 		$('body').html('');
 	});
-  	describe('Creación > ', () => {
+	describe('Creación > ', () => {
 		describe('Form por defecto > ', () => {
 			it('Debe tener la clase de rup_form', () => {
 				expect($form).toHaveClass('rup_form');
@@ -231,73 +291,83 @@ describe('Test Form', () => {
 	describe('Métodos públicos >', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
-			describe('Método ajaxSubmit >', (done) => {
+			describe('Método ajaxSubmit >', () => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxSubmit', {
-						url:'http://localhost:8081/demo/nora',
-						type:'POST',
-						success: (data) => {console.info(data);res = data;},
-						error: (data) => {console.info(data);res = data;},
-						complete: () => {done();}
+						url: 'http://localhost:8081/demo/nora',
+						type: 'POST',
+						success: (data) => {},
+						error: (data) => {},
+						complete: (data) => {
+							console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+							res = data;
+							done();
+						}
 					});
 				});
-				it('La llamada debe tener éxito:', () => {
-					console.info(res);
+				it('La llamada debe tener éxito:', (done) => {
 					expect(res.status).toBe(200);
+					done();
 				});
-				it('Debe mostrar feedback', () => {
+				it('Debe mostrar feedback', (done) => {
 					let padre = $('#feedbackMensajes');
 					expect($('span.rup-feedback-icon', padre).length).toBe(1);
 					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
 					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
 					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
-
+					done();
 				});
 			});
-			describe('Método ajaxFormSubmit >',() => {
+			describe('Método ajaxFormSubmit >', () => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxFormSubmit', {
-						url:'http://localhost:8081/demo/nora',
-						type:'POST',
-						success: (data) => {console.info(data);res = data;},
-						error: (data) => {console.info(data);res = data;},
-						complete:() => { done();}
+						url: 'http://localhost:8081/demo/nora',
+						type: 'POST',
+						success: (data) => {},
+						error: (data) => {},
+						complete: () => {
+							console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+							res = data;
+							done();
+						}
 					});
 				});
-				it('La llamada debe tener éxito:', () => {
+				it('La llamada debe tener éxito:', (done) => {
 					expect(res.status).toBe(200);
+					done();
 				});
-				it('Debe mostrar el feedBack:', () => {
+				it('Debe mostrar el feedBack:', (done) => {
 					let padre = $('#feedbackMensajes');
 					expect($('span.rup-feedback-icon', padre).length).toBe(1);
 					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
 					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
 					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
+					done();
 				});
 			});
 		});
 		describe('Método formSerialize >', () => {
 			describe('Form por defecto > ', () => {
-				it('Debe devolver un string con los datos',() => {
+				it('Debe devolver un string con los datos', () => {
 					let out = 'input1=txt1&input2=txt2&input3=opt1';
 					expect($form.rup_form('formSerialize')).toBe(out);
 				});
 			});
 			describe('Form alternativo > ', () => {
-				it('Debe devolver un string con los datos',() => {
+				it('Debe devolver un string con los datos', () => {
 					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
-					'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-					'&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
+						'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+						'&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
 					expect($formAlt.rup_form('formSerialize')).toBe(out);
 				});
 			});
-			
+
 		});
-		describe('Método fieldSerialize >',() => {
+		describe('Método fieldSerialize >', () => {
 			describe('Form por defecto > ', () => {
 				it('Debe devolver un string con los datos de los fields', () => {
 					let out = 'input1=txt1&input2=txt2';
@@ -307,8 +377,8 @@ describe('Test Form', () => {
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos de los fields:', () => {
 					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=' +
-					'&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-					'&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
+						'&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+						'&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
 					expect($('input', $formAlt).rup_form('fieldSerialize')).toBe(out);
 				});
 			});
@@ -325,7 +395,7 @@ describe('Test Form', () => {
 					let out = [
 						"pop", "", "", "", "", "", "",
 						"", "", "", "", "", "", "", ""
-					  ];
+					];
 					expect($('input', $formAlt).rup_form('fieldValue')).toEqual(out);
 				});
 			});
@@ -333,7 +403,11 @@ describe('Test Form', () => {
 		describe('Método formToJson', () => {
 			describe('Form por defecto > ', () => {
 				it('Debe devolver los datos en un string en formato Json', () => {
-					let out = {input1:'txt1', input2:'txt2', input3:'opt1'};
+					let out = {
+						input1: 'txt1',
+						input2: 'txt2',
+						input3: 'opt1'
+					};
 					expect($form.rup_form('formToJson')).toEqual(out);
 				});
 			});
@@ -342,7 +416,7 @@ describe('Test Form', () => {
 					let out = {
 						"nombre": "pop",
 						"sexo": "F"
-					  };
+					};
 					expect($formAlt.rup_form('formToJson')).toEqual(out);
 				});
 			});
