@@ -60,6 +60,12 @@ describe('Test Date > ', () => {
         if($multiDate.hasClass('hasDatepicker')) {
             $multiDate.rup_date('destroy');
         }
+        if($('#desde').hasClass('hasDatepicker')) {
+            $multiDate.rup_date('destroy');
+        }
+        if($('#hasta').hasClass('hasDatepicker')) {
+            $multiDate.rup_date('destroy');
+        }
         $('#content').html('');
         $('#content').nextAll().remove();
     });
@@ -104,6 +110,12 @@ describe('Test Date > ', () => {
             });
             it('Debe tener los select para cambiar mes y año:', () => {
                 expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+            });
+        });
+        describe('Date desde-hasta', () => {
+            it('Deben tener la clase del datepicker', () => {
+                expect($('#desde').hasClass('hasDatepicker')).toBeTruthy();
+                expect($('#hasta').hasClass('hasDatepicker')).toBeTruthy();
             });
         });
     });
