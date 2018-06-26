@@ -1,18 +1,24 @@
-/*!
- * Copyright 2018 E.J.I.E., S.A.
- *
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
- *
- *      http://ec.europa.eu/idabc/eupl.html
- *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- */
+/**
+  * Encargado de aplicar la propiedad sticky a los componentes
+  *
+  * @summary 		Componente RUP Sticky
+  * @module			"rup.sticky"
+  * @version     1.0.0
+  * @license
+  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+  * Solo podrá usarse esta obra si se respeta la Licencia.
+  * Puede obtenerse una copia de la Licencia en
+  *
+  *      http://ec.europa.eu/idabc/eupl.html
+  *
+  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+  * que establece la Licencia.
+  * @copyright   Copyright 2018 E.J.I.E., S.A.
+  *
+  */
 
 /*global define */
 /*global jQuery */
@@ -43,10 +49,13 @@
 	//*******************************
 	$.fn.rup_sticky('extend',{
 		/**
-         * Gestiona las inicializaciones de componentes en modo 'sticky'
-         *
-         * @function stickyManager
-         */
+	    * Gestiona las inicializaciones de componentes en modo 'sticky'
+	    *
+	    * @name stickyManager
+  		* @function
+  		* @since UDA 3.3.0 // Sticky 1.0.0
+			*
+	    */
 		stickyManager: function() {
 			var self = this;
 			var settings = $.extend({}, $.fn.rup_sticky.defaults);
@@ -68,8 +77,11 @@
 	$.fn.rup_sticky('extend',{
 		/**
 			* Aplica el modo 'sticky' al navbar
-			* @function _navbarSticky
-			* @private
+			*
+	    * @name _navbarSticky
+  		* @function
+  		* @since UDA 3.3.0 // Sticky 1.0.0
+			*
 			*/
 		_navbarSticky() {
 			var changed = false;
@@ -104,8 +116,11 @@
 		},
 		/**
 			* Aplica el modo 'sticky' al menu del wizard
-			* @function _wizardSticky
-			* @private
+			*
+	    * @name _wizardSticky
+  		* @function
+  		* @since UDA 3.3.0 // Sticky 1.0.0
+			*
 			*/
 		_wizardSticky() {
 			var headerOuterHeight = $('header').outerHeight();
