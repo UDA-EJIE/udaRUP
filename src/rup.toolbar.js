@@ -183,13 +183,13 @@
 				actualMB = this.id;
 
 			if (showingMB === actualMB) {
-				$('[id=\'mbutton_' + actualMB + '\']').slideUp('fast');
+				$("ul[id*='" + showingMB + "']").slideUp('fast');
 				self.removeClass('rup-toolbar_menuButtonSlided');
 				showingMB = null;
 				//Se pulsa sobre otro elemento
 			} else {
-				$('[id=\'mbutton_' + showingMB + '\']').slideUp('fast');
-				$('[id=\'mbutton_' + actualMB + '\']').css('position', 'absolute').css('top', top).css('left', self.offset().left).slideDown('fast');
+				$("ul[id*='" + showingMB + "']").slideUp('fast');
+				$("ul[id*='" + actualMB + "']").slideDown('fast');
 				$('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
 				self.addClass('rup-toolbar_menuButtonSlided');
 				showingMB = actualMB;
@@ -323,7 +323,7 @@
 
 	$.rup_toolbar.hideMButtons = function () {
 		var showingMB = $.rup_toolbar.showingMB;
-		$('[id=\'mbutton_' + showingMB + '\']').slideUp('fast');
+		$("ul[id*='" + showingMB + "']").slideUp('fast');
 		$('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
 		showingMB = null;
 		$.rup_toolbar.showingMB = showingMB;
@@ -362,7 +362,7 @@
 			}
 
 			//Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
-			$(document).click($.rup_toolbar.hideMButtons);
+			$(document).add("ul li").on('click', $.rup_toolbar.hideMButtons);
 			//Botones
 			for (var i = 0; i < settings.buttons.length; i += 1) {
 				var obj = settings.buttons[i];
