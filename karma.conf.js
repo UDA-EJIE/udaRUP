@@ -204,7 +204,6 @@ module.exports = function(config) {
     				'jquery.ui.widget': 'jquery-ui/widget.js',
     				'tmpl': 'blueimp-tmpl/js/tmpl.js',
 
-    				'bt3':  path.resolve(__dirname, '../dist/js/externals/bt3.min.js'),
     				'bt4':  path.resolve(__dirname, '../dist/js/externals/bt4.min.js'),
 
     				'templates':  path.resolve(__dirname, 'templates.js')
