@@ -14,8 +14,14 @@
  * que establece la Licencia.
  */
 
-/*global define */
-/*global jQuery */
+/**
+ * Ccomponente de list.
+ *
+ * @summary Componente RUP List.
+ * @module rup_list
+ *
+ * $("#idList").rup_list(properties);
+ */
 
 ( function( factory ) {
 	if ( typeof define === 'function' && define.amd ) {
