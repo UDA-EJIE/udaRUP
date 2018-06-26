@@ -231,15 +231,16 @@ describe('Test Form', () => {
 	describe('Métodos públicos >', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
-			describe('Método ajaxSubmit >', () => {
+			describe('Método ajaxSubmit >', (done) => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxSubmit', {
 						url:'http://localhost:8081/demo/nora',
 						type:'POST',
-						success: (data) => {console.info(data);res = data;done();},
-						error: (data) => {console.info(data);res = data;done();}
+						success: (data) => {console.info(data);res = data;},
+						error: (data) => {console.info(data);res = data;},
+						complete: () => {done();}
 					});
 				});
 				it('La llamada debe tener éxito:', () => {
@@ -257,13 +258,14 @@ describe('Test Form', () => {
 			});
 			describe('Método ajaxFormSubmit >',() => {
 				var res;
-				beforeEach(() => {
+				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxFormSubmit', {
 						url:'http://localhost:8081/demo/nora',
 						type:'POST',
-						success: (data) => {console.info(data);res = data;done();},
-						error: (data) => {console.info(data);res = data;done();}
+						success: (data) => {console.info(data);res = data;},
+						error: (data) => {console.info(data);res = data;},
+						complete:() => { done();}
 					});
 				});
 				it('La llamada debe tener éxito:', () => {
