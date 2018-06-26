@@ -25,15 +25,24 @@ describe('Test Combo > ', () => {
 			it('Debe tener el valor por defecto: ', () => {
 				expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion2');
 			});
+			it('El valor se debe corresponder a getRupValue:', () => {
+				expect($combo.rup_combo('getRupValue')).toBe('2');
+			});
 		});
 		describe('Combo padre >', () => {
 			it('Debe tener el valor por defecto: ', () => {
 				expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt1');
 			});
+			it('El valor se debe corresponder a getRupValue:', () => {
+				expect($comboPadre.rup_combo('getRupValue')).toBe('1');
+			});
 		});
 		describe('Combo hijo >', () => {
 			it('Debe tener el valor por defecto: ', () => {
 				expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt11');
+			});
+			it('El valor se debe corresponder a getRupValue:', () => {
+				expect($comboHijo.rup_combo('getRupValue')).toBe('1.1');
 			});
 		});
 		describe('Combo multiple >', () => {
@@ -45,13 +54,19 @@ describe('Test Combo > ', () => {
 				let checked = $('#rup-multiCombo_comboMulti > ul > li > label > input:checked');
 				expect(checked.length).toBe(1);
 			});
+			it('El valor se debe corresponder a getRupValue:', () => {
+				expect($comboMulti.rup_combo('getRupValue')).toEqual(["2"]);
+			});
 		});
 		describe('Combo optGroup', () => {
 			it('Debe tener el valor por defecto:', () => {
-				expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
+				expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt21');
 			});
 			it('El combo debe disponer de 2 optGroups:', () => {
 				expect($('optgroup',$comboGroup).length).toBe(2);
+			});
+			it('El valor se debe corresponder a getRupValue:', () => {
+				expect($comboGroup.rup_combo('getRupValue')).toBe('2.1');
 			});
 		});
 	});
