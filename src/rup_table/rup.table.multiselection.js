@@ -848,6 +848,10 @@
 					$self.rup_table('updateSelectedRowNumber');
 				},
 				'rupTable_beforeAddRow.multiselection': function (event, addCloneOptions) {
+					// Si la edición en línea no está activada, no comprobamos los elementos seleccionados y devolvemos true
+					if ($self[0].p.inlineEdit) {
+						return true;
+					}
 					$self._checkSelectedElements(function () {
 						$self.jqGrid('editGridRow', 'new', addCloneOptions);
 						$self.rup_table('resetSelection');
