@@ -21,7 +21,7 @@
  * @module rup_breadCrumb
  * @example
  * var properties = {
- *   logOutUrl: "/x21aPilotoPatronesWar/logout",
+ *   logOutUrl: "/x21aAppWar/logout",
  *   breadCrumb: {
  *       "patrones" : {
  *           // Literal
@@ -30,8 +30,8 @@
  *		    "grid" : { "i18nCaption" : "grid" },
  *		    // Submenu
  *		    "subLevel":[
- *			   {"i18nCaption":"all", "url": "/x21aPilotoPatronesWar/patrones/all" },
- *			   {"i18nCaption":"accordion", "url": "/x21aPilotoPatronesWar/patrones/accordion" }
+ *			   {"i18nCaption":"all", "url": "/x21aAppWar/patrones/all" },
+ *			   {"i18nCaption":"accordion", "url": "/x21aAppWar/patrones/accordion" }
  *		    ]
  *	     },
  *	     "experimental" : {
@@ -42,7 +42,7 @@
  *        }
  *	}
  * };
- * jQuery("#x21aPilotoPatronesWar_migas").rup_breadCrumb(properties);
+ * jQuery("#x21aAppWar_migas").rup_breadCrumb(properties);
  */
 
 /*global define */

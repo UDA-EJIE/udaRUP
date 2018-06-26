@@ -64,7 +64,7 @@ define(['marionette',
 			noWeekend: true,
 			mask: 'dd/mm/yyyy hh:mm',
 			showSecond: false,
-			dateFormat: 'dd/mm/yyyy',
+			dateFormat: 'dd/mm/yy',
 			timeFormat: 'hh:mm',
 			onSelect: function () {
 				/*alert("La fecha seleccionada es: " + selectedDate);*/
