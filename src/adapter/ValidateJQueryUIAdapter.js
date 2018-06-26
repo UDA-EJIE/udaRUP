@@ -18,6 +18,10 @@
 	}
 
 	ValidateJQueryUIAdapter.prototype.NAME = 'validate_jqueryui';
+	
+	ValidateJQueryUIAdapter.prototype.forTextElement = function (fieldTmp, labelForName) {
+		return fieldTmp.parent().find('label[for=\'' + labelForName + '\']').text();
+	};
 
 	ValidateJQueryUIAdapter.prototype.forNameElement = function (fieldTmp, labelForName) {
 		return fieldTmp.parent().find('label[for=\'' + labelForName + '\']');

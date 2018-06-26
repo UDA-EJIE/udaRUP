@@ -317,8 +317,8 @@
          * @param {string} cadena - Cadena de caracteres inicial.
          * @returns {string} - Cadena de caracteres sin accentFolding.
          * @example
-         * // Convierte los caracteres de la cadena "áéíóu" -> "áeiou"
-         * $.rup_utils.normalize"áéíóu");
+         * // Convierte los caracteres de la cadena "áéíóu" -> "aeiou"
+         * $.rup_utils.normalize("áéíóu");
          */
 		normalize: function (texto) {
 			var accentMap = {
