@@ -271,7 +271,8 @@
 						idTab: args.idTab,
 						url: args.idNewTab,
 						label: args.label,
-						position: args.position
+						position: args.position,
+						orientation: args.orientation
 					});
 					$(auxTabName).remove();
 				} else {
@@ -288,7 +289,8 @@
 					idTab: args.idTab,
 					url: args.layer,
 					label: args.label,
-					position: args.position
+					position: args.position,
+					orientation: args.orientation
 				});
 				$.each($('#' + args.idTab + ' div[id*=\'' + nameLiteral + '\']'), function (index, object) {
 					if (insertIndex < parseFloat(object.id.split(nameLiteral)[1])) {
@@ -303,7 +305,8 @@
 					idTab: args.idTab,
 					url: $.rup_utils.setNoPortalParam(args.url),
 					label: args.label,
-					position: args.position
+					position: args.position,
+					orientation: args.orientation
 				});
 				$.each($('#' + args.idTab + ' div[id*=\'' + nameLiteral + '\']'), function (index, object) {
 					if (insertIndex < parseFloat(object.id.split(nameLiteral)[1])) {
@@ -326,10 +329,19 @@
 				loadLi = $('#' + args.idTab + ' ul li:last').not('.rup-tabs_loading');
 				loadLi.removeClass('ui-corner-top').addClass('ui-corner-botttom');
 			}
-
-			loadSpan = $('#' + args.idTab + ' ul li a span:last').not('.rup-tabs_loading');
+			
+			var pos = args.position;
+			if(args.orientation !== undefined){
+				pos = pos-1;
+			}
+			var loadSpan = $('#' + args.idTab + ' ul li a:eq('+pos+')');
 			if (args.close === true) {
-				loadSpan.parent().append($('<div>').addClass('rup-tabs_title').text($.rup.i18nParse($.rup.i18n.app[$(this).attr('id')], args.label)))
+				loadSpan.text('');
+				var texto = $.rup.i18nParse($.rup.i18n.app[$(this).attr('id')], args.label);
+				if(args.label !== undefined && args.label !== ''){
+					texto = args.label;
+				}
+				loadSpan.append($('<div>').addClass('rup-tabs_title').text(texto))
 					.append($('<span>').addClass('rup-tabs_loading'))
 					.append('<span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>');
 
@@ -364,7 +376,7 @@
 
 
 
-			loadSpan.remove();
+			//loadSpan.remove();
 
 
 		},
@@ -1091,7 +1103,11 @@
 
 
 			var previousTab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + (args.position - 1) + ')');
-			$('<li><a href=\'' + args.url + '\'>' + args.label + '</a></li>').insertBefore(previousTab);
+			if(args.orientation !== undefined){
+				$('<li><a href=\'' + args.url + '\'>' + args.label + '</a></li>').insertBefore(previousTab);
+			}else{
+				$('<li><a href=\'' + args.url + '\'>' + args.label + '</a></li>').insertAfter(previousTab);
+			}
 
 			$('#' + args.idTab).tabs('refresh');
 		},
