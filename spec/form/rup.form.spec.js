@@ -302,7 +302,7 @@ describe('Test Form', () => {
 						success: (data) => {},
 						error: (data) => {},
 						complete: (data) => {
-							console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+							// console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
 							res = data;
 							done();
 						}
@@ -322,8 +322,8 @@ describe('Test Form', () => {
 						type: 'POST',
 						success: (data) => {},
 						error: (data) => {},
-						complete: () => {
-							console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+						complete: (data) => {
+							// console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
 							res = data;
 							done();
 						}
