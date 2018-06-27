@@ -1,6 +1,8 @@
-import 'jquery'
-import 'jasmine-jquery'
-import 'rup.spinner'
+/* jslint esnext: true, multistr: true */
+
+import 'jquery';
+import 'jasmine-jquery';
+import 'rup.spinner';
 
 describe('Test Spinner > ', () => {
     var $spinner;
