@@ -101,7 +101,7 @@ describe('Test Date > ', () => {
         describe('Date múltiple > ', () => {
             beforeEach(() => {
                 $multiDate.rup_date('show');
-            })
+            });
             it('Debe tener la clase del datepicker', () => {
                 expect($multiDate.hasClass('hasDatepicker')).toBe(true);
             });
@@ -237,7 +237,7 @@ describe('Test Date > ', () => {
                 it('No debe mostrarse el datepicker:', () => {
                     //Tal vez la versión de ejie eus sea distinta y en esta 
                     //solo cambie el opacity pero siga visible
-                    testTrace('body - html', $('body').html());
+                    // testTrace('body - html', $('body').html());
                     let test1 = $('#ui-datepicker-div').css('opacity') != 0;
                     let test2 = $('#ui-datepicker-div').is(':visible');
                     expect(test1 && test2).toBe(false);
