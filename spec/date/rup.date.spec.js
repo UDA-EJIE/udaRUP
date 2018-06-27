@@ -61,10 +61,10 @@ describe('Test Date > ', () => {
             $multiDate.rup_date('destroy');
         }
         if($('#desde').hasClass('hasDatepicker')) {
-            $multiDate.rup_date('destroy');
+            $('#desde').rup_date('destroy');
         }
         if($('#hasta').hasClass('hasDatepicker')) {
-            $multiDate.rup_date('destroy');
+            $('#hasta').rup_date('destroy');
         }
         $('#content').html('');
         $('#content').nextAll().remove();
@@ -145,6 +145,35 @@ describe('Test Date > ', () => {
                     expect($multiDate.rup_date('getRupValue')).toBe('08/08/2018,09/08/2018');
                 });
             });
+            describe('Date desde-hasta > ', () => {
+                beforeEach(() => {
+                    $('#desde').rup_date('setRupValue', '03/08/2018');
+                    $('#hasta').rup_date('setRupValue', '28/08/2018');
+                });
+                describe('Se comprueba que los cambios aparecen en getRupValue > ', () => {
+                    it('getRupValue desde:', () => {
+                        expect($('#desde').rup_date('getRupValue')).toBe('03/08/2018');
+                    });
+                    it('getRupValue hasta:', () => {
+                        expect($('#hasta').rup_date('getRupValue')).toBe('28/08/2018');
+                    });
+                });
+                describe('Se comprueba la funcionalidad propia del desde-hasta > ', () => {
+                    it('En desde los valores mas allá de hasta deben estar deshabilitados:', () => {
+                        $('#desde').rup_date('show');
+                        let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
+                        expect($('span:contains(29)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
+                        expect($('span:contains(30)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
+                        expect($('span:contains(31)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
+                    });
+                    it('En hasta los valores antes de desde deben estar deshabilitados:', () => {
+                        $('#desde').rup_date('show');
+                        let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
+                        expect($('span:contains(1)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
+                        expect($('span:contains(2)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
+                    });
+                });
+            });
         });
         describe('Método show > ', () => {
             describe('Date normal > ', () => {
@@ -178,6 +207,24 @@ describe('Test Date > ', () => {
                 });
                 it('Debe tener los select para cambiar mes y año:', () => {
                     expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+                });
+            });
+            describe('Date desde-hasta > ',() => {
+                describe('Date desde > ', () => {
+                    beforeEach(() => {
+                        $('#desde').rup_date('show');
+                    });
+                    it('Debe mostrarse:', () => {
+                        expect($('#ui-datepicker-div').is(':visible')).toBe(true);
+                    });
+                });
+                describe('Date hasta > ', () => {
+                    beforeEach(() => {
+                        $('#hasta').rup_date('show');
+                    });
+                    it('Debe mostrarse:', () => {
+                        expect($('#ui-datepicker-div').is(':visible')).toBe(true);
+                    });
                 });
             });
         });
@@ -218,6 +265,30 @@ describe('Test Date > ', () => {
                     expect(test1 && test2).toBe(false);
                 });
             });
+            describe('Date desde-hasta > ',() => {
+                describe('Date desde > ', () => {
+                    beforeEach(() => {
+                        $('#desde').rup_date('show');
+                        $('#desde').rup_date('hide');
+                    });
+                    it('No debe mostrarse:', () => {
+                        let test1 = $('#ui-datepicker-div').css('opacity') != 0;
+                        let test2 = $('#ui-datepicker-div').is(':visible');
+                        expect(test1 && test2).toBe(false);
+                    });
+                });
+                describe('Date hasta > ', () => {
+                    beforeEach(() => {
+                        $('#hasta').rup_date('show');
+                        $('#hasta').rup_date('hide');
+                    });
+                    it('No debe mostrarse:', () => {
+                        let test1 = $('#ui-datepicker-div').css('opacity') != 0;
+                        let test2 = $('#ui-datepicker-div').is(':visible');
+                        expect(test1 && test2).toBe(false);
+                    });
+                });
+            });
         });
         describe('Métodos setDate y getDate > ', () => {
             describe('Date normal > ', () => {
@@ -250,6 +321,16 @@ describe('Test Date > ', () => {
                 });
                 it('Debe modificar la UI:', () => {
                     expect($multiDate.val()).toBe('06/02/1995,07/02/1995');
+                });
+            });
+            describe('Date desde-hasta', () => {
+                beforeEach(() => {
+                    $('#desde').rup_date('setDate', '03/08/2018');
+                    $('#hasta').rup_date('setDate', '28/08/2018');
+                });
+                it('Debe actualizar la ui:', () => {
+                    expect($('#desde').val()).toBe('03/08/2018');
+                    expect($('#hasta').val()).toBe('28/08/2018');
                 });
             });
         });
@@ -290,6 +371,30 @@ describe('Test Date > ', () => {
                     expect($multiDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
                 });
             });
+            describe('Date desde-hasta > ', () => {
+                describe('Date desde > ', () => {
+                    beforeEach(() => {
+                        $('#desde').rup_date('option', 'currentText', 'Tururu');
+                        $('#desde').rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
+                    });
+                    it('Debe cambiar el valor:', () => {
+                        expect($('#desde').rup_date('option', 'currentText')).toBe('Tururu');
+                        expect($('#desde').rup_date('option', 'minDate')).toBe('01/01/1900');
+                        expect($('#desde').rup_date('option', 'maxDate')).toBe('01/01/2200');
+                    });
+                });
+                describe('Date hasta > ', () => {
+                    beforeEach(() => {
+                        $('#hasta').rup_date('option', 'currentText', 'Tururu');
+                        $('#hasta').rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
+                    });
+                    it('Debe cambiar el valor:', () => {
+                        expect($('#hasta').rup_date('option', 'currentText')).toBe('Tururu');
+                        expect($('#hasta').rup_date('option', 'minDate')).toBe('01/01/1900');
+                        expect($('#hasta').rup_date('option', 'maxDate')).toBe('01/01/2200');
+                    });
+                });
+            });
         });
         describe('Método disable e isDisabled > ', () => {
             describe('Date normal > ', () => {
@@ -323,6 +428,20 @@ describe('Test Date > ', () => {
                 });
                 it('Debe reflejarse en isDisabled:', () => {
                     expect($multiDate.rup_date('isDisabled')).toBe(true);
+                });
+            });
+            describe('Date desde-hasta > ', () => {
+                beforeEach(() => {
+                    $('#desde').rup_date('disable');
+                    $('#hasta').rup_date('disable');
+                });
+                it('Debe marcarse como deshabilitada', () => {
+                    expect($('#desde').attr('disabled')).toBe('disabled');
+                    expect($('#hasta').attr('disabled')).toBe('disabled');
+                });
+                it('Debe reflejarse en isDisabled:', () => {
+                    expect($('#desde').rup_date('isDisabled')).toBe(true);
+                    expect($('#hasta').rup_date('isDisabled')).toBe(true);
                 });
             });
         });
@@ -363,6 +482,22 @@ describe('Test Date > ', () => {
                     expect($multiDate.rup_date('isDisabled')).toBe(false);
                 });
             });
+            describe('Date desde-hasta > ', () => {
+                beforeEach(() => {
+                    $('#desde').rup_date('disable');
+                    $('#hasta').rup_date('disable');
+                    $('#desde').rup_date('enable');
+                    $('#hasta').rup_date('enable');
+                });
+                it('Debe marcarse como deshabilitada', () => {
+                    expect($('#desde').attr('disabled')).toBe(undefined);
+                    expect($('#hasta').attr('disabled')).toBe(undefined);
+                });
+                it('Debe reflejarse en isDisabled:', () => {
+                    expect($('#desde').rup_date('isDisabled')).toBe(false);
+                    expect($('#hasta').rup_date('isDisabled')).toBe(false);
+                });
+            });
         });
         describe('Método destroy > ', () => {
             describe('Date normal > ', () => {
@@ -387,6 +522,16 @@ describe('Test Date > ', () => {
                 });
                 it('Debe retirarse elementos:', () => {
                     expect($('button',$multiDate.parent()).length).toBe(0);
+                });
+            });
+            describe('Date desde-hasta > ', () => {
+                beforeEach(() => {
+                    $('#desde').rup_date('destroy');
+                    $('#hasta').rup_date('destroy');
+                });
+                it('Debe retirarse elementos:', () => {
+                    expect($('button',$('#desde').parent()).length).toBe(0);
+                    expect($('button',$('#hasta').parent()).length).toBe(0);
                 });
             });
         });
