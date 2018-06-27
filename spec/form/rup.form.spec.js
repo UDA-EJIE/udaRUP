@@ -214,7 +214,7 @@ function configurar() {
 			i18nCaption: 'ak',
 			value: 'ak_value'
 		}
-	]
+	];
 	$('#municipio').rup_autocomplete({
 		source: sourceJson,
 		sourceParam: {
@@ -487,7 +487,7 @@ describe('Test Form', () => {
 			describe('Form por defecto > ', () => {
 				beforeEach(() => {
 					$form.rup_form('destroy');
-					$form.rup_form('clearForm')
+					$form.rup_form('clearForm');
 				});
 				it('No debe existir', () => {
 					expect($('#input1').val()).toBe('txt1');
@@ -498,7 +498,7 @@ describe('Test Form', () => {
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
 					$formAlt.rup_form('destroy');
-					$formAlt.rup_form('clearForm')
+					$formAlt.rup_form('clearForm');
 				});
 				it('No debe existir', () => {
 					expect($('#nombre').val()).toBe('pop');
