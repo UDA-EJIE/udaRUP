@@ -4,16 +4,25 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.spinner';
 
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
+
 describe('Test Spinner > ', () => {
     var $spinner;
     beforeEach(() => {
         var html = '<input id="exampleSpinner"></input>';
-        $('body').append(html);
+        $('#content').append(html);
         $('#exampleSpinner').rup_spinner();
         $spinner = $('#exampleSpinner');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creación > ', () => {
         it('Debe crearse > ', () => {
