@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.slider';
@@ -21,7 +23,12 @@ describe('Test Slider > ', () => {
     });
     describe('Creación > ', () => {
         it('Debe crear el slider', () => {
-            expect($slider.hasClass('rup-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content'))
+            expect($slider.hasClass('rup-slider') &&
+                    $slider.hasClass('ui-slider') &&
+                    $slider.hasClass('ui-corner-all') &&
+                    $slider.hasClass('ui-slider-horizontal') &&
+                    $slider.hasClass('ui-widget') &&
+                    $slider.hasClass('ui-widget-content'))
                 .toBe(true);
         });
         it('Debe crearse el icono arrastrable del slider', () => {
@@ -41,8 +48,10 @@ describe('Test Slider > ', () => {
             beforeEach(() => {
                 $slider.rup_slider('disable');
             });
-            it('Debe marcarse como deshabilitado',() => {
-                expect($slider.hasClass('ui-slider-disabled ui-state-disabled rup-slider-disabled'))
+            it('Debe marcarse como deshabilitado', () => {
+                expect($slider.hasClass('ui-slider-disabled') &&
+                        $slider.hasClass('ui-state-disabled') &&
+                        $slider.hasClass('rup-slider-disabled'))
                     .toBe(true);
             });
         });
@@ -51,8 +60,10 @@ describe('Test Slider > ', () => {
                 $slider.rup_slider('disable');
                 $slider.rup_slider('enable');
             });
-            it('Debe marcarse como deshabilitado',() => {
-                expect($slider.hasClass('ui-slider-disabled ui-state-disabled rup-slider-disabled'))
+            it('Debe marcarse como deshabilitado', () => {
+                expect($slider.hasClass('ui-slider-disabled') &&
+                        $slider.hasClass('ui-state-disabled') &&
+                        $slider.hasClass('rup-slider-disabled'))
                     .toBe(false);
             });
         });
@@ -84,7 +95,7 @@ describe('Test Slider > ', () => {
                     "start": null,
                     "stop": null,
                     "foobar": false
-                }
+                };
             });
             it('El valor de la propiedad debe cambiar', () => {
                 expect($slider.rup_slider('option', 'max')).toBe(400);
@@ -98,7 +109,11 @@ describe('Test Slider > ', () => {
                 $slider.rup_slider('destroy');
             });
             it('Debe desaparecer el slider', () => {
-                expect($slider.hasClass('rup-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content'))
+                expect($slider.hasClass('rup-slider') &&
+                        $slider.hasClass('ui-slider') &&
+                        $slider.hasClass('ui-corner-all') &&
+                        $slider.hasClass('ui-slider-horizontal') &&
+                        $slider.hasClass('ui-widget ui-widget-content'))
                     .toBe(false);
             });
             it('Debe desaparecer el icono arrastrable del slider', () => {
