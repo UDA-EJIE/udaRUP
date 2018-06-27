@@ -13,5 +13,5 @@ exports.provincia = function(req, res) {
   res.status(200).json(json);
 };
 exports.submit = (req, res) => {
-  res.status(200);
+  res.status(200).json({status:200, asd:'asd',dsa:'daa'});
 };

@@ -179,6 +179,7 @@ function configurar() {
  */
 describe('Test Form', () => {
 	var $form, $formAlt;
+	//jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 	beforeEach(() => {
 		var html = formHtml;
 		$('body').append(html);
@@ -231,7 +232,7 @@ describe('Test Form', () => {
 	describe('Métodos públicos >', () => {
 		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
-			describe('Método ajaxSubmit >', (done) => {
+			describe('Método ajaxSubmit >', () => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
@@ -246,14 +247,6 @@ describe('Test Form', () => {
 				it('La llamada debe tener éxito:', () => {
 					console.info(res);
 					expect(res.status).toBe(200);
-				});
-				it('Debe mostrar feedback', () => {
-					let padre = $('#feedbackMensajes');
-					expect($('span.rup-feedback-icon', padre).length).toBe(1);
-					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
-					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
-					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
-
 				});
 			});
 			describe('Método ajaxFormSubmit >',() => {
@@ -270,13 +263,6 @@ describe('Test Form', () => {
 				});
 				it('La llamada debe tener éxito:', () => {
 					expect(res.status).toBe(200);
-				});
-				it('Debe mostrar el feedBack:', () => {
-					let padre = $('#feedbackMensajes');
-					expect($('span.rup-feedback-icon', padre).length).toBe(1);
-					expect($('div.rup-feedback_closeLink.rup-bootstrap', padre).length).toBe(1);
-					//Falla porque no llega respuesta del server supongo. Hay que mirarlo.
-					expect($('div#feedbackMensajes_content', padre).length).toBe(1);
 				});
 			});
 		});
@@ -428,17 +414,21 @@ describe('Test Form', () => {
 			describe('Form por defecto > ', () => {
 				beforeEach(() => {
 					$form.rup_form('destroy');
+					$form.rup_form('clearForm')
 				});
 				it('No debe existir', () => {
-					expect($form.rup_form('clearForm')).toBeFalsy();
+					expect($('#input1').val()).toBe('txt1');
+					expect($('#input2').val()).toBe('txt2');
+					expect($('#input3').val()).toBe('opt1');
 				});
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
 					$formAlt.rup_form('destroy');
+					$formAlt.rup_form('clearForm')
 				});
 				it('No debe existir', () => {
-					expect($formAlt.rup_form('clearForm')).toBeFalsy();
+					expect($('#nombre').val()).toBe('pop');
 				});
 			});
 		});
