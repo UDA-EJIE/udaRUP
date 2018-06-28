@@ -151,7 +151,7 @@ describe('Test Combo > ', () => {
 				});
 				it('Debe actualizar la ui ', () => {
 					expect($('#comboPadre-button > span.ui-selectmenu-status').text())
-						.toBe($.rup.rup_combo.blankNotDefined);
+						.toBe($.rup.i18n.base.rup_combo.blankNotDefined);
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboPadre.rup_combo('getRupValue')).toEqual('0');
@@ -189,7 +189,7 @@ describe('Test Combo > ', () => {
 				});
 				it('Debe actualizar la ui:', () => {
 					expect($('#comboGroup-button > span.ui-selectmenu-status').text())
-						.toBe($.rup.rup_combo.blankNotDefined);
+						.toBe($.rup.i18n.base.rup_combo.blankNotDefined);
 				});
 				it('El método getRupValue debe devolver 0', () => {
 					expect($comboGroup.rup_combo('getRupValue')).toBe('0');
