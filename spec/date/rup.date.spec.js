@@ -191,6 +191,7 @@ function testDate(lang) {
                         it('En hasta los valores antes de desde deben estar deshabilitados:', () => {
                             $('#desde').rup_date('show');
                             let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
+                            testTrace('calendar', $('#ui-datepicker-div').html());
                             expect($('span:contains(1)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                             expect($('span:contains(2)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                         });
@@ -315,44 +316,96 @@ function testDate(lang) {
             describe('Métodos setDate y getDate > ', () => {
                 describe('Date normal > ', () => {
                     beforeEach(() => {
-                        $date.rup_date('setDate', '06/02/1995');
+                        if(lang === 'es') {
+                            $date.rup_date('setDate', '06/02/1995');
+                        }
+                        if(lang === 'eu') {
+                            $date.rup_date('setDate', '1995/02/06');
+                        }
                         console.info($.rup.lang);
                         console.info($date.rup_date('getDate'));
                     });
                     it('Debe cambiar en la UI:', () => {
-                        expect($date.val()).toBe('06/02/1995');
+                        if(lang === 'es') {
+                            expect($date.val()).toBe('06/02/1995');
+                        }
+                        if(lang === 'eu') {
+                            expect($date.val()).toBe('1995/02/06');
+                        }
                     });
                     it('Debe reflejarse en el método getDate:', () => {
-                        expect($date.rup_date('getDate')).toBe('06/02/1995');
+                        if(lang === 'es') {
+                            expect($date.rup_date('getDate')).toBe('06/02/1995');
+                        }
+                        if(lang === 'eu') {
+                            expect($date.rup_date('getDate')).toBe('1995/02/06');
+                        }
                     });
                 });
                 describe('Date alternativa > ', () => {
                     beforeEach(() => {
-                        $altDate.rup_date('setDate', '06/02/1995');
+                        if(lang === 'es') {
+                            $altDate.rup_date('setDate', '06/02/1995');
+                        }
+                        if(lang === 'eu'){
+                            $altDate.rup_date('setDate', '1995/02/06');
+                        }
                     });
                     it('Debe cambiar en la UI:', () => {
-                        expect($altDate.val()).toBe('06/02/1995 00:00');
+                        if(lang === 'es') {
+                            expect($altDate.val()).toBe('06/02/1995 00:00');
+                        }
+                        if(lang === 'eu') {
+                            expect($altDate.val()).toBe('1995/02/06 00:00');
+                        }
                     });
                     it('Debe reflejarse en el método getDate:', () => {
-                        expect($altDate.rup_date('getDate')).toBe('06/02/1995 00:00');
+                        if(lang === 'es') {
+                            expect($altDate.rup_date('getDate')).toBe('06/02/1995 00:00');
+                        }
+                        if(lang === 'eu') {
+                            expect($altDate.rup_date('getDate')).toBe('1995/02/06 00:00');
+                        }
                     });
                 });
                 describe('Date múltiple > ', () => {
                     beforeEach(() => {
-                        $multiDate.rup_date('setDate', ['06/02/1995','07/02/1995']);
+                        if(lang === 'es') {
+                            $multiDate.rup_date('setDate', ['06/02/1995','07/02/1995']);
+                        }
+                        if(lang === 'eu') {
+                            $multiDate.rup_date('setDate', ['1995/02/06','1995/02/07']);
+                        }
                     });
                     it('Debe modificar la UI:', () => {
-                        expect($multiDate.val()).toBe('06/02/1995,07/02/1995');
+                        if(lang === 'es') {
+                            expect($multiDate.val()).toBe('06/02/1995,07/02/1995');
+                        }
+                        if(lang === 'eu') {
+                            expect($multiDate.val()).toBe('1995/02/06,1995/02/07');
+                        }
                     });
                 });
                 describe('Date desde-hasta', () => {
                     beforeEach(() => {
-                        $('#desde').rup_date('setDate', '03/08/2018');
-                        $('#hasta').rup_date('setDate', '28/08/2018');
+                        if(lang === 'es') {
+                            $('#desde').rup_date('setDate', '03/08/2018');
+                            $('#hasta').rup_date('setDate', '28/08/2018');
+                        }
+                        if(lang === 'eu') {
+                            $('#desde').rup_date('setDate', '2018/08/03');
+                            $('#hasta').rup_date('setDate', '2018/08/28');
+                        }
                     });
                     it('Debe actualizar la ui:', () => {
-                        expect($('#desde').val()).toBe('03/08/2018');
-                        expect($('#hasta').val()).toBe('28/08/2018');
+                        if(lang === 'es') {
+                            expect($('#desde').val()).toBe('03/08/2018');
+                            expect($('#hasta').val()).toBe('28/08/2018');
+                        }
+                        if(lang === 'eu') {
+                            expect($('#desde').val()).toBe('2018/08/03');
+                            expect($('#hasta').val()).toBe('2018/08/28');
+                        }
                     });
                 });
             });
