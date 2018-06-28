@@ -212,7 +212,7 @@ function testDialogType(type) {
 				beforeEach(() => {
 					let btnObj = {text:'boton', click:() => {console.log('AAAAAAAAAAAA')}};
 					$dialogo.rup_dialog('createBtnLinks', btnObj , 'exampleDialogo');
-				})
+				});
 				it('Debe crear un enlace en el dialog:', () => {
 					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
 				});
