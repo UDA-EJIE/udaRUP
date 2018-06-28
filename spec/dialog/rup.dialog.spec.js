@@ -164,7 +164,7 @@ function testDialogType(type) {
 				});
 			});
 			describe('Método moveToTop > ', () => {
-				beforeEach((done) => {
+				beforeEach(() => {
 					let aux = '<div id="auxDialog"></div>';
 					$('body').append(aux);
 					let opts = {
@@ -178,7 +178,6 @@ function testDialogType(type) {
 					$('#auxDialog').rup_dialog(opts);
 					$('#auxDialog').rup_dialog('open');
 					$dialogo.rup_dialog('moveToTop');
-					done();
 				});
 				it('El dialog debe estar encima del aux:', () => {
 					//No hay Z-Index
@@ -212,6 +211,9 @@ function testDialogType(type) {
 				beforeEach(() => {
 					let btnObj = {text:'boton', click:() => {console.log('AAAAAAAAAAAA')}};
 					$dialogo.rup_dialog('createBtnLinks', btnObj , 'exampleDialogo');
+					$dialogo.rup_dialog('open');
+					console.info('============================================');
+					console.info('body', $('body').html());
 				});
 				it('Debe crear un enlace en el dialog:', () => {
 					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
