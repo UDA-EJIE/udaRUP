@@ -102,8 +102,9 @@ function testDialogType(type) {
 				if(type == $.rup.dialog.AJAX) {
 					console.info('************************************************************************************');
 					console.info($dialogo.parent());
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-						.length).toBe(1);
+					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
+					expect(selector.length).toBe(1);
+					expect(selector.hasClass('ui-resizable')).toBe(false);
 				}
 			});
 			it('El contenedor no debe ser visible:', () => {
@@ -163,7 +164,7 @@ function testDialogType(type) {
 				});
 			});
 			describe('Método moveToTop > ', () => {
-				beforeEach(() => {
+				beforeEach((done) => {
 					let aux = '<div id="auxDialog"></div>';
 					$('body').append(aux);
 					let opts = {
@@ -177,6 +178,7 @@ function testDialogType(type) {
 					$('#auxDialog').rup_dialog(opts);
 					$('#auxDialog').rup_dialog('open');
 					$dialogo.rup_dialog('moveToTop');
+					done();
 				});
 				it('El dialog debe estar encima del aux:', () => {
 					//No hay Z-Index
@@ -206,7 +208,15 @@ function testDialogType(type) {
 				});
 			});
 			// TODO: No entiendo el objetivo de este método
-			describe('Método createBtnLinks > ', () => {});
+			describe('Método createBtnLinks > ', () => {
+				beforeEach(() => {
+					let btnObj = {text:'boton', click:() => {console.log('AAAAAAAAAAAA')}};
+					$dialogo.rup_dialog('createBtnLinks', btnObj , 'exampleDialogo');
+				})
+				it('Debe crear un enlace en el dialog:', () => {
+					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
+				});
+			});
 		});
 	});
 }
