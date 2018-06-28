@@ -104,6 +104,11 @@ describe('Test Slider > ', () => {
                 expect($slider.rup_slider('option')).toEqual(objConf);
             });
         });
+        describe('Método  instance > ', () => {
+            it('Debe devolver el objeto de JQuery UI', () => {
+                expect($slider.rup_slider('instance')).not.toBe(undefined);
+            });
+        });
         describe('Método destroy > ', () => {
             beforeEach(() => {
                 $slider.rup_slider('destroy');
