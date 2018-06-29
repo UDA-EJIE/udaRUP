@@ -160,7 +160,7 @@ function testDate(lang) {
                         }
                     });
                     it('Debe actualizar el valor:', () => {
-                        testTrace('Asdasdasd', $.rup.i18n.base['rup_date'].dateFormat);
+                        testTrace('Asdasdasd', $.rup.i18n.base.rup_date.dateFormat);
                         if(lang === 'es'){
                             expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00:00');
                         }
@@ -440,7 +440,7 @@ function testDate(lang) {
                 describe('Date normal > ', () => {
                     beforeEach(() => {
                         if(lang === 'es') {
-                            $date.rup_date('setDate')
+                            $date.rup_date('setDate');
                         }
                         unavailableDay = 3;
                         $date.rup_date("refresh");
@@ -451,7 +451,7 @@ function testDate(lang) {
                                 $('td',$(current)).eq(2).each((idx,cur) => {
                                 expect($(cur).hasClass('ui-datepicker-unselectable ui-state-disabled'))
                                     .toBe(true);
-                                })
+                                });
                         });
                     });
                 });
@@ -657,4 +657,4 @@ function testDate(lang) {
             });
         });
     });
-};
+}
