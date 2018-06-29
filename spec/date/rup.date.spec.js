@@ -160,7 +160,6 @@ function testDate(lang) {
                         }
                     });
                     it('Debe actualizar el valor:', () => {
-                        testTrace('Asdasdasd', $.rup.i18n.base.rup_date.dateFormat);
                         if(lang === 'es'){
                             expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00:00');
                         }
@@ -217,7 +216,7 @@ function testDate(lang) {
                         it('En hasta los valores antes de desde deben estar deshabilitados:', () => {
                             $('#hasta').rup_date('show');
                             let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
-                            testTrace('calendar', $('#ui-datepicker-div').html());
+                            // testTrace('calendar', $('#ui-datepicker-div').html());
                             expect($('span:contains(1)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                             expect($('span:contains(2)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                         });
