@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './core/utils/jquery.form', './rup.base', './rup.validate'], factory);
+		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate'], factory);
 	} else {
 
 		// Browser globals
