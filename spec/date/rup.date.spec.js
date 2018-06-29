@@ -347,8 +347,6 @@ function testDate(lang) {
                         if(lang === 'eu') {
                             $date.rup_date('setDate', '1995/02/06');
                         }
-                        console.info($.rup.lang);
-                        console.info($date.rup_date('getDate'));
                     });
                     it('Debe cambiar en la UI:', () => {
                         if(lang === 'es') {
