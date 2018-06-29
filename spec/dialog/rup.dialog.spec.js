@@ -20,7 +20,10 @@ function testDialogType(type) {
 					autoOpen: false,
 					width: 200,
 					title: 'TituloDialogo',
-					message: 'MensajeDialogo'
+					message: 'MensajeDialogo',
+					buttons:[
+						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
+					]
 				};
 			}
 			if(type == $.rup.dialog.DIV) {
@@ -31,7 +34,10 @@ function testDialogType(type) {
 					width: 200,
 					title: 'TituloDialogo',
 					resizable: false,
-					modal: true
+					modal: true,
+					buttons:[
+						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
+					]
 				};
 			}
 			if(type == $.rup.dialog.AJAX) {
@@ -42,39 +48,16 @@ function testDialogType(type) {
 					autoOpen: false,
 					width: 200,
 					title: 'TituloDialogo',
-					resizable: false
+					resizable: false,
+					buttons:[
+						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
+					]
 				};
 			}
-
-			//$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />');
-			//$('head').append('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />');
 
 			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
 			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
 			
-			/*
-			//El AJAX Chusca :)
-			$.ajax({
-				type: 'GET',
-				url: 'http://localhost:8081/demo/demo-idx.html',
-				success: function() {
-					console.info('CHUSCA !=================================================');
-				},
-				error: function() {
-					console.info('NO CHUSCA !=================================================');
-				}            
-			});
-
-			$.ajax({
-				type: 'GET',
-				url: 'http://localhost:8081/dist/css/rup-base.css',
-				success: function() {
-					console.info('CHUSCA !=================================================');
-				},
-				error: function() {
-					console.info('NO CHUSCA !=================================================');
-				}            
-			});*/
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
 			
@@ -127,6 +110,9 @@ function testDialogType(type) {
 				it('Debe devolver correctamente el resultado de isOpen:', () => {
 					expect($dialogo.rup_dialog('isOpen')).toBe(true);
 				});
+				it('El foco debe estar en el primer botón:', () => {
+					expect($('button:contains(boton)').is(':focus')).toBe(true);
+				});
 			});
 			describe('Método close e isOpen > ', () => {
 				beforeEach(() => {
@@ -142,25 +128,22 @@ function testDialogType(type) {
 					expect($dialogo.rup_dialog('isOpen')).toBe(false);
 				});
 			});
-			describe('Método disable > ', () => {
+			describe('Métodos disable y enable > ', () => {
 				beforeEach(() => {
 					$dialogo.rup_dialog('disable');
-				});
-				it('Los métodos no deberían funcionar:', () => {
 					$dialogo.rup_dialog('open');
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-						.is(':visible')).toBe(false);
-				});
-			});
-			describe('Método enable > ', () => {
-				beforeEach(() => {
-					$dialogo.rup_dialog('disable');
 					$dialogo.rup_dialog('enable');
 				});
 				it('Los métodos no deberían funcionar:', () => {
-					$dialogo.rup_dialog('open');
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-						.is(':visible')).toBe(true);
+					if($dialogo.rup_dialog('isOpen')) {
+						//Ha fallado disable:
+						expect(true).toBe(false);
+					}
+					if(!$dialogo.rup_dialog('isOpen')) {
+						$dialogo.rup_dialog('open');
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
 				});
 			});
 			describe('Método moveToTop > ', () => {
