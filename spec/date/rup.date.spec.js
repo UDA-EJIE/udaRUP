@@ -169,15 +169,31 @@ function testDate(lang) {
                 });
                 describe('Date desde-hasta > ', () => {
                     beforeEach(() => {
-                        $('#desde').rup_date('setRupValue', '03/08/2018');
-                        $('#hasta').rup_date('setRupValue', '28/08/2018');
+                        if(lang === 'es') {
+                            $('#desde').rup_date('setRupValue', '03/08/2018');
+                            $('#hasta').rup_date('setRupValue', '28/08/2018');
+                        }
+                        if(lang === 'eu') {
+                            $('#desde').rup_date('setRupValue', '2018/08/03');
+                            $('#hasta').rup_date('setRupValue', '2018/08/28');
+                        }
                     });
                     describe('Se comprueba que los cambios aparecen en getRupValue > ', () => {
                         it('getRupValue desde:', () => {
-                            expect($('#desde').rup_date('getRupValue')).toBe('03/08/2018');
+                            if(lang === 'es') {
+                                expect($('#desde').rup_date('getRupValue')).toBe('03/08/2018');
+                            }
+                            if(lang === 'eu') {
+                                expect($('#desde').rup_date('getRupValue')).toBe('2018/08/03');
+                            }
                         });
                         it('getRupValue hasta:', () => {
-                            expect($('#hasta').rup_date('getRupValue')).toBe('28/08/2018');
+                            if(lang === 'es') {
+                                expect($('#hasta').rup_date('getRupValue')).toBe('28/08/2018');
+                            }
+                            if(lang === 'eu') {
+                                expect($('#hasta').rup_date('getRupValue')).toBe('2018/08/28');
+                            }
                         });
                     });
                     describe('Se comprueba la funcionalidad propia del desde-hasta > ', () => {
@@ -189,7 +205,7 @@ function testDate(lang) {
                             expect($('span:contains(31)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                         });
                         it('En hasta los valores antes de desde deben estar deshabilitados:', () => {
-                            $('#desde').rup_date('show');
+                            $('#hasta').rup_date('show');
                             let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
                             testTrace('calendar', $('#ui-datepicker-div').html());
                             expect($('span:contains(1)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
