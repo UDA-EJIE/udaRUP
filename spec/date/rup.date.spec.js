@@ -11,6 +11,12 @@ function testTrace(title, toTrace) {
         toTrace +
         "\n\n*****************************************************\n\n");
 }
+//Funcion de complementaria para el test del método refresh
+var unavailableDay = 0;
+function disableDays(date) {
+    var day = date.getDay();
+    return [(day != unavailableDay), ""];
+}
 
 $.when(testDate('es'))
     .then(() => {
@@ -32,20 +38,24 @@ function testDate(lang) {
                 placeholderMask: true,
                 showButtonPanel: true,
                 showOtherMonths: true,
-                noWeekend: false
+                noWeekend: false,
+                beforeShowDay: disableDays
             };
             let altProps = {
                 datetimepicker: true,
                 changeMonth: false,
                 changeYear: false,
-                showWeek: true
+                showWeek: true,
+                beforeShowDay: disableDays
             };
             let multiProps = {
-                multiSelect:3
+                multiSelect:3,
+                beforeShowDay: disableDays
             };
             let fromToProps = {
                 from: 'desde',
-                to: 'hasta'
+                to: 'hasta',
+                beforeShowDay: disableDays
             };
 
             $.rup.setLiterals(lang);
@@ -387,18 +397,18 @@ function testDate(lang) {
                 describe('Date múltiple > ', () => {
                     beforeEach(() => {
                         if(lang === 'es') {
-                            $multiDate.rup_date('setDate', ['06/02/1995','07/02/1995']);
+                            $multiDate.rup_date('setDate', '06/02/1995');
                         }
                         if(lang === 'eu') {
-                            $multiDate.rup_date('setDate', ['1995/02/06','1995/02/07']);
+                            $multiDate.rup_date('setDate', '1995/02/06');
                         }
                     });
                     it('Debe modificar la UI:', () => {
                         if(lang === 'es') {
-                            expect($multiDate.val()).toBe('06/02/1995,07/02/1995');
+                            expect($multiDate.val()).toBe('06/02/1995');
                         }
                         if(lang === 'eu') {
-                            expect($multiDate.val()).toBe('1995/02/06,1995/02/07');
+                            expect($multiDate.val()).toBe('1995/02/06');
                         }
                     });
                 });
@@ -427,6 +437,25 @@ function testDate(lang) {
             });
             describe('Método refresh > ', () => {
                 // TODO: Esperando respuesta de sergio
+                describe('Date normal > ', () => {
+                    beforeEach(() => {
+                        if(lang === 'es') {
+                            $date.rup_date('setDate')
+                        }
+                        unavailableDay = 3;
+                        $date.rup_date("refresh");
+                    });
+                    it('comprobamos que los miércoles se hayan deshabilitado:', () => {
+                        $('#ui-datepicker-div > table > tbody > tr')
+                            .each((index,current) => {
+                                $('td',$(current)).eq(2).each((idx,cur) => {
+                                expect($(cur).hasClass('ui-datepicker-unselectable ui-state-disabled'))
+                                    .toBe(true);
+                                })
+                        });
+                    });
+                });
+                
             });
             describe('Método option > ', () => {
                 describe('Date normal > ', () => {
