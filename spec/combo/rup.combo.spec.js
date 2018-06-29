@@ -11,7 +11,7 @@ describe('Test Combo > ', () => {
 	beforeEach(() => {
 		setupCombos();
 
-		$combo      = $('#combo');
+		$combo      = $('#comboSimple');
 		$comboMulti = $('#comboMulti');
 		$comboPadre = $('#comboPadre');
 		$comboHijo  = $('#comboHijo');
@@ -23,7 +23,7 @@ describe('Test Combo > ', () => {
 	describe('Creacion > ', () => {
 		describe('Combo simple >', () => {
 			it('Debe tener el valor por defecto: ', () => {
-				expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion2');
+				expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion2');
 			});
 			it('El valor se debe corresponder a getRupValue:', () => {
 				expect($combo.rup_combo('getRupValue')).toBe('2');
@@ -77,7 +77,7 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('setRupValue','1');
 				});
 				it('Debe actualizarse la ui: ', () => {
-					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+					expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
 				});
 				it('Debe reflejarse en getRupValue: ', () => {
 					expect($combo.rup_combo('getRupValue')).toBe('1');
@@ -138,8 +138,8 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('clear');
 				});
 				it('Debe actualizar la ui ', () => {
-					expect($('#combo-button > span.ui-selectmenu-status').text())
-						.toBe($.rup.i18n.base.rup_combo.multiselect.noneSelectedText);
+					expect($('#comboSimple-button > span.ui-selectmenu-status').text())
+						.toBe($.rup.i18n.base.rup_combo.blankNotDefined);
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($combo.rup_combo('getRupValue')).toEqual('0');
@@ -256,7 +256,7 @@ describe('Test Combo > ', () => {
 						$combo.rup_combo('select', '1');
 					});
 					it('Debe modificar la ui ', () => {
-						expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+						expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($combo.rup_combo('getRupValue')).toBe('1');
@@ -267,7 +267,7 @@ describe('Test Combo > ', () => {
 						$combo.rup_combo('select', 1);
 					});
 					it('Debe modificar la ui ', () => {
-						expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+						expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($combo.rup_combo('getRupValue')).toBe('1');
@@ -385,7 +385,7 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('selectLabel', 'Opcion1');
 				});
 				it('Debe modificar la ui ', () => {
-					expect($('#combo-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
+					expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
 				});
 				it('Debe reflejarse en el método getRupValue', () => {
 					expect($combo.rup_combo('getRupValue')).toBe('1');
@@ -706,7 +706,7 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('refresh');
 				});
 				it('Debe haber metido el elemento:', () => {
-					expect($('#combo-menu > li > a:contains("Intruso")').length).toBe(1);
+					expect($('#comboSimple-menu > li > a:contains("Intruso")').length).toBe(1);
 				});
 			});
 			describe('Combo padre > ', () => {
@@ -775,7 +775,7 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('order');
 				});
 				it('Intruso debe ser la primera opcion', () => {
-					expect($('#combo-menu > li').eq(1).text()).toBe('Intruso');
+					expect($('#comboSimple-menu > li').eq(1).text()).toBe('Intruso');
 				});
 			});
 			describe('Combo padre > ', () => {
@@ -827,7 +827,7 @@ describe('Test Combo > ', () => {
 });
 
 function setupCombos(){
-	let html = '<select id="combo"></select>\
+	let html = '<select id="comboSimple"></select>\
 		<select id="comboMulti"></select>\
 		<select id="comboPadre"></select>\
 		<select id="comboHijo"></select>\
@@ -854,7 +854,7 @@ function setupCombos(){
 		]}
 	];
 	let optionsSimple = {
-		change: () =>{$('#combo').addClass('randomClass');},
+		change: () =>{$('#comboSimple').addClass('randomClass');},
 		source: source,
 		blank: '0',
 		selected: '2'
@@ -891,7 +891,7 @@ function setupCombos(){
 		selected: '2.1'
 	};
 
-	$('#combo').rup_combo(optionsSimple);
+	$('#comboSimple').rup_combo(optionsSimple);
 	$('#comboMulti').rup_combo(optionsMulti);
 	$('#comboPadre').rup_combo(optionsPadre);
 	$('#comboHijo').rup_combo(optionsHijo);
@@ -899,7 +899,7 @@ function setupCombos(){
 
 
 	//Mete automaticamente randomClass asi que lo quitamos
-	$('#combo').removeClass('randomClass');
+	$('#comboSimple').removeClass('randomClass');
 	$('#comboMulti').removeClass('randomClass');
 	$('#comboPadre').removeClass('randomClass');
 	$('#comboHijo').removeClass('randomClass');
