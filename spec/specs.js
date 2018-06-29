@@ -6,7 +6,8 @@ define([
   './autocomplete/rup.autocomplete.spec',
   './dialog/rup.dialog.spec',
   './feedback/rup.feedback.spec',
-  './message/rup.message.spec'
+  './message/rup.message.spec',
+  './breadcrumb/rup.breadcrumb.spec'
 ], function() {
 
 });
