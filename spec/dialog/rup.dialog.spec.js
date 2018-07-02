@@ -83,8 +83,6 @@ function testDialogType(type) {
 					expect(selector.hasClass('ui-resizable')).toBe(false);
 				}
 				if(type == $.rup.dialog.AJAX) {
-					console.info('************************************************************************************');
-					console.info($dialogo.parent());
 					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
 					expect(selector.length).toBe(1);
 					expect(selector.hasClass('ui-resizable')).toBe(false);
@@ -163,12 +161,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('moveToTop');
 				});
 				it('El dialog debe estar encima del aux:', () => {
-					//No hay Z-Index
-					console.info('||||||||| AFTER moveToTop (dialogo) ||||||||');
-					console.info($('html').html());
-					console.info('||||||||| Stylesheet ||||||||');
-					console.info(document.styleSheets);
-					//console.info($('body').html());
+					//No existe la propiedad z-index.
 					expect($dialogo.parent().css('z-index'))
 						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
 				});
@@ -189,14 +182,11 @@ function testDialogType(type) {
 					expect($dialogo.rup_dialog('getOption', 'draggable')).toBe(false);
 				});
 			});
-			// TODO: No entiendo el objetivo de este método
 			describe('Método createBtnLinks > ', () => {
 				beforeEach(() => {
 					let btnObj = {text:'boton', click:() => {console.log('AAAAAAAAAAAA')}};
 					$dialogo.rup_dialog('createBtnLinks', btnObj , 'exampleDialogo');
 					$dialogo.rup_dialog('open');
-					console.info('============================================');
-					console.info('body', $('body').html());
 				});
 				it('Debe crear un enlace en el dialog:', () => {
 					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
