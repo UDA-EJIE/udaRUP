@@ -82,10 +82,7 @@ describe('Test Tabs > ', () => {
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
                     .parent().attr('aria-controls');
-                setTimeout(() => {
-                    console.info($('[id="' + controlador + '"]').html());
-                    expect($('[id="' + controlador + '"]').html()).not.toBe('');
-                });
+                expect($('[id="' + controlador + '"]').html()).not.toBe('');
             });
         });
         describe('Método changeUrlTab > ', () => {
@@ -110,7 +107,6 @@ describe('Test Tabs > ', () => {
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
                     .parent().attr('aria-controls');
-                console.info($('[id="' + controlador + '"]').html());
                 expect($('[id="' + controlador + '"]').html()).not.toBe('');
                 expect($('[id="' + controlador + '"]').html()).not.toBe(original);
             });
@@ -151,7 +147,6 @@ describe('Test Tabs > ', () => {
             });
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#exampleTabs > ul > li > a[href="/demo/tab3Fragment"]').parent().attr('aria-controls');
-                console.info($('[id="' + controlador + '"]').html());
                 expect($('[id="' + controlador + '"]').html()).not.toBe('');
             });
         });
