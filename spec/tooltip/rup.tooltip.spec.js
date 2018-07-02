@@ -4,13 +4,6 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tooltip';
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
 
 describe('TEST Tooltip', () => {
     var $tooltip;
@@ -72,9 +65,6 @@ describe('TEST Tooltip', () => {
             });
             it('No debe ser visible', () => {
                 $tooltip.rup_tooltip('close');
-                testTrace('body - html', $('body').html());
-                testTrace('qtip - visible', $qtip.is(':visible'));
-                testTrace('qtip - aria-hidden', $qtip.attr('aria-hidden'));
                 expect($qtip.is(':visible')).toBeFalsy();
             });
         });
