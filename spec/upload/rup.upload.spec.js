@@ -5,7 +5,7 @@ import 'rup.upload';
 
 describe('Test Upload > ', () => {
     var $upload;
-    beforeAll(() => {
+    beforeEach(() => {
         let html =     '<span class="btn btn-success fileinput-button">\
                             <i class="glyphicon glyphicon-plus"></i>\
                             <span>Seleccionar...</span>\
@@ -21,7 +21,7 @@ describe('Test Upload > ', () => {
         $('#exampleUpload').rup_upload(props);
         $upload = $('#exampleUpload');
     });
-    afterAll(() => {
+    afterEach(() => {
         $('body').html('');
     });
     describe('Creación > ', () => {
@@ -32,7 +32,7 @@ describe('Test Upload > ', () => {
     });
     describe('Métodos públicos > ', () => {
         describe('Método add > ', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $upload.rup_upload('add', () => {
                     $('#txtVar').addClass('add-worked');
                 });
@@ -46,16 +46,14 @@ describe('Test Upload > ', () => {
                 $('#txtVar').trigger('add');
             });
             it('#txtVar debe tener la clase add-worked', () => {
-                setTimeout(() => {
-                    expect($('#txtVar').hasClass('add-worked')).toBeTruthy();
-                }, 1500);
+                expect($('#txtVar').hasClass('add-worked')).toBeTruthy();
             });
         });
         describe('Método disable > ', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $upload.rup_upload('disable');
             });
-            afterAll(() => {
+            afterEach(() => {
                 $upload.rup_upload('enable');
             });
             it('Debe tener la clase que lo marca como deshabilitado', () => {
@@ -63,7 +61,7 @@ describe('Test Upload > ', () => {
             });
         });
         describe('Método enable > ', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $upload.rup_upload('disable');
                 $upload.rup_upload('enable');
             });
@@ -72,7 +70,7 @@ describe('Test Upload > ', () => {
             });
         });
         describe('Método destroy > ', () => {
-            beforeAll(() => {
+            beforeEach(() => {
                 $upload.rup_upload('destroy');
             });
             it('Intentar lanzar el método destroy por segunda vez debe lanzar un error', () => {
