@@ -6,11 +6,12 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
-testDialogType($.rup.dialog.TEXT);
-testDialogType($.rup.dialog.DIV);
-testDialogType($.rup.dialog.AJAX);
+$.when(testDialogType($.rup.dialog.TEXT)).done(
+	$.when(testDialogType($.rup.dialog.DIV))).done(testDialogType($.rup.dialog.AJAX));
 
 function testDialogType(type) {
+	var d = new $.Deferred();
+
 	describe('Test Dialog ' + type + ' > ', () => {
 		var $dialogo;
 		beforeEach(() => {
@@ -26,7 +27,6 @@ function testDialogType(type) {
 					buttons: [{
 						text: 'boton',
 						click: () => {
-							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
 						}
 					}]
 				};
@@ -43,7 +43,6 @@ function testDialogType(type) {
 					buttons: [{
 						text: 'boton',
 						click: () => {
-							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
 						}
 					}]
 				};
@@ -60,7 +59,6 @@ function testDialogType(type) {
 					buttons: [{
 						text: 'boton',
 						click: () => {
-							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
 						}
 					}]
 				};
@@ -81,6 +79,9 @@ function testDialogType(type) {
 			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]', 'head').remove();
 			$('#content').nextAll().remove();
 			$('#content').html('');
+		});
+		afterAll(() => {
+			d.resolve();
 		});
 		describe('Creación > ', () => {
 			it('Debe crearse el contenedor del dialogo:', () => {
@@ -198,16 +199,16 @@ function testDialogType(type) {
 					let btnObj = {
 						text: 'boton',
 						click: () => {
-							console.log('AAAAAAAAAAAA');
 						}
 					};
 					$dialogo.rup_dialog('createBtnLinks', btnObj, 'exampleDialogo');
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe crear un enlace en el dialog:', () => {
-					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
+					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe();
 				});
 			});
 		});
 	});
+
 }
