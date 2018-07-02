@@ -1,5 +1,7 @@
-import scss1 from '../../dist/css/rup-base.css';
-import scss2 from '../../dist/css/rup-theme.css';
+/* jslint esnext: true, multistr: true */
+
+import '../../dist/css/rup-base.css';
+import '../../dist/css/rup-theme.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
@@ -9,11 +11,11 @@ testDialogType($.rup.dialog.DIV);
 testDialogType($.rup.dialog.AJAX);
 
 function testDialogType(type) {
-	describe('Test Dialog '+ type +' > ', () => {
+	describe('Test Dialog ' + type + ' > ', () => {
 		var $dialogo;
 		beforeEach(() => {
 			let html, opciones;
-			if(type == $.rup.dialog.TEXT) {
+			if (type == $.rup.dialog.TEXT) {
 				html = '<div id="exampleDialogo"></div>';
 				opciones = {
 					type: type,
@@ -21,12 +23,15 @@ function testDialogType(type) {
 					width: 200,
 					title: 'TituloDialogo',
 					message: 'MensajeDialogo',
-					buttons:[
-						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
-					]
+					buttons: [{
+						text: 'boton',
+						click: () => {
+							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
+						}
+					}]
 				};
 			}
-			if(type == $.rup.dialog.DIV) {
+			if (type == $.rup.dialog.DIV) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
 					type: type,
@@ -35,12 +40,15 @@ function testDialogType(type) {
 					title: 'TituloDialogo',
 					resizable: false,
 					modal: true,
-					buttons:[
-						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
-					]
+					buttons: [{
+						text: 'boton',
+						click: () => {
+							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
+						}
+					}]
 				};
 			}
-			if(type == $.rup.dialog.AJAX) {
+			if (type == $.rup.dialog.AJAX) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
 					type: type,
@@ -49,40 +57,43 @@ function testDialogType(type) {
 					width: 200,
 					title: 'TituloDialogo',
 					resizable: false,
-					buttons:[
-						{text:'boton', click:() => {console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')}}
-					]
+					buttons: [{
+						text: 'boton',
+						click: () => {
+							console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB');
+						}
+					}]
 				};
 			}
 
 			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
 			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
-			
+
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
-			
+
 			$dialogo = $('#exampleDialogo');
 		});
 		afterEach(() => {
 			$dialogo.rup_dialog('destroy');
 			$dialogo = undefined;
-			$('link[href="http://localhost:8081/dist/css/rup-base.css"]','head').remove();
-			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]','head').remove();
+			$('link[href="http://localhost:8081/dist/css/rup-base.css"]', 'head').remove();
+			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]', 'head').remove();
 			$('#content').nextAll().remove();
 			$('#content').html('');
 		});
 		describe('Creación > ', () => {
 			it('Debe crearse el contenedor del dialogo:', () => {
-				if(type == $.rup.dialog.TEXT) {
+				if (type == $.rup.dialog.TEXT) {
 					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
 						.length).toBe(1);
 				}
-				if(type == $.rup.dialog.DIV) {
+				if (type == $.rup.dialog.DIV) {
 					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
 					expect(selector.length).toBe(1);
 					expect(selector.hasClass('ui-resizable')).toBe(false);
 				}
-				if(type == $.rup.dialog.AJAX) {
+				if (type == $.rup.dialog.AJAX) {
 					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
 					expect(selector.length).toBe(1);
 					expect(selector.hasClass('ui-resizable')).toBe(false);
@@ -133,11 +144,11 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('enable');
 				});
 				it('Los métodos no deberían funcionar:', () => {
-					if($dialogo.rup_dialog('isOpen')) {
+					if ($dialogo.rup_dialog('isOpen')) {
 						//Ha fallado disable:
 						expect(true).toBe(false);
 					}
-					if(!$dialogo.rup_dialog('isOpen')) {
+					if (!$dialogo.rup_dialog('isOpen')) {
 						$dialogo.rup_dialog('open');
 						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
 							.is(':visible')).toBe(true);
@@ -172,7 +183,7 @@ function testDialogType(type) {
 					expect($dialogo.rup_dialog('getOption', 'type')).toBe(type);
 				});
 			});
-			describe('Método setOption > ',() => {
+			describe('Método setOption > ', () => {
 				beforeEach(() => {
 					$dialogo.rup_dialog('setOption', 'width', 400);
 					$dialogo.rup_dialog('setOption', 'draggable', false);
@@ -184,8 +195,13 @@ function testDialogType(type) {
 			});
 			describe('Método createBtnLinks > ', () => {
 				beforeEach(() => {
-					let btnObj = {text:'boton', click:() => {console.log('AAAAAAAAAAAA')}};
-					$dialogo.rup_dialog('createBtnLinks', btnObj , 'exampleDialogo');
+					let btnObj = {
+						text: 'boton',
+						click: () => {
+							console.log('AAAAAAAAAAAA');
+						}
+					};
+					$dialogo.rup_dialog('createBtnLinks', btnObj, 'exampleDialogo');
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe crear un enlace en el dialog:', () => {
