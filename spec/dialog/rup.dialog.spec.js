@@ -19,6 +19,12 @@ function testDialogType(type) {
 			if (type == $.rup.dialog.TEXT) {
 				html = '<div id="exampleDialogo"></div>';
 				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+					},
 					type: type,
 					autoOpen: false,
 					width: 200,
@@ -34,6 +40,13 @@ function testDialogType(type) {
 			if (type == $.rup.dialog.DIV) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+						return false;
+					},
 					type: type,
 					autoOpen: false,
 					width: 200,
@@ -50,6 +63,12 @@ function testDialogType(type) {
 			if (type == $.rup.dialog.AJAX) {
 				html = '<div id="exampleDialogo">MensajeDialogo</div>';
 				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+					},
 					type: type,
 					url: 'http://localhost:8081/demo/demo-idx.html',
 					autoOpen: false,
@@ -206,6 +225,31 @@ function testDialogType(type) {
 				});
 				it('Debe crear un enlace en el dialog:', () => {
 					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe();
+				});
+			});
+		});
+		describe('Test Eventos > ', () => {
+			describe('Evento onOpen', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+				});
+				it('Debe de haberse ejecutado el evento:', () => {
+					expect($dialogo.hasClass('randomClass')).toBe(true);
+				});
+			});
+			describe('Evento onBeforeClose > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+					$dialogo.rup_dialog('close');
+				});
+				it('Debe ejecutrarse el evento:', () => {
+					expect($dialogo.hasClass('randomClass')).toBe(false);
+					if(type === $.rup.dialog.DIV) {
+						expect($dialogo.rup_dialog('isOpen')).toBe(true);
+					}
+					else {
+						expect($dialogo.rup_dialog('isOpen')).toBe(false);
+					}
 				});
 			});
 		});
