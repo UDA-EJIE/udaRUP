@@ -224,7 +224,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe crear un enlace en el dialog:', () => {
-					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe();
+					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
 				});
 			});
 		});
