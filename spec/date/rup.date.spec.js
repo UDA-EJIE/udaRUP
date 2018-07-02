@@ -460,33 +460,33 @@ function testDate(lang) {
             describe('Método option > ', () => {
                 describe('Date normal > ', () => {
                     beforeEach(() => {
-                        $date.rup_date('option', 'currentText', 'Tururu');
+                        $date.rup_date('option', 'currentText', 'TxtPrueba');
                         $date.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
                     });
                     it('Debe cambiar el valor:', () => {
-                        expect($date.rup_date('option', 'currentText')).toBe('Tururu');
+                        expect($date.rup_date('option', 'currentText')).toBe('TxtPrueba');
                         expect($date.rup_date('option', 'minDate')).toBe('01/01/1900');
                         expect($date.rup_date('option', 'maxDate')).toBe('01/01/2200');
                     });
                 });
                 describe('Date alternativa > ', () => {
                     beforeEach(() => {
-                        $altDate.rup_date('option', 'currentText', 'Tururu');
+                        $altDate.rup_date('option', 'currentText', 'TxtPrueba');
                         $altDate.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
                     });
                     it('Debe cambiar el valor:', () => {
-                        expect($altDate.rup_date('option', 'currentText')).toBe('Tururu');
+                        expect($altDate.rup_date('option', 'currentText')).toBe('TxtPrueba');
                         expect($altDate.rup_date('option', 'minDate')).toBe('01/01/1900');
                         expect($altDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
                     });
                 });
                 describe('Date múltiple > ', () => {
                     beforeEach(() => {
-                        $multiDate.rup_date('option', 'currentText', 'Tururu');
+                        $multiDate.rup_date('option', 'currentText', 'TxtPrueba');
                         $multiDate.rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
                     });
                     it('Debe cambiar el valor:', () => {
-                        expect($multiDate.rup_date('option', 'currentText')).toBe('Tururu');
+                        expect($multiDate.rup_date('option', 'currentText')).toBe('TxtPrueba');
                         expect($multiDate.rup_date('option', 'minDate')).toBe('01/01/1900');
                         expect($multiDate.rup_date('option', 'maxDate')).toBe('01/01/2200');
                     });
@@ -494,22 +494,22 @@ function testDate(lang) {
                 describe('Date desde-hasta > ', () => {
                     describe('Date desde > ', () => {
                         beforeEach(() => {
-                            $('#desde').rup_date('option', 'currentText', 'Tururu');
+                            $('#desde').rup_date('option', 'currentText', 'TxtPrueba');
                             $('#desde').rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
                         });
                         it('Debe cambiar el valor:', () => {
-                            expect($('#desde').rup_date('option', 'currentText')).toBe('Tururu');
+                            expect($('#desde').rup_date('option', 'currentText')).toBe('TxtPrueba');
                             expect($('#desde').rup_date('option', 'minDate')).toBe('01/01/1900');
                             expect($('#desde').rup_date('option', 'maxDate')).toBe('01/01/2200');
                         });
                     });
                     describe('Date hasta > ', () => {
                         beforeEach(() => {
-                            $('#hasta').rup_date('option', 'currentText', 'Tururu');
+                            $('#hasta').rup_date('option', 'currentText', 'TxtPrueba');
                             $('#hasta').rup_date('option', {minDate:'01/01/1900', maxDate:'01/01/2200'});
                         });
                         it('Debe cambiar el valor:', () => {
-                            expect($('#hasta').rup_date('option', 'currentText')).toBe('Tururu');
+                            expect($('#hasta').rup_date('option', 'currentText')).toBe('TxtPrueba');
                             expect($('#hasta').rup_date('option', 'minDate')).toBe('01/01/1900');
                             expect($('#hasta').rup_date('option', 'maxDate')).toBe('01/01/2200');
                         });
