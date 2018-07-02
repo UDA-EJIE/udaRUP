@@ -14,6 +14,24 @@ function testDialogType(type) {
 
 	describe('Test Dialog ' + type + ' > ', () => {
 		var $dialogo;
+		beforeAll((done) => {
+			let css = '';
+			$('head').append('<style></style>');
+			$.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+				.then((data, textStatus, jqXHR) => {
+					css += data;
+				})
+				.then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+				.then((data, textStatus, jqXHR) => {
+					css += data;
+				})
+				.then(() => {
+					console.info(css);
+					$('head > style').append(css);
+				})
+				.then(done());
+
+		});
 		beforeEach(() => {
 			let html, opciones;
 			if (type == $.rup.dialog.TEXT) {
@@ -83,8 +101,8 @@ function testDialogType(type) {
 				};
 			}
 
-			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
-			$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
+			//$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
+			//$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
 
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
