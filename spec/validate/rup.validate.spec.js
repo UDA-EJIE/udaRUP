@@ -41,8 +41,6 @@ describe('Test Validate >  ', () => {
         it('El feedback debe estar oculto', () => {
             expect($feedBack.is(':visible')).toBeFalsy();
         });
-
-        
     });
     describe('La validación funciona > ', () => {
         beforeEach(() => {
