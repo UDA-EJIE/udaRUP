@@ -4,13 +4,6 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.date';
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
 //Funcion de complementaria para el test del método refresh
 var unavailableDay = 0;
 
@@ -221,7 +214,6 @@ function testDate(lang) {
                         it(langStr(lang) + 'En hasta los valores antes de desde deben estar deshabilitados:', () => {
                             $('#hasta').rup_date('show');
                             let allDays = $('#ui-datepicker-div > table > tbody > tr > td');
-                            // testTrace('calendar', $('#ui-datepicker-div').html());
                             expect($('span:contains(1)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                             expect($('span:contains(2)', allDays).parent().hasClass('ui-datepicker-unselectable ui-state-disabled')).toBe(true);
                         });
@@ -288,9 +280,8 @@ function testDate(lang) {
                         $date.rup_date('hide');
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
-                        //Tal vez la versión de ejie eus sea distinta y en esta 
-                        //solo cambie el opacity pero siga visible
-                        // testTrace('body - html', $('body').html());
+                        //Se hacen 2 comprobaciones poruq en ejie.eus se establece 
+                        //visibility = false y aquie es opacity = 0
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
                         let test2 = $('#ui-datepicker-div').is(':visible');
                         expect(test1 && test2).toBe(false);
