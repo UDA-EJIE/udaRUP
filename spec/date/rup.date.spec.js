@@ -32,6 +32,9 @@ function testDate(lang) {
                         <input id="hasta"></input>';
             $('#content').append(html);
             let props = {
+                create:() => {
+                    $('#exampleDate').addClass('randomClass');
+                },
                 autoSize: true,
                 placeholderMask: true,
                 showButtonPanel: true,
@@ -101,6 +104,9 @@ function testDate(lang) {
                 });
                 it(langStr(lang) + 'Debe tener los select para cambiar mes y año:', () => {
                     expect($('select', $('.ui-datepicker-title')).length).toBe(2);
+                });
+                it(langStr(lang) + ' Debe ejecutarse el callback del create:', () => {
+                    expect($date.hasClass('randomClass')).toBe(true);
                 });
             });
             describe('Date alternativo > ', () => {
