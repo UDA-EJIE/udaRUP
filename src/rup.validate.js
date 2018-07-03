@@ -581,22 +581,33 @@
 			},
 			getFieldName: function (self, form, field) {
 				var labelForName, labelElem, fieldTmp, labelForId;
+				var labelText = false;
 
 				fieldTmp = jQuery(field.length > 1 ? field[0] : field);
-
+				
 				labelForName = fieldTmp.attr('name');
 				labelForId = fieldTmp.attr('id');
-
+				
+				if ($("label[for='"+labelForName+"']").text() !== (undefined || '')) {
+					labelText = true;
+				}
+				
 				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forIdElement(form, labelForId);
 
-				if (labelElem !== undefined && labelElem.name !== undefined && labelElem.name !== '') {
+				if (labelElem !== undefined && labelElem.name !== undefined && labelElem.name !== '' && !labelText) {
 					return labelElem.name;
 				}
 
 				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forNameElement(form, labelForName);
 
-				if (labelElem !== undefined  && labelElem.length > 0) {
+				if (labelElem !== undefined  && labelElem.length > 0 && !labelText) {
 					return labelElem.text().replace(':','');
+				}
+				
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forTextElement(form, labelForName);
+
+				if (labelElem !== undefined  && labelElem.length > 0 && labelText) {
+					return labelElem.replace(':','');
 				}
 
 				return fieldTmp.attr('title');
