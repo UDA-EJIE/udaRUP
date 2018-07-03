@@ -1,21 +1,56 @@
 /* jslint esnext: true, multistr: true */
 
+import '../../dist/css/rup-base.css';
+import '../../dist/css/rup-theme.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.date';
 
-//Funcion de complementaria para el test del método refresh
+const webRoot = "http://localhost:8081";
+
 var unavailableDay = 0;
 
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
+
+function loadCss() {
+    let css = '';
+    $('head').append('<style></style>');
+    var thenable = $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+        .then((data, textStatus, jqXHR) => {
+            css += data;
+        })
+        .then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+        .then((data, textStatus, jqXHR) => {
+            css += data;
+        })
+        .then(() => {
+            $('head > style').append(css);
+        });
+    return thenable;
+}
+
+
+//Funcion de complementaria para el test del método refresh
 function disableDays(date) {
     var day = date.getDay();
     return [(day != unavailableDay), ""];
 }
 
-$.when(testDate('es'))
-    .then(() => {
-        testDate('eu');
-    });
+$.when(loadCss())
+    .done(onLoadCSS());
+
+function onLoadCSS() {
+    $.when(testDate('es'))
+        .then(() => {
+            testDate('eu');
+        });
+}
 
 function langStr(lang) {
     return '[' + lang + '] ';
@@ -32,7 +67,7 @@ function testDate(lang) {
                         <input id="hasta"></input>';
             $('#content').append(html);
             let props = {
-                create:() => {
+                create: () => {
                     $('#exampleDate').addClass('randomClass');
                 },
                 autoSize: true,
