@@ -8,6 +8,7 @@ const webRoot = "http://localhost:8081";
 
 describe('Test Combo > ', () => {
 	var $combo, $comboPadre, $comboHijo, $comboMulti, $comboGroup;
+	var selectedLiteral;
 	beforeEach(() => {
 		setupCombos();
 
@@ -16,6 +17,8 @@ describe('Test Combo > ', () => {
 		$comboPadre = $('#comboPadre');
 		$comboHijo  = $('#comboHijo');
 		$comboGroup  = $('#comboGroup');
+		selectedLiteral = $.rup.i18n.base.rup_combo.multiselect.selectedText;
+		selectedLiteral = selectedLiteral.split('#')[1].trim()
 	});
 	afterEach(() => {
 		$('body').html('');
@@ -113,7 +116,7 @@ describe('Test Combo > ', () => {
 					$comboMulti.rup_combo('setRupValue', ['3', '4']);
 				});
 				it('Debe actualizarse ', () => {
-					expect($('#comboMulti-button > span:not([class])').text()).toBe('2 seleccionado(s)');
+					expect($('#comboMulti-button > span:not([class])').text()).toBe('2 ' + selectedLiteral);
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboMulti.rup_combo('getRupValue')).toEqual(['3', '4']);
@@ -242,7 +245,7 @@ describe('Test Combo > ', () => {
 				$comboMulti.rup_combo('checkAll');
 			});
 			it('Debe modificar el ui ', () => {
-				expect($('#comboMulti-button > span:not([class])').text()).toBe('6 seleccionado(s)');
+				expect($('#comboMulti-button > span:not([class])').text()).toBe('6 ' + selectedLiteral);
 			});
 			it('Debe reflejarse en el getRupValue ', () => {
 				expect($comboMulti.rup_combo('getRupValue')).toEqual(['1', '2', '3', '4', '5', '6']);
@@ -335,7 +338,7 @@ describe('Test Combo > ', () => {
 						$comboMulti.rup_combo('select', ['3', '4']);
 					});
 					it('Debe modificar la ui ', () => {
-						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
@@ -346,7 +349,7 @@ describe('Test Combo > ', () => {
 						$comboMulti.rup_combo('select', [2, 3]);
 					});
 					it('Debe modificar la ui ', () => {
-						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
 						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
@@ -421,7 +424,7 @@ describe('Test Combo > ', () => {
 					$comboMulti.rup_combo('selectLabel', ['Opcion3', 'Opcion4']);
 				});
 				it('Debe modificar la ui ', () => {
-					expect($('#comboMulti-button > span:not(class)').text()).toBe('3 seleccionado(s)');
+					expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
 				});
 				it('Debe reflejarse en el método getRupValue', () => {
 					expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
