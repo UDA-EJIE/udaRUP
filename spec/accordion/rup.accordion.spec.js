@@ -240,6 +240,7 @@ describe('RUP Accordion Tests', function(){
 					});
 				});
 			});
+
 			describe('$(\'#accordion\').rup_accordion(\'destroy\');', function(){
 
 				beforeAll(function(){

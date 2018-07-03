@@ -167,14 +167,11 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-
-			if (!$link.hasClass('ui-state-disabled')) {
-				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
-					$.proxy(settings.doNavigation, $self)(retNavParams);
-				})) {
-					$.proxy(settings.doNavigation, $self)(retNavParams);
-				}
-			}
+		/*	if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
+				$.proxy(settings.doNavigation, $self)(retNavParams);
+			})) {
+				$.proxy(settings.doNavigation, $self)(retNavParams);
+			}*/
 		}
 
 
