@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tabs';
@@ -10,7 +12,7 @@ describe('Test Tabs > ', () => {
                         <div id="cont2" style="display:none;">Contenido 2</div>\
                         <div id="cont3" style="display:none;">Contenido 3</div>\
                     </div>';
-        $('body').append(html);
+        $('#content').append(html);
         var opts = {
             tabs:[
                 {i18nCaption:'Tab1', layer:'#cont1'},
@@ -21,7 +23,8 @@ describe('Test Tabs > ', () => {
         $tabs = $('#exampleTabs');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creacion >',  () => {
         it('El contenedor debe tener las classes apropiadas', () => {
@@ -66,7 +69,7 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método loadTab > ', () => {
-            beforeEach(() => {
+            beforeEach((done) => {
                 $tabs.rup_tabs('addTab', {
                     idTab:'exampleTabs',
                     label: 'Tab3',
@@ -78,6 +81,8 @@ describe('Test Tabs > ', () => {
                     idTab:'exampleTabs',
                     position: 2
                 });
+
+                done();
             });
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
