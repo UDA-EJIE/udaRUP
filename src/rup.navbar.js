@@ -21,7 +21,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', './rup.sticky', './external/util','./external/dropdown'], factory);
+		define(['jquery', './rup.base', './external/util', './external/dropdown', './rup.sticky'], factory);
 	} else {
 
 		// Browser globals
@@ -45,14 +45,14 @@
 	};
 
 	const ClassName = {
-		IN         : 'in',
+		SHOW       : 'show',
 		COLLAPSE   : 'rup-collapse',
 		COLLAPSING : 'rup-collapsing',
 		COLLAPSED  : 'rup-collapsed'
 	};
 
 	const Selector = {
-		ACTIVES     : '.card > .in, .card > .collapsing',
+		ACTIVES     : '.card > .show, .card > .collapsing',
 		DATA_TOGGLE : '[data-toggle="collapse"]'
 	};
 
@@ -79,7 +79,7 @@
 
 	$.fn.rup_navbar('extend', {
 		toggle: function() {
-			if ($(this._element).hasClass(ClassName.IN)) {
+			if ($(this._element).hasClass(ClassName.SHOW)) {
 				this.hide();
 			} else {
 				this.show();
@@ -88,7 +88,7 @@
 
 		show: function() {
 			if (this._isTransitioning ||
-								$(this._element).hasClass(ClassName.IN)) {
+								$(this._element).hasClass(ClassName.SHOW)) {
 				return;
 			}
 
@@ -144,7 +144,7 @@
 				$(this._element)
 					.removeClass(ClassName.COLLAPSING)
 					.addClass(ClassName.COLLAPSE)
-					.addClass(ClassName.IN);
+					.addClass(ClassName.SHOW);
 
 				this._element.style[dimension] = '';
 
@@ -164,13 +164,11 @@
 			$(this._element)
 				.one(Util.TRANSITION_END, complete)
 				.emulateTransitionEnd(TRANSITION_DURATION);
-
-			this._element.style[dimension] = `${this._element[scrollSize]}px`;
 		},
 
 		hide: function () {
 			if (this._isTransitioning ||
-								!$(this._element).hasClass(ClassName.IN)) {
+								!$(this._element).hasClass(ClassName.SHOW)) {
 				return;
 			}
 
@@ -184,14 +182,12 @@
 			let offsetDimension = dimension === Dimension.WIDTH ?
 				'offsetWidth' : 'offsetHeight';
 
-			this._element.style[dimension] = `${this._element[offsetDimension]}px`;
-
 			Util.default.reflow(this._element);
 
 			$(this._element)
 				.addClass(ClassName.COLLAPSING)
 				.removeClass(ClassName.COLLAPSE)
-				.removeClass(ClassName.IN);
+				.removeClass(ClassName.SHOW);
 
 			this._element.setAttribute('aria-expanded', false);
 

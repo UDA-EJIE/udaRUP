@@ -10,6 +10,18 @@ Para el proceso de actualización dan por sentados los siguientes supuestos:
 
 Si lo que buscas es información sobre como mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar).
 
+### v3.4.0 (04-Mayo-2018)
+
+Para actualizar una aplicación UDA a la versión v3.4.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.4.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.4.0/rup-v3.4.0.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.4.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.4.0/templates-v3.4.0.zip).
+
 ### v3.2.1 (10-Noviembre-2017)
 
 Para actualizar una aplicación UDA a la versión v3.2.1 se deben realizar las siguientes modificaciones.
