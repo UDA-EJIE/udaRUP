@@ -6,32 +6,32 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
-$.when(testDialogType($.rup.dialog.TEXT)).done(
-	$.when(testDialogType($.rup.dialog.DIV))).done(testDialogType($.rup.dialog.AJAX));
+function loadCss() {
+	let css = '';
+	$('head').append('<style></style>');
+	var thenable = $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+		.then((data, textStatus, jqXHR) => {
+			css += data;
+		})
+		.then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
+		.then((data, textStatus, jqXHR) => {
+			css += data;
+		})
+		.then(() => {
+			$('head > style').append(css);
+		});
+	return thenable;
+}
+$.when(loadCss())
+	.done(testDialogType($.rup.dialog.TEXT))
+	.done(testDialogType($.rup.dialog.DIV))
+	.done(testDialogType($.rup.dialog.AJAX));
 
 function testDialogType(type) {
 	var d = new $.Deferred();
 
 	describe('Test Dialog ' + type + ' > ', () => {
 		var $dialogo;
-		beforeAll((done) => {
-			let css = '';
-			$('head').append('<style></style>');
-			$.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-				.then((data, textStatus, jqXHR) => {
-					css += data;
-				})
-				.then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-				.then((data, textStatus, jqXHR) => {
-					css += data;
-				})
-				.then(() => {
-					console.info(css);
-					$('head > style').append(css);
-				})
-				.then(done());
-
-		});
 		beforeEach(() => {
 			let html, opciones;
 			if (type == $.rup.dialog.TEXT) {
@@ -193,7 +193,7 @@ function testDialogType(type) {
 					}
 				});
 			});
-			describe('Método moveToTop > ', () => {
+			describe('Método moveToTop '+ type +' > ', () => {
 				beforeEach(() => {
 					let aux = '<div id="auxDialog"></div>';
 					$('body').append(aux);
