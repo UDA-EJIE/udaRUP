@@ -6,6 +6,14 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tabs';
 
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
+
 function loadCss() {
     let css = '';
     $('head').append('<style></style>');
@@ -97,7 +105,7 @@ function testTab() {
                 });
             });
             describe('Método loadTab > ', () => {
-                beforeEach((done) => {
+                beforeEach(() => {
                     $tabs.rup_tabs('addTab', {
                         idTab: 'exampleTabs',
                         label: 'Tab3',
@@ -110,11 +118,21 @@ function testTab() {
                         position: 2
                     });
 
-                    done();
+                    // $.ajax({
+                    //     type: 'GET',
+                    //     url: '/demo/fragmento3',
+                    //     success: function (data) {
+                    //         testTrace('/demo/fragmento3 - success', data);
+                    //     },
+                    //     error: function (data) {
+                    //             testTrace('/demo/fragmento3 - error', data);
+                    //     }
+                    // });
                 });
                 it('Debe añadir contenido a la tab:', () => {
                     let controlador = $('#exampleTabs > ul > li > a[href="/demo/fragmento3"]')
                         .parent().attr('aria-controls');
+                    // testTrace('body - html', $('body').html());
                     expect($('[id="' + controlador + '"]').html()).not.toBe('');
                 });
             });
