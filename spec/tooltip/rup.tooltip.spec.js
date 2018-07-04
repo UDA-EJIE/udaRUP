@@ -79,13 +79,14 @@ function testTooltip() {
                 });
             });
             describe('Método close', () => {
-                beforeEach(() => {
-                    $tooltip.rup_tooltip('open');
-                    $tooltip.rup_tooltip('close');
+                let $qtip;
+                beforeEach((done) => {
                     $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
+                    $.when($tooltip.rup_tooltip('open'))
+                        .then($tooltip.rup_tooltip('close'))
+                        .then(done());
                 });
                 it('No debe ser visible', () => {
-                    $tooltip.rup_tooltip('close');
                     expect($qtip.is(':visible')).toBeFalsy();
                 });
             });
