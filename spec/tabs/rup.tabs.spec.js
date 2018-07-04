@@ -123,17 +123,17 @@ function testTab() {
                     });
                     $('#mockTab').rup_tabs('selectTab', {
                         idTab:'mockTab',
-                        position: 1
+                        position: 0
                     });
-
-                    /*$tabs.rup_tabs('loadTab', {
-                        idTab: 'exampleTabs',
-                        position: 1
+                    $('#mockTab').rup_tabs('loadTab', {
+                        idTab:'mockTab',
+                        position: 0,
+                        url: 'http://localhost:8081/demo/tab3Fragment'
                     });
 
                     /* $.ajax({
                          type: 'GET',
-                         url: 'http://localhost:8081/demo/fragmento3',
+                         url: 'http://localhost:8081/demo/tab3Fragment',
                          success: function (data) {
                              testTrace('/demo/fragmento3 - success', data);
                          },
@@ -143,36 +143,43 @@ function testTab() {
                      });*/
                 });
                 it('Debe añadir contenido a la tab:', () => {
-                    let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]')
+                    let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]')
                         .parent().attr('aria-controls');
-                    // testTrace('body - html', $('body').html());
-                    expect($('[id="' + controlador + '"]').html()).not.toBe('');
+                    expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
                 });
             });
             describe('Método changeUrlTab > ', () => {
                 let original;
                 beforeEach(() => {
-                    $tabs.rup_tabs('addTab', {
-                        idTab: 'exampleTabs',
+                    let html = '<div id="mockTab"></div>';
+                    $('#content').append(html);
+                    $('#mockTab').rup_tabs({
+                        load: () => {done();},
+                        tabs:[{
+                            i18nCaption: 'Tab1',
+                            layer: '#cont1'
+                        }]
+                    });
+                    $('#mockTab').rup_tabs('addTab', {
+                        idTab: 'mockTab',
                         label: 'Tab3',
-                        position: 2,
+                        position: 1,
                         url: 'http://localhost:8081/demo/fragmento3'
                     });
-
-                    $tabs.rup_tabs('loadTab', {
-                        idTab: 'exampleTabs',
-                        position: 2
+                    $('#mockTab').rup_tabs('selectTab', {
+                        idTab:'mockTab',
+                        position: 0
                     });
-
-                    let idOriginal = $('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/fragmento3"]')
-                        .parent().attr('aria-controls');
-                    original = $('#' + idOriginal).html();
+                    $('#mockTab').rup_tabs('changeUrlTab', {
+                        idTab:'mockTab',
+                        position: 0,
+                        url: 'http://localhost:8081/demo/tab3Fragment'
+                    });
                 });
                 it('Debe añadir contenido a la tab:', () => {
-                    let controlador = $('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/fragmento3"]')
+                    let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]')
                         .parent().attr('aria-controls');
-                    expect($('[id="' + controlador + '"]').html()).not.toBe('');
-                    expect($('[id="' + controlador + '"]').html()).not.toBe(original);
+                    expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
                 });
             });
             describe('Método changeLayerTab > ', () => {
@@ -200,20 +207,33 @@ function testTab() {
                 });
             });
             describe('Método addTab > ', () => {
-                beforeEach(() => {
-                    $tabs.rup_tabs('addTab', {
-                        idTab: 'exampleTabs',
+                beforeEach((done) => {
+                    let html = '<div id="mockTab"></div>';
+                    $('#content').append(html);
+                    $('#mockTab').rup_tabs({
+                        load: () => {done();},
+                        tabs:[{
+                            i18nCaption: 'Tab1',
+                            layer: '#cont1'
+                        }]
+                    });
+                    $('#mockTab').rup_tabs('addTab', {
+                        idTab: 'mockTab',
                         label: 'Tab3',
-                        position: 2,
-                        url: 'http://localhost:8081/demo/tab3Fragment'
+                        position: 1,
+                        url: 'http://localhost:8081/demo/fragmento3'
+                    });
+                    $('#mockTab').rup_tabs('selectTab', {
+                        idTab:'mockTab',
+                        position: 0
                     });
                 });
                 it('Debe crear la tab:', () => {
-                    expect($('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]').length).toBe(1);
-                    expect($('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]').text()).toBe('Tab3');
+                    expect($('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').length).toBe(1);
+                    expect($('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').text()).toBe('Tab3');
                 });
                 it('Debe añadir contenido a la tab:', () => {
-                    let controlador = $('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]').parent().attr('aria-controls');
+                    let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').parent().attr('aria-controls');
                     expect($('[id="' + controlador + '"]').html()).not.toBe('');
                 });
             });
