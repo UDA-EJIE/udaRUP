@@ -101,8 +101,6 @@ function testToolbar() {
                     $toolbar.rup_toolbar('addButton', buttonObj);
                 });
                 it('Debe existir el boton', () => {
-                    testTrace('body - html', $('body').html());
-
                     expect($('[id="exampleToolbar##addedButton"]').length).toBe(1);
                 });
             });
