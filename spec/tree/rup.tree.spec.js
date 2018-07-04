@@ -1,3 +1,5 @@
+/* jslint esnext: true, multistr: true */
+
 import '../../dist/css/rup-base.css';
 import '../../dist/css/rup-theme.css';
 import 'jquery';
@@ -42,10 +44,10 @@ function testTree() {
                                 </ul>\
                             </li>\
                         </ul>\
-                    </div>'
-            $('body').append(html);
+                    </div>';
+            $('#content').append(html);
             $('#exampleTree').rup_tree({
-                core:{
+                core: {
                     getValue: ($item, itemData) => {
                         return itemData.id;
                     }
@@ -54,7 +56,8 @@ function testTree() {
             $tree = $('#exampleTree');
         });
         afterEach(() => {
-            $('body').html('');
+            $('#content').html('');
+            $('#content').nextAll().remove();
         });
         describe('Creación', () => {
             it('Debe tener el attr ruptype = tree', () => {
