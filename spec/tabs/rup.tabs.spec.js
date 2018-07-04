@@ -6,14 +6,6 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tabs';
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 function loadCss() {
     let css = '';
     $('head').append('<style></style>');
@@ -130,17 +122,6 @@ function testTab() {
                         position: 0,
                         url: 'http://localhost:8081/demo/tab3Fragment'
                     });
-
-                    /* $.ajax({
-                         type: 'GET',
-                         url: 'http://localhost:8081/demo/tab3Fragment',
-                         success: function (data) {
-                             testTrace('/demo/fragmento3 - success', data);
-                         },
-                         error: function (data) {
-                                 testTrace('/demo/fragmento3 - error', data);
-                         }
-                     });*/
                 });
                 it('Debe añadir contenido a la tab:', () => {
                     let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]')
@@ -149,7 +130,6 @@ function testTab() {
                 });
             });
             describe('Método changeUrlTab > ', () => {
-                let original;
                 beforeEach(() => {
                     let html = '<div id="mockTab"></div>';
                     $('#content').append(html);
