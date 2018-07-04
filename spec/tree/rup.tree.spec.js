@@ -23,14 +23,10 @@ function loadCss() {
     return thenable;
 }
 
-$.when(loadCss())
-    .then(testTree());
+var $tree;
 
-function testTree() {
-    describe('Test Tree:', () => {
-        var $tree;
-        beforeEach(() => {
-            var html = '<div id="exampleTree">\
+function createHtml() {
+    var html = '<div id="exampleTree">\
                         <ul>\
                             <li id="node1">\
                                 <a href = "#">Padre</a>\
@@ -45,15 +41,83 @@ function testTree() {
                             </li>\
                         </ul>\
                     </div>';
-            $('#content').append(html);
-            $('#exampleTree').rup_tree({
-                core: {
-                    getValue: ($item, itemData) => {
-                        return itemData.id;
-                    }
-                }
-            });
-            $tree = $('#exampleTree');
+    $('#content').append(html);
+    $('#exampleTree').rup_tree({
+        core: {
+            getValue: ($item, itemData) => {
+                return itemData.id;
+            }
+        }
+    });
+    $tree = $('#exampleTree');
+}
+
+function createJson() {
+    let html = '<div id="exampleTree"></div>';
+    $('#content').append(html);
+    $('#exampleTree').rup_tree({
+        core: {
+            getValue: ($item, itemData) => {
+                return itemData.id;
+            }
+        },
+        json_data:{
+            ajax:{
+                url:'http://localhost:8081/demo/tree/remote'
+            }
+        }
+    });
+    $tree = $('#exampleTree');
+}
+
+function createXml() {
+    let html = '<div id="exampleTree"></div>';
+    $('#content').append(html);
+    $('#exampleTree').rup_tree({
+        core: {
+            getValue: ($item, itemData) => {
+                return itemData.id;
+            }
+        },
+        xml_data: {
+            data: ' <root>\
+                        <item id="node1">\
+                            <content><name><![CDATA[Padre]]></name></content>\
+                            <item id="node11" parent_id="node1">\
+                                <content><name><![CDATA[Hijo 1]]></name></content>\
+                            </item>\
+                            <item id="node12" parent_id="node1">\
+                                <content><name><![CDATA[Hijo 2]]></name></content>\
+                            </item>\
+                        </item>\
+                    </root>'
+        }
+    });
+    $tree = $('#exampleTree');
+}
+
+$.when(loadCss())
+    .then(testTree('html'))
+    .then(testTree('json'))
+    .then(testTree('xml'));
+
+function testTree(type) {
+    describe('Test Tree '+ type +' :', () => {
+        beforeEach((done) => {
+            switch(type) {
+                case 'html':
+                    $.when(createHtml())
+                        .then(done());
+                    break;
+                case 'json':
+                    $.when(createJson())
+                        .then(done());
+                    break;
+                case 'xml':
+                    $.when(createXml())
+                        .then(done());
+                    break;
+            }
         });
         afterEach(() => {
             $('#content').html('');
