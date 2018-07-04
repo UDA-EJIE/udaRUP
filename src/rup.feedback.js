@@ -324,7 +324,11 @@ de la aplicación pueda cerrar la capa manualmente.
 			var element = this.element;
 			element.css('display', 'block');
 			element.css('visibility', 'visible');
-
+			
+			//Se comprueba que el icono esta
+			if($('.rup-feedback-icon',element).length === 0){
+				element.prepend('<span class=\'rup-feedback-icon\'>');
+			}
 			// Se aplica el tooltip
 			this.element.find('[title]').rup_tooltip({
 				position: {
