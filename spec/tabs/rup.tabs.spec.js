@@ -13,7 +13,7 @@ function testTrace(title, toTrace) {
         toTrace +
         "\n\n*****************************************************\n\n");
 }
-
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 function loadCss() {
     let css = '';
     $('head').append('<style></style>');
@@ -105,20 +105,33 @@ function testTab() {
                 });
             });
             describe('Método loadTab > ', () => {
-                beforeEach(() => {
-                    $tabs.rup_tabs('addTab', {
-                        idTab: 'exampleTabs',
+                beforeEach((done) => {
+                    let html = '<div id="mockTab"></div>';
+                    $('#content').append(html);
+                    $('#mockTab').rup_tabs({
+                        load: () => {done();},
+                        tabs:[{
+                            i18nCaption: 'Tab1',
+                            layer: '#cont1'
+                        }]
+                    });
+                    $('#mockTab').rup_tabs('addTab', {
+                        idTab: 'mockTab',
                         label: 'Tab3',
-                        position: 2,
+                        position: 1,
                         url: 'http://localhost:8081/demo/fragmento3'
                     });
-
-                    $tabs.rup_tabs('loadTab', {
-                        idTab: 'exampleTabs',
-                        position: 2
+                    $('#mockTab').rup_tabs('selectTab', {
+                        idTab:'mockTab',
+                        position: 1
                     });
 
-                     $.ajax({
+                    /*$tabs.rup_tabs('loadTab', {
+                        idTab: 'exampleTabs',
+                        position: 1
+                    });
+
+                    /* $.ajax({
                          type: 'GET',
                          url: 'http://localhost:8081/demo/fragmento3',
                          success: function (data) {
@@ -127,10 +140,10 @@ function testTab() {
                          error: function (data) {
                                  testTrace('/demo/fragmento3 - error', data);
                          }
-                     });
+                     });*/
                 });
                 it('Debe añadir contenido a la tab:', () => {
-                    let controlador = $('#exampleTabs > ul > li > a[href="http://localhost:8081/demo/fragmento3"]')
+                    let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]')
                         .parent().attr('aria-controls');
                     // testTrace('body - html', $('body').html());
                     expect($('[id="' + controlador + '"]').html()).not.toBe('');
