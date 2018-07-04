@@ -39,7 +39,7 @@ function testTooltip() {
                             </span>\
                     </div>';
 
-            $('body').append(html);
+            $('#content').append(html);
             let props = {
                 content: {
                     text: "Texto Prueba"
@@ -57,7 +57,8 @@ function testTooltip() {
             $tooltip = $('#exampleTooltip');
         });
         afterEach(() => {
-            $('body').html('');
+            $('#content').html('');
+            $('#content').nextAll().remove();
         });
         describe('Creación', () => {
             beforeEach(() => {
