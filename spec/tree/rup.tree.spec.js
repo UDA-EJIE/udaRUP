@@ -62,12 +62,7 @@ function testTree() {
             });
         });
         describe('Métodos públicos:', () => {
-            describe('Método getRupValue:', () => {
-                it('Devuelve un valor:', () => {
-                    expect($tree.rup_tree('getRupValue')).toBeDefined();
-                });
-            });
-            describe('Método setRupValue', () => {
+            describe('Método getRupValue y setRupValue', () => {
                 beforeEach(() => {
                     $tree.rup_tree('setRupValue', 'node1');
                 });
