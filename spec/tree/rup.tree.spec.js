@@ -24,6 +24,16 @@ function loadCss() {
 }
 
 var $tree;
+var treePlugins = [
+    'checkbox',
+    'sort',
+    'unique'
+];
+var uniqueOpts = {
+    error_callback: (n,p,f) => {
+        $('#exampleTree').addClass('duplicate-warn');
+    }
+};
 
 function createHtml() {
     var html = '<div id="exampleTree">\
@@ -47,7 +57,10 @@ function createHtml() {
             getValue: ($item, itemData) => {
                 return itemData.id;
             }
-        }
+        },
+        plugins: treePlugins,
+        unique: uniqueOpts,
+        checkbox:{}
     });
     $tree = $('#exampleTree');
 }
@@ -65,7 +78,10 @@ function createJson() {
             ajax:{
                 url:'http://localhost:8081/demo/tree/remote'
             }
-        }
+        },
+        plugins: treePlugins,
+        unique: uniqueOpts,
+        checkbox:{}
     });
     $tree = $('#exampleTree');
 }
@@ -91,11 +107,25 @@ function createXml() {
                             </item>\
                         </item>\
                     </root>'
-        }
+        },
+        plugins: treePlugins,
+        unique: uniqueOpts,
+        checkbox:{}
     });
     $tree = $('#exampleTree');
 }
 
+function create(type) {
+    if(type === 'html') {
+        createHtml();
+    }
+    if(type === 'json') {
+        createJson();
+    }
+    if(type === 'xml') {
+        createXml();
+    }
+}
 $.when(loadCss())
     .then(testTree('html'))
     .then(testTree('json'))
@@ -104,28 +134,33 @@ $.when(loadCss())
 function testTree(type) {
     describe('Test Tree '+ type +' :', () => {
         beforeEach((done) => {
-            switch(type) {
-                case 'html':
-                    $.when(createHtml())
-                        .then(done());
-                    break;
-                case 'json':
-                    $.when(createJson())
-                        .then(done());
-                    break;
-                case 'xml':
-                    $.when(createXml())
-                        .then(done());
-                    break;
-            }
+            $.when(create(type))
+                .then(done());
         });
         afterEach(() => {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
         describe('Creación', () => {
-            it('Debe tener el attr ruptype = tree', () => {
-                expect($tree.attr('ruptype')).toBe('tree');
+            describe('Debe crear el rup_tree > ', () => {
+                it('Debe tener el attr ruptype = tree', () => {
+                    expect($tree.attr('ruptype')).toBe('tree');
+                });
+            });
+            describe('Checkbox > ', () => {
+                it('Debe contener los checkboxes:', () => {
+                    console.info($('#exampleTree').html());
+                    expect($('.jstree-checkbox').length).toBe(3);
+                });
+            });
+            describe('Unico > ', () => {
+                beforeEach(() => {
+                    let elem = '<li id="node11" class="jstree-leaf jstree-unchecked"><ins class="jstree-icon">&nbsp;</ins><a href="#" class=""><ins class="jstree-checkbox">&nbsp;</ins><ins class="jstree-icon">&nbsp;</ins>Hijo 1</a></li>';
+                    $('#exampleTree > ul > li > ul').append(elem);
+                });
+                it('Debe tener el warn de elementos unicos:', () => {
+                    expect($('#exampleTree').hasClass('duplicate-warn')).toBe('true');
+                });
             });
         });
         describe('Métodos públicos:', () => {
