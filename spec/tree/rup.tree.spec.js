@@ -60,7 +60,9 @@ function createHtml() {
         },
         plugins: treePlugins,
         unique: uniqueOpts,
-        checkbox:{}
+        checkbox:{
+            override_ui: true
+        }
     });
     $tree = $('#exampleTree');
 }
@@ -81,7 +83,9 @@ function createJson() {
         },
         plugins: treePlugins,
         unique: uniqueOpts,
-        checkbox:{}
+        checkbox:{
+            override_ui: true
+        }
     });
     $tree = $('#exampleTree');
 }
@@ -110,7 +114,9 @@ function createXml() {
         },
         plugins: treePlugins,
         unique: uniqueOpts,
-        checkbox:{}
+        checkbox:{
+            override_ui: true
+        }
     });
     $tree = $('#exampleTree');
 }
