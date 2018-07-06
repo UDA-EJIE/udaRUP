@@ -35,7 +35,7 @@ var uniqueOpts = {
     }
 };
 
-function createHtml() {
+function createHtml(done) {
     var html = '<div id="exampleTree">\
                         <ul>\
                             <li id="node1">\
@@ -52,7 +52,7 @@ function createHtml() {
                         </ul>\
                     </div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -70,10 +70,10 @@ function createHtml() {
     return thenable;
 }
 
-function createJson() {
+function createJson(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -96,10 +96,10 @@ function createJson() {
     return thenable;
 }
 
-function createXml() {
+function createXml(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -130,15 +130,15 @@ function createXml() {
     return thenable;
 }
 
-function create(type) {
+function create(type, done) {
     if(type === 'html') {
-        createHtml();
+        createHtml(done);
     }
     if(type === 'json') {
-        createJson();
+        createJson(done);
     }
     if(type === 'xml') {
-        createXml();
+        createXml(done);
     }
 }
 $.when(loadCss())
@@ -149,8 +149,7 @@ $.when(loadCss())
 function testTree(type) {
     describe('Test Tree '+ type +' :', () => {
         beforeEach((done) => {
-            $.when(create(type))
-                .then(() => {done();});
+            create(type, done);
         });
         afterEach(() => {
             $('#content').html('');
@@ -164,7 +163,7 @@ function testTree(type) {
             });
             describe('Checkbox > ', () => {
                 it('Debe contener los checkboxes:', () => {
-                    console.info($('#exampleTree').html());
+                    console.info($('#content').html());
                     expect($('.jstree-checkbox').length).toBe(3);
                 });
             });
