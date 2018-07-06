@@ -3,10 +3,10 @@
     
     
     
-    <property name="udaVersion" value="3.4.0"/>
-    <property name="previousUdaVersion" value="3.3.0"/>
-    <property name="udaLibVersion" value="3.4.0"/>
-    <property name="previousUdaLibVersion" value="3.3.0"/>
+    <property name="udaVersion" value="3.5.0"/>
+    <property name="previousUdaVersion" value="3.4.0"/>
+    <property name="udaLibVersion" value="3.5.0"/>
+    <property name="previousUdaLibVersion" value="3.4.0"/>
     <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
     <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
     
