@@ -118,7 +118,12 @@ function createXml(done) {
                         </item>\
                     </root>'
         },
-        plugins: treePlugins,
+        plugins: [
+            'checkbox',
+            'sort',
+            'unique',
+            'xml_data'
+        ],
         unique: uniqueOpts,
         checkbox:{
             override_ui: true
