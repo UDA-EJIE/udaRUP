@@ -33,7 +33,21 @@ module.exports = function (config) {
         preprocessors: {
             'test.webpack.js': ['webpack', 'sourcemap'],
         },
-        reporters: ['progress', 'spec', 'coverage'],
+        reporters: ['progress', 'spec', 'coverage', 'html'],
+        // htmlReporter configuration
+        htmlReporter: {
+          outputDir: 'spec', // where to put the reports 
+          templatePath: null, // set if you moved jasmine_template.html
+          focusOnFailures: false, // reports show failures on start
+          namedFiles: false, // name files instead of creating sub-directories
+          pageTitle: null, // page title for reports; browser info by default
+          urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
+          reportName: 'karma_report_3.5.0', // report summary filename; browser info by default
+          
+          // experimental
+          preserveDescribeNesting: false, // folded suites stay folded 
+          foldAll: false, // reports start folded (only with preserveDescribeNesting)
+        },
         // list of files / patterns to load in the browser
         files: [{
                 pattern: 'spec/helpers/rup.config.js'
@@ -111,9 +125,9 @@ module.exports = function (config) {
             'karma-webpack',
             'karma-sourcemap-loader',
             'karma-spec-reporter',
-            'karma-coverage'
+            'karma-coverage',
+            'karma-html-reporter'
             //  'karma-ie-launcher',
-            //  'karma-htmlfile-reporter',
             //  'karma-mocha-reporter'
         ],
 
