@@ -42,10 +42,10 @@ function createHtml(done) {
                                 <a href = "#">Padre</a>\
                                 <ul>\
                                     <li id="node11">\
-                                        <a href="#">Hijo 1</a>\
+                                        <a href="#">Hijo 2</a>\
                                     </li>\
                                     <li id="node12">\
-                                        <a href="#">Hijo 2</a>\
+                                        <a href="#">Hijo 1</a>\
                                     </li>\
                                 </ul>\
                             </li>\
@@ -110,10 +110,10 @@ function createXml(done) {
                         <item id="node1">\
                             <content><name><![CDATA[Padre]]></name></content>\
                             <item id="node11" parent_id="node1">\
-                                <content><name><![CDATA[Hijo 1]]></name></content>\
+                                <content><name><![CDATA[Hijo 2]]></name></content>\
                             </item>\
                             <item id="node12" parent_id="node1">\
-                                <content><name><![CDATA[Hijo 2]]></name></content>\
+                                <content><name><![CDATA[Hijo 1]]></name></content>\
                             </item>\
                         </item>\
                     </root>'
@@ -165,6 +165,14 @@ function testTree(type) {
                 it('Debe contener los checkboxes:', () => {
                     console.info($('#content').html());
                     expect($('.jstree-checkbox').length).toBe(3);
+                });
+            });
+            describe('Sort > ',() => {
+                //Los hijos estan desordenados así que comprobamos que el plugin sort los ordena
+                it('Comprobamos que están ordenados:', () => {
+                    let selector = $('#exampleTree > ul > li > ul');
+                    expect($($('li', selector)[0]).text().trim()).toBe('Hijo 1');
+                    expect($($('li', selector)[1]).text().trim()).toBe('Hijo 2');
                 });
             });
             describe('Unico > ', () => {
