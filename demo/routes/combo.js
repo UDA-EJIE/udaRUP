@@ -7,6 +7,11 @@ exports.comboSimple.remote = function(req, res) {
   res.status(200).json(json);
 };
 
+exports.comboSimple.remoteDos = function(req, res) {
+  var json = require('./json/comboSimple.remoteDos.json');
+  res.status(200).json(json);
+};
+
 exports.comboSimple.remoteGroup = function(req, res) {
   var json = require('./json/comboSimple.remoteGroup.json');
   res.status(200).json(json);
