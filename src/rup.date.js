@@ -95,15 +95,14 @@
 				if (tmpDate === null || tmpDate.toString() === 'Invalid Date') {
 					return '';
 				}
-				var dateObj = {
-					hour: tmpDate.getHours(),
-					minute: tmpDate.getMinutes(),
-					second: tmpDate.getSeconds()
-				};
-				var formattedTime = $.timepicker._formatTime(dateObj, 'hh:mm:ss');
+				var fechaArray = $(this).rup_date('getDate').split(' ');
+				
+				var formattedTime = $(this).data('datepicker').settings.timeFormat;
+				var separator = formattedTime[2];
+				var tmpTime = fechaArray[1].split(separator).join(":");
 				var dateFormat = $(this).data('datepicker').settings.dateFormat;
 
-				return $.datepicker.formatDate(dateFormat, tmpDate) + ' ' + $.timepicker._formatTime(dateObj, 'hh:mm:ss');
+				return $.datepicker.formatDate(dateFormat, tmpDate) + ' ' + tmpTime;
 			} else {
 				return $(this).rup_date('getDate');
 			}
@@ -124,23 +123,29 @@
 
 			if ($(this).data('datepicker').settings.datetimepicker) {
 				var fechaArray = param.split(' ');
-
+				var tmpTime = undefined;
 				var tmpDate = new Date(fechaArray[0]);
-				var time = fechaArray[1];
+				if(fechaArray[1] !== undefined){
+					var time = "01/01/2000 "+fechaArray[1];
+					tmpTime = new Date(time);
+				}
 
-				var tmpDate = new Date(param);
 				if (tmpDate.toString() === 'Invalid Date') {
 					return '';
 				}
-				var dateObj = {
-					hour: tmpDate.getHours(),
-					minute: tmpDate.getMinutes(),
-					second: tmpDate.getSeconds()
-				};
-
-				var formattedTime = $.timepicker._formatTime(dateObj, $(this).data('datepicker').settings.timeFormat);
-
-				$(this).datepicker('setTime', param);
+				
+				var formattedTime = '';
+				if(tmpTime !== undefined){
+					var dateObj = {
+						hour: tmpTime.getHours(),
+						minute: tmpTime.getMinutes(),
+						second: tmpTime.getSeconds()
+					};
+					tmpDate.setHours(dateObj.hour+"",dateObj.minute+"",dateObj.second+"");
+					formattedTime = $.timepicker._formatTime(dateObj, $(this).data('datepicker').settings.timeFormat);
+				}
+				
+				$(this).datepicker('setTime', tmpDate);
 
 				$(this).val(fechaArray[0] + ' ' + formattedTime);
 

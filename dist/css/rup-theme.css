@@ -1659,37 +1659,14 @@ select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-con
           .ui-dialog .ui-dialog-titlebar.ui-widget-header .ui-dialog-titlebar-close span.ui-icon-closethick {
             font-size: 1.2rem;
             top: 0; }
-  .ui-dialog .ui-dialog-buttonset,
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     display: inline-block; }
-    .ui-dialog .ui-dialog-buttonset button.ui-button, .ui-dialog .ui-dialog-buttonset .ui-button.rup-button, .ui-dialog .rup-dropdown-btn-group .ui-dialog-buttonset .ui-button.rup-dropdown-button, .ui-dialog .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_next, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_prev, .ui-dialog .rup-wizard .ui-dialog-buttonset .ui-button.rup-wizard_submitButton,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button, .rup-dropdown-btn-group
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next, .rup-wizard
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev, .rup-wizard
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev,
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton, .rup-wizard
-    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton {
+    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button, .rup-dropdown-btn-group .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton {
       background-image: none;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
       text-shadow: none;
       border-color: #adadad; }
-      .ui-dialog .ui-dialog-buttonset button.ui-button:hover, .ui-dialog .ui-dialog-buttonset .ui-button.rup-button:hover, .ui-dialog .rup-dropdown-btn-group .ui-dialog-buttonset .ui-button.rup-dropdown-button:hover, .ui-dialog .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover, .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover, .ui-dialog .rup-wizard .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button:hover, .rup-dropdown-btn-group
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next:hover, .rup-wizard
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev:hover, .rup-wizard
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover,
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton:hover, .rup-wizard
-      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover {
+      .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button:hover, .rup-dropdown-btn-group .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover {
         background-color: #e6e6e6;
         border-color: #adadad;
         color: #333333; }
@@ -3164,7 +3141,7 @@ div.right_buttons .rup-dropdown-btn-group {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
 
-table.dataTable {
+able.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -3378,31 +3355,27 @@ table.dataTable, table.dataTable th, table.dataTable td {
   padding-right: 3px;
   margin-top: 5px; }
 
-.dataTables_wrapper .dataTables_length {
-  float: left; }
-
-.dataTables_wrapper .dataTables_filter {
+.dataTables_wrapper .dataTables_wrapper .dataTables_filter {
   float: right;
   text-align: right; }
 
 .dataTables_wrapper .dataTables_filter input {
   margin-left: 0.5em; }
 
-.dataTables_wrapper .dataTables_info {
+.dataTables_wrapper {
   clear: both;
   float: left;
   padding-top: 0.755em; }
 
 .dataTables_wrapper .dataTables_paginate {
   float: right;
-  text-align: right;
-  padding-top: 0.25em; }
+  text-align: right; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.25em;
   margin-left: 2px;
   text-align: center;
   text-decoration: none !important;
@@ -3495,7 +3468,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
   height: 0; }
 
 @media screen and (max-width: 767px) {
-  .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+  .dataTables_wrapper .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center; }
   .dataTables_wrapper .dataTables_paginate {
@@ -3564,6 +3537,84 @@ table.dataTable tbody > tr:hover {
 
 .hiddenInput {
   visibility: hidden; }
+
+.dtr-data {
+  display: inline-block; }
+
+.recolocatedPagination_container {
+  display: inline-block;
+  width: 65%;
+  float: none !important;
+  padding-top: 0; }
+
+.dataTables_length {
+  float: none; }
+
+.recolocatedPagination_length {
+  display: inline-block;
+  padding: 7px 10px 8px 10px; }
+
+.recolocatedPagination_length label {
+  margin-bottom: 0; }
+
+.recolocatedPagination_rellenoCtr {
+  display: inline-block; }
+
+.dataTables_info {
+  float: right;
+  padding-top: 0; }
+
+.recolocatedPagination_rellenoDrc {
+  display: inline-block;
+  padding-right: 10px;
+  text-align: right;
+  float: right;
+  line-height: 3.5em; }
+
+.tableFit {
+  width: calc(100% - 1px);
+  max-width: calc(100% - 1px);
+  margin-bottom: 0; }
+
+.pagination {
+  margin-bottom: 0; }
+
+.paginationContainer {
+  border: 1px solid #dee2e6;
+  border-top: none; }
+
+@media (max-width: 930px) {
+  .recolocatedPagination_container {
+    width: 60%; } }
+
+@media (max-width: 930px) and (min-width: 851px) {
+  .paginate_button {
+    padding-left: 0 !important;
+    padding-right: 0 !important; } }
+
+@media (min-width: 851px) {
+  .recolocatedPagination_iconButton a {
+    display: initial; }
+  .recolocatedPagination_iconButton i {
+    display: none; } }
+
+@media (max-width: 850px) {
+  .recolocatedPagination_iconButton a {
+    display: none; }
+  .recolocatedPagination_iconButton i {
+    display: block; }
+  .searchPaginator {
+    padding-top: 3px !important; } }
+
+@media (max-width: 850px) and (min-width: 651px) {
+  .recolocatedPagination_container {
+    width: 50%; } }
+
+@media (max-width: 650px) {
+  .recolocatedPagination_container {
+    width: 45%; }
+  .recolocatedPagination_length {
+    padding: 7px 0 8px; } }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
@@ -3661,10 +3712,6 @@ table.dataTable thead th:hover, table.dataTable tfoot th:hover {
 .disabledDatatable {
   pointer-events: none;
   opacity: 0.6; }
-
-.searchPaginator {
-  float: left;
-  margin-top: 10px; }
 
 .selected-pencil {
   float: right;
@@ -3841,9 +3888,9 @@ div.dt-button-collection {
   position: absolute;
   top: 0;
   left: 0;
-  width: 150px;
+  width: 110px;
   margin-top: 3px;
-  padding: 8px 8px 4px 8px;
+  padding: 8px 8px 8px 8px;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: white;
@@ -3857,6 +3904,10 @@ div.dt-button-collection {
   -ms-column-gap: 8px;
   -o-column-gap: 8px;
   column-gap: 8px; }
+
+div.dt-button-collection > button, div.dt-button-collection > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button, div.dt-button-collection > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-button-collection > a.rup-wizard_next, .rup-wizard div.dt-button-collection > a.rup-wizard_prev, .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
+  display: block;
+  margin: auto; }
 
 div.dt-button-collection button.dt-button, div.dt-button-collection .dt-button.ui-button.rup-button, div.dt-button-collection .rup-dropdown-btn-group .dt-button.rup-dropdown-button, .rup-dropdown-btn-group div.dt-button-collection .dt-button.rup-dropdown-button, div.dt-button-collection a.dt-button.rup-toolbar_menuButton.ui-button, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_next, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_next, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_prev, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_prev, div.dt-button-collection .rup-wizard .dt-button.rup-wizard_submitButton, .rup-wizard div.dt-button-collection .dt-button.rup-wizard_submitButton, div.dt-button-collection div.dt-button, div.dt-button-collection a.dt-button {
   position: relative;

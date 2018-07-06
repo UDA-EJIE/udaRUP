@@ -27,13 +27,13 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./datatable.request','datatables.net-bs4','datatables.net-responsive-bs4','./dataTables.multiselect','./dataTables.buttons','./dataTables.editForm','./dataTables.seeker', './addons/buttons.custom','./dataTables.colReorder'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup'], factory );
 	} else {
 
 		// Browser globals
 		factory( jQuery );
 	}
-} ( function( $ , DataTableRequest) {
+} ( function( $ , TableRequest) {
 
 	//****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
@@ -125,6 +125,52 @@
 			var defes = {};
 			var columnDefs = $.extend({}, options.columnDefs, defes);
 			//options.columnDefs = columnDefs;
+			
+			//Se cargan los metodos en la API, Se referencia al Register
+			var apiRegister = DataTable.Api.register;
+			
+			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
+					//Se limina el lapicero indicador.
+					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+					//se añade el span con el lapicero
+					if(idRow >= 0){
+						var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
+						$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+					}
+			} );
+			 
+			apiRegister( 'rupTable.reorderDataFromServer()', function ( json ) {
+					//Se mira la nueva reordenacion y se ordena.
+					DataTable.multiselection.selectedIds = [];
+					DataTable.multiselection.selectedRowsPerPage = [];
+					//Viene del servidor por eso la linea de la pagina es 1 menos.
+					$.each(json.reorderedSelection,function(index,p) {
+						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
+						DataTable.multiselection.selectedIds.splice(index,0,arra.id);
+						DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
+					});
+					if(!DataTable.multiselection.selectedAll){
+						DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
+					}
+					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+					if(options.buttons !== undefined){
+						DataTable.Api().buttons.displayRegex();
+					}
+			} );
+			
+			apiRegister( 'rupTable.getIdPk()', function ( json ) {
+
+				var id = '';
+
+				$.each(options.primaryKey,function(index,key) {
+					id = id + json[key];
+					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
+						id = id+options.multiplePkToken;
+					}
+				});
+				
+				return id;
+		} );
 
 			return options;
 		},
@@ -140,12 +186,13 @@
 			*
 		  */
 		_getColumns(options) {
+			$self = this;
 			//Se crea la columna del select.
 			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
-					options.multiSelect !== undefined){
+					(options.multiSelect !== undefined)){
 				//Se crear el th thead, se añade la columnal.
-				$self = this;
+				
 				var th = $("<th/>").attr('data-col-prop','');
 
 				if($self[0].tHead !== null){
@@ -156,10 +203,12 @@
 					$('<th/>').insertBefore($self[0].tFoot.rows[0].cells[0])
 				}
 				//Se aseguro que no sea orderable
-				options.columnDefs[0].orderable = false;
+				if(options.columnDefs.length > 0){
+					options.columnDefs[0].orderable = false;
+				}
 			}
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
-				if(e.getAttribute('data-col-type') === 'checkbox'){
+				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
 						var iconCheck = 'fa fa-times';
 						if(data === '1'){
@@ -239,9 +288,16 @@
 			ret.recordsTotal = json.records;
 			ret.recordsFiltered = json.records;
 			ret.data = json.rows;
+
+//			$self = $('#'+DataTable.settings[0].sTableId);
+
 			var settings = $self.data('settings');
-			if(settings !== undefined && settings.multiSelect !== undefined){
-				DataTable.Api().multiSelect.reorderDataFromServer(json);
+			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
+				DataTable.Api().rupTable.reorderDataFromServer(json);
+			}
+			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
+					&& json.reorderedSeeker !== undefined){
+				 DataTable.seeker.search.funcionParams = json.reorderedSeeker;
 			}
 
 			return ret.data;
@@ -265,11 +321,22 @@
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiSelect.multiselection !== undefined && DataTable.multiSelect.multiselection.selectedIds.length > 0){
-				data.multiselection = DataTable.multiSelect.multiselection;
+			if(DataTable.multiselection !== undefined && DataTable.multiselection.selectedIds.length > 0){
+				data.multiselection = DataTable.multiselection;
 			}
-			var datatableRequest = new DataTableRequest(data);
-			var json = $.extend({}, data, datatableRequest.getData());
+			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
+					&& DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0){
+				data.seeker = {};
+				data.seeker.selectedIds = [];
+				$.each(DataTable.seeker.search.funcionParams,function(index,p) {
+					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
+				});
+			}
+			var tableRequest = new TableRequest(data);
+			var json = $.extend({}, data, tableRequest.getData());
+
+			json.core.pkNames = options.oInit.primaryKey;
+
 			options.aBaseJson = json;
 			return JSON.stringify(json);
 
@@ -298,7 +365,7 @@
 				liSearch.append(textPagina);
 				liSearch.append(input);
 				liSearch.append(toPagina);
-				$('#'+tabla[0].id+'_paginate ul').prepend(liSearch);
+				$('#'+tabla[0].id+'_previous').after(liSearch);
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
 					  {
@@ -312,6 +379,34 @@
 			}else{
 				//Sacar un error
 			}
+			
+			// Crea un div que albergara la lista de botones de paginacion
+			$('#'+tabla[0].id+'_paginate').prepend(
+					"<div id='" + tabla[0].id + "_buttons' class='recolocatedPagination_buttons' />"
+			);
+			
+			// Añade iconos para versiones moviles/tablets
+			$('#'+tabla[0].id+'_first')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-double-left'/>");
+			$('#'+tabla[0].id+'_previous')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-left'/>");
+			$('#'+tabla[0].id+'_next')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-right'/>");
+			$('#'+tabla[0].id+'_last')
+				.addClass('recolocatedPagination_iconButton')
+				.append("<i class='fa fa-angle-double-right'/>");
+			
+			// Inserta la lista de botones de paginacion al div anteriormente creado
+			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
+			
+			// Añadimos clases para acabar con la recolocacion
+			$('#'+tabla[0].id+'_paginate').addClass('recolocatedPagination_container');
+			$('#'+tabla[0].id+'_buttons').addClass('recolocatedPagination_rellenoCtr');
+			$('#'+tabla[0].id+'_info').addClass('recolocatedPagination_rellenoDrc');
+			$('#'+tabla[0].id+'_length').addClass('recolocatedPagination_length');
 
 		},
 
@@ -413,24 +508,17 @@
 					}
 				});
 
-
-				filterSettings.$toggleIcon1.add(filterSettings.$toggleLabel).add(filterSettings.$toggleIcon2)
-					.attr('tabindex','0')
-					.on({
-						'keydown':function(evt) {
-							if (evt.keyCode === 13) {
-								$self.rup_table('toggleFilterForm');
-							}
-						}
-					});
-
 				filterSettings.$filterToolbar.addClass('cursor_pointer').on({
 					'click':function(){
 						if(settings.filter.showHidden === false){
 							filterSettings.$collapsableLayer.hide();
+							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
 							settings.filter.showHidden = true;
-						}else{
+						} else{
 							filterSettings.$collapsableLayer.show();
+							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -438,8 +526,14 @@
 
 				if (settings.filter.showHidden === true){
 					filterSettings.$collapsableLayer.hide();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-n').addClass('ui-icon-triangle-1-s');
-					filterSettings.$filterSummary.parent().addClass('rup-maint_searchCriteria');
+					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+					settings.filter.showHidden = true;
+				} else {
+					filterSettings.$collapsableLayer.show();
+					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+					settings.filter.showHidden = false;
 				}
 
 			}
@@ -618,7 +712,7 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccin y el seeker.
+		     * Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
@@ -633,7 +727,7 @@
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-						if(DataTable.multiSelect.multiselection.selectedAll){
+						if(DataTable.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
@@ -649,13 +743,71 @@
 						DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
 						ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 					}
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
-						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
-						}
-					}
+
 				} );
+			},
+			/**
+			* Metodo que inicialida las propiedades para el multiselect y el Select.
+			*
+			* @name initializeMultiselectionProps
+			* @function
+			* @since UDA 3.4.0 // Datatable 1.0.0
+			*
+			*
+			*/
+			_initializeMultiselectionProps (  ) {
+				var $self = {};
+				// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
+				if ($self.multiselection === undefined) {
+					$self.multiselection = {};
+				}
+				if(DataTable.multiselection !== undefined){
+					$self.multiselection.internalFeedback = DataTable.multiselection.internalFeedback;
+				}
+				// Flag indicador de selección de todos los registros
+				$self.multiselection.selectedAll = false;
+				// Numero de registros seleccionados
+				$self.multiselection.numSelected = 0;
+				// Propiedades de selección de registros
+				$self.multiselection.selectedRowsPerPage = [];
+				//$self.multiselection.selectedLinesPerPage = [];
+				//$self.multiselection.selectedRows = [];
+				$self.multiselection.selectedIds = [];
+				$self.multiselection.lastSelectedId = "";
+				//$self.multiselection.selectedPages = [];
+				// Propiedades de deselección de registros
+				$self.multiselection.deselectedRowsPerPage = [];
+				//$self.multiselection.deselectedLinesPerPage = [];
+				//$self.multiselection.deselectedRows = [];
+				$self.multiselection.deselectedIds = [];
+				$self.multiselection.accion = "";//uncheckAll,uncheck
+				//$self.multiselection.deselectedPages = [];
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				// Desmarcamos el check del tHead
+				$("#labelSelectTableHead" + DataTable.settings[0].sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + DataTable.settings[0].sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+
+				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+				DataTable.multiselection =  $self.multiselection;
+			}, _createTooltip (id) {
+				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
+					id.rup_tooltip({
+						content: {
+							text: id.text()
+						},
+						show: {
+							event: 'hover'
+						},
+						position: {
+							viewport: $(window),
+							adjust: {
+								method: 'flip'
+							}
+						}
+						
+					});
+				}
 			}
 	});
 
@@ -670,24 +822,39 @@
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
 			
-			//Comprobar plugin dependientes
-			if(settings.multiSelect === undefined){
-				settings.buttons = undefined;
-				settings.editForm = undefined;
-				settings.seeker = undefined;
-				settings.formEdit = undefined;
-				settings.columnDefs = [];
+			if(args[0].primaryKey !== undefined){
+				settings.primaryKey = args[0].primaryKey.split(";");
 			}
+			
+			//Comprobar plugin dependientes
+			if(settings.multiSelect !== undefined){
+				settings.columnDefs.push({
+			        orderable: false,
+			        className: 'select-checkbox',
+			        targets:   0
+			    	});
+				//Modulo incompatible
+				settings.select = undefined;
+			}
+			
+			
 			if(settings.formEdit === undefined){
 				settings.buttons = undefined;
 			}
 
 			$self._initOptions(settings);
-
+			
 			var tabla = $self.DataTable(settings);
 			
-			if(settings.searchPaginator){
-				tabla.on( 'draw', function (e,settingsTable) {
+			$self._initializeMultiselectionProps();
+			
+			//Crear tooltips cabecera;
+			$.each($('#'+$self[0].id+' thead th'),function( ){
+				$self._createTooltip($(this));
+			});
+			
+			tabla.on( 'draw', function (e,settingsTable) {
+				if(settings.searchPaginator){//Mirar el crear paginador
 					$self._createSearchPaginator($(this),settingsTable);
 					//Si el seeker esta vacio ocultarlo
 					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined && DataTable.seeker.search.$searchRow !== undefined){
@@ -697,15 +864,52 @@
 							DataTable.seeker.search.$searchRow.hide();
 						}
 					}
-				  });
-			}
+				}
+
+				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
+					if(settings.select !== undefined){//AL repintar vigilar el select.
+						if(DataTable.select.selectedRowsPerPage !== undefined){
+							//viene de la navegacion buscar el id.
+							var line = 0;
+							var ctx = tabla.context[0];
+							if(DataTable.select.selectedRowsPerPage.cambio === 'prev' || DataTable.select.selectedRowsPerPage.cambio === 'last'){
+								line = ctx.json.rows.length-1;
+							}
+							
+							DataTable.multiselection.selectedRowsPerPage = [];
+							var rowSelectAux = ctx.json.rows[line];
+							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+							DataTable.multiselection.selectedRowsPerPage.push({line:line,page:DataTable.select.selectedRowsPerPage.page,id:id});
+							DataTable.select.selectedRowsPerPage = undefined;
+							var numTotal = ctx.json.recordsTotal;
+							var index = (Number(ctx.json.page)-1) * 10;
+							index = index + line + 1;
+							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
+						}
+						DataTable.Api().select.drawSelectId();
+					}
+					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
+						var ctx = tabla.context[0];
+						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
+						}
+					}
+				}
+				
+				//Crear tooltips tds;
+				$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
+					$self._createTooltip($(this));
+				});
+			  });
+			
 			
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
 				new $.fn.dataTable.Buttons(
 					tabla,
 					DataTable.Buttons.defaults.buttons
-				).container().insertBefore($('#table_filter_form'));
+				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
 			}
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
@@ -741,25 +945,21 @@ $.fn.rup_datatable.defaults = {
 				delay:1000
 			}
 		},
-    dom: 'tiprl',//i: Info, t: table, p:pagination, r: procesing , l:length:
+    dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
 		responsive: true,
     searchPaginator:true,
     pagingType: "full",
-    columnDefs: [ {
-        orderable: false,
-        className: 'select-checkbox',
-        targets:   0
-    	}
-    ],
+    columnDefs: [],
     filter:{
   	  id:"table_filter_form",
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
 		// adapter: "datatable_jqueryui",
-	adapter: 'datatable_bootstrap'
+	adapter: 'datatable_bootstrap',
+    order: [[ 1, 'asc' ]]
 	};
 
 }));

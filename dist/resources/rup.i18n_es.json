@@ -474,7 +474,7 @@
     "startUpload": "Subir"
   },
   "rup_utils": {
-    "paramsError": "Alguno de los parÃ¡metros especificados es 'null' o 'undefined'",
+    "paramsError": "Alguno de los parámetros especificados es 'null' o 'undefined'",
     "relToAbsUrlParamError": "La url => <b style='color:red'>&#34",
     "relToAbsUrlParamErrorEnd": "&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta.",
     "relToAbsUrlParamFormatError": "Parametro del método &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String."
@@ -862,11 +862,11 @@
     }
   },
   "sProcessing":     "Procesando...",
-  "sLengthMenu":     "Mostrar _MENU_ registros",
+  "sLengthMenu":     "_MENU_",
   "sZeroRecords":    "No se encontraron resultados",
   "sEmptyTable":     "Ningún dato disponible en esta tabla",
-  "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-  "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+  "sInfo":           "Mostrando _START_ - _END_ de _TOTAL_",
+  "sInfoEmpty":      "Mostrando 0 - 0 de 0",
   "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
   "sInfoPostFix":    "",
   "sSearch":         "Buscar:",

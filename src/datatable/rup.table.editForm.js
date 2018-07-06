@@ -61,7 +61,7 @@ DataTable.editForm.version = '1.2.4';
 * @name init
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 *
 */
@@ -78,15 +78,19 @@ DataTable.editForm.init = function ( dt ) {
 	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
 
 	//Se coge el adapter, y se crea la barra de navegación
-	_callNavigationBar(dt);
+	if(ctx.oInit.multiSelect === undefined){// si es de select
+		_callNavigationSelectBar(dt);
+	}else{//si es de multiselect
+		_callNavigationBar(dt);
+	}
 	//Se inicializa el editFrom la info
 	_updateDetailPagination(ctx,1,1);
 
 	//se añade el boton de cancelar
-	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#table_detail_link_cancel');
+	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_link_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
 		ctx.oInit.formEdit.okCallBack = false;
-		var feedback = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+		var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
 
 		//Despues de cerrar
 		//Se limpia los elementos.
@@ -104,16 +108,23 @@ DataTable.editForm.init = function ( dt ) {
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
-	rowsBody.on( 'dblclick.DT','tr',  function () {
-		idRow = this._DT_RowIndex;
-		//Añadir la seleccion del mismo.
-		dt['row'](idRow).multiSelect();
-		_getRowSelected(dt,'PUT');
-		DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
-	} );
+	if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) { 
+		rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
+			idRow = this._DT_RowIndex;
+			//Añadir la seleccion del mismo.
+			if (ctx.oInit.multiSelect !== undefined) {
+				dt['row'](idRow).multiSelect();
+			}else{
+				$('tr',rowsBody).removeClass('selected tr-highlight');
+				DataTable.Api().select.selectRowIndex(dt,idRow,true);
+			}
+			_getRowSelected(dt,'PUT');
+			DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
+		} );
+	}
 
 	// Creacion del Context Menu
-	if (DataTable.settings[0].oInit.buttons !== undefined) {
+	if (ctx.oInit.buttons !== undefined) {
 		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
 		var items = {};
 		$.when(
@@ -168,7 +179,7 @@ DataTable.editForm.init = function ( dt ) {
 						var buttonName;
 						var eventDT;
 						var eventConfig;
-	
+
 						$.each( DataTable.ext.buttons, function( key ) {
 							var buttonObject = DataTable.ext.buttons[key];
 							if (buttonObject.id === buttonId) {
@@ -177,7 +188,7 @@ DataTable.editForm.init = function ( dt ) {
 								eventConfig = buttonObject;
 							}
 						});
-						
+
 						// Llamamos directamente al action para no hacer aparecer y desaparecer
 						// el boton, empeorando la UX
 						DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
@@ -221,32 +232,6 @@ DataTable.editForm.init = function ( dt ) {
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
 
-/*	var api = new DataTable.Api( ctx );
-	api.on( 'draw.dtSelect.dt select.dtSelect.dt', function () {//Si lleva parametros es que estamos en la navegacion interna.
-		if(ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
-			var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
-			//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-			if(DataTable.multiSelect.multiselection.selectedAll){
-				var linea = -1;
-				if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
-					linea = ctx.json.rows.length;
-					params[2] = _getLineByPageSelectedReverse(ctx,linea);
-				}else{
-					params[2] = _getLineByPageSelected(ctx,linea);//Se inicia en -1 para que coja desde la primera linea.next y prev.
-				}
-
-			}
-			DataTable.editForm.fnOpenSaveDialog(params[0],params[1],params[2]);
-			ctx.oInit.formEdit.$navigationBar.funcionParams = {};
-		}
-		if(DataTable.seeker.search !== undefined){
-			if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-						ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-					DataTable.Api().seeker.selectSearch(dt,ctx,DataTable.seeker.search.funcionParams);
-			}
-		}
-	} );
-*/
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -263,9 +248,9 @@ DataTable.editForm.init = function ( dt ) {
  * @name init
  * @function
  * @since UDA 3.4.0 // Datatable 1.0.0
- * 
+ *
  * @param  {DataTable.settings} ctx Settings object to operate on
- * 
+ *
  */
 function init ( ctx ) {
 	var api = new DataTable.Api( ctx );
@@ -357,7 +342,7 @@ function eventTrigger ( api, type, args, any )
 * @name openSaveDialog
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
@@ -368,16 +353,16 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	var idForm = ctx.oInit.formEdit.idForm;
 
 	//Se limpia los errores. Si hubiese
-	var feed = ctx.oInit.formEdit.detailForm.find('#table_detail_feedback');
+	var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
 	var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#'+feed[0].id + '_ok');
 	if(divErrorFeedback.length > 0){
 		divErrorFeedback.hide();
 	}
 
 	//se añade el boton de guardar
-	var button = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save');
+	var button = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_save');
 	//se añade el boton de guardar y continuar
-	var buttonContinue = ctx.oInit.formEdit.detailForm.find('#table_detail_button_save_repeat');
+	var buttonContinue = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_save_repeat');
 
 	if(actionType === 'CLONE'){//En caso de ser clonado, solo se debe guardar.
 		actionType = 'POST';
@@ -385,7 +370,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	}else{
 		buttonContinue.show();
 	}
-	
+
 	if(idRow < 0){
 		idRow = 1;
 	}
@@ -394,19 +379,25 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 
 	if (actionType === 'PUT') {
 		$.rup_utils.populateForm(rowArray, idForm);
-		var multiselection = DataTable.multiSelect.multiselection;
-		var indexInArray = jQuery.inArray(row.id, multiselection.selectedIds);
-		if(DataTable.multiSelect.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
+		var multiselection = DataTable.multiselection;
+		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
+		if(DataTable.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		if(indexInArray === undefined){
 			indexInArray = 0;
 			ctx.oInit.formEdit.$navigationBar.numPosition = 0;
 		}
-		_updateDetailPagination(ctx,indexInArray+1,multiselection.numSelected);
-		DataTable.Api().multiSelect.selectPencil(ctx,idRow);
+		var numTotal = multiselection.numSelected;
+		if(ctx.oInit.multiSelect === undefined){
+			numTotal = ctx.json.recordsTotal;
+			indexInArray = (Number(ctx.json.page)-1) * 10;
+			indexInArray = indexInArray + idRow;
+		}
+		_updateDetailPagination(ctx,indexInArray+1,numTotal);
+		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
-		DataTable.multiSelect.multiselection.lastSelectedId = row.id;
+		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
@@ -462,7 +453,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 * @name openSaveDialog
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
 * @param {object} row - son los datos que se cargan.
@@ -475,7 +466,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
 	// add Filter
-	var feed = idTableDetail.find('#table_detail_feedback');
+	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
@@ -505,7 +496,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					_callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa,feedback del formulario
 				}else{
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
-					_callFeedbackOk(ctx,DataTable.multiSelect.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+					_callFeedbackOk(ctx,DataTable.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 
 				if(actionType === 'PUT'){//Modificar
@@ -513,7 +504,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.json.rows[idRow] = row;
 				}else{
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					DataTable.Api().multiSelect.deselectAll(dt);
+					if(ctx.oInit.multiSelect !== undefined){
+						DataTable.Api().multiSelect.deselectAll(dt);
+					}else if(ctx.oInit.select !== undefined){
+						DataTable.Api().select.deselect(ctx);
+					}
 					var rowAux = row;
 					$.each(ctx.json.rows,function(index,r) {
 						var rowNext = r;
@@ -528,14 +523,18 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					dt['row']().multiSelect();
 					//Se actualiza la linea
 					if(ctx.json.reorderedSelection !== null){
-						DataTable.multiSelect.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+						DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
 				}
 
 			}else{//Al eliminar hacer un reload.
-				DataTable.multiSelect.multiselection.internalFeedback.type = 'eliminar';
-				DataTable.multiSelect.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
-				DataTable.Api().multiSelect.deselectAll(dt);
+				DataTable.multiselection.internalFeedback.type = 'eliminar';
+				DataTable.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
+				if(ctx.oInit.multiSelect !== undefined){
+					DataTable.Api().multiSelect.deselectAll(dt);
+				}else if(ctx.oInit.select !== undefined){
+					DataTable.Api().select.deselect(ctx);
+				}
 				 dt.ajax.reload();
 			}
 
@@ -563,7 +562,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 * @name callFeedbackOk
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
 * @param {string} msgFeedBack - Mensaje para el feedback.
@@ -590,7 +589,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 * @name returnCheckEmpty
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} idForm - Identificador del formulario.
 * @param {string} values - Values ya añadidos al formulario.
 *
@@ -609,7 +608,7 @@ function _returnCheckEmpty(idForm,values){
 * @name updateDetailPagination
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -629,7 +628,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_table_selectedElements_' + formId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_table_selectedElements_table','#'+tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**
@@ -644,13 +643,12 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter]; 
-	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#table_detail_navigation');
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
-		var $self = this,
-			execute = false,
+		var execute = false,
 			changePage = false,
 			index = 0,
 			newPageIndex = 0,
@@ -658,8 +656,7 @@ function _callNavigationBar(dt){
 			page = dt.page()+1,
 			newPage = page,
 			lastPage = ctx.json.total;
-		var multiselection = DataTable.multiSelect.multiselection;
-		//npos[0] = parseInt(npos[0], 10);
+		var multiselection = DataTable.multiselection;
 		var rowSelected;
 
 		switch (linkType) {
@@ -694,7 +691,7 @@ function _callNavigationBar(dt){
 					//buscarPAgina.
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 					rowSelected.page = _getPrevPageSelected (ctx,page-1);
-					//rowSelected.line = -1;
+
 				}else{
 					rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 				}
@@ -729,7 +726,7 @@ function _callNavigationBar(dt){
 				rowSelected = multiselection.selectedRowsPerPage[indexLast];
 				rowSelected.indexSelected = indexLast;
 			} else {
-				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiSelect.multiselection.numSelected - 1;
+				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiselection.numSelected - 1;
 				rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 				rowSelected.page = _getPrevPageSelected (ctx,lastPage);
 				if(Number(rowSelected.page) === page){//Si es la misma pagina.buscar la linea
@@ -756,10 +753,83 @@ function _callNavigationBar(dt){
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
-	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar); 
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
 
+/**
+* Constructor de la barra de navegación.
+*
+* @name callNavigatorSelectBar
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
+function _callNavigationSelectBar(dt){
+	var ctx = dt.settings()[0];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
+	var settings = {};
+
+	//Funcion para obtener los parametros de navegacion.
+	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
+		var execute = false,
+			changePage = false,
+			index = 0,
+			newPageIndex = 0,
+			npos = ctx.oInit.formEdit.$navigationBar.currentPos,
+			page = dt.page()+1,
+			newPage = page,
+			lastPage = ctx.json.total;
+		var futurePage = page;
+
+		switch (linkType) {
+		case 'first':
+			futurePage = 1;
+			DataTable.multiselection.selectedRowsPerPage[0].line = 0;
+			break;
+		case 'prev':
+			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line-1;
+			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+				futurePage = futurePage-1;
+			}
+			break;
+		case 'next':
+			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line+1;
+			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+				futurePage = futurePage+1;
+			}
+			break;
+		case 'last':
+			futurePage = lastPage;
+			DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.rows.length-1;
+
+		}
+		//Cambio de pagina
+		if(Number(futurePage) !== page){
+			var table = $('#'+ctx.sTableId).DataTable();
+			DataTable.select.selectedRowsPerPage = {};
+			DataTable.select.selectedRowsPerPage.cambio = linkType;
+			DataTable.select.selectedRowsPerPage.page = futurePage;
+			table.page( futurePage-1 ).draw( 'page' );
+		}else{//Si nose pagina se abre directamente la funcion.
+			DataTable.editForm.fnOpenSaveDialog('PUT',dt,DataTable.multiselection.selectedRowsPerPage[0].line);
+			var rowSelectAux = ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line];
+			DataTable.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+			DataTable.Api().select.deselect(ctx);
+			DataTable.Api().select.drawSelectId();
+		}
+
+	};
+
+
+	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
+	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+}
 
 /**
 * Metodo que obtiene la fila siguiente seleccionada.
@@ -767,25 +837,25 @@ function _callNavigationBar(dt){
 * @name getRowSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
-* 
+*
 * @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
 */
 function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
 	var rowDefault = {id:0,page:1,line:0};
-	var lastSelectedId = DataTable.multiSelect.multiselection.lastSelectedId;
-	if(!DataTable.multiSelect.multiselection.selectedAll){
+	var lastSelectedId = DataTable.multiselection.lastSelectedId;
+	if(!DataTable.multiselection.selectedAll){
 		//Si no hay un ultimo señalado se coge el ultimo;
 
 		if(lastSelectedId === undefined || lastSelectedId === ''){
-			DataTable.multiSelect.multiselection.lastSelectedId = DataTable.multiSelect.multiselection.selectedRowsPerPage[0].id;
+			DataTable.multiselection.lastSelectedId = DataTable.multiselection.selectedRowsPerPage[0].id;
 		}
-		$.each(DataTable.multiSelect.multiselection.selectedRowsPerPage,function(index,p) {
-			if(p.id === DataTable.multiSelect.multiselection.lastSelectedId){
+		$.each(DataTable.multiselection.selectedRowsPerPage,function(index,p) {
+			if(p.id === DataTable.multiselection.lastSelectedId){
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
@@ -801,15 +871,15 @@ function _getRowSelected(dt,actionType){
 			rowDefault.line = _getLineByPageSelected(ctx,-1);
 		}else{
 			//buscar la posicion y pagina
-			var result = $.grep(DataTable.multiSelect.multiselection.selectedRowsPerPage, function(v) {
-				return v.id === DataTable.multiSelect.multiselection.lastSelectedId;
+			var result = $.grep(DataTable.multiselection.selectedRowsPerPage, function(v) {
+				return v.id === DataTable.multiselection.lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
 			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
 			index = index+1+rowDefault.line;
 			//Hay que restar los deselecionados.
-			 result = $.grep(DataTable.multiSelect.multiselection.deselectedRowsPerPage, function(v) {
+			 result = $.grep(DataTable.multiselection.deselectedRowsPerPage, function(v) {
 					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
 				});
 			rowDefault.indexSelected = index-result.length;//Buscar indice
@@ -835,11 +905,11 @@ function _getRowSelected(dt,actionType){
 * @name getNextPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
 * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
-* 
+*
 * @return integer - devuele la página
 *
 */
@@ -849,12 +919,12 @@ function _getNextPageSelected(ctx,pageInit,orden){
 	if(orden === 'prev'){//Si es previo se resta.
 		pageTotals = 1;
 	}
-	if(DataTable.multiSelect.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; page<pageTotals;) {
-			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
 				if(page === Number(p.page)){
 					count++;
 				}
@@ -883,17 +953,17 @@ function _getNextPageSelected(ctx,pageInit,orden){
 * @name getPrevPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
-* 
+*
 * @return integer - devuele la página
 *
 */
 function _getPrevPageSelected(ctx,pageInit){
 	var pagina = pageInit;
 	var pageTotals = 1;
-	if(DataTable.multiSelect.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		if(ctx.json.total === pagina){//Es ultima pagina, calcular los registros{
 			maxPagina =  ctx.json.records % ctx._iDisplayLength;
@@ -901,7 +971,7 @@ function _getPrevPageSelected(ctx,pageInit){
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; pageTotals <= page;) {
-			$.each(DataTable.multiSelect.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
 				if(Number(page) === Number(p.page)){
 					count++;
 				}
@@ -927,10 +997,10 @@ function _getPrevPageSelected(ctx,pageInit){
 * @name getLineByPageSelected
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
-* 
+*
 * @return integer - devuele la linea
 *
 */
@@ -940,10 +1010,10 @@ function _getLineByPageSelected(ctx,lineInit){
 
 	$.each(rows, function( index, row ) {
 		if(index > lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiSelect.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				return false;
 			}
@@ -958,10 +1028,10 @@ function _getLineByPageSelected(ctx,lineInit){
 * @name getLineByPageSelectedReverse
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
-* 
+*
 * @return integer - devuele la linea
 *
 */
@@ -972,10 +1042,10 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 	for (var index=rows.length-1; index>=0;index--) {
 		var row = rows[index];
 		if(index < lineInit){
-			var indexInArray = jQuery.inArray(row.id, DataTable.multiSelect.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:row.id,page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				index = -1;
 			}
@@ -990,31 +1060,32 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 * @name deleteAllSelects
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
-* 
+*
 * @param {object} dt - Es el objeto datatable.
 *
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	var row = DataTable.multiSelect.multiselection.selectedIds;
+	var row = DataTable.multiselection.selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
 		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
 		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
 		OKFunction: function () {
-			if(DataTable.multiSelect.multiselection.selectedIds.length > 1){
+			if(DataTable.multiselection.selectedIds.length > 1){
 				var row = {};
 				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
 				row.multiselection = {};
-				row.multiselection.selectedAll = DataTable.multiSelect.multiselection.selectedAll;
+				row.multiselection.selectedAll = DataTable.multiselection.selectedAll;
 				if(row.multiselection.selectedAll){
-					row.multiselection.selectedIds = DataTable.multiSelect.multiselection.deselectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection.deselectedIds;
 				}else{
-					row.multiselection.selectedIds = DataTable.multiSelect.multiselection.selectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection.selectedIds;
 				}
 				_callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
 			}else{
-				row = DataTable.multiSelect.multiselection.selectedIds[0];
+				row = DataTable.multiselection.selectedIds[0];
+				row = row.replace(ctx.oInit.multiplePkToken,'/');
 				_callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
 			}
 		}

@@ -138,7 +138,7 @@ function _createFilterColumn(dt,ctx){
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
 	   $('#'+idTabla+' tfoot th').each( function () {
 	        var title = $(this).text();
-	        if($(this).index() > 0){
+	        if($(this).index() > 0 || ctx.oInit.multiSelect === undefined){
 	        	var position = $(this).index()+1;
 	        	var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
 	        	$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
@@ -337,6 +337,7 @@ function _createSearchRow (dt,ctx){
 function _selectSearch(dt,ctx,rows){
 	//Se limina el lapicero indicador.
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
+	$('#'+ctx.sTableId+' tbody tr td span.ui-icon-search').remove();
 
 	//se añade el span con el lapicero
 	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
@@ -348,18 +349,27 @@ function _selectSearch(dt,ctx,rows){
 				rowSelected = dt.rows().nodes()[idx];
 			}
 			var result = $.grep(rows, function(v) {
-				return v.pk.id === value.id;
+				return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
-				$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
+				if(ctx.oInit.multiSelect !== undefined){
+					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
+				}else if(ctx.oInit.select !== undefined){
+					$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
+				}
 			}
 		});
 		var rowUnique = rows[DataTable.seeker.search.pos];
+		var rowList = ctx.json.rows[rowUnique.pageLine-1];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
-				&& rowUnique.pk.id === ctx.json.rows[rowUnique.pageLine-1].id &&
+				&& DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
 				(ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
-			dt['row'](rowUnique.pageLine-1).multiSelect();
+			if(ctx.oInit.multiSelect !== undefined){
+				dt['row'](rowUnique.pageLine-1).multiSelect();
+			}else if(ctx.oInit.select !== undefined){
+				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
+			}
 		}
 		DataTable.seeker.search.accion = '';
 	}
@@ -429,7 +439,11 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum){
 *
 */
 function _processData(dt,ctx,data){
-	DataTable.Api().multiSelect.deselectAll(dt);
+	if(ctx.oInit.multiSelect !== undefined){
+		DataTable.Api().multiSelect.deselectAll(dt);
+	}else if(ctx.oInit.select !== undefined){
+		DataTable.Api().select.deselect(ctx);
+	}
 	if(!_paginar(ctx,data[DataTable.seeker.search.pos])){
 		_selectSearch(dt,ctx,data);
 	}else{
@@ -476,40 +490,41 @@ function _getDatos(ctx){
 */
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
-
-	$('#'+ ctx.sTableId+' tfoot th').each( function(i) {
-		if(i > 0){//La primera columna no vale es la de los select
-			var cellColModel = colModel[i-1];
-			var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
-
-			var colModelName = cellColModel.name;
-			var $elem = $('[name=\''+colModelName+'\']',DataTable.seeker.searchForm);
-			// Se añade el title de los elementos de acuerdo al colname
-			$elem.attr({
-				'title': ctx.aoColumns[i-1].sTitle,
-				'class': 'editable customelement'
-			}).removeAttr('readOnly');
-
-			// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-			if(searchRupType!==undefined) {
-				searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-
-				/*
-				 * PRE Configuración de los componentes RUP
-				 */
-				if(searchRupType === 'combo'){
-					searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
-				} else if(searchRupType === 'date'){
-					$elem.css('width','86%');
-					$elem.css('max-width','80px');
-					$elem.css('min-width','75px');
+	if(colModel !== undefined){
+		$('#'+ ctx.sTableId+' tfoot th').each( function(i) {
+			if(i > 0){//La primera columna no vale es la de los select
+				var cellColModel = colModel[i-1];
+				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
+	
+				var colModelName = cellColModel.name;
+				var $elem = $('[name=\''+colModelName+'\']',DataTable.seeker.searchForm);
+				// Se añade el title de los elementos de acuerdo al colname
+				$elem.attr({
+					'title': ctx.aoColumns[i-1].sTitle,
+					'class': 'editable customelement'
+				}).removeAttr('readOnly');
+	
+				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+				if(searchRupType!==undefined) {
+					searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+	
+					/*
+					 * PRE Configuración de los componentes RUP
+					 */
+					if(searchRupType === 'combo'){
+						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
+					} else if(searchRupType === 'date'){
+						$elem.css('width','86%');
+						$elem.css('max-width','80px');
+						$elem.css('min-width','75px');
+					}
+	
+					// Invocación al componente RUP
+					$elem['rup_'+searchRupType](searchEditOptions);
 				}
-
-				// Invocación al componente RUP
-				$elem['rup_'+searchRupType](searchEditOptions);
 			}
-		}
-	});
+		});
+	}
 
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -530,6 +545,9 @@ apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
 	_selectSearch(dt,ctx,rows );
 } );
 
+apiRegister( 'row().select()', function ( multiSelect ) {
+	alert('a');
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
  */
