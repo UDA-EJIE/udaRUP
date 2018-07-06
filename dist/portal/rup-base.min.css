@@ -4753,8 +4753,7 @@
   top: 0;
 }
 
-.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset,
-.r01gContainer .ui-dialog .ui-dialog-buttonset {
+.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
   display: inline-block;
 }
 
@@ -4762,20 +4761,13 @@
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton,
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next,
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev,
-.r01gContainer .ui-dialog .rup-dropdown-btn-group .ui-dialog-buttonset .ui-button.rup-dropdown-button,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset .ui-button.rup-wizard_submitButton,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_next,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_prev,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton,
-.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button,
-.r01gContainer .ui-dialog .ui-dialog-buttonset .ui-button.rup-button,
-.r01gContainer .ui-dialog .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton,
-.r01gContainer .ui-dialog .ui-dialog-buttonset button.ui-button {
+.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button {
   background-image: none;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Open Sans",sans-serif;
   text-shadow: none;
@@ -4786,20 +4778,13 @@
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover,
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover,
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover,
-.r01gContainer .ui-dialog .rup-dropdown-btn-group .ui-dialog-buttonset .ui-button.rup-dropdown-button:hover,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover,
-.r01gContainer .ui-dialog .rup-wizard .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button:hover,
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover,
-.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover,
-.r01gContainer .ui-dialog .ui-dialog-buttonset .ui-button.rup-button:hover,
-.r01gContainer .ui-dialog .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover,
-.r01gContainer .ui-dialog .ui-dialog-buttonset button.ui-button:hover {
+.r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover {
   background-color: #e6e6e6;
   border-color: #adadad;
   color: #333;
