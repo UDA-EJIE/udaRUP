@@ -52,7 +52,7 @@ function createHtml() {
                         </ul>\
                     </div>';
     $('#content').append(html);
-    $('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -63,14 +63,17 @@ function createHtml() {
         checkbox:{
             override_ui: true
         }
+    }))
+    .then(() => {
+        $tree = $('#exampleTree');
     });
-    $tree = $('#exampleTree');
+    return thenable;
 }
 
 function createJson() {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    $('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -86,14 +89,17 @@ function createJson() {
         checkbox:{
             override_ui: true
         }
+    }))
+    .then(() => {
+        $tree = $('#exampleTree');
     });
-    $tree = $('#exampleTree');
+    return thenable;
 }
 
 function createXml() {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    $('#exampleTree').rup_tree({
+    var thenable = $.when($('#exampleTree').rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -117,8 +123,11 @@ function createXml() {
         checkbox:{
             override_ui: true
         }
+    }))
+    .then(() => {
+        $tree = $('#exampleTree');
     });
-    $tree = $('#exampleTree');
+    return thenable;
 }
 
 function create(type) {
@@ -141,7 +150,7 @@ function testTree(type) {
     describe('Test Tree '+ type +' :', () => {
         beforeEach((done) => {
             $.when(create(type))
-                .then(done());
+                .then(() => {done();});
         });
         afterEach(() => {
             $('#content').html('');
