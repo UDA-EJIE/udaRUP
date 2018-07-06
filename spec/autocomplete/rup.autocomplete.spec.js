@@ -216,17 +216,7 @@ function testAutocomplete() {
                     expect($autocomplete.rup_autocomplete('val')).toBe('ui_value');
                 });
             });
-            describe('Método getRupValue > ', () => {
-                beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
-                    $autocomplete.rup_autocomplete('set', 'ui', 'ui_value');
-                });
-                it('Debe devolver el valor seleccionado', () => {
-                    expect($autocomplete.rup_autocomplete('getRupValue')).toBe('ui_value');
-                });
-            });
-            describe('Método setRupValue > ', () => {
+            describe('Método setRupValue y getRupValue > ', () => {
                 beforeEach(() => {
                     //$autocomplete.rup_autocomplete('close');
                     $('body').trigger('click');
