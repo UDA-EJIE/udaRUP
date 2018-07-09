@@ -51,6 +51,27 @@ describe('Test Wizard > ', () => {
             expect($('ul.rup-wizard_stepsDescContainer').length).toBe(1);
         });
     });
+    describe('Funcionamiento > ', () => {
+        describe('Condiciones para cambiar de paso > ', () => {
+            describe('Cumpliendo condiciones > ', () => {
+                beforeEach(() => {
+                    $('#input1').val('pop');
+                    $('#stepDesc2').click();
+                });
+                it('Debe cambiar al paso seleccionado:', () => {
+                    expect($wizard.rup_wizard('getCurrentStep')).toBe(2);
+                });
+            });
+            describe('No cumpliendo condiciones > ', () => {
+                beforeEach(() => {
+                    $('#stepDesc2').click();
+                });
+                it('Debe quedarse en el paso actual:', () => {
+                    expect($wizard.rup_wizard('getCurrentStep')).toBe(0);
+                });
+            });
+        });
+    });
     describe('Métodos públicos > ', () =>{
         describe('Método step > '  , () => {
             beforeEach(() => {
