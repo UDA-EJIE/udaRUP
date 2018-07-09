@@ -93,18 +93,15 @@ function testAutocomplete() {
         describe('Métodos públicos > ', () => {
             describe('Método on > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('off');
                     $autocomplete.rup_autocomplete('on');
                     $autocomplete.rup_autocomplete('search', 'u');
-                    //$autocomplete2.rup_autocomplete('close');
-                    $('body').trigger('click');
+
                     $autocomplete2.rup_autocomplete('off');
                     $autocomplete2.rup_autocomplete('on');
                     $autocomplete2.rup_autocomplete('search', 'u');
-                    //$autocomplete3.rup_autocomplete('close');
-                    $('body').trigger('click');
+
                     $autocomplete3.rup_autocomplete('off');
                     $autocomplete3.rup_autocomplete('on');
                     $autocomplete3.rup_autocomplete('search', 'u');
@@ -117,16 +114,13 @@ function testAutocomplete() {
             });
             describe('Método off > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('off');
                     $autocomplete.rup_autocomplete('search', 'u');
-                    //$autocomplete2.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    
                     $autocomplete2.rup_autocomplete('off');
                     $autocomplete2.rup_autocomplete('search', 'u');
-                    //$autocomplete3.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    
                     $autocomplete3.rup_autocomplete('off');
                     $autocomplete3.rup_autocomplete('search', 'u');
                 });
@@ -138,14 +132,11 @@ function testAutocomplete() {
             });
             describe('Método option > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('option', 'combobox', true);
-                    //$autocomplete2.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    
                     $autocomplete2.rup_autocomplete('option', 'combobox', true);
-                    //$autocomplete3.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    
                     $autocomplete3.rup_autocomplete('option', 'combobox', true);
                 });
                 it('Debe tener la clase de combobox', () => {
@@ -157,14 +148,11 @@ function testAutocomplete() {
             describe('Método search > ', () => {
                 describe('Empieza por una letra > ', () => {
                     beforeEach(() => {
-                        //$autocomplete.rup_autocomplete('close');
-                        $('body').trigger('click');
+                        $('body').trigger('mousedown');
                         $autocomplete.rup_autocomplete('search', 'u');
-                        //$autocomplete2.rup_autocomplete('close');
-                        $('body').trigger('click');
+                        
                         $autocomplete2.rup_autocomplete('search', 'u');
-                        //$autocomplete3.rup_autocomplete('close');
-                        $('body').trigger('click');
+                        
                         $autocomplete3.rup_autocomplete('search', 'u');
                     });
                     it('Deben mostrarse ambos autocomplete:', () => {
@@ -175,11 +163,9 @@ function testAutocomplete() {
                 });
                 describe('Contiene una letra > ', () => {
                     beforeEach(() => {
-                        //$autocomplete.rup_autocomplete('close');
-                        $('body').trigger('click');
+                        $('body').trigger('mousedown');
                         $autocomplete.rup_autocomplete('search', 'j');
-                        //$autocomplete2.rup_autocomplete('close');
-                        $('body').trigger('click');
+                        
                         $autocomplete2.rup_autocomplete('search', 'j');
                     });
                     it('Solo debe mostrarse el segundo autocomplete:', () => {
@@ -198,8 +184,7 @@ function testAutocomplete() {
             });
             describe('Método val > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('search', 'ui');
                 });
                 it('Debe devolver el valor seleccionado', () => {
@@ -208,8 +193,7 @@ function testAutocomplete() {
             });
             describe('Método set > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('set', 'ui', 'ui_value');
                 });
                 it('Debe devolver el valor seleccionado', () => {
@@ -218,8 +202,7 @@ function testAutocomplete() {
             });
             describe('Método setRupValue y getRupValue > ', () => {
                 beforeEach(() => {
-                    //$autocomplete.rup_autocomplete('close');
-                    $('body').trigger('click');
+                    $('body').trigger('mousedown');
                     $autocomplete.rup_autocomplete('setRupValue', 'ui_value');
                 });
                 it('Debe devolver el valor seleccionado', () => {
