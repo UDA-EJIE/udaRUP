@@ -52,7 +52,7 @@ function createHtml(done) {
                         </ul>\
                     </div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -63,17 +63,14 @@ function createHtml(done) {
         checkbox:{
             override_ui: true
         }
-    }))
-    .then(() => {
-        $tree = $('#exampleTree');
     });
-    return thenable;
+    $tree = $('#exampleTree');
 }
 
 function createJson(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -89,17 +86,14 @@ function createJson(done) {
         checkbox:{
             override_ui: true
         }
-    }))
-    .then(() => {
-        $tree = $('#exampleTree');
     });
-    return thenable;
+    $tree = $('#exampleTree');
 }
 
 function createXml(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    var thenable = $.when($('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $('#exampleTree').on('loaded.jstree', done).rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -128,11 +122,8 @@ function createXml(done) {
         checkbox:{
             override_ui: true
         }
-    }))
-    .then(() => {
-        $tree = $('#exampleTree');
     });
-    return thenable;
+    $tree = $('#exampleTree');
 }
 
 function create(type, done) {
@@ -168,6 +159,7 @@ function testTree(type) {
             });
             describe('Checkbox > ', () => {
                 it('Debe contener los checkboxes:', () => {
+                    console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + type);
                     console.info($('#content').html());
                     expect($('.jstree-checkbox').length).toBe(3);
                 });
