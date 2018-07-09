@@ -24,20 +24,24 @@ describe('Test Wizard > ', () => {
                         </fieldset>\
                         <input type="submit" value="submit" id="btnSubmit">\
                     </form>';
-        $('body').append(html);
+        $('#content').append(html);
         let opts = {
             submitButton:'btnSubmit',
             stepFnc: {
                 '0': () => {},
                 '1': () => {},
-                '2': () => {}
+                '2': () => {
+                    if($('#input1').val() !== 'pop') {
+                        return false;
+                    }
+                }
             }
         };
         $('#exampleWizard').rup_wizard(opts);
         $wizard = $('#exampleWizard');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
     });
     describe('Creación > ', () => {
         it('Debe tener la clase rup_wizard', () => {
@@ -165,18 +169,16 @@ describe('Test Wizard > ', () => {
                 $wizard.rup_wizard('step', 0);
                 $wizard.rup_wizard('disableStep', 1);
                 $wizard.rup_wizard('enableStep', 1);
+                $wizard.rup_wizard('step', 1);
             });
             it('El step debe estar habilitado', () => {
-                expect($wizard.rup_wizard('step', 1)).toBeUndefined();
+                expect($wizard.rup_wizard('getCurrentStep')).toBe(1);
             });
         });
         describe('Método disableStep > ' , () => {
             beforeEach(() => {
                 $wizard.rup_wizard('step', 0);
                 $wizard.rup_wizard('disableStep', 1);
-            });
-            afterEach(() => {
-                $wizard.rup_wizard('enableStep', 1);
             });
             it('El step debe estar deshabilitado', () => {
                 expect($wizard.rup_wizard('step', 1)).toBeFalsy();
@@ -186,9 +188,7 @@ describe('Test Wizard > ', () => {
             beforeEach(() => {
                 $wizard.rup_wizard('disableStep', 1);
             });
-            afterEach(() => {
-                $wizard.rup_wizard('enableStep', 1);
-            });
+
             it('Debe establecer si el paso esta deshabilitado', () => {
                 expect($wizard.rup_wizard('isStepDisabled', 1)).toBeTruthy();
                 expect($wizard.rup_wizard('isStepDisabled', 2)).toBeFalsy();
