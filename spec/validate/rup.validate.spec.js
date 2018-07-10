@@ -11,7 +11,7 @@ describe('Test Validate >  ', () => {
                         <input id="btnInput" type="submit">Validar</input>\
                     </form>\
                     <div id="feedback"></div>';
-        $('body').append(html);
+        $('#content').append(html);
         var optsFeedback = {
             type: "ok",
             closeLink: true,
@@ -32,7 +32,8 @@ describe('Test Validate >  ', () => {
         $validate = $('#exampleValidate').rup_validate(optsValidate);
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().html('');
     });
     describe('Creación > ', () => {
         it('El formulario tiene que tener la clase rup_validate', () => {
