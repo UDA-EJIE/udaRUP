@@ -5,6 +5,11 @@ import '../../dist/css/rup-theme.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tree';
+/**
+ * NOTA:
+ *  > Ejecutar este test con el comando 'npm run test:dev' para evitar errores de timeout
+ */
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 12000;
 
 function loadCss() {
     let css = '';
@@ -78,7 +83,7 @@ function createJson(done) {
         },
         json_data:{
             ajax:{
-                url:'http://localhost:8081/demo/tree/remote'
+                url:'http://localhost:8081/demo/tree/remote/json'
             }
         },
         plugins: treePlugins,
@@ -100,17 +105,9 @@ function createXml(done) {
             }
         },
         xml_data: {
-            data: ' <root>\
-                        <item id="node1">\
-                            <content><name><![CDATA[Padre]]></name></content>\
-                            <item id="node11" parent_id="node1">\
-                                <content><name><![CDATA[Hijo 2]]></name></content>\
-                            </item>\
-                            <item id="node12" parent_id="node1">\
-                                <content><name><![CDATA[Hijo 1]]></name></content>\
-                            </item>\
-                        </item>\
-                    </root>'
+            ajax:{
+                url:'http://localhost:8081/demo/tree/remote/xml'
+            }
         },
         plugins: [
             'checkbox',
@@ -139,8 +136,8 @@ function create(type, done) {
 }
 $.when(loadCss())
     .then(testTree('html'))
-    .then(testTree('json'))
-    .then(testTree('xml'));
+    .then(testTree('xml'))
+    .then(testTree('json'));
 
 function testTree(type) {
     describe('Test Tree '+ type +' :', () => {

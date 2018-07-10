@@ -64,7 +64,8 @@ module.exports = (PORT) => {
 	//Autocomplete
 	app.get('/demo/autocomplete/remote', routesAutocomplete.remote);
 	//Tree
-	app.get('/demo/tree/remote', routesTree.remote);
+	app.get('/demo/tree/remote/json', routesTree.json);
+	app.get('/demo/tree/remote/xml', routesTree.xml);
 	// Combo
 	app.get('/demo/comboSimple/remote', routesCombo.comboSimple.remote);
 	app.get('/demo/comboSimple/remoteGroup', routesCombo.comboSimple.remoteGroup);
