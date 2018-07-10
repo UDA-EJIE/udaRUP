@@ -59,6 +59,7 @@ describe('Test Validate >  ', () => {
         describe('Método resetForm > ', () => {
             beforeEach(() => {
                 $('#btnInput').click();
+                $('#campoUno').val('pop');
                 $validate.rup_validate('resetForm');
             });
             it('Debe mantenerse el feedback', () => {
@@ -66,6 +67,7 @@ describe('Test Validate >  ', () => {
             });
             it('Los campos del form no deben tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
+                expect($('#campoUno').val()).toBe('');
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
