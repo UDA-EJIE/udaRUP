@@ -2,6 +2,9 @@
 
 import '../../dist/css/rup-base.css';
 import '../../dist/css/rup-theme.css';
+import '../../dist/css/rup-jqueryui-theme.css';
+import '../../dist/css/font-awesome.css';
+// import '../../dist/css/main.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.tree';
@@ -10,6 +13,14 @@ import 'rup.tree';
  *  > Ejecutar este test con el comando 'npm run test:dev' para evitar errores de timeout
  */
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 12000;
+
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
 
 function loadCss() {
     let css = '';
@@ -57,7 +68,8 @@ function createHtml(done) {
                         </ul>\
                     </div>';
     $('#content').append(html);
-    $('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $tree = $('#exampleTree');
+    $tree.rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -69,13 +81,17 @@ function createHtml(done) {
             override_ui: true
         }
     });
-    $tree = $('#exampleTree');
+    $tree.on('loaded.jstree', () => {
+        // testTrace('loaded.jstree', 'HTML CARGADO!!!!');
+        done();
+    });
 }
 
 function createJson(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    $('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $tree = $('#exampleTree');
+    $tree.rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
@@ -92,22 +108,34 @@ function createJson(done) {
             override_ui: true
         }
     });
-    $tree = $('#exampleTree');
+    $tree.on('loaded.jstree', () => {
+        // testTrace('loaded.jstree', 'JSON CARGADO!!!!');
+        done();
+    });
 }
 
 function createXml(done) {
     let html = '<div id="exampleTree"></div>';
     $('#content').append(html);
-    $('#exampleTree').on('loaded.jstree', done).rup_tree({
+    $tree = $('#exampleTree');
+    $tree.rup_tree({
         core: {
             getValue: ($item, itemData) => {
                 return itemData.id;
             }
         },
         xml_data: {
-            ajax:{
-                url:'http://localhost:8081/demo/tree/remote/xml'
-            }
+            data: '<root>\
+                    <item id="node1">\
+                        <content><name><![CDATA[Padre]]></name></content>\
+                        <item id="node11" parent_id="node1">\
+                            <content><name><![CDATA[Hijo 2]]></name></content>\
+                        </item>\
+                        <item id="node12" parent_id="node1">\
+                            <content><name><![CDATA[Hijo 1]]></name></content>\
+                        </item>\
+                    </item>\
+                </root>'
         },
         plugins: [
             'checkbox',
@@ -120,7 +148,10 @@ function createXml(done) {
             override_ui: true
         }
     });
-    $tree = $('#exampleTree');
+    $tree.on('loaded.jstree', () => {
+        // testTrace('loaded.jstree', 'XML CARGADO!!!!');
+        done();
+    });
 }
 
 function create(type, done) {
@@ -134,6 +165,7 @@ function create(type, done) {
         createXml(done);
     }
 }
+
 $.when(loadCss())
     .then(testTree('html'))
     .then(testTree('xml'))
@@ -148,7 +180,7 @@ function testTree(type) {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
-        describe('Creación', () => {
+        describe('['+type+'] Creación', () => {
             describe('Debe crear el rup_tree > ', () => {
                 it('Debe tener el attr ruptype = tree', () => {
                     expect($tree.attr('ruptype')).toBe('tree');
@@ -156,8 +188,6 @@ function testTree(type) {
             });
             describe('Checkbox > ', () => {
                 it('Debe contener los checkboxes:', () => {
-                    console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + type);
-                    console.info($('#content').html());
                     expect($('.jstree-checkbox').length).toBe(3);
                 });
             });
@@ -179,7 +209,7 @@ function testTree(type) {
                 });
             });
         });
-        describe('Métodos públicos:', () => {
+        describe('[' + type + '] Métodos públicos:', () => {
             describe('Método getRupValue y setRupValue', () => {
                 beforeEach(() => {
                     $tree.rup_tree('setRupValue', 'node1');
