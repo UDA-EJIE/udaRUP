@@ -159,7 +159,46 @@ module.exports = function(config) {
 						query: {
 							cacheDirectory: true,
 						},
-					},
+					}, {
+						test: /(\.css|\.scss|\.sass)$/,
+						use: [{
+							loader: 'style-loader' // creates style nodes from JS strings
+						}, {
+							loader: 'css-loader',
+							options: {
+								alias: {
+									// './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
+									// './images': path.join(__dirname, '../assets/images'),
+									// '../images': path.join(__dirname, '../demo/images'),
+									// './cursors': path.join(__dirname, '../assets/cursors')
+								}
+							} // translates CSS into CommonJS
+						}, {
+							loader: 'postcss-loader', // Run post css actions
+							options: {
+								plugins: function () { // post css plugins, can be exported to postcss.config.js
+									return [
+										require('precss'),
+										require('autoprefixer')
+									];
+								}
+							}
+						}, {
+							loader: 'sass-loader',
+							options: {
+							}
+						}]
+					}, {
+						test: /\.png$|\.gif$|\.cur$|\.svg$/,
+						use: [{
+							loader: 'file-loader'
+						}]
+					}, {
+						test: /\.woff2?$|\.ttf$|\.eot$/,
+						use: [{
+							loader: 'url-loader'
+						}]
+					}
 				],
 			},
 			resolve:

@@ -1,21 +1,43 @@
+/* jslint esnext: true, multistr: true */
+import '../../dist/css/font-awesome.css';
+import '../../dist/css/rup-base.css';
+import '../../dist/css/rup-theme.css';
+import '../../dist/css/rup-jqueryui-theme.css';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.validate';
 
+function testTrace(title, toTrace) {
+    console.info("\n\n*****************************************************\n\n" +
+        title +
+        "\n--------------------------------\n\n" +
+        toTrace +
+        "\n\n*****************************************************\n\n");
+}
+
+var d = new $.Deferred();
+
 describe('Test Validate >  ', () => {
-    var $validate, $feedBack;
+    var $validate, $feedBack, $validateEvent, $feedBackEvent;
+    var event_done, event_fail = false,
+        event_success = false;
+
     beforeEach(() => {
         var html = '<form id="exampleValidate">\
-                        <input type="text" name="campoUno" id="campoUno">Campo 1</input>\
-                        <input type="text" name="campoDos" id="campoDos">Campo 2</input>\
-                        <input id="btnInput" type="submit">Validar</input>\
-                    </form>\
-                    <div id="feedback"></div>';
+                            <label for="campoUno">Campo 1</label><input type="text" name="campoUno" id="campoUno"></input > \
+                            <label for="campoDos">Campo 2</label><input type="text" name="campoDos" id="campoDos"></input>\
+                        </form>\
+                        <div id="feedback"></div>';
         $('#content').append(html);
+        var htmlEvent = '<form id="exampleValidateEvent">\
+                            <label for="campoUnoEvent">Campo 1</label><input type="text" name="campoUnoEvent" id="campoUnoEvent"></input >\
+                        </form>';
+        $('#content').append(htmlEvent);
+
         var optsFeedback = {
             type: "ok",
             closeLink: true,
-            block:false
+            block: false
         };
         $feedBack = $('#feedback').rup_feedback(optsFeedback);
         var optsValidate = {
@@ -23,17 +45,40 @@ describe('Test Validate >  ', () => {
             liveCheckingErrors: false,
             showFieldErrorAsDefault: true,
             showErrorsInFeedback: true,
-            showFieldErrorsInFeedback:true,
-            rules:{
-                "campoUno": {required: true},
-                "campoDos": {required: true}
+            showFieldErrorsInFeedback: true,
+            rules: {
+                "campoUno": {
+                    required: true
+                },
+                "campoDos": {
+                    required: true
+                }
             }
         };
         $validate = $('#exampleValidate').rup_validate(optsValidate);
+
+        $validateEvent = $('#exampleValidateEvent').rup_validate({
+            rules: {
+                "campoUnoEvent": {
+                    required: true
+                }
+            },
+            onSubmitHandler: (form) => {
+                event_success = true;
+                event_done();
+            },
+            invalidHandler: (event, validator) => {
+                event_fail = true;
+                event_done();
+            }
+        });
     });
     afterEach(() => {
         $('#content').html('');
         $('#content').nextAll().html('');
+        event_done = undefined;
+        event_success = false;
+        event_fail = false;
     });
     describe('Creación > ', () => {
         it('El formulario tiene que tener la clase rup_validate', () => {
@@ -43,23 +88,59 @@ describe('Test Validate >  ', () => {
             expect($feedBack.is(':visible')).toBeFalsy();
         });
     });
-    describe('La validación funciona > ', () => {
+    describe('La validación funciona, no debe pasar > ', () => {
         beforeEach(() => {
-            $('#btnInput').click();
+            $('#campoUno').val('foo');
+            $validate.valid();
         });
         it('Debe mostrarse el feedback', () => {
             expect($feedBack.is(':visible')).toBeTruthy();
         });
         it('Cada campo del form debe tener la clase error', () => {
-            expect($('#campoUno').hasClass('error')).toBeTruthy();
+            expect($('#campoUno').hasClass('error')).toBeFalsy();
             expect($('#campoDos').hasClass('error')).toBeTruthy();
+        });
+    });
+    describe('La validación funciona, debe pasar > ', () => {
+        beforeEach(() => {
+            $('#campoUno').val('foo');
+            $('#campoDos').val('foo');
+            $validate.valid();
+        });
+        it('No debe mostrarse el feedback', () => {
+            expect($feedBack.is(':visible')).toBeFalsy();
+        });
+        it('Cada campo del form debe tener la clase error', () => {
+            expect($('#campoUno').hasClass('error')).toBeFalsy();
+            expect($('#campoDos').hasClass('error')).toBeFalsy();
+        });
+    });
+    describe('Eventos > ', () => {
+        describe('invalidHandler', () => {
+            beforeEach((done) => {
+                event_done = done;
+                $('#campoUnoEvent').val('');
+                $validateEvent.valid();
+            });
+            it('Debe lanzarse el evento', () => {
+                expect(event_fail).toBeTruthy();
+            });
+        });
+        describe('onSubmitHandler', () => {
+            beforeEach((done) => {
+                event_done = done;
+                $('#campoUnoEvent').val('foo');
+                $validateEvent.valid();
+            });
+            it('Debe lanzarse el evento', () => {
+                expect(event_success).toBeTruthy();
+            });
         });
     });
     describe('Métodos públicos > ', () => {
         describe('Método resetForm > ', () => {
             beforeEach(() => {
-                $('#btnInput').click();
-                $('#campoUno').val('pop');
+                $validate.valid();
                 $validate.rup_validate('resetForm');
             });
             it('Debe mantenerse el feedback', () => {
@@ -67,13 +148,12 @@ describe('Test Validate >  ', () => {
             });
             it('Los campos del form no deben tener la clase error', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
-                expect($('#campoUno').val()).toBe('');
                 expect($('#campoDos').hasClass('error')).toBeFalsy();
             });
         });
         describe('Método resetElements > ', () => {
             beforeEach(() => {
-                $('#btnInput').click();
+                $validate.valid();
                 $validate.rup_validate('resetElements');
             });
             it('Debe mantenerse el feedback', () => {
@@ -87,7 +167,7 @@ describe('Test Validate >  ', () => {
         describe('Método destroy > ', () => {
             beforeEach(() => {
                 $validate.rup_validate('destroy');
-                $('#btnInput').click();
+                $validate.valid();
             });
             it('No debe existir', () => {
                 expect($('#campoUno').hasClass('error')).toBeFalsy();
