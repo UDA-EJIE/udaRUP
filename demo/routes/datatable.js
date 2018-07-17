@@ -6,5 +6,5 @@ exports.remote = (req, res) => {
         { id: '1', nombre:'Erlantz', apellidos: 'Carrasson Pando', edad: 23},
         { id: '1', nombre:'Eider', apellidos: 'Ahedo Dominguez', edad: 12},
     ]
-    req.status(200).json(json);
+    res.status(200).json(json);
 }

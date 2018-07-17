@@ -3,6 +3,7 @@ import 'jasmine-jquery';
 import 'rup.datatable';
 const dataUrl = 'http://localhost:8081/demo/datatable/remote'; // TODO: Crear contenido en remoto
 const html ='   <form id="table_filter_form">\
+<div id="exampleDatatable_filter_toolbar" class="formulario_legend"></div>\
                     <fieldset>\
                         <div class="form-group form-group-sm">\
                             <label for="name_filter_table">Id:</label>\
@@ -50,6 +51,9 @@ function testDatatable(plugin){
                 fixedHeader: {
                     footer: false,
                     header: true
+                },
+                filter:{
+                    filterToolbarId: 'exampleDatatable_filter_toolbar'
                 }
             });
         });
