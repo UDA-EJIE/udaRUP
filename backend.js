@@ -19,6 +19,7 @@ var express = require('express'),
 	routesUpload = require('./demo/routes/upload'),
 	dashboardTable = require('./demo/routes/dashboard');
 
+	routesDatatable = require('./demo/routes/datatable');
 
 // db
 //var db = new lokijs('uda');
@@ -97,7 +98,8 @@ module.exports = (PORT) => {
 	app.post('/dashboard/post', dashboardTable.post);
 	app.put('/dashboard/put', dashboardTable.put);
 
-
+	//Datatable
+	app.get('/demo/datatable/remote', routesDatatable.remote);
 
 
 

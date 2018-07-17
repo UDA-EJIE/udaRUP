@@ -2,7 +2,15 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.datatable';
 const dataUrl = 'http://localhost:8081/demo/datatable/remote'; // TODO: Crear contenido en remoto
-const html ='<table id="exampleDatatable" class="table table-striped table-bordered"\
+const html ='   <form id="table_filter_form">\
+                    <fieldset>\
+                        <div class="form-group form-group-sm">\
+                            <label for="name_filter_table">Id:</label>\
+                            <input type="text" name="id" id="name_filter_table" />\
+                        </div>\
+                    </fieldset>\
+                </form>\
+                <table id="exampleDatatable" class="table table-striped table-bordered"\
                 data-url-base="'+ dataUrl +'"\
                 data-filter-form="#table_filter_form"\
                 cellspacing="0" width="100%">\
@@ -36,7 +44,15 @@ const plugins = [
 function testDatatable(plugin){
     describe('Test DataTable ' + plugin.name + ' > ', () => {
         var $datatable;
-        beforeEach(() => {});
+        beforeEach(() => {
+            $('#content').append(html);
+            $('#exampleDatatable').rup_datatable({
+                fixedHeader: {
+                    footer: false,
+                    header: true
+                }
+            });
+        });
         describe('Creacion > ', () => {});
         describe('Pruebas plugins > ',() => {});
     });
