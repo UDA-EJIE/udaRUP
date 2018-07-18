@@ -1,9 +1,10 @@
 /* jslint multistr: true */
 
 import 'jquery';
-import * as testutils from '../common/specCommonUtils';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.tree';
+
 /**
  * NOTA:
  *  > Ejecutar este test con el comando 'npm run test:dev' para evitar errores de timeout
@@ -70,7 +71,7 @@ function createJson(done) {
         },
         json_data: {
             ajax: {
-                url: 'http://localhost:8081/demo/tree/remote/json'
+                url: testutils.WEBROOT + '/demo/tree/remote/json'
             }
         },
         plugins: treePlugins,
@@ -156,7 +157,7 @@ function testTree(type) {
             $('#content').nextAll().remove();
         });
 
-        describe('[' + type + '] Creación', () => {
+        describe('[' + type + '] Creación', () => {debugger;
             describe('Debe crear el rup_tree > ', () => {
                 it('Debe tener el attr ruptype = tree', () => {
                     expect($tree.attr('ruptype')).toBe('tree');
