@@ -1,11 +1,7 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
-import '../../dist/css/rup-base.css';
-import '../../dist/css/rup-theme.css';
-import '../../dist/css/rup-jqueryui-theme.css';
-import '../../dist/css/font-awesome.css';
-// import '../../dist/css/main.css';
 import 'jquery';
+import * as testutils from '../common/specCommonUtils';
 import 'jasmine-jquery';
 import 'rup.tree';
 /**
@@ -14,31 +10,6 @@ import 'rup.tree';
  */
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 12000;
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
-
-function loadCss() {
-    let css = '';
-    $('head').append('<style></style>');
-    var thenable = $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-        .then((data, textStatus, jqXHR) => {
-            css += data;
-        })
-        .then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-        .then((data, textStatus, jqXHR) => {
-            css += data;
-        })
-        .then(() => {
-            $('head > style').append(css);
-        });
-    return thenable;
-}
-
 var $tree;
 var treePlugins = [
     'checkbox',
@@ -46,7 +17,7 @@ var treePlugins = [
     'unique'
 ];
 var uniqueOpts = {
-    error_callback: (n,p,f) => {
+    error_callback: (n, p, f) => {
         $('#exampleTree').addClass('duplicate-warn');
     }
 };
@@ -77,7 +48,7 @@ function createHtml(done) {
         },
         plugins: treePlugins,
         unique: uniqueOpts,
-        checkbox:{
+        checkbox: {
             override_ui: true
         }
     });
@@ -97,14 +68,14 @@ function createJson(done) {
                 return itemData.id;
             }
         },
-        json_data:{
-            ajax:{
-                url:'http://localhost:8081/demo/tree/remote/json'
+        json_data: {
+            ajax: {
+                url: 'http://localhost:8081/demo/tree/remote/json'
             }
         },
         plugins: treePlugins,
         unique: uniqueOpts,
-        checkbox:{
+        checkbox: {
             override_ui: true
         }
     });
@@ -144,7 +115,7 @@ function createXml(done) {
             'xml_data'
         ],
         unique: uniqueOpts,
-        checkbox:{
+        checkbox: {
             override_ui: true
         }
     });
@@ -155,32 +126,37 @@ function createXml(done) {
 }
 
 function create(type, done) {
-    if(type === 'html') {
+    if (type === 'html') {
         createHtml(done);
     }
-    if(type === 'json') {
+    if (type === 'json') {
         createJson(done);
     }
-    if(type === 'xml') {
+    if (type === 'xml') {
         createXml(done);
     }
 }
 
-$.when(loadCss())
-    .then(testTree('html'))
+$.when(testTree('html'))
     .then(testTree('xml'))
     .then(testTree('json'));
 
 function testTree(type) {
-    describe('Test Tree '+ type +' :', () => {
+    describe('Test Tree ' + type + ' :', () => {
+        beforeAll((done) => {
+            testutils.loadCss(done);
+        });
+
         beforeEach((done) => {
             create(type, done);
         });
+
         afterEach(() => {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
-        describe('['+type+'] Creación', () => {
+
+        describe('[' + type + '] Creación', () => {
             describe('Debe crear el rup_tree > ', () => {
                 it('Debe tener el attr ruptype = tree', () => {
                     expect($tree.attr('ruptype')).toBe('tree');
@@ -191,7 +167,7 @@ function testTree(type) {
                     expect($('.jstree-checkbox').length).toBe(3);
                 });
             });
-            describe('Sort > ',() => {
+            describe('Sort > ', () => {
                 //Los hijos estan desordenados así que comprobamos que el plugin sort los ordena
                 it('Comprobamos que están ordenados:', () => {
                     let selector = $('#exampleTree > ul > li > ul');
