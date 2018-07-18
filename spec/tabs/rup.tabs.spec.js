@@ -1,7 +1,7 @@
 /* jslint multistr: true */
 
 import 'jquery';
-import * as testutils from '../lib/specCommonUtils.js';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.tabs';
 
@@ -39,7 +39,7 @@ describe('Test Tabs > ', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
     });
-    
+
     describe('Creacion >', () => {
         it('El contenedor debe tener las classes apropiadas', () => {
             expect($tabs.hasClass('rup-tabs_container ui-tabs ui-corner-all ui-widget ui-widget-content')).toBeTruthy();

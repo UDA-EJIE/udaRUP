@@ -196,7 +196,7 @@ module.exports = function (config) {
                     }, {
                         test: /\.js?$/,
                         enforce: 'pre',
-                        include: path.resolve(__dirname, 'spec/lib'),
+                        include: path.resolve(__dirname, 'spec/common'),
                         loader: 'babel-istanbul-loader',
                         query: {
                             cacheDirectory: true,

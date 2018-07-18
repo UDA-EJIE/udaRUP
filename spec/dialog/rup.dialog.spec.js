@@ -1,6 +1,6 @@
 /* jslint multistr: true */
 
-import * as testutils from '../lib/specCommonUtils.js';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';

@@ -1,7 +1,7 @@
 /* jslint multistr: true */
 
 import 'jquery';
-import * as testutils from '../lib/specCommonUtils.js';
+import * as testutils from '../common/specCommonUtils.js';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.message';
