@@ -22,7 +22,7 @@ describe('Test BreadCrumb >', () => {
 		});
 		window.history.pushState({
 			urlPath: '/x21aAppWar/patrones/ptrUno'
-		}, "", './x21aAppWar/patrones/ptrUno');
+		}, "", '/x21aAppWar/patrones/ptrUno');
 		$('#subLeveledBreadCrumb').rup_breadCrumb({
 			"breadCrumb": {
 				"patrones": {
