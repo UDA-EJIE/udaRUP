@@ -1,14 +1,20 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.button';
 
 describe('TEST Button', () => {
     var $button, $mButton, $dropdownButton;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
-        var html= '<button id="exampleButton">Btn</button>\
+        var html = '<button id="exampleButton">Btn</button>\
                   <div class="rup-mbutton">\
                        <button type="button" id="exampleMButton" data-mbutton="true">\
                            <i class="fa fa-cog" aria-hidden="true"></i> <span\
@@ -37,22 +43,23 @@ describe('TEST Button', () => {
                         </ul>\
                     </div>\
                     <button id="dropdownButton">Btn</button>';
-        $('body').append(html);
+        $('#content').append(html);
         $('#exampleButton').rup_button({});
         $('#exampleMButton').rup_button({});
         $('#dropdownButton').rup_button({
             dropdown: true
         });
-        $button  = $('#exampleButton');
+        $button = $('#exampleButton');
         $mButton = $('#exampleMButton');
         $dropdownButton = $('#dropdownButton');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creación >', () => {
         describe('Button > ', () => {
-            it('Debe tener la clase rup-button',() => {
+            it('Debe tener la clase rup-button', () => {
                 expect($button.hasClass('rup-button')).toBeTruthy();
             });
         });
@@ -64,7 +71,7 @@ describe('TEST Button', () => {
         });
         describe('DropdownButton', () => {
             it('Debe tener las clases apropiadas:', () => {
-                expect($dropdownButton.hasClass('rup-button rup-dropdown'))
+                expect($dropdownButton.hasClass('rup-button rup-dropdown'));
             });
             it('El dropdownButton debe crear un contenedor para el y el dropdown ', () => {
                 expect($('.rup-dropdown-btn-group').length).toBe(1);
@@ -72,7 +79,7 @@ describe('TEST Button', () => {
             it('El contenedor debe tener dos hijos ', () => {
                 expect($('.rup-dropdown-btn-group').children().length).toBe(2);
             });
-        }); 
+        });
     });
     describe('Métodos públicos >', () => {
         /**

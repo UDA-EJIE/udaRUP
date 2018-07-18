@@ -1,38 +1,9 @@
 /* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.autocomplete';
-
-function loadCss(callback) {
-    $('head > style').remove();
-    $('head').append('<style></style>');
-    return $.when($.ajax('http://localhost:8081/dist/css/externals/tether/tether.min.css'))
-        .then((data, textStatus, jqXHR) => {
-            $('head > style').append(data);
-            $.when($.ajax('http://localhost:8081/dist/css/externals/bootstrap/bt4.min.css'))
-                .then((data, textStatus, jqXHR) => {
-                    $('head > style').append(data);
-                    $.when($.ajax('http://localhost:8081/dist/css/externals/font-awesome/font-awesome.min.css'))
-                        .then((data, textStatus, jqXHR) => {
-                            $('head > style').append(data);
-                            $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-                                .then((data, textStatus, jqXHR) => {
-                                    $('head > style').append(data);
-                                    $.when($.ajax('http://localhost:8081/dist/css/rup-theme.css'))
-                                        .then((data, textStatus, jqXHR) => {
-                                            $('head > style').append(data);
-                                            $.when($.ajax('http://localhost:8081/dist/css/rup-jqueryui-theme.css'))
-                                                .then((data, textStatus, jqXHR) => {
-                                                    $('head > style').append(data);
-                                                    callback();
-                                                });
-                                        });
-                                });
-                        });
-                });
-        });
-}
 
 var $autocomplete, $autocomplete2, $autocompleteLabel, $autocompleteLabel2;
 
@@ -113,7 +84,7 @@ function createAutocomplete() {
 
 describe('Test Autocomplete > ', () => {
     beforeAll((done) => {
-        loadCss(done);
+        testutils.loadCss(done);
     });
     beforeEach((done) => {
         $.when(createAutocomplete())
@@ -121,6 +92,7 @@ describe('Test Autocomplete > ', () => {
     });
     afterEach(() => {
         $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creación > ', () => {
         it('El elemento html debe presentar cambios', () => {

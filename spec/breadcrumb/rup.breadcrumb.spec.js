@@ -1,16 +1,22 @@
 /* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.breadCrumb';
 
 describe('Test BreadCrumb >', () => {
 	var $breadcrumb, $subLvlBC;
+
+	beforeAll((done) => {
+		testutils.loadCss(done);
+	});
+
 	beforeEach(() => {
 		var html;
 		html = '<div id="exampleBreadcrumb" class="rup-breadCrumb_root"></div>\
 				<div id="subLeveledBreadCrumb" class="rup-breadCrumb_root"></div>';
-		$('body').append(html);
+		$('#content').append(html);
 		$('#exampleBreadcrumb').rup_breadCrumb({
 			breadCrumb: {}
 		});
@@ -23,14 +29,28 @@ describe('Test BreadCrumb >', () => {
 					//Literal mostrado:
 					"i18nCaption": "Varios patrones",
 					//Elementos:
-					"ptrUno": {"i18nCaption": "ptrUno"},
-					"ptrDos": {"i18nCaption": "ptrDos"},
-					"ptrTres": {"i18nCaption": "ptrTres"},
+					"ptrUno": {
+						"i18nCaption": "ptrUno"
+					},
+					"ptrDos": {
+						"i18nCaption": "ptrDos"
+					},
+					"ptrTres": {
+						"i18nCaption": "ptrTres"
+					},
 					//Sublevel
-					"subLevel": [
-						{"i18nCaption": "ptrUno", "url": "./patrones/ptrUno"},
-						{"i18nCaption": "ptrDos", "url": "./patrones/ptrDos"},
-						{"i18nCaption": "ptrTres", "url": "./patrones/ptrTres"}
+					"subLevel": [{
+							"i18nCaption": "ptrUno",
+							"url": "./patrones/ptrUno"
+						},
+						{
+							"i18nCaption": "ptrDos",
+							"url": "./patrones/ptrDos"
+						},
+						{
+							"i18nCaption": "ptrTres",
+							"url": "./patrones/ptrTres"
+						}
 					]
 				}
 			}
@@ -38,9 +58,12 @@ describe('Test BreadCrumb >', () => {
 		$breadcrumb = $('#exampleBreadcrumb');
 		$subLvlBC = $('#subLeveledBreadCrumb');
 	});
+
 	afterEach(() => {
-		$('body').html('');
+		$('#content').html('');
+		$('#content').nextAll().remove();
 	});
+
 	describe('Creación > ', () => {
 		describe('Creación de Breadcrumb vacío > ', () => {
 			describe('Debe existir el span dentro del breadCrumb > ', () => {
@@ -95,22 +118,22 @@ describe('Test BreadCrumb >', () => {
 						.html()).toBe('ptrUno');
 				});
 				it('El segundo hijo debe contener un ul oculto', () => {
-						let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
-						expect($('ul', varPatrones).length).toBe(1);
-						expect($('ul', varPatrones).css('display')).toBe('none');
+					let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
+					expect($('ul', varPatrones).length).toBe(1);
+					expect($('ul', varPatrones).css('display')).toBe('none');
 				});
 				it('El ul oculto debe tener tres hijos (Los sublevel)', () => {
 					let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
-					expect($('ul',varPatrones).children().length).toBe(3);
+					expect($('ul', varPatrones).children().length).toBe(3);
 				});
 				it('Los hijos deben ser los especificados en la configuracion', () => {
 					let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
-					expect($('a', $('ul',varPatrones).children()[0]).html()).toBe('ptrUno');
-					expect($('a', $('ul',varPatrones).children()[0]).attr('href')).toBe('./patrones/ptrUno');
-					expect($('a', $('ul',varPatrones).children()[1]).html()).toBe('ptrDos');
-					expect($('a', $('ul',varPatrones).children()[1]).attr('href')).toBe('./patrones/ptrDos');
-					expect($('a', $('ul',varPatrones).children()[2]).html()).toBe('ptrTres');
-					expect($('a', $('ul',varPatrones).children()[2]).attr('href')).toBe('./patrones/ptrTres');
+					expect($('a', $('ul', varPatrones).children()[0]).html()).toBe('ptrUno');
+					expect($('a', $('ul', varPatrones).children()[0]).attr('href')).toBe('./patrones/ptrUno');
+					expect($('a', $('ul', varPatrones).children()[1]).html()).toBe('ptrDos');
+					expect($('a', $('ul', varPatrones).children()[1]).attr('href')).toBe('./patrones/ptrDos');
+					expect($('a', $('ul', varPatrones).children()[2]).html()).toBe('ptrTres');
+					expect($('a', $('ul', varPatrones).children()[2]).attr('href')).toBe('./patrones/ptrTres');
 				});
 			});
 		});

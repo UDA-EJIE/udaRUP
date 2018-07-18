@@ -1,22 +1,20 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
 import {
     EHOSTUNREACH
 } from 'constants';
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
-
 describe('Test ContextMenu > ', () => {
     var $context;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
         var html = '<div id="exampleContext" class="card card-inverse"\
                         style="background-color: #333; border-color: #333;">\
@@ -27,7 +25,7 @@ describe('Test ContextMenu > ', () => {
                             </div>\
                         </div>\
                         <div id="menu"></div>';
-        $('body').append(html);
+        $('#content').append(html);
         var props = {
             appendTo: '#menu',
             items: {
@@ -46,10 +44,13 @@ describe('Test ContextMenu > ', () => {
         $('#exampleContext').rup_contextMenu(props);
         $context = $('#exampleContext');
     });
+
     afterEach(() => {
         $context.rup_contextMenu('destroy');
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
+
     describe('Creación > ', () => {
         it('Debe crear el elemento', () => {
             expect($('#menu .context-menu-list').hasClass('context-menu-list context-menu-root')).toBe(true);

@@ -193,62 +193,15 @@ module.exports = function (config) {
                         query: {
                             cacheDirectory: true,
                         },
-                    },
-                    {
-                        test: /(\.css|\.scss|\.sass)$/,
-                        use: ['css-loader', 'sass-loader']
-                    },
-                    {
-                        test: /\.scss$/,
-                        use: [{
-                            loader: 'style-loader' // creates style nodes from JS strings
-                        }, {
-                            loader: 'css-loader',
-                            options: {
-                                alias: {
-                                    // './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
-                                    './images': path.join(__dirname, '../assets/images'),
-                                    '../images': path.join(__dirname, '../demo/images'),
-                                    './cursors': path.join(__dirname, '../assets/cursors')
-                                }
-                            } // translates CSS into CommonJS
-                        }, {
-                            loader: 'postcss-loader', // Run post css actions
-                            options: {
-                                plugins: function () { // post css plugins, can be exported to postcss.config.js
-                                    return [
-                                        require('precss'),
-                                        require('autoprefixer')
-                                    ];
-                                }
-                            }
-                        }, {
-                            loader: 'sass-loader',
-                            options: {
-                                // includePaths: [
-                                // 	 path.join(__dirname, '../assets/images/jquery-ui')
-                                // 	path.join(__dirname, '../assets/images/rup'),
-                                // 	path.resolve('../assets/cursors'),
-                                // ] // compiles Sass to CSS
-                            }
-                        }]
-                        // },{
-                        // 	test: /\.woff2?$|\.ttf$|\.png$|\.eot$|\.gif$|\.cur$|\.svg$/,
-                        // 	use: [{
-                        // 		loader: 'file-loader'
-                        // 	}]
-                        // },{
                     }, {
-                        test: /\.png$|\.gif$|\.cur$|\.svg$/,
-                        use: [{
-                            loader: 'file-loader'
-                        }]
-                    }, {
-                        test: /\.woff2?$|\.ttf$|\.eot$/,
-                        use: [{
-                            loader: 'url-loader'
-                        }]
-                    }
+                        test: /\.js?$/,
+                        enforce: 'pre',
+                        include: path.resolve(__dirname, 'spec/lib'),
+                        loader: 'babel-istanbul-loader',
+                        query: {
+                            cacheDirectory: true,
+                        },
+                    },
                 ],
             },
             resolve: {

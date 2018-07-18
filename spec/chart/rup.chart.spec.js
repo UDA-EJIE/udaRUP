@@ -1,11 +1,17 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.chart';
 
 describe('Test Chart', () => {
     var $chart;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
         var options = {
             type: 'line',
@@ -25,12 +31,13 @@ describe('Test Chart', () => {
         var html = '<div class="butstyle">\
                         <canvas id="exampleChart" ></canvas>\
                     </div>';
-        $('body').append(html);
+        $('#content').append(html);
         $('#exampleChart').rup_chart(options);
         $chart = $('#exampleChart');
     });
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
     describe('Creacion >', () => {
         it('Debe estar definido', () => {

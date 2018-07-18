@@ -1,14 +1,19 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.combo';
 
-const webRoot = "http://localhost:8081";
 
 describe('Test Combo > ', () => {
 	var $combo, $comboPadre, $comboHijo, $comboMulti, $comboGroup;
 	var selectedLiteral;
+
+	beforeAll((done) => {
+		testutils.loadCss(done);
+	});
+
 	beforeEach(() => {
 		setupCombos();
 
@@ -20,9 +25,12 @@ describe('Test Combo > ', () => {
 		selectedLiteral = $.rup.i18n.base.rup_combo.multiselect.selectedText;
 		selectedLiteral = selectedLiteral.split('#')[1].trim();
 	});
+
 	afterEach(() => {
-		$('body').html('');
+		$('#content').html('');
+		$('#content').nextAll().remove();
 	});
+
 	describe('Creacion > ', () => {
 		describe('Combo simple >', () => {
 			it('Debe tener el valor por defecto: ', () => {
@@ -757,7 +765,7 @@ describe('Test Combo > ', () => {
 				let html = '<select id="comboRemoto"></select>';
 				$('body').append(html);
 				$('#comboRemoto').rup_combo({
-					source: webRoot + '/demo/comboSimple/remote',
+					source: testutils.WEBROOT + '/demo/comboSimple/remote',
 					sourceParam: {
 						label: "descEu",
 						value: "value",
@@ -841,7 +849,7 @@ function setupCombos() {
 		<select id="comboHijo"></select>\
 		<select id="comboGroup"></select>';
 
-	$('body').append(html);
+	$('#content').append(html);
 
 	let source = [{
 			i18nCaption: 'Opcion1',

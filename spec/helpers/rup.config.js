@@ -4,7 +4,7 @@
 	CTX_PATH = '/x21aResponsive/',
 	STATICS = '',
     RESOURCES_PATH = '../../i18n/',
-	RUP = '../dist',
+	RUP = 'http://localhost:8081/dist',
 	WAR_NAME = "x21aPilotoPatrones",
 	//model
 	LAYOUT = "horizontal",

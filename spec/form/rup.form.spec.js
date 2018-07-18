@@ -1,12 +1,12 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.combo';
 import 'rup.feedback';
 import 'rup.form';
 
-const webRoot = 'http://localhost:8081/';
 const formHtml = '<div id="feedbackMensajes"></div>\
                 <div id="tabsFormulario"></div>\
                 <div id="divformHttpSubmit">\
@@ -138,7 +138,7 @@ function configurar() {
 		i18nId: 'sexo'
 	});
 	$('#pais').rup_combo({
-		source: webRoot + 'demo/nora/pais',
+		source: testutils.WEBROOT + 'demo/nora/pais',
 		sourceParam: {
 			label: 'dsO',
 			value: 'id'
@@ -146,7 +146,7 @@ function configurar() {
 		blank: '0'
 	});
 	$('#autonomia').rup_combo({
-		source: webRoot + 'demo/nora/autonomia',
+		source: testutils.WEBROOT + 'demo/nora/autonomia',
 		sourceParam: {
 			label: 'dsO',
 			value: 'id'
@@ -156,7 +156,7 @@ function configurar() {
 	});
 	$('#provincia').rup_combo({
 		parent: ['autonomia'],
-		source: webRoot + 'demo/nora/provincia',
+		source: testutils.WEBROOT + 'demo/nora/provincia',
 		firstLoad: [{
 			'value': '01',
 			'label': 'Alava/Araba'
@@ -238,9 +238,14 @@ function configurar() {
 describe('Test Form', () => {
 	var $form, $formAlt;
 	//jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+
+	beforeAll((done) => {
+		testutils.loadCss(done);
+	});
+
 	beforeEach(() => {
 		var html = formHtml;
-		$('body').append(html);
+		$('#content').append(html);
 		configurar();
 		var opts = {};
 		var optsAlt = {
@@ -265,7 +270,8 @@ describe('Test Form', () => {
 		//console.info($('body').html());
 	});
 	afterEach(() => {
-		$('body').html('');
+		$('#content').html('');
+		$('#content').nextAll().remove();
 	});
 	describe('Creación > ', () => {
 		describe('Form por defecto > ', () => {

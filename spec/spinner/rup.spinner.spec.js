@@ -1,29 +1,30 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../lib/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.spinner';
 
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
 
 describe('Test Spinner > ', () => {
     var $spinner;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
         var html = '<input id="exampleSpinner"></input>';
         $('#content').append(html);
         $('#exampleSpinner').rup_spinner();
         $spinner = $('#exampleSpinner');
     });
+
     afterEach(() => {
         $('#content').html('');
         $('#content').nextAll().remove();
     });
+
     describe('Creación > ', () => {
         it('Debe crearse > ', () => {
             expect($('span.ui-spinner.ui-corner-all.ui-widget.ui-widget-content').length)
