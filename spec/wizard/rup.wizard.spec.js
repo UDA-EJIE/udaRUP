@@ -45,6 +45,7 @@
                  },
                  summary: true,
                  summaryWithAccordion: true,
+                 summaryWithAccordionSpaceBefore: false,
                  summaryFnc_POST: ()=>{$('#exampleWizard').addClass('randomClass')}
              };
              $('#exampleWizard').rup_wizard(opts);
@@ -67,6 +68,10 @@
              it('debe funcionar el evento submitFnc:', () => {
                 $('#stepDesc3').trigger('click');
                 expect($wizard.hasClass('randomClass')).toBe(true);
+             });
+             it('El resumen no debe contener el <br> al inicio:', () => {
+                $('#stepDesc3').trigger('click');
+                expect($('#step3').html().split('>')[0]).not.toBe('<br');
              });
          });
          describe('Funcionamiento > ', () => {
