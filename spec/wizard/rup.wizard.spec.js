@@ -1,12 +1,18 @@
      /* jslint multistr: true */
 
      import 'jquery';
+     import * as testutils from '../common/specCommonUtils.js';
      import 'jasmine-jquery';
      import 'rup.accordion';
      import 'rup.wizard';
 
      describe('Test Wizard > ', () => {
          var $wizard;
+
+         beforeAll((done) => {
+             testutils.loadCss(done);
+         });
+
          beforeEach(() => {
              let html = '<form id="exampleWizard">\
                         <fieldset>\
@@ -49,10 +55,12 @@
              $('#exampleWizard').rup_wizard(opts);
              $wizard = $('#exampleWizard');
          });
+
          afterEach(() => {
              $('#content').html('');
          });
-         describe('Creación > ', () => {
+
+         describe('Creación > ', () => {debugger;
              it('Debe tener la clase rup_wizard', () => {
                  expect($wizard).toHaveClass('rup-wizard');
              });

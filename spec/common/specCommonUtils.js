@@ -29,7 +29,7 @@ export function loadCss(callback) {
                                         .then((data, textStatus, jqXHR) => {
                                             $('head > style').append(data);
                                             $.when($.ajax('http://localhost:8081/dist/css/rup-jqueryui-theme.css'))
-                                                .then((data, textStatus, jqXHR) => {
+                                                .then((data, textStatus, jqXHR) => {debugger;
                                                     $('head > style').append(data);
                                                     if ($('#content').length === 0) {
                                                         $('body').append('<div id="content"></div>');
