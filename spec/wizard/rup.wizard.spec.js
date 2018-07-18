@@ -43,7 +43,7 @@
                  summaryWithAccordion: true,
                  summaryWithAccordionSpaceBefore: false,
                  summaryFnc_POST: () => {
-                     $('#exampleWizard').addClass('randomClass')
+                     $('#exampleWizard').addClass('randomClass');
                  }
              };
              $('#exampleWizard').rup_wizard(opts);
