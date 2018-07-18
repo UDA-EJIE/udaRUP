@@ -1,19 +1,9 @@
-/* jslint esnext: true, multistr: true */
-import '../../dist/css/font-awesome.css';
-import '../../dist/css/rup-base.css';
-import '../../dist/css/rup-theme.css';
-import '../../dist/css/rup-jqueryui-theme.css';
+/* jslint multistr: true */
+
 import 'jquery';
+import * as testutils from '../common/specCommonUtils';
 import 'jasmine-jquery';
 import 'rup.validate';
-
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
 
 var d = new $.Deferred();
 
@@ -21,6 +11,10 @@ describe('Test Validate >  ', () => {
     var $validate, $feedBack, $validateEvent, $feedBackEvent;
     var event_done, event_fail = false,
         event_success = false;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
 
     beforeEach(() => {
         var html = '<form id="exampleValidate">\
