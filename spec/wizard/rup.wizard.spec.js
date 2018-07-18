@@ -6,6 +6,7 @@
      import '../../dist/css/rup-jqueryui-theme.css';
      import 'jquery';
      import 'jasmine-jquery';
+     import 'rup.accordion';
      import 'rup.wizard';
 
      describe('Test Wizard > ', () => {
@@ -41,7 +42,10 @@
                              return false;
                          }
                      }
-                 }
+                 },
+                 summary: true,
+                 summaryWithAccordion: true,
+                 summaryFnc_POST: ()=>{$('#exampleWizard').addClass('randomClass')}
              };
              $('#exampleWizard').rup_wizard(opts);
              $wizard = $('#exampleWizard');
@@ -55,6 +59,14 @@
              });
              it('Debe crear un <ul> con la clase de los steps', () => {
                  expect($('ul.rup-wizard_stepsDescContainer').length).toBe(1);
+             });
+             it('El resumen debe ser un accordion:', () => {
+                 $('#stepDesc3').trigger('click');
+                 expect($('#step3').hasClass('ui-accordion')).toBe(true);
+             });
+             it('debe funcionar el evento submitFnc:', () => {
+                $('#stepDesc3').trigger('click');
+                expect($wizard.hasClass('randomClass')).toBe(true);
              });
          });
          describe('Funcionamiento > ', () => {
