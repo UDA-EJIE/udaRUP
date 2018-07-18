@@ -1,9 +1,5 @@
-     /* jslint esnext: true, multistr: true */
+     /* jslint multistr: true */
 
-     import '../../dist/css/font-awesome.css';
-     import '../../dist/css/rup-base.css';
-     import '../../dist/css/rup-theme.css';
-     import '../../dist/css/rup-jqueryui-theme.css';
      import 'jquery';
      import 'jasmine-jquery';
      import 'rup.accordion';
@@ -46,7 +42,9 @@
                  summary: true,
                  summaryWithAccordion: true,
                  summaryWithAccordionSpaceBefore: false,
-                 summaryFnc_POST: ()=>{$('#exampleWizard').addClass('randomClass')}
+                 summaryFnc_POST: () => {
+                     $('#exampleWizard').addClass('randomClass')
+                 }
              };
              $('#exampleWizard').rup_wizard(opts);
              $wizard = $('#exampleWizard');
@@ -66,12 +64,12 @@
                  expect($('#step3').hasClass('ui-accordion')).toBe(true);
              });
              it('debe funcionar el evento submitFnc:', () => {
-                $('#stepDesc3').trigger('click');
-                expect($wizard.hasClass('randomClass')).toBe(true);
+                 $('#stepDesc3').trigger('click');
+                 expect($wizard.hasClass('randomClass')).toBe(true);
              });
              it('El resumen no debe contener el <br> al inicio:', () => {
-                $('#stepDesc3').trigger('click');
-                expect($('#step3').html().split('>')[0]).not.toBe('<br');
+                 $('#stepDesc3').trigger('click');
+                 expect($('#step3').html().split('>')[0]).not.toBe('<br');
              });
          });
          describe('Funcionamiento > ', () => {
