@@ -1,7 +1,7 @@
      /* jslint multistr: true */
 
      import 'jquery';
-     import * as testutils from '../common/specCommonUtils.js';
+     import * as testutils from '../common/specCommonUtils';
      import 'jasmine-jquery';
      import 'rup.accordion';
      import 'rup.wizard';
@@ -58,9 +58,10 @@
 
          afterEach(() => {
              $('#content').html('');
+             $('#content').nextAll().remove();
          });
 
-         describe('Creación > ', () => {debugger;
+         describe('Creación > ', () => {
              it('Debe tener la clase rup_wizard', () => {
                  expect($wizard).toHaveClass('rup-wizard');
              });
