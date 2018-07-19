@@ -89,7 +89,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                     <legend>Datos domicilio</legend>\
                     <div class="two-col">\
                         <div class="col1">\
-                        <label for="nombre" class="label">País</label>\
+                        <label for="pais" class="label">País</label>\
                         <select path="pais.id" class="formulario_linea_input" id="pais" >\
                             </select>\
                         </div>\
@@ -237,7 +237,6 @@ function configurar() {
  */
 describe('Test Form', () => {
 	var $form, $formAlt;
-	//jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
 	beforeAll((done) => {
 		testutils.loadCss(done);
@@ -291,8 +290,9 @@ describe('Test Form', () => {
 			$('input[type="submit"]').trigger('click');
 		});
 		it('Debe mostrarse el feedback con el contenido:', () => {
-			expect($('#feedbackMensajes_content').text())
-				.toBe('Se han producido los siguientes errores:nombre:Campo obligatorio.');
+			debugger;
+			expect($('#feedbackMensajes_content').text().toUpperCase())
+				.toBe('SE HAN PRODUCIDO LOS SIGUIENTES ERRORES:NOMBRE:CAMPO OBLIGATORIO.');
 		});
 	});
 	describe('Métodos públicos >', () => {
