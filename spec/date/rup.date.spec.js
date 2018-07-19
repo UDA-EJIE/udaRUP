@@ -23,11 +23,16 @@ function langStr(lang) {
 }
 
 function testDate(lang) {
+    var defer = new $.Deferred();
     describe('Test Date > ', () => {
         var $date, $altDate, $multiDate;
 
         beforeAll((done) => {
             testutils.loadCss(done);
+        });
+
+        afterAll(() => {
+            defer.resolve();
         });
 
         beforeEach(() => {
