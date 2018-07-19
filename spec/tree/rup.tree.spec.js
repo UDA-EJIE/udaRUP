@@ -143,9 +143,15 @@ $.when(testTree('html'))
     .then(testTree('json'));
 
 function testTree(type) {
+    defer = new $.Deferred();
     describe('Test Tree ' + type + ' :', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
+            debugger;
+        });
+        afterAll(() => {
+            debugger;
+            defer.resolve();
         });
 
         beforeEach((done) => {
@@ -157,7 +163,7 @@ function testTree(type) {
             $('#content').nextAll().remove();
         });
 
-        describe('[' + type + '] Creación', () => {debugger;
+        describe('[' + type + '] Creación', () => {
             describe('Debe crear el rup_tree > ', () => {
                 it('Debe tener el attr ruptype = tree', () => {
                     expect($tree.attr('ruptype')).toBe('tree');
@@ -171,6 +177,9 @@ function testTree(type) {
             describe('Sort > ', () => {
                 //Los hijos estan desordenados así que comprobamos que el plugin sort los ordena
                 it('Comprobamos que están ordenados:', () => {
+                    if(type === 'xml') {
+                        debugger;
+                    }
                     let selector = $('#exampleTree > ul > li > ul');
                     expect($($('li', selector)[0]).text().trim()).toBe('Hijo 1');
                     expect($($('li', selector)[1]).text().trim()).toBe('Hijo 2');
