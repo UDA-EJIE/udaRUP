@@ -147,10 +147,8 @@ function testTree(type) {
     describe('Test Tree ' + type + ' :', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
-            debugger;
         });
         afterAll(() => {
-            debugger;
             defer.resolve();
         });
 
@@ -177,9 +175,6 @@ function testTree(type) {
             describe('Sort > ', () => {
                 //Los hijos estan desordenados así que comprobamos que el plugin sort los ordena
                 it('Comprobamos que están ordenados:', () => {
-                    if(type === 'xml') {
-                        debugger;
-                    }
                     let selector = $('#exampleTree > ul > li > ul');
                     expect($($('li', selector)[0]).text().trim()).toBe('Hijo 1');
                     expect($($('li', selector)[1]).text().trim()).toBe('Hijo 2');
