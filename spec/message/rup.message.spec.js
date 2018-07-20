@@ -1,28 +1,18 @@
-//
-// (function (factory) {
-//       if (typeof define === "function" && define.amd) {
-//
-//           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','rup.message'], factory);
-//       } else {
-//
-//           // Browser globals
-//           factory(jQuery);
-//       }
-//   }(function ($, Handlebars) {
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
 import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.message';
 
-function executeSharedTests(createInstanceFn){
+function executeSharedTests(createInstanceFn) {
 
 
-	describe('Construcción de un RUP Message', function(){
+	describe('Construcción de un RUP Message', function () {
 		var $message, $messageTitleDiv, $messageContentDiv, $messageButtonpaneDiv;
 
-		beforeAll(function(){
+		beforeAll(function () {
 			$message = createInstanceFn();
 
 			$messageTitleDiv = jQuery('.ui-dialog-titlebar', $message);
@@ -31,33 +21,33 @@ function executeSharedTests(createInstanceFn){
 
 		});
 
-		it('deberia de existir un ui-dialog', function(){
+		it('deberia de existir un ui-dialog', function () {
 			expect($message).toExist();
 		});
 
-		describe('Se ha construido una sección de título correcta', function(){
-			it('deberia de existir una sección de título', function(){
+		describe('Se ha construido una sección de título correcta', function () {
+			it('deberia de existir una sección de título', function () {
 
 				expect($messageTitleDiv).toExist();
 			});
 
-			it('deberia de existir una botón de cerrar', function(){
+			it('deberia de existir una botón de cerrar', function () {
 				expect($('.ui-dialog .ui-dialog-titlebar a[role=\'button\']')).toExist();
 			});
 
-			it('deberia de existir un texto de cerrar', function(){
+			it('deberia de existir un texto de cerrar', function () {
 				expect($('.ui-dialog .ui-dialog-titlebar a.ui-dialog-title span')).toExist();
-				expect($('.ui-dialog .ui-dialog-titlebar a.ui-dialog-title span')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_global.cerrar'));
+				expect($('.ui-dialog .ui-dialog-titlebar a.ui-dialog-title span')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_global.cerrar'));
 			});
 		});
 
-		describe('Construcción de la botonera', function(){
-			it('deberia de existir una sección que contenga los botones', function(){
+		describe('Construcción de la botonera', function () {
+			it('deberia de existir una sección que contenga los botones', function () {
 				expect($messageButtonpaneDiv).toExist();
 			});
 
-			it('deberia de existir al menos el botón de Aceptar', function(){
-				expect($('.ui-dialog-buttonset button',$messageButtonpaneDiv)).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'));
+			it('deberia de existir al menos el botón de Aceptar', function () {
+				expect($('.ui-dialog-buttonset button', $messageButtonpaneDiv)).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'));
 			});
 		});
 
@@ -66,12 +56,12 @@ function executeSharedTests(createInstanceFn){
 
 }
 
-describe('RUP Messages Tests', function(){
+describe('RUP Messages Tests', function () {
 
 
-	describe('Mostrar un mensaje de error', function(){
+	describe('Mostrar un mensaje de error', function () {
 
-		function createInstance (){
+		function createInstance() {
 			$.rup_messages('msgError', {
 				title: 'Error',
 				message: 'Se ha producido un error.'
@@ -82,19 +72,19 @@ describe('RUP Messages Tests', function(){
 
 
 		executeSharedTests(createInstance);
-		afterAll(function(){
+		afterAll(function () {
 			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
 		});
 
-		it('debería de existir un div con el icono de error', function(){
+		it('debería de existir un div con el icono de error', function () {
 			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-error')).toExist();
 		});
 
 	});
 
-	describe('Mostrar un mensaje de alert', function(){
+	describe('Mostrar un mensaje de alert', function () {
 
-		function createInstance (){
+		function createInstance() {
 			$.rup_messages('msgAlert', {
 				title: 'Alerta',
 				message: 'Esto es un mensaje de alerta .'
@@ -103,22 +93,22 @@ describe('RUP Messages Tests', function(){
 			return jQuery('.ui-dialog');
 		}
 
-		afterAll(function(){
+		afterAll(function () {
 			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
 		});
 
 		executeSharedTests(createInstance);
 
-		it('debería de existir un div con el icono de alerta', function(){
+		it('debería de existir un div con el icono de alerta', function () {
 			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-alert')).toExist();
 		});
 
 
 	});
 
-	describe('Mostrar un mensaje de Ok', function(){
+	describe('Mostrar un mensaje de Ok', function () {
 
-		function createInstance (){
+		function createInstance() {
 			$.rup_messages('msgOK', {
 				title: 'Correcto',
 				message: 'Todo ha ido Ok'
@@ -127,31 +117,31 @@ describe('RUP Messages Tests', function(){
 			return jQuery('.ui-dialog');
 		}
 
-		afterAll(function(){
+		afterAll(function () {
 			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
 		});
 
 		executeSharedTests(createInstance);
 
-		it('debería de existir un div con el icono de Ok', function(){
+		it('debería de existir un div con el icono de Ok', function () {
 			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-ok')).toExist();
 		});
 
 
 	});
 
-	describe('Mostrar un mensaje de confirmación', function(){
-		var callbacks={
-			fncOkFunction: function(){
+	describe('Mostrar un mensaje de confirmación', function () {
+		var callbacks = {
+			fncOkFunction: function () {
 				alert('asdasd');
 			}
 		};
 
-		function createInstance (){
+		function createInstance() {
 			$.rup_messages('msgConfirm', {
 				message: '¿Está seguro que desea cancelar?',
 				title: 'Confirmación',
-				OKFunction : callbacks.fncOkFunction
+				OKFunction: callbacks.fncOkFunction
 			});
 
 			return jQuery('.ui-dialog');
@@ -159,22 +149,22 @@ describe('RUP Messages Tests', function(){
 
 
 
-		beforeEach(function() {
+		beforeEach(function () {
 			spyOn(callbacks, 'fncOkFunction');
 		});
 
-		afterAll(function(){
+		afterAll(function () {
 			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
 		});
 
 		executeSharedTests(createInstance);
 
-		it('debería de existir un div con el icono de confirmación', function(){
+		it('debería de existir un div con el icono de confirmación', function () {
 			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-confirm')).toExist();
 		});
 
-		it('debería de existir un enlace en la botonera que permita cancelar', function(){
-			expect($('.ui-dialog .ui-dialog-buttonset a.rup-enlaceCancelar')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_global.cancel'));
+		it('debería de existir un enlace en la botonera que permita cancelar', function () {
+			expect($('.ui-dialog .ui-dialog-buttonset a.rup-enlaceCancelar')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_global.cancel'));
 		});
 
 		// FIXME
@@ -189,4 +179,3 @@ describe('RUP Messages Tests', function(){
 	});
 
 });
-// }));
