@@ -169,3 +169,8 @@
 .context-menu-cursor{
 	cursor: url(cursors/context-menu.cur),default;
 }
+
+ .context-menu-item.context-menu-visible{
+  background-color:#bababa;
+  cursor: pointer;
+}

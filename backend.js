@@ -68,6 +68,7 @@ module.exports = (PORT) => {
 	app.get('/demo/tree/remote/xml', routesTree.xml);
 	// Combo
 	app.get('/demo/comboSimple/remote', routesCombo.comboSimple.remote);
+	app.get('/demo/comboSimple/remoteDos', routesCombo.comboSimple.remoteDos);
 	app.get('/demo/comboSimple/remoteGroup', routesCombo.comboSimple.remoteGroup);
 	app.get('/demo/comboSimple/remoteGroupEnlazado', routesCombo.comboSimple.remoteGroupEnlazado);
 	app.get('/demo/comboEnlazadoSimple/remoteEnlazadoProvincia', routesCombo.comboEnlazadoSimple.remoteEnlazadoProvincia);
@@ -80,6 +81,7 @@ module.exports = (PORT) => {
 	app.get('/demo/nora/pais', routesNora.pais);
 	app.get('/demo/nora/autonomia', routesNora.autonomia);
 	app.get('/demo/nora/provincia', routesNora.provincia);
+	app.post('/demo/nora', routesNora.submit);
 	// Table
 	app.post('/demo/jqGridUsuario/filter', routesTable.filter);
 	app.get('/demo/jqGridUsuario/:id', routesTable.get);
@@ -109,4 +111,5 @@ module.exports = (PORT) => {
 	app.listen(PORT);
 
 	console.log(`Listening on port ${PORT}...`);
+	return;
 };

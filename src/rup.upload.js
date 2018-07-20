@@ -32,20 +32,20 @@
 
 		// AMD. Register as an anonymous module.
 		define(['jquery', './rup.base',
-			'jquery.fileupload/jquery.fileupload.js',
-			'jquery.fileupload/jquery.fileupload-ui.js',
-			// 'jquery.fileupload/jquery.fileupload-jquery-ui.js',
-			'jquery.fileupload/jquery.fileupload-process.js',
-			'jquery.fileupload/jquery.fileupload-validate.js',
-			'jquery.fileupload/jquery.fileupload-image.js',
-			'jquery.fileupload/jquery.fileupload-audio.js',
-			'jquery.fileupload/jquery.fileupload-process.js',
-			'jquery.fileupload/jquery.fileupload-video.js',
-			'./core/utils/jquery.iframe-transport'
+			//'jquery.fileupload/jquery.fileupload.js',
+			//'jquery.fileupload/jquery.fileupload-ui.js',
+			//'jquery.fileupload/jquery.fileupload-jquery-ui.js',
+			//'jquery.fileupload/jquery.fileupload-process.js',
+			//'jquery.fileupload/jquery.fileupload-validate.js',
+			//'jquery.fileupload/jquery.fileupload-image.js',
+			//'jquery.fileupload/jquery.fileupload-audio.js',
+			//'jquery.fileupload/jquery.fileupload-process.js',
+			//'jquery.fileupload/jquery.fileupload-video.js',
+			'./core/utils/jquery.iframe-transport',
 
 			// 'jquery.fileupload/jquery.fileupload.js'
 
-			// 'blueimp-file-upload/js/jquery.fileupload-ui.js',
+			'blueimp-file-upload/js/jquery.fileupload-ui.js',
 			// 'jquery.fileupload-jquery-ui',
 			// 'jquery.fileupload-process',
 			// 'jquery.fileupload-image',

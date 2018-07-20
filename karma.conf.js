@@ -36,17 +36,17 @@ module.exports = function (config) {
         reporters: ['progress', 'spec', 'coverage', 'html'],
         // htmlReporter configuration
         htmlReporter: {
-            outputDir: 'spec', // where to put the reports 
-            templatePath: null, // set if you moved jasmine_template.html
-            focusOnFailures: false, // reports show failures on start
-            namedFiles: true, // name files instead of creating sub-directories
-            pageTitle: 'Karma Report 3.5.0', // page title for reports; browser info by default
-            urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
-            reportName: 'karma_report_3.5.0', // report summary filename; browser info by default
-
-            // experimental
-            preserveDescribeNesting: false, // folded suites stay folded 
-            foldAll: false, // reports start folded (only with preserveDescribeNesting)
+          outputDir: 'spec', // where to put the reports 
+          templatePath: null, // set if you moved jasmine_template.html
+          focusOnFailures: false, // reports show failures on start
+          namedFiles: true, // name files instead of creating sub-directories
+          pageTitle: 'Karma Report 3.5.0', // page title for reports; browser info by default
+          urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
+          reportName: 'karma_report_3.5.0', // report summary filename; browser info by default
+          
+          // experimental
+          preserveDescribeNesting: false, // folded suites stay folded 
+          foldAll: false, // reports start folded (only with preserveDescribeNesting)
         },
         // list of files / patterns to load in the browser
         files: [{

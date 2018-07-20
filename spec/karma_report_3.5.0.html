@@ -94,16 +94,19 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in Chrome 67.0.3396 (Windows 7 0.0.0) on Thu Jul 19 2018</h1>
+<h1>Tested in PhantomJS 2.1.1 (Windows 7 0.0.0) on Wed Jul 18 2018</h1>
 
 <div class="alert">
 
 
+<!-- <span class="failingAlert bar">Failed 46 specs</span> -->
+<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>506 specs, 46 failed, 0 pending</span>
+<span class="resultsMenu bar">
+<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
+   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
+</span>
 
-  
-  <span class="passingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>114 specs, 0 failed, 0 pending</span>
-  
 
 
 </div>
@@ -115,157 +118,2700 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion</span>
+      <span class="description">0</span>
     
       <div class="specSummary passed">
-      <span class="description">debería disponer de los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset rup_accordion_create)</span>
+      <span class="description">Debe tener las clases apropiadas</span>
       </div>
     
       <div class="specSummary passed">
-      <span class="description">debería asignar los estilos correspondientes a las secciones h1 (ui-accordion-header)</span>
+      <span class="description">Los header debe tener un span con el icono</span>
       </div>
     
       <div class="specSummary passed">
-      <span class="description">debería inicializarse con las secciones h1 colapsadas</span>
+      <span class="description">El contenido del div activo debe tener las clases apropiadas y ser visible</span>
       </div>
     
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Expandir y contraer las secciones haciendo click Pulsar en la primera sección</span>
-    
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la primera sección y ocultar el resto</span>
+      <span class="description">El div que no este activo debe tener las clases apropiadas y estar hidden</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Expandir y contraer las secciones haciendo click Pulsar en la segunda sección</span>
+      <span class="description">1</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la segunda sección y ocultar el resto</span>
+      <span class="description">Debe tener las clases apropiadas</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Los header debe tener un span con el icono</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El contenido del div activo debe tener las clases apropiadas y ser visible</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El div que no este activo debe tener las clases apropiadas y estar hidden</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Expandir y contraer las secciones haciendo click Pulsar en la tercera sección</span>
+      <span class="description">2</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la tercera sección y ocultar el resto</span>
+      <span class="description">Debe cambiarse la clase de active</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe togglearse la visibilidad de los contenidos</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('activate',index); Ejecutar activate para el index (0) de la primera sección</span>
+      <span class="description">3</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la primera sección y ocultar el resto</span>
+      <span class="description">Debe cambiarse la clase de active</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe togglearse la visibilidad de los contenidos</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('activate',index); Ejecutar activate para el index (1) de la segunda sección</span>
+      <span class="description">4</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la segunda sección y ocultar el resto</span>
+      <span class="description">Debe cambiarse la clase activa</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('activate',index); Ejecutar activate para el index (2) de la tercera sección</span>
+      <span class="description">5</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia desplegar la tercera sección y ocultar el resto</span>
+      <span class="description">Debe cambiarse la clase activa</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('disable');</span>
+      <span class="description">6</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia asignar el class ui-accordion-disabled al accordion</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia asignar el class ui-state-disabled a todas las secciones</span>
+      <span class="description">Debe poder deshabilitarse</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('enable');</span>
+      <span class="description">7</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia eliminar el class ui-accordion-disabled del accordion</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia eliminar el class ui-state-disabled de todas las secciones</span>
+      <span class="description">Debe poder deshabilitarse</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('widget');</span>
+      <span class="description">8</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia devolver el objecto widget del accordion</span>
+      <span class="description">Debe poder habilitarse</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API Test del método option $('#accordion').rup_accordion('option');</span>
+      <span class="description">9</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia devolver el objeto de opciones de configuracion del accordion</span>
+      <span class="description">Debe poder habilitarse</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API Test del método option $('#accordion').rup_accordion('option', 'disabled');</span>
+      <span class="description">10</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia devolver el valor de la propiedad de configuración (p.e. disabled)</span>
+      <span class="description">Debe ser el objeto de accordion</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API Test del método option $('#accordion').rup_accordion('option', 'disabled', true);</span>
+      <span class="description">11</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia asignar el valor true a la propiedad de configuración (p.e. disabled)</span>
+      <span class="description">Debe ser el objeto de accordion</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Accordion Tests Creación de un accordion Test de la API $('#accordion').rup_accordion('destroy');</span>
+      <span class="description">12</span>
     
       <div class="specSummary passed">
-      <span class="description">debería haberse eliminado los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset rup_accordion_create)</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería asignar los estilos correspondientes a las secciones h1 (ui-accordion-header)</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de eliminarse los objetos almacenados mediante data() (settings y uiAutocomplete)</span>
+      <span class="description">Deben desaparecer las clases del accordion</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de error Construcción de un RUP Dialog</span>
+      <span class="description">13</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben desaparecer las clases del accordion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">14</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Las opciones deben cambiar</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">15</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Las opciones deben cambiar</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">16</span>
+    
+      <div class="specSummary passed">
+      <span class="description">El elemento html debe presentar cambios</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">17</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe mostrarse el menu</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">18</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe mostrarse el menu</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">19</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe tener la clase de combobox</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">20</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Deben mostrarse ambos autocomplete:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">21</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Solo debe mostrarse el segundo autocomplete:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">22</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Deben mostrarse la opciones</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">23</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe devolver el valor seleccionado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">24</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe devolver el valor seleccionado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">25</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor seleccionado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">26</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe tener el atributo de deshabilitado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">27</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el atributo de deshabilitado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">28</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Intentar volver a destruir el objeto debe dar error</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">29</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe existir el span</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el texto esperado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">30</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe existir el ul de las migas</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener un único hijo (Inicio)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El hijo debe ser &quot;Inicio&quot;</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">31</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe existir el span</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el texto esperado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">32</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe existir el ul de las migas</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe tener dos hijos</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El primer hijo debe ser el &quot;Inicio&quot; y debe ser un enlace</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El primer hijo debe tener un icono de flecha</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El segundo hijo debemostrarse como el actual</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El texto del hijo seleccionado debe ser &quot;ptrUno&quot;</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El segundo hijo debe contener un ul oculto</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El ul oculto debe tener tres hijos (Los sublevel)</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">Los hijos deben ser los especificados en la configuracion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">33</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe mostrarse</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">34</span>
+    
+      <div class="specSummary passed">
+      <span class="description">No debe existir</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">35</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener la clase rup-button</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">36</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener la clase rup_button</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El mButton debe tener los botones hijos </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">37</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases apropiadas:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El dropdownButton debe crear un contenedor para el y el dropdown </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El contenedor debe tener dos hijos </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">38</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe estar definido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">39</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los valores recogidos deben ser correctos</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">40</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los valores recogidos deben ser correctos</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">41</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los valores recogidos deben ser correctos</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">42</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver una instancia de Chart.Controller</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">43</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser un string</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe comenzar con una secuencia de caracteres concreta</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">44</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el valor por defecto: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El valor se debe corresponder a getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">45</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el valor por defecto: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El valor se debe corresponder a getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">46</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el valor por defecto: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El valor se debe corresponder a getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">47</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el valor por defecto: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber un unico valor seleccionado:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El valor se debe corresponder a getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">48</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el valor por defecto:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El combo debe disponer de 2 optGroups:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El valor se debe corresponder a getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">49</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizarse la ui: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en getRupValue: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">50</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizarse la ui: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en getRupValue: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El cambio debe reflejarse en el combo hijo:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">51</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizarse la ui: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">52</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe actualizarse </span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">53</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizarse:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">54</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">55</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El combo hijo debe deshabilitarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">56</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">57</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver el valor establecido</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">58</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe actualizar la ui:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El método getRupValue debe devolver 0</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">59</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe aparecer la clase </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">60</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe aparecer la clase </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">61</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe aparecer la clase </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">62</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe aparecer la clase </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">63</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe aparecer la clase:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">64</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar el ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el getRupValue </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">65</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">66</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">67</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el combo Hijo:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">68</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el combo Hijo:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">69</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">70</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">71</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">72</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">73</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe cambiar la ui:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">74</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe cambiar la ui:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">75</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">76</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el combo Hijo:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">77</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">78</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe modificar la ui </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en el método getRupValue</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">79</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe cambiar la ui:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe reflejarse en getRupValue:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">80</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor del componente</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">81</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor del componente</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">82</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor del componente</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">83</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor del componente</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">84</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el valor del componente</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">85</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">86</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">87</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">88</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">89</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">90</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el indice de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">91</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el indice de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">92</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el indice de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">93</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver el indice de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">94</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver la label de la seleccion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">95</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">96</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">97</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">98</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">99</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">100</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver false</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">101</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver false</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">102</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver false</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">103</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver false</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">104</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases de deshabilitado</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El metodo isDisabled debe devolver true</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">105</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe deshabilitar el combo padre</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe deshabilitar el combo hijo</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">106</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el atributo de deshabilitado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">107</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben deshabilitarse las opciones especificadas</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">108</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener el atributo de deshabilitado</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">109</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben deshabilitarse las opciones especificadas: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">110</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber metido el elemento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">111</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber metido el elemento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">112</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber metido el elemento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">113</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber metido el elemento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">114</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe introducir el elemento</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">115</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crearse</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">116</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Intruso debe ser la primera opcion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">117</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Intruso debe ser la primera opcion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">118</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Intruso debe ser la primera opcion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">119</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Intruso debe ser la primera opcion</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">120</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe introducir el elemento</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">121</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crear el elemento</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser invisible</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">122</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">123</span>
+    
+      <div class="specSummary failed">
+      <span class="description">No debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">124</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener la clase que lo deshabilita</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">125</span>
+    
+      <div class="specSummary passed">
+      <span class="description">No debe tener la clase que lo deshabilita</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">126</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe eliminar el ul del DOM:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">127</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe crear un botón</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[es]  Debe ejecutarse el callback del create:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe crear un botón</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu]  Debe ejecutarse el callback del create:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">128</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe crear un timepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe crear un timepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">129</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe crearse un botón:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe crearse un botón:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">130</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Deben tener la clase del datepicker</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Deben tener la clase del datepicker</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">131</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe actualizar el valor:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe actualizar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">132</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe actualizar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe actualizar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">133</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe actualizar el valor:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe actualizar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">134</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] getRupValue desde:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] getRupValue hasta:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] getRupValue desde:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] getRupValue hasta:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">135</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] En desde los valores mas allá de hasta deben estar deshabilitados:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] En hasta los valores antes de desde deben estar deshabilitados:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] En desde los valores mas allá de hasta deben estar deshabilitados:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] En hasta los valores antes de desde deben estar deshabilitados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">136</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">137</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">138</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe tener los select para cambiar mes y año:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">139</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe mostrarse:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">140</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe mostrarse:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">141</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe mostrarse el datepicker:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">142</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe mostrarse el datepicker:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">143</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe mostrarse el datepicker:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe mostrarse el datepicker:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">144</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe mostrarse:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">145</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] No debe mostrarse:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] No debe mostrarse:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">146</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe cambiar en la UI:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en el método getDate:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe cambiar en la UI:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en el método getDate:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">147</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe cambiar en la UI:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en el método getDate:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe cambiar en la UI:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en el método getDate:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">148</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe modificar la UI:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe modificar la UI:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">149</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe actualizar la ui:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe actualizar la ui:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">150</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] comprobamos que los miércoles se hayan deshabilitado:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] comprobamos que los miércoles se hayan deshabilitado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">151</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe cambiar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe cambiar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">152</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe cambiar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe cambiar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">153</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe cambiar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe cambiar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">154</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe cambiar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe cambiar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">155</span>
+    
+      <div class="specSummary failed">
+      <span class="description">[es] Debe cambiar el valor:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">[eu] Debe cambiar el valor:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">156</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">157</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">158</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">159</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">160</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">161</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">162</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">163</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe marcarse como deshabilitada</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe reflejarse en isDisabled:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">164</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe retirarse elementos:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe retirarse elementos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">165</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe retirarse elementos:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe retirarse elementos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">166</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe retirarse elementos:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe retirarse elementos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">167</span>
+    
+      <div class="specSummary passed">
+      <span class="description">[es] Debe retirarse elementos:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">[eu] Debe retirarse elementos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">168</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crearse el contenedor del dialogo:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El contenedor no debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe contener el texto establecido:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">169</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El foco debe estar en el primer botón:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">170</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">171</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Los métodos no deberían funcionar:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">172</span>
+    
+      <div class="specSummary passed">
+      <span class="description">El dialog debe estar encima del aux:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">173</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">174</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">175</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crear un enlace en el dialog:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">176</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe de haberse ejecutado el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">177</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe ejecutrarse el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">178</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crearse el contenedor del dialogo:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El contenedor no debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe contener el texto establecido:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">179</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El foco debe estar en el primer botón:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">180</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">181</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Los métodos no deberían funcionar:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">182</span>
+    
+      <div class="specSummary passed">
+      <span class="description">El dialog debe estar encima del aux:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">183</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">184</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">185</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crear un enlace en el dialog:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">186</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe de haberse ejecutado el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">187</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe ejecutrarse el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">188</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crearse el contenedor del dialogo:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">El contenedor no debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe contener el texto establecido:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">189</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">El foco debe estar en el primer botón:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">190</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe ser visible:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver correctamente el resultado de isOpen:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">191</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Los métodos no deberían funcionar:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">192</span>
+    
+      <div class="specSummary passed">
+      <span class="description">El dialog debe estar encima del aux:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">193</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">194</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">195</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe crear un enlace en el dialog:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">196</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe de haberse ejecutado el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">197</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe ejecutrarse el evento:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">198</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener la clase de rup_form</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">199</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener clases por defecto:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">200</span>
+    
+      <div class="specSummary failed">
+      <span class="description">Debe mostrarse el feedback con el contenido:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">201</span>
+    
+      <div class="specSummary passed">
+      <span class="description">La llamada debe tener éxito:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">202</span>
+    
+      <div class="specSummary passed">
+      <span class="description">La llamada debe tener éxito:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">203</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver un string con los datos</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">204</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver un string con los datos</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">205</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver un string con los datos de los fields</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">206</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver un string con los datos de los fields:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">207</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores en un array</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">208</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los valores en un array</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">209</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los datos en un string en formato Json</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">210</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe devolver los datos rellenados en formato JSON:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">211</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber limpiado todos los campos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">212</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe haber limpiado todos los campos:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">213</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener los valores originales:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">214</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe quedar en su estado original &gt; </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">215</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben quedar en blanco unicamente los indicados por el selector:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">216</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben quedar en blanco unicamente los indicados por el selector:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">217</span>
+    
+      <div class="specSummary failed">
+      <span class="description">No debe existir</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">218</span>
+    
+      <div class="specSummary failed">
+      <span class="description">No debe existir</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">219</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe tener las clases correspondientes</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe rellenarse el dropdown</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Debe mostrar el lenguaje por defecto (Castellano)</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">220</span>
+    
+      <div class="specSummary passed">
+      <span class="description">No debe existir</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">221</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir un ui-dialog</span>
@@ -274,7 +2820,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de error Construcción de un RUP Dialog Se ha construido una sección de título correcta</span>
+      <span class="description">222</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección de título</span>
@@ -291,7 +2837,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de error Construcción de un RUP Dialog Construcción de la botonera</span>
+      <span class="description">223</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección que contenga los botones</span>
@@ -304,7 +2850,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de error</span>
+      <span class="description">224</span>
     
       <div class="specSummary passed">
       <span class="description">debería de existir un div con el icono de error</span>
@@ -313,7 +2859,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de alert Construcción de un RUP Dialog</span>
+      <span class="description">225</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir un ui-dialog</span>
@@ -322,7 +2868,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de alert Construcción de un RUP Dialog Se ha construido una sección de título correcta</span>
+      <span class="description">226</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección de título</span>
@@ -339,7 +2885,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de alert Construcción de un RUP Dialog Construcción de la botonera</span>
+      <span class="description">227</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección que contenga los botones</span>
@@ -352,7 +2898,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de alert</span>
+      <span class="description">228</span>
     
       <div class="specSummary passed">
       <span class="description">debería de existir un div con el icono de alerta</span>
@@ -361,7 +2907,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de Ok Construcción de un RUP Dialog</span>
+      <span class="description">229</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir un ui-dialog</span>
@@ -370,7 +2916,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de Ok Construcción de un RUP Dialog Se ha construido una sección de título correcta</span>
+      <span class="description">230</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección de título</span>
@@ -387,7 +2933,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de Ok Construcción de un RUP Dialog Construcción de la botonera</span>
+      <span class="description">231</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección que contenga los botones</span>
@@ -400,7 +2946,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de Ok</span>
+      <span class="description">232</span>
     
       <div class="specSummary passed">
       <span class="description">debería de existir un div con el icono de Ok</span>
@@ -409,7 +2955,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de confirmación Construcción de un RUP Dialog</span>
+      <span class="description">233</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir un ui-dialog</span>
@@ -418,7 +2964,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de confirmación Construcción de un RUP Dialog Se ha construido una sección de título correcta</span>
+      <span class="description">234</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección de título</span>
@@ -435,7 +2981,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de confirmación Construcción de un RUP Dialog Construcción de la botonera</span>
+      <span class="description">235</span>
     
       <div class="specSummary passed">
       <span class="description">deberia de existir una sección que contenga los botones</span>
@@ -448,7 +2994,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Dialog Tests Mostrar un mensaje de confirmación</span>
+      <span class="description">236</span>
     
       <div class="specSummary passed">
       <span class="description">debería de existir un div con el icono de confirmación</span>
@@ -461,232 +3007,99 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Invocación de un RUP Feedback por defecto</span>
+      <span class="description">237</span>
     
       <div class="specSummary passed">
-      <span class="description">debería disponer de los estilos de jQueryUI y RUP</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería reservar el área de visualización</span>
+      <span class="description">Debe crearse el componente:</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Invocación de un RUP Feedback por defecto Asignación de un mensaje al feedback</span>
+      <span class="description">238</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de tener controles para cerrar el feedback</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de tener correctamente asigando el texto</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de cerrarse al pulsar el enlace de cerrar</span>
+      <span class="description">Debe reflejarse el cambio en getRupValue</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Invocación de un RUP Feedback por defecto Ocultar el feedback mediante la función hide</span>
+      <span class="description">239</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de ocultarse el feedback</span>
+      <span class="description">Deben de desaparecer las clases de rup-progressbar:</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Creación de diferentes tipos de feedback mediante el método set Mostrar feedback de tipo 'ok' con el texto 'Todo ha ido bien'</span>
+      <span class="description">240</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de mostrar el texto 'Todo ha ido bien'</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de tener asigando el class correspondiente al tipo 'ok'</span>
+      <span class="description">Debe aparecer como deshabilitada:</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Creación de diferentes tipos de feedback mediante el método set Mostrar feedback de tipo 'alert' con el texto 'Se ha producido un mensaje de aviso'</span>
+      <span class="description">241</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de mostrar el texto 'Todo ha ido bien'</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de tener asigando el class correspondiente al tipo 'alert'</span>
+      <span class="description">Debe aparecer como deshabilitada:</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Feedback Tests Creación de diferentes tipos de feedback mediante el método set Mostrar feedback de tipo 'error' con el texto 'Se ha producido un error'</span>
+      <span class="description">242</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de mostrar el texto 'Se ha producido un error'</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de tener asigando el class correspondiente al tipo 'error'</span>
+      <span class="description">Debe obtener el objeto</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de error Construcción de un RUP Message</span>
+      <span class="description">243</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia de existir un ui-dialog</span>
+      <span class="description">El cambio debe reflejarse al obtener en valor de la propiedad</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de error Construcción de un RUP Message Se ha construido una sección de título correcta</span>
+      <span class="description">244</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia de existir una sección de título</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una botón de cerrar</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir un texto de cerrar</span>
+      <span class="description">Debe devolver el valor actual del progressbar</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de error Construcción de un RUP Message Construcción de la botonera</span>
+      <span class="description">245</span>
     
       <div class="specSummary passed">
-      <span class="description">deberia de existir una sección que contenga los botones</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir al menos el botón de Aceptar</span>
+      <span class="description">El botón de exportar debe de haberse creado:</span>
       </div>
     
     </div>
   
     <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de error</span>
+      <span class="description">246</span>
     
       <div class="specSummary passed">
-      <span class="description">debería de existir un div con el icono de error</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de alert Construcción de un RUP Message</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir un ui-dialog</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de alert Construcción de un RUP Message Se ha construido una sección de título correcta</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una sección de título</span>
+      <span class="description">Debe abrir una ventana emergente:</span>
       </div>
     
       <div class="specSummary passed">
-      <span class="description">deberia de existir una botón de cerrar</span>
+      <span class="description">Debe tener un boton para cerrar el dialog:</span>
       </div>
     
       <div class="specSummary passed">
-      <span class="description">deberia de existir un texto de cerrar</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de alert Construcción de un RUP Message Construcción de la botonera</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una sección que contenga los botones</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir al menos el botón de Aceptar</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de alert</span>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de existir un div con el icono de alerta</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de Ok Construcción de un RUP Message</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir un ui-dialog</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de Ok Construcción de un RUP Message Se ha construido una sección de título correcta</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una sección de título</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una botón de cerrar</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir un texto de cerrar</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de Ok Construcción de un RUP Message Construcción de la botonera</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir una sección que contenga los botones</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir al menos el botón de Aceptar</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de Ok</span>
-    
-      <div class="specSummary passed">
-      <span class="description">debería de existir un div con el icono de Ok</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">RUP Messages Tests Mostrar un mensaje de confirmación Construcción de un RUP Message</span>
-    
-      <div class="specSummary passed">
-      <span class="description">deberia de existir un ui-dialog</span>
+      <span class="description">Debe tener un progressbar:</span>
       </div>
     
     </div>
@@ -695,6 +3108,646 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </div>
 
 <div id="details">
+  
+  
+  <div class="specDetail failed">
+    <span class="description">17 Debe mostrarse el menu</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57343:81
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57344:84
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57345:85
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">19 Debe tener la clase de combobox</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57376:85
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57377:86
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57378:86
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">20 Deben mostrarse ambos autocomplete:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57392:79
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47,Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57393:82
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47,Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57394:83
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">21 Solo debe mostrarse el segundo autocomplete:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57406:82
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">22 Deben mostrarse la opciones</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: cannot call methods on autocomplete prior to initialization; attempted to call method 'close' in http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592 (line 325)
+error@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:325:25
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:22012:20
+each@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:442:23
+each@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:209:21
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:22002:13
+close@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:56599:10892
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:15650:24010
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57412:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">23 Debe devolver el valor seleccionado</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '' to be 'ui_value'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57424:67
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">24 Debe devolver el valor seleccionado</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 'ui' to be 'ui_value'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57433:67
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">26 Debe tener el atributo de deshabilitado</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'disabled'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57450:60
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57310:47</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">32 Debe tener dos hijos</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 1 to be 3.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57600:88
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 El primer hijo debe ser el &quot;Inicio&quot; y debe ser un enlace</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'Inicio'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57603:86
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 El primer hijo debe tener un icono de flecha</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57606:142
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 El texto del hijo seleccionado debe ser &quot;ptrUno&quot;</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 'Inicio' to be 'ptrUno'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57612:112
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 El segundo hijo debe contener un ul oculto</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 0 to be 1.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57616:46
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected undefined to be 'none'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57617:54
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 El ul oculto debe tener tres hijos (Los sublevel)</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 0 to be 3.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57621:57
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57025:102,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57031:103,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57048:102,Expected false to be truthy.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57054:103</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">32 Los hijos deben ser los especificados en la configuracion</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'ptrUno'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57625:68,Expected undefined to be './patrones/ptrUno'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57626:74,Expected undefined to be 'ptrDos'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57627:68,Expected undefined to be './patrones/ptrDos'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57628:74,Expected undefined to be 'ptrTres'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57629:68,Expected undefined to be './patrones/ptrTres'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57630:74</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">33 Debe mostrarse</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'block'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:57643:53</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">52 Debe actualizarse </span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '3 seleccionado(s)' to be '2 seleccionado(s)'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:58049:69</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">52 El método getRupValue debe devolver el valor establecido</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected [ '2', '3', '4' ] to equal [ '3', '4' ].
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:58052:58</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">62 Debe aparecer la clase </span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:58157:54</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">123 No debe mostrarse:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:58980:74
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">127 [es]  Debe ejecutarse el callback del create:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59146:63
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">127 [eu]  Debe ejecutarse el callback del create:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59146:63
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">132 [es] Debe actualizar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '08/08/2018 00:00' to be '08/08/2018 00:00:00'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59205:74</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">132 [eu] Debe actualizar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '2018/08/08 00:00' to be '2018/08/08 00:00:00'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59208:79</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">151 [es] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59502:77,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59503:73,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59504:73</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">151 [eu] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59502:77,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59503:73,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59504:73</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">152 [es] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59516:80,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59517:76,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59518:76</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">152 [eu] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59516:80,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59517:76,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59518:76</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">153 [es] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59530:82,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59531:78,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59532:78</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">153 [eu] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59530:82,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59531:78,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59532:78</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">154 [es] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59545:87,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59546:83,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59547:83</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">154 [eu] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59545:87,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59546:83,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59547:83</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">155 [es] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59559:87,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59560:83,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59561:83</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">155 [eu] Debe cambiar el valor:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected undefined to be 'FooText'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59559:87,Expected undefined to be '01/01/1900'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59560:83,Expected undefined to be '01/01/2200'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59561:83</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">169 El foco debe estar en el primer botón:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59866:59</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">171 Los métodos no deberían funcionar:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59891:24</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">177 Debe ejecutrarse el evento:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59965:51</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">179 El foco debe estar en el primer botón:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59866:59
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">181 Los métodos no deberían funcionar:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59891:24
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">187 Debe ejecutrarse el evento:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59965:51,Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59967:49</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">189 El foco debe estar en el primer botón:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected false to be true.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59866:59
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">191 Los métodos no deberían funcionar:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59891:24</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">197 Debe ejecutrarse el evento:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected true to be false.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:59965:51</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">200 Debe mostrarse el feedback con el contenido:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 'Se han producido los siguientes errores:NombrePaís:Campo obligatorio.' to be 'Se han producido los siguientes errores:nombre:Campo obligatorio.'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:60282:54
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:16510:2804
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3483:38
+fire@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3304:36
+fireWith@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:3434:11
+done@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:9912:25
+callback@http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:10383:16</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">217 No debe existir</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '' to be 'txt1'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:60478:37,Expected '' to be 'txt2'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:60479:37,Expected null to be 'opt1'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:60480:37</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">218 No debe existir</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected '' to be 'pop'.
+http://localhost:9877/base/test.webpack.js?73dcf2f04c29910cee02aa1f58744ce2de91b592:60489:37</div>
+    </div>
+  </div>
+  
   
 </div>
 
@@ -707,7 +3760,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    
+    case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;
   }
 };
 
