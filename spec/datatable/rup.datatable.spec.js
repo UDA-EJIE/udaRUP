@@ -11,6 +11,7 @@ const html ='   <form id="table_filter_form">\
                         </div>\
                     </fieldset>\
                 </form>\
+                <div id="exampleDatatable_filter_toolbar"></div>\
                 <table id="exampleDatatable" class="table table-striped table-bordered"\
                 data-url-base="'+ dataUrl +'"\
                 data-filter-form="#table_filter_form"\
