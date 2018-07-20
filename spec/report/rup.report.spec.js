@@ -75,29 +75,29 @@ describe('Test Report > ', () => {
         });
     });
     describe('Funcionalidad > ', () => {
-        beforeEach(() => {
-            $report.trigger('click');
-        });
         describe('Abre ventana emergente > ', () => {
+            beforeEach((done) => {
+                $report.click(done);
+            });
             it('Debe abrir una ventana emergente:', () => {
+                debugger;
                 expect($('.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
                     .is(':visible')).toBe(true);
             });
             it('Debe tener un boton para cerrar el dialog:', () => {
-                let element = $('button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close');
-                expect(element.length).toBe(1);
+                expect($('button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close').length).toBe(1);
             });
             it('Debe tener un progressbar:', () => {
-                let element = $('div.ui-progressbar.ui-progressbar-value.ui-corner-left.ui-corner-right');
-                expect(element.length).toBe(1);
+                debugger;
+                expect($('div.ui-progressbar.ui-progressbar-value.ui-corner-left.ui-corner-right').length).toBe(1);
             });
         });
-        describe('Obtiene el archivo > ', () => {
-            beforeEach(() => {
-                $('[id="exampleToolbar##exportar"]').trigger('click');
-            });
+        // describe('Obtiene el archivo > ', () => {
+        //     beforeEach(() => {
+        //         $('[id="exampleToolbar##exportar"]').trigger('click');
+        //     });
 
-            // TODO: PhantomJS no soporta la descarga de archivos así que no se puede probar
-        });
+        //     // TODO: PhantomJS no soporta la descarga de archivos así que no se puede probar
+        // });
     });
 });
