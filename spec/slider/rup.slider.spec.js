@@ -1,11 +1,17 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.slider';
 
 describe('Test Slider > ', () => {
     var $slider;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
         let html = '<div id="exampleSlider"></div>';
         let options = {
@@ -13,14 +19,17 @@ describe('Test Slider > ', () => {
             max: 500
         };
 
-        $('body').append(html);
+        $('#content').append(html);
         $('#exampleSlider').rup_slider(options);
 
         $slider = $('#exampleSlider');
     });
+
     afterEach(() => {
-        $('body').html('');
+        $('#content').html('');
+        $('#content').nextAll().remove();
     });
+
     describe('Creación > ', () => {
         it('Debe crear el slider', () => {
             expect($slider.hasClass('rup-slider') &&

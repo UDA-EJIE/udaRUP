@@ -1,29 +1,12 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
-import '../../dist/css/rup-base.css';
-import '../../dist/css/rup-theme.css';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
-function loadCss() {
-	let css = '';
-	$('head').append('<style></style>');
-	var thenable = $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-		.then((data, textStatus, jqXHR) => {
-			css += data;
-		})
-		.then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-		.then((data, textStatus, jqXHR) => {
-			css += data;
-		})
-		.then(() => {
-			$('head > style').append(css);
-		});
-	return thenable;
-}
-$.when(loadCss())
-	.done(testDialogType($.rup.dialog.TEXT))
+
+$.when(testDialogType($.rup.dialog.TEXT))
 	.done(testDialogType($.rup.dialog.DIV))
 	.done(testDialogType($.rup.dialog.AJAX));
 
@@ -32,6 +15,11 @@ function testDialogType(type) {
 
 	describe('Test Dialog ' + type + ' > ', () => {
 		var $dialogo;
+
+		beforeAll((done) => {
+			testutils.loadCss(done);
+		});
+
 		beforeEach(() => {
 			let html, opciones;
 			if (type == $.rup.dialog.TEXT) {
@@ -50,8 +38,7 @@ function testDialogType(type) {
 					message: 'MensajeDialogo',
 					buttons: [{
 						text: 'boton',
-						click: () => {
-						}
+						click: () => {}
 					}]
 				};
 			}
@@ -73,8 +60,7 @@ function testDialogType(type) {
 					modal: true,
 					buttons: [{
 						text: 'boton',
-						click: () => {
-						}
+						click: () => {}
 					}]
 				};
 			}
@@ -95,14 +81,10 @@ function testDialogType(type) {
 					resizable: false,
 					buttons: [{
 						text: 'boton',
-						click: () => {
-						}
+						click: () => {}
 					}]
 				};
 			}
-
-			//$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-base.css" />').appendTo('head');
-			//$('<link rel="stylesheet" type="text/css" href="http://localhost:8081/dist/css/rup-theme.css" />').appendTo('head');
 
 			$('#content').append(html);
 			$('#exampleDialogo').rup_dialog(opciones);
@@ -112,8 +94,6 @@ function testDialogType(type) {
 		afterEach(() => {
 			$dialogo.rup_dialog('destroy');
 			$dialogo = undefined;
-			$('link[href="http://localhost:8081/dist/css/rup-base.css"]', 'head').remove();
-			$('link[href="http://localhost:8081/dist/css/rup-theme.css"]', 'head').remove();
 			$('#content').nextAll().remove();
 			$('#content').html('');
 		});
@@ -193,7 +173,7 @@ function testDialogType(type) {
 					}
 				});
 			});
-			describe('Método moveToTop '+ type +' > ', () => {
+			describe('Método moveToTop ' + type + ' > ', () => {
 				beforeEach(() => {
 					let aux = '<div id="auxDialog"></div>';
 					$('body').append(aux);
@@ -235,8 +215,7 @@ function testDialogType(type) {
 				beforeEach(() => {
 					let btnObj = {
 						text: 'boton',
-						click: () => {
-						}
+						click: () => {}
 					};
 					$dialogo.rup_dialog('createBtnLinks', btnObj, 'exampleDialogo');
 					$dialogo.rup_dialog('open');
@@ -262,10 +241,9 @@ function testDialogType(type) {
 				});
 				it('Debe ejecutrarse el evento:', () => {
 					expect($dialogo.hasClass('randomClass')).toBe(false);
-					if(type === $.rup.dialog.DIV) {
+					if (type === $.rup.dialog.DIV) {
 						expect($dialogo.rup_dialog('isOpen')).toBe(true);
-					}
-					else {
+					} else {
 						expect($dialogo.rup_dialog('isOpen')).toBe(false);
 					}
 				});
