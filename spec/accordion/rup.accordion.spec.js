@@ -1,264 +1,303 @@
-
-// (function (factory) {
-//       if (typeof define === "function" && define.amd) {
-//
-//           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','jasmine-jquery','rup.accordion'], factory);
-//       } else {
-//
-//           // Browser globals
-//           factory(jQuery);
-//       }
-//   }(function ($, Handlebars) {
+/* jslint esnext: true, multistr: true */
 
 import 'jquery';
-import Handlebars from 'handlebars';
 import 'jasmine-jquery';
 import 'rup.accordion';
 
-var customMatchers = {
-	toBeExpanded: function(util, customEqualityTesters) {
-		return {
-			compare: function(actual, expected) {
-				var result = {
-					pass: true
-				};
-
-				result.pass = result.pass && actual.hasClass('ui-accordion-header');
-				result.pass = result.pass && actual.hasClass('ui-state-active');
-				result.pass = result.pass && (actual.attr('aria-expanded') === 'true');
-				// result.pass = result.pass && actual.next(".section").is(":visible");
-
-				return result;
-			}
+describe('Test Accordion > ', () => {
+	var $defAccordion, $altAccordion;
+	beforeEach(() => {
+		let confAlternativa = {
+			collapsible: true,
+			disabled:    true,
+			active:      1,
+			event:       'mouseenter'
 		};
-	}
-};
 
+		let html = '<div id="defaultAccordion" class="rup_accordion">\
+						<h1><a>Head 1</a></h1>\
+						<div> Contenido 1</div>\
+						<h1><a>Head 2</a></h1>\
+						<div> Contenido 2</div>\
+					</div>\
+					<div id="alterAccordion" class="rup_accordion">\
+						<h1><a>Head 1</a></h1>\
+						<div> Contenido 1</div>\
+						<h1><a>Head 2</a></h1>\
+						<div> Contenido 2</div>\
+					</div>';
+		$('body').append(html);
+		$('#defaultAccordion').rup_accordion({});
+		$('#alterAccordion').rup_accordion(confAlternativa);
 
-describe('RUP Accordion Tests', function(){
-
-
-	beforeEach(function() {
-		jasmine.addMatchers(customMatchers);
+		$defAccordion = $('#defaultAccordion');
+		$altAccordion = $('#alterAccordion');
 	});
-
-
-
-	describe('Creación de un accordion', function(){
-
-		var source, template, $content, $accordion;
-
-		beforeAll(function(){
-			var source = '<div id="accordionExample" class="rup_accordion">'+
-														'<h1><a>Primera sección</a></h1>'+
-														'<div class="section">'+
-																'{{contenidoPrimeraSeccion}}'+
-														'</div>'+
-														'<h1><a>Segunda sección</a></h1>'+
-														'<div class="section2">'+
-																'{{contenidoSegundaSeccion}}'+
-														'</div>'+
-														'<h1><a>Tercera sección</a></h1>'+
-														'<div class="section">'+
-														'  {{contenidoTerceraSeccion}}'+
-														'</div>'+
-												'</div>';
-
-			$('body').append('<div id="content"></div>');
-
-			template = Handlebars.compile(source);
-			$content = $('#content');
-
-
-			var templateJson={
-				contenidoPrimeraSeccion:'<span>Contenido de la primera sección</span>',
-				contenidoSegundaSeccion:'<span>Contenido de la segunda sección</span>',
-				contenidoTerceraSeccion:'<span>Contenido de la tercera sección</span>'
-			};
-
-			$content.html(template(templateJson));
-
-			$accordion = $('#accordionExample');
-
-			$accordion.rup_accordion({
-          		animated: false,
-          		active: false,
-          		autoHeight: false,
-          		collapsible: true
-          	});
-		});
-
-		afterAll(function () {
-			$content.html('');
-		});
-
-		it('debería disponer de los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset rup_accordion_create)' , function(){
-			expect($accordion).toHaveClass('ui-accordion ui-widget ui-helper-reset rup_accordion_create');
-		});
-
-		it('debería asignar los estilos correspondientes a las secciones h1 (ui-accordion-header)', function(){
-			var $secciones = $accordion.find('h1');
-			expect($secciones).toHaveClass('ui-accordion-header');
-		});
-
-		it('debería inicializarse con las secciones h1 colapsadas', function(){
-			var $secciones = $accordion.find('h1');
-			expect($secciones).not.toBeExpanded();
-		});
-
-		beforeEach(function(){
-
-		});
-
-		describe('Expandir y contraer las secciones haciendo click', function(){
-			describe('Pulsar en la primera sección', function(){
-				it('deberia desplegar la primera sección y ocultar el resto', function(){
-					$accordion.find('h1:eq(0)').trigger('click');
-					expect($accordion.find('h1:eq(0)')).toBeExpanded();
-					expect($accordion.find('h1:not(:eq(0))')).not.toBeExpanded();
+	afterEach(() => {
+		$('body').html('');
+	});
+	describe('Creación > ', () => {
+		describe('Accordion con parametros por defecto > ', () => {
+			it('Debe tener las clases apropiadas', () => {
+				expect($defAccordion.hasClass('ui-accordion ui-widget ui-helper-reset rup_accordion_create')).toBeTruthy();
+			});
+			it('Los header debe tener un span con el icono',() => {
+				$('#defaultAccordion > h1 > span').each((i,e) => {
+					expect($(e).hasClass('ui-accordion-header-icon ui-icon'))
+						.toBeTruthy();
 				});
 			});
-			describe('Pulsar en la segunda sección', function(){
-				it('deberia desplegar la segunda sección y ocultar el resto', function(){
-					$accordion.find('h1:eq(1)').trigger('click');
-					expect($accordion.find('h1:eq(1)')).toBeExpanded();
-					expect($accordion.find('h1:not(:eq(1))')).not.toBeExpanded();
+			it('El contenido del div activo debe tener las clases apropiadas y ser visible', () => {
+				let id = $('#defaultAccordion > h1.ui-accordion-header-active')
+							.attr('id');
+				expect($('#defaultAccordion > div[aria-labelledby="'+ id +'"]')
+					.hasClass('ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'))
+					.toBeTruthy();
+				expect($('#defaultAccordion > div[aria-labelledby="'+ id +'"]').is(':visible'))
+					.toBeTruthy();
+			});
+			it('El div que no este activo debe tener las clases apropiadas y estar hidden', () => {
+				let id = $('#defaultAccordion > h1:not(.ui-accordion-header-active)')
+							.attr('id');
+				expect($('#defaultAccordion > div[aria-labelledby="'+ id +'"]')
+					.hasClass('ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content'))
+					.toBeTruthy();
+				expect($('#defaultAccordion > div[aria-labelledby="'+ id +'"]').is(':visible'))
+					.toBeFalsy();
+			});
+		});
+		describe('Accordion con parametros personalizados > ', () => {
+			it('Debe tener las clases apropiadas', () => {
+				expect($altAccordion
+					.hasClass('ui-accordion ui-widget ui-helper-reset ui-accordion-disabled ui-state-disabled rup_accordion_create'))
+					.toBeTruthy();
+			});
+			it('Los header debe tener un span con el icono',() => {
+				$('#alterAccordion > h1 > span').each((i,e) => {
+					expect($(e).hasClass('ui-accordion-header-icon ui-icon'))
+						.toBeTruthy();
 				});
 			});
-			describe('Pulsar en la tercera sección', function(){
-				it('deberia desplegar la tercera sección y ocultar el resto', function(){
-					$accordion.find('h1:eq(2)').trigger('click');
-					expect($accordion.find('h1:eq(2)')).toBeExpanded();
-					expect($accordion.find('h1:not(:eq(2))')).not.toBeExpanded();
+			it('El contenido del div activo debe tener las clases apropiadas y ser visible', () => {
+				let id = $($('#alterAccordion > h1')[1]).attr('id');
+				expect($('#alterAccordion > div[aria-labelledby="'+ id +'"]')
+					.hasClass('ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'))
+					.toBeTruthy();
+				expect($('#alterAccordion > div[aria-labelledby="'+ id +'"]').is(':visible'))
+					.toBeTruthy();
+			});
+			it('El div que no este activo debe tener las clases apropiadas y estar hidden', () => {
+				let id = $('#alterAccordion > h1:not(.ui-accordion-header-active)')
+							.attr('id');
+				expect($('#alterAccordion > div[aria-labelledby="'+ id +'"]')
+					.hasClass('ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content'))
+					.toBeTruthy();
+				expect($('#alterAccordion > div[aria-labelledby="'+ id +'"]').is(':visible'))
+					.toBeFalsy();
+			});
+		});
+	});
+	describe('Funcionalidad > ', () => {
+		describe('Accordion con parámetros por defecto > ', () => {
+			describe('Cambiar la vista activa con click > ', () => {
+				var idNewActive;
+				beforeEach(() => {
+					$('h1:not(.ui-accordion-header-active)', $defAccordion ).trigger('click');
+					idNewActive = $('h1:not(.ui-accordion-header-active)', $defAccordion ).attr('id');
+				});
+				it('Debe cambiarse la clase de active', () => {
+					setTimeout(() => {
+						expect($('h1#'+ idNewActive, $defAccordion).hasClass('ui-accordion-header-active'))
+							.toBeTruthy();
+						expect($('h1:not(#'+ idNewActive +')', $defAccordion).hasClass('ui-accordion-header-active'))
+							.toBeFalsy();
+					},1500);
+				});
+				it('Debe togglearse la visibilidad de los contenidos', () => {
+					setTimeout(() => {
+						expect($('div[aria-labelledby="'+ idNewActive +'"]', $defAccordion)
+							.is(':visible')).toBeTruthy();
+						expect($('div:not([aria-labelledby="'+ idNewActive +'"])', $defAccordion)
+							.is(':visible')).toBeFalsy();
+					},1500);
 				});
 			});
 		});
-
-		describe('Test de la API', function(){
-
-			beforeEach(function(){
-
-			});
-
-			describe('$(\'#accordion\').rup_accordion(\'activate\',index);', function(){
-				describe('Ejecutar activate para el index (0) de la primera sección', function(){
-					it('deberia desplegar la primera sección y ocultar el resto', function(){
-						$accordion.rup_accordion('activate',0);
-						expect($accordion.find('h1:eq(0)')).toBeExpanded();
-						expect($accordion.find('h1:not(:eq(0))')).not.toBeExpanded();
-					});
+		describe('Accordion con parámetros personalizados > ', () => {
+			describe('Cambiar la vista activa con mouseenter > ', () => {
+				beforeEach(() => {
+					//Enableamos el accordion
+					$altAccordion.rup_accordion('enable');
+					//Obtenemos el id del nuevo activo
+					$('h1:not(.ui-accordion-header-active)', $altAccordion ).trigger('mouseenter');
+					idNewActive = $('h1:not(.ui-accordion-header-active)', $altAccordion ).attr('id');
 				});
-				describe('Ejecutar activate para el index (1) de la segunda sección', function(){
-					it('deberia desplegar la segunda sección y ocultar el resto', function(){
-						$accordion.rup_accordion('activate',1);
-						expect($accordion.find('h1:eq(1)')).toBeExpanded();
-						expect($accordion.find('h1:not(:eq(1))')).not.toBeExpanded();
-					});
+				it('Debe cambiarse la clase de active', () => {
+					setTimeout(() => {
+						expect($('h1#'+ idNewActive, $altAccordion).hasClass('ui-accordion-header-active'))
+							.toBeTruthy();
+						expect($('h1:not(#'+ idNewActive +')', $altAccordion).hasClass('ui-accordion-header-active'))
+							.toBeFalsy();
+					},1500);
 				});
-				describe('Ejecutar activate para el index (2) de la tercera sección', function(){
-					it('deberia desplegar la tercera sección y ocultar el resto', function(){
-						$accordion.rup_accordion('activate',2);
-						expect($accordion.find('h1:eq(2)')).toBeExpanded();
-						expect($accordion.find('h1:not(:eq(2))')).not.toBeExpanded();
-					});
+				it('Debe togglearse la visibilidad de los contenidos', () => {
+					setTimeout(() => {
+						expect($('div[aria-labelledby="'+ idNewActive +'"]', $altAccordion)
+							.is(':visible')).toBeTruthy();
+						expect($('div:not([aria-labelledby="'+ idNewActive +'"])', $altAccordion)
+							.is(':visible')).toBeFalsy();
+					},1500);
 				});
 			});
-
-			describe('$(\'#accordion\').rup_accordion(\'disable\');', function(){
-				beforeAll(function(){
-					$accordion.rup_accordion('enable');
-					$accordion.rup_accordion('disable');
+		});
+	});
+	describe('Métodos públicos > ', () => {
+		describe('Método activate > ',() => {
+			describe('Accordion con parametros por defecto', () => {
+				var idOldActive;
+				beforeEach(() => {
+					idOldActive = $('h1.ui-accordion-header-active', $defAccordion).attr('id');
+					$defAccordion.rup_accordion('activate', 1);
 				});
-
-				it('deberia asignar el class ui-accordion-disabled al accordion', function(){
-					expect($accordion).toHaveClass('ui-accordion-disabled');
-				});
-				it('deberia asignar el class ui-state-disabled a todas las secciones', function(){
-					expect($accordion.find('h1')).toHaveClass('ui-state-disabled');
-				});
-			});
-
-			describe('$(\'#accordion\').rup_accordion(\'enable\');', function(){
-				beforeAll(function(){
-					$accordion.rup_accordion('disable');
-					$accordion.rup_accordion('enable');
-				});
-
-				it('deberia eliminar el class ui-accordion-disabled del accordion', function(){
-					expect($accordion).not.toHaveClass('ui-accordion-disabled');
-				});
-				it('deberia eliminar el class ui-state-disabled de todas las secciones', function(){
-					expect($accordion.find('h1')).not.toHaveClass('ui-state-disabled');
+				it('Debe cambiarse la clase activa', () => {
+					expect($('h1.ui-accordion-header-active', $defAccordion).attr('id'))
+						.not.toBe(idOldActive);
 				});
 			});
-
-			// describe("$('#accordion').rup_accordion('refresh'); -> Se añade al DOM una nueva sección", function(){
-			//     beforeAll(function(){
-			//       $accordion.append("<h1><a>Cuarta sección</a></h1><div class='section2'>Cuarta sección</div>")
-			//       $accordion.rup_accordion("resize");
-			//     });
-			//
-			//     it("debería asignar los estilos correspondientes a las última sección añadida h1 (ui-accordion-header)", function(){
-			//         expect($accordion.find("h1:last")).toHaveClass("ui-accordion-header");
-			//     });
-			//     it("debería inicializarse colapsada", function(){
-			//         expect($accordion.find("h1:last")).not.toBeExpanded();
-			//     });
-			//     describe("Pulsar en la nueva sección", function(){
-			//         it("deberia desplegar la nueva sección y ocultar el resto", function(){
-			//           $accordion.find("h1:last").trigger("click");
-			//           expect($accordion.find("h1:last")).toBeExpanded();
-			//           expect($accordion.find("h1:not(:eq(0))")).not.toBeExpanded();
-			//         });
-			//     });
-			// });
-
-			describe('$(\'#accordion\').rup_accordion(\'widget\');', function(){
-				it('deberia devolver el objecto widget del accordion', function(){
-					expect($accordion.rup_accordion('widget')[0] === $accordion[0]).toBe(true);
+			describe('Accordion con parametros personalizados', () => {
+				var idOldActive;
+				beforeEach(() => {
+					idOldActive = $('h1.ui-accordion-header-active', $altAccordion).attr('id');
+					$altAccordion.rup_accordion('activate', 0);
+				});
+				it('Debe cambiarse la clase activa', () => {
+					expect($('h1.ui-accordion-header-active', $altAccordion).attr('id'))
+						.not.toBe(idOldActive);
 				});
 			});
-
-			describe('Test del método option', function(){
-				describe('$(\'#accordion\').rup_accordion(\'option\');', function(){
-					it('deberia devolver el objeto de opciones de configuracion del accordion', function(){
-						expect(typeof $accordion.rup_accordion('option')).toBe('object');
-					});
-				});
-				describe('$(\'#accordion\').rup_accordion(\'option\', \'disabled\');', function(){
-					it('deberia devolver el valor de la propiedad de configuración (p.e. disabled)', function(){
-						$accordion.rup_accordion('option', 'disabled', false);
-						expect($accordion.rup_accordion('option', 'disabled')).toBe(false);
-					});
-				});
-				describe('$(\'#accordion\').rup_accordion(\'option\', \'disabled\', true);', function(){
-					it('deberia asignar el valor true a la propiedad de configuración (p.e. disabled)', function(){
-						$accordion.rup_accordion('option', 'disabled', false);
-						$accordion.rup_accordion('option', 'disabled', true);
-						expect($accordion.rup_accordion('option', 'disabled')).toBe(true);
-					});
-				});
-			});
-			describe('$(\'#accordion\').rup_accordion(\'destroy\');', function(){
-
-				beforeAll(function(){
-					$accordion.rup_accordion('destroy');
-				});
-				it('debería haberse eliminado los estilos de jQueryUI y RUP (ui-accordion ui-widget ui-helper-reset rup_accordion_create)' , function(){
-					expect($accordion).not.toHaveClass('ui-accordion ui-widget ui-helper-reset rup_accordion_create');
-				});
-				it('debería asignar los estilos correspondientes a las secciones h1 (ui-accordion-header)', function(){
-					var $secciones = $accordion.find('h1');
-					expect($secciones).not.toHaveClass('ui-accordion-header');
-				});
-				it('deberia de eliminarse los objetos almacenados mediante data() (settings y uiAutocomplete)', function(){
-					expect($accordion.data('settings')).toBe(undefined);
-				});
-			});
-
 		});
 
+		describe('Método disable > ', () => {
+			describe('Accordion con parametros por defecto', () => {
+				beforeEach(() => {
+					$defAccordion.rup_accordion('disable');
+				});
+				it('Debe poder deshabilitarse', () => {
+					expect($defAccordion.hasClass('ui-accordion-disabled ui-state-disabled')).toBe(true);
+				});
+			});
+			describe('Accordion con parametros personalizados', () => {
+				beforeEach(() => {
+					$altAccordion.rup_accordion('disable');
+				});
+				it('Debe poder deshabilitarse', () => {
+					expect($altAccordion.hasClass('ui-accordion-disabled ui-state-disabled')).toBe(true);
+				});
+			});
+		});
+
+		describe('Método enable > ', () => {
+			describe('Accordion con parametros por defecto', () => {
+				beforeEach(() => {
+					$defAccordion.rup_accordion('disable');
+					$defAccordion.rup_accordion('enable');
+				});
+				it('Debe poder habilitarse', () => {
+					expect($defAccordion.hasClass('ui-accordion-disabled ui-state-disabled')).not.toBe(true);
+				});
+			});
+			describe('Accordion con parametros personalizados', () => {
+				beforeEach(() => {
+					$altAccordion.rup_accordion('disable');
+					$altAccordion.rup_accordion('enable');
+				});
+				it('Debe poder habilitarse', () => {
+					expect($altAccordion.hasClass('ui-accordion-disabled ui-state-disabled')).not.toBe(true);
+				});
+			});
+		});
+		describe('Método widget > ', () => {
+			describe('Accordion con parámetros por defecto', () => {
+				it('Debe ser el objeto de accordion', () => {
+					expect($defAccordion.rup_accordion('widget').attr('id'))
+						.toBe($($defAccordion[0]).attr('id'));
+				});
+			});
+			describe('Accordion con parámetros personalizados', () => {
+				it('Debe ser el objeto de accordion', () => {
+					expect($altAccordion.rup_accordion('widget').attr('id'))
+						.toBe($($altAccordion[0]).attr('id'));
+				});
+			});
+		});
+		describe('Método destroy > ', () => {
+			describe('Accordion con parametros por defecto', () => {
+				beforeEach(() => {
+					$defAccordion.rup_accordion('destroy');
+				});
+				it('Deben desaparecer las clases del accordion', () => {
+					expect($defAccordion.hasClass('ui-accordion ui-widget rup_accordion_create'))
+						.toBe(false);
+				});
+			});
+			describe('Accordion con parametros personalizados', () => {
+				beforeEach(() => {
+					$altAccordion.rup_accordion('destroy');
+				});
+				it('Deben desaparecer las clases del accordion', () => {
+					expect($altAccordion.hasClass('ui-accordion ui-widget rup_accordion_create'))
+						.toBe(false);
+				});
+			});
+		});
+
+		describe('Método option > ', () => {
+			describe('Accordion con parametros por defecto > ', () => {
+				beforeEach(() => {
+					$defAccordion.rup_accordion('option', 'collapsible', true);
+					$defAccordion.rup_accordion('option', 'validation', false);
+					$defAccordion.rup_accordion('option', 'disabled', true);
+					$defAccordion.rup_accordion('option', 'active', 1);
+					$defAccordion.rup_accordion('option', 'animate', 'bounceslide');
+					$defAccordion.rup_accordion('option', 'event', 'mouseenter');
+					$defAccordion.rup_accordion('option', 'header', '.header-class');
+					$defAccordion.rup_accordion('option', 'icons', {header:"ui-icon-triangle-1-s" ,activeHeader: "ui-icon-triangle-1-e"});
+				});
+				it('Las opciones deben cambiar', () => {
+					expect($defAccordion.rup_accordion('option', 'collapsible')).toBeTruthy();
+					expect($defAccordion.rup_accordion('option', 'validation')).toBeFalsy();
+					expect($defAccordion.rup_accordion('option', 'disabled')).toBeTruthy();
+					expect($defAccordion.rup_accordion('option', 'active')).toBe(1);
+					expect($defAccordion.rup_accordion('option', 'animate')).toBe('bounceslide');
+					expect($defAccordion.rup_accordion('option', 'event')).toBe('mouseenter');
+					expect($defAccordion.rup_accordion('option', 'header')).toBe('.header-class');
+					expect(JSON.stringify($defAccordion.rup_accordion('option', 'icons')))
+						.toBe("{\"header\":\"ui-icon-triangle-1-s\",\"activeHeader\":\"ui-icon-triangle-1-e\"}" );
+				});
+			});
+			describe('Accordion con parametros personalizados > ', () => {
+				beforeEach(() => {
+					$altAccordion.rup_accordion('option', 'collapsible', false);
+					$altAccordion.rup_accordion('option', 'validation', false);
+					$altAccordion.rup_accordion('option', 'disabled', false);
+					$altAccordion.rup_accordion('option', 'active', 0);
+					$altAccordion.rup_accordion('option', 'animate', 'bounceslide');
+					$altAccordion.rup_accordion('option', 'event', 'click');
+					$altAccordion.rup_accordion('option', 'header', '.header-class');
+					$altAccordion.rup_accordion('option', 'icons', {header:"ui-icon-triangle-1-s" ,activeHeader: "ui-icon-triangle-1-e"});
+				});
+				it('Las opciones deben cambiar', () => {
+					expect($altAccordion.rup_accordion('option', 'collapsible')).toBeFalsy();
+					expect($altAccordion.rup_accordion('option', 'validation')).toBeFalsy();
+					expect($altAccordion.rup_accordion('option', 'disabled')).toBeFalsy();
+					expect($altAccordion.rup_accordion('option', 'active')).toBe(0);
+					expect($altAccordion.rup_accordion('option', 'animate')).toBe('bounceslide');
+					expect($altAccordion.rup_accordion('option', 'event')).toBe('click');
+					expect($altAccordion.rup_accordion('option', 'header')).toBe('.header-class');
+					expect(JSON.stringify($altAccordion.rup_accordion('option', 'icons')))
+						.toBe("{\"header\":\"ui-icon-triangle-1-s\",\"activeHeader\":\"ui-icon-triangle-1-e\"}" );
+				});
+			});
+		});
 	});
 });
-// }));
