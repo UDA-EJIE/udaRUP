@@ -290,7 +290,6 @@ describe('Test Form', () => {
 			$('input[type="submit"]').trigger('click');
 		});
 		it('Debe mostrarse el feedback con el contenido:', () => {
-			debugger;
 			expect($('#feedbackMensajes_content').text().toUpperCase())
 				.toBe('SE HAN PRODUCIDO LOS SIGUIENTES ERRORES:NOMBRE:CAMPO OBLIGATORIO.');
 		});

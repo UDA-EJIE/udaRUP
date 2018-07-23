@@ -80,7 +80,6 @@ describe('Test Report > ', () => {
                 $report.click(done);
             });
             it('Debe abrir una ventana emergente:', () => {
-                debugger;
                 expect($('.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
                     .is(':visible')).toBe(true);
             });
