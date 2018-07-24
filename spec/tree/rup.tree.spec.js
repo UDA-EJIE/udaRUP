@@ -71,7 +71,7 @@ function createJson(done) {
         },
         json_data: {
             ajax: {
-                url: testutils.WEBROOT + '/demo/tree/remote/json'
+                url: testutils.DEMO + '/tree/remote/json'
             }
         },
         plugins: treePlugins,

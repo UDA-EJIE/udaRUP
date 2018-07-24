@@ -765,7 +765,7 @@ describe('Test Combo > ', () => {
 				let html = '<select id="comboRemoto"></select>';
 				$('body').append(html);
 				$('#comboRemoto').rup_combo({
-					source: testutils.WEBROOT + '/demo/comboSimple/remote',
+					source: testutils.DEMO + '/comboSimple/remote',
 					sourceParam: {
 						label: "descEu",
 						value: "value",

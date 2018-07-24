@@ -138,7 +138,7 @@ function configurar() {
 		i18nId: 'sexo'
 	});
 	$('#pais').rup_combo({
-		source: testutils.WEBROOT + 'demo/nora/pais',
+		source: testutils.DEMO + '/nora/pais',
 		sourceParam: {
 			label: 'dsO',
 			value: 'id'
@@ -146,7 +146,7 @@ function configurar() {
 		blank: '0'
 	});
 	$('#autonomia').rup_combo({
-		source: testutils.WEBROOT + 'demo/nora/autonomia',
+		source: testutils.DEMO + '/nora/autonomia',
 		sourceParam: {
 			label: 'dsO',
 			value: 'id'
@@ -156,7 +156,7 @@ function configurar() {
 	});
 	$('#provincia').rup_combo({
 		parent: ['autonomia'],
-		source: testutils.WEBROOT + 'demo/nora/provincia',
+		source: testutils.DEMO + '/nora/provincia',
 		firstLoad: [{
 			'value': '01',
 			'label': 'Alava/Araba'

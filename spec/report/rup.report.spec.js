@@ -56,7 +56,7 @@ describe('Test Report > ', () => {
             appendTo: 'exampleToolbar',
             buttons: [{
                 i18nCaption: 'exportar',
-                url: testutils.WEBROOT + '/demo/resources/w_n_p.pdf',
+                url: testutils.DEMO + '/resources/w_n_p.pdf',
                 right: true
             }]
         };

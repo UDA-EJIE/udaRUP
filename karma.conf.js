@@ -107,8 +107,12 @@ module.exports = function (config) {
 
         ],
         proxies: {
-            '/dist/resources/': '/base/i18n/',
-            '/demo/x21a/resources/': '/base/demo/x21a/resources/'
+            '/dist': 'http://localhost:8081/dist',
+            '/demo': 'http://localhost:8081/demo',
+            '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
+            '/images': 'http://localhost:8081/dist/css/images',
+            '/x21aAppWar/' : '/',
+            '/x21aAppWar/patrones/' : '/'
         },
 
 
@@ -253,12 +257,18 @@ module.exports = function (config) {
                     jQuery: 'jquery'
                 })
             ],
+            devServer: {
+                headers: {
+                    'Access-Control-Allow-Origin': 'localhost*'
+                }
+            },
         },
 
 
         // web server port
         port: 9877,
 
+        crossOriginAttribute: true,
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,
