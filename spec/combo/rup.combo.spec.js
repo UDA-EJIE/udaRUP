@@ -761,25 +761,31 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método reload > ', () => {
-			beforeEach((done) => {
-				let html = '<select id="comboRemoto"></select>';
-				$('body').append(html);
-				$('#comboRemoto').rup_combo({
-					source: testutils.DEMO + '/comboSimple/remote',
-					sourceParam: {
-						label: "descEu",
-						value: "value",
-						style: "css"
-					},
-					onLoadError: done,
-					onLoadSuccess: done
+			describe('', () => {
+				beforeEach((done) => {
+					let html = '<select id="comboRemoto"></select>';
+					$('body').append(html);
+					$('#comboRemoto').rup_combo({
+						source: testutils.DEMO + '/comboSimple/remote',
+						sourceParam: {
+							label: "descEu",
+							value: "value",
+							style: "css"
+						},
+						onLoadError: done,
+						onLoadSuccess: done
+					});
 				});
-				$('#comboRemoto').append('<option class="intruso">intruso</option>');
-				$('#comboRemoto').rup_combo('refresh');
-				$('#comboRemoto').rup_combo('reload');
-			});
-			it('Debe crearse', () => {
-				expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
+				describe('', () => {
+					beforeEach((done) => {
+						$('#comboRemoto').append('<option class="intruso">intruso</option>');
+						$('#comboRemoto').rup_combo('refresh');
+						$('#comboRemoto').rup_combo('reload');
+					});
+				});
+				it('Debe crearse', () => {
+					expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
+				});
 			});
 		});
 		describe('Método order > ', () => {
