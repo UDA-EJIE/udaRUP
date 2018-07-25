@@ -103,7 +103,6 @@ describe('Test Tabs > ', () => {
         });
         describe('Método loadTab > ', () => {
             beforeEach((done) => {
-                debugger;
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
                 $('#mockTab').on('load',() => {done();});

@@ -60,21 +60,25 @@ function createNavBar() {
     $('nav').rup_navbar();
 }
 
-$.when(testutils.loadCss())
-    .then(navBarTest);
-
 function navBarTest() {
     describe('Test NavBar > ', () =>{
         var $navbar;
+        beforeAll((done) => {
+            testutils.loadCss(done);
+        });
         beforeEach(() => {
             createNavBar();
+            $navbar = $('nav');
         });
         describe('Creación > ', () => {
             it('Deben añadirse clases al nav:', () => {
                 debugger;
+                expect($('[aria-controls="navbarResponsive"]').css('opacity')).toBe(0);
             });
         });
         describe('Funcionamiento > ', () => {});
         describe('Métodos públicos > ', () => {});
     });
 }
+
+navBarTest();

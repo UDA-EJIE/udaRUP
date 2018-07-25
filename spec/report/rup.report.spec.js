@@ -87,7 +87,6 @@ describe('Test Report > ', () => {
                 expect($('button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close').length).toBe(1);
             });
             it('Debe tener un progressbar:', () => {
-                debugger;
                 expect($('div.ui-progressbar.ui-progressbar-value.ui-corner-left.ui-corner-right').length).toBe(1);
             });
         });
