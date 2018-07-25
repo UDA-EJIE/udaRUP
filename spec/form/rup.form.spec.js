@@ -18,7 +18,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         <option value="opt2">Opcion 2</input>\
                     </select>\
                 </form>\
-                <form id="formHttpSubmit" action="http://localhost:8081/demo/nora" >\
+                <form id="formHttpSubmit" action="' + testutils.DEMO + '/nora" >\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos personales</legend>\
                     <div class="two-col" >\
@@ -84,7 +84,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         </div>\
                         </div>\
                     </div>\
-                </fieldset>\
+				</fieldset>\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos domicilio</legend>\
                     <div class="two-col">\
@@ -136,43 +136,6 @@ function configurar() {
 			}
 		],
 		i18nId: 'sexo'
-	});
-	$('#pais').rup_combo({
-		source: testutils.DEMO + '/nora/pais',
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		blank: '0'
-	});
-	$('#autonomia').rup_combo({
-		source: testutils.DEMO + '/nora/autonomia',
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		width: 400,
-		blank: ''
-	});
-	$('#provincia').rup_combo({
-		parent: ['autonomia'],
-		source: testutils.DEMO + '/nora/provincia',
-		firstLoad: [{
-			'value': '01',
-			'label': 'Alava/Araba'
-		}, {
-			'value': '20',
-			'label': 'Gipuzkoa'
-		}, {
-			'value': '48',
-			'label': 'Bizkaia'
-		}],
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		width: 300,
-		blank: ''
 	});
 	let sourceJson = [{
 			i18nCaption: 'ab',
@@ -248,7 +211,7 @@ describe('Test Form', () => {
 		configurar();
 		var opts = {};
 		var optsAlt = {
-			url: 'http://localhost:8081/demo/nora',
+			url: testutils.DEMO + '/nora',
 			type: 'POST',
 			feedback: $('#feedbackMensajes'),
 			success: function (xhr) {
@@ -295,14 +258,13 @@ describe('Test Form', () => {
 		});
 	});
 	describe('Métodos públicos >', () => {
-		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxSubmit', {
-						url: 'http://localhost:8081/demo/nora',
+						url: testutils.DEMO + '/nora',
 						type: 'POST',
 						success: (data) => {},
 						error: (data) => {},
@@ -323,7 +285,7 @@ describe('Test Form', () => {
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxFormSubmit', {
-						url: 'http://localhost:8081/demo/nora',
+						url: testutils.DEMO + '/nora',
 						type: 'POST',
 						success: (data) => {},
 						error: (data) => {},
@@ -424,9 +386,9 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$formAlt.rup_form('clearForm');
 				});
 				it('Debe haber limpiado todos los campos:', () => {
@@ -450,9 +412,9 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$formAlt.rup_form('resetForm');
 				});
 				it('Debe quedar en su estado original > ', () => {
@@ -475,14 +437,14 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$('input#apellido2', $formAlt).rup_form('clearFields');
 				});
 				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
-					expect($('#nombre').val()).toBe('Peppa');
-					expect($('#apellido1').val()).toBe('Pig');
+					expect($('#nombre').val()).toBe('NOMBRE');
+					expect($('#apellido1').val()).toBe('APELLIDO1');
 					expect($('#apellido2').val()).toBe('');
 				});
 			});

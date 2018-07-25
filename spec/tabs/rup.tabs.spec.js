@@ -53,16 +53,18 @@ describe('Test Tabs > ', () => {
         beforeEach(() => {
             let html = '<div id="mockTab"></div>';
             $('#content').append(html);
-            $('#mockTab').on('load',() => {$('#mockTab').addClass('foo-class');});
+            $('#mockTab').on('load', () => {
+                $('#mockTab').addClass('foo-class');
+            });
             $('#mockTab').rup_tabs({
                 tabs: [{
                     i18nCaption: 'Tab1',
                     layer: '#cont1'
-                    }]
+                }]
             });
         });
         it('Debe ejecutarse el load: ', () => {
-            $.when(setTimeout(()=> {}, jasmine.DEFAULT_TIMEOUT_INTERVAL -4000))
+            $.when(setTimeout(() => {}, jasmine.DEFAULT_TIMEOUT_INTERVAL - 4000))
                 .then(() => {
                     expect($('#mockTab').hasClass('foo-class')).toBe(true);
                 });
@@ -105,7 +107,9 @@ describe('Test Tabs > ', () => {
             beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
-                $('#mockTab').on('load',() => {done();});
+                $('#mockTab').on('load', () => {
+                    done();
+                });
                 $('#mockTab').rup_tabs({
                     tabs: [{
                         i18nCaption: 'Tab1',
@@ -116,7 +120,7 @@ describe('Test Tabs > ', () => {
                     idTab: 'mockTab',
                     label: 'Tab3',
                     position: 1,
-                    url: 'http://localhost:8081/demo/fragmento3'
+                    url: testutils.DEMO + '/fragmento3'
                 });
                 $('#mockTab').rup_tabs('selectTab', {
                     idTab: 'mockTab',
@@ -125,11 +129,11 @@ describe('Test Tabs > ', () => {
                 $('#mockTab').rup_tabs('loadTab', {
                     idTab: 'mockTab',
                     position: 0,
-                    url: 'http://localhost:8081/demo/tab3Fragment'
+                    url: testutils.DEMO + '/tab3Fragment'
                 });
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]')
+                let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/tab3Fragment"]')
                     .parent().attr('aria-controls');
                 expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
             });
@@ -149,7 +153,7 @@ describe('Test Tabs > ', () => {
                     idTab: 'mockTab',
                     label: 'Tab3',
                     position: 1,
-                    url: 'http://localhost:8081/demo/fragmento3'
+                    url: testutils.DEMO + '/fragmento3'
                 });
                 $('#mockTab').rup_tabs('selectTab', {
                     idTab: 'mockTab',
@@ -158,11 +162,11 @@ describe('Test Tabs > ', () => {
                 $('#mockTab').rup_tabs('changeUrlTab', {
                     idTab: 'mockTab',
                     position: 0,
-                    url: 'http://localhost:8081/demo/tab3Fragment'
+                    url: testutils.DEMO + '/tab3Fragment'
                 });
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/tab3Fragment"]')
+                let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/tab3Fragment"]')
                     .parent().attr('aria-controls');
                 expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
             });
@@ -206,7 +210,7 @@ describe('Test Tabs > ', () => {
                     idTab: 'mockTab',
                     label: 'Tab3',
                     position: 1,
-                    url: 'http://localhost:8081/demo/fragmento3'
+                    url: testutils.DEMO + '/fragmento3'
                 });
                 $('#mockTab').rup_tabs('selectTab', {
                     idTab: 'mockTab',
@@ -214,11 +218,11 @@ describe('Test Tabs > ', () => {
                 });
             });
             it('Debe crear la tab:', () => {
-                expect($('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').length).toBe(1);
-                expect($('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').text()).toBe('Tab3');
+                expect($('#mockTab > ul > li > a[href="' + testutils.DEMO + '/fragmento3"]').length).toBe(1);
+                expect($('#mockTab > ul > li > a[href="' + testutils.DEMO + '/fragmento3"]').text()).toBe('Tab3');
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#mockTab > ul > li > a[href="http://localhost:8081/demo/fragmento3"]').parent().attr('aria-controls');
+                let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/fragmento3"]').parent().attr('aria-controls');
                 expect($('[id="' + controlador + '"]').html()).not.toBe('');
             });
         });

@@ -74,7 +74,7 @@ function testDialogType(type) {
 						$('#exampleDialogo').removeClass('randomClass');
 					},
 					type: type,
-					url: 'http://localhost:8081/demo/demo-idx.html',
+					url: testutils.DEMO + '/demo-idx.html',
 					autoOpen: false,
 					width: 200,
 					title: 'TituloDialogo',
