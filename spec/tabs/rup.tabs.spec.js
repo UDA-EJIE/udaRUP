@@ -49,6 +49,25 @@ describe('Test Tabs > ', () => {
             expect($('a > div.rup-tabs_title', context).text()).toBe('Tab1');
         });
     });
+    describe('Callback load > ', () => {
+        beforeEach(() => {
+            let html = '<div id="mockTab"></div>';
+            $('#content').append(html);
+            $('#mockTab').on('load',() => {$('#mockTab').addClass('foo-class');});
+            $('#mockTab').rup_tabs({
+                tabs: [{
+                    i18nCaption: 'Tab1',
+                    layer: '#cont1'
+                    }]
+            });
+        });
+        it('Debe ejecutarse el load: ', () => {
+            $.when(setTimeout(()=> {}, jasmine.DEFAULT_TIMEOUT_INTERVAL -4000))
+                .then(() => {
+                    expect($('#mockTab').hasClass('foo-class')).toBe(true);
+                });
+        });
+    });
     describe('Métodos Públicos > ', () => {
         describe('Métodos enableTabs y disableTabs > ', () => {
             describe('Método disableTabs > ', () => {
@@ -86,10 +105,8 @@ describe('Test Tabs > ', () => {
             beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
+                $('#mockTab').on('load',() => {done();});
                 $('#mockTab').rup_tabs({
-                    load: () => {
-                        done();
-                    },
                     tabs: [{
                         i18nCaption: 'Tab1',
                         layer: '#cont1'
@@ -118,13 +135,11 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método changeUrlTab > ', () => {
-            beforeEach(() => {
+            beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
+                $('#mockTab').on('load', done);
                 $('#mockTab').rup_tabs({
-                    load: () => {
-                        done();
-                    },
                     tabs: [{
                         i18nCaption: 'Tab1',
                         layer: '#cont1'
@@ -180,10 +195,8 @@ describe('Test Tabs > ', () => {
             beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
+                $('#mockTab').on('load', done);
                 $('#mockTab').rup_tabs({
-                    load: () => {
-                        done();
-                    },
                     tabs: [{
                         i18nCaption: 'Tab1',
                         layer: '#cont1'

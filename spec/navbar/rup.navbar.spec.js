@@ -1,12 +1,9 @@
-<a name="module_rup_navbar"></a>
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.navbar';
 
-## rup_navbar
-Proporciona una herramienta para navegar a través de las aplicación web.
-
-**Summary**: Componente RUP Navbar  
-**Example**  
-```js
-var html = '<nav class="rup-navbar navbar">\
+const html = '<nav class="rup-navbar navbar">\
                 <button type="button" class="navbar-toggler hidden-lg-up navbar-toggle" \
                     type="button" data-toggle="rup-collapse" data-target="#navbarResponsive"\
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">\
@@ -56,59 +53,32 @@ var html = '<nav class="rup-navbar navbar">\
                                 </div>\
                             </li>\
                     </ul>\
-			  </nav>';
-		$('#content').append(html);
-		$('nav').rup_navbar(); 
-```
+              </nav>';
 
-* [rup_navbar](#module_rup_navbar)
-    * [~toggle()](#module_rup_navbar..toggle)
-    * [~show()](#module_rup_navbar..show)
-    * [~hide()](#module_rup_navbar..hide)
-    * [~setTransitioning(transición)](#module_rup_navbar..setTransitioning)
+function createNavBar() {
+    $('#content').append(html);
+    $('nav').rup_navbar();
+}
 
-<a name="module_rup_navbar..toggle"></a>
+function navBarTest() {
+    describe('Test NavBar > ', () =>{
+        var $navbar;
+        beforeAll((done) => {
+            testutils.loadCss(done);
+        });
+        beforeEach(() => {
+            createNavBar();
+            $navbar = $('nav');
+        });
+        describe('Creación > ', () => {
+            it('Deben añadirse clases al nav:', () => {
+                debugger;
+                expect($('[aria-controls="navbarResponsive"]').css('opacity')).toBe(0);
+            });
+        });
+        describe('Funcionamiento > ', () => {});
+        describe('Métodos públicos > ', () => {});
+    });
+}
 
-### rup_navbar~toggle()
-Funcion que alterna el estado del navbar entre desplegado y oculto.
-
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
-**Example**  
-```js
-$('nav').rup_navbar('toggle');
-```
-<a name="module_rup_navbar..show"></a>
-
-### rup_navbar~show()
-Funcion que despliega el navbar.
-
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
-**Example**  
-```js
-$('nav').rup_navbar('show');
-```
-<a name="module_rup_navbar..hide"></a>
-
-### rup_navbar~hide()
-Funcion que oculta el navbar.
-
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
-**Example**  
-```js
-$('nav').rup_navbar('hide');
-```
-<a name="module_rup_navbar..setTransitioning"></a>
-
-### rup_navbar~setTransitioning(transición)
-Define si habrá o no transición al desplegar y ocultar el navbar
-
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| transición | <code>boolean</code> | True: hay transicion; False: no hay transicion |
-
-**Example**  
-```js
-$('nav').rup_navbar('setTransitioning', true);
-```
+navBarTest();

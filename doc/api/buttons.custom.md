@@ -10,6 +10,7 @@ Establece el tipo de llamada necesario para obtener los datos según lo seleccio
 
 * [buttons.custom](#module_buttons.custom)
     * [~_reportsCopyData(dt, that, config)](#module_buttons.custom.._reportsCopyData)
+    * [~ConvertToTabulador(objArray, true)](#module_buttons.custom..ConvertToTabulador) ⇒ <code>object</code>
     * [~_reportsTypeOfCopy(dt, type, multiselection, selectedAll, [deselectedIds])](#module_buttons.custom.._reportsTypeOfCopy) ⇒ <code>object</code>
     * [~_reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, [deselectedIds], [selectedIds])](#module_buttons.custom.._reportsPrepareRequestData) ⇒ <code>object</code>
     * [~_reportsRequestData(ajaxOptions)](#module_buttons.custom.._reportsRequestData) ⇒ <code>object</code>
@@ -29,6 +30,19 @@ Establece el tipo de llamada necesario para obtener los datos según lo seleccio
 | dt | <code>object</code> | Instancia del datatable |
 | that | <code>object</code> | Objeto del boton |
 | config | <code>object</code> | Configuracion del boton |
+
+<a name="module_buttons.custom..ConvertToTabulador"></a>
+
+### buttons.custom~ConvertToTabulador(objArray, true) ⇒ <code>object</code>
+Se encarga de mapear los datos de json a datos separados por el tabulador.
+
+**Kind**: inner method of [<code>buttons.custom</code>](#module_buttons.custom)  
+**Since**: UDA 3.4.0 // Datatable 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| objArray | <code>object</code> | Objeto que contiene los datos a exportar |
+| true | <code>boolean</code> | en caso de querer que se mueste la cabecera |
 
 <a name="module_buttons.custom.._reportsTypeOfCopy"></a>
 
