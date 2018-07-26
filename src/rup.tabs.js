@@ -348,12 +348,12 @@
 
 				//evento close
 				$('span.ui-icon-close').on('click', function () {
-
+					var div = $(this).parent().parent().parent().parent();
 					var tabContentId = $(this).parent().attr('href');
 					$(this).parent().parent().remove(); //remove li of tab
 					$(tabContentId).remove(); //remove respective tab content
 
-					(tabs.parent()).tabs('refresh');
+					(div).tabs('refresh');
 				});
 
 
@@ -370,7 +370,12 @@
 				});
 
 			} else {
-				loadSpan.parent().append($('<div>').addClass('rup-tabs_title').text($.rup.i18nParse($.rup.i18n.app[$(this).attr('id')], args.label)))
+				loadSpan.text('');
+				var textoNoClose = $.rup.i18nParse($.rup.i18n.app[$(this).attr('id')], args.label);
+				if(args.label !== undefined && args.label !== ''){
+					textoNoClose = args.label;
+				}
+				loadSpan.append($('<div>').addClass('rup-tabs_title').text(textoNoClose))
 					.append($('<span>').addClass('rup-tabs_loading'));
 			}
 
@@ -1101,7 +1106,9 @@
              * */
 		_addTab: function (args) {
 
-
+			if(args.url === undefined){
+				args.url = '#';
+			}
 			var previousTab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + (args.position - 1) + ')');
 			if(args.orientation !== undefined){
 				$('<li><a href=\'' + args.url + '\'>' + args.label + '</a></li>').insertBefore(previousTab);
