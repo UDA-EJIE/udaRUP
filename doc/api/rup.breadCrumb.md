@@ -6,7 +6,7 @@ El componente de migas muestra a los usuarios la ruta de navegación que ha segu
 **Summary**: Componente RUP BeadCrumb.  
 **Example**  
 ```js
-var properties = {  logOutUrl: "/x21aPilotoPatronesWar/logout",  breadCrumb: {      "patrones" : {          // Literal		    "i18nCaption" : "patrones",		    "tabsMixto" : {"i18nCaption":"tabsMixto"},		    "grid" : { "i18nCaption" : "grid" },		    // Submenu		    "subLevel":[			   {"i18nCaption":"all", "url": "/x21aPilotoPatronesWar/patrones/all" },			   {"i18nCaption":"accordion", "url": "/x21aPilotoPatronesWar/patrones/accordion" }		    ]	     },	     "experimental" : {		    // Literal		    "i18nCaption" : "experimental",		    "maestro_detalle" : { "i18nCaption" : "maestro_detalle" },		    "mant_multi_entidad": { "i18nCaption" : "mant_multi_entidad" },"       }	}};jQuery("#x21aPilotoPatronesWar_migas").rup_breadCrumb(properties);
+var properties = {  logOutUrl: "/x21aAppWar/logout",  breadCrumb: {      "patrones" : {          // Literal		    "i18nCaption" : "patrones",		    "tabsMixto" : {"i18nCaption":"tabsMixto"},		    "grid" : { "i18nCaption" : "grid" },		    // Submenu		    "subLevel":[			   {"i18nCaption":"all", "url": "/x21aAppWar/patrones/all" },			   {"i18nCaption":"accordion", "url": "/x21aAppWar/patrones/accordion" }		    ]	     },	     "experimental" : {		    // Literal		    "i18nCaption" : "experimental",		    "maestro_detalle" : { "i18nCaption" : "maestro_detalle" },		    "mant_multi_entidad": { "i18nCaption" : "mant_multi_entidad" },"       }	}};jQuery("#x21aAppWar_migas").rup_breadCrumb(properties);
 ```
 
 * [rup_breadCrumb](#module_rup_breadCrumb)

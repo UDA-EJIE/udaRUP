@@ -811,15 +811,18 @@ input.
 
 
 				// Altura del menu desplegable
-				if (settings.menuMaxHeight !== false) {
+				
 					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						settings.$menu.css('overflow-y', 'auto')
-							.css('overflow-x', 'hidden')
-							.css('max-height', settings.menuMaxHeight)
-							.css('width', jQuery('#' + settings.id + '_label').innerWidth());
+						if (settings.menuMaxHeight === false) {
+							settings.$menu.css('overflow-y', 'auto')
+								.css('overflow-x', 'hidden')
+								.css('max-height', settings.menuMaxHeight)
+								.css('width', jQuery('#' + settings.id + '_label').innerWidth());
+						}
+						jQuery('#' + settings.id+'_menu').css('z-index', '1000');
+						jQuery('#' + settings.id+'_menu').removeClass('ui-front');
 					});
-				}
-
+				
 				//Buscar el UL del autocomplete y colocarlo tras el elemento sobre el que debe ir
 				//$("#"+settings.id).after($("body > .ui-autocomplete"));
 

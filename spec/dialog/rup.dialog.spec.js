@@ -1,182 +1,254 @@
-//
-// (function (factory) {
-//       if (typeof define === "function" && define.amd) {
-//
-//           // AMD. Register as an anonymous module.
-//           define(['jquery','handlebars','rup.dialog'], factory);
-//       } else {
-//
-//           // Browser globals
-//           factory(jQuery);
-//       }
-//   }(function ($, Handlebars) {
+/* jslint multistr: true */
 
+import * as testutils from '../common/specCommonUtils.js';
 import 'jquery';
-import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.dialog';
 
-function executeSharedTests(createInstanceFn){
 
+$.when(testDialogType($.rup.dialog.TEXT))
+	.done(testDialogType($.rup.dialog.DIV))
+	.done(testDialogType($.rup.dialog.AJAX));
 
-	describe('Construcción de un RUP Dialog', function(){
-		var $message, $messageTitleDiv, $messageContentDiv, $messageButtonpaneDiv;
+function testDialogType(type) {
+	var d = new $.Deferred();
 
-		beforeAll(function(){
-			$message = createInstanceFn();
+	describe('Test Dialog ' + type + ' > ', () => {
+		var $dialogo;
 
-			$messageTitleDiv = jQuery('.ui-dialog-titlebar', $message);
-			$messageContentDiv = jQuery('.ui-dialog-content', $message);
-			$messageButtonpaneDiv = jQuery('.ui-dialog-buttonpane', $message);
-
+		beforeAll((done) => {
+			testutils.loadCss(done);
 		});
 
-		it('deberia de existir un ui-dialog', function(){
-			expect($message).toExist();
+		beforeEach(() => {
+			let html, opciones;
+			if (type == $.rup.dialog.TEXT) {
+				html = '<div id="exampleDialogo"></div>';
+				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+					},
+					type: type,
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo',
+					message: 'MensajeDialogo',
+					buttons: [{
+						text: 'boton',
+						click: () => {}
+					}]
+				};
+			}
+			if (type == $.rup.dialog.DIV) {
+				html = '<div id="exampleDialogo">MensajeDialogo</div>';
+				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+						return false;
+					},
+					type: type,
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo',
+					resizable: false,
+					modal: true,
+					buttons: [{
+						text: 'boton',
+						click: () => {}
+					}]
+				};
+			}
+			if (type == $.rup.dialog.AJAX) {
+				html = '<div id="exampleDialogo">MensajeDialogo</div>';
+				opciones = {
+					open: () => {
+						$('#exampleDialogo').addClass('randomClass');
+					},
+					onBeforeClose: () => {
+						$('#exampleDialogo').removeClass('randomClass');
+					},
+					type: type,
+					url: testutils.DEMO + '/demo-idx.html',
+					autoOpen: false,
+					width: 200,
+					title: 'TituloDialogo',
+					resizable: false,
+					buttons: [{
+						text: 'boton',
+						click: () => {}
+					}]
+				};
+			}
+
+			$('#content').append(html);
+			$('#exampleDialogo').rup_dialog(opciones);
+
+			$dialogo = $('#exampleDialogo');
 		});
-
-		describe('Se ha construido una sección de título correcta', function(){
-			it('deberia de existir una sección de título', function(){
-				expect($messageTitleDiv).toExist();
+		afterEach(() => {
+			$dialogo.rup_dialog('destroy');
+			$dialogo = undefined;
+			$('#content').nextAll().remove();
+			$('#content').html('');
+		});
+		afterAll(() => {
+			d.resolve();
+		});
+		describe('Creación > ', () => {
+			it('Debe crearse el contenedor del dialogo:', () => {
+				if (type == $.rup.dialog.TEXT) {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.ui-resizable.rup-dialog')
+						.length).toBe(1);
+				}
+				if (type == $.rup.dialog.DIV) {
+					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
+					expect(selector.length).toBe(1);
+					expect(selector.hasClass('ui-resizable')).toBe(false);
+				}
+				if (type == $.rup.dialog.AJAX) {
+					let selector = $('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog');
+					expect(selector.length).toBe(1);
+					expect(selector.hasClass('ui-resizable')).toBe(false);
+				}
 			});
-
-			it('deberia de existir una botón de cerrar', function(){
-				expect($('.ui-dialog .ui-dialog-titlebar button').is('.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close')).toBe(true);
+			it('El contenedor no debe ser visible:', () => {
+				expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+					.is(':visible')).toBe(false);
 			});
-
-			it('deberia de existir un texto de cerrar', function(){
-				expect($('.ui-dialog .ui-dialog-titlebar a.ui-dialog-title span')).toExist();
-				expect($('.ui-dialog .ui-dialog-titlebar a.ui-dialog-title span')).toHaveText('cerrar');
+			it('Debe contener el texto establecido:', () => {
+				expect($dialogo.text()).toBe('MensajeDialogo');
 			});
 		});
-
-		describe('Construcción de la botonera', function(){
-			it('deberia de existir una sección que contenga los botones', function(){
-				expect($messageButtonpaneDiv).toExist();
+		describe('Métodos públicos > ', () => {
+			describe('Método open e isOpen > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+				});
+				it('Debe ser visible:', () => {
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.is(':visible')).toBe(true);
+				});
+				it('Debe devolver correctamente el resultado de isOpen:', () => {
+					expect($dialogo.rup_dialog('isOpen')).toBe(true);
+				});
+				it('El foco debe estar en el primer botón:', () => {
+					expect($('button:contains(boton)').is(':focus')).toBe(true);
+				});
 			});
+			describe('Método close e isOpen > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+					$dialogo.rup_dialog('close');
+				});
+				it('Debe ser visible:', () => {
 
-			it('deberia de existir al menos el botón de Aceptar', function(){
-				expect($('.ui-dialog-buttonset button',$messageButtonpaneDiv)).toHaveText('Aceptar');
+					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+						.is(':visible')).toBe(false);
+				});
+				it('Debe devolver correctamente el resultado de isOpen:', () => {
+					expect($dialogo.rup_dialog('isOpen')).toBe(false);
+				});
+			});
+			describe('Métodos disable y enable > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('disable');
+					$dialogo.rup_dialog('open');
+					$dialogo.rup_dialog('enable');
+				});
+				it('Los métodos no deberían funcionar:', () => {
+					if ($dialogo.rup_dialog('isOpen')) {
+						//Ha fallado disable:
+						expect(true).toBe(false);
+					}
+					if (!$dialogo.rup_dialog('isOpen')) {
+						$dialogo.rup_dialog('open');
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
+				});
+			});
+			describe('Método moveToTop ' + type + ' > ', () => {
+				beforeEach(() => {
+					let aux = '<div id="auxDialog"></div>';
+					$('body').append(aux);
+					let opts = {
+						type: $.rup.dialog.TEXT,
+						autoOpen: true,
+						width: 200,
+						title: 'TituloDialogo',
+						message: 'MensajeDialogoAux'
+					};
+					$dialogo.rup_dialog('open');
+					$('#auxDialog').rup_dialog(opts);
+					$('#auxDialog').rup_dialog('open');
+					$dialogo.rup_dialog('moveToTop');
+				});
+				it('El dialog debe estar encima del aux:', () => {
+					//No existe la propiedad z-index.
+					expect($dialogo.parent().css('z-index'))
+						.toBeGreaterThan($('#auxDialog').parent().css('z-index'));
+				});
+			});
+			describe('Método getOption > ', () => {
+				it('Debe devolver los valores esperados:', () => {
+					expect($dialogo.rup_dialog('getOption', 'width')).toBe(200);
+					expect($dialogo.rup_dialog('getOption', 'type')).toBe(type);
+				});
+			});
+			describe('Método setOption > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('setOption', 'width', 400);
+					$dialogo.rup_dialog('setOption', 'draggable', false);
+				});
+				it('Debe devolver los valores esperados:', () => {
+					expect($dialogo.rup_dialog('getOption', 'width')).toBe(400);
+					expect($dialogo.rup_dialog('getOption', 'draggable')).toBe(false);
+				});
+			});
+			describe('Método createBtnLinks > ', () => {
+				beforeEach(() => {
+					let btnObj = {
+						text: 'boton',
+						click: () => {}
+					};
+					$dialogo.rup_dialog('createBtnLinks', btnObj, 'exampleDialogo');
+					$dialogo.rup_dialog('open');
+				});
+				it('Debe crear un enlace en el dialog:', () => {
+					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
+				});
 			});
 		});
-
-
+		describe('Test Eventos > ', () => {
+			describe('Evento onOpen', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+				});
+				it('Debe de haberse ejecutado el evento:', () => {
+					expect($dialogo.hasClass('randomClass')).toBe(true);
+				});
+			});
+			describe('Evento onBeforeClose > ', () => {
+				beforeEach(() => {
+					$dialogo.rup_dialog('open');
+					$dialogo.rup_dialog('close');
+				});
+				it('Debe ejecutrarse el evento:', () => {
+					expect($dialogo.hasClass('randomClass')).toBe(false);
+					if (type === $.rup.dialog.DIV) {
+						expect($dialogo.rup_dialog('isOpen')).toBe(true);
+					} else {
+						expect($dialogo.rup_dialog('isOpen')).toBe(false);
+					}
+				});
+			});
+		});
 	});
 
 }
-
-describe('RUP Dialog Tests', function(){
-
-
-	describe('Mostrar un mensaje de error', function(){
-
-		function createInstance (){
-			$.rup_messages('msgError', {
-				title: 'Error',
-				message: 'Se ha producido un error.'
-			});
-
-			return jQuery('.ui-dialog');
-		}
-
-
-		executeSharedTests(createInstance);
-		afterAll(function(){
-			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
-		});
-
-		it('debería de existir un div con el icono de error', function(){
-			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-error')).toExist();
-		});
-
-	});
-
-	describe('Mostrar un mensaje de alert', function(){
-
-		function createInstance (){
-			$.rup_messages('msgAlert', {
-				title: 'Alerta',
-				message: 'Esto es un mensaje de alerta .'
-			});
-
-			return jQuery('.ui-dialog');
-		}
-
-		afterAll(function(){
-			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
-		});
-
-		executeSharedTests(createInstance);
-
-		it('debería de existir un div con el icono de alerta', function(){
-			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-alert')).toExist();
-		});
-
-
-	});
-
-	describe('Mostrar un mensaje de Ok', function(){
-
-		function createInstance (){
-			$.rup_messages('msgOK', {
-				title: 'Correcto',
-				message: 'Todo ha ido Ok'
-			});
-
-			return jQuery('.ui-dialog');
-		}
-
-		afterAll(function(){
-			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
-		});
-
-		executeSharedTests(createInstance);
-
-		it('debería de existir un div con el icono de Ok', function(){
-			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-ok')).toExist();
-		});
-
-
-	});
-
-	describe('Mostrar un mensaje de confirmación', function(){
-		var callbacks={
-			fncOkFunction: function(){
-				alert('asdasd');}
-		};
-
-		function createInstance (){
-			$.rup_messages('msgConfirm', {
-				message: '¿Está seguro que desea cancelar?',
-				title: 'Confirmación',
-				OKFunction : callbacks.fncOkFunction
-			});
-
-			return jQuery('.ui-dialog');
-		}
-
-		beforeEach(function() {
-			spyOn(callbacks, 'fncOkFunction');
-		});
-
-		afterAll(function(){
-			$('.ui-dialog>.ui-dialog-content').dialog('destroy').remove();
-		});
-
-		executeSharedTests(createInstance);
-
-		it('debería de existir un div con el icono de confirmación', function(){
-			expect($('.ui-dialog>.ui-dialog-content > div.rup-message_icon-confirm')).toExist();
-		});
-
-		it('debería de existir un enlace en la botonera que permita cancelar', function(){
-			expect($('.ui-dialog .ui-dialog-buttonset a.rup-enlaceCancelar')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_global.cancel'));
-		});
-		// FIXME
-		// it("debería de ejecutarse el callback del botón de aceptar", function(){
-		//     $(".ui-dialog .ui-dialog-buttonset button:visible").click()
-		//     expect(callbacks.fncOkFunction).toHaveBeenCalled();
-		// });
-	});
-});
-// }));
