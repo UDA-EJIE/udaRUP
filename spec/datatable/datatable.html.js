@@ -1,5 +1,5 @@
-const dataUrl = 'http://localhost:8081/demo/datatable/remote';
-const html = '<form id="example_filter_form">\
+var dataUrl = 'http://localhost:8081/demo/datatable/remote';
+var html = '<form id="example_filter_form">\
 <div id="example_filter_toolbar" class="formulario_legend"></div>\
 <fieldset id="example_filter_fieldset" class="rup-table-filter-fieldset">\
   <div class="row">\
@@ -100,5 +100,5 @@ const html = '<form id="example_filter_form">\
   </div>\
 </div>';
 
-const _html = html;
+var _html = html;
 export { _html as html };

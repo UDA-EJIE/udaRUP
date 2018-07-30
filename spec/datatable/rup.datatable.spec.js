@@ -3,7 +3,7 @@ import 'jasmine-jquery';
 import 'rup.datatable';
 import * as consts from'./datatable.html';
 
-const plugins = [
+var plugins = [
     {
         name:'multiselect',
         opts:{
