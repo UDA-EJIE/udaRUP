@@ -1,6 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
-import 'rup.datatable';
+import 'datatable/rup.datatable';
 import * as consts from'./datatable.html';
 
 var plugins = [
