@@ -491,6 +491,11 @@
 				if (settings.select !== undefined && settings.select !== null && typeof settings.select === 'function') {
 					settings.select(event, ui);
 				}
+				//Nuevos cargar para la versión jquery 1.12, es la primera vez
+				if ($(ui.newPanel).data('cargado') !== undefined){
+					ui.newTab.children('a').attr('href',ui.newTab.children('a').attr('id'));
+				}
+				$(ui.newPanel).data('cargado', true);
 			};
 
 			//se cargan las extensiones de los usuarios en los eventos de las peticiones Ajax
