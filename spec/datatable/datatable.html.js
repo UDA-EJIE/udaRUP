@@ -17,14 +17,40 @@ var html = '<form id="example_filter_form">\
     </div>\
     <div class="col-xs-6 col-md-3">\
       <div class="form-group form-group-sm">\
-        <label for="apellidos_filter_table" class="formulario_linea_label">Apellidos:</label>\
-        <input type="text" name="apellidos" class="formulario_linea_input form-control" id="apellidos_filter_table" />\
+        <label for="apellido1_filter_table" class="formulario_linea_label">Primer apellido:</label>\
+        <input type="text" name="apellido1" class="formulario_linea_input form-control" id="apellido1_filter_table" />\
       </div>\
     </div>\
     <div class="col-xs-6 col-md-3">\
       <div class="form-group form-group-sm">\
-        <label for="edad_filter_table" class="formulario_linea_label">Edad:</label>\
-        <input type="text" name="edad" class="formulario_linea_input form-control" id="edad_filter_table" />\
+        <label for="apellido2_filter_table" class="formulario_linea_label">Segundo apellido:</label>\
+        <input type="text" name="apellido2" class="formulario_linea_input form-control" id="apellido2_filter_table" />\
+      </div>\
+    </div>\
+  </div>\
+  <div class="row">\
+    <div class="col-xs-6 col-md-3">\
+      <div class="form-group form-group-sm">\
+        <label for="ejie_filter_table" class="formulario_linea_label">Ejie:</label>\
+        <div style="float: left;"><select id="ejie_filter_table" name="ejie" class="rup-combo form-control" ></select></div>\
+      </div>\
+    </div>\
+    <div class="col-xs-6 col-md-3">\
+      <div class="form-group form-group-sm">\
+        <label for="fechaAlta_filter_table" class="formulario_linea_label">Fecha de alta:</label>\
+        <input type="text" name="fechaAlta" class="formulario_linea_input form-control" id="fechaAlta_filter_table" />\
+      </div>\
+    </div>\
+    <div class="col-xs-6 col-md-3">\
+      <div class="form-group form-group-sm">\
+        <label for="fechaBaja_filter_table" class="formulario_linea_label">Fecha de baja:</label>\
+        <input type="text" name="fechaBaja" class="formulario_linea_input form-control" id="fechaBaja_filter_table" />\
+      </div>\
+    </div>\
+    <div class="col-xs-6 col-md-3">\
+      <div class="form-group form-group-sm">\
+        <label for="rol_filter_table" class="formulario_linea_label">Rol:</label>\
+        <input type="text" name="rol" class="formulario_linea_input form-control" id="rol_filter_table" />\
       </div>\
     </div>\
   </div>\
@@ -38,24 +64,30 @@ var html = '<form id="example_filter_form">\
   </div>\
 </fieldset>\
 </form>\
-<table id="example" class="table table-striped table-bordered"\
-  data-url-base="' + dataUrl +'"\
-  data-filter-form="#table_filter_form"\
-  cellspacing="0" width="100%">\
+<table id="example" class="tableFit table-striped table-bordered" \
+  data-url-base="'+ dataUrl +'"\
+  data-filter-form="#example_filter_form" \
+  cellspacing="0">\
       <thead>\
           <tr>\
               <th data-col-prop="id">Id</th>\
               <th data-col-prop="nombre">Nombre</th>\
-              <th data-col-prop="apellidos">Apellidos</th>\
-              <th data-col-prop="edad">Edad</th>\
+              <th data-col-prop="apellido1">Primer apellido</th>\
+              <th data-col-prop="ejie" data-col-type="Checkbox">Ejie</th>\
+              <th data-col-prop="fechaAlta" data-col-sidx="fecha_alta" data-col-type="Datepicker">Fecha alta</th>\
+              <th data-col-prop="fechaBaja" data-col-sidx="fecha_baja" data-col-type="Datepicker">Fecha baja</th>\
+              <th data-col-prop="rol" data-col-type="combo">Rol</th>\
           </tr>\
       </thead>\
       <tfoot>\
         <tr>\
             <th>Id</th>\
             <th>Nombre</th>\
-            <th>Apellidos</th>\
-            <th>Edad</th>\
+            <th>Primer apellido</th>\
+            <th>Ejie</th>\
+            <th>Fecha alta</th>\
+            <th>Fecha baja</th>\
+            <th>Rol</th>\
         </tr>\
       </tfoot>\
 </table>\
@@ -64,37 +96,53 @@ var html = '<form id="example_filter_form">\
   <div class="ui-dialog-content ui-widget-content" >\
       <form id="example_detail_form">\
           <div id ="example_detail_feedback"></div>\
-          \
           <div class="floating_left_pad_right">\
               <div class="floating_left_pad_right one-column">\
-                  <label for="id_detailForm_table"><spring:message code="id" />:</label>\
+                  <label for="id_detailForm_table">id:</label>\
                   <input type="text" name="id" class="formulario_linea_input" id="id_detailForm_table" />\
               </div>\
               <div class="floating_left_pad_right one-column">\
-                  <label for="nombre_detail_table"><spring:message code="nombre" />:</label>\
+                  <label for="nombre_detail_table">Nombre:</label>\
                   <input type="text" name="nombre" class="formulario_linea_input" id="nombre_detail_table" />\
               </div>\
               <div class="floating_left_pad_right one-column">\
-                  <label for="apellidos_detail_table"><spring:message code="apellidos" />:</label>\
-                  <input type="text" name="apellidos" class="formulario_linea_input" id="apellidos_detail_table" />\
+                  <label for="apellido1_detail_table">Primer apellido:</label>\
+                  <input type="text" name="apellido1" class="formulario_linea_input" id="apellido1_detail_table" />\
               </div>\
               <div class="floating_left_pad_right one-column">\
-                  <label for="edad_detail_table"><spring:message code="edad" />:</label>\
-                  <input type="text" name="edad" class="formulario_linea_input" id="edad_detail_table" />\
+                  <label for="apellido2_detail_table">Segundo apellido:</label>\
+                  <input type="text" name="apellido2" class="formulario_linea_input" id="apellido2_detail_table" />\
+              </div>\
+              <div class="floating_left_pad_right one-column">\
+                  <label for="ejie_detail_table">ejie:</label>\
+                  <input type="checkbox" id="ejie_detail_table" name="ejie"  value="1"/>\
+              </div>\
+              <div class="floating_left_pad_right one-column">\
+                  <label for="fechaAlta_detail_table">fechaAlta:</label>\
+                  <input type="text" name="fechaAlta" class="formulario_linea_input" id="fechaAlta_detail_table" />\
+              </div>\
+              <div class="floating_left_pad_right one-column" style="clear: left;">\
+                  <label for="fechaBaja_detail_table">fechaBaja:</label>\
+                  <input type="text" name="fechaBaja" class="formulario_linea_input" id="fechaBaja_detail_table" />\
+              </div>\
+              <div class="floating_left_pad_right one-column">\
+                  <label for="rol_detail_table">rol:</label>\
+                  <select id="rol_detail_table" name="rol" class="formulario_linea_input" ></select>\
               </div>\
           </div>\
+          \
       </form>\
   </div>\
   <div class="rup-table-buttonpane ui-widget-content ui-helper-clearfix">\
       <div class="ui-dialog-buttonset">\
           <button id="example_detail_button_save" class="btn btn-outline-success" type="button">\
-              <spring:message code="save" />\
+              Guardar\
           </button>\
           <button id="example_detail_button_save_repeat" class="btn btn-outline-success" type="button">\
-              <spring:message code="saveAndContinue" />\
+              Guardar y continuar\
           </button>\
           <button id="example_detail_link_cancel" class="btn btn-outline-danger" type="button">\
-              <spring:message code="cancel" />\
+              Cancelar\
           </button>\
       </div>\
   </div>\
