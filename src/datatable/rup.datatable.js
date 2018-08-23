@@ -96,8 +96,8 @@
 			// options.filterForm = $self.attr('data-filter-form');
 			options.$filterForm = $(options.filterForm);
 
-			options.$filterButton = options.$filterForm.find('button');
-			options.$clearButton = options.$filterForm.find('.rup-enlaceCancelar');
+			options.$filterButton = options.$filterForm.find('.rup-filtrar');
+			options.$clearButton = options.$filterForm.find('.rup-limpiar');
 			options.$filterButton.on('click', function(){ $self._doFilter(options);});
 			options.$clearButton.on('click', function(){$self._clearFilter(options);});
 
@@ -712,12 +712,12 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
+		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
 		     *
-		     * @param {object} tabla - LA configuración de la tabla.
+		     * @param {object} tabla - La configuración de la tabla.
 		     *
 		     */
 			_createEventSelect(tabla){
@@ -726,7 +726,7 @@
 					if(ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.$navigationBar !== undefined &&
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
-						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
+						//Si hay selectAll, comprobar la linea ya que puede variar al no tener ningún selected.Se recorre el json.
 						if(DataTable.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){

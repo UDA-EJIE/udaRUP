@@ -3871,6 +3871,25 @@
   float: right;
 }
 
+.r01gContainer div.right_buttons > button:not(:first-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:first-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
+  margin-right: 5px;
+}
+
+.r01gContainer .fix-align > div,
+.r01gContainer .fix-align > span {
+  display: block;
+}
+
+.r01gContainer .fix-align > input[type='checkbox'] {
+  width: auto;
+}
+
 .r01gContainer .rup-table-filter .collapse_icon {
   margin-top: 0;
 }
@@ -4477,6 +4496,25 @@
 
 .r01gContainer div.right_buttons .rup-dropdown-btn-group {
   float: right;
+}
+
+.r01gContainer div.right_buttons > button:not(:first-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:first-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
+  margin-right: 5px;
+}
+
+.r01gContainer .fix-align > div,
+.r01gContainer .fix-align > span {
+  display: block;
+}
+
+.r01gContainer .fix-align > input[type='checkbox'] {
+  width: auto;
 }
 
 .r01gContainer .rup-table-filter .collapse_icon {
@@ -5895,6 +5933,18 @@
 
   .r01gContainer .align-right {
     float: none !important;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .r01gContainer div.dt-buttons > button,
+  .r01gContainer div.dt-buttons > .ui-button.rup-button,
+  .r01gContainer .rup-dropdown-btn-group div.dt-buttons > .rup-dropdown-button,
+  .r01gContainer div.dt-buttons > a.rup-toolbar_menuButton.ui-button,
+  .r01gContainer .rup-wizard div.dt-buttons > a.rup-wizard_next,
+  .r01gContainer .rup-wizard div.dt-buttons > a.rup-wizard_prev,
+  .r01gContainer .rup-wizard div.dt-buttons > .rup-wizard_submitButton {
+    margin: 3px;
   }
 }
 

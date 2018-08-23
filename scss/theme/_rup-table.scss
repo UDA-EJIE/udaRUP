@@ -12,6 +12,17 @@ div.right_buttons{
   }
 }
 
+div.right_buttons > button:not(:first-child) { 
+	margin-right: 5px; 
+}
+
+.fix-align > div, .fix-align > span {
+	display: block;
+}
+
+.fix-align > input[type='checkbox'] {
+	width: auto;
+}
 
 .rup-table-filter{
   .collapse_icon{
