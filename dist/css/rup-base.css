@@ -4881,8 +4881,8 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 div.right_buttons .rup-dropdown-btn-group {
   float: right; }
 
-div.right_buttons > button:not(:first-child), div.right_buttons > .ui-button.rup-button:not(:first-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
-  margin-right: 5px; }
+div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px; }
 
 .fix-align > div, .fix-align > span {
   display: block; }
@@ -5319,8 +5319,8 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 div.right_buttons .rup-dropdown-btn-group {
   float: right; }
 
-div.right_buttons > button:not(:first-child), div.right_buttons > .ui-button.rup-button:not(:first-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
-  margin-right: 5px; }
+div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px; }
 
 .fix-align > div, .fix-align > span {
   display: block; }

@@ -12,8 +12,8 @@ div.right_buttons{
   }
 }
 
-div.right_buttons > button:not(:first-child) { 
-	margin-right: 5px; 
+div.right_buttons > button:not(:last-child) { 
+	margin-left: 5px; 
 }
 
 .fix-align > div, .fix-align > span {

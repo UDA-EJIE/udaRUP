@@ -6624,14 +6624,14 @@
   float: right;
 }
 
-.r01gContainer div.right_buttons > button:not(:first-child),
-.r01gContainer div.right_buttons > .ui-button.rup-button:not(:first-child),
-.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child),
-.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
-  margin-right: 5px;
+.r01gContainer div.right_buttons > button:not(:last-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:last-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px;
 }
 
 .r01gContainer .fix-align > div,
@@ -7251,14 +7251,14 @@
   float: right;
 }
 
-.r01gContainer div.right_buttons > button:not(:first-child),
-.r01gContainer div.right_buttons > .ui-button.rup-button:not(:first-child),
-.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:first-child),
-.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:first-child),
-.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:first-child) {
-  margin-right: 5px;
+.r01gContainer div.right_buttons > button:not(:last-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:last-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px;
 }
 
 .r01gContainer .fix-align > div,
