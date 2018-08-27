@@ -201,7 +201,7 @@
 
 
 				// Creacion del botón de limpiar formulario.
-				filterSettings.$cleanLink.bind('click', function () {
+				filterSettings.$cleanButton.bind('click', function () {
 					// TODO : poner como evento
 					if (settings.$firstStartUp){
 

@@ -71,7 +71,7 @@
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Enlace para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los
@@ -556,7 +556,7 @@
 			});
 
 
-			settings.filter.$cleanLink.on('click',function() {
+			settings.filter.$cleanButton.on('click',function() {
 				multifilterSettings.$combo.rup_autocomplete('set', '', '');
 				settings.filter.$filterSummary.html('<i></i>');
 
