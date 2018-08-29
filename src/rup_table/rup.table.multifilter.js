@@ -548,6 +548,21 @@
 
 			jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
 				$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+				if($(this).data('tmp.data') !== undefined){
+					var data = $(this).data('tmp.data');
+					var count = -1;
+					var objeto = $.grep(data, function(obj,i) {
+						if (obj.filterDefault){
+							count = i;
+							return obj;
+						}
+					});
+					if(objeto !== undefined){
+						
+						var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+						link.css('font-weight', 'bold');
+					}
+				}
 			});
 
 			$('.jstree').on('rup_filter_treeLoaded',function(event,data){
@@ -762,18 +777,28 @@
 
 			// si el filtro es el predefinido que aparezca en negrita
 			multifilterSettings.$comboLabel.data('uiAutocomplete')._renderItem = function(ul,	item) {
-				if (item.value) {
-					return $('<li></li>').data(
-						'item.autocomplete', item).append(
-						'<a><b>' + item.label + '</b></a>')
-						.appendTo(ul);
-				} else {
+
 					return $('<li></li>').data(
 						'item.autocomplete', item).append(
 						'<a>' + item.label + '</a>')
 						.appendTo(ul);
-				}
+
 			};
+			
+			jQuery('#' + settings.id + '_multifilter_combo_label').on('rupAutocomplete_loadComplete', function(event, data){
+				var count = -1;
+				var objeto = $.grep(data, function(obj,i) {
+					if (obj.filterDefault){
+						count = i;
+						return obj;
+					}
+				});
+				if(objeto !== undefined){
+					var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+					link.css('font-weight', 'bold');
+				}
+				
+			});
 
 
 
@@ -935,9 +960,9 @@
 			// checkeo el check "Filtro
 			// por defecto"
 			if (objFiltro.length != 0) {
-				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].value);
+				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
-				var valorFiltro = $.parseJSON(objFiltro[0].data);
+				var valorFiltro = $.parseJSON(objFiltro[0].value);
 
 				var xhrArray = [];
 

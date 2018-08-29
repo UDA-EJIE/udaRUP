@@ -704,10 +704,11 @@
 				}
 
 					//Añadir criterios
-
-					settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
-
-
+				if (settings.multiFilter !== undefined && jQuery.isFunction(settings.multiFilter.fncFilterName)) {
+					searchString = jQuery.proxy(settings.multiFilter.fncFilterName, $self, searchString)();
+				}
+				
+				settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
 
 
 			},
@@ -842,6 +843,55 @@
 				settings.buttons = undefined;
 			}
 
+			// getDefault multifilter
+			if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
+				var usuario;
+				if (settings.multiFilter.userFilter!=null){
+					usuario=settings.multiFilter.userFilter;
+				}else{
+					usuario=LOGGED_USER;
+				}
+				var ctx = {};
+				ctx.oInit = settings;
+				ctx.sTableId = $self[0].id;
+				$.rup_ajax({
+					url : settings.urlBase
+												+ '/multiFilter/getDefault?filterSelector='
+												+ settings.multiFilter.idFilter + '&user='
+												+ usuario,
+					type : 'GET',
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					//async : false,
+					complete : function(jqXHR,
+						textStatus) {
+
+					},
+					success : function(data, status,
+						xhr) {
+						if (data != null) {
+							var valorFiltro = $
+								.parseJSON(data.filterValue);
+
+
+							DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
+							$self._showSearchCriteria();
+							$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
+							$(settings.filter.$filterSummary , 'i').append('}');
+
+						}
+
+					},
+					error : function(xhr, ajaxOptions,
+						thrownError) {
+
+					}
+				});
+
+
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
@@ -918,6 +968,7 @@
 				$self._createEventSelect(tabla);				
 			}
 			$self._ConfigureFiltern(settings);
+			
 		}
 	});
 

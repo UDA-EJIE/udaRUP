@@ -993,6 +993,10 @@ apiRegister( 'multiFilter()', function () {
 	} );
 } );
 
+apiRegister( 'multiFilter.fillForm()', function ( valorFiltro,ctx ) {
+	return _fillForm(valorFiltro,ctx);
+} );
+
 
 // Common events with suitable namespaces
 function namespacedEvents ( config ) {
