@@ -246,18 +246,7 @@ Como se ha explicado en anteriormente en el atributo **source** en el apartado 8
 ]
 ```
 
-La traducción entre la estructura devuelta por el *controller* y la que espera el componente se realiza mediante un serializador propio de **UDA**. Para que este entre en funcionamiento simplemente se deberá configurar el fichero *     **mvc-config***del WAR (*/xxxWAR/WebContent/WEB-INF/spring/mvc-config.xml*) indicando que el modelo utilizado utilice el serializador de **UDA**:
-
-```xml
-<bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
-   <property name="serializers">
-     <map>
-       <entry key="com.ejie.x21a.model.Patrones" value-ref="customSerializer" />
-        ...
-     </map>
-   </property>
-</bean>
-```
+La traducción entre la estructura devuelta por el *controller* y la que espera el componente se realiza mediante un serializador propio de **UDA**.
 
 Para que la serialización se realice correctamente, el componente envía en la petición una cabecera de **RUP** con la información necesaria para realizar la serialización.
 
