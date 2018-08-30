@@ -77,7 +77,12 @@ function navBarTest() {
             });
         });
         describe('Funcionamiento > ', () => {});
-        describe('Métodos públicos > ', () => {});
+        describe('Métodos públicos > ', () => {
+            describe('Metodo toggle > ', () => {});
+            describe('Método show > ', () => {});
+            describe('Método hide > ', () => {});
+            describe('Método setTransitioning > ', () => {});
+        });
     });
 }
 
