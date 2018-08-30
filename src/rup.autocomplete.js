@@ -730,6 +730,7 @@ input.
 				settings.select = function (event, ui) {
 					selected_value = ui.item.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '');
 					if (settings._select !== undefined) {
+						$('#' + settings.id).val(ui.item.value);
 						settings._select(event, ui);
 					}
 					$('#' + settings.id).attr('rup_autocomplete_label', selected_value);
