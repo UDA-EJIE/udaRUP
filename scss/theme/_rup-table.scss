@@ -33,6 +33,25 @@ div.right_buttons > button:not(:last-child) {
   }
 }
 
+.rup-filter-dropdown {
+	background-color: #17a2b8 !important;
+	color: #fff !important;
+	border-color: #17a2b8 !important;
+	border-radius: 4px !important;
+}
+
+.rup-filter-dropdown + button {
+	margin-left: -2px;
+	background-color: #17a2b8;
+	color: #fff;
+	border-color: #17a2b8;
+	border-radius: 0 4px 4px 0;
+}
+
+.form-radio-custom {
+	width: 100%;
+	padding: 0 .75rem;
+}
 
 .ui-jqgrid {
 

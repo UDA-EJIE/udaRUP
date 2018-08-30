@@ -87,7 +87,7 @@ DataTable.editForm.init = function ( dt ) {
 	_updateDetailPagination(ctx,1,1);
 
 	//se añade el boton de cancelar
-	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_link_cancel');
+	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
 		ctx.oInit.formEdit.okCallBack = false;
 		var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');

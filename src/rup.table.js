@@ -17263,13 +17263,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.formEdit.navigationBarId = settings.formEdit.navigationBarId !== undefined ? settings.formEdit.navigationBarId : settings.id + '_detail_navigation';
 			settings.formEdit.saveButtonId = settings.formEdit.saveButtonId !== undefined ? settings.formEdit.saveButtonId : settings.id + '_detail_button_save';
 			settings.formEdit.saveRepeatButtonId = settings.formEdit.saveRepeatButtonId !== undefined ? settings.formEdit.saveRepeatButtonId : settings.id + '_detail_button_save_repeat';
-			settings.formEdit.cancelLinkId = settings.formEdit.cancelLinkId !== undefined ? settings.formEdit.cancelLinkId : settings.id + '_detail_link_cancel';
+			settings.formEdit.cancelButtonId = settings.formEdit.cancelButtonId !== undefined ? settings.formEdit.cancelButtonId : settings.id + '_detail_button_cancel';
 			settings.formEdit.feedbackId = settings.formEdit.feedbackId !== undefined ? settings.formEdit.feedbackId : settings.id + '_detail_feedback';
 
 			settings.formEdit.$navigationBar = jQuery('#' + settings.formEdit.navigationBarId);
 			settings.formEdit.$saveButton = jQuery('#' + settings.formEdit.saveButtonId);
 			settings.formEdit.$saveRepeatButton = jQuery('#' + settings.formEdit.saveRepeatButtonId);
-			settings.formEdit.$cancelLink = jQuery('#' + settings.formEdit.cancelLinkId);
+			settings.formEdit.$cancelButton = jQuery('#' + settings.formEdit.cancelButtonId);
 			settings.formEdit.$feedback = jQuery('#' + settings.formEdit.feedbackId);
 
 
@@ -19184,8 +19184,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								jQuery.proxy(fncSaveAndRepeatButton, $self)();
 							});
 						}
-						if (settings.formEdit.$cancelLink.length > 0) {
-							settings.formEdit.$cancelLink.on('click', function () {
+						if (settings.formEdit.$cancelButton.length > 0) {
+							settings.formEdit.$cancelButton.on('click', function () {
 								jQuery.proxy(fncCancelLink, $self)();
 							});
 						}
