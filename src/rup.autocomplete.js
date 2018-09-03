@@ -569,17 +569,29 @@ input.
 
 						$self.triggerHandler('rupAutocomplete_beforeLoadComplete', [data]);
 						//Si no hay datos en el autocomplete que se cierre
-						if (data.length == 0) {
+						if (data.length === 0) {
 							jQuery('#' + settings.id + '_label').autocomplete('close');
 							return null;
 						}
 						response($.map(data, function (item) {
+							//Si hay sourcePAram se serielizan los paramtros desde el js y no desde el bean.
+							if(settings.sourceParam !== undefined){
+								if(settings.sourceParam.label !== undefined){
+									item.label = item[settings.sourceParam.label];
+								}
+								if(settings.sourceParam.data !== undefined){
+									item.value = item[settings.sourceParam.data];
+								}
+								if(settings.sourceParam.category !== undefined){
+									item.category = item[settings.sourceParam.category];
+								}
+							}
 							var labelLimpio = item.label;
 							if(settings.accentFolding){
 								labelLimpio = $.rup_utils.normalize(item.label);
 							}
 							var termLimpio = $.rup_utils.normalize(request.term);
-							if (settings.category == true)
+							if (settings.category === true)
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value, item.category);
 							else
 
@@ -718,6 +730,7 @@ input.
 				settings.select = function (event, ui) {
 					selected_value = ui.item.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '');
 					if (settings._select !== undefined) {
+						$('#' + settings.id).val(ui.item.value);
 						settings._select(event, ui);
 					}
 					$('#' + settings.id).attr('rup_autocomplete_label', selected_value);

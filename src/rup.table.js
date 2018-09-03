@@ -14543,7 +14543,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Botón para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -14568,7 +14568,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			filterSettings.id = (filterSettings.id!==undefined?filterSettings.id:tableId+'_filter_form');
 			filterSettings.filterToolbarId = (filterSettings.filterToolbar!==undefined?filterSettings.filterToolbar:tableId+'_filter_toolbar');
 			filterSettings.filterButtonId = (filterSettings.filterButtonId!==undefined?filterSettings.filterButtonId:tableId+'_filter_filterButton');
-			filterSettings.cleanLinkId = (filterSettings.cleanLinkId!==undefined?filterSettings.cleanLinkId:tableId+'_filter_cleanLink');
+			filterSettings.cleanButtonId = (filterSettings.cleanButtonId!==undefined?filterSettings.cleanButtonId:tableId+'_filter_cleanButton');
 			filterSettings.collapsableLayerId = (filterSettings.collapsableLayerId!==undefined?filterSettings.collapsableLayerId:tableId+'_filter_fieldset');
 
 			filterSettings.toggleIcon1Id = (filterSettings.toggleIcon1!==undefined?filterSettings.toggleIcon1:tableId+'_filter_toggle_icon1');
@@ -14592,7 +14592,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				 *
 				 * $filterContainer : Contenedor del formulario de filtrado
 				 * $filterButton : Botón que realiza el filtrado
-				 * $cleanLink : Enlace para limpiar el formulario
+				 * $cleanButton : Botón para limpiar el formulario
 				 * $collapsableLayer : Capa que puede ser ocultada/mostrada
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -14616,7 +14616,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//filterSettings.$filterButton.addClass("dropdownButton");
 				//filterSettings.$filterButton.append('<ul><li class="dropdownButton-list"><a  class="dropdownButton-trigger" href="#">Filtro</a><div class="dropdownButton-content"><form><fieldset class="dropdownButton-inputs"><div id="dropdownButton-combo"></div></fieldset>       <fieldset class="dropdownButton-actions"><input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Guardar" type="submit"><input  class="ui-button ui-widget ui-state-default ui-corner-all"  value="Aplicar" type="submit"> <input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Eliminar" type="submit"></fieldset>                 </form>               </div></li>             <li class="dropdownButton-menu"><a class="dropdownButton-lanzador" href="#"><span>▼</span></a></li> </ul>');
 
-				filterSettings.$cleanLink = jQuery('#'+filterSettings.cleanLinkId);
+				filterSettings.$cleanButton = jQuery('#'+filterSettings.cleanButtonId);
 				filterSettings.$collapsableLayer = jQuery('#'+filterSettings.collapsableLayerId);
 
 				filterSettings.$toggleIcon1 = $toggleIcon1;
@@ -14626,7 +14626,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 				/*
-				 * TODO: Comprobar que la configruación es correcta
+				 * TODO: Comprobar que la configuración es correcta
 				 */
 
 				if (filterSettings.$filterContainer.prop('tagName')==='FORM'){
@@ -14677,8 +14677,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				});
 
 
-				// Creacion del enlace de limpiar formulario.
-				filterSettings.$cleanLink.bind('click', function () {
+				// Creacion del botón de limpiar formulario.
+				filterSettings.$cleanButton.bind('click', function () {
 					// TODO : poner como evento
 					if (settings.$firstStartUp){
 
@@ -15221,7 +15221,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 	jQuery.fn.rup_table('extend',{
 		/**
-     * Obtiene el label correspondiente a un campo por el qeu se realiza el filtrado.
+     * Obtiene el label correspondiente a un campo por el que se realiza el filtrado.
      *
      * @function _getSearchFormFieldLabel
 		 * @private
@@ -17263,13 +17263,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.formEdit.navigationBarId = settings.formEdit.navigationBarId !== undefined ? settings.formEdit.navigationBarId : settings.id + '_detail_navigation';
 			settings.formEdit.saveButtonId = settings.formEdit.saveButtonId !== undefined ? settings.formEdit.saveButtonId : settings.id + '_detail_button_save';
 			settings.formEdit.saveRepeatButtonId = settings.formEdit.saveRepeatButtonId !== undefined ? settings.formEdit.saveRepeatButtonId : settings.id + '_detail_button_save_repeat';
-			settings.formEdit.cancelLinkId = settings.formEdit.cancelLinkId !== undefined ? settings.formEdit.cancelLinkId : settings.id + '_detail_link_cancel';
+			settings.formEdit.cancelButtonId = settings.formEdit.cancelButtonId !== undefined ? settings.formEdit.cancelButtonId : settings.id + '_detail_button_cancel';
 			settings.formEdit.feedbackId = settings.formEdit.feedbackId !== undefined ? settings.formEdit.feedbackId : settings.id + '_detail_feedback';
 
 			settings.formEdit.$navigationBar = jQuery('#' + settings.formEdit.navigationBarId);
 			settings.formEdit.$saveButton = jQuery('#' + settings.formEdit.saveButtonId);
 			settings.formEdit.$saveRepeatButton = jQuery('#' + settings.formEdit.saveRepeatButtonId);
-			settings.formEdit.$cancelLink = jQuery('#' + settings.formEdit.cancelLinkId);
+			settings.formEdit.$cancelButton = jQuery('#' + settings.formEdit.cancelButtonId);
 			settings.formEdit.$feedback = jQuery('#' + settings.formEdit.feedbackId);
 
 
@@ -19184,8 +19184,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								jQuery.proxy(fncSaveAndRepeatButton, $self)();
 							});
 						}
-						if (settings.formEdit.$cancelLink.length > 0) {
-							settings.formEdit.$cancelLink.on('click', function () {
+						if (settings.formEdit.$cancelButton.length > 0) {
+							settings.formEdit.$cancelButton.on('click', function () {
 								jQuery.proxy(fncCancelLink, $self)();
 							});
 						}
@@ -19811,8 +19811,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
-					callback: function(){
-						//$self.rup_table('saveRow');
+					callback: function(object,event){
+						if(event.type === 'click'){
+							$self.rup_table('saveRow');
+						}
 					}
 				},
 				'clone': {
@@ -23373,7 +23375,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Enlace para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los
@@ -23850,6 +23852,21 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
 				$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+				if($(this).data('tmp.data') !== undefined){
+					var data = $(this).data('tmp.data');
+					var count = -1;
+					var objeto = $.grep(data, function(obj,i) {
+						if (obj.filterDefault){
+							count = i;
+							return obj;
+						}
+					});
+					if(objeto !== undefined){
+						
+						var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+						link.css('font-weight', 'bold');
+					}
+				}
 			});
 
 			$('.jstree').on('rup_filter_treeLoaded',function(event,data){
@@ -23858,7 +23875,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			});
 
 
-			settings.filter.$cleanLink.on('click',function() {
+			settings.filter.$cleanButton.on('click',function() {
 				multifilterSettings.$combo.rup_autocomplete('set', '', '');
 				settings.filter.$filterSummary.html('<i></i>');
 
@@ -24064,18 +24081,28 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			// si el filtro es el predefinido que aparezca en negrita
 			multifilterSettings.$comboLabel.data('uiAutocomplete')._renderItem = function(ul,	item) {
-				if (item.value) {
-					return $('<li></li>').data(
-						'item.autocomplete', item).append(
-						'<a><b>' + item.label + '</b></a>')
-						.appendTo(ul);
-				} else {
+
 					return $('<li></li>').data(
 						'item.autocomplete', item).append(
 						'<a>' + item.label + '</a>')
 						.appendTo(ul);
-				}
+
 			};
+			
+			jQuery('#' + settings.id + '_multifilter_combo_label').on('rupAutocomplete_loadComplete', function(event, data){
+				var count = -1;
+				var objeto = $.grep(data, function(obj,i) {
+					if (obj.filterDefault){
+						count = i;
+						return obj;
+					}
+				});
+				if(objeto !== undefined){
+					var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+					link.css('font-weight', 'bold');
+				}
+				
+			});
 
 
 
@@ -24237,9 +24264,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// checkeo el check "Filtro
 			// por defecto"
 			if (objFiltro.length != 0) {
-				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].value);
+				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
-				var valorFiltro = $.parseJSON(objFiltro[0].data);
+				var valorFiltro = $.parseJSON(objFiltro[0].value);
 
 				var xhrArray = [];
 

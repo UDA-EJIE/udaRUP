@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -96,8 +96,8 @@
 			// options.filterForm = $self.attr('data-filter-form');
 			options.$filterForm = $(options.filterForm);
 
-			options.$filterButton = options.$filterForm.find('button');
-			options.$clearButton = options.$filterForm.find('.rup-enlaceCancelar');
+			options.$filterButton = options.$filterForm.find('.rup-filtrar');
+			options.$clearButton = options.$filterForm.find('.rup-limpiar');
 			options.$filterButton.on('click', function(){ $self._doFilter(options);});
 			options.$clearButton.on('click', function(){$self._clearFilter(options);});
 
@@ -704,20 +704,21 @@
 				}
 
 					//Añadir criterios
-
-					settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
-
-
+				if (settings.multiFilter !== undefined && jQuery.isFunction(settings.multiFilter.fncFilterName)) {
+					searchString = jQuery.proxy(settings.multiFilter.fncFilterName, $self, searchString)();
+				}
+				
+				settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
 
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
+		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
 		     *
-		     * @param {object} tabla - LA configuración de la tabla.
+		     * @param {object} tabla - La configuración de la tabla.
 		     *
 		     */
 			_createEventSelect(tabla){
@@ -726,7 +727,7 @@
 					if(ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.$navigationBar !== undefined &&
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
-						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
+						//Si hay selectAll, comprobar la linea ya que puede variar al no tener ningún selected.Se recorre el json.
 						if(DataTable.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
@@ -842,6 +843,55 @@
 				settings.buttons = undefined;
 			}
 
+			// getDefault multifilter
+			if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
+				var usuario;
+				if (settings.multiFilter.userFilter!=null){
+					usuario=settings.multiFilter.userFilter;
+				}else{
+					usuario=LOGGED_USER;
+				}
+				var ctx = {};
+				ctx.oInit = settings;
+				ctx.sTableId = $self[0].id;
+				$.rup_ajax({
+					url : settings.urlBase
+												+ '/multiFilter/getDefault?filterSelector='
+												+ settings.multiFilter.idFilter + '&user='
+												+ usuario,
+					type : 'GET',
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					//async : false,
+					complete : function(jqXHR,
+						textStatus) {
+
+					},
+					success : function(data, status,
+						xhr) {
+						if (data != null) {
+							var valorFiltro = $
+								.parseJSON(data.filterValue);
+
+
+							DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
+							$self._doFilter(data);
+							$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
+							$(settings.filter.$filterSummary , 'i').append('}');
+
+						}
+
+					},
+					error : function(xhr, ajaxOptions,
+						thrownError) {
+
+					}
+				});
+
+
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
@@ -918,6 +968,7 @@
 				$self._createEventSelect(tabla);				
 			}
 			$self._ConfigureFiltern(settings);
+			
 		}
 	});
 

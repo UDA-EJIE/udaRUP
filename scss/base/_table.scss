@@ -435,3 +435,13 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 	padding-left: 0.5em;
 	width:23em;
 }
+
+@media ( max-width : 575px) {
+    .rup_tableEdit_buttonsContainerResposive {
+		float: none !important;
+    }
+    
+    .rup_tableEdit_buttonsResposive {
+		width: 100%;
+    }
+}

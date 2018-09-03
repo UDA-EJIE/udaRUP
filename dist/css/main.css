@@ -65,12 +65,30 @@ footer .footer-row-1 {
   line-height: 3rem;
   height: 3rem; }
 
+@media (max-width: 475px) {
+  footer .footer-row-1 {
+    height: auto; }
+  footer .footer-row-1 > span {
+    display: block;
+    float: none; } }
+
+@media (max-width: 350px) {
+  footer .footer-row-1 {
+    padding: 0rem 1rem; } }
+
+@media (max-width: 300px) {
+  footer .footer-row-1 {
+    padding: 0rem 0.5rem; } }
+
 footer .footer-row-2 {
   background: url("../images/web01-2014_oina_logo_atzekoa.gif") no-repeat left bottom #1f1f1f;
   clear: both;
   text-align: center;
   height: 15rem;
   padding-top: 2rem; }
+
+footer .footer-row-2 > img.footer-image {
+  max-width: 100%; }
 
 /*************/
 /* RUP NAVBAR */

@@ -66,7 +66,7 @@
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Botón para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -91,7 +91,7 @@
 			filterSettings.id = (filterSettings.id!==undefined?filterSettings.id:tableId+'_filter_form');
 			filterSettings.filterToolbarId = (filterSettings.filterToolbar!==undefined?filterSettings.filterToolbar:tableId+'_filter_toolbar');
 			filterSettings.filterButtonId = (filterSettings.filterButtonId!==undefined?filterSettings.filterButtonId:tableId+'_filter_filterButton');
-			filterSettings.cleanLinkId = (filterSettings.cleanLinkId!==undefined?filterSettings.cleanLinkId:tableId+'_filter_cleanLink');
+			filterSettings.cleanButtonId = (filterSettings.cleanButtonId!==undefined?filterSettings.cleanButtonId:tableId+'_filter_cleanButton');
 			filterSettings.collapsableLayerId = (filterSettings.collapsableLayerId!==undefined?filterSettings.collapsableLayerId:tableId+'_filter_fieldset');
 
 			filterSettings.toggleIcon1Id = (filterSettings.toggleIcon1!==undefined?filterSettings.toggleIcon1:tableId+'_filter_toggle_icon1');
@@ -115,7 +115,7 @@
 				 *
 				 * $filterContainer : Contenedor del formulario de filtrado
 				 * $filterButton : Botón que realiza el filtrado
-				 * $cleanLink : Enlace para limpiar el formulario
+				 * $cleanButton : Botón para limpiar el formulario
 				 * $collapsableLayer : Capa que puede ser ocultada/mostrada
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -139,7 +139,7 @@
 				//filterSettings.$filterButton.addClass("dropdownButton");
 				//filterSettings.$filterButton.append('<ul><li class="dropdownButton-list"><a  class="dropdownButton-trigger" href="#">Filtro</a><div class="dropdownButton-content"><form><fieldset class="dropdownButton-inputs"><div id="dropdownButton-combo"></div></fieldset>       <fieldset class="dropdownButton-actions"><input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Guardar" type="submit"><input  class="ui-button ui-widget ui-state-default ui-corner-all"  value="Aplicar" type="submit"> <input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Eliminar" type="submit"></fieldset>                 </form>               </div></li>             <li class="dropdownButton-menu"><a class="dropdownButton-lanzador" href="#"><span>▼</span></a></li> </ul>');
 
-				filterSettings.$cleanLink = jQuery('#'+filterSettings.cleanLinkId);
+				filterSettings.$cleanButton = jQuery('#'+filterSettings.cleanButtonId);
 				filterSettings.$collapsableLayer = jQuery('#'+filterSettings.collapsableLayerId);
 
 				filterSettings.$toggleIcon1 = $toggleIcon1;
@@ -149,7 +149,7 @@
 
 
 				/*
-				 * TODO: Comprobar que la configruación es correcta
+				 * TODO: Comprobar que la configuración es correcta
 				 */
 
 				if (filterSettings.$filterContainer.prop('tagName')==='FORM'){
@@ -200,8 +200,8 @@
 				});
 
 
-				// Creacion del enlace de limpiar formulario.
-				filterSettings.$cleanLink.bind('click', function () {
+				// Creacion del botón de limpiar formulario.
+				filterSettings.$cleanButton.bind('click', function () {
 					// TODO : poner como evento
 					if (settings.$firstStartUp){
 
@@ -744,7 +744,7 @@
 
 	jQuery.fn.rup_table('extend',{
 		/**
-     * Obtiene el label correspondiente a un campo por el qeu se realiza el filtrado.
+     * Obtiene el label correspondiente a un campo por el que se realiza el filtrado.
      *
      * @function _getSearchFormFieldLabel
 		 * @private

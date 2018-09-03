@@ -291,15 +291,12 @@
 				}
 				return;
 			}
-			if (opt !== 'title') {
+			if (opt === 'title') {
 				if (value !== undefined) {
 					$(this).dialog('option', opt, value);
 				} else {
 					$(this).dialog('option', opt);
 				}
-			} else {
-				//A raíz de un bug del plug-in subyacente, el cambio del titulo se hace a mano (en caso de que se corrija el error esto sorbería y habría que borrarlo)
-				$('#ui-dialog-title-' + $(this).attr('id')).html(value);
 			}
 		},
 		/**
