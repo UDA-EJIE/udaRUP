@@ -1,3 +1,5 @@
+/* jslint multistr: true */
+
 var dataUrl = 'http://localhost:8081/demo/datatable/remote';
 var html = '<form id="example_filter_form">\
 <div id="example_filter_toolbar" class="formulario_legend"></div>\
