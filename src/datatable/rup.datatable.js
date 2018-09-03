@@ -876,7 +876,7 @@
 
 
 							DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
-							$self._showSearchCriteria();
+							$self._doFilter(data);
 							$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
 							$(settings.filter.$filterSummary , 'i').append('}');
 
