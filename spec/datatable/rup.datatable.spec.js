@@ -103,14 +103,13 @@ function testDatatable(plugin) {
                 $('body').append('<div id="content"></div>');
             }
 
-            debugger;
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
             $datatable = $('#example');
         });
         describe('Creacion > ', () => {
             beforeEach((done) => {
-                $datatable.on('load', () => {
+                $datatable.on('init.dt', () => {
                     done();
                 });
             });
