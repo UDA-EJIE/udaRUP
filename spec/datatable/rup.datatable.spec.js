@@ -17,82 +17,88 @@ function testDatatable(plugin) {
         beforeEach(() => {
             let opts = {
                 "fixedHeader": {
-                    "footer": false,
-                    "header": true
+                  "footer": false,
+                  "header": true
                 },
                 "filter": {
-                    "id": "example_filter_form",
-                    "filterToolbar": "example_filter_toolbar",
-                    "collapsableLayerId": "example_filter_fieldset"
+                  "id": "example_filter_form",
+                  "filterToolbar": "example_filter_toolbar",
+                  "collapsableLayerId": "example_filter_fieldset"
                 },
                 "multiSelect": {
-                    "style": "multi"
+                  "style": "multi"
                 },
                 "formEdit": {
-                    "detailForm": "#example_detail_div",
-                    "validate": {
-                        "rules": {
-                            "nombre": {
-                                "required": true
-                            },
-                            "apellidos": {
-                                "required": true
-                            },
-                            "edad": {
-                                "required": true
-                            }
-                        }
-                    },
-                    "titleForm": "Modificar registro"
+                  "detailForm": "#example_detail_div",
+                  "validate": {
+                    "rules": {
+                      "nombre": {
+                        "required": true
+                      },
+                      "apellidos": {
+                        "required": true
+                      },
+                      "edad": {
+                        "required": true
+                      }
+                    }
+                  },
+                  "titleForm": "Modificar registro"
                 },
                 "buttons": {
-                    "activate": true
+                  "activate": true
                 },
                 "seeker": {
-                    "colModel": [{
-                        "name": "id",
-                        "index": "id",
-                        "editable": true,
-                        "width": 80,
-                        "formoptions": {
-                            "rowpos": 1,
-                            "colpos": 1
-                        }
-                    }, {
-                        "name": "nombre",
-                        "index": "nombre",
-                        "editable": true,
-                        "formoptions": {
-                            "rowpos": 2,
-                            "colpos": 1
-                        }
-                    }, {
-                        "name": "apellidos",
-                        "index": "apellidos",
-                        "editable": true,
-                        "formoptions": {
-                            "rowpos": 3,
-                            "colpos": 1
-                        },
-                        "classes": "ui-ellipsis"
-                    }, {
-                        "name": "edad",
-                        "index": "edad",
-                        "editable": true,
-                        "formoptions": {
-                            "rowpos": 4,
-                            "colpos": 1
-                        }
-                    }]
-                },
-                "colReorder": {
-                    "fixedColumnsLeft": 1
+                  "colModel": [
+                    {
+                      "name": "id",
+                      "index": "id",
+                      "editable": true,
+                      "width": 80,
+                      "formoptions": {
+                        "rowpos": 1,
+                        "colpos": 1
+                      }
+                    },
+                    {
+                      "name": "nombre",
+                      "index": "nombre",
+                      "editable": true,
+                      "formoptions": {
+                        "rowpos": 2,
+                        "colpos": 1
+                      }
+                    },
+                    {
+                      "name": "apellidos",
+                      "index": "apellidos",
+                      "editable": true,
+                      "formoptions": {
+                        "rowpos": 3,
+                        "colpos": 1
+                      },
+                      "classes": "ui-ellipsis"
+                    },
+                    {
+                      "name": "edad",
+                      "index": "edad",
+                      "editable": true,
+                      "formoptions": {
+                        "rowpos": 4,
+                        "colpos": 1
+                      }
+                    }
+                ]
                 }
-            };
+              };
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
+            $datatable = $('#example');
         });
         describe('Creacion > ', () => {
+            beforeEach((done) => {
+                $datatable.on('load', () => { done(); });
+            });
             /*it('asd', () => {
                 debugger;
                 expect('asd').toBe('asd');

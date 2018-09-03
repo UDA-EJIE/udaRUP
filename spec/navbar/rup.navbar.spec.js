@@ -3,7 +3,7 @@ import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.navbar';
 
-const html = '<nav class="rup-navbar navbar">\
+const html = '<nav id="navbarResponsive" class="rup-navbar navbar">\
                 <button type="button" class="navbar-toggler hidden-lg-up navbar-toggle" \
                     type="button" data-toggle="rup-collapse" data-target="#navbarResponsive"\
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">\
@@ -77,7 +77,12 @@ function navBarTest() {
             });
         });
         describe('Funcionamiento > ', () => {});
-        describe('Métodos públicos > ', () => {});
+        describe('Métodos públicos > ', () => {
+            describe('Metodo toggle > ', () => {});
+            describe('Método show > ', () => {});
+            describe('Método hide > ', () => {});
+            describe('Método setTransitioning > ', () => {});
+        });
     });
 }
 
