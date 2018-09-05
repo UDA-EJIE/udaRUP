@@ -105,7 +105,7 @@ module.exports = (PORT) => {
 	app.put('/dashboard/put', dashboardTable.put);
 
 	//Datatable
-	app.post('/demo/datatable/remote/filter', routesDatatable.remote);
+	app.post('/demo/datatable/remote/filter', routesDatatable.filter);
 
 
 

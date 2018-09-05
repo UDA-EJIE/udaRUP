@@ -14,8 +14,8 @@ var plugins = [{
     }
 }];
 
-function testDatatable(plugin) {
-    describe('Test DataTable ' + plugin.name + ' > ', () => {
+function testDatatable() {
+    describe('Test DataTable > ', () => {
 
         beforeAll((done) => {
             testutils.loadCss(done);
@@ -121,6 +121,4 @@ function testDatatable(plugin) {
         describe('Pruebas plugins > ', () => {});
     });
 }
-testDatatable({
-    name: 'prueba'
-});
+testDatatable();

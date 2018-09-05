@@ -1,14 +1,35 @@
-exports.remote = (req, res) => {
-    let json = {
-        page:'1',
-        rows:[
-            { id: '1', nombre:'Ana', apellidos: 'García Vázquez', edad: '32'},
-            { id: '2', nombre:'Pedro', apellidos: 'Allende Zabala', edad: '20'},
-            { id: '3', nombre:'Irene', apellidos: 'San Jose', edad: '22'},
-            { id: '4', nombre:'Erlantz', apellidos: 'Carrasson Pando', edad: '23'},
-            { id: '5', nombre:'Eider', apellidos: 'Ahedo Dominguez', edad: '12'}
-        ]
-    }
-    
-    res.status(200).json(json);
+import 'jquery';
+var json = {
+    page:'1',
+    rows:[
+        { id: '1', nombre:'Ana', apellidos: 'García Vázquez', edad: '32'},
+        { id: '2', nombre:'Pedro', apellidos: 'Allende Zabala', edad: '20'},
+        { id: '3', nombre:'Irene', apellidos: 'San Jose', edad: '22'},
+        { id: '4', nombre:'Erlantz', apellidos: 'Carrasson Pando', edad: '23'},
+        { id: '5', nombre:'Eider', apellidos: 'Ahedo Dominguez', edad: '12'}
+    ],
+    total:'1',
+    records:5
+};
+
+exports.filter = (req,res) => {
+    let respuesta = json;
+    let ret = $.grep(respuesta.rows,(i,n) => {
+        let bool = () => {
+            let ret = true;
+            let filter = req.query.filter;
+            for(var key in filter){
+                if(filter.hasOwnProperty(key)){
+                    if(filter[key] !== n[key]){
+                        ret = false;
+                    }
+                }
+            }
+            return ret;
+        };
+        return bool;
+    });
+    respuesta.rows = ret;
+
+    res.status(200).json(respuesta);
 }
