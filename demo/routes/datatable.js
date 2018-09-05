@@ -1,4 +1,3 @@
-import 'jquery';
 var json = {
     page:'1',
     rows:[
@@ -14,7 +13,7 @@ var json = {
 
 exports.filter = (req,res) => {
     let respuesta = json;
-    let ret = $.grep(respuesta.rows,(i,n) => {
+    let ret = respuesta.rows.filter((i,n) => {
         let bool = () => {
             let ret = true;
             let filter = req.query.filter;
