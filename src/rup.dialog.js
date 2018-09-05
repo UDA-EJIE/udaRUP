@@ -312,10 +312,10 @@
 			/**
        * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
        */
-			var buttonHREF = $('<a href=\'#\'></a>')
-				.attr('role', 'button')
+			var buttonHREF = $('<button></button>')
+				.attr('type', 'button')
 				.attr('id', 'rup_dialog' + btn.text)
-				.addClass('rup-enlaceCancelar')
+				.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
 				.html(btn.text)
 				.click(btn.click);
 			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF);

@@ -8841,6 +8841,14 @@
   box-shadow: 0 12px 24px rgba(0,0,0,.19),0 8px 8px rgba(0,0,0,.23);
 }
 
+.r01gContainer .btn-outline-primary.focus,
+.r01gContainer .btn-outline-primary:focus,
+.r01gContainer .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.r01gContainer .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.r01gContainer .show>.btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.5)!important;
+}
+
 .r01gContainer .glyphicon-refresh-animate {
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
@@ -10186,7 +10194,7 @@
 }
 
 .r01gContainer .rup_multifilter_dropdown input[type=checkbox] {
-  margin-right: .3em;
+  width: auto;
 }
 
 .r01gContainer .rup_multifilter_dropdown .rup-feedback {
@@ -10199,6 +10207,10 @@
   width: 23em;
 }
 
+.r01gContainer .separador {
+  padding-top: .5rem;
+}
+
 @media (max-width:575px) {
   .r01gContainer .rup_tableEdit_buttonsContainerResposive {
     float: none!important;
@@ -10207,6 +10219,37 @@
   .r01gContainer .rup_tableEdit_buttonsResposive {
     width: 100%;
   }
+}
+
+.r01gContainer .btn-outline-primary {
+  color: #007bff!important;
+  background-color: transparent!important;
+  background-image: none!important;
+  border-color: #007bff!important;
+}
+
+.r01gContainer .btn-outline-primary:hover {
+  color: #fff!important;
+  background-color: #007bff!important;
+  border-color: #007bff!important;
+}
+
+.r01gContainer .btn-outline-primary.disabled,
+.r01gContainer .btn-outline-primary:disabled {
+  color: #007bff!important;
+  background-color: transparent!important;
+}
+
+.r01gContainer .btn-outline-primary:not(:disabled):not(.disabled).active,
+.r01gContainer .btn-outline-primary:not(:disabled):not(.disabled):active,
+.r01gContainer .show>.btn-outline-primary.dropdown-toggle {
+  color: #fff!important;
+  background-color: #007bff!important;
+  border-color: #007bff!important;
+}
+
+.r01gContainer .fix-editForm-buttons-align {
+  margin-bottom: 6.6px!important;
 }
 
 /*!

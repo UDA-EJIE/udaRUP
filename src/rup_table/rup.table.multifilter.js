@@ -90,7 +90,7 @@
 		preConfigureMultifilter : function(settings) {
 			var $self = this, tableId = settings.id, multifilterSettings = settings.multifilter, dropdownDialogId, $dropdownDialog, $dropdownDiaglogTemplate;
 
-			//definincion de variables con los selectores
+			//definicion de variables con los selectores
 			multifilterSettings.$dropdownDialog=$('#'+settings.id+'_multifilter_dropdownDialog');
 
 			//definicion de variables con ids
@@ -173,6 +173,7 @@
 							buttons : [
 								{
 									id : settings.id+ '_multifilter_BtnSave',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
 									click : function() {
 
@@ -198,6 +199,7 @@
 								},
 								{
 									id : settings.id+ '_multifilter_BtnApply',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
 									click : function() {
 
@@ -254,6 +256,7 @@
 								},
 								{
 									id : settings.id+ '_multifilter_BtnRemove',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 									click : function() {
 
@@ -416,40 +419,46 @@
 			var $self = this, multifilterSettings = settings.multifilter;
 
 			var $dropdownDiaglogTemplate = jQuery('<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '" style="display:none" class="rup_multifilter_dropdown">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_feedback"></div>'
-									+ '<form>'
-									+ '<fieldset class="dropdownButton-inputs">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_columna_cnt" class="formulario_columna_cnt">'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaCombo"  class="formulario_linea_izda_float">'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_combo">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
-									+ '</label>'
-									+ '<input id="'
-									+ settings.id
-									+ '_multifilter_combo" class="rup_multifilter_selector" />'
-									+ '</div>'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaDefault" class="formulario_linea_izda_float">'
-									+ '<input type="checkbox" id="'
-									+ settings.id
-									+ '_multifilter_defaultFilter"/>'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_defaultFilter">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
-									+ '</label>' + '</div>' + '</div>'
-									+ '</fieldset>' + '</form>' + '</div>');
+				+ multifilterSettings.dropdownDialogId
+				+ '" style="display:none" class="rup_multifilter_dropdown">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_feedback"></div>'
+				+ '<form>'
+				+ '<fieldset class="dropdownButton-inputs">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_columna_cnt">'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaCombo"  class="form-group fix-align col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_combo" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ '</label>'
+				+ '<input id="'
+				+ settings.id
+				+ '_multifilter_combo" class="rup_multifilter_selector" />'
+				+ '</div>'
+				+ '</div>'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaDefault" class="form-group col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ '</label>'
+				+ '<input type="checkbox" id="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_input form-control"/>'
+				+ '</div>' 
+				+ '</div>'	
+				+ '</div>'
+				+ '</fieldset>' + '</form>' + '</div>');
 
 			return $dropdownDiaglogTemplate;
 		},
