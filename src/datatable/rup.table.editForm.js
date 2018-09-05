@@ -337,7 +337,7 @@ function eventTrigger ( api, type, args, any )
 }
 
 /**
-* Función que lleva todo el comportamiento para abrir el dialog y editar un resgistro.
+* Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
 *
 * @name openSaveDialog
 * @function
@@ -450,7 +450,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 /**
 * Llamada al servidor con los datos de edición.
 *
-* @name openSaveDialog
+* @name _callSaveAjax
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
@@ -517,7 +517,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					});
 					ctx.json.rows.pop();
 					ctx.json.rows.splice(0,0,row);
-					//Se guardan los datos para psar de nuevo a editable.
+					//Se guardan los datos para pasar de nuevo a editable.
 					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
 					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
 					dt['row']().multiSelect();
@@ -557,7 +557,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 }
 
 /**
-* Llamada para crear el feedback detro del dialog.
+* Llamada para crear el feedback dentro del dialog.
 *
 * @name callFeedbackOk
 * @function
@@ -1101,7 +1101,7 @@ function _deleteAllSelects(dt){
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
 
-apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,idRow ) {//Se declara el la variable del editForm para que puede ser invocada desde cualquier sitio.
+apiRegister( 'editForm.openSaveDialog()', function ( actionType,dt,idRow ) {//Se declara la variable del editForm para que puede ser invocada desde cualquier sitio.
 	DataTable.editForm.fnOpenSaveDialog(actionType,dt,idRow );
 } );
 

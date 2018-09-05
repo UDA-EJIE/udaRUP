@@ -120,7 +120,7 @@
 				lastCrum = null,
 				initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
 				i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId;
-			//Obtenemos la estructura del fichero que se recibe como paramtero o el de por defecto del patrón
+			//Obtenemos la estructura del fichero que se recibe como parametro o el de por defecto del patrón
 			if (this.options.breadCrumb instanceof Object) {
 				breadCrumbStruct = this.options.breadCrumb;
 			} else {
