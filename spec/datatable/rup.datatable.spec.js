@@ -115,14 +115,16 @@ function testDatatable() {
                 });
             });
             describe('Filtrado > ', () => {
-                beforeEach((done) => {debugger;
-                    $datatable.on('search.dt', () => {done();});
+                beforeEach((done) => {
+                    debugger;
+                    $datatable.on('draw.dt', () => {done();});
                     $('#id_filter_table').val('4');
                     $('#example_filter_filterButton').click();
                 });
                 it('Debe haberse completado el filtrado:', () => {
-                     expect($('tbody > tr').length).toBe(1);
-                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
+                    debugger;
+                    expect($('tbody > tr').length).toBe(1);
+                    expect($('tbody > tr > td:eq(1)').text()).toBe('4');
                 });
             });
         });
