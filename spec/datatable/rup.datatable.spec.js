@@ -6,14 +6,6 @@ import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as consts from './datatable.html';
 
-var plugins = [{
-    name: 'multiselect',
-    opts: {
-        useplugins: ['multiselection'],
-        multiselect: {}
-    }
-}];
-
 function testDatatable() {
     describe('Test DataTable > ', () => {
 
@@ -107,15 +99,22 @@ function testDatatable() {
             $('#example').rup_datatable(opts);
             $datatable = $('#example');
         });
-        describe('Creacion > ', () => {
+        describe('Funcionamiento > ', () => {
             beforeEach((done) => {
                 $datatable.on('init.dt', () => {
                     done();
                 });
             });
-            it('asd', () => {
-                debugger;
-                expect('asd').toBe('asd');
+            describe('Filtrado > ', () => {
+                beforeEach((done) => {
+                    $datatable.on('search.dt', () => {done();});
+                    $('#id_filter_table').val('4');
+                    $('#example_filter_filterButton').click();
+                });
+                it('Debe haberse completado el filtrado:', () => {
+                     expect($('tbody > tr').length).toBe(1);
+                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
+                });
             });
         });
         describe('Pruebas plugins > ', () => {});
