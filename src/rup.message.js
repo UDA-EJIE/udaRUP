@@ -375,10 +375,10 @@
 		_createLinkButton: function (self, CANCELFunction) { //Creamos un boton como si fuera un
 			//creamos el enlace
 			var clickFnc = CANCELFunction,
-				cancelHREF = $('<a href=\'#\'></a>')
-					.attr('role', 'button')
+				cancelHREF = $('<button></button>')
+					.attr('type', 'button')
 					.attr('id', self[0].id + '_cancel')
-					.addClass('rup-enlaceCancelar')
+					.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
 					.html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
 					.click(function (event) {
 						self.dialog('close');
