@@ -14,7 +14,7 @@ function testDatatable() {
         });
 
         var $datatable;
-        beforeEach(() => {
+        beforeEach((done) => {
             let opts = {
                 "fixedHeader": {
                     "footer": false,
@@ -88,6 +88,10 @@ function testDatatable() {
                             }
                         }
                     ]
+                },
+                'initComplete': () => {
+                    debugger;
+                    done();
                 }
             };
 
@@ -97,9 +101,6 @@ function testDatatable() {
 
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
-
-            
-
             $datatable = $('#example');
         });
 
@@ -109,15 +110,12 @@ function testDatatable() {
         });
 
         describe('Funcionamiento > ', () => {
-            beforeEach((done) => {
-                $datatable.on('init.dt', () => {
-                    done();
-                });
-            });
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
-                    debugger;
-                    $datatable.on('draw.dt', () => {done();});
+                    $datatable.on('search.dt', () => {
+                        debugger;
+                        done();
+                    });
                     $('#id_filter_table').val('4');
                     $('#example_filter_filterButton').click();
                 });

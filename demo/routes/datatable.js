@@ -11,12 +11,14 @@ var json = {
     records:5
 };
 
-exports.filter = (req,res) => {
+exports.filter = (req, res) => {
+        console.info(req.body.filter);
     let respuesta = json;
     let ret = respuesta.rows.filter((i,n) => {
         let bool = () => {
             let ret = true;
-            let filter = req.query.filter;
+            let filter = req.body.filter;
+            console.info(filter);
             for(var key in filter){
                 if(filter.hasOwnProperty(key)){
                     if(filter[key] !== n[key]){
@@ -31,4 +33,4 @@ exports.filter = (req,res) => {
     respuesta.rows = ret;
 
     res.status(200).json(respuesta);
-}
+};
