@@ -36,7 +36,7 @@ var html = '<form id="example_filter_form">\
       <!-- <button id="example_filter_cleanLink" type="button" class="btn btn-warning btn-block">Limpiar</button> -->\
       <a id="example_filter_cleanLink" href="javascript:void(0)" class="rup-enlaceCancelar">Limpiar</a>\
       <!-- Botón de filtrado -->\
-      <button id="example_filter_filterButton" type="button" class="btn btn-info btn-block">Filtrar</button>\
+      <button id="example_filter_filterButton" type="button" class="btn btn-info btn-block rup-filtrar">Filtrar</button>\
   </div>\
 </fieldset>\
 </form>\

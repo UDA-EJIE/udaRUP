@@ -97,8 +97,17 @@ function testDatatable() {
 
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
+
+            
+
             $datatable = $('#example');
         });
+
+        afterEach(() => {
+            $('#content').html('');
+            $('#content').nextAll().remove();
+        });
+
         describe('Funcionamiento > ', () => {
             beforeEach((done) => {
                 $datatable.on('init.dt', () => {
@@ -106,7 +115,7 @@ function testDatatable() {
                 });
             });
             describe('Filtrado > ', () => {
-                beforeEach((done) => {
+                beforeEach((done) => {debugger;
                     $datatable.on('search.dt', () => {done();});
                     $('#id_filter_table').val('4');
                     $('#example_filter_filterButton').click();
