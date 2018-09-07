@@ -126,13 +126,20 @@ function testDatatable() {
                     $('#example_filter_filterButton').click();
                 });
                 it('Debe haberse completado el filtrado:', () => {
-                    debugger;
                     expect($('tbody > tr').length).toBe(1);
                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
                 });
             });
         });
-        describe('Pruebas plugins > ', () => {});
+        describe('Búsqueda > ', () => {});
+        describe('Paginación > ', () => {});
+        describe('Variacion de número de registros por página > ', () => {});
+        describe('Ordenación > ', () => {});
+        describe('Botonera > ', () => {});
+        describe('Menú contextual > ', () => {});
+        describe('Edición con formulario > ', () => {});
+        describe('Edición en línea > ', () => {});
+        describe('Multiseleccion > ', () => {});
     });
 }
 testDatatable();
