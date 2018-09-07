@@ -14,6 +14,7 @@ function testDatatable() {
         });
 
         var $datatable;
+        var dt;
         beforeEach((done) => {
             let opts = {
                 "urlBase": "http://localhost:8081/demo/datatable/remote",
@@ -92,7 +93,8 @@ function testDatatable() {
                 },
                 'initComplete': () => {
                     setTimeout(function () {
-                        debugger;
+                        $datatable = $('#example');
+                        dt = $datatable.DataTable();
                         done();
                     }, 300);
                 }
@@ -104,11 +106,10 @@ function testDatatable() {
 
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
-            $datatable = $('#example');
         });
 
         afterEach(() => {
-            $datatable.DataTable().destroy();
+            dt.destroy();
             $('#content').html('');
             $('#content').nextAll().remove();
         });
@@ -116,8 +117,7 @@ function testDatatable() {
         describe('Funcionamiento > ', () => {
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
-                    $datatable.on('search.dt', () => {
-                        debugger;
+                    $datatable.on('draw.dt', () => {
                         done();
                     });
                     $('#id_filter_table').val('4');
