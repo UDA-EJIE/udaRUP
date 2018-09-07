@@ -491,7 +491,7 @@ function _getDatos(ctx){
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
 	if(colModel !== undefined){
-		$('#'+ ctx.sTableId+' tfoot tr:eq(1) th').each( function(i) { // El primer tr corresponde al desplegable de filtros
+		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th').each(function (i) { // El primer tr corresponde al desplegable de filtros
 			if(i > 0){//La primera columna no vale es la de los select
 				var cellColModel = colModel[i-1];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;

@@ -524,7 +524,8 @@
 					sourceParam : {
 						label : 'filterName',
 						value : 'filterDefault',
-						data : 'filterValue'
+						data : 'filterValue',
+						category: 'filter'
 					},
 					method : 'GET',
 					contains : false,
