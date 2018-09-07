@@ -131,7 +131,38 @@ function testDatatable() {
                 });
             });
         });
-        describe('Búsqueda > ', () => {});
+        describe('Búsqueda > ', () => {
+            beforeEach((done) => {
+                $datatable.on('draw.dt', () => {
+                    setTimeout(() => {
+                        debugger;
+                        done();
+                    }, 300);
+                });
+                debugger;
+                $('#searchCollapsLabel_example').click();
+            });
+            describe('Aparición del seeker > ', () => {
+                it('Se muestra el formulario de búsqueda:', () => {
+                    expect($('#id_seeker').is(':visible')).toBe(true);
+                    expect($('#id_nombre').is(':visible')).toBe(true);
+                    expect($('#id_apellidos').is(':visible')).toBe(true);
+                    expect($('#id_edad').is(':visible')).toBe(true);
+                });
+            });
+            describe('Funcionalidad del seeker > ', () => {
+                beforeEach(() => {
+                    $('#id_seeker').val('4');
+                    $('#search_nav_button_example').click();
+                    $datatable.on('select.td', () => {
+                        done();
+                    });
+                });
+                it('Se selecciona y marca el resultado de la selección: ', () => {
+                    expect($('td:contains(4)').parent().hasClass('selected tr-highlight')).toBe(true);
+                });
+            });
+        });
         describe('Paginación > ', () => {});
         describe('Variacion de número de registros por página > ', () => {});
         describe('Ordenación > ', () => {});
