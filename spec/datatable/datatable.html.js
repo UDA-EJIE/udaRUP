@@ -40,26 +40,6 @@ var html = '<form id="example_filter_form">\
   </div>\
 </fieldset>\
 </form>\
-<table id="example" class="tableFit table-striped table-bordered" \
-  data-filter-form="#example_filter_form" \
-  cellspacing="0">\
-      <thead>\
-          <tr>\
-              <th data-col-prop="id">Id</th>\
-              <th data-col-prop="nombre">Nombre</th>\
-              <th data-col-prop="apellidos">Apellidos</th>\
-              <th data-col-prop="edad">Edad</th>\
-          </tr>\
-      </thead>\
-      <tfoot>\
-        <tr>\
-            <th>Id</th>\
-            <th>Nombre</th>\
-            <th>Apellidos</th>\
-            <th>Edad</th>\
-        </tr>\
-      </tfoot>\
-</table>\
 <div id="example_detail_div" class="rup-table-formEdit-detail">\
   <div id ="example_detail_navigation"></div>\
   <div class="ui-dialog-content ui-widget-content" >\
@@ -99,7 +79,27 @@ var html = '<form id="example_filter_form">\
           </button>\
       </div>\
   </div>\
-</div>';
+</div>\
+<table id="example" class="tableFit table-striped table-bordered" \
+  data-filter-form="#example_filter_form" \
+  cellspacing="0">\
+      <thead>\
+          <tr>\
+              <th data-col-prop="id">Id</th>\
+              <th data-col-prop="nombre">Nombre</th>\
+              <th data-col-prop="apellidos">Apellidos</th>\
+              <th data-col-prop="edad">Edad</th>\
+          </tr>\
+      </thead>\
+      <tfoot>\
+        <tr>\
+            <th>Id</th>\
+            <th>Nombre</th>\
+            <th>Apellidos</th>\
+            <th>Edad</th>\
+        </tr>\
+      </tfoot>\
+</table>';
 
 var _html = html;
 export { _html as html };
