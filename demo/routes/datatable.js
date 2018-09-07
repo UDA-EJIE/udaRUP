@@ -12,25 +12,18 @@ var json = {
 };
 
 exports.filter = (req, res) => {
-        console.info(req.body.filter);
-    let respuesta = json;
-    let ret = respuesta.rows.filter((i,n) => {
-        let bool = () => {
-            let ret = true;
-            let filter = req.body.filter;
-            console.info(filter);
-            for(var key in filter){
-                if(filter.hasOwnProperty(key)){
-                    if(filter[key] !== n[key]){
-                        ret = false;
-                    }
-                }
-            }
-            return ret;
+    console.info(req.body.filter);
+    let respuesta = {};
+    if(req.body.filter.id == '4') {
+        respuesta = {
+            page:'1',
+            rows:[
+                { id: '4', nombre:'Erlantz', apellidos: 'Carrasson Pando', edad: '23'}
+            ],
+            total:'1',
+            records:1
         };
-        return bool;
-    });
-    respuesta.rows = ret;
+    }
 
     res.status(200).json(respuesta);
 };
