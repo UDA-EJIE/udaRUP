@@ -118,7 +118,9 @@ function testDatatable() {
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
                     $datatable.on('draw.dt', () => {
-                        done();
+                        setTimeout(() => {
+                            done();
+                        }, 300);
                     });
                     $('#id_filter_table').val('4');
                     $('#example_filter_filterButton').click();
