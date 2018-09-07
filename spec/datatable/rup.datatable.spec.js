@@ -16,6 +16,7 @@ function testDatatable() {
         var $datatable;
         beforeEach((done) => {
             let opts = {
+                "urlBase": "http://localhost:8081/demo/datatable/remote",
                 "fixedHeader": {
                     "footer": false,
                     "header": true
@@ -90,8 +91,10 @@ function testDatatable() {
                     ]
                 },
                 'initComplete': () => {
-                    debugger;
-                    done();
+                    setTimeout(function () {
+                        debugger;
+                        done();
+                    }, 300);
                 }
             };
 
@@ -105,6 +108,7 @@ function testDatatable() {
         });
 
         afterEach(() => {
+            $datatable.DataTable().destroy();
             $('#content').html('');
             $('#content').nextAll().remove();
         });

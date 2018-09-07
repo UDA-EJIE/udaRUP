@@ -41,7 +41,6 @@ var html = '<form id="example_filter_form">\
 </fieldset>\
 </form>\
 <table id="example" class="tableFit table-striped table-bordered" \
-  data-url-base="'+ dataUrl +'"\
   data-filter-form="#example_filter_form" \
   cellspacing="0">\
       <thead>\
