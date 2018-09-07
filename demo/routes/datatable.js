@@ -24,6 +24,9 @@ exports.filter = (req, res) => {
             records:1
         };
     }
+    else {
+        respuesta = json;
+    }
 
     res.status(200).json(respuesta);
 };
