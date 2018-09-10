@@ -4,6 +4,7 @@ import 'jquery';
 import 'rup.tooltip';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
+import 'rup.tooltip';
 import 'rup.date';
 
 var unavailableDay = 0;
