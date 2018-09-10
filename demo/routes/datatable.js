@@ -30,3 +30,16 @@ exports.filter = (req, res) => {
 
     res.status(200).json(respuesta);
 };
+
+exports.search = (req, res) => {
+    let search = req.body.search;
+    console.info(search);
+    if(search.nombre === 'E') {
+        return [{"page":1,"pageLine":4,"tableLine":4,"pk":{"id":"4"}},{"page":1,"pageLine":5,"tableLine":5,"pk":{"id":"5"}}];
+    };
+    if(search === {}){
+        console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+        console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+        console.info('Search vacío');
+    }
+};

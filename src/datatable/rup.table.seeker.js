@@ -373,6 +373,7 @@ function _selectSearch(dt,ctx,rows){
 		}
 		DataTable.seeker.search.accion = '';
 	}
+	$('#'+ctx.sTableId).trigger('heces.rup.dt');
 }
 
 /**

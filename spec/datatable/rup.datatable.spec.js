@@ -130,36 +130,60 @@ function testDatatable() {
                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
                 });
             });
+            describe('Búsqueda > ', () => {
+                beforeEach(() => {
+                    debugger;
+                    $('#searchCollapsLabel_example').click();
+                });
+                describe('Aparición del seeker > ', () => {
+                    it('Se muestra el formulario de búsqueda:', () => {
+                        expect($('#id_seeker').is(':visible')).toBeTruthy();
+                        expect($('#nombre_seeker').is(':visible')).toBeTruthy();
+                        expect($('#apellidos_seeker').is(':visible')).toBeTruthy();
+                        expect($('#edad_seeker').is(':visible')).toBeTruthy();
+                    });
+                });
+                describe('Funcionalidad del seeker > ', () => {
+                    beforeEach((done) => {
+                        $('#id_seeker').val('4');
+                        $('#search_nav_button_example').click();
+                        $datatable.on('heces.rup.dt', () => {
+                            done();
+                        });
+                    });
+                    it('Se selecciona y marca el resultado de la selección: ', () => {
+                        expect($('td:contains(4)').parent().hasClass('selected tr-highlight')).toBe(true);
+                    });
+                });
+            });
         });
         describe('Búsqueda > ', () => {
-            beforeEach((done) => {
-                $datatable.on('draw.dt', () => {
-                    setTimeout(() => {
-                        debugger;
-                        done();
-                    }, 300);
-                });
+            beforeEach(() => {
                 debugger;
                 $('#searchCollapsLabel_example').click();
             });
             describe('Aparición del seeker > ', () => {
                 it('Se muestra el formulario de búsqueda:', () => {
-                    expect($('#id_seeker').is(':visible')).toBe(true);
-                    expect($('#id_nombre').is(':visible')).toBe(true);
-                    expect($('#id_apellidos').is(':visible')).toBe(true);
-                    expect($('#id_edad').is(':visible')).toBe(true);
+                    expect($('#id_seeker').is(':visible')).toBeTruthy();
+                    expect($('#nombre_seeker').is(':visible')).toBeTruthy();
+                    expect($('#apellidos_seeker').is(':visible')).toBeTruthy();
+                    expect($('#edad_seeker').is(':visible')).toBeTruthy();
                 });
             });
             describe('Funcionalidad del seeker > ', () => {
-                beforeEach(() => {
-                    $('#id_seeker').val('4');
+                beforeEach((done) => {
+                    $('#nombre_seeker').val('E');
                     $('#search_nav_button_example').click();
-                    $datatable.on('select.td', () => {
+                    $datatable.on('searchDone.rup.dt', () => {
                         done();
                     });
                 });
                 it('Se selecciona y marca el resultado de la selección: ', () => {
-                    expect($('td:contains(4)').parent().hasClass('selected tr-highlight')).toBe(true);
+                    let ctx = $('td:contains(4)').parent();
+                    expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    
+                    ctx = $('td:contains(5)').parent();
+                    expect($('td > span.ui-icon-search', ctx).length).toBe(1);
                 });
             });
         });
