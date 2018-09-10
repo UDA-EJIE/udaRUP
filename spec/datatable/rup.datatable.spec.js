@@ -13,6 +13,11 @@ function testDatatable() {
                 testutils.loadCss(done);
             });
 
+            afterEach(() => {
+                $('#content').html('');
+                $('#content').nextAll().remove();
+            });
+
             var $datatable;
             var dt;
             beforeEach((done) => {
@@ -133,7 +138,6 @@ function testDatatable() {
 
                 describe('Búsqueda > ', () => {
                     beforeEach(() => {
-                        debugger;
                         $('#searchCollapsLabel_example').click();
                     });
                     describe('Aparición del seeker > ', () => {
