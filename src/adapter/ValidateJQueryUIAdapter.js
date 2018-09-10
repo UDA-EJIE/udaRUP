@@ -19,18 +19,17 @@
 
 	ValidateJQueryUIAdapter.prototype.NAME = 'validate_jqueryui';
 	
-	ValidateJQueryUIAdapter.prototype.forTextElement = function (fieldTmp, labelForName) {
-		return fieldTmp.parent().find('label[for=\'' + labelForName + '\']').text();
+	ValidateJQueryUIAdapter.prototype.forLabelElement = function (fieldTmp, labelForName) {
+		return $("#"+fieldTmp.id).find('label[for=\'' + labelForName + '\']').text();
+	};
+	
+	ValidateJQueryUIAdapter.prototype.forInputNameElement = function (fieldTmp, labelForName) {
+		return $("#"+fieldTmp.id).find("label[for='"+labelForName+"']");
 	};
 
-	ValidateJQueryUIAdapter.prototype.forNameElement = function (fieldTmp, labelForName) {
-		return fieldTmp.parent().find('label[for=\'' + labelForName + '\']');
+	ValidateJQueryUIAdapter.prototype.forInputIdElement = function (fieldTmp, labelForId) {
+		return $("#"+fieldTmp.id).find('input[id=\'' + labelForId + '\']')[0];
 	};
-
-	ValidateJQueryUIAdapter.prototype.forIdElement = function (fieldTmp, labelForId) {
-		return fieldTmp.parent().find('label[for=\'' + labelForId + '\']');
-	};
-
 
 	ValidateJQueryUIAdapter.prototype.highlight = function (element, errorClass) {
 		$(element).addClass('error');

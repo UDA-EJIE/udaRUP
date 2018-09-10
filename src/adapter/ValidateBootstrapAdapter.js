@@ -19,15 +19,15 @@
 
 	ValidateBootstrapAdapter.prototype.NAME = 'validate_bootstrap';
 	
-	ValidateBootstrapAdapter.prototype.forTextElement = function (contextForm, labelForName) {
+	ValidateBootstrapAdapter.prototype.forLabelElement = function (contextForm, labelForName) {
 		return $(contextForm).find("label[for='"+labelForName+"']").text();
 	};
-
-	ValidateBootstrapAdapter.prototype.forNameElement = function (contextForm, labelForName) {
+	
+	ValidateBootstrapAdapter.prototype.forInputNameElement = function (contextForm, labelForName) {
 		return $(contextForm).find("label[for='"+labelForName+"']");
 	};
 
-	ValidateBootstrapAdapter.prototype.forIdElement = function (contextForm, labelForId) {
+	ValidateBootstrapAdapter.prototype.forInputIdElement = function (contextForm, labelForId) {
 		return contextForm.elements[labelForId];
 	};
 

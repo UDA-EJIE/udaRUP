@@ -580,36 +580,31 @@
 				return $('[name=\'' + fieldName + '\']', form);
 			},
 			getFieldName: function (self, form, field) {
-				var labelForName, labelElem, fieldTmp, labelForId;
-				var labelText = false;
+				var fieldTmp, labelForName, labelForId, labelElem;
 
 				fieldTmp = jQuery(field.length > 1 ? field[0] : field);
 				
 				labelForName = fieldTmp.attr('name');
 				labelForId = fieldTmp.attr('id');
 				
-				if ($("label[for='"+labelForName+"']").text() !== (undefined || '')) {
-					labelText = true;
-				}
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelForName);
 				
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forIdElement(form, labelForId);
-
-				if (labelElem !== undefined && labelElem.name !== undefined && labelElem.name !== '' && !labelText) {
-					return labelElem.name;
-				}
-
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forNameElement(form, labelForName);
-
-				if (labelElem !== undefined  && labelElem.length > 0 && !labelText) {
-					return labelElem.text().replace(':','');
-				}
-				
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forTextElement(form, labelForName);
-
-				if (labelElem !== undefined  && labelElem.length > 0 && labelText) {
+				if (labelElem !== undefined && labelElem !== '') {
 					return labelElem.replace(':','');
-				}
+				} else {
+					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputIdElement(form, labelForId);
+					
+					if (labelElem !== undefined && labelElem !== '') {
+						return labelElem.id;
+					}
+					
+					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputNameElement(form, labelForName);
 
+					if (labelElem !== undefined && labelElem !== '') {
+						return labelElem.name;
+					}
+				}
+				
 				return fieldTmp.attr('title');
 			},
 			getFieldErrorLabel: function (self, form, field, errorLabel) {
