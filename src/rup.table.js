@@ -13684,9 +13684,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 				/* *********************************************************
-         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE
+         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE  y VALIDACIÖN DEL LOS DIALOGOS
          * *********************************************************
          */
+				
+				if($("[aria-describedby="+$self.attr('id')+"_detail_div]").length > 0){
+					$("[aria-describedby="+$self.attr('id')+"_detail_div]").remove();
+				}
 
 				settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins.core.defaults);
 
@@ -23828,7 +23832,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					sourceParam : {
 						label : 'filterName',
 						value : 'filterDefault',
-						data : 'filterValue'
+						data : 'filterValue',
+						category: 'filter'
 					},
 					method : 'GET',
 					contains : false,
