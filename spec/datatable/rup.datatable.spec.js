@@ -147,7 +147,7 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#id_seeker').val('4');
                         $('#search_nav_button_example').click();
-                        $datatable.on('heces.rup.dt', () => {
+                        $datatable.on('filterDone.rup.dt', () => {
                             done();
                         });
                     });
