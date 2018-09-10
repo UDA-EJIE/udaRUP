@@ -1,6 +1,7 @@
 /* jslint multistr: true */
 
 import 'jquery';
+import 'rup.tooltip';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.date';
@@ -81,21 +82,10 @@ function testDate(lang) {
             $multiDate = $('#multiDate');
         });
         afterEach(() => {
-            if ($date.hasClass('hasDatepicker')) {
-                $date.rup_date('destroy');
-            }
-            if ($altDate.hasClass('hasDatepicker')) {
-                $altDate.rup_date('destroy');
-            }
-            if ($multiDate.hasClass('hasDatepicker')) {
-                $multiDate.rup_date('destroy');
-            }
-            if ($('#desde').hasClass('hasDatepicker')) {
-                $('#desde').rup_date('destroy');
-            }
-            if ($('#hasta').hasClass('hasDatepicker')) {
-                $('#hasta').rup_date('destroy');
-            }
+            $('.hasDatepicker').each((i,e)=>{
+                $(e).rup_date('destroy');
+            });
+
             $('#content').html('');
             $('#content').nextAll().remove();
         });
