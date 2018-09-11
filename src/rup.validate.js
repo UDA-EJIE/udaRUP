@@ -580,25 +580,27 @@
 				return $('[name=\'' + fieldName + '\']', form);
 			},
 			getFieldName: function (self, form, field) {
-				var fieldTmp, labelForName, labelForId, labelElem;
+				var fieldTmp, labelAttributes, labelElem;
 
 				fieldTmp = jQuery(field.length > 1 ? field[0] : field);
 				
-				labelForName = fieldTmp.attr('name');
-				labelForId = fieldTmp.attr('id');
+				labelAttributes = {
+					labelForId: fieldTmp.attr('id'),
+					labelForName: fieldTmp.attr('name')
+				}
 				
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelForId);
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelAttributes);
 				
 				if (labelElem !== undefined && labelElem !== '') {
 					return labelElem.replace(':','');
 				} else {
-					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputIdElement(form, labelForId);
+					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputIdElement(form, labelAttributes);
 					
 					if (labelElem !== undefined && labelElem !== '') {
 						return labelElem.id;
 					}
 					
-					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputNameElement(form, labelForName);
+					labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forInputNameElement(form, labelAttributes);
 
 					if (labelElem !== undefined && labelElem !== '') {
 						return labelElem.name;

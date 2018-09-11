@@ -19,16 +19,20 @@
 
 	ValidateJQueryUIAdapter.prototype.NAME = 'validate_jqueryui';
 	
-	ValidateJQueryUIAdapter.prototype.forLabelElement = function (fieldTmp, labelForId) {
-		return $("#"+fieldTmp.id).find('label[for=\'' + labelForId + '\']').text();
+	ValidateJQueryUIAdapter.prototype.forLabelElement = function (fieldTmp, labelAttributes) {
+		if(labelAttributes.labelForId !== undefined && labelAttributes.labelForId !== '') {
+			return $("#"+fieldTmp.id).find('label[for=\'' + labelAttributes.labelForId + '\']').text();
+		} else {
+			return $("#"+fieldTmp.id).find('label[for=\'' + labelAttributes.labelForName + '\']').text();
+		}
 	};
 	
-	ValidateJQueryUIAdapter.prototype.forInputNameElement = function (fieldTmp, labelForName) {
-		return $("#"+fieldTmp.id).find("label[for='"+labelForName+"']");
+	ValidateJQueryUIAdapter.prototype.forInputNameElement = function (fieldTmp, labelAttributes) {
+		return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForName + "']");
 	};
 
-	ValidateJQueryUIAdapter.prototype.forInputIdElement = function (fieldTmp, labelForId) {
-		return $("#"+fieldTmp.id).find('input[id=\'' + labelForId + '\']')[0];
+	ValidateJQueryUIAdapter.prototype.forInputIdElement = function (fieldTmp, labelAttributes) {
+		return $("#"+fieldTmp.id).find('input[id=\'' + labelAttributes.labelForId + '\']')[0];
 	};
 
 	ValidateJQueryUIAdapter.prototype.highlight = function (element, errorClass) {
