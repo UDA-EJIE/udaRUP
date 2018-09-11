@@ -138,6 +138,7 @@ function testDatatable() {
 
                 describe('Búsqueda > ', () => {
                     beforeEach(() => {
+                        debugger;
                         $('#searchCollapsLabel_example').click();
                     });
                     describe('Aparición del seeker > ', () => {
@@ -165,7 +166,14 @@ function testDatatable() {
                         });
                     });
                 });
-                describe('Paginación > ', () => {});
+                describe('Paginación > ', () => {
+                    beforeEach(() => {
+                        $('#example_next').click();
+                    });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe(2);
+                    });
+                });
                 describe('Variacion de número de registros por página > ', () => {});
                 describe('Ordenación > ', () => {});
                 describe('Botonera > ', () => {});

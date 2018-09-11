@@ -7,9 +7,22 @@ var json = {
         { id: '4', nombre:'Erlantz', apellidos: 'Carrasson Pando', edad: '23'},
         { id: '5', nombre:'Eider', apellidos: 'Ahedo Dominguez', edad: '12'}
     ],
-    total:'1',
-    records:5
+    total:'2',
+    records:10
 };
+
+var json2 = {
+    page:'2',
+    rows:[
+        { id: '6', nombre:'Andoni', apellidos: 'García Vázquez', edad: '32'},
+        { id: '7', nombre:'paco', apellidos: 'Allende Chicharro', edad: '20'},
+        { id: '8', nombre:'Maria', apellidos: 'Gumuzio Ayo', edad: '22'},
+        { id: '9', nombre:'Ekaitz', apellidos: 'Zabala Pando', edad: '23'},
+        { id: '10', nombre:'Juaquin', apellidos: 'Camison Dominguez', edad: '12'}
+    ],
+    total:'2',
+    records:10
+}
 
 exports.filter = (req, res) => {
     console.info(req.body.filter);
@@ -25,7 +38,12 @@ exports.filter = (req, res) => {
         };
     }
     else {
-        respuesta = json;
+        if(req.body.page == 2) {
+            respuesta = json2;
+        }
+        else {
+            respuesta = json;
+        }
     }
 
     res.status(200).json(respuesta);
