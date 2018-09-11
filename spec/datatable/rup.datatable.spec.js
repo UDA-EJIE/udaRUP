@@ -109,13 +109,13 @@ function testDatatable() {
             if ($('#content').length == 0) {
                 $('body').append('<div id="content"></div>');
             }
-            debugger;
             $('#content').append(consts.html);
             $('#example').rup_datatable(opts);
         });
 
         afterEach(() => {
-            dt.destroy();
+            dt.destroy(true);
+            delete $.fn.dataTable.seeker.search.funcionParams; //FIXME: Pendiente de corrección de rup_datatable
             $('#content').html('');
             $('#content').nextAll().remove();
         });
@@ -169,6 +169,7 @@ function testDatatable() {
             describe('Paginación > ', () => {
                 beforeEach((done) => {
                     $datatable.on('draw.dt', () => {
+                        debugger;
                         setTimeout(() => {
                             done();
                         }, 300);
