@@ -19,8 +19,8 @@
 
 	ValidateBootstrapAdapter.prototype.NAME = 'validate_bootstrap';
 	
-	ValidateBootstrapAdapter.prototype.forLabelElement = function (contextForm, labelForName) {
-		return $(contextForm).find("label[for='"+labelForName+"']").text();
+	ValidateBootstrapAdapter.prototype.forLabelElement = function (contextForm, labelForId) {
+		return $(contextForm).find("label[for='"+labelForId+"']").text();
 	};
 	
 	ValidateBootstrapAdapter.prototype.forInputNameElement = function (contextForm, labelForName) {

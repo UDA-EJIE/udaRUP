@@ -587,7 +587,7 @@
 				labelForName = fieldTmp.attr('name');
 				labelForId = fieldTmp.attr('id');
 				
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelForName);
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelForId);
 				
 				if (labelElem !== undefined && labelElem !== '') {
 					return labelElem.replace(':','');
