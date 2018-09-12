@@ -167,17 +167,128 @@ function testDatatable() {
                 });
             });
             describe('Paginación > ', () => {
-                beforeEach((done) => {
-                    $datatable.on('draw.dt', () => {
-                        debugger;
-                        setTimeout(() => {
-                            done();
-                        }, 300);
+                describe('Página siguiente > ', () => {
+                    beforeEach((done) => {
+                        $datatable.on('draw.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('#example_next').click();
                     });
-                    $('#example_next').click();
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("2");
+                    });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tr > td:contains(6)').length).toBe(1);
+                        expect($('tr > td:contains(7)').length).toBe(1);
+                        expect($('tr > td:contains(8)').length).toBe(1);
+                        expect($('tr > td:contains(9)').length).toBe(1);
+                        expect($('tr > td:contains(10)').length).toBe(1);
+                    });
                 });
-                it('Cambia el número de página:', () => {
-                    expect($('li.pageSearch.searchPaginator > input').val()).toBe("2");
+                describe('Página anterior > ', () => {
+                    beforeEach((done) => {
+                        $datatable.on('draw.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('#example_next').click();
+                    });
+                    describe('Realizacion de pruebas > ', () => {
+                        beforeEach((done) => {
+                            $datatable.on('draw.dt', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            });
+                            $('#example_previous').click();
+                        });
+                        it('Cambia el número de página:', () => {
+                            expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                        });
+                        it('Los registros deben cambiar:', () => {
+                            expect($('tr > td:contains(1)').length).toBe(1);
+                            expect($('tr > td:contains(2)').length).toBe(1);
+                            expect($('tr > td:contains(3)').length).toBe(1);
+                            expect($('tr > td:contains(4)').length).toBe(1);
+                            expect($('tr > td:contains(5)').length).toBe(1);
+                        });
+                    });
+                    
+                });
+                describe('Página primera > ', () => {
+                    beforeEach((done) => {
+                        $datatable.on('page.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('#example_next').click();
+                    });
+                    describe('Realizacion de pruebas', () => {
+                        beforeEach((done) => {
+                            $datatable.on('page.dt', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            });
+                            $('#example_first').click();
+                        });
+                        it('Cambia el número de página:', () => {
+                            expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                        });
+                        it('Los registros deben cambiar:', () => {
+                            expect($('tr > td:contains(1)').length).toBe(1);
+                            expect($('tr > td:contains(2)').length).toBe(1);
+                            expect($('tr > td:contains(3)').length).toBe(1);
+                            expect($('tr > td:contains(4)').length).toBe(1);
+                            expect($('tr > td:contains(5)').length).toBe(1);
+                        });
+                    });
+                });
+                describe('Página última > ', () => {
+                    beforeEach((done) => {
+                        $datatable.on('page.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('#example_last').click();
+                    });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+                    });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tr > td:contains(11)').length).toBe(1);
+                        expect($('tr > td:contains(12)').length).toBe(1);
+                        expect($('tr > td:contains(13)').length).toBe(1);
+                        expect($('tr > td:contains(14)').length).toBe(1);
+                        expect($('tr > td:contains(15)').length).toBe(1);
+                    });
+                });
+                describe('Página desde input > ', () => {
+                    beforeEach((done) => {
+                        $datatable.on('page.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('.ui-pg-input').val(3);
+                        $('.ui-pg-input').trigger($.Event( 'keypress', { keyCode: 13, which: 13 } ));
+                    });
+                    it('Cambia el número de página:', () => {
+                        debugger;
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+                    });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tr > td:contains(11)').length).toBe(1);
+                        expect($('tr > td:contains(12)').length).toBe(1);
+                        expect($('tr > td:contains(13)').length).toBe(1);
+                        expect($('tr > td:contains(14)').length).toBe(1);
+                        expect($('tr > td:contains(15)').length).toBe(1);
+                    });
                 });
             });
             describe('Variacion de número de registros por página > ', () => {});
