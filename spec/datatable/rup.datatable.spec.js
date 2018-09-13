@@ -310,6 +310,7 @@ function testDatatable() {
                     beforeEach((done) => {
                         $datatable.on('draw.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -326,9 +327,10 @@ function testDatatable() {
                         beforeEach((done) => {
                             $datatable.on('draw.dt', () => {
                                 setTimeout(() => {
+                                    debugger;
                                     done();
                                 }, 300);
-                            });debugger;
+                            });
                             $('th.sorting[data-col-prop="nombre"]').click();
                         });
                         it('Comprobamos que haya cambiado el orden:', () => {
