@@ -306,7 +306,7 @@ function testDatatable() {
                 });
             });
             describe('Ordenación > ', () => {
-                describe('Ordenación por nombre ascendente:', () => {
+                describe('Ordenación por nombre ascendente > ', () => {
                     beforeEach((done) => {
                         $datatable.on('draw.dt', () => {
                             setTimeout(() => {
@@ -323,27 +323,8 @@ function testDatatable() {
                         expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
                         expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('2');
                     });
-                    describe('Ordenacion por nombre descendente', () => {
-                        beforeEach((done) => {
-                            $datatable.on('draw.dt', () => {
-                                setTimeout(() => {
-                                    debugger;
-                                    done();
-                                }, 300);
-                            });
-                            $('th.sorting[data-col-prop="nombre"]').click();
-                        });
-                        it('Comprobamos que haya cambiado el orden:', () => {
-                            debugger;
-                            expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
-                            expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('3');
-                            expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
-                            expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('5');
-                            expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('1');
-                        });
-                    });
                 });
-                /*describe('Ordenación por nombre descendente:', () => {
+                describe('Ordenación por nombre descendente:', () => {
                     beforeEach((done) => {
                         $datatable.on('draw.dt', () => {
                             setTimeout(() => {
@@ -359,7 +340,7 @@ function testDatatable() {
                                     done();
                                 }, 300);
                             });debugger;
-                            $('th.sorting[data-col-prop="nombre"]').click();
+                            $('th.sorting_asc[data-col-prop="nombre"]').click();
                         });
                         it('Comprobamos que haya cambiado el orden:', () => {
                             debugger;
@@ -371,8 +352,7 @@ function testDatatable() {
                         });
                     });
                     
-                });*/
-                
+                });                
             });
             describe('Botonera > ', () => {});
             describe('Menú contextual > ', () => {});
