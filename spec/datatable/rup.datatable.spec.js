@@ -279,7 +279,6 @@ function testDatatable() {
                         $('.ui-pg-input').trigger($.Event( 'keypress', { keyCode: 13, which: 13 } ));
                     });
                     it('Cambia el número de página:', () => {
-                        debugger;
                         expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
                     });
                     it('Los registros deben cambiar:', () => {
@@ -291,8 +290,70 @@ function testDatatable() {
                     });
                 });
             });
-            describe('Variacion de número de registros por página > ', () => {});
-            describe('Ordenación > ', () => {});
+            describe('Variacion de número de registros por página > ', () => {
+                beforeEach((done) => {
+                    $datatable.on('draw.dt', () => {
+                        done();
+                    });
+                    $('[name="example_length"]').val(10);
+                    $('[name="example_length"]').trigger('change')
+                });
+                it('Debe haber recibido los registros indicados:', () => {
+                    expect($('tbody > tr', $datatable).length).toBe(10);
+                });
+                it('Deben haber únicamente 2 páginas disponibles:', () => {
+                    expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
+                });
+            });
+            describe('Ordenación > ', () => {
+                describe('Ordenación por nombre ascendente:', () => {
+                    beforeEach((done) => {
+                        $datatable.on('draw.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
+                        $('th.sorting[data-col-prop="nombre"]').click();
+                    });
+                    it('Comprobamos que haya cambiado el orden:', () => {
+                        expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                        expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('5');
+                        expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
+                        expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
+                        expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('2');
+                    });
+                });
+                describe('Ordenación por nombre descendente:', () => {
+                    beforeEach((done) => {
+                        $datatable.on('draw.dt', () => {
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });debugger;
+                        $('th.sorting[data-col-prop="nombre"]').click();
+                    });
+                    describe('Realizamos la prueba de ordenacion', () => {
+                        beforeEach((done) => {
+                            $datatable.on('draw.dt', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            });debugger;
+                            $('th.sorting[data-col-prop="nombre"]').click();
+                        });
+                        it('Comprobamos que haya cambiado el orden:', () => {
+                            debugger;
+                            expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
+                            expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('3');
+                            expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
+                            expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('5');
+                            expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('1');
+                        });
+                    });
+                    
+                });
+                
+            });
             describe('Botonera > ', () => {});
             describe('Menú contextual > ', () => {});
             describe('Edición con formulario > ', () => {});
