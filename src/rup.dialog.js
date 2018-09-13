@@ -456,7 +456,7 @@
 							}
 						}
 
-						if (!created) { //si ha sido creado no hace falta volver a añadir el elnace de cierre
+						if (!created) { //si ha sido creado no hace falta volver a añadir el enlace de cierre
 							$self.dialog(settings);
 
 							// Estilos RUP
