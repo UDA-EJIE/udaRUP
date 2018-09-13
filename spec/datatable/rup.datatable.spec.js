@@ -322,8 +322,26 @@ function testDatatable() {
                         expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
                         expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('2');
                     });
+                    describe('Ordenacion por nombre descendente', () => {
+                        beforeEach((done) => {
+                            $datatable.on('draw.dt', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            });debugger;
+                            $('th.sorting[data-col-prop="nombre"]').click();
+                        });
+                        it('Comprobamos que haya cambiado el orden:', () => {
+                            debugger;
+                            expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
+                            expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('3');
+                            expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
+                            expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('5');
+                            expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('1');
+                        });
+                    });
                 });
-                describe('Ordenación por nombre descendente:', () => {
+                /*describe('Ordenación por nombre descendente:', () => {
                     beforeEach((done) => {
                         $datatable.on('draw.dt', () => {
                             setTimeout(() => {
@@ -332,7 +350,7 @@ function testDatatable() {
                         });debugger;
                         $('th.sorting[data-col-prop="nombre"]').click();
                     });
-                    describe('Realizamos la prueba de ordenacion', () => {
+                    describe('Ordenacion por nombre descendente', () => {
                         beforeEach((done) => {
                             $datatable.on('draw.dt', () => {
                                 setTimeout(() => {
@@ -351,7 +369,7 @@ function testDatatable() {
                         });
                     });
                     
-                });
+                });*/
                 
             });
             describe('Botonera > ', () => {});
