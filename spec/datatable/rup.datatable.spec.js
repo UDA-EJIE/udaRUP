@@ -310,7 +310,6 @@ function testDatatable() {
                     beforeEach((done) => {
                         $datatable.on('draw.dt', () => {
                             setTimeout(() => {
-                                debugger;
                                 done();
                             }, 300);
                         });
@@ -325,26 +324,16 @@ function testDatatable() {
                     });
                 });
                 describe('Ordenación por nombre descendente:', () => {
-                    beforeEach((done) => {
-                        $datatable.on('draw.dt', () => {
-                            setTimeout(() => {
-                                done();
-                            }, 300);
-                        });debugger;
-                        $('th.sorting[data-col-prop="nombre"]').click();
-                    });
                     describe('Ordenacion por nombre descendente', () => {
                         beforeEach((done) => {
                             $datatable.on('draw.dt', () => {
                                 setTimeout(() => {
-                                    debugger;
                                     done();
                                 }, 300);
-                            });debugger;
-                            $('th.sorting_asc[data-col-prop="nombre"]').click();
+                            });
+                            $('th[data-col-prop="nombre"]').click();
                         });
                         it('Comprobamos que haya cambiado el orden:', () => {
-                            debugger;
                             expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
                             expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('3');
                             expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
