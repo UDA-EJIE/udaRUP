@@ -337,6 +337,7 @@ function testDatatable() {
                         beforeEach((done) => {
                             $datatable.on('draw.dt', () => {
                                 setTimeout(() => {
+                                    debugger;
                                     done();
                                 }, 300);
                             });debugger;
@@ -354,7 +355,21 @@ function testDatatable() {
                     
                 });                
             });
-            describe('Botonera > ', () => {});
+            describe('Botonera > ', () => {
+                describe('Aparecen los botones por defecto > ', () => {
+                    it('Botones por defecto existen:', () => {
+                        expect($('.dt-buttons > .btn-primary').length).toBe(5);
+                    });
+                    it('Solo el botón add está habilitado:', () => {
+                        expect($('.datatable_toolbar_btnAdd').hasClass('disabledDatatable')).toBeFalsy();
+                        expect($('.datatable_toolbar_btnEdit').hasClass('disabledDatatable')).toBeTruthy();
+                        expect($('.datatable_toolbar_btnClone').hasClass('disabledDatatable')).toBeTruthy();
+                        expect($('.datatable_toolbar_btnDelete').hasClass('disabledDatatable')).toBeTruthy();
+                        expect($('.buttons-collection').hasClass('disabledDatatable')).toBeTruthy();
+                    });
+                });
+                // TODO: Añadir botón extra
+            });
             describe('Menú contextual > ', () => {});
             describe('Edición con formulario > ', () => {});
             describe('Edición en línea > ', () => {});
