@@ -151,7 +151,7 @@ function _selectRowIndex(dt,index,tr){
 		}
 	}
 	if(ctx.oInit.buttons !== undefined){
-		DataTable.Api().buttons.displayRegex();
+		DataTable.Api().buttons.displayRegex(ctx);
 	}
 }
 

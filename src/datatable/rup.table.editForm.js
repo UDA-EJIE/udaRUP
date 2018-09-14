@@ -124,7 +124,7 @@ DataTable.editForm.init = function ( dt ) {
 	}
 
 	// Creacion del Context Menu
-	if (ctx.oInit.buttons !== undefined) {
+	if (ctx.oInit.buttons !== undefined && DataTable.settings[0]._buttons !== undefined) {
 		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
 		var items = {};
 		$.when(
