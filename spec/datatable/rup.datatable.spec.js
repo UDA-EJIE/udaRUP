@@ -324,14 +324,6 @@ function testDatatable() {
                     });
                 });
                 describe('Ordenación por nombre descendente:', () => {
-                    beforeEach((done) => {
-                        $datatable.on('draw.dt', () => {
-                            setTimeout(() => {
-                                done();
-                            }, 300);
-                        });
-                        $('th.sorting[data-col-prop="nombre"]').click();
-                    });
                     describe('Ordenacion por nombre descendente', () => {
                         beforeEach((done) => {
                             $datatable.on('draw.dt', () => {
@@ -339,7 +331,7 @@ function testDatatable() {
                                     done();
                                 }, 300);
                             });
-                            $('th.sorting_asc[data-col-prop="nombre"]').click();
+                            $('th[data-col-prop="nombre"]').click();
                         });
                         it('Comprobamos que haya cambiado el orden:', () => {
                             expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
