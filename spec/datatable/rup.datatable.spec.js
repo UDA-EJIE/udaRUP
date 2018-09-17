@@ -370,11 +370,16 @@ function testDatatable() {
                 });
                 // TODO: Añadir botón extra
             });
+            debugger;
             describe('Edición con formulario > ', () => {
                 beforeEach(() => {
+                    debugger;
                     $('tbody > tr:eq(0)').dblclick();
                 });
-                it('El formulario debe mostrarse:', () => {});
+                it('El formulario debe mostrarse:', () => {
+                    debugger;
+                    expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                });
             });
             describe('Edición en línea > ', () => {});
             describe('Multiseleccion > ', () => {});
