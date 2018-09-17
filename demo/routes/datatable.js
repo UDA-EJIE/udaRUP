@@ -145,10 +145,9 @@ exports.search = (req, res) => {
         res.status(200).json(ret);
         return;
     }
-    if (search === {}) {
-        console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-        console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-        console.info('Search vacío');
-    }
     res.status(200).json([]);
+};
+exports.simple = (req, res) => {
+    let respuesta = req.body;
+    res.status(200).json(respuesta);
 };

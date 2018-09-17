@@ -107,6 +107,7 @@ module.exports = (PORT) => {
 	//Datatable
 	app.post('/demo/datatable/remote/filter', routesDatatable.filter);
 	app.post('/demo/datatable/remote/search', routesDatatable.search);
+	app.put('/demo/datatable/remote/simple', routesDatatable.simple);
 
 
 
