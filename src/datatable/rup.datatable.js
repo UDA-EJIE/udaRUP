@@ -942,25 +942,25 @@
 
 				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
 					if(settings.select !== undefined){//AL repintar vigilar el select.
-						if(DataTable.select.selectedRowsPerPage !== undefined){
+						if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage !== undefined){
 							//viene de la navegacion buscar el id.
 							var line = 0;
 							var ctx = tabla.context[0];
-							if(DataTable.select.selectedRowsPerPage.cambio === 'prev' || DataTable.select.selectedRowsPerPage.cambio === 'last'){
+							if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'prev' || DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'last'){
 								line = ctx.json.rows.length-1;
 							}
 							
 							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
 							var rowSelectAux = ctx.json.rows[line];
 							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
-							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.push({line:line,page:DataTable.select.selectedRowsPerPage.page,id:id});
-							DataTable.select.selectedRowsPerPage = undefined;
+							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.push({line:line,page:DataTable.select[settingsTable.sTableId].selectedRowsPerPage.page,id:id});
+							DataTable.select[settingsTable.sTableId].selectedRowsPerPage = undefined;
 							var numTotal = ctx.json.recordsTotal;
 							var index = (Number(ctx.json.page)-1) * 10;
 							index = index + line + 1;
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
-						DataTable.Api().select.drawSelectId();
+						DataTable.Api().select.drawSelectId(tabla.context[0]);
 					}
 					if(DataTable.seeker !== undefined && DataTable.seeker[settingsTable.sTableId] !== undefined 
 							&& DataTable.seeker[settingsTable.sTableId].search !== undefined){

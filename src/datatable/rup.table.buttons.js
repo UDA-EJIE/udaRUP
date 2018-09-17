@@ -76,7 +76,7 @@ var _dtButtons = DataTable.ext.buttons;
 var Buttons = function( dt, config )
 {
 	var idTable = dt.context[0].sTableId;
-	DataTable.ext.buttons[idTable] = [];
+	DataTable.ext.buttons[idTable] = {};
 	DataTable.ext.buttons[idTable].copyButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');

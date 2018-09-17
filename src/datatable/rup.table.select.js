@@ -67,7 +67,7 @@ DataTable.select.version = '1.2.4';
 */
 DataTable.select.init = function ( dt ) {
 	var ctx = dt.settings()[0];
-	
+	DataTable.select[ctx.sTableId] = [];
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
@@ -78,7 +78,7 @@ DataTable.select.init = function ( dt ) {
 	
 	//Se genera el div para el feedback del datatable.
 	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
-	DataTable.multiselection.internalFeedback = divFeedback;
+	DataTable.multiselection[ctx.sTableId].internalFeedback = divFeedback;
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -99,12 +99,10 @@ DataTable.select.init = function ( dt ) {
  *
  * 
  */
-function _drawSelectId(){
-	var DataTable = $.fn.dataTable;
-	var ctx = DataTable.settings[0];
+function _drawSelectId(ctx){
 	
-	if(DataTable.multiselection.selectedRowsPerPage.length === 1){
-		var row = DataTable.multiselection.selectedRowsPerPage[0];
+	if(DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.length === 1){
+		var row = DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0];
 		var rowSelectAux = ctx.json.rows[row.line];
 
 		if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
@@ -130,24 +128,24 @@ function _drawSelectId(){
  */
 function _selectRowIndex(dt,index,tr){
 	var ctx = dt.settings()[0];
-	DataTable.multiselection.selectedRowsPerPage = [];
+	DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
 	ctx.oInit.select.funcionParams = '';
 	var rowsBody = $( ctx.nTBody);
 	if(tr.hasClass( "tr-highlight" )){
 		tr.removeClass('selected tr-highlight');
-		DataTable.multiselection.numSelected = 0;
-		DataTable.multiselection.selectedIds = [];
-		DataTable.multiselection.lastSelectedId = '';
+		DataTable.multiselection[ctx.sTableId].numSelected = 0;
+		DataTable.multiselection[ctx.sTableId].selectedIds = [];
+		DataTable.multiselection[ctx.sTableId].lastSelectedId = '';
 	}else{
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){
 			var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
-			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
-			DataTable.multiselection.numSelected = 1;
-			DataTable.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
-			DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.splice(0,0,arra);
+			DataTable.multiselection[ctx.sTableId].numSelected = 1;
+			DataTable.multiselection[ctx.sTableId].selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
+			DataTable.multiselection[ctx.sTableId].lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		}
 	}
 	if(ctx.oInit.buttons !== undefined){
@@ -178,15 +176,15 @@ apiRegister( 'select()', function () {
 } );
 
 
-apiRegister( 'select.drawSelectId()', function ( ) {
-	_drawSelectId();
+apiRegister( 'select.drawSelectId()', function (ctx ) {
+	_drawSelectId(ctx);
 } );
 
 apiRegister( 'select.deselect()', function (ctx ) {
 	var rowsBody = $( ctx.nTBody);
 	$('tr',rowsBody).removeClass('selected tr-highlight');
-	DataTable.multiselection.numSelected = 0;
-	DataTable.multiselection.selectedIds = [];
+	DataTable.multiselection[ctx.sTableId].numSelected = 0;
+	DataTable.multiselection[ctx.sTableId].selectedIds = [];
 } );
 
 apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {

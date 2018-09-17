@@ -111,7 +111,7 @@ var apiRegister = DataTable.Api.register;
 
 apiRegister( 'masterDetail()', function () {
 	return this.iterator( 'table', function ( ctx ) {
-		DataTable.select.init( new DataTable.Api( ctx ) );
+		DataTable.masterDetail.init( new DataTable.Api( ctx ) );
 	} );
 } );
 
