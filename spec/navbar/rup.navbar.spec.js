@@ -1,5 +1,6 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
+//import 'webpage';
 import 'jasmine-jquery';
 import 'rup.navbar';
 
@@ -51,8 +52,11 @@ const html = '<nav id="navbarResponsive" class="rup-navbar navbar">\
                                     <a href="#" class="dropdown-item">Elem41</a>\
                                     <a href="#" class="dropdown-item">Elem42</a>\
                                     <div class="dropdown-submenu">\
-                                    <a class="dropdown-item dropdown-toggle">\
-                                    </a>\
+                                        <a class="dropdown-item dropdown-toggle">Elem43</a>\
+                                        <div class="dropdown-menu menu-right">\
+                                            <a class="dropdown-item" href="#">Elem431</a>\
+                                            <a class="dropdown-item" href="#">Elem432</a>\
+                                        </div>\
                                     </div>\
                                 </div>\
                             </li>\
@@ -77,7 +81,7 @@ function navBarTest() {
         describe('Creación > ', () => {
             it('Deben añadirse clases al nav:', () => {
                 debugger;
-                expect($('[aria-controls="navbarResponsive"]').css('opacity')).toBe(0);
+                expect($('[aria-controls="navbarResponsive"]').is(':visible')).toBeTruthy();
             });
         });
         describe('Funcionamiento > ', () => {
@@ -87,6 +91,15 @@ function navBarTest() {
                 });
                 it('El submenu no debe tener la clase collapse:', () => {
                     expect($('[aria-labelledby="navDropdownUno"]').hasClass('collapse')).toBeFalsy();
+                });
+                describe('Al hacer click sobre otro elemento de nav > ', () => {
+                    beforeEach(() => {
+                        $('#navDropdownCuatro').click();
+                    });
+                    it('Se debe intercambiar la visisbilidad:', () => {
+                        expect($('[aria-labelledby="navDropdownUno"]').hasClass('collapse')).toBeTruthy();
+                        expect($('[aria-labelledby="navDropdownCuatro"]').hasClass('collapse')).toBeFalsy();
+                    });
                 });
                 describe('Si se hace click fuera del navbar se debe cerrar > ', () => {
                     beforeEach(() => {
