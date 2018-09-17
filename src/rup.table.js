@@ -17739,10 +17739,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
 					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
-						$title.html(rp_ge[$self[0].p.id].addCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
 					} else {
-						$title.html(rp_ge[$self[0].p.id].editCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].editCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).show();
 					}
 				},
