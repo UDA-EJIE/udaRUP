@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -139,22 +139,23 @@
 					}
 			} );
 			 
-			apiRegister( 'rupTable.reorderDataFromServer()', function ( json ) {
+			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
 					//Se mira la nueva reordenacion y se ordena.
-					DataTable.multiselection.selectedIds = [];
-					DataTable.multiselection.selectedRowsPerPage = [];
+
+					DataTable.multiselection[ctx.sTableId].selectedIds = [];
+					DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
 					//Viene del servidor por eso la linea de la pagina es 1 menos.
 					$.each(json.reorderedSelection,function(index,p) {
 						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-						DataTable.multiselection.selectedIds.splice(index,0,arra.id);
-						DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
+						DataTable.multiselection[ctx.sTableId].selectedIds.splice(index,0,arra.id);
+						DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.splice(index,0,arra);
 					});
-					if(!DataTable.multiselection.selectedAll){
-						DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
+					if(!DataTable.multiselection[ctx.sTableId].selectedAll){
+						DataTable.multiselection[ctx.sTableId].numSelected = DataTable.multiselection[ctx.sTableId].selectedIds.length;
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 					if(options.buttons !== undefined){
-						DataTable.Api().buttons.displayRegex();
+						DataTable.Api().buttons.displayRegex(ctx);
 					}
 			} );
 			
@@ -290,14 +291,30 @@
 			ret.data = json.rows;
 
 //			$self = $('#'+DataTable.settings[0].sTableId);
-
-			var settings = $self.data('settings');
-			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
-				DataTable.Api().rupTable.reorderDataFromServer(json);
+			var ctx = DataTable.settings[0];
+			//Si hay mas de una tabla se verifica cual es.
+			if(DataTable.settings.length > 1){
+				var urlOriginal = event.srcElement.responseURL.split('/');
+				urlOriginal = urlOriginal[urlOriginal.length-2];
+				var i = 0;
+				while(i < DataTable.settings.length){
+					ctx = DataTable.settings[i];
+					var urlBase = ctx.ajax.url.split('/');
+					urlBase = urlBase[urlBase.length-2];
+					if(urlBase === urlOriginal){
+						break;
+					}
+					i++;
+				}
 			}
-			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
+			var settings = $(ctx.nTable).data('settings'+ctx.sTableId);
+			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
+				DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
+			}
+			if(DataTable.seeker !== undefined && DataTable.seeker[ctx.sTableId] !== undefined &&
+					DataTable.seeker[ctx.sTableId].search !== undefined 
 					&& json.reorderedSeeker !== undefined){
-				 DataTable.seeker.search.funcionParams = json.reorderedSeeker;
+				 DataTable.seeker[ctx.sTableId].search.funcionParams = json.reorderedSeeker;
 			}
 
 			return ret.data;
@@ -316,19 +333,20 @@
 			*
 		  */
 		_ajaxRequestData(data, options) {
+
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
+			data.filter = form2object($(options.nTable).data('settings'+options.sTableId).$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiselection !== undefined && DataTable.multiselection.selectedIds.length > 0){
-				data.multiselection = DataTable.multiselection;
+			if(DataTable.multiselection !== undefined && DataTable.multiselection[options.sTableId].selectedIds.length > 0){
+				data.multiselection = DataTable.multiselection[options.sTableId];
 			}
-			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
-					&& DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0){
+			if(DataTable.seeker !== undefined && DataTable.seeker[options.sTableId] !== undefined && DataTable.seeker[options.sTableId].search !== undefined 
+					&& DataTable.seeker[options.sTableId].search.funcionParams !== undefined && DataTable.seeker[options.sTableId].search.funcionParams.length > 0){
 				data.seeker = {};
 				data.seeker.selectedIds = [];
-				$.each(DataTable.seeker.search.funcionParams,function(index,p) {
+				$.each(DataTable.seeker[options.sTableId].search.funcionParams,function(index,p) {
 					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
 				});
 			}
@@ -547,7 +565,7 @@
 	     *
 	     */
 			_showSearchCriteria(){
-				var $self = this, settings = $self.data('settings'),
+				var $self = this, settings = $self.data('settings'+$self[0].id),
 					searchString = ' ', label, numSelected,
 					field, fieldId, fieldName, fieldValue,
 					aux = settings.filter.$filterContainer.serializeArray(),
@@ -728,7 +746,7 @@
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 						//Si hay selectAll, comprobar la linea ya que puede variar al no tener ningún selected.Se recorre el json.
-						if(DataTable.multiselection.selectedAll){
+						if(DataTable.multiselection[ctx.sTableId].selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
@@ -756,41 +774,45 @@
 			*
 			*
 			*/
-			_initializeMultiselectionProps (  ) {
-				var $self = {};
+			_initializeMultiselectionProps ( ctx ) {
+				
+				var multi = {};
 				// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
-				if ($self.multiselection === undefined) {
-					$self.multiselection = {};
+				if (multi.multiselection === undefined) {
+					multi.multiselection = {};
 				}
-				if(DataTable.multiselection !== undefined){
-					$self.multiselection.internalFeedback = DataTable.multiselection.internalFeedback;
+				if(DataTable.multiselection !== undefined && DataTable.multiselection[ctx.sTableId] !== undefined){
+					multi.multiselection.internalFeedback = DataTable.multiselection[ctx.sTableId].internalFeedback;
 				}
 				// Flag indicador de selección de todos los registros
-				$self.multiselection.selectedAll = false;
+				multi.multiselection.selectedAll = false;
 				// Numero de registros seleccionados
-				$self.multiselection.numSelected = 0;
+				multi.multiselection.numSelected = 0;
 				// Propiedades de selección de registros
-				$self.multiselection.selectedRowsPerPage = [];
+				multi.multiselection.selectedRowsPerPage = [];
 				//$self.multiselection.selectedLinesPerPage = [];
 				//$self.multiselection.selectedRows = [];
-				$self.multiselection.selectedIds = [];
-				$self.multiselection.lastSelectedId = "";
+				multi.multiselection.selectedIds = [];
+				multi.multiselection.lastSelectedId = "";
 				//$self.multiselection.selectedPages = [];
 				// Propiedades de deselección de registros
-				$self.multiselection.deselectedRowsPerPage = [];
+				multi.multiselection.deselectedRowsPerPage = [];
 				//$self.multiselection.deselectedLinesPerPage = [];
 				//$self.multiselection.deselectedRows = [];
-				$self.multiselection.deselectedIds = [];
-				$self.multiselection.accion = "";//uncheckAll,uncheck
+				multi.multiselection.deselectedIds = [];
+				multi.multiselection.accion = "";//uncheckAll,uncheck
 				//$self.multiselection.deselectedPages = [];
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + DataTable.settings[0].sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + DataTable.settings[0].sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
 				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
-				DataTable.multiselection =  $self.multiselection;
+				if (DataTable.multiselection === undefined) {
+					DataTable.multiselection = {};
+				}
+				DataTable.multiselection[ctx.sTableId] =  multi.multiselection;
 			}, _createTooltip (id) {
 				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
 					id.rup_tooltip({
@@ -895,8 +917,9 @@
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
-			
-			$self._initializeMultiselectionProps();
+
+			settings.sTableId = $self[0].id;
+			$self._initializeMultiselectionProps(settings);
 			
 			//Crear tooltips cabecera;
 			$.each($('#'+$self[0].id+' thead th'),function( ){
@@ -907,42 +930,44 @@
 				if(settings.searchPaginator){//Mirar el crear paginador
 					$self._createSearchPaginator($(this),settingsTable);
 					//Si el seeker esta vacio ocultarlo
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined && DataTable.seeker.search.$searchRow !== undefined){
+					if(DataTable.seeker !== undefined && DataTable.seeker[settingsTable.sTableId] !== undefined && 
+							DataTable.seeker[settingsTable.sTableId].search !== undefined && DataTable.seeker[settingsTable.sTableId].search.$searchRow !== undefined){
 						if(settingsTable._iRecordsDisplay > 0){
-							DataTable.seeker.search.$searchRow.show();
+							DataTable.seeker[settingsTable.sTableId].search.$searchRow.show();
 						}else{
-							DataTable.seeker.search.$searchRow.hide();
+							DataTable.seeker[settingsTable.sTableId].search.$searchRow.hide();
 						}
 					}
 				}
 
 				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
 					if(settings.select !== undefined){//AL repintar vigilar el select.
-						if(DataTable.select.selectedRowsPerPage !== undefined){
+						if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage !== undefined){
 							//viene de la navegacion buscar el id.
 							var line = 0;
 							var ctx = tabla.context[0];
-							if(DataTable.select.selectedRowsPerPage.cambio === 'prev' || DataTable.select.selectedRowsPerPage.cambio === 'last'){
+							if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'prev' || DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'last'){
 								line = ctx.json.rows.length-1;
 							}
 							
-							DataTable.multiselection.selectedRowsPerPage = [];
+							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
 							var rowSelectAux = ctx.json.rows[line];
 							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
-							DataTable.multiselection.selectedRowsPerPage.push({line:line,page:DataTable.select.selectedRowsPerPage.page,id:id});
-							DataTable.select.selectedRowsPerPage = undefined;
+							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.push({line:line,page:DataTable.select[settingsTable.sTableId].selectedRowsPerPage.page,id:id});
+							DataTable.select[settingsTable.sTableId].selectedRowsPerPage = undefined;
 							var numTotal = ctx.json.recordsTotal;
 							var index = (Number(ctx.json.page)-1) * 10;
 							index = index + line + 1;
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
-						DataTable.Api().select.drawSelectId();
+						DataTable.Api().select.drawSelectId(tabla.context[0]);
 					}
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
+					if(DataTable.seeker !== undefined && DataTable.seeker[settingsTable.sTableId] !== undefined 
+							&& DataTable.seeker[settingsTable.sTableId].search !== undefined){
 						var ctx = tabla.context[0];
-						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
+						if(DataTable.seeker[ctx.sTableId].search.funcionParams !== undefined && DataTable.seeker[ctx.sTableId].search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== DataTable.seeker[ctx.sTableId].search.funcionParams[DataTable.seeker[ctx.sTableId].search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
 						}
 					}
 				}
@@ -963,7 +988,7 @@
 			}
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
-			$self.data('settings', settings);
+			$self.data('settings'+$self[0].id, settings);
 			if(settings.multiSelect !== undefined){
 				$self._createEventSelect(tabla);				
 			}

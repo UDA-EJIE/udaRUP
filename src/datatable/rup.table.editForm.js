@@ -125,7 +125,7 @@ DataTable.editForm.init = function ( dt ) {
 
 	// Creacion del Context Menu
 	if (ctx.oInit.buttons !== undefined) {
-		var botonesToolbar = DataTable.settings[0]._buttons[0].inst.s.buttons;
+		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
 		var items = {};
 		$.when(
 			$.each(botonesToolbar, function (i) {
@@ -180,8 +180,8 @@ DataTable.editForm.init = function ( dt ) {
 						var eventDT;
 						var eventConfig;
 
-						$.each( DataTable.ext.buttons, function( key ) {
-							var buttonObject = DataTable.ext.buttons[key];
+						$.each( DataTable.ext.buttons[ctx.sTableId], function( key ) {
+							var buttonObject = DataTable.ext.buttons[ctx.sTableId][key];
 							if (buttonObject.id === buttonId) {
 								buttonName = key;
 								eventDT = buttonObject.eventDT;
@@ -191,7 +191,7 @@ DataTable.editForm.init = function ( dt ) {
 
 						// Llamamos directamente al action para no hacer aparecer y desaparecer
 						// el boton, empeorando la UX
-						DataTable.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+						DataTable.ext.buttons[ctx.sTableId][buttonName].action(undefined, eventDT, undefined, eventConfig);
 					} else {
 						$('#' + buttonId).trigger('click');
 					}
@@ -379,9 +379,9 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 
 	if (actionType === 'PUT') {
 		$.rup_utils.populateForm(rowArray, idForm);
-		var multiselection = DataTable.multiselection;
+		var multiselection = DataTable.multiselection[ctx.sTableId];
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
-		if(DataTable.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
+		if(DataTable.multiselection[ctx.sTableId].selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		if(indexInArray === undefined){
@@ -397,7 +397,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		_updateDetailPagination(ctx,indexInArray+1,numTotal);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
-		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+		DataTable.multiselection[ctx.sTableId].lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 	} else if(actionType === 'POST'){
@@ -496,7 +496,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					_callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa,feedback del formulario
 				}else{
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
-					_callFeedbackOk(ctx,DataTable.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+					_callFeedbackOk(ctx,DataTable.multiselection[ctx.sTableId].internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 
 				if(actionType === 'PUT'){//Modificar
@@ -523,13 +523,13 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					dt['row']().multiSelect();
 					//Se actualiza la linea
 					if(ctx.json.reorderedSelection !== null){
-						DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+						DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
 				}
 
 			}else{//Al eliminar hacer un reload.
-				DataTable.multiselection.internalFeedback.type = 'eliminar';
-				DataTable.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
+				DataTable.multiselection[ctx.sTableId].internalFeedback.type = 'eliminar';
+				DataTable.multiselection[ctx.sTableId].internalFeedback.msgFeedBack = msgFeedBack;
 				if(ctx.oInit.multiSelect !== undefined){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
@@ -656,7 +656,7 @@ function _callNavigationBar(dt){
 			page = dt.page()+1,
 			newPage = page,
 			lastPage = ctx.json.total;
-		var multiselection = DataTable.multiselection;
+		var multiselection = DataTable.multiselection[ctx.sTableId];
 		var rowSelected;
 
 		switch (linkType) {
@@ -726,7 +726,7 @@ function _callNavigationBar(dt){
 				rowSelected = multiselection.selectedRowsPerPage[indexLast];
 				rowSelected.indexSelected = indexLast;
 			} else {
-				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiselection.numSelected - 1;
+				ctx.oInit.formEdit.$navigationBar.numPosition = DataTable.multiselection[ctx.sTableId].numSelected - 1;
 				rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
 				rowSelected.page = _getPrevPageSelected (ctx,lastPage);
 				if(Number(rowSelected.page) === page){//Si es la misma pagina.buscar la linea
@@ -788,38 +788,38 @@ function _callNavigationSelectBar(dt){
 		switch (linkType) {
 		case 'first':
 			futurePage = 1;
-			DataTable.multiselection.selectedRowsPerPage[0].line = 0;
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line = 0;
 			break;
 		case 'prev':
-			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line-1;
-			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line = DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line-1;
+			if(ctx.json.rows[DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line] === undefined){
 				futurePage = futurePage-1;
 			}
 			break;
 		case 'next':
-			DataTable.multiselection.selectedRowsPerPage[0].line = DataTable.multiselection.selectedRowsPerPage[0].line+1;
-			if(ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line] === undefined){
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line = DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line+1;
+			if(ctx.json.rows[DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line] === undefined){
 				futurePage = futurePage+1;
 			}
 			break;
 		case 'last':
 			futurePage = lastPage;
-			DataTable.multiselection.selectedRowsPerPage[0].line = ctx.json.rows.length-1;
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line = ctx.json.rows.length-1;
 
 		}
 		//Cambio de pagina
 		if(Number(futurePage) !== page){
 			var table = $('#'+ctx.sTableId).DataTable();
-			DataTable.select.selectedRowsPerPage = {};
-			DataTable.select.selectedRowsPerPage.cambio = linkType;
-			DataTable.select.selectedRowsPerPage.page = futurePage;
+			DataTable.select[ctx.sTableId].selectedRowsPerPage = {};
+			DataTable.select[ctx.sTableId].selectedRowsPerPage.cambio = linkType;
+			DataTable.select[ctx.sTableId].selectedRowsPerPage.page = futurePage;
 			table.page( futurePage-1 ).draw( 'page' );
 		}else{//Si nose pagina se abre directamente la funcion.
-			DataTable.editForm.fnOpenSaveDialog('PUT',dt,DataTable.multiselection.selectedRowsPerPage[0].line);
-			var rowSelectAux = ctx.json.rows[DataTable.multiselection.selectedRowsPerPage[0].line];
-			DataTable.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+			DataTable.editForm.fnOpenSaveDialog('PUT',dt,DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line);
+			var rowSelectAux = ctx.json.rows[DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].line];
+			DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
 			DataTable.Api().select.deselect(ctx);
-			DataTable.Api().select.drawSelectId();
+			DataTable.Api().select.drawSelectId(ctx);
 		}
 
 	};
@@ -847,15 +847,15 @@ function _callNavigationSelectBar(dt){
 function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
 	var rowDefault = {id:0,page:1,line:0};
-	var lastSelectedId = DataTable.multiselection.lastSelectedId;
-	if(!DataTable.multiselection.selectedAll){
+	var lastSelectedId = DataTable.multiselection[ctx.sTableId].lastSelectedId;
+	if(!DataTable.multiselection[ctx.sTableId].selectedAll){
 		//Si no hay un ultimo señalado se coge el ultimo;
 
 		if(lastSelectedId === undefined || lastSelectedId === ''){
-			DataTable.multiselection.lastSelectedId = DataTable.multiselection.selectedRowsPerPage[0].id;
+			DataTable.multiselection[ctx.sTableId].lastSelectedId = DataTable.multiselection[ctx.sTableId].selectedRowsPerPage[0].id;
 		}
-		$.each(DataTable.multiselection.selectedRowsPerPage,function(index,p) {
-			if(p.id === DataTable.multiselection.lastSelectedId){
+		$.each(DataTable.multiselection[ctx.sTableId].selectedRowsPerPage,function(index,p) {
+			if(p.id === DataTable.multiselection[ctx.sTableId].lastSelectedId){
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
@@ -871,15 +871,15 @@ function _getRowSelected(dt,actionType){
 			rowDefault.line = _getLineByPageSelected(ctx,-1);
 		}else{
 			//buscar la posicion y pagina
-			var result = $.grep(DataTable.multiselection.selectedRowsPerPage, function(v) {
-				return v.id === DataTable.multiselection.lastSelectedId;
+			var result = $.grep(DataTable.multiselection[ctx.sTableId].selectedRowsPerPage, function(v) {
+				return v.id === DataTable.multiselection[ctx.sTableId].lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
 			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
 			index = index+1+rowDefault.line;
 			//Hay que restar los deselecionados.
-			 result = $.grep(DataTable.multiselection.deselectedRowsPerPage, function(v) {
+			 result = $.grep(DataTable.multiselection[ctx.sTableId].deselectedRowsPerPage, function(v) {
 					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
 				});
 			rowDefault.indexSelected = index-result.length;//Buscar indice
@@ -919,12 +919,12 @@ function _getNextPageSelected(ctx,pageInit,orden){
 	if(orden === 'prev'){//Si es previo se resta.
 		pageTotals = 1;
 	}
-	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection[ctx.sTableId].deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; page<pageTotals;) {
-			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection[ctx.sTableId].deselectedRowsPerPage,function(index,p) {
 				if(page === Number(p.page)){
 					count++;
 				}
@@ -963,7 +963,7 @@ function _getNextPageSelected(ctx,pageInit,orden){
 function _getPrevPageSelected(ctx,pageInit){
 	var pagina = pageInit;
 	var pageTotals = 1;
-	if(DataTable.multiselection.deselectedRowsPerPage.length > 0){
+	if(DataTable.multiselection[ctx.sTableId].deselectedRowsPerPage.length > 0){
 		var maxPagina = ctx.json.rows.length;
 		if(ctx.json.total === pagina){//Es ultima pagina, calcular los registros{
 			maxPagina =  ctx.json.records % ctx._iDisplayLength;
@@ -971,7 +971,7 @@ function _getPrevPageSelected(ctx,pageInit){
 		var count = 0;
 		//Buscar la pagina donde va estar el seleccionado.
 		for (var page=pageInit; pageTotals <= page;) {
-			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(DataTable.multiselection[ctx.sTableId].deselectedRowsPerPage,function(index,p) {
 				if(Number(page) === Number(p.page)){
 					count++;
 				}
@@ -1010,7 +1010,7 @@ function _getLineByPageSelected(ctx,lineInit){
 
 	$.each(rows, function( index, row ) {
 		if(index > lineInit){
-			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection[ctx.sTableId].deselectedIds);
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
@@ -1042,7 +1042,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 	for (var index=rows.length-1; index>=0;index--) {
 		var row = rows[index];
 		if(index < lineInit){
-			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), DataTable.multiselection[ctx.sTableId].deselectedIds);
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
@@ -1066,25 +1066,25 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	var row = DataTable.multiselection.selectedIds;
+	var row = DataTable.multiselection[ctx.sTableId].selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
 		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
 		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
 		OKFunction: function () {
-			if(DataTable.multiselection.selectedIds.length > 1){
+			if(DataTable.multiselection[ctx.sTableId].selectedIds.length > 1){
 				var row = {};
 				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
 				row.multiselection = {};
-				row.multiselection.selectedAll = DataTable.multiselection.selectedAll;
+				row.multiselection.selectedAll = DataTable.multiselection[ctx.sTableId].selectedAll;
 				if(row.multiselection.selectedAll){
-					row.multiselection.selectedIds = DataTable.multiselection.deselectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection[ctx.sTableId].deselectedIds;
 				}else{
-					row.multiselection.selectedIds = DataTable.multiselection.selectedIds;
+					row.multiselection.selectedIds = DataTable.multiselection[ctx.sTableId].selectedIds;
 				}
 				_callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
 			}else{
-				row = DataTable.multiselection.selectedIds[0];
+				row = DataTable.multiselection[ctx.sTableId].selectedIds[0];
 				row = row.replace(ctx.oInit.multiplePkToken,'/');
 				_callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
 			}
