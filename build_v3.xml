@@ -28,8 +28,8 @@
     <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}/templates"/>
     <property name="udaTemplatesDestDir" value="${destDir}/udaTemplates/${udaVersion}"/>
     <property name="udaTemplatesFolder" value="templates"/>
-    <property name="udaTemplatesRupFolder" value="templates/statics/rup"/>
-    <property name="udaTemplatesAppFolder" value="templates/statics/xxx"/>
+    <property name="udaTemplatesRupFolder" value="templates/statics/3x/rup"/>
+    <property name="udaTemplatesAppFolder" value="templates/statics/3x/xxx"/>
     <property name="udaTemplatesZip" value="${udaTemplatesDestDir}/templates-v${udaVersion}.zip"/>
     
     <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>

@@ -376,6 +376,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	}
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
+	var title;
 
 	if (actionType === 'PUT') {
 		$.rup_utils.populateForm(rowArray, idForm);
@@ -400,11 +401,18 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		DataTable.multiselection[ctx.sTableId].lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		//Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
+		// Asignamos un valor a la variable del título del formulario
+		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(rowArray, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
+		// Asignamos un valor a la variable del título del formulario
+		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
 	}
-
+	
+	// Establecemos el título del formulario
+	ctx.oInit.formEdit.detailForm.rup_dialog("setOption", "title", title);
+	
 	ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
 	ctx.oInit.formEdit.detailForm.rup_dialog("open");
 
@@ -1145,7 +1153,6 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 			autoOpen: false,
 			modal: true,
 			resizable: '',
-			title: ctx.oInit.formEdit.titleForm,
 			width: 569
 		}, {}));
 	}
