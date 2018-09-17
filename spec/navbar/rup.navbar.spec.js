@@ -22,10 +22,10 @@ const html = '<nav id="navbarResponsive" class="rup-navbar navbar">\
                         </li>\
                         <li class="nav-item dropdown">\
                                 <a class="nav-link dropdown-toggle" href="#"\
-                                    id="navDropdownUno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                                    id="navDropdownDos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
                                     Padre2\
                                 </a>\
-                                <div class="collapse dropdown-toggle" aria-labelledby="navDropdownUno">\
+                                <div class="collapse dropdown-toggle" aria-labelledby="navDropdownDos">\
                                     <a href="#" class="dropdown-item">Elem21</a>\
                                     <a href="#" class="dropdown-item">Elem22</a>\
                                 </div>\
@@ -34,22 +34,26 @@ const html = '<nav id="navbarResponsive" class="rup-navbar navbar">\
                     <ul class="nav navbar-nav float-md-right rup-nav-tools">\
                         <li class="nav-item dropdown">\
                             <a class="nav-link dropdown-toggle" href="#"\
-                                id="navDropdownUno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                                id="navDropdownTres" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
                                 Padre3\
                             </a>\
-                            <div class="collapse dropdown-toggle" aria-labelledby="navDropdownUno">\
+                            <div class="collapse dropdown-toggle" aria-labelledby="navDropdownTres">\
                                 <a href="#" class="dropdown-item">Elem31</a>\
                                 <a href="#" class="dropdown-item">Elem32</a>\
                             </div>\
                         </li>\
                         <li class="nav-item dropdown">\
                                 <a class="nav-link dropdown-toggle" href="#"\
-                                    id="navDropdownUno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                                    id="navDropdownCuatro" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
                                     Padre4\
                                 </a>\
-                                <div class="collapse dropdown-toggle" aria-labelledby="navDropdownUno">\
+                                <div class="collapse dropdown-toggle" aria-labelledby="navDropdownCuatro">\
                                     <a href="#" class="dropdown-item">Elem41</a>\
                                     <a href="#" class="dropdown-item">Elem42</a>\
+                                    <div class="dropdown-submenu">\
+                                    <a class="dropdown-item dropdown-toggle">\
+                                    </a>\
+                                    </div>\
                                 </div>\
                             </li>\
                     </ul>\
@@ -76,7 +80,24 @@ function navBarTest() {
                 expect($('[aria-controls="navbarResponsive"]').css('opacity')).toBe(0);
             });
         });
-        describe('Funcionamiento > ', () => {});
+        describe('Funcionamiento > ', () => {
+            describe('Cuando se hace click en el elemento del menu el submenu aparece > ', () => {
+                beforeEach(() => {
+                    $('#navDropdownUno').click();
+                });
+                it('El submenu no debe tener la clase collapse:', () => {
+                    expect($('[aria-labelledby="navDropdownUno"]').hasClass('collapse')).toBeFalsy();
+                });
+                describe('Si se hace click fuera del navbar se debe cerrar > ', () => {
+                    beforeEach(() => {
+                        $('body').click();
+                    });
+                    it('El submenu debe tener la clase collapse:', () => {
+                        expect($('[aria-labelledby="navDropdownUno"]').hasClass('collapse')).toBeFalsy();
+                    });
+                });
+            });
+        });
         describe('Métodos públicos > ', () => {
             describe('Metodo toggle > ', () => {});
             describe('Método show > ', () => {});
