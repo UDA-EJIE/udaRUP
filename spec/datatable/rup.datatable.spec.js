@@ -1,6 +1,7 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.dialog';
+import 'rup.contextMenu'
 import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
@@ -121,6 +122,16 @@ function testDatatable() {
         });
 
         describe('Funcionamiento > ', () => {
+            describe('Menú contextual > ', () => {
+                beforeEach(() => {
+                    debugger;
+                    $('tbody > tr:eq(0) > td:eq(1)', $datatable).contextmenu();
+                });
+                it('asd', () => {
+                    debugger;
+                    expect(1).toBe(1);
+                });
+            });
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
                     $datatable.on('draw.dt', () => {
@@ -359,16 +370,12 @@ function testDatatable() {
                 });
                 // TODO: Añadir botón extra
             });
-            describe('Menú contextual > ', () => {
+            describe('Edición con formulario > ', () => {
                 beforeEach(() => {
-                    $('tbody > tr:eq(0) > td:eq(1)', $datatable).trigger('contextmenu');
+                    $('tbody > tr:eq(0)').dblclick();
                 });
-                it('asd', () => {
-                    debugger;
-                    expect(1).toBe(1);
-                });
+                it('El formulario debe mostrarse:', () => {});
             });
-            describe('Edición con formulario > ', () => {});
             describe('Edición en línea > ', () => {});
             describe('Multiseleccion > ', () => {});
         });
