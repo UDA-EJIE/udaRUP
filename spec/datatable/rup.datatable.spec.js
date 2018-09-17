@@ -116,7 +116,7 @@ function testDatatable() {
 
         afterEach(() => {
             dt.destroy(true);
-            delete $.fn.dataTable.seeker.search.funcionParams; //FIXME: Pendiente de corrección de rup_datatable
+            delete DataTable.seeker; //FIXME: Pendiente de corrección de rup_datatable
             $('#content').html('');
             $('#content').nextAll().remove();
         });
@@ -124,11 +124,9 @@ function testDatatable() {
         describe('Funcionamiento > ', () => {
             describe('Menú contextual > ', () => {
                 beforeEach(() => {
-                    debugger;
                     $('tbody > tr:eq(0) > td:eq(1)', $datatable).contextmenu();
                 });
                 it('asd', () => {
-                    debugger;
                     expect(1).toBe(1);
                 });
             });
@@ -374,7 +372,9 @@ function testDatatable() {
                 beforeEach(() => {
                     $('tbody > tr:eq(0)').dblclick();
                 });
-                it('El formulario debe mostrarse:', () => {});
+                it('El formulario debe mostrarse:', () => {
+                    expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                });
             });
             describe('Edición en línea > ', () => {});
             describe('Multiseleccion > ', () => {});
