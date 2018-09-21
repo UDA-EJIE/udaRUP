@@ -70,7 +70,7 @@ DataTable.seeker.init = function ( dt ) {
 
 	var ctx = dt.settings()[0];
 	//Se inicializa por cada instancia 1 tabla 1 instancia
-	DataTable.seeker[ctx.sTableId] = {};
+	ctx.seeker = {};
 	_createFilterColumn(dt,ctx);
 
 	var ajaxOptions = {
@@ -85,7 +85,7 @@ DataTable.seeker.init = function ( dt ) {
 			contentType : 'application/json',
 			async : true,
 			success : function(data, status, xhr) {
-				DataTable.seeker[ctx.sTableId].search.funcionParams = data;
+				ctx.seeker.search.funcionParams = data;
 				_processData(dt,ctx,data);
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
@@ -94,13 +94,13 @@ DataTable.seeker.init = function ( dt ) {
 			}
 		};
 
-	DataTable.seeker[ctx.sTableId].ajaxOption = ajaxOptions;
+	ctx.seeker.ajaxOption = ajaxOptions;
 
 	//Ver el buscador interno de la tabla.
 	if(ctx.fnRecordsTotal() === 0){
-		DataTable.seeker[ctx.sTableId].search.$searchRow.hide();
+		ctx.seeker.search.$searchRow.hide();
 	}else{
-		DataTable.seeker[ctx.sTableId].search.$searchRow.show();
+		ctx.seeker.search.$searchRow.show();
 	}
 };
 
@@ -152,8 +152,8 @@ function _createFilterColumn(dt,ctx){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
 		        	this.focus();
 		        	if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
-		        		DataTable.seeker[ctx.sTableId].ajaxOption.data = _getDatos(ctx);
-		        		var ajaxOptions =  $.extend(true, [], DataTable.seeker[ctx.sTableId].ajaxOption);
+		        		ctx.seeker.ajaxOption.data = _getDatos(ctx);
+		        		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
 		        		//Se pasa sin el internalFeedback ya que no es necesario.
 		        		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
@@ -166,8 +166,8 @@ function _createFilterColumn(dt,ctx){
 	   });
 
 	   _createSearchRow(dt,ctx);
-	   DataTable.seeker[ctx.sTableId].searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
-	   DataTable.seeker[ctx.sTableId].searchForm.hide();
+	   ctx.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
+	   ctx.seeker.searchForm.hide();
 	   _createRupComponent(dt,ctx);
 }
 /**
@@ -230,39 +230,39 @@ function _createSearchRow (dt,ctx){
 		$gridHead.prepend($searchRow);
 		jQuery('tfoot tr.search_row','#'+idTabla+'').addClass('ui-state-default');
 
-		DataTable.seeker[ctx.sTableId].search = DataTable.seeker[ctx.sTableId].search  || {};
+		ctx.seeker.search = ctx.seeker.search  || {};
 
-		DataTable.seeker[ctx.sTableId].search.created = false;
+		ctx.seeker.search.created = false;
 
-		DataTable.seeker[ctx.sTableId].search.$collapseIcon = $collapseIcon;
-		DataTable.seeker[ctx.sTableId].search.$searchRow = $searchRow;
-		DataTable.seeker[ctx.sTableId].search.$matchedLabel = $matchedLabel;
-		DataTable.seeker[ctx.sTableId].search.$firstNavLink = $firstNavLink;
-		DataTable.seeker[ctx.sTableId].search.$backNavLink = $backNavLink;
-		DataTable.seeker[ctx.sTableId].search.$forwardNavLink = $forwardNavLink;
-		DataTable.seeker[ctx.sTableId].search.$lastNavLink = $lastNavLink;
+		ctx.seeker.search.$collapseIcon = $collapseIcon;
+		ctx.seeker.search.$searchRow = $searchRow;
+		ctx.seeker.search.$matchedLabel = $matchedLabel;
+		ctx.seeker.search.$firstNavLink = $firstNavLink;
+		ctx.seeker.search.$backNavLink = $backNavLink;
+		ctx.seeker.search.$forwardNavLink = $forwardNavLink;
+		ctx.seeker.search.$lastNavLink = $lastNavLink;
 
 		// Creacion del enlace de mostrar/ocultar el formulario
 		$collapseIcon.add($collapseLabel).on('click', function(){
-			if (!DataTable.seeker[ctx.sTableId].search.created){
-				DataTable.seeker[ctx.sTableId].search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
-				DataTable.seeker[ctx.sTableId].search.$collapseIcon.addClass('ui-icon-triangle-1-s');
-				DataTable.seeker[ctx.sTableId].search.created = true;
-				DataTable.seeker[ctx.sTableId].searchForm.show();
+			if (!ctx.seeker.search.created){
+				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.created = true;
+				ctx.seeker.searchForm.show();
 				$navLayer.show();
 			}else{
-				DataTable.seeker[ctx.sTableId].search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
-				DataTable.seeker[ctx.sTableId].search.$collapseIcon.addClass('ui-icon-triangle-1-e');
-				DataTable.seeker[ctx.sTableId].search.created = false;
-				DataTable.seeker[ctx.sTableId].searchForm.hide();
+				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.created = false;
+				ctx.seeker.searchForm.hide();
 				$navLayer.hide();
 			}
 		});
 
 		// Evento de búsqueda asociado al botón
 		$navSearchButton.on('click', function(){
-			DataTable.seeker[ctx.sTableId].ajaxOption.data = _getDatos(ctx);
-    		var ajaxOptions =  $.extend(true, [], DataTable.seeker[ctx.sTableId].ajaxOption);
+			ctx.seeker.ajaxOption.data = _getDatos(ctx);
+    		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
     		//Se pasa sin el internalFeedback ya que no es necesario.
     		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
     			ajaxOptions.data.multiselection.internalFeedback = [];
@@ -275,8 +275,8 @@ function _createSearchRow (dt,ctx){
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
 			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
 			jQuery('.ui-selectmenu-status','table tfoot').text('--');
-			DataTable.seeker[ctx.sTableId].search.funcionParams = {};
-			DataTable.seeker[ctx.sTableId].search.pos = 0;
+			ctx.seeker.search.funcionParams = {};
+			ctx.seeker.search.pos = 0;
 			_processData(dt,ctx,[]);
 		});
 
@@ -290,37 +290,37 @@ function _createSearchRow (dt,ctx){
 
 		// Elemento primero
 		$firstNavLink.on('click', function(){
-			DataTable.seeker[ctx.sTableId].search.pos = 0;
-			_processData(dt,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
+			ctx.seeker.search.pos = 0;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento anterior
 		$backNavLink.on('click', function(){
-			DataTable.seeker[ctx.sTableId].search.pos--;
-			_processData(dt,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
+			ctx.seeker.search.pos--;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento siguiente
 		$forwardNavLink.on('click', function(){
-			DataTable.seeker[ctx.sTableId].search.accion = 'next';
-			DataTable.seeker[ctx.sTableId].search.pos++;
-			_processData(dt,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
+			ctx.seeker.search.accion = 'next';
+			ctx.seeker.search.pos++;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento ultimo
 		$lastNavLink.on('click', function(){
-			DataTable.seeker[ctx.sTableId].search.pos = DataTable.seeker[ctx.sTableId].search.funcionParams.length-1;
-			_processData(dt,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
+			ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length-1;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Se recubre con un form
 		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
 
-		DataTable.seeker[ctx.sTableId].search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
-		DataTable.seeker[ctx.sTableId].search.$searchRow.hide();
+		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
+		ctx.seeker.search.$searchRow.hide();
         $('#'+idTabla).wrapAll($searchForm);
-        DataTable.seeker[ctx.sTableId].search.pos = 0;
-        DataTable.seeker[ctx.sTableId].search.accion = '';
+        ctx.seeker.search.pos = 0;
+        ctx.seeker.search.accion = '';
 }
 
 /**
@@ -346,7 +346,7 @@ function _selectSearch(dt,ctx,rows){
 		var rowSelected = '';
 
 		$.each(ctx.json.rows, function( idx ,value) {
-			if(rows[DataTable.seeker[ctx.sTableId].search.pos].pageLine-1 === idx){
+			if(rows[ctx.seeker.search.pos].pageLine-1 === idx){
 				rowSelected = dt.rows().nodes()[idx];
 			}
 			var result = $.grep(rows, function(v) {
@@ -361,7 +361,7 @@ function _selectSearch(dt,ctx,rows){
 				}
 			}
 		});
-		var rowUnique = rows[DataTable.seeker[ctx.sTableId].search.pos];
+		var rowUnique = rows[ctx.seeker.search.pos];
 		var rowList = ctx.json.rows[rowUnique.pageLine-1];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
 				&& DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
@@ -372,7 +372,7 @@ function _selectSearch(dt,ctx,rows){
 				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
 			}
 		}
-		DataTable.seeker[ctx.sTableId].search.accion = '';
+		ctx.seeker.search.accion = '';
 	}
 }
 
@@ -410,21 +410,21 @@ function _paginar(ctx,dato){
 function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 
 	if (currentRowNum === 1) {
-		DataTable.seeker[ctx.sTableId].search.$firstNavLink.addClass('ui-state-disabled');
-		DataTable.seeker[ctx.sTableId].search.$backNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$backNavLink.addClass('ui-state-disabled');
 	} else {
-		DataTable.seeker[ctx.sTableId].search.$firstNavLink.removeClass('ui-state-disabled');
-		DataTable.seeker[ctx.sTableId].search.$backNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$backNavLink.removeClass('ui-state-disabled');
 	}
 	if (currentRowNum === totalRowNum) {
-		DataTable.seeker[ctx.sTableId].search.$forwardNavLink.addClass('ui-state-disabled');
-		DataTable.seeker[ctx.sTableId].search.$lastNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavLink.addClass('ui-state-disabled');
 	} else {
-		DataTable.seeker[ctx.sTableId].search.$forwardNavLink.removeClass('ui-state-disabled');
-		DataTable.seeker[ctx.sTableId].search.$lastNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavLink.removeClass('ui-state-disabled');
 	}
 
-	DataTable.seeker[ctx.sTableId].search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
 /**
@@ -445,18 +445,18 @@ function _processData(dt,ctx,data){
 	}else if(ctx.oInit.select !== undefined){
 		DataTable.Api().select.deselect(ctx);
 	}
-	if(!_paginar(ctx,data[DataTable.seeker[ctx.sTableId].search.pos])){
+	if(!_paginar(ctx,data[ctx.seeker.search.pos])){
 		_selectSearch(dt,ctx,data);
 	}else{
 		var tabla = $('#'+ctx.sTableId);
-		tabla.dataTable().fnPageChange( data[DataTable.seeker[ctx.sTableId].search.pos].page-1 );
+		tabla.dataTable().fnPageChange( data[ctx.seeker.search.pos].page-1 );
 	}
 
 	if (data.length === 0){
-		DataTable.seeker[ctx.sTableId].search.$firstNavLink.add(DataTable.seeker[ctx.sTableId].search.$backNavLink).add(DataTable.seeker[ctx.sTableId].search.$forwardNavLink).add(DataTable.seeker[ctx.sTableId].search.$lastNavLink).addClass('ui-state-disabled');
-		DataTable.seeker[ctx.sTableId].search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
+		ctx.seeker.search.$firstNavLink.add(ctx.seeker.search.$backNavLink).add(ctx.seeker.search.$forwardNavLink).add(ctx.seeker.search.$lastNavLink).addClass('ui-state-disabled');
+		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
 	}else{
-		_updateDetailSeekPagination(DataTable.seeker[ctx.sTableId].search.pos + 1,data.length,ctx);
+		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
 	}
 }
 
@@ -475,7 +475,7 @@ function _processData(dt,ctx,data){
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
 	if(datos !== undefined){
-		datos.search = form2object($(DataTable.seeker[ctx.sTableId].search.$searchForm.selector)[0]);
+		datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
 	}
 	return datos;
 }
@@ -500,7 +500,7 @@ function _createRupComponent(dt,ctx){
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
 				var colModelName = cellColModel.name;
-				var $elem = $('[name=\''+colModelName+'\']',DataTable.seeker[ctx.sTableId].searchForm);
+				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
 					'title': ctx.aoColumns[i-1].sTitle,

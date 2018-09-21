@@ -142,16 +142,16 @@
 			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
 					//Se mira la nueva reordenacion y se ordena.
 
-					DataTable.multiselection[ctx.sTableId].selectedIds = [];
-					DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
+					ctx.multiselection.selectedIds = [];
+					ctx.multiselection.selectedRowsPerPage = [];
 					//Viene del servidor por eso la linea de la pagina es 1 menos.
 					$.each(json.reorderedSelection,function(index,p) {
 						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-						DataTable.multiselection[ctx.sTableId].selectedIds.splice(index,0,arra.id);
-						DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.splice(index,0,arra);
+						ctx.multiselection.selectedIds.splice(index,0,arra.id);
+						ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
 					});
-					if(!DataTable.multiselection[ctx.sTableId].selectedAll){
-						DataTable.multiselection[ctx.sTableId].numSelected = DataTable.multiselection[ctx.sTableId].selectedIds.length;
+					if(!ctx.multiselection.selectedAll){
+						ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 					if(options.buttons !== undefined){
@@ -311,10 +311,9 @@
 			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 				DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
 			}
-			if(DataTable.seeker !== undefined && DataTable.seeker[ctx.sTableId] !== undefined &&
-					DataTable.seeker[ctx.sTableId].search !== undefined 
+			if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
 					&& json.reorderedSeeker !== undefined){
-				 DataTable.seeker[ctx.sTableId].search.funcionParams = json.reorderedSeeker;
+				ctx.seeker.search.funcionParams = json.reorderedSeeker;
 			}
 
 			return ret.data;
@@ -329,33 +328,33 @@
 			* @since UDA 3.4.0 // Datatable 1.0.0
 			*
 			* @param {object} data Opciones del datatable
-			* @param {object} options Opciones del componente
+			* @param {object} ctx contexto  del componente table
 			*
 		  */
-		_ajaxRequestData(data, options) {
+		_ajaxRequestData(data, ctx) {
 
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
+			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object($(options.nTable).data('settings'+options.sTableId).$filterForm[0]);
+			data.filter = form2object($(ctx.nTable).data('settings'+ctx.sTableId).$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiselection !== undefined && DataTable.multiselection[options.sTableId].selectedIds.length > 0){
-				data.multiselection = DataTable.multiselection[options.sTableId];
+			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
+				data.multiselection = ctx.multiselection;
 			}
-			if(DataTable.seeker !== undefined && DataTable.seeker[options.sTableId] !== undefined && DataTable.seeker[options.sTableId].search !== undefined 
-					&& DataTable.seeker[options.sTableId].search.funcionParams !== undefined && DataTable.seeker[options.sTableId].search.funcionParams.length > 0){
+			if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
+					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
 				data.seeker = {};
 				data.seeker.selectedIds = [];
-				$.each(DataTable.seeker[options.sTableId].search.funcionParams,function(index,p) {
+				$.each(ctx.seeker.search.funcionParams,function(index,p) {
 					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
 				});
 			}
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
 
-			json.core.pkNames = options.oInit.primaryKey;
+			json.core.pkNames = ctx.oInit.primaryKey;
 
-			options.aBaseJson = json;
+			ctx.aBaseJson = json;
 			return JSON.stringify(json);
 
 
@@ -746,7 +745,7 @@
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
 						//Si hay selectAll, comprobar la linea ya que puede variar al no tener ningún selected.Se recorre el json.
-						if(DataTable.multiselection[ctx.sTableId].selectedAll){
+						if(ctx.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
@@ -781,8 +780,8 @@
 				if (multi.multiselection === undefined) {
 					multi.multiselection = {};
 				}
-				if(DataTable.multiselection !== undefined && DataTable.multiselection[ctx.sTableId] !== undefined){
-					multi.multiselection.internalFeedback = DataTable.multiselection[ctx.sTableId].internalFeedback;
+				if(ctx.multiselection !== undefined){
+					multi.multiselection.internalFeedback = ctx.multiselection.internalFeedback;
 				}
 				// Flag indicador de selección de todos los registros
 				multi.multiselection.selectedAll = false;
@@ -809,10 +808,10 @@
 				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
 				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
-				if (DataTable.multiselection === undefined) {
-					DataTable.multiselection = {};
+				if (ctx.multiselection === undefined) {
+					ctx.multiselection = {};
 				}
-				DataTable.multiselection[ctx.sTableId] =  multi.multiselection;
+				ctx.multiselection =  multi.multiselection;
 			}, _createTooltip (id) {
 				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
 					id.rup_tooltip({
@@ -919,7 +918,7 @@
 			var tabla = $self.DataTable(settings);
 
 			settings.sTableId = $self[0].id;
-			$self._initializeMultiselectionProps(settings);
+			$self._initializeMultiselectionProps(tabla.context[0]);
 			
 			//Crear tooltips cabecera;
 			$.each($('#'+$self[0].id+' thead th'),function( ){
@@ -930,31 +929,31 @@
 				if(settings.searchPaginator){//Mirar el crear paginador
 					$self._createSearchPaginator($(this),settingsTable);
 					//Si el seeker esta vacio ocultarlo
-					if(DataTable.seeker !== undefined && DataTable.seeker[settingsTable.sTableId] !== undefined && 
-							DataTable.seeker[settingsTable.sTableId].search !== undefined && DataTable.seeker[settingsTable.sTableId].search.$searchRow !== undefined){
+					if(settingsTable.seeker !== undefined && 
+							settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined){
 						if(settingsTable._iRecordsDisplay > 0){
-							DataTable.seeker[settingsTable.sTableId].search.$searchRow.show();
+							settingsTable.seeker.search.$searchRow.show();
 						}else{
-							DataTable.seeker[settingsTable.sTableId].search.$searchRow.hide();
+							settingsTable.seeker.search.$searchRow.hide();
 						}
 					}
 				}
 
 				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
 					if(settings.select !== undefined){//AL repintar vigilar el select.
-						if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage !== undefined){
+						if(settingsTable.select.selectedRowsPerPage !== undefined){
 							//viene de la navegacion buscar el id.
 							var line = 0;
 							var ctx = tabla.context[0];
-							if(DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'prev' || DataTable.select[settingsTable.sTableId].selectedRowsPerPage.cambio === 'last'){
+							if(settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last'){
 								line = ctx.json.rows.length-1;
 							}
 							
-							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage = [];
+							ctx.multiselection.selectedRowsPerPage = [];
 							var rowSelectAux = ctx.json.rows[line];
 							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
-							DataTable.multiselection[ctx.sTableId].selectedRowsPerPage.push({line:line,page:DataTable.select[settingsTable.sTableId].selectedRowsPerPage.page,id:id});
-							DataTable.select[settingsTable.sTableId].selectedRowsPerPage = undefined;
+							ctx.multiselection.selectedRowsPerPage.push({line:line,page:ctx.select.selectedRowsPerPage.page,id:id});
+							settingsTable.select.selectedRowsPerPage = undefined;
 							var numTotal = ctx.json.recordsTotal;
 							var index = (Number(ctx.json.page)-1) * 10;
 							index = index + line + 1;
@@ -962,12 +961,12 @@
 						}
 						DataTable.Api().select.drawSelectId(tabla.context[0]);
 					}
-					if(DataTable.seeker !== undefined && DataTable.seeker[settingsTable.sTableId] !== undefined 
-							&& DataTable.seeker[settingsTable.sTableId].search !== undefined){
+					if(settingsTable.seeker !== undefined 
+							&& settingsTable.seeker.search !== undefined){
 						var ctx = tabla.context[0];
-						if(DataTable.seeker[ctx.sTableId].search.funcionParams !== undefined && DataTable.seeker[ctx.sTableId].search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-									ctx.json.page !== DataTable.seeker[ctx.sTableId].search.funcionParams[DataTable.seeker[ctx.sTableId].search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker[ctx.sTableId].search.funcionParams);
+						if(settingsTable.seeker.search.funcionParams !== undefined && settingsTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== settingsTable.seeker.search.funcionParams[settingsTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,settingsTable.seeker.search.funcionParams);
 						}
 					}
 				}
