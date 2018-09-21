@@ -1205,10 +1205,14 @@
 				});
 
 
-				/* *********************************************************
-         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE
+		/* *********************************************************
+         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE y VALIDACIÓN DEL LOS DIALOGOS
          * *********************************************************
          */
+				
+				if($("[aria-describedby="+$self.attr('id')+"_detail_div]").length > 0){
+					$("[aria-describedby="+$self.attr('id')+"_detail_div]").remove();
+				}
 
 				settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins.core.defaults);
 

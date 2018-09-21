@@ -586,10 +586,21 @@
 				
 				labelAttributes = {
 					labelForId: fieldTmp.attr('id'),
-					labelForName: fieldTmp.attr('name')
+					labelForName: fieldTmp.attr('name'),
+					labelForTitle: fieldTmp.attr('oldtitle')
 				}
 				
-				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter].forLabelElement(form, labelAttributes);
+				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter];
+				
+				if ($.fn.rup_validate.defaults.adapter === 'validate_bootstrap') {
+					labelElem = labelElem.forLabelElement(form, labelAttributes);
+				} else {
+					if (labelAttributes.labelForTitle === undefined || labelAttributes.labelForTitle === '') {
+						labelElem = labelElem.forLabelElement(form, labelAttributes);
+					} else {
+						return labelElem.forLabelElement(fieldTmp, labelAttributes);
+					}
+				}			
 				
 				if (labelElem !== undefined && labelElem !== '') {
 					return labelElem.replace(':','');
