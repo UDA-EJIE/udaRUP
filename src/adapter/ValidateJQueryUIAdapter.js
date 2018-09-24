@@ -20,10 +20,13 @@
 	ValidateJQueryUIAdapter.prototype.NAME = 'validate_jqueryui';
 	
 	ValidateJQueryUIAdapter.prototype.forLabelElement = function (fieldTmp, labelAttributes) {
-		if(labelAttributes.labelForId !== undefined && labelAttributes.labelForId !== '') {
-			return $("#"+fieldTmp.id).find('label[for=\'' + labelAttributes.labelForId + '\']').text();
+		if(labelAttributes.labelForTitle !== undefined && labelAttributes.labelForTitle !== '') {
+			return $(fieldTmp).attr("oldtitle");
+		}
+		else if(labelAttributes.labelForId !== undefined && labelAttributes.labelForId !== '') {
+			return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForId + "']").text();
 		} else {
-			return $("#"+fieldTmp.id).find('label[for=\'' + labelAttributes.labelForName + '\']').text();
+			return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForName + "']").text();
 		}
 	};
 	

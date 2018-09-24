@@ -3,10 +3,10 @@
     
     
     
-    <property name="udaVersion" value="3.5.0"/>
-    <property name="previousUdaVersion" value="3.4.0"/>
-    <property name="udaLibVersion" value="3.5.0"/>
-    <property name="previousUdaLibVersion" value="3.4.0"/>
+    <property name="udaVersion" value="3.6.0"/>
+    <property name="previousUdaVersion" value="3.5.0"/>
+    <property name="udaLibVersion" value="3.6.0"/>
+    <property name="previousUdaLibVersion" value="3.5.0"/>
     <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
     <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
     
@@ -277,7 +277,7 @@
         - Genera los ditribuibles en la carpeta dist
     -->
     <target name="buildUdaDemoAppVersion" 
-            description="Actualiza los recursos de la udaDemoApp con los fuentes de udaRup y con la versión correspondiente" 
+            description="Actualiza los recursos de udaDemoApp con los fuentes de udaRup y con la versión correspondiente" 
             depends="udaRupToUdaDemoApp, udaDemoAppRenameVersion" >
         
     </target>

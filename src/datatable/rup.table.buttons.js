@@ -76,8 +76,10 @@ var _dtButtons = DataTable.ext.buttons;
 var Buttons = function( dt, config )
 {
 	var idTable = dt.context[0].sTableId;
-	DataTable.ext.buttons[idTable] = {};
-	DataTable.ext.buttons[idTable].copyButton = {
+	var ctx = dt.context[0];
+	ctx.ext = DataTable.ext;
+	ctx.ext.buttons = {};
+	ctx.ext.buttons.copyButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
 		},
@@ -87,7 +89,7 @@ var Buttons = function( dt, config )
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'copyButton',
 		init: function (dt, node, config) {
-			DataTable.ext.buttons[idTable].copyButton.eventDT = dt;
+			ctx.ext.buttons.copyButton.eventDT = dt;
 		},
 		action: function (e, dt, button, config) {
 			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -100,7 +102,7 @@ var Buttons = function( dt, config )
 		}
 	};
 
-	DataTable.ext.buttons[idTable].addButton = {
+	ctx.ext.buttons.addButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
 		},
@@ -110,14 +112,14 @@ var Buttons = function( dt, config )
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'add',
 		init: function (dt, node, config) {
-			DataTable.ext.buttons[idTable].addButton.eventDT = dt;
+			ctx.ext.buttons.addButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
 			DataTable.Api().buttons.actions(dt, config);
 		}
 	};
 
-	DataTable.ext.buttons[idTable].editButton = {
+	ctx.ext.buttons.editButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
 		},
@@ -127,14 +129,14 @@ var Buttons = function( dt, config )
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'edit',
 		init: function (dt, node, config) {
-			DataTable.ext.buttons[idTable].editButton.eventDT = dt;
+			ctx.ext.buttons.editButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
 			DataTable.Api().buttons.actions(dt, config);
 		}
 	};
 
-	DataTable.ext.buttons[idTable].cloneButton = {
+	ctx.ext.buttons.cloneButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
 		},
@@ -144,14 +146,14 @@ var Buttons = function( dt, config )
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'clone',
 		init: function (dt, node, config) {
-			DataTable.ext.buttons[idTable].cloneButton.eventDT = dt;
+			ctx.ext.buttons.cloneButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
 			DataTable.Api().buttons.actions(dt, config);
 		}
 	};
 
-	DataTable.ext.buttons[idTable].deleteButton = {
+	ctx.ext.buttons.deleteButton = {
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
 		},
@@ -161,14 +163,14 @@ var Buttons = function( dt, config )
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'delete',
 		init: function (dt, node, config) {
-			DataTable.ext.buttons[idTable].deleteButton.eventDT = dt;
+			ctx.ext.buttons.deleteButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
 			DataTable.Api().buttons.actions(dt, config);
 		}
 	};
 
-	DataTable.ext.buttons[idTable].reportsButton = {
+	ctx.ext.buttons.reportsButton = {
 		extend: 'collection',
 		text: function (dt) {
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.main');
@@ -1081,7 +1083,8 @@ $.extend( Buttons.prototype, {
 	{
 		var dt = this.s.dt;
 		var i, ien;
-		var _dtButtonsTable = DataTable.ext.buttons[dt.context[0].sTableId];
+		var ctx = dt.context[0];
+		var _dtButtonsTable = ctx.ext.buttons;
 		_dtButtonsTable.collection = _dtButtons.collection;
 		var toConfObject = function ( base ) {
 			var loop = 0;
@@ -1617,8 +1620,9 @@ $.extend( _dtButtons, {
 		}
 	},
 	addButton: function ( dt, conf ) {
+		var ctx = dt.context[0];
 		var collection =  _dtButtons['collection'];
-		_dtButtons = DataTable.ext.buttons[dt.context[0].sTableId];
+		_dtButtons = ctx.ext.buttons;
 		_dtButtons.collection = collection;
 		if ( _dtButtons.addButton ) {
 			return 'addButton';
@@ -1949,13 +1953,13 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			var idTableDetail = ctx.oInit.formEdit.detailForm;
 			// Limpiamos el formulario
 			$(idTableDetail).find('form')[0].reset();
-			if(DataTable.multiselection[ctx.sTableId].numSelected > 0){
+			if(ctx.multiselection.numSelected > 0){
 				$.rup_messages('msgConfirm', {
 					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
-						if(ctx.oInit.multiselect !== undefined){
+						if(ctx.oInit.multiSelect !== undefined){
 							DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
 						}else if(ctx.oInit.select !== undefined){
 							DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks.
@@ -1989,7 +1993,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 // los botones
 DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
 	var opts = ctx._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiselection[ctx.sTableId].numSelected;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 	$.each(opts, function (i) {
 		collectionObject = null;
@@ -2356,7 +2360,7 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
 			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
 			// el valor recibido cuando se creo el evento
-			var numOfSelectedRows = DataTable.multiselection[ctx.sTableId].numSelected;
+			var numOfSelectedRows = ctx.multiselection.numSelected;
 			$.each(collectionObject.buttons, function(key, value) {
 				// Habilita el boton dentro del collection
 				if (value.conf.displayRegex.test(numOfSelectedRows)) {
@@ -2407,7 +2411,7 @@ var _reportsCopyData = function (dt, that, config)
 var ctx = dt.settings()[0];
 var info = dt.buttons.exportInfo(config);
 var type;
-var multiselection = DataTable.multiselection[ctx.sTableId];
+var multiselection = ctx.multiselection;
 var selectedAll = multiselection.selectedAll;
 var deselectedIds = multiselection.deselectedIds;
 
@@ -2562,8 +2566,8 @@ switch (type) {
 		ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
 		$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
-			DataTable.ext.buttons.allData = data;
-			exportData = DataTable.ext.buttons.allData;
+			ctx.ext.buttons.allData = data;
+			exportData = ctx.ext.buttons.allData;
 			deferred.resolve(exportData);
 		});
 		break;
@@ -2797,7 +2801,7 @@ $.fn.DataTable.Buttons = Buttons;
 
 function inicio(settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiselection[settings.sTableId].numSelected;
+	var numOfSelectedRows = settings.numSelected;
 	var collectionObject;
 
 	$.each(opts, function (i) {
