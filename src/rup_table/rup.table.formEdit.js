@@ -828,12 +828,16 @@
 			var $self = this,
 				settings = $self.data('settings');
 			// Ocultamos el feedback de error
-			settings.formEdit.$feedback.hide();
-			jQuery('.rup-maint_validateIcon', $form).remove();
-			jQuery('input.error', $form).removeClass('error');
-
-			if ($form.data('validator')){
-				$form.rup_validate('resetElements');
+			if(settings.formEdit !== undefined && settings.formEdit.$feedback !== undefined){
+				settings.formEdit.$feedback.hide();
+			}
+			if($form !== undefined){
+				jQuery('.rup-maint_validateIcon', $form).remove();
+				jQuery('input.error', $form).removeClass('error');
+	
+				if ($form.data('validator')){
+					$form.rup_validate('resetElements');
+				}
 			}
 
 		}
