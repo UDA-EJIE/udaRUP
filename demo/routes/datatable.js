@@ -151,3 +151,7 @@ exports.simple = (req, res) => {
     let respuesta = req.body;
     res.status(200).json(respuesta);
 };
+exports.formEdit = (req, res) => {
+    let respuesta = req.body;
+    res.status(200).json(respuesta);
+};

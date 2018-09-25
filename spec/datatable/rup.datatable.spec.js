@@ -1,5 +1,6 @@
 import 'jquery';
 import 'jasmine-jquery';
+import 'rup.feedback';
 import 'rup.dialog';
 import 'rup.contextMenu'
 import 'rup.table';
@@ -12,11 +13,6 @@ function testDatatable() {
 
         beforeAll((done) => {
             testutils.loadCss(done);
-        });
-
-        afterEach(() => {
-            $('#content').html('');
-            $('#content').nextAll().remove();
         });
 
         var $datatable;
@@ -116,7 +112,7 @@ function testDatatable() {
 
         afterEach(() => {
             dt.destroy(true);
-            delete DataTable.seeker; //FIXME: Pendiente de corrección de rup_datatable
+            delete $.fn.DataTable.seeker; //FIXME: Pendiente de corrección de rup_datatable
             $('#content').html('');
             $('#content').nextAll().remove();
         });
@@ -369,11 +365,96 @@ function testDatatable() {
                 // TODO: Añadir botón extra
             });
             describe('Edición con formulario > ', () => {
-                beforeEach(() => {
-                    $('tbody > tr:eq(0)').dblclick();
+                describe('Edición de elementos existentes > ', () => {
+                    beforeEach(() => {
+                        $('tbody > tr > td:contains(2)').dblclick();
+                    });
+                    it('El formulario debe mostrarse:', () => {
+                        expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                    });
+                    describe('Funcionalidad del boton "guardar y continuar" > ', () => {
+                        beforeEach((done) => {
+                            $('#edad_detail_table').val(11);
+                            $('#example_detail_button_save_repeat').click();
+                            setTimeout(() => {
+                                done();
+                            },1000);
+                        });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(2)').parent();
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
+                        it('No ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                        });
+                    });
+                    describe('Funcionalidad del botón "guardar" > ', () => {
+                        beforeEach((done) => {
+                            $('#edad_detail_table').val(11);
+                            $('#example_detail_button_save').click();
+                            setTimeout(() => {
+                                done();
+                            },1000);
+                        });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(2)').parent();
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
+                        it('Ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeFalsy();
+                        });
+                    });
                 });
-                it('El formulario debe mostrarse:', () => {
-                    expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                describe('Añadido de nuevos elementos > ', () => {
+                    beforeEach(() => {
+                        $('.datatable_toolbar_btnAdd').click();
+                    });
+                    it('El formulario debe mostrarse:', () => {
+                        expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                    });
+                    describe('Funcionalidad del boton "guardar y continuar" > ', () => {
+                        beforeEach((done) => {
+                            $('#id_detailForm_table').val(345);
+                            $('#nombre_detail_table').val('name');
+                            $('#apellidos_detail_table').val('lastname');
+                            $('#edad_detail_table').val(11);
+                            $('#example_detail_button_save_repeat').click();
+                            debugger;
+                            setTimeout(() => {
+                                done();
+                            },1000);
+                        });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(345)').parent();
+                            expect($('td:contains(name)', ctx).length).toBe(1);
+                            expect($('td:contains(lastname)', ctx).length).toBe(1);
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
+                        it('No ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                        });
+                    });/*
+                    describe('Funcionalidad del botón "guardar" > ', () => {
+                        beforeEach((done) => {
+                            $('#id_detailForm_table').val(345);
+                            $('#nombre_detail_table').val('name');
+                            $('#apellidos_detail_table').val('lastname');
+                            $('#edad_detail_table').val(11);
+                            $('#example_detail_button_save').click();
+                            setTimeout(() => {
+                                done();
+                            },1000);
+                        });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(345)').parent();
+                            expect($('td:contains(name)', ctx).length).toBe(1);
+                            expect($('td:contains(lastname)', ctx).length).toBe(1);
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
+                        it('Ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeFalsy();
+                        });
+                    });*/
                 });
             });
             describe('Edición en línea > ', () => {});

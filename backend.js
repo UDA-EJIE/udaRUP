@@ -108,6 +108,15 @@ module.exports = (PORT) => {
 	app.post('/demo/datatable/remote/filter', routesDatatable.filter);
 	app.post('/demo/datatable/remote/search', routesDatatable.search);
 	app.put('/demo/datatable/remote/simple', routesDatatable.simple);
+	app.post('/demo/datatable/remote', routesDatatable.formEdit);
+	app.put('/demo/datatable/remote', routesDatatable.formEdit);
+
+	app.options("/demo/datatable/remote", function(req, res, next){
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Methods', 'PUT,POST,OPTIONS');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+		res.sendStatus(200);
+	});
 
 
 
