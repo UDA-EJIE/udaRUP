@@ -414,15 +414,14 @@ function testDatatable() {
                     });
                     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
                         beforeEach((done) => {
+                            $datatable.on('draw.dt', () => {
+                                done();
+                            });
                             $('#id_detailForm_table').val(345);
                             $('#nombre_detail_table').val('name');
                             $('#apellidos_detail_table').val('lastname');
                             $('#edad_detail_table').val(11);
                             $('#example_detail_button_save_repeat').click();
-                            debugger;
-                            setTimeout(() => {
-                                done();
-                            },1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(345)').parent();
@@ -436,14 +435,14 @@ function testDatatable() {
                     });
                     describe('Funcionalidad del botón "guardar" > ', () => {
                         beforeEach((done) => {
+                            $datatable.on('draw.dt', () => {
+                                done();
+                            });
                             $('#id_detailForm_table').val(345);
                             $('#nombre_detail_table').val('name');
                             $('#apellidos_detail_table').val('lastname');
                             $('#edad_detail_table').val(11);
                             $('#example_detail_button_save').click();
-                            setTimeout(() => {
-                                done();
-                            },1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(345)').parent();
