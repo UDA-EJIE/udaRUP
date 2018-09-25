@@ -13683,7 +13683,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				});
 
 
-				/* *********************************************************
+		/* *********************************************************
          * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE y VALIDACIÓN DEL LOS DIALOGOS
          * *********************************************************
          */
@@ -16295,11 +16295,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						settings.search.$lastNavLink.addClass('ui-state-disabled');
 					}else{
 						pagePos = $self.rup_table('getActiveLineId');
-						currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
+						if(settings.search.matchedLinesPerPage[page] !== undefined){
+							currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
+						}
 						if (currentArrayIndex===0){
 							settings.search.$backNavLink.addClass('ui-state-disabled');
 						}
-						if (currentArrayIndex === settings.search.matchedLinesPerPage[page].length){
+						if (settings.search.matchedLinesPerPage[page] !== undefined && 
+								currentArrayIndex === settings.search.matchedLinesPerPage[page].length){
 							settings.search.$forwardNavLink.addClass('ui-state-disabled');
 						}
 					}
