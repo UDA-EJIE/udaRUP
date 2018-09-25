@@ -8,113 +8,198 @@ import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as consts from './datatable.html';
 
+function generateFormEditDatatable(done){
+    let opts = {
+        "urlBase": "http://localhost:8081/demo/datatable/remote",
+        "pageLength": 5,
+        "fixedHeader": {
+            "footer": false,
+            "header": true
+        },
+        "filter": {
+            "id": "example_filter_form",
+            "filterToolbar": "example_filter_toolbar",
+            "collapsableLayerId": "example_filter_fieldset"
+        },
+        "multiSelect": {
+            "style": "multi"
+        },
+        "formEdit": {
+            "detailForm": "#example_detail_div",
+            "validate": {
+                "rules": {
+                    "nombre": {
+                        "required": true
+                    },
+                    "apellidos": {
+                        "required": true
+                    },
+                    "edad": {
+                        "required": true
+                    }
+                }
+            },
+            "titleForm": "Modificar registro"
+        },
+        "buttons": {
+            "activate": true
+        },
+        "seeker": {
+            "colModel": [{
+                    "name": "id",
+                    "index": "id",
+                    "editable": true,
+                    "width": 80,
+                    "formoptions": {
+                        "rowpos": 1,
+                        "colpos": 1
+                    }
+                },
+                {
+                    "name": "nombre",
+                    "index": "nombre",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 2,
+                        "colpos": 1
+                    }
+                },
+                {
+                    "name": "apellidos",
+                    "index": "apellidos",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 3,
+                        "colpos": 1
+                    },
+                    "classes": "ui-ellipsis"
+                },
+                {
+                    "name": "edad",
+                    "index": "edad",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 4,
+                        "colpos": 1
+                    }
+                }
+            ]
+        },
+        'initComplete': () => {
+            setTimeout(function () {
+                debugger;
+                done();
+            }, 300);
+        }
+    };
+
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content"></div>');
+    }
+    $('#content').append(consts.html);
+    debugger;
+    $('#example').rup_datatable(opts);
+}
+function generateInlineFormDatatable(done){
+    //Eliminamos la datatable
+    clearDatatable();
+    //Creamos la nueva datatable
+    let opts = {
+        "urlBase": "http://localhost:8081/demo/datatable/remote",
+        "pageLength": 5,
+        "fixedHeader": {
+            "footer": false,
+            "header": true
+        },
+        "filter": {
+            "id": "example_filter_form",
+            "filterToolbar": "example_filter_toolbar",
+            "collapsableLayerId": "example_filter_fieldset"
+        },
+        "multiSelect": {
+            "style": "multi"
+        },
+        "inlineForm":{},
+        "buttons": {
+            "activate": true
+        },
+        "seeker": {
+            "colModel": [{
+                    "name": "id",
+                    "index": "id",
+                    "editable": true,
+                    "width": 80,
+                    "formoptions": {
+                        "rowpos": 1,
+                        "colpos": 1
+                    }
+                },
+                {
+                    "name": "nombre",
+                    "index": "nombre",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 2,
+                        "colpos": 1
+                    }
+                },
+                {
+                    "name": "apellidos",
+                    "index": "apellidos",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 3,
+                        "colpos": 1
+                    },
+                    "classes": "ui-ellipsis"
+                },
+                {
+                    "name": "edad",
+                    "index": "edad",
+                    "editable": true,
+                    "formoptions": {
+                        "rowpos": 4,
+                        "colpos": 1
+                    }
+                }
+            ]
+        },
+        'initComplete': () => {
+            setTimeout(function () {
+                done();
+            }, 300);
+        }
+    };
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content"></div>');
+    }
+    $('#content').append(consts.html);
+    $('#example').rup_datatable(opts);
+}
+
+function clearDatatable(dt){
+    dt.destroy(true);
+    delete $.fn.DataTable.seeker; //FIXME: Pendiente de corrección de rup_datatable
+    $('#content').html('');
+    $('#content').nextAll().remove();
+}
+
 function testDatatable() {
     describe('Test DataTable > ', () => {
+        var $datatable = $('#example');
+        var dt = $datatable.DataTable();
 
         beforeAll((done) => {
             testutils.loadCss(done);
         });
 
-        var $datatable;
-        var dt;
         beforeEach((done) => {
-            let opts = {
-                "urlBase": "http://localhost:8081/demo/datatable/remote",
-                "pageLength": 5,
-                "fixedHeader": {
-                    "footer": false,
-                    "header": true
-                },
-                "filter": {
-                    "id": "example_filter_form",
-                    "filterToolbar": "example_filter_toolbar",
-                    "collapsableLayerId": "example_filter_fieldset"
-                },
-                "multiSelect": {
-                    "style": "multi"
-                },
-                "formEdit": {
-                    "detailForm": "#example_detail_div",
-                    "validate": {
-                        "rules": {
-                            "nombre": {
-                                "required": true
-                            },
-                            "apellidos": {
-                                "required": true
-                            },
-                            "edad": {
-                                "required": true
-                            }
-                        }
-                    },
-                    "titleForm": "Modificar registro"
-                },
-                "buttons": {
-                    "activate": true
-                },
-                "seeker": {
-                    "colModel": [{
-                            "name": "id",
-                            "index": "id",
-                            "editable": true,
-                            "width": 80,
-                            "formoptions": {
-                                "rowpos": 1,
-                                "colpos": 1
-                            }
-                        },
-                        {
-                            "name": "nombre",
-                            "index": "nombre",
-                            "editable": true,
-                            "formoptions": {
-                                "rowpos": 2,
-                                "colpos": 1
-                            }
-                        },
-                        {
-                            "name": "apellidos",
-                            "index": "apellidos",
-                            "editable": true,
-                            "formoptions": {
-                                "rowpos": 3,
-                                "colpos": 1
-                            },
-                            "classes": "ui-ellipsis"
-                        },
-                        {
-                            "name": "edad",
-                            "index": "edad",
-                            "editable": true,
-                            "formoptions": {
-                                "rowpos": 4,
-                                "colpos": 1
-                            }
-                        }
-                    ]
-                },
-                'initComplete': () => {
-                    setTimeout(function () {
-                        $datatable = $('#example');
-                        dt = $datatable.DataTable();
-                        done();
-                    }, 300);
-                }
-            };
-
-            if ($('#content').length == 0) {
-                $('body').append('<div id="content"></div>');
-            }
-            $('#content').append(consts.html);
-            $('#example').rup_datatable(opts);
+            generateFormEditDatatable(done);
         });
 
         afterEach(() => {
-            dt.destroy(true);
-            delete $.fn.DataTable.seeker; //FIXME: Pendiente de corrección de rup_datatable
-            $('#content').html('');
-            $('#content').nextAll().remove();
+            debugger;
+            clearDatatable(dt);
         });
 
         describe('Funcionamiento > ', () => {
@@ -405,7 +490,7 @@ function testDatatable() {
                         });
                     });
                 });
-                describe('Añadido de nuevos elementos > ', () => {
+                /*describe('Añadido de nuevos elementos > ', () => {
                     beforeEach(() => {
                         $('.datatable_toolbar_btnAdd').click();
                     });
@@ -454,9 +539,17 @@ function testDatatable() {
                             expect($('#example_detail_div').is(':visible')).toBeFalsy();
                         });
                     });
+                });*/
+            });
+            describe('Edición en línea > ', () => {
+                beforeEach((done) => {
+                    generateInlineFormDatatable(done);
+                    debugger;
+                });
+                it('asd',() => {
+                    expect(1).toBe(1);
                 });
             });
-            describe('Edición en línea > ', () => {});
             describe('Multiseleccion > ', () => {});
         });
     });
