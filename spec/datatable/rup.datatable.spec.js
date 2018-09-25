@@ -433,7 +433,7 @@ function testDatatable() {
                         it('No ha desaparecido el formulario:', () => {
                             expect($('#example_detail_div').is(':visible')).toBeTruthy();
                         });
-                    });/*
+                    });
                     describe('Funcionalidad del botón "guardar" > ', () => {
                         beforeEach((done) => {
                             $('#id_detailForm_table').val(345);
@@ -454,7 +454,7 @@ function testDatatable() {
                         it('Ha desaparecido el formulario:', () => {
                             expect($('#example_detail_div').is(':visible')).toBeFalsy();
                         });
-                    });*/
+                    });
                 });
             });
             describe('Edición en línea > ', () => {});
