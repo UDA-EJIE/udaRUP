@@ -510,6 +510,16 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 				if(actionType === 'PUT'){//Modificar
 					dt.row(idRow).data(row);// se actualiza al editar
 					ctx.json.rows[idRow] = row;
+					// Actualizamos el ultimo id seleccionado (por si ha sido editado)
+					var posicion = 0;
+					$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
+						if(p.id === ctx.multiselection.lastSelectedId){
+							posicion = index;
+							return;
+						}
+					});
+					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
 				}else{
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
 					if(ctx.oInit.multiSelect !== undefined){
