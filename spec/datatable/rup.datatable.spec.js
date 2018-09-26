@@ -198,6 +198,14 @@ function testDatatable() {
         });
 
         describe('Funcionamiento > ', () => {
+            describe('Menú contextual > ', () => {
+                beforeEach(() => {
+                    $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
+                });
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
+            });
             describe('Edición con formulario > ', () => {
                 describe('Edición de elementos existentes > ', () => {
                     beforeEach(() => {
@@ -259,7 +267,6 @@ function testDatatable() {
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(345)').parent();
-                            debugger;
                             expect($('td:contains(name)', ctx).length).toBe(2);
                             expect($('td:contains(lastname)', ctx).length).toBe(1);
                             expect($('td:contains(11)', ctx).length).toBe(1);
@@ -289,14 +296,6 @@ function testDatatable() {
                             expect($('#example_detail_div').is(':visible')).toBeFalsy();
                         });
                     });
-                });
-            });
-            describe('Menú contextual > ', () => {
-                beforeEach(() => {
-                    $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
-                });
-                it('asd', () => {
-                    expect(1).toBe(1);
                 });
             });
             describe('Filtrado > ', () => {
@@ -549,7 +548,17 @@ function testDatatable() {
             //         expect(1).toBe(1);
             //     });
             // });
-            describe('Multiseleccion > ', () => {});
+            describe('Multiseleccion > ', () => {
+                beforeEach(() => {
+                    debugger;
+                    $('#linkSelectTableHeadexample').click();
+                });
+                describe('asd',() => {
+                    it('asd', () => {
+                        expect(1).toBe(1);
+                    });
+                });
+            });
         });
     });
 }

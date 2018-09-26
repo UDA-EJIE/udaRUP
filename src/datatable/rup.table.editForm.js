@@ -540,7 +540,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
 					dt['row']().multiSelect();
 					//Se actualiza la linea
-					if(ctx.json.reorderedSelection !== null){
+					if(ctx.json.reorderedSelection !== undefined){
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
 				}
@@ -593,10 +593,10 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
-		setTimeout(function(){
+		//setTimeout(function(){
 			feedback.rup_feedback('destroy');
 			feedback.css('width','100%');
-		}, confDelay);
+		//}, confDelay);
 	}
 }
 
