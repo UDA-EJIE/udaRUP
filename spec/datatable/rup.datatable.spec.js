@@ -8,7 +8,7 @@ import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as consts from './datatable.html';
 
-function generateFormEditDatatable(done){
+function generateFormEditDatatable(callback){
     let opts = {
         "urlBase": "http://localhost:8081/demo/datatable/remote",
         "pageLength": 5,
@@ -88,7 +88,7 @@ function generateFormEditDatatable(done){
         'initComplete': () => {
             setTimeout(function () {
                 debugger;
-                done();
+                callback();
             }, 300);
         }
     };
@@ -97,12 +97,10 @@ function generateFormEditDatatable(done){
         $('body').append('<div id="content"></div>');
     }
     $('#content').append(consts.html);
-    debugger;
     $('#example').rup_datatable(opts);
+    return;
 }
-function generateInlineFormDatatable(done){
-    //Eliminamos la datatable
-    clearDatatable();
+function generateInlineFormDatatable(callback){
     //Creamos la nueva datatable
     let opts = {
         "urlBase": "http://localhost:8081/demo/datatable/remote",
@@ -166,7 +164,7 @@ function generateInlineFormDatatable(done){
         },
         'initComplete': () => {
             setTimeout(function () {
-                done();
+                callback();
             }, 300);
         }
     };
@@ -175,6 +173,7 @@ function generateInlineFormDatatable(done){
     }
     $('#content').append(consts.html);
     $('#example').rup_datatable(opts);
+    return;
 }
 
 function clearDatatable(dt){
@@ -186,8 +185,7 @@ function clearDatatable(dt){
 
 function testDatatable() {
     describe('Test DataTable > ', () => {
-        var $datatable = $('#example');
-        var dt = $datatable.DataTable();
+        var dt = $('#example').DataTable();
 
         beforeAll((done) => {
             testutils.loadCss(done);
@@ -198,14 +196,13 @@ function testDatatable() {
         });
 
         afterEach(() => {
-            debugger;
             clearDatatable(dt);
         });
 
         describe('Funcionamiento > ', () => {
             describe('Menú contextual > ', () => {
                 beforeEach(() => {
-                    $('tbody > tr:eq(0) > td:eq(1)', $datatable).contextmenu();
+                    $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
                 });
                 it('asd', () => {
                     expect(1).toBe(1);
@@ -213,17 +210,21 @@ function testDatatable() {
             });
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
-                    $datatable.on('draw.dt', () => {
+                    debugger;
+                    $('#example').on('draw.dt', () => {
                         setTimeout(() => {
+                            debugger;
                             done();
                         }, 300);
                     });
                     $('#id_filter_table').val('4');
                     $('#example_filter_filterButton').click();
                 });
-                it('Debe haberse completado el filtrado:', () => {
+                it('Debe haberse completado el filtrado:', (done) => {
+                    debugger;
                     expect($('tbody > tr').length).toBe(1);
                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
+                    done();
                 });
             });
 
@@ -243,7 +244,7 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#nombre_seeker').val('E');
                         $('#search_nav_button_example').click();
-                        $datatable.on('searchDone.rup.dt', () => {
+                        $('#example').on('searchDone.rup.dt', () => {
                             done();
                         });
                     });
@@ -259,8 +260,9 @@ function testDatatable() {
             describe('Paginación > ', () => {
                 describe('Página siguiente > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('draw.dt', () => {
+                        $('#example').on('draw.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -279,8 +281,9 @@ function testDatatable() {
                 });
                 describe('Página anterior > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('draw.dt', () => {
+                        $('#example').on('draw.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -288,8 +291,9 @@ function testDatatable() {
                     });
                     describe('Realizacion de pruebas > ', () => {
                         beforeEach((done) => {
-                            $datatable.on('draw.dt', () => {
+                            $('#example').on('draw.dt', () => {
                                 setTimeout(() => {
+                                    debugger;
                                     done();
                                 }, 300);
                             });
@@ -310,8 +314,9 @@ function testDatatable() {
                 });
                 describe('Página primera > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('page.dt', () => {
+                        $('#example').on('page.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -319,8 +324,9 @@ function testDatatable() {
                     });
                     describe('Realizacion de pruebas', () => {
                         beforeEach((done) => {
-                            $datatable.on('page.dt', () => {
+                            $('#example').on('page.dt', () => {
                                 setTimeout(() => {
+                                    debugger;
                                     done();
                                 }, 300);
                             });
@@ -340,8 +346,9 @@ function testDatatable() {
                 });
                 describe('Página última > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('page.dt', () => {
+                        $('#example').on('page.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -360,8 +367,9 @@ function testDatatable() {
                 });
                 describe('Página desde input > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('page.dt', () => {
+                        $('#example').on('page.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -382,14 +390,15 @@ function testDatatable() {
             });
             describe('Variacion de número de registros por página > ', () => {
                 beforeEach((done) => {
-                    $datatable.on('draw.dt', () => {
+                    $('#example').on('draw.dt', () => {
+                        debugger;
                         done();
                     });
                     $('[name="example_length"]').val(10);
                     $('[name="example_length"]').trigger('change')
                 });
                 it('Debe haber recibido los registros indicados:', () => {
-                    expect($('tbody > tr', $datatable).length).toBe(10);
+                    expect($('tbody > tr', $('#example')).length).toBe(10);
                 });
                 it('Deben haber únicamente 2 páginas disponibles:', () => {
                     expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
@@ -398,8 +407,9 @@ function testDatatable() {
             describe('Ordenación > ', () => {
                 describe('Ordenación por nombre ascendente > ', () => {
                     beforeEach((done) => {
-                        $datatable.on('draw.dt', () => {
+                        $('#example').on('draw.dt', () => {
                             setTimeout(() => {
+                                debugger;
                                 done();
                             }, 300);
                         });
@@ -416,8 +426,9 @@ function testDatatable() {
                 describe('Ordenación por nombre descendente:', () => {
                     describe('Ordenacion por nombre descendente', () => {
                         beforeEach((done) => {
-                            $datatable.on('draw.dt', () => {
+                            $('#example').on('draw.dt', () => {
                                 setTimeout(() => {
+                                    debugger;
                                     done();
                                 }, 300);
                             });
@@ -499,7 +510,7 @@ function testDatatable() {
                     });
                     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
                         beforeEach((done) => {
-                            $datatable.on('draw.dt', () => {
+                            $('#example').on('draw.dt', () => {
                                 done();
                             });
                             $('#id_detailForm_table').val(345);
@@ -520,7 +531,7 @@ function testDatatable() {
                     });
                     describe('Funcionalidad del botón "guardar" > ', () => {
                         beforeEach((done) => {
-                            $datatable.on('draw.dt', () => {
+                            $('#example').on('draw.dt', () => {
                                 done();
                             });
                             $('#id_detailForm_table').val(345);
@@ -543,10 +554,11 @@ function testDatatable() {
             });
             describe('Edición en línea > ', () => {
                 beforeEach((done) => {
+                    clearDatatable($('#example').DataTable());
                     generateInlineFormDatatable(done);
-                    debugger;
                 });
                 it('asd',() => {
+                    debugger;
                     expect(1).toBe(1);
                 });
             });
