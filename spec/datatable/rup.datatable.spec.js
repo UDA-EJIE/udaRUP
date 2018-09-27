@@ -203,7 +203,7 @@ function testDatatable() {
                     $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
                 });
                 it('asd', () => {
-                    expect(1).toBe(1);
+                    expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
             });
             describe('Edición con formulario > ', () => {
@@ -553,10 +553,16 @@ function testDatatable() {
                     debugger;
                     $('#linkSelectTableHeadexample').click();
                 });
-                describe('asd',() => {
-                    it('asd', () => {
-                        expect(1).toBe(1);
-                    });
+
+                it('Debe mostrarse el contextMenu:', () => {
+                    expect($('ul:contains(Marcar Visibles)').is(':visible')).toBeTruthy();
+                });
+                
+                describe('Funcionalidad de las opciones multiselect > ', () => {
+                    describe('Marcar visibles > ', () => {});
+                    describe('Desmarcar visibles > ', () => {});
+                    describe('Marcar todo > ', () => {});
+                    describe('Desmarcar todo > ', () => {});
                 });
             });
         });
