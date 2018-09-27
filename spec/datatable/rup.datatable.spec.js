@@ -176,10 +176,12 @@ function generateFormEditDatatable(callback){
 }*/
 
 function clearDatatable(dt){
-    dt.destroy(true);
+    $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
+    $.contextMenu('destroy');
+    $('.dataTable').DataTable().destroy();
     $('#content').html('');
     $('#content').nextAll().remove();
-}
+ }
 
 function testDatatable() {
     describe('Test DataTable > ', () => {
@@ -555,7 +557,7 @@ function testDatatable() {
                 });
 
                 it('Debe mostrarse el contextMenu:', () => {
-                    expect($('ul:contains(Marcar Visibles)').is(':visible')).toBeTruthy();
+                    expect($('ul:contains(Marcar visibles)').is(':visible')).toBeTruthy();
                 });
                 
                 describe('Funcionalidad de las opciones multiselect > ', () => {
