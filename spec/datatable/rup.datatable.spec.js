@@ -206,7 +206,7 @@ function testDatatable() {
                 beforeEach(() => {
                     $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
                 });
-                it('asd', () => {
+                it('Debe mostrarse el menú contextual:', () => {
                     expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
             });
