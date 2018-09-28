@@ -10,87 +10,89 @@ import * as consts from './datatable.html';
 
 function generateFormEditDatatable(callback){
     let opts = {
-        "urlBase": "http://localhost:8081/demo/datatable/remote",
-        "pageLength": 5,
-        "fixedHeader": {
-            "footer": false,
-            "header": true
+        urlBase: "http://localhost:8081/demo/datatable/remote",
+        pageLength: 5,
+        fixedHeader: {
+            footer: false,
+            header: true
         },
-        "filter": {
-            "id": "example_filter_form",
-            "filterToolbar": "example_filter_toolbar",
-            "collapsableLayerId": "example_filter_fieldset"
+        filter: {
+            id: "example_filter_form",
+            filterToolbar: "example_filter_toolbar",
+            collapsableLayerId: "example_filter_fieldset"
         },
-        "multiSelect": {
-            "style": "multi"
+        multiSelect: {
+            style: "multi"
         },
-        "formEdit": {
-            "detailForm": "#example_detail_div",
-            "validate": {
-                "rules": {
-                    "nombre": {
-                        "required": true
+        formEdit: {
+            detailForm: "#example_detail_div",
+            validate: {
+                rules: {
+                    nombre: {
+                        required: true
                     },
-                    "apellidos": {
-                        "required": true
+                    apellido1: {
+                        required: true
                     },
-                    "edad": {
-                        "required": true
+                    fechaAlta: {
+                        date: true
+                    },
+                    fechaBaja: {
+                        date: true
                     }
                 }
             },
-            "titleForm": "Modificar registro"
+            titleForm: "Modificar registro"
         },
-        "buttons": {
+        buttons: {
             "activate": true
         },
-        "seeker": {
-            "colModel": [{
-                    "name": "id",
-                    "index": "id",
-                    "editable": true,
-                    "width": 80,
-                    "formoptions": {
-                        "rowpos": 1,
-                        "colpos": 1
-                    }
-                },
-                {
-                    "name": "nombre",
-                    "index": "nombre",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 2,
-                        "colpos": 1
-                    }
-                },
-                {
-                    "name": "apellidos",
-                    "index": "apellidos",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 3,
-                        "colpos": 1
-                    },
-                    "classes": "ui-ellipsis"
-                },
-                {
-                    "name": "edad",
-                    "index": "edad",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 4,
-                        "colpos": 1
-                    }
+        seeker: {
+            colModel: [{
+                name: "id",
+                index: "id",
+                editable: true,
+                width: 80,
+                formoptions: {
+                    rowpos: 1,
+                    colpos: 1
                 }
-            ]
+            }, {
+                name: "nombre",
+                index: "nombre",
+                editable: true,
+                formoptions: {
+                    rowpos: 2,
+                    colpos: 1
+                }
+            }, {
+                name: "apellidos",
+                index: "apellidos",
+                editable: true,
+                formoptions: {
+                    rowpos: 3,
+                    colpos: 1
+                },
+                classes: "ui-ellipsis"
+            }, {
+                name: "edad",
+                index: "edad",
+                editable: true,
+                formoptions: {
+                    rowpos: 4,
+                    colpos: 1
+                }
+            }]
         },
-        'initComplete': () => {
+        colReorder: {
+            fixedColumnsLeft: 1
+        },
+        initComplete: () => {
             setTimeout(function () {
                 callback();
             }, 300);
         }
-    };
+    }
 
     if ($('#content').length == 0) {
         $('body').append('<div id="content"></div>');
@@ -175,7 +177,7 @@ function generateFormEditDatatable(callback){
     return;
 }*/
 
-function clearDatatable(dt){
+function clearDatatable(){
     $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
     $.contextMenu('destroy');
     $('.dataTable').DataTable().destroy();
@@ -552,7 +554,6 @@ function testDatatable() {
             // });
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
-                    debugger;
                     $('#linkSelectTableHeadexample').click();
                 });
 
@@ -561,10 +562,100 @@ function testDatatable() {
                 });
                 
                 describe('Funcionalidad de las opciones multiselect > ', () => {
-                    describe('Marcar visibles > ', () => {});
-                    describe('Desmarcar visibles > ', () => {});
-                    describe('Marcar todo > ', () => {});
-                    describe('Desmarcar todo > ', () => {});
+                    describe('Marcar visibles > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar visibles)').mouseup();
+                            setTimeout(() => {
+                                done();
+                            },300);
+                        });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual(['2','3','4','5','1']);
+                        });
+                        it('Debe marcar con highlight los elementos seleccionados:', () => {
+                            $('#example > tbody > tr').each((i,e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
+                            });
+                        });
+                        it('Debe mostrar el número de elementos seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info:contains(5 filas seleccionadas)').length
+                                ).toBe(1);
+                        });
+                    });
+                    describe('Desmarcar visibles > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar visibles)').mouseup();
+                            setTimeout(() => {
+                                $('ul > li:contains(Desmarcar visibles)').mouseup();
+                                setTimeout(() => {
+                                    done();
+                                },300);
+                            },300);
+                        });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual([]);
+                        });
+                        it('Debe desmarcar con highlight los elementos:', () => {
+                            $('#example > tbody > tr').each((i,e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
+                            });
+                        });
+                        it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info').length
+                                ).toBe(0);
+                        });
+                    });
+                    describe('Marcar todo > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar todo)').mouseup();
+                            setTimeout(() => {
+                                done();
+                            },300);
+                        });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
+                                .toBeTruthy;
+                        });
+                        it('Debe marcar con highlight los elementos seleccionados:', () => {
+                            $('#example > tbody > tr').each((i,e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
+                            });
+                        });
+                        it('Debe mostrar el número de elementos seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info:contains(15 filas seleccionadas)').length
+                                ).toBe(1);
+                        });
+                    });
+                    describe('Desmarcar todo > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar todo)').mouseup();
+                            setTimeout(() => {
+                                $('ul > li:contains(Desmarcar todo)').mouseup();
+                                setTimeout(() => {
+                                    done();
+                                },300);
+                            },300);
+                        });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual([]);
+                        });
+                        it('Debe desmarcar con highlight los elementos:', () => {
+                            $('#example > tbody > tr').each((i,e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
+                            });
+                        });
+                        it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info').length
+                                ).toBe(0);
+                        });
+                    });
                 });
             });
         });
