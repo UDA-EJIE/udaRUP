@@ -1002,37 +1002,38 @@
 $.fn.rup_datatable.defaults = {
 	foobar: false,
 	headerContextMenu: {
-			show: true,
-			selectAllPage: true,
-			deselectAllPage: true,
-			separator: true,
-			selectAll: true,
-			deselectAll: true,
-			items: {}
-		},
-	 fixedHeader: {
-	        header: false,
-	        footer: true
-	    },
+		show: true,
+		selectAllPage: true,
+		deselectAllPage: true,
+		separator: true,
+		selectAll: true,
+		deselectAll: true,
+		items: {}
+	},
+	fixedHeader: {
+        header: false,
+        footer: true
+    },
 	feedback:{
-			okFeedbackConfig:{
-				closeLink: true,
-				delay:1000
-			}
-		},
+		okFeedbackConfig:{
+			closeLink: true,
+			delay:1000
+		}
+	},
     dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
-		responsive: true,
+	responsive: true,
+	blockPKeditForm: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
     filter:{
-  	  id:"table_filter_form",
-  	  filterToolbar:"table_filter_toolbar",
-  	  collapsableLayerId:"table_filter_fieldset"
-     },
-		// adapter: "datatable_jqueryui",
+	    id:"table_filter_form",
+	    filterToolbar:"table_filter_toolbar",
+	    collapsableLayerId:"table_filter_fieldset"
+    },
+	// adapter: "datatable_jqueryui",
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]]
 	};

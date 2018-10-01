@@ -462,11 +462,11 @@
         "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
         "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
         "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer'></div>",
-        "navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
+        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
         "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-        "navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
-        "navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
+        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
+        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
         "searchRow": "<tr class='search_row'></tr>",
         "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
@@ -929,11 +929,11 @@
         "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
         "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
         "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer'></div>",
-        "navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
+        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
         "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-        "navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
-        "navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
+        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
+        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
         "searchRow": "<tr class='search_row'></tr>",
         "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
