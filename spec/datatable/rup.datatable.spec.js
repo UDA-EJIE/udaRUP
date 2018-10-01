@@ -10,7 +10,7 @@ import * as testutils from '../common/specCommonUtils.js';
 import * as dtGen from './datatableCreator';
 
 function generateFormEditDatatable(callback){
-    dtGen.createDatatable1(callback);
+    dtGen.createDatatable1(0,callback);
     return;
 }
 

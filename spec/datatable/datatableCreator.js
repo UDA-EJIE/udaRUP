@@ -101,7 +101,7 @@ function generateHtml(idDatatable){
         </table>';
     return html;
 }
-export function createDatatable1 (callback) {
+export function createDatatable1 (ctx, callback) {
     var idDatatable = 'example';
     var opts = {
         urlBase: "http://localhost:8081/demo/datatable/remote",
@@ -115,9 +115,9 @@ export function createDatatable1 (callback) {
             filterToolbar: idDatatable + "_filter_toolbar",
             collapsableLayerId: idDatatable + "_filter_fieldset"
         },
-        multiSelect: {
-            style: "multi"
-        },
+        // multiSelect: {
+        //     style: "multi"
+        // },
         formEdit: {
             detailForm: "#" + idDatatable + "_detail_div",
             validate: {
@@ -187,6 +187,12 @@ export function createDatatable1 (callback) {
             }, 300);
         }
     }
+    if(ctx == 0) {
+        $.extend(opts, true, {multiSelect: {style: "multi"}});
+    }
+    else {
+        $.extend(opts, true, {select: {activate: true}});
+    }
 
     if ($('#content').length == 0) {
         $('body').append('<div id="content"></div>');
@@ -200,7 +206,6 @@ export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
         urlBase: "http://localhost:8081/demo/datatable/remote",
-        deferLoading: 0,
         pageLength: 5,
         fixedHeader: {
             footer: false,
@@ -279,6 +284,7 @@ export function createDatatable2(callback) {
         },
         initComplete: function() {
             setTimeout(function () {
+                $('#' + idDatatable + ' > tbody').children().remove();
                 callback();
             }, 300);
         }
