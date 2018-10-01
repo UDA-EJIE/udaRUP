@@ -274,7 +274,7 @@ function testDatatable() {
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });
-                    // TODO: Consegir hacer pruebas con clipcboard
+                    // TODO: Consegir hacer pruebas con clipcbard
                     describe('Item copy > ', () => {
                         /*
                         beforeEach(() => {
