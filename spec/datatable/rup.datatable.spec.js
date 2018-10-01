@@ -274,8 +274,21 @@ function testDatatable() {
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });
-                    // TODO: Implementar acceso al portapapeles en JS
-                    describe('Item copy > ', () => {});
+                    // TODO: Consegir hacer pruebas con clipcboard
+                    describe('Item copy > ', () => {
+                        /*
+                        beforeEach(() => {
+                            $('#content').append('<input type="text" id="testutilInput"></input>');
+                            $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
+                            $('div.ui-dialog-buttonset > button').click();
+                            setTimeout(() => {
+                                let evento = $.Event('keydown');
+                                evento.wich = 86;
+                                evento.ctrlkey = true;
+                                $('#testutilInput').trigger(evento);
+                            }, 500);
+                        });*/
+                    });
                 });
             });
             describe('Edición con formulario > ', () => {
