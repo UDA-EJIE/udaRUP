@@ -282,9 +282,9 @@ function _createSearchRow (dt,ctx){
 
 		$navLayer.hide();
 
-		function doSearchLinkNavigation($link, linkId){
-			if (!$link.hasClass('ui-state-disabled')){
-				$self.rup_table('navigateToMatchedRow', linkId);
+		function doSearchButtonNavigation($button, buttonId){
+			if (!$button.hasClass('ui-state-disabled')){
+				$self.rup_table('navigateToMatchedRow', buttonId);
 			}
 		}
 

@@ -2738,6 +2738,12 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
 
+table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px; }
+
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important; }
+
 .rup-tabs_container.ui-tabs {
   padding: 0;
   border: 1px solid none;
@@ -3192,6 +3198,12 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
 .rup-dialog .rup-table-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
+
+table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px; }
+
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important; }
 
 able.dataTable {
   width: 100%;

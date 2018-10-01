@@ -15574,7 +15574,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * navigateToMatchedRow(matchedRow): Se posiciona en el registro indicado que se corresponde con los criterios de búsqueda.
 	 * doSearch(): Realiza la búsqueda de acuerdo a los criterios especificados.
 	 * goToFirstMatched(paramPage): Navega hasta el primer resgistro que se corresponde con la búsqueda.
-	 * fncGetSearchNavigationParams(linkType): Devuelve ls parámetros de navegación correspondientes al enlace de navegación indicado.
+	 * fncGetSearchNavigationParams(buttonType): Devuelve los parámetros de navegación correspondientes al botón de navegación indicado.
 	 * doSearchNavigation(arrParams, execute, changePage, index, npos, newPage, newPageIndex): Realiza la navegación entre los resultados de la búsqueda.
 	 * clearSearch(): Realiza un borrado de los resultados de la búsqueda.
 	 * clearHighlightedMatchedRows(): Elimina el resaltado de los registros
@@ -15733,9 +15733,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLayer'),
 				matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
 				navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
-				navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLink'),
+				navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
 				navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
-				navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearLink'),
+				navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
 
 				// Objetos
 				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
@@ -15750,17 +15750,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Capa que controla la navegación entre las diferentes ocurrencias
 				$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+settings.id)),
-				$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-				$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-				$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-				$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
+				$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
+				$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
+				$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
+				$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
 				$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-				$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+				$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
 
 			// Construcción del objeto final
 			$collapseLayer.append($collapseIcon).append($collapseLabel);
 			$matchedLayer.append($matchedLabel);
-			$navLayer.append($firstNavLink).append($backNavLink).append($forwardNavLink).append($lastNavLink).append($navSearchButton).append($navClearLink);
+			$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
 
 			$searchRowHeader.append($collapseLayer);
 			$searchRowHeader.append($matchedLayer);
@@ -15778,10 +15778,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.search.$collapseIcon = $collapseIcon;
 			settings.search.$searchRow = $searchRow;
 			settings.search.$matchedLabel = $matchedLabel;
-			settings.search.$firstNavLink = $firstNavLink;
-			settings.search.$backNavLink = $backNavLink;
-			settings.search.$forwardNavLink = $forwardNavLink;
-			settings.search.$lastNavLink = $lastNavLink;
+			settings.search.$firstNavButton = $firstNavButton;
+			settings.search.$backNavButton = $backNavButton;
+			settings.search.$forwardNavButton = $forwardNavButton;
+			settings.search.$lastNavButton = $lastNavButton;
 
 			// Creacion del enlace de mostrar/ocultar el formulario
 			$collapseIcon.add($collapseLabel).on('click', function(){
@@ -15794,36 +15794,36 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			});
 
 			// Evento asociado a limpiar el fomulario de búsqueda
-			$navClearLink.on('click', function(){
+			$navClearButton.on('click', function(){
 				$self.rup_table('clearSearch');
 			});
 
 			$navLayer.hide();
 
-			function doSearchLinkNavigation($link, linkId){
-				if (!$link.hasClass('ui-state-disabled')){
-					$self.rup_table('navigateToMatchedRow', linkId);
+			function doSearchButtonNavigation($button, buttonId){
+				if (!$button.hasClass('ui-state-disabled')){
+					$self.rup_table('navigateToMatchedRow', buttonId);
 				}
 			}
 
 			// Elemento primero
-			$firstNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'first');
+			$firstNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'first');
 			});
 
 			// Elemento anterior
-			$backNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'prev');
+			$backNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'prev');
 			});
 
 			// Elemento siguiente
-			$forwardNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'next');
+			$forwardNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'next');
 			});
 
 			// Elemento ultimo
-			$lastNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'last');
+			$lastNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'last');
 			});
 
 			// Se recubre con un form
@@ -15955,12 +15955,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
      *
      * @function fncGetSearchNavigationParams
-		 * @param {paramPage} linkType - Tipo de parámetro first, prev, next o last.-
+		 * @param {paramPage} buttonType - Tipo de parámetro first, prev, next o last.-
 		 * @return {object} - Parametros de configuración asociados al tipo de enlace.
      * @example
-     * $("#idTable").rup_table("fncGetSearchNavigationParams", linkType);
+     * $("#idTable").rup_table("fncGetSearchNavigationParams", buttonType);
      */
-		fncGetSearchNavigationParams : function(linkType){
+		fncGetSearchNavigationParams : function(buttonType){
 			var $self = this, settings = $self.data('settings'), execute = false, changePage = false, index=0, newPageIndex=0,
 				npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
 				page = parseInt($self.rup_table('getGridParam', 'page'),10),
@@ -15969,14 +15969,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//			lastPage = parseInt(Math.ceil($self.rup_table("getGridParam", "records")/$self.rup_table("getGridParam", "rowNum")),10),
 				currentArrayIndex, selectedLines, pageArrayIndex;
 
-			$self.trigger('rupTableAfterSearchNav',[linkType]);
+			$self.trigger('rupTableAfterSearchNav',[buttonType]);
 
 			npos[0] = parseInt(npos[0],10);
 
 			activeLineId = $self.rup_table('getActiveLineId');
 
 			$('#'+settings.formEdit.feedbackId, settings.$detailForm).hide();
-			switch (linkType){
+			switch (buttonType){
 			case 'first':
 				// Navegar al primer elemento
 				execute = true;
@@ -16089,7 +16089,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				break;
 			}
 
-			return [linkType, execute, changePage, index-1, npos, newPage, newPageIndex-1];
+			return [buttonType, execute, changePage, index-1, npos, newPage, newPageIndex-1];
 		},
 		/**
      * Realiza la navegación entre los elementos que se ajustan a los criterios de bús
@@ -16103,7 +16103,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
 
 			if ($.isArray(arrParams)){
-				linkType = arrParams[0];
+				buttonType = arrParams[0];
 				execute = arrParams[1];
 				changePage = arrParams[2];
 				index = arrParams[3];
@@ -16113,7 +16113,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				if (execute){
 					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
-					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [linkType, settings.$detailForm, npos[1][npos[index]]]);
+					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [buttonType, settings.$detailForm, npos[1][npos[index]]]);
 					pagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
 
 					//					actualRowId = npos[1][npos[0]];
@@ -16245,7 +16245,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 			if (settings.search.numMatched===0){
-				settings.search.$firstNavLink.add(settings.search.$backNavLink).add(settings.search.$forwardNavLink).add(settings.search.$lastNavLink).addClass('ui-state-disabled');
+				settings.search.$firstNavButton.add(settings.search.$backNavButton).add(settings.search.$forwardNavButton).add(settings.search.$lastNavButton).addClass('ui-state-disabled');
 				settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 			}else if (rowId!==-1){
 				// Comprobamos si el registro seleccionado es uno de los resultados de la busqueda
@@ -16258,52 +16258,52 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 
 					if (numMatched===1){
-						settings.search.$firstNavLink.addClass('ui-state-disabled');
-						settings.search.$backNavLink.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.addClass('ui-state-disabled');
+						settings.search.$backNavButton.addClass('ui-state-disabled');
 					}else{
-						settings.search.$firstNavLink.removeClass('ui-state-disabled');
-						settings.search.$backNavLink.removeClass('ui-state-disabled');
+						settings.search.$firstNavButton.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeClass('ui-state-disabled');
 					}
 
 					if (numMatched===settings.search.numMatched){
-						settings.search.$lastNavLink.addClass('ui-state-disabled');
-						settings.search.$forwardNavLink.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.addClass('ui-state-disabled');
 					}else{
-						settings.search.$lastNavLink.removeClass('ui-state-disabled');
-						settings.search.$forwardNavLink.removeClass('ui-state-disabled');
+						settings.search.$lastNavButton.removeClass('ui-state-disabled');
+						settings.search.$forwardNavButton.removeClass('ui-state-disabled');
 					}
 
 				}else{
 					if (settings.search && settings.search.numMatched){
 						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
-					settings.search.$firstNavLink.removeClass('ui-state-disabled');
-					settings.search.$backNavLink.removeClass('ui-state-disabled');
-					settings.search.$forwardNavLink.removeClass('ui-state-disabled');
-					settings.search.$lastNavLink.removeClass('ui-state-disabled');
+					settings.search.$firstNavButton.removeClass('ui-state-disabled');
+					settings.search.$backNavButton.removeClass('ui-state-disabled');
+					settings.search.$forwardNavButton.removeClass('ui-state-disabled');
+					settings.search.$lastNavButton.removeClass('ui-state-disabled');
 
 					// Miramos a ver si desde la posición actual hay anterior
 					if (jQuery.inArray(settings.search.matchedPages, page) > 0){
-						settings.search.$backNavLink.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeClass('ui-state-disabled');
 					}else if (jQuery.inArray(page, settings.search.matchedPages) === -1 && $.rup_utils.insertSorted($.merge([],settings.search.matchedPages), page)===0){
 						// Anterior a las páginas en las que se han encontrado ocurrencias
-						settings.search.$backNavLink.addClass('ui-state-disabled');
-						settings.search.$firstNavLink.addClass('ui-state-disabled');
+						settings.search.$backNavButton.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.addClass('ui-state-disabled');
 					}else if (jQuery.inArray(page, settings.search.matchedPages) === -1 && $.rup_utils.insertSorted($.merge([],settings.search.matchedPages), page)>=settings.search.matchedPages.length){
 						// Posterior a las páginas en las que se han encontrado ocurrencias
-						settings.search.$forwardNavLink.addClass('ui-state-disabled');
-						settings.search.$lastNavLink.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.addClass('ui-state-disabled');
 					}else{
 						pagePos = $self.rup_table('getActiveLineId');
 						if(settings.search.matchedLinesPerPage[page] !== undefined){
 							currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
 						}
 						if (currentArrayIndex===0){
-							settings.search.$backNavLink.addClass('ui-state-disabled');
+							settings.search.$backNavButton.addClass('ui-state-disabled');
 						}
 						if (settings.search.matchedLinesPerPage[page] !== undefined && 
 								currentArrayIndex === settings.search.matchedLinesPerPage[page].length){
-							settings.search.$forwardNavLink.addClass('ui-state-disabled');
+							settings.search.$forwardNavButton.addClass('ui-state-disabled');
 						}
 					}
 				}
