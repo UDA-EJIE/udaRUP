@@ -93,28 +93,41 @@ exports.filter = (req, res) => {
             records: 1
         };
     } else {
-        if(req.body.length == 10) {
-            respuesta = json4;
+        if(req.body.filter.id == '5') {
+            respuesta = {
+                page: '1',
+                rows: [
+                    { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+                ],
+                total: '1',
+                records: 1
+            };
         }
-        else{
-            if (req.body.page == 1) {
-                respuesta = json;
+        else {
+            if(req.body.length == 10) {
+                respuesta = json4;
             }
-            if (req.body.page == 2) {
-                respuesta = json2;
-            }
-            if (req.body.page == 3) {
-                respuesta = json3;
-            }
-            if (req.body.sidx == 'nombre') {
-                if(req.body.sord == 'asc') {
-                    respuesta = jsonOrderedAsc;
+            else{
+                if (req.body.page == 1) {
+                    respuesta = json;
                 }
-                if(req.body.sord == 'desc') {
-                    respuesta = jsonOrderedDesc;
+                if (req.body.page == 2) {
+                    respuesta = json2;
+                }
+                if (req.body.page == 3) {
+                    respuesta = json3;
+                }
+                if (req.body.sidx == 'nombre') {
+                    if(req.body.sord == 'asc') {
+                        respuesta = jsonOrderedAsc;
+                    }
+                    if(req.body.sord == 'desc') {
+                        respuesta = jsonOrderedDesc;
+                    }
                 }
             }
         }
+        
     }
 
     res.status(200).json(respuesta);
