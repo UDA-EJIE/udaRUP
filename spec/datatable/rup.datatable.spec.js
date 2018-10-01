@@ -2,6 +2,7 @@ import 'jquery';
 import 'jasmine-jquery';
 import 'rup.feedback';
 import 'rup.dialog';
+import 'rup.message';
 import 'rup.contextMenu'
 import 'rup.table';
 import 'datatable/rup.datatable';
@@ -209,6 +210,73 @@ function testDatatable() {
                 it('Debe mostrarse el menú contextual:', () => {
                     expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
+                it('Debe tener los items esperados y solo el add debe estar habilitado:', () => {
+                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
+                        .toBe(1);
+                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledDatatable').length)
+                        .toBe(1);
+                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledDatatable').length)
+                        .toBe(1);
+                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledDatatable').length)
+                        .toBe(1);
+                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledDatatable').length)
+                        .toBe(1);
+                });
+                it('Los items deben ser visibles:', () => {
+                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                });
+                describe('Funcionalidades de los items de contextMenu > ', () => {
+                    describe('Item añadir > ', () => {
+                        beforeEach(() => {
+                            $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
+                        });
+                        it('Debe aparecer el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                        });
+                    });
+                    describe('Item editar > ', () => {
+                        beforeEach(() => {
+                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+                            $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
+                        });
+                        it('Debe aparecer el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                            expect($('#id_detailForm_table').val()).toBe('1');
+                            expect($('#nombre_detail_table').val()).toBe('Ana');
+                            expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
+                            expect($('#edad_detail_table').val()).toBe('7');
+                        });
+                    });
+                    describe('Item clone > ', () => {
+                        beforeEach(() => {
+                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+                            $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
+                        });
+                        it('Debe aparecer el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                            expect($('#id_detailForm_table').val()).toBe('1');
+                            expect($('#nombre_detail_table').val()).toBe('Ana');
+                            expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
+                            expect($('#edad_detail_table').val()).toBe('7');
+                        });
+                    });
+                    describe('Item delete > ', () => {
+                        beforeEach(() => {
+                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+                            $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
+                            $('.ui-dialog-buttonset > button.ui-widget:contains(Aceptar)').click();
+                        });
+                        it('Debe eliminar la línea:', () => {
+                            expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
+                        });
+                    });
+                    // TODO: Implementar acceso al portapapeles en JS
+                    describe('Item copy > ', () => {});
+                });
             });
             describe('Edición con formulario > ', () => {
                 describe('Edición de elementos existentes > ', () => {
@@ -318,7 +386,6 @@ function testDatatable() {
                     done();
                 });
             });
-
             describe('Búsqueda > ', () => {
                 beforeEach(() => {
                     $('#searchCollapsLabel_example').click();
@@ -541,17 +608,15 @@ function testDatatable() {
                 });
                 // TODO: Añadir botón extra
             });
-            
-            // describe('Edición en línea > ', () => {
-            //     beforeEach((done) => {
-            //         clearDatatable($('#example').DataTable());
-            //         generateInlineFormDatatable(done);
-            //     });
-            //     it('asd',() => {
-            //         debugger;
-            //         expect(1).toBe(1);
-            //     });
-            // });
+            /*describe('Edición en línea > ', () => {
+                beforeEach((done) => {
+                    clearDatatable($('#example').DataTable());
+                    generateInlineFormDatatable(done);
+                });
+                it('asd',() => {
+                    expect(1).toBe(1);
+                });
+            });*/
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
                     $('#linkSelectTableHeadexample').click();
