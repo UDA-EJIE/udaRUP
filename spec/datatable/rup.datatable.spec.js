@@ -7,176 +7,12 @@ import 'rup.contextMenu'
 import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
-import * as consts from './datatable.html';
+import * as dtGen from './datatableCreator';
 
 function generateFormEditDatatable(callback){
-    let opts = {
-        urlBase: "http://localhost:8081/demo/datatable/remote",
-        pageLength: 5,
-        fixedHeader: {
-            footer: false,
-            header: true
-        },
-        filter: {
-            id: "example_filter_form",
-            filterToolbar: "example_filter_toolbar",
-            collapsableLayerId: "example_filter_fieldset"
-        },
-        multiSelect: {
-            style: "multi"
-        },
-        formEdit: {
-            detailForm: "#example_detail_div",
-            validate: {
-                rules: {
-                    nombre: {
-                        required: true
-                    },
-                    apellido1: {
-                        required: true
-                    },
-                    fechaAlta: {
-                        date: true
-                    },
-                    fechaBaja: {
-                        date: true
-                    }
-                }
-            },
-            titleForm: "Modificar registro"
-        },
-        buttons: {
-            "activate": true
-        },
-        seeker: {
-            colModel: [{
-                name: "id",
-                index: "id",
-                editable: true,
-                width: 80,
-                formoptions: {
-                    rowpos: 1,
-                    colpos: 1
-                }
-            }, {
-                name: "nombre",
-                index: "nombre",
-                editable: true,
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 1
-                }
-            }, {
-                name: "apellidos",
-                index: "apellidos",
-                editable: true,
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 1
-                },
-                classes: "ui-ellipsis"
-            }, {
-                name: "edad",
-                index: "edad",
-                editable: true,
-                formoptions: {
-                    rowpos: 4,
-                    colpos: 1
-                }
-            }]
-        },
-        colReorder: {
-            fixedColumnsLeft: 1
-        },
-        initComplete: () => {
-            setTimeout(function () {
-                callback();
-            }, 300);
-        }
-    }
-
-    if ($('#content').length == 0) {
-        $('body').append('<div id="content"></div>');
-    }
-    $('#content').append(consts.html);
-    $('#example').rup_datatable(opts);
+    dtGen.createDatatable1(callback);
     return;
 }
-/*function generateInlineFormDatatable(callback){
-    //Creamos la nueva datatable
-    let opts = {
-        "urlBase": "http://localhost:8081/demo/datatable/remote",
-        "pageLength": 5,
-        "fixedHeader": {
-            "footer": false,
-            "header": true
-        },
-        "filter": {
-            "id": "example_filter_form",
-            "filterToolbar": "example_filter_toolbar",
-            "collapsableLayerId": "example_filter_fieldset"
-        },
-        "multiSelect": {
-            "style": "multi"
-        },
-        "inlineForm":{},
-        "buttons": {
-            "activate": true
-        },
-        "seeker": {
-            "colModel": [{
-                    "name": "id",
-                    "index": "id",
-                    "editable": true,
-                    "width": 80,
-                    "formoptions": {
-                        "rowpos": 1,
-                        "colpos": 1
-                    }
-                },
-                {
-                    "name": "nombre",
-                    "index": "nombre",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 2,
-                        "colpos": 1
-                    }
-                },
-                {
-                    "name": "apellidos",
-                    "index": "apellidos",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 3,
-                        "colpos": 1
-                    },
-                    "classes": "ui-ellipsis"
-                },
-                {
-                    "name": "edad",
-                    "index": "edad",
-                    "editable": true,
-                    "formoptions": {
-                        "rowpos": 4,
-                        "colpos": 1
-                    }
-                }
-            ]
-        },
-        'initComplete': () => {
-            setTimeout(function () {
-                callback();
-            }, 300);
-        }
-    };
-    if ($('#content').length == 0) {
-        $('body').append('<div id="content"></div>');
-    }
-    $('#content').append(consts.html);
-    $('#example').rup_datatable(opts);
-    return;
-}*/
 
 function clearDatatable(){
     $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
@@ -188,7 +24,6 @@ function clearDatatable(){
 
 function testDatatable() {
     describe('Test DataTable > ', () => {
-        var dt = $('#example').DataTable();
 
         beforeAll((done) => {
             testutils.loadCss(done);
@@ -199,7 +34,7 @@ function testDatatable() {
         });
 
         afterEach(() => {
-            clearDatatable(dt);
+            clearDatatable();
         });
 
         describe('Funcionamiento > ', () => {

@@ -1,9 +1,9 @@
 /* jslint multistr: true */
-
+var idDatatable = 'example';
 var dataUrl = 'http://localhost:8081/demo/datatable/remote';
-var html = '<form id="example_filter_form">\
-<div id="example_filter_toolbar" class="formulario_legend"></div>\
-<fieldset id="example_filter_fieldset" class="rup-table-filter-fieldset">\
+var html = '<form id="idDatatable_filter_form">\
+<div id="idDatatable_filter_toolbar" class="formulario_legend"></div>\
+<fieldset id="idDatatable_filter_fieldset" class="rup-table-filter-fieldset">\
   <div class="row">\
     <div class="col-xs-6 col-md-3">\
       <div class="form-group form-group-sm">\
@@ -31,20 +31,20 @@ var html = '<form id="example_filter_form">\
     </div>\
   </div>\
   <!-- Botonera del formulario de filtrado -->\
-  <div id="example_filter_buttonSet" class="right_buttons">\
+  <div id="idDatatable_filter_buttonSet" class="right_buttons">\
       <!-- Enlace de limpiar -->\
-      <!-- <button id="example_filter_cleanLink" type="button" class="btn btn-warning btn-block">Limpiar</button> -->\
-      <a id="example_filter_cleanLink" href="javascript:void(0)" class="rup-enlaceCancelar">Limpiar</a>\
+      <!-- <button id="idDatatable_filter_cleanLink" type="button" class="btn btn-warning btn-block">Limpiar</button> -->\
+      <a id="idDatatable_filter_cleanLink" href="javascript:void(0)" class="rup-enlaceCancelar">Limpiar</a>\
       <!-- Botón de filtrado -->\
-      <button id="example_filter_filterButton" type="button" class="btn btn-info btn-block rup-filtrar">Filtrar</button>\
+      <button id="idDatatable_filter_filterButton" type="button" class="btn btn-info btn-block rup-filtrar">Filtrar</button>\
   </div>\
 </fieldset>\
 </form>\
-<div id="example_detail_div" class="rup-table-formEdit-detail">\
-  <div id ="example_detail_navigation"></div>\
+<div id="idDatatable_detail_div" class="rup-table-formEdit-detail">\
+  <div id ="idDatatable_detail_navigation"></div>\
   <div class="ui-dialog-content ui-widget-content" >\
-      <form id="example_detail_form">\
-          <div id ="example_detail_feedback"></div>\
+      <form id="idDatatable_detail_form">\
+          <div id ="idDatatable_detail_feedback"></div>\
           <div class="floating_left_pad_right">\
               <div class="floating_left_pad_right one-column">\
                   <label for="id_detailForm_table">id:</label>\
@@ -68,20 +68,20 @@ var html = '<form id="example_filter_form">\
   </div>\
   <div class="rup-table-buttonpane ui-widget-content ui-helper-clearfix">\
       <div class="ui-dialog-buttonset">\
-          <button id="example_detail_button_save" class="btn btn-outline-success" type="button">\
+          <button id="idDatatable_detail_button_save" class="btn btn-outline-success" type="button">\
               Guardar\
           </button>\
-          <button id="example_detail_button_save_repeat" class="btn btn-outline-success" type="button">\
+          <button id="idDatatable_detail_button_save_repeat" class="btn btn-outline-success" type="button">\
               Guardar y continuar\
           </button>\
-          <button id="example_detail_link_cancel" class="btn btn-outline-danger" type="button">\
+          <button id="idDatatable_detail_link_cancel" class="btn btn-outline-danger" type="button">\
               Cancelar\
           </button>\
       </div>\
   </div>\
 </div>\
-<table id="example" class="tableFit table-striped table-bordered" \
-  data-filter-form="#example_filter_form" \
+<table id="idDatatable" class="tableFit table-striped table-bordered" \
+  data-filter-form="#idDatatable_filter_form" \
   cellspacing="0">\
       <thead>\
           <tr>\
