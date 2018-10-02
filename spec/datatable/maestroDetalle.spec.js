@@ -31,15 +31,15 @@ describe('Test Maestro-Detalle > ', () => {
 
     describe('Creación > ',  () => {
         it('La datatable filtro debe contener elementos y la de resultados estar vacía:', () => {
-            expect($('#example > tbody > tr').length).toBe(5);
+            expect($('#example1 > tbody > tr').length).toBe(5);
             expect($('#example2 > tbody > tr').length).toBe(0);
         });
     });
     describe('Filtrado intertabla > ', () => {
         beforeEach((done) => {
             //No reconoce el evento select.
-            //let api = $('#example').DataTable();
-            $('#example').on('select.dt', (e, dt, type, indexes) => {
+            //let api = $('#example1').DataTable();
+            $('#example1').on('select.dt', (e, dt, type, indexes) => {
                 debugger;
                 /*let data = api.rows( indexes ).data();
                 $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id'));
@@ -50,7 +50,7 @@ describe('Test Maestro-Detalle > ', () => {
                 done();
             });
             debugger;
-            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+            $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
         it('asd', () => {
             expect(1).toBe(1);

@@ -102,8 +102,18 @@ function generateHtml(idDatatable){
     return html;
 }
 export function createDatatable1 (ctx, callback) {
-    var idDatatable = 'example';
-    var opts = {
+    var idDatatable = '';
+    var opts = {}; 
+    if(ctx == 0) {
+        idDatatable = 'example';
+        $.extend(opts, true, {multiSelect: {style: "multi"}});
+    }
+    else {
+        idDatatable = 'example1';
+        $.extend(opts, true, {select: {activate: true}});
+    }
+
+    var defaults = {
         urlBase: "http://localhost:8081/demo/datatable/remote",
         pageLength: 5,
         fixedHeader: {
@@ -115,9 +125,6 @@ export function createDatatable1 (ctx, callback) {
             filterToolbar: idDatatable + "_filter_toolbar",
             collapsableLayerId: idDatatable + "_filter_fieldset"
         },
-        // multiSelect: {
-        //     style: "multi"
-        // },
         formEdit: {
             detailForm: "#" + idDatatable + "_detail_div",
             validate: {
@@ -186,13 +193,9 @@ export function createDatatable1 (ctx, callback) {
                 callback();
             }, 300);
         }
-    }
-    if(ctx == 0) {
-        $.extend(opts, true, {multiSelect: {style: "multi"}});
-    }
-    else {
-        $.extend(opts, true, {select: {activate: true}});
-    }
+    };
+
+    $.extend(opts, true, defaults);
 
     if ($('#content').length == 0) {
         $('body').append('<div id="content"></div>');
