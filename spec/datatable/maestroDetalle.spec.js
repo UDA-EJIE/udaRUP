@@ -38,13 +38,13 @@ describe('Test Maestro-Detalle > ', () => {
     describe('Filtrado intertabla > ', () => {
         beforeEach((done) => {
             let api = $('#example1').DataTable();
+            $('#example1').on('draw.dt', () => {
+                setTimeout(() => {
+                    debugger;
+                    done();
+                }, 300);
+            });
             $('#example1').on('select.dt', (e, dt, type, indexes) => {
-                $('#example1').on('draw.dt', () => {
-                    setTimeout(() => {
-                        debugger;
-                        done();
-                    }, 300);
-                });
                 let data = api.rows( indexes ).data();
                 $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id')[0]);
                 $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre')[0]);
@@ -55,10 +55,23 @@ describe('Test Maestro-Detalle > ', () => {
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
-        it('asd', () => {
+        it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
             debugger;
-            expect(1).toBe(1);
+            expect($('#example2 > tbody > tr').length).toBe(1);
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(0)').text()).toBe('1');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('Ana');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe('García Vázquez');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(3)').text()).toBe('7');
         });
     });
-    describe('Funcionamiento independiente > ', () => {});
+    describe('Funcionamiento independiente > ', () => {
+        describe('Filtrado independiente > ', () => {
+            describe('Tabla maestro > ', () => {});
+            describe('Tabla detalle > ', () => {});
+        });
+        describe('Búsqueda independiente > ', () => {
+            describe('Tabla maestro > ', () => {});
+            describe('Tabla detalle > ', () => {});
+        });
+    });
 });
