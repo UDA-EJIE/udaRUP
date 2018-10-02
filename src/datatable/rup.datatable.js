@@ -256,9 +256,33 @@
 			*
 		  */
 		_ajaxOptions(options) {
+			options.id = this[0].id;
 			var ajaxData = {
 				'url': options.urls.filter,
-				'dataSrc': this._ajaxSuccessData,
+				'dataSrc': function ( json ) {
+					var ret = {};
+
+					json.recordsTotal = json.records;
+					json.recordsFiltered = json.records;
+
+					ret.recordsTotal = json.records;
+					ret.recordsFiltered = json.records;
+					ret.data = json.rows;
+
+		     		var table = $('#'+options.id).DataTable();
+					var ctx = table.context[0];
+
+					var settings = $(ctx.nTable).data('settings'+ctx.sTableId);
+					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
+						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
+					}
+					if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
+							&& json.reorderedSeeker !== undefined){
+						ctx.seeker.search.funcionParams = json.reorderedSeeker;
+					}
+
+					return ret.data;
+				},
 				'type': 'POST',
 				'data': this._ajaxRequestData,
 				'contentType': 'application/json',
@@ -269,57 +293,6 @@
 
 			return ajaxData;
 		},
-
-		/**
-			* Obtiene los datos devueltos por el servidor de manera ordenada
-			*
-			* @name _ajaxSuccessData
-			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
-			*
-			* @param {object} json Información de los registros de la página actual
-			*
-		  */
-		_ajaxSuccessData(json) {
-			var ret = {};
-
-			json.recordsTotal = json.records;
-			json.recordsFiltered = json.records;
-
-			ret.recordsTotal = json.records;
-			ret.recordsFiltered = json.records;
-			ret.data = json.rows;
-
-//			$self = $('#'+DataTable.settings[0].sTableId);
-			var ctx = DataTable.settings[0];
-			//Si hay mas de una tabla se verifica cual es.
-			if(DataTable.settings.length > 1){
-				var urlOriginal = event.srcElement.responseURL.split('/');
-				urlOriginal = urlOriginal[urlOriginal.length-2];
-				var i = 0;
-				while(i < DataTable.settings.length){
-					ctx = DataTable.settings[i];
-					var urlBase = ctx.ajax.url.split('/');
-					urlBase = urlBase[urlBase.length-2];
-					if(urlBase === urlOriginal){
-						break;
-					}
-					i++;
-				}
-			}
-			var settings = $(ctx.nTable).data('settings'+ctx.sTableId);
-			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
-				DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
-			}
-			if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
-					&& json.reorderedSeeker !== undefined){
-				ctx.seeker.search.funcionParams = json.reorderedSeeker;
-			}
-
-			return ret.data;
-
-		},
-
 		/**
 			* Solicita los datos al servidor
 			*

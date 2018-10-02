@@ -403,6 +403,12 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		ctx.oInit.formEdit.$navigationBar.show();
 		// Asignamos un valor a la variable del título del formulario
 		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
+		// Comprobamos si se desea bloquear la edicion de las claves primarias
+		if(ctx.oInit.blockPKeditForm) {
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				$(idForm[0]).find("input[name=" + id + "]").prop("readOnly", true);
+			});
+		}
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(rowArray, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
@@ -415,6 +421,10 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	
 	ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
 	ctx.oInit.formEdit.detailForm.rup_dialog("open");
+	
+	// Establecemos el foco al primer elemento input o select que se
+	// encuentre habilitado en el formulario
+	$(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
 
 	//Se guardan los datos originales
 	ctx.oInit.formEdit.dataOrigin = idForm.formSerialize();

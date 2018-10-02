@@ -178,7 +178,7 @@ function _createFilterColumn(dt,ctx){
 * @since UDA 3.4.0 // Datatable 1.0.0
 * 
 * @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
 *
 */
 function _createSearchRow (dt,ctx){
@@ -192,9 +192,9 @@ function _createSearchRow (dt,ctx){
 			matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLayer'),
 			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLabel'),
 			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLayer'),
-			navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLink'),
+			navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navButton'),
 			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navSearchButton'),
-			navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navClearLink'),
+			navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navClearButton'),
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.searchRow')),
@@ -209,17 +209,17 @@ function _createSearchRow (dt,ctx){
 
 			// Capa que controla la navegación entre las diferentes ocurrencias
 			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-			$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.first'))),
-			$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.previous'))),
-			$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.next'))),
-			$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.last'))),
+			$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.first'))),
+			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.previous'))),
+			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.next'))),
+			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.last'))),
 			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Find'))),
-			$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Reset')));
+			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Reset')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
 		$matchedLayer.append($matchedLabel);
-		$navLayer.append($firstNavLink).append($backNavLink).append($forwardNavLink).append($lastNavLink).append($navSearchButton).append($navClearLink);
+		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
 
 		$searchRowHeader.append($collapseLayer);
 		$searchRowHeader.append($matchedLayer);
@@ -237,10 +237,10 @@ function _createSearchRow (dt,ctx){
 		ctx.seeker.search.$collapseIcon = $collapseIcon;
 		ctx.seeker.search.$searchRow = $searchRow;
 		ctx.seeker.search.$matchedLabel = $matchedLabel;
-		ctx.seeker.search.$firstNavLink = $firstNavLink;
-		ctx.seeker.search.$backNavLink = $backNavLink;
-		ctx.seeker.search.$forwardNavLink = $forwardNavLink;
-		ctx.seeker.search.$lastNavLink = $lastNavLink;
+		ctx.seeker.search.$firstNavButton = $firstNavButton;
+		ctx.seeker.search.$backNavButton = $backNavButton;
+		ctx.seeker.search.$forwardNavButton = $forwardNavButton;
+		ctx.seeker.search.$lastNavButton = $lastNavButton;
 
 		// Creacion del enlace de mostrar/ocultar el formulario
 		$collapseIcon.add($collapseLabel).on('click', function(){
@@ -271,7 +271,7 @@ function _createSearchRow (dt,ctx){
 		});
 
 		// Evento asociado a limpiar el fomulario de búsqueda
-		$navClearLink.on('click', function(){
+		$navClearButton.on('click', function(){
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
 			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
 			jQuery('.ui-selectmenu-status','table tfoot').text('--');
@@ -282,33 +282,33 @@ function _createSearchRow (dt,ctx){
 
 		$navLayer.hide();
 
-		function doSearchLinkNavigation($link, linkId){
-			if (!$link.hasClass('ui-state-disabled')){
-				$self.rup_table('navigateToMatchedRow', linkId);
+		function doSearchButtonNavigation($button, buttonId){
+			if (!$button.hasClass('ui-state-disabled')){
+				$self.rup_table('navigateToMatchedRow', buttonId);
 			}
 		}
 
 		// Elemento primero
-		$firstNavLink.on('click', function(){
+		$firstNavButton.on('click', function(){
 			ctx.seeker.search.pos = 0;
 			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento anterior
-		$backNavLink.on('click', function(){
+		$backNavButton.on('click', function(){
 			ctx.seeker.search.pos--;
 			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento siguiente
-		$forwardNavLink.on('click', function(){
+		$forwardNavButton.on('click', function(){
 			ctx.seeker.search.accion = 'next';
 			ctx.seeker.search.pos++;
 			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento ultimo
-		$lastNavLink.on('click', function(){
+		$lastNavButton.on('click', function(){
 			ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length-1;
 			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
@@ -411,18 +411,18 @@ function _paginar(ctx,dato){
 function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 
 	if (currentRowNum === 1) {
-		ctx.seeker.search.$firstNavLink.addClass('ui-state-disabled');
-		ctx.seeker.search.$backNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$backNavButton.addClass('ui-state-disabled');
 	} else {
-		ctx.seeker.search.$firstNavLink.removeClass('ui-state-disabled');
-		ctx.seeker.search.$backNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$backNavButton.removeClass('ui-state-disabled');
 	}
 	if (currentRowNum === totalRowNum) {
-		ctx.seeker.search.$forwardNavLink.addClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavButton.addClass('ui-state-disabled');
 	} else {
-		ctx.seeker.search.$forwardNavLink.removeClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavButton.removeClass('ui-state-disabled');
 	}
 
 	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
@@ -454,7 +454,7 @@ function _processData(dt,ctx,data){
 	}
 
 	if (data.length === 0){
-		ctx.seeker.search.$firstNavLink.add(ctx.seeker.search.$backNavLink).add(ctx.seeker.search.$forwardNavLink).add(ctx.seeker.search.$lastNavLink).addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).addClass('ui-state-disabled');
 		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);

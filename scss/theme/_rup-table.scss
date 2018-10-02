@@ -158,3 +158,11 @@ div.right_buttons > button:not(:last-child) {
     clear:both;
   }
 }
+
+table.ui-jqgrid-htable > thead > tr.search_row {
+	height: 37px;
+}
+  
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  	height: initial !important;
+}
