@@ -86,6 +86,7 @@ DataTable.seeker.init = function ( dt ) {
 			async : true,
 			success : function(data, status, xhr) {
 				ctx.seeker.search.funcionParams = data;
+				ctx.seeker.search.pos = 0;// se inicializa por cada busqueda.
 				_processData(dt,ctx,data);
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
