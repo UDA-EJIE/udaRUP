@@ -36,24 +36,21 @@ describe('Test Maestro-Detalle > ', () => {
         });
     });
     describe('Filtrado intertabla > ', () => {
-        beforeEach(() => {
-            /*
+        beforeEach((done) => {
             //No reconoce el evento select.
-            let api = $('#example').DataTable();
-            api.on('select', (e, dt, type, indexes) => {
-                let data = api.rows( indexes ).data();
-                $('#example2_filter_fieldset > #id_filter_table').val(data.pluck('id'));
-                $('#example2_filter_fieldset > #nombre_filter_table').val(data.pluck('nombre'));
-                $('#example2_filter_fieldset > #apellidos_filter_table').val(data.pluck('apellidos'));
-                $('#example2_filter_fieldset > #edad_filter_table').val(data.pluck('edad'));
-            });*/
-            let ctx = $('#example > tbody > tr.selected');
-            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-            $('#example2_filter_fieldset').find('#id_filter_table').val($('td:eq(0)', ctx).text());
-            $('#example2_filter_fieldset').find('#nombre_filter_table').val($('td:eq(0)', ctx).text());
-            $('#example2_filter_fieldset').find('#apellidos_filter_table').val($('td:eq(0)', ctx).text());
-            $('#example2_filter_fieldset').find('#edad_filter_table').val($('td:eq(0)', ctx).text());
+            //let api = $('#example').DataTable();
+            $('#example').on('select.dt', (e, dt, type, indexes) => {
+                debugger;
+                /*let data = api.rows( indexes ).data();
+                $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id'));
+                $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre'));
+                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(data.pluck('apellidos'));
+                $('#example2_filter_fieldset').find('#edad_filter_table').val(data.pluck('edad'));
+                $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();*/
+                done();
+            });
             debugger;
+            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
         });
         it('asd', () => {
             expect(1).toBe(1);

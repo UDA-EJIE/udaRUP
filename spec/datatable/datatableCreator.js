@@ -206,8 +206,8 @@ export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
         urlBase: "http://localhost:8081/demo/datatable/remote",
-        serverSide: true,
-        deferLoading: 15,
+        // serverSide: true,
+        // deferLoading: 15,
         pageLength: 5,
         fixedHeader: {
             footer: false,
@@ -286,7 +286,7 @@ export function createDatatable2(callback) {
         },
         initComplete: function() {
             setTimeout(function () {
-                //$('#' + idDatatable + ' > tbody').children().remove();
+                $('#' + idDatatable + ' > tbody').children().remove();
                 callback();
             }, 300);
         }
