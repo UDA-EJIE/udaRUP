@@ -37,16 +37,21 @@ describe('Test Maestro-Detalle > ', () => {
     });
     describe('Filtrado intertabla > ', () => {
         beforeEach((done) => {
-            //No reconoce el evento select.
-            //let api = $('#example1').DataTable();
+            let api = $('#example1').DataTable();
             $('#example1').on('select.dt', (e, dt, type, indexes) => {
+                $('#example1').on('draw.dt', () => {
+                    setTimeout(() => {
+                        debugger;
+                        done();
+                    }, 300);
+                });
                 let data = api.rows( indexes ).data();
-                $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id'));
-                $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre'));
-                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(data.pluck('apellidos'));
-                $('#example2_filter_fieldset').find('#edad_filter_table').val(data.pluck('edad'));
+                $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id')[0]);
+                $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre')[0]);
+                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(data.pluck('apellidos')[0]);
+                $('#example2_filter_fieldset').find('#edad_filter_table').val(data.pluck('edad')[0]);
+                debugger;
                 $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
-                done();
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
