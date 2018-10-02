@@ -110,7 +110,7 @@ export function createDatatable1 (ctx, callback) {
     }
     else {
         idDatatable = 'example1';
-        $.extend(opts, true, {select: {activate: true}});
+        $.extend(opts, true, {multiSelect: {style: "simple"}});
     }
 
     var defaults = {
