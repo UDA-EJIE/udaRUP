@@ -66,12 +66,30 @@ describe('Test Maestro-Detalle > ', () => {
     });
     describe('Funcionamiento independiente > ', () => {
         describe('Filtrado independiente > ', () => {
-            describe('Tabla maestro > ', () => {});
-            describe('Tabla detalle > ', () => {});
+            describe('Tabla maestro > ', () => {
+                beforeEach(() => {
+                    $('#example1_filter_fieldset').find('#id_filter_table').val(1);
+                    $('#example1_filter_fieldset').find('#example1_filter_filterButton').click();
+                });
+            });
+            describe('Tabla detalle > ', () => {
+                beforeEach(() => {
+                    $('#example2_filter_fieldset').find('#id_filter_table').val(1);
+                    $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                });
+            });
         });
         describe('Búsqueda independiente > ', () => {
-            describe('Tabla maestro > ', () => {});
-            describe('Tabla detalle > ', () => {});
+            describe('Tabla maestro > ', () => {
+                beforeEach(() => {
+                    $('#example1').find('#searchCollapsLabel_example').click();
+                });
+            });
+            describe('Tabla detalle > ', () => {
+                beforeEach(() => {
+                    $('#example2').find('#searchCollapsLabel_example').click();
+                });
+            });
         });
     });
 });
