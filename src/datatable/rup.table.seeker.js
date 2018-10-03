@@ -375,7 +375,7 @@ function _selectSearch(dt,ctx,rows){
 		}
 		ctx.seeker.search.accion = '';
 	}
-	$('#'+ctx.sTableId).trigger('heces.rup.dt');
+	$('#'+ctx.sTableId).trigger('selected.rup.dt');
 }
 
 /**
