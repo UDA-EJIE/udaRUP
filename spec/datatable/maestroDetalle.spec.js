@@ -104,9 +104,9 @@ describe('Test Maestro-Detalle > ', () => {
                     debugger;
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
-                it('asd', () => {
-                    expect(1).toBe(1);
-                });
+                // it('asd', () => {
+                //     expect(1).toBe(1);
+                // });
                 // it('Se debe de haber filtrado #example2:', () => {
                 //     let ctx = $('#example2 > tbody > tr');
                 //     expect(ctx.length).toBe(1);
