@@ -101,12 +101,12 @@ describe('Test Maestro-Detalle > ', () => {
                         },500);
                     });
                     $('#example2_filter_fieldset').find('#id_filter_table').val(1);
-                    debugger;
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                    debugger;
                 });
-                // it('asd', () => {
-                //     expect(1).toBe(1);
-                // });
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
                 // it('Se debe de haber filtrado #example2:', () => {
                 //     let ctx = $('#example2 > tbody > tr');
                 //     expect(ctx.length).toBe(1);
