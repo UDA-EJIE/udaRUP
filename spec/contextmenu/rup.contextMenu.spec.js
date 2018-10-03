@@ -46,7 +46,10 @@ describe('Test ContextMenu > ', () => {
     });
 
     afterEach(() => {
-        $context.rup_contextMenu('destroy');
+        if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
+            $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
+            $.contextMenu('destroy');
+        }
         $('#content').html('');
         $('#content').nextAll().remove();
     });

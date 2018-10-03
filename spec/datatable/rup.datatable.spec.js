@@ -3,24 +3,27 @@ import 'jasmine-jquery';
 import 'rup.feedback';
 import 'rup.dialog';
 import 'rup.message';
-import 'rup.contextMenu'
+import 'rup.contextMenu';
 import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as dtGen from './datatableCreator';
 
-function generateFormEditDatatable(callback){
-    dtGen.createDatatable1(0,callback);
+function generateFormEditDatatable(callback) {
+    dtGen.createDatatable1(0, callback);
     return;
 }
 
-function clearDatatable(){
-    $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
-    $.contextMenu('destroy');
+function clearDatatable(done) {
+    if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
+        $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
+        $.contextMenu('destroy');
+    }
     $('.dataTable').DataTable().destroy();
     $('#content').html('');
     $('#content').nextAll().remove();
- }
+    done();
+}
 
 function testDatatable() {
     describe('Test DataTable > ', () => {
@@ -33,8 +36,8 @@ function testDatatable() {
             generateFormEditDatatable(done);
         });
 
-        afterEach(() => {
-            clearDatatable();
+        afterEach((done) => {
+            clearDatatable(done);
         });
 
         describe('Funcionamiento > ', () => {
@@ -140,7 +143,7 @@ function testDatatable() {
                             $('#example_detail_button_save_repeat').click();
                             setTimeout(() => {
                                 done();
-                            },1000);
+                            }, 1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(2)').parent();
@@ -156,7 +159,7 @@ function testDatatable() {
                             $('#example_detail_button_save').click();
                             setTimeout(() => {
                                 done();
-                            },1000);
+                            }, 1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(2)').parent();
@@ -183,7 +186,7 @@ function testDatatable() {
                             $('#example_detail_button_save_repeat').click();
                             setTimeout(() => {
                                 done();
-                            },1000);
+                            }, 1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(345)').parent();
@@ -204,7 +207,7 @@ function testDatatable() {
                             $('#example_detail_button_save').click();
                             setTimeout(() => {
                                 done();
-                            },1000);
+                            }, 1000);
                         });
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr > td:contains(345)').parent();
@@ -313,7 +316,7 @@ function testDatatable() {
                             expect($('tr > td:contains(5)').length).toBe(1);
                         });
                     });
-                    
+
                 });
                 describe('Página primera > ', () => {
                     beforeEach((done) => {
@@ -373,7 +376,10 @@ function testDatatable() {
                             }, 300);
                         });
                         $('.ui-pg-input').val(3);
-                        $('.ui-pg-input').trigger($.Event( 'keypress', { keyCode: 13, which: 13 } ));
+                        $('.ui-pg-input').trigger($.Event('keypress', {
+                            keyCode: 13,
+                            which: 13
+                        }));
                     });
                     it('Cambia el número de página:', () => {
                         expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
@@ -393,7 +399,7 @@ function testDatatable() {
                         done();
                     });
                     $('[name="example_length"]').val(10);
-                    $('[name="example_length"]').trigger('change')
+                    $('[name="example_length"]').trigger('change');
                 });
                 it('Debe haber recibido los registros indicados:', () => {
                     expect($('tbody > tr', $('#example')).length).toBe(10);
@@ -438,8 +444,8 @@ function testDatatable() {
                             expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('1');
                         });
                     });
-                    
-                });                
+
+                });
             });
             describe('Botonera > ', () => {
                 describe('Aparecen los botones por defecto > ', () => {
@@ -473,28 +479,28 @@ function testDatatable() {
                 it('Debe mostrarse el contextMenu:', () => {
                     expect($('ul:contains(Marcar visibles)').is(':visible')).toBeTruthy();
                 });
-                
+
                 describe('Funcionalidad de las opciones multiselect > ', () => {
                     describe('Marcar visibles > ', () => {
                         beforeEach((done) => {
                             $('ul > li:contains(Marcar visibles)').mouseup();
                             setTimeout(() => {
                                 done();
-                            },300);
+                            }, 300);
                         });
                         it('Debe añadirlo al contexto:', () => {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
-                                .toEqual(['2','3','4','5','1']);
+                                .toEqual(['2', '3', '4', '5', '1']);
                         });
                         it('Debe marcar con highlight los elementos seleccionados:', () => {
-                            $('#example > tbody > tr').each((i,e) => {
+                            $('#example > tbody > tr').each((i, e) => {
                                 expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
                             });
                         });
                         it('Debe mostrar el número de elementos seleccionados:', () => {
                             expect(
                                 $('#example_info > span.select-info:contains(5 filas seleccionadas)').length
-                                ).toBe(1);
+                            ).toBe(1);
                         });
                     });
                     describe('Desmarcar visibles > ', () => {
@@ -504,22 +510,22 @@ function testDatatable() {
                                 $('ul > li:contains(Desmarcar visibles)').mouseup();
                                 setTimeout(() => {
                                     done();
-                                },300);
-                            },300);
+                                }, 300);
+                            }, 300);
                         });
                         it('Debe añadirlo al contexto:', () => {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
                                 .toEqual([]);
                         });
                         it('Debe desmarcar con highlight los elementos:', () => {
-                            $('#example > tbody > tr').each((i,e) => {
+                            $('#example > tbody > tr').each((i, e) => {
                                 expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
                             });
                         });
                         it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
                             expect(
                                 $('#example_info > span.select-info').length
-                                ).toBe(0);
+                            ).toBe(0);
                         });
                     });
                     describe('Marcar todo > ', () => {
@@ -527,21 +533,21 @@ function testDatatable() {
                             $('ul > li:contains(Marcar todo)').mouseup();
                             setTimeout(() => {
                                 done();
-                            },300);
+                            }, 300);
                         });
                         it('Debe añadirlo al contexto:', () => {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
-                                .toBeTruthy;
+                                .toBeTruthy();
                         });
                         it('Debe marcar con highlight los elementos seleccionados:', () => {
-                            $('#example > tbody > tr').each((i,e) => {
+                            $('#example > tbody > tr').each((i, e) => {
                                 expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
                             });
                         });
                         it('Debe mostrar el número de elementos seleccionados:', () => {
                             expect(
                                 $('#example_info > span.select-info:contains(15 filas seleccionadas)').length
-                                ).toBe(1);
+                            ).toBe(1);
                         });
                     });
                     describe('Desmarcar todo > ', () => {
@@ -551,22 +557,22 @@ function testDatatable() {
                                 $('ul > li:contains(Desmarcar todo)').mouseup();
                                 setTimeout(() => {
                                     done();
-                                },300);
-                            },300);
+                                }, 300);
+                            }, 300);
                         });
                         it('Debe añadirlo al contexto:', () => {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
                                 .toEqual([]);
                         });
                         it('Debe desmarcar con highlight los elementos:', () => {
-                            $('#example > tbody > tr').each((i,e) => {
+                            $('#example > tbody > tr').each((i, e) => {
                                 expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
                             });
                         });
                         it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
                             expect(
                                 $('#example_info > span.select-info').length
-                                ).toBe(0);
+                            ).toBe(0);
                         });
                     });
                 });

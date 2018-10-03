@@ -198,7 +198,7 @@ export function createDatatable1 (ctx, callback) {
     $.extend(opts, true, defaults);
 
     if ($('#content').length == 0) {
-        $('body').append('<div id="content"></div>');
+        $('body').append('<div id="content" class="container"></div>');
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
@@ -296,7 +296,7 @@ export function createDatatable2(callback) {
     }
 
     if ($('#content').length == 0) {
-        $('body').append('<div id="content"></div>');
+        $('body').append('<div id="content" class="container"></div>');
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
