@@ -80,6 +80,15 @@ var json4 = {
     records: 15
 };
 
+var jsonMDInterFilter =  {
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+    ],
+    total: '3',
+    records: 15
+};
+
 exports.filter = (req, res) => {
     //console.info(req.body);
     let respuesta = {};
@@ -108,21 +117,28 @@ exports.filter = (req, res) => {
                 respuesta = json4;
             }
             else{
-                if (req.body.page == 1) {
-                    respuesta = json;
+                let mdFilter = '{"id":"1","nombre":"Ana","apellidos":"García Vázquez","edad":"7"}';
+                
+                if(JSON.stringify(req.body.filter) == mdFilter) {
+                    respuesta = jsonMDInterFilter;
                 }
-                if (req.body.page == 2) {
-                    respuesta = json2;
-                }
-                if (req.body.page == 3) {
-                    respuesta = json3;
-                }
-                if (req.body.sidx == 'nombre') {
-                    if(req.body.sord == 'asc') {
-                        respuesta = jsonOrderedAsc;
+                else {
+                    if (req.body.page == 1) {
+                        respuesta = json;
                     }
-                    if(req.body.sord == 'desc') {
-                        respuesta = jsonOrderedDesc;
+                    if (req.body.page == 2) {
+                        respuesta = json2;
+                    }
+                    if (req.body.page == 3) {
+                        respuesta = json3;
+                    }
+                    if (req.body.sidx == 'nombre') {
+                        if(req.body.sord == 'asc') {
+                            respuesta = jsonOrderedAsc;
+                        }
+                        if(req.body.sord == 'desc') {
+                            respuesta = jsonOrderedDesc;
+                        }
                     }
                 }
             }

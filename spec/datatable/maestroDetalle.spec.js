@@ -50,7 +50,6 @@ describe('Test Maestro-Detalle > ', () => {
                 $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre')[0]);
                 $('#example2_filter_fieldset').find('#apellidos_filter_table').val(data.pluck('apellidos')[0]);
                 $('#example2_filter_fieldset').find('#edad_filter_table').val(data.pluck('edad')[0]);
-                debugger;
                 $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
