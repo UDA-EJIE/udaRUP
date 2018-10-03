@@ -38,7 +38,7 @@ describe('Test Maestro-Detalle > ', () => {
     describe('Filtrado intertabla > ', () => {
         beforeEach((done) => {
             let api = $('#example1').DataTable();
-            $('#example1').on('draw.dt', () => {
+            $('#example2').on('draw.dt', () => {
                 setTimeout(() => {
                     debugger;
                     done();
