@@ -40,7 +40,6 @@ describe('Test Maestro-Detalle > ', () => {
             let api = $('#example1').DataTable();
             $('#example2').on('draw.dt', () => {
                 setTimeout(() => {
-                    debugger;
                     done();
                 }, 300);
             });
@@ -55,7 +54,6 @@ describe('Test Maestro-Detalle > ', () => {
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
         it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
-            debugger;
             expect($('#example2 > tbody > tr').length).toBe(1);
             expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
             expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe('Ana');
