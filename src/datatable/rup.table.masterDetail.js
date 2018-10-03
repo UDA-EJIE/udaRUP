@@ -80,10 +80,12 @@ DataTable.masterDetail.init = function ( dt ) {
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
 		var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
 		var rowSelected = tableMaster.rows( '.selected' ).indexes();
-		var row = tableMaster.rows( rowSelected ).data();
-		var id = DataTable.Api().rupTable.getIdPk(row[0]);
-		$("#"+idHidden).val(""+id);
-		$('#'+ctx.sTableId+'_filter_filterButton').click();
+		if(rowSelected[0] !== undefined){//Se ha deseleccionado, no entrar.
+			var row = tableMaster.rows( rowSelected ).data();
+			var id = DataTable.Api().rupTable.getIdPk(row[0]);
+			$("#"+idHidden).val(""+id);
+			$('#'+ctx.sTableId+'_filter_filterButton').click();
+		}
 
 	} );
 	

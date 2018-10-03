@@ -961,7 +961,7 @@
 
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings'+$self[0].id, settings);
-			if(settings.multiSelect !== undefined){
+			if(settings.multiSelect !== undefined || settings.select !== undefined){
 				$self._createEventSelect(tabla);				
 			}
 			$self._ConfigureFiltern(settings);
