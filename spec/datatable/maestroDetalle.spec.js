@@ -64,16 +64,54 @@ describe('Test Maestro-Detalle > ', () => {
     describe('Funcionamiento independiente > ', () => {
         describe('Filtrado independiente > ', () => {
             describe('Tabla maestro > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
+                    $('#example1').on('draw.dt', () => {
+                        setTimeout(() => {
+                            done();
+                        },500);
+                    });
                     $('#example1_filter_fieldset').find('#id_filter_table').val(1);
                     $('#example1_filter_fieldset').find('#example1_filter_filterButton').click();
+                });
+                it('Se debe de haber filtrado #example1:', () => {
+                    let ctx = $('#example1 > tbody > tr');
+                    expect(ctx.length).toBe(1);
+                    expect($('td:eq(1)', ctx).text()).toBe('1');
+                    expect($('td:eq(2)', ctx).text()).toBe('Ana');
+                    expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
+                    expect($('td:eq(4)', ctx).text()).toBe('7');
+                });
+                it('No debe haber cambios en #example2:', ()  => {
+                    let ctx = $('#example2 > tbody > tr');
+                    expect(ctx.length).toBe(0);
                 });
             });
             describe('Tabla detalle > ', () => {
                 beforeEach(() => {
+                    $('#example2').on('draw.dt', () => {
+                        setTimeout(() => {
+                            done();
+                        },500);
+                    });
                     $('#example2_filter_fieldset').find('#id_filter_table').val(1);
+                    debugger;
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
+                // it('Se debe de haber filtrado #example2:', () => {
+                //     let ctx = $('#example2 > tbody > tr');
+                //     expect(ctx.length).toBe(1);
+                //     expect($('td:eq(1)', ctx).text()).toBe('1');
+                //     expect($('td:eq(2)', ctx).text()).toBe('Ana');
+                //     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
+                //     expect($('td:eq(4)', ctx).text()).toBe('7');
+                // });
+                // it('No debe haber cambios en #example1:', ()  => {
+                //     let ctx = $('#example1 > tbody > tr');
+                //     expect(ctx.length).toBe(0);
+                // });
             });
         });
         describe('Búsqueda independiente > ', () => {
@@ -81,12 +119,19 @@ describe('Test Maestro-Detalle > ', () => {
                 beforeEach(() => {
                     $('#example1').find('#searchCollapsLabel_example').click();
                 });
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
             });
             describe('Tabla detalle > ', () => {
                 beforeEach(() => {
                     $('#example2').find('#searchCollapsLabel_example').click();
                 });
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
             });
         });
+        describe('Formularios independientes > ', () => {});
     });
 });
