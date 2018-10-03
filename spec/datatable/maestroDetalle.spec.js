@@ -58,10 +58,10 @@ describe('Test Maestro-Detalle > ', () => {
         it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
             debugger;
             expect($('#example2 > tbody > tr').length).toBe(1);
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(0)').text()).toBe('1');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('Ana');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe('García Vázquez');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(3)').text()).toBe('7');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe('Ana');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(3)').text()).toBe('García Vázquez');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(4)').text()).toBe('7');
         });
     });
     describe('Funcionamiento independiente > ', () => {
