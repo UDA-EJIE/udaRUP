@@ -35,7 +35,7 @@ export function loadCss(callback) {
                                                     $.when($.ajax(DIST + '/css/main.css'))
                                                     .then((data, textStatus, jqXHR) => {
                                                         if($('#content').length === 0) {
-                                                            $('body').append('<div id="content"></div>');
+                                                            $('body').append('<div id="content" class="container"></div>');
                                                         }
                                                         callback();
                                                     });
