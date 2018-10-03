@@ -118,28 +118,34 @@ exports.filter = (req, res) => {
             }
             else{
                 let mdFilter = '{"id":"1","nombre":"Ana","apellidos":"García Vázquez","edad":"7"}';
-                
+
                 if(JSON.stringify(req.body.filter) == mdFilter) {
                     respuesta = jsonMDInterFilter;
                 }
                 else {
-                    if (req.body.page == 1) {
-                        respuesta = json;
+                    if(req.body.filter.id == '1') {
+                        respuesta = jsonMDInterFilter;
                     }
-                    if (req.body.page == 2) {
-                        respuesta = json2;
-                    }
-                    if (req.body.page == 3) {
-                        respuesta = json3;
-                    }
-                    if (req.body.sidx == 'nombre') {
-                        if(req.body.sord == 'asc') {
-                            respuesta = jsonOrderedAsc;
+                    else {
+                        if (req.body.page == 1) {
+                            respuesta = json;
                         }
-                        if(req.body.sord == 'desc') {
-                            respuesta = jsonOrderedDesc;
+                        if (req.body.page == 2) {
+                            respuesta = json2;
+                        }
+                        if (req.body.page == 3) {
+                            respuesta = json3;
+                        }
+                        if (req.body.sidx == 'nombre') {
+                            if(req.body.sord == 'asc') {
+                                respuesta = jsonOrderedAsc;
+                            }
+                            if(req.body.sord == 'desc') {
+                                respuesta = jsonOrderedDesc;
+                            }
                         }
                     }
+                    
                 }
             }
         }
