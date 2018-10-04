@@ -7,7 +7,7 @@ import 'rup.contextMenu';
 import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
-import * as dtGen from './datatableCreator';
+import * as dtGen from './datatableCreator.js';
 
 function clearDatatable(done) {
     if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
@@ -102,29 +102,58 @@ describe('Test Maestro-Detalle > ', () => {
                     });
                     $('#example2_filter_fieldset').find('#id_filter_table').val(1);
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
-                    debugger;
                 });
-                it('Se debe de haber filtrado #example2:', () => {
-                    let ctx = $('#example2 > tbody > tr');
-                    expect(ctx.length).toBe(1);
-                    expect($('td:eq(1)', ctx).text()).toBe('1');
-                    expect($('td:eq(2)', ctx).text()).toBe('Ana');
-                    expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
-                    expect($('td:eq(4)', ctx).text()).toBe('7');
-                });
-                it('No debe haber cambios en #example1:', ()  => {
-                    let ctx = $('#example1 > tbody > tr');
-                    expect(ctx.length).toBe(0);
-                });
+                // it('Se debe de haber filtrado #example2:', () => {
+                //     let ctx = $('#example2 > tbody > tr');
+                //     expect(ctx.length).toBe(1);
+                //     expect($('td:eq(1)', ctx).text()).toBe('1');
+                //     expect($('td:eq(2)', ctx).text()).toBe('Ana');
+                //     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
+                //     expect($('td:eq(4)', ctx).text()).toBe('7');
+                // });
+                // it('No debe haber cambios en #example1:', ()  => {
+                //     let ctx = $('#example1 > tbody > tr');
+                //     expect(ctx.length).toBe(0);
+                // });
             });
         });
         describe('Búsqueda independiente > ', () => {
             describe('Tabla maestro > ', () => {
                 beforeEach(() => {
-                    $('#example1').find('#searchCollapsLabel_example').click();
+                    $('#searchCollapsLabel_example1').click();
                 });
-                it('asd', () => {
-                    expect(1).toBe(1);
+                describe('Aparición del seeker > ', () => {
+                    it('Se muestra el formulario de búsqueda en #example1:', () => {
+                        expect($('#example1').find('#id_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#nombre_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                    });
+                    it('No se debe mostrar el formulario de búsqueda en #example2', () => {
+                        expect($('#example2').find('#id_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#nombre_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                    });
+                });
+                describe('Funcionalidad del seeker > ', () => {
+                    beforeEach((done) => {
+                        $('#example1').find('#nombre_seeker').val('E')
+                        $('#search_nav_button_example1').click();
+                        $('#example1').on('searchDone.rup.dt', () => {
+                            done();
+                        });
+                    });
+                    // it('Se selecciona y marca el resultado de la selección: ', () => {
+                    //     let ctx = $('#example1').find('td:contains(4)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+
+                    //     ctx = $('#example1').find('td:contains(5)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    // });
+                    // it('No se selecciona nada en #example2:', () => {
+                    //     expect($('#example2 > tbody').find('span.ui-icon-search').length).toBe(0);
+                    // });
                 });
             });
             describe('Tabla detalle > ', () => {
