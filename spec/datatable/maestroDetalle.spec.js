@@ -43,6 +43,7 @@ describe('Test Maestro-Detalle > ', () => {
     });
 
     describe('Filtrado intertabla > ', () => {
+        var selected = {};
         beforeEach((done) => {
             let api = $('#example1').DataTable();
             $('#example2').on('draw.dt', () => {
@@ -52,20 +53,26 @@ describe('Test Maestro-Detalle > ', () => {
             });
             $('#example1').on('select.dt', (e, dt, type, indexes) => {
                 let data = api.rows(indexes).data();
-                $('#example2_filter_fieldset').find('#id_filter_table').val(data.pluck('id')[0]);
-                $('#example2_filter_fieldset').find('#nombre_filter_table').val(data.pluck('nombre')[0]);
-                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(data.pluck('apellidos')[0]);
-                $('#example2_filter_fieldset').find('#edad_filter_table').val(data.pluck('edad')[0]);
+                selected.id = data.pluck('id')[0];
+                selected.nombre = data.pluck('nombre')[0];
+                selected.apellidos = data.pluck('apellidos')[0];
+                selected.edad = data.pluck('edad')[0];
+                $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
+                $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
+                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
+                $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
                 $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                debugger;
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
         it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
+            debugger;
             expect($('#example2 > tbody > tr').length).toBe(1);
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe('Ana');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(3)').text()).toBe('García Vázquez');
-            expect($('#example2 > tbody > tr:eq(0) > td:eq(4)').text()).toBe('7');
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe(selected.id);
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe(selected.nombre);
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(3)').text()).toBe(selected.apellidos);
+            expect($('#example2 > tbody > tr:eq(0) > td:eq(4)').text()).toBe(selected.edad);
         });
     });
     describe('Funcionamiento independiente > ', () => {
