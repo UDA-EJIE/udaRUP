@@ -41,7 +41,7 @@ describe('Test Maestro-Detalle > ', () => {
             expect($('#example2 > tbody > tr').length).toBe(0);
         });
     });
-    
+
     describe('Filtrado intertabla > ', () => {
         beforeEach((done) => {
             let api = $('#example1').DataTable();
@@ -75,7 +75,7 @@ describe('Test Maestro-Detalle > ', () => {
                     $('#example1').on('draw.dt', () => {
                         setTimeout(() => {
                             done();
-                        },500);
+                        }, 500);
                     });
                     $('#example1_filter_fieldset').find('#id_filter_table').val(1);
                     $('#example1_filter_fieldset').find('#example1_filter_filterButton').click();
@@ -88,21 +88,20 @@ describe('Test Maestro-Detalle > ', () => {
                     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
                     expect($('td:eq(4)', ctx).text()).toBe('7');
                 });
-                it('No debe haber cambios en #example2:', ()  => {
+                it('No debe haber cambios en #example2:', () => {
                     let ctx = $('#example2 > tbody > tr');
                     expect(ctx.length).toBe(0);
                 });
             });
             describe('Tabla detalle > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
                         setTimeout(() => {
                             done();
-                        },500);
+                        }, 500);
                     });
                     $('#example2_filter_fieldset').find('#id_filter_table').val(1);
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
-                    debugger;
                 });
                 it('Se debe de haber filtrado #example2:', () => {
                     let ctx = $('#example2 > tbody > tr');
@@ -112,7 +111,7 @@ describe('Test Maestro-Detalle > ', () => {
                     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
                     expect($('td:eq(4)', ctx).text()).toBe('7');
                 });
-                it('No debe haber cambios en #example1:', ()  => {
+                it('No debe haber cambios en #example1:', () => {
                     let ctx = $('#example1 > tbody > tr');
                     expect(ctx.length).toBe(0);
                 });
