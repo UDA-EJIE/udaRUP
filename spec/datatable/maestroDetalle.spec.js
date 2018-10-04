@@ -116,30 +116,134 @@ describe('Test Maestro-Detalle > ', () => {
                     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
                     expect($('td:eq(4)', ctx).text()).toBe('7');
                 });
-                it('No debe haber cambios en #example1:', () => {
+                it('No debe haber filtrado en #example1:', () => {
                     let ctx = $('#example1 > tbody > tr');
-                    expect(ctx.length).toBe(0);
+                    expect(ctx.length).toBe(5);
                 });
             });
         });
         describe('Búsqueda independiente > ', () => {
             describe('Tabla maestro > ', () => {
                 beforeEach(() => {
-                    $('#example1').find('#searchCollapsLabel_example').click();
+                    $('#searchCollapsLabel_example1').click();
                 });
-                it('asd', () => {
-                    expect(1).toBe(1);
+                describe('Aparición del seeker > ', () => {
+                    it('Se muestra el formulario de búsqueda en #example1:', () => {
+                        expect($('#example1').find('#id_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#nombre_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                    });
+                    it('No se debe mostrar el formulario de búsqueda en #example2', () => {
+                        expect($('#example2').find('#id_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#nombre_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                    });
+                });
+                describe('Funcionalidad del seeker > ', () => {
+                    beforeEach((done) => {
+                        $('#example1').find('#nombre_seeker').val('E')
+                        $('#search_nav_button_example1').click();
+                        $('#example1').on('searchDone.rup.dt', () => {
+                            done();
+                        });
+                    });
+                    // it('Se selecciona y marca el resultado de la selección: ', () => {
+                    //     let ctx = $('#example1').find('td:contains(4)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+
+                    //     ctx = $('#example1').find('td:contains(5)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    // });
+                    // it('No se selecciona nada en #example2:', () => {
+                    //     expect($('#example2 > tbody').find('span.ui-icon-search').length).toBe(0);
+                    // });
                 });
             });
             describe('Tabla detalle > ', () => {
                 beforeEach(() => {
-                    $('#example2').find('#searchCollapsLabel_example').click();
+                    $('#searchCollapsLabel_example2').click();
                 });
-                it('asd', () => {
-                    expect(1).toBe(1);
+                describe('Aparición del seeker > ', () => {
+                    it('Se muestra el formulario de búsqueda en #example2:', () => {
+                        expect($('#example2').find('#id_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example2').find('#nombre_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeTruthy();
+                        expect($('#example2').find('#edad_seeker').is(':visible')).toBeTruthy();
+                    });
+                    it('No se debe mostrar el formulario de búsqueda en #example2', () => {
+                        expect($('#example1').find('#id_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example1').find('#nombre_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeFalsy();
+                        expect($('#example1').find('#edad_seeker').is(':visible')).toBeFalsy();
+                    });
+                });
+                describe('Funcionalidad del seeker > ', () => {
+                    beforeEach((done) => {
+                        $('#example2').find('#nombre_seeker').val('E')
+                        $('#search_nav_button_example2').click();
+                        $('#example2').on('searchDone.rup.dt', () => {
+                            done();
+                        });
+                    });
+                    // it('Se selecciona y marca el resultado de la selección: ', () => {
+                    //     let ctx = $('#example2').find('td:contains(4)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+
+                    //     ctx = $('#example2').find('td:contains(5)').parent();
+                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    // });
+                    // it('No se selecciona nada en #example1:', () => {
+                    //     expect($('#example1 > tbody').find('span.ui-icon-search').length).toBe(0);
+                    // });
                 });
             });
         });
-        describe('Formularios independientes > ', () => {});
+        describe('Formularios independientes > ', () => {
+            describe('Tabla maestro > ', () => {
+                beforeEach(() => {
+                    $('#example1 > tbody > tr:eq(0) > td:eq(2)').dblclick();
+                });
+                it('El formulario debe mostrarse:', () => {
+                    expect($('#example1_detail_div').is(':visible')).toBeTruthy();
+                });
+                it('El formulario #example2 no debe mostrarse:', () => {
+                    expect($('#example2_detail_div').is(':visible')).toBeFalsy();
+                });
+            });
+            describe('Tabla detalle > ', () => {
+                beforeEach((done) => {
+                    let api = $('#example1').DataTable();
+                    let selected = {};
+                    $('#example2').on('draw.dt', () => {
+                        setTimeout(() => {
+                            $('#example2 > tbody > tr:eq(0) > td:eq(2)').dblclick();
+                            done();
+                        },300);
+                    });
+                    $('#example1').on('select.dt', (e, dt, type, indexes) => {
+                        let data = api.rows(indexes).data();
+                        selected.id = data.pluck('id')[0];
+                        selected.nombre = data.pluck('nombre')[0];
+                        selected.apellidos = data.pluck('apellidos')[0];
+                        selected.edad = data.pluck('edad')[0];
+                        $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
+                        $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
+                        $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
+                        $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
+                        $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                    });
+                    debugger;
+                    $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
+                });
+                it('El formulario debe mostrarse:', () => {
+                    expect($('#example2_detail_div').is(':visible')).toBeTruthy();
+                });
+                it('El formulario #example1 no debe mostrarse:', () => {
+                    expect($('#example2_detail_div').is(':visible')).toBeFalsy();
+                });
+            });
+        });
     });
 });
