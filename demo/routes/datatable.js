@@ -80,10 +80,19 @@ var json4 = {
     records: 15
 };
 
-var jsonMDInterFilter =  {
+var jsonMDInterFilter1 =  {
     page: '1',
     rows: [
         { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+    ],
+    total: '3',
+    records: 15
+};
+
+var jsonMDInterFilter2 =  {
+    page: '1',
+    rows: [
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
     ],
     total: '3',
     records: 15
@@ -117,14 +126,25 @@ exports.filter = (req, res) => {
                 respuesta = json4;
             }
             else{
-                let mdFilter = '{"id":"1","nombre":"Ana","apellidos":"García Vázquez","edad":"7"}';
+                let mdFilter1 = '{"id": "1", "nombre": "Ana", "apellidos": "García Vázquez", "edad": "7"}'
+                let mdFilter2 = '{"id": "2", "nombre": "Pedro", "apellidos": "Allende Zabala", "edad": "9"}';
 
-                if(JSON.stringify(req.body.filter) == mdFilter) {
-                    respuesta = jsonMDInterFilter;
+                if(JSON.stringify(req.body.filter) == mdFilter1 || JSON.stringify(req.body.filter) == mdFilter2) {
+                    if(JSON.stringify(req.body.filter) == mdFilter1) {
+                        respuesta = jsonMDInterFilter1;
+                    }
+                    if(JSON.stringify(req.body.filter) == mdFilter2) {
+                        respuesta = jsonMDInterFilter2;
+                    }
                 }
                 else {
-                    if(req.body.filter.id == '1') {
-                        respuesta = jsonMDInterFilter;
+                    if(req.body.filter.id == '2' || req.body.filter.id == '1') {
+                        if(req.body.filter.id == '1') {
+                            respuesta = jsonMDInterFilter1;
+                        }
+                        if(req.body.filter.id == '2') {
+                            respuesta = jsonMDInterFilter2;
+                        }
                     }
                     else {
                         if (req.body.page == 1) {
