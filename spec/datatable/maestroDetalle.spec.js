@@ -104,21 +104,18 @@ describe('Test Maestro-Detalle > ', () => {
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                     debugger;
                 });
-                it('asd', () => {
-                    expect(1).toBe(1);
+                it('Se debe de haber filtrado #example2:', () => {
+                    let ctx = $('#example2 > tbody > tr');
+                    expect(ctx.length).toBe(1);
+                    expect($('td:eq(1)', ctx).text()).toBe('1');
+                    expect($('td:eq(2)', ctx).text()).toBe('Ana');
+                    expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
+                    expect($('td:eq(4)', ctx).text()).toBe('7');
                 });
-                // it('Se debe de haber filtrado #example2:', () => {
-                //     let ctx = $('#example2 > tbody > tr');
-                //     expect(ctx.length).toBe(1);
-                //     expect($('td:eq(1)', ctx).text()).toBe('1');
-                //     expect($('td:eq(2)', ctx).text()).toBe('Ana');
-                //     expect($('td:eq(3)', ctx).text()).toBe('García Vázquez');
-                //     expect($('td:eq(4)', ctx).text()).toBe('7');
-                // });
-                // it('No debe haber cambios en #example1:', ()  => {
-                //     let ctx = $('#example1 > tbody > tr');
-                //     expect(ctx.length).toBe(0);
-                // });
+                it('No debe haber cambios en #example1:', ()  => {
+                    let ctx = $('#example1 > tbody > tr');
+                    expect(ctx.length).toBe(0);
+                });
             });
         });
         describe('Búsqueda independiente > ', () => {
