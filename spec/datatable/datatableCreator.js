@@ -4,7 +4,7 @@ import 'jquery';
 
 function generateHtml(idDatatable) {
     var html =
-        '<div class="row">\
+    '<div class="row">\
         <div class="col-xs-12">\
             <form id="' + idDatatable + '_filter_form">\
                 <div id="' + idDatatable + '_filter_toolbar" class="formulario_legend"></div>\
