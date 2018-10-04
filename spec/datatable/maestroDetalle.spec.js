@@ -62,12 +62,10 @@ describe('Test Maestro-Detalle > ', () => {
                 $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
                 $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
                 $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
-                debugger;
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
         it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
-            debugger;
             expect($('#example2 > tbody > tr').length).toBe(1);
             expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe(selected.id);
             expect($('#example2 > tbody > tr:eq(0) > td:eq(2)').text()).toBe(selected.nombre);
