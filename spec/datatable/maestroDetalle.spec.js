@@ -8,7 +8,7 @@ import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as dtGen from './datatableCreator';
-
+var selected = {};
 function clearDatatable(done) {
     if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
         $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
@@ -19,7 +19,22 @@ function clearDatatable(done) {
     $('#content').nextAll().remove();
     done();
 }
-
+function relacionMaestroDetalle(callback) {
+    let api = $('#example1').DataTable();
+    $('#example1').on('select.dt', (e, dt, type, indexes) => {
+        let data = api.rows(indexes).data();
+        selected.id = data.pluck('id')[0];
+        selected.nombre = data.pluck('nombre')[0];
+        selected.apellidos = data.pluck('apellidos')[0];
+        selected.edad = data.pluck('edad')[0];
+        $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
+        $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
+        $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
+        $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
+        $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+    });
+    callback();
+}
 describe('Test Maestro-Detalle > ', () => {
     beforeAll((done) => {
         testutils.loadCss(done);
@@ -27,7 +42,9 @@ describe('Test Maestro-Detalle > ', () => {
 
     beforeEach((done) => {
         dtGen.createDatatable1(1, () => {
-            dtGen.createDatatable2(done);
+            dtGen.createDatatable2(() => {
+                relacionMaestroDetalle(done);
+            });
         });
     });
 
@@ -43,25 +60,11 @@ describe('Test Maestro-Detalle > ', () => {
     });
 
     describe('Filtrado intertabla > ', () => {
-        var selected = {};
         beforeEach((done) => {
-            let api = $('#example1').DataTable();
             $('#example2').on('draw.dt', () => {
                 setTimeout(() => {
                     done();
                 }, 300);
-            });
-            $('#example1').on('select.dt', (e, dt, type, indexes) => {
-                let data = api.rows(indexes).data();
-                selected.id = data.pluck('id')[0];
-                selected.nombre = data.pluck('nombre')[0];
-                selected.apellidos = data.pluck('apellidos')[0];
-                selected.edad = data.pluck('edad')[0];
-                $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
-                $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
-                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
-                $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
-                $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
             });
             $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
         });
@@ -202,7 +205,12 @@ describe('Test Maestro-Detalle > ', () => {
         });
         describe('Formularios independientes > ', () => {
             describe('Tabla maestro > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
+                    $('#example2').on('draw.dt', () => {
+                        setTimeout(() => {
+                            done();
+                        },300);
+                    });
                     $('#example1 > tbody > tr > td:contains(Ana)').dblclick();
                 });
                 it('El formulario debe mostrarse:', () => {
@@ -214,29 +222,11 @@ describe('Test Maestro-Detalle > ', () => {
                 describe('Funcionamiento del formulario', () => {
                     beforeEach((done) => {
                         $('#example1_detail_div').find('#edad_detail_table').val(11);
+                        debugger;
                         $('#example1_detail_button_save').click();
                         setTimeout(() => {
-                            $('#example2').on('draw.dt', () => {
-                                setTimeout(() => {
-                                    debugger;
-                                    done();
-                                },300);
-                            });
-                            $('#example1').on('select.dt', (e, dt, type, indexes) => {
-                                let data = api.rows(indexes).data();
-                                selected.id = data.pluck('id')[0];
-                                selected.nombre = data.pluck('nombre')[0];
-                                selected.apellidos = data.pluck('apellidos')[0];
-                                selected.edad = data.pluck('edad')[0];
-                                $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
-                                $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
-                                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
-                                $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
-                                debugger;
-                                $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
-                            });
                             debugger;
-                            $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
+                            done();
                         },300);
                     });
                     it('Debe actualizar la línea', () => {
@@ -247,25 +237,11 @@ describe('Test Maestro-Detalle > ', () => {
             });
             describe('Tabla detalle > ', () => {
                 beforeEach((done) => {
-                    let api = $('#example1').DataTable();
-                    let selected = {};
                     $('#example2').on('draw.dt', () => {
                         setTimeout(() => {
                             $('#example2 > tbody > tr:eq(0) > td:eq(2)').dblclick();
                             done();
                         },300);
-                    });
-                    $('#example1').on('select.dt', (e, dt, type, indexes) => {
-                        let data = api.rows(indexes).data();
-                        selected.id = data.pluck('id')[0];
-                        selected.nombre = data.pluck('nombre')[0];
-                        selected.apellidos = data.pluck('apellidos')[0];
-                        selected.edad = data.pluck('edad')[0];
-                        $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
-                        $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
-                        $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
-                        $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
-                        $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                     });
                     $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
                 });
