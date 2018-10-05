@@ -80,7 +80,6 @@ function navBarTest() {
         });
         describe('Creación > ', () => {
             it('Deben añadirse clases al nav:', () => {
-                debugger;
                 expect($('[aria-controls="navbarResponsive"]').is(':visible')).toBeTruthy();
             });
         });
