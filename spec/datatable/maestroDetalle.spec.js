@@ -222,16 +222,18 @@ describe('Test Maestro-Detalle > ', () => {
                 describe('Funcionamiento del formulario', () => {
                     beforeEach((done) => {
                         $('#example1_detail_div').find('#edad_detail_table').val(11);
-                        debugger;
                         $('#example1_detail_button_save').click();
                         setTimeout(() => {
-                            debugger;
                             done();
                         },300);
                     });
-                    it('Debe actualizar la línea', () => {
+                    it('Debe actualizar la línea en #example1:', () => {
                         let ctx = $('#example1 > tbody > tr > td:contains(Ana)').parent();
                         expect($('td:contains(11)', ctx).length).toBe(1);
+                    });
+                    it('No debe actualizar la línea en #example2:',() => {
+                        let ctx = $('#example2 > tbody > tr > td:contains(Ana)').parent();
+                        expect($('td:contains(11)', ctx).length).toBe(0);
                     });
                 });
             });
