@@ -203,13 +203,46 @@ describe('Test Maestro-Detalle > ', () => {
         describe('Formularios independientes > ', () => {
             describe('Tabla maestro > ', () => {
                 beforeEach(() => {
-                    $('#example1 > tbody > tr:eq(0) > td:eq(2)').dblclick();
+                    $('#example1 > tbody > tr > td:contains(Ana)').dblclick();
                 });
                 it('El formulario debe mostrarse:', () => {
                     expect($('#example1_detail_div').is(':visible')).toBeTruthy();
                 });
                 it('El formulario #example2 no debe mostrarse:', () => {
                     expect($('#example2_detail_div').is(':visible')).toBeFalsy();
+                });
+                describe('Funcionamiento del formulario', () => {
+                    beforeEach((done) => {
+                        $('#example1_detail_div').find('#edad_detail_table').val(11);
+                        $('#example1_detail_button_save').click();
+                        setTimeout(() => {
+                            $('#example2').on('draw.dt', () => {
+                                setTimeout(() => {
+                                    debugger;
+                                    done();
+                                },300);
+                            });
+                            $('#example1').on('select.dt', (e, dt, type, indexes) => {
+                                let data = api.rows(indexes).data();
+                                selected.id = data.pluck('id')[0];
+                                selected.nombre = data.pluck('nombre')[0];
+                                selected.apellidos = data.pluck('apellidos')[0];
+                                selected.edad = data.pluck('edad')[0];
+                                $('#example2_filter_fieldset').find('#id_filter_table').val(selected.id);
+                                $('#example2_filter_fieldset').find('#nombre_filter_table').val(selected.nombre);
+                                $('#example2_filter_fieldset').find('#apellidos_filter_table').val(selected.apellidos);
+                                $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
+                                debugger;
+                                $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                            });
+                            debugger;
+                            $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
+                        },300);
+                    });
+                    it('Debe actualizar la línea', () => {
+                        let ctx = $('#example1 > tbody > tr > td:contains(Ana)').parent();
+                        expect($('td:contains(11)', ctx).length).toBe(1);
+                    });
                 });
             });
             describe('Tabla detalle > ', () => {
@@ -234,14 +267,13 @@ describe('Test Maestro-Detalle > ', () => {
                         $('#example2_filter_fieldset').find('#edad_filter_table').val(selected.edad);
                         $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                     });
-                    debugger;
                     $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
                 });
                 it('El formulario debe mostrarse:', () => {
                     expect($('#example2_detail_div').is(':visible')).toBeTruthy();
                 });
                 it('El formulario #example1 no debe mostrarse:', () => {
-                    expect($('#example2_detail_div').is(':visible')).toBeFalsy();
+                    expect($('#example1_detail_div').is(':visible')).toBeFalsy();
                 });
             });
         });
