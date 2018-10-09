@@ -8,7 +8,10 @@ import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as dtGen from './datatableCreator';
+
 var selected = {};
+
+
 function clearDatatable(done) {
     if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
         $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
@@ -255,5 +258,46 @@ describe('Test Maestro-Detalle > ', () => {
                 });
             });
         });
+        describe('Ordenación independiente > ', () => {
+            beforeEach((done) => {
+                var contx = $('#example1 > tbody > tr > td:contains(Irene)').parent();
+                $('td.select-checkbox',contx).click();
+                setTimeout(() => {
+                    $('td.select-checkbox',contx).click();
+                    setTimeout(() => {
+                        done();
+                    },400);
+                },800);
+            });
+            describe('Tabla maestro > ', () => {
+                beforeEach((done) => {
+                    //Realizamos la ordenación de #example1
+                    $('#example1').on('draw.dt',() => {
+                        setTimeout(() => {
+                            debugger;
+                            done();
+                        },300);
+                    });
+                    debugger;
+                    $('#example1').find('th:contains(Nombre)').click();
+                });
+                afterEach((done) => {
+                    $('#example1').on('draw.dt',() => {
+                        setTimeout(() => {
+                            done();
+                        },300);
+                    });
+                    debugger;
+                    $('#example1').find('th:contains(Id)').click();
+                });
+                it('asd', () => {
+                    debugger;
+                    expect(1).toBe(1);
+                });
+            });
+            describe('Tabla detalle > ', () => {});
+        });
+        describe('Paginación independiente > ', () => {});
+        describe('Botoneras independientes > ', () => {});
     });
 });

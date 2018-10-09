@@ -97,6 +97,16 @@ var jsonMDInterFilter2 =  {
     total: '3',
     records: 15
 };
+var jsonIDFilter1 = {
+    page: '1',
+    rows: [
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+    ],
+    total: '3',
+    records: 15
+};
 
 exports.filter = (req, res) => {
     //console.info(req.body);
@@ -126,15 +136,21 @@ exports.filter = (req, res) => {
                 respuesta = json4;
             }
             else{
-                let mdFilter1 = '{"id": "1", "nombre": "Ana", "apellidos": "García Vázquez", "edad": "7"}'
+                let mdFilter1 = '{"id": "1", "nombre": "Ana", "apellidos": "García Vázquez", "edad": "7"}';
                 let mdFilter2 = '{"id": "2", "nombre": "Pedro", "apellidos": "Allende Zabala", "edad": "9"}';
-
-                if(JSON.stringify(req.body.filter) == mdFilter1 || JSON.stringify(req.body.filter) == mdFilter2) {
+                let idFilter1 = '{"id":"3","nombre":"Irene","apellidos":"San Jose","edad":"8"}'
+                
+                if(JSON.stringify(req.body.filter) == mdFilter1 ||
+                    JSON.stringify(req.body.filter) == mdFilter2 ||
+                    JSON.stringify(req.body.filter) == idFilter1) {
                     if(JSON.stringify(req.body.filter) == mdFilter1) {
                         respuesta = jsonMDInterFilter1;
                     }
                     if(JSON.stringify(req.body.filter) == mdFilter2) {
                         respuesta = jsonMDInterFilter2;
+                    }
+                    if(JSON.stringify(req.body.filter) == idFilter1) {
+                        respuesta = jsonIDFilter1;
                     }
                 }
                 else {
