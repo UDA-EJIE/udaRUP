@@ -539,6 +539,8 @@ function info ( api )
 			el.append( output );
 		}
 	} );
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate');
 }
 
 /**
@@ -672,6 +674,7 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
 			if(ctx.multiselection.lastSelectedId === value){
 				pos = idx;
 			}
