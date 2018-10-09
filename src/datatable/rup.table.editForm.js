@@ -376,6 +376,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	if(idRow < 0){
 		idRow = 1;
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData');
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
 	var title;
@@ -418,6 +419,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
 	}
 	
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
 	// Establecemos el título del formulario
 	ctx.oInit.formEdit.detailForm.rup_dialog("setOption", "title", title);
 	
@@ -463,7 +465,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		_callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'')
 	});
 
-
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm');
 }
 
 

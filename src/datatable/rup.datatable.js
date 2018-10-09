@@ -789,6 +789,7 @@
 				}
 				ctx.multiselection =  multi.multiselection;
 			}, _createTooltip (id) {
+				id.triggerHandler('tableMouseenter.qtip');
 				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
 					id.rup_tooltip({
 						content: {

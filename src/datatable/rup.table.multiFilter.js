@@ -177,7 +177,7 @@ function postConfigureMultifilter (ctx) {
 	
 									// añado el filtro
 									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeAddFilter');
-									_addFilter(filter,ctx);ç
+									_addFilter(filter,ctx);
 									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterAddFilter');	
 	
 								}
@@ -566,7 +566,7 @@ function _checkLabel (ctx) {
  */
 function _fillForm (filtroNuevo,ctx) {
 	var settings = ctx.oInit;
-
+	$('#' + ctx.sTableId).triggerHandler('tableMultiFilterFillForm');
 	//cambiar milisengudos a fecha (el formato de bd del  fecha es milisegundos)
 	$('[ruptype=\'date\']', settings.filter.$filterContainer).each(function(index, elem){
 
@@ -602,7 +602,7 @@ function _fillForm (filtroNuevo,ctx) {
 
 	// rellenar el formulario
 	$.rup_utils.populateForm(xhrArray, $('#'+ctx.sTableId+ '_filter_form'));
-	$('#' + ctx.sTableId).triggerHandler('tableMultiFilterFillForm');
+	
 
 }
 
