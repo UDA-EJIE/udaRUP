@@ -272,7 +272,7 @@
 		     		var table = $('#'+options.id).DataTable();
 					var ctx = table.context[0];
 
-					var settings = $(ctx.nTable).data('settings'+ctx.sTableId);
+					var settings = ctx.oInit;//$(ctx.nTable).data('settings'+ctx.sTableId);
 					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
 					}
@@ -309,7 +309,7 @@
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object($(ctx.nTable).data('settings'+ctx.sTableId).$filterForm[0]);
+			data.filter = form2object(ctx.oInit.$filterForm[0]);
 			data.multiselection = undefined;
 			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
 				data.multiselection = ctx.multiselection;
@@ -346,7 +346,7 @@
 		  */
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
-			if($('#'+tabla[0].id+'_paginate').length === 1){
+			if($('#'+tabla[0].id+'_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0'){
 				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
 				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
 				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
@@ -537,7 +537,8 @@
 	     *
 	     */
 			_showSearchCriteria(){
-				var $self = this, settings = $self.data('settings'+$self[0].id),
+				var ctx = this.DataTable().context[0];
+				var $self = this, settings = $('#'+$self[0].id).data('settings'+$self[0].id),
 					searchString = ' ', label, numSelected,
 					field, fieldId, fieldName, fieldValue,
 					aux = settings.filter.$filterContainer.serializeArray(),
@@ -813,7 +814,8 @@
 		_init : function(args){
 			var $self = this,
 				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
-
+			
+			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
 			
@@ -950,7 +952,18 @@
 				});
 			  });
 			
+			tabla.on( 'destroy', function (e,settingsTable) {
+				/*if(settingsTable.oInit.clone === true){
+					$('#'+settingsTable.sTableId+'_filter_form').append(clone);
+				}*/
+				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
+				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
+			/*	tabla.off( 'draw');
+				tabla.off( 'destroy');
+				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+			});
 			
+
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
 				new $.fn.dataTable.Buttons(
@@ -959,12 +972,15 @@
 				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
 			}
 
-			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
-			$self.data('settings'+$self[0].id, settings);
+
 			if(settings.multiSelect !== undefined || settings.select !== undefined){
 				$self._createEventSelect(tabla);				
 			}
 			$self._ConfigureFiltern(settings);
+			
+			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
+			$self.data('settings'+$self[0].id, settings);
+
 			
 		}
 	});
