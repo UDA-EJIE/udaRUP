@@ -274,11 +274,9 @@ describe('Test Maestro-Detalle > ', () => {
                     //Realizamos la ordenación de #example1
                     $('#example1').on('draw.dt',() => {
                         setTimeout(() => {
-                            debugger;
                             done();
                         },300);
                     });
-                    debugger;
                     $('#example1').find('th:contains(Nombre)').click();
                 });
                 afterEach((done) => {
@@ -287,15 +285,53 @@ describe('Test Maestro-Detalle > ', () => {
                             done();
                         },300);
                     });
-                    debugger;
                     $('#example1').find('th:contains(Id)').click();
                 });
-                it('asd', () => {
-                    debugger;
-                    expect(1).toBe(1);
+                
+                it('Debe haber cambiado el orden de #example1:', () => {
+                    expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                    expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('5');
+                    expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
+                    expect($('#example1 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
+                    expect($('#example1 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('2');
+                });
+                it('No debe haber cambiado el orden de #example2:', () => {
+                    expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('3');
+                    expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('4');
+                    expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('5');
                 });
             });
-            describe('Tabla detalle > ', () => {});
+            describe('Tabla detalle > ', () => {
+                beforeEach((done) => {
+                    //Realizamos la ordenación de #example2
+                    $('#example2').on('draw.dt',() => {
+                        setTimeout(() => {
+                            done();
+                        },300);
+                    });
+                    $('#example2').find('th:contains(Nombre)').click();
+                });
+                afterEach((done) => {
+                    $('#example2').on('draw.dt',() => {
+                        setTimeout(() => {
+                            done();
+                        },300);
+                    });
+                    $('#example2').find('th:contains(Id)').click();
+                });
+                it('Debe haber cambiado el orden de #example2:', () => {
+                    expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('5');
+                    expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('4');
+                    expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                });
+                it('No debe haber cambiado el orden de #example1:', () => {
+                    expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                    expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
+                    expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                    expect($('#example1 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
+                    expect($('#example1 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
+                });
+            });
         });
         describe('Paginación independiente > ', () => {});
         describe('Botoneras independientes > ', () => {});

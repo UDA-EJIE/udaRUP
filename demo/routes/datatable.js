@@ -107,6 +107,16 @@ var jsonIDFilter1 = {
     total: '3',
     records: 15
 };
+var jsonIDFilterOrdered1 = {
+    page: '1',
+    rows: [
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' }
+    ],
+    total: '3',
+    records: 15
+};
 
 exports.filter = (req, res) => {
     //console.info(req.body);
@@ -150,7 +160,12 @@ exports.filter = (req, res) => {
                         respuesta = jsonMDInterFilter2;
                     }
                     if(JSON.stringify(req.body.filter) == idFilter1) {
-                        respuesta = jsonIDFilter1;
+                        if(req.body.sidx == 'nombre' && req.body.sord == 'asc') {
+                            respuesta = jsonIDFilterOrdered1;
+                        }
+                        else {
+                            respuesta = jsonIDFilter1;
+                        }
                     }
                 }
                 else {
