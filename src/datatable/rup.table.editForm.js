@@ -120,6 +120,7 @@ DataTable.editForm.init = function ( dt ) {
 			}
 			_getRowSelected(dt,'PUT');
 			DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
+			$('#'+ctx.sTableId).triggerHandler('tableEditFormClickRow');
 		} );
 	}
 
@@ -553,6 +554,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					if(ctx.json.reorderedSelection !== null){
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
+					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
 				}
 
 			}else{//Al eliminar hacer un reload.

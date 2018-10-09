@@ -92,6 +92,9 @@ DataTable.seeker.init = function ( dt ) {
 			error : function(xhr, ajaxOptions,thrownError) {
 				console.log('Errors '+thrownError+ ": "+xhr.responseText);
 
+			},
+			complete:function(xhr,status){
+				console.log('Complete : '+xhr.responseText);
 			}
 		};
 
@@ -159,7 +162,9 @@ function _createFilterColumn(dt,ctx){
 		        		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
 		        		}
+		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
 		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
 		        	}
 		        } );
@@ -268,17 +273,21 @@ function _createSearchRow (dt,ctx){
     		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
     			ajaxOptions.data.multiselection.internalFeedback = [];
     		}
+    		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
     		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 		});
 
 		// Evento asociado a limpiar el fomulario de búsqueda
 		$navClearButton.on('click', function(){
+			$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
 			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
 			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
 			jQuery('.ui-selectmenu-status','table tfoot').text('--');
 			ctx.seeker.search.funcionParams = {};
 			ctx.seeker.search.pos = 0;
 			_processData(dt,ctx,[]);
+			$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
 		});
 
 		$navLayer.hide();

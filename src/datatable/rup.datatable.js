@@ -241,6 +241,7 @@
 		_doFilter(options) {
 			var $self = this;
 			$self._showSearchCriteria();
+			$('#'+options.id).triggerHandler('tableFilterSearch');
 			$self.DataTable().ajax.reload();
 
 		},
@@ -256,12 +257,13 @@
 			*
 		  */
 		_ajaxOptions(options) {
+			$('#'+options.id).triggerHandler('tableFilterInitialize');
 			options.id = this[0].id;
 			var ajaxData = {
 				'url': options.urls.filter,
 				'dataSrc': function ( json ) {
 					var ret = {};
-
+					$('#'+options.id).triggerHandler('tableFilterBeforeShow');
 					json.recordsTotal = json.records;
 					json.recordsFiltered = json.records;
 
@@ -412,7 +414,7 @@
 		  */
 		_clearFilter(options) {
 			var $self = this;
-
+			$('#'+options.id).triggerHandler('tableFilterReset');
 			options.$filterForm.resetForm();
 			$self.DataTable().ajax.reload();
 			options.filter.$filterSummary.html(' <i></i>');
@@ -818,7 +820,7 @@
 			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
-			
+			$self.triggerHandler('tableInit');
 			if(args[0].primaryKey !== undefined){
 				settings.primaryKey = args[0].primaryKey.split(";");
 			}
@@ -980,7 +982,7 @@
 			
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings'+$self[0].id, settings);
-
+			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
 		}
 	});
