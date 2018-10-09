@@ -195,6 +195,7 @@ DataTable.editForm.init = function ( dt ) {
 					} else {
 						$('#' + buttonId).trigger('click');
 					}
+					
 			  },
 				items
 			});
@@ -474,11 +475,11 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
-* @param {object} row - son los datos que se cargan.
+* @param {object} row - Son los datos que se cargan.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
-* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierrar el dialog.
+* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog.
 * @param {string} idTableDetail - Identificdor del detail de la table.
-* @param {string} url - Url que se añade para llmar  al controller.
+* @param {string} url - Url que se añade para llamar  al controller.
 *
 */
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
@@ -565,17 +566,18 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 				}
 				 dt.ajax.reload();
 			}
-
-
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+		},
+		complete : function() {
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
-			console.log('Errors '+thrownError+ ": "+xhr.responseText);
 			var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
 			if(divErrorFeedback.length === 0){
 				divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.formEdit.validate,
 		feedback:feed.rup_feedback({type:"ok",block:false})
