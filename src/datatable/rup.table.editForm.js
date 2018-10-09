@@ -604,6 +604,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 *
 */
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
+	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
 	feedback.rup_feedback('set',msgFeedBack);
@@ -612,6 +613,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 		setTimeout(function(){
 			feedback.rup_feedback('destroy');
 			feedback.css('width','100%');
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
 		}, confDelay);
 	}
 }

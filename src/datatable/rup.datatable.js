@@ -818,6 +818,8 @@
 			var $self = this,
 				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
 			
+			$self.triggerHandler('tableBeforeInit');
+			
 			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
@@ -865,7 +867,7 @@
 					//async : false,
 					complete : function(jqXHR,
 						textStatus) {
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
 					},
 					success : function(data, status,
 						xhr) {
@@ -880,11 +882,11 @@
 							$(settings.filter.$filterSummary , 'i').append('}');
 
 						}
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
 					},
 					error : function(xhr, ajaxOptions,
 						thrownError) {
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
 					}
 				});
 
@@ -985,6 +987,7 @@
 			$self.data('settings'+$self[0].id, settings);
 			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
+			$self.triggerHandler('tableAfterInit');
 		}
 	});
 
