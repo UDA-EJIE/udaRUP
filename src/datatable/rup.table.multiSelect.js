@@ -1035,6 +1035,8 @@ function selectAll(dt){
 		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
 		ctx.multiselection.lastSelectedId = '';
 	}
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectSelectAll');
 }
 
 
@@ -1545,6 +1547,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 
 
 	this.iterator( 'row', function ( ctx, idx ) {
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
 		clear( ctx );
 		pagina = false;
 		ctx.aoData[ idx ]._multiSelect_selected = true;
@@ -1561,6 +1564,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		maintIdsRows(DataTable,id,1,pagina,idx,ctx);
 		//Se marca el ultimo.
 		ctx.multiselection.lastSelectedId = id;
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectAfterSelectRow');
 
 	} );
 	if(pagina){//Cuando se pagina, se filtra, o se reordena.

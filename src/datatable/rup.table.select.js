@@ -71,9 +71,10 @@ DataTable.select.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
+		$(this).triggerHandler('tableSelectBeforeSelectRow');
 		var idRow = this._DT_RowIndex;
 		 _selectRowIndex(dt,idRow,$(this));
-
+		 $(this).triggerHandler('tableSelectAfterSelectRow');
 	} );
 	
 	//Se genera el div para el feedback del datatable.
