@@ -349,12 +349,10 @@ describe('Test Maestro-Detalle > ', () => {
                     //Avanzamos una página en #example1
                     $('#example1').on('draw.dt', () => {
                         setTimeout(() => {
-                            debugger;
                             done();
                         }, 300);
                     });
                     $('#example1_next').click();
-                    debugger;
                 });
                 it('Cambia el número de página de #example1:', () => {
                     expect($('#example1_buttons').find('li.pageSearch.searchPaginator > input').val()).toBe("2");
@@ -405,6 +403,81 @@ describe('Test Maestro-Detalle > ', () => {
                 });
             });
         });
-        describe('Botoneras independientes > ', () => {});
+        describe('Botonera y feedback independientes > ', () => {
+            beforeEach((done) => {
+                var contx = $('#example1 > tbody > tr > td:contains(Irene)').parent();
+                $('td.select-checkbox',contx).click();
+                setTimeout(() => {
+                    $('td.select-checkbox',contx).click();
+                    setTimeout(() => {
+                        done();
+                    },400);
+                },800);
+            });
+            describe('Tabla maestro > ', () => {
+                it('Debe tener su propia botonera:', () => {
+                    let contx = $('button[aria-controls="example1"]').parent();
+                    expect($('#example1addButton_1', contx).length).toBe(1);
+                    expect($('#example1editButton_1', contx).length).toBe(1);
+                    expect($('#example1cloneButton_1', contx).length).toBe(1);
+                    expect($('#example1deleteButton_1', contx).length).toBe(1);
+                    expect($('#example1informes_01', contx).length).toBe(1);
+                });
+                describe('Feedback > ', () => {
+                    beforeEach((done) => {
+                        $('#rup_feedback_example1').on('rupFeedback_show', () => {
+                            done();
+                        });
+                        $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                        $('#example1editButton_1').click();
+                        $('div[aria-describedby="example1_detail_div"]')
+                            .find('#nombre_detail_table').val('Anabelle');
+                        $('div[aria-describedby="example1_detail_div"]')
+                            .find('#example1_detail_button_save').click();
+                    });
+                    it('Debe aparecer el feedback de #example1:', () => {
+                        expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
+                        expect($('#rup_feedback_example1')
+                            .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
+                    });
+                    it('No debe aparecer el feedback de #example2:', () => {
+                        expect($('#rup_feedback_example2').height()).toBe(0);
+                        expect($('#rup_feedback_example2').text()).toBe('');
+                    });
+                });
+            });
+            describe('Tabla detalle > ', () => {
+                it('Debe tener su propia botonera:', () => {
+                    let contx = $('button[aria-controls="example2"]').parent();
+                    expect($('#example2addButton_1', contx).length).toBe(1);
+                    expect($('#example2editButton_1', contx).length).toBe(1);
+                    expect($('#example2cloneButton_1', contx).length).toBe(1);
+                    expect($('#example2deleteButton_1', contx).length).toBe(1);
+                    expect($('#example2informes_01', contx).length).toBe(1);
+                });
+                describe('Feedback > ', () => {
+                    beforeEach((done) => {
+                        $('#rup_feedback_example2').on('rupFeedback_show', () => {
+                            done();
+                        });
+                        $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                        $('#example2editButton_1').click();
+                        $('div[aria-describedby="example2_detail_div"]')
+                            .find('#nombre_detail_table').val('Arlene');
+                        $('div[aria-describedby="example2_detail_div"]')
+                            .find('#example2_detail_button_save').click();
+                    });
+                    it('Debe aparecer el feedback de #example2:', () => {
+                        expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
+                        expect($('#rup_feedback_example2')
+                            .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
+                    });
+                    it('No debe aparecer el feedback de #example1:', () => {
+                        expect($('#rup_feedback_example1').height()).toBe(0);
+                        expect($('#rup_feedback_example1').text()).toBe('');
+                    });
+                });
+            });
+        });
     });
 });
