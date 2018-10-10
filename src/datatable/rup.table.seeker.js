@@ -564,7 +564,7 @@ apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Initialization
+ * Initialisation
  */
 
 // DataTables creation - check if select has been defined in the options. Note
