@@ -55,6 +55,26 @@ DataTable.events = {};
 
 DataTable.events.version = '1.0.0';
 
+/**
+ * 
+* Se inicializa el componente events
+*
+* @name init
+* @function
+* @since UDA 3.6.0 // Datatable 2.1.0
+* 
+* @param {object} dt - Es el objeto datatable.
+*
+*/
+DataTable.events.init = function ( dt ) {
+
+	var ctx = dt.settings()[0];
+	
+	//Se inicializa por cada instancia 1 tabla 1 instancia
+	ctx.events = {};
+	
+};
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization
  */
