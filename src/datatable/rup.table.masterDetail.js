@@ -2,7 +2,7 @@
   * Módulo que permite toda la seleción simple
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.select"
+  * @module			"rup.table.masterDetail"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);

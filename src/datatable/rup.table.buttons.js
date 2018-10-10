@@ -2,7 +2,7 @@
   * Genera los botones del datatable
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.buttons"
+  * @module			"rup.table.buttons"
   * @version     1.5.1
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);

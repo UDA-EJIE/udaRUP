@@ -6,7 +6,7 @@
  * @summary     ColReorder
  * @description Provide the ability to reorder columns in a DataTable
  * @version     1.4.1
- * @file        dataTables.colReorder.js
+ * @file        rup.table.colReorder.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
  * @copyright   Copyright 2010-2017 SpryMedia Ltd.

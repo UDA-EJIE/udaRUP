@@ -2,7 +2,7 @@
   * Buscador interno del datatable
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.seeker"
+  * @module			"rup.table.seeker"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);

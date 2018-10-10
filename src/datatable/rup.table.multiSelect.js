@@ -2,7 +2,7 @@
   * Módulo que permite toda la multiseleción
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.multiselect"
+  * @module			"rup.table.multiSelect"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
