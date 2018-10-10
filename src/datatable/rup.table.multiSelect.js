@@ -967,6 +967,12 @@ function selectAllPage(dt){
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
 	});
+	
+	$('#'+ctx.multiselection.internalFeedback[0].id+'_closeDiv').on('click', function (event) {
+		ctx.multiselection.internalFeedback.rup_feedback('destroy');
+		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
+	});
 
 	//Se deja marcado el primero de la pagina.
 	ctx.multiselection.lastSelectedId = dt.data()[0].id;
