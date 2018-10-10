@@ -487,6 +487,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 */
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeInsertRow');
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');

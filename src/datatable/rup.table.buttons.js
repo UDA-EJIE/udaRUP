@@ -2854,9 +2854,11 @@ function inicio(settings) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'contextmenu', function (event) {
+	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(settings);
-		$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
+		if(event.type === 'contextmenu') {
+			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
+		}
 	} );
 	
 } ;

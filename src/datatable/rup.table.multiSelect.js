@@ -630,6 +630,7 @@ function init ( ctx ) {
 				setTimeout(function(){
 					feedback.rup_feedback('destroy');
 					feedback.css('width','100%');
+					$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 				}, confDelay);
 				feedback.type = '';
 				feedback.msgFeedBack = '';
@@ -958,6 +959,7 @@ function selectAllPage(dt){
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
 		ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
 	}
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
@@ -996,6 +998,7 @@ function deselectAllPage(dt){
 	if(ctx.multiselection.numSelected  > 0){
 		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
 	}
 	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
 		deselectAll(dt);
@@ -1534,6 +1537,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	if ( multiSelect === false ) {
@@ -1676,6 +1680,7 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	this.iterator( 'row', function ( ctx, idx ) {
