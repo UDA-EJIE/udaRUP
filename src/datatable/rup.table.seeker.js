@@ -85,16 +85,18 @@ DataTable.seeker.init = function ( dt ) {
 			contentType : 'application/json',
 			async : true,
 			success : function(data, status, xhr) {
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchSucess');
 				ctx.seeker.search.funcionParams = data;
 				ctx.seeker.search.pos = 0;// se inicializa por cada busqueda.
 				_processData(dt,ctx,data);
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
 				console.log('Errors '+thrownError+ ": "+xhr.responseText);
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchError');
 
 			},
 			complete:function(xhr,status){
-				console.log('Complete : '+xhr.responseText);
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchComplete');
 			}
 		};
 
@@ -106,6 +108,8 @@ DataTable.seeker.init = function ( dt ) {
 	}else{
 		ctx.seeker.search.$searchRow.show();
 	}
+	
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar');
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -267,6 +271,7 @@ function _createSearchRow (dt,ctx){
 
 		// Evento de búsqueda asociado al botón
 		$navSearchButton.on('click', function(){
+			$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
 			ctx.seeker.ajaxOption.data = _getDatos(ctx);
     		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
     		//Se pasa sin el internalFeedback ya que no es necesario.

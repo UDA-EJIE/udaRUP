@@ -398,6 +398,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			indexInArray = (Number(ctx.json.page)-1) * 10;
 			indexInArray = indexInArray + idRow;
 		}
+		$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterFillData');
 		_updateDetailPagination(ctx,indexInArray+1,numTotal);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
@@ -570,6 +571,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				 dt.ajax.reload();
+				 $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
 			}
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
 		},
