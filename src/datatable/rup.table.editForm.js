@@ -506,9 +506,6 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		showLoading : false,
 		contentType : 'application/json',
 		async : true,
-		beforeSend : function(xhr, options) {
-			//return $self.triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
-		},
 		success : function(data, status, xhr) {
 
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){

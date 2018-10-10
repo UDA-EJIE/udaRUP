@@ -255,12 +255,7 @@ function postConfigureMultifilter (ctx) {
 	
 								var filtroAnterior= settings.multiFilter.filtroAnterior;
 								if (filtroAnterior!==null){
-
-									//$self.rup_table('cleanFilterForm');
-
-									//$self.triggerHandler('rupTable_multifilter_fillForm',filtroAnterior);
 									_fillForm(filtroAnterior,ctx);
-	
 								}
 								//limpio el filtro del dropdownDIalog
 								settings.multiFilter.$comboLabel.val('');
@@ -872,7 +867,6 @@ function configureMultifilter (ctx) {
 
 
 					// rellenar el formulario del filtro
-					$self.triggerHandler('rupTable_multifilter_fillForm',valorFiltro);
 					_fillForm(valorFiltro,ctx);
 
 					//
