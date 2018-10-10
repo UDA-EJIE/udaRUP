@@ -104,8 +104,18 @@ var jsonIDFilter1 = {
         { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
         { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
     ],
-    total: '3',
-    records: 15
+    total: '2',
+    records: 6
+};
+var jsonIDFilter2 = {
+    page: '2',
+    rows: [
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
+        { id: '7', nombre: 'paco', apellidos: 'Allende Chicharro', edad: '20' }
+    ],
+    total: '2',
+    records: 6
 };
 var jsonIDFilterOrdered1 = {
     page: '1',
@@ -114,8 +124,8 @@ var jsonIDFilterOrdered1 = {
         { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
         { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' }
     ],
-    total: '3',
-    records: 15
+    total: '2',
+    records: 6
 };
 
 exports.filter = (req, res) => {
@@ -149,6 +159,7 @@ exports.filter = (req, res) => {
                 let mdFilter1 = '{"id": "1", "nombre": "Ana", "apellidos": "García Vázquez", "edad": "7"}';
                 let mdFilter2 = '{"id": "2", "nombre": "Pedro", "apellidos": "Allende Zabala", "edad": "9"}';
                 let idFilter1 = '{"id":"3","nombre":"Irene","apellidos":"San Jose","edad":"8"}'
+                let idFilter2 = '{"id":"5","nombre":"Eider","apellidos":"Ahedo Dominguez","edad":"70"}'
                 
                 if(JSON.stringify(req.body.filter) == mdFilter1 ||
                     JSON.stringify(req.body.filter) == mdFilter2 ||
@@ -164,8 +175,16 @@ exports.filter = (req, res) => {
                             respuesta = jsonIDFilterOrdered1;
                         }
                         else {
-                            respuesta = jsonIDFilter1;
+                            if(req.body.page == 2) {
+                                respuesta = jsonIDFilter2;
+                            }
+                            else {
+                                respuesta = jsonIDFilter1;
+                            }
                         }
+                    }
+                    if(JSON.stringify(req.body.filter) == idFilter2) {
+                        respuesta = jsonIDFilter2;
                     }
                 }
                 else {

@@ -333,7 +333,78 @@ describe('Test Maestro-Detalle > ', () => {
                 });
             });
         });
-        describe('Paginación independiente > ', () => {});
+        describe('Paginación independiente > ', () => {
+            beforeEach((done) => {
+                var contx = $('#example1 > tbody > tr > td:contains(Irene)').parent();
+                $('td.select-checkbox',contx).click();
+                setTimeout(() => {
+                    $('td.select-checkbox',contx).click();
+                    setTimeout(() => {
+                        done();
+                    },400);
+                },800);
+            });
+            describe('Tabla maestro > ', () => {
+                beforeEach((done) => {
+                    //Avanzamos una página en #example1
+                    $('#example1').on('draw.dt', () => {
+                        setTimeout(() => {
+                            debugger;
+                            done();
+                        }, 300);
+                    });
+                    $('#example1_next').click();
+                    debugger;
+                });
+                it('Cambia el número de página de #example1:', () => {
+                    expect($('#example1_buttons').find('li.pageSearch.searchPaginator > input').val()).toBe("2");
+                });
+                it('Debe haber cambiado la página de #example1:', () => {
+                    expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('6');
+                    expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('7');
+                    expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('8');
+                    expect($('#example1 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('9');
+                    expect($('#example1 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('10');
+                });
+                it('No cambia el número de página de #example2:', () => {
+                    expect($('#example2_buttons').find('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                });
+                it('Debe haber cambiado la página de #example2:', () => {
+                    expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('3');
+                    expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('4');
+                    expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('5');
+                });
+            });
+            describe('Tabla detalle > ', () => {
+                beforeEach((done) => {
+                    //Avanzamos una página en #example2
+                    $('#example2').on('draw.dt', () => {
+                        setTimeout(() => {
+                            done();
+                        }, 300);
+                    });
+                    $('#example2_next').click();
+                });
+                it('Cambia el número de página de #example2:', () => {
+                    expect($('#example2_buttons').find('li.pageSearch.searchPaginator > input').val()).toBe("2");
+                });
+                it('Debe haber cambiado la página de #example2:', () => {
+                    expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('5');
+                    expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('6');
+                    expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('7');
+                });
+                it('No cambia el número de página de #example1:', () => {
+                    expect($('#example1_buttons').find('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                });
+                it('No debe haber cambiado la página de #example1:', () => {
+                    expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                    expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
+                    expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                    expect($('#example1 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
+                    expect($('#example1 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
+                });
+            });
+        });
         describe('Botoneras independientes > ', () => {});
     });
 });
