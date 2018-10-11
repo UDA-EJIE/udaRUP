@@ -2819,7 +2819,7 @@ $.fn.DataTable.Buttons = Buttons;
 
 function inicio(settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = settings.numSelected;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 
 	$.each(opts, function (i) {
