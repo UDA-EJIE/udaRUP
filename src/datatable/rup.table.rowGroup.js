@@ -238,6 +238,7 @@ $.extend( RowGroup.prototype, {
 						$(this).addClass('ui-icon-circlesmall-minus');
 						$(this).removeClass('ui-icon-circlesmall-plus');
 					}
+					$(this).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 
@@ -260,6 +261,7 @@ $.extend( RowGroup.prototype, {
 						$(this).addClass('ui-icon-circlesmall-minus');
 						$(this).removeClass('ui-icon-circlesmall-plus');
 					}
+					$(this).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 		}

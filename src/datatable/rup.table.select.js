@@ -71,9 +71,10 @@ DataTable.select.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
+		$(this).triggerHandler('tableSelectBeforeSelectRow');
 		var idRow = this._DT_RowIndex;
 		 _selectRowIndex(dt,idRow,$(this));
-
+		 $(this).triggerHandler('tableSelectAfterSelectRow');
 	} );
 	
 	//Se genera el div para el feedback del datatable.
@@ -139,6 +140,7 @@ function _selectRowIndex(dt,index,tr){
 	}else{
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
+		tr.triggerHandler('tableHighlightRowAsSelected');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){
 			var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
