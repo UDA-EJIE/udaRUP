@@ -257,8 +257,9 @@
 			*
 		  */
 		_ajaxOptions(options) {
-			$('#'+options.id).triggerHandler('tableFilterInitialize');
+			
 			options.id = this[0].id;
+			$('#'+options.id).triggerHandler('tableFilterInitialize');
 			var ajaxData = {
 				'url': options.urls.filter,
 				'dataSrc': function ( json ) {

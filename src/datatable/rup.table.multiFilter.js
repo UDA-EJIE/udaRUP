@@ -845,15 +845,6 @@ function configureMultifilter (ctx) {
 				combobox : true,
 				menuAppendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
 				appendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
-				success : function() {
-					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessConfigureMultifilter');
-				},
-				complete : function() {
-					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteConfigureMultifilter');
-				},
-				error : function() {
-					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorConfigureMultifilter');
-				},
 				select : function() {
 
 
