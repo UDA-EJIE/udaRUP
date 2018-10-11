@@ -479,5 +479,43 @@ describe('Test Maestro-Detalle > ', () => {
                 });
             });
         });
+        describe('Validaciones de formulario independientes > ', () => {
+            describe('Tabla maestro > ', () => {
+                beforeEach((done) => {
+                    $('#example1_detail_feedback').on('rupFeedback_show', () => {
+                        done();
+                    });
+                    $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                    $('#example1editButton_1').click();
+                    $('div[aria-describedby="example1_detail_div"]')
+                        .find('#nombre_detail_table').val('');
+                    $('#example1_detail_button_save').click();
+                });
+                afterEach(() => {
+                    //Cerrar el feedback
+                    $('#example1_detail_feedback_closeDiv').click();
+                    $('#example1_detail_feedback').rup_feedback('destroy');
+                    //Cerrar el form.
+                    let contx = $('div[aria-describedby="example1_detail_div"] > div > button');
+                    $('span.ui-icon-closethick', contx).parent().click();
+                    //Deseleccionar el elemento
+                    $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                });
+                // it('asd', () => {
+                //     expect(1).toBe(1);
+                // });
+                it('Debe mostrar el feedback del formulario de #example1:', () => {
+                    expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
+                    expect($('#example1_detail_feedback')
+                        .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
+                        .toBeTruthy();
+                });
+                // it('No debe mostrar el feedback del formulario de #example2:', () => {
+                //     expect($('#example1_detail_feedback').height()).toBe(0);
+                //     expect($('#example1_detail_feedback').text()).toBe('');
+                // });
+            });
+            describe('Tabla detalle > ', () => {});
+        });
     });
 });

@@ -1,4 +1,4 @@
-import 'jquery';
+/*import 'jquery';
 import 'jasmine-jquery';
 import 'rup.feedback';
 import 'rup.dialog';
@@ -125,7 +125,7 @@ function testDatatable() {
                                 evento.ctrlkey = true;
                                 $('#testutilInput').trigger(evento);
                             }, 500);
-                        });*/
+                        });*//*
                     });
                 });
             });
@@ -470,7 +470,7 @@ function testDatatable() {
                 it('asd',() => {
                     expect(1).toBe(1);
                 });
-            });*/
+            });*//*
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
                     $('#linkSelectTableHeadexample').click();
@@ -580,4 +580,4 @@ function testDatatable() {
         });
     });
 }
-testDatatable();
+testDatatable();*/
