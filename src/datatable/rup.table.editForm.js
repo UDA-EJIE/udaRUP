@@ -535,9 +535,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
 				}else{
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					if(ctx.oInit.multiSelect !== undefined){
-						DataTable.Api().multiSelect.deselectAll(dt);
-					}else if(ctx.oInit.select !== undefined){
+					if(ctx.oInit.select !== undefined){
 						DataTable.Api().select.deselect(ctx);
 					}
 					var rowAux = row;
@@ -551,7 +549,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					//Se guardan los datos para pasar de nuevo a editable.
 					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
 					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
-					dt['row']().multiSelect();
+					if(ctx.oInit.multiSelect !== undefined){
+						ctx.multiselection.internalFeedback.type = "noBorrar";
+						dt['row']().multiSelect();
+					}
 					//Se actualiza la linea
 					if(ctx.json.reorderedSelection !== null){
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
