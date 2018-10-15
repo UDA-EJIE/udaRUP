@@ -2826,11 +2826,11 @@ function inicio(ctx) {
 		// Activa/desactiva los botones en el inicio en funcion de la propiedad
 		// 'displayRegex' que tengan asociada
 		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
 			collectionObject = this;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		}
 		// Comprueba si tiene un icono asociado
 		if (this.conf.icon !== undefined) {
@@ -2854,7 +2854,7 @@ function inicio(ctx) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + ctx.sTableId).DataTable().on('select deselect contextmenu', function (event) {
+	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(ctx);
 		if(event.type === 'contextmenu' && event.srcElement) {
 			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
