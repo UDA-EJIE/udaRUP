@@ -2817,8 +2817,8 @@ $(document)
 $.fn.dataTable.Buttons = Buttons;
 $.fn.DataTable.Buttons = Buttons;
 
-function inicio(settings) {
-	var opts = settings._buttons[0].inst.s.buttons;
+function inicio(ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
 	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 
@@ -2826,11 +2826,11 @@ function inicio(settings) {
 		// Activa/desactiva los botones en el inicio en funcion de la propiedad
 		// 'displayRegex' que tengan asociada
 		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,settings);
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
 			collectionObject = this;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,settings);
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		}
 		// Comprueba si tiene un icono asociado
 		if (this.conf.icon !== undefined) {
@@ -2854,8 +2854,8 @@ function inicio(settings) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
-		DataTable.Api().buttons.displayRegex(settings);
+	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
+		DataTable.Api().buttons.displayRegex(ctx);
 		if(event.type === 'contextmenu' && event.srcElement) {
 			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
 		}
