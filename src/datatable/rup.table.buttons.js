@@ -98,7 +98,9 @@ var Buttons = function( dt, config )
 				this.processing(true);
 			}
 			var that = this;
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick');
 			_reportsCopyData(dt, that, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
 		}
 	};
 
@@ -115,7 +117,9 @@ var Buttons = function( dt, config )
 			ctx.ext.buttons.addButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick');
 			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick');
 		}
 	};
 
@@ -132,7 +136,9 @@ var Buttons = function( dt, config )
 			ctx.ext.buttons.editButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick');
 			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick');
 		}
 	};
 
@@ -149,7 +155,9 @@ var Buttons = function( dt, config )
 			ctx.ext.buttons.cloneButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick');
 			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick');
 		}
 	};
 
@@ -166,7 +174,9 @@ var Buttons = function( dt, config )
 			ctx.ext.buttons.deleteButton.eventDT = dt;
 		},
 		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick');
 			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
 		}
 	};
 
@@ -2554,7 +2564,7 @@ switch (type) {
 			typeAjax = 'POST';
 			ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
-			$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
+			$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
 				exportData = data;
 				deferred.resolve(exportData);
 			});
@@ -2565,7 +2575,7 @@ switch (type) {
 		typeAjax = 'GET';
 		ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
-		$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
+		$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
 			ctx.ext.buttons.allData = data;
 			exportData = ctx.ext.buttons.allData;
 			deferred.resolve(exportData);
@@ -2577,7 +2587,7 @@ switch (type) {
 		typeAjax = 'POST';
 		ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
 
-		$.when(_reportsRequestData(ajaxOptions)).then(function (data) {
+		$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
 			exportData = data;
 			deferred.resolve(exportData);
 		});
@@ -2646,16 +2656,24 @@ return ajaxOptions;
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
 * @param {object} ajaxOptions Parametros de la llamada Ajax
+* @param {object} ctx Contexto
 *
 * @return {object}
 *
 */
-var _reportsRequestData = function (ajaxOptions)
+var _reportsRequestData = function (ajaxOptions, ctx)
 {
 var deferred = $.Deferred();
 $.ajax(ajaxOptions)
 	.done(function(data) {
 		deferred.resolve(data);
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsSuccessReportsRequestData');
+	})
+	.complete(function() {
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsCompleteReportsRequestData');
+	})
+	.error(function() {
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsErrorReportsRequestData');
 	});
 return deferred.promise();
 };
@@ -2801,7 +2819,7 @@ $.fn.DataTable.Buttons = Buttons;
 
 function inicio(settings) {
 	var opts = settings._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = settings.numSelected;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 
 	$.each(opts, function (i) {
@@ -2836,9 +2854,13 @@ function inicio(settings) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function () {
+	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(settings);
+		if(event.type === 'contextmenu' && event.srcElement) {
+			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
+		}
 	} );
+	
 } ;
 
 // DataTables `dom` feature option

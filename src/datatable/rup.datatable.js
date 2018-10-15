@@ -241,6 +241,7 @@
 		_doFilter(options) {
 			var $self = this;
 			$self._showSearchCriteria();
+			$('#'+options.id).triggerHandler('tableFilterSearch');
 			$self.DataTable().ajax.reload();
 
 		},
@@ -256,12 +257,14 @@
 			*
 		  */
 		_ajaxOptions(options) {
+			
 			options.id = this[0].id;
+			$('#'+options.id).triggerHandler('tableFilterInitialize');
 			var ajaxData = {
 				'url': options.urls.filter,
 				'dataSrc': function ( json ) {
 					var ret = {};
-
+					$('#'+options.id).triggerHandler('tableFilterBeforeShow');
 					json.recordsTotal = json.records;
 					json.recordsFiltered = json.records;
 
@@ -412,7 +415,7 @@
 		  */
 		_clearFilter(options) {
 			var $self = this;
-
+			$('#'+options.id).triggerHandler('tableFilterReset');
 			options.$filterForm.resetForm();
 			$self.DataTable().ajax.reload();
 			options.filter.$filterSummary.html(' <i></i>');
@@ -815,10 +818,12 @@
 			var $self = this,
 				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
 			
+			$self.triggerHandler('tableBeforeInit');
+			
 			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
-			
+			$self.triggerHandler('tableInit');
 			if(args[0].primaryKey !== undefined){
 				settings.primaryKey = args[0].primaryKey.split(";");
 			}
@@ -862,7 +867,7 @@
 					//async : false,
 					complete : function(jqXHR,
 						textStatus) {
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
 					},
 					success : function(data, status,
 						xhr) {
@@ -877,11 +882,11 @@
 							$(settings.filter.$filterSummary , 'i').append('}');
 
 						}
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
 					},
 					error : function(xhr, ajaxOptions,
 						thrownError) {
-
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
 					}
 				});
 
@@ -980,8 +985,9 @@
 			
 			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
 			$self.data('settings'+$self[0].id, settings);
-
+			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
+			$self.triggerHandler('tableAfterInit');
 		}
 	});
 

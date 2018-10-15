@@ -103,7 +103,9 @@ function preConfigureMultifilter(ctx) {
 	settings.filter.$filterContainer
 		.after($dropdownDiaglogTemplate);
 	
+	$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeConfigureMultifilter');
 	configureMultifilter(ctx);
+	$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterConfigureMultifilter');
 	
 	// configuracion del resumen del filtro para que
 	// apareza el nombre del filtro
@@ -174,8 +176,9 @@ function postConfigureMultifilter (ctx) {
 	
 	
 									// añado el filtro
+									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeAddFilter');
 									_addFilter(filter,ctx);
-	
+									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterAddFilter');	
 	
 								}
 	
@@ -204,7 +207,9 @@ function postConfigureMultifilter (ctx) {
 									var valorFiltro= _searchFilterInCombo(ctx);
 									if (valorFiltro!==undefined){
 										//limpiamos el filtro
+										$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeCleanFilterForm');
 										_cleanFilterForm(ctx);
+										$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterCleanFilterForm');
 	
 										//Cargamos de nuevo el filtro en el formulario del filtro
 										// rellenar el formulario del filtro
@@ -238,7 +243,9 @@ function postConfigureMultifilter (ctx) {
 									var filter = _createFilterFromForm(ctx);
 	
 									// borro el filtro
+									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeDeleteFilter');
 									deleteFilter(filter,ctx);
+									$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterDeleteFilter');
 								}
 							}
 						},
@@ -248,12 +255,7 @@ function postConfigureMultifilter (ctx) {
 	
 								var filtroAnterior= settings.multiFilter.filtroAnterior;
 								if (filtroAnterior!==null){
-
-									//$self.rup_table('cleanFilterForm');
-
-									//$self.triggerHandler('rupTable_multifilter_fillForm',filtroAnterior);
 									_fillForm(filtroAnterior,ctx);
-	
 								}
 								//limpio el filtro del dropdownDIalog
 								settings.multiFilter.$comboLabel.val('');
@@ -386,11 +388,14 @@ function postConfigureMultifilter (ctx) {
 				settings.multiFilter.$feedback.rup_feedback('set',	$.rup.i18n.base.rup_table.plugins.multifilter.noRecords,'error');
 
 			}
-
+			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessDeleteFilter');
+		},
+		complete : function() {
+			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteDeleteFilter');
 		},
 		error : function(xhr, ajaxOptions,	thrownError) {
 			settings.multiFilter.$feedback.rup_feedback(	'set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
-
+			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorDeleteFilter');
 		}
 	});
 }
@@ -439,11 +444,14 @@ function _addFilter (filter,ctx) {
 				if (settings.multiFilter.$comboLabel.autocomplete('widget').is(':visible')) {
 					settings.multiFilter.$comboLabel.autocomplete('widget').hide();
 				}
-
+				$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessAddFilter');
+			},
+			complete : function() {
+				$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteAddFilter');
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
 				settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
-
+				$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorAddFilter');
 			}
 		});
 
@@ -553,7 +561,7 @@ function _checkLabel (ctx) {
  */
 function _fillForm (filtroNuevo,ctx) {
 	var settings = ctx.oInit;
-
+	$('#' + ctx.sTableId).triggerHandler('tableMultiFilterFillForm');
 	//cambiar milisengudos a fecha (el formato de bd del  fecha es milisegundos)
 	$('[ruptype=\'date\']', settings.filter.$filterContainer).each(function(index, elem){
 
@@ -589,12 +597,12 @@ function _fillForm (filtroNuevo,ctx) {
 
 	// rellenar el formulario
 	$.rup_utils.populateForm(xhrArray, $('#'+ctx.sTableId+ '_filter_form'));
-
+	
 
 }
 
 /**
- * Inicializa el combo de selección de filtrado a aplicar en el fomulario.
+ * Inicializa el combo de selección de filtrado a aplicar en el formulario.
  *
  * @function _configCombo
 	 * @private
@@ -682,13 +690,8 @@ function _configCombo (ctx){
 				settings.multiFilter.$comboLabel.data('loadObjects');
 
 			if (settings.getText === true) {
-				if (loadObjects[autoCompObject.val()] !== undefined) {
-					settings.multiFilter.$combo.val(autoCompObject.val());
-					settings.multiFilter.$combo.attr('rup_autocomplete_label',autoCompObject.val());
-				} else {
-					settings.multiFilter.$combo.val(autoCompObject.val());
-					settings.multiFilter.$combo.attr('rup_autocomplete_label',autoCompObject.val());
-				}
+				settings.multiFilter.$combo.val(autoCompObject.val());
+				settings.multiFilter.$combo.attr('rup_autocomplete_label',autoCompObject.val());
 			} else {
 				if (loadObjects[autoCompObject.val()] !== undefined) {
 					settings.multiFilter.$combo.val(loadObjects[autoCompObject.val()]);
@@ -842,7 +845,6 @@ function configureMultifilter (ctx) {
 				combobox : true,
 				menuAppendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
 				appendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
-
 				select : function() {
 
 
@@ -850,11 +852,12 @@ function configureMultifilter (ctx) {
 					var valorFiltro=_searchFilterInCombo(ctx);
 
 					//limpiar Filtro
+					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeCleanFilterForm');
 					_cleanFilterForm(ctx);
+					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterCleanFilterForm');
 
 
 					// rellenar el formulario del filtro
-					$self.triggerHandler('rupTable_multifilter_fillForm',valorFiltro);
 					_fillForm(valorFiltro,ctx);
 
 					//

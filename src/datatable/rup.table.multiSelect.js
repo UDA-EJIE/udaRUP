@@ -539,6 +539,8 @@ function info ( api )
 			el.append( output );
 		}
 	} );
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate');
 }
 
 /**
@@ -630,6 +632,7 @@ function init ( ctx ) {
 				setTimeout(function(){
 					feedback.rup_feedback('destroy');
 					feedback.css('width','100%');
+					$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 				}, confDelay);
 				feedback.type = '';
 				feedback.msgFeedBack = '';
@@ -672,6 +675,7 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
 			if(ctx.multiselection.lastSelectedId === value){
 				pos = idx;
 			}
@@ -958,9 +962,16 @@ function selectAllPage(dt){
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
 		ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
 	}
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
+	});
+	
+	$('#'+ctx.multiselection.internalFeedback[0].id+'_closeDiv').on('click', function (event) {
+		ctx.multiselection.internalFeedback.rup_feedback('destroy');
+		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	});
 
 	//Se deja marcado el primero de la pagina.
@@ -996,6 +1007,7 @@ function deselectAllPage(dt){
 	if(ctx.multiselection.numSelected  > 0){
 		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
 	}
 	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
 		deselectAll(dt);
@@ -1035,6 +1047,8 @@ function selectAll(dt){
 		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
 		ctx.multiselection.lastSelectedId = '';
 	}
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectSelectAll');
 }
 
 
@@ -1532,6 +1546,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	if ( multiSelect === false ) {
@@ -1545,6 +1560,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 
 
 	this.iterator( 'row', function ( ctx, idx ) {
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
 		clear( ctx );
 		pagina = false;
 		ctx.aoData[ idx ]._multiSelect_selected = true;
@@ -1561,6 +1577,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		maintIdsRows(DataTable,id,1,pagina,idx,ctx);
 		//Se marca el ultimo.
 		ctx.multiselection.lastSelectedId = id;
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectAfterSelectRow');
 
 	} );
 	if(pagina){//Cuando se pagina, se filtra, o se reordena.
@@ -1672,6 +1689,7 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	this.iterator( 'row', function ( ctx, idx ) {

@@ -120,6 +120,7 @@ DataTable.editForm.init = function ( dt ) {
 			}
 			_getRowSelected(dt,'PUT');
 			DataTable.editForm.fnOpenSaveDialog('PUT',dt,idRow);
+			$('#'+ctx.sTableId).triggerHandler('tableEditFormClickRow');
 		} );
 	}
 
@@ -195,6 +196,7 @@ DataTable.editForm.init = function ( dt ) {
 					} else {
 						$('#' + buttonId).trigger('click');
 					}
+					
 			  },
 				items
 			});
@@ -374,6 +376,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	if(idRow < 0){
 		idRow = 1;
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData');
 	var row = ctx.json.rows[idRow];
 	var rowArray = $.rup_utils.jsontoarray(row);
 	var title;
@@ -395,6 +398,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			indexInArray = (Number(ctx.json.page)-1) * 10;
 			indexInArray = indexInArray + idRow;
 		}
+		$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterFillData');
 		_updateDetailPagination(ctx,indexInArray+1,numTotal);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
 		//Se guarda el ultimo id editado.
@@ -416,6 +420,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
 	}
 	
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
 	// Establecemos el título del formulario
 	ctx.oInit.formEdit.detailForm.rup_dialog("setOption", "title", title);
 	
@@ -461,7 +466,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		_callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'')
 	});
 
-
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm');
 }
 
 
@@ -474,15 +479,16 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
 * @param {object} dt - Es el objeto datatable.
-* @param {object} row - son los datos que se cargan.
+* @param {object} row - Son los datos que se cargan.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
-* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierrar el dialog.
+* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog.
 * @param {string} idTableDetail - Identificdor del detail de la table.
-* @param {string} url - Url que se añade para llmar  al controller.
+* @param {string} url - Url que se añade para llamar  al controller.
 *
 */
 function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	var ctx = dt.settings()[0];
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
@@ -500,9 +506,6 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		showLoading : false,
 		contentType : 'application/json',
 		async : true,
-		beforeSend : function(xhr, options) {
-			//return $self.triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
-		},
 		success : function(data, status, xhr) {
 
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
@@ -532,9 +535,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
 				}else{
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					if(ctx.oInit.multiSelect !== undefined){
-						DataTable.Api().multiSelect.deselectAll(dt);
-					}else if(ctx.oInit.select !== undefined){
+					if(ctx.oInit.select !== undefined){
 						DataTable.Api().select.deselect(ctx);
 					}
 					var rowAux = row;
@@ -548,11 +549,15 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					//Se guardan los datos para pasar de nuevo a editable.
 					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
 					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
-					dt['row']().multiSelect();
+					if(ctx.oInit.multiSelect !== undefined){
+						ctx.multiselection.internalFeedback.type = "noBorrar";
+						dt['row']().multiSelect();
+					}
 					//Se actualiza la linea
-					if(ctx.json.reorderedSelection !== undefined){
+					if(ctx.json.reorderedSelection !== null){
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
+					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
 				}
 
 			}else{//Al eliminar hacer un reload.
@@ -564,18 +569,20 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				 dt.ajax.reload();
+				 $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
 			}
-
-
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+		},
+		complete : function() {
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
-			console.log('Errors '+thrownError+ ": "+xhr.responseText);
 			var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
 			if(divErrorFeedback.length === 0){
 				divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.formEdit.validate,
 		feedback:feed.rup_feedback({type:"ok",block:false})
@@ -598,15 +605,17 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 *
 */
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
+	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
-		//setTimeout(function(){
+		setTimeout(function(){
 			feedback.rup_feedback('destroy');
 			feedback.css('width','100%');
-		//}, confDelay);
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+		}, confDelay);
 	}
 }
 
