@@ -554,7 +554,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 						dt['row']().multiSelect();
 					}
 					//Se actualiza la linea
-					if(ctx.json.reorderedSelection !== null){
+					if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
 					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');

@@ -18,10 +18,21 @@ function clearDatatable(done) {
         $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
         $.contextMenu('destroy');
     }
-    $('.dataTable').DataTable().destroy();
-    $('#content').html('');
-    $('#content').nextAll().remove();
-    done();
+
+    $('.dataTable').on('destroy.dt', () => {
+        $('#content').html('');
+        $('#content').nextAll().remove();
+        done();
+    });
+    
+    if ($('.rup-feedback').length>0){
+        setTimeout(() => {
+            $('.dataTable').DataTable().destroy();
+        }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
+    } else {
+        $('.dataTable').DataTable().destroy();
+    }
+    
 }
 
 function testDatatable() {

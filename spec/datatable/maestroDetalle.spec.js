@@ -17,10 +17,20 @@ function clearDatatable(done) {
         $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
         $.contextMenu('destroy');
     }
-    $('.dataTable').DataTable().destroy();
-    $('#content').html('');
-    $('#content').nextAll().remove();
-    done();
+    
+    $('.dataTable').on('destroy.dt', () => {
+        $('#content').html('');
+        $('#content').nextAll().remove();
+        done();
+    });
+
+    if ($('.rup-feedback').length > 0) {
+        setTimeout(() => {
+            $('.dataTable').DataTable().destroy();
+        }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
+    } else {
+        $('.dataTable').DataTable().destroy();
+    }
 }
 function relacionMaestroDetalle(callback) {
     let api = $('#example1').DataTable();
@@ -151,7 +161,7 @@ describe('Test Maestro-Detalle > ', () => {
                 });
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example1').find('#nombre_seeker').val('E')
+                        $('#example1').find('#nombre_seeker').val('E');
                         $('#search_nav_button_example1').click();
                         $('#example1').on('searchDone.rup.dt', () => {
                             done();
@@ -189,7 +199,7 @@ describe('Test Maestro-Detalle > ', () => {
                 });
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example2').find('#nombre_seeker').val('E')
+                        $('#example2').find('#nombre_seeker').val('E');
                         $('#search_nav_button_example2').click();
                         $('#example2').on('searchDone.rup.dt', () => {
                             done();
