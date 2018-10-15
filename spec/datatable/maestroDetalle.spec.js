@@ -52,7 +52,9 @@ describe('Test Maestro-Detalle > ', () => {
     });
 
     afterEach((done) => {
-        clearDatatable(done);
+        setTimeout(() => {
+            clearDatatable(done);
+        },500);
     });
 
     describe('Creación > ', () => {
@@ -501,19 +503,16 @@ describe('Test Maestro-Detalle > ', () => {
                     //Deseleccionar el elemento
                     $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                 });
-                // it('asd', () => {
-                //     expect(1).toBe(1);
+                // it('Debe mostrar el feedback del formulario de #example1:', () => {
+                //     expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
+                //     expect($('#example1_detail_feedback')
+                //         .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
+                //         .toBeTruthy();
                 // });
-                it('Debe mostrar el feedback del formulario de #example1:', () => {
-                    expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
-                    expect($('#example1_detail_feedback')
-                        .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
-                        .toBeTruthy();
+                it('No debe mostrar el feedback del formulario de #example2:', () => {
+                    expect($('#example2_detail_feedback').height()).toBe(0);
+                    expect($('#example2_detail_feedback').text()).toBe('');
                 });
-                // it('No debe mostrar el feedback del formulario de #example2:', () => {
-                //     expect($('#example1_detail_feedback').height()).toBe(0);
-                //     expect($('#example1_detail_feedback').text()).toBe('');
-                // });
             });
             describe('Tabla detalle > ', () => {});
         });

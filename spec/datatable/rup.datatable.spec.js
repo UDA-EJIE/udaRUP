@@ -1,4 +1,4 @@
-/*import 'jquery';
+import 'jquery';
 import 'jasmine-jquery';
 import 'rup.feedback';
 import 'rup.dialog';
@@ -11,7 +11,6 @@ import * as dtGen from './datatableCreator';
 
 function generateFormEditDatatable(callback) {
     dtGen.createDatatable1(0, callback);
-    return;
 }
 
 function clearDatatable(done) {
@@ -114,7 +113,6 @@ function testDatatable() {
                     });
                     // TODO: Consegir hacer pruebas con clipcbard
                     describe('Item copy > ', () => {
-                        /*
                         beforeEach(() => {
                             $('#content').append('<input type="text" id="testutilInput"></input>');
                             $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
@@ -125,7 +123,7 @@ function testDatatable() {
                                 evento.ctrlkey = true;
                                 $('#testutilInput').trigger(evento);
                             }, 500);
-                        });*//*
+                        });
                     });
                 });
             });
@@ -465,12 +463,12 @@ function testDatatable() {
             /*describe('Edición en línea > ', () => {
                 beforeEach((done) => {
                     clearDatatable($('#example').DataTable());
-                    generateInlineFormDatatable(done);
+                    generateInlineFormDatatable(done());
                 });
                 it('asd',() => {
                     expect(1).toBe(1);
                 });
-            });*//*
+            });*/
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
                     $('#linkSelectTableHeadexample').click();
@@ -580,4 +578,4 @@ function testDatatable() {
         });
     });
 }
-testDatatable();*/
+testDatatable();
