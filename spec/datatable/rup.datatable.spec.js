@@ -24,15 +24,15 @@ function clearDatatable(done) {
         $('#content').nextAll().remove();
         done();
     });
-    
-    if ($('.rup-feedback').length>0){
+
+    if ($('.rup-feedback').length > 0) {
         setTimeout(() => {
             $('.dataTable').DataTable().destroy();
         }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
     } else {
         $('.dataTable').DataTable().destroy();
     }
-    
+
 }
 
 function testDatatable() {
@@ -124,16 +124,18 @@ function testDatatable() {
                     });
                     // TODO: Consegir hacer pruebas con clipcbard
                     describe('Item copy > ', () => {
-                        beforeEach(() => {
-                            $('#content').append('<input type="text" id="testutilInput"></input>');
+                        beforeEach((done) => {
+                            $('#content').append('<textarea rows="5" cols="100" id="testutilInput"></textarea>');
+                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
-                            $('div.ui-dialog-buttonset > button').click();
+                            $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
+
                             setTimeout(() => {
-                                let evento = $.Event('keydown');
-                                evento.wich = 86;
-                                evento.ctrlkey = true;
-                                $('#testutilInput').trigger(evento);
+                                done();
                             }, 500);
+                        });
+                        it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
+                            expect($('#datatables_buttons_info textarea').val()).toBe("id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n");
                         });
                     });
                 });
