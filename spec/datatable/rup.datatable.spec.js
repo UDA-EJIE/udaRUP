@@ -289,9 +289,7 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#nombre_seeker').val('E');
                         $('#search_nav_button_example').click();
-                        $('#example').on('searchDone.rup.dt', () => {
-                            done();
-                        });
+                        $('#example').on('tableSeekerSearchComplete', done);
                     });
 
                     it('Se selecciona y marca el resultado de la selección: ', () => {
