@@ -8,6 +8,7 @@ import 'rup.table';
 import 'datatable/rup.datatable';
 import * as testutils from '../common/specCommonUtils.js';
 import * as dtGen from './datatableCreator';
+import { doesNotReject } from 'assert';
 
 var selected = {};
 
@@ -141,6 +142,14 @@ describe('Test Maestro-Detalle > ', () => {
             });
         });
         describe('Búsqueda independiente > ', () => {
+            beforeEach((done) => {
+                $('#example2').on('draw.dt', () => {
+                    setTimeout(() => {
+                        done();
+                    },300);
+                });
+                $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+            });
             describe('Tabla maestro > ', () => {
                 beforeEach(() => {
                     $('#searchCollapsLabel_example1').click();
@@ -163,20 +172,22 @@ describe('Test Maestro-Detalle > ', () => {
                     beforeEach((done) => {
                         $('#example1').find('#nombre_seeker').val('E');
                         $('#search_nav_button_example1').click();
-                        $('#example1').on('searchDone.rup.dt', () => {
-                            done();
+                        $('#example1').on('tableSeekerSearchSucess', () => {
+                            setTimeout(() => {
+                                done();
+                            },300);
                         });
                     });
-                    // it('Se selecciona y marca el resultado de la selección: ', () => {
-                    //     let ctx = $('#example1').find('td:contains(4)').parent();
-                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    it('Se selecciona y marca el resultado de la selección: ', () => {
+                        let ctx = $('#example1').find('td:contains(4)').parent();
+                        expect($('td > span.ui-icon-search', ctx).length).toBe(1);
 
-                    //     ctx = $('#example1').find('td:contains(5)').parent();
-                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
-                    // });
-                    // it('No se selecciona nada en #example2:', () => {
-                    //     expect($('#example2 > tbody').find('span.ui-icon-search').length).toBe(0);
-                    // });
+                        ctx = $('#example1').find('td:contains(5)').parent();
+                        expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    });
+                    it('No se selecciona nada en #example2:', () => {
+                        expect($('#example2 > tbody').find('span.ui-icon-search').length).toBe(0);
+                    });
                 });
             });
             describe('Tabla detalle > ', () => {
@@ -200,21 +211,25 @@ describe('Test Maestro-Detalle > ', () => {
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
                         $('#example2').find('#nombre_seeker').val('E');
+                        debugger;
                         $('#search_nav_button_example2').click();
-                        $('#example2').on('searchDone.rup.dt', () => {
-                            done();
+                        $('#example2').on('tableSeekerSearchSucess', () => {
+                            setTimeout(() => {
+                                debugger;
+                                done();
+                            },300);
                         });
                     });
-                    // it('Se selecciona y marca el resultado de la selección: ', () => {
-                    //     let ctx = $('#example2').find('td:contains(4)').parent();
-                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    it('Se selecciona y marca el resultado de la selección: ', () => {
+                        let ctx = $('#example2').find('td:contains(4)').parent();
+                        expect($('td > span.ui-icon-search', ctx).length).toBe(1);
 
-                    //     ctx = $('#example2').find('td:contains(5)').parent();
-                    //     expect($('td > span.ui-icon-search', ctx).length).toBe(1);
-                    // });
-                    // it('No se selecciona nada en #example1:', () => {
-                    //     expect($('#example1 > tbody').find('span.ui-icon-search').length).toBe(0);
-                    // });
+                        let ctx2 = $('#example2').find('td:contains(5)').parent();
+                        expect($('td > span.ui-icon-search', ctx2).length).toBe(1);
+                    });
+                    it('No se selecciona nada en #example1:', () => {
+                        expect($('#example1 > tbody').find('span.ui-icon-search').length).toBe(0);
+                    });
                 });
             });
         });
@@ -497,34 +512,29 @@ describe('Test Maestro-Detalle > ', () => {
                     $('#example1_detail_feedback').on('rupFeedback_show', () => {
                         done();
                     });
+                    debugger;
                     $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                     $('#example1editButton_1').click();
                     $('div[aria-describedby="example1_detail_div"]')
                         .find('#nombre_detail_table').val('');
                     $('#example1_detail_button_save').click();
                 });
-                afterEach(() => {
-                    //Cerrar el feedback
-                    $('#example1_detail_feedback_closeDiv').click();
-                    $('#example1_detail_feedback').rup_feedback('destroy');
-                    //Cerrar el form.
-                    let contx = $('div[aria-describedby="example1_detail_div"] > div > button');
-                    $('span.ui-icon-closethick', contx).parent().click();
-                    //Deseleccionar el elemento
-                    $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                it('Debe mostrar el feedback del formulario de #example1:', () => {
+                    expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
+                    expect($('#example1_detail_feedback')
+                        .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
+                        .toBeTruthy();
                 });
-                // it('Debe mostrar el feedback del formulario de #example1:', () => {
-                //     expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
-                //     expect($('#example1_detail_feedback')
-                //         .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
-                //         .toBeTruthy();
-                // });
                 it('No debe mostrar el feedback del formulario de #example2:', () => {
                     expect($('#example2_detail_feedback').height()).toBe(0);
                     expect($('#example2_detail_feedback').text()).toBe('');
                 });
             });
-            describe('Tabla detalle > ', () => {});
+            describe('Tabla detalle > ', () => {
+                it('asd', () => {
+                    expect(1).toBe(1);
+                });
+            });
         });
     });
 });

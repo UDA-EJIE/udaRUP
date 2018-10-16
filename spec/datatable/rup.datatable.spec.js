@@ -22,7 +22,9 @@ function clearDatatable(done) {
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
-        done();
+        setTimeout(() => {
+            done();
+        }, 500);
     });
 
     if ($('.rup-feedback').length > 0) {
@@ -32,7 +34,6 @@ function clearDatatable(done) {
     } else {
         $('.dataTable').DataTable().destroy();
     }
-
 }
 
 function testDatatable() {
@@ -652,6 +653,24 @@ function testDatatable() {
                             ).toBe(0);
                         });
                     });
+                });
+            });
+            describe('Validación de formulario > ', () => {
+                beforeEach((done) => {
+                    $('#example_detail_feedback').on('rupFeedback_show', () => {
+                        done();
+                    });
+                    $('#example > tbody > tr:contains(Irene) > td:eq(0)').click();
+                    $('#exampleeditButton_1').click();
+                    $('div[aria-describedby="example_detail_div"]')
+                        .find('#nombre_detail_table').val('');
+                    $('#example_detail_button_save').click();
+                });
+                it('Debe mostrar el feedback del formulario:', () => {
+                    expect($('#example_detail_feedback').is(':visible')).toBeTruthy();
+                    expect($('#example_detail_feedback')
+                        .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
+                        .toBeTruthy();
                 });
             });
         });

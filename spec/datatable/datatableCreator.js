@@ -221,7 +221,14 @@ export function createDatatable1(ctx, callback) {
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
+    
+    // $('#' + idDatatable).on('tableAfterInit', function() {
+    //     console.info('AFTERINIT');
+    //     debugger;
+    //     callback();
+    // });
     $('#' + idDatatable).rup_datatable(opts);
+
 }
 
 export function createDatatable2(callback) {
