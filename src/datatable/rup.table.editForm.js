@@ -1036,7 +1036,7 @@ function _getPrevPageSelected(ctx,pageInit){
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
-* @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general serà la 1.
+* @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
 *
 * @return integer - devuele la linea
 *
@@ -1050,7 +1050,7 @@ function _getLineByPageSelected(ctx,lineInit){
 			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				return false;
 			}
@@ -1082,7 +1082,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:DataTable.settings[0].json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
 				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
 				index = -1;
 			}

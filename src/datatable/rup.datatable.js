@@ -784,7 +784,7 @@
 				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
 				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
-				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+				DataTable.Api().rupTable.selectPencil(ctx,-1);
 				if (ctx.multiselection === undefined) {
 					ctx.multiselection = {};
 				}

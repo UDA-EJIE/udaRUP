@@ -956,7 +956,7 @@ function selectAllPage(dt){
 	//FeedBack
 	var countPage = dt.page()+1;
 	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', DataTable.settings[0].json.recordsTotal);
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', ctx.json.recordsTotal);
 	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'selectAll'));
 	if(!ctx.multiselection.selectedAll ||
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
@@ -976,7 +976,7 @@ function selectAllPage(dt){
 
 	//Se deja marcado el primero de la pagina.
 	ctx.multiselection.lastSelectedId = dt.data()[0].id;
-	DataTable.Api().rupTable.selectPencil(DataTable.settings[0],0);
+	DataTable.Api().rupTable.selectPencil(ctx,0);
 }
 
 /**
@@ -1031,7 +1031,7 @@ function selectAll(dt){
 	ctx.multiselection.selectedAll = true;
 	ctx.multiselection.deselectedIds = [];
 	ctx.multiselection.deselectedRowsPerPage = [];
-	ctx.multiselection.numSelected = DataTable.settings[0].json.recordsTotal;
+	ctx.multiselection.numSelected = ctx.json.recordsTotal;
 	ctx.multiselection.accion = "checkAll";
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
@@ -1041,10 +1041,10 @@ function selectAll(dt){
 
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
-		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],0);
+		DataTable.Api().rupTable.selectPencil(ctx,0);
 		ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
 	}else{
-		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+		DataTable.Api().rupTable.selectPencil(ctx,-1);
 		ctx.multiselection.lastSelectedId = '';
 	}
 	
@@ -1256,7 +1256,7 @@ function _initializeMultiselectionProps ( ctx ) {
 	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
 	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
-	DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+	DataTable.Api().rupTable.selectPencil(ctx,-1);
 	return $self.multiselection;
 } ;
 
@@ -1291,7 +1291,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 			var pos = 0;
 			var arra = {id:id,page:ctx.json.page,line:line};
 			//ctx.multiselection.selectedIds.splice(pos,0,id);
-			//ctx.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:DataTable.settings[0].json.page,line:line});
+			//ctx.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:ctx.json.page,line:line});
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 
@@ -1335,7 +1335,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 		//Se mete el id para mantener el selectAll o no.
 		if(id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0){
 			if(line === undefined){
-				$.each(DataTable.settings[0].json.rows, function( index, value ) {
+				$.each(ctx.json.rows, function( index, value ) {
  					if (DataTable.Api().rupTable.getIdPk(value) === id){
 						line = index;
 						return false;
@@ -1543,7 +1543,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 
 	//Se miral si hay feedback y en ese caso se elimina.
 	var feedBack = ctx.multiselection.internalFeedback;
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
+	if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
 		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
@@ -1568,7 +1568,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para sumar seleccionados
-		if(ctx.multiselection.numSelected < DataTable.settings[0].json.recordsTotal &&
+		if(ctx.multiselection.numSelected < ctx.json.recordsTotal &&
 				id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0){
 			ctx.multiselection.numSelected++;
 		}
@@ -1605,9 +1605,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
-	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
-	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
+	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
+	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
 
 	if(checkPageSelectedAll(api,true)){
 		input.attr('checked',true);
@@ -1684,9 +1684,9 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 	var DataTable = $.fn.dataTable;
 	var ctx = api.context[0];
-	//Se miral si hay feedback y en ese caso se elimina.
+	//Se mira si hay feedback y en ese caso se elimina.
 	var feedBack = ctx.multiselection.internalFeedback;
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
+	if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
 		ctx.multiselection.internalFeedback.css('width','100%');
 		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
@@ -1718,9 +1718,9 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
-	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
-	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
+	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
+	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
 
 	if(checkPageSelectedAll(api,true)){
 		input.attr('checked',true);
