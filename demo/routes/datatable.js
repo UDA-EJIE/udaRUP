@@ -141,15 +141,20 @@ exports.filter = (req, res) => {
             records: 1
         };
     } else {
-        if(req.body.filter.id == '5') {
-            respuesta = {
-                page: '1',
-                rows: [
-                    { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
-                ],
-                total: '1',
-                records: 1
-            };
+        if(req.body.filter.id == '5' || req.body.filter.id == '6') {
+            if(req.body.filter.id == '5') {
+                respuesta = {
+                    page: '1',
+                    rows: [
+                        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+                    ],
+                    total: '1',
+                    records: 1
+                };
+            }
+            if(req.body.filter.id == '6') {
+                throw 'KABOOM!'
+            }
         }
         else {
             if(req.body.length == 10) {

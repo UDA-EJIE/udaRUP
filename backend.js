@@ -118,8 +118,15 @@ module.exports = (PORT) => {
 		res.sendStatus(200);
 	});
 
-
-
+	app.use(function(err, req, res, next) {
+		res.set('Content-Type', 'text/html');
+		res.status(406);
+		res.send(err.message);
+		// res.json({
+		// 	message: err.message,
+		// 	error: err
+		//   });
+	  });
 
 	app.listen(PORT);
 

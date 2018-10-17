@@ -655,6 +655,7 @@ function testDatatable() {
                     });
                 });
             });
+
             describe('Validación de formulario > ', () => {
                 beforeEach((done) => {
                     $('#example_detail_feedback').on('rupFeedback_show', () => {
@@ -671,6 +672,27 @@ function testDatatable() {
                     expect($('#example_detail_feedback')
                         .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
                         .toBeTruthy();
+                });
+            });
+
+            describe('Gestión de errores > ', () => {
+                beforeEach((done) => {
+                    $('#id_filter_table').val('6');
+                    debugger;
+                    try {
+                        $('#example_filter_filterButton').click();
+                        setTimeout(() => {
+                            debugger
+                            done();
+                        },500);
+                    }
+                    catch(e) {
+                        debugger;
+                        console.info(e);
+                    }
+                });
+                it('asd', () => {
+                    expect(1).toBe(2);
                 });
             });
         });
