@@ -153,7 +153,7 @@ exports.filter = (req, res) => {
                 };
             }
             if(req.body.filter.id == '6') {
-                throw 'KABOOM!'
+                throw "KABOOM!";
             }
         }
         else {

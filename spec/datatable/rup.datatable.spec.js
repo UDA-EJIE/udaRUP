@@ -677,22 +677,18 @@ function testDatatable() {
 
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
+                    $('#rup_feedback_example').on('rupFeedback_show', () => {
+                        debugger
+                        done();
+                    });
                     $('#id_filter_table').val('6');
-                    debugger;
-                    try {
-                        $('#example_filter_filterButton').click();
-                        setTimeout(() => {
-                            debugger
-                            done();
-                        },500);
-                    }
-                    catch(e) {
-                        debugger;
-                        console.info(e);
-                    }
+                    $('#example_filter_filterButton').click();
                 });
-                it('asd', () => {
-                    expect(1).toBe(2);
+                it('El feedback debe mostrarse:', () => {
+                    expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
+                });
+                it('Debe contener el mensaje esperado:', () => {
+                    expect($('#rup_feedback_example').text()).toBe('KABOOM!');
                 });
             });
         });
