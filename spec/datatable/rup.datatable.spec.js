@@ -678,7 +678,6 @@ function testDatatable() {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#rup_feedback_example').on('rupFeedback_show', () => {
-                        debugger
                         done();
                     });
                     $('#id_filter_table').val('6');
