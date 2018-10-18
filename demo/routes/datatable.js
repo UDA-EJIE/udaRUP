@@ -130,6 +130,9 @@ var jsonIDFilterOrdered1 = {
 
 exports.filter = (req, res) => {
     //console.info(req.body);
+    if(req.body.filter.id == '6') {
+        throw 'KABOOM!';
+    }
     let respuesta = {};
     if (req.body.filter.id == '4') {
         respuesta = {
@@ -141,7 +144,7 @@ exports.filter = (req, res) => {
             records: 1
         };
     } else {
-        if(req.body.filter.id == '5' || req.body.filter.id == '6') {
+        if(req.body.filter.id == '5') {
             if(req.body.filter.id == '5') {
                 respuesta = {
                     page: '1',
@@ -151,9 +154,6 @@ exports.filter = (req, res) => {
                     total: '1',
                     records: 1
                 };
-            }
-            if(req.body.filter.id == '6') {
-                throw "KABOOM!";
             }
         }
         else {
@@ -232,6 +232,9 @@ exports.filter = (req, res) => {
 
 exports.search = (req, res) => {
     let search = req.body.search;
+    if(search.edad === 'asd') {
+        throw 'KABOOM!';
+    }
     //console.info(search);
     if (search.nombre === 'E') {
         let ret = [
@@ -262,6 +265,9 @@ exports.simple = (req, res) => {
     res.status(200).json(respuesta);
 };
 exports.formEdit = (req, res) => {
+    if(req.body.edad === 'asd') {
+        throw 'KABOOM!';
+    }
     let respuesta = req.body;
     res.status(200).json(respuesta);
 };
