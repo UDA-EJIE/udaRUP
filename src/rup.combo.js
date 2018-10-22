@@ -620,6 +620,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxBeforeSend(xhr, settings);
 						},
 						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								data.splice(0,0,{style:"",value:settings.blank,label:this._getBlankLabel(settings.id)});
+							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
 							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
@@ -936,7 +939,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Opción vacía
 			if (settings.blank != null) {
-				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+				//$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
 			//Gestionar Imagenes
