@@ -128,11 +128,7 @@ var jsonIDFilterOrdered1 = {
     records: 6
 };
 
-exports.filter = (req, res) => {
-    //console.info(req.body);
-    if(req.body.filter.id == '6') {
-        throw 'KABOOM!';
-    }
+function getFilterResp(req) {
     let respuesta = {};
     if (req.body.filter.id == '4') {
         respuesta = {
@@ -145,37 +141,30 @@ exports.filter = (req, res) => {
         };
     } else {
         if(req.body.filter.id == '5') {
-            if(req.body.filter.id == '5') {
-                respuesta = {
-                    page: '1',
-                    rows: [
-                        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
-                    ],
-                    total: '1',
-                    records: 1
-                };
-            }
+            respuesta = {
+                page: '1',
+                rows: [
+                    { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+                ],
+                total: '1',
+                records: 1
+            };
         }
         else {
             if(req.body.length == 10) {
                 respuesta = json4;
             }
             else{
-                let mdFilter1 = '{"id": "1", "nombre": "Ana", "apellidos": "García Vázquez", "edad": "7"}';
-                let mdFilter2 = '{"id": "2", "nombre": "Pedro", "apellidos": "Allende Zabala", "edad": "9"}';
-                let idFilter1 = '{"id":"3","nombre":"Irene","apellidos":"San Jose","edad":"8"}'
-                let idFilter2 = '{"id":"5","nombre":"Eider","apellidos":"Ahedo Dominguez","edad":"70"}'
-                
-                if(JSON.stringify(req.body.filter) == mdFilter1 ||
-                    JSON.stringify(req.body.filter) == mdFilter2 ||
-                    JSON.stringify(req.body.filter) == idFilter1) {
-                    if(JSON.stringify(req.body.filter) == mdFilter1) {
+                if(req.body.filter.id == 1 ||
+                    req.body.filter.id == 2 ||
+                    req.body.filter.id == 3) {
+                    if(req.body.filter.id == 1) {
                         respuesta = jsonMDInterFilter1;
                     }
-                    if(JSON.stringify(req.body.filter) == mdFilter2) {
+                    if(req.body.filter.id == 2) {
                         respuesta = jsonMDInterFilter2;
                     }
-                    if(JSON.stringify(req.body.filter) == idFilter1) {
+                    if(req.body.filter.id == 3) {
                         if(req.body.sidx == 'nombre' && req.body.sord == 'asc') {
                             respuesta = jsonIDFilterOrdered1;
                         }
@@ -188,7 +177,7 @@ exports.filter = (req, res) => {
                             }
                         }
                     }
-                    if(JSON.stringify(req.body.filter) == idFilter2) {
+                    if(req.body.filter.id == 5) {
                         respuesta = jsonIDFilter2;
                     }
                 }
@@ -220,20 +209,43 @@ exports.filter = (req, res) => {
                             }
                         }
                     }
-                    
                 }
             }
         }
-        
     }
-
-    res.status(200).json(respuesta);
+    if(req.body.filter.id == 6) {
+        respuesta = 'KABOOM!';
+    }
+    return respuesta;
+}
+function getFilterStatus(req){
+    let status = 0;
+    if(req.body.filter.id == 6) {
+        status = 406;
+    }
+    else{
+        status = 200;
+    }
+    return status;
+}
+exports.filter = (req, res) => {
+    let respuesta = getFilterResp(req);
+    let status = getFilterStatus(req);
+    if(status === 200){
+        res.status(status).json(respuesta);
+    }
+    else{
+        // console.info('==============');
+        // console.info(respuesta);
+        res.status(status).send(respuesta);
+    }
 };
 
 exports.search = (req, res) => {
     let search = req.body.search;
     if(search.edad === 'asd') {
-        throw 'KABOOM!';
+        res.status(406);
+        res.send('KABOOM');
     }
     //console.info(search);
     if (search.nombre === 'E') {
@@ -266,7 +278,8 @@ exports.simple = (req, res) => {
 };
 exports.formEdit = (req, res) => {
     if(req.body.edad === 'asd') {
-        throw 'KABOOM!';
+        res.status(406);
+        res.send('KABOOM!');
     }
     let respuesta = req.body;
     res.status(200).json(respuesta);

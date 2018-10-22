@@ -118,12 +118,6 @@ module.exports = (PORT) => {
 		res.sendStatus(200);
 	});
 
-	app.use(function(err, req, res, next) {
-		res.set('Content-Type', 'application/json');
-		res.status(406);
-		// res.data(err.message);
-		res.json(err);
-	  });
 
 	app.listen(PORT);
 
