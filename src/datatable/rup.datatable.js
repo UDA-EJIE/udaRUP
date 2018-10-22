@@ -419,8 +419,14 @@
 			options.$filterForm.resetForm();
 			$self.DataTable().ajax.reload();
 			options.filter.$filterSummary.html(' <i></i>');
-			jQuery('input,textarea').val('');
-			jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+			
+			// Provoca un mal funcionamiento del filtrado de Maestro-Detalle en la tabla esclava, 
+			// ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
+			//jQuery('input,textarea').val('');
+			
+			// No es necesario ya que se usa bootstrap
+			//jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+			
 			$.rup_utils.populateForm([], options.$filterForm)
 
 		},
@@ -1018,7 +1024,7 @@ $.fn.rup_datatable.defaults = {
     dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
-		responsive: true,
+	responsive: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
@@ -1027,7 +1033,7 @@ $.fn.rup_datatable.defaults = {
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
-		// adapter: "datatable_jqueryui",
+	//adapter: "datatable_jqueryui",
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]]
 	};

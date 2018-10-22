@@ -559,8 +559,8 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					}
 					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
 				}
-
-			}else{//Al eliminar hacer un reload.
+				
+			}else{// Eliminar
 				ctx.multiselection.internalFeedback.type = 'eliminar';
 				ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
 				if(ctx.oInit.multiSelect !== undefined){
@@ -568,9 +568,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
 				}
-				 dt.ajax.reload();
-				 $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
+				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
 			}
+			// Recargar datos
+			dt.ajax.reload();
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
 		},
 		complete : function() {
