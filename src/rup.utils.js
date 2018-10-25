@@ -276,6 +276,16 @@
 				} else {
 					if (root instanceof Array) {
 						root.push(value);
+					} else if (path[0].indexOf(".") != -1) {
+						// Entra por aquí en caso de que uno de los path sea un objeto
+						var padre = path[0].slice(0, path[0].indexOf("."));
+						var hijo = path[0].slice(path[0].indexOf(".") + 1, path[0].length);
+						
+						if(root[padre] != undefined) {
+							root[padre][hijo] = value;							
+						} else {
+							root[padre] = {[hijo]: value};
+						}
 					} else {
 						root[path] = value;
 					}

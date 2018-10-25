@@ -206,7 +206,7 @@ DataTable.editForm.init = function ( dt ) {
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
 		// si es igual no hacer nada.
-		var formSerializado = ctx.oInit.formEdit.idForm.formSerialize();
+		var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
 		if(ctx.oInit.formEdit.dataOrigin === formSerializado){
 			return true;
 		}
@@ -432,7 +432,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	$(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
 
 	//Se guardan los datos originales
-	ctx.oInit.formEdit.dataOrigin = idForm.formSerialize();
+	ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
 	ctx.oInit.formEdit.okCallBack = false
 
 
@@ -440,10 +440,12 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	button.bind('click', function() {
 		//Comprobar si row ha sido modificada
 		//Se serializa el formulario con los cambios
-		row = idForm.formSerialize();
+		row = _editFormSerialize(idForm);
+        
 		//Verificar los checkbox vacíos.
-		row = _returnCheckEmpty(idForm,idForm.formSerialize());
-		//Se transforma
+        row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
+        
+        //Se transforma
 		row = $.rup_utils.queryStringToJson(row);
 		ctx.oInit.formEdit.okCallBack = true;
 
@@ -458,11 +460,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
 		//Comprobar si row ha sido modificada
 		//Se serializa el formulario con los cambios
-		row = idForm.formSerialize();
+		row = _editFormSerialize(idForm);
+		
 		//Verificar los checkbox vacíos.
-		row = _returnCheckEmpty(idForm,idForm.formSerialize());
+		row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
+		
 		//Se transforma
 		row = $.rup_utils.queryStringToJson(row);
+		
 		_callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'')
 	});
 
@@ -548,7 +553,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.json.rows.splice(0,0,row);
 					//Se guardan los datos para pasar de nuevo a editable.
 					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
-					ctx.oInit.formEdit.dataOrigin = ctx.oInit.formEdit.idForm.formSerialize();
+					ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
 					if(ctx.oInit.multiSelect !== undefined){
 						ctx.multiselection.internalFeedback.type = "noBorrar";
 						dt['row']().multiSelect();
@@ -879,7 +884,7 @@ function _callNavigationSelectBar(dt){
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
 *
-* @return object que contiene  el identificador, la pagina y la linea de la fila seleccionada
+* @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
 */
 function _getRowSelected(dt,actionType){
@@ -1128,6 +1133,34 @@ function _deleteAllSelects(dt){
 			}
 		}
 	});
+}
+
+/**
+* Metodo que serializa los datos del formulario.
+*
+* @name _editFormSerialize
+* @function
+* @since UDA 3.6.0 // Datatable 1.2.0
+*
+* @param {object} idForm - Formulario que alberga los datos.
+*
+* @return {string} - Devuelve los datos del formulario serializados
+*
+*/
+function _editFormSerialize(idForm){
+	var serializedForm = '';
+	var idFormArray = idForm.formToArray();
+	var length = idFormArray.length;
+	
+	$.each( idFormArray, function( key, obj ) {
+		serializedForm += (obj.name + "=" + obj.value);
+		
+		if(key < length - 1) {
+			serializedForm += "&";
+		}
+	});
+	
+	return serializedForm;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
