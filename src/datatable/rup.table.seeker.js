@@ -355,9 +355,9 @@ function _selectSearch(dt,ctx,rows){
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
 	$('#'+ctx.sTableId+' tbody tr td span.ui-icon-search').remove();
 
-	//se añade el span con el lapicero
+	//se añade el span con la lupa
 	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
-		//Se selecconar el primero y se limpian los datos.
+		//Se selecciona el primero y se limpian los datos.
 		var rowSelected = '';
 
 		$.each(ctx.json.rows, function( idx ,value) {
@@ -399,7 +399,7 @@ function _selectSearch(dt,ctx,rows){
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
 * 
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
 *
 */

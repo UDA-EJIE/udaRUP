@@ -610,7 +610,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					if (data === null) {
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
-
+					var labelBlank = this._getBlankLabel(settings.id);
 					$.rup_ajax({
 						url: settings.source ? settings.source : settings.sourceGroup,
 						data: data,
@@ -620,6 +620,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxBeforeSend(xhr, settings);
 						},
 						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
 							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
@@ -936,7 +939,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Opción vacía
 			if (settings.blank != null) {
-				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+				//$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
 			//Gestionar Imagenes
