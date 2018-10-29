@@ -234,6 +234,9 @@ export function createDatatable1(ctx, callback) {
 export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
+        multiSelect: {
+            style: "multi"
+        },
         urlBase: "http://localhost:8081/demo/datatable/remote",
         // serverSide: true,
         // deferLoading: 15,
@@ -246,9 +249,6 @@ export function createDatatable2(callback) {
             id: idDatatable + "_filter_form",
             filterToolbar: idDatatable + "_filter_toolbar",
             collapsableLayerId: idDatatable + "_filter_fieldset"
-        },
-        multiSelect: {
-            style: "multi"
         },
         formEdit: {
             detailForm: "#" + idDatatable + "_detail_div",

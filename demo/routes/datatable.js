@@ -235,8 +235,6 @@ exports.filter = (req, res) => {
         res.status(status).json(respuesta);
     }
     else{
-        // console.info('==============');
-        // console.info(respuesta);
         res.status(status).send(respuesta);
     }
 };
