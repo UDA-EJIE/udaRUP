@@ -1969,10 +1969,14 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
-						if(ctx.oInit.multiSelect !== undefined){
-							DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
-						}else if(ctx.oInit.select !== undefined){
-							DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks.
+						if(ctx.oInit.seeker !== undefined){
+							DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+						}else{
+							if(ctx.oInit.multiSelect !== undefined){
+								DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+							}else if(ctx.oInit.select !== undefined){
+								DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+						}
 						}
 						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 					}
