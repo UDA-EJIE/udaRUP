@@ -10,8 +10,7 @@ var d = new $.Deferred();
 
 describe('Test Validate >  ', () => {
     var $validate, $feedBack, $validateEvent, $feedBackEvent;
-    var event_done, event_fail = false,
-        event_success = false;
+    var  event_fail = false, event_success = false;
 
     beforeAll((done) => {
         testutils.loadCss(done);
@@ -60,11 +59,10 @@ describe('Test Validate >  ', () => {
             },
             onSubmitHandler: (form) => {
                 event_success = true;
-                event_done();
+                $('#exampleValidateEvent').triggerHandler('submitSuccessfull');
             },
             invalidHandler: (event, validator) => {
                 event_fail = true;
-                event_done();
             }
         });
     });
@@ -113,7 +111,9 @@ describe('Test Validate >  ', () => {
     describe('Eventos > ', () => {
         describe('invalidHandler', () => {
             beforeEach((done) => {
-                event_done = done;
+                $('#exampleValidateEvent').on('rupValidate_formValidationError', () => {
+                    done();
+                });
                 $('#campoUnoEvent').val('');
                 $validateEvent.valid();
             });
@@ -123,9 +123,16 @@ describe('Test Validate >  ', () => {
         });
         describe('onSubmitHandler', () => {
             beforeEach((done) => {
-                event_done = done;
+                // $('#exampleValidateEvent').on('submitSuccessfull', () => {
+                //     done();
+                // });
                 $('#campoUnoEvent').val('foo');
-                $validateEvent.valid();
+                debugger;
+                $validateEvent.submit();
+                setTimeout(() => {
+                    debugger;
+                    done();
+                },500);
             });
             it('Debe lanzarse el evento', () => {
                 expect(event_success).toBeTruthy();
