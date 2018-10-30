@@ -1,6 +1,7 @@
 /* jslint multistr: true */
 
 import 'jquery';
+import 'rup.base';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.breadCrumb';
@@ -10,6 +11,9 @@ describe('Test BreadCrumb >', () => {
 
 	beforeAll((done) => {
 		testutils.loadCss(done);
+		window.history.pushState({
+			urlPath: '/x21aResponsive/patrones/ptrUno'
+		}, "", '/x21aResponsive/patrones/ptrUno');
 	});
 
 	beforeEach(() => {
@@ -17,12 +21,13 @@ describe('Test BreadCrumb >', () => {
 		html = '<div id="exampleBreadcrumb" class="rup-breadCrumb_root"></div>\
 				<div id="subLeveledBreadCrumb" class="rup-breadCrumb_root"></div>';
 		$('#content').append(html);
+
 		$('#exampleBreadcrumb').rup_breadCrumb({
 			breadCrumb: {}
 		});
 		window.history.pushState({
-			urlPath: '/x21aAppWar/patrones/ptrUno'
-		}, "", '/x21aAppWar/patrones/ptrUno');
+			urlPath: '/x21aResponsive/patrones/ptrUno'
+		}, "", '/x21aResponsive/patrones/ptrUno');
 		$('#subLeveledBreadCrumb').rup_breadCrumb({
 			"breadCrumb": {
 				"patrones": {
