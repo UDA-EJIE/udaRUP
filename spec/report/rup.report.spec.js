@@ -76,8 +76,9 @@ describe('Test Report > ', () => {
     });
     describe('Funcionalidad > ', () => {
         describe('Abre ventana emergente > ', () => {
-            beforeEach((done) => {
-                $report.click(done);
+            beforeEach(() => {
+                debugger;
+                $report.click();
             });
             it('Debe abrir una ventana emergente:', () => {
                 expect($('.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
