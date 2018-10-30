@@ -209,7 +209,7 @@ module.exports = function (config) {
                 ],
             },
             resolve: {
-                modules: ['node_modules', 'src', path.resolve(__dirname, 'app')],
+                modules: ['node_modules', 'src', path.resolve(__dirname, 'src')],
                 alias: {
 
                     'handlebars': 'handlebars/dist/handlebars.js',
