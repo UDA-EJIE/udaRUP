@@ -3,6 +3,7 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'jasmine-jquery';
+import 'rup.feedback';
 import 'rup.validate';
 
 var d = new $.Deferred();

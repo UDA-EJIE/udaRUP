@@ -3,6 +3,7 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
+import 'rup.autocomplete';
 import 'rup.combo';
 import 'rup.feedback';
 import 'rup.form';
