@@ -164,7 +164,7 @@
          * jQuery("#idSlider").rup_slider("instance");
          */
 		instance: function () {
-			return this.progressbar('instance');
+			return this.slider('instance');
 		},
 		/**
          * Devuelve un objeto clave/valor que contiene las propiedades de configuración del control.
