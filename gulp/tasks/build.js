@@ -102,7 +102,7 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/*jasmine*.js', './node_modules/jasmine-core/lib/jasmine-core/boot.js'])
 		.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
-	gulp.src(['./node_modules/jasmine-core/lib/jasmine-jquery/lib/*jasmine*.js'])
+	gulp.src(['./node_modules/jasmine-jquery/lib/*jasmine*.js'])
 	.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
 	callback();
