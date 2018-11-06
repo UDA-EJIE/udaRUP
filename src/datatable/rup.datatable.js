@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker', './addons/buttons.custom','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -96,8 +96,8 @@
 			// options.filterForm = $self.attr('data-filter-form');
 			options.$filterForm = $(options.filterForm);
 
-			options.$filterButton = options.$filterForm.find('button');
-			options.$clearButton = options.$filterForm.find('.rup-enlaceCancelar');
+			options.$filterButton = options.$filterForm.find('.rup-filtrar');
+			options.$clearButton = options.$filterForm.find('.rup-limpiar');
 			options.$filterButton.on('click', function(){ $self._doFilter(options);});
 			options.$clearButton.on('click', function(){$self._clearFilter(options);});
 
@@ -139,22 +139,23 @@
 					}
 			} );
 			 
-			apiRegister( 'rupTable.reorderDataFromServer()', function ( json ) {
+			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
 					//Se mira la nueva reordenacion y se ordena.
-					DataTable.multiselection.selectedIds = [];
-					DataTable.multiselection.selectedRowsPerPage = [];
+
+					ctx.multiselection.selectedIds = [];
+					ctx.multiselection.selectedRowsPerPage = [];
 					//Viene del servidor por eso la linea de la pagina es 1 menos.
 					$.each(json.reorderedSelection,function(index,p) {
 						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-						DataTable.multiselection.selectedIds.splice(index,0,arra.id);
-						DataTable.multiselection.selectedRowsPerPage.splice(index,0,arra);
+						ctx.multiselection.selectedIds.splice(index,0,arra.id);
+						ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
 					});
-					if(!DataTable.multiselection.selectedAll){
-						DataTable.multiselection.numSelected = DataTable.multiselection.selectedIds.length;
+					if(!ctx.multiselection.selectedAll){
+						ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 					if(options.buttons !== undefined){
-						DataTable.Api().buttons.displayRegex();
+						DataTable.Api().buttons.displayRegex(ctx);
 					}
 			} );
 			
@@ -240,6 +241,7 @@
 		_doFilter(options) {
 			var $self = this;
 			$self._showSearchCriteria();
+			$('#'+options.id).triggerHandler('tableFilterSearch');
 			$self.DataTable().ajax.reload();
 
 		},
@@ -255,9 +257,35 @@
 			*
 		  */
 		_ajaxOptions(options) {
+			
+			options.id = this[0].id;
+			$('#'+options.id).triggerHandler('tableFilterInitialize');
 			var ajaxData = {
 				'url': options.urls.filter,
-				'dataSrc': this._ajaxSuccessData,
+				'dataSrc': function ( json ) {
+					var ret = {};
+					$('#'+options.id).triggerHandler('tableFilterBeforeShow');
+					json.recordsTotal = json.records;
+					json.recordsFiltered = json.records;
+
+					ret.recordsTotal = json.records;
+					ret.recordsFiltered = json.records;
+					ret.data = json.rows;
+
+		     		var table = $('#'+options.id).DataTable();
+					var ctx = table.context[0];
+
+					var settings = ctx.oInit;//$(ctx.nTable).data('settings'+ctx.sTableId);
+					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
+						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
+					}
+					if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
+							&& json.reorderedSeeker !== undefined){
+						ctx.seeker.search.funcionParams = json.reorderedSeeker;
+					}
+
+					return ret.data;
+				},
 				'type': 'POST',
 				'data': this._ajaxRequestData,
 				'contentType': 'application/json',
@@ -268,42 +296,6 @@
 
 			return ajaxData;
 		},
-
-		/**
-			* Obtiene los datos devueltos por el servidor de manera ordenada
-			*
-			* @name _ajaxSuccessData
-			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
-			*
-			* @param {object} json Información de los registros de la página actual
-			*
-		  */
-		_ajaxSuccessData(json) {
-			var ret = {};
-
-			json.recordsTotal = json.records;
-			json.recordsFiltered = json.records;
-
-			ret.recordsTotal = json.records;
-			ret.recordsFiltered = json.records;
-			ret.data = json.rows;
-
-//			$self = $('#'+DataTable.settings[0].sTableId);
-
-			var settings = $self.data('settings');
-			if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
-				DataTable.Api().rupTable.reorderDataFromServer(json);
-			}
-			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
-					&& json.reorderedSeeker !== undefined){
-				 DataTable.seeker.search.funcionParams = json.reorderedSeeker;
-			}
-
-			return ret.data;
-
-		},
-
 		/**
 			* Solicita los datos al servidor
 			*
@@ -312,32 +304,33 @@
 			* @since UDA 3.4.0 // Datatable 1.0.0
 			*
 			* @param {object} data Opciones del datatable
-			* @param {object} options Opciones del componente
+			* @param {object} ctx contexto  del componente table
 			*
 		  */
-		_ajaxRequestData(data, options) {
+		_ajaxRequestData(data, ctx) {
+
 			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-			data.columns[data.order[0].column].colSidx = options.aoColumns[data.order[0].column].colSidx;
+			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object($(options.nTable).data('settings').$filterForm[0]);
+			data.filter = form2object(ctx.oInit.$filterForm[0]);
 			data.multiselection = undefined;
-			if(DataTable.multiselection !== undefined && DataTable.multiselection.selectedIds.length > 0){
-				data.multiselection = DataTable.multiselection;
+			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
+				data.multiselection = ctx.multiselection;
 			}
-			if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined 
-					&& DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0){
+			if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
+					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
 				data.seeker = {};
 				data.seeker.selectedIds = [];
-				$.each(DataTable.seeker.search.funcionParams,function(index,p) {
+				$.each(ctx.seeker.search.funcionParams,function(index,p) {
 					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
 				});
 			}
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
 
-			json.core.pkNames = options.oInit.primaryKey;
+			json.core.pkNames = ctx.oInit.primaryKey;
 
-			options.aBaseJson = json;
+			ctx.aBaseJson = json;
 			return JSON.stringify(json);
 
 
@@ -356,7 +349,7 @@
 		  */
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
-			if($('#'+tabla[0].id+'_paginate').length === 1){
+			if($('#'+tabla[0].id+'_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0'){
 				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
 				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
 				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
@@ -422,12 +415,18 @@
 		  */
 		_clearFilter(options) {
 			var $self = this;
-
+			$('#'+options.id).triggerHandler('tableFilterReset');
 			options.$filterForm.resetForm();
 			$self.DataTable().ajax.reload();
 			options.filter.$filterSummary.html(' <i></i>');
-			jQuery('input,textarea').val('');
-			jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+			
+			// Provoca un mal funcionamiento del filtrado de Maestro-Detalle en la tabla esclava, 
+			// ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
+			//jQuery('input,textarea').val('');
+			
+			// No es necesario ya que se usa bootstrap
+			//jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+			
 			$.rup_utils.populateForm([], options.$filterForm)
 
 		},
@@ -547,7 +546,8 @@
 	     *
 	     */
 			_showSearchCriteria(){
-				var $self = this, settings = $self.data('settings'),
+				var ctx = this.DataTable().context[0];
+				var $self = this, settings = $('#'+$self[0].id).data('settings'+$self[0].id),
 					searchString = ' ', label, numSelected,
 					field, fieldId, fieldName, fieldValue,
 					aux = settings.filter.$filterContainer.serializeArray(),
@@ -704,20 +704,21 @@
 				}
 
 					//Añadir criterios
-
-					settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
-
-
+				if (settings.multiFilter !== undefined && jQuery.isFunction(settings.multiFilter.fncFilterName)) {
+					searchString = jQuery.proxy(settings.multiFilter.fncFilterName, $self, searchString)();
+				}
+				
+				settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
 
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
+		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
 		     *
-		     * @param {object} tabla - LA configuración de la tabla.
+		     * @param {object} tabla - La configuración de la tabla.
 		     *
 		     */
 			_createEventSelect(tabla){
@@ -726,8 +727,8 @@
 					if(ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.$navigationBar !== undefined &&
 							ctx.oInit.formEdit.$navigationBar.funcionParams !== undefined && ctx.oInit.formEdit.$navigationBar.funcionParams.length > 0){
 						var params = ctx.oInit.formEdit.$navigationBar.funcionParams;
-						//Se hay selectAll, comprobar la linea ya que puede variar.al no tener ningún selected.Se recoore el json.
-						if(DataTable.multiselection.selectedAll){
+						//Si hay selectAll, comprobar la linea ya que puede variar al no tener ningún selected.Se recorre el json.
+						if(ctx.multiselection.selectedAll){
 							var linea = -1;
 							if(params[3] !== undefined && (params[3] === 'prev' || params[3] === 'last')){
 								linea = ctx.json.rows.length;
@@ -755,41 +756,45 @@
 			*
 			*
 			*/
-			_initializeMultiselectionProps (  ) {
-				var $self = {};
+			_initializeMultiselectionProps ( ctx ) {
+				
+				var multi = {};
 				// Se almacenan en los settings internos las estructuras de control de los registros seleccionados
-				if ($self.multiselection === undefined) {
-					$self.multiselection = {};
+				if (multi.multiselection === undefined) {
+					multi.multiselection = {};
 				}
-				if(DataTable.multiselection !== undefined){
-					$self.multiselection.internalFeedback = DataTable.multiselection.internalFeedback;
+				if(ctx.multiselection !== undefined){
+					multi.multiselection.internalFeedback = ctx.multiselection.internalFeedback;
 				}
 				// Flag indicador de selección de todos los registros
-				$self.multiselection.selectedAll = false;
+				multi.multiselection.selectedAll = false;
 				// Numero de registros seleccionados
-				$self.multiselection.numSelected = 0;
+				multi.multiselection.numSelected = 0;
 				// Propiedades de selección de registros
-				$self.multiselection.selectedRowsPerPage = [];
+				multi.multiselection.selectedRowsPerPage = [];
 				//$self.multiselection.selectedLinesPerPage = [];
 				//$self.multiselection.selectedRows = [];
-				$self.multiselection.selectedIds = [];
-				$self.multiselection.lastSelectedId = "";
+				multi.multiselection.selectedIds = [];
+				multi.multiselection.lastSelectedId = "";
 				//$self.multiselection.selectedPages = [];
 				// Propiedades de deselección de registros
-				$self.multiselection.deselectedRowsPerPage = [];
+				multi.multiselection.deselectedRowsPerPage = [];
 				//$self.multiselection.deselectedLinesPerPage = [];
 				//$self.multiselection.deselectedRows = [];
-				$self.multiselection.deselectedIds = [];
-				$self.multiselection.accion = "";//uncheckAll,uncheck
+				multi.multiselection.deselectedIds = [];
+				multi.multiselection.accion = "";//uncheckAll,uncheck
 				//$self.multiselection.deselectedPages = [];
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + DataTable.settings[0].sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + DataTable.settings[0].sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
+				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
-				DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
-				DataTable.multiselection =  $self.multiselection;
+				DataTable.Api().rupTable.selectPencil(ctx,-1);
+				if (ctx.multiselection === undefined) {
+					ctx.multiselection = {};
+				}
+				ctx.multiselection =  multi.multiselection;
 			}, _createTooltip (id) {
 				if(id !== undefined && id.text() !== undefined && id.text() !== ''){
 					id.rup_tooltip({
@@ -818,10 +823,13 @@
 		_init : function(args){
 			var $self = this,
 				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
-
+			
+			$self.triggerHandler('tableBeforeInit');
+			
+			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
 			$self.attr('ruptype', 'datatable');
-			
+			$self.triggerHandler('tableInit');
 			if(args[0].primaryKey !== undefined){
 				settings.primaryKey = args[0].primaryKey.split(";");
 			}
@@ -842,11 +850,61 @@
 				settings.buttons = undefined;
 			}
 
+			// getDefault multifilter
+			if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
+				var usuario;
+				if (settings.multiFilter.userFilter!=null){
+					usuario=settings.multiFilter.userFilter;
+				}else{
+					usuario=LOGGED_USER;
+				}
+				var ctx = {};
+				ctx.oInit = settings;
+				ctx.sTableId = $self[0].id;
+				$.rup_ajax({
+					url : settings.urlBase
+												+ '/multiFilter/getDefault?filterSelector='
+												+ settings.multiFilter.idFilter + '&user='
+												+ usuario,
+					type : 'GET',
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					//async : false,
+					complete : function(jqXHR,
+						textStatus) {
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
+					},
+					success : function(data, status,
+						xhr) {
+						if (data != null) {
+							var valorFiltro = $
+								.parseJSON(data.filterValue);
+
+
+							DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
+							$self._doFilter(data);
+							$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
+							$(settings.filter.$filterSummary , 'i').append('}');
+
+						}
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
+					},
+					error : function(xhr, ajaxOptions,
+						thrownError) {
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
+					}
+				});
+
+
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
-			
-			$self._initializeMultiselectionProps();
+
+			settings.sTableId = $self[0].id;
+			$self._initializeMultiselectionProps(tabla.context[0]);
 			
 			//Crear tooltips cabecera;
 			$.each($('#'+$self[0].id+' thead th'),function( ){
@@ -857,42 +915,44 @@
 				if(settings.searchPaginator){//Mirar el crear paginador
 					$self._createSearchPaginator($(this),settingsTable);
 					//Si el seeker esta vacio ocultarlo
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined && DataTable.seeker.search.$searchRow !== undefined){
+					if(settingsTable.seeker !== undefined && 
+							settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined){
 						if(settingsTable._iRecordsDisplay > 0){
-							DataTable.seeker.search.$searchRow.show();
+							settingsTable.seeker.search.$searchRow.show();
 						}else{
-							DataTable.seeker.search.$searchRow.hide();
+							settingsTable.seeker.search.$searchRow.hide();
 						}
 					}
 				}
 
 				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
 					if(settings.select !== undefined){//AL repintar vigilar el select.
-						if(DataTable.select.selectedRowsPerPage !== undefined){
+						if(settingsTable.select.selectedRowsPerPage !== undefined){
 							//viene de la navegacion buscar el id.
 							var line = 0;
 							var ctx = tabla.context[0];
-							if(DataTable.select.selectedRowsPerPage.cambio === 'prev' || DataTable.select.selectedRowsPerPage.cambio === 'last'){
+							if(settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last'){
 								line = ctx.json.rows.length-1;
 							}
 							
-							DataTable.multiselection.selectedRowsPerPage = [];
+							ctx.multiselection.selectedRowsPerPage = [];
 							var rowSelectAux = ctx.json.rows[line];
 							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
-							DataTable.multiselection.selectedRowsPerPage.push({line:line,page:DataTable.select.selectedRowsPerPage.page,id:id});
-							DataTable.select.selectedRowsPerPage = undefined;
+							ctx.multiselection.selectedRowsPerPage.push({line:line,page:ctx.select.selectedRowsPerPage.page,id:id});
+							settingsTable.select.selectedRowsPerPage = undefined;
 							var numTotal = ctx.json.recordsTotal;
 							var index = (Number(ctx.json.page)-1) * 10;
 							index = index + line + 1;
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
-						DataTable.Api().select.drawSelectId();
+						DataTable.Api().select.drawSelectId(tabla.context[0]);
 					}
-					if(DataTable.seeker !== undefined && DataTable.seeker.search !== undefined){
+					if(settingsTable.seeker !== undefined 
+							&& settingsTable.seeker.search !== undefined){
 						var ctx = tabla.context[0];
-						if(DataTable.seeker.search.funcionParams !== undefined && DataTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-									ctx.json.page !== DataTable.seeker.search.funcionParams[DataTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-								DataTable.Api().seeker.selectSearch(tabla,ctx,DataTable.seeker.search.funcionParams);
+						if(settingsTable.seeker.search.funcionParams !== undefined && settingsTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== settingsTable.seeker.search.funcionParams[settingsTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,settingsTable.seeker.search.funcionParams);
 						}
 					}
 				}
@@ -903,7 +963,18 @@
 				});
 			  });
 			
+			tabla.on( 'destroy', function (e,settingsTable) {
+				/*if(settingsTable.oInit.clone === true){
+					$('#'+settingsTable.sTableId+'_filter_form').append(clone);
+				}*/
+				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
+				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
+			/*	tabla.off( 'draw');
+				tabla.off( 'destroy');
+				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+			});
 			
+
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
 				new $.fn.dataTable.Buttons(
@@ -912,12 +983,17 @@
 				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
 			}
 
-			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
-			$self.data('settings', settings);
-			if(settings.multiSelect !== undefined){
+
+			if(settings.multiSelect !== undefined || settings.select !== undefined){
 				$self._createEventSelect(tabla);				
 			}
 			$self._ConfigureFiltern(settings);
+			
+			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
+			$self.data('settings'+$self[0].id, settings);
+			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
+			
+			$self.triggerHandler('tableAfterInit');
 		}
 	});
 
@@ -948,7 +1024,7 @@ $.fn.rup_datatable.defaults = {
     dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
-		responsive: true,
+	responsive: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
@@ -957,7 +1033,7 @@ $.fn.rup_datatable.defaults = {
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
-		// adapter: "datatable_jqueryui",
+	//adapter: "datatable_jqueryui",
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]]
 	};

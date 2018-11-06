@@ -31,18 +31,14 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group
-.ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard
-.ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -2187,13 +2183,7 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer .ui-multiselect,
-.r01gContainer .ui-selectmenu-dropdown,
-.r01gContainer .form-control.ui-multiselect,
-.r01gContainer .form-control.ui-selectmenu-dropdown,
-.r01gContainer select.form-control-sm,
-.r01gContainer .form-control-sm.ui-multiselect,
-.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
+.r01gContainer select.form-control-sm {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -3706,7 +3696,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -3871,12 +3861,57 @@
   float: right;
 }
 
+.r01gContainer div.right_buttons > button:not(:last-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:last-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px;
+}
+
+.r01gContainer .fix-align > div,
+.r01gContainer .fix-align > span {
+  display: block;
+}
+
+.r01gContainer .fix-align > input[type='checkbox'] {
+  width: auto;
+}
+
 .r01gContainer .rup-table-filter .collapse_icon {
   margin-top: 0;
 }
 
 .r01gContainer .rup-table-filter .collapse_icon_right {
   margin-top: 0;
+}
+
+.r01gContainer .rup-filter-dropdown {
+  background-color: #17a2b8 !important;
+  color: #fff !important;
+  border-color: #17a2b8 !important;
+  border-radius: 4px !important;
+}
+
+.r01gContainer .rup-filter-dropdown + button,
+.r01gContainer .rup-filter-dropdown + .ui-button.rup-button,
+.r01gContainer .rup-dropdown-btn-group .rup-filter-dropdown + .rup-dropdown-button,
+.r01gContainer .rup-filter-dropdown + a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-wizard .rup-filter-dropdown + a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup-filter-dropdown + a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup-filter-dropdown + .rup-wizard_submitButton {
+  margin-left: -2px;
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+  border-radius: 0 4px 4px 0;
+}
+
+.r01gContainer .form-radio-custom {
+  width: 100%;
+  padding: 0 .75rem;
 }
 
 .r01gContainer .ui-jqgrid {
@@ -3961,6 +3996,14 @@
 .r01gContainer .rup-dialog .rup-table-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important;
 }
 
 .r01gContainer .rup-tabs_container.ui-tabs {
@@ -4479,12 +4522,57 @@
   float: right;
 }
 
+.r01gContainer div.right_buttons > button:not(:last-child),
+.r01gContainer div.right_buttons > .ui-button.rup-button:not(:last-child),
+.r01gContainer .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child),
+.r01gContainer div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child),
+.r01gContainer .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px;
+}
+
+.r01gContainer .fix-align > div,
+.r01gContainer .fix-align > span {
+  display: block;
+}
+
+.r01gContainer .fix-align > input[type='checkbox'] {
+  width: auto;
+}
+
 .r01gContainer .rup-table-filter .collapse_icon {
   margin-top: 0;
 }
 
 .r01gContainer .rup-table-filter .collapse_icon_right {
   margin-top: 0;
+}
+
+.r01gContainer .rup-filter-dropdown {
+  background-color: #17a2b8 !important;
+  color: #fff !important;
+  border-color: #17a2b8 !important;
+  border-radius: 4px !important;
+}
+
+.r01gContainer .rup-filter-dropdown + button,
+.r01gContainer .rup-filter-dropdown + .ui-button.rup-button,
+.r01gContainer .rup-dropdown-btn-group .rup-filter-dropdown + .rup-dropdown-button,
+.r01gContainer .rup-filter-dropdown + a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-wizard .rup-filter-dropdown + a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup-filter-dropdown + a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup-filter-dropdown + .rup-wizard_submitButton {
+  margin-left: -2px;
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+  border-radius: 0 4px 4px 0;
+}
+
+.r01gContainer .form-radio-custom {
+  width: 100%;
+  padding: 0 .75rem;
 }
 
 .r01gContainer .ui-jqgrid {
@@ -4569,6 +4657,14 @@
 .r01gContainer .rup-dialog .rup-table-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important;
 }
 
 .r01gContainer able.dataTable {
@@ -5895,6 +5991,18 @@
 
   .r01gContainer .align-right {
     float: none !important;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .r01gContainer div.dt-buttons > button,
+  .r01gContainer div.dt-buttons > .ui-button.rup-button,
+  .r01gContainer .rup-dropdown-btn-group div.dt-buttons > .rup-dropdown-button,
+  .r01gContainer div.dt-buttons > a.rup-toolbar_menuButton.ui-button,
+  .r01gContainer .rup-wizard div.dt-buttons > a.rup-wizard_next,
+  .r01gContainer .rup-wizard div.dt-buttons > a.rup-wizard_prev,
+  .r01gContainer .rup-wizard div.dt-buttons > .rup-wizard_submitButton {
+    margin: 3px;
   }
 }
 

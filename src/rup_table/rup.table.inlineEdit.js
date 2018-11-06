@@ -103,12 +103,12 @@
 
 			/*
 			 * Configuración del evetno beforeSend. Se sustituye el existente (en caso de haber)
-			 * por el implementado a continuación. El objetivo es realizar la operación AJAX medainte
+			 * por el implementado a continuación. El objetivo es realizar la operación AJAX mediante
 			 * el componente rup_formulario en vez del sistema por defecto del jqGrid.
 			 *
 			 * El método beforeSend indicado por el usuario se seguirá ejecutanto de manera normal.
 			 */
-			// Se almancena en una variable temporal el método beforeSend especificado por el usuario
+			// Se almacena en una variable temporal el método beforeSend especificado por el usuario
 			userBeforeSend = settings.inlineEdit.beforeSend;
 			settings.inlineEdit.addEditOptions.restoreAfterError = false;
 			settings.inlineEdit.addEditOptions.errorfunc = function(rowid, data, stat, err, o){
@@ -127,7 +127,7 @@
 			};
 
 			settings.inlineEdit.addEditOptions.ajaxRowOptions.beforeSend = function(jqXHR, ajaxOptions){
-				// Se añade la configuración de validaciones, la función userBeforeSend indicada por el usuario y el feedback utilzado por el compoennte.
+				// Se añade la configuración de validaciones, la función userBeforeSend indicada por el usuario y el feedback utilizado por el componente.
 				jQuery.extend(true, ajaxOptions, {
 					validate: settings.validate,
 					beforeSend:(jQuery.isFunction(userBeforeSend)?userBeforeSend:null),
@@ -202,8 +202,10 @@
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
-					callback: function(){
-						//$self.rup_table('saveRow');
+					callback: function(object,event){
+						if(event.type === 'click'){
+							$self.rup_table('saveRow');
+						}
 					}
 				},
 				'clone': {
@@ -318,7 +320,7 @@
 
 							// Se añade el title de los elementos de acuerdo al colname
 							$elem.attr({
-								'title': self.p.colNames[i],
+								'oldtitle': self.p.colNames[i],
 								'class': 'editable customelement'
 							});
 
@@ -1114,7 +1116,7 @@
 	// Parámetros de configruación específicos para la acción de eliminar un registro
 	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
-		cancelicon:[true, 'left', 'icono_cancelar'],
+		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',

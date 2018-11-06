@@ -212,8 +212,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
 				var elementSet = this._setElement($(this), param); //Cargar elemento
-				//Si se ha cargado un elemento válido
-				if (elementSet) {
+				//Si se ha cargado un elemento válido, se hace los hijos en el change solo.
+				/*if (elementSet) {
 					//Lanzar cambio para que se recarguen hijos
 					var hijos = $(this).data('childs');
 					if (hijos !== undefined) {
@@ -221,7 +221,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							$('#' + hijos[i]).rup_combo('reload', hijos[i]);
 						}
 					}
-				}
+				}*/
 			} else {
 				//Multiple > multiselect
 				this._setElement($(this), param, true);
@@ -610,7 +610,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					if (data === null) {
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
-
+					var labelBlank = this._getBlankLabel(settings.id);
 					$.rup_ajax({
 						url: settings.source ? settings.source : settings.sourceGroup,
 						data: data,
@@ -620,6 +620,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxBeforeSend(xhr, settings);
 						},
 						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
 							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
@@ -635,6 +638,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							}
 						}
 					});
+
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
 					//Se lanza la funcion que obtiene los valores a mostrar
@@ -935,7 +939,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Opción vacía
 			if (settings.blank != null) {
-				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+				//$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
 			//Gestionar Imagenes
@@ -1592,6 +1596,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					var url = settings.source ? settings.source : settings.sourceGroup,
 						rupCombo = this,
 						self = this;
+					var labelBlank = this._getBlankLabel(settings.id);
 					$.rup_ajax({
 						url: url,
 						dataType: 'json',
@@ -1600,6 +1605,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxBeforeSend(xhr, settings, html);
 						},
 						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+							}
 							rupCombo._ajaxSuccess(data, settings, html);
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
@@ -1634,6 +1642,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					} else {
 						$('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupvalue'));
 					}
+
+						//Lanzar cambio para que se recarguen hijos, si los tiene
+						var hijos = $(this).data('childs');
+						if (hijos !== undefined) {
+							for (var i = 0; i < hijos.length; i = i + 1) {
+								$('#' + hijos[i]).rup_combo('reload', hijos[i]);
+							}
+						}
 				});
 
 				//Borrar referencia

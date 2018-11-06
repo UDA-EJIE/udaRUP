@@ -1,18 +1,32 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.progressbar';
 
 
 describe('Test progressbar > ', () => {
     var $progressbar;
+
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+
     beforeEach(() => {
         var html = '<div id="exampleProgressbar"></div>';
-        $('body').append(html);
+        $('#content').append(html);
         $progressbar = $('#exampleProgressbar');
-        $progressbar.rup_progressbar({value:0});
+        $progressbar.rup_progressbar({
+            value: 0
+        });
     });
+
+    afterEach(() => {
+        $('#content').html('');
+        $('#content').nextAll().remove();
+    });
+
     describe('Creación > ', () => {
         it('Debe crearse el componente:', () => {
             expect($('.rup-progressbar.ui-progressbar.ui-corner-all.ui-widget.ui-widget-content').length)

@@ -2,7 +2,7 @@
   * Genera los botones del datatable
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.buttons"
+  * @module			"rup.table.buttons"
   * @version     1.5.1
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -75,6 +75,125 @@ var _dtButtons = DataTable.ext.buttons;
   */
 var Buttons = function( dt, config )
 {
+	var idTable = dt.context[0].sTableId;
+	var ctx = dt.context[0];
+	ctx.ext = DataTable.ext;
+	ctx.ext.buttons = {};
+	ctx.ext.buttons.copyButton = {
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
+		},
+		id: idTable+'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+		className: 'buttons-copyButton',
+		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+		type: 'copyButton',
+		init: function (dt, node, config) {
+			ctx.ext.buttons.copyButton.eventDT = dt;
+		},
+		action: function (e, dt, button, config) {
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (this.processing !== undefined) {
+				this.processing(true);
+			}
+			var that = this;
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick');
+			_reportsCopyData(dt, that, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
+		}
+	};
+
+	ctx.ext.buttons.addButton = {
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
+		},
+		id: idTable+'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+		className: 'datatable_toolbar_btnAdd',
+		displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+		type: 'add',
+		init: function (dt, node, config) {
+			ctx.ext.buttons.addButton.eventDT = dt;
+		},
+		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick');
+			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick');
+		}
+	};
+
+	ctx.ext.buttons.editButton = {
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
+		},
+		id: idTable+'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+		className: 'datatable_toolbar_btnEdit',
+		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+		type: 'edit',
+		init: function (dt, node, config) {
+			ctx.ext.buttons.editButton.eventDT = dt;
+		},
+		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick');
+			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick');
+		}
+	};
+
+	ctx.ext.buttons.cloneButton = {
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
+		},
+		id: idTable+'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+		className: 'datatable_toolbar_btnClone',
+		displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
+		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+		type: 'clone',
+		init: function (dt, node, config) {
+			ctx.ext.buttons.cloneButton.eventDT = dt;
+		},
+		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick');
+			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick');
+		}
+	};
+
+	ctx.ext.buttons.deleteButton = {
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
+		},
+		id: idTable+'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+		className: 'datatable_toolbar_btnDelete',
+		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+		type: 'delete',
+		init: function (dt, node, config) {
+			ctx.ext.buttons.deleteButton.eventDT = dt;
+		},
+		action: function (e, dt, node, config) {
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick');
+			DataTable.Api().buttons.actions(dt, config);
+			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
+		}
+	};
+
+	ctx.ext.buttons.reportsButton = {
+		extend: 'collection',
+		text: function (dt) {
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.main');
+		},
+		id: idTable+'informes_01',
+		className: 'align-right',
+		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+		autoClose: true,
+		type: 'reports',
+		buttons: [
+			'copyButton'
+		]
+	};
 	// If there is no config set it to an empty object
 	if ( typeof( config ) === 'undefined' ) {
 		config = {};
@@ -974,6 +1093,9 @@ $.extend( Buttons.prototype, {
 	{
 		var dt = this.s.dt;
 		var i, ien;
+		var ctx = dt.context[0];
+		var _dtButtonsTable = ctx.ext.buttons;
+		_dtButtonsTable.collection = _dtButtons.collection;
 		var toConfObject = function ( base ) {
 			var loop = 0;
 
@@ -993,11 +1115,11 @@ $.extend( Buttons.prototype, {
 					}
 				}
 				else if ( typeof base === 'string' ) {
-					if ( ! _dtButtons[ base ] ) {
+					if ( ! _dtButtonsTable[ base ] ) {
 						throw 'Unknown button type: '+base;
 					}
 
-					base = _dtButtons[ base ];
+					base = _dtButtonsTable[ base ];
 				}
 
 				loop++;
@@ -1017,11 +1139,11 @@ $.extend( Buttons.prototype, {
 		while ( conf && conf.extend ) {
 			// Use `toConfObject` in case the button definition being extended
 			// is itself a string or a function
-			if ( ! _dtButtons[ conf.extend ] ) {
+			if ( ! _dtButtonsTable[ conf.extend ] ) {
 				throw 'Cannot extend unknown button type: '+conf.extend;
 			}
 
-			var objArray = toConfObject( _dtButtons[ conf.extend ] );
+			var objArray = toConfObject( _dtButtonsTable[ conf.extend ] );
 			if ( $.isArray( objArray ) ) {
 				return objArray;
 			}
@@ -1508,27 +1630,31 @@ $.extend( _dtButtons, {
 		}
 	},
 	addButton: function ( dt, conf ) {
-		if ( _dtButtons.addButton && _dtButtons.addButton.available( dt, conf ) ) {
+		var ctx = dt.context[0];
+		var collection =  _dtButtons['collection'];
+		_dtButtons = ctx.ext.buttons;
+		_dtButtons.collection = collection;
+		if ( _dtButtons.addButton ) {
 			return 'addButton';
 		}
 	},
 	editButton: function ( dt, conf ) {
-		if ( _dtButtons.editButton && _dtButtons.editButton.available( dt, conf ) ) {
+		if ( _dtButtons.editButton ) {
 			return 'editButton';
 		}
 	},
 	cloneButton: function ( dt, conf ) {
-		if ( _dtButtons.cloneButton && _dtButtons.cloneButton.available( dt, conf ) ) {
+		if ( _dtButtons.cloneButton ) {
 			return 'cloneButton';
 		}
 	},
 	deleteButton: function ( dt, conf ) {
-		if ( _dtButtons.deleteButton && _dtButtons.deleteButton.available( dt, conf ) ) {
+		if ( _dtButtons.deleteButton ) {
 			return 'deleteButton';
 		}
 	},
 	reportsButton: function ( dt, conf ) {
-		if ( _dtButtons.reportsButton && _dtButtons.reportsButton.available( dt, conf ) ) {
+		if ( _dtButtons.reportsButton  ) {
 			return 'reportsButton';
 		}
 	},
@@ -1837,16 +1963,20 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			var idTableDetail = ctx.oInit.formEdit.detailForm;
 			// Limpiamos el formulario
 			$(idTableDetail).find('form')[0].reset();
-			if(DataTable.multiselection.numSelected > 0){
+			if(ctx.multiselection.numSelected > 0){
 				$.rup_messages('msgConfirm', {
 					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
-						if(ctx.oInit.multiselect !== undefined){
-							DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
-						}else if(ctx.oInit.select !== undefined){
-							DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks.
+						if(ctx.oInit.seeker !== undefined){
+							DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+						}else{
+							if(ctx.oInit.multiSelect !== undefined){
+								DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+							}else if(ctx.oInit.select !== undefined){
+								DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+						}
 						}
 						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 					}
@@ -1875,17 +2005,17 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 
 // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
 // los botones
-DataTable.Api.register( 'buttons.displayRegex()', function () {
-	var opts = DataTable.settings[0]._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiselection.numSelected;
+DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 	$.each(opts, function (i) {
 		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
 			collectionObject = this;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		}
 	});
 } );
@@ -2188,7 +2318,7 @@ var _disableButtonAndContextMenuOption = function ( id )
  * @param {null|object} collectionObject	Collection button properties
  *
  */
-var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionObject )
+var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionObject,ctx )
 {
 	// Si pertenece a un collection o es un collection
 	if (opts.collection !== null && collectionObject) {
@@ -2244,7 +2374,7 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
 			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
 			// el valor recibido cuando se creo el evento
-			var numOfSelectedRows = DataTable.multiselection.numSelected;
+			var numOfSelectedRows = ctx.multiselection.numSelected;
 			$.each(collectionObject.buttons, function(key, value) {
 				// Habilita el boton dentro del collection
 				if (value.conf.displayRegex.test(numOfSelectedRows)) {
@@ -2277,6 +2407,425 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 	}
 };
 
+/**
+* Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+* e inicia la gestión para finalmente obtenerlos
+*
+* @name _reportsCopyData
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {object} that Objeto del boton
+* @param {object} config Configuracion del boton
+*
+*/
+var _reportsCopyData = function (dt, that, config)
+{
+var ctx = dt.settings()[0];
+var info = dt.buttons.exportInfo(config);
+var type;
+var multiselection = ctx.multiselection;
+var selectedAll = multiselection.selectedAll;
+var deselectedIds = multiselection.deselectedIds;
+
+if (selectedAll) {
+	if (deselectedIds.length > 0) {
+		// Este caso es para cuando se selecciona todo y despues se
+		// deseleccionan algunos registros
+		type = "all-deselected";
+	} else {
+		// Este caso es para cuando se seleccionan todos los registros
+		type = "all";
+	}
+} else {
+	// Este caso para cuando hay determinados registros seleccionados manualmente
+	type = "selected";
+}
+
+$.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds)).then(function (exportData) {
+	var exportDataRows = exportData.length;
+	var exportDataParsed = JSON.stringify(exportData);
+
+	var hiddenDiv = $('<div/>')
+		.css({
+			height: 1,
+			width: 1,
+			overflow: 'hidden',
+			position: 'fixed',
+			top: 0,
+			left: 0
+		});
+
+	exportDataParsed = _convertToTabulador(exportDataParsed,true);
+	var textarea = $('<textarea readonly/>')
+		.val(exportDataParsed)
+		.appendTo(hiddenDiv);
+
+	_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
+});
+};
+
+/**
+* Se encarga de mapear los datos de json a datos separados por el tabulador.
+*
+* @name ConvertToTabulador
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} objArray Objeto que contiene los datos a exportar
+* @param {boolean} true en caso de querer que se mueste la cabecera
+*
+* @return {object}
+*
+*/
+var _convertToTabulador = function(objArray,showLabel) {
+var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+var str = '';
+
+if (showLabel) {
+    var row = "";
+    
+    // Se asignan los nombres de las columnas
+    $.each(array[0], function(key, value) {
+    	// Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+        if($.isPlainObject(value)) {
+        	var objectName = key;
+        	$.each(this, function(key, value) {
+        		var keyToCamelKeys = key.substring(0,1).toLocaleUpperCase() + key.substring(1);
+        		row += objectName + keyToCamelKeys + ';';
+        	});
+        } else {
+        	row += key + ';';
+        }
+    });
+    row = row.slice(0, -1);
+    str += row + '\r\n';
+}
+
+// Se asignan los valores
+$.each(array, function() {
+    var line = '';
+    $.each(this, function(key, value) {
+        // Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+        if($.isPlainObject(value)) {
+        	$.each(this, function(key, value) {
+        		line += value + ';';
+        	});
+        } else {
+        	line += value + ';';
+        }
+    });
+    line = line.slice(0, -1);
+    str += line + '\r\n';
+});
+
+return str;
+}
+
+/**
+* Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones
+* antes de solicitar los datos al servidor
+*
+* @name _reportsTypeOfCopy
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {string} type Tipo de funcion de copia a ejecutar
+* @param {object} multiselection Propiedades de la multiseleccion
+* @param {boolean} selectedAll Cuando es true significa que todas las filas estan marcadas
+* @param {array} [deselectedIds] ID's de las filas deseleccionadas
+*
+* @return {object}
+*
+*/
+var _reportsTypeOfCopy = function (dt, type, multiselection, selectedAll, deselectedIds)
+{
+var ctx = dt.settings()[0];
+var deferred = $.Deferred();
+var exportData;
+var selectedIds = multiselection.selectedIds;
+var selectedRows = multiselection.selectedRowsPerPage;
+var ajaxOptions = {};
+var urlAjax;
+var typeAjax;
+var contentTypeAjax = 'application/json';
+var dataTypeAjax = 'json';
+
+switch (type) {
+	case 'selected':
+		var localAccess = true;
+		var exportData = [];
+
+		// Comprueba si todos los valores seleccionados estan en la misma pagina
+		$.each(selectedRows, function(key, value) {
+			if (ctx.json.page != value.page) {
+				localAccess = false;
+				return false;
+			}
+		});
+		if (localAccess) {
+			// Puede acceder a los valores seleccionados localmente
+			$.each(selectedRows, function(key, value) {
+				var idPadre = value.id;
+				$.each(ctx.json.rows, function(key, value) {
+					if (DataTable.Api().rupTable.getIdPk(value) === idPadre) {
+						exportData.push(value);
+					}
+				});
+			});
+			deferred.resolve(exportData);
+		} else {
+			// Accede a los datos mediante el servidor ya que se ha hecho uso de la paginacion
+			// Parametros necesarios para configurar la llamada AJAX
+			urlAjax = '/clipboardReport';
+			typeAjax = 'POST';
+			ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
+
+			$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
+				exportData = data;
+				deferred.resolve(exportData);
+			});
+		}
+		break;
+	case 'all':
+		// Parametros necesarios para configurar la llamada AJAX
+		typeAjax = 'GET';
+		ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
+
+		$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
+			ctx.ext.buttons.allData = data;
+			exportData = ctx.ext.buttons.allData;
+			deferred.resolve(exportData);
+		});
+		break;
+	case 'all-deselected':
+		// Parametros necesarios para configurar la llamada AJAX
+		urlAjax = '/clipboardReport';
+		typeAjax = 'POST';
+		ajaxOptions = _reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds);
+
+		$.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
+			exportData = data;
+			deferred.resolve(exportData);
+		});
+		break;
+}
+
+return deferred.promise();
+};
+
+/**
+* Se encarga de generar las opciones de configuración con las que se llamara a la API
+*
+* @name _reportsPrepareRequestData
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} ajaxOptions Parametros de la llamada Ajax
+* @param {string} urlAjax Parametro para la URL
+* @param {string} typeAjax Tipo de llamada a la API
+* @param {string} contentTypeAjax Formato de datos enviados
+* @param {string} dataTypeAjax Formato de datos esperados
+* @param {object} ctx Contexto
+* @param {boolean} selectedAll Cuando es true significa que todas las filas estan marcadas
+* @param {array} [deselectedIds] ID's de las filas deseleccionadas
+* @param {array} [selectedIds] ID's de las filas seleccionadas
+*
+* @return {object}
+*
+*/
+var _reportsPrepareRequestData = function (ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, deselectedIds, selectedIds)
+{
+var row = {};
+row.core =  {
+	'pkToken': ctx.oInit.multiplePkToken,
+	'pkNames': ctx.oInit.primaryKey
+};
+row.multiselection = {};
+row.multiselection.selectedAll = selectedAll;
+if (row.multiselection.selectedAll) {
+	row.multiselection.selectedIds = deselectedIds;
+} else {
+	row.multiselection.selectedIds = selectedIds;
+}
+// Completa el objeto 'ajaxOptions' con los parametros necesarios para la
+// llamada que se realizara al servidor
+ajaxOptions.contentType = contentTypeAjax;
+ajaxOptions.dataType = dataTypeAjax;
+if (urlAjax !== undefined) {
+	ajaxOptions.url = ctx.oInit.urlBase + urlAjax;
+} else {
+	ajaxOptions.url = ctx.oInit.urlBase;
+}
+ajaxOptions.type = typeAjax;
+if (typeAjax === 'POST') {
+		ajaxOptions.data = JSON.stringify(row);
+}
+
+return ajaxOptions;
+};
+
+/**
+* Se encarga de llamar a la API y de devolver los datos recibidos
+*
+* @name _reportsRequestData
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} ajaxOptions Parametros de la llamada Ajax
+* @param {object} ctx Contexto
+*
+* @return {object}
+*
+*/
+var _reportsRequestData = function (ajaxOptions, ctx)
+{
+var deferred = $.Deferred();
+$.ajax(ajaxOptions)
+	.done(function(data) {
+		deferred.resolve(data);
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsSuccessReportsRequestData');
+	})
+	.complete(function() {
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsCompleteReportsRequestData');
+	})
+	.error(function() {
+		$('#' + ctx.sTableId).triggerHandler('tableButtonsErrorReportsRequestData');
+	});
+return deferred.promise();
+};
+
+/**
+* Gestiona la apertura/cierre del mensaje de confirmación de copia
+*
+* @name _reportsOpenMessage
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {object} ctx Contexto
+* @param {object} that Objeto del boton
+* @param {int} exportDataRows Numero de filas a ser exportadas
+* @param {object} hiddenDiv Elemento del DOM
+* @param {object} textarea Elemento del DOM
+*
+*/
+var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
+{
+$.rup_messages('msgConfirm', {
+	title: dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en clipboard'),
+	message: dt.i18n('rup_datatable.copyButton.saveAndContinue', {
+		_: '¿Desea copiar %d registros?',
+		1: '¿Desea copiar un registro?'
+	}, exportDataRows),
+	OKFunction: function () {
+		ctx.oInit.formEdit.okCallBack = true;
+		_reportsCopyDataToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
+		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+	},
+	beforeClose: function (){
+		ctx.oInit.formEdit.okCallBack = false
+		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+		// del if evita un error
+		if (that.processing !== undefined) {
+			that.processing(false);
+		}
+	}
+});
+};
+
+/**
+* Copia los datos recibidos al portapapeles
+*
+* @name _reportsCopyDataToClipboard
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {object} that Objeto del boton
+* @param {int} exportDataRows Numero de filas a ser exportadas
+* @param {object} hiddenDiv Elemento del DOM
+* @param {object} textarea Elemento del DOM
+*
+*/
+var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv, textarea)
+{
+// Para los navegadores que soportan el comando de copia 'execCommand'
+if (document.queryCommandSupported('copy')) {
+	hiddenDiv.appendTo(dt.table().container());
+	textarea[0].focus();
+	textarea[0].select();
+
+	try {
+		var successful = document.execCommand('copy');
+		hiddenDiv.remove();
+
+		if (successful) {
+			dt.buttons.info(
+				dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
+				dt.i18n('rup_datatable.copyButton.saved', {
+					_: 'Copiados %d registros al portapapeles',
+					1: 'Copiado un registro al portapapeles'
+				}, exportDataRows),
+				2000
+			);
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (that.processing !== undefined) {
+				that.processing(false);
+			}
+			return;
+		}
+	}
+	catch (t) {}
+}
+
+// Si no soportan la copia mediante 'execCommand', se mostrara un text box
+// con las instrucciones de como copiar los elementos seleccionados
+var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
+	'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
+	'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
+)
+.append(hiddenDiv);
+
+dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
+
+// Selecciona el texto para cuando el usuario accione la copia al portapapeles
+// se le pegue ese texto
+textarea[0].focus();
+textarea[0].select();
+
+// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
+var container = $(message).closest('.dt-button-info');
+var close = function () {
+	container.off('click.buttons-copy');
+	$(document).off('.buttons-copy');
+	dt.buttons.info(false);
+	// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+	// del if evita un error
+	if (that.processing !== undefined) {
+		that.processing(false);
+	}
+};
+
+container.on('click.buttons-copy', close);
+$(document)
+	.on('keydown.buttons-copy', function (e) {
+		if (e.keyCode === 27) { // esc
+			close();
+		}
+	})
+	.on('copy.buttons-copy cut.buttons-copy', function () {
+		close();
+		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+		// del if evita un error
+		if (that.processing !== undefined) {
+			that.processing(false);
+		}
+	});
+};
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -2287,37 +2836,20 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 $.fn.dataTable.Buttons = Buttons;
 $.fn.DataTable.Buttons = Buttons;
 
-
-
-// DataTables creation - check if the buttons have been defined for this table,
-// they will have been if the `B` option was used in `dom`, otherwise we should
-// create the buttons instance here so they can be inserted into the document
-// using the API. Listen for `init` for compatibility with pre 1.10.10, but to
-// be removed in future.
-$(document).on( 'plugin-init.dt', function (e, settings) {
-	if ( e.namespace !== 'dt' ) {
-		return;
-	}
-
-	if ( settings.oInit.buttons !== undefined && settings._buttons ) {
-		inicio(settings);
-	}
-} );
-
-function inicio(settings) {
-	var opts = settings._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = DataTable.multiselection.numSelected;
+function inicio(ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 
 	$.each(opts, function (i) {
 		// Activa/desactiva los botones en el inicio en funcion de la propiedad
 		// 'displayRegex' que tengan asociada
 		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
 			collectionObject = this;
-			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject);
+			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		}
 		// Comprueba si tiene un icono asociado
 		if (this.conf.icon !== undefined) {
@@ -2341,9 +2873,13 @@ function inicio(settings) {
 	});
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
-	$('#' + settings.sTableId).DataTable().on( 'select deselect contextmenu', function () {
-		DataTable.Api().buttons.displayRegex();
+	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
+		DataTable.Api().buttons.displayRegex(ctx);
+		if(event.type === 'contextmenu' && event.srcElement) {
+			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
+		}
 	} );
+	
 } ;
 
 // DataTables `dom` feature option
@@ -2357,6 +2893,20 @@ DataTable.ext.feature.push( {
 	cFeature: "B"
 } );
 
+//DataTables creation - check if the buttons have been defined for this table,
+//they will have been if the `B` option was used in `dom`, otherwise we should
+//create the buttons instance here so they can be inserted into the document
+//using the API. Listen for `init` for compatibility with pre 1.10.10, but to
+//be removed in future.
+$(document).on( 'plugin-init.dt', function (e, settings) {
+	if ( e.namespace !== 'dt' ) {
+		return;
+	}
+
+	if ( settings.oInit.buttons !== undefined && settings._buttons ) {
+		inicio(settings);
+	}
+} );
 
 return Buttons;
 }));

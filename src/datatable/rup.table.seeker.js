@@ -2,7 +2,7 @@
   * Buscador interno del datatable
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.seeker"
+  * @module			"rup.table.seeker"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -69,7 +69,8 @@ DataTable.seeker.version = '1.2.4';
 DataTable.seeker.init = function ( dt ) {
 
 	var ctx = dt.settings()[0];
-
+	//Se inicializa por cada instancia 1 tabla 1 instancia
+	ctx.seeker = {};
 	_createFilterColumn(dt,ctx);
 
 	var ajaxOptions = {
@@ -84,23 +85,31 @@ DataTable.seeker.init = function ( dt ) {
 			contentType : 'application/json',
 			async : true,
 			success : function(data, status, xhr) {
-				DataTable.seeker.search.funcionParams = data;
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchSucess');
+				ctx.seeker.search.funcionParams = data;
+				ctx.seeker.search.pos = 0;// se inicializa por cada busqueda.
 				_processData(dt,ctx,data);
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
 				console.log('Errors '+thrownError+ ": "+xhr.responseText);
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchError');
 
+			},
+			complete:function(xhr,status){
+				$('#'+ctx.sTableId).triggerHandler('tableSeekerSearchComplete');
 			}
 		};
 
-	DataTable.seeker.ajaxOption = ajaxOptions;
+	ctx.seeker.ajaxOption = ajaxOptions;
 
 	//Ver el buscador interno de la tabla.
 	if(ctx.fnRecordsTotal() === 0){
-		DataTable.seeker.search.$searchRow.hide();
+		ctx.seeker.search.$searchRow.hide();
 	}else{
-		DataTable.seeker.search.$searchRow.show();
+		ctx.seeker.search.$searchRow.show();
 	}
+	
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar');
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -151,13 +160,15 @@ function _createFilterColumn(dt,ctx){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
 		        	this.focus();
 		        	if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
-		        		DataTable.seeker.ajaxOption.data = _getDatos(ctx);
-		        		var ajaxOptions =  $.extend(true, [], DataTable.seeker.ajaxOption);
+		        		ctx.seeker.ajaxOption.data = _getDatos(ctx);
+		        		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
 		        		//Se pasa sin el internalFeedback ya que no es necesario.
 		        		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
 		        		}
+		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
 		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
 		        	}
 		        } );
@@ -165,8 +176,8 @@ function _createFilterColumn(dt,ctx){
 	   });
 
 	   _createSearchRow(dt,ctx);
-	   DataTable.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
-	   DataTable.seeker.searchForm.hide();
+	   ctx.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
+	   ctx.seeker.searchForm.hide();
 	   _createRupComponent(dt,ctx);
 }
 /**
@@ -177,7 +188,7 @@ function _createFilterColumn(dt,ctx){
 * @since UDA 3.4.0 // Datatable 1.0.0
 * 
 * @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
 *
 */
 function _createSearchRow (dt,ctx){
@@ -191,9 +202,9 @@ function _createSearchRow (dt,ctx){
 			matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLayer'),
 			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.matchedLabel'),
 			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLayer'),
-			navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navLink'),
+			navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navButton'),
 			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navSearchButton'),
-			navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navClearLink'),
+			navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.navClearButton'),
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.templates.search.searchRow')),
@@ -208,17 +219,17 @@ function _createSearchRow (dt,ctx){
 
 			// Capa que controla la navegación entre las diferentes ocurrencias
 			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-			$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.first'))),
-			$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.previous'))),
-			$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.next'))),
-			$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.last'))),
+			$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.first'))),
+			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.previous'))),
+			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.next'))),
+			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.last'))),
 			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Find'))),
-			$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Reset')));
+			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.search.Reset')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
 		$matchedLayer.append($matchedLabel);
-		$navLayer.append($firstNavLink).append($backNavLink).append($forwardNavLink).append($lastNavLink).append($navSearchButton).append($navClearLink);
+		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
 
 		$searchRowHeader.append($collapseLayer);
 		$searchRowHeader.append($matchedLayer);
@@ -229,97 +240,95 @@ function _createSearchRow (dt,ctx){
 		$gridHead.prepend($searchRow);
 		jQuery('tfoot tr.search_row','#'+idTabla+'').addClass('ui-state-default');
 
-		DataTable.seeker.search = DataTable.seeker.search  || {};
+		ctx.seeker.search = ctx.seeker.search  || {};
 
-		DataTable.seeker.search.created = false;
+		ctx.seeker.search.created = false;
 
-		DataTable.seeker.search.$collapseIcon = $collapseIcon;
-		DataTable.seeker.search.$searchRow = $searchRow;
-		DataTable.seeker.search.$matchedLabel = $matchedLabel;
-		DataTable.seeker.search.$firstNavLink = $firstNavLink;
-		DataTable.seeker.search.$backNavLink = $backNavLink;
-		DataTable.seeker.search.$forwardNavLink = $forwardNavLink;
-		DataTable.seeker.search.$lastNavLink = $lastNavLink;
+		ctx.seeker.search.$collapseIcon = $collapseIcon;
+		ctx.seeker.search.$searchRow = $searchRow;
+		ctx.seeker.search.$matchedLabel = $matchedLabel;
+		ctx.seeker.search.$firstNavButton = $firstNavButton;
+		ctx.seeker.search.$backNavButton = $backNavButton;
+		ctx.seeker.search.$forwardNavButton = $forwardNavButton;
+		ctx.seeker.search.$lastNavButton = $lastNavButton;
 
 		// Creacion del enlace de mostrar/ocultar el formulario
 		$collapseIcon.add($collapseLabel).on('click', function(){
-			if (!DataTable.seeker.search.created){
-				DataTable.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
-				DataTable.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
-				DataTable.seeker.search.created = true;
-				DataTable.seeker.searchForm.show();
+			if (!ctx.seeker.search.created){
+				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.created = true;
+				ctx.seeker.searchForm.show();
 				$navLayer.show();
 			}else{
-				DataTable.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
-				DataTable.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-e');
-				DataTable.seeker.search.created = false;
-				DataTable.seeker.searchForm.hide();
+				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.created = false;
+				ctx.seeker.searchForm.hide();
 				$navLayer.hide();
 			}
 		});
 
 		// Evento de búsqueda asociado al botón
 		$navSearchButton.on('click', function(){
-			DataTable.seeker.ajaxOption.data = _getDatos(ctx);
-    		var ajaxOptions =  $.extend(true, [], DataTable.seeker.ajaxOption);
+			$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+			ctx.seeker.ajaxOption.data = _getDatos(ctx);
+    		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
     		//Se pasa sin el internalFeedback ya que no es necesario.
     		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
     			ajaxOptions.data.multiselection.internalFeedback = [];
     		}
+    		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
     		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 		});
 
 		// Evento asociado a limpiar el fomulario de búsqueda
-		$navClearLink.on('click', function(){
-			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
-			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
-			jQuery('.ui-selectmenu-status','table tfoot').text('--');
-			DataTable.seeker.search.funcionParams = {};
-			DataTable.seeker.search.pos = 0;
-			_processData(dt,ctx,[]);
+		$navClearButton.on('click', function(){
+			_limpiarSeeker(dt,ctx);
 		});
 
 		$navLayer.hide();
 
-		function doSearchLinkNavigation($link, linkId){
-			if (!$link.hasClass('ui-state-disabled')){
-				$self.rup_table('navigateToMatchedRow', linkId);
+		function doSearchButtonNavigation($button, buttonId){
+			if (!$button.hasClass('ui-state-disabled')){
+				$self.rup_table('navigateToMatchedRow', buttonId);
 			}
 		}
 
 		// Elemento primero
-		$firstNavLink.on('click', function(){
-			DataTable.seeker.search.pos = 0;
-			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
+		$firstNavButton.on('click', function(){
+			ctx.seeker.search.pos = 0;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento anterior
-		$backNavLink.on('click', function(){
-			DataTable.seeker.search.pos--;
-			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
+		$backNavButton.on('click', function(){
+			ctx.seeker.search.pos--;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento siguiente
-		$forwardNavLink.on('click', function(){
-			DataTable.seeker.search.accion = 'next';
-			DataTable.seeker.search.pos++;
-			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
+		$forwardNavButton.on('click', function(){
+			ctx.seeker.search.accion = 'next';
+			ctx.seeker.search.pos++;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Elemento ultimo
-		$lastNavLink.on('click', function(){
-			DataTable.seeker.search.pos = DataTable.seeker.search.funcionParams.length-1;
-			_processData(dt,ctx,DataTable.seeker.search.funcionParams);
+		$lastNavButton.on('click', function(){
+			ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length-1;
+			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
 
 		// Se recubre con un form
 		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
 
-		DataTable.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
-		DataTable.seeker.search.$searchRow.hide();
+		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
+		ctx.seeker.search.$searchRow.hide();
         $('#'+idTabla).wrapAll($searchForm);
-        DataTable.seeker.search.pos = 0;
-        DataTable.seeker.search.accion = '';
+        ctx.seeker.search.pos = 0;
+        ctx.seeker.search.accion = '';
 }
 
 /**
@@ -339,13 +348,13 @@ function _selectSearch(dt,ctx,rows){
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
 	$('#'+ctx.sTableId+' tbody tr td span.ui-icon-search').remove();
 
-	//se añade el span con el lapicero
+	//se añade el span con la lupa
 	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
-		//Se selecconar el primero y se limpian los datos.
+		//Se selecciona el primero y se limpian los datos.
 		var rowSelected = '';
 
 		$.each(ctx.json.rows, function( idx ,value) {
-			if(rows[DataTable.seeker.search.pos].pageLine-1 === idx){
+			if(rows[ctx.seeker.search.pos].pageLine-1 === idx){
 				rowSelected = dt.rows().nodes()[idx];
 			}
 			var result = $.grep(rows, function(v) {
@@ -360,7 +369,7 @@ function _selectSearch(dt,ctx,rows){
 				}
 			}
 		});
-		var rowUnique = rows[DataTable.seeker.search.pos];
+		var rowUnique = rows[ctx.seeker.search.pos];
 		var rowList = ctx.json.rows[rowUnique.pageLine-1];
 		if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
 				&& DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
@@ -371,7 +380,7 @@ function _selectSearch(dt,ctx,rows){
 				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
 			}
 		}
-		DataTable.seeker.search.accion = '';
+		ctx.seeker.search.accion = '';
 	}
 }
 
@@ -382,7 +391,7 @@ function _selectSearch(dt,ctx,rows){
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
 * 
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
 *
 */
@@ -406,24 +415,24 @@ function _paginar(ctx,dato){
 * @param {integer} totalRowNum - Número total de registros seleccionados.
 *
 */
-function _updateDetailSeekPagination(currentRowNum,totalRowNum){
+function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 
 	if (currentRowNum === 1) {
-		DataTable.seeker.search.$firstNavLink.addClass('ui-state-disabled');
-		DataTable.seeker.search.$backNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$backNavButton.addClass('ui-state-disabled');
 	} else {
-		DataTable.seeker.search.$firstNavLink.removeClass('ui-state-disabled');
-		DataTable.seeker.search.$backNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$backNavButton.removeClass('ui-state-disabled');
 	}
 	if (currentRowNum === totalRowNum) {
-		DataTable.seeker.search.$forwardNavLink.addClass('ui-state-disabled');
-		DataTable.seeker.search.$lastNavLink.addClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavButton.addClass('ui-state-disabled');
 	} else {
-		DataTable.seeker.search.$forwardNavLink.removeClass('ui-state-disabled');
-		DataTable.seeker.search.$lastNavLink.removeClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$lastNavButton.removeClass('ui-state-disabled');
 	}
 
-	DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
 /**
@@ -444,18 +453,18 @@ function _processData(dt,ctx,data){
 	}else if(ctx.oInit.select !== undefined){
 		DataTable.Api().select.deselect(ctx);
 	}
-	if(!_paginar(ctx,data[DataTable.seeker.search.pos])){
+	if(!_paginar(ctx,data[ctx.seeker.search.pos])){
 		_selectSearch(dt,ctx,data);
 	}else{
 		var tabla = $('#'+ctx.sTableId);
-		tabla.dataTable().fnPageChange( data[DataTable.seeker.search.pos].page-1 );
+		tabla.dataTable().fnPageChange( data[ctx.seeker.search.pos].page-1 );
 	}
 
 	if (data.length === 0){
-		DataTable.seeker.search.$firstNavLink.add(DataTable.seeker.search.$backNavLink).add(DataTable.seeker.search.$forwardNavLink).add(DataTable.seeker.search.$lastNavLink).addClass('ui-state-disabled');
-		DataTable.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
+		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).addClass('ui-state-disabled');
+		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_datatable.plugins.search.matchedRecords'),'0'));
 	}else{
-		_updateDetailSeekPagination(DataTable.seeker.search.pos + 1,data.length);
+		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
 	}
 }
 
@@ -473,7 +482,9 @@ function _processData(dt,ctx,data){
 */
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
-	datos.search = form2object($(DataTable.seeker.search.$searchForm.selector)[0]);
+	if(datos !== undefined){
+		datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
+	}
 	return datos;
 }
 
@@ -491,13 +502,13 @@ function _getDatos(ctx){
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
 	if(colModel !== undefined){
-		$('#'+ ctx.sTableId+' tfoot th').each( function(i) {
+		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th').each(function (i) { // El primer tr corresponde al desplegable de filtros
 			if(i > 0){//La primera columna no vale es la de los select
 				var cellColModel = colModel[i-1];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
 				var colModelName = cellColModel.name;
-				var $elem = $('[name=\''+colModelName+'\']',DataTable.seeker.searchForm);
+				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
 					'title': ctx.aoColumns[i-1].sTitle,
@@ -527,6 +538,17 @@ function _createRupComponent(dt,ctx){
 	}
 
 }
+
+function _limpiarSeeker(dt,ctx){
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
+	jQuery('input,textarea','#'+ctx.sTableId+' tfoot').val('');
+	jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
+	jQuery('.ui-selectmenu-status','table tfoot').text('--');
+	ctx.seeker.search.funcionParams = {};
+	ctx.seeker.search.pos = 0;
+	_processData(dt,ctx,[]);
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -545,11 +567,12 @@ apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
 	_selectSearch(dt,ctx,rows );
 } );
 
-apiRegister( 'row().select()', function ( multiSelect ) {
-	alert('a');
+apiRegister('seeker.limpiarSeeker()', function ( dt,ctx) {
+	_limpiarSeeker(dt,ctx);
 });
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Initialisation
+ * Initialization
  */
 
 // DataTables creation - check if select has been defined in the options. Note

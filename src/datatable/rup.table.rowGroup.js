@@ -6,7 +6,7 @@
  * @summary     RowGroup
  * @description RowGrouping for DataTables
  * @version     1.0.2
- * @file        dataTables.rowGroup.js
+ * @file        rup.table.rowGroup.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   Copyright 2017 SpryMedia Ltd.
@@ -238,6 +238,7 @@ $.extend( RowGroup.prototype, {
 						$(this).addClass('ui-icon-circlesmall-minus');
 						$(this).removeClass('ui-icon-circlesmall-plus');
 					}
+					$(this).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 
@@ -260,6 +261,7 @@ $.extend( RowGroup.prototype, {
 						$(this).addClass('ui-icon-circlesmall-minus');
 						$(this).removeClass('ui-icon-circlesmall-plus');
 					}
+					$(this).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 		}

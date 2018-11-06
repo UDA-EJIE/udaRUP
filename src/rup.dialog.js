@@ -291,15 +291,12 @@
 				}
 				return;
 			}
-			if (opt !== 'title') {
+			if (opt === 'title') {
 				if (value !== undefined) {
 					$(this).dialog('option', opt, value);
 				} else {
 					$(this).dialog('option', opt);
 				}
-			} else {
-				//A raíz de un bug del plug-in subyacente, el cambio del titulo se hace a mano (en caso de que se corrija el error esto sorbería y habría que borrarlo)
-				$('#ui-dialog-title-' + $(this).attr('id')).html(value);
 			}
 		},
 		/**
@@ -315,10 +312,10 @@
 			/**
        * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
        */
-			var buttonHREF = $('<a href=\'#\'></a>')
-				.attr('role', 'button')
+			var buttonHREF = $('<button></button>')
+				.attr('type', 'button')
 				.attr('id', 'rup_dialog' + btn.text)
-				.addClass('rup-enlaceCancelar')
+				.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
 				.html(btn.text)
 				.click(btn.click);
 			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
@@ -459,7 +456,7 @@
 							}
 						}
 
-						if (!created) { //si ha sido creado no hace falta volver a añadir el elnace de cierre
+						if (!created) { //si ha sido creado no hace falta volver a añadir el enlace de cierre
 							$self.dialog(settings);
 
 							// Estilos RUP

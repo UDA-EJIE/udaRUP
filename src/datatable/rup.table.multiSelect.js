@@ -2,7 +2,7 @@
   * Módulo que permite toda la multiseleción
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.multiselect"
+  * @module			"rup.table.multiSelect"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -85,7 +85,7 @@ DataTable.multiSelect.init = function ( dt ) {
 	ctx._multiSelect = {};
 
 	//se Inicializa las propiedades de los select.
-	//DataTable.multiselection = $self._initializeMultiselectionProps();
+	//ctx.multiselection = $self._initializeMultiselectionProps();
 
 	_paintCheckboxSelect(ctx);
 
@@ -518,7 +518,7 @@ function info ( api )
 		) ) );
 	};
 
-	rows = DataTable.multiselection.numSelected;
+	rows = ctx.multiselection.numSelected;
 	//Antes de mostrar la info se ha de ordenar.
 
 	// Internal knowledge of DataTables to loop over all information elements
@@ -539,6 +539,8 @@ function info ( api )
 			el.append( output );
 		}
 	} );
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate');
 }
 
 /**
@@ -620,9 +622,9 @@ function init ( ctx ) {
 	// Update the table information element with selected item summary
 	api.on( 'draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
 		info( api );
-		_drawSelectId(api);
+		_drawSelectId(api,ctx);
 		//Comprobar si hay algun feedback activado
-		var feedback = DataTable.multiselection.internalFeedback;
+		var feedback = ctx.multiselection.internalFeedback;
 		 if(feedback.type !== undefined && feedback.type === 'eliminar'){
 			 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 				feedback.rup_feedback({message:feedback.msgFeedBack,type:"ok",block:false});
@@ -630,6 +632,7 @@ function init ( ctx ) {
 				setTimeout(function(){
 					feedback.rup_feedback('destroy');
 					feedback.css('width','100%');
+					$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 				}, confDelay);
 				feedback.type = '';
 				feedback.msgFeedBack = '';
@@ -657,11 +660,11 @@ function init ( ctx ) {
  * @param  {DataTable.api} ctx
  * 
  */
-function _drawSelectId(api){
+function _drawSelectId(api,ctx){
 	var DataTable = $.fn.dataTable;
 	var pos = -1;
 	
-	$.each(DataTable.multiselection.selectedIds, function( index, value ) {
+	$.each(ctx.multiselection.selectedIds, function( index, value ) {
 		var idx = -1;
 		$.each(api.context[0].json.rows, function( indexData, valueData ) {
 			if(value === DataTable.Api().rupTable.getIdPk(valueData)){
@@ -672,10 +675,11 @@ function _drawSelectId(api){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
-			if(DataTable.multiselection.lastSelectedId === value){
+			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
+			if(ctx.multiselection.lastSelectedId === value){
 				pos = idx;
 			}
-			if(pos === -1 && DataTable.multiselection.lastSelectedId === ''){//En caso de que no hay ninguna coincidencia se pone el ultimo.
+			if(pos === -1 && ctx.multiselection.lastSelectedId === ''){//En caso de que no hay ninguna coincidencia se pone el ultimo.
 				pos = idx;
 			}
 		}
@@ -732,7 +736,7 @@ function _paintCheckboxSelect(ctx){
 		link.click(function () {
 			var dt = new DataTable.Api( ctx );
 			//Marcar todos
-			if(DataTable.multiselection.selectedAll && DataTable.multiselection.deselectedIds.length  === 0){
+			if(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  === 0){
 				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
@@ -742,7 +746,7 @@ function _paintCheckboxSelect(ctx){
 				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
 			};
 			//Desmarcar todos
-			if(!DataTable.multiselection.selectedAll && DataTable.multiselection.selectedIds.length  === 0){
+			if(!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length  === 0){
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
@@ -751,10 +755,10 @@ function _paintCheckboxSelect(ctx){
 				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
 				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 			};
-			if(DataTable.multiselection.selectedIds.length  > 0){
+			if(ctx.multiselection.selectedIds.length  > 0){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 			}
-			if(DataTable.multiselection.deselectedIds.length  > 0){
+			if(ctx.multiselection.deselectedIds.length  > 0){
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 			}
 			//Si la pagina esta completamente seleccionada
@@ -806,7 +810,7 @@ function _paintCheckboxSelect(ctx){
 
 		//Se genera el div para el feedback del datatable.
 		var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
-		DataTable.multiselection.internalFeedback = divFeedback;
+		ctx.multiselection.internalFeedback = divFeedback;
 	}
 }
 
@@ -940,9 +944,10 @@ function _createContexMenuSelect(id,ctx){
 *
 */
 function selectAllPage(dt){
-	DataTable.multiselection.accion = "checkAll";
-	dt['rows']().multiSelect();
 	var ctx = dt.settings()[0];
+	ctx.multiselection.accion = "checkAll";
+	dt['rows']().multiSelect();
+	
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	// Marcamos el check del tHead
 	$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
@@ -951,20 +956,27 @@ function selectAllPage(dt){
 	//FeedBack
 	var countPage = dt.page()+1;
 	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', DataTable.settings[0].json.recordsTotal);
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', ctx.json.recordsTotal);
 	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'selectAll'));
-	if(!DataTable.multiselection.selectedAll ||
-			(DataTable.multiselection.selectedAll && DataTable.multiselection.deselectedIds.length  > 0)){
-		DataTable.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
-		DataTable.multiselection.internalFeedback.type = 'fijo';
+	if(!ctx.multiselection.selectedAll ||
+			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
+		ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
+		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
 	}
 	$('#'+$(remainingSelectButton)[0].id).on('click', function (event) {
 		selectAll(dt);
 	});
+	
+	$('#'+ctx.multiselection.internalFeedback[0].id+'_closeDiv').on('click', function (event) {
+		ctx.multiselection.internalFeedback.rup_feedback('destroy');
+		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
+	});
 
 	//Se deja marcado el primero de la pagina.
-	DataTable.multiselection.lastSelectedId = dt.data()[0].id;
-	DataTable.Api().rupTable.selectPencil(DataTable.settings[0],0);
+	ctx.multiselection.lastSelectedId = dt.data()[0].id;
+	DataTable.Api().rupTable.selectPencil(ctx,0);
 }
 
 /**
@@ -978,9 +990,10 @@ function selectAllPage(dt){
 *
 */
 function deselectAllPage(dt){
-	DataTable.multiselection.accion = "uncheck";
-	dt['rows']().deselect();
 	var ctx = dt.settings()[0];
+	ctx.multiselection.accion = "uncheck";
+	dt['rows']().deselect();
+	
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	// Desmarcamos el check del tHead
 	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
@@ -989,11 +1002,12 @@ function deselectAllPage(dt){
 	//FeedBack
 	var countPage = dt.page()+1;
 	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', DataTable.multiselection.numSelected);
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', ctx.multiselection.numSelected);
 	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'deSelectAll'));
-	if(DataTable.multiselection.numSelected  > 0){
-		DataTable.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
-		DataTable.multiselection.internalFeedback.type = 'fijo';
+	if(ctx.multiselection.numSelected  > 0){
+		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
+		ctx.multiselection.internalFeedback.type = 'fijo';
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
 	}
 	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
 		deselectAll(dt);
@@ -1014,11 +1028,11 @@ function deselectAllPage(dt){
 */
 function selectAll(dt){
 	var ctx = dt.settings()[0];
-	DataTable.multiselection.selectedAll = true;
-	DataTable.multiselection.deselectedIds = [];
-	DataTable.multiselection.deselectedRowsPerPage = [];
-	DataTable.multiselection.numSelected = DataTable.settings[0].json.recordsTotal;
-	DataTable.multiselection.accion = "checkAll";
+	ctx.multiselection.selectedAll = true;
+	ctx.multiselection.deselectedIds = [];
+	ctx.multiselection.deselectedRowsPerPage = [];
+	ctx.multiselection.numSelected = ctx.json.recordsTotal;
+	ctx.multiselection.accion = "checkAll";
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	// Marcamos el check del tHead
@@ -1027,12 +1041,14 @@ function selectAll(dt){
 
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
-		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],0);
-		DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
+		DataTable.Api().rupTable.selectPencil(ctx,0);
+		ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
 	}else{
-		DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
-		DataTable.multiselection.lastSelectedId = '';
+		DataTable.Api().rupTable.selectPencil(ctx,-1);
+		ctx.multiselection.lastSelectedId = '';
 	}
+	
+	$('#'+ctx.sTableId).triggerHandler('tableMultiSelectSelectAll');
 }
 
 
@@ -1048,9 +1064,9 @@ function selectAll(dt){
 */
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
-	$self._initializeMultiselectionProps();
+	$self._initializeMultiselectionProps(ctx);
 
-	DataTable.multiselection.accion = "uncheckAll";
+	ctx.multiselection.accion = "uncheckAll";
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
 	dt['rows']().deselect();
 
@@ -1213,8 +1229,8 @@ function _initializeMultiselectionProps ( ctx ) {
 	if ($self.multiselection === undefined) {
 		$self.multiselection = {};
 	}
-	if(DataTable.multiselection !== undefined){
-		$self.multiselection.internalFeedback = DataTable.multiselection.internalFeedback;
+	if(ctx.multiselection !== undefined){
+		$self.multiselection.internalFeedback = ctx.multiselection.internalFeedback;
 	}
 	// Flag indicador de selección de todos los registros
 	$self.multiselection.selectedAll = false;
@@ -1240,7 +1256,7 @@ function _initializeMultiselectionProps ( ctx ) {
 	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
 	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
 
-	DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+	DataTable.Api().rupTable.selectPencil(ctx,-1);
 	return $self.multiselection;
 } ;
 
@@ -1259,26 +1275,27 @@ function _initializeMultiselectionProps ( ctx ) {
 *
 */
 //1 select, 0 deselect
-function maintIdsRows(DataTable,id,select,pagina,line){
+function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 	var indexInArray = -1;
+	
 	if(select){// se elimina de los deselecionados
-		indexInArray = jQuery.inArray(id, DataTable.multiselection.deselectedIds)
+		indexInArray = jQuery.inArray(id, ctx.multiselection.deselectedIds)
 		if(indexInArray > -1 && !pagina){//Si se encuentra y además no se está paginando.
-			DataTable.multiselection.deselectedIds.splice(indexInArray,1);
-			DataTable.multiselection.deselectedRowsPerPage.splice(indexInArray,1);
-			if(DataTable.multiselection.numSelected === DataTable.settings[0].json.recordsTotal){
-				DataTable.multiselection.selectedAll = true;
+			ctx.multiselection.deselectedIds.splice(indexInArray,1);
+			ctx.multiselection.deselectedRowsPerPage.splice(indexInArray,1);
+			if(ctx.multiselection.numSelected === ctx.json.recordsTotal){
+				ctx.multiselection.selectedAll = true;
 			}
 		}
-		if(id !== undefined && DataTable.multiselection.selectedIds.indexOf(id) < 0){
+		if(id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0){
 			var pos = 0;
-			var arra = {id:id,page:DataTable.settings[0].json.page,line:line};
-			//DataTable.multiselection.selectedIds.splice(pos,0,id);
-			//DataTable.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:DataTable.settings[0].json.page,line:line});
+			var arra = {id:id,page:ctx.json.page,line:line};
+			//ctx.multiselection.selectedIds.splice(pos,0,id);
+			//ctx.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:ctx.json.page,line:line});
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 
-			$.each(DataTable.multiselection.selectedRowsPerPage,function(index,p) {
+			$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
 			  if(arra.page < p.page){
 				  pos = index;
 				  return false;
@@ -1295,30 +1312,30 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			  }
 			});
 
-			DataTable.multiselection.selectedIds.splice(pos,0,id);
-			DataTable.multiselection.selectedRowsPerPage.splice(pos,0,arra);
+			ctx.multiselection.selectedIds.splice(pos,0,id);
+			ctx.multiselection.selectedRowsPerPage.splice(pos,0,arra);
 
 
 			//FIn ordenacion
 		}
 	}else{//Deselect
-		indexInArray = jQuery.inArray(id, DataTable.multiselection.selectedIds);//Se elimina el ids
+		indexInArray = jQuery.inArray(id, ctx.multiselection.selectedIds);//Se elimina el ids
 
 		if(indexInArray > -1){//se borra
-			DataTable.multiselection.selectedIds.splice(indexInArray,1);
-			DataTable.multiselection.selectedRowsPerPage.splice(indexInArray,1);
-			if(DataTable.multiselection.lastSelectedId === id){
-				DataTable.multiselection.lastSelectedId = "";
+			ctx.multiselection.selectedIds.splice(indexInArray,1);
+			ctx.multiselection.selectedRowsPerPage.splice(indexInArray,1);
+			if(ctx.multiselection.lastSelectedId === id){
+				ctx.multiselection.lastSelectedId = "";
 			}
-			DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
-			if(DataTable.multiselection.numSelected === 0){
-				DataTable.multiselection.selectedAll = false
+			DataTable.Api().rupTable.selectPencil(ctx,-1);
+			if(ctx.multiselection.numSelected === 0){
+				ctx.multiselection.selectedAll = false
 			}
 		}
 		//Se mete el id para mantener el selectAll o no.
-		if(id !== undefined && DataTable.multiselection.deselectedIds.indexOf(id) < 0){
+		if(id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0){
 			if(line === undefined){
-				$.each(DataTable.settings[0].json.rows, function( index, value ) {
+				$.each(ctx.json.rows, function( index, value ) {
  					if (DataTable.Api().rupTable.getIdPk(value) === id){
 						line = index;
 						return false;
@@ -1327,10 +1344,10 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 
 			}
 			var posDeselect = 0;
-			var arraDeselect = {id:id,page:DataTable.settings[0].json.page,line:line};
+			var arraDeselect = {id:id,page:ctx.json.page,line:line};
 
 			//Inicio de ordenacion, Se ordena los selected ids.
-			$.each(DataTable.multiselection.deselectedRowsPerPage,function(index,p) {
+			$.each(ctx.multiselection.deselectedRowsPerPage,function(index,p) {
 			  if(arraDeselect.page < p.page){
 				  posDeselect = index;
 				  return false;
@@ -1347,12 +1364,12 @@ function maintIdsRows(DataTable,id,select,pagina,line){
 			  }
 			});
 
-			DataTable.multiselection.deselectedIds.splice(posDeselect,0,id);
-			DataTable.multiselection.deselectedRowsPerPage.splice(posDeselect,0,arraDeselect);
-			if(DataTable.multiselection.lastSelectedId === id){
-				DataTable.multiselection.lastSelectedId = '';
+			ctx.multiselection.deselectedIds.splice(posDeselect,0,id);
+			ctx.multiselection.deselectedRowsPerPage.splice(posDeselect,0,arraDeselect);
+			if(ctx.multiselection.lastSelectedId === id){
+				ctx.multiselection.lastSelectedId = '';
 			}
-			DataTable.Api().rupTable.selectPencil(DataTable.settings[0],-1);
+			DataTable.Api().rupTable.selectPencil(ctx,-1);
 		}
 	}
 }
@@ -1517,23 +1534,25 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	var api = this;
 	var DataTable = $.fn.dataTable;
 	var pagina = true;
+	var ctx = api.context[0];
 	
-	if(DataTable.multiselection === undefined){
+	if(ctx.multiselection === undefined){
 		return false;
 	}
 	//Al pagina comprobar el checkGeneral.
 
 	//Se miral si hay feedback y en ese caso se elimina.
-	var feedBack = DataTable.multiselection.internalFeedback;
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
-		DataTable.multiselection.internalFeedback.rup_feedback('destroy');
-		DataTable.multiselection.internalFeedback.css('width','100%');
+	var feedBack = ctx.multiselection.internalFeedback;
+	if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
+		ctx.multiselection.internalFeedback.rup_feedback('destroy');
+		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	if ( multiSelect === false ) {
-		maintIdsRows(DataTable,DataTable.Api().rupTable.getIdPk(api.data()),0,pagina);
+		maintIdsRows(DataTable,DataTable.Api().rupTable.getIdPk(api.data()),0,pagina,0,ctx);
 		//Cuando se resta de 1 en 1 la accion es empty
-		DataTable.multiselection.accion = '';
+		ctx.multiselection.accion = '';
 		var deselectes = this.deselect();
 		return deselectes;
 
@@ -1541,6 +1560,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 
 
 	this.iterator( 'row', function ( ctx, idx ) {
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
 		clear( ctx );
 		pagina = false;
 		ctx.aoData[ idx ]._multiSelect_selected = true;
@@ -1548,35 +1568,36 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para sumar seleccionados
-		if(DataTable.multiselection.numSelected < DataTable.settings[0].json.recordsTotal &&
-				id !== undefined && DataTable.multiselection.selectedIds.indexOf(id) < 0){
-			DataTable.multiselection.numSelected++;
+		if(ctx.multiselection.numSelected < ctx.json.recordsTotal &&
+				id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0){
+			ctx.multiselection.numSelected++;
 		}
 
 		//para seleccionar todos los de la pagina actual.
-		maintIdsRows(DataTable,id,1,pagina,idx);
+		maintIdsRows(DataTable,id,1,pagina,idx,ctx);
 		//Se marca el ultimo.
-		DataTable.multiselection.lastSelectedId = id;
+		ctx.multiselection.lastSelectedId = id;
+		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectAfterSelectRow');
 
 	} );
 	if(pagina){//Cuando se pagina, se filtra, o se reordena.
-		if(DataTable.multiselection.selectedAll){//Si pagina y están todos sleccionados se pintan.
+		if(ctx.multiselection.selectedAll){//Si pagina y están todos sleccionados se pintan.
 			var ctx = api.settings()[0];
 			$.each(api.context[0].aoData, function( idx ) {
 				var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 				//Si esta en la lista de deselecionados, significa que no debería marcarse.
-				if(jQuery.inArray(id, DataTable.multiselection.deselectedIds) === -1){
+				if(jQuery.inArray(id, ctx.multiselection.deselectedIds) === -1){
 					ctx.aoData[ idx ]._multiSelect_selected = true;
 					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
 
 					//para seleccionar todos los de la pagina actual.
-					maintIdsRows(DataTable,id,1,pagina);
+					maintIdsRows(DataTable,id,1,pagina,0,ctx);
 				}
 			});
 		}
-		if (DataTable.settings[0].oInit.buttons !== undefined) {
+		if (ctx.oInit.buttons !== undefined) {
 			//Mirar la propiedad para el contex menu y dejar la clase marcada.
-			$('#'+api.settings()[0].sTableId+' > tbody > tr').addClass('context-menu-cursor');
+			$('#' + ctx.sTableId + ' > tbody > tr').addClass('context-menu-cursor');
 		}
 	}
 	this.iterator( 'table', function ( ctx, i ) {
@@ -1584,9 +1605,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
-	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
-	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
+	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
+	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
 
 	if(checkPageSelectedAll(api,true)){
 		input.attr('checked',true);
@@ -1662,12 +1683,13 @@ apiRegisterPlural( 'cells().multiSelect()', 'cell().multiSelect()', function ( m
 apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	var api = this;
 	var DataTable = $.fn.dataTable;
-
-	//Se miral si hay feedback y en ese caso se elimina.
-	var feedBack = DataTable.multiselection.internalFeedback;
-	if($('#rup_feedback_'+api.settings()[0].sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
-		DataTable.multiselection.internalFeedback.rup_feedback('destroy');
-		DataTable.multiselection.internalFeedback.css('width','100%');
+	var ctx = api.context[0];
+	//Se mira si hay feedback y en ese caso se elimina.
+	var feedBack = ctx.multiselection.internalFeedback;
+	if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
+		ctx.multiselection.internalFeedback.rup_feedback('destroy');
+		ctx.multiselection.internalFeedback.css('width','100%');
+		$('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
 	}
 
 	this.iterator( 'row', function ( ctx, idx ) {
@@ -1676,17 +1698,17 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para restar deselecionados.
-		if(DataTable.multiselection.numSelected > 0 &&
-				id !== undefined && DataTable.multiselection.deselectedIds.indexOf(id) < 0){
-			DataTable.multiselection.numSelected--;
+		if(ctx.multiselection.numSelected > 0 &&
+				id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0){
+			ctx.multiselection.numSelected--;
 		}
 
 		//para deseleccionar todos los de la pagina actual.
-		if((DataTable.multiselection.numSelected > 0 && DataTable.multiselection.accion === "uncheckAll")
-			|| (DataTable.multiselection.numSelected >= 0 && DataTable.multiselection.accion === "uncheck")){
-			maintIdsRows(DataTable,id,0,false);
-		}else if(DataTable.multiselection.accion === ""){//es que se resta uno solo.
-			DataTable.multiselection.numSelected--;
+		if((ctx.multiselection.numSelected > 0 && ctx.multiselection.accion === "uncheckAll")
+			|| (ctx.multiselection.numSelected >= 0 && ctx.multiselection.accion === "uncheck")){
+			maintIdsRows(DataTable,id,0,false,0,ctx);
+		}else if(ctx.multiselection.accion === ""){//es que se resta uno solo.
+			ctx.multiselection.numSelected--;
 		}
 
 	} );
@@ -1696,9 +1718,9 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+api.settings()[0].sTableId+" :input");
-	var label = $("#divSelectTableHead"+api.settings()[0].sTableId).find("label");
-	var link = $("#divSelectTableHead"+api.settings()[0].sTableId).find("a");
+	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
+	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
+	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
 
 	if(checkPageSelectedAll(api,true)){
 		input.attr('checked',true);

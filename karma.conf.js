@@ -107,8 +107,12 @@ module.exports = function (config) {
 
         ],
         proxies: {
-            '/dist/resources/': '/base/i18n/',
-            '/demo/x21a/resources/': '/base/demo/x21a/resources/'
+            '/dist': 'http://localhost:8081/dist',
+            '/demo': 'http://localhost:8081/demo',
+            '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
+            '/images': 'http://localhost:8081/dist/css/images',
+            '/x21aAppWar/' : '/',
+            '/x21aAppWar/patrones/' : '/'
         },
 
 
@@ -193,62 +197,15 @@ module.exports = function (config) {
                         query: {
                             cacheDirectory: true,
                         },
-                    },
-                    {
-                        test: /(\.css|\.scss|\.sass)$/,
-                        use: ['css-loader', 'sass-loader']
-                    },
-                    {
-                        test: /\.scss$/,
-                        use: [{
-                            loader: 'style-loader' // creates style nodes from JS strings
-                        }, {
-                            loader: 'css-loader',
-                            options: {
-                                alias: {
-                                    // './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
-                                    './images': path.join(__dirname, '../assets/images'),
-                                    '../images': path.join(__dirname, '../demo/images'),
-                                    './cursors': path.join(__dirname, '../assets/cursors')
-                                }
-                            } // translates CSS into CommonJS
-                        }, {
-                            loader: 'postcss-loader', // Run post css actions
-                            options: {
-                                plugins: function () { // post css plugins, can be exported to postcss.config.js
-                                    return [
-                                        require('precss'),
-                                        require('autoprefixer')
-                                    ];
-                                }
-                            }
-                        }, {
-                            loader: 'sass-loader',
-                            options: {
-                                // includePaths: [
-                                // 	 path.join(__dirname, '../assets/images/jquery-ui')
-                                // 	path.join(__dirname, '../assets/images/rup'),
-                                // 	path.resolve('../assets/cursors'),
-                                // ] // compiles Sass to CSS
-                            }
-                        }]
-                        // },{
-                        // 	test: /\.woff2?$|\.ttf$|\.png$|\.eot$|\.gif$|\.cur$|\.svg$/,
-                        // 	use: [{
-                        // 		loader: 'file-loader'
-                        // 	}]
-                        // },{
                     }, {
-                        test: /\.png$|\.gif$|\.cur$|\.svg$/,
-                        use: [{
-                            loader: 'file-loader'
-                        }]
-                    }, {
-                        test: /\.woff2?$|\.ttf$|\.eot$/,
-                        use: [{
-                            loader: 'url-loader'
-                        }]
-                    }
+                        test: /\.js?$/,
+                        enforce: 'pre',
+                        include: path.resolve(__dirname, 'spec/common'),
+                        loader: 'babel-istanbul-loader',
+                        query: {
+                            cacheDirectory: true,
+                        },
+                    },
                 ],
             },
             resolve: {
@@ -300,12 +257,18 @@ module.exports = function (config) {
                     jQuery: 'jquery'
                 })
             ],
+            devServer: {
+                headers: {
+                    'Access-Control-Allow-Origin': 'localhost*'
+                }
+            },
         },
 
 
         // web server port
         port: 9877,
 
+        crossOriginAttribute: true,
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,

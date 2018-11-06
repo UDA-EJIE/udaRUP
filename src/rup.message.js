@@ -180,6 +180,7 @@
 			//parámetros específicos de tipo de mensaje
 			aceptButton = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+				class: "btn-outline-primary",
 				click: function () {
 					$this._destroy(self);
 					settings.OKFunction.call(this, self);
@@ -372,13 +373,12 @@
          * @function  _createLinkButton
          * @private
          */
-		_createLinkButton: function (self, CANCELFunction) { //Creamos un boton como si fuera un
-			//creamos el enlace
+		_createLinkButton: function (self, CANCELFunction) { //Creamos un boton
 			var clickFnc = CANCELFunction,
-				cancelHREF = $('<a href=\'#\'></a>')
-					.attr('role', 'button')
+				cancelHREF = $('<button></button>')
+					.attr('type', 'button')
 					.attr('id', self[0].id + '_cancel')
-					.addClass('rup-enlaceCancelar')
+					.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
 					.html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
 					.click(function (event) {
 						self.dialog('close');
@@ -387,7 +387,7 @@
 						}
 						return false;
 					});
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
+			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').append(cancelHREF);
 		},
 		/**
          * Ajuste en la visualización del mensaje para que se muestre correctamente en aplicaciones integradas en portal.

@@ -12,6 +12,17 @@ div.right_buttons{
   }
 }
 
+div.right_buttons > button:not(:last-child) { 
+	margin-left: 5px; 
+}
+
+.fix-align > div, .fix-align > span {
+	display: block;
+}
+
+.fix-align > input[type='checkbox'] {
+	width: auto;
+}
 
 .rup-table-filter{
   .collapse_icon{
@@ -22,6 +33,25 @@ div.right_buttons{
   }
 }
 
+.rup-filter-dropdown {
+	background-color: #17a2b8 !important;
+	color: #fff !important;
+	border-color: #17a2b8 !important;
+	border-radius: 4px !important;
+}
+
+.rup-filter-dropdown + button {
+	margin-left: -2px;
+	background-color: #17a2b8;
+	color: #fff;
+	border-color: #17a2b8;
+	border-radius: 0 4px 4px 0;
+}
+
+.form-radio-custom {
+	width: 100%;
+	padding: 0 .75rem;
+}
 
 .ui-jqgrid {
 
@@ -127,4 +157,12 @@ div.right_buttons{
     border-bottom:1px solid #D1D1D1;
     clear:both;
   }
+}
+
+table.ui-jqgrid-htable > thead > tr.search_row {
+	height: 37px;
+}
+  
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  	height: initial !important;
 }

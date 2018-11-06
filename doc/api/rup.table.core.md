@@ -28,7 +28,7 @@ var properties = {		url: "../tableUrl",		colNames: [			"id","nombre","..."]	
         * [~getSelectedRows()](#module_rup_table..getSelectedRows) ⇒ <code>Array.&lt;string&gt;</code>
         * [~getSelectedLines()](#module_rup_table..getSelectedLines) ⇒ <code>Array.&lt;number&gt;</code>
         * [~getPkUrl(rowId)](#module_rup_table..getPkUrl) ⇒ <code>string</code>
-        * [~reloadGrid(async)](#module_rup_table..reloadGrid)
+        * [~reloadGrid(async, notSelect)](#module_rup_table..reloadGrid)
         * [~resetForm($form)](#module_rup_table..resetForm) ⇒ <code>jQuery</code>
         * [~setGridParam(newParams)](#module_rup_table..setGridParam) ⇒ <code>jQuery</code>
         * [~setSelection(selectedRows, status)](#module_rup_table..setSelection)
@@ -290,7 +290,7 @@ $("#idComponente").rup_table("getPkUrl","0001");
 ```
 <a name="module_rup_table..reloadGrid"></a>
 
-### rup_table~reloadGrid(async)
+### rup_table~reloadGrid(async, notSelect)
 Lanza la recarga de la tabla.
 
 **Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
@@ -298,6 +298,7 @@ Lanza la recarga de la tabla.
 | Param | Type | Description |
 | --- | --- | --- |
 | async | <code>boolean</code> | Indica si la llamada debe ser asíncrona o síncrona. |
+| notSelect | <code>boolean</code> | Indica si debe seleccionar el primer elemento o no. |
 
 **Example**  
 ```js

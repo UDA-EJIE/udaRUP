@@ -71,7 +71,7 @@
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Enlace para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los
@@ -90,7 +90,7 @@
 		preConfigureMultifilter : function(settings) {
 			var $self = this, tableId = settings.id, multifilterSettings = settings.multifilter, dropdownDialogId, $dropdownDialog, $dropdownDiaglogTemplate;
 
-			//definincion de variables con los selectores
+			//definicion de variables con los selectores
 			multifilterSettings.$dropdownDialog=$('#'+settings.id+'_multifilter_dropdownDialog');
 
 			//definicion de variables con ids
@@ -173,6 +173,7 @@
 							buttons : [
 								{
 									id : settings.id+ '_multifilter_BtnSave',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
 									click : function() {
 
@@ -198,6 +199,7 @@
 								},
 								{
 									id : settings.id+ '_multifilter_BtnApply',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
 									click : function() {
 
@@ -254,6 +256,7 @@
 								},
 								{
 									id : settings.id+ '_multifilter_BtnRemove',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 									click : function() {
 
@@ -416,40 +419,46 @@
 			var $self = this, multifilterSettings = settings.multifilter;
 
 			var $dropdownDiaglogTemplate = jQuery('<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '" style="display:none" class="rup_multifilter_dropdown">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_feedback"></div>'
-									+ '<form>'
-									+ '<fieldset class="dropdownButton-inputs">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_columna_cnt" class="formulario_columna_cnt">'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaCombo"  class="formulario_linea_izda_float">'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_combo">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
-									+ '</label>'
-									+ '<input id="'
-									+ settings.id
-									+ '_multifilter_combo" class="rup_multifilter_selector" />'
-									+ '</div>'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaDefault" class="formulario_linea_izda_float">'
-									+ '<input type="checkbox" id="'
-									+ settings.id
-									+ '_multifilter_defaultFilter"/>'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_defaultFilter">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
-									+ '</label>' + '</div>' + '</div>'
-									+ '</fieldset>' + '</form>' + '</div>');
+				+ multifilterSettings.dropdownDialogId
+				+ '" style="display:none" class="rup_multifilter_dropdown">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_feedback"></div>'
+				+ '<form>'
+				+ '<fieldset class="dropdownButton-inputs">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_columna_cnt">'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaCombo"  class="form-group fix-align col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_combo" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ '</label>'
+				+ '<input id="'
+				+ settings.id
+				+ '_multifilter_combo" class="rup_multifilter_selector" />'
+				+ '</div>'
+				+ '</div>'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaDefault" class="form-group col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ '</label>'
+				+ '<input type="checkbox" id="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_input form-control"/>'
+				+ '</div>' 
+				+ '</div>'	
+				+ '</div>'
+				+ '</fieldset>' + '</form>' + '</div>');
 
 			return $dropdownDiaglogTemplate;
 		},
@@ -515,7 +524,8 @@
 					sourceParam : {
 						label : 'filterName',
 						value : 'filterDefault',
-						data : 'filterValue'
+						data : 'filterValue',
+						category: 'filter'
 					},
 					method : 'GET',
 					contains : false,
@@ -548,6 +558,21 @@
 
 			jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
 				$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+				if($(this).data('tmp.data') !== undefined){
+					var data = $(this).data('tmp.data');
+					var count = -1;
+					var objeto = $.grep(data, function(obj,i) {
+						if (obj.filterDefault){
+							count = i;
+							return obj;
+						}
+					});
+					if(objeto !== undefined){
+						
+						var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+						link.css('font-weight', 'bold');
+					}
+				}
 			});
 
 			$('.jstree').on('rup_filter_treeLoaded',function(event,data){
@@ -556,7 +581,7 @@
 			});
 
 
-			settings.filter.$cleanLink.on('click',function() {
+			settings.filter.$cleanButton.on('click',function() {
 				multifilterSettings.$combo.rup_autocomplete('set', '', '');
 				settings.filter.$filterSummary.html('<i></i>');
 
@@ -762,18 +787,28 @@
 
 			// si el filtro es el predefinido que aparezca en negrita
 			multifilterSettings.$comboLabel.data('uiAutocomplete')._renderItem = function(ul,	item) {
-				if (item.value) {
-					return $('<li></li>').data(
-						'item.autocomplete', item).append(
-						'<a><b>' + item.label + '</b></a>')
-						.appendTo(ul);
-				} else {
+
 					return $('<li></li>').data(
 						'item.autocomplete', item).append(
 						'<a>' + item.label + '</a>')
 						.appendTo(ul);
-				}
+
 			};
+			
+			jQuery('#' + settings.id + '_multifilter_combo_label').on('rupAutocomplete_loadComplete', function(event, data){
+				var count = -1;
+				var objeto = $.grep(data, function(obj,i) {
+					if (obj.filterDefault){
+						count = i;
+						return obj;
+					}
+				});
+				if(objeto !== undefined){
+					var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+					link.css('font-weight', 'bold');
+				}
+				
+			});
 
 
 
@@ -935,9 +970,9 @@
 			// checkeo el check "Filtro
 			// por defecto"
 			if (objFiltro.length != 0) {
-				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].value);
+				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
-				var valorFiltro = $.parseJSON(objFiltro[0].data);
+				var valorFiltro = $.parseJSON(objFiltro[0].value);
 
 				var xhrArray = [];
 

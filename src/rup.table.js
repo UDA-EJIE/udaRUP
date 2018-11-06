@@ -12772,12 +12772,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					jQuery(this).removeClass('ui-state-focus');
 				}
 			});
-
-			if (p.linkStyleButtons !== undefined) {
-				for (var i = 0; i < p.linkStyleButtons.length; i++) {
-					jQuery(p.linkStyleButtons[0]).addClass('botonEnlace');
-				}
-			}
 		},
 		hideModal: function (selector, o) {
 			jQuery(selector).rup_dialog('close');
@@ -13683,10 +13677,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				});
 
 
-				/* *********************************************************
-         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE
+		/* *********************************************************
+         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE y VALIDACIÓN DEL LOS DIALOGOS
          * *********************************************************
          */
+				
+				if($("[aria-describedby="+$self.attr('id')+"_detail_div]").length > 0){
+					$("[aria-describedby="+$self.attr('id')+"_detail_div]").remove();
+				}
 
 				settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins.core.defaults);
 
@@ -14543,7 +14541,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Botón para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -14568,7 +14566,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			filterSettings.id = (filterSettings.id!==undefined?filterSettings.id:tableId+'_filter_form');
 			filterSettings.filterToolbarId = (filterSettings.filterToolbar!==undefined?filterSettings.filterToolbar:tableId+'_filter_toolbar');
 			filterSettings.filterButtonId = (filterSettings.filterButtonId!==undefined?filterSettings.filterButtonId:tableId+'_filter_filterButton');
-			filterSettings.cleanLinkId = (filterSettings.cleanLinkId!==undefined?filterSettings.cleanLinkId:tableId+'_filter_cleanLink');
+			filterSettings.cleanButtonId = (filterSettings.cleanButtonId!==undefined?filterSettings.cleanButtonId:tableId+'_filter_cleanButton');
 			filterSettings.collapsableLayerId = (filterSettings.collapsableLayerId!==undefined?filterSettings.collapsableLayerId:tableId+'_filter_fieldset');
 
 			filterSettings.toggleIcon1Id = (filterSettings.toggleIcon1!==undefined?filterSettings.toggleIcon1:tableId+'_filter_toggle_icon1');
@@ -14592,7 +14590,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				 *
 				 * $filterContainer : Contenedor del formulario de filtrado
 				 * $filterButton : Botón que realiza el filtrado
-				 * $cleanLink : Enlace para limpiar el formulario
+				 * $cleanButton : Botón para limpiar el formulario
 				 * $collapsableLayer : Capa que puede ser ocultada/mostrada
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
@@ -14616,7 +14614,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//filterSettings.$filterButton.addClass("dropdownButton");
 				//filterSettings.$filterButton.append('<ul><li class="dropdownButton-list"><a  class="dropdownButton-trigger" href="#">Filtro</a><div class="dropdownButton-content"><form><fieldset class="dropdownButton-inputs"><div id="dropdownButton-combo"></div></fieldset>       <fieldset class="dropdownButton-actions"><input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Guardar" type="submit"><input  class="ui-button ui-widget ui-state-default ui-corner-all"  value="Aplicar" type="submit"> <input class="ui-button ui-widget ui-state-default ui-corner-all"  value="Eliminar" type="submit"></fieldset>                 </form>               </div></li>             <li class="dropdownButton-menu"><a class="dropdownButton-lanzador" href="#"><span>▼</span></a></li> </ul>');
 
-				filterSettings.$cleanLink = jQuery('#'+filterSettings.cleanLinkId);
+				filterSettings.$cleanButton = jQuery('#'+filterSettings.cleanButtonId);
 				filterSettings.$collapsableLayer = jQuery('#'+filterSettings.collapsableLayerId);
 
 				filterSettings.$toggleIcon1 = $toggleIcon1;
@@ -14626,7 +14624,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 				/*
-				 * TODO: Comprobar que la configruación es correcta
+				 * TODO: Comprobar que la configuración es correcta
 				 */
 
 				if (filterSettings.$filterContainer.prop('tagName')==='FORM'){
@@ -14677,8 +14675,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				});
 
 
-				// Creacion del enlace de limpiar formulario.
-				filterSettings.$cleanLink.bind('click', function () {
+				// Creacion del botón de limpiar formulario.
+				filterSettings.$cleanButton.bind('click', function () {
 					// TODO : poner como evento
 					if (settings.$firstStartUp){
 
@@ -15221,7 +15219,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 	jQuery.fn.rup_table('extend',{
 		/**
-     * Obtiene el label correspondiente a un campo por el qeu se realiza el filtrado.
+     * Obtiene el label correspondiente a un campo por el que se realiza el filtrado.
      *
      * @function _getSearchFormFieldLabel
 		 * @private
@@ -15570,7 +15568,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * navigateToMatchedRow(matchedRow): Se posiciona en el registro indicado que se corresponde con los criterios de búsqueda.
 	 * doSearch(): Realiza la búsqueda de acuerdo a los criterios especificados.
 	 * goToFirstMatched(paramPage): Navega hasta el primer resgistro que se corresponde con la búsqueda.
-	 * fncGetSearchNavigationParams(linkType): Devuelve ls parámetros de navegación correspondientes al enlace de navegación indicado.
+	 * fncGetSearchNavigationParams(buttonType): Devuelve los parámetros de navegación correspondientes al botón de navegación indicado.
 	 * doSearchNavigation(arrParams, execute, changePage, index, npos, newPage, newPageIndex): Realiza la navegación entre los resultados de la búsqueda.
 	 * clearSearch(): Realiza un borrado de los resultados de la búsqueda.
 	 * clearHighlightedMatchedRows(): Elimina el resaltado de los registros
@@ -15729,9 +15727,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLayer'),
 				matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
 				navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
-				navLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLink'),
+				navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
 				navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
-				navClearLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearLink'),
+				navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
 
 				// Objetos
 				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
@@ -15746,17 +15744,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Capa que controla la navegación entre las diferentes ocurrencias
 				$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+settings.id)),
-				$firstNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-				$backNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-				$forwardNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-				$lastNavLink = $(jQuery.jgrid.format(navLinkTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
+				$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
+				$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
+				$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
+				$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
 				$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-				$navClearLink = $(jQuery.jgrid.format(navClearLinkTmpl, 'search_nav_clear_link'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+				$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
 
 			// Construcción del objeto final
 			$collapseLayer.append($collapseIcon).append($collapseLabel);
 			$matchedLayer.append($matchedLabel);
-			$navLayer.append($firstNavLink).append($backNavLink).append($forwardNavLink).append($lastNavLink).append($navSearchButton).append($navClearLink);
+			$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
 
 			$searchRowHeader.append($collapseLayer);
 			$searchRowHeader.append($matchedLayer);
@@ -15774,10 +15772,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.search.$collapseIcon = $collapseIcon;
 			settings.search.$searchRow = $searchRow;
 			settings.search.$matchedLabel = $matchedLabel;
-			settings.search.$firstNavLink = $firstNavLink;
-			settings.search.$backNavLink = $backNavLink;
-			settings.search.$forwardNavLink = $forwardNavLink;
-			settings.search.$lastNavLink = $lastNavLink;
+			settings.search.$firstNavButton = $firstNavButton;
+			settings.search.$backNavButton = $backNavButton;
+			settings.search.$forwardNavButton = $forwardNavButton;
+			settings.search.$lastNavButton = $lastNavButton;
 
 			// Creacion del enlace de mostrar/ocultar el formulario
 			$collapseIcon.add($collapseLabel).on('click', function(){
@@ -15790,36 +15788,36 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			});
 
 			// Evento asociado a limpiar el fomulario de búsqueda
-			$navClearLink.on('click', function(){
+			$navClearButton.on('click', function(){
 				$self.rup_table('clearSearch');
 			});
 
 			$navLayer.hide();
 
-			function doSearchLinkNavigation($link, linkId){
-				if (!$link.hasClass('ui-state-disabled')){
-					$self.rup_table('navigateToMatchedRow', linkId);
+			function doSearchButtonNavigation($button, buttonId){
+				if (!$button.hasClass('ui-state-disabled')){
+					$self.rup_table('navigateToMatchedRow', buttonId);
 				}
 			}
 
 			// Elemento primero
-			$firstNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'first');
+			$firstNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'first');
 			});
 
 			// Elemento anterior
-			$backNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'prev');
+			$backNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'prev');
 			});
 
 			// Elemento siguiente
-			$forwardNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'next');
+			$forwardNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'next');
 			});
 
 			// Elemento ultimo
-			$lastNavLink.on('click', function(){
-				doSearchLinkNavigation(jQuery(this), 'last');
+			$lastNavButton.on('click', function(){
+				doSearchButtonNavigation(jQuery(this), 'last');
 			});
 
 			// Se recubre con un form
@@ -15951,12 +15949,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
      *
      * @function fncGetSearchNavigationParams
-		 * @param {paramPage} linkType - Tipo de parámetro first, prev, next o last.-
+		 * @param {paramPage} buttonType - Tipo de parámetro first, prev, next o last.-
 		 * @return {object} - Parametros de configuración asociados al tipo de enlace.
      * @example
-     * $("#idTable").rup_table("fncGetSearchNavigationParams", linkType);
+     * $("#idTable").rup_table("fncGetSearchNavigationParams", buttonType);
      */
-		fncGetSearchNavigationParams : function(linkType){
+		fncGetSearchNavigationParams : function(buttonType){
 			var $self = this, settings = $self.data('settings'), execute = false, changePage = false, index=0, newPageIndex=0,
 				npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
 				page = parseInt($self.rup_table('getGridParam', 'page'),10),
@@ -15965,14 +15963,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//			lastPage = parseInt(Math.ceil($self.rup_table("getGridParam", "records")/$self.rup_table("getGridParam", "rowNum")),10),
 				currentArrayIndex, selectedLines, pageArrayIndex;
 
-			$self.trigger('rupTableAfterSearchNav',[linkType]);
+			$self.trigger('rupTableAfterSearchNav',[buttonType]);
 
 			npos[0] = parseInt(npos[0],10);
 
 			activeLineId = $self.rup_table('getActiveLineId');
 
 			$('#'+settings.formEdit.feedbackId, settings.$detailForm).hide();
-			switch (linkType){
+			switch (buttonType){
 			case 'first':
 				// Navegar al primer elemento
 				execute = true;
@@ -16085,7 +16083,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				break;
 			}
 
-			return [linkType, execute, changePage, index-1, npos, newPage, newPageIndex-1];
+			return [buttonType, execute, changePage, index-1, npos, newPage, newPageIndex-1];
 		},
 		/**
      * Realiza la navegación entre los elementos que se ajustan a los criterios de bús
@@ -16099,7 +16097,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
 
 			if ($.isArray(arrParams)){
-				linkType = arrParams[0];
+				buttonType = arrParams[0];
 				execute = arrParams[1];
 				changePage = arrParams[2];
 				index = arrParams[3];
@@ -16109,7 +16107,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				if (execute){
 					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
-					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [linkType, settings.$detailForm, npos[1][npos[index]]]);
+					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [buttonType, settings.$detailForm, npos[1][npos[index]]]);
 					pagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
 
 					//					actualRowId = npos[1][npos[0]];
@@ -16241,7 +16239,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 			if (settings.search.numMatched===0){
-				settings.search.$firstNavLink.add(settings.search.$backNavLink).add(settings.search.$forwardNavLink).add(settings.search.$lastNavLink).addClass('ui-state-disabled');
+				settings.search.$firstNavButton.add(settings.search.$backNavButton).add(settings.search.$forwardNavButton).add(settings.search.$lastNavButton).addClass('ui-state-disabled');
 				settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 			}else if (rowId!==-1){
 				// Comprobamos si el registro seleccionado es uno de los resultados de la busqueda
@@ -16254,49 +16252,52 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 
 					if (numMatched===1){
-						settings.search.$firstNavLink.addClass('ui-state-disabled');
-						settings.search.$backNavLink.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.addClass('ui-state-disabled');
+						settings.search.$backNavButton.addClass('ui-state-disabled');
 					}else{
-						settings.search.$firstNavLink.removeClass('ui-state-disabled');
-						settings.search.$backNavLink.removeClass('ui-state-disabled');
+						settings.search.$firstNavButton.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeClass('ui-state-disabled');
 					}
 
 					if (numMatched===settings.search.numMatched){
-						settings.search.$lastNavLink.addClass('ui-state-disabled');
-						settings.search.$forwardNavLink.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.addClass('ui-state-disabled');
 					}else{
-						settings.search.$lastNavLink.removeClass('ui-state-disabled');
-						settings.search.$forwardNavLink.removeClass('ui-state-disabled');
+						settings.search.$lastNavButton.removeClass('ui-state-disabled');
+						settings.search.$forwardNavButton.removeClass('ui-state-disabled');
 					}
 
 				}else{
 					if (settings.search && settings.search.numMatched){
 						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
-					settings.search.$firstNavLink.removeClass('ui-state-disabled');
-					settings.search.$backNavLink.removeClass('ui-state-disabled');
-					settings.search.$forwardNavLink.removeClass('ui-state-disabled');
-					settings.search.$lastNavLink.removeClass('ui-state-disabled');
+					settings.search.$firstNavButton.removeClass('ui-state-disabled');
+					settings.search.$backNavButton.removeClass('ui-state-disabled');
+					settings.search.$forwardNavButton.removeClass('ui-state-disabled');
+					settings.search.$lastNavButton.removeClass('ui-state-disabled');
 
 					// Miramos a ver si desde la posición actual hay anterior
 					if (jQuery.inArray(settings.search.matchedPages, page) > 0){
-						settings.search.$backNavLink.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeClass('ui-state-disabled');
 					}else if (jQuery.inArray(page, settings.search.matchedPages) === -1 && $.rup_utils.insertSorted($.merge([],settings.search.matchedPages), page)===0){
 						// Anterior a las páginas en las que se han encontrado ocurrencias
-						settings.search.$backNavLink.addClass('ui-state-disabled');
-						settings.search.$firstNavLink.addClass('ui-state-disabled');
+						settings.search.$backNavButton.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.addClass('ui-state-disabled');
 					}else if (jQuery.inArray(page, settings.search.matchedPages) === -1 && $.rup_utils.insertSorted($.merge([],settings.search.matchedPages), page)>=settings.search.matchedPages.length){
 						// Posterior a las páginas en las que se han encontrado ocurrencias
-						settings.search.$forwardNavLink.addClass('ui-state-disabled');
-						settings.search.$lastNavLink.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.addClass('ui-state-disabled');
 					}else{
 						pagePos = $self.rup_table('getActiveLineId');
-						currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
-						if (currentArrayIndex===0){
-							settings.search.$backNavLink.addClass('ui-state-disabled');
+						if(settings.search.matchedLinesPerPage[page] !== undefined){
+							currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
 						}
-						if (currentArrayIndex === settings.search.matchedLinesPerPage[page].length){
-							settings.search.$forwardNavLink.addClass('ui-state-disabled');
+						if (currentArrayIndex===0){
+							settings.search.$backNavButton.addClass('ui-state-disabled');
+						}
+						if (settings.search.matchedLinesPerPage[page] !== undefined && 
+								currentArrayIndex === settings.search.matchedLinesPerPage[page].length){
+							settings.search.$forwardNavButton.addClass('ui-state-disabled');
 						}
 					}
 				}
@@ -17263,13 +17264,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.formEdit.navigationBarId = settings.formEdit.navigationBarId !== undefined ? settings.formEdit.navigationBarId : settings.id + '_detail_navigation';
 			settings.formEdit.saveButtonId = settings.formEdit.saveButtonId !== undefined ? settings.formEdit.saveButtonId : settings.id + '_detail_button_save';
 			settings.formEdit.saveRepeatButtonId = settings.formEdit.saveRepeatButtonId !== undefined ? settings.formEdit.saveRepeatButtonId : settings.id + '_detail_button_save_repeat';
-			settings.formEdit.cancelLinkId = settings.formEdit.cancelLinkId !== undefined ? settings.formEdit.cancelLinkId : settings.id + '_detail_link_cancel';
+			settings.formEdit.cancelButtonId = settings.formEdit.cancelButtonId !== undefined ? settings.formEdit.cancelButtonId : settings.id + '_detail_button_cancel';
 			settings.formEdit.feedbackId = settings.formEdit.feedbackId !== undefined ? settings.formEdit.feedbackId : settings.id + '_detail_feedback';
 
 			settings.formEdit.$navigationBar = jQuery('#' + settings.formEdit.navigationBarId);
 			settings.formEdit.$saveButton = jQuery('#' + settings.formEdit.saveButtonId);
 			settings.formEdit.$saveRepeatButton = jQuery('#' + settings.formEdit.saveRepeatButtonId);
-			settings.formEdit.$cancelLink = jQuery('#' + settings.formEdit.cancelLinkId);
+			settings.formEdit.$cancelButton = jQuery('#' + settings.formEdit.cancelButtonId);
 			settings.formEdit.$feedback = jQuery('#' + settings.formEdit.feedbackId);
 
 
@@ -17735,10 +17736,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
 					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
-						$title.html(rp_ge[$self[0].p.id].addCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
 					} else {
-						$title.html(rp_ge[$self[0].p.id].editCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].editCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).show();
 					}
 				},
@@ -17998,12 +17999,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this,
 				settings = $self.data('settings');
 			// Ocultamos el feedback de error
-			settings.formEdit.$feedback.hide();
-			jQuery('.rup-maint_validateIcon', $form).remove();
-			jQuery('input.error', $form).removeClass('error');
-
-			if ($form.data('validator')){
-				$form.rup_validate('resetElements');
+			if(settings.formEdit !== undefined && settings.formEdit.$feedback !== undefined){
+				settings.formEdit.$feedback.hide();
+			}
+			if($form !== undefined){
+				jQuery('.rup-maint_validateIcon', $form).remove();
+				jQuery('input.error', $form).removeClass('error');
+	
+				if ($form.data('validator')){
+					$form.rup_validate('resetElements');
+				}
 			}
 
 		}
@@ -19184,8 +19189,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								jQuery.proxy(fncSaveAndRepeatButton, $self)();
 							});
 						}
-						if (settings.formEdit.$cancelLink.length > 0) {
-							settings.formEdit.$cancelLink.on('click', function () {
+						if (settings.formEdit.$cancelButton.length > 0) {
+							settings.formEdit.$cancelButton.on('click', function () {
 								jQuery.proxy(fncCancelLink, $self)();
 							});
 						}
@@ -19440,7 +19445,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'),
-		cancelicon: [true, 'left', 'icono_cancelar'],
+		cancelicon: [false, 'left', 'icono_cancelar'],
 		delicon: [false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deleteAll') + '</div>',
@@ -19712,12 +19717,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			/*
 			 * Configuración del evetno beforeSend. Se sustituye el existente (en caso de haber)
-			 * por el implementado a continuación. El objetivo es realizar la operación AJAX medainte
+			 * por el implementado a continuación. El objetivo es realizar la operación AJAX mediante
 			 * el componente rup_formulario en vez del sistema por defecto del jqGrid.
 			 *
 			 * El método beforeSend indicado por el usuario se seguirá ejecutanto de manera normal.
 			 */
-			// Se almancena en una variable temporal el método beforeSend especificado por el usuario
+			// Se almacena en una variable temporal el método beforeSend especificado por el usuario
 			userBeforeSend = settings.inlineEdit.beforeSend;
 			settings.inlineEdit.addEditOptions.restoreAfterError = false;
 			settings.inlineEdit.addEditOptions.errorfunc = function(rowid, data, stat, err, o){
@@ -19736,7 +19741,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			};
 
 			settings.inlineEdit.addEditOptions.ajaxRowOptions.beforeSend = function(jqXHR, ajaxOptions){
-				// Se añade la configuración de validaciones, la función userBeforeSend indicada por el usuario y el feedback utilzado por el compoennte.
+				// Se añade la configuración de validaciones, la función userBeforeSend indicada por el usuario y el feedback utilizado por el componente.
 				jQuery.extend(true, ajaxOptions, {
 					validate: settings.validate,
 					beforeSend:(jQuery.isFunction(userBeforeSend)?userBeforeSend:null),
@@ -19811,8 +19816,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
-					callback: function(){
-						//$self.rup_table('saveRow');
+					callback: function(object,event){
+						if(event.type === 'click'){
+							$self.rup_table('saveRow');
+						}
 					}
 				},
 				'clone': {
@@ -19927,7 +19934,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 							// Se añade el title de los elementos de acuerdo al colname
 							$elem.attr({
-								'title': self.p.colNames[i],
+								'oldtitle': self.p.colNames[i],
 								'class': 'editable customelement'
 							});
 
@@ -20723,7 +20730,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// Parámetros de configruación específicos para la acción de eliminar un registro
 	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
-		cancelicon:[true, 'left', 'icono_cancelar'],
+		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',
@@ -23373,7 +23380,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 *
 	 * settings.filter.$filterContainer : Contenedor del formulario de filtrado
 	 * settings.filter.$filterButton : Botón que realiza el filtrado
-	 * settings.filter.$cleanLink : Enlace para limpiar el formulario
+	 * settings.filter.$cleanButton : Enlace para limpiar el formulario
 	 * settings.filter.$collapsableLayer : Capa que puede ser ocultada/mostrada
 	 * settings.filter.$toggleIcon1Id : Control que oculta muestra el fomulario
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los
@@ -23392,7 +23399,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		preConfigureMultifilter : function(settings) {
 			var $self = this, tableId = settings.id, multifilterSettings = settings.multifilter, dropdownDialogId, $dropdownDialog, $dropdownDiaglogTemplate;
 
-			//definincion de variables con los selectores
+			//definicion de variables con los selectores
 			multifilterSettings.$dropdownDialog=$('#'+settings.id+'_multifilter_dropdownDialog');
 
 			//definicion de variables con ids
@@ -23475,6 +23482,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							buttons : [
 								{
 									id : settings.id+ '_multifilter_BtnSave',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
 									click : function() {
 
@@ -23500,6 +23508,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								},
 								{
 									id : settings.id+ '_multifilter_BtnApply',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
 									click : function() {
 
@@ -23556,6 +23565,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								},
 								{
 									id : settings.id+ '_multifilter_BtnRemove',
+									"class" : 'btn-outline-primary',
 									text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 									click : function() {
 
@@ -23718,40 +23728,46 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this, multifilterSettings = settings.multifilter;
 
 			var $dropdownDiaglogTemplate = jQuery('<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '" style="display:none" class="rup_multifilter_dropdown">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_feedback"></div>'
-									+ '<form>'
-									+ '<fieldset class="dropdownButton-inputs">'
-									+ '<div id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_columna_cnt" class="formulario_columna_cnt">'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaCombo"  class="formulario_linea_izda_float">'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_combo">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
-									+ '</label>'
-									+ '<input id="'
-									+ settings.id
-									+ '_multifilter_combo" class="rup_multifilter_selector" />'
-									+ '</div>'
-									+ '<div  id="'
-									+ multifilterSettings.dropdownDialogId
-									+ '_lineaDefault" class="formulario_linea_izda_float">'
-									+ '<input type="checkbox" id="'
-									+ settings.id
-									+ '_multifilter_defaultFilter"/>'
-									+ '<label for="'
-									+ settings.id
-									+ '_multifilter_defaultFilter">'
-									+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
-									+ '</label>' + '</div>' + '</div>'
-									+ '</fieldset>' + '</form>' + '</div>');
+				+ multifilterSettings.dropdownDialogId
+				+ '" style="display:none" class="rup_multifilter_dropdown">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_feedback"></div>'
+				+ '<form>'
+				+ '<fieldset class="dropdownButton-inputs">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_columna_cnt">'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaCombo"  class="form-group fix-align col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_combo" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ '</label>'
+				+ '<input id="'
+				+ settings.id
+				+ '_multifilter_combo" class="rup_multifilter_selector" />'
+				+ '</div>'
+				+ '</div>'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaDefault" class="form-group col-sm">'
+				+ '<label for="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_label">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ '</label>'
+				+ '<input type="checkbox" id="'
+				+ settings.id
+				+ '_multifilter_defaultFilter" class="formulario_linea_input form-control"/>'
+				+ '</div>' 
+				+ '</div>'	
+				+ '</div>'
+				+ '</fieldset>' + '</form>' + '</div>');
 
 			return $dropdownDiaglogTemplate;
 		},
@@ -23817,7 +23833,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					sourceParam : {
 						label : 'filterName',
 						value : 'filterDefault',
-						data : 'filterValue'
+						data : 'filterValue',
+						category: 'filter'
 					},
 					method : 'GET',
 					contains : false,
@@ -23850,6 +23867,21 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			jQuery('#' + settings.id + '_multifilter_combo_label').on('autocompleteopen', function(){
 				$(this).data('uiAutocomplete').menu.element.css('zIndex',Number($('#' + multifilterSettings.dropdownDialogId).parent().css('zIndex'))+1);
+				if($(this).data('tmp.data') !== undefined){
+					var data = $(this).data('tmp.data');
+					var count = -1;
+					var objeto = $.grep(data, function(obj,i) {
+						if (obj.filterDefault){
+							count = i;
+							return obj;
+						}
+					});
+					if(objeto !== undefined){
+						
+						var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+						link.css('font-weight', 'bold');
+					}
+				}
 			});
 
 			$('.jstree').on('rup_filter_treeLoaded',function(event,data){
@@ -23858,7 +23890,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			});
 
 
-			settings.filter.$cleanLink.on('click',function() {
+			settings.filter.$cleanButton.on('click',function() {
 				multifilterSettings.$combo.rup_autocomplete('set', '', '');
 				settings.filter.$filterSummary.html('<i></i>');
 
@@ -24064,18 +24096,28 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			// si el filtro es el predefinido que aparezca en negrita
 			multifilterSettings.$comboLabel.data('uiAutocomplete')._renderItem = function(ul,	item) {
-				if (item.value) {
-					return $('<li></li>').data(
-						'item.autocomplete', item).append(
-						'<a><b>' + item.label + '</b></a>')
-						.appendTo(ul);
-				} else {
+
 					return $('<li></li>').data(
 						'item.autocomplete', item).append(
 						'<a>' + item.label + '</a>')
 						.appendTo(ul);
-				}
+
 			};
+			
+			jQuery('#' + settings.id + '_multifilter_combo_label').on('rupAutocomplete_loadComplete', function(event, data){
+				var count = -1;
+				var objeto = $.grep(data, function(obj,i) {
+					if (obj.filterDefault){
+						count = i;
+						return obj;
+					}
+				});
+				if(objeto !== undefined){
+					var link = $('#'+settings.id+'_multifilter_combo_menu a:eq('+count+')');
+					link.css('font-weight', 'bold');
+				}
+				
+			});
 
 
 
@@ -24237,9 +24279,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// checkeo el check "Filtro
 			// por defecto"
 			if (objFiltro.length != 0) {
-				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].value);
+				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
-				var valorFiltro = $.parseJSON(objFiltro[0].data);
+				var valorFiltro = $.parseJSON(objFiltro[0].value);
 
 				var xhrArray = [];
 

@@ -421,7 +421,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 }
 
 .rup_multifilter_dropdown input[type=checkbox]{
-	margin-right:0.3em;
+	width: auto;
 }
 
 
@@ -435,3 +435,49 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 	padding-left: 0.5em;
 	width:23em;
 }
+
+.separador {
+	padding-top: .5rem;
+}
+
+@media ( max-width : 575px) {
+    .rup_tableEdit_buttonsContainerResposive {
+		float: none !important;
+    }
+    
+    .rup_tableEdit_buttonsResposive {
+		width: 100%;
+    }
+}
+
+/* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */
+.btn-outline-primary {
+ color:#007bff !important;
+ background-color:transparent !important;
+ background-image:none !important;
+ border-color:#007bff !important;
+}
+.btn-outline-primary:hover {
+ color:#fff !important;
+ background-color:#007bff !important;
+ border-color:#007bff !important;
+}
+.btn-outline-primary.focus,.btn-outline-primary:focus {
+ box-shadow:0 0 0 .2rem rgba(0,123,255,.5) !important;
+}
+.btn-outline-primary.disabled,.btn-outline-primary:disabled {
+ color:#007bff !important;
+ background-color:transparent !important;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active,.btn-outline-primary:not(:disabled):not(.disabled):active,.show>.btn-outline-primary.dropdown-toggle {
+ color:#fff !important;
+ background-color:#007bff !important;
+ border-color:#007bff !important;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,.btn-outline-primary:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-primary.dropdown-toggle:focus {
+ box-shadow:0 0 0 .2rem rgba(0,123,255,.5) !important;
+}
+.fix-editForm-buttons-align {
+ margin-bottom: 6.6px !important;
+}
+/* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */

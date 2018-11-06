@@ -13,6 +13,7 @@ var express = require('express'),
 	//Routes
 	routesTabs = require('./demo/routes/tabs'),
 	routesAutocomplete = require('./demo/routes/autocomplete'),
+	routesTree = require('./demo/routes/tree'),
 	routesCombo = require('./demo/routes/combo'),
 	routesNora = require('./demo/routes/nora'),
 	routesTable = require('./demo/routes/table'),
@@ -62,6 +63,9 @@ module.exports = (PORT) => {
 	app.get('/demo/tab3Fragment', routesTabs.tabsContent3);
 	//Autocomplete
 	app.get('/demo/autocomplete/remote', routesAutocomplete.remote);
+	//Tree
+	app.get('/demo/tree/remote/json', routesTree.json);
+	app.get('/demo/tree/remote/xml', routesTree.xml);
 	// Combo
 	app.get('/demo/comboSimple/remote', routesCombo.comboSimple.remote);
 	app.get('/demo/comboSimple/remoteDos', routesCombo.comboSimple.remoteDos);

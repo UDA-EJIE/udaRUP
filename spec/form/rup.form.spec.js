@@ -1,12 +1,12 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
 import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.combo';
 import 'rup.feedback';
 import 'rup.form';
 
-const webRoot = 'http://localhost:8081/';
 const formHtml = '<div id="feedbackMensajes"></div>\
                 <div id="tabsFormulario"></div>\
                 <div id="divformHttpSubmit">\
@@ -18,7 +18,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         <option value="opt2">Opcion 2</input>\
                     </select>\
                 </form>\
-                <form id="formHttpSubmit" action="http://localhost:8081/demo/nora" >\
+                <form id="formHttpSubmit" action="' + testutils.DEMO + '/nora" >\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos personales</legend>\
                     <div class="two-col" >\
@@ -84,12 +84,12 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                         </div>\
                         </div>\
                     </div>\
-                </fieldset>\
+				</fieldset>\
                 <fieldset class="alumnoFieldset">\
                     <legend>Datos domicilio</legend>\
                     <div class="two-col">\
                         <div class="col1">\
-                        <label for="nombre" class="label">País</label>\
+                        <label for="pais" class="label">País</label>\
                         <select path="pais.id" class="formulario_linea_input" id="pais" >\
                             </select>\
                         </div>\
@@ -136,43 +136,6 @@ function configurar() {
 			}
 		],
 		i18nId: 'sexo'
-	});
-	$('#pais').rup_combo({
-		source: webRoot + 'demo/nora/pais',
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		blank: '0'
-	});
-	$('#autonomia').rup_combo({
-		source: webRoot + 'demo/nora/autonomia',
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		width: 400,
-		blank: ''
-	});
-	$('#provincia').rup_combo({
-		parent: ['autonomia'],
-		source: webRoot + 'demo/nora/provincia',
-		firstLoad: [{
-			'value': '01',
-			'label': 'Alava/Araba'
-		}, {
-			'value': '20',
-			'label': 'Gipuzkoa'
-		}, {
-			'value': '48',
-			'label': 'Bizkaia'
-		}],
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		width: 300,
-		blank: ''
 	});
 	let sourceJson = [{
 			i18nCaption: 'ab',
@@ -237,14 +200,18 @@ function configurar() {
  */
 describe('Test Form', () => {
 	var $form, $formAlt;
-	//jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+
+	beforeAll((done) => {
+		testutils.loadCss(done);
+	});
+
 	beforeEach(() => {
 		var html = formHtml;
-		$('body').append(html);
+		$('#content').append(html);
 		configurar();
 		var opts = {};
 		var optsAlt = {
-			url: 'http://localhost:8081/demo/nora',
+			url: testutils.DEMO + '/nora',
 			type: 'POST',
 			feedback: $('#feedbackMensajes'),
 			success: function (xhr) {
@@ -265,7 +232,8 @@ describe('Test Form', () => {
 		//console.info($('body').html());
 	});
 	afterEach(() => {
-		$('body').html('');
+		$('#content').html('');
+		$('#content').nextAll().remove();
 	});
 	describe('Creación > ', () => {
 		describe('Form por defecto > ', () => {
@@ -285,19 +253,18 @@ describe('Test Form', () => {
 			$('input[type="submit"]').trigger('click');
 		});
 		it('Debe mostrarse el feedback con el contenido:', () => {
-			expect($('#feedbackMensajes_content').text())
-				.toBe('Se han producido los siguientes errores:nombre:Campo obligatorio.');
+			expect($('#feedbackMensajes_content').text().toUpperCase())
+				.toBe('SE HAN PRODUCIDO LOS SIGUIENTES ERRORES:NOMBRE:CAMPO OBLIGATORIO.');
 		});
 	});
 	describe('Métodos públicos >', () => {
-		// TODO: Evaluar el usar spy en lugar de jasmine-ajax
 		describe('Métodos de envío de formulario >', () => {
 			describe('Método ajaxSubmit >', () => {
 				var res;
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxSubmit', {
-						url: 'http://localhost:8081/demo/nora',
+						url: testutils.DEMO + '/nora',
 						type: 'POST',
 						success: (data) => {},
 						error: (data) => {},
@@ -318,7 +285,7 @@ describe('Test Form', () => {
 				beforeEach((done) => {
 					res = undefined;
 					$formAlt.rup_form('ajaxFormSubmit', {
-						url: 'http://localhost:8081/demo/nora',
+						url: testutils.DEMO + '/nora',
 						type: 'POST',
 						success: (data) => {},
 						error: (data) => {},
@@ -419,9 +386,9 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$formAlt.rup_form('clearForm');
 				});
 				it('Debe haber limpiado todos los campos:', () => {
@@ -445,9 +412,9 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$formAlt.rup_form('resetForm');
 				});
 				it('Debe quedar en su estado original > ', () => {
@@ -470,14 +437,14 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					$('#nombre').val('Peppa');
-					$('#apellido1').val('Pig');
-					$('#apellido2').val('Dinosaurio');
+					$('#nombre').val('NOMBRE');
+					$('#apellido1').val('APELLIDO1');
+					$('#apellido2').val('APELLIDO2');
 					$('input#apellido2', $formAlt).rup_form('clearFields');
 				});
 				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
-					expect($('#nombre').val()).toBe('Peppa');
-					expect($('#apellido1').val()).toBe('Pig');
+					expect($('#nombre').val()).toBe('NOMBRE');
+					expect($('#apellido1').val()).toBe('APELLIDO1');
 					expect($('#apellido2').val()).toBe('');
 				});
 			});

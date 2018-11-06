@@ -2,7 +2,7 @@
   * Módulo que permite toda la seleción simple
   *
   * @summary 		Extensión del componente RUP Datatable
-  * @module			"dataTables.select"
+  * @module			"rup.table.select"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -67,18 +67,19 @@ DataTable.select.version = '1.2.4';
 */
 DataTable.select.init = function ( dt ) {
 	var ctx = dt.settings()[0];
-	
+	ctx.select = [];
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
+		$(this).triggerHandler('tableSelectBeforeSelectRow');
 		var idRow = this._DT_RowIndex;
 		 _selectRowIndex(dt,idRow,$(this));
-
+		 $(this).triggerHandler('tableSelectAfterSelectRow');
 	} );
 	
 	//Se genera el div para el feedback del datatable.
 	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
-	DataTable.multiselection.internalFeedback = divFeedback;
+	ctx.multiselection.internalFeedback = divFeedback;
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -99,12 +100,10 @@ DataTable.select.init = function ( dt ) {
  *
  * 
  */
-function _drawSelectId(){
-	var DataTable = $.fn.dataTable;
-	var ctx = DataTable.settings[0];
+function _drawSelectId(ctx){
 	
-	if(DataTable.multiselection.selectedRowsPerPage.length === 1){
-		var row = DataTable.multiselection.selectedRowsPerPage[0];
+	if(ctx.multiselection.selectedRowsPerPage.length === 1){
+		var row = ctx.multiselection.selectedRowsPerPage[0];
 		var rowSelectAux = ctx.json.rows[row.line];
 
 		if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
@@ -130,28 +129,29 @@ function _drawSelectId(){
  */
 function _selectRowIndex(dt,index,tr){
 	var ctx = dt.settings()[0];
-	DataTable.multiselection.selectedRowsPerPage = [];
+	ctx.multiselection.selectedRowsPerPage = [];
 	ctx.oInit.select.funcionParams = '';
 	var rowsBody = $( ctx.nTBody);
 	if(tr.hasClass( "tr-highlight" )){
 		tr.removeClass('selected tr-highlight');
-		DataTable.multiselection.numSelected = 0;
-		DataTable.multiselection.selectedIds = [];
-		DataTable.multiselection.lastSelectedId = '';
+		ctx.multiselection.numSelected = 0;
+		ctx.multiselection.selectedIds = [];
+		ctx.multiselection.lastSelectedId = '';
 	}else{
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
+		tr.triggerHandler('tableHighlightRowAsSelected');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){
 			var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
-			DataTable.multiselection.selectedRowsPerPage.splice(0,0,arra);
-			DataTable.multiselection.numSelected = 1;
-			DataTable.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
-			DataTable.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+			ctx.multiselection.selectedRowsPerPage.splice(0,0,arra);
+			ctx.multiselection.numSelected = 1;
+			ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
+			ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 		}
 	}
 	if(ctx.oInit.buttons !== undefined){
-		DataTable.Api().buttons.displayRegex();
+		DataTable.Api().buttons.displayRegex(ctx);
 	}
 }
 
@@ -178,15 +178,15 @@ apiRegister( 'select()', function () {
 } );
 
 
-apiRegister( 'select.drawSelectId()', function ( ) {
-	_drawSelectId();
+apiRegister( 'select.drawSelectId()', function (ctx ) {
+	_drawSelectId(ctx);
 } );
 
 apiRegister( 'select.deselect()', function (ctx ) {
 	var rowsBody = $( ctx.nTBody);
 	$('tr',rowsBody).removeClass('selected tr-highlight');
-	DataTable.multiselection.numSelected = 0;
-	DataTable.multiselection.selectedIds = [];
+	ctx.multiselection.numSelected = 0;
+	ctx.multiselection.selectedIds = [];
 } );
 
 apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {

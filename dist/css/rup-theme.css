@@ -26,15 +26,15 @@
 .ui-widget textarea,
 .ui-widget button,
 .ui-widget .ui-button.rup-button,
-.ui-widget .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group
-.ui-widget .rup-dropdown-button,
+.ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
+.rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
 .ui-widget a.rup-toolbar_menuButton.ui-button,
-.ui-widget .rup-wizard a.rup-wizard_next, .rup-wizard
-.ui-widget a.rup-wizard_next,
-.ui-widget .rup-wizard a.rup-wizard_prev, .rup-wizard
-.ui-widget a.rup-wizard_prev,
-.ui-widget .rup-wizard .rup-wizard_submitButton, .rup-wizard
-.ui-widget .rup-wizard_submitButton {
+.ui-widget .rup-wizard a.rup-wizard_next,
+.rup-wizard .ui-widget a.rup-wizard_next,
+.ui-widget .rup-wizard a.rup-wizard_prev,
+.rup-wizard .ui-widget a.rup-wizard_prev,
+.ui-widget .rup-wizard .rup-wizard_submitButton,
+.rup-wizard .ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em; }
 
@@ -1501,7 +1501,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
 
-select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-control.ui-multiselect, .form-control.ui-selectmenu-dropdown, select.form-control-sm, .form-control-sm.ui-multiselect, .form-control-sm.ui-selectmenu-dropdown {
+select, select.form-control, select.form-control-sm {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -2536,7 +2536,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
           -moz-border-radius: 0;
           border-radius: 0; }
           .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-            background-color: #e6e6e6; }
+            background-color: #e6e5e5; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -2656,11 +2656,37 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 div.right_buttons .rup-dropdown-btn-group {
   float: right; }
 
+div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px; }
+
+.fix-align > div, .fix-align > span {
+  display: block; }
+
+.fix-align > input[type='checkbox'] {
+  width: auto; }
+
 .rup-table-filter .collapse_icon {
   margin-top: 0; }
 
 .rup-table-filter .collapse_icon_right {
   margin-top: 0; }
+
+.rup-filter-dropdown {
+  background-color: #17a2b8 !important;
+  color: #fff !important;
+  border-color: #17a2b8 !important;
+  border-radius: 4px !important; }
+
+.rup-filter-dropdown + button, .rup-filter-dropdown + .ui-button.rup-button, .rup-dropdown-btn-group .rup-filter-dropdown + .rup-dropdown-button, .rup-filter-dropdown + a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-filter-dropdown + a.rup-wizard_next, .rup-wizard .rup-filter-dropdown + a.rup-wizard_prev, .rup-wizard .rup-filter-dropdown + .rup-wizard_submitButton {
+  margin-left: -2px;
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+  border-radius: 0 4px 4px 0; }
+
+.form-radio-custom {
+  width: 100%;
+  padding: 0 .75rem; }
 
 .ui-jqgrid {
   border-radius: 0; }
@@ -2711,6 +2737,12 @@ div.right_buttons .rup-dropdown-btn-group {
 .rup-dialog .rup-table-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
+
+table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px; }
+
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important; }
 
 .rup-tabs_container.ui-tabs {
   padding: 0;
@@ -3085,11 +3117,37 @@ div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-drop
 div.right_buttons .rup-dropdown-btn-group {
   float: right; }
 
+div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
+  margin-left: 5px; }
+
+.fix-align > div, .fix-align > span {
+  display: block; }
+
+.fix-align > input[type='checkbox'] {
+  width: auto; }
+
 .rup-table-filter .collapse_icon {
   margin-top: 0; }
 
 .rup-table-filter .collapse_icon_right {
   margin-top: 0; }
+
+.rup-filter-dropdown {
+  background-color: #17a2b8 !important;
+  color: #fff !important;
+  border-color: #17a2b8 !important;
+  border-radius: 4px !important; }
+
+.rup-filter-dropdown + button, .rup-filter-dropdown + .ui-button.rup-button, .rup-dropdown-btn-group .rup-filter-dropdown + .rup-dropdown-button, .rup-filter-dropdown + a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-filter-dropdown + a.rup-wizard_next, .rup-wizard .rup-filter-dropdown + a.rup-wizard_prev, .rup-wizard .rup-filter-dropdown + .rup-wizard_submitButton {
+  margin-left: -2px;
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+  border-radius: 0 4px 4px 0; }
+
+.form-radio-custom {
+  width: 100%;
+  padding: 0 .75rem; }
 
 .ui-jqgrid {
   border-radius: 0; }
@@ -3140,6 +3198,12 @@ div.right_buttons .rup-dropdown-btn-group {
 .rup-dialog .rup-table-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
+
+table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px; }
+
+table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important; }
 
 able.dataTable {
   width: 100%;
@@ -4000,6 +4064,10 @@ div.dt-button-background {
   .align-right {
     float: none !important; } }
 
+@media screen and (max-width: 575px) {
+  div.dt-buttons > button, div.dt-buttons > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-buttons > .rup-dropdown-button, div.dt-buttons > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-buttons > a.rup-wizard_next, .rup-wizard div.dt-buttons > a.rup-wizard_prev, .rup-wizard div.dt-buttons > .rup-wizard_submitButton {
+    margin: 3px; } }
+
 button.dt-button.processing, .dt-button.processing.ui-button.rup-button, .rup-dropdown-btn-group .dt-button.processing.rup-dropdown-button, a.dt-button.processing.rup-toolbar_menuButton.ui-button, .rup-wizard a.dt-button.processing.rup-wizard_next, .rup-wizard a.dt-button.processing.rup-wizard_prev, .rup-wizard .dt-button.processing.rup-wizard_submitButton, div.dt-button.processing, a.dt-button.processing {
   color: rgba(0, 0, 0, 0.2); }
 
@@ -4058,29 +4126,29 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
     padding-left: 15px; } }
 
 @media (min-width: 768px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md,
-  .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1,
-  .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10,
-  .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11,
-  .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 992px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
-  .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
-  .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
-  .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9,
-  .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 1200px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7,
-  .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
-  .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7,
-  .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7,
-  .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 

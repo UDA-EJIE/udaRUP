@@ -93,13 +93,13 @@
 			settings.formEdit.navigationBarId = settings.formEdit.navigationBarId !== undefined ? settings.formEdit.navigationBarId : settings.id + '_detail_navigation';
 			settings.formEdit.saveButtonId = settings.formEdit.saveButtonId !== undefined ? settings.formEdit.saveButtonId : settings.id + '_detail_button_save';
 			settings.formEdit.saveRepeatButtonId = settings.formEdit.saveRepeatButtonId !== undefined ? settings.formEdit.saveRepeatButtonId : settings.id + '_detail_button_save_repeat';
-			settings.formEdit.cancelLinkId = settings.formEdit.cancelLinkId !== undefined ? settings.formEdit.cancelLinkId : settings.id + '_detail_link_cancel';
+			settings.formEdit.cancelButtonId = settings.formEdit.cancelButtonId !== undefined ? settings.formEdit.cancelButtonId : settings.id + '_detail_button_cancel';
 			settings.formEdit.feedbackId = settings.formEdit.feedbackId !== undefined ? settings.formEdit.feedbackId : settings.id + '_detail_feedback';
 
 			settings.formEdit.$navigationBar = jQuery('#' + settings.formEdit.navigationBarId);
 			settings.formEdit.$saveButton = jQuery('#' + settings.formEdit.saveButtonId);
 			settings.formEdit.$saveRepeatButton = jQuery('#' + settings.formEdit.saveRepeatButtonId);
-			settings.formEdit.$cancelLink = jQuery('#' + settings.formEdit.cancelLinkId);
+			settings.formEdit.$cancelButton = jQuery('#' + settings.formEdit.cancelButtonId);
 			settings.formEdit.$feedback = jQuery('#' + settings.formEdit.feedbackId);
 
 
@@ -565,10 +565,10 @@
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
 					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
-						$title.html(rp_ge[$self[0].p.id].addCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
 					} else {
-						$title.html(rp_ge[$self[0].p.id].editCaption);
+						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].editCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).show();
 					}
 				},
@@ -828,12 +828,16 @@
 			var $self = this,
 				settings = $self.data('settings');
 			// Ocultamos el feedback de error
-			settings.formEdit.$feedback.hide();
-			jQuery('.rup-maint_validateIcon', $form).remove();
-			jQuery('input.error', $form).removeClass('error');
-
-			if ($form.data('validator')){
-				$form.rup_validate('resetElements');
+			if(settings.formEdit !== undefined && settings.formEdit.$feedback !== undefined){
+				settings.formEdit.$feedback.hide();
+			}
+			if($form !== undefined){
+				jQuery('.rup-maint_validateIcon', $form).remove();
+				jQuery('input.error', $form).removeClass('error');
+	
+				if ($form.data('validator')){
+					$form.rup_validate('resetElements');
+				}
 			}
 
 		}
@@ -2014,8 +2018,8 @@
 								jQuery.proxy(fncSaveAndRepeatButton, $self)();
 							});
 						}
-						if (settings.formEdit.$cancelLink.length > 0) {
-							settings.formEdit.$cancelLink.on('click', function () {
+						if (settings.formEdit.$cancelButton.length > 0) {
+							settings.formEdit.$cancelButton.on('click', function () {
 								jQuery.proxy(fncCancelLink, $self)();
 							});
 						}
@@ -2270,7 +2274,7 @@
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'),
-		cancelicon: [true, 'left', 'icono_cancelar'],
+		cancelicon: [false, 'left', 'icono_cancelar'],
 		delicon: [false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deleteAll') + '</div>',

@@ -294,12 +294,6 @@
 					jQuery(this).removeClass('ui-state-focus');
 				}
 			});
-
-			if (p.linkStyleButtons !== undefined) {
-				for (var i = 0; i < p.linkStyleButtons.length; i++) {
-					jQuery(p.linkStyleButtons[0]).addClass('botonEnlace');
-				}
-			}
 		},
 		hideModal: function (selector, o) {
 			jQuery(selector).rup_dialog('close');
@@ -1205,10 +1199,14 @@
 				});
 
 
-				/* *********************************************************
-         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE
+		/* *********************************************************
+         * SE PROCESA LAS CONFIGURACION POR DEFECTO DEL CORE y VALIDACIÓN DEL LOS DIALOGOS
          * *********************************************************
          */
+				
+				if($("[aria-describedby="+$self.attr('id')+"_detail_div]").length > 0){
+					$("[aria-describedby="+$self.attr('id')+"_detail_div]").remove();
+				}
 
 				settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins.core.defaults);
 

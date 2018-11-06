@@ -51,11 +51,12 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 
 ###	4.1 Ficheros
-Ruta JavaScript: rup/scripts/
-Fichero de plugin: **rup.breadCrumb-x.y.z.js**
-Ruta fichero de recursos: rup/resources/rup.i18n_idioma.json
-Ruta theme: rup/css/
-Fichero CSS del theme: **theme.rup.breadCrumb-x.y.z.css**
++	Ruta JavaScript: **rup/scripts/**
++	Fichero de plugin: **rup.breadCrumb-x.y.z.js**
++	Layout migas: **x21aStatics/WebContent/3x/x21a/scripts/x21aApp/_layoutLoader.js**
++	Ruta fichero de recursos: **rup/resources/rup.i18n_idioma.json**
++	Ruta theme: **rup/css/**
++	Fichero CSS del theme: **theme.rup.breadCrumb-x.y.z.css**
 
 ###	4.2	Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería JavaScript ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.

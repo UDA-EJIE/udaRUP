@@ -3,10 +3,10 @@
     
     
     
-    <property name="udaVersion" value="3.5.0"/>
-    <property name="previousUdaVersion" value="3.4.0"/>
-    <property name="udaLibVersion" value="3.5.0"/>
-    <property name="previousUdaLibVersion" value="3.4.0"/>
+    <property name="udaVersion" value="3.6.0"/>
+    <property name="previousUdaVersion" value="3.5.0"/>
+    <property name="udaLibVersion" value="3.6.0"/>
+    <property name="previousUdaLibVersion" value="3.5.0"/>
     <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
     <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
     
@@ -28,8 +28,8 @@
     <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}/templates"/>
     <property name="udaTemplatesDestDir" value="${destDir}/udaTemplates/${udaVersion}"/>
     <property name="udaTemplatesFolder" value="templates"/>
-    <property name="udaTemplatesRupFolder" value="templates/statics/rup"/>
-    <property name="udaTemplatesAppFolder" value="templates/statics/xxx"/>
+    <property name="udaTemplatesRupFolder" value="templates/statics/3x/rup"/>
+    <property name="udaTemplatesAppFolder" value="templates/statics/3x/xxx"/>
     <property name="udaTemplatesZip" value="${udaTemplatesDestDir}/templates-v${udaVersion}.zip"/>
     
     <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>
@@ -277,7 +277,7 @@
         - Genera los ditribuibles en la carpeta dist
     -->
     <target name="buildUdaDemoAppVersion" 
-            description="Actualiza los recursos de la udaDemoApp con los fuentes de udaRup y con la versión correspondiente" 
+            description="Actualiza los recursos de udaDemoApp con los fuentes de udaRup y con la versión correspondiente" 
             depends="udaRupToUdaDemoApp, udaDemoAppRenameVersion" >
         
     </target>

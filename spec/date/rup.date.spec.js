@@ -1,40 +1,11 @@
-/* jslint esnext: true, multistr: true */
+/* jslint multistr: true */
 
-import '../../dist/css/rup-base.css';
-import '../../dist/css/rup-theme.css';
 import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.date';
 
-const webRoot = "http://localhost:8081";
-
 var unavailableDay = 0;
-
-function testTrace(title, toTrace) {
-    console.info("\n\n*****************************************************\n\n" +
-        title +
-        "\n--------------------------------\n\n" +
-        toTrace +
-        "\n\n*****************************************************\n\n");
-}
-
-function loadCss() {
-    let css = '';
-    $('head').append('<style></style>');
-    var thenable = $.when($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-        .then((data, textStatus, jqXHR) => {
-            css += data;
-        })
-        .then($.ajax('http://localhost:8081/dist/css/rup-base.css'))
-        .then((data, textStatus, jqXHR) => {
-            css += data;
-        })
-        .then(() => {
-            $('head > style').append(css);
-        });
-    return thenable;
-}
-
 
 //Funcion de complementaria para el test del método refresh
 function disableDays(date) {
@@ -42,23 +13,28 @@ function disableDays(date) {
     return [(day != unavailableDay), ""];
 }
 
-$.when(loadCss())
-    .done(onLoadCSS());
-
-function onLoadCSS() {
-    $.when(testDate('es'))
-        .then(() => {
-            testDate('eu');
-        });
-}
+$.when(testDate('es'))
+    .then(() => {
+        testDate('eu');
+    });
 
 function langStr(lang) {
     return '[' + lang + '] ';
 }
 
 function testDate(lang) {
+    var defer = new $.Deferred();
     describe('Test Date > ', () => {
         var $date, $altDate, $multiDate;
+
+        beforeAll((done) => {
+            testutils.loadCss(done);
+        });
+
+        afterAll(() => {
+            defer.resolve();
+        });
+
         beforeEach(() => {
             var html = '<input id="exampleDate"></input>\
                         <input id="altDate"></input>\
