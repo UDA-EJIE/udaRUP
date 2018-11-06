@@ -236,7 +236,7 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.
 
   return "<div id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "-mbutton-group\" class=\"rup-mbutton "
+    + "-mbutton-group\" class=\"rup-mbutton randomClass "
     + alias4(((helper = (helper = helpers.groupClasses || (depth0 != null ? depth0.groupClasses : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data}) : helper)))
     + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
