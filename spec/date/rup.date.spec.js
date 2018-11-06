@@ -159,18 +159,18 @@ function testDate(lang) {
                 describe('Date alternativo > ', () => {
                     beforeEach(() => {
                         if (lang === 'es') {
-                            $altDate.rup_date('setRupValue', '08/08/2018 00:00:00');
+                            $altDate.rup_date('setRupValue', '08/08/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            $('#altDate').rup_date('setRupValue', '2018/08/08 00:00:00');
+                            $('#altDate').rup_date('setRupValue', '2018/08/08 00:00');
                         }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
                         if (lang === 'es') {
-                            expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00:00');
+                            expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/08/08 00:00:00');
+                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/08/08 00:00');
                         }
                     });
                 });

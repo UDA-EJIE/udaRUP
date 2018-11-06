@@ -266,9 +266,13 @@
      * $("#idCombo").rup_date("option", {datetimepicker:true, multiselect:3});
      */
 		option: function (optionName, value) {
-			$(this).datepicker('option', optionName, value);
+			if (value !== undefined) {
+				$(this).datepicker('option', optionName, value);
+			}
+			else {
+				return $(this).datepicker('option', optionName);
+			}
 		}
-		//No soportadas: widget, dialog
 	});
 
 	//*******************************
@@ -455,6 +459,11 @@
 				//Deshabilitar
 				if (settings.disabled) {
 					$('#' + settings.id).rup_date('disable');
+				}
+
+				//Callback create
+				if(settings.create) {
+					settings.create();
 				}
 			}
 		}
