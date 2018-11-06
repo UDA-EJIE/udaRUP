@@ -536,6 +536,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 							return;
 						}
 					});
+					if(ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search)
+							&& ctx.seeker.search.funcionParams.length > 0){
+						_comprobarSeeker(row,ctx,idRow);
+					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
 				}else{
@@ -1161,6 +1165,26 @@ function _editFormSerialize(idForm){
 	});
 	
 	return serializedForm;
+}
+
+function _comprobarSeeker(row,ctx,idRow){
+	var cumple = true;
+	$.each( ctx.seeker.ajaxOption.data.search, function( key, obj ) {
+		if(row[key].indexOf(obj)  === -1){
+			cumple = false;
+			return false;
+		}
+	});
+	if(!cumple){// eliminar del seeker, por pagina y linea		
+		ctx.seeker.search.funcionParams = jQuery.grep(ctx.seeker.search.funcionParams, function(search) {
+			  return (search.page !== Number(ctx.json.page) || search.pageLine !== idRow+1);
+			});
+		// se borra el icono
+		
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox span.ui-icon-search').remove();
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td span.ui-icon-search').remove();
+		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
+	}
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API

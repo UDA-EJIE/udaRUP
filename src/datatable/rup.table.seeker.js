@@ -571,6 +571,10 @@ apiRegister('seeker.limpiarSeeker()', function ( dt,ctx) {
 	_limpiarSeeker(dt,ctx);
 });
 
+apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,totalRowNum,ctx) {
+	_updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
+});
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization
  */
