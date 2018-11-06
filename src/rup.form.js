@@ -17,7 +17,7 @@
 /**
  * @fileOverview Implementa el patrón RUP Form.
  * @author EJIE
- * @version 2.4.12
+ * @version 2.4.13
  */
 (function ($) {
 

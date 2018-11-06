@@ -58,6 +58,7 @@
     "rup.dav.js",
     "rup.dialog.js",
     "rup.button.js",
+    "rup.chart.js",
     "rup.feedback.js",
     "rup.form.js",
     "rup.grid.js",
