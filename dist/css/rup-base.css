@@ -5430,7 +5430,7 @@ table.ui-jqgrid-htable > thead > tr.search_row {
 table.ui-jqgrid-htable > thead > tr.search_row > th > div {
   height: initial !important; }
 
-able.dataTable {
+table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -5861,7 +5861,7 @@ table.dataTable tbody > tr:hover {
   line-height: 3.5em; }
 
 .tableFit {
-  width: calc(100% - 1px);
+  width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0; }
 

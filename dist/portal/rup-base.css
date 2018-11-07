@@ -7430,7 +7430,7 @@
   height: initial !important;
 }
 
-.r01gContainer able.dataTable {
+.r01gContainer table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -8079,7 +8079,7 @@
 }
 
 .r01gContainer .tableFit {
-  width: calc(100% - 1px);
+  width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0;
 }
