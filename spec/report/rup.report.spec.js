@@ -77,7 +77,6 @@ describe('Test Report > ', () => {
     describe('Funcionalidad > ', () => {
         describe('Abre ventana emergente > ', () => {
             beforeEach(() => {
-                debugger;
                 $report.click();
             });
             it('Debe abrir una ventana emergente:', () => {

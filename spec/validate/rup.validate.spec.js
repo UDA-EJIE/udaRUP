@@ -127,10 +127,8 @@ describe('Test Validate >  ', () => {
                 //     done();
                 // });
                 $('#campoUnoEvent').val('foo');
-                debugger;
                 $validateEvent.submit();
                 setTimeout(() => {
-                    debugger;
                     done();
                 },500);
             });

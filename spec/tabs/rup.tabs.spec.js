@@ -50,11 +50,12 @@ describe('Test Tabs > ', () => {
         });
     });
     describe('Callback load > ', () => {
-        beforeEach(() => {
+        beforeEach((done) => {
             let html = '<div id="mockTab"></div>';
             $('#content').append(html);
             $('#mockTab').on('load', () => {
                 $('#mockTab').addClass('foo-class');
+                done();
             });
             $('#mockTab').rup_tabs({
                 tabs: [{
@@ -64,10 +65,7 @@ describe('Test Tabs > ', () => {
             });
         });
         it('Debe ejecutarse el load: ', () => {
-            $.when(setTimeout(() => {}, jasmine.DEFAULT_TIMEOUT_INTERVAL - 4000))
-                .then(() => {
-                    expect($('#mockTab').hasClass('foo-class')).toBe(true);
-                });
+            expect($('#mockTab').hasClass('foo-class')).toBe(true);
         });
     });
     describe('Métodos Públicos > ', () => {
@@ -107,9 +105,6 @@ describe('Test Tabs > ', () => {
             beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
-                $('#mockTab').on('load', () => {
-                    done();
-                });
                 $('#mockTab').rup_tabs({
                     tabs: [{
                         i18nCaption: 'Tab1',
@@ -122,15 +117,25 @@ describe('Test Tabs > ', () => {
                     position: 1,
                     url: testutils.DEMO + '/fragmento3'
                 });
+                $('#mockTab > ul > li > a:contains(Tab3)').click();
                 $('#mockTab').rup_tabs('selectTab', {
                     idTab: 'mockTab',
                     position: 0
                 });
-                $('#mockTab').rup_tabs('loadTab', {
-                    idTab: 'mockTab',
-                    position: 0,
-                    url: testutils.DEMO + '/tab3Fragment'
-                });
+                setTimeout(() => {
+                    $('#mockTab').rup_tabs('loadTab', {
+                        idTab: 'mockTab',
+                        position: 1,
+                        url: testutils.DEMO + '/tab3Fragment'
+                    });
+                    debugger;
+                    $('#mockTab > ul > li > a:contains(Tab3)').click();
+                    debugger;
+                    setTimeout(() => {
+                        debugger;
+                        done();
+                    },400);
+                },400);
             });
             it('Debe añadir contenido a la tab:', () => {
                 let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/tab3Fragment"]')
@@ -196,10 +201,9 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método addTab > ', () => {
-            beforeEach((done) => {
+            beforeEach(() => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
-                $('#mockTab').on('load', done);
                 $('#mockTab').rup_tabs({
                     tabs: [{
                         i18nCaption: 'Tab1',

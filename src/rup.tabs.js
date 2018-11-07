@@ -28,6 +28,8 @@
 /*global define */
 /*global jQuery */
 
+import 'rup.tooltip';
+
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 
@@ -162,7 +164,16 @@
          * });
          */
 		loadTab: function (args) {
-			$('#' + args.idTab).tabs('load', args.position);
+			if(!args.url){
+				$('#' + args.idTab).tabs('load', args.position);
+			}
+			else {
+				this._changeUrlTab({
+					idTab: args.idTab,
+					position: args.position,
+					url: $.rup_utils.setNoPortalParam(args.url)
+				});
+			}
 		},
 		/**
          *
@@ -182,6 +193,8 @@
 		changeUrlTab: function (args) {
 			//$("#" + args.idTab).tabs("url", args.position, $.rup_utils.setNoPortalParam(args.url));
 
+			// $("#" + args.idTab + ' > ul > li:eq('+ args.position +')').attr('href',$.rup_utils.setNoPortalParam(args.url));
+			// $("#" + args.idTab).tabs('load', args.position);
 			this._changeUrlTab({
 				idTab: args.idTab,
 				position: args.position,
@@ -383,7 +396,6 @@
 
 			//loadSpan.remove();
 
-
 		},
 		/**
          * Función encargada de eliminar una nueva pestaña cuando el componente ya está creado
@@ -467,6 +479,7 @@
 						});
 					}
 				}
+				$('#' + settings.id).triggerHandler('load');
 			}
 		},
 		//Funcion encargada de crear los distintos tab's
@@ -492,9 +505,9 @@
 					settings.select(event, ui);
 				}
 				//Nuevos cargar para la versión jquery 1.12, es la primera vez
-				if ($(ui.newPanel).data('cargado') !== undefined){
-					ui.newTab.children('a').attr('href',ui.newTab.children('a').attr('id'));
-				}
+				// if ($(ui.newPanel).data('cargado') !== undefined){
+				// 	ui.newTab.children('a').attr('href',ui.newTab.children('a').attr('id'));
+				// }
 				$(ui.newPanel).data('cargado', true);
 			};
 
@@ -1138,7 +1151,10 @@
              * Este método sustituye su utilidad
              * */
 		_changeUrlTab: function (args) {
-			var tab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + args.position + ')');
+			// if(args.idTab == 'mockTab') {
+			// 	debugger;
+			// }
+			var tab = $('#' + args.idTab).find('ul > li:eq(' + args.position + ') > a');
 			$(tab).attr('href', args.url);
 		}
 	}
