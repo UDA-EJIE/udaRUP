@@ -105,5 +105,9 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./node_modules/jasmine-jquery/lib/*jasmine*.js'])
 	.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
+	//Todo test
+	gulp.src(['./spec/**/*.spec.js'])
+	.pipe(gulp.dest('./dist/js/test'));
+	
 	callback();
 });
