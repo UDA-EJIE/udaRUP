@@ -118,36 +118,43 @@ describe('Test Tabs > ', () => {
                     url: testutils.DEMO + '/fragmento3'
                 });
                 $('#mockTab > ul > li > a:contains(Tab3)').click();
-                $('#mockTab').rup_tabs('selectTab', {
-                    idTab: 'mockTab',
-                    position: 0
+                var cont = 0;
+                $('#mockTab').on('afterTabDataLoad', () => {
+                    if(cont === 0) {
+                        $('#mockTab').rup_tabs('selectTab', {
+                            idTab: 'mockTab',
+                            position: 0
+                        });
+                        $('#mockTab').rup_tabs('changeUrlTab', {
+                            idTab: 'mockTab',
+                            position: 1,
+                            url: testutils.DEMO + '/tab3Fragment'
+                        });
+                        $('#mockTab > ul > li > a:contains(Tab3)').click();
+                    }
+                    cont === 1 ? done() : undefined;
                 });
-                setTimeout(() => {
-                    $('#mockTab').rup_tabs('loadTab', {
-                        idTab: 'mockTab',
-                        position: 1,
-                        url: testutils.DEMO + '/tab3Fragment'
-                    });
-                    debugger;
-                    $('#mockTab > ul > li > a:contains(Tab3)').click();
-                    debugger;
-                    setTimeout(() => {
-                        debugger;
-                        done();
-                    },400);
-                },400);
+                // setTimeout(() => {
+                //     $('#mockTab').rup_tabs('loadTab', {
+                //         idTab: 'mockTab',
+                //         position: 1,
+                //         url: testutils.DEMO + '/tab3Fragment'
+                //     });
+                //     $('#mockTab > ul > li > a:contains(Tab3)').click();
+                //     setTimeout(() => {
+                //         done();
+                //     },400);
+                // },400);
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/tab3Fragment"]')
-                    .parent().attr('aria-controls');
-                expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
+                let tabContent = $('[aria-labelledby = "'+$('#mockTab > ul > li > a:contains(Tab3)').attr('id')+'"]');
+                expect($('div.jvc0w1.clearfix', tabContent).length).toBe(1);
             });
         });
         describe('Método changeUrlTab > ', () => {
             beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
-                $('#mockTab').on('load', done);
                 $('#mockTab').rup_tabs({
                     tabs: [{
                         i18nCaption: 'Tab1',
@@ -160,20 +167,40 @@ describe('Test Tabs > ', () => {
                     position: 1,
                     url: testutils.DEMO + '/fragmento3'
                 });
-                $('#mockTab').rup_tabs('selectTab', {
-                    idTab: 'mockTab',
-                    position: 0
+                $('#mockTab > ul > li > a:contains(Tab3)').click();
+                
+                var cont = 0;
+                $('#mockTab').on('afterTabDataLoad', () => {
+                    if(cont === 0) {
+                        $('#mockTab').rup_tabs('selectTab', {
+                            idTab: 'mockTab',
+                            position: 0
+                        });
+                        $('#mockTab').rup_tabs('changeUrlTab', {
+                            idTab: 'mockTab',
+                            position: 1,
+                            url: testutils.DEMO + '/tab3Fragment'
+                        });
+                        $('#mockTab > ul > li > a:contains(Tab3)').click();
+                    }
+                    cont === 1 ? done() : undefined;
                 });
-                $('#mockTab').rup_tabs('changeUrlTab', {
-                    idTab: 'mockTab',
-                    position: 0,
-                    url: testutils.DEMO + '/tab3Fragment'
-                });
+                // setTimeout(() => {
+                //     $('#mockTab').rup_tabs('changeUrlTab', {
+                //         idTab: 'mockTab',
+                //         position: 1,
+                //         url: testutils.DEMO + '/tab3Fragment'
+                //     });
+                //     $('#mockTab > ul > li > a:contains(Tab3)').click();
+                //     setTimeout(() => {
+                //         done();
+                //     },400);
+                // },400);
+                
             });
             it('Debe añadir contenido a la tab:', () => {
-                let controlador = $('#mockTab > ul > li > a[href="' + testutils.DEMO + '/tab3Fragment"]')
-                    .parent().attr('aria-controls');
-                expect($('[id="' + controlador + '"].jvc0w1.clearfix').length).toBe(1);
+                let tabContent = $('[aria-labelledby = "'+$('#mockTab > ul > li > a:contains(Tab3)').attr('id')+'"]');
+                expect($('div.jvc0w1.clearfix', tabContent).length).toBe(1);
             });
         });
         describe('Método changeLayerTab > ', () => {
@@ -201,7 +228,7 @@ describe('Test Tabs > ', () => {
             });
         });
         describe('Método addTab > ', () => {
-            beforeEach(() => {
+            beforeEach((done) => {
                 let html = '<div id="mockTab"></div>';
                 $('#content').append(html);
                 $('#mockTab').rup_tabs({
@@ -210,16 +237,23 @@ describe('Test Tabs > ', () => {
                         layer: '#cont1'
                     }]
                 });
+                /**
+                 * Para implementar el evento en rup.tabs.js sería:
+                 * .trigger('afterTabDataLoad',[args.position]);
+                 */
+                $('#mockTab').on('afterTabDataLoad', (event, position) => {
+                    if(position === 1) {
+                        done();
+                    }
+                });
                 $('#mockTab').rup_tabs('addTab', {
                     idTab: 'mockTab',
                     label: 'Tab3',
                     position: 1,
                     url: testutils.DEMO + '/fragmento3'
                 });
-                $('#mockTab').rup_tabs('selectTab', {
-                    idTab: 'mockTab',
-                    position: 0
-                });
+                $('#mockTab > ul > li > a:contains(Tab3)').click();
+                
             });
             it('Debe crear la tab:', () => {
                 expect($('#mockTab > ul > li > a[href="' + testutils.DEMO + '/fragmento3"]').length).toBe(1);
