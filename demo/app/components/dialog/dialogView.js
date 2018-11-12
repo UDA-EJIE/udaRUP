@@ -26,6 +26,7 @@ define(['marionette',
 			templateJs: DialogJsCodeTemplate
 		}));
 		$view.Test.show(new DialogTestView());
+		window.$ = $;
 	}
 
 
