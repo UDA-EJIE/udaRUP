@@ -143,9 +143,6 @@ function testDialogType(type) {
 			});
 			describe('Método close e isOpen > ', () => {
 				beforeEach(() => {
-					if (type === $.rup.dialog.TEXT) {
-						debugger;
-					}
 					$dialogo.rup_dialog('open');
 					$dialogo.rup_dialog('close');
 				});
