@@ -298,7 +298,9 @@
 							$reportFileWait.rup_dialog('close');
 						},
 						failCallback: function (responseHtml, url) {
-							$reportFileWait.rup_dialog('close');
+							if($('#'+$reportFileWait.attr('id')).length > 0) {
+								$reportFileWait.rup_dialog('close');
+							}
 							var $reportFileError = $('#' + dialog.errorDiv);
 							$reportFileError.rup_dialog({
 								type: $.rup.dialog.TEXT,
