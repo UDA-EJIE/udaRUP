@@ -6,7 +6,55 @@ import 'handlebars';
 import 'jasmine-jquery';
 import 'rup.message';
 
-function executeSharedTests(createInstanceFn) {
+$.when(messageTester('Ok'))
+	.then(messageTester('Alert'))
+	.then(messageTester('Error'))
+	.then(messageTester('Confirm'));
+
+function messageTester(msgType) {
+	var def = $.Deferred();
+    describe('Test Message '+ msgType, () => {
+		beforeAll((done) => {
+			testutils.loadCss(done);
+		});
+		afterAll(() => {
+			def.resolve();
+		});
+		beforeEach(() => {
+			switch(msgType){
+				case 'Ok':
+					$.rup_messages('msgOK', {
+						title: 'Correcto',
+						message: 'Todo ha ido Ok'
+					});
+					break;
+				case 'Alert':
+					$.rup_messages('msgAlert', {
+						title: 'Aviso',
+						message: 'Advertencia'
+					});
+					break;
+				case 'Error':
+					$.rup_messages('msgError', {
+						title: 'Error',
+						message: 'Fallo'
+					});
+					break;
+				case 'Confirm':
+					$.rup_messages('msgConfirm', {
+						title: 'Confirmacion',
+						message: 'Confirma?'
+					});
+					break;
+			}
+		});
+		it('asd',() => {
+			debugger;
+			expect(1).toBe(1);
+		});		
+	});
+}
+/*function executeSharedTests(createInstanceFn) {
 
 
 	describe('Construcción de un RUP Message', function () {
@@ -47,7 +95,10 @@ function executeSharedTests(createInstanceFn) {
 			});
 
 			it('deberia de existir al menos el botón de Aceptar', function () {
-				expect($('.ui-dialog-buttonset button', $messageButtonpaneDiv)).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'));
+				debugger;
+				expect($('.ui-dialog-buttonset > button:contains('+
+					jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar')
+				+')', $messageButtonpaneDiv).length).toBe(1);
 			});
 		});
 
@@ -164,7 +215,10 @@ describe('RUP Messages Tests', function () {
 		});
 
 		it('debería de existir un enlace en la botonera que permita cancelar', function () {
-			expect($('.ui-dialog .ui-dialog-buttonset a.rup-enlaceCancelar')).toHaveText(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_global.cancel'));
+			debugger;
+			expect($('.ui-dialog > .ui-dialog-buttonset > button:contains('+
+				jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_global.cancel')
+			+')').length).toBe(1);
 		});
 
 		// FIXME
@@ -178,4 +232,4 @@ describe('RUP Messages Tests', function () {
 
 	});
 
-});
+}); */
