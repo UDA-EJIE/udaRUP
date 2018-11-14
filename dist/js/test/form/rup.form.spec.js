@@ -1,14 +1,5 @@
 /* jslint multistr: true */
 
-<<<<<<< HEAD
-=======
-import 'jquery';
-import * as testutils from '../common/specCommonUtils.js';
-import 'jasmine-jquery';
-import 'rup.combo';
-import 'rup.feedback';
-import 'rup.form';
->>>>>>> develop
 
 const formHtml = '<div id="feedbackMensajes"></div>\
                 <div id="tabsFormulario"></div>\

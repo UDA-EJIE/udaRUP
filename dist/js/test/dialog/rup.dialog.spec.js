@@ -1,12 +1,5 @@
 /* jslint multistr: true */
 
-<<<<<<< HEAD
-=======
-import * as testutils from '../common/specCommonUtils.js';
-import 'jquery';
-import 'jasmine-jquery';
-import 'rup.dialog';
->>>>>>> develop
 
 
 $.when(testDialogType($.rup.dialog.TEXT))

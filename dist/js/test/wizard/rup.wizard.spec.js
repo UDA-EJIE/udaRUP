@@ -1,13 +1,5 @@
      /* jslint multistr: true */
 
-<<<<<<< HEAD
-=======
-     import 'jquery';
-     import * as testutils from '../common/specCommonUtils';
-     import 'jasmine-jquery';
-     import 'rup.accordion';
-     import 'rup.wizard';
->>>>>>> develop
 
      describe('Test Wizard > ', () => {
          var $wizard;

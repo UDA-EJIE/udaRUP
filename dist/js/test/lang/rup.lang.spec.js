@@ -1,12 +1,5 @@
 /* jslint multistr: true */
 
-<<<<<<< HEAD
-=======
-import 'jquery';
-import * as testutils from '../common/specCommonUtils.js';
-import 'jasmine-jquery';
-import 'rup.lang';
->>>>>>> develop
 
 describe('Test Lang >', () => {
     var $lang;

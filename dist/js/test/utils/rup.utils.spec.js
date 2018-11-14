@@ -12,13 +12,6 @@
 //   }(function ($) {
 
 
-<<<<<<< HEAD
-=======
-import 'jquery';
-import 'handlebars';
-import 'jasmine-jquery';
-import 'rup.utils';
->>>>>>> develop
 
 describe('RUP Utils Tests', function(){
 
