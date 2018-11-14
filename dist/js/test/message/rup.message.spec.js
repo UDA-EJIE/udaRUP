@@ -1,5 +1,13 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'handlebars';
+import 'jasmine-jquery';
+import 'rup.message';
+>>>>>>> develop
 
 function executeSharedTests(createInstanceFn) {
 

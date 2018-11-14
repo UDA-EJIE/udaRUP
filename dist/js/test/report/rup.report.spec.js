@@ -1,5 +1,14 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.button';
+import 'rup.toolbar';
+import 'rup.report';
+>>>>>>> develop
 
 
 describe('Test Report > ', () => {

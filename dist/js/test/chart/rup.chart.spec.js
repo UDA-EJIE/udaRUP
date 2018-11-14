@@ -1,5 +1,12 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.chart';
+>>>>>>> develop
 
 describe('Test Chart', () => {
     var $chart;

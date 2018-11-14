@@ -1,5 +1,12 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils';
+import 'jasmine-jquery';
+import 'rup.validate';
+>>>>>>> develop
 
 var d = new $.Deferred();
 

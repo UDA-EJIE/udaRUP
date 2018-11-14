@@ -1,5 +1,12 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.accordion';
+>>>>>>> develop
 
 describe('Test Accordion > ', () => {
 	var $defAccordion, $altAccordion;

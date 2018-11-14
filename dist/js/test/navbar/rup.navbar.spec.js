@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.navbar';
+>>>>>>> develop
 
 const html = '<nav class="rup-navbar navbar">\
                 <button type="button" class="navbar-toggler hidden-lg-up navbar-toggle" \

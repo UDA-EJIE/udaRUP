@@ -1,5 +1,12 @@
 /* jslint multistr: true */
 
+<<<<<<< HEAD
+=======
+import 'jquery';
+import * as testutils from '../common/specCommonUtils.js';
+import 'jasmine-jquery';
+import 'rup.breadCrumb';
+>>>>>>> develop
 
 describe('Test BreadCrumb >', () => {
 	var $breadcrumb, $subLvlBC;
