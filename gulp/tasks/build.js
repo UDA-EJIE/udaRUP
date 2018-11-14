@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 const runSequence = require('run-sequence');
+var deleteLines = require('gulp-delete-lines');
 
 
 // gulp.task('build:all', ['build:css', 'build:js']);
@@ -107,7 +108,16 @@ gulp.task('build:resources', function (callback) {
 	
 	//Todo test
 	gulp.src(['./spec/**/*.spec.js'])
+	.pipe(deleteLines({
+      'filters': [
+      /import\s+/i
+      ]
+    }))
 	.pipe(gulp.dest('./dist/js/test'));
+	
+	//Se traspasa el specRunner
+	gulp.src(['./spec/specRunner.html'])
+	.pipe(gulp.dest('./dist/html'));
 	
 	callback();
 });
