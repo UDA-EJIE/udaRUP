@@ -12,46 +12,17 @@ function createAutocomplete() {
                 <input type="text" id="exampleAutocompleteDos">\
                 <input type="text" id="exampleAutocompleteTres">';
     $('#content').append(html);
-    let sourceJson = [{
-            i18nCaption: 'ab',
-            value: 'ab_value'
-        },
-        {
-            i18nCaption: 'tc',
-            value: 'tc_value'
-        },
-        {
-            i18nCaption: 'ud',
-            value: 'ud_value'
-        },
-        {
-            i18nCaption: 'le',
-            value: 'le_value'
-        },
-        {
-            i18nCaption: 'af',
-            value: 'af_value'
-        },
-        {
-            i18nCaption: 'mg',
-            value: 'mg_value'
-        },
-        {
-            i18nCaption: 'ah',
-            value: 'ah_value'
-        },
-        {
-            i18nCaption: 'ui',
-            value: 'ui_value'
-        },
-        {
-            i18nCaption: 'uj',
-            value: 'uj_value'
-        },
-        {
-            i18nCaption: 'ak',
-            value: 'ak_value'
-        }
+    let sourceJson = [
+        {i18nCaption: 'ab', value: 'ab_value'},
+        {i18nCaption: 'tc', value: 'tc_value'},
+        {i18nCaption: 'ud', value: 'ud_value'},
+        {i18nCaption: 'le', value: 'le_value'},
+        {i18nCaption: 'af', value: 'af_value'},
+        {i18nCaption: 'mg', value: 'mg_value'},
+        {i18nCaption: 'ah', value: 'ah_value'},
+        {i18nCaption: 'ui', value: 'ui_value'},
+        {i18nCaption: 'uj', value: 'uj_value'},
+        {i18nCaption: 'ak', value: 'ak_value'}
     ];
     $('#exampleAutocomplete').rup_autocomplete({
         source: sourceJson,

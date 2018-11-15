@@ -304,6 +304,39 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 				}
 				settings.data = value;
 				self.data('settings', settings);
+			}else if ( optionName === 'combobox' ) {
+				let spanParent = self.parent();
+				if (value === true) {
+					if (!spanParent.hasClass('rup-combobox')) {
+						wasOpen = false;
+						self.wrap(jQuery('<span>').addClass('rup-combobox'));
+						var $wrapper = self.parent();
+						var $button = $('<a>')
+						.attr('tabIndex', -1)
+						.attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
+						.rup_tooltip()
+						.rup_button({icons: {primary: 'ui-icon-triangle-1-s'}, text: false })
+						.removeClass('ui-corner-all').addClass('rup-combobox-toggle ui-corner-right')
+						.mousedown(function () {wasOpen = self.autocomplete('widget').is(':visible');})
+						.click(function () {
+							self.focus();
+							if (wasOpen) {
+								return true;
+							}
+							self.autocomplete('search', '');
+						});
+			
+						$button.appendTo($wrapper);
+						settings.$comboboxToogle = $button;
+					}
+				}else{
+					if (spanParent.hasClass('rup-combobox')) {
+						self.removeClass('rup-combobox-input ui-corner-left');
+						self.addClass('ui-autocomplete-input');
+						self.insertBefore(spanParent);
+						spanParent.remove();
+					}
+				}
 			} else {
 				settings[optionName] = value;
 				self.data('settings', settings);
