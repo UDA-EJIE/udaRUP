@@ -118,28 +118,33 @@
 				settings = $self.data('settings'),
 				$items, $item, itemValue, tmpId, dataArray;
 
-			$self.rup_tree('uncheck_all');
 
-			$items = $self.get_container_ul().find('li');
+			if(jQuery.inArray('checkbox', settings.plugins) >= 0) {
+				$self.rup_tree('uncheck_all');
+				$items = $self.get_container_ul().find('li');
+				dataArray = settings.core.readAsString === true ? valuesArray.split(',') : valuesArray;
 
-			dataArray = settings.core.readAsString === true ? valuesArray.split(',') : valuesArray;
-
-			jQuery.each($items, function (index, item) {
-				$item = jQuery(item);
-
-				if (jQuery.isFunction(settings.core.getValue)) {
-					itemValue = jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
-				} else {
-					tmpId = $item.attr('id');
-					itemValue = tmpId ? tmpId : $item.text();
+				jQuery.each($items, function (index, item) {
+					$item = jQuery(item);
+					if (jQuery.isFunction(settings.core.getValue)) {
+						itemValue = jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
+					} else {
+						tmpId = $item.attr('id');
+						itemValue = tmpId ? tmpId : $item.text();
+					}
+					if (jQuery.inArray(itemValue, dataArray) !== -1) {
+						$self.rup_tree('check_node', item);
+					}
+				});
+			}
+			else {
+				if(!typeof valuesArray === 'string'){
+					throw Error('Invalid Args (setRupValue)');
 				}
-
-				if (jQuery.inArray(itemValue, dataArray) !== -1) {
-					$self.rup_tree('check_node', item);
+				if($('li#'+valuesArray, $self).length === 1){
+					$('li#'+valuesArray+' > a', $self).click();
 				}
-			});
-
-
+			}
 		},
 		rollback: function (rollback_object) {
 			jQuery.jstree.rollback(rollback_object);
@@ -565,44 +570,6 @@
 				} else {
 					delete settings.contextmenu;
 				}
-
-
-
-				/* REVISION (encuentrame) */
-
-				//Se sobreescribe uno de los eventos para hacer reaparecer, una vez creado, el accordion
-				//				createUserEvent = settings.create;
-				//				settings.create = function (event, ui) {
-				//					if (createUserEvent !== undefined) {
-				//						if (createUserEvent(event, ui) === false) {
-				//							return false;
-				//						}
-				//					}
-				//Comportamiento por defecto del evento
-				//					create_default(event, ui);
-				//				};
-
-				//				function create_default(event, ui){
-				//					$(event.target).addClass("rup_accordion_create");
-				//				}
-
-				//Se comprueba la corrección del html con el que se creara el accordion
-				//				if(settings.validation){
-				//					if(parseInt(elementsNum) !== elementsNum){
-				//						$.rup.errorGestor($.rup.i18n.base.rup_accordion.strucPairError);
-				//						return false;
-				//					} else {
-				//						elements.each(function(index,object){
-				//							if ((parseInt(index/2) === index/2) && ($(object).find("a").length === 0)){
-				//								$.rup.errorGestor($.rup.i18n.base.rup_accordion.headFormatError);
-				//								return false;
-				//							}
-				//						});
-				//					}
-				//				}
-
-				//Se invoca la creacion del accordion
-				//				this.accordion(settings);
 			}
 		},
 		/* revisar funcionamiento */
@@ -778,3 +745,4 @@
 	$.jstree.plugin('rup_extend', $.compatibility.rup_extend);
 
 }));
+
