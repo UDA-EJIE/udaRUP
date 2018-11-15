@@ -6066,6 +6066,13 @@
   margin-right: 5px;
 }
 
+.r01gContainer .rup-filtrar,
+.r01gContainer .rup-dropdown-button {
+  color: #fff !important;
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
+
 .r01gContainer .col-lg,
 .r01gContainer .col-lg-1,
 .r01gContainer .col-lg-10,

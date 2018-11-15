@@ -5616,6 +5616,13 @@
   margin-right: 5px;
 }
 
+.r01gContainer .rup-dropdown-button,
+.r01gContainer .rup-filtrar {
+  color: #fff!important;
+  background-color: #007bff!important;
+  border-color: #007bff!important;
+}
+
 .r01gContainer .col-lg,
 .r01gContainer .col-lg-1,
 .r01gContainer .col-lg-10,
@@ -8272,7 +8279,7 @@
 .r01gContainer .ui-selectmenu {
   display: inline-block;
   position: relative;
-  height: 1.4em;
+  height: 2em;
   overflow: hidden;
 }
 
