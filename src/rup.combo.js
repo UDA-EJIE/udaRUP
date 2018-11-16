@@ -975,9 +975,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			if (!settings.multiselect) {
 				//Simple > selectmenu
 				$('#' + settings.id).selectmenu(settings);
-				if(settings.selected === undefined || settings.selected === ''){
-					$('#' + settings.id).rup_combo("setRupValue", '');
-				}else{
+				if(settings.selected !== undefined && settings.selected !== ''){
 					$('#' + settings.id).rup_combo("setRupValue", settings.selected);
 				}
 				
