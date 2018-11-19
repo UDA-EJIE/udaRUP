@@ -429,6 +429,12 @@ import 'rup.tooltip';
 				settings.id = $(this).attr('id');
 				settings.iniLoad = false;
 
+				this.on('tabsload', () => {
+					self = this;
+					setTimeout(function () {
+						self.trigger('afterTabDataLoad');
+					}, 300);
+				});
 				//Establecemos el ancho general de las pestañas en caso de venir informado
 				if (undefined !== settings.width) {
 					$('#' + settings.id).css('width', settings.width).addClass('rup-tabs_overflow');
