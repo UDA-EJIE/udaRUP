@@ -35,7 +35,8 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base'], factory);
+		define(['jquery', './rup.base','./rup.tooltip','./rup.button'], factory);
+
 	} else {
 
 		// Browser globals
@@ -180,13 +181,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 		off: function () {
 			var self;
 
-			if ($(this).attr('id').indexOf('_label') >= 0) {
+			// if ($(this).attr('id').indexOf('_label') >= 0) {
 				self = $(this);
-			} else {
-				self = $('#' + $(this).attr('id') + '_label');
-			}
+			// } else {
+			// 	self = $('#' + $(this).attr('id') + '_label');
+			// }
 
-			self.storeEvents();
+			self.each((i,e)=>{$(e).storeEvents();});
 		},
 		/**
          * Habilita el autocomplete (solo la parte de sugerencias).
@@ -198,13 +199,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 		on: function () {
 			var self;
 
-			if ($(this).attr('id').indexOf('_label') >= 0) {
+			// if ($(this).attr('id').indexOf('_label') >= 0) {
 				self = $(this);
-			} else {
-				self = $('#' + $(this).attr('id') + '_label');
-			}
+			// } else {
+			// 	self = $('#' + $(this).attr('id') + '_label');
+			// }
 
-			self.restoreEvents();
+			self.each((i,e)=>{$(e).restoreEvents();});
 		},
 		/**
          * Deshabilita el autocomplete. Internamente invoca al método {@link module:rup_autocomplete~off}.
@@ -308,26 +309,26 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 				let spanParent = self.parent();
 				if (value === true) {
 					if (!spanParent.hasClass('rup-combobox')) {
+						self.addClass('rup-combobox-input ui-corner-left');
 						wasOpen = false;
 						self.wrap(jQuery('<span>').addClass('rup-combobox'));
 						var $wrapper = self.parent();
-						var $button = $('<a>')
-						.attr('tabIndex', -1)
-						.attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
-						.rup_tooltip()
-						.rup_button({icons: {primary: 'ui-icon-triangle-1-s'}, text: false })
+						debugger;
+						var $button = $('<a>').attr('tabIndex', -1).attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
+						.rup_tooltip().rup_button({icons: {primary: 'ui-icon-triangle-1-s'}, text: false })
 						.removeClass('ui-corner-all').addClass('rup-combobox-toggle ui-corner-right')
 						.mousedown(function () {wasOpen = self.autocomplete('widget').is(':visible');})
-						.click(function () {
-							self.focus();
-							if (wasOpen) {
-								return true;
-							}
-							self.autocomplete('search', '');
-						});
-			
+								.click(function () {
+								self.focus();
+								if (wasOpen) {
+									return true;
+								}
+								self.autocomplete('search', '');
+							});
+
 						$button.appendTo($wrapper);
 						settings.$comboboxToogle = $button;
+						self.rup_autocomplete('option','minLength', 0);
 					}
 				}else{
 					if (spanParent.hasClass('rup-combobox')) {
@@ -336,6 +337,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 						self.insertBefore(spanParent);
 						spanParent.remove();
 					}
+				}
+			}else if ( optionName === 'contains' ) {
+				if (value === true) {
+					self.data('settings').contains = true;
+				} else {
+					self.data('settings').contains = false;
 				}
 			} else {
 				settings[optionName] = value;
@@ -353,11 +360,23 @@ input.
      * $("#idAutocomplete").rup_autocomplete("search", "java");
      */
 		search: function (term) {
-			//Si tiene eventos (no está deshabilitado) se hace búsqueda
-			if ($._data($(this)[0], 'events') !== undefined) {
-				$(this).focus();
-				$(this).val(term);
-				$(this).autocomplete('search', term);
+			var self;
+
+			if ($(this).attr('id').indexOf('_label') >= 0 ) {
+				self = $(this);
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+				//Si esta inicializado con una busqueda por defecto
+				if (self.length === 0) {
+					self = $(this);
+				}
+			}
+
+			//Si tiene eventos (no está deshabilitado) se hace búsqueda	
+			if ($._data(self[0], 'events') !== undefined) {
+				self.focus();
+				self.val(term);
+				self.autocomplete('search', term);
 			}
 		},
 		/**
@@ -368,7 +387,14 @@ input.
          * $("#idAutocomplete").rup_autocomplete("close");
          */
 		close: function () {
-			$(this).autocomplete('close');
+			var self;
+
+			if ($(this).attr('id').indexOf('_label') >= 0 ) {
+				self = $(this);
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+			}
+			self.autocomplete('close');
 		},
 		/**
          * Devuelve el valor del autocomplete. Este es el valor que se guarda en el campo oculto antes descrito al final del apartado 7.Para obtener la descripción (dato que se muestra en el input) se invocará a la función estándar de jQuery.
@@ -833,8 +859,8 @@ input.
 						setTimeout(function () {
 							$(document).one('mousedown', function (event) {
 								if (event.target !== jQuery('#' + settings.id + '_label') &&
-																																				event.target !== menuElement &&
-																																				!$.ui.contains(menuElement, event.target)) {
+									event.target !== menuElement &&
+									!$.ui.contains(menuElement, event.target)) {
 									jQuery('#' + settings.id + '_label').autocomplete('close');
 								}
 							});
