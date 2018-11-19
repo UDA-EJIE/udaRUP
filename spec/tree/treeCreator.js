@@ -60,6 +60,7 @@ export function treeXML (callback) {
     $tree.rup_tree({
         xml_data: {
             "data": ""+
+            "<?xml version='1.0' encoding='UTF-8'?>"+
 			"<root>"+
 				"<item id='node1'>"+
 					"<content><name><![CDATA[Padre 1]]></name></content>"+
@@ -74,8 +75,7 @@ export function treeXML (callback) {
         },
         plugins: [
             'checkbox',
-            'sort',
-            'xml_data'
+            'sort'
         ],
         checkbox: {
             override_ui: true
