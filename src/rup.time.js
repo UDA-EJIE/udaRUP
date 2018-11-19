@@ -147,7 +147,7 @@
      * $("#idTime").rup_time("hide");
      */
 		hide: function () {
-			$(this).timepicker('hide');
+			$('#ui-datepicker-div').css('display','none');
 		},
 		/**
      * Muestra el desplegable para seleccionar una hora.
