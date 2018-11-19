@@ -16,7 +16,7 @@ describe('Test BreadCrumb >', () => {
 		}, "", '/x21aResponsive/patrones/ptrUno');
 	});
 
-	beforeEach(() => {
+	beforeEach((done) => {
 		var html;
 		html = '<div id="exampleBreadcrumb" class="rup-breadCrumb_root"></div>\
 				<div id="subLeveledBreadCrumb" class="rup-breadCrumb_root"></div>';
@@ -45,23 +45,24 @@ describe('Test BreadCrumb >', () => {
 					},
 					//Sublevel
 					"subLevel": [{
-							"i18nCaption": "ptrUno",
-							"url": "./patrones/ptrUno"
-						},
-						{
-							"i18nCaption": "ptrDos",
-							"url": "./patrones/ptrDos"
-						},
-						{
-							"i18nCaption": "ptrTres",
-							"url": "./patrones/ptrTres"
-						}
+						"i18nCaption": "ptrUno",
+						"url": "./patrones/ptrUno"
+					},
+					{
+						"i18nCaption": "ptrDos",
+						"url": "./patrones/ptrDos"
+					},
+					{
+						"i18nCaption": "ptrTres",
+						"url": "./patrones/ptrTres"
+					}
 					]
 				}
 			}
 		});
 		$breadcrumb = $('#exampleBreadcrumb');
 		$subLvlBC = $('#subLeveledBreadCrumb');
+		done();
 	});
 
 	afterEach(() => {
@@ -146,8 +147,9 @@ describe('Test BreadCrumb >', () => {
 	describe('Test de funcionamiento > ', () => {
 		describe('Mostrar sublevels haciendo hover en "Varios patrones"', () => {
 			// TODO: REVISAR.
-			let varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
+			var varPatrones;
 			beforeEach(() => {
+				varPatrones = $('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li.rup-breadCrumb_current').prev();
 				varPatrones.trigger('mouseenter');
 			});
 			it('Debe mostrarse', () => {
