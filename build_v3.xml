@@ -441,11 +441,11 @@
 		<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
 		               match='\\'
 		               replace='/'
-		               byline="true"/>
-		<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
+		               byline="true" flags="g"/>
+			<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
 		               match='((src=").*(3.6.0\/rup))'
 		               replace='src="..'
-		               byline="true"/>
+		               byline="true" flags="g"/> 
 	</target>
     
 </project>
