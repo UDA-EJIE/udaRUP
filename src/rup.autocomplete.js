@@ -789,34 +789,6 @@ input.
 				//Se anyade un id al menu desplegable del autocomplete
 				settings.$menu = jQuery('#' + settings.id).data('ui-autocomplete').menu.element.attr('id', settings.id + '_menu');
 
-				//override mousedown para corregir el fallo del scrollbar en IE (bug 5610)
-				settings.$menu.off('mousedown');
-				// prevent the close-on-blur in case of a "slow" click on the menu (long mousedown) y corrección del bug 5610 (scrollbar en IE)
-				settings.$menu.on('mousedown', function (event) {
-
-					var menuElement = jQuery('#' + settings.id + '_menu')[0];
-
-					if (!$(event.target).closest('.ui-menu-item').length) {
-						setTimeout(function () {
-							$(document).one('mousedown', function (event) {
-								if (event.target !== jQuery('#' + settings.id + '_label') &&
-																																				event.target !== menuElement &&
-																																				!$.ui.contains(menuElement, event.target)) {
-									jQuery('#' + settings.id + '_label').autocomplete('close');
-								}
-							});
-						}, 1);
-					} else {
-
-						$('#' + settings.id + '_label').triggerHandler('blur');
-					}
-
-					// use another timeout to make sure the blur-event-handler on the input was already triggered
-					setTimeout(function () {
-						clearTimeout($('#' + settings.id + '_label').data('ui-autocomplete').closing);
-					}, 13);
-				});
-
 				if (settings.combobox === true) {
 					this._createShowAllButton(settings);
 				}
@@ -826,7 +798,13 @@ input.
 				// Altura del menu desplegable
 				
 					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						if (settings.menuMaxHeight === false) {
+						if (settings.menuMaxHeight !== false) {
+							// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
+							settings.$menu.on('scroll', (e) => {
+								jQuery('#' + settings.id + '_label').focus();
+								settings.$menu.show();
+							});
+
 							settings.$menu.css('overflow-y', 'auto')
 								.css('overflow-x', 'hidden')
 								.css('max-height', settings.menuMaxHeight+'px')

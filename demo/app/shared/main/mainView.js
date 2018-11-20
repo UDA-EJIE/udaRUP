@@ -54,9 +54,9 @@ define(['marionette',
 		$mainView.Menu.show(new MenuView());
 		$mainView.Footer.show(new FooterView());
 
-		 window.history.pushState({
-		 	urlPath: '/x21aResponsive/patrones/ptrUno'
-		 }, "", '/x21aResponsive/patrones/ptrUno');
+		//  window.history.pushState({
+		//  	urlPath: '/x21aResponsive/patrones/ptrUno'
+		//  }, "", '/x21aResponsive/patrones/ptrUno');
 
 		$('#breadCrumb').rup_breadCrumb({
 			"breadCrumb": {
