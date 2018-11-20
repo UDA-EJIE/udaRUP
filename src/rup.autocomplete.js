@@ -829,7 +829,7 @@ input.
 						if (settings.menuMaxHeight === false) {
 							settings.$menu.css('overflow-y', 'auto')
 								.css('overflow-x', 'hidden')
-								.css('max-height', settings.menuMaxHeight)
+								.css('max-height', settings.menuMaxHeight+'px')
 								.css('width', jQuery('#' + settings.id + '_label').innerWidth());
 						}
 						jQuery('#' + settings.id+'_menu').css('z-index', '1000');

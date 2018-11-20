@@ -105,7 +105,10 @@ module.exports = {
 			},{
 				test: /\.png$|\.gif$|\.cur$|\.svg$/,
 				use: [{
-					loader: 'file-loader'
+					loader: 'file-loader',
+					options: {
+						publicPath: '/'
+					}
 				}]
 			},{
 				test: /\.woff2?$|\.ttf$|\.eot$/,
