@@ -28,7 +28,6 @@ define(['marionette',
 			templateJs: AutocompleteJsCodeTemplate,
 		}));
 		$view.Test.show(new AutocompleteTestView());
-		window.$ = $;
 	}
 
 

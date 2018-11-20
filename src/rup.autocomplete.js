@@ -181,13 +181,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 		off: function () {
 			var self;
 
-			// if ($(this).attr('id').indexOf('_label') >= 0) {
+			if ($(this).attr('id').indexOf('_label') >= 0) {
 				self = $(this);
-			// } else {
-			// 	self = $('#' + $(this).attr('id') + '_label');
-			// }
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+			}
 
-			self.each((i,e)=>{$(e).storeEvents();});
+			self.storeEvents();
 		},
 		/**
          * Habilita el autocomplete (solo la parte de sugerencias).
@@ -199,13 +199,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 		on: function () {
 			var self;
 
-			// if ($(this).attr('id').indexOf('_label') >= 0) {
+			if ($(this).attr('id').indexOf('_label') >= 0) {
 				self = $(this);
-			// } else {
-			// 	self = $('#' + $(this).attr('id') + '_label');
-			// }
-
-			self.each((i,e)=>{$(e).restoreEvents();});
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+			}
+            self.restoreEvents();
 		},
 		/**
          * Deshabilita el autocomplete. Internamente invoca al método {@link module:rup_autocomplete~off}.
@@ -313,7 +312,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 						wasOpen = false;
 						self.wrap(jQuery('<span>').addClass('rup-combobox'));
 						var $wrapper = self.parent();
-						debugger;
 						var $button = $('<a>').attr('tabIndex', -1).attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
 						.rup_tooltip().rup_button({icons: {primary: 'ui-icon-triangle-1-s'}, text: false })
 						.removeClass('ui-corner-all').addClass('rup-combobox-toggle ui-corner-right')

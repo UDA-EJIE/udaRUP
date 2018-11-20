@@ -9,7 +9,7 @@
  *
  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * SIN GARANT�?AS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
@@ -618,7 +618,9 @@
 					$(this).unbind();
 					for (var type in events) {
 						for (var handler in events[type]) {
-							$.event.add(this, type, events[type][handler], events[type][handler].data);
+							if(typeof events[type][handler] === 'object'){
+								$.event.add(this, type, events[type][handler], events[type][handler].data);
+							}
 						}
 					}
 				}
