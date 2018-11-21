@@ -150,36 +150,56 @@ function testDate(lang) {
             describe('Métodos setRupValue y getRupValue > ', () => {
                 describe('Date normal > ', () => {
                     beforeEach(() => {
-                        $date.rup_date('setRupValue', '08/08/2018');
+                        if (lang === 'es') {
+                            $date.rup_date('setRupValue', '08/10/2018 00:00');
+                        }
+                        if (lang === 'eu') {
+                            $date.rup_date('setRupValue', '2018/10/08 00:00');
+                        }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
-                        expect($date.rup_date('getRupValue')).toBe('08/08/2018');
+                        if (lang === 'es') {
+                            expect($date.rup_date('getRupValue')).toBe('08/10/2018 00:00');
+                        }
+                        if (lang === 'eu') {
+                            expect($date.rup_date('getRupValue')).toBe('2018/10/08 00:00');
+                        }
                     });
                 });
                 describe('Date alternativo > ', () => {
                     beforeEach(() => {
                         if (lang === 'es') {
-                            $altDate.rup_date('setRupValue', '08/08/2018 00:00');
+                            $altDate.rup_date('setRupValue', '08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            $('#altDate').rup_date('setRupValue', '2018/08/08 00:00');
+                            $('#altDate').rup_date('setRupValue', '2018/10/08 00:00');
                         }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
                         if (lang === 'es') {
-                            expect($altDate.rup_date('getRupValue')).toBe('08/08/2018 00:00');
+                            expect($altDate.rup_date('getRupValue')).toBe('08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/08/08 00:00');
+                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/10/08 00:00');
                         }
                     });
                 });
                 describe('Date múltiple > ', () => {
                     beforeEach(() => {
-                        $multiDate.rup_date('setRupValue', ['08/08/2018', '09/08/2018']);
+                        if(lang === 'es') {
+                            $multiDate.rup_date('setRupValue', ['08/10/2018', '09/10/2018']);
+                        }
+                        if(lang === 'eu') {
+                            $multiDate.rup_date('setRupValue', ['2018/10/08', '2018/10/09']);
+                        }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
-                        expect($multiDate.rup_date('getRupValue')).toBe('08/08/2018,09/08/2018');
+                        if(lang === 'es') {
+                            expect($multiDate.rup_date('getRupValue')).toBe('08/10/2018,09/10/2018');
+                        }
+                        if(lang === 'eu') {
+                            expect($multiDate.rup_date('getRupValue')).toBe('2018/10/08,2018/10/09');
+                        }
                     });
                 });
                 describe('Date desde-hasta > ', () => {
