@@ -417,8 +417,13 @@ input.
          * $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
          */
 		set: function (value, label) {
-			var $self = $(this),
-				$selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
+				if ($(this).attr('id').indexOf('_label') >= 0 ) {
+					var array = $(this).attr('id').split('_label');
+					$self = $('#'+array[0]);
+				} else {
+					$self = $(this);
+				}
+				var $selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
 				loadObjects, newObject = {};
 
 			$self.val(value);
