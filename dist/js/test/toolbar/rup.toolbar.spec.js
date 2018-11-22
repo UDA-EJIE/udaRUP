@@ -176,13 +176,14 @@ describe('Test Toolbar > ', () => {
         });
         describe('Método refreshButton > ', () => {
             beforeEach(() => {
-                $('[id = "exampleToolbar##searchBtn"]').addClass('clase-anadida');
+                $('[id = "exampleToolbar##searchBtn"]').attr('disabled','disabled');
                 $toolbar.rup_toolbar('refreshButton', 'searchBtn');
             });
 
-            // it('Debe devolver el botón seleccionado al estado que presenta en la configuración', () => {
-            //     expect($('[id = "exampleToolbar##searchBtn"]').hasClass('clase-anadida')).toBeFalsy();
-            // });
+            it('Debe actualizar el botón:', () => {
+                expect($('[id = "exampleToolbar##searchBtn"]').is('.ui-button-disabled.ui-state-disabled'))
+                    .toBeTruthy();
+            });
         });
     });
 });

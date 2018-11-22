@@ -1,7 +1,6 @@
 /* jslint multistr: true */
 
 
-var d = new $.Deferred();
 
 describe('Test Validate >  ', () => {
     var $validate, $feedBack, $validateEvent, $feedBackEvent;
