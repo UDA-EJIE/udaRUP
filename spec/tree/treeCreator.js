@@ -22,7 +22,7 @@ export function treeHtml(callback) {
                             </li>\
                         </ul>\
                     </div>';
-    $('#content').append(html);
+    $('.content').append(html);
     var $tree = $('#exampleTree');
     $tree.rup_tree({
         plugins: treePlugins,
@@ -36,7 +36,7 @@ export function treeHtml(callback) {
 };
 export function treeJson(callback) {
     var html = '<div id="exampleTree" name="exampleTree"></div>';
-    $('#content').append(html);
+    $('.content').append(html);
     var $tree = $('#exampleTree');
     $tree.rup_tree({
         json_data: {
@@ -55,7 +55,7 @@ export function treeJson(callback) {
 };
 export function treeXML (callback) {
     var html = '<div id="exampleTree" name="exampleTree"></div>';
-    $('#content').append(html);
+    $('.content').append(html);
     var $tree = $('#exampleTree');
     $tree.rup_tree({
         xml_data: {
@@ -73,10 +73,7 @@ export function treeXML (callback) {
 				"</item>"+
 			"</root>"
         },
-        plugins: [
-            'checkbox',
-            'sort'
-        ],
+        plugins: treePlugins,
         checkbox: {
             override_ui: true
         }
