@@ -105,51 +105,46 @@ describe('Test Accordion > ', () => {
 			describe('Cambiar la vista activa con click > ', () => {
 				var idNewActive;
 				beforeEach(() => {
+					$defAccordion.accordion( "option", "animate", 0 );	
 					$('h1:not(.ui-accordion-header-active)', $defAccordion).trigger('click');
-					idNewActive = $('h1:not(.ui-accordion-header-active)', $defAccordion).attr('id');
+					idNewActive = $('h1.ui-accordion-header-active', $defAccordion).attr('id');
 				});
 				it('Debe cambiarse la clase de active', () => {
-					setTimeout(() => {
-						expect($('h1#' + idNewActive, $defAccordion).hasClass('ui-accordion-header-active'))
-							.toBeTruthy();
-						expect($('h1:not(#' + idNewActive + ')', $defAccordion).hasClass('ui-accordion-header-active'))
-							.toBeFalsy();
-					}, 1500);
+					
+					expect($('h1#' + idNewActive, $defAccordion).hasClass('ui-accordion-header-active'))
+						.toBeTruthy();
+					expect($('h1:not(#' + idNewActive + ')', $defAccordion).hasClass('ui-accordion-header-active'))
+						.toBeFalsy();
 				});
 				it('Debe togglearse la visibilidad de los contenidos', () => {
-					setTimeout(() => {
-						expect($('div[aria-labelledby="' + idNewActive + '"]', $defAccordion)
-							.is(':visible')).toBeTruthy();
-						expect($('div:not([aria-labelledby="' + idNewActive + '"])', $defAccordion)
-							.is(':visible')).toBeFalsy();
-					}, 1500);
+					expect($('div[aria-labelledby="' + idNewActive + '"]', $defAccordion)
+						.is(':visible')).toBeTruthy();
+					expect($('div:not([aria-labelledby="' + idNewActive + '"])', $defAccordion)
+						.is(':visible')).toBeFalsy();					
 				});
 			});
 		});
 		describe('Accordion con parámetros personalizados > ', () => {
 			describe('Cambiar la vista activa con mouseenter > ', () => {
 				beforeEach(() => {
+					$altAccordion.accordion( "option", "animate", 0 );	
 					//Enableamos el accordion
 					$altAccordion.rup_accordion('enable');
 					//Obtenemos el id del nuevo activo
 					$('h1:not(.ui-accordion-header-active)', $altAccordion).trigger('mouseenter');
-					idNewActive = $('h1:not(.ui-accordion-header-active)', $altAccordion).attr('id');
+					idNewActive = $('h1.ui-accordion-header-active', $altAccordion).attr('id');
 				});
 				it('Debe cambiarse la clase de active', () => {
-					setTimeout(() => {
-						expect($('h1#' + idNewActive, $altAccordion).hasClass('ui-accordion-header-active'))
-							.toBeTruthy();
-						expect($('h1:not(#' + idNewActive + ')', $altAccordion).hasClass('ui-accordion-header-active'))
-							.toBeFalsy();
-					}, 1500);
+					expect($('h1#' + idNewActive).hasClass('ui-accordion-header-active'))
+						.toBeTruthy();
+					expect($('h1:not(#' + idNewActive + ')', $altAccordion).hasClass('ui-accordion-header-active'))
+						.toBeFalsy();
 				});
 				it('Debe togglearse la visibilidad de los contenidos', () => {
-					setTimeout(() => {
-						expect($('div[aria-labelledby="' + idNewActive + '"]', $altAccordion)
-							.is(':visible')).toBeTruthy();
-						expect($('div:not([aria-labelledby="' + idNewActive + '"])', $altAccordion)
-							.is(':visible')).toBeFalsy();
-					}, 1500);
+					expect($('div[aria-labelledby="' + idNewActive + '"]', $altAccordion)
+						.is(':visible')).toBeTruthy();
+					expect($('div:not([aria-labelledby="' + idNewActive + '"])', $altAccordion)
+						.is(':visible')).toBeFalsy();
 				});
 			});
 		});

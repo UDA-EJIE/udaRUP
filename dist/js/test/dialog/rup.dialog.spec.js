@@ -134,7 +134,7 @@ function testDialogType(type) {
 					expect($dialogo.rup_dialog('isOpen')).toBe(true);
 				});
 				it('El foco debe estar en el primer botón:', () => {
-					expect($('button:contains(boton)').is(':focus')).toBe(true);
+					expect($('button:contains(boton)')).toEqual($(document.activeElement));
 				});
 			});
 			describe('Método close e isOpen > ', () => {
@@ -143,30 +143,31 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('close');
 				});
 				it('Debe ser visible:', () => {
-
-					expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-						.is(':visible')).toBe(false);
+					if (type === $.rup.dialog.DIV) {
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(true);
+					}
+					else{
+						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
+							.is(':visible')).toBe(false);
+					}
 				});
 				it('Debe devolver correctamente el resultado de isOpen:', () => {
-					expect($dialogo.rup_dialog('isOpen')).toBe(false);
+					if (type === $.rup.dialog.DIV) {
+						expect($dialogo.rup_dialog('isOpen')).toBe(true);
+					}
+					else{
+						expect($dialogo.rup_dialog('isOpen')).toBe(false);
+					}
 				});
 			});
 			describe('Métodos disable y enable > ', () => {
 				beforeEach(() => {
 					$dialogo.rup_dialog('disable');
 					$dialogo.rup_dialog('open');
-					$dialogo.rup_dialog('enable');
 				});
 				it('Los métodos no deberían funcionar:', () => {
-					if ($dialogo.rup_dialog('isOpen')) {
-						//Ha fallado disable:
-						expect(true).toBe(false);
-					}
-					if (!$dialogo.rup_dialog('isOpen')) {
-						$dialogo.rup_dialog('open');
-						expect($('div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable.rup-dialog')
-							.is(':visible')).toBe(true);
-					}
+					expect($dialogo.rup_dialog('isOpen')).toBeFalsy();
 				});
 			});
 			describe('Método moveToTop ' + type + ' > ', () => {
@@ -210,14 +211,14 @@ function testDialogType(type) {
 			describe('Método createBtnLinks > ', () => {
 				beforeEach(() => {
 					let btnObj = {
-						text: 'boton',
+						text: 'boton2',
 						click: () => {}
 					};
 					$dialogo.rup_dialog('createBtnLinks', btnObj, 'exampleDialogo');
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe crear un enlace en el dialog:', () => {
-					expect($('a#rup_dialogboton.rup-enlaceCancelar:contains(boton)').length).toBe(1);
+					expect($('button.btn-outline-primary.ui-button.ui-corner-all.ui-widget:contains(boton2)').length).toBe(1);
 				});
 			});
 		});
@@ -236,10 +237,10 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('close');
 				});
 				it('Debe ejecutrarse el evento:', () => {
-					expect($dialogo.hasClass('randomClass')).toBe(false);
 					if (type === $.rup.dialog.DIV) {
 						expect($dialogo.rup_dialog('isOpen')).toBe(true);
 					} else {
+						expect($dialogo.hasClass('randomClass')).toBe(false);
 						expect($dialogo.rup_dialog('isOpen')).toBe(false);
 					}
 				});
