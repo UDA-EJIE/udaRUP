@@ -1986,7 +1986,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 					DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 				}
 			}else{//edicion en linea
-				
+				DataTable.Api().inlineEdit.add(ctx);
 			}
 			break;
 		case 'edit':
