@@ -1960,29 +1960,33 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 	// Añade aquí las funciones de tus botones
 	switch (config.type) {
 		case 'add':
-			var idTableDetail = ctx.oInit.formEdit.detailForm;
-			// Limpiamos el formulario
-			$(idTableDetail).find('form')[0].reset();
-			if(ctx.multiselection.numSelected > 0){
-				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
-					OKFunction: function () {
-						// Abrimos el formulario
-						if(ctx.oInit.seeker !== undefined){
-							DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
-						}else{
-							if(ctx.oInit.multiSelect !== undefined){
-								DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
-							}else if(ctx.oInit.select !== undefined){
-								DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+			if(ctx.oInit.formEdit !== undefined){
+				var idTableDetail = ctx.oInit.formEdit.detailForm;
+				// Limpiamos el formulario
+				$(idTableDetail).find('form')[0].reset();
+				if(ctx.multiselection.numSelected > 0){
+					$.rup_messages('msgConfirm', {
+						message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+						title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+						OKFunction: function () {
+							// Abrimos el formulario
+							if(ctx.oInit.seeker !== undefined){
+								DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+							}else{
+								if(ctx.oInit.multiSelect !== undefined){
+									DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+								}else if(ctx.oInit.select !== undefined){
+									DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+							}
+							}
+							DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 						}
-						}
-						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
-					}
-				});
-			}else{
-				DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+					});
+				}else{
+					DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+				}
+			}else{//edicion en linea
+				
 			}
 			break;
 		case 'edit':

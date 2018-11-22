@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter','./rup.table.inlineEdit'], factory );
 	} else {
 
 		// Browser globals
@@ -846,8 +846,11 @@
 			}
 			
 			
-			if(settings.formEdit === undefined){
+			if(settings.formEdit === undefined && settings.inlineEdit === undefined){
 				settings.buttons = undefined;
+			}
+			if(settings.formEdit !== undefined){
+				settings.inlineEdit = undefined;
 			}
 
 			// getDefault multifilter
