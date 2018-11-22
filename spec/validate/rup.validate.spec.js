@@ -6,7 +6,6 @@ import 'jasmine-jquery';
 import 'rup.feedback';
 import 'rup.validate';
 
-var d = new $.Deferred();
 
 describe('Test Validate >  ', () => {
     var $validate, $feedBack, $validateEvent, $feedBackEvent;
