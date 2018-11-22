@@ -402,6 +402,8 @@
 				settings.$self = $(this);
 				settings.$self.attr('ruptype', 'tree');
 
+				$(this).data('settings', settings);
+
 				//validacion de carga por defecto
 				if (settings.ui === undefined || settings.ui.enable !== false) {
 					settings.plugins[settings.plugins.length] = 'ui';
