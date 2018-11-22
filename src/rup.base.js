@@ -413,7 +413,9 @@
 			//Se cargan los literales por defecto
 			$.rup.setLiterals();
 			//Carga de ficheros de literales de la apliaccion
-			$.rup.getFile_i18n();
+			if($.rup.WAR_NAME !== ''){
+				$.rup.getFile_i18n();
+			}
 		},
 		//Función encargada de cargar variables por defecto si no se han cargado los literales (ej. cookies deshabilitadas)
 		//NOTA: El que se entre en la función indica mala configuración/error en la aplicación

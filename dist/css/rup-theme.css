@@ -3206,7 +3206,7 @@ table.ui-jqgrid-htable > thead > tr.search_row {
 table.ui-jqgrid-htable > thead > tr.search_row > th > div {
   height: initial !important; }
 
-able.dataTable {
+table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -3637,7 +3637,7 @@ table.dataTable tbody > tr:hover {
   line-height: 3.5em; }
 
 .tableFit {
-  width: calc(100% - 1px);
+  width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0; }
 
@@ -4106,6 +4106,11 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 
 .right-separator {
   margin-right: 5px; }
+
+.rup-filtrar, .rup-dropdown-button {
+  color: #fff !important;
+  background-color: #007bff !important;
+  border-color: #007bff !important; }
 
 .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
 .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,

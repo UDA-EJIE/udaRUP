@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 const runSequence = require('run-sequence');
+var deleteLines = require('gulp-delete-lines');
 
 
 // gulp.task('build:all', ['build:css', 'build:js']);
@@ -102,8 +103,21 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/*jasmine*.js', './node_modules/jasmine-core/lib/jasmine-core/boot.js'])
 		.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
-	gulp.src(['./node_modules/jasmine-core/lib/jasmine-jquery/lib/*jasmine*.js'])
+	gulp.src(['./node_modules/jasmine-jquery/lib/*jasmine*.js'])
 	.pipe(gulp.dest('./dist/js/externals/jasmine'));
+	
+	//Todo test
+	gulp.src(['./spec/**/*.spec.js'])
+	.pipe(deleteLines({
+      'filters': [
+      /import\s+/i
+      ]
+    }))
+	.pipe(gulp.dest('./dist/js/test'));
+	
+	//Se traspasa el specRunner
+	gulp.src(['./spec/specRunner.html'])
+	.pipe(gulp.dest('./dist/html'));
 	
 	callback();
 });

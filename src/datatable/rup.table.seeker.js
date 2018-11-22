@@ -285,14 +285,7 @@ function _createSearchRow (dt,ctx){
 
 		// Evento asociado a limpiar el fomulario de búsqueda
 		$navClearButton.on('click', function(){
-			$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
-			jQuery('input,textarea','#'+idTabla+' tfoot').val('');
-			jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
-			jQuery('.ui-selectmenu-status','table tfoot').text('--');
-			ctx.seeker.search.funcionParams = {};
-			ctx.seeker.search.pos = 0;
-			_processData(dt,ctx,[]);
-			$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
+			_limpiarSeeker(dt,ctx);
 		});
 
 		$navLayer.hide();
@@ -546,6 +539,17 @@ function _createRupComponent(dt,ctx){
 	}
 
 }
+
+function _limpiarSeeker(dt,ctx){
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
+	jQuery('input,textarea','#'+ctx.sTableId+' tfoot').val('');
+	jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
+	jQuery('.ui-selectmenu-status','table tfoot').text('--');
+	ctx.seeker.search.funcionParams = {};
+	ctx.seeker.search.pos = 0;
+	_processData(dt,ctx,[]);
+	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -563,6 +567,14 @@ apiRegister( 'seeker.eventTrigger()', function ( api, type, args, any ) {
 apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
 	_selectSearch(dt,ctx,rows );
 } );
+
+apiRegister('seeker.limpiarSeeker()', function ( dt,ctx) {
+	_limpiarSeeker(dt,ctx);
+});
+
+apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,totalRowNum,ctx) {
+	_updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization

@@ -981,9 +981,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			if (!settings.multiselect) {
 				//Simple > selectmenu
 				$('#' + settings.id).selectmenu(settings);
-				if(settings.selected === undefined || settings.selected === ''){
-					$('#' + settings.id).rup_combo("setRupValue", '');
-				}else{
+				if(settings.selected !== undefined && settings.selected !== ''){
 					$('#' + settings.id).rup_combo("setRupValue", settings.selected);
 				}
 				
@@ -1602,6 +1600,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					var url = settings.source ? settings.source : settings.sourceGroup,
 						rupCombo = this,
 						self = this;
+					var labelBlank = this._getBlankLabel(settings.id);
 					$.rup_ajax({
 						url: url,
 						dataType: 'json',
@@ -1610,6 +1609,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxBeforeSend(xhr, settings, html);
 						},
 						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+							}
 							rupCombo._ajaxSuccess(data, settings, html);
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));

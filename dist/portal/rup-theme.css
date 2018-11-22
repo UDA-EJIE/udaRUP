@@ -4008,6 +4008,14 @@
   clear: both;
 }
 
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important;
+}
+
 .r01gContainer .rup-tabs_container.ui-tabs {
   padding: 0;
   border: 1px solid none;
@@ -4661,7 +4669,15 @@
   clear: both;
 }
 
-.r01gContainer able.dataTable {
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row {
+  height: 37px;
+}
+
+.r01gContainer table.ui-jqgrid-htable > thead > tr.search_row > th > div {
+  height: initial !important;
+}
+
+.r01gContainer table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -5310,7 +5326,7 @@
 }
 
 .r01gContainer .tableFit {
-  width: calc(100% - 1px);
+  width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0;
 }
@@ -6058,6 +6074,13 @@
 
 .r01gContainer .right-separator {
   margin-right: 5px;
+}
+
+.r01gContainer .rup-filtrar,
+.r01gContainer .rup-dropdown-button {
+  color: #fff !important;
+  background-color: #007bff !important;
+  border-color: #007bff !important;
 }
 
 .r01gContainer .col-lg,

@@ -28,8 +28,8 @@
     <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}/templates"/>
     <property name="udaTemplatesDestDir" value="${destDir}/udaTemplates/${udaVersion}"/>
     <property name="udaTemplatesFolder" value="templates"/>
-    <property name="udaTemplatesRupFolder" value="templates/statics/3x/rup"/>
-    <property name="udaTemplatesAppFolder" value="templates/statics/3x/xxx"/>
+    <property name="udaTemplatesRupFolder" value="templates/statics/rup"/>
+    <property name="udaTemplatesAppFolder" value="templates/statics/xxx"/>
     <property name="udaTemplatesZip" value="${udaTemplatesDestDir}/templates-v${udaVersion}.zip"/>
     
     <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>
@@ -402,5 +402,50 @@
             update="true"
         />
     </target>
+	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	  <classpath>
+	    <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+		
+	 <!-- Se recorren todos los test para añadirlos al specRunner -->
+	<target name="copyTestToSpecRunner">
+		<echo message="${udaRupDestDir}/${udaRupFolder}"/>
+	  <foreach target="copyToFolderHtml" param="theFile">
+	    <fileset dir="${udaRupDestDir}/${udaRupFolder}" casesensitive="yes">
+	      <include name="**/*.spec.js"/>
+	    </fileset>
+	   </foreach>
+	</target>
+	
+	 <!-- Se añade el include de todos los spec que existen -->
+	<target name="copyToFolderHtml">
+	<basename property="filename" file="${theFile}"/>	  
+        <replace file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html">
+           <replacefilter token="&lt;/head>" value=""/>
+           <replacefilter token="&lt;body>" value=""/>
+           <replacefilter token="&lt;/body>" value=""/>
+           <replacefilter token="&lt;/html>" value=""/>
+        </replace>
+		<echo file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html" append="true">
+		<![CDATA[
+			 <script type="text/javascript" src="${theFile}"></script>
+			</head><body></body></html>
+		]]>
+		</echo>
+	</target> 
+	
+	 <!-- Como las rutas son absolutas, se realizan unos replace para que sean relativas. -->
+	<target name="replaceTextHtml">
+		<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
+		               match='\\'
+		               replace='/'
+		               byline="true" flags="g"/>
+			<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
+		               match='((src=").*(3.6.0\/rup))'
+		               replace='src="..'
+		               byline="true" flags="g"/> 
+	</target>
     
 </project>

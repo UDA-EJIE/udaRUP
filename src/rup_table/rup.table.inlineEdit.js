@@ -1116,7 +1116,7 @@
 	// Parámetros de configruación específicos para la acción de eliminar un registro
 	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
-		cancelicon:[true, 'left', 'icono_cancelar'],
+		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',

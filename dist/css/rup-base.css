@@ -1969,7 +1969,7 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 
 .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: rgba(0, 0, 0, 0); }
+  background-color: transparent; }
 
 .qtip-youtube .qtip-content {
   padding: .75em;
@@ -2251,15 +2251,15 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 .ui-widget textarea,
 .ui-widget button,
 .ui-widget .ui-button.rup-button,
-.ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
+.ui-widget .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group
+.ui-widget .rup-dropdown-button,
 .ui-widget a.rup-toolbar_menuButton.ui-button,
-.ui-widget .rup-wizard a.rup-wizard_next,
-.rup-wizard .ui-widget a.rup-wizard_next,
-.ui-widget .rup-wizard a.rup-wizard_prev,
-.rup-wizard .ui-widget a.rup-wizard_prev,
-.ui-widget .rup-wizard .rup-wizard_submitButton,
-.rup-wizard .ui-widget .rup-wizard_submitButton {
+.ui-widget .rup-wizard a.rup-wizard_next, .rup-wizard
+.ui-widget a.rup-wizard_next,
+.ui-widget .rup-wizard a.rup-wizard_prev, .rup-wizard
+.ui-widget a.rup-wizard_prev,
+.ui-widget .rup-wizard .rup-wizard_submitButton, .rup-wizard
+.ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em; }
 
@@ -3726,7 +3726,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
 
-select, select.form-control, select.form-control-sm {
+select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-control.ui-multiselect, .form-control.ui-selectmenu-dropdown, select.form-control-sm, .form-control-sm.ui-multiselect, .form-control-sm.ui-selectmenu-dropdown {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -4579,8 +4579,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   height: 4rem;
   min-height: 4rem;
   margin-bottom: 0;
-  position: relative;
-  display: block; }
+  position: relative; }
   .rup-navbar .nav {
     padding-bottom: 0; }
   .rup-navbar .navbar-brand {
@@ -4762,7 +4761,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
           -moz-border-radius: 0;
           border-radius: 0; }
           .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-            background-color: #e6e5e5; }
+            background-color: #e6e6e6; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -5431,7 +5430,7 @@ table.ui-jqgrid-htable > thead > tr.search_row {
 table.ui-jqgrid-htable > thead > tr.search_row > th > div {
   height: initial !important; }
 
-able.dataTable {
+table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
@@ -5459,19 +5458,19 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
   background-position: center right; }
 
 table.dataTable thead .sorting {
-  background-image: url("images/datatable/sort_both.png"); }
+  background-image: url("../css/images/datatable/sort_both.png"); }
 
 table.dataTable thead .sorting_asc {
-  background-image: url("images/datatable/sort_asc.png"); }
+  background-image: url("../css/images/datatable/sort_asc.png"); }
 
 table.dataTable thead .sorting_desc {
-  background-image: url("images/datatable/sort_desc.png"); }
+  background-image: url("../css/images/datatable/sort_desc.png"); }
 
 table.dataTable thead .sorting_asc_disabled {
-  background-image: url("images/datatable/sort_asc_disabled.png"); }
+  background-image: url("../css/images/datatable/sort_asc_disabled.png"); }
 
 table.dataTable thead .sorting_desc_disabled {
-  background-image: url("images/datatable/sort_desc_disabled.png"); }
+  background-image: url("../css/images/datatable/sort_desc_disabled.png"); }
 
 table.dataTable tbody tr {
   background-color: #ffffff; }
@@ -5862,7 +5861,7 @@ table.dataTable tbody > tr:hover {
   line-height: 3.5em; }
 
 .tableFit {
-  width: calc(100% - 1px);
+  width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0; }
 
@@ -6332,6 +6331,11 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 .right-separator {
   margin-right: 5px; }
 
+.rup-filtrar, .rup-dropdown-button {
+  color: #fff !important;
+  background-color: #007bff !important;
+  border-color: #007bff !important; }
+
 .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
 .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
 .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
@@ -6352,29 +6356,29 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
     padding-left: 15px; } }
 
 @media (min-width: 768px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
-  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
-  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
-  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
-  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md,
+  .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1,
+  .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10,
+  .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11,
+  .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 992px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
-  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
-  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
-  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
-  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+  .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
+  .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+  .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9,
+  .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 1200px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
-  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
-  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
-  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
-  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7,
+  .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
+  .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7,
+  .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7,
+  .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
@@ -7254,9 +7258,7 @@ nav a {
 input.ui-button {
   padding: 0.2em 0.6em; }
 
-.ui-state-highlight,
-.ui-widget-content .ui-state-highlight,
-.ui-widget-header .ui-state-highlight {
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
   font-weight: bold; }
 
 /** ICONOS **/
@@ -7780,7 +7782,7 @@ input.ui-button {
 
 /* without this, the menu expands to 100% in IE6 */
 .rup-autocomplete_label {
-  background-image: url("images/rup.autocomplete.png");
+  background-image: url(images/rup.autocomplete.png);
   background-repeat: no-repeat;
   background-position: left;
   padding-left: 2em;
@@ -8077,7 +8079,7 @@ button.ui-button-icon-only.rup-dropdown-button, .ui-button-icon-only.rup-dropdow
 .ui-selectmenu {
   display: inline-block;
   position: relative;
-  height: 1.4em;
+  height: 2em;
   text-decoration: none;
   overflow: hidden; }
 
@@ -10327,9 +10329,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   height: 18px; }
 
 @media \0screen {
-  .ui-state-disabled,
-  .ui-widget-content .ui-state-disabled,
-  .ui-widget-header .ui-state-disabled {
+  .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
     z-index: 0; } }
 
 /*Posicionamiento derecho de botones en la botonera*/

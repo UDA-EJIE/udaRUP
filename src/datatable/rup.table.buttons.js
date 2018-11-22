@@ -1969,10 +1969,14 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 					OKFunction: function () {
 						// Abrimos el formulario
-						if(ctx.oInit.multiSelect !== undefined){
-							DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks.
-						}else if(ctx.oInit.select !== undefined){
-							DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks.
+						if(ctx.oInit.seeker !== undefined){
+							DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+						}else{
+							if(ctx.oInit.multiSelect !== undefined){
+								DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+							}else if(ctx.oInit.select !== undefined){
+								DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+						}
 						}
 						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 					}
@@ -2478,28 +2482,43 @@ $.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds))
 var _convertToTabulador = function(objArray,showLabel) {
 var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
 var str = '';
+
 if (showLabel) {
     var row = "";
-
-    $.each(array[0], function(index) {
-        row += index + '	';
+    
+    // Se asignan los nombres de las columnas
+    $.each(array[0], function(key, value) {
+    	// Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+        if($.isPlainObject(value)) {
+        	var objectName = key;
+        	$.each(this, function(key, value) {
+        		var keyToCamelKeys = key.substring(0,1).toLocaleUpperCase() + key.substring(1);
+        		row += objectName + keyToCamelKeys + ';';
+        	});
+        } else {
+        	row += key + ';';
+        }
     });
     row = row.slice(0, -1);
     str += row + '\r\n';
 }
 
-for (var i = 0; i < array.length; i++) {
+// Se asignan los valores
+$.each(array, function() {
     var line = '';
-    for (var index in array[i]) {
-        if (line !== '') {
-        	line += '	'
+    $.each(this, function(key, value) {
+        // Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+        if($.isPlainObject(value)) {
+        	$.each(this, function(key, value) {
+        		line += value + ';';
+        	});
+        } else {
+        	line += value + ';';
         }
-
-        line += array[i][index];
-    }
-
+    });
+    line = line.slice(0, -1);
     str += line + '\r\n';
-}
+});
 
 return str;
 }

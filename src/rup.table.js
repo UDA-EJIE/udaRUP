@@ -12772,12 +12772,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					jQuery(this).removeClass('ui-state-focus');
 				}
 			});
-
-			if (p.linkStyleButtons !== undefined) {
-				for (var i = 0; i < p.linkStyleButtons.length; i++) {
-					jQuery(p.linkStyleButtons[0]).addClass('botonEnlace');
-				}
-			}
 		},
 		hideModal: function (selector, o) {
 			jQuery(selector).rup_dialog('close');
@@ -19451,7 +19445,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
 	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'),
-		cancelicon: [true, 'left', 'icono_cancelar'],
+		cancelicon: [false, 'left', 'icono_cancelar'],
 		delicon: [false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deleteAll') + '</div>',
@@ -20736,7 +20730,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// Parámetros de configruación específicos para la acción de eliminar un registro
 	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
-		cancelicon:[true, 'left', 'icono_cancelar'],
+		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
 		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',
