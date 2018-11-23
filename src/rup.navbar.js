@@ -268,6 +268,9 @@
 					scrollTop: menuScrollPos
 				}, 500);
 			});
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_navbar', 'init');
 		}
 	});
 

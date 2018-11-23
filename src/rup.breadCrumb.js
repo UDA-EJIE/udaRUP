@@ -209,6 +209,9 @@
 			//y por ultimo se añade todo el ul a div que lo contiene
 			this.element.append(ulBreadCrumb);
 			ulBreadCrumb.xBreadcrumbs();
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_breadCrumb', 'init');
 		},
 		/**
          * Funcion que crea el li correspondiente de la miga accediendo al fichero de lenguage correspondiente.

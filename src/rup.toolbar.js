@@ -423,6 +423,9 @@
 					t.addButton(dObj, json_i18n);
 				}
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_toolbar', 'init');
 		});
 	};
 

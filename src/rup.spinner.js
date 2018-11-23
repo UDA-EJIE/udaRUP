@@ -79,6 +79,8 @@
 			$self.attr('ruptype','spinner');
 			$self.spinner(settings);
 
+			//Se audita el componente
+			$.rup.auditComponent('rup_spinner', 'init');
 		}
 	});
 

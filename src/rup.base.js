@@ -748,7 +748,29 @@
 			return jQuery('body').data('tmp.multiselect.shiftPressed') === true;
 		}
 	});
-
+	/**
+	 * Creamos la funcion que audita el componente
+	 */
+	jQuery.extend($.rup,{
+		auditComponent: function(compName, auditing) {
+			let jsonPost = {
+				'data':{
+					'url': window.location.href,
+					'versionRup': $.rup.version,
+					'nombreComponente': compName,
+					'codApp': $.rup.APP_RESOURCES,
+					'timeStamp': Date.now(),
+					'auditing': auditing
+				}
+			};
+			$.ajax({
+				url:'/audit',
+				method: 'POST',
+				contentType: 'application/json',
+				data: jsonPost
+			});
+		}
+	});
 
 	//Ejemplo de extension de la funcion de inicio
 	//$.extend($.rup.iniRup, console.log("mundo")) ;
