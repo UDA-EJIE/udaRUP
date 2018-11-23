@@ -855,26 +855,30 @@ input.
 					this._createShowAllButton(settings);
 				}
 
+				// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
+				settings.$menu.on('scroll', (e) => {
+					jQuery('#' + settings.id + '_label').focus();
+					settings.$menu.show();
+				});
 
+				// Lanza el evento de change al seleccionar una de las opciones del menú
+				settings.$menu.on('mousedown', (e) => {
+					if ($(e.target).hasClass('ui-menu-item-wrapper')) {
+						settings.$menu.triggerHandler('blur');
+					}
+				});
 
 				// Altura del menu desplegable
-				
-					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						if (settings.menuMaxHeight !== false) {
-							// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
-							settings.$menu.on('scroll', (e) => {
-								jQuery('#' + settings.id + '_label').focus();
-								settings.$menu.show();
-							});
-
-							settings.$menu.css('overflow-y', 'auto')
-								.css('overflow-x', 'hidden')
-								.css('max-height', settings.menuMaxHeight+'px')
-								.css('width', jQuery('#' + settings.id + '_label').innerWidth());
-						}
-						jQuery('#' + settings.id+'_menu').css('z-index', '1000');
-						jQuery('#' + settings.id+'_menu').removeClass('ui-front');
-					});
+				jQuery('#' + settings.id).on('autocompleteopen', function () {
+					if (settings.menuMaxHeight !== false) {
+						settings.$menu.css('overflow-y', 'auto')
+							.css('overflow-x', 'hidden')
+							.css('max-height', settings.menuMaxHeight + 'px')
+							.css('width', jQuery('#' + settings.id + '_label').innerWidth());
+					}
+					jQuery('#' + settings.id + '_menu').css('z-index', '1000');
+					jQuery('#' + settings.id + '_menu').removeClass('ui-front');
+				});
 				
 				//Buscar el UL del autocomplete y colocarlo tras el elemento sobre el que debe ir
 				//$("#"+settings.id).after($("body > .ui-autocomplete"));

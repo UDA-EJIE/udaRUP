@@ -72,7 +72,8 @@ module.exports = {
 							// './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
 							'./images': path.join(__dirname, '../assets/images'),
 							'../images': path.join(__dirname, '../demo/images'),
-							'./cursors': path.join(__dirname, '../assets/cursors')
+							'./cursors': path.join(__dirname, '../assets/cursors'),
+							'../css/images/datatable': path.join(__dirname, '/images'),
 
 						}
 					} // translates CSS into CommonJS
