@@ -611,16 +611,17 @@ a.cal-event-week {
 
 .cal-month-day span[data-cal-date] {
     position: absolute;
-    right: 0;
     z-index: 1;
     color: #000;
     background-color: #FFF;
     border-radius: 2rem;
-    width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    line-height: 2.3rem;
+    top: -0.4rem;
+    right: -0.4rem;
     text-align: center;
-    opacity: 0.75
+    opacity: 0.75;
 }
 
 .events-list {
@@ -676,7 +677,7 @@ a.cal-event-week {
 
 #cal-slide-content a.event-item {
     color: #ffffffeb;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 #cal-slide-content ul {
@@ -741,8 +742,6 @@ a.cal-event-week {
 
 #cal-slide-content a.event-item>span {
     display: inline-block;
-    margin-top: 0.2rem;
-    margin-left: -1.5rem;
 }
 
 .calendar .cal-day-today {
@@ -769,7 +768,7 @@ a.cal-event-week {
     height: 20px;
     border-radius: 1.2rem;
     font-family: FontAwesome;
-    font: normal normal normal 1.5rem FontAwesome;
+    font: normal normal normal 1.25rem FontAwesome;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -847,4 +846,66 @@ a.cal-event-week {
 .calendar .cal-event-list .pdteAsignar,
 .calendar .events-list .pdteAsignar {
     background-color: #eceeef;
+}
+
+.legend {
+    border-radius: 20px;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-top: 0.25rem;
+}
+
+.bgNegro {
+    background: black !important;
+    color: white !important;
+}
+
+.bgNegroyRojo {
+    background: black !important;
+    border: solid 4px #ff3434 !important;
+    color: white !important;
+}
+
+.bgVerde {
+    background: green !important;
+    border: solid 1px #288E28 !important;
+    color: white !important;
+}
+
+.bgRojo {
+    background: red !important;
+    border: solid 1px #288E28 !important;
+    color: white !important;
+}
+
+.bgAmarillo {
+    background: #fff700 !important;
+    color: black !important;
+}
+
+.bgNaranja {
+    background: #ff9600 !important;
+    color: white !important;
+}
+
+.bgAzul {
+    background: #009fd9 !important;
+    color: white !important;
+}
+
+.bgCheck {
+    background: white;
+    border: solid 4px #ffffff !important;
+}
+
+.bgFucsia {
+    background: orchid !important;
+    border: solid 1px #288E28 !important;
+    color: white !important;
+}
+
+.bgMediumblue {
+    background: mediumblue !important;
+    border: solid 1px #288E28 !important;
+    color: white !important;
 }
