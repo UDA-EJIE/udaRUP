@@ -754,20 +754,20 @@
 	jQuery.extend($.rup,{
 		auditComponent: function(compName, auditing) {
 			let jsonPost = {
-				'data':{
-					'url': window.location.href,
-					'versionRup': $.rup.version,
-					'nombreComponente': compName,
-					'codApp': $.rup.APP_RESOURCES,
-					'timeStamp': Date.now(),
-					'auditing': auditing
-				}
+				'url': window.location.href,
+				'versionRup': $.rup.version,
+				'nombreComponente': compName,
+				'codApp': $.rup.APP_RESOURCES,
+				'timeStamp': Date.now(),
+				'auditing': auditing
 			};
 			$.ajax({
 				url:'/audit',
 				method: 'POST',
+				crossDomain:'true',
+				dataType:'json',
 				contentType: 'application/json',
-				data: jsonPost
+				data: JSON.stringify(jsonPost)
 			});
 		}
 	});
