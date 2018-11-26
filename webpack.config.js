@@ -97,6 +97,7 @@ module.exports = [{
 
 				'jquery.ui.widget': 'jquery-ui/widget.js',
 				'tmpl': 'blueimp-tmpl/js/tmpl.js',
+				'calendar-tmpls': 'bootstrap-calendar/tmpls'
 			}
 
 		}
