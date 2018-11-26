@@ -907,12 +907,16 @@ function _getRowSelected(dt,actionType){
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
 				rowDefault.indexSelected = index;
-				ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+				if(ctx.oInit.formEdit !== undefined){
+					ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+				}
 				return false;
 			}
 		});
 	}else{
-		ctx.oInit.formEdit.$navigationBar.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		}
 		if(lastSelectedId === undefined || lastSelectedId === ''){
 			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
 			rowDefault.line = _getLineByPageSelected(ctx,-1);
@@ -930,17 +934,22 @@ function _getRowSelected(dt,actionType){
 					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
 				});
 			rowDefault.indexSelected = index-result.length;//Buscar indice
-			ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected-1;
+			if(ctx.oInit.formEdit !== undefined){
+				ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected-1;
+			}
 		}
-
-		ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+		}
 	}
 
 	//En caso de estar en una pagina distinta , navegamos a ella
 	if(dt.page()+1 !== Number(rowDefault.page)){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
-		ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+		}
 	}
 
 	return rowDefault;
@@ -1061,7 +1070,9 @@ function _getLineByPageSelected(ctx,lineInit){
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
-				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
+				if(ctx.oInit.formEdit !== undefined){
+					ctx.oInit.formEdit.$navigationBar.currentPos = arra;
+				}
 				return false;
 			}
 		}

@@ -219,7 +219,7 @@
 			    }});
 				}
 				return {
-					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')
+					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx'),editable:!(e.getAttribute('data-col-edit') === "false") 
 				};
 			});
 			

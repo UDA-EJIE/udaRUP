@@ -502,16 +502,16 @@ function _getDatos(ctx){
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
 	if(colModel !== undefined){
-		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th').each(function (i) { // El primer tr corresponde al desplegable de filtros
-			if(i > 0){//La primera columna no vale es la de los select
-				var cellColModel = colModel[i-1];
+		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+
+				var cellColModel = colModel[i];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
 				var colModelName = cellColModel.name;
 				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
-					'title': ctx.aoColumns[i-1].sTitle,
+					'title': ctx.aoColumns[i].sTitle,
 					'class': 'editable customelement'
 				}).removeAttr('readOnly');
 	
@@ -533,7 +533,7 @@ function _createRupComponent(dt,ctx){
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 				}
-			}
+
 		});
 	}
 

@@ -67,7 +67,21 @@ DataTable.inlineEdit.version = '1.2.4';
 */
 DataTable.inlineEdit.init = function ( dt ) {
 	var ctx = dt.settings()[0];
-
+	ctx.inlineEdit = {};
+	var idRow;
+	//Se edita el row/fila.
+	var rowsBody = $( ctx.nTBody);
+	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
+		idRow = this._DT_RowIndex;
+		_editInline(dt,ctx,idRow);
+	} );
+	
+	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
+		var idRow = this._DT_RowIndex;
+		if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){
+			_restaurarFila(ctx,true);
+		}
+	} );
 
 };
 
@@ -173,7 +187,82 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
+function _add(ctx){
+	
+}
 
+function _editInline ( dt,ctx, idRow ){
+	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
+		_restaurarFila(ctx,false);
+	}
+	
+	if(ctx.inlineEdit.lastRow === undefined || 
+			(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow)){
+		_changeInputsToRup(ctx,idRow);
+	}
+	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
+	//Añadir la seleccion del mismo.
+	if (ctx.oInit.multiSelect !== undefined) {
+		dt['row'](idRow).multiSelect();
+	}else{
+		var rowsBody = $( ctx.nTBody);
+		$('tr',rowsBody).removeClass('selected tr-highlight');
+		DataTable.Api().select.selectRowIndex(dt,idRow,true);
+	}
+}
+
+function _restaurarFila(ctx,limpiar){
+	var positionLastRow = ctx.inlineEdit.lastRow.idx;
+	if($(ctx.aoData[ positionLastRow ].nTr).hasClass("editable")){
+		var colModel = ctx.oInit.seeker.colModel;
+		$(ctx.aoData[ positionLastRow ].nTr).removeClass("editable");
+		var cont = 0;
+		$(ctx.aoData[ positionLastRow ].nTr.cells).each( function(i) {
+			var celda = $(ctx.aoData[ positionLastRow ].nTr.cells[i]);
+			var $celda = $(celda);
+	
+			if(!$celda.hasClass("select-checkbox")){
+				var cellColModel = colModel[cont];
+				if(cellColModel.editable===true){
+					$celda.html(ctx.inlineEdit.lastRow.cellValues[cont]);
+				}
+				cont++;
+			}
+		});
+	}
+	if(limpiar){//si se limpia, no queda ninguna marcada
+		ctx.inlineEdit.lastRow = undefined;
+	}
+}
+
+function _changeInputsToRup(ctx,idRow){
+	// Se procesan las celdas editables
+	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
+	if(colModel !== undefined){
+		var cont = 0;
+		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
+		ctx.inlineEdit.lastRow.cellValues = {};
+		$(ctx.aoData[ idRow ].nTr).addClass('editable');
+		$(ctx.aoData[ idRow ].nTr.cells).each( function(i) {
+			var celda = $(ctx.aoData[ idRow ].nTr.cells[i]);
+			var $celda = $(celda);
+	
+			if(!$celda.hasClass("select-checkbox")){
+				var cellColModel = colModel[cont];
+				if(cellColModel.editable===true){
+					//Convertir a input.
+					ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+					var $input = $('<input />').val($celda.text());
+					var resol = $celda.width() - 10;
+					$input.css('max-width',resol+'px');
+					$celda.html($input);
+					
+				}
+				cont++;
+			}
+		});
+	}
+}
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -186,8 +275,12 @@ function eventTrigger ( api, type, args, any )
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
 
-apiRegister( 'inlineEdit.prueba()', function ( actionType,dt,idRow ) {
-	
+apiRegister( 'inlineEdit.add()', function ( ctx ) {
+	_add(ctx);
+} );
+
+apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow ) {
+	_editInline(dt,ctx,idRow);
 } );
 
 

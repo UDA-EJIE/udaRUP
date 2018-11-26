@@ -116,7 +116,7 @@ DataTable.multiSelect.init = function ( dt ) {
 			setStyle = true;
 		}
 
-		if ( opts.selector !== undefined ) {
+		if ( ctx.oInit.selector !== undefined ) {
 			selector = opts.selector;
 		}
 

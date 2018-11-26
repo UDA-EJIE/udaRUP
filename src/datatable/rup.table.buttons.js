@@ -1993,16 +1993,28 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			// Abrimos el formulario
 			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
-			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+			if(ctx.oInit.formEdit !== undefined){
+				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+			}else{//edicion en linea
+				DataTable.Api().inlineEdit.editInline(dt,ctx, idRow);
+			}
 			break;
 		case 'clone':
 			// Abrimos el formulario
 			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;
-			DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
+			if(ctx.oInit.formEdit !== undefined){
+				DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
+			}else{//edicion en linea
+				
+			}
 			break;
 		case 'delete':
 			// borramos todos los seleccionados.
-			DataTable.Api().editForm.deleteAllSelects(dt);
+			if(ctx.oInit.formEdit !== undefined){
+				DataTable.Api().editForm.deleteAllSelects(dt);
+			}else{//edicion en linea
+				
+			}
 			break;
 	}
 } );
