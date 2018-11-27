@@ -114,6 +114,7 @@ module.exports = (PORT) => {
 
 	//Audit
 	app.post('/audit', routesAudit.audit);
+	app.get('/audit', routesAudit.getAudited);
 
 	app.options("/demo/datatable/remote", function(req, res, next){
 		res.header('Access-Control-Allow-Origin', '*');
