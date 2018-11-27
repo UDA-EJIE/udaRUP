@@ -145,14 +145,28 @@ function _createFilterColumn(dt,ctx){
 
 	var idTabla = ctx.sTableId;
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
-	   $('#'+idTabla+' tfoot th').each( function () {
-	        var title = $(this).text();
-	        if($(this).index() > 0 || ctx.oInit.multiSelect === undefined){
-	        	var position = $(this).index()+1;
-	        	var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
-	        	$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
-	        }
-	    } );
+		$('#'+idTabla+' tfoot th').each( function () {
+			var title = $(this).text();
+			var index = $(this).index();
+			
+			if(index > 0 || ctx.oInit.multiSelect === undefined){
+				
+				var colModelIndex = index;
+				var position = index + 1;
+				
+				if(ctx.oInit.multiSelect != undefined) {
+					colModelIndex--;
+				}
+				
+				// Comprobamos si queremos deshabilitar la búsqueda de la columna
+				if(ctx.oInit.seeker.colModel != undefined && ctx.oInit.seeker.colModel[colModelIndex].hidden) {
+					$(this).empty();
+				} else {
+					var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
+					$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
+				}
+			}
+		} );
 
 
 	   dt.columns().eq(0).each(function(colIdx) {
