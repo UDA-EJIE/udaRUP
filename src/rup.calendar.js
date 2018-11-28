@@ -19,31 +19,23 @@
 import * as underscore from 'underscore';
 
 /**
- * Un menú contextual consta de un menú dentro de una interfaz gráfica que se muestra a partir de una interacción del usuario. El menú contextual muestra una serie de opciones disponibles en el contexto o estado actual de la aplicación.
+ * TODO: Descripción del componente de calendario.
  *
- * @summary Componente RUP ContextMenu.
+ * @summary Componente RUP Calendar.
  * @module rup_calendar
  * @example
  * var properties = {
- *  items : {
- *       "edit": {name: "Edit", icon: "edit"},
- *       "cut": {name: "Cut", icon: "cut"},
- *       "copy": {name: "Copy", icon: "copy"},
- *       "paste": {name: "Paste", icon: "paste"},
- *       "delete": {name: "Delete", icon: "delete"},
- *       "sep1": "---------",
- *       "quit": {name: "Quit", icon: "quit"}
- *   }
+ *  TODO: Objeto JSON de configuración
  * };
  *
- * $('#contextMenu').rup_calendar(properties);
+ * $('#calendar').rup_calendar(properties);
  */
 
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'bootstrap-calendar'], factory);
+		define(['jquery', './rup.base', 'popper.js', 'bootstrap-calendar'], factory);
 	} else {
 
 		// Browser globals
@@ -55,11 +47,12 @@ import * as underscore from 'underscore';
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//****************************************************************************************************************
 
-
-
 	var rup_calendar = {};
 	var calObj;
 	var self;
+
+	////El componente subyacente requiere underscore en el scope de window
+	window._ = underscore;
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_calendar', rup_calendar));
@@ -169,21 +162,6 @@ import * as underscore from 'underscore';
 					settings.appendTo = '.r01gContainer';
 				}
 
-				let tmpls = {
-					'day': require('calendar/tmpls/day.html'),
-					'week': require('calendar/tmpls/week.html'),
-					'week-days': require('calendar/tmpls/week-days.html'),
-					'month': require('calendar/tmpls/month.html'),
-					'month-day': require('calendar/tmpls/month-day.html'),
-					'year': require('calendar/tmpls/year.html'),
-					'year-month': require('calendar/tmpls/year-month.html'),
-					'events-list': require('calendar/tmpls/events-list.html'),
-					'modal': require('calendar/tmpls/modal.html')
-				};
-
-				//El componente subyacente requiere underscore en el scope de window
-				window._ = underscore;
-
 				//El componente subyacente requiere i18n en una variable del scope de window
 				if (!window.calendar_languages) {
 					window.calendar_languages = {};
@@ -291,6 +269,20 @@ import * as underscore from 'underscore';
 	 */
 
 	$.fn.rup_calendar.defaults = {
+		events_source: () => {
+			return [];
+		},
+		language: $.rup.lang,
+		view: 'month',
+		tmpl_path: STATICS + '/rup/html/templates/rup_calendar/',
+		tmpl_cache: false,
+		weekbox: false,
+		classes: {
+			months: {
+				general: 'label'
+			}
+		},
+		onAfterEventsLoad: (...args) => {},
 		onAfterViewLoad: (...args) => {
 			$('*[data-toggle="tooltip"]').tooltip('dispose');
 			$('*[data-toggle="tooltip"]').tooltip({

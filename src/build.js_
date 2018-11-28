@@ -37,6 +37,7 @@
         "chartjs": "../node_modules/chart.js/dist/Chart",
         "qtip2": "../node_modules/qtip2/dist/jquery.qtip",
         "tether": "../node_modules/tether/dist/js/tether",
+		    "popper": "../node_modules/popper.js/dist/popper.min",
         //"highlight": "../node_modules/highlight.js/lib/highlight",
         "highlight": "../js/highlight.pack",
         "templates": "../templates",

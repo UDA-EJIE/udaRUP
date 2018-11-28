@@ -63,6 +63,12 @@ module.exports = [{
 					loader: 'expose-loader',
 					options: 'Tether'
 				}]
+			}, {
+				test: require.resolve('popper.js'),
+				use: [{
+					loader: 'expose-loader',
+					options: 'Popper'
+				}]
 			}]
 	},
 	stats: {

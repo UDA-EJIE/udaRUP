@@ -24,7 +24,7 @@ module.exports = {
 			$: 'jquery',
 			jQuery: 'jquery',
 			Tether: 'tether',
-			Popper: ['popper.js', 'default'],
+			Popper: ['popper', 'default'],
 			Util: 'exports-loader?Util!bootstrap/js/dist/util',
 			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown'
 		}),
@@ -104,8 +104,8 @@ module.exports = {
 					options: {
 						limit: 1024,
 						name: '[name].[ext]',
-						publicPath: '/tmpls/',
-						outputPath: 'tmpls/'
+						publicPath: '/rup/html/templates/rup_calendar/',
+						outputPath: 'rup/html/templates/rup_calendar/'
 					}
 				},
 			}
@@ -131,6 +131,7 @@ module.exports = {
 
 			'bt4': path.resolve(__dirname, '../dist/js/externals/bootstrap/bt4.min.js'),
 			'tether': 'tether/dist/js/tether.js',
+			'popper': 'popper.js/dist/umd/popper.js',
 			'calendar': 'bootstrap-calendar'
 		}
 	},

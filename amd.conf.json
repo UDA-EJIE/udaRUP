@@ -28,6 +28,7 @@
         "chartjs": "./node_modules/chart.js/dist/Chart",
         "qtip2": "./node_modules/qtip2/dist/jquery.qtip",
         "tether": "./node_modules/tether/dist/js/tether",
+        "popper": "./node_modules/popper.js/dist/umd/popper.min",
         "highlight": "../js/highlight.pack",
         "templates": "../templates",
         "blockUI": "./node_modules/block-ui/jquery.blockUI",

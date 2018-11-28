@@ -12,6 +12,19 @@ define(['marionette',
 	});
 
 	function fncOnAttach() {
+		//Necesario para que Webpack cargue las templates
+		let tmpls = {
+			'day': require('calendar/tmpls/day.html'),
+			'week': require('calendar/tmpls/week.html'),
+			'week-days': require('calendar/tmpls/week-days.html'),
+			'month': require('calendar/tmpls/month.html'),
+			'month-day': require('calendar/tmpls/month-day.html'),
+			'year': require('calendar/tmpls/year.html'),
+			'year-month': require('calendar/tmpls/year-month.html'),
+			'events-list': require('calendar/tmpls/events-list.html'),
+			'modal': require('calendar/tmpls/modal.html')
+		};
+
 		//CALENDARIO
 		var options = {
 			events_source: function () {
@@ -218,13 +231,8 @@ define(['marionette',
 					"class": " vertido vigilancia",
 					"end": "1542495600000",
 					"url": "javascript:actions(49143)"
-				}]
+				}];
 			},
-			language: $.rup.lang,
-			view: 'month',
-			tmpl_path: STATICS + '/tmpls/',
-			tmpl_cache: false,
-			weekbox: false,
 			extraParams: {
 				calFilter: $('#calendario_filter_form').rup_form().formToJson()
 			},
@@ -246,11 +254,6 @@ define(['marionette',
 				$('.btn-group button').removeClass('active');
 				$('button[data-calendar-view="' + view + '"]').addClass('active');
 			},
-			classes: {
-				months: {
-					general: 'label'
-				}
-			}
 		};
 
 		var calendar = $(this.ui.calendar).rup_calendar(options);
