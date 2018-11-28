@@ -751,6 +751,13 @@
 	/**
 	 * Creamos la funcion que audita el componente
 	 */
+	function ajaxAudit(jsonPost) {
+		$.ajax('/audit',{
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonPost)
+		});
+	}
 	jQuery.extend($.rup,{
 		auditComponent: function(compName, auditing) {
 			let jsonPost = {
@@ -761,14 +768,8 @@
 				'timeStamp': Date.now(),
 				'auditing': auditing
 			};
-			$.ajax({
-				url:'/audit',
-				method: 'POST',
-				crossDomain:'true',
-				dataType:'json',
-				contentType: 'application/json',
-				data: JSON.stringify(jsonPost)
-			});
+			ajaxAudit(jsonPost);
+			
 		}
 	});
 
