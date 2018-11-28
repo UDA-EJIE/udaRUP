@@ -78,7 +78,7 @@ DataTable.multiSelect.init = function ( dt ) {
 	var style = 'api';
 	var blurable = false;
 	var info = true;
-	var selector = 'td:first-child';
+	var selector = 'td';
 	var className = 'selected tr-highlight';
 	var setStyle = false;
 
@@ -368,6 +368,9 @@ function enableMouseSelection ( dt )
 			container.css( '-moz-user-select', '' );
 		} )
 		.on( 'click.dtSelect', selector, function ( e ) {
+			if(e.srcElement.className.indexOf("openResponsive") > -1){
+				return false;
+			}
 			var items = dt.multiSelect.items();
 			var idx;
 
@@ -1557,9 +1560,13 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		return deselectes;
 
 	}
-
-
+	
 	this.iterator( 'row', function ( ctx, idx ) {
+		// si es en edicion en linea,
+		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
+				&& ctx.inlineEdit.lastRow.idx !== idx){
+			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
+		}
 		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
 		clear( ctx );
 		pagina = false;
@@ -1710,7 +1717,12 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		}else if(ctx.multiselection.accion === ""){//es que se resta uno solo.
 			ctx.multiselection.numSelected--;
 		}
-
+		
+		//Si es en edicion en linea, no hacer nada
+		if(ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx,idx)){
+			//Seleccionar la fila otra vez.
+			api.rows( idx ).multiSelect();
+		}
 	} );
 
 	this.iterator( 'table', function ( ctx, i ) {

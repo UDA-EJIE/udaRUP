@@ -11,6 +11,7 @@
  */
 /* Layout helpers
 ----------------------------------*/
+@import url(external/datatable/responsive.bootstrap4.min.css);
 .ui-helper-hidden {
   display: none; }
 
@@ -5904,6 +5905,43 @@ table.dataTable tbody > tr:hover {
     width: 45%; }
   .recolocatedPagination_length {
     padding: 7px 0 8px; } }
+
+.openResponsive, .closeResponsive {
+  top: 9px;
+  left: 4px;
+  height: 14px;
+  width: 14px;
+  display: block;
+  position: absolute;
+  color: white;
+  border: 2px solid white;
+  border-radius: 14px;
+  box-shadow: 0 0 3px #444;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 14px;
+  content: '+';
+  cursor: pointer; }
+
+.openResponsive:before {
+  content: '+'; }
+
+.openResponsive:hover {
+  background-color: #197019; }
+
+.openResponsive {
+  background-color: #31b131; }
+
+.closeResponsive:before {
+  content: '-'; }
+
+.closeResponsive {
+  background-color: #d33333; }
+
+.closeResponsive:hover {
+  background-color: #fc081f; }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }

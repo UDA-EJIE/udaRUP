@@ -977,6 +977,25 @@
 				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
 			});
 			
+			tabla.on( 'responsive-resize', function (e,settingsTable,columns) {
+				var count = columns.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+				if(settingsTable.context[0].responsive.c.details.target === 'td span.openResponsive'){//por defecto
+					$('#'+this.id).find("tbody td:first-child span.openResponsive").remove();
+					if(count > 0){//añadir span ala primera fila
+						$.each($('#'+this.id).find("tbody td:first-child"),function( ){
+							var $span = $('<span/>');
+							$(this).prepend($span.addClass('openResponsive'));
+							$span.click(function(){
+								if($span.hasClass('closeResponsive')){
+									$span.removeClass('closeResponsive');
+								}else{
+									$span.addClass('closeResponsive');
+								}
+							});
+						});
+					}
+				}
+			});
 
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
@@ -1024,10 +1043,15 @@ $.fn.rup_datatable.defaults = {
 				delay:1000
 			}
 		},
-    dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
+	responsive: {           
+		details: {
+	    	type: 'column',
+	    	target: 'td span.openResponsive'
+				}	
+		}, 
+	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
-	responsive: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],

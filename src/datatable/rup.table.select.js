@@ -132,12 +132,17 @@ function _selectRowIndex(dt,index,tr){
 	ctx.multiselection.selectedRowsPerPage = [];
 	ctx.oInit.select.funcionParams = '';
 	var rowsBody = $( ctx.nTBody);
-	if(tr.hasClass( "tr-highlight" )){
+	if(tr.hasClass( "tr-highlight" )){//se deselecciona
 		tr.removeClass('selected tr-highlight');
 		ctx.multiselection.numSelected = 0;
 		ctx.multiselection.selectedIds = [];
 		ctx.multiselection.lastSelectedId = '';
-	}else{
+		//Si es en edicion en linea, no hacer nada
+		if(ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx,index)){
+			//Seleccionar la fila otra vez.
+			_selectRowIndex(dt,index,tr);
+		}
+	}else{ //se selecciona
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
 		tr.triggerHandler('tableHighlightRowAsSelected');
@@ -148,6 +153,11 @@ function _selectRowIndex(dt,index,tr){
 			ctx.multiselection.numSelected = 1;
 			ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
 			ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+		}
+		// si es en edicion en linea,
+		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
+				&& ctx.inlineEdit.lastRow.idx !== index){
+			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
 		}
 	}
 	if(ctx.oInit.buttons !== undefined){

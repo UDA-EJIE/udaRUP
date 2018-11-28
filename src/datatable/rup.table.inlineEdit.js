@@ -75,14 +75,6 @@ DataTable.inlineEdit.init = function ( dt ) {
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
 	} );
-	
-	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
-		var idRow = this._DT_RowIndex;
-		if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){
-			_restaurarFila(ctx,true);
-		}
-	} );
-
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -201,6 +193,14 @@ function _editInline ( dt,ctx, idRow ){
 		_changeInputsToRup(ctx,idRow);
 	}
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
+	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
+	if($selectorTr.data( "events" ) === undefined || $selectorTr.data( "events" ).keydown === undefined){
+		$selectorTr.keydown(function(e) {
+		    if (e.keyCode === 27) {
+		    	_restaurarFila(ctx,true);
+		    }
+		});
+	}
 	//Añadir la seleccion del mismo.
 	if (ctx.oInit.multiSelect !== undefined) {
 		dt['row'](idRow).multiSelect();
@@ -212,26 +212,32 @@ function _editInline ( dt,ctx, idRow ){
 }
 
 function _restaurarFila(ctx,limpiar){
-	var positionLastRow = ctx.inlineEdit.lastRow.idx;
-	if($(ctx.aoData[ positionLastRow ].nTr).hasClass("editable")){
-		var colModel = ctx.oInit.seeker.colModel;
-		$(ctx.aoData[ positionLastRow ].nTr).removeClass("editable");
-		var cont = 0;
-		$(ctx.aoData[ positionLastRow ].nTr.cells).each( function(i) {
-			var celda = $(ctx.aoData[ positionLastRow ].nTr.cells[i]);
-			var $celda = $(celda);
-	
-			if(!$celda.hasClass("select-checkbox")){
-				var cellColModel = colModel[cont];
-				if(cellColModel.editable===true){
-					$celda.html(ctx.inlineEdit.lastRow.cellValues[cont]);
+	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
+		var positionLastRow = ctx.inlineEdit.lastRow.idx;
+		if($(ctx.aoData[ positionLastRow ].nTr).hasClass("editable")){
+			var colModel = ctx.oInit.seeker.colModel;
+			$(ctx.aoData[ positionLastRow ].nTr).removeClass("editable");
+			var cont = 0;
+			$(ctx.aoData[ positionLastRow ].nTr.cells).each( function(i) {
+				var celda = $(ctx.aoData[ positionLastRow ].nTr.cells[i]);
+				var $celda = $(celda);
+		
+				if(!$celda.hasClass("select-checkbox")){
+					var cellColModel = colModel[cont];
+					if(cellColModel.editable===true){
+						$celda.html(ctx.inlineEdit.lastRow.cellValues[cont]);
+					}
+					cont++;
 				}
-				cont++;
-			}
-		});
+			});
+		}
 	}
-	if(limpiar){//si se limpia, no queda ninguna marcada
+	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
+		var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+positionLastRow+')');
 		ctx.inlineEdit.lastRow = undefined;
+		if($selectorTr.data( "events" ) !== undefined){
+			$selectorTr.off('keydown');
+		}
 	}
 }
 
@@ -246,17 +252,26 @@ function _changeInputsToRup(ctx,idRow){
 		$(ctx.aoData[ idRow ].nTr.cells).each( function(i) {
 			var celda = $(ctx.aoData[ idRow ].nTr.cells[i]);
 			var $celda = $(celda);
-	
+			var ponerFocus = false;
 			if(!$celda.hasClass("select-checkbox")){
 				var cellColModel = colModel[cont];
 				if(cellColModel.editable===true){
 					//Convertir a input.
-					ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+					
 					var $input = $('<input />').val($celda.text());
 					var resol = $celda.width() - 10;
 					$input.css('max-width',resol+'px');
-					$celda.html($input);
+					//si es el primero dejar el focus
+					if(ctx.inlineEdit.lastRow.cellValues[0] === undefined){
+						ponerFocus = true;
+					}
 					
+					ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+					$celda.html($input);
+					//NOs aseguramos de que el input existe
+					if(ponerFocus){
+						$input.focus();
+					}
 				}
 				cont++;
 			}
@@ -281,6 +296,21 @@ apiRegister( 'inlineEdit.add()', function ( ctx ) {
 
 apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow ) {
 	_editInline(dt,ctx,idRow);
+} );
+
+apiRegister( 'inlineEdit.restaurarFila()', function (ctx, limpiar ) {
+	_restaurarFila(ctx, limpiar);
+} );
+
+apiRegister( 'inlineEdit.editSameLine()', function (ctx, idx ) {
+	var mismaLinea = false;
+	
+	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
+			&& ctx.inlineEdit.lastRow.idx === idx){
+		mismaLinea = true;
+	}
+	
+	return mismaLinea;
 } );
 
 
