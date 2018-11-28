@@ -14,6 +14,8 @@
  * que establece la Licencia.
  */
 
+/* jshint -W117 */
+
 import * as underscore from 'underscore';
 
 /**
@@ -37,9 +39,6 @@ import * as underscore from 'underscore';
  * $('#contextMenu').rup_calendar(properties);
  */
 
-/*global define */
-/*global jQuery */
-
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 
@@ -59,7 +58,8 @@ import * as underscore from 'underscore';
 
 
 	var rup_calendar = {};
-	var $self;
+	var calObj;
+	var self;
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_calendar', rup_calendar));
@@ -78,7 +78,7 @@ import * as underscore from 'underscore';
 		 * $("#contextMenu").rup_calendar("show");
 		 */
 		navigate: function (navigation) {
-			$self.navigate(navigation);
+			calObj.navigate(navigation);
 		},
 		/**
 		 * Oculta el menú contextual.
@@ -89,7 +89,18 @@ import * as underscore from 'underscore';
 		 * $("#contextMenu").rup_calendar("hide");
 		 */
 		view: function (viewmode) {
-			$self.view(viewmode);
+			calObj.view(viewmode);
+		},
+		/**
+		 * Obtiene el título de la vista de calendario.
+		 *
+		 * @name jQuery.rup_calendar# getTitle
+		 * @function
+		 * @example
+		 * $("#calendar").rup_calendar("getTitle");
+		 */
+		'getTitle': () => {
+			calObj.getTitle();
 		},
 		/**
 		 * Elimina el menú contextual.
@@ -100,7 +111,7 @@ import * as underscore from 'underscore';
 		 * $("#contextMenu").rup_calendar("destroy");
 		 */
 		destroy: function () {
-			$self.destroy();
+			calObj.destroy();
 		}
 	});
 
@@ -109,6 +120,23 @@ import * as underscore from 'underscore';
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 	$.fn.rup_calendar('extend', {
+		_callIfFunction: function (...args) {
+			if (args.length === 0) return false;
+			if (args.length > 1) {
+				let fnc = args[0];
+				let params = args.slice(1);
+				if (fnc !== undefined && typeof fnc === 'function') {
+					return fnc.apply(this, params);
+				} else {
+					return false;
+				}
+			} else {
+				if (args !== undefined && typeof (args) === 'function') {
+					return args.call(this);
+				}
+			}
+		},
+
 		/**
 		 * Método de inicialización del componente.
 		 *
@@ -122,10 +150,17 @@ import * as underscore from 'underscore';
 				$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
 			} else {
 				//Se recogen y cruzan las paremetrizaciones del objeto
-				var self = this;
-				var settings = $.extend({}, $.fn.rup_calendar.defaults, args[0]);
-				var background_image;
-				var background_position;
+				self = this;
+				var customSettings = args[0];
+				var settings = $.extend({}, $.fn.rup_calendar.defaults, customSettings);
+				settings.onAfterEventsLoad = function (...args) {
+					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
+					self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
+				};
+				settings.onAfterViewLoad = function (...args) {
+					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterViewLoad, args);
+					self._callIfFunction.call(this, customSettings.rupAfterViewLoad, args);
+				};
 
 				//Asociar el selector
 				settings.selector = self.selector;
@@ -134,7 +169,7 @@ import * as underscore from 'underscore';
 					settings.appendTo = '.r01gContainer';
 				}
 
-				var tmpls = {
+				let tmpls = {
 					'day': require('calendar/tmpls/day.html'),
 					'week': require('calendar/tmpls/week.html'),
 					'week-days': require('calendar/tmpls/week-days.html'),
@@ -156,8 +191,7 @@ import * as underscore from 'underscore';
 				window.calendar_languages[settings.language] = $.rup.i18n.base.rup_calendar;
 
 				//Lanzar el plugin subyaciente
-				$self = $(self).calendar(settings);
-
+				calObj = $(self).calendar(settings);
 			}
 		}
 	});
@@ -257,9 +291,13 @@ import * as underscore from 'underscore';
 	 */
 
 	$.fn.rup_calendar.defaults = {
-		autoHide: true,
-		showCursor: true,
-		msieCursorCss: 'url(' + $.rup.RUP + '/css/cursors/context-menu.cur),default'
+		onAfterViewLoad: (...args) => {
+			$('*[data-toggle="tooltip"]').tooltip('dispose');
+			$('*[data-toggle="tooltip"]').tooltip({
+				container: 'body',
+				html: true
+			});
+		}
 	};
 
 }));

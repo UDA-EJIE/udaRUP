@@ -228,7 +228,7 @@ define(['marionette',
 			extraParams: {
 				calFilter: $('#calendario_filter_form').rup_form().formToJson()
 			},
-			onAfterEventsLoad: function (events) {
+			rupAfterEventsLoad: function (events) {
 				if (!events) {
 					return;
 				}
@@ -241,7 +241,7 @@ define(['marionette',
 						.appendTo(list);
 				});
 			},
-			onAfterViewLoad: function (view) {
+			rupAfterViewLoad: function (view) {
 				$('.page-header h3').text(this.getTitle());
 				$('.btn-group button').removeClass('active');
 				$('button[data-calendar-view="' + view + '"]').addClass('active');
@@ -255,19 +255,19 @@ define(['marionette',
 
 		var calendar = $(this.ui.calendar).rup_calendar(options);
 
-		$('.btn-group span[data-calendar-nav]').each(function () {
-			var $this = $(this);
-			$this.click(function () {
-				calendar.navigate($this.data('calendar-nav'));
+		$('.btn-group span[data-calendar-nav]').each((i, e) => {
+			let $elem = $(e);
+			$elem.click(function () {
+				calendar.navigate($elem.data('calendar-nav'));
 			});
 		});
 
-		$('.btn-group span[data-calendar-view]').each(function () {
-			var $this = $(this);
-			$this.click(function () {
-				calendar.view($this.data('calendar-view'));
+		$('.btn-group span[data-calendar-view]').each((i, e) => {
+			let $elem = $(e);
+			$elem.click(function () {
+				calendar.view($elem.data('calendar-view'));
 				$('.btn-group span[data-calendar-view].active').removeClass('active');
-				$this.addClass('active');
+				$elem.addClass('active');
 			});
 		});
 	}

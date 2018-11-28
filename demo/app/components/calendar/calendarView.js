@@ -4,7 +4,7 @@ define(['marionette',
 	'./calendarJsCodeTemplate.hbs',
 	'./calendarBodyView',
 	'./calendarTestView',
-	'../../shared/component/componentExampleCodeView',
+	'../../shared/component/componentExampleCodeView', 'jquery',
 	'rup.calendar', 'rup.button'
 ], function (Marionette, ComponentLayoutTemplate, CalendarHtmlCodeTemplate, CalendarJsCodeTemplate, CalendarBodyView, CalendarTestView, ComponentExampleCodeView) {
 
@@ -27,6 +27,7 @@ define(['marionette',
 			templateJs: CalendarJsCodeTemplate
 		}));
 		$view.Test.show(new CalendarTestView());
+		window.$ = $;
 	}
 
 	return CalendarView;

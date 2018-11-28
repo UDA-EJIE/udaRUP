@@ -169,11 +169,19 @@
 
 #cal-slide-tick {
     position: absolute;
-    width: 16px;
-    margin-left: -7px;
-    height: 9px;
-    top: -1px;
     z-index: 1;
+    margin-left: -7px;
+    top: -1.25rem;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 2.5rem;
+    color: #FFF;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+        content: "\f0d7";
+    }
 }
 
 #cal-slide-tick.tick-month1 {
@@ -475,7 +483,7 @@
 }
 
 .cal-year-box [class*='span'] {
-    min-height: 60px;
+    min-height: 10rem;
 }
 
 .cal-year-box .row-fluid [class*='span']:last-child,
@@ -565,7 +573,7 @@ span[data-cal-date]:hover {
 }
 
 #cal-slide-box {
-    border-top: 0px solid #8c8c8c;
+    margin-top: -1px;
 }
 
 #cal-slide-content {
@@ -601,12 +609,28 @@ a.cal-event-week {
 
 .badge-important {
     background-color: #b94a48;
+    color: #FFF;
 }
 
 
 
+
+.icon-chevron-down {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+
+    &:before {
+        content: "\f078";
+    }
+}
+
 #cal-day-tick {
     padding: 0px 4px;
+    margin-top: -1px;
+    border-top: 1px solid transparent;
 }
 
 .cal-month-day span[data-cal-date] {
@@ -626,11 +650,11 @@ a.cal-event-week {
 
 .events-list {
     max-height: 100px;
-    overflow-y: auto;
     padding-left: 5px;
 }
 
 .events-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #f1f1f1;
 }
@@ -668,7 +692,7 @@ a.cal-event-week {
 
 .event-item span {
     width: 90%;
-    padding: 5px;
+    padding: 0.25rem 1.25rem;
 }
 
 .event-item span:hover {
