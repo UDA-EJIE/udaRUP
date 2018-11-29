@@ -70,7 +70,10 @@ DataTable.select.init = function ( dt ) {
 	ctx.select = [];
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
-	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
+	rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
+		if(e.srcElement.className.indexOf("openResponsive") > -1){
+			return false;
+		}
 		$(this).triggerHandler('tableSelectBeforeSelectRow');
 		var idRow = this._DT_RowIndex;
 		 _selectRowIndex(dt,idRow,$(this));

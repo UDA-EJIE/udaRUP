@@ -214,23 +214,13 @@ function _editInline ( dt,ctx, idRow ){
 function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
-		if($(ctx.aoData[ positionLastRow ].nTr).hasClass("editable")){
-			var colModel = ctx.oInit.seeker.colModel;
-			$(ctx.aoData[ positionLastRow ].nTr).removeClass("editable");
-			var cont = 0;
-			$(ctx.aoData[ positionLastRow ].nTr.cells).each( function(i) {
-				var celda = $(ctx.aoData[ positionLastRow ].nTr.cells[i]);
-				var $celda = $(celda);
+
+		var $fila = $(ctx.aoData[ positionLastRow ].nTr);
+		//Sin responsive
+		var contRest = _restaurarCeldas(ctx,$fila,$fila.find('td:not([style*="display: none"])'),0);
 		
-				if(!$celda.hasClass("select-checkbox")){
-					var cellColModel = colModel[cont];
-					if(cellColModel.editable===true){
-						$celda.html(ctx.inlineEdit.lastRow.cellValues[cont]);
-					}
-					cont++;
-				}
-			});
-		}
+		//con responsive, desplegado
+		_restaurarCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),contRest);
 	}
 	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
 		var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+positionLastRow+')');
@@ -243,42 +233,79 @@ function _restaurarFila(ctx,limpiar){
 
 function _changeInputsToRup(ctx,idRow){
 	// Se procesan las celdas editables
-	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
-	if(colModel !== undefined){
+
+	if(ctx.oInit.seeker.colModel !== undefined){
 		var cont = 0;
 		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
 		ctx.inlineEdit.lastRow.cellValues = {};
-		$(ctx.aoData[ idRow ].nTr).addClass('editable');
-		$(ctx.aoData[ idRow ].nTr.cells).each( function(i) {
-			var celda = $(ctx.aoData[ idRow ].nTr.cells[i]);
-			var $celda = $(celda);
-			var ponerFocus = false;
-			if(!$celda.hasClass("select-checkbox")){
-				var cellColModel = colModel[cont];
-				if(cellColModel.editable===true){
-					//Convertir a input.
-					
-					var $input = $('<input />').val($celda.text());
-					var resol = $celda.width() - 10;
-					$input.css('max-width',resol+'px');
-					//si es el primero dejar el focus
-					if(ctx.inlineEdit.lastRow.cellValues[0] === undefined){
-						ponerFocus = true;
-					}
-					
-					ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
-					$celda.html($input);
-					//NOs aseguramos de que el input existe
-					if(ponerFocus){
-						$input.focus();
-					}
-				}
-				cont++;
-			}
-		});
+		
+		ctx.inlineEdit.lastRow.ponerFocus = false;
+		var $fila = $(ctx.aoData[ idRow ].nTr);
+		//Campos sin responsive
+		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
+		//Mirar los campos que estan en responsive.
+		_recorrerCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),cont);
+
 	}
 }
 
+function _recorrerCeldas(ctx,$fila,$celdas,cont){
+	$fila.addClass('editable');
+	var colModel = ctx.oInit.seeker.colModel;
+	$celdas.each( function() {
+		var celda = $(this);
+		var $celda = $(celda);
+		
+		if(!$celda.hasClass("select-checkbox") && $celda.css('display') !== 'none'){
+			var cellColModel = colModel[cont];
+			if(cellColModel.editable===true){
+				//Convertir a input.
+				
+				var $input = $('<input />').val($celda.text());
+				var resol = $celda.width() - 10;
+				$input.css('max-width',resol+'px');
+				//si es el primero dejar el focus
+				if(ctx.inlineEdit.lastRow.cellValues[0] === undefined){
+					ctx.inlineEdit.lastRow.ponerFocus = true;
+				}
+				
+				ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+				$celda.html($input);
+				//NOs aseguramos de que el input existe
+				if(ctx.inlineEdit.lastRow.ponerFocus){
+					$input.focus();
+					ctx.inlineEdit.lastRow.ponerFocus = false;
+				}
+			}
+			cont++;
+		}
+	});
+	
+	return cont;
+}
+
+function _restaurarCeldas(ctx,$fila,$celdas,contRest){
+
+	if($fila.hasClass("editable")){
+		var colModel = ctx.oInit.seeker.colModel;
+		$fila.removeClass("editable");
+	
+		$celdas.each( function() {
+			var celda = $(this);
+			var $celda = $(celda);
+	
+			if(!$celda.hasClass("select-checkbox")){
+				var cellColModel = colModel[contRest];
+				if(cellColModel.editable===true){
+					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
+				}
+				contRest++;
+			}
+		});
+	}
+	
+	return contRest;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API

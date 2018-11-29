@@ -982,7 +982,7 @@
 				if(settingsTable.context[0].responsive.c.details.target === 'td span.openResponsive'){//por defecto
 					$('#'+this.id).find("tbody td:first-child span.openResponsive").remove();
 					if(count > 0){//añadir span ala primera fila
-						$.each($('#'+this.id).find("tbody td:first-child"),function( ){
+						$.each($('#'+this.id).find("tbody td:first-child:not(.child)"),function( ){
 							var $span = $('<span/>');
 							$(this).prepend($span.addClass('openResponsive'));
 							$span.click(function(){
@@ -1047,7 +1047,8 @@ $.fn.rup_datatable.defaults = {
 		details: {
 	    	type: 'column',
 	    	target: 'td span.openResponsive'
-				}	
+				},
+		selectorResponsive: 'td span.dtr-data'		
 		}, 
 	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
