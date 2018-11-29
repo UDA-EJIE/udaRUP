@@ -157,7 +157,7 @@
 		 */
 		show: function() {
 			if(!$('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
-				this.click();
+				this.rup_navbar('toggle');
 			}
 		},
 		/**
@@ -169,7 +169,7 @@
 		 */
 		hide: function () {
 			if($('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
-				this.click();
+				this.rup_navbar('toggle');
 			}
 		},
 		/**
@@ -267,6 +267,11 @@
 				$(this).parent().parent().animate({
 					scrollTop: menuScrollPos
 				}, 500);
+			});
+
+			//Añadimos un handler para cuando esté en modo responsive
+			$('button.navbar-toggler', $(this).parent()).on('click', function () {
+				$('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
 			});
 		}
 	});
