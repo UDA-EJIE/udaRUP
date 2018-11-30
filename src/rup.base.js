@@ -751,25 +751,45 @@
 	/**
 	 * Creamos la funcion que audita el componente
 	 */
-	function ajaxAudit(jsonPost) {
-		$.ajax('/audit',{
+	function prepareAuditData (compName, auditing) {
+		return {
+			'url': window.location.href,
+			'versionRup': $.rup.version,
+			'nombreComponente': compName,
+			'codApp': $.rup.APP_RESOURCES,
+			'timeStamp': Date.now(),
+			'auditing': auditing
+		};
+	}
+	function ajaxAudit (jsonPost) {
+		$.ajax('http://localhost:8081/audit',{
 			method: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(jsonPost)
 		});
 	}
+	jQuery.extend($.rup,{ comboCont: 0 });
 	jQuery.extend($.rup,{
 		auditComponent: function(compName, auditing) {
-			let jsonPost = {
-				'url': window.location.href,
-				'versionRup': $.rup.version,
-				'nombreComponente': compName,
-				'codApp': $.rup.APP_RESOURCES,
-				'timeStamp': Date.now(),
-				'auditing': auditing
-			};
-			ajaxAudit(jsonPost);
-			
+			var browserInfo = navigator.userAgent;
+
+			// if(browserInfo.indexOf('Phantom') >= 0){
+			// 	/**
+			// 	 * Durante la ejecución de las pruebas de Jasmine la llamada AJAX de estos
+			// 	 * elementos a '/audit' provoca timeouts y errores en los test por problemas de
+			// 	 * sincronismo. Así que en caso de que se ejecute con phantom (El navegador a través
+			// 	 * del que se realiza el testing headless) La llamada AJAX no se realizará.
+			// 	 */
+			// 	var failing = ['rup_button', 'rup_combo', 'rup_report', 'rup_toolbar', 'rup_date'];
+			// 	if( failing.indexOf(compName) >= 0 ) {
+			// 		return;
+			// 	}
+			// }
+			if(compName === 'rup_accordion') {
+				$.rup.comboCont += 1;
+			}
+			console.info($.rup.comboCont);
+			ajaxAudit(prepareAuditData(compName, auditing));
 		}
 	});
 
