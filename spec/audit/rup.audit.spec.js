@@ -25,7 +25,7 @@ describe('Test auditoría > ', () => {
     });
     it('Comprobamos si se auditan los componentes:', (done) => {
         $.ajax({
-            url:'/audit',
+            url:$.rup.AUDIT_PATH,
             method:'GET',
             success: (data) => {
                 expect(data.slice(-2)).toEqual(['rup_progressbar','rup_spinner']);
