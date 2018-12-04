@@ -13746,8 +13746,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				$self.triggerHandler('rupTable_coreConfigFinished');
 			}
-			//Se audita el componente
-			$.rup.auditComponent('rup_table', 'init');
 		},
 		/**
      * Devuelve el índice de la línea identificada mediante el valor indicado por parámetro.

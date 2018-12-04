@@ -1969,7 +1969,7 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 
 .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: transparent; }
+  background-color: rgba(0, 0, 0, 0); }
 
 .qtip-youtube .qtip-content {
   padding: .75em;
