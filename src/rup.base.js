@@ -386,7 +386,12 @@
 				$.rup.AUDIT_PATH = window.AUDIT_PATH;
 			}
 			else {
-				$.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
+				if($.rup.CTX_PATH[$.rup.CTX_PATH.length -1 ] === '/') {
+					$.rup.AUDIT_PATH =$.rup.CTX_PATH + 'audit';
+				}
+				else {
+					$.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
+				}
 			}
 
 			//Borrar las variables javascript externas
