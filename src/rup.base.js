@@ -382,7 +382,12 @@
 			//metodos http permitidos en la emulacion xhr para el uso con iframes
 			$.rup.IFRAME_ONLY_SUPPORTED_METHODS = ['GET', 'POST'];
 			//Auditoria
-			$.rup.AUDIT_PATH = AUDIT_PATH ? AUDIT_PATH  : $.rup.CTX_PATH + '/audit';
+			if(AUDITH_PATH) {
+				$.rup.AUDIT_PATH = AUDIT_PATH;;
+			}
+			else {
+				$.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
+			}
 
 			//Borrar las variables javascript externas
 			// delete APP_RESOURCES;
