@@ -382,8 +382,8 @@
 			//metodos http permitidos en la emulacion xhr para el uso con iframes
 			$.rup.IFRAME_ONLY_SUPPORTED_METHODS = ['GET', 'POST'];
 			//Auditoria
-			if(AUDITH_PATH) {
-				$.rup.AUDIT_PATH = AUDIT_PATH;;
+			if(window.AUDITH_PATH) {
+				$.rup.AUDIT_PATH = window.AUDIT_PATH;
 			}
 			else {
 				$.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
