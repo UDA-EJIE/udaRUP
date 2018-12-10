@@ -193,14 +193,22 @@ function _editInline ( dt,ctx, idRow ){
 		_changeInputsToRup(ctx,idRow);
 	}
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
-	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
-	if($selectorTr.data( "events" ) === undefined || $selectorTr.data( "events" ).keydown === undefined){
-		$selectorTr.keydown(function(e) {
-		    if (e.keyCode === 27) {
-		    	_restaurarFila(ctx,true);
-		    }
-		});
+	var selectores = {};
+	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
+	selectores[0] = $selectorTr;
+	if($selectorTr.next().find(".child").length === 1){
+		selectores[1] = $selectorTr.next().find(".child");
 	}
+	
+	$.each(selectores,function() {//se crea eventor para los selectores creados.
+		if(this.data( "events" ) === undefined || this.data( "events" ).keydown === undefined){
+			this.keydown(function(e) {
+			    if (e.keyCode === 27) {
+			    	_restaurarFila(ctx,true);
+			    }
+			});
+		}
+	});
 	//Añadir la seleccion del mismo.
 	if (ctx.oInit.multiSelect !== undefined) {
 		dt['row'](idRow).multiSelect();
@@ -217,7 +225,11 @@ function _restaurarFila(ctx,limpiar){
 
 		var $fila = $(ctx.aoData[ positionLastRow ].nTr);
 		//Sin responsive
-		var contRest = _restaurarCeldas(ctx,$fila,$fila.find('td:not([style*="display: none"])'),0);
+		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
+		var contRest = $fila.find('td:not([style*="display: none"])').length;
+		if($fila.find('td.select-checkbox').length > 0){
+			contRest--;
+		}
 		
 		//con responsive, desplegado
 		_restaurarCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),contRest);
@@ -234,14 +246,21 @@ function _restaurarFila(ctx,limpiar){
 function _changeInputsToRup(ctx,idRow){
 	// Se procesan las celdas editables
 
-	if(ctx.oInit.seeker.colModel !== undefined){
+	if(ctx.oInit.colModel !== undefined){
+		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
 		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
 		ctx.inlineEdit.lastRow.cellValues = {};
+		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
 		var $fila = $(ctx.aoData[ idRow ].nTr);
+		//Si existe el responsive
 		//Campos sin responsive
+		var $target = $fila.find(ctx.oInit.responsive.details.target);
+		if($target.length > 0 && $fila.next().find(".child").length === 0){
+			$target.click();
+		}
 		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
 		//Mirar los campos que estan en responsive.
 		_recorrerCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),cont);
@@ -251,7 +270,7 @@ function _changeInputsToRup(ctx,idRow){
 
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	$fila.addClass('editable');
-	var colModel = ctx.oInit.seeker.colModel;
+	var colModel = ctx.oInit.colModel;
 	$celdas.each( function() {
 		var celda = $(this);
 		var $celda = $(celda);
@@ -287,7 +306,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 
 	if($fila.hasClass("editable")){
-		var colModel = ctx.oInit.seeker.colModel;
+		var colModel = ctx.oInit.colModel;
 		$fila.removeClass("editable");
 	
 		$celdas.each( function() {
@@ -298,6 +317,20 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
+					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad
+						var $span = $celda.find('span.openResponsive');
+						$span.click(function(event){
+							if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+								event.stopPropagation();
+							}else{
+								if($span.hasClass('closeResponsive')){
+									$span.removeClass('closeResponsive');
+								}else{
+									$span.addClass('closeResponsive');
+								}
+							}
+						});
+					}
 				}
 				contRest++;
 			}
@@ -305,6 +338,77 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 	}
 	
 	return contRest;
+}
+
+function _comprobarFila(ctx,$fila){
+	var count = ctx.responsive.s.current.reduce(function (a,b) {return b === false ? a+1 : a;}, 0 );
+	var $span = $fila.find('span.openResponsive');
+	if($fila.next('.child').length === 0){
+		$span.click();
+	}else{
+		$span.addClass('closeResponsive');
+	}
+	var $filaChild = $fila.next('.child');
+	var contFields = ctx.responsive.s.current.length - count;
+	if($fila.find('td.select-checkbox').length){
+		contFields--;
+	}
+	_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
+	//Se crea el evento para el tr child de escape
+	if($filaChild.data( "events" ) === undefined || $filaChild.data( "events" ).keydown === undefined){
+		$filaChild.keydown(function(e) {
+		    if (e.keyCode === 27) {
+		    	_restaurarFila(ctx,true);
+		    }
+		});
+	}
+	var tabla = $('#'+ctx.sTableId).DataTable();
+	tabla.responsive.recalc();
+}
+
+function _inResponsiveChangeInputsValues(ctx,$fila){
+	var table = $('#'+ctx.sTableId).DataTable( );
+	ctx.inlineEdit.lastRow.rupValues = [];
+	table.columns().responsiveHidden().each( function(valor,i) {
+		if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
+			var value = "";
+			if(valor){//se coge el valor del child.
+				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
+				cont = cont + i - total;
+				value = $fila.next('.child').find('li:eq('+cont+') input').val();
+
+			}else{//se coge el valor de los inputs ocultos.
+				value = $fila.find('td:eq('+i+') input').val();
+			}
+			
+		}else{
+			var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+			var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
+			contar = contar + i - totalContar;
+			// se asigna valor normal
+			
+			if(valor){
+				value = $fila.find('td:eq('+i+') input').val();
+			}else{
+				value = $fila.next('.child').find('li:eq('+contar+') input').val();
+			}
+		}
+		//Guardar los inputs
+		ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
+	});
+}
+
+function _asignarInputsValues(ctx,$fila){
+	var contChild = 0;
+	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
+		if(celda.visible){// se asignan a los inputs ocultos
+			$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+		}else{//se asignan alos child
+			 $fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+			 contChild++;
+		}
+	});
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -340,6 +444,21 @@ apiRegister( 'inlineEdit.editSameLine()', function (ctx, idx ) {
 	return mismaLinea;
 } );
 
+apiRegister( 'inlineEdit.recorrerCeldas()', function (ctx,$fila,$celdas,cont) {
+	_recorrerCeldas(ctx,$fila,$celdas,cont);
+} );
+
+apiRegister( 'inlineEdit.comprobarFila()', function (ctx, $fila) {
+	_comprobarFila(ctx,$fila);
+} );
+
+apiRegister( 'inlineEdit.inResponsiveChangeInputsValues()', function (ctx, $fila) {
+	_inResponsiveChangeInputsValues(ctx,$fila);
+} );
+
+apiRegister( 'inlineEdit.asignarInputsValues()', function (ctx, $fila) {
+	_asignarInputsValues(ctx,$fila);
+} );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation

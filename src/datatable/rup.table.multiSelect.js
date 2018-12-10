@@ -368,7 +368,7 @@ function enableMouseSelection ( dt )
 			container.css( '-moz-user-select', '' );
 		} )
 		.on( 'click.dtSelect', selector, function ( e ) {
-			if(e.srcElement.className.indexOf("openResponsive") > -1){
+			if(e.target !== undefined && e.target.className.indexOf("openResponsive") > -1){
 				return false;
 			}
 			var items = dt.multiSelect.items();

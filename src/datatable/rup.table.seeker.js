@@ -500,7 +500,7 @@ function _getDatos(ctx){
 *
 */
 function _createRupComponent(dt,ctx){
-	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
+	var colModel = ctx.oInit.colModel, searchEditOptions;
 	if(colModel !== undefined){
 		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
 

@@ -71,7 +71,7 @@ DataTable.select.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
-		if(e.srcElement.className.indexOf("openResponsive") > -1){
+		if(e.target.className.indexOf("openResponsive") > -1){
 			return false;
 		}
 		$(this).triggerHandler('tableSelectBeforeSelectRow');

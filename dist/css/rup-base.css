@@ -11,7 +11,6 @@
  */
 /* Layout helpers
 ----------------------------------*/
-@import url(external/datatable/responsive.bootstrap4.min.css);
 .ui-helper-hidden {
   display: none; }
 
@@ -5912,7 +5911,7 @@ table.dataTable tbody > tr:hover {
   height: 14px;
   width: 14px;
   display: block;
-  position: absolute;
+  position: initial;
   color: white;
   border: 2px solid white;
   border-radius: 14px;

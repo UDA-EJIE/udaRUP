@@ -172,6 +172,34 @@
 				
 				return id;
 		} );
+			
+			if(options.inlineEdit !== undefined){
+				//RSPONSIBLE CON EDITLINE
+	            var renderer = function ( api, rowIdx, columns ) {
+	    			var data = $.map( columns, function ( col ) {
+	    				var colShow = col.hidden ?
+	    					'<li data-dtr-index="'+col.columnIndex+'" data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+	    						'<span class="dtr-title">'+
+	    							col.title+
+	    						'</span> '+
+	    						'<span class="dtr-data">'+
+	    							col.data+
+	    						'</span>'+
+	    					'</li>' :
+	    					'';
+	    				return colShow;
+	    			} ).join('');
+	
+	    			var value = data ?	$('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>').append( data ) :	false;
+	    			var ctx = api.context[0];
+	    			var $row = $('#'+ctx.sTableId+' tbody tr:not(.child):eq('+rowIdx+')');
+	    			if($row.hasClass('editable')){
+	    				DataTable.Api().inlineEdit.inResponsiveChangeInputsValues(ctx,$row);
+	    			}
+	    			return value;
+	            };
+	            options.responsive.details.renderer = renderer;
+			}
 
 			return options;
 		},
@@ -964,6 +992,8 @@
 				$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
 					$self._createTooltip($(this));
 				});
+				
+
 			  });
 			
 			tabla.on( 'destroy', function (e,settingsTable) {
@@ -975,28 +1005,75 @@
 			/*	tabla.off( 'draw');
 				tabla.off( 'destroy');
 				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+				
 			});
+			
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {
+				tabla.responsive.recalc();
+			} ) );
 			
 			tabla.on( 'responsive-resize', function (e,settingsTable,columns) {
 				var count = columns.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-				if(settingsTable.context[0].responsive.c.details.target === 'td span.openResponsive'){//por defecto
+				var ctx = settingsTable.context[0];
+				if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
 					$('#'+this.id).find("tbody td:first-child span.openResponsive").remove();
 					if(count > 0){//añadir span ala primera fila
 						$.each($('#'+this.id).find("tbody td:first-child:not(.child)"),function( ){
 							var $span = $('<span/>');
-							$(this).prepend($span.addClass('openResponsive'));
-							$span.click(function(){
-								if($span.hasClass('closeResponsive')){
-									$span.removeClass('closeResponsive');
+							if($(this).find('span.openResponsive').length === 0){
+								$(this).prepend($span.addClass('openResponsive'));
+							}else{//si ya existe se asigna el valor.
+								$span = $(this).find('span.openResponsive');
+							}
+							if($(this).parent().next().hasClass('child')){
+								$span.addClass('closeResponsive');
+							}
+							var $fila = $(this).parent();
+							$span.click(function(event){
+								if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+									event.stopPropagation();
 								}else{
-									$span.addClass('closeResponsive');
+									if($span.hasClass('closeResponsive')){
+										$span.removeClass('closeResponsive');
+									}else{
+										$span.addClass('closeResponsive');
+									}
 								}
 							});
+							if(ctx.inlineEdit !== undefined && $fila.hasClass('editable')){
+								setTimeout(DataTable.Api().inlineEdit.comprobarFila(ctx,$fila), 500);
+								//Se recorrern las celdas,y se convierten
+							/*	var $filaChild = $fila.next('.child');
+								var contFields = columns.length - count;
+								if($fila.find('td.select-checkbox').length){
+									contFields--;
+								}
+								DataTable.Api().inlineEdit.recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
+								//Se crea el evento para el tr child de escape
+								if($filaChild.data( "events" ) === undefined || $filaChild.data( "events" ).keydown === undefined){
+									$filaChild.keydown(function(e) {
+									    if (e.keyCode === 27) {
+									    	DataTable.Api().inlineEdit.restaurarFila(ctx,true);
+									    }
+									});
+								}
+								tabla.responsive.recalc();*/
+							}
 						});
+					}else{//si la edicion en linea esta activada
+						
+					}
+					//si hay inputs guardadoas se machancn los cambios por el responsive.
+					if(ctx.inlineEdit !== undefined && 
+							ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.rupValues !== undefined){
+						ctx.inlineEdit.lastRow.columnsHidden = tabla.columns().responsiveHidden();
+						var $row = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+						DataTable.Api().inlineEdit.asignarInputsValues(ctx,$row);
 					}
 				}
 			});
 
+			
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
 				new $.fn.dataTable.Buttons(
