@@ -1042,22 +1042,6 @@
 							});
 							if(ctx.inlineEdit !== undefined && $fila.hasClass('editable')){
 								setTimeout(DataTable.Api().inlineEdit.comprobarFila(ctx,$fila), 500);
-								//Se recorrern las celdas,y se convierten
-							/*	var $filaChild = $fila.next('.child');
-								var contFields = columns.length - count;
-								if($fila.find('td.select-checkbox').length){
-									contFields--;
-								}
-								DataTable.Api().inlineEdit.recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
-								//Se crea el evento para el tr child de escape
-								if($filaChild.data( "events" ) === undefined || $filaChild.data( "events" ).keydown === undefined){
-									$filaChild.keydown(function(e) {
-									    if (e.keyCode === 27) {
-									    	DataTable.Api().inlineEdit.restaurarFila(ctx,true);
-									    }
-									});
-								}
-								tabla.responsive.recalc();*/
 							}
 						});
 					}else{//si la edicion en linea esta activada

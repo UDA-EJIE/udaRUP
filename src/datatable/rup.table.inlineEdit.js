@@ -201,13 +201,7 @@ function _editInline ( dt,ctx, idRow ){
 	}
 	
 	$.each(selectores,function() {//se crea eventor para los selectores creados.
-		if(this.data( "events" ) === undefined || this.data( "events" ).keydown === undefined){
-			this.keydown(function(e) {
-			    if (e.keyCode === 27) {
-			    	_restaurarFila(ctx,true);
-			    }
-			});
-		}
+		_crearEventos(ctx,this);
 	});
 	//Añadir la seleccion del mismo.
 	if (ctx.oInit.multiSelect !== undefined) {
@@ -271,6 +265,10 @@ function _changeInputsToRup(ctx,idRow){
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	$fila.addClass('editable');
 	var colModel = ctx.oInit.colModel;
+	var child = "";
+	if($fila.hasClass('child')){
+		child = "_child";
+	}
 	$celdas.each( function() {
 		var celda = $(this);
 		var $celda = $(celda);
@@ -278,9 +276,8 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		if(!$celda.hasClass("select-checkbox") && $celda.css('display') !== 'none'){
 			var cellColModel = colModel[cont];
 			if(cellColModel.editable===true){
-				//Convertir a input.
-				
-				var $input = $('<input />').val($celda.text());
+				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
+				$input.attr('id', cellColModel.name+'_inline'+child);
 				var resol = $celda.width() - 10;
 				$input.css('max-width',resol+'px');
 				//si es el primero dejar el focus
@@ -290,6 +287,36 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				
 				ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
 				$celda.html($input);
+				
+				//Convertir a input.
+				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
+				var colModelName = cellColModel.name;
+				var $elem = $('[name=\''+colModelName+'_inline'+child+'\']',ctx.nTBody);
+				// Se añade el title de los elementos de acuerdo al colname
+				$elem.attr({
+					'title': ctx.aoColumns[cont].sTitle,
+					'class': 'editable customelement'
+				}).removeAttr('readOnly');
+				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+				if(searchRupType!==undefined) {
+					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+	
+					/*
+					 * PRE Configuración de los componentes RUP
+					 */
+					if(searchRupType === 'combo'){
+						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
+					} else if(searchRupType === 'date'){
+						$elem.css('width','86%');
+						$elem.css('max-width','80px');
+						$elem.css('min-width','75px');
+					}
+	
+					// Invocación al componente RUP
+					$elem['rup_'+searchRupType](searchEditOptions);
+				}
+				//Fin conversion
+				
 				//NOs aseguramos de que el input existe
 				if(ctx.inlineEdit.lastRow.ponerFocus){
 					$input.focus();
@@ -355,15 +382,56 @@ function _comprobarFila(ctx,$fila){
 	}
 	_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
 	//Se crea el evento para el tr child de escape
-	if($filaChild.data( "events" ) === undefined || $filaChild.data( "events" ).keydown === undefined){
-		$filaChild.keydown(function(e) {
-		    if (e.keyCode === 27) {
+	 _crearEventos(ctx,$filaChild);
+	var tabla = $('#'+ctx.sTableId).DataTable();
+	tabla.responsive.recalc();
+}
+
+function _crearEventos(ctx,$selector){
+	if($selector.data( "events" ) === undefined || $selector.data( "events" ).keydown === undefined){
+		$selector.keydown(function(e) {
+		    if (e.keyCode === 27) {//Esc
 		    	_restaurarFila(ctx,true);
+		    }
+		    if (e.keyCode === 13) {//Intro
+		    	_guardar(ctx);
 		    }
 		});
 	}
-	var tabla = $('#'+ctx.sTableId).DataTable();
-	tabla.responsive.recalc();
+}
+
+/**
+* Metodo que serializa los datos del formulario.
+*
+* @name _inlineFormSerialize
+* @function
+* @since UDA 3.6.0 // Datatable 1.2.0
+*
+* @param {object} idForm - Formulario que alberga los datos.
+*
+* @return {string} - Devuelve los datos del formulario serializados
+*
+*/
+function _editFormSerialize(idForm){
+	var serializedForm = '';
+	var idFormArray = idForm.formToArray();
+	var length = idFormArray.length;
+	
+	$.each( idFormArray, function( key, obj ) {
+		serializedForm += (obj.name + "=" + obj.value);
+		
+		if(key < length - 1) {
+			serializedForm += "&";
+		}
+	});
+	
+	return serializedForm;
+}
+
+function _guardar(ctx){
+	console.log('Entro guardar:');
+	//Se serializa el formulario con los cambios
+	var row = _editFormSerialize(idForm);
 }
 
 function _inResponsiveChangeInputsValues(ctx,$fila){
@@ -376,10 +444,10 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
 				cont = cont + i - total;
-				value = $fila.next('.child').find('li:eq('+cont+') input').val();
+				value = $fila.next('.child').find('li:eq('+cont+')').find('select,input').val();
 
 			}else{//se coge el valor de los inputs ocultos.
-				value = $fila.find('td:eq('+i+') input').val();
+				value = $fila.find('td:eq('+i+')').find('select,input').val();
 			}
 			
 		}else{
@@ -389,9 +457,9 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 			// se asigna valor normal
 			
 			if(valor){
-				value = $fila.find('td:eq('+i+') input').val();
+				value = $fila.find('td:eq('+i+')').find('select,input').val();
 			}else{
-				value = $fila.next('.child').find('li:eq('+contar+') input').val();
+				value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
 			}
 		}
 		//Guardar los inputs
@@ -403,9 +471,17 @@ function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
 		if(celda.visible){// se asignan a los inputs ocultos
-			$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
+				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
+			}else{
+				$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+			}
 		}else{//se asignan alos child
-			 $fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+			if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
+				$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
+			}else{
+				$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+			}
 			 contChild++;
 		}
 	});
