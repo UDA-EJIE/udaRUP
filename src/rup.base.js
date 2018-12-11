@@ -783,7 +783,9 @@
 	}
 	jQuery.extend($.rup,{
 		auditComponent: function(compName, auditing) {
-			ajaxAudit(prepareAuditData(compName, auditing));
+			if(IS_EJIE) {
+				ajaxAudit(prepareAuditData(compName, auditing));
+			}
 		}
 	});
 
