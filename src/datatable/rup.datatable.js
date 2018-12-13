@@ -1008,54 +1008,9 @@
 				
 			});
 			
-			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {
-				tabla.responsive.recalc();
-			} ) );
-			
-			tabla.on( 'responsive-resize', function (e,settingsTable,columns) {
-				var count = columns.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-				var ctx = settingsTable.context[0];
-				if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
-					$('#'+this.id).find("tbody td:first-child span.openResponsive").remove();
-					if(count > 0){//añadir span ala primera fila
-						$.each($('#'+this.id).find("tbody td:first-child:not(.child)"),function( ){
-							var $span = $('<span/>');
-							if($(this).find('span.openResponsive').length === 0){
-								$(this).prepend($span.addClass('openResponsive'));
-							}else{//si ya existe se asigna el valor.
-								$span = $(this).find('span.openResponsive');
-							}
-							if($(this).parent().next().hasClass('child')){
-								$span.addClass('closeResponsive');
-							}
-							var $fila = $(this).parent();
-							$span.click(function(event){
-								if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
-									event.stopPropagation();
-								}else{
-									if($span.hasClass('closeResponsive')){
-										$span.removeClass('closeResponsive');
-									}else{
-										$span.addClass('closeResponsive');
-									}
-								}
-							});
-							if(ctx.inlineEdit !== undefined && $fila.hasClass('editable')){
-								setTimeout(DataTable.Api().inlineEdit.comprobarFila(ctx,$fila), 500);
-							}
-						});
-					}else{//si la edicion en linea esta activada
-						
-					}
-					//si hay inputs guardadoas se machancn los cambios por el responsive.
-					if(ctx.inlineEdit !== undefined && 
-							ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.rupValues !== undefined){
-						ctx.inlineEdit.lastRow.columnsHidden = tabla.columns().responsiveHidden();
-						var $row = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
-						DataTable.Api().inlineEdit.asignarInputsValues(ctx,$row);
-					}
-				}
-			});
+			if(settings.inlineEdit !== undefined){
+				DataTable.Api().inlineEdit.onResponsiveResize(tabla);
+			}
 
 			
 			if(settings.buttons !== undefined){
