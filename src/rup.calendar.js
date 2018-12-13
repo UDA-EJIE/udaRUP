@@ -17,6 +17,7 @@
 /* jshint -W117 */
 
 import * as underscore from 'underscore';
+import { Exception, Utils } from 'handlebars';
 
 /**
  * TODO: Descripción del componente de calendario.
@@ -35,7 +36,7 @@ import * as underscore from 'underscore';
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'popper.js', 'bootstrap-calendar'], factory);
+		define(['jquery', './rup.base', 'popper', './external/bootstrap-calendar'], factory);
 	} else {
 
 		// Browser globals
@@ -63,32 +64,127 @@ import * as underscore from 'underscore';
 	//*******************************
 	$.fn.rup_calendar('extend', {
 		/**
-		 * Muestra el menú contextual.
+		 * Navega en el calendario al punto especificado
 		 *
-		 * @name show
+		 * @name navigate
+		 * @param {(string|Date)} [navigation] Hacia dónde navegar
 		 * @function
 		 * @example
-		 * $("#contextMenu").rup_calendar("show");
+		 * $("#calendar").rup_calendar('navigate','next');
 		 */
 		navigate: function (navigation) {
+			// Si el valor es un objeto Date en función navegamos hasta la posición indicada
+			if( navigation instanceof Date ) {
+				let pos = $.extend({}, calObj.options.position);
+
+				pos.start.setTime(navigation.getTime());
+				calObj.options.day = pos.start.getFullYear() + '-' +
+									 pos.start.getMonthFormatted() + '-' +
+									 pos.start.getDateFormatted();
+				calObj.view();
+				$(calObj.options.selector).trigger('afterRender');
+				return;
+			}
+			// Si no hay valor se considera que por defecto es "today"
+			navigation = navigation ? navigation : 'today';
+			if($.inArray(navigation,['next','prev','today']) < 0 ) {
+				$(calObj.options.selector).trigger('afterRender');
+				throw Error('Parámetro inválido');
+			}
 			calObj.navigate(navigation);
+			$(calObj.options.selector).trigger('afterRender');
+		},
+		/**
+		 * Confirma si en la vista está el día actual.
+		 * @name isToday
+		 * @returns {boolean} true si el dia actual está en la vista. false en caso contrario
+		 * @function
+		 * @example
+		 * $("#calendar").rup_calendar('isToday');
+		 */
+		isToday: () => {
+			return calObj.isToday();
+		},
+		instance: () => {
+			return calObj;
 		},
 		/**
 		 * Oculta el menú contextual.
 		 *
-		 * @name jQuery.rup_calendar#hide
+		 * @name setView
+		 * @param {string} [viewmode] El modo de visualizacion a establecer
 		 * @function
 		 * @example
-		 * $("#contextMenu").rup_calendar("hide");
+		 * $("#calendar").rup_calendar('setView','day');
 		 */
-		view: function (viewmode) {
+		setView: function (viewmode) {
+			// El valor por defecto es month.
+			viewmode = viewmode ? viewmode : 'month';
+			if( $.inArray(viewmode,['year','month','week', 'day']) < 0 ) {
+				throw Error('Parámetro inválido');
+			}
 			calObj.view(viewmode);
+			$(calObj.options.selector).trigger('afterRender');
+		},
+		/**
+		 * Obtiene el modo de visualización actual.
+		 * 
+		 * @name getView
+		 * @returns {string} modo de visualización
+		 * @function
+		 * @example
+		 * $('#calendar').rup_calendar('getView');
+		 */
+		getView: () => {
+			return calObj.options.view;
+		},
+		/**
+		 * Obtiene el año del calendario
+		 * @name getYear
+		 * @returns {number} el año del calendario
+		 * @example
+		 * $('#calendar').rup_calendar('getYear');
+		 */
+		getYear: () => {
+			return calObj.getYear();
+		},
+		/**
+		 * Obtiene el mes del calendario (1 - 12)
+		 * @name getMonth
+		 * @returns {number} el mes del calendario
+		 * @example
+		 * $('#calendar').rup_calendar('getMonth');
+		 */
+		getMonth: () => {
+			return calObj.getMonth();
+		},
+		/**
+		 * Obtiene la semana del calendario
+		 * @name getWeek
+		 * @returns {number} la semana del calendario
+		 * @example
+		 * $('#calendar').rup_calendar('getMonth');
+		 */
+		getWeek: () => {
+			let date = new Date(calObj.getStartDate());
+			return date.getWeek();
+		},
+		/**
+		 * Obtiene el día del calendario
+		 * @name getDay
+		 * @returns {number} el día del calendario
+		 * @example
+		 * $('#calendar').rup_calendar('getMonth');
+		 */
+		getDay: () => {
+			return calObj.getDay();
 		},
 		/**
 		 * Obtiene el título de la vista de calendario.
 		 *
-		 * @name jQuery.rup_calendar# getTitle
+		 * @name getTitle
 		 * @function
+		 * @returns {string} título de la vista
 		 * @example
 		 * $("#calendar").rup_calendar("getTitle");
 		 */
@@ -96,7 +192,27 @@ import * as underscore from 'underscore';
 			calObj.getTitle();
 		},
 		/**
-		 * Elimina el menú contextual.
+		 * Obtiene la fecha desde la que se muestra el calendario
+		 * @name getStartDate
+		 * @function
+		 * @returns {Date} fecha
+		 * @example
+		 */
+		getStartDate:() => {
+			return calObj.getStartDate();
+		},
+		/**
+		 * Obtiene la fecha hasta la que se muestra el calendario
+		 * @name getEndDate
+		 * @function
+		 * @returns {Date} fecha
+		 * @example
+		 */
+		getEndDate:() => {
+			return calObj.getEndDate();
+		},
+		/**
+		 * Elimina el calendario
 		 *
 		 * @name destroy
 		 * @function
@@ -284,8 +400,8 @@ import * as underscore from 'underscore';
 		},
 		onAfterEventsLoad: (...args) => {},
 		onAfterViewLoad: (...args) => {
-			$('*[data-toggle="tooltip"]').tooltip('dispose');
-			$('*[data-toggle="tooltip"]').tooltip({
+			$('*[data-toggle="tooltip"]').rup_tooltip('destroy');
+			$('*[data-toggle="tooltip"]').rup_tooltip({
 				container: 'body',
 				html: true
 			});

@@ -24,7 +24,6 @@ define(['marionette',
 			'events-list': require('calendar/tmpls/events-list.html'),
 			'modal': require('calendar/tmpls/modal.html')
 		};
-
 		//CALENDARIO
 		var options = {
 			events_source: function () {
@@ -233,9 +232,6 @@ define(['marionette',
 					"url": "javascript:actions(49143)"
 				}];
 			},
-			extraParams: {
-				calFilter: $('#calendario_filter_form').rup_form().formToJson()
-			},
 			rupAfterEventsLoad: function (events) {
 				if (!events) {
 					return;
@@ -268,7 +264,7 @@ define(['marionette',
 		$('.btn-group span[data-calendar-view]').each((i, e) => {
 			let $elem = $(e);
 			$elem.click(function () {
-				calendar.view($elem.data('calendar-view'));
+				calendar.setView($elem.data('calendar-view'));
 				$('.btn-group span[data-calendar-view].active').removeClass('active');
 				$elem.addClass('active');
 			});
