@@ -612,6 +612,9 @@
 				}
 
 			});
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_upload', 'init');
 		},
 		_private: function (settings) {
 

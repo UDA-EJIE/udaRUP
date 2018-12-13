@@ -107,6 +107,7 @@ module.exports = function (config) {
 
         ],
         proxies: {
+            '/audit': 'http://localhost:8081/audit',
             '/dist': 'http://localhost:8081/dist',
             '/demo': 'http://localhost:8081/demo',
             '/fonts': 'http://localhost:8081/dist/css/externals/fonts',

@@ -464,6 +464,9 @@
 			} else {
 				$self.ajaxForm(settings);
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_form', 'init');
 		}
 	});
 

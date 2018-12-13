@@ -133,6 +133,9 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_message', 'init');
 		},
 		/**
          * Muestra un mensaje de confirmación.
@@ -198,6 +201,9 @@
 
 			//Le ponemos el foco al botón aceptar en vez de al enlace
 			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:first').focus();
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_message', 'init');
 		},
 		/**
          * Muestra un mensaje de aviso.
@@ -247,6 +253,9 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_message', 'init');
 		},
 		/**
          * Muestra un mensaje de alerta.
@@ -295,6 +304,9 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_message', 'init');
 		}
 	});
 

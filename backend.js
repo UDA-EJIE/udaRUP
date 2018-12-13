@@ -19,6 +19,7 @@ var express = require('express'),
 	routesTable = require('./demo/routes/table'),
 	routesUpload = require('./demo/routes/upload'),
 	dashboardTable = require('./demo/routes/dashboard');
+	routesAudit = require('./demo/routes/audit');
 
 	routesDatatable = require('./demo/routes/datatable');
 
@@ -110,6 +111,10 @@ module.exports = (PORT) => {
 	app.put('/demo/datatable/remote/simple', routesDatatable.simple);
 	app.post('/demo/datatable/remote', routesDatatable.formEdit);
 	app.put('/demo/datatable/remote', routesDatatable.formEdit);
+
+	//Audit
+	app.post('/audit', routesAudit.audit);
+	app.get('/audit', routesAudit.getAudited);
 
 	app.options("/demo/datatable/remote", function(req, res, next){
 		res.header('Access-Control-Allow-Origin', '*');

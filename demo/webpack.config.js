@@ -5,6 +5,9 @@
 var path = require('path');
 const webpack = require('webpack');
 
+const createBackendServer = require('../backend.js');
+createBackendServer(8081);
+
 module.exports = {
 	entry: {
 		bt4: './demo/app/main-bt4.js'
@@ -21,6 +24,13 @@ module.exports = {
 	},
 	node: {
 		fs: 'empty'
+	},
+	devServer:{
+		port:8080,
+		proxy:{
+			'/audit':'http://localhost:8081',
+			'/demo':'http://localhost:8081'
+		}
 	},
 	plugins: [
 		new webpack.ProvidePlugin({

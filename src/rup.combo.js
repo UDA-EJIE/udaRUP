@@ -1663,7 +1663,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$('#' + settings.id).next('a').click(function (event) {
 					$('#ui-datepicker-div').hide();
 				});
-
+				
+				//Se audita el componente
+				$.rup.auditComponent('rup_combo', 'init');
 			}
 		}
 	});

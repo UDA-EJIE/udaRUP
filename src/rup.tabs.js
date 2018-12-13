@@ -487,6 +487,9 @@ import 'rup.tooltip';
 				}
 				$('#' + settings.id).triggerHandler('load');
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_tabs', 'init');
 		},
 		//Funcion encargada de crear los distintos tab's
 		_tabify: function (div, settings) {

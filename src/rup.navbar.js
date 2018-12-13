@@ -273,6 +273,9 @@
 			$('button.navbar-toggler', $(this).parent()).on('click', function () {
 				$('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
 			});
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_navbar', 'init');
 		}
 	});
 

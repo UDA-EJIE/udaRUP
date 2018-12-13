@@ -1010,6 +1010,9 @@ input.
 				} else if (settings.disabled === false) { //habilitar
 					$('#' + settings.id).rup_autocomplete('enable');
 				}
+
+				//Se audita el componente
+				$.rup.auditComponent('rup_autocomplete', 'init');
 			}
 
 		}
