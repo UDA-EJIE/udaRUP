@@ -18,3 +18,4 @@
 	LOGGED_USER = "NULL",
 	DESTROY_XLNETS_SESSION = "false";
 	document.cookie = "language=es";
+	IS_EJIE = false;
