@@ -72,7 +72,8 @@ module.exports = {
 							// './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
 							'./images': path.join(__dirname, '../assets/images'),
 							'../images': path.join(__dirname, '../demo/images'),
-							'./cursors': path.join(__dirname, '../assets/cursors')
+							'./cursors': path.join(__dirname, '../assets/cursors'),
+							'../css/images/datatable': path.join(__dirname, '/images'),
 
 						}
 					} // translates CSS into CommonJS
@@ -105,7 +106,10 @@ module.exports = {
 			},{
 				test: /\.png$|\.gif$|\.cur$|\.svg$/,
 				use: [{
-					loader: 'file-loader'
+					loader: 'file-loader',
+					options: {
+						publicPath: '/'
+					}
 				}]
 			},{
 				test: /\.woff2?$|\.ttf$|\.eot$/,
@@ -159,8 +163,7 @@ module.exports = {
 				'jquery.ui.widget': 'jquery-ui/widget.js',
 				'tmpl': 'blueimp-tmpl/js/tmpl.js',
 
-				'bt3':  path.resolve(__dirname, '../dist/js/externals/bt3.min.js'),
-				'bt4':  path.resolve(__dirname, '../dist/js/externals/bt4.min.js'),
+				'bt4':  path.resolve(__dirname, '../dist/js/externals/bootstrap/bt4.min.js'),
 				'tether':  'tether/dist/js/tether.js',
 
 				// 'templates':  path.resolve(__dirname, 'templates.js')

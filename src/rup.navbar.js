@@ -146,11 +146,7 @@
 		 * $('nav').rup_navbar('toggle');
 		 */
 		toggle: function() {
-			if ($(this._element).hasClass(ClassName.SHOW)) {
-				this.hide();
-			} else {
-				this.show();
-			}
+			this.click();
 		},
 		/**
 		 * Funcion que despliega el navbar.
@@ -160,83 +156,9 @@
 		 * $('nav').rup_navbar('show');
 		 */
 		show: function() {
-			if (this._isTransitioning ||
-								$(this._element).hasClass(ClassName.SHOW)) {
-				return;
+			if(!$('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
+				this.rup_navbar('toggle');
 			}
-
-			let actives;
-			let activesData;
-			this._element = $(this)[0];
-
-			if (this._parent) {
-				actives = $.makeArray($(Selector.ACTIVES));
-				if (!actives.length) {
-					actives = null;
-				}
-			}
-
-			// if (actives) {
-			// 	activesData = $(actives).data(DATA_KEY);
-			// 	if (activesData && activesData._isTransitioning) {
-			// 		return;
-			// 	}
-			// }
-
-			let startEvent = $.Event(Event.SHOW);
-			$(this._element).trigger(startEvent);
-			if (startEvent.isDefaultPrevented()) {
-				return;
-			}
-
-			// if (actives) {
-			// 	Collapse._jQueryInterface.call($(actives), 'hide');
-			// 	if (!activesData) {
-			// 		$(actives).data(DATA_KEY, null);
-			// 	}
-			// }
-
-			let dimension = this._getDimension();
-
-			$(this._element)
-				.removeClass(ClassName.COLLAPSE)
-				.addClass(ClassName.COLLAPSING);
-
-			this._element.style[dimension] = 0;
-			this._element.setAttribute('aria-expanded', true);
-
-			if (this._triggerArray.length) {
-				$(this._triggerArray)
-					.removeClass(ClassName.COLLAPSED)
-					.attr('aria-expanded', true);
-			}
-
-			this.setTransitioning(true);
-
-			let complete = () => {
-				$(this._element)
-					.removeClass(ClassName.COLLAPSING)
-					.addClass(ClassName.COLLAPSE)
-					.addClass(ClassName.SHOW);
-
-				this._element.style[dimension] = '';
-
-				this.setTransitioning(false);
-
-				$(this._element).trigger(Event.SHOWN);
-			};
-
-			// if (!Util.default.supportsTransitionEnd()) {
-			complete();
-			// return;
-			// }
-
-			let capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
-			let scrollSize           = `scroll${capitalizedDimension}`;
-
-			$(this._element)
-				.one(Util.TRANSITION_END, complete)
-				.emulateTransitionEnd(TRANSITION_DURATION);
 		},
 		/**
 		 * Funcion que oculta el navbar.
@@ -246,56 +168,9 @@
 		 * $('nav').rup_navbar('hide');
 		 */
 		hide: function () {
-			if (this._isTransitioning ||
-								!$(this._element).hasClass(ClassName.SHOW)) {
-				return;
+			if($('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
+				this.rup_navbar('toggle');
 			}
-
-			let startEvent = $.Event(Event.HIDE);
-			$(this._element).trigger(startEvent);
-			if (startEvent.isDefaultPrevented()) {
-				return;
-			}
-
-			let dimension       = this._getDimension();
-			let offsetDimension = dimension === Dimension.WIDTH ?
-				'offsetWidth' : 'offsetHeight';
-
-			Util.default.reflow(this._element);
-
-			$(this._element)
-				.addClass(ClassName.COLLAPSING)
-				.removeClass(ClassName.COLLAPSE)
-				.removeClass(ClassName.SHOW);
-
-			this._element.setAttribute('aria-expanded', false);
-
-			if (this._triggerArray.length) {
-				$(this._triggerArray)
-					.addClass(ClassName.COLLAPSED)
-					.attr('aria-expanded', false);
-			}
-
-			this.setTransitioning(true);
-
-			let complete = () => {
-				this.setTransitioning(false);
-				$(this._element)
-					.removeClass(ClassName.COLLAPSING)
-					.addClass(ClassName.COLLAPSE)
-					.trigger(Event.HIDDEN);
-			};
-
-			this._element.style[dimension] = '';
-
-			// if (!Util.default.supportsTransitionEnd()) {
-			complete();
-			// return;
-			// }
-
-			$(this._element)
-				.one(Util.defaultTRANSITION_END, complete)
-				.emulateTransitionEnd(TRANSITION_DURATION);
 		},
 		/**
 		 * Define si habrá o no transición al desplegar y ocultar el navbar
@@ -322,11 +197,13 @@
 			// $('[data-toggle="collapse"]', $self).each(function(elem){
 			// 	elem.attr('data-toggle', 'rup-colapse');
 			// });
-
 			$self._triggerArray    = $.makeArray($(
 				`[data-toggle="rup-colapse"][href="#${$self._element.id}"],` +
 								`[data-toggle="rup-colapse"][data-target="#${$self._element.id}"]`
 			));
+			//Lo añadimos a data para mantenerlo
+			$self.data('_triggerArray',$self._triggerArray);
+			$self.data('_element', $self._element);
 
 			// this._parent = this._config.parent ? this._getParent() : null;
 
@@ -369,7 +246,7 @@
 				$(this).parent().toggleClass('rup-open');
 			});
 
-			$('.dropdown-toggle', $self).dropdown();
+			$('.dropdown-toggle', $self).dropdown($('.dropdown-toggle', $self));
 
 			// Funcionamiento de apertura de sub-desplegables en el menú
 			$('nav .dropdown-submenu a').on('click tap', function () {
@@ -390,6 +267,11 @@
 				$(this).parent().parent().animate({
 					scrollTop: menuScrollPos
 				}, 500);
+			});
+
+			//Añadimos un handler para cuando esté en modo responsive
+			$('button.navbar-toggler', $(this).parent()).on('click', function () {
+				$('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
 			});
 		}
 	});

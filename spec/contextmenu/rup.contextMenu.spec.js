@@ -23,22 +23,13 @@ describe('Test ContextMenu > ', () => {
                                     <center>Prueba Context Menu\
                                 </h2>\
                             </div>\
-                        </div>\
-                        <div id="menu"></div>';
+                        </div>';
         $('#content').append(html);
         var props = {
-            appendTo: '#menu',
+            
             items: {
-                "edit": {
-                    name: "Clickable",
-                    icon: "edit",
-                    disabled: false
-                },
-                "cut": {
-                    name: "Disabled",
-                    icon: "cut",
-                    disabled: true
-                }
+                'edit': {name: 'Clickable', icon: 'edit'},
+                'cut': {name: 'Disabled', icon: 'cut'}
             }
         };
         $('#exampleContext').rup_contextMenu(props);
@@ -46,17 +37,20 @@ describe('Test ContextMenu > ', () => {
     });
 
     afterEach(() => {
-        $context.rup_contextMenu('destroy');
+        if ($('[id*="contextMenu"], [id*="context-menu"]').length > 0) {
+            $('.context-menu, .context-menu-active').rup_contextMenu('destroy');
+            $.contextMenu('destroy');
+        }
         $('#content').html('');
         $('#content').nextAll().remove();
     });
 
     describe('Creación > ', () => {
         it('Debe crear el elemento', () => {
-            expect($('#menu .context-menu-list').hasClass('context-menu-list context-menu-root')).toBe(true);
+            expect($('.context-menu-list').hasClass('context-menu-list context-menu-root')).toBe(true);
         });
         it('Debe ser invisible', () => {
-            expect($('#menu .context-menu-list').is(':visible')).toBe(false);
+            expect($('.context-menu-list').is(':visible')).toBe(false);
         });
     });
     describe('Métodos públicos > ', () => {
@@ -65,16 +59,16 @@ describe('Test ContextMenu > ', () => {
                 $context.rup_contextMenu('show');
             });
             it('Debe mostrarse:', () => {
-                expect($('#menu .context-menu-list').is(':visible')).toBe(true);
+                expect($('.context-menu-list').is(':visible')).toBe(true);
             });
         });
         describe('Método hide > ', () => {
             beforeEach(() => {
                 $context.rup_contextMenu('show');
                 $context.rup_contextMenu('hide');
-            });
+            });sandbox
             it('No debe mostrarse:', () => {
-                expect($('#menu .context-menu-list').is(':visible')).toBe(false);
+                expect($('#exampleContext .context-menu-list').is(':visible')).toBe(false);
             });
         });
         describe('Método disable > :', () => {
@@ -99,7 +93,7 @@ describe('Test ContextMenu > ', () => {
                 $context.rup_contextMenu('destroy');
             });
             it('Debe eliminar el ul del DOM:', () => {
-                expect($('#menu .context-menu-list').length).toBe(0);
+                expect($('#exampleContext .context-menu-list').length).toBe(0);
             });
         });
     });

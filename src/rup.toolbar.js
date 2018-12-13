@@ -142,6 +142,12 @@
          * $("#idToolbar").rup_date("addMButton", mButton);
          */
 		addMButton: function (obj, json_i18n) {
+			if(obj.idParent === undefined) {
+				obj.idParent = this.id;
+			}
+			if(!obj.click){
+				obj.click = this.showMButton;
+			}
 			return $.proxy(this[0]._ADAPTER.addMButton, this)(obj, json_i18n);
 		},
 
@@ -181,7 +187,6 @@
 				top = self.offset().top + self.getTotalHeight(),
 				showingMB = $.rup_toolbar.showingMB,
 				actualMB = this.id;
-
 			if (showingMB === actualMB) {
 				$("ul[id*='" + showingMB + "']").slideUp('fast');
 				self.removeClass('rup-toolbar_menuButtonSlided');
@@ -333,7 +338,11 @@
 		return $(this).height() + parseInt($(this).css('paddingTop')) + parseInt($(this).css('paddingBottom')) + parseInt($(this).css('borderTopWidth')) + parseInt($(this).css('borderBottomWidth'));
 	};
 
-	$.fn.rup_toolbar = function (properties) {
+	$.fn.rup_toolbar = function (...properties) {
+		if(typeof properties[0] == "string") {
+			this[properties[0]].apply(this,properties.splice(1));
+			return undefined;
+		}
 		return this.each(function () {
 
 
@@ -364,8 +373,8 @@
 			//Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
 			$(document).add("ul li").on('click', $.rup_toolbar.hideMButtons);
 			//Botones
-			for (var i = 0; i < settings.buttons.length; i += 1) {
-				var obj = settings.buttons[i];
+			for (var i = 0; i < settings[0].buttons.length; i += 1) {
+				var obj = settings[0].buttons[i];
 
 				// Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
 				if (!(obj.right !== undefined && obj.right === true)) {
@@ -374,12 +383,12 @@
 
 						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
 						mbutton = t.addMButton($.extend({
+							idParent: this.id,
 							id: obj.id,
 							i18nCaption: obj.i18nCaption,
 							css: obj.css,
 							click: t.showMButton
 						}, obj), json_i18n);
-
 						if (mbutton !== null) {
 							t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
 						}

@@ -25,6 +25,7 @@ define(['marionette',
 			templateHtml: TreeHtmlCodeTemplate,
 			templateJs: TreeJsCodeTemplate
 		}));
+		window.$ = $;
 		$view.Test.show(new TreeTestView());
 	}
 

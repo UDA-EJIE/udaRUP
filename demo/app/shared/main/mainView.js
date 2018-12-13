@@ -7,7 +7,8 @@ define(['marionette',
 	'shared/header/headerView',
 	'shared/language/languageView',
 	'shared/footer/footerView',
-	'shared/menu/menuView'
+	'shared/menu/menuView',
+	'rup.breadcrumb'
 ], function(Marionette, MainTemplate, HeaderView, LanguageView, FooterView, MenuView){
 
 	'use strict';
@@ -53,7 +54,42 @@ define(['marionette',
 		$mainView.Menu.show(new MenuView());
 		$mainView.Footer.show(new FooterView());
 
+		//  window.history.pushState({
+		//  	urlPath: '/x21aResponsive/patrones/ptrUno'
+		//  }, "", '/x21aResponsive/patrones/ptrUno');
 
+		$('#breadCrumb').rup_breadCrumb({
+			"breadCrumb": {
+				"patrones": {
+					//Literal mostrado:
+					"i18nCaption": "Varios patrones",
+					//Elementos:
+					"ptrUno": {
+						"i18nCaption": "ptrUno"
+					},
+					"ptrDos": {
+						"i18nCaption": "ptrDos"
+					},
+					"ptrTres": {
+						"i18nCaption": "ptrTres"
+					},
+					//Sublevel
+					"subLevel": [{
+						"i18nCaption": "ptrUno",
+						"url": "./patrones/ptrUno"
+					},
+					{
+						"i18nCaption": "ptrDos",
+						"url": "./patrones/ptrDos"
+					},
+					{
+						"i18nCaption": "ptrTres",
+						"url": "./patrones/ptrTres"
+					}
+					]
+				}
+			}
+		});
 	}
 
 	function fncInitialize(){

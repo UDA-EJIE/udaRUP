@@ -129,6 +129,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).rup_combo('select', param.toString());
 			} else {
 				//Multiple > multiselect
+				$(this).multiselect('uncheckAll');
 				$(this).rup_combo('select', (settings.readAsString === true ? param.split(',') : param));
 			}
 		},
@@ -939,7 +940,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Opción vacía
 			if (settings.blank != null) {
-				//$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
 			//Gestionar Imagenes
@@ -970,6 +971,11 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Almacenar los settings
 			$('#' + settings.id).data('settings', settings);
+
+			//Añadir evento change
+			if(settings.change) {
+				$('#' + settings.id).on('change',settings.change);
+			}
 
 			//Tipo de combo
 			if (!settings.multiselect) {
