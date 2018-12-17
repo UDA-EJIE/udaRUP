@@ -163,18 +163,18 @@ import { Exception, Utils } from 'handlebars';
 		 * @name getWeek
 		 * @returns {number} la semana del calendario
 		 * @example
-		 * $('#calendar').rup_calendar('getMonth');
+		 * $('#calendar').rup_calendar('getWeek');
 		 */
 		getWeek: () => {
 			let date = new Date(calObj.getStartDate());
 			return date.getWeek();
 		},
 		/**
-		 * Obtiene el día del calendario
+		 * Obtiene el día de la semana (Lunes - Domingo)
 		 * @name getDay
-		 * @returns {number} el día del calendario
+		 * @returns {string} el día de la semana
 		 * @example
-		 * $('#calendar').rup_calendar('getMonth');
+		 * $('#calendar').rup_calendar('getDay');
 		 */
 		getDay: () => {
 			return calObj.getDay();
@@ -189,7 +189,7 @@ import { Exception, Utils } from 'handlebars';
 		 * $("#calendar").rup_calendar("getTitle");
 		 */
 		'getTitle': () => {
-			calObj.getTitle();
+			return calObj.getTitle();
 		},
 		/**
 		 * Obtiene la fecha desde la que se muestra el calendario
@@ -197,6 +197,7 @@ import { Exception, Utils } from 'handlebars';
 		 * @function
 		 * @returns {Date} fecha
 		 * @example
+		 * $("#calendar").rup_calendar("getStartDate");
 		 */
 		getStartDate:() => {
 			return calObj.getStartDate();
@@ -207,10 +208,23 @@ import { Exception, Utils } from 'handlebars';
 		 * @function
 		 * @returns {Date} fecha
 		 * @example
+		 * $("#calendar").rup_calendar("getEndDate");
 		 */
 		getEndDate:() => {
 			return calObj.getEndDate();
 		},
+		/**
+		 * Método que establece y recarga las opciones
+		 * 
+		 * @name option
+		 * @function
+		 * @param {string|object} opción Opcion a consultar/establecer u objeto para establecer las propiedades
+		 * @param {any} value Si el primer parametro asigna este valor a la opción especificada
+		 * @example
+		 * $('#calendar').rup_calendar('weekbox', true);
+		 * $('#calendar').rup_calendar({weekbox:true, view:'month'});
+		 */
+		option: () => {},
 		/**
 		 * Elimina el calendario
 		 *
