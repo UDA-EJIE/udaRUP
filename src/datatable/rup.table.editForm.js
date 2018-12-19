@@ -385,7 +385,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = ctx.multiselection;
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
-		if(ctx.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
+		if(ctx.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		if(indexInArray === undefined){
@@ -408,16 +408,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		// Asignamos un valor a la variable del título del formulario
 		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
 		// Comprobamos si se desea bloquear la edicion de las claves primarias
-		if(ctx.oInit.blockPKeditForm) {
-			$.each(ctx.oInit.primaryKey,function(key,id) {
-				$(idForm[0]).find("input[name=" + id + "]").prop("readOnly", true);
-			});
-		}
+		_blockPKeditForm(ctx, actionType);
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(rowArray, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
 		// Asignamos un valor a la variable del título del formulario
 		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
+		// Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
+		_blockPKeditForm(ctx, actionType);
 	}
 	
 	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
@@ -443,7 +441,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		row = _editFormSerialize(idForm);
         
 		//Verificar los checkbox vacíos.
-        row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
+		row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
         
         //Se transforma
 		row = $.rup_utils.queryStringToJson(row);
@@ -1115,7 +1113,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 /**
 * Metodo que elimina todos los registros seleccionados.
 *
-* @name deleteAllSelects
+* @name _deleteAllSelects
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
@@ -1178,6 +1176,18 @@ function _editFormSerialize(idForm){
 	return serializedForm;
 }
 
+/**
+* Metodo que comprueba el seeker.
+*
+* @name _comprobarSeeker
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} row - Son los datos que se cargan.
+* @param {object} ctx - Settings object to operate on.
+* @param {number} idRow - Identificador de la fila.
+*
+*/
 function _comprobarSeeker(row,ctx,idRow){
 	var cumple = true;
 	$.each( ctx.seeker.ajaxOption.data.search, function( key, obj ) {
@@ -1197,6 +1207,82 @@ function _comprobarSeeker(row,ctx,idRow){
 		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
 	}
 }
+
+/**
+* Método que gestiona el bloqueo de la edición de las claves primarias.
+*
+* @name _blockPKeditForm
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {string} actionType - Método de operación CRUD.
+*
+*/
+function _blockPKeditForm(ctx, actionType){
+	var blockPK = ctx.oInit.blockPKeditForm;
+	var idForm = ctx.oInit.formEdit.idForm;
+	
+	if(blockPK) {
+		// En caso de ser edición bloqueamos la modificación
+		if(actionType === "PUT") {
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
+				if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
+					// FIXME: si gestionamos esto mediante el disable del componente da error el filtro porque al estar disabled, no tiene el valor del campo
+					input.rup_date("disable");
+				} 
+				else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
+					input.rup_combo("disable");
+				}
+				else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
+					input.rup_time("disable");
+				}
+				else if(input.attr("type") === "checkbox" && !input.hasClass("checkboxPKBloqueado")) {
+					input.addClass("checkboxPKBloqueado");
+					//input.after("<input type='checkbox' class='formulario_linea_input form-control' id='" + id + "_bloqueado' value='" + input.val() + "' disabled=''></input>")/*.prop("disabled", true)*/;
+					input.after("<span id='" + id + "_bloqueado'>PRUEBA</span>");
+				}
+				else {
+					input.prop("readOnly", true);
+				}
+				
+				// TODO: quitar los focos de los elementos desactivados
+			});
+		} 
+		// En caso de ser clonación permitimos la edición
+		else if(actionType === "POST"){
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
+				if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
+					// FIXME: si gestionamos esto mediante el disable del componente da error el filtro porque al estar disabled, no tiene el valor del campo
+					input.rup_date("enable");
+				} 
+				else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
+					input.rup_combo("enable");
+				}
+				else if(input.attr("ruptype") === "time" && input.rup_time("isDisabled")) {
+					input.rup_time("enable");
+				}
+				else if(input.attr("type") === "checkbox") {
+					input.removeClass("checkboxPKBloqueado");
+					$("#" + id + "_bloqueado").remove();
+				}
+				
+				else {
+					input.prop("readOnly", false);
+				}
+				
+				// TODO: poner los focos de los elementos desactivados
+			});
+		}
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *

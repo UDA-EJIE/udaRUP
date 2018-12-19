@@ -14162,6 +14162,11 @@
   }
 }
 
+.r01gContainer .checkboxPKBloqueado {
+  position: absolute;
+  left: -9999px;
+}
+
 /* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */
 
 .r01gContainer .btn-outline-primary {

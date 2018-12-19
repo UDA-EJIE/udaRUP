@@ -1068,7 +1068,9 @@ $.fn.rup_datatable.defaults = {
 		}, 
 	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
-    primaryKey:["id"],
+    primaryKey:["id", "nombre", "fechaAlta", "ejie", "rol"],
+    blockPKeditForm: true,
+	responsive: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],

@@ -10114,6 +10114,10 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   .rup_tableEdit_buttonsResposive {
     width: 100%; } }
 
+.checkboxPKBloqueado {
+  position: absolute;
+  left: -9999px; }
+
 /* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */
 .btn-outline-primary {
   color: #007bff !important;
