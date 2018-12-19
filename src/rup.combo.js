@@ -1706,6 +1706,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
      * @property {boolean} [rowStriping=false] - Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
      * @property {number} [typeAhead=false] - Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
      * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
+     * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
      */
 	$.fn.rup_combo.defaults = {
 		onLoadError: null,
@@ -1727,7 +1728,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		readAsString: false,
 		rowStriping: false,
 		typeAhead: 1000,
-		legacyWrapMode: false
+		legacyWrapMode: false,
+		open: function( event, ui ) {
+			var anchoCombo = $("#" + this.id + "-button").width();
+			$("#" + this.id + "-menu").closest('div').attr('id', 'ui-selectmenu-menu').width(anchoCombo);
+			$("#" + this.id + "-menu").width(anchoCombo - 2);
+		}
 	};
 
 
