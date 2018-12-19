@@ -33,14 +33,16 @@
 	};
 
 	DateBootstrapAdapter.prototype.postConfigure = function (settings) {
-		var $self = this,
+		if(settings.id != undefined) {
+			var $self = this,
 			data = $self.data('datepicker'),
 			$input = data.input,
 			$trigger = data.trigger,
 			$div;
 
-		$div = $('<div>').addClass('rup-date-input-group');
-		$input.add($trigger).wrapAll($div);
+			$div = $('<div>').addClass('rup-date-input-group');
+			$input.add($trigger).wrapAll($div);
+		}
 	};
 
 	$.rup = $.rup || {};

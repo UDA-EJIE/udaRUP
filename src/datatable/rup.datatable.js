@@ -1070,7 +1070,6 @@ $.fn.rup_datatable.defaults = {
     multiplePkToken: '~',
     primaryKey:["id", "nombre", "fechaAlta", "ejie", "rol"],
     blockPKeditForm: true,
-	responsive: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
