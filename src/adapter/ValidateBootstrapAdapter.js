@@ -21,7 +21,7 @@
 	
 	ValidateBootstrapAdapter.prototype.forLabelElement = function (contextForm, labelAttributes) {
 		if(labelAttributes.labelForTitle !== undefined && labelAttributes.labelForTitle !== '') {
-			return $(contextForm).find("input[id='" + labelAttributes.labelForId + "']").attr("oldtitle");
+			return $(contextForm).find(":input[id='" + labelAttributes.labelForId + "']").attr("oldtitle");
 		}
 		else if(labelAttributes.labelForId !== undefined && labelAttributes.labelForId !== '') {
 			return $(contextForm).find("label[for='" + labelAttributes.labelForId + "']").text();
