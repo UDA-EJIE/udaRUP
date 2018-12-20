@@ -225,7 +225,7 @@ var Buttons = function( dt, config )
 
 	this.dom = {
 		container: $('<'+this.c.dom.container.tag+'/>')
-			.addClass( this.c.dom.container.className )
+			.addClass( this.c.dom.container.className ).attr('id',ctx.sTableId+'_containerToolbar')
 	};
 
 	this._constructor();

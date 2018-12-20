@@ -88,6 +88,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 	$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
 		dt.responsive.recalc();
 	} ) );
+	
+	//Crear feedback;
+	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
+	$('#'+ctx.sTableId+'_containerToolbar').prepend($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -297,6 +301,10 @@ function _restaurarFila(ctx,limpiar){
 		if($selectorTr.data( "events" ) !== undefined){
 			$selectorTr.off('keydown');
 		}
+		if(ctx.seeker !== undefined){
+			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+		}
 	}
 }
 
@@ -340,7 +348,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		if(!$celda.hasClass("select-checkbox")){
 			var cellColModel = colModel[cont];
 			if(cellColModel.editable===true){
-				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
+				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name);
 				$input.attr('id', cellColModel.name+'_inline'+child);
 				var resol = $celda.width() - 10;
 				$input.css('max-width',resol+'px');
@@ -355,7 +363,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				//Convertir a input.
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 				var colModelName = cellColModel.name;
-				var $elem = $('[name=\''+colModelName+'_inline'+child+'\']',ctx.nTBody);
+				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
 
 				var columns = jQuery.grep(ctx.aoColumns, function( n) {
@@ -596,7 +604,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	var idTableDetail = $(ctx.oInit.inlineEdit.detailForm);
 	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
 	// add Filter
-	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
+	var feed = $('#'+ctx.inlineEdit.nameFeedback);
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
@@ -687,9 +695,9 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
-			var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
 			if(divErrorFeedback.length === 0){
-				divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertAfter('#'+ctx.sTableId);
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
@@ -697,7 +705,14 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		validate:ctx.oInit.inlineEdit.validate,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
+	
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
+	}
 	var idForm = $('#example tbody');
+	// apra pureubas, luego debe ser dinamico
+	idForm = $('#example_search_searchForm');
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
