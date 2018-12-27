@@ -143,7 +143,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
-				$(this).rup_combo('select');
+				$(this).rup_combo('select',"-1");
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect('uncheckAll');

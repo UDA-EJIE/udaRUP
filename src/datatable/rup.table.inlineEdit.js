@@ -92,6 +92,33 @@ DataTable.inlineEdit.init = function ( dt ) {
 	//Crear feedback;
 	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
 	$('#'+ctx.sTableId+'_containerToolbar').prepend($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
+	
+	//se cambia el nombre de los validadores.
+	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
+		var rulesAux = ctx.oInit.inlineEdit.validate.rules;
+		 ctx.oInit.inlineEdit.validate.rules = {};
+		$.each(rulesAux,function(name,rule) {
+			ctx.oInit.inlineEdit.validate.rules[name+"_inline"] = rule;
+		});
+		//en inicio se cambian inline x child si hay alguno.
+		
+		$.each(ctx.responsive.s.current,function(index,col) {
+			if(col === false){
+				var nameColumns = ctx.aoColumns[index].mData;
+				var rule = ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline"];
+				delete ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline"];
+				ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline_child"] = rule;
+				
+			}
+		});
+	}
+	
+	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+	//sino existe se crea
+	if(idForm.length === 0){
+		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
+        $('#'+ctx.sTableId).wrapAll($searchForm);
+	}
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -243,7 +270,8 @@ function _addChildIcons(ctx){
 		//si hay inputs guardadoas se machancn los cambios por el responsive.
 		if(ctx.inlineEdit !== undefined && 
 				ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.rupValues !== undefined){
-			ctx.inlineEdit.lastRow.columnsHidden = dt.columns().responsiveHidden();
+			var table = $('#'+ctx.sTableId).DataTable( );
+			ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 			var $row = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
 			_asignarInputsValues(ctx,$row);
 		}
@@ -278,6 +306,8 @@ function _editInline ( dt,ctx, idRow ){
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		DataTable.Api().select.selectRowIndex(dt,idRow,true);
 	}
+	
+	dt.responsive.recalc();
 }
 
 function _restaurarFila(ctx,limpiar){
@@ -305,6 +335,9 @@ function _restaurarFila(ctx,limpiar){
 			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
 			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
 		}
+		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
+			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
+		}
 	}
 }
 
@@ -317,6 +350,7 @@ function _changeInputsToRup(ctx,idRow){
 		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
+		ctx.inlineEdit.lastRow.submit = 0;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
 		var $fila = $(ctx.aoData[ idRow ].nTr);
@@ -348,8 +382,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		if(!$celda.hasClass("select-checkbox")){
 			var cellColModel = colModel[cont];
 			if(cellColModel.editable===true){
-				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name);
-				$input.attr('id', cellColModel.name+'_inline'+child);
+				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
+				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
+				$input.attr('id', cellColModel.name+'_inline'+child).attr("oldtitle",title);
 				var resol = $celda.width() - 10;
 				$input.css('max-width',resol+'px');
 				//si es el primero dejar el focus
@@ -548,11 +583,13 @@ function _editFormSerialize($fila,ctx,child){
 		selectores[0] = $fila.prev();
 		selectores[1] = $fila;
 	}
-	
+	//Se vacian las reglas.
+	//$('#'+ctx.sTableId+'_search_searchForm').validate().settings.rules = {};
 	$.each(selectores,function() {
 		//añadir las columnas parents y child
 		$.each( this.find('td:not([style*="display: none"]) select,input'), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
+			_aplicarValidaciones(ctx,obj.id);
 			var value = $(obj).val();
 			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
 				value = "0";
@@ -609,6 +646,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
+
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
 		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
@@ -710,10 +748,25 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
 		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
 	}
-	var idForm = $('#example tbody');
-	// apra pureubas, luego debe ser dinamico
-	idForm = $('#example_search_searchForm');
+	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+	ctx.inlineEdit.lastRow.submit = 1;
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
+}
+
+function _aplicarValidaciones(ctx,id){
+	//se añaden las nuevas reglas
+	if(ctx.inlineEdit.lastRow.submit !== 0){
+		$.each(ctx.oInit.inlineEdit.validate.rules,function(rule) {
+			var idReplace = id.replace('_child','');
+			if(rule.replace('_child','') === idReplace){
+				$("#"+id).rules("remove");
+				$("#"+idReplace).rules("remove");
+				$("#"+id).rules("add", this);
+				return false;
+			}
+		
+		});
+	}
 }
 
 /**
