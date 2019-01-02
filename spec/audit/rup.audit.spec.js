@@ -15,6 +15,8 @@ describe('Test auditoría > ', () => {
             <div id="exampleProgressbar"></div>\
             <input id="exampleSpinner"></input>';
         $contenido.append(html);
+        // Para que realice las auditorias
+        $.rup.IS_EJIE = true;
         //Creamos los componentes rup sobre el html añadido.
         $('#exampleProgressbar').rup_progressbar({ value: 0 });
         $('#exampleSpinner').rup_spinner();
@@ -28,7 +30,7 @@ describe('Test auditoría > ', () => {
             url:$.rup.AUDIT_PATH,
             method:'GET',
             success: (data) => {
-                expect(data.slice(-2)).toEqual(['rup_progressbar','rup_spinner']);
+                expect(data.slice(-2).sort()).toEqual(['rup_progressbar','rup_spinner']);
                 done();
             }
         })

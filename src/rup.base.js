@@ -393,6 +393,12 @@
 					$.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
 				}
 			}
+			if(window.IS_EJIE) {
+				$.rup.IS_EJIE = window.IS_EJIE;
+			}
+			else {
+				$.rup.IS_EJIE = false;
+			}
 
 			//Borrar las variables javascript externas
 			// delete APP_RESOURCES;
@@ -783,7 +789,9 @@
 	}
 	jQuery.extend($.rup,{
 		auditComponent: function(compName, auditing) {
-			ajaxAudit(prepareAuditData(compName, auditing));
+			if($.rup.IS_EJIE) {
+				ajaxAudit(prepareAuditData(compName, auditing));
+			}
 		}
 	});
 
