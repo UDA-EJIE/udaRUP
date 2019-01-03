@@ -4,9 +4,7 @@ import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
-import {
-    EHOSTUNREACH
-} from 'constants';
+import { EHOSTUNREACH } from 'constants';
 
 describe('Test ContextMenu > ', () => {
     var $context;
