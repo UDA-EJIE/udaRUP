@@ -936,11 +936,8 @@ input.
 							$('#' + settings.id).val(loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
 							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
 						} else {
-
-							$('#' + settings.id).val('');
-							$('#' + settings.id).attr('rup_autocomplete_label', '');
-							autoCompObject.val('');
-							autoCompObject.autocomplete('close');
+							$('#' + settings.id).val(autoCompObject.val());
+							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[autoCompObject.val()]);
 						}
 					}
 					//Si el evento es ENTER y viene de seleccionar un elemento o el menú se estaba mostrando, omitir resto de funciones (ej. buscar)
