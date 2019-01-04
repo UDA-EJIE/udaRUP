@@ -939,7 +939,7 @@ input.
 						} 
 						// Cuando la propiedad accentFolding = false
 						else if(!settings.accentFolding && loadObjects[autoCompObject.val()] !== undefined) {
-							$('#' + settings.id).val(autoCompObject.val());
+							$('#' + settings.id).val(loadObjects[autoCompObject.val()]);
 							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[autoCompObject.val()]);
 						} 
 						// Cuando el valor del autocomplete esta vacio
