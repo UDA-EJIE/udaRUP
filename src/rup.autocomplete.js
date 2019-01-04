@@ -932,12 +932,22 @@ input.
 							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
 						}
 					} else {
-						if (loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
+						// Cuando la propiedad accentFolding = true
+						if (settings.accentFolding && loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
 							$('#' + settings.id).val(loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
 							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
-						} else {
+						} 
+						// Cuando la propiedad accentFolding = false
+						else if(!settings.accentFolding && loadObjects[autoCompObject.val()] !== undefined) {
 							$('#' + settings.id).val(autoCompObject.val());
 							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[autoCompObject.val()]);
+						} 
+						// Cuando el valor del autocomplete esta vacio
+						else {
+							$('#' + settings.id).val('');
+							$('#' + settings.id).attr('rup_autocomplete_label', '');
+							autoCompObject.val('');
+							autoCompObject.autocomplete('close');
 						}
 					}
 					//Si el evento es ENTER y viene de seleccionar un elemento o el menú se estaba mostrando, omitir resto de funciones (ej. buscar)
