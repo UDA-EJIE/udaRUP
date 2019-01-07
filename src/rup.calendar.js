@@ -20,13 +20,31 @@ import * as underscore from 'underscore';
 import { Exception, Utils } from 'handlebars';
 
 /**
- * TODO: Descripción del componente de calendario.
+ * Componente de calendario para la visualización de eventos sobre una interfaz dinámica y personalizable.
  *
  * @summary Componente RUP Calendar.
  * @module rup_calendar
  * @example
  * var properties = {
- *  TODO: Objeto JSON de configuración
+ *  day: 'now',
+ * 	classes: {
+ *		months: {
+ *			inmonth: 'cal-day-inmonth',
+ *			outmonth: 'cal-day-outmonth',
+ *			saturday: 'cal-day-weekend',
+ *			sunday: 'cal-day-weekend',
+ *			holidays: 'cal-day-holiday',
+ *			today: 'cal-day-today'
+ *		},
+ *		week: {
+ *			workday: 'cal-day-workday',
+ *			saturday: 'cal-day-weekend',
+ *			sunday: 'cal-day-weekend',
+ *			holidays: 'cal-day-holiday',
+ *			today: 'cal-day-today'
+ *		}
+ *  },
+ *  weekbox: true
  * };
  *
  * $('#calendar').rup_calendar(properties);
@@ -36,7 +54,7 @@ import { Exception, Utils } from 'handlebars';
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'popper', './external/bootstrap-calendar'], factory);
+		define(['jquery', './rup.base', 'popper.js', './external/bootstrap-calendar'], factory);
 	} else {
 
 		// Browser globals
@@ -49,7 +67,11 @@ import { Exception, Utils } from 'handlebars';
 	//****************************************************************************************************************
 
 	var rup_calendar = {};
-	var calObj;
+	var calObj = {};
+	var errorstr = (str) => {
+		let estr = 'Cannot call methods on rup_calendar before init. tried to call method ' + str;
+		throw ReferenceError(estr);
+	};
 	var self;
 
 	////El componente subyacente requiere underscore en el scope de window
@@ -67,32 +89,36 @@ import { Exception, Utils } from 'handlebars';
 		 * Navega en el calendario al punto especificado
 		 *
 		 * @name navigate
-		 * @param {(string|Date)} [navigation] Hacia dónde navegar
+		 * @param {(string|Date)} navigation Hacia dónde navegar
 		 * @function
 		 * @example
 		 * $("#calendar").rup_calendar('navigate','next');
 		 */
 		navigate: function (navigation) {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('navigate');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('navigate');
+			}
 			// Si el valor es un objeto Date en función navegamos hasta la posición indicada
 			if( navigation instanceof Date ) {
-				let pos = $.extend({}, calObj.options.position);
+				let pos = $.extend({}, $(ctx).data('cal').options.position);
 
 				pos.start.setTime(navigation.getTime());
-				calObj.options.day = pos.start.getFullYear() + '-' +
+				$(ctx).data('cal').options.day = pos.start.getFullYear() + '-' +
 									 pos.start.getMonthFormatted() + '-' +
 									 pos.start.getDateFormatted();
-				calObj.view();
-				$(calObj.options.selector).trigger('afterRender');
+				$(ctx).data('cal').view();
 				return;
 			}
 			// Si no hay valor se considera que por defecto es "today"
 			navigation = navigation ? navigation : 'today';
 			if($.inArray(navigation,['next','prev','today']) < 0 ) {
-				$(calObj.options.selector).trigger('afterRender');
 				throw Error('Parámetro inválido');
 			}
-			calObj.navigate(navigation);
-			$(calObj.options.selector).trigger('afterRender');
+			$(ctx).data('cal').navigate(navigation);
 		},
 		/**
 		 * Confirma si en la vista está el día actual.
@@ -102,29 +128,55 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $("#calendar").rup_calendar('isToday');
 		 */
-		isToday: () => {
-			return calObj.isToday();
+		isToday: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('isToday');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('isToday');
+			}
+			return $(ctx).data('cal').isToday();
 		},
-		instance: () => {
-			return calObj;
+		/**
+		 * Devuelve la instancia del subyacente bootstrap-calendar
+		 * 
+		 * @name instance
+		 * @returns {object} instancia del calendar subyacente
+		 * @function
+		 * @example
+		 * $("#calendar").rup_calendar('instance');
+		 */
+		instance: function() {
+			var ctx = this;
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('instance');
+			}
+			return $(ctx).data('cal');
 		},
 		/**
 		 * Oculta el menú contextual.
 		 *
 		 * @name setView
-		 * @param {string} [viewmode] El modo de visualizacion a establecer
+		 * @param {string} viewmode El modo de visualizacion a establecer
 		 * @function
 		 * @example
 		 * $("#calendar").rup_calendar('setView','day');
 		 */
 		setView: function (viewmode) {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('setView');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('setView');
+			}
 			// El valor por defecto es month.
 			viewmode = viewmode ? viewmode : 'month';
 			if( $.inArray(viewmode,['year','month','week', 'day']) < 0 ) {
 				throw Error('Parámetro inválido');
 			}
-			calObj.view(viewmode);
-			$(calObj.options.selector).trigger('afterRender');
+			$(ctx).data('cal').view(viewmode);
 		},
 		/**
 		 * Obtiene el modo de visualización actual.
@@ -135,8 +187,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $('#calendar').rup_calendar('getView');
 		 */
-		getView: () => {
-			return calObj.options.view;
+		getView: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getView');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getView');
+			}
+			return $(ctx).data('cal').options.view;
 		},
 		/**
 		 * Obtiene el año del calendario
@@ -145,8 +204,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $('#calendar').rup_calendar('getYear');
 		 */
-		getYear: () => {
-			return calObj.getYear();
+		getYear: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getYear');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getYear');
+			}
+			return $(ctx).data('cal').getYear();
 		},
 		/**
 		 * Obtiene el mes del calendario (1 - 12)
@@ -155,8 +221,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $('#calendar').rup_calendar('getMonth');
 		 */
-		getMonth: () => {
-			return calObj.getMonth();
+		getMonth: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getMonth');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getMonth');
+			}
+			return $(ctx).data('cal').getMonth();
 		},
 		/**
 		 * Obtiene la semana del calendario
@@ -165,8 +238,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $('#calendar').rup_calendar('getWeek');
 		 */
-		getWeek: () => {
-			let date = new Date(calObj.getStartDate());
+		getWeek: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getWeek');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getWeek');
+			}
+			let date = new Date($(ctx).data('cal').getStartDate());
 			return date.getWeek();
 		},
 		/**
@@ -176,8 +256,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $('#calendar').rup_calendar('getDay');
 		 */
-		getDay: () => {
-			return calObj.getDay();
+		getDay: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getDay');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getDay');
+			}
+			return $(ctx).data('cal').getDay();
 		},
 		/**
 		 * Obtiene el título de la vista de calendario.
@@ -188,8 +275,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $("#calendar").rup_calendar("getTitle");
 		 */
-		'getTitle': () => {
-			return calObj.getTitle();
+		'getTitle': function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getTitle');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getTitle');
+			}
+			return $(ctx).data('cal').getTitle();
 		},
 		/**
 		 * Obtiene la fecha desde la que se muestra el calendario
@@ -199,8 +293,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $("#calendar").rup_calendar("getStartDate");
 		 */
-		getStartDate:() => {
-			return calObj.getStartDate();
+		getStartDate:function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getStartDate');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getStartDate');
+			}
+			return $(ctx).data('cal').getStartDate();
 		},
 		/**
 		 * Obtiene la fecha hasta la que se muestra el calendario
@@ -210,8 +311,15 @@ import { Exception, Utils } from 'handlebars';
 		 * @example
 		 * $("#calendar").rup_calendar("getEndDate");
 		 */
-		getEndDate:() => {
-			return calObj.getEndDate();
+		getEndDate:function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getEndDate');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getEndDate');
+			}
+			return $(ctx).data('cal').getEndDate();
 		},
 		/**
 		 * Método que establece y recarga las opciones
@@ -224,9 +332,137 @@ import { Exception, Utils } from 'handlebars';
 		 * $('#calendar').rup_calendar('weekbox', true);
 		 * $('#calendar').rup_calendar({weekbox:true, view:'month'});
 		 */
-		option: () => {},
+		option: function(opt, val) {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('option');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('option');
+			}
+			if(typeof opt === 'object'){
+				let optNames = Object.keys(opt);
+				$.each(optNames, (i,e) => {
+					$(ctx).data('cal').options[e] = opt[e];
+					$(ctx).data('cal')._render();
+				});
+				return;
+			}
+			if(val === undefined) {
+				return $(ctx).data('cal').options[opt];
+			}
+			else {
+				$(ctx).data('cal').options[opt] = val;
+				$(ctx).data('cal')._render();
+			}
+		},
 		/**
-		 * Elimina el calendario
+		 * Devuelve un listado de eventos entre las dos fechas introducidas
+		 * 
+		 * @name getEventsBetween
+		 * @function
+		 * @param {Date} fechaDesde
+		 * @param {Date} fechaHasta
+		 * @returns {Array} listado de Eventos entre las fechas
+		 */
+		getEventsBetween: function(desde, hasta) {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('getEventsBetween');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('getEventsBetween');
+			}
+			return $(ctx).data('cal').getEventsBetween(desde,hasta);
+		},
+		/**
+		 * Muestra los eventos de la casilla con la fecha especificada.
+		 * @name showCell
+		 * @function
+		 * @param {Date} fecha fecha a consultar
+		 * @returns {boolean} true si había eventos. false en caso contrario.
+		 * @example
+		 * $('#calendar').rup_calendar('showCell');
+		 */
+		showCell : function(date) {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('showCell');
+			}
+			if ($(ctx).data('cal').options.selector === undefined) {
+				errorstr('showCell');
+			}
+			if (!date instanceof Date) {
+				throw TypeError('Se requiere un Date como parámetro');
+			}
+			var getCell = (date) => {
+				let ts = date.getTime();
+				let col = $('.events-list');
+				let sel = col.filter( (i, e) => {
+					return $(e).attr('data-cal-start') <= ts && $(e).attr('data-cal-end') > ts
+				});
+				if(sel.length === 0) {
+					return false
+				}
+				return $(sel).parent();
+			};
+			let cell = getCell(date);
+			if( cell ) {
+				if ($('#cal-slide-box').css('display') === undefined ||
+					$('#cal-slide-box').css('display') === 'none' ){
+					$($(ctx).data('cal').options.selector).trigger('beforeShowCell');
+					cell.mouseover();
+					cell.click();
+					$($(ctx).data('cal').options.selector).trigger('afterShowCell');
+				}
+			}
+			else {
+				return false;
+			}
+		},
+		/**
+		 * Oculta el div con los eventos si está desplegado
+		 * @name hideCells
+		 * @function
+		 * @example
+		 * $('#calendar').rup_calendar('hideCells');
+		 */
+		hideCells: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('hideCells');
+			}
+			if ($(ctx).data('cal').options.selector === undefined) {
+				errorstr('showCell');
+			}
+			$($(ctx).data('cal').options.selector).trigger('beforeHideCell');
+			$('#cal-slide-box').css('display','none');
+			$($(ctx).data('cal').options.selector).trigger('afterHideCell');
+		},
+		/**
+		 * Recarga los eventos y aplica las opciones cambiadas
+		 * 
+		 * @name refresh
+		 * @function
+		 * @example
+		 * $('#calendar').rup_calendar('refresh');
+		 */
+		refresh: function() {
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('refresh');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('refresh');
+			}
+			//Primero actualizamos las opciones (Por si se cambia events_source)
+			$(ctx).data('cal')._render();
+			//Actualizamos los eventos
+			$(ctx).data('cal')._loadEvents();
+			$(ctx).data('cal')._render();
+		},
+		/**
+		 * Elimina el calendario y retorna a la estructura HTML anterior a la creación del calendario.
 		 *
 		 * @name destroy
 		 * @function
@@ -234,7 +470,19 @@ import { Exception, Utils } from 'handlebars';
 		 * $("#contextMenu").rup_calendar("destroy");
 		 */
 		destroy: function () {
-			calObj.destroy();
+			var ctx = this;
+			if($(ctx).data('cal') === undefined) {
+				console.info('destroy');
+			}
+			if( $(ctx).data('cal').options.selector === undefined) {
+				errorstr('destroy');
+			}
+			let sel = $(ctx).data('cal').options.selector;
+			$(ctx).data('cal').options.selector = undefined;
+			$(sel).removeClass('cal-context');
+			$(sel).removeData();
+			$(sel).children().remove();
+			$(sel).trigger('afterDestroy');
 		}
 	});
 
@@ -279,18 +527,20 @@ import { Exception, Utils } from 'handlebars';
 				settings.onAfterEventsLoad = function (...args) {
 					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
 					self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
+					$(self.selector).trigger('afterEventsLoad');
 				};
 				settings.onAfterViewLoad = function (...args) {
 					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterViewLoad, args);
 					self._callIfFunction.call(this, customSettings.rupAfterViewLoad, args);
+					$(self.selector).trigger('afterViewLoad');
 				};
 
 				//Asociar el selector
 				settings.selector = self.selector;
 
-				if ($.rup_utils.aplicatioInPortal()) {
-					settings.appendTo = '.r01gContainer';
-				}
+				// if ($.rup_utils.aplicatioInPortal()) {
+				// 	settings.appendTo = '.r01gContainer';
+				// }
 
 				//El componente subyacente requiere i18n en una variable del scope de window
 				if (!window.calendar_languages) {
@@ -299,7 +549,8 @@ import { Exception, Utils } from 'handlebars';
 				window.calendar_languages[settings.language] = $.rup.i18n.base.rup_calendar;
 
 				//Lanzar el plugin subyaciente
-				calObj = $(self).calendar(settings);
+				calObj = new $(self).calendar(settings);
+				this.data('cal',calObj);
 			}
 		}
 	});
@@ -309,93 +560,73 @@ import { Exception, Utils } from 'handlebars';
 	//******************************************************
 
 	/**
-	 * Función de callback a ejecutar cuando se muestra el menú contextual.
-	 *
-	 * @callback jQuery.rup_calendar~onShowEvent
-	 * @param {object} opt - Opciones de configuración.
-	 * @return {boolean} - En caso de devolver false no se termina mostrando el menú.
-	 */
-
-	/**
-	 * Función de callback a ejecutar cuando se oculta el menú contextual.
-	 *
-	 * @callback jQuery.rup_calendar~onHideEvent
-	 * @param {object} opt - Opciones de configuración.
-	 * @return {boolean} - En caso de devolver false no se termina ocultando el menú.
-	 */
-
-	/**
-	 * Función de callback a ejecutar a partir de los eventos indicados en la propiedad trigger.
-	 *
-	 * @callback jQuery.rup_calendar~position
-	 * @param {jQuery} $menu - Referencia jQuery al objeto propio.
-	 * @param {number} x - Coordenada x proporcionada por el evento de mostrar el menú.
-	 * @param {number} y - Coordenada y proporcionada por el evento de mostrar el menú.
-	 */
-
-	/**
-	 * Esta propiedad permite especificar una función de callback por defecto para aquellos ítems que no hayan especificado una función propia.
-	 *
-	 * @callback jQuery.rup_calendar~callback
-	 * @param {string} key - Key de la opción seleccionada.
-	 * @param {number} options - Opciones de configuración con los que se ha inicializado el componente.
-	 * @example
-	 * callback: function(key, options) {
-	 *    alert("clicked: " + key);
-	 * }
-	 */
-
-	/**
-	 * Función de callback que devuelve el objeto de configuración del componente.
-	 *
-	 * @callback jQuery.rup_calendar~build
-	 * @param {jQuery} $trigger - Referencia jQuery del objeto disparador del callback.
-	 * @param {object} e - Objeto event correspondiente al evento que desencadena el callback.
-	 * @return {object} - Objeto de configuración del componente.
-	 * @example
-	 * $(".contextMenu-other").rup_calendar({
-	 *      trigger: 'none',
-	 *      build: function($trigger, e) {
-	 *          return {
-	 *              callback: function(key, options) {
-	 *              alert("clicked: " + key);
-	 *          },
-	 *          items: {
-	 *              "edit": {name: "Edit", icon: "edit"},
-	 *              "cut": {name: "Cut", icon: "cut"},
-	 *              "copy": {name: "Copy", icon: "copy"},
-	 *              "paste": {name: "Paste", icon: "paste"},
-	 *              "delete": {name: "Delete", icon: "delete"},
-	 *              "sep1": "---------",
-	 *              "quit": {name: "Quit", icon: "quit"}
-	 *          }
-	 *      };
-	 *  }
-	 * });
-	 */
-
-	/**
 	 * @description Propiedades de configuración del componente.
 	 *
 	 * @name defaults
-	 * @property {object} items - Objeto que define los elementos que van a mostrarse en el menú contextual. En el siguiente apartado se explicará más en detalle como realizar esta definición.
-	 * @property {string} [appendTo] - Selector de jQuery que identifica el elemento del DOM a partir del cual se va a añadir el menú contextual generado.
-	 * @property {string} [trigger] - Determina el evento que va a lanzar la visualización del menú contextual. ("right","left", "hover", "none").
-	 * @property {boolean} [reposition] - Determina si un menú debe ser reposicionado (true) o reconstruido (false) en el caso de que el evento que lanza la visualización del menú contextual se ejecute por segunda vez.
-	 * @property {number} [delay=200] - Determina el tiempo de retardo antes de mostrar el menú contextual. Solo se aplica sobre el evento “hover”.
-	 * @property {boolean} [autoHide=false] - Indica si el menú contextual debe de ocultarse automáticamente cuando el cursor del ratón abandona la posición del menú contextual y el elemento que lo lanza.
-	 * @property {number} [zIndex=1] - Especifica el desplazamiento de zIndex que se aplica al calculado.
-	 * @property {string} [className] - Nombres de clases adicionales que se van a aplicar al menú contextual.
-	 * @property {object} animation - Determina la animación que se va a aplicar a la hora de mostrar/ocultar el menúcontextual. La configuración es la misma que la que utiliza para realizar la de los métodos show y hide de jQuery.
-	 * @property {object} [events] - Los eventos show y hide se ejecutan antes de el menú se muestre o se oculte. Mediante esta propiedad es posible indicar funciones de callback para ser ejecutadas en estos casos. Permiten devolver false para evitar continuar con el evento.
-	 * @property {jQuery.rup_calendar~onShowEvent} events.show - Función a ejecutar antes de que se muestre el menú.
-	 * @property {jQuery.rup_calendar~onHideEvent} events.hide - Función a ejecutar antes de que se oculte el menú.
-	 * @property {jQuery.rup_calendar~position} position - Función de callback que se ejecuta a partir de los eventos indicados en la propiedad trigger.
-	 * @property {string} determinePosition - Determina la posición del menú contextual de acuerdo al elemento disparador.
-	 * @property {jQuery.rup_calendar~callback} [callback] - Esta propiedad permite especificar una función de callback por defecto para aquellos ítems que no hayan especificado una función propia.
-	 * @property {jQuery.rup_calendar~build} [build] - Función de callback que devuelve el objeto de configuración del componente. En caso de especificar una función para la propiedad build la creación del menú no se realiza inicialmente sino que se demora hasta que se ejecuta el evento que lo muestra.
-	 * @property {boolean} [showCursor=true] - Determina si se va a modificar el estilo del puntero del ratón al posicionarse sobre el elemento que dispone de menú contextual. El tipo de puntero se determina mediante la clase CSS context-menu-cursor.
-	 * @property {string} [msieCursorCss="url("+$.rup.RUP+"/css/cursors/context-menu.cur),default"] - Esta propiedad se emplea para poder modificar la apariencia del cursor en Internet Explorer al posicionarse sobre un elemento que dispone de un menú contextual. Esto es debido a que el modo en el que hay que realizar la asignación del nuevo cursor no se puede realizar mediante un class
+	 * @property {string} tooltip_container - Container al que se le añade el tooltip.
+	 * @property {(string|function|object)} events_source - Origen de los eventos a añadir en el calendario.
+	 * @property {string} width - Ancho que ocupara el calendario.
+	 * @property {string} view - vista que se mostrara por defecto (year/month/week/day).
+	 * @property {string} day - Punto de inicio del calendario. puede ser 'now' o una fecha en formato (yyyy-mm-dd).
+	 * @property {string} time_start - La hora a la que empieza la vista de día.
+	 * @property {string} time_end - La hora a la que acaba la vista de day.
+	 * @property {string} time_split - Cada cuantos minutos se muestra un separador en la vista de día.
+	 * @property {boolean} format12 - Especifica si se usa o no el formato de 12H en lugar del de 24H.
+	 * @property {string} am_suffix - En el formato de 12H especifica el sufijo para la mañana (default: AM).
+	 * @property {string} pm_suffix - En el formato de 12H especifica el sufijo para la tarde (default: PM).
+	 * @property {string} tmpl_path - Path a la ubicación de las tempaltes de calendar (Debe terminar en '/').
+	 * @property {boolean} tmpl_cache - Indica si cachea o no las templates (default: true).
+	 * @property {object} classes - Establece las clases para cada celda en funcion de la vista.
+	 * @property {(string|null)} modal - ID de la ventana modal. Si se establece las url en los eventos se abrirán en la modal.
+	 * @property {string} modal_type - Modo en el que aparece el modal (iframe/ajax/template).
+	 * @property {function} modal_title - Función para establecer el título del modal. Recibe el evento como parámetro.
+	 * @property {object} views - configuración de las vistas.
+	 * @property {boolean} merge_holidays - Añade al calendario algunas festividades como año nuevo o el día de la independencia americana.
+	 * @property {boolean} display_week_numbers - Determina si se muestra el número de la semana.
+	 * @property {boolean} weekbox - Determina si se muestra o no un div con el número de la semana en la vista de mes.
+	 * @property {object} headers - Cabeceras para las llamadas ajax realizadas desde el calendario.
+	 * @property {function} onAfterEventsLoad - Callback que se ejecuta tras cargar los eventos (Recibe los eventos como parámetros).
+	 * @property {function} onBeforeEventsLoad - Callback que se ejecuta antes de cargar los eventos.
+	 * @property {function} onAfterViewLoad - Callback que se ejecuta tras cargar una nueva vista (Recibe la vista como parámetro).
+	 * @property {function} onAfterModalShow - Callback que se ejecuta tras mostrar el modal (Recibe los eventos como parámetros).
+	 * @property {function} onAfterModalHidden - Callback que se ejecuta tras esconder el modal.(Recibe los eventos como parámetros).
+	 */
+
+	/**
+	 * @description Propiedades del objeto 'classes'
+	 * 
+	 * @name classes
+	 * 
+	 * @property {object} classes.month - Establece las clases en la vista de mes.
+	 * @property {string} classes.month.inmonth - Establece las clases para las celdas que representan días del mes actual.
+	 * @property {string} classes.month.outmonth - Establece las clases para las celdas que representan días ajenos al mes actual.
+	 * @property {string} classes.month.saturday - Establece las clases para las celdas que representan los sábados.
+	 * @property {string} classes.month.sunday - Establece las clases para las celdas que representan los domingos.
+	 * @property {string} classes.month.holidays - Establece las clases para las celdas que representan los festivos.
+	 * @property {string} classes.month.today - Establece las clases para la celda que representan el día actual.
+	 * @property {object} classes.week - Establece las clases en la vista de semana.
+	 * @property {string} classes.week.workday - Establece las clases para las celdas que representan días entre semana.
+	 * @property {string} classes.week.saturday - Establece las clases para las celdas que representan los sábados.
+	 * @property {string} classes.week.sunday - Establece las clases para las celdas que representan los domingos.
+	 * @property {string} classes.week.holidays - Establece las clases para las celdas que representan los festivos.
+	 * @property {string} classes.week.today - Establece las clases para la celda que representan el día actual.
+	 */
+
+	/**
+	 * @description Propiedades del objeto 'views'
+	 * 
+	 * @name views
+	 * 
+	 * @property {object} views.year - Establece las opciones para la vista anual.
+	 * @property {integer} views.year.slide_events - Si el valor es 1 permite desplegar los eventos desde las celdas.
+	 * @property {integer} views.year.enable - Si el valor es 1 habilita la vista.
+	 * @property {object} views.month - Establece las opciones para la vista mensual.
+	 * @property {integer} views.month.slide_events - Si el valor es 1 permite desplegar los eventos desde las celdas.
+	 * @property {integer} views.month.enable - Si el valor es 1 habilita la vista.
+	 * @property {object} views.week - Establece las opciones para la vista semanal.
+	 * @property {integer} views.week.enable - Si el valor es 1 habilita la vista.
+	 * @property {object} views.day - Establece las opciones para la vista diaria.
+	 * @property {integer} views.day.enable - Si el valor es 1 habilita la vista.
 	 */
 
 	$.fn.rup_calendar.defaults = {
@@ -406,20 +637,15 @@ import { Exception, Utils } from 'handlebars';
 		view: 'month',
 		tmpl_path: STATICS + '/rup/html/templates/rup_calendar/',
 		tmpl_cache: false,
+		day: 'now',
 		weekbox: false,
 		classes: {
 			months: {
 				general: 'label'
 			}
 		},
-		onAfterEventsLoad: (...args) => {},
-		onAfterViewLoad: (...args) => {
-			$('*[data-toggle="tooltip"]').rup_tooltip('destroy');
-			$('*[data-toggle="tooltip"]').rup_tooltip({
-				container: 'body',
-				html: true
-			});
-		}
+		onAfterEventsLoad: (events) => {},
+		onAfterViewLoad: (view) => {}
 	};
 
 }));

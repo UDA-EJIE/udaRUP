@@ -31,13 +31,13 @@ Propiedades de configuración del plugin formEdit del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| addEditOptions | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
-| addOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| editOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| deleteOptions | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
-| detailOptions | <code>object</code> | Propiedades de configuración de la acción de mostrar un registro mediante el formulario de detalle. |
-| defaultCompareData | <code>boolean</code> | Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true. |
-| dialogOptions | <code>object</code> | Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo. |
+| [addEditOptions] | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
+| [addOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [editOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [deleteOptions] | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
+| [detailOptions] | <code>object</code> | Propiedades de configuración de la acción de mostrar un registro mediante el formulario de detalle. |
+| [defaultCompareData] | <code>boolean</code> | Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true. |
+| [dialogOptions] | <code>object</code> | Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo. |
 
 <a name="module_rup_table/formEdit..preConfigureFormEdit"></a>
 

@@ -26,7 +26,7 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| minHeight | <code>Number</code> | <code>100</code> | Altura mínima con la que se va a mostrar el mensaje. |
+| [minHeight] | <code>Number</code> | <code>100</code> | Altura mínima con la que se va a mostrar el mensaje. |
 
 <a name="module_rup_messages..msgError"></a>
 

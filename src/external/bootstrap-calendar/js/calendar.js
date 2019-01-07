@@ -399,6 +399,7 @@ if(!String.prototype.formatNum) {
 		context.css('width', this.options.width).addClass('cal-context');
 
 		this.view();
+		context.triggerHandler('initComplete');
 		return this;
 	}
 
@@ -423,6 +424,7 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._render = function() {
+		$(this.options.selector).trigger('beforeRender');
 		this.context.html('');
 		this._loadTemplate(this.options.view);
 		this.stop_cycling = false;
@@ -460,6 +462,7 @@ if(!String.prototype.formatNum) {
 
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
+		$(this.options.selector).trigger('afterRender');
 	};
 
 	Calendar.prototype._format_hour = function(str_hour, leadingZero) {
@@ -776,6 +779,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype.view = function(view) {
+		$(this.options.selector).triggerHandler('beforeChangeView', view);
 		if(view) {
 			if(!this.options.views[view].enable) {
 				return;
@@ -788,6 +792,7 @@ if(!String.prototype.formatNum) {
 		this._render();
 
 		this.options.onAfterViewLoad.call(this, this.options.view);
+		$(this.options.selector).triggerHandler('afterChangeView', view);
 	};
 
 	Calendar.prototype.navigate = function(where, next) {
@@ -971,12 +976,19 @@ if(!String.prototype.formatNum) {
 							type: 'GET',
 							async: false,
 							headers: self.options.headers,
+							error: function(e) {
+								$(this.options.selector).triggerHandler('afterLoadEventsError', e);
+							},
+							success: function (d) {
+								$(this.options.selector).triggerHandler('afterLoadEventsSuccess',d);
+							}
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
 							}
 							if(json.result) {
 								events = json.result;
+								$(this.options.selector).triggerHandler('afterLoadEventsSuccess');
 							}
 						});
 						return events;
@@ -987,6 +999,12 @@ if(!String.prototype.formatNum) {
 		if(!loader) {
 			$.error(this.locale.error_loadurl);
 		}
+		//Nos aseguramos de lanzar el evento beforeLoadEvents
+		var originalBEL = this.options.onBeforeEventsLoad;
+		this.options.onBeforeEventsLoad = function() {
+			$(self.options.selector).triggerHandler('beforeLoadEvents');
+			originalBEL(arguments[0]);
+		};
 		this.options.onBeforeEventsLoad.call(this, function() {
 			if (!self.options.events.length || !self.options.events_cache) {
 				self.options.events = loader();
@@ -999,6 +1017,11 @@ if(!String.prototype.formatNum) {
 					return delta;
 				});
 			}
+			var originalAEL = self.options.onAfterEventsLoad;
+			self.options.onAfterEventsLoad = function() {
+				$(self.options.selector).triggerHandler('afterLoadEventsComplete');
+				originalAEL(arguments);
+			};
 			self.options.onAfterEventsLoad.call(self, self.options.events);
 		});
 	};
@@ -1031,7 +1054,7 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update = function() {
 		var self = this;
 
-		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
+		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container, html: true});
 
 		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
@@ -1247,7 +1270,6 @@ if(!String.prototype.formatNum) {
 		var cell = that.closest('.cal-cell');
 		var row = cell.closest('.cal-before-eventlist');
 		var tick_position = cell.data('cal-row');
-
 		that.fadeOut('fast');
 
 		slider.slideUp('fast', function() {
@@ -1259,11 +1281,15 @@ if(!String.prototype.formatNum) {
 			row.after(slider);
 			self.activecell = $('[data-cal-date]', cell).text();
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
+			self.context.triggerHandler('beforeShowCell');
 			slider.slideDown('fast', function() {
 				$('body').one('click', function() {
+					self.context.trigger('beforeHideCell');
 					slider.slideUp('fast');
 					self.activecell = 0;
+					self.context.trigger('afterHideCell');
 				});
+				self.context.trigger('afterShowCell');
 			});
 		});
 
@@ -1275,6 +1301,8 @@ if(!String.prototype.formatNum) {
 			$('a.event-item').mouseleave(function() {
 				$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 			});
+			$('a.event-item').parent().click(function() { self.context.trigger('eventClick'); });
+			$('a.event-item').parent().dblclick(function() { self.context.trigger('eventDoubleClick'); });
 			self._update_modal();
 		}, 400);
 	}

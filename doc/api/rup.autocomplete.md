@@ -83,16 +83,16 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| onLoadError | [<code>onLoadError</code>](#module_rup_autocomplete..onLoadError) |  | Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar. |
-| contains | <code>boolean</code> | <code>true</code> | Valor que determina si la búsqueda debe ser del tipo “contiene” (se buscarán elementos que contengan en cualquier posición el literal introducido) o del tipo “comienza por” (se buscarán elementos que comiencen por el literal introducido). |
-| valueName | <code>string</code> | <code>null</code> | Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el identificador del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente. |
-| labelName | <code>string</code> | <code>null</code> | Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el texto del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente, añadiéndole el sufijo “_label”. |
-| getText | <code>boolean</code> | <code>false</code> | En caso de ser true el componente devolverá como resultado seleccionado el texto en vez del value del elemento. |
-| combobox | <code>boolean</code> | <code>false</code> | Habilita/deshabilita el modo de funcionamiento combobox. |
-| menuMaxHeight | <code>number</code> | <code>false</code> | Determina la altura máxima que podrá tener la capa del menú desplegable antes de mostrar scroll. |
-| menuAppendTo | <code>object</code> | <code></code> | Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable. |
-| disabled | <code>boolean</code> | <code>false</code> | Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda. |
-| defaultValue | <code>string</code> |  | Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos |
+| [onLoadError] | [<code>onLoadError</code>](#module_rup_autocomplete..onLoadError) |  | Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar. |
+| [contains] | <code>boolean</code> | <code>true</code> | Valor que determina si la búsqueda debe ser del tipo “contiene” (se buscarán elementos que contengan en cualquier posición el literal introducido) o del tipo “comienza por” (se buscarán elementos que comiencen por el literal introducido). |
+| [valueName] | <code>string</code> | <code>null</code> | Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el identificador del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente. |
+| [labelName] | <code>string</code> | <code>null</code> | Determina el valor de la propiedad name del campo que utilizará internamente el componente para almacenar el texto del elemento seleccionado por el usuario. En caso de no especificarse, se tomará como valor el valor de la propiedad name del elemento sobre el cual se ha definido el componente, añadiéndole el sufijo “_label”. |
+| [getText] | <code>boolean</code> | <code>false</code> | En caso de ser true el componente devolverá como resultado seleccionado el texto en vez del value del elemento. |
+| [combobox] | <code>boolean</code> | <code>false</code> | Habilita/deshabilita el modo de funcionamiento combobox. |
+| [menuMaxHeight] | <code>number</code> | <code>false</code> | Determina la altura máxima que podrá tener la capa del menú desplegable antes de mostrar scroll. |
+| [menuAppendTo] | <code>object</code> | <code></code> | Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable. |
+| [disabled] | <code>boolean</code> | <code>false</code> | Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda. |
+| [defaultValue] | <code>string</code> |  | Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos |
 
 <a name="module_rup_autocomplete..getRupValue"></a>
 

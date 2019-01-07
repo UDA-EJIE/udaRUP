@@ -1,6 +1,6 @@
-<a name="module_dataTables.multiselect"></a>
+<a name="module_rup.table.multiSelect"></a>
 
-## dataTables.multiselect
+## rup.table.multiSelect
 Módulo que permite toda la multiseleción
 
 **Summary**: Extensión del componente RUP Datatable  
@@ -8,46 +8,46 @@ Módulo que permite toda la multiseleción
 **License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
-* [dataTables.multiselect](#module_dataTables.multiselect)
-    * [~init(dt)](#module_dataTables.multiselect..init)
-    * [~cellRange(dt, idx, last)](#module_dataTables.multiselect..cellRange)
-    * [~disabledMouseSelection(dt)](#module_dataTables.multiselect..disabledMouseSelection)
-    * [~enableMouseSelection(dt)](#module_dataTables.multiselect..enableMouseSelection)
-    * [~eventTrigger(api, selected, type, any)](#module_dataTables.multiselect..eventTrigger)
-    * [~info(api)](#module_dataTables.multiselect..info)
-    * [~init(ctx)](#module_dataTables.multiselect..init)
-    * [~drawSelectId(ctx)](#module_dataTables.multiselect..drawSelectId)
-    * [~paintCheckboxexSelect(ctx)](#module_dataTables.multiselect..paintCheckboxexSelect)
-    * [~checkPageSelectedAll(dt, selected)](#module_dataTables.multiselect..checkPageSelectedAll)
-    * [~createContexMenuSelect(id, ctx)](#module_dataTables.multiselect..createContexMenuSelect)
-    * [~selectAllPage(dt)](#module_dataTables.multiselect..selectAllPage)
-    * [~deselectAllPage(dt)](#module_dataTables.multiselect..deselectAllPage)
-    * [~selectAll(dt)](#module_dataTables.multiselect..selectAll)
-    * [~deselectAll(dt)](#module_dataTables.multiselect..deselectAll)
-    * [~rowColumnRange(dt, type, idx, last)](#module_dataTables.multiselect..rowColumnRange)
-    * [~clear(ctx, [force])](#module_dataTables.multiselect..clear)
-    * [~typeSelect(e, dt, ctx, type, idx)](#module_dataTables.multiselect..typeSelect)
-    * [~initializeMultiselectionProps()](#module_dataTables.multiselect..initializeMultiselectionProps)
-    * [~maintIdsRows(DataTable, id, select, pagina, line)](#module_dataTables.multiselect..maintIdsRows)
+* [rup.table.multiSelect](#module_rup.table.multiSelect)
+    * [~init(dt)](#module_rup.table.multiSelect..init)
+    * [~cellRange(dt, idx, last)](#module_rup.table.multiSelect..cellRange)
+    * [~disabledMouseSelection(dt)](#module_rup.table.multiSelect..disabledMouseSelection)
+    * [~enableMouseSelection(dt)](#module_rup.table.multiSelect..enableMouseSelection)
+    * [~eventTrigger(api, selected, type, any)](#module_rup.table.multiSelect..eventTrigger)
+    * [~info(api)](#module_rup.table.multiSelect..info)
+    * [~init(ctx)](#module_rup.table.multiSelect..init)
+    * [~drawSelectId(ctx)](#module_rup.table.multiSelect..drawSelectId)
+    * [~paintCheckboxexSelect(ctx)](#module_rup.table.multiSelect..paintCheckboxexSelect)
+    * [~checkPageSelectedAll(dt, selected)](#module_rup.table.multiSelect..checkPageSelectedAll)
+    * [~createContexMenuSelect(id, ctx)](#module_rup.table.multiSelect..createContexMenuSelect)
+    * [~selectAllPage(dt)](#module_rup.table.multiSelect..selectAllPage)
+    * [~deselectAllPage(dt)](#module_rup.table.multiSelect..deselectAllPage)
+    * [~selectAll(dt)](#module_rup.table.multiSelect..selectAll)
+    * [~deselectAll(dt)](#module_rup.table.multiSelect..deselectAll)
+    * [~rowColumnRange(dt, type, idx, last)](#module_rup.table.multiSelect..rowColumnRange)
+    * [~clear(ctx, [force])](#module_rup.table.multiSelect..clear)
+    * [~typeSelect(e, dt, ctx, type, idx)](#module_rup.table.multiSelect..typeSelect)
+    * [~initializeMultiselectionProps()](#module_rup.table.multiSelect..initializeMultiselectionProps)
+    * [~maintIdsRows(DataTable, id, select, pagina, line)](#module_rup.table.multiSelect..maintIdsRows)
 
-<a name="module_dataTables.multiselect..init"></a>
+<a name="module_rup.table.multiSelect..init"></a>
 
-### dataTables.multiselect~init(dt)
+### rup.table.multiSelect~init(dt)
 Se inicializa el componente multiselect
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto datatable. |
 
-<a name="module_dataTables.multiselect..cellRange"></a>
+<a name="module_rup.table.multiSelect..cellRange"></a>
 
-### dataTables.multiselect~cellRange(dt, idx, last)
+### rup.table.multiSelect~cellRange(dt, idx, last)
 Add one or more cells to the selection when shift clicking in OS selectionstyle cell selection.Cell range is more complicated than row and column as we want to selectin the visible grid rather than by index in sequence. For example, if youclick first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1should also be selected (and not 1-3, 1-4. etc)
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -56,36 +56,36 @@ Add one or more cells to the selection when shift clicking in OS selectionstyle
 | idx | <code>object</code> | Cell index to select to |
 | last | <code>object</code> | Cell index to select from |
 
-<a name="module_dataTables.multiselect..disabledMouseSelection"></a>
+<a name="module_rup.table.multiSelect..disabledMouseSelection"></a>
 
-### dataTables.multiselect~disabledMouseSelection(dt)
+### rup.table.multiSelect~disabledMouseSelection(dt)
 Disable mouse selection by removing the selectors
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>DataTable.Api</code> | DataTable to remove events from e |
 
-<a name="module_dataTables.multiselect..enableMouseSelection"></a>
+<a name="module_rup.table.multiSelect..enableMouseSelection"></a>
 
-### dataTables.multiselect~enableMouseSelection(dt)
+### rup.table.multiSelect~enableMouseSelection(dt)
 Attach mouse listeners to the table to allow mouse selection of items
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>DataTable.Api</code> | DataTable to remove events from |
 
-<a name="module_dataTables.multiselect..eventTrigger"></a>
+<a name="module_rup.table.multiSelect..eventTrigger"></a>
 
-### dataTables.multiselect~eventTrigger(api, selected, type, any)
+### rup.table.multiSelect~eventTrigger(api, selected, type, any)
 Trigger an event on a DataTable
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -95,60 +95,60 @@ Trigger an event on a DataTable
 | type | <code>string</code> | Item type acting on |
 | any | <code>boolean</code> | Require that there are values before     triggering |
 
-<a name="module_dataTables.multiselect..info"></a>
+<a name="module_rup.table.multiSelect..info"></a>
 
-### dataTables.multiselect~info(api)
+### rup.table.multiSelect~info(api)
 Update the information element of the DataTable showing information about theitems selected. This is done by adding tags to the existing text
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | api | <code>DataTable.Api</code> | DataTable to update |
 
-<a name="module_dataTables.multiselect..init"></a>
+<a name="module_rup.table.multiSelect..init"></a>
 
-### dataTables.multiselect~init(ctx)
+### rup.table.multiSelect~init(ctx)
 Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>DataTable.settings</code> | Settings object to operate on |
 
-<a name="module_dataTables.multiselect..drawSelectId"></a>
+<a name="module_rup.table.multiSelect..drawSelectId"></a>
 
-### dataTables.multiselect~drawSelectId(ctx)
+### rup.table.multiSelect~drawSelectId(ctx)
 Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type |
 | --- | --- |
 | ctx | <code>DataTable.api</code> | 
 
-<a name="module_dataTables.multiselect..paintCheckboxexSelect"></a>
+<a name="module_rup.table.multiSelect..paintCheckboxexSelect"></a>
 
-### dataTables.multiselect~paintCheckboxexSelect(ctx)
+### rup.table.multiSelect~paintCheckboxexSelect(ctx)
 Pinta la cabecera y pie del datatable con el checkbox all.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>DataTable.ctx</code> | Settings object to operate on |
 
-<a name="module_dataTables.multiselect..checkPageSelectedAll"></a>
+<a name="module_rup.table.multiSelect..checkPageSelectedAll"></a>
 
-### dataTables.multiselect~checkPageSelectedAll(dt, selected)
+### rup.table.multiSelect~checkPageSelectedAll(dt, selected)
 Metodo que comprueba que todos los checks de la página están seleccionados
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -156,12 +156,12 @@ Metodo que comprueba que todos los checks de la página están seleccionados
 | dt | <code>object</code> | Es el objeto datatable. |
 | selected | <code>boolean</code> | Es true o false para saber cual de los 2 quieres buscar. |
 
-<a name="module_dataTables.multiselect..createContexMenuSelect"></a>
+<a name="module_rup.table.multiSelect..createContexMenuSelect"></a>
 
-### dataTables.multiselect~createContexMenuSelect(id, ctx)
+### rup.table.multiSelect~createContexMenuSelect(id, ctx)
 Metodo que crea el contexMenu de la tabla
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -169,60 +169,60 @@ Metodo que crea el contexMenu de la tabla
 | id | <code>string</code> | Es el identificador del datatable. |
 | ctx | <code>object</code> | datatable.settings. |
 
-<a name="module_dataTables.multiselect..selectAllPage"></a>
+<a name="module_rup.table.multiSelect..selectAllPage"></a>
 
-### dataTables.multiselect~selectAllPage(dt)
+### rup.table.multiSelect~selectAllPage(dt)
 Metodo que selecciona todos los elementos de una misma página.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Datatable. |
 
-<a name="module_dataTables.multiselect..deselectAllPage"></a>
+<a name="module_rup.table.multiSelect..deselectAllPage"></a>
 
-### dataTables.multiselect~deselectAllPage(dt)
+### rup.table.multiSelect~deselectAllPage(dt)
 Metodo que deselecciona todos los elementos de una misma página.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Datatable. |
 
-<a name="module_dataTables.multiselect..selectAll"></a>
+<a name="module_rup.table.multiSelect..selectAll"></a>
 
-### dataTables.multiselect~selectAll(dt)
+### rup.table.multiSelect~selectAll(dt)
 Metodo que selecciona todos los elementos.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Datatable. |
 
-<a name="module_dataTables.multiselect..deselectAll"></a>
+<a name="module_rup.table.multiSelect..deselectAll"></a>
 
-### dataTables.multiselect~deselectAll(dt)
+### rup.table.multiSelect~deselectAll(dt)
 Metodo que deselecciona todos los elementos.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Datatable. |
 
-<a name="module_dataTables.multiselect..rowColumnRange"></a>
+<a name="module_rup.table.multiSelect..rowColumnRange"></a>
 
-### dataTables.multiselect~rowColumnRange(dt, type, idx, last)
+### rup.table.multiSelect~rowColumnRange(dt, type, idx, last)
 Add one or more items (rows or columns) to the selection when shift clickingin OS selection style
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -232,12 +232,12 @@ Add one or more items (rows or columns) to the selection when shift clickingin 
 | idx | <code>object</code> | Item index to select to |
 | last | <code>object</code> | Item index to select from |
 
-<a name="module_dataTables.multiselect..clear"></a>
+<a name="module_rup.table.multiSelect..clear"></a>
 
-### dataTables.multiselect~clear(ctx, [force])
+### rup.table.multiSelect~clear(ctx, [force])
 Clear all selected items
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Default | Description |
@@ -245,12 +245,12 @@ Clear all selected items
 | ctx | <code>DataTable.settings</code> |  | Settings object of the host DataTable |
 | [force] | <code>boolean</code> | <code>false</code> | Force the de-selection to happen, regardless     of selection style |
 
-<a name="module_dataTables.multiselect..typeSelect"></a>
+<a name="module_rup.table.multiSelect..typeSelect"></a>
 
-### dataTables.multiselect~typeSelect(e, dt, ctx, type, idx)
+### rup.table.multiSelect~typeSelect(e, dt, ctx, type, idx)
 Select items based on the current configuration for style and items.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -261,19 +261,19 @@ Select items based on the current configuration for style and items.
 | type | <code>string</code> | Items to select |
 | idx | <code>int</code> \| <code>object</code> | Index of the item to select |
 
-<a name="module_dataTables.multiselect..initializeMultiselectionProps"></a>
+<a name="module_rup.table.multiSelect..initializeMultiselectionProps"></a>
 
-### dataTables.multiselect~initializeMultiselectionProps()
+### rup.table.multiSelect~initializeMultiselectionProps()
 Metodo que inicialida las propiedades para el multiselect.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
-<a name="module_dataTables.multiselect..maintIdsRows"></a>
+<a name="module_rup.table.multiSelect..maintIdsRows"></a>
 
-### dataTables.multiselect~maintIdsRows(DataTable, id, select, pagina, line)
+### rup.table.multiSelect~maintIdsRows(DataTable, id, select, pagina, line)
 Metodo que añade y quita los seleccionados.
 
-**Kind**: inner method of [<code>dataTables.multiselect</code>](#module_dataTables.multiselect)  
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |

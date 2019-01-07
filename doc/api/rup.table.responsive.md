@@ -25,9 +25,9 @@ Propiedades de configuración del plugin responsive del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| fluid | <code>object</code> | Parametros de configuración |
-| excludeColumns | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
-| sendPostDataParams | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
+| [fluid] | <code>object</code> | Parametros de configuración |
+| [excludeColumns] | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
+| [sendPostDataParams] | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
 
 <a name="module_rup_table/responsive..preConfigureResponsive"></a>
 
