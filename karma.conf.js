@@ -226,6 +226,7 @@ module.exports = function (config) {
                     'handlebars': 'handlebars/dist/handlebars.js',
                     'marionette': 'backbone.marionette/lib/backbone.marionette.js',
                     'jquery': 'jquery/dist/jquery.js',
+                    'jasmine-jquery': 'jasmine-jquery/lib/jasmine-jquery.js',
                     'jquery-ui': 'jquery-ui/ui/',
                     'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
                     'highlight': 'highlight.js/lib/highlight.js',
