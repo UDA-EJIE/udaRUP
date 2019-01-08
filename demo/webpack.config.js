@@ -5,6 +5,10 @@
 var path = require('path');
 const webpack = require('webpack');
 
+const createBackendServer = require('../backend');
+
+createBackendServer(8081);
+
 module.exports = {
 	entry: {
 		bt4: './demo/app/main-bt4.js'

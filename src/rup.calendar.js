@@ -412,6 +412,7 @@ import { Exception, Utils } from 'handlebars';
 			//Actualizamos los eventos
 			$(ctx).data('cal')._loadEvents();
 			$(ctx).data('cal')._render();
+			$(ctx).triggerHandler('afterRefresh');
 		},
 		/**
 		 * Elimina el calendario y retorna a la estructura HTML anterior a la creación del calendario.

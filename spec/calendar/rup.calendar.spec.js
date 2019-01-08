@@ -1,6 +1,8 @@
 import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.calendar';
+import * as util from 'util';
+import { Utils } from 'handlebars';
 
 var EVENTS = [{
     "id": "48605",
@@ -253,6 +255,7 @@ var calendarUtils = {
         }
     }
 }
+
 describe('Test rup_calendar (default)', () => {
     var cal;
     beforeAll((done) => {
@@ -864,7 +867,614 @@ describe('Test rup_calendar (default)', () => {
     });
 });
 
-describe('Test rup_calendar (alternative)', () => {});
+describe('Test rup_calendar (alternative)', () => {
+    var cal;
+    beforeAll((done) => {
+        var tmpls = {
+            'day': require('calendar/tmpls/day.html'),
+            'week': require('calendar/tmpls/week.html'),
+            'week-days': require('calendar/tmpls/week-days.html'),
+            'month': require('calendar/tmpls/month.html'),
+            'month-day': require('calendar/tmpls/month-day.html'),
+            'year': require('calendar/tmpls/year.html'),
+            'year-month': require('calendar/tmpls/year-month.html'),
+            'events-list': require('calendar/tmpls/events-list.html'),
+            'modal': require('calendar/tmpls/modal.html')
+        };
+        testutils.loadCss(done);
+    });
+    beforeEach((done) => {
+        createCalendar(opts2, () => {
+            cal = $('#calendar');
+            done();
+        });
+    });
+    afterEach(() => {
+        if (cal.data('cal') !== undefined) {
+            cal.rup_calendar('destroy');
+        }
+        $('#content').html('');
+        $('#content').nextAll().remove();
+    });
+    describe(' > Métodos públicos', () => {
+        describe(' > Método navigate', () => {
+            describe(' > navigate por defecto', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('navigate');
+                    });
+                    cal.rup_calendar('navigate', 'prev');
+                });
+                it(' > el view debe estar establecido a una vista actual', () => {
+                    expect(cal.rup_calendar('isToday')).toBeTruthy();
+                });
+            });
+            describe(' > navigate erróneo', () => {
+                it(' > El método debe dar error', () => {
+                    expect(() => {
+                        cal.rup_calendar('navigate', 'randomData');
+                    }).toThrowError('Parámetro inválido');
+                });
+            });
+            describe(' > navigate prev/today/next', () => {
+                describe(' > navigate prev', () => {
+                    describe(' > año', () => {
+                        var initialYear;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender',done);
+                                initialYear = cal.rup_calendar('getYear');
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView','year');
+                        });
+                        it(' > Debe haber retrocedido un año', () => {
+                            expect(cal.rup_calendar('getYear') + 1).toBe(initialYear);
+                        });
+                    });
+                    describe(' > mes', () => {
+                        var initialMonth;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', done);
+                                initialMonth = cal.rup_calendar('getMonth');
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView','month');
+                        });
+                        it(' > Debe haber retrocedido un mes', () => {
+                            if( initialMonth === 1 ) {
+                                // Antes del 1 (enero) va el 12 (diciembre)
+                                expect(monthMap[cal.rup_calendar('getMonth')]).toBe(12);
+                            }
+                            else {
+                                let mnth = monthMap[cal.rup_calendar('getMonth')] + 1;
+                                //Si es mayor que 12 es un año nuevo
+                                if (mnth > 12) {
+                                    mnth = mnth - 12;
+                                }
+                                expect(mnth)
+                                    .toBe(monthMap[initialMonth]);
+                            }
+                        });
+                    });
+                    describe(' > semana', () => {
+                        var initialWeek;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender',done);
+                                initialWeek = cal.rup_calendar('getWeek');
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView','week');
+                        });
+                        it(' > Debe haber retrocedido una semana', () => {
+                            // Un año tiene 52 semanas salvo si es bisiesto y
+                            // empieza en domingo entonces serían 53
+                            if(initialWeek === 1) {
+                                expect(cal.rup_calendar('getWeek'))
+                                    .toBe(calendarUtils.countWeeks(cal.rup_calendar('getYear') - 1));
+                            }
+                            else {
+                                //Si es mayor a 52 es un año posterior.
+                                let wkk = cal.rup_calendar('getWeek') + 1;
+                                if (wkk > 52) {
+                                    wkk = wkk - 52;
+                                }
+                                expect(wkk).toBe(initialWeek);
+                            }
+                        });
+                    });
+                    describe(' > día', () => {
+                        var initialDay;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender',done);
+                                initialDay = cal.rup_calendar('getStartDate').getDate();
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView','day');
+                        });
+                        it(' > Debe haber retrocedido un día', () => {
+                            if(dayMap[initialDay] === 1){
+                                let month = monthMap[cal.rup_calendar('getMonth')];
+                                // Si hay cambio de mes
+                                if(month % 2 === 0) {
+                                    // El mes es par
+                                    if(month === 2) {
+                                        // Si era 1 de Marzo
+                                        if (calendarUtils.leapYear(cal.rup_calendar('getYear') - 1)) {
+                                            expect(cal.rup_calendar('getStartDate')).toBe(29);
+                                        }
+                                        else {
+                                            expect(cal.rup_calendar('getStartDate')).toBe(28);
+                                        }
+                                    }
+                                    else {
+                                        // Si no es febrero el mes anterior tiene 30 días
+                                        expect(cal.rup_calendar('getStartDate')).toBe(30);
+                                    }
+                                }
+                                else {
+                                    // Los meses impares tienen 31 días
+                                    expect(cal.rup_calendar('geStarttDate')).toBe(31);
+                                }
+                            }
+                            else {
+                                expect(cal.rup_calendar('getStartDate').getDate() + 1).toBe(initialDay);
+                            }
+                        });
+                    });
+                });
+                describe(' > navigate today', () => {
+                    describe(' > año', () => {
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender', done);
+                                    cal.rup_calendar('navigate', 'today');
+                                });
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView', 'year');
+                        });
+                        it(' > La vista debe contener el día actual', () => {
+                            expect(cal.rup_calendar('isToday')).toBeTruthy();
+                        });
+                    });
+                    describe(' > mes', () => {
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender', done);
+                                    cal.rup_calendar('navigate', 'today');
+                                });
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView', 'month');
+                        });
+                        it(' > La vista debe contener el día actual', () => {
+                            expect(cal.rup_calendar('isToday')).toBeTruthy();
+                        });
+                    });
+                    describe(' > semana', () => {
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender', done);
+                                    cal.rup_calendar('navigate', 'today');
+                                });
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView', 'week');
+                        });
+                        it(' > La vista debe contener el día actual', () => {
+                            expect(cal.rup_calendar('isToday')).toBeTruthy();
+                        });
+                    });
+                    describe(' > día', () => {
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender', done);
+                                    cal.rup_calendar('navigate', 'today');
+                                });
+                                cal.rup_calendar('navigate', 'prev');
+                            });
+                            cal.rup_calendar('setView', 'day');
+                        });
+                        it(' > La vista debe contener el día actual', () => {
+                            expect(cal.rup_calendar('isToday')).toBeTruthy();
+                        });
+                    });
+                });
+                describe(' > navigate next', () => {
+                    describe(' > año', () => {
+                        var initialYear;
+                        beforeEach((done) => {
+                            initialYear = cal.rup_calendar('getYear');
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', done);
+                                cal.rup_calendar('navigate', 'next');
+                            });
+                            cal.rup_calendar('setView', 'year');
+                        });
+                        it(' > La vista debe mostrar el año siguiente',() => {
+                            expect(cal.rup_calendar('getYear') - 1).toBe(initialYear)
+                        });
+                    });
+                    describe(' > mes', () => {
+                        var initialMonth;
+                        beforeEach((done) => {
+                            initialMonth = cal.rup_calendar('getMonth');
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', done);
+                                cal.rup_calendar('navigate', 'next');
+                            });
+                            cal.rup_calendar('setView', 'month');
+                        });
+                        it(' > La vista debe mostrar el año siguiente',() => {
+                            if(monthMap[initialMonth] === 12) {
+                                //Tras el 12(diciembre) viene el 1 (enero)
+                                expect(monthMap[cal.rup_calendar('getMonth')]).toBe(1);
+                            }
+                            else {
+                                expect(monthMap[cal.rup_calendar('getMonth')] - 1)
+                                    .toBe(monthMap[initialMonth]);
+                            }
+                        });
+                    });
+                    describe(' > semana', () => {
+                        var initialWeek;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', done);
+                                initialWeek = cal.rup_calendar('getWeek');
+                                cal.rup_calendar('navigate', 'next');
+                            });
+                            cal.rup_calendar('setView', 'week');
+                        });
+                        it(' > Debe mostrarse la semana siguiente', () => {
+                            //Obtenemos el número de semanas del año actual
+                            let weekNum = calendarUtils.countWeeks(cal.rup_calendar('getYear'));
+                            // Si era la última semana del año el next sacara la vista de la semana
+                            // 1 del siguiente año
+                            if(initialWeek === weekNum) {
+                                expect(cal.rup_calendar('getWeek')).toBe(1);
+                            }
+                            else {
+                                expect(cal.rup_calendar('getWeek') -1).toBe(initialWeek);
+                            }
+                        });
+                    });
+                    describe(' > día', () => {
+                        var initialDay, initialMonth, initialYear;
+                        beforeEach((done) => {
+                            cal.on('afterRender', () => {
+                                cal.off('afterRender');
+                                cal.on('afterRender', done);
+                                initialYear = cal.rup_calendar('getYear');
+                                initialMonth = cal.rup_calendar('getMonth');
+                                initialDay = cal.rup_calendar('getStartDate').getDate();
+                                cal.rup_calendar('navigate', 'next');
+                            });
+                            cal.rup_calendar('setView', 'day');
+                        });
+                        it(' > Debe mostrar la vista del siguiente día', () => {
+                            // Calculamos el número de días del mes inicial
+                            var maxDay = 0;
+                            initialMonth = monthMap[initialMonth];
+                            if (initialMonth % 2 === 0){
+                                if(initialMonth === 2) {
+                                    if(calendarUtils.leapYear(initialYear)){
+                                        maxDay = 29;
+                                    }
+                                    else {
+                                        maxDay = 28;
+                                    }
+                                }
+                                else {
+                                    maxDay = 30;
+                                }
+                            }
+                            else {
+                                maxDay = 31
+                            }
+
+                            if(dayMap[initialDay] === maxDay) {
+                                expect(cal.rup_calendar('getStartDate').getDate()).toBe(1);
+                            }
+                            else{
+                                expect(cal.rup_calendar('getStartDate').getDate() - 1).toBe(initialDay);
+                            }
+                        });
+                    });
+                });
+            });
+        });
+        describe(' > Métodos setView y getView', () => {
+            describe(' > setView y getView por defecto', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('setView');
+                    });
+                    cal.rup_calendar('setView', 'week');
+                });
+                it(' > Debe establecer la vista por defecto (month)', () => {
+                    expect(cal.rup_calendar('getView')).toBe('month');
+                });
+            });
+            describe(' > setView y getView erróneo', () => {
+                it(' > Debe lanzar un error si recibe parámetros incorrectos', () => {
+                    expect(() => {
+                        cal.rup_calendar('setView', 'randomData');
+                    }).toThrowError('Parámetro inválido');
+                });
+            });
+            describe(' > setView y getView año', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('setView', 'year');
+                    });
+                    cal.rup_calendar('setView', 'week');
+                });
+                it(' > Debe establecer la vista anual', () => {
+                    expect(cal.rup_calendar('getView')).toBe('year');
+                });
+            });
+            describe(' > setView y getView mes', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('setView', 'month');
+                    });
+                    cal.rup_calendar('setView', 'week');
+                });
+                it(' > Debe establecer la vista mensual', () => {
+                    expect(cal.rup_calendar('getView')).toBe('month');
+                });
+            });
+            describe(' > setView y getView semana', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('setView', 'week');
+                    });
+                    cal.rup_calendar('setView', 'year');
+                });
+                it(' > Debe establecer la vista semanal', () => {
+                    expect(cal.rup_calendar('getView')).toBe('week');
+                });
+            });
+            describe(' > setView y getView día', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', () => {
+                        cal.off('afterRender');
+                        cal.on('afterRender', done);
+                        cal.rup_calendar('setView', 'day');
+                    });
+                    cal.rup_calendar('setView', 'week');
+                });
+                it(' > Debe establecer la vista diaria', () => {
+                    expect(cal.rup_calendar('getView')).toBe('day');
+                });
+            });
+        });
+        describe(' > Método isToday', () => {
+            describe(' > Funciona cuando es true', () => {
+                it(' > Segun se genera debería ser visible el today', () => {
+                    expect(cal.rup_calendar('isToday')).toBeTruthy();
+                });
+            });
+            describe(' > Funciona cuando es false', () => {
+                beforeEach((done) => {
+                    cal.on('afterRender', done);
+                    cal.rup_calendar('navigate', 'next');
+                });
+                it(' > Si nos movemos fuera del rango debe dar false', () => {
+                    expect(cal.rup_calendar('isToday')).toBeFalsy();
+                });
+            });
+        });
+        describe(' > Método getTitle', () => {
+            beforeEach((done) => {
+                cal.on('afterViewLoad', () => {
+                    done();
+                });
+                cal.rup_calendar('navigate', new Date('2018-06-02'));
+            });
+            it(' > El titulo devuelto debe ser igual al del DOM', () => {
+                expect(cal.rup_calendar('getTitle')).toBe($('.page-header > h3').text());
+            });
+        });
+        describe(' > Método getYear', () => {
+            beforeEach((done) => {
+                cal.on('afterRender', done);
+                cal.rup_calendar('navigate', new Date('2000-02-20'));
+            });
+            it(' > Debe devolver el año correctamente', () => {
+                expect(cal.rup_calendar('getYear')).toBe(2000);
+            });
+        });
+        describe(' > Método getMonth', () => {
+            beforeEach((done) => {
+                cal.on('afterRender', done);
+                cal.rup_calendar('navigate', new Date('2000-02-20'));
+            });
+            it(' > Debe devolver el mes correctamente', () => {
+                expect(cal.rup_calendar('getMonth')).toBe('Febrero');
+            });
+        });
+        describe(' > Método getDay', () => {
+            beforeEach((done) => {
+                cal.on('afterRender', () => {
+                    cal.off('afterRender');
+                    cal.on('afterRender', done);
+                    cal.rup_calendar('navigate', new Date('2000-02-20'));
+                });
+                cal.rup_calendar('setView', 'day');
+            });
+            it(' > Debe devolver el día correctamente', () => {
+                expect(cal.rup_calendar('getDay')).toBe('Domingo');
+            });
+        });
+        describe(' > Método getStartDate', () => {
+            beforeEach((done) => {
+                cal.on('afterRender', () => {
+                    cal.off('afterRender');
+                    cal.on('afterRender', done);
+                    cal.rup_calendar('navigate', new Date('2018-01-20'));
+                });
+                cal.rup_calendar('setView', 'year');
+            });
+            it(' > Debe devolver la startDate apropiada', () => {
+                expect(cal.rup_calendar('getStartDate').toLocaleDateString())
+                    .toBe(new Date('2018-01-01').toLocaleDateString());
+            });
+        });
+        describe(' > Método getEndDate', () => {
+            beforeEach((done) => {
+                cal.on('afterRender', () => {
+                    cal.off('afterRender');
+                    cal.on('afterRender', done);
+                    cal.rup_calendar('navigate', new Date('2018-01-20'));
+                });
+                cal.rup_calendar('setView', 'year');
+            });
+            it(' > Debe devolver la endDate apropiada', () => {
+                expect(cal.rup_calendar('getEndDate').toLocaleDateString())
+                    .toBe(new Date('2019-01-01').toLocaleDateString());
+            });
+        });
+        describe(' > Método getEventsBetween', () => {
+            it(' > Debe devolver los eventos entre las fechas especificadas', () => {
+                expect(cal.rup_calendar('getEventsBetween',
+                                        new Date(1541890799999),
+                                        new Date(1541890800001)))
+                    .toEqual([
+                        {
+                            "id": "48605",
+                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+                            "start": "1541890800000",
+                            "class": " vertido muestreo completada",
+                            "end": "1541890800001",
+                            "url": "javascript:actions(48605)"
+                        },
+                        {
+                            "id": "49203",
+                            "title": "<span><strong>AUTORIZACION DE VERTIDO DE AGUAS RESIDUALES EN ESTACION DE SERVICIO (FECALES, HIDROCARBUROS Y LAVADO DE VEHICULOS EN OTXANDIO</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0164</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li></ul></span>",
+                            "start": "1541890800000",
+                            "class": " vertido vigilancia",
+                            "end": "1541890800001",
+                            "url": "javascript:actions(49203)"
+                        }
+                    ]);
+            });
+        });
+        describe(' > Método option', () => {
+            //Con _render / mouseover
+            beforeEach((done) => {
+                cal.on('afterRender', done);
+                cal.rup_calendar('option', 'weekbox', true);
+            });
+            it(' > El cambio en la option debe afectar a la funcionalidad del componente', () => {
+                $('.cal-row-fluid').mouseover();
+                expect($('#cal-week-box').is(':visible')).toBeTruthy();
+            });
+            it(' > Se debe poder recuperar el valor', () => {
+                expect(cal.rup_calendar('option', 'weekbox')).toBeTruthy();
+            });
+        });
+        describe(' > Método refresh', () => {
+            beforeEach((done) => {
+                cal.on('afterViewLoad', () => {
+                    $.post('/demo/calendar/events/add')
+                    .done(() => {
+                        cal.on('afterRefresh', done);
+                        cal.rup_calendar('refresh');
+                    });
+                });
+                cal.rup_calendar('navigate', new Date('2018-11-01'));
+            });
+            afterEach((done) => {
+                $.post('/demo/calendar/events/restore')
+                .done(done);
+            });
+            it(' > Debe haber actualizado los events', () => {
+                var evts = cal.rup_calendar('getEventsBetween',
+                                        new Date(1541890799999),
+                                        new Date(1541890800002));
+                expect(evts.length).toBe(3);
+            });
+        });
+        describe(' > Método destroy', () => {
+            beforeEach((done) => {
+                cal.on('afterDestroy', done)
+                cal.rup_calendar('destroy');
+            });
+            it(' > Debe eliminar la estructura del calendario.', () => {
+                expect(cal.children().length).toBe(0);
+            });
+            it(' > Debe dar error al intentar ejecutar los métodos', () => {
+                expect(() => {
+                    cal.rup_calendar('getTitle');
+                }).toThrowError();
+            });
+        });
+        describe(' > Método showCell', () => {
+            beforeEach((done) => {
+                cal.on('afterViewLoad', () => {
+                   cal.on('afterShowCell', () => {
+                        done();
+                    });
+                    cal.rup_calendar('showCell', new Date('2018-12-01'));
+                });
+                cal.rup_calendar('navigate', new Date('2018-12-01'));
+            });
+            it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
+                expect($('#cal-slide-box').css('display')).toBe('block');
+            });
+        });
+        describe(' > Método hideCell', () => {
+            beforeEach((done) => {
+                cal.on('afterViewLoad', () => {
+                    cal.on('afterShowCell', () => {
+                        cal.on('afterHideCell', done);
+                        cal.rup_calendar('hideCells');
+                    });
+                    cal.rup_calendar('showCell', new Date('2018-12-01'));
+                });
+                cal.rup_calendar('navigate', new Date('2018-12-01'));
+            });
+            it(' > Deben ocultarse los eventos desplegados', () => {
+                expect($('#cal-slide-box').css('display')).toBe('none');
+            });
+        });
+    });
+});
 
 var opts1 = {
     tmpl_path: testutils.DIST +'/html/templates/rup_calendar/',
@@ -895,8 +1505,30 @@ var opts2 = {
     events_source: '/demo/calendar/events',
     weekbox: true,
     cell_navigation: false,
+    position: {
+        start: new Date('2018-01-01'),
+        end: new Date('2019-01-01')
+    },
     date_range_start: new Date('2019-01-01'),
-    date_range_end: new Date('2018-02-01')
+    date_range_end: new Date('2018-02-01'),
+    rupAfterEventsLoad: function (events) {
+        if (!events) {
+            return;
+        }
+        var list = $('#eventlist');
+        list.html('');
+
+        $.each(events, function (key, val) {
+            $(document.createElement('li'))
+                .html('<div href="' + val.url + '">' + val.title + '</div>')
+                .appendTo(list);
+        });
+    },
+    rupAfterViewLoad: function (view) {
+        $('.page-header h3').text(this.getTitle());
+        $('.btn-group button').removeClass('active');
+        $('button[data-calendar-view="' + view + '"]').addClass('active');
+    }
 }
 function createCalendar(opts,callback) {
 

@@ -976,11 +976,11 @@ if(!String.prototype.formatNum) {
 							type: 'GET',
 							async: false,
 							headers: self.options.headers,
-							error: function(e) {
-								$(this.options.selector).triggerHandler('afterLoadEventsError', e);
+							error: function(e,a,s) {
+								$(self.options.selector).triggerHandler('afterLoadEventsError', e);
 							},
 							success: function (d) {
-								$(this.options.selector).triggerHandler('afterLoadEventsSuccess',d);
+								$(self.options.selector).triggerHandler('afterLoadEventsSuccess',d);
 							}
 						}).done(function(json) {
 							if(!json.success) {
@@ -988,7 +988,7 @@ if(!String.prototype.formatNum) {
 							}
 							if(json.result) {
 								events = json.result;
-								$(this.options.selector).triggerHandler('afterLoadEventsSuccess');
+								$(self.options.selector).triggerHandler('afterLoadEventsSuccess');
 							}
 						});
 						return events;
