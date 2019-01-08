@@ -276,7 +276,9 @@ describe('Test rup_calendar (default)', () => {
         });
     });
     afterEach(() => {
-        cal.rup_calendar('destroy');
+        if (cal.data('cal') !== undefined) {
+            cal.rup_calendar('destroy');
+        }
         $('#content').html('');
         $('#content').nextAll().remove();
     });
@@ -336,7 +338,12 @@ describe('Test rup_calendar (default)', () => {
                                 expect(monthMap[cal.rup_calendar('getMonth')]).toBe(12);
                             }
                             else {
-                                expect(monthMap[cal.rup_calendar('getMonth')] + 1)
+                                let mnth = monthMap[cal.rup_calendar('getMonth')] + 1;
+                                //Si es mayor que 12 es un año nuevo
+                                if (mnth > 12) {
+                                    mnth = mnth - 12;
+                                }
+                                expect(mnth)
                                     .toBe(monthMap[initialMonth]);
                             }
                         });
@@ -360,7 +367,12 @@ describe('Test rup_calendar (default)', () => {
                                     .toBe(calendarUtils.countWeeks(cal.rup_calendar('getYear') - 1));
                             }
                             else {
-                                expect(cal.rup_calendar('getWeek') + 1).toBe(initialWeek);
+                                //Si es mayor a 52 es un año posterior.
+                                let wkk = cal.rup_calendar('getWeek') + 1;
+                                if (wkk > 52) {
+                                    wkk = wkk - 52;
+                                }
+                                expect(wkk).toBe(initialWeek);
                             }
                         });
                     });
@@ -681,7 +693,6 @@ describe('Test rup_calendar (default)', () => {
                 cal.rup_calendar('navigate', new Date('2018-06-02'));
             });
             it(' > El titulo devuelto debe ser igual al del DOM', () => {
-                debugger;
                 expect(cal.rup_calendar('getTitle')).toBe($('.page-header > h3').text());
             });
         });
@@ -822,20 +833,29 @@ describe('Test rup_calendar (default)', () => {
         });
         describe(' > Método showCell', () => {
             beforeEach((done) => {
-                cal.on('afterShowCell', done);
-                cal.rup_calendar('showCell', new Date('2018-12-01'));
+                cal.on('afterViewLoad', () => {
+                   cal.on('afterShowCell', () => {
+                        done();
+                    });
+                    cal.rup_calendar('showCell', new Date('2018-12-01'));
+                });
+                cal.rup_calendar('navigate', new Date('2018-12-01'));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
+                debugger;
                 expect($('#cal-slide-box').css('display')).toBe('block');
             });
         });
         describe(' > Método hideCell', () => {
             beforeEach((done) => {
-                cal.on('afterShowCell', () => {
-                    cal.on('afterHideCell', done);
-                    cal.rup_calendar('hideCells');
+                cal.on('afterViewLoad', () => {
+                    cal.on('afterShowCell', () => {
+                        cal.on('afterHideCell', done);
+                        cal.rup_calendar('hideCells');
+                    });
+                    cal.rup_calendar('showCell', new Date('2018-12-01'));
                 });
-                cal.rup_calendar('showCell', new Date('2018-12-01'));
+                cal.rup_calendar('navigate', new Date('2018-12-01'));
             });
             it(' > Deben ocultarse los eventos desplegados', () => {
                 expect($('#cal-slide-box').css('display')).toBe('none');

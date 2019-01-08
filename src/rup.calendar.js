@@ -96,9 +96,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		navigate: function (navigation) {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('navigate');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('navigate');
 			}
@@ -130,9 +127,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		isToday: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('isToday');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('isToday');
 			}
@@ -165,9 +159,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		setView: function (viewmode) {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('setView');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('setView');
 			}
@@ -189,9 +180,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getView: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getView');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getView');
 			}
@@ -206,9 +194,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getYear: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getYear');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getYear');
 			}
@@ -223,9 +208,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getMonth: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getMonth');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getMonth');
 			}
@@ -240,9 +222,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getWeek: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getWeek');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getWeek');
 			}
@@ -258,9 +237,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getDay: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getDay');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getDay');
 			}
@@ -277,9 +253,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		'getTitle': function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getTitle');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getTitle');
 			}
@@ -295,9 +268,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getStartDate:function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getStartDate');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getStartDate');
 			}
@@ -313,9 +283,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getEndDate:function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getEndDate');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getEndDate');
 			}
@@ -334,9 +301,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		option: function(opt, val) {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('option');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('option');
 			}
@@ -367,9 +331,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getEventsBetween: function(desde, hasta) {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('getEventsBetween');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getEventsBetween');
 			}
@@ -386,9 +347,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		showCell : function(date) {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('showCell');
-			}
 			if ($(ctx).data('cal').options.selector === undefined) {
 				errorstr('showCell');
 			}
@@ -429,9 +387,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		hideCells: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('hideCells');
-			}
 			if ($(ctx).data('cal').options.selector === undefined) {
 				errorstr('showCell');
 			}
@@ -449,9 +404,6 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		refresh: function() {
 			var ctx = this;
-			if($(ctx).data('cal') === undefined) {
-				console.info('refresh');
-			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('refresh');
 			}
@@ -472,7 +424,7 @@ import { Exception, Utils } from 'handlebars';
 		destroy: function () {
 			var ctx = this;
 			if($(ctx).data('cal') === undefined) {
-				console.info('destroy');
+				errorstr('destroy');
 			}
 			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('destroy');
