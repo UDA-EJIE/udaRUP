@@ -60,6 +60,8 @@ if(!String.prototype.formatNum) {
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
+		// Enable cell navigation
+		cell_navigation: true,
 		// Day Start time and end time with time intervals. Time split 10, 15 or 30.
 		time_start: '06:00',
 		time_end: '22:00',
@@ -1055,17 +1057,18 @@ if(!String.prototype.formatNum) {
 		var self = this;
 
 		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container, html: true});
-
-		$('*[data-cal-date]').click(function() {
-			var view = $(this).data('cal-view');
-			self.options.day = $(this).data('cal-date');
-			self.view(view);
-		});
-		$('.cal-cell').dblclick(function() {
-			var view = $('[data-cal-date]', this).data('cal-view');
-			self.options.day = $('[data-cal-date]', this).data('cal-date');
-			self.view(view);
-		});
+		if(self.options.cell_navigation === true) {
+			$('*[data-cal-date]').click(function() {
+				var view = $(this).data('cal-view');
+				self.options.day = $(this).data('cal-date');
+				self.view(view);
+			});
+			$('.cal-cell').dblclick(function() {
+				var view = $('[data-cal-date]', this).data('cal-view');
+				self.options.day = $('[data-cal-date]', this).data('cal-date');
+				self.view(view);
+			});
+		}
 
 		this['_update_' + this.options.view]();
 
@@ -1177,6 +1180,7 @@ if(!String.prototype.formatNum) {
 			var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
 			self.context.find('.cal-month-box .cal-row-fluid')
 				.on('mouseenter', function() {
+					$(self.context).trigger('beforeShowWeekBox');
 					var p = new Date(self.options.position.start);
 					var child = $('.cal-cell1:first-child .cal-month-day', this);
 					var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-date]', child).text());
@@ -1184,9 +1188,12 @@ if(!String.prototype.formatNum) {
 					day = (day < 10 ? '0' + day : day);
 					week.html(self.locale.week.format(self.options.display_week_numbers == true ? p.getWeek(getExtentedOption(self, 'week_numbers_iso_8601')) : ''));
 					week.attr('data-cal-week', start + day).show().appendTo(child);
+					$(self.context).trigger('afterShowWeekBox');
 				})
 				.on('mouseleave', function() {
+					$(self.context).trigger('beforeHideWeekBox');
 					week.hide();
+					$(self.context).trigger('afterHideWeekBox');
 				});
 
 			week.click(function() {

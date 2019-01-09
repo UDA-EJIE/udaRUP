@@ -1474,6 +1474,54 @@ describe('Test rup_calendar (alternative)', () => {
             });
         });
     });
+    describe(' > Funcionalidad de las opciones', () => {
+        describe(' > Weekbox', () => {
+            beforeEach((done) => {
+                let elem = $($('.cal-before-eventlist')[0]);
+                cal.on('afterShowWeekBox', done);
+                elem.mouseover();
+            });
+            it(' > Debe mostrar un div con la semana correcta', () => {
+                let week = cal.rup_calendar('getWeek');
+                expect($('#cal-week-box').text()).toBe('Semana ' + week.toString());
+            });
+        });
+        describe(' > Cell navigation', () => {
+            describe(' > Haciendo click en el span con el número del día', () => {
+                beforeEach((done) => {
+                    let elem = $($('.cal-day-inmonth span')[0]);
+                    elem.click();
+                    setTimeout(() => {
+                        done();
+                    }, 400);
+                });
+                it(' > Debe mantenerse en la misma vista', () => {
+                    expect(cal.rup_calendar('getView')).toBe('month');
+                });
+            });
+            describe(' > Haciendo doble click en la celda de día', () => {
+                beforeEach((done) => {
+                    let elem = $($('.cal-day-inmonth')[0]);
+                    elem.dblclick();
+                    setTimeout(() => {
+                        done();
+                    }, 400);
+                });
+                it(' > Debe mantenerse en la misma vista', () => {
+                    expect(cal.rup_calendar('getView')).toBe('month');
+                });
+            });
+        });
+        describe(' > Classes', () => {
+            beforeEach(() => {
+                cal.rup_calendar('setView', 'week');
+                cal.rup_calendar('navigate', new Date('2018-06-02'));
+            });
+            it(' > Debe tener la clase especificada', () => {
+                expect($('span[data-cal-date="2018-06-02"]').parent().parent().is('.randomClass')).toBeTruthy();
+            });
+        });
+    });
 });
 
 var opts1 = {
@@ -1508,6 +1556,11 @@ var opts2 = {
     position: {
         start: new Date('2018-01-01'),
         end: new Date('2019-01-01')
+    },
+    classes:{
+        week:{
+            saturday: 'randomClass'
+        }
     },
     date_range_start: new Date('2019-01-01'),
     date_range_end: new Date('2018-02-01'),
