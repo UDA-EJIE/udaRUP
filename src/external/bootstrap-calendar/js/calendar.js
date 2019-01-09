@@ -715,7 +715,16 @@ if(!String.prototype.formatNum) {
 		if(holiday !== false) {
 			t.tooltip = holiday;
 		}
-
+		if(this.options.date_range_start) {
+			if(curdate.getTime() < this.options.date_range_start.getTime()) {
+				cls += ' rup-out-of-range';
+			}
+		}
+		if(this.options.date_range_end) {
+			if(curdate.getTime() > this.options.date_range_end.getTime()) {
+				cls += ' rup-out-of-range';
+			}
+		}
 		t.data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
 		t.cls = cls;
 		t.day = day;
@@ -799,6 +808,10 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype.navigate = function(where, next) {
 		var to = $.extend({}, this.options.position);
+		var originalTo = {
+			start: new Date(this.options.position.start.getTime()),
+			end: new Date(this.options.position.end.getTime())
+		};
 		if(where == 'next') {
 			switch(this.options.view) {
 				case 'year':
@@ -834,6 +847,44 @@ if(!String.prototype.formatNum) {
 		}
 		else {
 			$.error(this.locale.error_where.format(where))
+		}
+		var self = this;
+		var getEndDate = function () {
+			var end = new Date(to.start.getTime());
+			switch(self.options.view) {
+				case 'year':
+					end.setFullYear(to.start.getFullYear() + 1);
+					break;
+				case 'month':
+					end.setMonth(to.start.getMonth() + 1);
+					break;
+				case 'week':
+					end.setDate(to.start.getDate() + 7);
+					break;
+				case 'day':
+					end.setDate(to.start.getDate() + 1);
+					break;
+			}
+			return end;
+		};
+		var stopNavigation = function () {
+			console.warn('Can´t navigate to an out of range time.');
+			self.options.position = originalTo;
+			self.options.day = originalTo.start.getFullYear() + '-' + originalTo.start.getMonthFormatted() + '-' + originalTo.start.getDateFormatted();
+			self.view();
+		};
+		if( this.options.date_range_start ) {
+			let end = getEndDate();
+			if(end.getTime() < this.options.date_range_start.getTime()) {
+				stopNavigation();
+				return;
+			}
+		}
+		if( this.options.date_range_end ) {
+			if( to.start.getTime() > this.options.date_range_end.getTime() ) {
+				stopNavigation();
+				return;
+			}
 		}
 		this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
 		this.view();
@@ -886,7 +937,7 @@ if(!String.prototype.formatNum) {
 				this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
 				break;
 			default:
-				$.error(this.locale.error_noview.format(this.options.view))
+				$.error(this.locale.error_noview.format(this.options.view));
 		}
 		return this;
 	};

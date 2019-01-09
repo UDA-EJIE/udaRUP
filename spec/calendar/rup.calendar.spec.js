@@ -1562,8 +1562,8 @@ var opts2 = {
             saturday: 'randomClass'
         }
     },
-    date_range_start: new Date('2019-01-01'),
-    date_range_end: new Date('2018-02-01'),
+    date_range_start: new Date('2018-01-01'),
+    date_range_end: new Date('2019-02-01'),
     rupAfterEventsLoad: function (events) {
         if (!events) {
             return;

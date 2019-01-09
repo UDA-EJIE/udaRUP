@@ -101,6 +101,12 @@ import { Exception, Utils } from 'handlebars';
 			}
 			// Si el valor es un objeto Date en función navegamos hasta la posición indicada
 			if( navigation instanceof Date ) {
+				if (navigation.getTime() < $(ctx).data('cal').options.date_range_start ||
+					navigation.getTime() > $(ctx).data('cal').options.date_range_end)
+					{
+						console.warn('Can´t navigate to an out of range time.');
+						return;
+					}
 				let pos = $.extend({}, $(ctx).data('cal').options.position);
 
 				pos.start.setTime(navigation.getTime());
