@@ -177,7 +177,7 @@
      * $("#idDate").rup_date("disable");
      */
 		disable: function () {
-			//$(this).datepicker('disable');
+			$(this).datepicker('option', 'showOn', 'button');
 			$(this).next("button").prop("disabled", true);
 			$(this).prop("readonly", true);
 		},
@@ -189,8 +189,8 @@
      * $("#idDate").rup_date("enable");
      */
 		enable: function () {
-			//$(this).datepicker('enable');
 			$(this).next("button").prop("disabled", false);
+			$(this).datepicker('option', 'showOn', 'both');
 			$(this).prop("readonly", false);
 		},
 		/**

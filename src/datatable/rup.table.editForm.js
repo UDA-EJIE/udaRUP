@@ -1231,7 +1231,6 @@ function _blockPKeditForm(ctx, actionType){
 				
 				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
 				if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
-					// FIXME: si gestionamos esto mediante el disable del componente da error el filtro porque al estar disabled, no tiene el valor del campo
 					input.rup_date("disable");
 				} 
 				else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
@@ -1240,16 +1239,35 @@ function _blockPKeditForm(ctx, actionType){
 				else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
 					input.rup_time("disable");
 				}
-				else if(input.attr("type") === "checkbox" && !input.hasClass("checkboxPKBloqueado")) {
-					input.addClass("checkboxPKBloqueado");
-					//input.after("<input type='checkbox' class='formulario_linea_input form-control' id='" + id + "_bloqueado' value='" + input.val() + "' disabled=''></input>")/*.prop("disabled", true)*/;
-					input.after("<span id='" + id + "_bloqueado'>PRUEBA</span>");
+				else if(input.attr("type") === "checkbox") {
+					if(!input.hasClass("checkboxPKBloqueado")) {
+						input.addClass("checkboxPKBloqueado");						
+					}
+					
+					var valorCheck = input.is(":checked") ? 1 : 0;
+					var selectorInputSustituto = $("#" + id + "_bloqueado");
+					
+					// Comprobamos si es necesario cambiar el check
+					if(selectorInputSustituto.attr("valor") !== valorCheck){
+						if(selectorInputSustituto.attr("valor") !== undefined){
+							selectorInputSustituto.remove();
+						}
+						
+						if(valorCheck === 1) {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+						} else {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+						}
+					}
 				}
 				else {
 					input.prop("readOnly", true);
 				}
 				
-				// TODO: quitar los focos de los elementos desactivados
+				// Quitamos el foco del elemento
+				input.on('mousedown', function(event) {
+					event.preventDefault();
+				});
 			});
 		} 
 		// En caso de ser clonación permitimos la edición
@@ -1259,7 +1277,6 @@ function _blockPKeditForm(ctx, actionType){
 				
 				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
 				if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
-					// FIXME: si gestionamos esto mediante el disable del componente da error el filtro porque al estar disabled, no tiene el valor del campo
 					input.rup_date("enable");
 				} 
 				else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
@@ -1272,12 +1289,15 @@ function _blockPKeditForm(ctx, actionType){
 					input.removeClass("checkboxPKBloqueado");
 					$("#" + id + "_bloqueado").remove();
 				}
-				
 				else {
 					input.prop("readOnly", false);
 				}
 				
-				// TODO: poner los focos de los elementos desactivados
+				// Devolvemos el foco al elemento
+				input.on('mousedown', function(event) {
+					$(this).unbind(event.preventDefault());
+					input.focus();
+				});
 			});
 		}
 	}
