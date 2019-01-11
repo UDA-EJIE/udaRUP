@@ -497,8 +497,12 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
+	var validaciones = ctx.oInit.formEdit.validate;
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+		if(validaciones !== undefined){
+			validaciones.rules = {};
+		}	
 	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -594,7 +598,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
-		validate:ctx.oInit.formEdit.validate,
+		validate:validaciones,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
 

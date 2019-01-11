@@ -303,13 +303,17 @@
 		     		var table = $('#'+options.id).DataTable();
 					var ctx = table.context[0];
 
-					var settings = ctx.oInit;//$(ctx.nTable).data('settings'+ctx.sTableId);
+					var settings = ctx.oInit;
 					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
 					}
 					if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
 							&& json.reorderedSeeker !== undefined){
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
+					}
+					
+					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta){
+						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
 					}
 
 					return ret.data;
@@ -993,6 +997,11 @@
 					$self._createTooltip($(this));
 				});
 				
+				if(settingsTable.inlineEdit !== undefined){
+					DataTable.Api().inlineEdit.addchildIcons(ctx);
+					ctx.oInit.inlineEdit.alta = undefined;
+					DataTable.Api().inlineEdit.editInline(tabla,ctx, 0);
+				}
 
 			  });
 			

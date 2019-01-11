@@ -229,8 +229,32 @@ function _onResponsiveResize(dt){
 	});
 }
 
-function _add(ctx){
-	
+function _add(dt,ctx){
+	if(ctx.multiselection.numSelected > 0){
+		$.rup_messages('msgConfirm', {
+			message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+			title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+			OKFunction: function () {
+				_restaurarFila(ctx,true);
+				// Abrimos el formulario
+				if(ctx.oInit.seeker !== undefined){
+					DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+				}else{
+					if(ctx.oInit.multiSelect !== undefined){
+						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+					}else if(ctx.oInit.select !== undefined){
+						DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+					}
+				}
+				
+			}
+		});
+	}
+		//DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+		//Crear tr ficticio
+	ctx.oInit.inlineEdit.alta = true;
+	dt.ajax.reload();
+
 }
 
 function _addChildIcons(ctx){
@@ -238,7 +262,7 @@ function _addChildIcons(ctx){
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
 		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
 		if(count > 0){//añadir span ala primera fila
-			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child)"),function( ){
+			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
 				var $span = $('<span/>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
@@ -850,6 +874,15 @@ function _asignarInputsValues(ctx,$fila){
 	});
 }
 
+function  _createTr(dt,ctx,columns){
+	var row = {};
+	jQuery.grep(ctx.oInit.colModel, function( n) {
+		row[n.name] = '';
+	});
+	columns.unshift(row);
+	return columns;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -860,8 +893,8 @@ function _asignarInputsValues(ctx,$fila){
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
 
-apiRegister( 'inlineEdit.add()', function ( ctx ) {
-	_add(ctx);
+apiRegister( 'inlineEdit.add()', function ( dt,ctx ) {
+	_add(dt,ctx);
 } );
 
 apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow ) {
@@ -901,6 +934,14 @@ apiRegister( 'inlineEdit.asignarInputsValues()', function (ctx, $fila) {
 
 apiRegister( 'inlineEdit.onResponsiveResize()', function (dt) {
 	_onResponsiveResize(dt);
+} );
+
+apiRegister( 'inlineEdit.addchildIcons()', function (ctx) {
+	_addChildIcons(ctx);
+} );
+
+apiRegister( 'inlineEdit.createTr()', function (dt,ctx,columns) {
+	return _createTr(dt,ctx,columns);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
