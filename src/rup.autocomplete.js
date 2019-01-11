@@ -826,7 +826,7 @@ input.
 				// Altura del menu desplegable
 				
 					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						if (settings.menuMaxHeight === false) {
+						if (settings.menuMaxHeight !== false) {
 							settings.$menu.css('overflow-y', 'auto')
 								.css('overflow-x', 'hidden')
 								.css('max-height', settings.menuMaxHeight)
