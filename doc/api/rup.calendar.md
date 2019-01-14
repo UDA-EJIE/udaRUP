@@ -79,7 +79,7 @@ $('#calendar').rup_calendar('getDay');
 <a name="module_rup_calendar..defaults"></a>
 
 ### rup_calendar~defaults
-Propiedades de configuración del componente.
+Propiedades de configuración del componente. Todas son opcionales. Se puede crear un calendario con la funcionalidad básica sin especificar ninguna de estas opciones.
 
 **Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Properties**

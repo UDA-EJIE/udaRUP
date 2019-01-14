@@ -519,7 +519,7 @@ import { Exception, Utils } from 'handlebars';
 	//******************************************************
 
 	/**
-	 * @description Propiedades de configuración del componente.
+	 * @description Propiedades de configuración del componente. Todas son opcionales. Se puede crear un calendario con la funcionalidad básica sin especificar ninguna de estas opciones.
 	 *
 	 * @name defaults
 	 * @property {string} tooltip_container - Container al que se le añade el tooltip.
