@@ -108,6 +108,9 @@ Propiedades de configuración del componente.
 | display_week_numbers | <code>boolean</code> | Determina si se muestra el número de la semana. |
 | weekbox | <code>boolean</code> | Determina si se muestra o no un div con el número de la semana en la vista de mes. |
 | headers | <code>object</code> | Cabeceras para las llamadas ajax realizadas desde el calendario. |
+| cell_navigation | <code>boolean</code> | Determina si se cambia la vista al día o mes haciendo doble click en la celda o click en el número de dia o nombre de mes. |
+| date_range_start | <code>number</code> | Indica la fecha mínima (en milisegundos) del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que pasar el valor null. |
+| date_range_end | <code>number</code> | Indica la fecha máxima (en milisegundos) del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que padar el valor null. |
 | onAfterEventsLoad | <code>function</code> | Callback que se ejecuta tras cargar los eventos (Recibe los eventos como parámetros). |
 | onBeforeEventsLoad | <code>function</code> | Callback que se ejecuta antes de cargar los eventos. |
 | onAfterViewLoad | <code>function</code> | Callback que se ejecuta tras cargar una nueva vista (Recibe la vista como parámetro). |
