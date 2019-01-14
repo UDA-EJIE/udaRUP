@@ -925,9 +925,13 @@ describe('Test rup_calendar (alternative)', () => {
                         beforeEach((done) => {
                             cal.on('afterRender', () => {
                                 cal.off('afterRender');
-                                cal.on('afterRender',done);
-                                initialYear = cal.rup_calendar('getYear');
-                                cal.rup_calendar('navigate', 'prev');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender',done);
+                                    initialYear = cal.rup_calendar('getYear');
+                                    cal.rup_calendar('navigate', 'prev');
+                                });
+                                cal.rup_calendar('navigate', new Date('2019-01-01'));
                             });
                             cal.rup_calendar('setView','year');
                         });
@@ -1106,11 +1110,15 @@ describe('Test rup_calendar (alternative)', () => {
                     describe(' > año', () => {
                         var initialYear;
                         beforeEach((done) => {
-                            initialYear = cal.rup_calendar('getYear');
                             cal.on('afterRender', () => {
                                 cal.off('afterRender');
-                                cal.on('afterRender', done);
-                                cal.rup_calendar('navigate', 'next');
+                                cal.on('afterRender', () => {
+                                    cal.off('afterRender');
+                                    cal.on('afterRender', done);
+                                    initialYear = cal.rup_calendar('getYear');
+                                    cal.rup_calendar('navigate', 'next');
+                                });
+                                cal.rup_calendar('navigate', new Date('2018-02-01'));
                             });
                             cal.rup_calendar('setView', 'year');
                         });
@@ -1285,8 +1293,8 @@ describe('Test rup_calendar (alternative)', () => {
         });
         describe(' > Método isToday', () => {
             describe(' > Funciona cuando es true', () => {
-                it(' > Segun se genera debería ser visible el today', () => {
-                    expect(cal.rup_calendar('isToday')).toBeTruthy();
+                it(' > Segun se genera no debería ser visible el today', () => {
+                    expect(cal.rup_calendar('isToday')).toBeFalsy();
                 });
             });
             describe(' > Funciona cuando es false', () => {
@@ -1313,16 +1321,16 @@ describe('Test rup_calendar (alternative)', () => {
         describe(' > Método getYear', () => {
             beforeEach((done) => {
                 cal.on('afterRender', done);
-                cal.rup_calendar('navigate', new Date('2000-02-20'));
+                cal.rup_calendar('navigate', new Date('2018-02-20'));
             });
             it(' > Debe devolver el año correctamente', () => {
-                expect(cal.rup_calendar('getYear')).toBe(2000);
+                expect(cal.rup_calendar('getYear')).toBe(2018);
             });
         });
         describe(' > Método getMonth', () => {
             beforeEach((done) => {
                 cal.on('afterRender', done);
-                cal.rup_calendar('navigate', new Date('2000-02-20'));
+                cal.rup_calendar('navigate', new Date('2018-02-20'));
             });
             it(' > Debe devolver el mes correctamente', () => {
                 expect(cal.rup_calendar('getMonth')).toBe('Febrero');
@@ -1333,12 +1341,12 @@ describe('Test rup_calendar (alternative)', () => {
                 cal.on('afterRender', () => {
                     cal.off('afterRender');
                     cal.on('afterRender', done);
-                    cal.rup_calendar('navigate', new Date('2000-02-20'));
+                    cal.rup_calendar('navigate', new Date('2018-02-20'));
                 });
                 cal.rup_calendar('setView', 'day');
             });
             it(' > Debe devolver el día correctamente', () => {
-                expect(cal.rup_calendar('getDay')).toBe('Domingo');
+                expect(cal.rup_calendar('getDay')).toBe('Martes');
             });
         });
         describe(' > Método getStartDate', () => {
@@ -1553,6 +1561,7 @@ var opts2 = {
     events_source: '/demo/calendar/events',
     weekbox: true,
     cell_navigation: false,
+    day: '2018-06-02',
     position: {
         start: new Date('2018-01-01'),
         end: new Date('2019-01-01')
@@ -1585,112 +1594,112 @@ var opts2 = {
 }
 function createCalendar(opts,callback) {
 
-    let html = '\
-    <div class="row"></br>\
-        <div class="col-xs-12 mb-3">\
-            <h3>Ejemplo</h3>\
-            <hr>\
-        </div>\
-    </div>\
-    <div class="row">\
-        <div class="col-xs-12">\
-            <div class="page-header w-100 mb-3">\
-                <div class="pull-right form-inline">\
-                    <div class="btn-group mb-3">\
-                        <span class="btn btn-primary" data-calendar-nav="prev">\
-                            <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;Prev.\
-                        </span>\
-                        <span class="btn light" data-calendar-nav="today">Hoy</span>\
-                        <span class="btn btn-primary" data-calendar-nav="next">\
-                            Sig.&nbsp;<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>\
-                        </span>\
-                    </div>\
-                    <div class="pl-3 d-xs-none"></div>\
-                    <div class="btn-group mb-3">\
-                        <span class="btn btn-light" data-calendar-view="year">Año</span>\
-                        <span class="btn btn-light active" data-calendar-view="month">Mes</span>\
-                        <span class="btn btn-light" data-calendar-view="week">Semana</span>\
-                        <span class="btn btn-light" data-calendar-view="day">Día</span>\
-                    </div>\
-                </div>\
-                <h3></h3>\
-            </div>\
-        </div>\
-    </div>\
-    <div class="row mb-3">\
-        <div class="col-xs-12">\
-            <div id="calendar" class="calendar"></div>\
-        </div>\
-    </div>\
-    <div id="divLeyenda" class="row">\
-        <div class="col-xs-5 noPadding">\
-            <div id="divLegend" class="">\
-                <span class="separator" style="color: #666;"> Leyenda:\
-                </span>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgNegro"></div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Vigilancia de vertido\
-                    </div>\
-                </div>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgNegroyRojo"></div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Muestreo\
-                    </div>\
-                </div>\
-                <div class=" row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgAmarillo"></div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Inspección de vertido\
-                    </div>\
-                </div>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgNaranja"></div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Inspección de obra\
-                    </div>\
-                </div>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgAzul"></div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Inspección de concesión\
-                    </div>\
-                </div>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgCheck">\
-                            <i class="fa fa-check pr-1" style="color: black" aria-hidden="true"></i>\
-                        </div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        Completada\
-                    </div>\
-                </div>\
-                <div class="row row-noPadding">\
-                    <div class="col-md-1">\
-                        <div class="legend bgExclamation">\
-                            <i class="fa fa-exclamation pr-1" style="color: black; padding: 6px 7px;" aria-hidden="true"></i>\
-                        </div>\
-                    </div>\
-                    <div class="col-md-11">\
-                        La fecha fin de trámite está próxima/vencida\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-    </div>\
-    <br>';
+    let html = `
+    <div class="row"></br>
+        <div class="col-xs-12 mb-3">
+            <h3>Ejemplo</h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header w-100 mb-3">
+                <div class="pull-right form-inline">
+                    <div class="btn-group mb-3">
+                        <span class="btn btn-primary" data-calendar-nav="prev">
+                            <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;Prev.
+                        </span>
+                        <span class="btn light" data-calendar-nav="today">Hoy</span>
+                        <span class="btn btn-primary" data-calendar-nav="next">
+                            Sig.&nbsp;<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="pl-3 d-xs-none"></div>
+                    <div class="btn-group mb-3">
+                        <span class="btn btn-light" data-calendar-view="year">Año</span>
+                        <span class="btn btn-light active" data-calendar-view="month">Mes</span>
+                        <span class="btn btn-light" data-calendar-view="week">Semana</span>
+                        <span class="btn btn-light" data-calendar-view="day">Día</span>
+                    </div>
+                </div>
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-xs-12">
+            <div id="calendar" class="calendar"></div>
+        </div>
+    </div>
+    <div id="divLeyenda" class="row">
+        <div class="col-xs-5 noPadding">
+            <div id="divLegend" class="">
+                <span class="separator" style="color: #666;"> Leyenda:
+                </span>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgNegro"></div>
+                    </div>
+                    <div class="col-md-11">
+                        Vigilancia de vertido
+                    </div>
+                </div>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgNegroyRojo"></div>
+                    </div>
+                    <div class="col-md-11">
+                        Muestreo
+                    </div>
+                </div>
+                <div class=" row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgAmarillo"></div>
+                    </div>
+                    <div class="col-md-11">
+                        Inspección de vertido
+                    </div>
+                </div>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgNaranja"></div>
+                    </div>
+                    <div class="col-md-11">
+                        Inspección de obra
+                    </div>
+                </div>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgAzul"></div>
+                    </div>
+                    <div class="col-md-11">
+                        Inspección de concesión
+                    </div>
+                </div>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgCheck">
+                            <i class="fa fa-check pr-1" style="color: black" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        Completada
+                    </div>
+                </div>
+                <div class="row row-noPadding">
+                    <div class="col-md-1">
+                        <div class="legend bgExclamation">
+                            <i class="fa fa-exclamation pr-1" style="color: black; padding: 6px 7px;" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        La fecha fin de trámite está próxima/vencida
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>`;
     $('#content').append(html);
 
     $('#calendar').rup_calendar(opts);
