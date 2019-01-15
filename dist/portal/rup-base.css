@@ -2448,7 +2448,7 @@
 
 .r01gContainer .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .r01gContainer .qtip-youtube .qtip-content {
@@ -2784,18 +2784,14 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group
-.ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard
-.ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -4940,13 +4936,7 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer .ui-multiselect,
-.r01gContainer .ui-selectmenu-dropdown,
-.r01gContainer .form-control.ui-multiselect,
-.r01gContainer .form-control.ui-selectmenu-dropdown,
-.r01gContainer select.form-control-sm,
-.r01gContainer .form-control-sm.ui-multiselect,
-.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
+.r01gContainer select.form-control-sm {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -6459,7 +6449,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -8144,6 +8134,51 @@
   .r01gContainer .recolocatedPagination_length {
     padding: 7px 0 8px;
   }
+}
+
+.r01gContainer .openResponsive,
+.r01gContainer .closeResponsive {
+  top: 9px;
+  left: 4px;
+  height: 14px;
+  width: 14px;
+  display: block;
+  position: initial;
+  color: white;
+  border: 2px solid white;
+  border-radius: 14px;
+  box-shadow: 0 0 3px #444;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 14px;
+  content: '+';
+  cursor: pointer;
+}
+
+.r01gContainer .openResponsive:before {
+  content: '+';
+}
+
+.r01gContainer .openResponsive:hover {
+  background-color: #197019;
+}
+
+.r01gContainer .openResponsive {
+  background-color: #31b131;
+}
+
+.r01gContainer .closeResponsive:before {
+  content: '-';
+}
+
+.r01gContainer .closeResponsive {
+  background-color: #d33333;
+}
+
+.r01gContainer .closeResponsive:hover {
+  background-color: #fc081f;
 }
 
 .r01gContainer table.dataTable tbody > tr.selected,
@@ -12089,7 +12124,8 @@
 }
 
 .r01gContainer .context-menu-item {
-  padding: 2px 2px 2px 24px;
+  display: block;
+  padding: 2px 2px 2px 4px;
   background-color: #EEE;
   position: relative;
   -webkit-user-select: none;
@@ -12098,9 +12134,20 @@
   user-select: none;
 }
 
+.r01gContainer li[id$='_contextMenuToolbar'] {
+  padding: 4px 2px 4px 4px;
+}
+
 .r01gContainer .context-menu-separator {
   padding-bottom: 0;
   border-bottom: 1px solid #DDD;
+}
+
+.r01gContainer li[id$='_contextMenuToolbar'] > span {
+  position: absolute;
+  left: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-size: 1.1rem;
 }
 
 .r01gContainer .context-menu-item > label > input,
@@ -14163,8 +14210,22 @@
 }
 
 .r01gContainer .checkboxPKBloqueado {
+  visibility: hidden;
   position: absolute;
-  left: -9999px;
+}
+
+.r01gContainer .sustitutoCheckboxPKBloqueadoGeneral {
+  display: block;
+  width: 16px;
+  height: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #C4C4C4;
+  background-color: #FAFAFA;
+}
+
+.r01gContainer .sustitutoCheckboxPKBloqueadoCross {
+  padding-left: 1.5px;
 }
 
 /* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */

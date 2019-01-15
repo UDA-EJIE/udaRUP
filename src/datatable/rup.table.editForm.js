@@ -137,6 +137,7 @@ DataTable.editForm.init = function ( dt ) {
 					{
 						id: this.conf.id + '_contextMenuToolbar',
 						name: this.conf.text(dt),
+						icon: this.conf.icon,
 						inCollection: this.inCollection,
 						idCollection: undefined
 					}
@@ -152,6 +153,7 @@ DataTable.editForm.init = function ( dt ) {
 							{
 								id: this.conf.id + '_contextMenuToolbar',
 								name: this.conf.text(dt),
+								icon: this.conf.icon,
 								inCollection: this.inCollection,
 								idCollection: idCollection
 							}
