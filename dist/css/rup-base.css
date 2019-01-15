@@ -8451,7 +8451,8 @@ ul.ui-selectmenu-menu-popup {
   font-size: 11px; }
 
 .context-menu-item {
-  padding: 2px 2px 2px 24px;
+  display: block;
+  padding: 2px 2px 2px 4px;
   background-color: #EEE;
   position: relative;
   -webkit-user-select: none;
@@ -8459,9 +8460,18 @@ ul.ui-selectmenu-menu-popup {
   -ms-user-select: none;
   user-select: none; }
 
+li[id$='_contextMenuToolbar'] {
+  padding: 4px 2px 4px 4px; }
+
 .context-menu-separator {
   padding-bottom: 0;
   border-bottom: 1px solid #DDD; }
+
+li[id$='_contextMenuToolbar'] > span {
+  position: absolute;
+  left: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-size: 1.1rem; }
 
 .context-menu-item > label > input,
 .context-menu-item > label > textarea {
@@ -10082,6 +10092,22 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
     float: none !important; }
   .rup_tableEdit_buttonsResposive {
     width: 100%; } }
+
+.checkboxPKBloqueado {
+  visibility: hidden;
+  position: absolute; }
+
+.sustitutoCheckboxPKBloqueadoGeneral {
+  display: block;
+  width: 16px;
+  height: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #C4C4C4;
+  background-color: #FAFAFA; }
+
+.sustitutoCheckboxPKBloqueadoCross {
+  padding-left: 1.5px; }
 
 /* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */
 .btn-outline-primary {

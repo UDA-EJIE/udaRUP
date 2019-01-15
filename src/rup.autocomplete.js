@@ -826,7 +826,7 @@ input.
 				// Altura del menu desplegable
 				
 					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						if (settings.menuMaxHeight === false) {
+						if (settings.menuMaxHeight !== false) {
 							settings.$menu.css('overflow-y', 'auto')
 								.css('overflow-x', 'hidden')
 								.css('max-height', settings.menuMaxHeight)
@@ -932,11 +932,18 @@ input.
 							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
 						}
 					} else {
-						if (loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
+						// Cuando la propiedad accentFolding = true
+						if (settings.accentFolding && loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
 							$('#' + settings.id).val(loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
 							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[$.rup_utils.normalize(autoCompObject.val())]);
-						} else {
-
+						} 
+						// Cuando la propiedad accentFolding = false
+						else if(!settings.accentFolding && loadObjects[autoCompObject.val()] !== undefined) {
+							$('#' + settings.id).val(loadObjects[autoCompObject.val()]);
+							$('#' + settings.id).attr('rup_autocomplete_label', loadObjects[autoCompObject.val()]);
+						} 
+						// Cuando el valor del autocomplete esta vacio
+						else {
 							$('#' + settings.id).val('');
 							$('#' + settings.id).attr('rup_autocomplete_label', '');
 							autoCompObject.val('');

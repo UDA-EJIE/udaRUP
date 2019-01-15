@@ -130,7 +130,7 @@
 			var apiRegister = DataTable.Api.register;
 			
 			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
-					//Se limina el lapicero indicador.
+					//Se elimina el lapicero indicador.
 					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
 					//se añade el span con el lapicero
 					if(idRow >= 0){
@@ -1080,6 +1080,7 @@ $.fn.rup_datatable.defaults = {
 	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
+    blockPKeditForm: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
@@ -1088,7 +1089,6 @@ $.fn.rup_datatable.defaults = {
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
-	//adapter: "datatable_jqueryui",
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]]
 	};

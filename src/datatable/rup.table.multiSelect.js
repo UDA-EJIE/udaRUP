@@ -871,7 +871,7 @@ function _createContexMenuSelect(id,ctx){
 			}
 		});
 	}
-	if (options.separator) {
+	if (options.headerContextMenu.separator) {
 		jQuery.extend(items, {
 			'separator': ''
 		});
