@@ -745,7 +745,7 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
+		     * Crea un evento para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
@@ -819,8 +819,7 @@
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
 				DataTable.Api().rupTable.selectPencil(ctx,-1);
 				if (ctx.multiselection === undefined) {
@@ -871,8 +870,11 @@
 				settings.columnDefs.push({
 			        orderable: false,
 			        className: 'select-checkbox',
-			        targets:   0
-			    	});
+			        targets: 0,
+			        render: function (data, type, full, meta){
+			             return '<input type="checkbox">';
+			        }
+			    });
 				//Modulo incompatible
 				settings.select = undefined;
 			}
