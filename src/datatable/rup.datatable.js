@@ -999,23 +999,21 @@
 					$self._createTooltip($(this));
 				});
 				
-				if(settingsTable.inlineEdit !== undefined){
-					DataTable.Api().inlineEdit.addchildIcons(ctx);
-					ctx.oInit.inlineEdit.alta = undefined;
-					DataTable.Api().inlineEdit.editInline(tabla,ctx, 0);
+				if(settingsTable.inlineEdit !== undefined ){
+					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
+					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
+						DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						ctx.oInit.inlineEdit.rowDefault = undefined;
+					}
 				}
 
 			  });
 			
 			tabla.on( 'destroy', function (e,settingsTable) {
-				/*if(settingsTable.oInit.clone === true){
-					$('#'+settingsTable.sTableId+'_filter_form').append(clone);
-				}*/
+
 				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
 				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
-			/*	tabla.off( 'draw');
-				tabla.off( 'destroy');
-				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+
 				
 			});
 			

@@ -119,6 +119,87 @@ DataTable.inlineEdit.init = function ( dt ) {
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
+	
+	// Creacion del Context Menu
+	if (ctx.oInit.buttons !== undefined) {
+		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(dt),
+						icon: this.conf.icon,
+						inCollection: this.inCollection,
+						idCollection: undefined
+					}
+				}
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(dt),
+								icon: this.conf.icon,
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
+						}
+					});
+				}
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			tableTr.rup_contextMenu({
+				callback: function(key, options) {
+					var selector = items[key];
+					// Recogemos el id de la accion pulsada en el context menu
+					var contextMenuActionId = selector.id;
+					// Le quitamos la extension '_contextMenuToolbar' para tener asi
+					// el id del boton que queremos accionar
+					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+					// Variable que nos dira si esta dentro de una coleccion
+					var inCollection = selector.inCollection;
+					// Variable que almacena el id de la coleccion (si no pertenece a una
+					// siempre sera 'undefined')
+					var idCollection = selector.idCollection;
+					// Comprobamos si existe el elemento con este id
+					if (inCollection && idCollection !== undefined) {
+						// Obtenemos la info necesaria del boton y la guardamos en variables
+						var buttonName;
+						var eventDT;
+						var eventConfig;
+
+						$.each( ctx.ext.buttons, function( key ) {
+							var buttonObject = ctx.ext.buttons[key];
+							if (buttonObject.id === buttonId) {
+								buttonName = key;
+								eventDT = buttonObject.eventDT;
+								eventConfig = buttonObject;
+							}
+						});
+
+						// Llamamos directamente al action para no hacer aparecer y desaparecer
+						// el boton, empeorando la UX
+						ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+					} else {
+						$('#' + buttonId).trigger('click');
+					}
+					
+			  },
+				items
+			});
+		});
+	}
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -246,14 +327,26 @@ function _add(dt,ctx){
 						DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
 					}
 				}
+				//Crear tr ficticio
+				ctx.oInit.inlineEdit.alta = true;
+				dt.ajax.reload( function (  ) {
+					ctx.oInit.inlineEdit.alta = undefined;
+					$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+					_editInline(dt,ctx,0);
+				} );
 				
 			}
 		});
-	}
-		//DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+	}else{
 		//Crear tr ficticio
-	ctx.oInit.inlineEdit.alta = true;
-	dt.ajax.reload();
+		ctx.oInit.inlineEdit.alta = true;
+		dt.ajax.reload( function (  ) {
+			ctx.oInit.inlineEdit.alta = undefined;
+			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+			_editInline(dt,ctx,0);
+		} );
+
+	}
 
 }
 
@@ -334,6 +427,166 @@ function _editInline ( dt,ctx, idRow ){
 	dt.responsive.recalc();
 }
 
+/**
+* Metodo que obtiene la fila siguiente seleccionada.
+*
+* @name getRowSelected
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {string} actionType - Es el objeto datatable.
+*
+* @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
+*
+*/
+function _getRowSelected(dt,actionType){
+	var ctx = dt.settings()[0];
+	var rowDefault = {id:0,page:1,line:0};
+	var lastSelectedId = ctx.multiselection.lastSelectedId;
+	if(!ctx.multiselection.selectedAll){
+		//Si no hay un ultimo señalado se coge el ultimo;
+
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
+		}
+		$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
+			if(p.id === ctx.multiselection.lastSelectedId){
+				rowDefault.id = p.id;
+				rowDefault.page = p.page;
+				rowDefault.line = p.line;
+				rowDefault.indexSelected = index;
+				if(ctx.oInit.inlineEdit !== undefined){
+					ctx.oInit.inlineEdit.currentPos = rowDefault;
+				}
+				return false;
+			}
+		});
+	}else{
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		}
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
+			rowDefault.line = _getLineByPageSelected(ctx,-1);
+		}else{
+			//buscar la posicion y pagina
+			var result = $.grep(ctx.multiselection.selectedRowsPerPage, function(v) {
+				return v.id === ctx.multiselection.lastSelectedId;
+			});
+			rowDefault.page = result[0].page;
+			rowDefault.line = result[0].line;
+			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
+			index = index+1+rowDefault.line;
+			//Hay que restar los deselecionados.
+			 result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
+					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+				});
+			rowDefault.indexSelected = index-result.length;//Buscar indice
+			if(ctx.oInit.inlineEdit !== undefined){
+				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected-1;
+			}
+		}
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.currentPos = rowDefault;
+		}
+	}
+
+	//En caso de estar en una pagina distinta , navegamos a ella
+	if(dt.page()+1 !== Number(rowDefault.page)){
+		var table = $('#'+ctx.sTableId).DataTable();
+		table.page( rowDefault.page-1 ).draw( 'page' );
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.rowDefault = rowDefault;
+		}
+	}else{
+		_editInline(dt,ctx,rowDefault.line);
+	}
+
+	return rowDefault;
+}
+
+/**
+* Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getNextPageSelected
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
+* @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
+*
+* @return integer - devuele la página
+*
+*/
+function _getNextPageSelected(ctx,pageInit,orden){
+	var pagina = pageInit;
+	var pageTotals = ctx.json.total;
+	if(orden === 'prev'){//Si es previo se resta.
+		pageTotals = 1;
+	}
+	if(ctx.multiselection.deselectedRowsPerPage.length > 0){
+		var maxPagina = ctx.json.rows.length;
+		var count = 0;
+		//Buscar la pagina donde va estar el seleccionado.
+		for (var page=pageInit; page<pageTotals;) {
+			$.each(ctx.multiselection.deselectedRowsPerPage,function(index,p) {
+				if(page === Number(p.page)){
+					count++;
+				}
+				if(count === maxPagina){
+					return false;
+				}
+			});
+			if(count < maxPagina){
+				pagina = page;
+				page = ctx.json.total;//Se pone el total para salir del bucle.
+			}
+			count = 0;
+			if(orden === 'next'){
+				page++;
+			}else if(orden === 'prev'){
+				page--;
+			}
+		}
+	}
+	return pagina;
+}
+
+/**
+* Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getLineByPageSelected
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
+*
+* @return integer - devuele la linea
+*
+*/
+function _getLineByPageSelected(ctx,lineInit){
+	var line = -1;
+	var rows = ctx.json.rows;
+
+	$.each(rows, function( index, row ) {
+		if(index > lineInit){
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
+			if(indexInArray === -1){
+				line = index;
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
+				if(ctx.oInit.inilineEdit !== undefined){
+					ctx.oInit.inilineEdit.currentPos = arra;
+				}
+				return false;
+			}
+		}
+	});
+	return line;
+}
+
 function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
@@ -361,6 +614,14 @@ function _restaurarFila(ctx,limpiar){
 		}
 		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
 			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
+		}
+		if($fila !== undefined && $fila.hasClass("new")){// se elimna el tr, porque no se guardo
+			$fila.next('.child').remove();
+			$fila.remove();
+			//se asegura resturar multiselection
+			ctx.multiselection.numSelected = 0;
+			ctx.multiselection.selectedIds = [];
+			ctx.multiselection.selectedRowsPerPage = [];
 		}
 	}
 }
@@ -541,7 +802,13 @@ function _crearEventos(ctx,$selector){
 	if($selector.data( "events" ) === undefined || $selector.data( "events" ).keydown === undefined){
 		$selector.keydown(function(e) {
 		    if (e.keyCode === 27) {//Esc
-		    	_restaurarFila(ctx,true);
+		    	if($selector.hasClass("new")){//si se da alta y se cancela.
+		    		var dt = $('#'+ctx.sTableId).DataTable();
+		    		ctx.inlineEdit.lastRow = undefined;
+		    		dt.ajax.reload();
+		    	}else{//si se modifica
+		    		_restaurarFila(ctx,true);
+		    	}
 		    }else if (e.keyCode === 13 || 
 		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
@@ -642,6 +909,9 @@ function _guardar(ctx,$fila,child){
 	//Se serializa el formulario con los cambios
 	var row = _editFormSerialize($fila,ctx,child);
 	var actionType = "PUT";
+	if($fila.hasClass('new')){//si es nuevo
+		actionType = "POST";
+	}
 	_callSaveAjax(actionType,ctx,$fila,row,'');
 }
 
@@ -688,9 +958,8 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 
 				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 
-
+				var dt = $('#'+ctx.sTableId).DataTable();
 				if(actionType === 'PUT'){//Modificar
-					var dt = $('#'+ctx.sTableId).DataTable();
 					dt.row($fila.index()).data(row);// se actualiza al editar
 					ctx.json.rows[$fila.index()] = row;
 					// Actualizamos el ultimo id seleccionado (por si ha sido editado)
@@ -707,9 +976,14 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
-				}else{
+				}else{// dar alta
+					var idPk = DataTable.Api().rupTable.getIdPk(row);
+					ctx.multiselection.selectedIds = [idPk];
+					ctx.multiselection.lastSelectedId = idPk;
+					ctx.multiselection.numSelected = 1;
+					
 					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					if(ctx.oInit.select !== undefined){
+				/*	if(ctx.oInit.select !== undefined){
 						DataTable.Api().select.deselect(ctx);
 					}
 					var rowAux = row;
@@ -731,7 +1005,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
-					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
+					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');*/
 				}
 				
 			}else{// Eliminar
@@ -746,11 +1020,17 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			$fila.removeClass('editable');
-			// Recargar datos
+			$fila.removeClass('new');
+			
+				// Recargar datos
 			dt.ajax.reload( function ( json ) {
 				_addChildIcons(ctx);
+				if (actionType !== 'PUT'){		
+					//ctx.inlineEdit.row = row;
+				}
 			} );
 			
+			ctx.inlineEdit.row = row;
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
 		},
 		complete : function() {
@@ -883,6 +1163,35 @@ function  _createTr(dt,ctx,columns){
 	return columns;
 }
 
+function _drawInlineEdit(tabla,ctx){
+	_addChildIcons(ctx);
+	var row = ctx.inlineEdit.row;
+	if(ctx.inlineEdit.row !== undefined  && _notExistOnPage(ctx)){
+		var rowAux = row;
+									
+		$.each(ctx.json.rows,function(index,r) {
+			var rowNext = r;
+			tabla.row(index).data(rowAux);
+			rowAux = rowNext;
+		});
+		ctx.json.rows.pop();
+		ctx.json.rows.splice(0,0,row);
+	}
+}
+
+function _notExistOnPage(ctx){
+	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row);
+	var encontrado = true;
+	$.each(ctx.json.rows,function(index,r) {
+		if(DataTable.Api().rupTable.getIdPk(r) === pk){
+			encontrado = false;
+			return false;
+		}
+	});
+	ctx.inlineEdit.row = undefined;
+	return encontrado;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -942,6 +1251,14 @@ apiRegister( 'inlineEdit.addchildIcons()', function (ctx) {
 
 apiRegister( 'inlineEdit.createTr()', function (dt,ctx,columns) {
 	return _createTr(dt,ctx,columns);
+} );
+
+apiRegister( 'inlineEdit.drawInlineEdit()', function (tabla,ctx) {
+	return _drawInlineEdit(tabla,ctx);
+} );
+
+apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
+	return _getRowSelected(dt,actionType);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
