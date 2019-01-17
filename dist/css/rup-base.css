@@ -4579,7 +4579,8 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   height: 4rem;
   min-height: 4rem;
   margin-bottom: 0;
-  position: relative; }
+  position: relative;
+  display: block; }
   .rup-navbar .nav {
     padding-bottom: 0; }
   .rup-navbar .navbar-brand {
@@ -7821,7 +7822,7 @@ input.ui-button {
 
 /* without this, the menu expands to 100% in IE6 */
 .rup-autocomplete_label {
-  background-image: url(images/rup.autocomplete.png);
+  background-image: url("images/rup.autocomplete.png");
   background-repeat: no-repeat;
   background-position: left;
   padding-left: 2em;

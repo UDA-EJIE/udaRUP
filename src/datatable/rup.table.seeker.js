@@ -396,6 +396,7 @@ function _selectSearch(dt,ctx,rows){
 		}
 		ctx.seeker.search.accion = '';
 	}
+	$('#'+ctx.sTableId).trigger('selected.rup.dt');
 }
 
 /**

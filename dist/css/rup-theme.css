@@ -2354,7 +2354,8 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   height: 4rem;
   min-height: 4rem;
   margin-bottom: 0;
-  position: relative; }
+  position: relative;
+  display: block; }
   .rup-navbar .nav {
     padding-bottom: 0; }
   .rup-navbar .navbar-brand {

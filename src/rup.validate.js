@@ -539,6 +539,9 @@
 				settings = $.extend(true, settings, defaultPresetSettings.showFieldErrorAsDefault);
 			}
 			settings = $.extend(true, {}, settings, args[0]);
+			if(settings.onSubmitHandler !== undefined) {
+				settings.submitHandler = settings.onSubmitHandler;
+			}
 			// Se realiza la invocacion al plugin jquery.validate
 			self.validate(settings);
 

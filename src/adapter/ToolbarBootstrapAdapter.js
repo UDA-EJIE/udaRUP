@@ -5,7 +5,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','../templates', '../rup.base',], factory );
+		define( ['jquery','../templates', '../rup.base'], factory );
 	} else {
 
 		// Browser globals
@@ -37,7 +37,6 @@
 		// var boton = $("<button type='button'/>").text($.rup.i18nParse(json_i18n,obj.i18nCaption)).addClass("rup-toolbar_button").attr({
 		//   "id":buttonId
 		// });
-
 		var boton = $(Rup.Templates.rup.toolbar.button.bootstrap({
 			id: buttonId,
 			css: obj.css,
@@ -79,7 +78,6 @@
 		boton.bind('focusout',function(){
 			$(this).removeClass('ui-state-focus');
 		});
-
 		return boton;
 	};
 
@@ -95,9 +93,8 @@
 			if (buttonId.indexOf($(this).attr('id'))!==0){
 				buttonId = $(this).attr('id')+'##'+obj.id;
 			}
-
 			botonGrp = $(Rup.Templates.rup.toolbar.mbutton.bootstrap({
-
+				idParent: obj.idParent,
 				id: buttonId,
 				css: obj.css,
 				groupClasses: obj.groupClasses,
@@ -112,9 +109,9 @@
 			boton.rup_button();
 		}
 
-		// if(obj.right !== undefined && obj.right === true){
-		//   botonGrp.addClass("rup-button-right");
-		// }
+		if(obj.right !== undefined && obj.right === true){
+		  botonGrp.addClass("rup-button-right");
+		}
 
 		// Si fuera necesario, se añade el estilo para la ubicación derecha y se gestiona su indexado
 		if(obj.right !== undefined && obj.right === true){
@@ -140,53 +137,27 @@
 
 
 	ToolbarBootstrapAdapter.prototype.addButtonsToMButton = function (buttons, menuButton, json_i18n) { //añade botones al 'mbutton'
-		var div, ul,
-			//numero de botones a añadir
-			length = buttons.length, boton, buttonId;
-		//
-		// if ($("[id='mbutton_"+menuButton.attr("id")+"']").length === 0){
-		//   //Contenedor del menuButton
-		//   div = $('<div>')
-		//       .addClass("ui-widget ui-widget-content rup-toolbar_menuButtonContainer")
-		//       .attr("id","mbutton_"+menuButton[0].id)
-		//       .css("display","none");
-		//   //Lista no numerada del menuButton
-		//   ul = $('<ul>')
-		//       .attr("role","menu")
-		//       .attr("aria-activedescendant","active-menuitem")
-		//       .attr("aria-labelledby","active-menuitem");
-		// } else {
-		//   div = $("[id='mbutton_"+menuButton.attr("id")+"']");
-		//   ul = div.children("ul");
-		// }
-		//
-		// menuButton.attr("href","#");
+		var  ul,length, boton, buttonId;
+		//numero de botones a añadir
+		length = buttons.length;
 
+		menuButton.find('button').attr("href","#");
 		//Se añaden cada uno de los botones del menuButton
-		ul = menuButton.find('ul');
-		for (var i = length; i--; ) {
-
+		ul = menuButton.find('ul[id="'+menuButton.find('button').attr('id')+'-mbutton-container"]');
+		for (var i = length - 1 ; i >= 0; i-- ) {
 			boton = buttons[i];
 			if (boton.id){
-				buttonId = menuButton.attr('id')+'##'+boton.id;
+				buttonId = menuButton.find('button').attr('id')+'##'+boton.id;
 			}else{
-				buttonId = menuButton.attr('id')+'##'+boton.i18nCaption;
+				buttonId = menuButton.find('button').attr('id')+'##'+boton.i18nCaption;
 			}
 			buttons[i].id=buttonId;
+			ul.append($('<li>').append(this.addButton(buttons[i],json_i18n)));
 
-			ul.prepend($('<li>').append(this.addButton(buttons[i],json_i18n)));
 		}
-
-		//Añadir elementos al DOM
-		// if(!$.rup_utils.aplicatioInPortal()){
-		//   div.appendTo("body");
-		//   div.append(ul);
-		// } else {
-		//   div.append(ul);
-		//   $(".r01gContainer").append(div);
-		// }
-
-		//Borrar referencias
+		if($('[id ="'+menuButton.attr("id")+'-mbutton-container'+'"]').children().length != length) {
+			$('[id ="'+menuButton.attr("id")+'-mbutton-container'+'"]').append(ul.children());
+		}
 	};
 
 	$.rup = $.rup || {};

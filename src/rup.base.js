@@ -205,7 +205,7 @@
 	}
 
 	$.rup._browser = browser;
-
+	$.browser = browser;
 
 	$.extend($.rup, {
 		i18n: {},
@@ -620,7 +620,9 @@
 					$(this).unbind();
 					for (var type in events) {
 						for (var handler in events[type]) {
-							$.event.add(this, type, events[type][handler], events[type][handler].data);
+							if(typeof events[type][handler] === 'object'){
+								$.event.add(this, type, events[type][handler], events[type][handler].data);
+							}
 						}
 					}
 				}

@@ -35,7 +35,8 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base'], factory);
+		define(['jquery', './rup.base','./rup.tooltip','./rup.button'], factory);
+
 	} else {
 
 		// Browser globals
@@ -203,8 +204,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			} else {
 				self = $('#' + $(this).attr('id') + '_label');
 			}
-
-			self.restoreEvents();
+            self.restoreEvents();
 		},
 		/**
          * Deshabilita el autocomplete. Internamente invoca al método {@link module:rup_autocomplete~off}.
@@ -304,6 +304,44 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 				}
 				settings.data = value;
 				self.data('settings', settings);
+			}else if ( optionName === 'combobox' ) {
+				let spanParent = self.parent();
+				if (value === true) {
+					if (!spanParent.hasClass('rup-combobox')) {
+						self.addClass('rup-combobox-input ui-corner-left');
+						wasOpen = false;
+						self.wrap(jQuery('<span>').addClass('rup-combobox'));
+						var $wrapper = self.parent();
+						var $button = $('<a>').attr('tabIndex', -1).attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
+						.rup_tooltip().rup_button({icons: {primary: 'ui-icon-triangle-1-s'}, text: false })
+						.removeClass('ui-corner-all').addClass('rup-combobox-toggle ui-corner-right')
+						.mousedown(function () {wasOpen = self.autocomplete('widget').is(':visible');})
+								.click(function () {
+								self.focus();
+								if (wasOpen) {
+									return true;
+								}
+								self.autocomplete('search', '');
+							});
+
+						$button.appendTo($wrapper);
+						settings.$comboboxToogle = $button;
+						self.rup_autocomplete('option','minLength', 0);
+					}
+				}else{
+					if (spanParent.hasClass('rup-combobox')) {
+						self.removeClass('rup-combobox-input ui-corner-left');
+						self.addClass('ui-autocomplete-input');
+						self.insertBefore(spanParent);
+						spanParent.remove();
+					}
+				}
+			}else if ( optionName === 'contains' ) {
+				if (value === true) {
+					self.data('settings').contains = true;
+				} else {
+					self.data('settings').contains = false;
+				}
 			} else {
 				settings[optionName] = value;
 				self.data('settings', settings);
@@ -320,11 +358,23 @@ input.
      * $("#idAutocomplete").rup_autocomplete("search", "java");
      */
 		search: function (term) {
-			//Si tiene eventos (no está deshabilitado) se hace búsqueda
-			if ($._data($(this)[0], 'events') !== undefined) {
-				$(this).focus();
-				$(this).val(term);
-				$(this).autocomplete('search', term);
+			var self;
+
+			if ($(this).attr('id').indexOf('_label') >= 0 ) {
+				self = $(this);
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+				//Si esta inicializado con una busqueda por defecto
+				if (self.length === 0) {
+					self = $(this);
+				}
+			}
+
+			//Si tiene eventos (no está deshabilitado) se hace búsqueda	
+			if ($._data(self[0], 'events') !== undefined) {
+				self.focus();
+				self.val(term);
+				self.autocomplete('search', term);
 			}
 		},
 		/**
@@ -335,7 +385,14 @@ input.
          * $("#idAutocomplete").rup_autocomplete("close");
          */
 		close: function () {
-			$(this).autocomplete('close');
+			var self;
+
+			if ($(this).attr('id').indexOf('_label') >= 0 ) {
+				self = $(this);
+			} else {
+				self = $('#' + $(this).attr('id') + '_label');
+			}
+			self.autocomplete('close');
 		},
 		/**
          * Devuelve el valor del autocomplete. Este es el valor que se guarda en el campo oculto antes descrito al final del apartado 7.Para obtener la descripción (dato que se muestra en el input) se invocará a la función estándar de jQuery.
@@ -360,8 +417,13 @@ input.
          * $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
          */
 		set: function (value, label) {
-			var $self = $(this),
-				$selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
+				if ($(this).attr('id').indexOf('_label') >= 0 ) {
+					var array = $(this).attr('id').split('_label');
+					$self = $('#'+array[0]);
+				} else {
+					$self = $(this);
+				}
+				var $selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
 				loadObjects, newObject = {};
 
 			$self.val(value);
@@ -789,52 +851,34 @@ input.
 				//Se anyade un id al menu desplegable del autocomplete
 				settings.$menu = jQuery('#' + settings.id).data('ui-autocomplete').menu.element.attr('id', settings.id + '_menu');
 
-				//override mousedown para corregir el fallo del scrollbar en IE (bug 5610)
-				settings.$menu.off('mousedown');
-				// prevent the close-on-blur in case of a "slow" click on the menu (long mousedown) y corrección del bug 5610 (scrollbar en IE)
-				settings.$menu.on('mousedown', function (event) {
-
-					var menuElement = jQuery('#' + settings.id + '_menu')[0];
-
-					if (!$(event.target).closest('.ui-menu-item').length) {
-						setTimeout(function () {
-							$(document).one('mousedown', function (event) {
-								if (event.target !== jQuery('#' + settings.id + '_label') &&
-																																				event.target !== menuElement &&
-																																				!$.ui.contains(menuElement, event.target)) {
-									jQuery('#' + settings.id + '_label').autocomplete('close');
-								}
-							});
-						}, 1);
-					} else {
-
-						$('#' + settings.id + '_label').triggerHandler('blur');
-					}
-
-					// use another timeout to make sure the blur-event-handler on the input was already triggered
-					setTimeout(function () {
-						clearTimeout($('#' + settings.id + '_label').data('ui-autocomplete').closing);
-					}, 13);
-				});
-
 				if (settings.combobox === true) {
 					this._createShowAllButton(settings);
 				}
 
+				// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
+				settings.$menu.on('scroll', (e) => {
+					jQuery('#' + settings.id + '_label').focus();
+					settings.$menu.show();
+				});
 
+				// Lanza el evento de change al seleccionar una de las opciones del menú
+				settings.$menu.on('mousedown', (e) => {
+					if ($(e.target).hasClass('ui-menu-item-wrapper')) {
+						settings.$menu.triggerHandler('blur');
+					}
+				});
 
 				// Altura del menu desplegable
-				
-					jQuery('#' + settings.id).on('autocompleteopen', function () {
-						if (settings.menuMaxHeight !== false) {
-							settings.$menu.css('overflow-y', 'auto')
-								.css('overflow-x', 'hidden')
-								.css('max-height', settings.menuMaxHeight)
-								.css('width', jQuery('#' + settings.id + '_label').innerWidth());
-						}
-						jQuery('#' + settings.id+'_menu').css('z-index', '1000');
-						jQuery('#' + settings.id+'_menu').removeClass('ui-front');
-					});
+				jQuery('#' + settings.id).on('autocompleteopen', function () {
+					if (settings.menuMaxHeight !== false) {
+						settings.$menu.css('overflow-y', 'auto')
+							.css('overflow-x', 'hidden')
+							.css('max-height', settings.menuMaxHeight + 'px')
+							.css('width', jQuery('#' + settings.id + '_label').innerWidth());
+					}
+					jQuery('#' + settings.id + '_menu').css('z-index', '1000');
+					jQuery('#' + settings.id + '_menu').removeClass('ui-front');
+				});
 				
 				//Buscar el UL del autocomplete y colocarlo tras el elemento sobre el que debe ir
 				//$("#"+settings.id).after($("body > .ui-autocomplete"));

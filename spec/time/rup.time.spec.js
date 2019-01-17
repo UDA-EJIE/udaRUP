@@ -2,6 +2,7 @@
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
+import 'rup.tooltip';
 import 'jasmine-jquery';
 import 'rup.time';
 

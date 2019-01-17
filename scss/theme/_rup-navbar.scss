@@ -39,6 +39,7 @@
     min-height: $rup-navbar-height;
     margin-bottom: 0;
     position: relative;
+    display: block;
     @extend .shadow-2;
 
     .nav {

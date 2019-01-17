@@ -41,19 +41,19 @@ define(['marionette',
 			buttons: [{
 				text: 'Aceptar',
 				click: function () {
-					$view.ui.dialog.dialog('close');
+					$view.ui.dialog.rup_dialog('close');
 				}
 			},
 			{
 				text: 'Enviar',
 				click: function () {
-					$view.ui.dialog.dialog('close');
+					$view.ui.dialog.rup_dialog('close');
 				}
 			},
 			{
 				text: 'Abandonar',
 				click: function () {
-					$view.ui.dialog.dialog('close');
+					$view.ui.dialog.rup_dialog('close');
 				},
 				btnType: $.rup.dialog.LINK
 			}
@@ -79,7 +79,7 @@ define(['marionette',
 			buttons: [{
 				text: 'Aceptar',
 				click: function () {
-					$(this).dialog('close');
+					$(this).rup_dialog('close');
 				}
 			}]
 		});
@@ -100,7 +100,7 @@ define(['marionette',
 			buttons: [{
 				text: 'Aceptar',
 				click: function () {
-					$(this).dialog('close');
+					$(this).rup_dialog('close');
 				}
 			}]
 		});

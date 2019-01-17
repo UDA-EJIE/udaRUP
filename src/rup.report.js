@@ -298,22 +298,30 @@
 							$reportFileWait.rup_dialog('close');
 						},
 						failCallback: function (responseHtml, url) {
-							$reportFileWait.rup_dialog('close');
-							var $reportFileError = $('#' + dialog.errorDiv);
-							$reportFileError.rup_dialog({
-								type: $.rup.dialog.TEXT,
-								autoOpen: false,
-								modal: true,
-								resizable: false
-							});
-							if (standarDialog) {
-								//Titulo
-								$reportFileError.rup_dialog('setOption', 'title', dialog.error.title);
-								//Contenido
-								$reportFileError.rup_dialog('setOption', 'message', dialog.error.msg);
+							try{
+								if($('#'+$reportFileWait.attr('id')).length > 0) {
+									$reportFileWait.rup_dialog('close');
+								}
 							}
-							$reportFileError.rup_dialog('open');
-
+							catch(e){
+								console.info('ERROR-----------');
+							}
+							if($('#' + dialog.errorDiv).length > 0){
+								var $reportFileError = $('#' + dialog.errorDiv);
+								$reportFileError.rup_dialog({
+									type: $.rup.dialog.TEXT,
+									autoOpen: false,
+									modal: true,
+									resizable: false
+								});
+								if (standarDialog) {
+									//Titulo
+									$reportFileError.rup_dialog('setOption', 'title', dialog.error.title);
+									//Contenido
+									$reportFileError.rup_dialog('setOption', 'message', dialog.error.msg);
+								}
+								$reportFileError.rup_dialog('open');
+							}
 							if (dialog.failCallback !== undefined) {
 								dialog.failCallback(responseHtml, url);
 							}
