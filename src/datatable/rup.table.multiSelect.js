@@ -678,6 +678,8 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			// Marcamos el checkbox
+			$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
 			if(ctx.multiselection.lastSelectedId === value){
 				pos = idx;

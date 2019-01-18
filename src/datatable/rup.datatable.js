@@ -195,6 +195,9 @@
 	    			var $row = $('#'+ctx.sTableId+' tbody tr:not(.child):eq('+rowIdx+')');
 	    			if($row.hasClass('editable')){
 	    				DataTable.Api().inlineEdit.inResponsiveChangeInputsValues(ctx,$row);
+	    				if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'cambioEstado'){
+	    					ctx.oInit.inlineEdit.rowDefault = 'estadoFinal';
+	    				}
 	    			}
 	    			return value;
 	            };
@@ -1003,7 +1006,12 @@
 					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
 					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
 						DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-						ctx.oInit.inlineEdit.rowDefault = undefined;
+						var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+						if(count > 0){
+							ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
+						}else{
+							ctx.oInit.inlineEdit.rowDefault = undefined;
+						}
 					}
 				}
 

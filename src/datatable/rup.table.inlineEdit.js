@@ -82,6 +82,12 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		idRow = row.index();
 	    		_editInline(dt,ctx,idRow);
 	    	} );
+	 
+	    	if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'estadoFinal'){
+	    		ctx.oInit.inlineEdit.rowDefault = undefined;
+	    		_restaurarFila(ctx,true);;
+	    		_editInline(dt,ctx,row.index());
+	    	}
 	    }
 	} );
 	
@@ -399,10 +405,15 @@ function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
 		_restaurarFila(ctx,false);
 	}
-	
-	if(ctx.inlineEdit.lastRow === undefined || 
-			(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow)){
+	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
+	if(!$rowSelect.hasClass("editable")){
 		_changeInputsToRup(ctx,idRow);
+		//se deshabilita los botones de la tabla.
+		DataTable.Api().buttons.disableAllButtons(ctx);
+	}
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
 	}
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
 	var selectores = {};
@@ -623,6 +634,9 @@ function _restaurarFila(ctx,limpiar){
 			ctx.multiselection.selectedIds = [];
 			ctx.multiselection.selectedRowsPerPage = [];
 		}
+		//se habilitan los botones.
+		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		DataTable.Api().buttons.displayRegex(ctx);
 	}
 }
 
@@ -875,10 +889,13 @@ function _editFormSerialize($fila,ctx,child){
 		selectores[1] = $fila;
 	}
 	//Se vacian las reglas.
-	//$('#'+ctx.sTableId+'_search_searchForm').validate().settings.rules = {};
 	$.each(selectores,function() {
 		//añadir las columnas parents y child
-		$.each( this.find('td:not([style*="display: none"]) select,input'), function( i, obj ) {
+		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input,td:not([style*="display: none"]):not(".select-checkbox") select';
+		if(this.hasClass("child")){//si es el hijo solo buscar los select e inputs que hay.
+			busqueda = "select,input";
+		}
+		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
 			_aplicarValidaciones(ctx,obj.id);
 			var value = $(obj).val();
@@ -909,7 +926,7 @@ function _guardar(ctx,$fila,child){
 	//Se serializa el formulario con los cambios
 	var row = _editFormSerialize($fila,ctx,child);
 	var actionType = "PUT";
-	if($fila.hasClass('new')){//si es nuevo
+	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
 		actionType = "POST";
 	}
 	_callSaveAjax(actionType,ctx,$fila,row,'');
@@ -953,12 +970,11 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
-
+			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
 				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
-
-				var dt = $('#'+ctx.sTableId).DataTable();
+				
 				if(actionType === 'PUT'){//Modificar
 					dt.row($fila.index()).data(row);// se actualiza al editar
 					ctx.json.rows[$fila.index()] = row;
@@ -981,33 +997,8 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					ctx.multiselection.selectedIds = [idPk];
 					ctx.multiselection.lastSelectedId = idPk;
 					ctx.multiselection.numSelected = 1;
-					
-					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-				/*	if(ctx.oInit.select !== undefined){
-						DataTable.Api().select.deselect(ctx);
-					}
-					var rowAux = row;
-					$.each(ctx.json.rows,function(index,r) {
-						var rowNext = r;
-						dt.row(index).data(rowAux);
-						rowAux = rowNext;
-					});
-					ctx.json.rows.pop();
-					ctx.json.rows.splice(0,0,row);
-					//Se guardan los datos para pasar de nuevo a editable.
-					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
-					ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
-					if(ctx.oInit.multiSelect !== undefined){
-						ctx.multiselection.internalFeedback.type = "noBorrar";
-						dt['row']().multiSelect();
-					}
-					//Se actualiza la linea
-					if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
-						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
-					}
-					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');*/
 				}
-				
+				ctx.inlineEdit.row = row;
 			}else{// Eliminar
 				ctx.multiselection.internalFeedback.type = 'eliminar';
 				ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
@@ -1019,19 +1010,18 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
 			}
 			ctx.inlineEdit.lastRow = undefined;
-			$fila.removeClass('editable');
-			$fila.removeClass('new');
+			ctx._buttons[0].inst.s.disableAllButttons = undefined;
+			if(ctx.seeker !== undefined){
+				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+			}
 			
 				// Recargar datos
-			dt.ajax.reload( function ( json ) {
+			dt.ajax.reload( function (  ) {
 				_addChildIcons(ctx);
-				if (actionType !== 'PUT'){		
-					//ctx.inlineEdit.row = row;
-				}
 			} );
 			
-			ctx.inlineEdit.row = row;
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditLineSuccessCallSaveAjax');
 		},
 		complete : function() {
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
@@ -1048,12 +1038,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
 	
-	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
-	}
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
-	ctx.inlineEdit.lastRow.submit = 1;
+	if(ctx.inlineEdit.lastRow !== undefined){
+		ctx.inlineEdit.lastRow.submit = 1;
+	}
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
@@ -1089,7 +1077,7 @@ function _aplicarValidaciones(ctx,id){
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
+	feedback.rup_feedback({message:msgFeedBack,type:type,block:false, gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
@@ -1137,7 +1125,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
-		if(celda.visible){// se asignan a los inputs ocultos
+		if(celda.visible && celda.value !== undefined ){// se asignan a los inputs ocultos
 			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
 				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
 			}else{
@@ -1190,6 +1178,76 @@ function _notExistOnPage(ctx){
 	});
 	ctx.inlineEdit.row = undefined;
 	return encontrado;
+}
+
+/**
+* Metodo que elimina todos los registros seleccionados.
+*
+* @name _deleteAllSelects
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
+function _deleteAllSelects(dt){
+	var ctx = dt.settings()[0];
+	
+	var idRow = 0;
+	$.rup_messages('msgConfirm', {
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
+		OKFunction: function () {
+			if(ctx.multiselection.selectedIds.length > 1){
+				var row = {};
+				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
+				row.multiselection = {};
+				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
+				if(row.multiselection.selectedAll){
+					row.multiselection.selectedIds = ctx.multiselection.deselectedIds;
+				}else{
+					row.multiselection.selectedIds = ctx.multiselection.selectedIds;
+				}
+				_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
+			}else{
+				row = ctx.multiselection.selectedIds[0];
+				row = row.replace(ctx.oInit.multiplePkToken,'/');
+				_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
+			}
+		}
+	});
+}
+
+/**
+* Metodo que comprueba el seeker.
+*
+* @name _comprobarSeeker
+* @function
+* @since UDA 3.6.0 // Datatable 1.0.0
+*
+* @param {object} row - Son los datos que se cargan.
+* @param {object} ctx - Settings object to operate on.
+* @param {number} idRow - Identificador de la fila.
+*
+*/
+function _comprobarSeeker(row,ctx,idRow){
+	var cumple = true;
+	$.each( ctx.seeker.ajaxOption.data.search, function( key, obj ) {
+		if(row[key].indexOf(obj)  === -1){
+			cumple = false;
+			return false;
+		}
+	});
+	if(!cumple){// eliminar del seeker, por pagina y linea		
+		ctx.seeker.search.funcionParams = jQuery.grep(ctx.seeker.search.funcionParams, function(search) {
+			  return (search.page !== Number(ctx.json.page) || search.pageLine !== idRow+1);
+			});
+		// se borra el icono
+		
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox span.ui-icon-search').remove();
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td span.ui-icon-search').remove();
+		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
+	}
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1259,6 +1317,10 @@ apiRegister( 'inlineEdit.drawInlineEdit()', function (tabla,ctx) {
 
 apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
 	return _getRowSelected(dt,actionType);
+} );
+
+apiRegister( 'inlineEdit.deleteAllSelects()', function ( dt ) {
+	return _deleteAllSelects(dt);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

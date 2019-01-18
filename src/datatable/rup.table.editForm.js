@@ -621,7 +621,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
+	feedback.rup_feedback({message:msgFeedBack,type:type,block:false,gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
