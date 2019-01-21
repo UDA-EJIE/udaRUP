@@ -225,7 +225,7 @@ var Buttons = function( dt, config )
 
 	this.dom = {
 		container: $('<'+this.c.dom.container.tag+'/>')
-			.addClass( this.c.dom.container.className )
+			.addClass( this.c.dom.container.className ).attr('id',ctx.sTableId+'_containerToolbar')
 	};
 
 	this._constructor();
@@ -1986,17 +1986,19 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 					DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 				}
 			}else{//edicion en linea
-				DataTable.Api().inlineEdit.add(ctx);
+				DataTable.Api().inlineEdit.add(dt,ctx);
 			}
 			break;
 		case 'edit':
 			// Abrimos el formulario
-			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
+			
 			if(ctx.oInit.formEdit !== undefined){
+				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
+				var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
 				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			}else{//edicion en linea
-				DataTable.Api().inlineEdit.editInline(dt,ctx, idRow);
+				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
+				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'PUT').line;
 			}
 			break;
 		case 'clone':
@@ -2013,7 +2015,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			if(ctx.oInit.formEdit !== undefined){
 				DataTable.Api().editForm.deleteAllSelects(dt);
 			}else{//edicion en linea
-				
+				DataTable.Api().inlineEdit.deleteAllSelects(dt);
 			}
 			break;
 	}
@@ -2022,18 +2024,29 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
 // los botones
 DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = ctx.multiselection.numSelected;
-	var collectionObject;
-	$.each(opts, function (i) {
-		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
-		// Comprueba si tiene botones hijos
-		if (this.buttons.length > 0) {
-			collectionObject = this;
+	if(ctx._buttons[0].inst.s.disableAllButttons === undefined){
+		var opts = ctx._buttons[0].inst.s.buttons;
+		var numOfSelectedRows = ctx.multiselection.numSelected;
+		var collectionObject;
+		$.each(opts, function (i) {
+			collectionObject = null;
 			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
-		}
+			// Comprueba si tiene botones hijos
+			if (this.buttons.length > 0) {
+				collectionObject = this;
+				_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
+			}
+		});
+	}
+} );
+
+DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	$.each(opts, function () {
+		$(this.node).addClass('disabledDatatable');//para el toolbar
+		$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
 	});
+	ctx._buttons[0].inst.s.disableAllButttons = true;
 } );
 
 

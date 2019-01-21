@@ -497,8 +497,12 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
+	var validaciones = ctx.oInit.formEdit.validate;
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+		if(validaciones !== undefined){
+			validaciones.rules = {};
+		}	
 	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -594,7 +598,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
-		validate:ctx.oInit.formEdit.validate,
+		validate:validaciones,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
 
@@ -617,7 +621,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
+	feedback.rup_feedback({message:msgFeedBack,type:type,block:false,gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){

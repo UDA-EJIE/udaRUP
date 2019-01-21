@@ -391,7 +391,7 @@ function _selectSearch(dt,ctx,rows){
 			if(ctx.oInit.multiSelect !== undefined){
 				dt['row'](rowUnique.pageLine-1).multiSelect();
 			}else if(ctx.oInit.select !== undefined){
-				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
+				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine - 1, true);
 			}
 		}
 		ctx.seeker.search.accion = '';

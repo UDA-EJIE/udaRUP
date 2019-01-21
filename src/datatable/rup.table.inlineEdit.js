@@ -56,7 +56,7 @@ DataTable.inlineEdit = {};
 DataTable.inlineEdit.version = '1.2.4';
 
 /**
-* Se inicializa el componente editForm
+* Se inicializa el componente editInline
 *
 * @name init
 * @function
@@ -74,6 +74,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
+		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
 	} );
 	
 	dt.on( 'responsive-display', function ( e, datatable, row, showHide) {//si se crea el tr hijo
@@ -82,12 +83,121 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		idRow = row.index();
 	    		_editInline(dt,ctx,idRow);
 	    	} );
+	 
+	    	if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'estadoFinal'){
+	    		ctx.oInit.inlineEdit.rowDefault = undefined;
+	    		_restaurarFila(ctx,true);;
+	    		_editInline(dt,ctx,row.index());
+	    	}
 	    }
 	} );
 	
 	$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
 		dt.responsive.recalc();
 	} ) );
+	
+	//Crear feedback;
+	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
+	$('#'+ctx.sTableId+'_containerToolbar').prepend($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
+	
+	//se cambia el nombre de los validadores.
+	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
+		var rulesAux = ctx.oInit.inlineEdit.validate.rules;
+		 ctx.oInit.inlineEdit.validate.rules = {};
+		$.each(rulesAux,function(name,rule) {
+			ctx.oInit.inlineEdit.validate.rules[name+"_inline"] = rule;
+			ctx.oInit.inlineEdit.validate.rules[name+"_inline_child"] = rule;
+		});
+
+	}
+	
+	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+	//sino existe se crea
+	if(idForm.length === 0){
+		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
+        $('#'+ctx.sTableId).wrapAll($searchForm);
+	}
+	
+	// Creacion del Context Menu
+	if (ctx.oInit.buttons !== undefined) {
+		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(dt),
+						icon: this.conf.icon,
+						inCollection: this.inCollection,
+						idCollection: undefined
+					}
+				}
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(dt),
+								icon: this.conf.icon,
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
+						}
+					});
+				}
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			tableTr.rup_contextMenu({
+				callback: function(key, options) {
+					var selector = items[key];
+					// Recogemos el id de la accion pulsada en el context menu
+					var contextMenuActionId = selector.id;
+					// Le quitamos la extension '_contextMenuToolbar' para tener asi
+					// el id del boton que queremos accionar
+					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+					// Variable que nos dira si esta dentro de una coleccion
+					var inCollection = selector.inCollection;
+					// Variable que almacena el id de la coleccion (si no pertenece a una
+					// siempre sera 'undefined')
+					var idCollection = selector.idCollection;
+					// Comprobamos si existe el elemento con este id
+					if (inCollection && idCollection !== undefined) {
+						// Obtenemos la info necesaria del boton y la guardamos en variables
+						var buttonName;
+						var eventDT;
+						var eventConfig;
+
+						$.each( ctx.ext.buttons, function( key ) {
+							var buttonObject = ctx.ext.buttons[key];
+							if (buttonObject.id === buttonId) {
+								buttonName = key;
+								eventDT = buttonObject.eventDT;
+								eventConfig = buttonObject;
+							}
+						});
+
+						// Llamamos directamente al action para no hacer aparecer y desaparecer
+						// el boton, empeorando la UX
+						ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+					} else {
+						$('#' + buttonId).trigger('click');
+					}
+					
+			  },
+				items
+			});
+		});
+	}
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -103,7 +213,7 @@ DataTable.inlineEdit.init = function ( dt ) {
  *
  * @name init
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.7.0 // Datatable 1.0.0
  *
  * @param  {DataTable.settings} ctx Settings object to operate on
  *
@@ -192,22 +302,89 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
+/**
+* Función ejecutada cuando se activa el responsive.
+*
+* @name _onResponsiveResize
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
 function _onResponsiveResize(dt){
 	dt.on( 'responsive-resize', function (e,settingsTable) {//si hay responsive. Param:: e,settingsTable,columns
 		_addChildIcons(settingsTable.context[0]);
 	});
 }
 
-function _add(ctx){
-	
+/**
+* Se añade un nuevo registro.
+*
+* @name _add
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
+function _add(dt,ctx){
+	if(ctx.multiselection.numSelected > 0){
+		$.rup_messages('msgConfirm', {
+			message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+			title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+			OKFunction: function () {
+				_restaurarFila(ctx,true);
+				// Abrimos el formulario
+				if(ctx.oInit.seeker !== undefined){
+					DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+				}else{
+					if(ctx.oInit.multiSelect !== undefined){
+						DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+					}else if(ctx.oInit.select !== undefined){
+						DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+					}
+				}
+				//Crear tr ficticio
+				ctx.oInit.inlineEdit.alta = true;
+				dt.ajax.reload( function (  ) {
+					ctx.oInit.inlineEdit.alta = undefined;
+					$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+					_editInline(dt,ctx,0);
+				} );
+				
+			}
+		});
+	}else{
+		//Crear tr ficticio
+		ctx.oInit.inlineEdit.alta = true;
+		dt.ajax.reload( function (  ) {
+			ctx.oInit.inlineEdit.alta = undefined;
+			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+			_editInline(dt,ctx,0);
+		} );
+
+	}
+
 }
 
+/**
+* Se añaden los iconos al responsive.
+*
+* @name _addChildIcons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
 function _addChildIcons(ctx){
 	var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
 		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
 		if(count > 0){//añadir span ala primera fila
-			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child)"),function( ){
+			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
 				var $span = $('<span/>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
@@ -239,23 +416,42 @@ function _addChildIcons(ctx){
 		//si hay inputs guardadoas se machancn los cambios por el responsive.
 		if(ctx.inlineEdit !== undefined && 
 				ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.rupValues !== undefined){
-			ctx.inlineEdit.lastRow.columnsHidden = dt.columns().responsiveHidden();
+			var table = $('#'+ctx.sTableId).DataTable( );
+			ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 			var $row = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
 			_asignarInputsValues(ctx,$row);
 		}
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineAddChildIcons');
 }
 
+/**
+* Método principal para la edición en línea.
+*
+* @name _add
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Contexto del Datatable.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+*
+*/
 function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
 		_restaurarFila(ctx,false);
 	}
-	
-	if(ctx.inlineEdit.lastRow === undefined || 
-			(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow)){
+	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
+	if(!$rowSelect.hasClass("editable")){
 		_changeInputsToRup(ctx,idRow);
+		//se deshabilita los botones de la tabla.
+		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
+	}
+	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	selectores[0] = $selectorTr;
@@ -274,8 +470,181 @@ function _editInline ( dt,ctx, idRow ){
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		DataTable.Api().select.selectRowIndex(dt,idRow,true);
 	}
+	
+	dt.responsive.recalc();
 }
 
+/**
+* Metodo que obtiene la fila siguiente seleccionada.
+*
+* @name getRowSelected
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {string} actionType - Es el objeto datatable.
+*
+* @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
+*
+*/
+function _getRowSelected(dt,actionType){
+	var ctx = dt.settings()[0];
+	var rowDefault = {id:0,page:1,line:0};
+	var lastSelectedId = ctx.multiselection.lastSelectedId;
+	if(!ctx.multiselection.selectedAll){
+		//Si no hay un ultimo señalado se coge el ultimo;
+
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
+		}
+		$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
+			if(p.id === ctx.multiselection.lastSelectedId){
+				rowDefault.id = p.id;
+				rowDefault.page = p.page;
+				rowDefault.line = p.line;
+				rowDefault.indexSelected = index;
+				if(ctx.oInit.inlineEdit !== undefined){
+					ctx.oInit.inlineEdit.currentPos = rowDefault;
+				}
+				return false;
+			}
+		});
+	}else{
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		}
+		if(lastSelectedId === undefined || lastSelectedId === ''){
+			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
+			rowDefault.line = _getLineByPageSelected(ctx,-1);
+		}else{
+			//buscar la posicion y pagina
+			var result = $.grep(ctx.multiselection.selectedRowsPerPage, function(v) {
+				return v.id === ctx.multiselection.lastSelectedId;
+			});
+			rowDefault.page = result[0].page;
+			rowDefault.line = result[0].line;
+			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
+			index = index+1+rowDefault.line;
+			//Hay que restar los deselecionados.
+			 result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
+					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+				});
+			rowDefault.indexSelected = index-result.length;//Buscar indice
+			if(ctx.oInit.inlineEdit !== undefined){
+				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected-1;
+			}
+		}
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.currentPos = rowDefault;
+		}
+	}
+
+	//En caso de estar en una pagina distinta , navegamos a ella
+	if(dt.page()+1 !== Number(rowDefault.page)){
+		var table = $('#'+ctx.sTableId).DataTable();
+		table.page( rowDefault.page-1 ).draw( 'page' );
+		if(ctx.oInit.inlineEdit !== undefined){
+			ctx.oInit.inlineEdit.rowDefault = rowDefault;
+		}
+	}else{
+		_editInline(dt,ctx,rowDefault.line);
+	}
+
+	return rowDefault;
+}
+
+/**
+* Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getNextPageSelected
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
+* @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
+*
+* @return integer - devuele la página
+*
+*/
+function _getNextPageSelected(ctx,pageInit,orden){
+	var pagina = pageInit;
+	var pageTotals = ctx.json.total;
+	if(orden === 'prev'){//Si es previo se resta.
+		pageTotals = 1;
+	}
+	if(ctx.multiselection.deselectedRowsPerPage.length > 0){
+		var maxPagina = ctx.json.rows.length;
+		var count = 0;
+		//Buscar la pagina donde va estar el seleccionado.
+		for (var page=pageInit; page<pageTotals;) {
+			$.each(ctx.multiselection.deselectedRowsPerPage,function(index,p) {
+				if(page === Number(p.page)){
+					count++;
+				}
+				if(count === maxPagina){
+					return false;
+				}
+			});
+			if(count < maxPagina){
+				pagina = page;
+				page = ctx.json.total;//Se pone el total para salir del bucle.
+			}
+			count = 0;
+			if(orden === 'next'){
+				page++;
+			}else if(orden === 'prev'){
+				page--;
+			}
+		}
+	}
+	return pagina;
+}
+
+/**
+* Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento seleccionado.
+*
+* @name getLineByPageSelected
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
+*
+* @return integer - devuele la linea
+*
+*/
+function _getLineByPageSelected(ctx,lineInit){
+	var line = -1;
+	var rows = ctx.json.rows;
+
+	$.each(rows, function( index, row ) {
+		if(index > lineInit){
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
+			if(indexInArray === -1){
+				line = index;
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
+				if(ctx.oInit.inilineEdit !== undefined){
+					ctx.oInit.inilineEdit.currentPos = arra;
+				}
+				return false;
+			}
+		}
+	});
+	return line;
+}
+
+/**
+* Se restaura la línea(fila) en la edición.
+*
+* @name _restaurarFila
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+* @param {boolean} limpiar - Si es true limpia e inicializa todo y si es false solo restaura la línea.
+*
+*/
 function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
@@ -297,9 +666,39 @@ function _restaurarFila(ctx,limpiar){
 		if($selectorTr.data( "events" ) !== undefined){
 			$selectorTr.off('keydown');
 		}
+		if(ctx.seeker !== undefined){
+			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+		}
+		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
+			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
+		}
+		if($fila !== undefined && $fila.hasClass("new")){// se elimna el tr, porque no se guardo
+			$fila.next('.child').remove();
+			$fila.remove();
+			//se asegura resturar multiselection
+			ctx.multiselection.numSelected = 0;
+			ctx.multiselection.selectedIds = [];
+			ctx.multiselection.selectedRowsPerPage = [];
+		}
+		//se habilitan los botones.
+		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		DataTable.Api().buttons.displayRegex(ctx);
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFila');
 }
 
+/**
+*Cambia los inputs por los componentes rup.
+*
+* @name _changeInputsToRup
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+*
+*/
 function _changeInputsToRup(ctx,idRow){
 	// Se procesan las celdas editables
 
@@ -309,6 +708,7 @@ function _changeInputsToRup(ctx,idRow){
 		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
+		ctx.inlineEdit.lastRow.submit = 0;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
 		var $fila = $(ctx.aoData[ idRow ].nTr);
@@ -325,6 +725,19 @@ function _changeInputsToRup(ctx,idRow){
 	}
 }
 
+/**
+* Método para recorre las celdas y las procesa.
+*
+* @name _recorrerCeldas
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {object} $celdas - Todas las celdas a recorrer.
+* @param {integer} cont - Contador para saber en que celda nos movemos, sobre todo en el responsive.
+*
+*/
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	$fila.addClass('editable');
 	var colModel = ctx.oInit.colModel;
@@ -341,7 +754,8 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 			var cellColModel = colModel[cont];
 			if(cellColModel.editable===true){
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
-				$input.attr('id', cellColModel.name+'_inline'+child);
+				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
+				$input.attr('id', cellColModel.name+'_inline'+child).attr("oldtitle",title);
 				var resol = $celda.width() - 10;
 				$input.css('max-width',resol+'px');
 				//si es el primero dejar el focus
@@ -355,7 +769,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				//Convertir a input.
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 				var colModelName = cellColModel.name;
-				var $elem = $('[name=\''+colModelName+'_inline'+child+'\']',ctx.nTBody);
+				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
 
 				var columns = jQuery.grep(ctx.aoColumns, function( n) {
@@ -413,6 +827,19 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	return cont - ocultos;
 }
 
+/**
+* Método para restaurar las celdas.
+*
+* @name _restaurarCeldas
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {object} $celdas - Todas las celdas a recorrer.
+* @param {integer} contRest - Contador para saber en que celda nos movemos, sobre todo en el responsive.
+*
+*/
 function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 
 	if($fila.hasClass("editable")){
@@ -450,6 +877,17 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 	return contRest;
 }
 
+/**
+* Comprueba que si la fila está en responsive mantenga el diseño.
+*
+* @name _comprobarFila
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _comprobarFila(ctx,$fila){
 	var count = ctx.responsive.s.current.reduce(function (a,b) {return b === false ? a+1 : a;}, 0 );
 	var $span = $fila.find('span.openResponsive');
@@ -470,11 +908,28 @@ function _comprobarFila(ctx,$fila){
 	tabla.responsive.recalc();
 }
 
+/**
+* Crea los eventos asociados a la fila.
+*
+* @name _crearEventos
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $selector - fila que se está editando.
+*
+*/
 function _crearEventos(ctx,$selector){
 	if($selector.data( "events" ) === undefined || $selector.data( "events" ).keydown === undefined){
 		$selector.keydown(function(e) {
 		    if (e.keyCode === 27) {//Esc
-		    	_restaurarFila(ctx,true);
+		    	if($selector.hasClass("new")){//si se da alta y se cancela.
+		    		var dt = $('#'+ctx.sTableId).DataTable();
+		    		ctx.inlineEdit.lastRow = undefined;
+		    		dt.ajax.reload();
+		    	}else{//si se modifica
+		    		_restaurarFila(ctx,true);
+		    	}
 		    }else if (e.keyCode === 13 || 
 		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
@@ -485,8 +940,21 @@ function _crearEventos(ctx,$selector){
 		    }
 		});
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineCrearEventos');
 }
 
+/**
+* Método para recorre las celdas y las procesa.
+*
+* @name _lastIndexEditable
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $target - fila que se está editando.
+*
+* @return devuelve si es el último index editado
+*/
 function _lastIndexEditable(ctx,$target){
 	var indexTarget = $target.closest('td').index();
 	//Se recooren las columnas a la inversa, si es editable, se devuelve la posicion
@@ -517,16 +985,17 @@ function _lastIndexEditable(ctx,$target){
 /**
 * Metodo que serializa los datos del formulario.
 *
-* @name _inlineFormSerialize
+* @name _inlineEditFormSerialize
 * @function
-* @since UDA 3.6.0 // Datatable 1.2.0
+* @since UDA 3.7.0 // Datatable 1.2.0
 *
-* @param {object} idForm - Formulario que alberga los datos.
+* @param {object} $fila - Fila la cual estamos editando.
+* @param {object} ctx - Contexto del datatable.
+* @param {boolean} child - boolean para saber si tiene hijos en el responsive.
 *
-* @return {string} - Devuelve los datos del formulario serializados
 *
 */
-function _editFormSerialize($fila,ctx,child){
+function _inlineEditFormSerialize($fila,ctx,child){
 	var serializedForm = {};
 	var selectores = {};
 
@@ -540,10 +1009,14 @@ function _editFormSerialize($fila,ctx,child){
 		selectores[0] = $fila.prev();
 		selectores[1] = $fila;
 	}
-	
+	//Se vacian las reglas.
 	$.each(selectores,function() {
 		//añadir las columnas parents y child
-		$.each( this.find('td:not([style*="display: none"]) select,input'), function( i, obj ) {
+		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input,td:not([style*="display: none"]):not(".select-checkbox") select';
+		if(this.hasClass("child")){//si es el hijo solo buscar los select e inputs que hay.
+			busqueda = "select,input";
+		}
+		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
 			var value = $(obj).val();
 			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
@@ -568,12 +1041,28 @@ function _editFormSerialize($fila,ctx,child){
 	return serializedForm;
 }
 
+/**
+* Método para llamar al ajax de guardado y nuevo.
+*
+* @name _guardar
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {boolean} $child - boolean apra decir si la llamda es del hijo o del padre
+*
+*/
 function _guardar(ctx,$fila,child){
 
 	//Se serializa el formulario con los cambios
-	var row = _editFormSerialize($fila,ctx,child);
+	var row = _inlineEditFormSerialize($fila,ctx,child);
 	var actionType = "PUT";
+	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
+		actionType = "POST";
+	}
 	_callSaveAjax(actionType,ctx,$fila,row,'');
+	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
 }
 
 /**
@@ -581,26 +1070,25 @@ function _guardar(ctx,$fila,child){
 *
 * @name _callSaveAjax
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
-* @param {object} dt - Es el objeto datatable.
-* @param {object} row - Son los datos que se cargan.
-* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
-* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog.
-* @param {string} idTableDetail - Identificdor del detail de la table.
-* @param {string} url - Url que se añade para llamar  al controller.
+* @param {object} ctx - Es el contexto datatable.
+* @param {object} $fila - Fila que se está editando.
+* @param {object} $row - Son los datos que se cargan.
+* @param {string} url - Url que se añade para llamar  al controller. Añadir, editar o borrar.
 *
 */
 function _callSaveAjax(actionType,ctx,$fila,row,url){
-	var idTableDetail = $(ctx.oInit.inlineEdit.detailForm);
-	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
+	
+	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
 	// add Filter
-	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
+	var feed = $('#'+ctx.inlineEdit.nameFeedback);
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
+
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
 		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
@@ -613,14 +1101,12 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
-
+			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
 				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
-
-
+				
 				if(actionType === 'PUT'){//Modificar
-					var dt = $('#'+ctx.sTableId).DataTable();
 					dt.row($fila.index()).data(row);// se actualiza al editar
 					ctx.json.rows[$fila.index()] = row;
 					// Actualizamos el ultimo id seleccionado (por si ha sido editado)
@@ -637,33 +1123,13 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
-				}else{
-					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-					if(ctx.oInit.select !== undefined){
-						DataTable.Api().select.deselect(ctx);
-					}
-					var rowAux = row;
-					$.each(ctx.json.rows,function(index,r) {
-						var rowNext = r;
-						dt.row(index).data(rowAux);
-						rowAux = rowNext;
-					});
-					ctx.json.rows.pop();
-					ctx.json.rows.splice(0,0,row);
-					//Se guardan los datos para pasar de nuevo a editable.
-					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
-					ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
-					if(ctx.oInit.multiSelect !== undefined){
-						ctx.multiselection.internalFeedback.type = "noBorrar";
-						dt['row']().multiSelect();
-					}
-					//Se actualiza la linea
-					if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
-						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
-					}
-					$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
+				}else{// dar alta
+					var idPk = DataTable.Api().rupTable.getIdPk(row);
+					ctx.multiselection.selectedIds = [idPk];
+					ctx.multiselection.lastSelectedId = idPk;
+					ctx.multiselection.numSelected = 1;
 				}
-				
+				ctx.inlineEdit.row = row;
 			}else{// Eliminar
 				ctx.multiselection.internalFeedback.type = 'eliminar';
 				ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
@@ -672,41 +1138,51 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
 				}
-				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
+				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
 			}
 			ctx.inlineEdit.lastRow = undefined;
-			$fila.removeClass('editable');
-			// Recargar datos
-			dt.ajax.reload( function ( json ) {
+			ctx._buttons[0].inst.s.disableAllButttons = undefined;
+			if(ctx.seeker !== undefined){
+				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+			}
+			
+				// Recargar datos
+			dt.ajax.reload( function (  ) {
 				_addChildIcons(ctx);
 			} );
 			
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
 		},
 		complete : function() {
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax');
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
-			var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
 			if(divErrorFeedback.length === 0){
-				divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertAfter('#'+ctx.sTableId);
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
-	var idForm = $('#example tbody');
+	
+	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+	if(ctx.inlineEdit.lastRow !== undefined){
+		ctx.inlineEdit.lastRow.submit = 1;
+	}
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
+
 
 /**
 * Llamada para crear el feedback dentro del dialog.
 *
 * @name callFeedbackOk
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
@@ -715,20 +1191,31 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 *
 */
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
-	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
+	$('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
+	feedback.rup_feedback({message:msgFeedBack,type:type,block:false, gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
 		setTimeout(function(){
 			feedback.rup_feedback('destroy');
 			feedback.css('width','100%');
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineInternalFeedbackClose');
 		}, confDelay);
 	}
 }
 
+/**
+* Cambiar los valores de los inputs  de responsive a normal y viciversa.
+*
+* @name _inResponsiveChangeInputsValues
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _inResponsiveChangeInputsValues(ctx,$fila){
 	var table = $('#'+ctx.sTableId).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
@@ -739,10 +1226,14 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
 				cont = cont + i - total;
-				value = $fila.next('.child').find('li:eq('+cont+')').find('select,input').val();
+				var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
+				value = $inputChild.val();
+				$inputChild.prop('disabled', false);
 
 			}else{//se coge el valor de los inputs ocultos.
-				value = $fila.find('td:eq('+i+')').find('select,input').val();
+				var $input = $fila.find('td:eq('+i+')').find('select,input');
+				value = $input.val();
+				$input.prop('disabled', true);
 			}
 			
 		}else{
@@ -762,10 +1253,21 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	});
 }
 
+/**
+* Asiganar los valores de los inputs en responsive.
+*
+* @name _asignarInputsValues
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
-		if(celda.visible){// se asignan a los inputs ocultos
+		if(celda.visible && celda.value !== undefined ){// se asignan a los inputs ocultos
 			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
 				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
 			}else{
@@ -782,6 +1284,149 @@ function _asignarInputsValues(ctx,$fila){
 	});
 }
 
+/**
+* Se crear un tr ficticio cuando se va a añadir un registro.
+*
+* @name _createTr
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - datatable
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $columns - Módelo de columnas de la tabla.
+*
+*/
+function  _createTr(dt,ctx,columns){
+	var row = {};
+	jQuery.grep(ctx.oInit.colModel, function( n) {
+		row[n.name] = '';
+	});
+	columns.unshift(row);
+	return columns;
+}
+
+/**
+* Dibujar los iconos del responsive.
+*
+* @name _drawInLineEdit
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} tabla - Api de la tabla
+* @param {object} ctx - Es el contexto de cada tabla.
+*
+*/
+function _drawInlineEdit(tabla,ctx){
+	_addChildIcons(ctx);
+	var row = ctx.inlineEdit.row;
+	if(ctx.inlineEdit.row !== undefined  && _notExistOnPage(ctx)){
+		var rowAux = row;
+									
+		$.each(ctx.json.rows,function(index,r) {
+			var rowNext = r;
+			tabla.row(index).data(rowAux);
+			rowAux = rowNext;
+		});
+		ctx.json.rows.pop();
+		ctx.json.rows.splice(0,0,row);
+	}
+}
+
+/**
+* Para saber si hay paginación o no.
+*
+* @name _notExistOnPage
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+*
+*
+*@return {boolean} si existe paginación o no.
+*/
+function _notExistOnPage(ctx){
+	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row);
+	var encontrado = true;
+	$.each(ctx.json.rows,function(index,r) {
+		if(DataTable.Api().rupTable.getIdPk(r) === pk){
+			encontrado = false;
+			return false;
+		}
+	});
+	ctx.inlineEdit.row = undefined;
+	return encontrado;
+}
+
+/**
+* Metodo que elimina todos los registros seleccionados.
+*
+* @name _deleteAllSelects
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
+function _deleteAllSelects(dt){
+	var ctx = dt.settings()[0];
+	
+	var idRow = 0;
+	$.rup_messages('msgConfirm', {
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
+		OKFunction: function () {
+			if(ctx.multiselection.selectedIds.length > 1){
+				var row = {};
+				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
+				row.multiselection = {};
+				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
+				if(row.multiselection.selectedAll){
+					row.multiselection.selectedIds = ctx.multiselection.deselectedIds;
+				}else{
+					row.multiselection.selectedIds = ctx.multiselection.selectedIds;
+				}
+				_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
+			}else{
+				row = ctx.multiselection.selectedIds[0];
+				row = row.replace(ctx.oInit.multiplePkToken,'/');
+				_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
+			}
+		}
+	});
+}
+
+/**
+* Metodo que comprueba el seeker.
+*
+* @name _comprobarSeeker
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} row - Son los datos que se cargan.
+* @param {object} ctx - Settings object to operate on.
+* @param {number} idRow - Identificador de la fila.
+*
+*/
+function _comprobarSeeker(row,ctx,idRow){
+	var cumple = true;
+	$.each( ctx.seeker.ajaxOption.data.search, function( key, obj ) {
+		if(row[key].indexOf(obj)  === -1){
+			cumple = false;
+			return false;
+		}
+	});
+	if(!cumple){// eliminar del seeker, por pagina y linea		
+		ctx.seeker.search.funcionParams = jQuery.grep(ctx.seeker.search.funcionParams, function(search) {
+			  return (search.page !== Number(ctx.json.page) || search.pageLine !== idRow+1);
+			});
+		// se borra el icono
+		
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox span.ui-icon-search').remove();
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td span.ui-icon-search').remove();
+		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -792,8 +1437,8 @@ function _asignarInputsValues(ctx,$fila){
 // Local variables to improve compression
 var apiRegister = DataTable.Api.register;
 
-apiRegister( 'inlineEdit.add()', function ( ctx ) {
-	_add(ctx);
+apiRegister( 'inlineEdit.add()', function ( dt,ctx ) {
+	_add(dt,ctx);
 } );
 
 apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow ) {
@@ -833,6 +1478,26 @@ apiRegister( 'inlineEdit.asignarInputsValues()', function (ctx, $fila) {
 
 apiRegister( 'inlineEdit.onResponsiveResize()', function (dt) {
 	_onResponsiveResize(dt);
+} );
+
+apiRegister( 'inlineEdit.addchildIcons()', function (ctx) {
+	_addChildIcons(ctx);
+} );
+
+apiRegister( 'inlineEdit.createTr()', function (dt,ctx,columns) {
+	return _createTr(dt,ctx,columns);
+} );
+
+apiRegister( 'inlineEdit.drawInlineEdit()', function (tabla,ctx) {
+	return _drawInlineEdit(tabla,ctx);
+} );
+
+apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
+	return _getRowSelected(dt,actionType);
+} );
+
+apiRegister( 'inlineEdit.deleteAllSelects()', function ( dt ) {
+	return _deleteAllSelects(dt);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -294,6 +294,9 @@
 	    			var $row = $('#'+ctx.sTableId+' tbody tr:not(.child):eq('+rowIdx+')');
 	    			if($row.hasClass('editable')){
 	    				DataTable.Api().inlineEdit.inResponsiveChangeInputsValues(ctx,$row);
+	    				if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'cambioEstado'){
+	    					ctx.oInit.inlineEdit.rowDefault = 'estadoFinal';
+	    				}
 	    			}
 	    			return value;
 	            };
@@ -402,13 +405,17 @@
 		     		var table = $('#'+options.id).DataTable();
 					var ctx = table.context[0];
 
-					var settings = ctx.oInit;//$(ctx.nTable).data('settings'+ctx.sTableId);
+					var settings = ctx.oInit;
 					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
 					}
 					if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
 							&& json.reorderedSeeker !== undefined){
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
+					}
+					
+					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta){
+						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
 					}
 
 					return ret.data;
@@ -840,7 +847,7 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
+		     * Crea un evento para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
@@ -914,8 +921,7 @@
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
 				DataTable.Api().rupTable.selectPencil(ctx,-1);
 				if (ctx.multiselection === undefined) {
@@ -966,8 +972,11 @@
 				settings.columnDefs.push({
 			        orderable: false,
 			        className: 'select-checkbox',
-			        targets:   0
-			    	});
+			        targets: 0,
+			        render: function (data, type, full, meta){
+			             return '<input type="checkbox">';
+			        }
+			    });
 				//Modulo incompatible
 				settings.select = undefined;
 			}
@@ -1092,18 +1101,26 @@
 					$self._createTooltip($(this));
 				});
 				
+				if(settingsTable.inlineEdit !== undefined ){
+					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
+					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
+						DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+						if(count > 0){
+							ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
+						}else{
+							ctx.oInit.inlineEdit.rowDefault = undefined;
+						}
+					}
+				}
 
 			  });
 			
 			tabla.on( 'destroy', function (e,settingsTable) {
-				/*if(settingsTable.oInit.clone === true){
-					$('#'+settingsTable.sTableId+'_filter_form').append(clone);
-				}*/
+
 				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
 				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
-			/*	tabla.off( 'draw');
-				tabla.off( 'destroy');
-				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+
 				
 			});
 			
