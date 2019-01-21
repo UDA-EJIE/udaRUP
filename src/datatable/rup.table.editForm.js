@@ -1224,11 +1224,13 @@ function _comprobarSeeker(row,ctx,idRow){
 function _blockPKeditForm(ctx, actionType){
 	var blockPK = ctx.oInit.blockPKeditForm;
 	var idForm = ctx.oInit.formEdit.idForm;
+	var primaryKey = ctx.oInit.primaryKey;
 	
-	if(blockPK) {
+	// Comprobamos si el bloqueo de claves primarias esta activo y la tabla tiene alguna columna definida como clave primaria.
+	if(blockPK && primaryKey.length > 0) {
 		// En caso de ser edición bloqueamos la modificación
 		if(actionType === "PUT") {
-			$.each(ctx.oInit.primaryKey,function(key,id) {
+			$.each(primaryKey,function(key,id) {
 				var input = $(idForm[0]).find(":input[name=" + id + "]");
 				
 				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
@@ -1274,7 +1276,7 @@ function _blockPKeditForm(ctx, actionType){
 		} 
 		// En caso de ser clonación permitimos la edición
 		else if(actionType === "POST"){
-			$.each(ctx.oInit.primaryKey,function(key,id) {
+			$.each(primaryKey,function(key,id) {
 				var input = $(idForm[0]).find(":input[name=" + id + "]");
 				
 				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
