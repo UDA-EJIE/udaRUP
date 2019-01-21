@@ -31,14 +31,18 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group
+.ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard
+.ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -2183,7 +2187,13 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer select.form-control-sm {
+.r01gContainer .ui-multiselect,
+.r01gContainer .ui-selectmenu-dropdown,
+.r01gContainer .form-control.ui-multiselect,
+.r01gContainer .form-control.ui-selectmenu-dropdown,
+.r01gContainer select.form-control-sm,
+.r01gContainer .form-control-sm.ui-multiselect,
+.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -3696,7 +3706,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e5e5;
+    background-color: #e6e6e6;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
