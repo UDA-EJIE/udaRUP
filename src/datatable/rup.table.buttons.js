@@ -2043,7 +2043,8 @@ DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
 DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx) {
 	var opts = ctx._buttons[0].inst.s.buttons;
 	$.each(opts, function () {
-		$(this.node).addClass('disabledDatatable');
+		$(this.node).addClass('disabledDatatable');//para el toolbar
+		$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
 	});
 	ctx._buttons[0].inst.s.disableAllButttons = true;
 } );

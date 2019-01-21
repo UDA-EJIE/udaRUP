@@ -56,7 +56,7 @@ DataTable.inlineEdit = {};
 DataTable.inlineEdit.version = '1.2.4';
 
 /**
-* Se inicializa el componente editForm
+* Se inicializa el componente editInline
 *
 * @name init
 * @function
@@ -74,6 +74,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
+		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
 	} );
 	
 	dt.on( 'responsive-display', function ( e, datatable, row, showHide) {//si se crea el tr hijo
@@ -107,17 +108,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 			ctx.oInit.inlineEdit.validate.rules[name+"_inline"] = rule;
 			ctx.oInit.inlineEdit.validate.rules[name+"_inline_child"] = rule;
 		});
-		//en inicio se cambian inline x child si hay alguno.
-		
-	/*	$.each(ctx.responsive.s.current,function(index,col) {
-			if(col === false){
-				var nameColumns = ctx.aoColumns[index].mData;
-				var rule = ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline"];
-				delete ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline"];
-				ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline_child"] = rule;
-				
-			}
-		}); */
+
 	}
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
@@ -222,7 +213,7 @@ DataTable.inlineEdit.init = function ( dt ) {
  *
  * @name init
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.7.0 // Datatable 1.0.0
  *
  * @param  {DataTable.settings} ctx Settings object to operate on
  *
@@ -311,12 +302,33 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
+/**
+* Función ejecutada cuando se activa el responsive.
+*
+* @name _onResponsiveResize
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+*
+*/
 function _onResponsiveResize(dt){
 	dt.on( 'responsive-resize', function (e,settingsTable) {//si hay responsive. Param:: e,settingsTable,columns
 		_addChildIcons(settingsTable.context[0]);
 	});
 }
 
+/**
+* Se añade un nuevo registro.
+*
+* @name _add
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
 function _add(dt,ctx){
 	if(ctx.multiselection.numSelected > 0){
 		$.rup_messages('msgConfirm', {
@@ -357,6 +369,16 @@ function _add(dt,ctx){
 
 }
 
+/**
+* Se añaden los iconos al responsive.
+*
+* @name _addChildIcons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
 function _addChildIcons(ctx){
 	var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
@@ -400,8 +422,21 @@ function _addChildIcons(ctx){
 			_asignarInputsValues(ctx,$row);
 		}
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineAddChildIcons');
 }
 
+/**
+* Método principal para la edición en línea.
+*
+* @name _add
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - Es el objeto datatable.
+* @param {object} ctx - Contexto del Datatable.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+*
+*/
 function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
 		_restaurarFila(ctx,false);
@@ -416,7 +451,7 @@ function _editInline ( dt,ctx, idRow ){
 		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
 		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableInlineEditDoubleClickRow');
+	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	selectores[0] = $selectorTr;
@@ -444,7 +479,7 @@ function _editInline ( dt,ctx, idRow ){
 *
 * @name getRowSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} dt - Es el objeto datatable.
 * @param {string} actionType - Es el objeto datatable.
@@ -523,7 +558,7 @@ function _getRowSelected(dt,actionType){
 *
 * @name getNextPageSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -571,7 +606,7 @@ function _getNextPageSelected(ctx,pageInit,orden){
 *
 * @name getLineByPageSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
@@ -599,6 +634,17 @@ function _getLineByPageSelected(ctx,lineInit){
 	return line;
 }
 
+/**
+* Se restaura la línea(fila) en la edición.
+*
+* @name _restaurarFila
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+* @param {boolean} limpiar - Si es true limpia e inicializa todo y si es false solo restaura la línea.
+*
+*/
 function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
@@ -639,8 +685,20 @@ function _restaurarFila(ctx,limpiar){
 		ctx._buttons[0].inst.s.disableAllButttons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFila');
 }
 
+/**
+*Cambia los inputs por los componentes rup.
+*
+* @name _changeInputsToRup
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+*
+*/
 function _changeInputsToRup(ctx,idRow){
 	// Se procesan las celdas editables
 
@@ -667,6 +725,19 @@ function _changeInputsToRup(ctx,idRow){
 	}
 }
 
+/**
+* Método para recorre las celdas y las procesa.
+*
+* @name _recorrerCeldas
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {object} $celdas - Todas las celdas a recorrer.
+* @param {integer} cont - Contador para saber en que celda nos movemos, sobre todo en el responsive.
+*
+*/
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	$fila.addClass('editable');
 	var colModel = ctx.oInit.colModel;
@@ -756,6 +827,19 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	return cont - ocultos;
 }
 
+/**
+* Método para restaurar las celdas.
+*
+* @name _restaurarCeldas
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {object} $celdas - Todas las celdas a recorrer.
+* @param {integer} contRest - Contador para saber en que celda nos movemos, sobre todo en el responsive.
+*
+*/
 function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 
 	if($fila.hasClass("editable")){
@@ -793,6 +877,17 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 	return contRest;
 }
 
+/**
+* Comprueba que si la fila está en responsive mantenga el diseño.
+*
+* @name _comprobarFila
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _comprobarFila(ctx,$fila){
 	var count = ctx.responsive.s.current.reduce(function (a,b) {return b === false ? a+1 : a;}, 0 );
 	var $span = $fila.find('span.openResponsive');
@@ -813,6 +908,17 @@ function _comprobarFila(ctx,$fila){
 	tabla.responsive.recalc();
 }
 
+/**
+* Crea los eventos asociados a la fila.
+*
+* @name _crearEventos
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $selector - fila que se está editando.
+*
+*/
 function _crearEventos(ctx,$selector){
 	if($selector.data( "events" ) === undefined || $selector.data( "events" ).keydown === undefined){
 		$selector.keydown(function(e) {
@@ -834,8 +940,21 @@ function _crearEventos(ctx,$selector){
 		    }
 		});
 	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineCrearEventos');
 }
 
+/**
+* Método para recorre las celdas y las procesa.
+*
+* @name _lastIndexEditable
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $target - fila que se está editando.
+*
+* @return devuelve si es el último index editado
+*/
 function _lastIndexEditable(ctx,$target){
 	var indexTarget = $target.closest('td').index();
 	//Se recooren las columnas a la inversa, si es editable, se devuelve la posicion
@@ -866,16 +985,17 @@ function _lastIndexEditable(ctx,$target){
 /**
 * Metodo que serializa los datos del formulario.
 *
-* @name _inlineFormSerialize
+* @name _inlineEditFormSerialize
 * @function
-* @since UDA 3.6.0 // Datatable 1.2.0
+* @since UDA 3.7.0 // Datatable 1.2.0
 *
-* @param {object} idForm - Formulario que alberga los datos.
+* @param {object} $fila - Fila la cual estamos editando.
+* @param {object} ctx - Contexto del datatable.
+* @param {boolean} child - boolean para saber si tiene hijos en el responsive.
 *
-* @return {string} - Devuelve los datos del formulario serializados
 *
 */
-function _editFormSerialize($fila,ctx,child){
+function _inlineEditFormSerialize($fila,ctx,child){
 	var serializedForm = {};
 	var selectores = {};
 
@@ -898,7 +1018,6 @@ function _editFormSerialize($fila,ctx,child){
 		}
 		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
-			_aplicarValidaciones(ctx,obj.id);
 			var value = $(obj).val();
 			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
 				value = "0";
@@ -922,15 +1041,28 @@ function _editFormSerialize($fila,ctx,child){
 	return serializedForm;
 }
 
+/**
+* Método para llamar al ajax de guardado y nuevo.
+*
+* @name _guardar
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+* @param {boolean} $child - boolean apra decir si la llamda es del hijo o del padre
+*
+*/
 function _guardar(ctx,$fila,child){
 
 	//Se serializa el formulario con los cambios
-	var row = _editFormSerialize($fila,ctx,child);
+	var row = _inlineEditFormSerialize($fila,ctx,child);
 	var actionType = "PUT";
 	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
 		actionType = "POST";
 	}
 	_callSaveAjax(actionType,ctx,$fila,row,'');
+	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
 }
 
 /**
@@ -938,20 +1070,18 @@ function _guardar(ctx,$fila,child){
 *
 * @name _callSaveAjax
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
-* @param {object} dt - Es el objeto datatable.
-* @param {object} row - Son los datos que se cargan.
-* @param {integer} idRow - Número con la posición de la fila que hay que obtener.
-* @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog.
-* @param {string} idTableDetail - Identificdor del detail de la table.
-* @param {string} url - Url que se añade para llamar  al controller.
+* @param {object} ctx - Es el contexto datatable.
+* @param {object} $fila - Fila que se está editando.
+* @param {object} $row - Son los datos que se cargan.
+* @param {string} url - Url que se añade para llamar  al controller. Añadir, editar o borrar.
 *
 */
 function _callSaveAjax(actionType,ctx,$fila,row,url){
-	var idTableDetail = $(ctx.oInit.inlineEdit.detailForm);
-	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
+	
+	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
 	// add Filter
 	var feed = $('#'+ctx.inlineEdit.nameFeedback);
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
@@ -1008,7 +1138,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
 				}
-				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
+				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
@@ -1022,10 +1152,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				_addChildIcons(ctx);
 			} );
 			
-			$('#' + ctx.sTableId).triggerHandler('tableEditLineSuccessCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
 		},
 		complete : function() {
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax');
 		},
 		error : function(xhr, ajaxOptions,thrownError) {
 			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
@@ -1033,7 +1163,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertAfter('#'+ctx.sTableId);
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,
 		feedback:feed.rup_feedback({type:"ok",block:false})
@@ -1046,31 +1176,13 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
-function _aplicarValidaciones(ctx,id){
-	//se añaden las nuevas reglas
-	if(ctx.inlineEdit.lastRow.submit === undefined || ctx.inlineEdit.lastRow.submit === 0){
-		var idForm = $('#'+ctx.sTableId+'_search_searchForm');
-		//idForm.validate();
-	}
-	/*	$.each(ctx.oInit.inlineEdit.validate.rules,function(rule) {
-			var idReplace = id.replace('_child','');
-			if(rule.replace('_child','') === idReplace){
-				$("#"+id).rules("remove");
-				$("#"+idReplace).rules("remove");
-				$("#"+id).rules("add", this);
-				return false;
-			}
-		
-		});*/
-
-}
 
 /**
 * Llamada para crear el feedback dentro del dialog.
 *
 * @name callFeedbackOk
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
@@ -1079,7 +1191,7 @@ function _aplicarValidaciones(ctx,id){
 *
 */
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
-	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
+	$('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 	feedback.rup_feedback({message:msgFeedBack,type:type,block:false, gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
@@ -1088,11 +1200,22 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 		setTimeout(function(){
 			feedback.rup_feedback('destroy');
 			feedback.css('width','100%');
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineInternalFeedbackClose');
 		}, confDelay);
 	}
 }
 
+/**
+* Cambiar los valores de los inputs  de responsive a normal y viciversa.
+*
+* @name _inResponsiveChangeInputsValues
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _inResponsiveChangeInputsValues(ctx,$fila){
 	var table = $('#'+ctx.sTableId).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
@@ -1130,6 +1253,17 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	});
 }
 
+/**
+* Asiganar los valores de los inputs en responsive.
+*
+* @name _asignarInputsValues
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $fila - fila que se está editando.
+*
+*/
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
@@ -1150,6 +1284,18 @@ function _asignarInputsValues(ctx,$fila){
 	});
 }
 
+/**
+* Se crear un tr ficticio cuando se va a añadir un registro.
+*
+* @name _createTr
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} dt - datatable
+* @param {object} ctx - Es el contexto de cada tabla.
+* @param {object} $columns - Módelo de columnas de la tabla.
+*
+*/
 function  _createTr(dt,ctx,columns){
 	var row = {};
 	jQuery.grep(ctx.oInit.colModel, function( n) {
@@ -1159,6 +1305,17 @@ function  _createTr(dt,ctx,columns){
 	return columns;
 }
 
+/**
+* Dibujar los iconos del responsive.
+*
+* @name _drawInLineEdit
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} tabla - Api de la tabla
+* @param {object} ctx - Es el contexto de cada tabla.
+*
+*/
 function _drawInlineEdit(tabla,ctx){
 	_addChildIcons(ctx);
 	var row = ctx.inlineEdit.row;
@@ -1175,6 +1332,18 @@ function _drawInlineEdit(tabla,ctx){
 	}
 }
 
+/**
+* Para saber si hay paginación o no.
+*
+* @name _notExistOnPage
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Es el contexto de cada tabla.
+*
+*
+*@return {boolean} si existe paginación o no.
+*/
 function _notExistOnPage(ctx){
 	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row);
 	var encontrado = true;
@@ -1231,7 +1400,7 @@ function _deleteAllSelects(dt){
 *
 * @name _comprobarSeeker
 * @function
-* @since UDA 3.6.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Datatable 1.0.0
 *
 * @param {object} row - Son los datos que se cargan.
 * @param {object} ctx - Settings object to operate on.
