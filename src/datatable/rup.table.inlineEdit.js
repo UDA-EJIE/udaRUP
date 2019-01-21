@@ -105,10 +105,11 @@ DataTable.inlineEdit.init = function ( dt ) {
 		 ctx.oInit.inlineEdit.validate.rules = {};
 		$.each(rulesAux,function(name,rule) {
 			ctx.oInit.inlineEdit.validate.rules[name+"_inline"] = rule;
+			ctx.oInit.inlineEdit.validate.rules[name+"_inline_child"] = rule;
 		});
 		//en inicio se cambian inline x child si hay alguno.
 		
-		$.each(ctx.responsive.s.current,function(index,col) {
+	/*	$.each(ctx.responsive.s.current,function(index,col) {
 			if(col === false){
 				var nameColumns = ctx.aoColumns[index].mData;
 				var rule = ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline"];
@@ -116,7 +117,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 				ctx.oInit.inlineEdit.validate.rules[nameColumns+"_inline_child"] = rule;
 				
 			}
-		});
+		}); */
 	}
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
@@ -1047,8 +1048,11 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 
 function _aplicarValidaciones(ctx,id){
 	//se añaden las nuevas reglas
-	if(ctx.inlineEdit.lastRow.submit !== 0){
-		$.each(ctx.oInit.inlineEdit.validate.rules,function(rule) {
+	if(ctx.inlineEdit.lastRow.submit === undefined || ctx.inlineEdit.lastRow.submit === 0){
+		var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+		//idForm.validate();
+	}
+	/*	$.each(ctx.oInit.inlineEdit.validate.rules,function(rule) {
 			var idReplace = id.replace('_child','');
 			if(rule.replace('_child','') === idReplace){
 				$("#"+id).rules("remove");
@@ -1057,8 +1061,8 @@ function _aplicarValidaciones(ctx,id){
 				return false;
 			}
 		
-		});
-	}
+		});*/
+
 }
 
 /**
@@ -1099,10 +1103,14 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
 				cont = cont + i - total;
-				value = $fila.next('.child').find('li:eq('+cont+')').find('select,input').val();
+				var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
+				value = $inputChild.val();
+				$inputChild.prop('disabled', false);
 
 			}else{//se coge el valor de los inputs ocultos.
-				value = $fila.find('td:eq('+i+')').find('select,input').val();
+				var $input = $fila.find('td:eq('+i+')').find('select,input');
+				value = $input.val();
+				$input.prop('disabled', true);
 			}
 			
 		}else{
