@@ -21,6 +21,7 @@
         "jquery-ui": "./node_modules/jquery-ui-dist/jquery-ui",
         "backbone": "./node_modules/backbone/backbone",
         "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.min",
+        "bootstrap-material-design": "./node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min",
         "underscore": "./node_modules/underscore/underscore",
         "handlebars": "./node_modules/handlebars/dist/handlebars",
         "handlebars-i18n": "../js/handlebars-helper-i18n",

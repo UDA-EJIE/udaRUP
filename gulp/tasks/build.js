@@ -79,6 +79,19 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./assets/js/externals/**/*.*'])
 		.pipe(gulp.dest('dist/js/externals/bootstrap'));
 	
+	// bootstrap-material-design
+	console.log('bootstrap-material-design (v4.1.1)');
+	gulp.src(['./node_modules/bootstrap-material-design/dist/css/*.*'])
+		.pipe(gulp.dest('dist/css/externals/bootstrap-material-design'));
+
+	gulp.src(['./node_modules/bootstrap-material-design/dist/js/*.*'])
+		.pipe(gulp.dest('dist/js/externals/bootstrap-material-design'));
+	
+	// popper
+	console.log('popper.js (v1.14.6)');
+	gulp.src(['./node_modules/popper.js/dist/umd/*.*'])
+		.pipe(gulp.dest('dist/js/externals/popper.js'));
+	
 	// font-awesome
 	console.log('font-awesome');
 	gulp.src(['./node_modules/font-awesome/css/font-awesome.min.css', './node_modules/font-awesome/css/font-awesome.css.map'])
