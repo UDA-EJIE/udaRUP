@@ -584,7 +584,8 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
 			}
 			// Recargar datos
-			dt.ajax.reload();
+			//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
+			dt.ajax.reload(undefined,false);
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
 		},
 		complete : function() {

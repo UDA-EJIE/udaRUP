@@ -72,6 +72,9 @@ DataTable.inlineEdit.init = function ( dt ) {
 	//Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
 	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
+		if($(this).hasClass('editable')){
+			return false;
+		}
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
 		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
@@ -462,13 +465,16 @@ function _editInline ( dt,ctx, idRow ){
 	$.each(selectores,function() {//se crea eventor para los selectores creados.
 		_crearEventos(ctx,this);
 	});
-	//Añadir la seleccion del mismo.
-	if (ctx.oInit.multiSelect !== undefined) {
-		dt['row'](idRow).multiSelect();
-	}else{
-		var rowsBody = $( ctx.nTBody);
-		$('tr',rowsBody).removeClass('selected tr-highlight');
-		DataTable.Api().select.selectRowIndex(dt,idRow,true);
+	
+	if(ctx.oInit.inlineEdit.clone !== true){
+		//Añadir la seleccion del mismo.
+		if (ctx.oInit.multiSelect !== undefined) {
+			dt['row'](idRow).multiSelect();
+		}else{
+			var rowsBody = $( ctx.nTBody);
+			$('tr',rowsBody).removeClass('selected tr-highlight');
+			DataTable.Api().select.selectRowIndex(dt,idRow,true);
+		}
 	}
 	
 	dt.responsive.recalc();
@@ -544,13 +550,48 @@ function _getRowSelected(dt,actionType){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		if(ctx.oInit.inlineEdit !== undefined){
+			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
 	}else{
-		_editInline(dt,ctx,rowDefault.line);
+		if(actionType === 'PUT'){
+			_editInline(dt,ctx,rowDefault.line);
+		}else if(actionType === 'CLONE'){
+			_cloneLine(dt,ctx,rowDefault.line);
+		}
 	}
 
 	return rowDefault;
+}
+
+function _cloneLine(dt,ctx,line){
+
+	//Crear tr ficticio
+	ctx.oInit.inlineEdit.alta = true;
+	ctx.oInit.inlineEdit.clone = true;
+	ctx.oInit.inlineEdit.alta = undefined;
+	if(ctx.oInit.multiSelect !== undefined){//aseguramos que la fila este seleccionada antes de clonarla.
+		dt.row(line).multiSelect();
+	}else if(ctx.oInit.select !== undefined){
+		DataTable.Api().select.drawSelectId(ctx);
+	}
+	
+	var trClonado = $(dt.row(line).node()).clone();
+	ctx.multiselection.selectedIds = [];
+	ctx.multiselection.numSelected++;
+	if(ctx.oInit.multiSelect !== undefined){
+		dt.row(line).deselect();
+	}else if(ctx.oInit.select !== undefined){
+		DataTable.Api().select.deselect(ctx);
+	}
+	
+	trClonado.addClass('new');	
+	$('#'+ctx.sTableId+' tbody').prepend(trClonado);
+		
+	_editInline(dt,ctx,0);
+	ctx.oInit.inlineEdit.clone = undefined;
+	ctx.oInit.inlineEdit.rowDefault = undefined;
+
 }
 
 /**
@@ -649,7 +690,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $(ctx.aoData[ positionLastRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+positionLastRow+')');
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -705,13 +746,14 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
+		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
+		ctx.inlineEdit.lastRow.idx = idRow;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
-		var $fila = $(ctx.aoData[ idRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
 		//Si existe el responsive
 		//Campos sin responsive
 		var $target = $fila.find(ctx.oInit.responsive.details.target);
@@ -937,6 +979,7 @@ function _crearEventos(ctx,$selector){
 		    		child = true;;
 		    	}
 		    	_guardar(ctx,$selector,child);
+		    	return false;
 		    }
 		});
 	}
@@ -1146,11 +1189,13 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
 				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
 			}
-			
-				// Recargar datos
-			dt.ajax.reload( function (  ) {
-				_addChildIcons(ctx);
-			} );
+		
+					// Recargar datos
+				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
+				dt.ajax.reload( function (  ) {
+					_addChildIcons(ctx);
+				},false );
+		
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
 		},
@@ -1498,6 +1543,10 @@ apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
 
 apiRegister( 'inlineEdit.deleteAllSelects()', function ( dt ) {
 	return _deleteAllSelects(dt);
+} );
+
+apiRegister( 'inlineEdit.cloneLine()', function (dt, ctx, idRow ) {
+	_cloneLine(dt,ctx,idRow);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
