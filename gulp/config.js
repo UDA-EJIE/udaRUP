@@ -1,7 +1,6 @@
 module.exports = {
 	config : {
-		//bootstrapDir: './node_modules/bootstrap',
-		bootstrapDir: './node_modules/bootstrap-material-design',
+		bootstrapDir: './node_modules/bootstrap',
 		jqueryUiDir: './node_modules/jquery-ui',
 		jqueryUiSassSource: './node_modules/jquery-ui/themes/base/*.css',
 		qtip2Dir: './node_modules/qtip2',
@@ -15,9 +14,9 @@ module.exports = {
 			buildCss: './dist/css/',
 			buildJs: './build/js/',
 			sass: './scss/',
-			sassBootstrap: './scss/bootstrap-material-design/',
-			sassRupBase: './scss/bootstrap-material-design/base',
-			sassRupTheme: './scss/bootstrap-material-design/theme'
+			sassBootstrap: './scss/bootstrap/',
+			sassRupBase: './scss/bootstrap/base',
+			sassRupTheme: './scss/bootstrap/theme'
 		},
 		files: {
 			sass: {
