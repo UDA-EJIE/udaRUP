@@ -51,39 +51,41 @@ gulp.task('build:resources', function (callback) {
 	// dist/css/images
 	console.log('dist/css/images');
 	gulp.src(['./assets/images/**/*.*'])
-		.pipe(gulp.dest('dist/css/images'));
+		.pipe(gulp.dest('./dist/css/images'));
 
 	// dist/css/cursors
 	console.log('dist/css/cursors');
 	gulp.src(['./assets/cursors/**/*.*'])
-		.pipe(gulp.dest('dist/css/cursors'));
+		.pipe(gulp.dest('./dist/css/cursors'));
+	
+	// dist/css/fonts
+	console.log('dist/css/fonts');
+	gulp.src(['./assets/fonts/*.*'])
+		.pipe(gulp.dest('./dist/css/fonts'))
+		.pipe(gulp.dest('./dist/portal/fonts'));
 
 	// resources
 	console.log('dist/resources');
 	gulp.src(['./i18n/*.json'])
-		.pipe(gulp.dest('dist/resources'));
-
-	// fonts
-	console.log('dist/fonts');
-	gulp.src('./node_modules/font-awesome/fonts/*.*')
-		.pipe(gulp.dest('dist/css/externals/fonts'))
-		.pipe(gulp.dest('dist/portal/externals/fonts'));
+		.pipe(gulp.dest('./dist/resources'));
 
 	// externals
 	console.log('externals ');
 	
 	// bootstrap
-	console.log('bootstrap (v4.1.0)');
-	gulp.src(['./assets/css/externals/**/*.*'])
-		.pipe(gulp.dest('dist/css/externals/bootstrap'));
+	console.log('bootstrap');
+	gulp.src(['./node_modules/bootstrap/dist/css/*.*'])
+		.pipe(gulp.dest('./dist/css/externals/bootstrap'))
+		.pipe(gulp.dest('./dist/portal/externals/bootstrap'));
 
-	gulp.src(['./assets/js/externals/**/*.*'])
-		.pipe(gulp.dest('dist/js/externals/bootstrap'));
+	gulp.src(['./node_modules/bootstrap/dist/js/*.*'])
+		.pipe(gulp.dest('./dist/js/externals/bootstrap'));
 	
-	// font-awesome
-	console.log('font-awesome');
-	gulp.src(['./node_modules/font-awesome/css/font-awesome.min.css', './node_modules/font-awesome/css/font-awesome.css.map'])
-		.pipe(gulp.dest('./dist/css/externals/font-awesome'));
+	// material-design-icons
+	console.log('material-design-icons');
+	gulp.src(['./node_modules/material-design-icons/iconfont/*.css', './node_modules/material-design-icons/iconfont/MaterialIcons-*.*'])
+		.pipe(gulp.dest('./dist/css/externals/icons'))
+		.pipe(gulp.dest('./dist/portal/externals/icons'))
 	
 	// tether
 	console.log('tether');
@@ -96,16 +98,18 @@ gulp.task('build:resources', function (callback) {
 	// jasmine
 	console.log('jasmine');
 	gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/jasmine.css'])
-	.pipe(gulp.dest('./dist/css/externals/jasmine'));
+		.pipe(gulp.dest('./dist/css/externals/jasmine'))
+		.pipe(gulp.dest('./dist/portal/externals/jasmine'));
 	
 	gulp.src(['./node_modules/jasmine-core/images/*favicon*.png'])
-	.pipe(gulp.dest('./dist/css/externals/jasmine'));
+		.pipe(gulp.dest('./dist/css/externals/jasmine'))
+		.pipe(gulp.dest('./dist/portal/externals/jasmine'));
 	
 	gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/*jasmine*.js', './node_modules/jasmine-core/lib/jasmine-core/boot.js'])
 		.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
 	gulp.src(['./node_modules/jasmine-jquery/lib/*jasmine*.js'])
-	.pipe(gulp.dest('./dist/js/externals/jasmine'));
+		.pipe(gulp.dest('./dist/js/externals/jasmine'));
 	
 	//Todo test
 	gulp.src(['./spec/**/*.spec.js'])

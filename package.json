@@ -73,7 +73,6 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "file-system": "2.2.1",
-    "font-awesome": "^4.7.0",
     "fs-then-native": "^2.0.0",
     "gridstack": "0.2.6",
     "gulp": "^3.9.1",
@@ -121,6 +120,7 @@
     "karma-webpack": "^2.0.13",
     "lodash": "4.16.4",
     "lokijs": "1.3.19",
+    "material-design-icons": "^3.0.1",
     "merge-stream": "1.0.0",
     "node-sass": "^4.9.2",
     "npm-run-all": "^4.1.3",
@@ -157,7 +157,6 @@
     "datatables.net-responsive-bs": "2.2.1",
     "datatables.net-responsive-bs4": "2.2.1",
     "flexibility": "^2.0.1",
-    "font-awesome": "4.7.0",
     "free-jqgrid": "4.13.4",
     "handlebars": "4.0.5",
     "jquery": "1.12.4",
@@ -168,6 +167,7 @@
     "jquery-ui-dist": "1.12.0",
     "jquery-validation": "1.15.1",
     "jquery.scrollto": "2.1.2",
+    "material-design-icons": "3.0.1",
     "modernizr": "3.3.1",
     "qtip2": "3.0.3"
   }
