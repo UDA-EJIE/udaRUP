@@ -74,11 +74,11 @@ gulp.task('build:resources', function (callback) {
 	
 	// bootstrap
 	console.log('bootstrap');
-	gulp.src(['./node_modules/bootstrap/dist/css/*.*'])
+	gulp.src(['./node_modules/bootstrap/dist/css/bootstrap.*'])
 		.pipe(gulp.dest('./dist/css/externals/bootstrap'))
 		.pipe(gulp.dest('./dist/portal/externals/bootstrap'));
 
-	gulp.src(['./node_modules/bootstrap/dist/js/*.*'])
+	gulp.src(['./node_modules/bootstrap/dist/js/*bundle*.*'])
 		.pipe(gulp.dest('./dist/js/externals/bootstrap'));
 	
 	// material-design-icons
