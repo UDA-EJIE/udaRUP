@@ -316,8 +316,10 @@
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
 					}
 					
-					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta){
+					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
 						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+					}else if(ctx.oInit.inlineEdit !== undefined){
+						ctx.oInit.inlineEdit.alta = undefined;
 					}
 
 					return ret.data;
@@ -1019,7 +1021,7 @@
 					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
 						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
 							DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-						}else{
+						}//else{
 							DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
 							var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 							if(count > 0){
@@ -1027,7 +1029,7 @@
 							}else{
 								ctx.oInit.inlineEdit.rowDefault = undefined;
 							}
-						}
+					//	}
 					}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
 						var rowsBody = $( ctx.nTBody);
 						var $tr = $('tr:nth-child(1)',rowsBody);

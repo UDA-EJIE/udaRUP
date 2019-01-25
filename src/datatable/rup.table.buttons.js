@@ -2007,6 +2007,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 				var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;
 				DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
 			}else{//edicion en linea
+				ctx.oInit.inlineEdit.alta = true;
 				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'CLONE').line;
 			}
 			break;

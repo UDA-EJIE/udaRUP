@@ -91,6 +91,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		ctx.oInit.inlineEdit.rowDefault = undefined;
 	    		_restaurarFila(ctx,true);;
 	    		_editInline(dt,ctx,row.index());
+	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
+	    			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	    			DataTable.Api().rupTable.selectPencil(ctx,0);
+	    		}
 	    	}
 	    }
 	} );
@@ -557,7 +561,9 @@ function _getRowSelected(dt,actionType){
 		if(actionType === 'PUT'){
 			_editInline(dt,ctx,rowDefault.line);
 		}else if(actionType === 'CLONE'){
-			_cloneLine(dt,ctx,rowDefault.line);
+			dt.ajax.reload( undefined,false );
+			rowDefault.actionType = actionType;
+			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
 	}
 
@@ -565,33 +571,19 @@ function _getRowSelected(dt,actionType){
 }
 
 function _cloneLine(dt,ctx,line){
-
-	//Crear tr ficticio
-	ctx.oInit.inlineEdit.alta = true;
-	ctx.oInit.inlineEdit.clone = true;
-	ctx.oInit.inlineEdit.alta = undefined;
-	if(ctx.oInit.multiSelect !== undefined){//aseguramos que la fila este seleccionada antes de clonarla.
-		dt.row(line).multiSelect();
-	}else if(ctx.oInit.select !== undefined){
-		DataTable.Api().select.drawSelectId(ctx);
-	}
 	
-	var trClonado = $(dt.row(line).node()).clone();
+	dt.row(0).data(dt.row(line+1).data());
+	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
+		ctx.oInit.inlineEdit.rowDefault.line = 0;
+	}
 	ctx.multiselection.selectedIds = [];
-	ctx.multiselection.numSelected++;
-	if(ctx.oInit.multiSelect !== undefined){
-		dt.row(line).deselect();
-	}else if(ctx.oInit.select !== undefined){
-		DataTable.Api().select.deselect(ctx);
+	ctx.multiselection.lastSelectedId = "";
+	ctx.multiselection.numSelected = 0;
+	dt.row(0).data()[ctx.oInit.primaryKey] = "";
+	var columnsHide = dt.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
+		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
 	}
-	
-	trClonado.addClass('new');	
-	$('#'+ctx.sTableId+' tbody').prepend(trClonado);
-		
-	_editInline(dt,ctx,0);
-	ctx.oInit.inlineEdit.clone = undefined;
-	ctx.oInit.inlineEdit.rowDefault = undefined;
-
 }
 
 /**
@@ -968,7 +960,9 @@ function _crearEventos(ctx,$selector){
 		    	if($selector.hasClass("new")){//si se da alta y se cancela.
 		    		var dt = $('#'+ctx.sTableId).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
-		    		dt.ajax.reload();
+		    		ctx.oInit.inlineEdit.alta = undefined;
+		    		//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+		    		dt.ajax.reload(undefined,false);
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
@@ -1144,6 +1138,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
+			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
@@ -1191,7 +1186,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			}
 		
 					// Recargar datos
-				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
+				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
 				dt.ajax.reload( function (  ) {
 					_addChildIcons(ctx);
 				},false );
@@ -1287,7 +1282,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 			contar = contar + i - totalContar;
 			// se asigna valor normal
 			
-			if(valor){
+			if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
 				value = $fila.find('td:eq('+i+')').find('select,input').val();
 			}else{
 				value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
