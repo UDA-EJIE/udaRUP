@@ -316,10 +316,13 @@
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
 					}
 					
-					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
-						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
-					}else if(ctx.oInit.inlineEdit !== undefined){
-						ctx.oInit.inlineEdit.alta = undefined;
+					if(ctx.oInit.inlineEdit !== undefined ){
+						if(ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
+							ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+						}else{
+							ctx.oInit.inlineEdit.alta = undefined;
+						}
+						DataTable.Api().seeker.disabledButtons(ctx);
 					}
 
 					return ret.data;

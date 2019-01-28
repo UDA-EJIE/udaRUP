@@ -454,10 +454,9 @@ function _editInline ( dt,ctx, idRow ){
 		//se deshabilita los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
-	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
-	}
+
+	DataTable.Api().seeker.enabledButtons(ctx);
+	
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
@@ -579,7 +578,9 @@ function _cloneLine(dt,ctx,line){
 	ctx.multiselection.selectedIds = [];
 	ctx.multiselection.lastSelectedId = "";
 	ctx.multiselection.numSelected = 0;
-	dt.row(0).data()[ctx.oInit.primaryKey] = "";
+	$.each(ctx.oInit.primaryKey,function() {
+		dt.row(0).data()[this] = "";
+	});
 	var columnsHide = dt.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
 		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
@@ -699,10 +700,9 @@ function _restaurarFila(ctx,limpiar){
 		if($selectorTr.data( "events" ) !== undefined){
 			$selectorTr.off('keydown');
 		}
-		if(ctx.seeker !== undefined){
-			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-		}
+		
+		DataTable.Api().seeker.disabledButtons(ctx);
+		
 		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
 			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
 		}
@@ -1180,10 +1180,8 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
-			if(ctx.seeker !== undefined){
-				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-			}
+
+			DataTable.Api().seeker.disabledButtons(ctx);
 		
 					// Recargar datos
 				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
@@ -1307,19 +1305,21 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
-		if(celda.visible && celda.value !== undefined ){// se asignan a los inputs ocultos
-			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
-				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+		if(celda.value !== undefined ){
+			if(celda.visible){// se asignan a los inputs ocultos
+				if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
+					$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+				}
+			}else{//se asignan alos child
+				if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
+					$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+				}
+				 contChild++;
 			}
-		}else{//se asignan alos child
-			if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
-				$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
-			}
-			 contChild++;
 		}
 	});
 }
@@ -1338,10 +1338,12 @@ function _asignarInputsValues(ctx,$fila){
 */
 function  _createTr(dt,ctx,columns){
 	var row = {};
-	jQuery.grep(ctx.oInit.colModel, function( n) {
-		row[n.name] = '';
-	});
-	columns.unshift(row);
+	if(ctx.oInit.colModel !== undefined){
+		jQuery.grep(ctx.oInit.colModel, function( n) {
+			row[n.name] = '';
+		});
+		columns.unshift(row);
+	}
 	return columns;
 }
 
