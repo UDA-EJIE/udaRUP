@@ -564,6 +564,23 @@ function _limpiarSeeker(dt,ctx){
 	_processData(dt,ctx,[]);
 	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
 }
+
+function _enabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot button').attr('disabled', true);
+	}
+}
+
+function _disabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+		$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+		$('#'+ctx.sTableId+' tfoot button').removeAttr('disabled');
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -590,6 +607,13 @@ apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,tota
 	_updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
 });
 
+apiRegister('seeker.disabledButtons()', function ( ctx) {
+	_disabledButtons(ctx);
+});
+
+apiRegister('seeker.enabledButtons()', function ( ctx) {
+	_enabledButtons(ctx);
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization
  */

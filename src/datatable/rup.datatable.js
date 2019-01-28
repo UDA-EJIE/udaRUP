@@ -155,6 +155,7 @@
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 					if(options.buttons !== undefined){
+						ctx._buttons[0].inst.s.disableAllButttons = undefined;
 						DataTable.Api().buttons.displayRegex(ctx);
 					}
 			} );
@@ -414,8 +415,13 @@
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
 					}
 					
-					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta){
-						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+					if(ctx.oInit.inlineEdit !== undefined ){
+						if(ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
+							ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+						}else{
+							ctx.oInit.inlineEdit.alta = undefined;
+						}
+						DataTable.Api().seeker.disabledButtons(ctx);
 					}
 
 					return ret.data;
@@ -1038,6 +1044,17 @@
 
 			}
 			
+			if(settings.inlineEdit !== undefined && args[0].responsive === undefined){//si el usuario no cambia el selector
+				var responsive = {           
+					details: {
+				    	type: 'column',
+				    	target: 'td span.openResponsive'
+							},
+					selectorResponsive: 'td span.dtr-data'};		
+					
+				settings.responsive = responsive;;
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
@@ -1104,12 +1121,22 @@
 				if(settingsTable.inlineEdit !== undefined ){
 					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
 					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
-						DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-						var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-						if(count > 0){
-							ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
-						}else{
-							ctx.oInit.inlineEdit.rowDefault = undefined;
+						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
+							DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						}//else{
+							DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+							var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+							if(count > 0){
+								ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
+							}else{
+								ctx.oInit.inlineEdit.rowDefault = undefined;
+							}
+					//	}
+					}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
+						var rowsBody = $( ctx.nTBody);
+						var $tr = $('tr:nth-child(1)',rowsBody);
+						if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id){
+							$tr.addClass('selected tr-highlight');
 						}
 					}
 				}
@@ -1178,7 +1205,7 @@ $.fn.rup_datatable.defaults = {
 	responsive: {           
 		details: {
 	    	type: 'column',
-	    	target: 'td span.openResponsive'
+	    	target: 'tr'
 				},
 		selectorResponsive: 'td span.dtr-data'		
 		}, 

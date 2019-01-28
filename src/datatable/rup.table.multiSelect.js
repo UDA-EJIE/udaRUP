@@ -690,6 +690,10 @@ function _drawSelectId(api,ctx){
 		}
 	});
 	if(pos >= 0){
+		//si hay mas columnas porque aun no ha refrescado al crear y clonar.
+		if(ctx._iDisplayLength < ctx.json.rows.length && !$('#'+ctx.sTableId+' tbody tr').hasClass('new')){
+			pos--;
+		}
 		DataTable.Api().rupTable.selectPencil(api.context[0],pos);
 	}
 }
@@ -1543,7 +1547,8 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	this.iterator( 'row', function ( ctx, idx ) {
 		// si es en edicion en linea,
 		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
-				&& ctx.inlineEdit.lastRow.idx !== idx){
+				&& ctx.inlineEdit.lastRow.idx !== idx){	
+			
 			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
 		}
 		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');

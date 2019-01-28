@@ -72,6 +72,9 @@ DataTable.inlineEdit.init = function ( dt ) {
 	//Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
 	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
+		if($(this).hasClass('editable')){
+			return false;
+		}
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
 		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
@@ -88,6 +91,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		ctx.oInit.inlineEdit.rowDefault = undefined;
 	    		_restaurarFila(ctx,true);;
 	    		_editInline(dt,ctx,row.index());
+	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
+	    			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	    			DataTable.Api().rupTable.selectPencil(ctx,0);
+	    		}
 	    	}
 	    }
 	} );
@@ -447,10 +454,9 @@ function _editInline ( dt,ctx, idRow ){
 		//se deshabilita los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
-	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
-	}
+
+	DataTable.Api().seeker.enabledButtons(ctx);
+	
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
@@ -462,13 +468,16 @@ function _editInline ( dt,ctx, idRow ){
 	$.each(selectores,function() {//se crea eventor para los selectores creados.
 		_crearEventos(ctx,this);
 	});
-	//Añadir la seleccion del mismo.
-	if (ctx.oInit.multiSelect !== undefined) {
-		dt['row'](idRow).multiSelect();
-	}else{
-		var rowsBody = $( ctx.nTBody);
-		$('tr',rowsBody).removeClass('selected tr-highlight');
-		DataTable.Api().select.selectRowIndex(dt,idRow,true);
+	
+	if(ctx.oInit.inlineEdit.clone !== true){
+		//Añadir la seleccion del mismo.
+		if (ctx.oInit.multiSelect !== undefined) {
+			dt['row'](idRow).multiSelect();
+		}else{
+			var rowsBody = $( ctx.nTBody);
+			$('tr',rowsBody).removeClass('selected tr-highlight');
+			DataTable.Api().select.selectRowIndex(dt,idRow,true);
+		}
 	}
 	
 	dt.responsive.recalc();
@@ -544,13 +553,38 @@ function _getRowSelected(dt,actionType){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		if(ctx.oInit.inlineEdit !== undefined){
+			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
 	}else{
-		_editInline(dt,ctx,rowDefault.line);
+		if(actionType === 'PUT'){
+			_editInline(dt,ctx,rowDefault.line);
+		}else if(actionType === 'CLONE'){
+			dt.ajax.reload( undefined,false );
+			rowDefault.actionType = actionType;
+			ctx.oInit.inlineEdit.rowDefault = rowDefault;
+		}
 	}
 
 	return rowDefault;
+}
+
+function _cloneLine(dt,ctx,line){
+	
+	dt.row(0).data(dt.row(line+1).data());
+	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
+		ctx.oInit.inlineEdit.rowDefault.line = 0;
+	}
+	ctx.multiselection.selectedIds = [];
+	ctx.multiselection.lastSelectedId = "";
+	ctx.multiselection.numSelected = 0;
+	$.each(ctx.oInit.primaryKey,function() {
+		dt.row(0).data()[this] = "";
+	});
+	var columnsHide = dt.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
+		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	}
 }
 
 /**
@@ -649,7 +683,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $(ctx.aoData[ positionLastRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+positionLastRow+')');
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -666,10 +700,9 @@ function _restaurarFila(ctx,limpiar){
 		if($selectorTr.data( "events" ) !== undefined){
 			$selectorTr.off('keydown');
 		}
-		if(ctx.seeker !== undefined){
-			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-		}
+		
+		DataTable.Api().seeker.disabledButtons(ctx);
+		
 		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
 			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
 		}
@@ -705,13 +738,14 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
+		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
+		ctx.inlineEdit.lastRow.idx = idRow;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
-		var $fila = $(ctx.aoData[ idRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
 		//Si existe el responsive
 		//Campos sin responsive
 		var $target = $fila.find(ctx.oInit.responsive.details.target);
@@ -926,7 +960,9 @@ function _crearEventos(ctx,$selector){
 		    	if($selector.hasClass("new")){//si se da alta y se cancela.
 		    		var dt = $('#'+ctx.sTableId).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
-		    		dt.ajax.reload();
+		    		ctx.oInit.inlineEdit.alta = undefined;
+		    		//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+		    		dt.ajax.reload(undefined,false);
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
@@ -937,6 +973,7 @@ function _crearEventos(ctx,$selector){
 		    		child = true;;
 		    	}
 		    	_guardar(ctx,$selector,child);
+		    	return false;
 		    }
 		});
 	}
@@ -1101,6 +1138,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
+			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
@@ -1142,15 +1180,15 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
-			if(ctx.seeker !== undefined){
-				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-			}
-			
-				// Recargar datos
-			dt.ajax.reload( function (  ) {
-				_addChildIcons(ctx);
-			} );
+
+			DataTable.Api().seeker.disabledButtons(ctx);
+		
+					// Recargar datos
+				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+				dt.ajax.reload( function (  ) {
+					_addChildIcons(ctx);
+				},false );
+		
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
 		},
@@ -1242,7 +1280,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 			contar = contar + i - totalContar;
 			// se asigna valor normal
 			
-			if(valor){
+			if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
 				value = $fila.find('td:eq('+i+')').find('select,input').val();
 			}else{
 				value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
@@ -1267,19 +1305,21 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
-		if(celda.visible && celda.value !== undefined ){// se asignan a los inputs ocultos
-			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
-				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+		if(celda.value !== undefined ){
+			if(celda.visible){// se asignan a los inputs ocultos
+				if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
+					$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+				}
+			}else{//se asignan alos child
+				if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
+					$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+				}
+				 contChild++;
 			}
-		}else{//se asignan alos child
-			if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
-				$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
-			}
-			 contChild++;
 		}
 	});
 }
@@ -1298,10 +1338,12 @@ function _asignarInputsValues(ctx,$fila){
 */
 function  _createTr(dt,ctx,columns){
 	var row = {};
-	jQuery.grep(ctx.oInit.colModel, function( n) {
-		row[n.name] = '';
-	});
-	columns.unshift(row);
+	if(ctx.oInit.colModel !== undefined){
+		jQuery.grep(ctx.oInit.colModel, function( n) {
+			row[n.name] = '';
+		});
+		columns.unshift(row);
+	}
 	return columns;
 }
 
@@ -1498,6 +1540,10 @@ apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
 
 apiRegister( 'inlineEdit.deleteAllSelects()', function ( dt ) {
 	return _deleteAllSelects(dt);
+} );
+
+apiRegister( 'inlineEdit.cloneLine()', function (dt, ctx, idRow ) {
+	_cloneLine(dt,ctx,idRow);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
