@@ -43,8 +43,7 @@
         -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
          -o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+            
     font-size: 11px;
 }
 
@@ -71,7 +70,6 @@ li[id$='_contextMenuToolbar'] {
 li[id$='_contextMenuToolbar'] > span {
 	position: absolute;
 	left: 30px;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
 	font-size: 1.1rem;
 }
 

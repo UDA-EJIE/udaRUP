@@ -3259,13 +3259,13 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
 
 html {
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 .ui-widget {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 /* Typhography */
 h1 {
@@ -3778,7 +3778,7 @@ select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-con
   top: 0.3rem; }
 
 .context-menu-list {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #fff;
   border-color: #ccc;
   font-size: 1.1rem;
@@ -3888,7 +3888,7 @@ select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-con
     display: inline-block; }
     .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button, .rup-dropdown-btn-group .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton {
       background-image: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+      font-family: "Roboto", sans-serif;
       text-shadow: none;
       border-color: #adadad; }
       .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.ui-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-dropdown-btn-group .ui-button.rup-dropdown-button:hover, .rup-dropdown-btn-group .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-dropdown-button:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-toolbar_menuButton:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_next:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_next:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard a.ui-button.rup-wizard_prev:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.ui-button.rup-wizard_prev:hover, .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton:hover, .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton:hover {
@@ -4924,11 +4924,11 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
         border-right: none; }
   .ui-jqgrid .ui-jqgrid-view {
     font-size: inherit;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    font-family: "Roboto", sans-serif; }
     .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
       border-collapse: inherit; }
   .ui-jqgrid .ui-jqgrid-pager {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    font-family: "Roboto", sans-serif; }
     .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
       height: 3rem; }
       .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
@@ -5385,11 +5385,11 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
         border-right: none; }
   .ui-jqgrid .ui-jqgrid-view {
     font-size: inherit;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    font-family: "Roboto", sans-serif; }
     .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
       border-collapse: inherit; }
   .ui-jqgrid .ui-jqgrid-pager {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif; }
+    font-family: "Roboto", sans-serif; }
     .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
       height: 3rem; }
       .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
@@ -5911,7 +5911,6 @@ table.dataTable tbody > tr:hover {
   box-sizing: content-box;
   text-align: center;
   text-indent: 0 !important;
-  font-family: 'Courier New', Courier, monospace;
   line-height: 14px;
   content: '+';
   cursor: pointer; }

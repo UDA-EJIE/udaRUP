@@ -1408,15 +1408,15 @@
 
 .r01gContainer html {
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer .ui-widget {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Typhography */
@@ -2267,7 +2267,7 @@
 }
 
 .r01gContainer .context-menu-list {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #fff;
   border-color: #ccc;
   font-size: 1.1rem;
@@ -2441,7 +2441,7 @@
 .r01gContainer .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .rup-wizard .ui-button.rup-wizard_submitButton,
 .r01gContainer .rup-wizard .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button.rup-wizard_submitButton {
   background-image: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   text-shadow: none;
   border-color: #adadad;
 }
@@ -3942,7 +3942,7 @@
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-view {
   font-size: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
@@ -3950,7 +3950,7 @@
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-pager {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
@@ -4603,7 +4603,7 @@
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-view {
   font-size: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
@@ -4611,7 +4611,7 @@
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-pager {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .r01gContainer .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
@@ -5397,7 +5397,6 @@
   box-sizing: content-box;
   text-align: center;
   text-indent: 0 !important;
-  font-family: 'Courier New', Courier, monospace;
   line-height: 14px;
   content: '+';
   cursor: pointer;
