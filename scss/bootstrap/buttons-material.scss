@@ -1,0 +1,314 @@
+// VARIABLES
+// COLORES
+$no-color: transparent;
+$white-color: #FFFFFF;
+$black-color: #212529;
+
+$primary-color: #1472a4;
+$primary-color-light: #b8d4e3;
+$primary-color-very-light: #e7f0f5;
+
+$secondary-color: #6c757d;
+$secondary-color-light: #d2d5d8;
+$secondary-color-very-light: #f0f1f2;
+
+$success-color: #4caf50;
+$success-color-light: #c9e7ca;
+$success-color-very-light: #edf7ed;
+
+$danger-color: #dc3545;
+$danger-color-light: #f4c2c7;
+$danger-color-very-light: #fbeaec;
+
+$warning-color: #ffc107;
+$warning-color-light: #ffecb4;
+$warning-color-very-light: #fff8e6;
+
+$info-color: #03a9f4;
+$info-color-light: #b3e5fb;
+$info-color-very-light: #e5f6fd;
+
+
+//ESTILOS
+$opacity-hover: 0.9;
+$opacity-active: 0.5;
+$btn-material-box-shadow: 
+	0 2px 2px 0 rgba(0,0,0,.14),
+	0 3px 1px -2px rgba(0,0,0,.2),
+	0 1px 5px 0 rgba(0,0,0,.12);
+$btn-material-box-shadow-hover:
+	0 4px 5px 0 rgba(0,0,0,.14),
+	0 1px 10px 0 rgba(0,0,0,.12),
+	0 2px 4px -1px rgba(0,0,0,.2);
+$btn-material-box-shadow-active:
+	0 5px 5px -3px rgba(0,0,0,.2),
+	0 8px 10px 1px rgba(0,0,0,.14),
+	0 3px 14px 2px rgba(0,0,0,.12);
+	
+
+// ESTILOS ESPECIFICOS DE LOS BOTONES
+// ENFASIS ALTO
+.btn-material[class*="primary-high-emphasis"] {
+	background-color: $primary-color;		
+}
+
+.btn-material[class*="primary-high-emphasis"]:hover {
+	background-color: $primary-color;
+}
+
+.btn-material[class*="secondary-high-emphasis"] {
+	background-color: $secondary-color;		
+}
+
+.btn-material[class*="secondary-high-emphasis"]:hover {
+	background-color: $secondary-color;
+}
+
+.btn-material[class*="success-high-emphasis"] {
+	background-color: $success-color;		
+}
+
+.btn-material[class*="success-high-emphasis"]:hover {
+	background-color: $success-color;
+}
+
+.btn-material[class*="danger-high-emphasis"] {
+	background-color: $danger-color;		
+}
+
+.btn-material[class*="danger-high-emphasis"]:hover {
+	background-color: $danger-color;
+}
+
+.btn-material[class*="warning-dark-high-emphasis"] {
+	background-color: $warning-color;		
+}
+
+.btn-material[class*="warning-dark-high-emphasis"]:hover {
+	background-color: $warning-color;
+}
+
+.btn-material[class*="info-high-emphasis"] {
+	background-color: $info-color;		
+}
+
+.btn-material[class*="info-high-emphasis"]:hover {
+	background-color: $info-color;
+}
+
+// ENFASIS MEDIO
+.btn-material[class*="primary-medium-emphasis"] {
+	color: $primary-color;		
+}
+
+.btn-material[class*="primary-medium-emphasis"]:hover {
+	background-color: $primary-color-very-light;
+}
+
+.btn-material[class*="secondary-medium-emphasis"] {
+	color: $secondary-color;		
+}
+
+.btn-material[class*="secondary-medium-emphasis"]:hover {
+	background-color: $secondary-color-very-light;
+}
+
+.btn-material[class*="success-medium-emphasis"] {
+	color: $success-color;		
+}
+
+.btn-material[class*="success-medium-emphasis"]:hover {
+	background-color: $success-color-very-light;
+}
+
+.btn-material[class*="danger-medium-emphasis"] {
+	color: $danger-color;		
+}
+
+.btn-material[class*="danger-medium-emphasis"]:hover {
+	background-color: $danger-color-very-light;
+}
+
+.btn-material[class*="warning-dark-medium-emphasis"]:hover {
+	background-color: $warning-color-very-light;
+}
+
+.btn-material[class*="info-medium-emphasis"] {
+	color: $info-color;		
+}
+
+.btn-material[class*="info-medium-emphasis"]:hover {
+	background-color: $info-color-very-light;
+}
+
+// ENFASIS BAJO
+.btn-material[class*="primary-low-emphasis"] {
+	color: $primary-color;
+}
+
+.btn-material[class*="primary-low-emphasis"]:hover {
+	background-color: $primary-color-very-light;
+}
+
+.btn-material[class*="primary-low-emphasis"]:active {
+	background-color: $primary-color-light;
+}
+
+.btn-material[class*="secondary-low-emphasis"] {
+	color: $secondary-color;
+}
+
+.btn-material[class*="secondary-low-emphasis"]:hover {
+	background-color: $secondary-color-very-light;
+}
+
+.btn-material[class*="secondary-low-emphasis"]:active {
+	background-color: $secondary-color-light;
+}
+
+.btn-material[class*="success-low-emphasis"] {
+	color: $success-color;
+}
+
+.btn-material[class*="success-low-emphasis"]:hover {
+	background-color: $success-color-very-light;
+}
+
+.btn-material[class*="success-low-emphasis"]:active {
+	background-color: $success-color-light;
+}
+
+.btn-material[class*="danger-low-emphasis"] {
+	color: $danger-color;
+}
+
+.btn-material[class*="danger-low-emphasis"]:hover {
+	background-color: $danger-color-very-light;
+}
+
+.btn-material[class*="danger-low-emphasis"]:active {
+	background-color: $danger-color-light;
+}
+
+.btn-material[class*="warning-dark-low-emphasis"] {
+	color: $black-color;
+}
+
+.btn-material[class*="warning-dark-low-emphasis"]:hover {
+	background-color: $warning-color-very-light;
+}
+
+.btn-material[class*="warning-dark-low-emphasis"]:active {
+	background-color: $warning-color-light;
+}
+
+.btn-material[class*="info-low-emphasis"] {
+	color: $info-color;
+}
+
+.btn-material[class*="info-low-emphasis"]:hover {
+	background-color: $info-color-very-light;
+}
+
+.btn-material[class*="info-low-emphasis"]:active {
+	background-color: $info-color-light;
+}
+
+// ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES
+// ENFASIS ALTO
+.btn-material[class*="high-emphasis"] {
+	color: $white-color;
+	box-shadow: $btn-material-box-shadow;	
+}
+
+.btn-material[class*="dark-high-emphasis"] {
+	color: $black-color;
+}
+
+.btn-material[class*="high-emphasis"]:hover {
+	color: $white-color;
+	opacity: $opacity-hover;
+	box-shadow: $btn-material-box-shadow-hover;	
+}
+
+.btn-material[class*="dark-high-emphasis"]:hover {
+	color: $black-color;
+}
+
+.btn-material[class*="high-emphasis"]:active {
+	color: $white-color;
+	opacity: $opacity-active;
+	box-shadow: $btn-material-box-shadow-active;	
+}
+
+.btn-material[class*="dark-high-emphasis"]:active {
+	color: $black-color;
+}
+
+// ENFASIS MEDIO
+.btn-material[class*="medium-emphasis"] {
+	background-color: $white-color;
+	border-color: $white-color;
+	box-shadow: $btn-material-box-shadow;
+}
+
+.btn-material[class*="dark-medium-emphasis"] {
+	color: $black-color;
+}
+
+.btn-material[class*="medium-emphasis"]:hover {
+	box-shadow: $btn-material-box-shadow-hover;	
+}
+
+.btn-material[class*="dark-medium-emphasis"]:hover {
+	color: $black-color;
+}
+
+.btn-material[class*="medium-emphasis"]:active {
+	box-shadow: $btn-material-box-shadow-active;	
+}
+
+// ENFASIS BAJO
+.btn-material[class*="low-emphasis"] {
+	border-color: $no-color;
+}
+
+// ESTILOS GENERICOS
+.btn-material {
+	min-width: 64px;
+	height: 36px;
+	padding: 7.5px 16px;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 1.25px;
+	text-decoration: none;
+	text-transform: uppercase;
+	box-sizing: border-box;
+}
+
+// ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO
+.btn-material:focus {
+	outline: none;
+}
+
+// ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO)
+.btn-material:disabled {
+	color: rgba(0, 0, 0, 0.37);
+	background-color: rgba(0, 0, 0, 0.12);
+	box-shadow: none;
+	cursor: default;
+	pointer-events: none;
+}
+
+// ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO)
+.btn-material[class*="low"]:disabled {
+  background-color: $no-color;
+}
+
+// AJUSTE DE POSICIONAMIENTO DEL ICONO
+.btn-material > i {
+	vertical-align: middle;
+	padding-bottom: 2px;
+}
