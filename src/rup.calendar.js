@@ -510,6 +510,8 @@ import { Exception, Utils } from 'handlebars';
 				//Lanzar el plugin subyaciente
 				calObj = new $(self).calendar(settings);
 				this.data('cal',calObj);
+				// Se audita el componente
+				$.rup.auditComponent('rup_calendar', 'init');
 			}
 		}
 	});
