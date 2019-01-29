@@ -168,15 +168,15 @@ $(selector).rup_tabs ({ disable: function(){...} });
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | disabled | <code>object</code> |  | Permite especificar el conjunto de pestañas que, inicialmente, estarán deshabilitadas |
-| close | <code>boolean</code> | <code>false</code> | Determina si se debe mostrar un icono de cerrar pestaña junto al label de las mismas. |
+| [close] | <code>boolean</code> | <code>false</code> | Determina si se debe mostrar un icono de cerrar pestaña junto al label de las mismas. |
 | fixedHeight | <code>integer</code> |  | Permite especificar una altura fija para el contenedor de las pestañas |
-| lengthLiteral | <code>integer</code> |  | Permite especificar un número máximo de caracteres a mostrar en el label de la pestaña antes de aplicar ellipsis. |
+| [lengthLiteral] | <code>integer</code> |  | Permite especificar un número máximo de caracteres a mostrar en el label de la pestaña antes de aplicar ellipsis. |
 | maxNumberTabs | <code>integer</code> |  | Parámetro que determina el número máximo de pestañas que va a permitir el componente que se añadan de manera dinámica |
-| scrollable | <code>boolean</code> | <code>false</code> | Determina si la pestaña permite el mostrar scroll en la capa contenedora |
+| [scrollable] | <code>boolean</code> | <code>false</code> | Determina si la pestaña permite el mostrar scroll en la capa contenedora |
 | layer | <code>string</code> |  | Parámetro que permite especificar fragmentos html previamente cargados para el contenido de una pestaña. El parámetro acepta cualquier tipo de selector válido de JQuery para determinar que fragmento html se ubica en la pestaña. En caso de precisarse un selector de JQuery que devuelva más de un elemento, éstos se incluirán en la pestaña correspondiente dispuestos verticalmente (esta forma de trabajar no es muy ortodoxa pero es factible). |
 | width | <code>integer</code> |  | Permite definir la anchura del componente. |
 | height | <code>integer</code> |  | Permite difinir la altura del componente. |
-| tabsAtBottom | <code>boolean</code> | <code>false</code> | Parámetro que determina si las pestañas se van a mostrar en la parte inferior en vez de en la superior |
+| [tabsAtBottom] | <code>boolean</code> | <code>false</code> | Parámetro que determina si las pestañas se van a mostrar en la parte inferior en vez de en la superior |
 
 <a name="module_rup_tabs..disableTabs"></a>
 

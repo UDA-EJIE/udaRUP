@@ -168,21 +168,21 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| altRows | <code>boolean</code> | <code>true</code> | Determina si se aplica o no el pijama en las filas de la tabla. |
-| altclass | <code>string</code> | <code>&quot;rupgrid_oddRow&quot;</code> | Estilo que se aplica a las filas impares para mostrar el efecto. |
-| datatype | <code>string</code> | <code>&quot;json&quot;</code> | Formato de dato esperado para representar los registros de la tabla. |
-| height | <code>string</code> | <code>&quot;auto&quot;</code> | Determina la altura de la tabla. |
-| jsonReader | <code>object</code> | <code>{repeatitems: false}</code> | Parámetros de configuración que determinan el modo en el que se va a procesar el json de retorno del servidor |
-| resizable | <code>boolean</code> | <code>false</code> | Determina si la tabla puede ser redimensionada mediante el ratón. |
-| rowNum | <code>number</code> | <code>10</code> | Número de registros por página que se van a mostrar en la tabla. |
-| rowList | <code>Array.&lt;number&gt;</code> | <code>[10,20,30]</code> | Lista de posibles valores para el número de elementos por página que se van a mostrar en el combo de selección correspondiente. |
-| sortable | <code>boolean</code> | <code>true</code> | Determina si se permite variar el orden de las columnas arrastrándolas. |
-| viewrecords | <code>boolean</code> | <code>true</code> | Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla. |
-| loadOnStartUp | <code>boolean</code> | <code>true</code> | Determina si se debe realizar automáticamente la búsqueda al cargar la página. |
-| multiplePkToken | <code>string</code> | <code>&quot;~&quot;</code> | Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado. |
-| operations | [<code>Operations</code>](#module_rup_table..Operations) |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
-| showOperations | [<code>ShowOperations</code>](#module_rup_table..ShowOperations) |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
-| startOnPage | <code>number</code> | <code>1</code> | Permite especificar el número de página inicial que se mostrará al cargar la página. |
+| [altRows] | <code>boolean</code> | <code>true</code> | Determina si se aplica o no el pijama en las filas de la tabla. |
+| [altclass] | <code>string</code> | <code>&quot;rupgrid_oddRow&quot;</code> | Estilo que se aplica a las filas impares para mostrar el efecto. |
+| [datatype] | <code>string</code> | <code>&quot;json&quot;</code> | Formato de dato esperado para representar los registros de la tabla. |
+| [height] | <code>string</code> | <code>&quot;auto&quot;</code> | Determina la altura de la tabla. |
+| [jsonReader] | <code>object</code> | <code>{repeatitems: false}</code> | Parámetros de configuración que determinan el modo en el que se va a procesar el json de retorno del servidor |
+| [resizable] | <code>boolean</code> | <code>false</code> | Determina si la tabla puede ser redimensionada mediante el ratón. |
+| [rowNum] | <code>number</code> | <code>10</code> | Número de registros por página que se van a mostrar en la tabla. |
+| [rowList] | <code>Array.&lt;number&gt;</code> | <code>[10,20,30]</code> | Lista de posibles valores para el número de elementos por página que se van a mostrar en el combo de selección correspondiente. |
+| [sortable] | <code>boolean</code> | <code>true</code> | Determina si se permite variar el orden de las columnas arrastrándolas. |
+| [viewrecords] | <code>boolean</code> | <code>true</code> | Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla. |
+| [loadOnStartUp] | <code>boolean</code> | <code>true</code> | Determina si se debe realizar automáticamente la búsqueda al cargar la página. |
+| [multiplePkToken] | <code>string</code> | <code>&quot;~&quot;</code> | Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado. |
+| [operations] | [<code>Operations</code>](#module_rup_table..Operations) |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
+| [showOperations] | [<code>ShowOperations</code>](#module_rup_table..ShowOperations) |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
+| [startOnPage] | <code>number</code> | <code>1</code> | Permite especificar el número de página inicial que se mostrará al cargar la página. |
 
 <a name="module_rup_table..preConfigureCore"></a>
 
@@ -642,10 +642,10 @@ Mediante esta propiedad se definen las posibles operaciones a realizar sobre los
 
 | Name | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | Texto a mostrar al usuario a la hora de visualizar la operación. |
-| icon | <code>string</code> | Clase CSS correspondiente al icono que se quiere visualizar junto a la operación. |
-| enabled | [<code>isEnabled</code>](#module_rup_table..isEnabled) | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
-| callback | [<code>onOperation</code>](#module_rup_table..onOperation) | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
+| [name] | <code>string</code> | Texto a mostrar al usuario a la hora de visualizar la operación. |
+| [icon] | <code>string</code> | Clase CSS correspondiente al icono que se quiere visualizar junto a la operación. |
+| [enabled] | [<code>isEnabled</code>](#module_rup_table..isEnabled) | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
+| [callback] | [<code>onOperation</code>](#module_rup_table..onOperation) | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
 
 **Example**  
 ```js

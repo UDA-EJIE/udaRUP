@@ -20,7 +20,7 @@ $("#idComponente").rup_table({	url: "../jqGridUsuario",	usePlugins:["search"],
     * [~search()](#module_rup_table/search..search)
     * [~navigateToMatchedRow()](#module_rup_table/search..navigateToMatchedRow)
     * [~goToFirstMatched(paramPage)](#module_rup_table/search..goToFirstMatched)
-    * [~fncGetSearchNavigationParams(linkType)](#module_rup_table/search..fncGetSearchNavigationParams) ⇒ <code>object</code>
+    * [~fncGetSearchNavigationParams(buttonType)](#module_rup_table/search..fncGetSearchNavigationParams) ⇒ <code>object</code>
     * [~fncGetSearchNavigationParams(arrParams)](#module_rup_table/search..fncGetSearchNavigationParams)
     * [~clearSearch()](#module_rup_table/search..clearSearch)
     * [~clearHighlightedMatchedRows()](#module_rup_table/search..clearHighlightedMatchedRows)
@@ -39,8 +39,8 @@ Propiedades de configuración del plugin search del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| url | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search). |
-| validate | <code>object</code> |  | Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation. |
+| [url] | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search). |
+| [validate] | <code>object</code> |  | Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation. |
 
 <a name="module_rup_table/search..preConfigureSearch"></a>
 
@@ -154,7 +154,7 @@ $("#idTable").rup_table("goToFirstMatched", paramPage);
 ```
 <a name="module_rup_table/search..fncGetSearchNavigationParams"></a>
 
-### rup_table/search~fncGetSearchNavigationParams(linkType) ⇒ <code>object</code>
+### rup_table/search~fncGetSearchNavigationParams(buttonType) ⇒ <code>object</code>
 Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
 
 **Kind**: inner method of [<code>rup_table/search</code>](#module_rup_table/search)  
@@ -162,11 +162,11 @@ Devuelve los parámetros correspondientes al tipo de enlace de navegación indic
 
 | Param | Type | Description |
 | --- | --- | --- |
-| linkType | <code>paramPage</code> | Tipo de parámetro first, prev, next o last.- |
+| buttonType | <code>paramPage</code> | Tipo de parámetro first, prev, next o last.- |
 
 **Example**  
 ```js
-$("#idTable").rup_table("fncGetSearchNavigationParams", linkType);
+$("#idTable").rup_table("fncGetSearchNavigationParams", buttonType);
 ```
 <a name="module_rup_table/search..fncGetSearchNavigationParams"></a>
 

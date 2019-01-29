@@ -20,8 +20,8 @@ var express = require('express'),
 	routesUpload = require('./demo/routes/upload'),
 	dashboardTable = require('./demo/routes/dashboard');
 	routesAudit = require('./demo/routes/audit');
-
 	routesDatatable = require('./demo/routes/datatable');
+	routesCalendar = require('./demo/routes/calendar');
 
 // db
 //var db = new lokijs('uda');
@@ -39,6 +39,8 @@ module.exports = (PORT) => {
 	app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 	app.use(cookieParser());
 
+	var cors = require('cors');
+	app.use(cors());
 	app.use(function(req, res, next) {
 		res.header('Access-Control-Allow-Origin', '*');
 		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -122,6 +124,11 @@ module.exports = (PORT) => {
 		res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 		res.sendStatus(200);
 	});
+	
+	//Calendar
+	app.get('/demo/calendar/events', routesCalendar.getEvents);
+	app.post('/demo/calendar/events/add', routesCalendar.addEvent);
+	app.post('/demo/calendar/events/restore', routesCalendar.restore);
 
 
 	app.listen(PORT);

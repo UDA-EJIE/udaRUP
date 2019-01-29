@@ -45,25 +45,25 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| onLoadError | [<code>onLoadError</code>](#jQuery.rup_combo..onLoadError) |  | Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar. |
-| width | <code>number</code> | <code>200</code> | Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria. |
-| blank | <code>string</code> | <code>null</code> | Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento. |
-| style | <code>string</code> | <code>&quot;dropdown&quot;</code> | Tipo de visualización de la lista de opciones del combo. |
-| showValue | <code>boolean</code> | <code>false</code> | Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple). |
-| token | <code>string</code> | <code>&quot;\&quot;|\&quot;&quot;</code> | Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal. |
-| multiValueToken | <code>string</code> | <code>&quot;\&quot;##\&quot;&quot;</code> | Define el separador a utilizar en combos enlazados locales. |
-| ordered | <code>boolean</code> | <code>true</code> | Indica si el combo debe ordenarse. |
-| orderedByValue | <code>boolean</code> | <code>false</code> | Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto. |
-| onLoadSuccess | [<code>onLoadSuccess</code>](#jQuery.rup_combo..onLoadSuccess) | <code></code> | Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente. |
-| loadFromSelect | <code>boolean</code> | <code>false</code> | Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento. |
-| multiselect | <code>boolean</code> | <code>false</code> | Indica si el combo permite la selección múltiple. |
-| multiOptgroupIconText | <code>boolean</code> | <code>false</code> | Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo. |
-| submitAsString | <code>boolean</code> | <code>false</code> | Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma. |
-| submitAsJSON | <code>boolean</code> | <code>false</code> | Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …]. |
-| readAsString | <code>boolean</code> | <code>false</code> | Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json. |
-| rowStriping | <code>boolean</code> | <code>false</code> | Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente. |
-| typeAhead | <code>number</code> | <code>false</code> | Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario. |
-| legacyWrapMode | <code>number</code> | <code>false</code> | Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad. |
+| [onLoadError] | [<code>onLoadError</code>](#jQuery.rup_combo..onLoadError) |  | Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar. |
+| [width] | <code>number</code> | <code>200</code> | Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria. |
+| [blank] | <code>string</code> | <code>null</code> | Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento. |
+| [style] | <code>string</code> | <code>&quot;dropdown&quot;</code> | Tipo de visualización de la lista de opciones del combo. |
+| [showValue] | <code>boolean</code> | <code>false</code> | Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple). |
+| [token] | <code>string</code> | <code>&quot;\&quot;|\&quot;&quot;</code> | Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal. |
+| [multiValueToken] | <code>string</code> | <code>&quot;\&quot;##\&quot;&quot;</code> | Define el separador a utilizar en combos enlazados locales. |
+| [ordered] | <code>boolean</code> | <code>true</code> | Indica si el combo debe ordenarse. |
+| [orderedByValue] | <code>boolean</code> | <code>false</code> | Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto. |
+| [onLoadSuccess] | [<code>onLoadSuccess</code>](#jQuery.rup_combo..onLoadSuccess) | <code></code> | Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente. |
+| [loadFromSelect] | <code>boolean</code> | <code>false</code> | Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento. |
+| [multiselect] | <code>boolean</code> | <code>false</code> | Indica si el combo permite la selección múltiple. |
+| [multiOptgroupIconText] | <code>boolean</code> | <code>false</code> | Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo. |
+| [submitAsString] | <code>boolean</code> | <code>false</code> | Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma. |
+| [submitAsJSON] | <code>boolean</code> | <code>false</code> | Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …]. |
+| [readAsString] | <code>boolean</code> | <code>false</code> | Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json. |
+| [rowStriping] | <code>boolean</code> | <code>false</code> | Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente. |
+| [typeAhead] | <code>number</code> | <code>false</code> | Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario. |
+| [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad. |
 
 <a name="module_rup_combo..getRupValue"></a>
 

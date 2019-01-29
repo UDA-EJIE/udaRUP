@@ -642,21 +642,21 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| altRows | <code>boolean</code> | <code>true</code> | Determina si se aplica o no el pijama en las filas de la tabla. |
-| altclass | <code>string</code> | <code>&quot;rupgrid_oddRow&quot;</code> | Estilo que se aplica a las filas impares para mostrar el efecto. |
-| datatype | <code>string</code> | <code>&quot;json&quot;</code> | Formato de dato esperado para representar los registros de la tabla. |
-| height | <code>string</code> | <code>&quot;auto&quot;</code> | Determina la altura de la tabla. |
-| jsonReader | <code>object</code> | <code>{repeatitems: false}</code> | Parámetros de configuración que determinan el modo en el que se va a procesar el json de retorno del servidor |
-| resizable | <code>boolean</code> | <code>false</code> | Determina si la tabla puede ser redimensionada mediante el ratón. |
-| rowNum | <code>number</code> | <code>10</code> | Número de registros por página que se van a mostrar en la tabla. |
-| rowList | <code>Array.&lt;number&gt;</code> | <code>[10,20,30]</code> | Lista de posibles valores para el número de elementos por página que se van a mostrar en el combo de selección correspondiente. |
-| sortable | <code>boolean</code> | <code>true</code> | Determina si se permite variar el orden de las columnas arrastrándolas. |
-| viewrecords | <code>boolean</code> | <code>true</code> | Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla. |
-| loadOnStartUp | <code>boolean</code> | <code>true</code> | Determina si se debe realizar automáticamente la búsqueda al cargar la página. |
-| multiplePkToken | <code>string</code> | <code>&quot;~&quot;</code> | Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado. |
-| operations | [<code>Operations</code>](#module_rup_table..Operations) |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
-| showOperations | [<code>ShowOperations</code>](#module_rup_table..ShowOperations) |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
-| startOnPage | <code>number</code> | <code>1</code> | Permite especificar el número de página inicial que se mostrará al cargar la página. |
+| [altRows] | <code>boolean</code> | <code>true</code> | Determina si se aplica o no el pijama en las filas de la tabla. |
+| [altclass] | <code>string</code> | <code>&quot;rupgrid_oddRow&quot;</code> | Estilo que se aplica a las filas impares para mostrar el efecto. |
+| [datatype] | <code>string</code> | <code>&quot;json&quot;</code> | Formato de dato esperado para representar los registros de la tabla. |
+| [height] | <code>string</code> | <code>&quot;auto&quot;</code> | Determina la altura de la tabla. |
+| [jsonReader] | <code>object</code> | <code>{repeatitems: false}</code> | Parámetros de configuración que determinan el modo en el que se va a procesar el json de retorno del servidor |
+| [resizable] | <code>boolean</code> | <code>false</code> | Determina si la tabla puede ser redimensionada mediante el ratón. |
+| [rowNum] | <code>number</code> | <code>10</code> | Número de registros por página que se van a mostrar en la tabla. |
+| [rowList] | <code>Array.&lt;number&gt;</code> | <code>[10,20,30]</code> | Lista de posibles valores para el número de elementos por página que se van a mostrar en el combo de selección correspondiente. |
+| [sortable] | <code>boolean</code> | <code>true</code> | Determina si se permite variar el orden de las columnas arrastrándolas. |
+| [viewrecords] | <code>boolean</code> | <code>true</code> | Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla. |
+| [loadOnStartUp] | <code>boolean</code> | <code>true</code> | Determina si se debe realizar automáticamente la búsqueda al cargar la página. |
+| [multiplePkToken] | <code>string</code> | <code>&quot;~&quot;</code> | Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado. |
+| [operations] | [<code>Operations</code>](#module_rup_table..Operations) |  | Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad. |
+| [showOperations] | [<code>ShowOperations</code>](#module_rup_table..ShowOperations) |  | Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos. |
+| [startOnPage] | <code>number</code> | <code>1</code> | Permite especificar el número de página inicial que se mostrará al cargar la página. |
 
 <a name="module_rup_table..preConfigureCore"></a>
 
@@ -1116,10 +1116,10 @@ Mediante esta propiedad se definen las posibles operaciones a realizar sobre los
 
 | Name | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | Texto a mostrar al usuario a la hora de visualizar la operación. |
-| icon | <code>string</code> | Clase CSS correspondiente al icono que se quiere visualizar junto a la operación. |
-| enabled | [<code>isEnabled</code>](#module_rup_table..isEnabled) | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
-| callback | [<code>onOperation</code>](#module_rup_table..onOperation) | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
+| [name] | <code>string</code> | Texto a mostrar al usuario a la hora de visualizar la operación. |
+| [icon] | <code>string</code> | Clase CSS correspondiente al icono que se quiere visualizar junto a la operación. |
+| [enabled] | [<code>isEnabled</code>](#module_rup_table..isEnabled) | Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada. |
+| [callback] | [<code>onOperation</code>](#module_rup_table..onOperation) | Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación. |
 
 **Example**  
 ```js
@@ -1161,13 +1161,13 @@ Propiedades de configuración del plugin contextMenu del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| colNames | <code>Array.&lt;string&gt;</code> | <code></code> | Mediante un array se puede configurar las columnas para las cuales se va a mostrar el menú contextual. En caso de especificar el valor null se mostrará en todas las columnas. |
-| createDefaultRowOperations | <code>boolean</code> | <code>true</code> | Propiedad que indica si el componente va a mostrar las operaciones por defecto como opciones dentro del menú contextual. |
-| tbodySelector | <code>string</code> | <code>&quot;&#x27;tbody:first tr[role&#x3D;\\&#x27;row\\&#x27;].jqgrow&#x27;&quot;</code> | Selector de jQuery que identifica el tbody de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de tabla. |
-| tbodyTdSelector | <code>string</code> | <code>&quot;&#x27;tbody:first tr.jqgrow td&#x27;&quot;</code> | Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna. |
-| theadThSelector | <code>string</code> | <code>&quot;&#x27;thead:first th&#x27;&quot;</code> | Selector de jQuery que identifica las cabeceras de las columnas de la tabla. |
-| items | <code>object</code> | <code>{}}</code> | Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros. |
-| showOperations | <code>Array.&lt;rup_table~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
+| [colNames] | <code>Array.&lt;string&gt;</code> | <code></code> | Mediante un array se puede configurar las columnas para las cuales se va a mostrar el menú contextual. En caso de especificar el valor null se mostrará en todas las columnas. |
+| [createDefaultRowOperations] | <code>boolean</code> | <code>true</code> | Propiedad que indica si el componente va a mostrar las operaciones por defecto como opciones dentro del menú contextual. |
+| [tbodySelector] | <code>string</code> | <code>&quot;&#x27;tbody:first tr[role&#x3D;\\&#x27;row\\&#x27;].jqgrow&#x27;&quot;</code> | Selector de jQuery que identifica el tbody de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de tabla. |
+| [tbodyTdSelector] | <code>string</code> | <code>&quot;&#x27;tbody:first tr.jqgrow td&#x27;&quot;</code> | Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna. |
+| [theadThSelector] | <code>string</code> | <code>&quot;&#x27;thead:first th&#x27;&quot;</code> | Selector de jQuery que identifica las cabeceras de las columnas de la tabla. |
+| [items] | <code>object</code> | <code>{}}</code> | Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros. |
+| [showOperations] | <code>Array.&lt;rup_table~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
 
 <a name="module_rup_table/contextMenu..preConfigureContextMenu"></a>
 
@@ -1224,10 +1224,10 @@ Propiedades de configuración del plugin filter del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| showHidden | <code>boolean</code> | <code>false</code> | Determina si el formulario de filtrado se debe de mostrar inicialmente oculto o no. |
-| url | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /filter). |
-| transitionConfig | <code>object</code> |  | Configuración del efecto de la animación de mostrar/ocultar el formulario defiltrado. |
-| fncSearchCriteria | <code>function</code> |  | Permite especificar una función de callback en la cual es posible modificar la cadena de texto con la que se muestra el resumen de los parámetros de filtrado. |
+| [showHidden] | <code>boolean</code> | <code>false</code> | Determina si el formulario de filtrado se debe de mostrar inicialmente oculto o no. |
+| [url] | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /filter). |
+| [transitionConfig] | <code>object</code> |  | Configuración del efecto de la animación de mostrar/ocultar el formulario defiltrado. |
+| [fncSearchCriteria] | <code>function</code> |  | Permite especificar una función de callback en la cual es posible modificar la cadena de texto con la que se muestra el resumen de los parámetros de filtrado. |
 
 <a name="module_rup_table/filter..preConfigureFilter"></a>
 
@@ -1345,7 +1345,7 @@ $("#idComponente").rup_table({	url: "../jqGridUsuario",	usePlugins:["search"],
     * [~search()](#module_rup_table/search..search)
     * [~navigateToMatchedRow()](#module_rup_table/search..navigateToMatchedRow)
     * [~goToFirstMatched(paramPage)](#module_rup_table/search..goToFirstMatched)
-    * [~fncGetSearchNavigationParams(linkType)](#module_rup_table/search..fncGetSearchNavigationParams) ⇒ <code>object</code>
+    * [~fncGetSearchNavigationParams(buttonType)](#module_rup_table/search..fncGetSearchNavigationParams) ⇒ <code>object</code>
     * [~fncGetSearchNavigationParams(arrParams)](#module_rup_table/search..fncGetSearchNavigationParams)
     * [~clearSearch()](#module_rup_table/search..clearSearch)
     * [~clearHighlightedMatchedRows()](#module_rup_table/search..clearHighlightedMatchedRows)
@@ -1364,8 +1364,8 @@ Propiedades de configuración del plugin search del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| url | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search). |
-| validate | <code>object</code> |  | Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation. |
+| [url] | <code>string</code> | <code>null</code> | Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search). |
+| [validate] | <code>object</code> |  | Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation. |
 
 <a name="module_rup_table/search..preConfigureSearch"></a>
 
@@ -1479,7 +1479,7 @@ $("#idTable").rup_table("goToFirstMatched", paramPage);
 ```
 <a name="module_rup_table/search..fncGetSearchNavigationParams"></a>
 
-### rup_table/search~fncGetSearchNavigationParams(linkType) ⇒ <code>object</code>
+### rup_table/search~fncGetSearchNavigationParams(buttonType) ⇒ <code>object</code>
 Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
 
 **Kind**: inner method of [<code>rup_table/search</code>](#module_rup_table/search)  
@@ -1487,11 +1487,11 @@ Devuelve los parámetros correspondientes al tipo de enlace de navegación indic
 
 | Param | Type | Description |
 | --- | --- | --- |
-| linkType | <code>paramPage</code> | Tipo de parámetro first, prev, next o last.- |
+| buttonType | <code>paramPage</code> | Tipo de parámetro first, prev, next o last.- |
 
 **Example**  
 ```js
-$("#idTable").rup_table("fncGetSearchNavigationParams", linkType);
+$("#idTable").rup_table("fncGetSearchNavigationParams", buttonType);
 ```
 <a name="module_rup_table/search..fncGetSearchNavigationParams"></a>
 
@@ -1614,11 +1614,11 @@ Propiedades de configuración del plugin toolbar del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| id | <code>string</code> |  | En caso de que se vaya a utilizar un identificador diferente al esperado por defecto, se deberá de indicar mediante esta propiedad. |
-| createDefaultToolButtons | <code>boolean</code> | <code>true</code> | Determina (true/false) si se deben visualizar los botones correspondientes a las operaciones por defecto del componente. |
-| showOperations | <code>object</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como botones. Cada operación puede tomar uno de los siguientes valores:  true: Valor por defecto. Se mostrará la operación como opción en la botonera.  true: Valor por defecto. Se mostrará la operación como opción en la  false: La operación no se mostrará como opción en la botonera. |
-| deleteOptions | <code>object</code> |  | Propiedades de configuración de la acción de borrado de un registro. |
-| buttons | <code>object</code> |  | Permite definir nuevos botones que se mostrarán en la toolbar. Los nuevos botones se especificarán del mismo modo que se describe en el componente rup_toolbar. |
+| [id] | <code>string</code> |  | En caso de que se vaya a utilizar un identificador diferente al esperado por defecto, se deberá de indicar mediante esta propiedad. |
+| [createDefaultToolButtons] | <code>boolean</code> | <code>true</code> | Determina (true/false) si se deben visualizar los botones correspondientes a las operaciones por defecto del componente. |
+| [showOperations] | <code>object</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como botones. Cada operación puede tomar uno de los siguientes valores:  true: Valor por defecto. Se mostrará la operación como opción en la botonera.  true: Valor por defecto. Se mostrará la operación como opción en la  false: La operación no se mostrará como opción en la botonera. |
+| [deleteOptions] | <code>object</code> |  | Propiedades de configuración de la acción de borrado de un registro. |
+| [buttons] | <code>object</code> |  | Permite definir nuevos botones que se mostrarán en la toolbar. Los nuevos botones se especificarán del mismo modo que se describe en el componente rup_toolbar. |
 
 <a name="module_rup_table/toolbar..preConfigureToolbar"></a>
 
@@ -1670,12 +1670,12 @@ Propiedades de configuración del plugin feedback del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| id | <code>string</code> | <code>null</code> | Nombre del identificador a utilizar en el feedback. Se utiliza en caso de no querer utilizar el por defecto. |
-| config | <code>object</code> |  | Determina la configuración por defecto del feedback. |
-| okFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo . |
-| errorFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ERROR. |
-| alertFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT. |
-| internalFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback interno de la tabla. |
+| [id] | <code>string</code> | <code>null</code> | Nombre del identificador a utilizar en el feedback. Se utiliza en caso de no querer utilizar el por defecto. |
+| [config] | <code>object</code> |  | Determina la configuración por defecto del feedback. |
+| [okFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo . |
+| [errorFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ERROR. |
+| [alertFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT. |
+| [internalFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback interno de la tabla. |
 
 <a name="module_rup_table/feedback..preConfigureFeedback"></a>
 
@@ -1744,10 +1744,10 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| baseLayer | <code>string</code> |  | Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”. |
-| minWidth | <code>integer</code> | <code>100</code> | Determina la anchura máxima a la que se va a redimensionar la capa. |
-| maxWidth | <code>integer</code> | <code>2000</code> | Determina la anchura mínima a la que se va a redimensionar la capa. |
-| fluidOffset | <code>integer</code> | <code>0</code> | Desplazamiento que se aplica a la capa redimensionada. |
+| [baseLayer] | <code>string</code> |  | Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”. |
+| [minWidth] | <code>integer</code> | <code>100</code> | Determina la anchura máxima a la que se va a redimensionar la capa. |
+| [maxWidth] | <code>integer</code> | <code>2000</code> | Determina la anchura mínima a la que se va a redimensionar la capa. |
+| [fluidOffset] | <code>integer</code> | <code>0</code> | Desplazamiento que se aplica a la capa redimensionada. |
 
 <a name="module_rup_table/fluid..postConfigureFluid"></a>
 
@@ -1793,13 +1793,13 @@ Propiedades de configuración del plugin formEdit del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| addEditOptions | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
-| addOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| editOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| deleteOptions | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
-| detailOptions | <code>object</code> | Propiedades de configuración de la acción de mostrar un registro mediante el formulario de detalle. |
-| defaultCompareData | <code>boolean</code> | Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true. |
-| dialogOptions | <code>object</code> | Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo. |
+| [addEditOptions] | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
+| [addOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [editOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [deleteOptions] | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
+| [detailOptions] | <code>object</code> | Propiedades de configuración de la acción de mostrar un registro mediante el formulario de detalle. |
+| [defaultCompareData] | <code>boolean</code> | Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true. |
+| [dialogOptions] | <code>object</code> | Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo. |
 
 <a name="module_rup_table/formEdit..preConfigureFormEdit"></a>
 
@@ -1955,10 +1955,10 @@ Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| addEditOptions | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
-| addOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| editOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| deleteOptions | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
+| [addEditOptions] | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
+| [addOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [editOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [deleteOptions] | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
 
 <a name="module_rup_table/inlineEdit..preConfigureInlineEdit"></a>
 
@@ -2169,16 +2169,16 @@ Propiedades de configuración del plugin jerarquia del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| treedatatype | <code>string</code> | <code>&quot;json&quot;</code> | Determina el tipo de dato empleado para obtener la representación jerárquica. |
-| token | <code>string</code> |  | Carácter separador utilizado para concatenar diferentes identificadores de los registros mostrados en la jerarquía. (por defecto “/”). |
-| icons | <code>object</code> |  | Estilos utilizados para cada uno de los elementos visuales de la jerarquía. |
+| [treedatatype] | <code>string</code> | <code>&quot;json&quot;</code> | Determina el tipo de dato empleado para obtener la representación jerárquica. |
+| [token] | <code>string</code> |  | Carácter separador utilizado para concatenar diferentes identificadores de los registros mostrados en la jerarquía. (por defecto “/”). |
+| [icons] | <code>object</code> |  | Estilos utilizados para cada uno de los elementos visuales de la jerarquía. |
 | icons.plus | <code>object</code> |  | Icono para expandir el nodo. |
 | icons.minus | <code>object</code> |  | Icono para contraer el nodo. |
 | icons.leaf | <code>object</code> |  | Icono correspondiente a un nodo hoja. |
 | icons.filter | <code>object</code> |  | Icono para indicar que el nodo satisface los parámetros de filtrado. |
-| parentNodesTooltip | <code>boolean</code> | <code>true</code> | Determina si se debe de mostrar un tooltip para cada nodo, en el cual se representa la jerarquía que ocupa respecto a los padres. |
-| parentNodesTooltipFnc | <code>function</code> | <code></code> | Función de callback que permite personalizar el tooltip a mostrar. |
-| contextMenu | <code>boolean</code> | <code>true</code> | Determina si se muestra el menú contextual para cada nodo. |
+| [parentNodesTooltip] | <code>boolean</code> | <code>true</code> | Determina si se debe de mostrar un tooltip para cada nodo, en el cual se representa la jerarquía que ocupa respecto a los padres. |
+| [parentNodesTooltipFnc] | <code>function</code> | <code></code> | Función de callback que permite personalizar el tooltip a mostrar. |
+| [contextMenu] | <code>boolean</code> | <code>true</code> | Determina si se muestra el menú contextual para cada nodo. |
 
 <a name="module_rup_table/jerarquia..preConfigurejerarquia"></a>
 
@@ -2294,9 +2294,9 @@ Propiedades de configuración del plugin report del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| columns | <code>object</code> | Permite especificar mediante un array, los identificadores de las columnas que van a ser mostradas en el informe. |
-| excludeColumns | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
-| sendPostDataParams | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
+| [columns] | <code>object</code> | Permite especificar mediante un array, los identificadores de las columnas que van a ser mostradas en el informe. |
+| [excludeColumns] | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
+| [sendPostDataParams] | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
 
 <a name="module_rup_table/report..preConfigureReport"></a>
 
@@ -2351,10 +2351,10 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| idFilter | <code>string</code> |  | Permite asignar un identificador al filtro. Debe ser único para toda la aplicación. En caso de no asignar un id, se asigna el selector del rup_table. |
+| [idFilter] | <code>string</code> |  | Permite asignar un identificador al filtro. Debe ser único para toda la aplicación. En caso de no asignar un id, se asigna el selector del rup_table. |
 | labelSize | <code>string</code> |  | Permite especificar el tamaño máximo permitido para el nombre del filtro. Es una propiedad obligatoria. |
-| userFilter | <code>string</code> |  | En caso de que la aplicación donde se tiene que implementar el multifiltro no implemente la variable LOGGED_USER, para conservar el usuario identificado, con este parámetro permite asignar un identificador de usuario alternativo. |
-| getDefault | <code>boolean</code> | <code>true</code> | Determina si el multifiltro debe de cargar el filtro por defecto al cargar la página. |
+| [userFilter] | <code>string</code> |  | En caso de que la aplicación donde se tiene que implementar el multifiltro no implemente la variable LOGGED_USER, para conservar el usuario identificado, con este parámetro permite asignar un identificador de usuario alternativo. |
+| [getDefault] | <code>boolean</code> | <code>true</code> | Determina si el multifiltro debe de cargar el filtro por defecto al cargar la página. |
 
 <a name="module_rup_table/multifilter..preConfigureMultifilter"></a>
 
@@ -2468,9 +2468,9 @@ Propiedades de configuración del plugin responsive del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| fluid | <code>object</code> | Parametros de configuración |
-| excludeColumns | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
-| sendPostDataParams | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
+| [fluid] | <code>object</code> | Parametros de configuración |
+| [excludeColumns] | <code>Array.&lt;string&gt;</code> | Determina las columnas que van a ser excluidas de la generación del informe. |
+| [sendPostDataParams] | <code>Array.&lt;string&gt;</code> | Parámetros del jqGrid que van a ser enviados en la petición de generación del informe. |
 
 <a name="module_rup_table/responsive..preConfigureResponsive"></a>
 

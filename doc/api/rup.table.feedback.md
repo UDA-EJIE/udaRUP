@@ -25,12 +25,12 @@ Propiedades de configuración del plugin feedback del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| id | <code>string</code> | <code>null</code> | Nombre del identificador a utilizar en el feedback. Se utiliza en caso de no querer utilizar el por defecto. |
-| config | <code>object</code> |  | Determina la configuración por defecto del feedback. |
-| okFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo . |
-| errorFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ERROR. |
-| alertFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT. |
-| internalFeedbackConfig | <code>object</code> |  | Determina la configuración por defecto del feedback interno de la tabla. |
+| [id] | <code>string</code> | <code>null</code> | Nombre del identificador a utilizar en el feedback. Se utiliza en caso de no querer utilizar el por defecto. |
+| [config] | <code>object</code> |  | Determina la configuración por defecto del feedback. |
+| [okFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo . |
+| [errorFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ERROR. |
+| [alertFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT. |
+| [internalFeedbackConfig] | <code>object</code> |  | Determina la configuración por defecto del feedback interno de la tabla. |
 
 <a name="module_rup_table/feedback..preConfigureFeedback"></a>
 
