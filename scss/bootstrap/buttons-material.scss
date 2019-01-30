@@ -1,5 +1,5 @@
-// VARIABLES
-// COLORES
+/* VARIABLES */
+/* COLORES */
 $no-color: transparent;
 $white-color: #FFFFFF;
 $black-color: #212529;
@@ -29,7 +29,7 @@ $info-color-light: #b3e5fb;
 $info-color-very-light: #e5f6fd;
 
 
-//ESTILOS
+/* ESTILOS */
 $opacity-hover: 0.9;
 $opacity-active: 0.5;
 $btn-material-box-shadow: 
@@ -46,8 +46,8 @@ $btn-material-box-shadow-active:
 	0 3px 14px 2px rgba(0,0,0,.12);
 	
 
-// ESTILOS ESPECIFICOS DE LOS BOTONES
-// ENFASIS ALTO
+/* ESTILOS ESPECIFICOS DE LOS BOTONES */
+/* ENFASIS ALTO */
 .btn-material[class*="primary-high-emphasis"] {
 	background-color: $primary-color;		
 }
@@ -96,7 +96,7 @@ $btn-material-box-shadow-active:
 	background-color: $info-color;
 }
 
-// ENFASIS MEDIO
+/* ENFASIS MEDIO */
 .btn-material[class*="primary-medium-emphasis"] {
 	color: $primary-color;		
 }
@@ -141,7 +141,7 @@ $btn-material-box-shadow-active:
 	background-color: $info-color-very-light;
 }
 
-// ENFASIS BAJO
+/* ENFASIS BAJO */
 .btn-material[class*="primary-low-emphasis"] {
 	color: $primary-color;
 }
@@ -214,8 +214,8 @@ $btn-material-box-shadow-active:
 	background-color: $info-color-light;
 }
 
-// ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES
-// ENFASIS ALTO
+/* ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES */
+/* ENFASIS ALTO */
 .btn-material[class*="high-emphasis"] {
 	color: $white-color;
 	box-shadow: $btn-material-box-shadow;	
@@ -245,7 +245,7 @@ $btn-material-box-shadow-active:
 	color: $black-color;
 }
 
-// ENFASIS MEDIO
+/* ENFASIS MEDIO */
 .btn-material[class*="medium-emphasis"] {
 	background-color: $white-color;
 	border-color: $white-color;
@@ -268,12 +268,12 @@ $btn-material-box-shadow-active:
 	box-shadow: $btn-material-box-shadow-active;	
 }
 
-// ENFASIS BAJO
+/* ENFASIS BAJO */
 .btn-material[class*="low-emphasis"] {
 	border-color: $no-color;
 }
 
-// ESTILOS GENERICOS
+/* ESTILOS GENERICOS */
 .btn-material {
 	min-width: 64px;
 	height: 36px;
@@ -288,12 +288,12 @@ $btn-material-box-shadow-active:
 	box-sizing: border-box;
 }
 
-// ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO
+/* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
 .btn-material:focus {
 	outline: none;
 }
 
-// ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO)
+/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
 .btn-material:disabled {
 	color: rgba(0, 0, 0, 0.37);
 	background-color: rgba(0, 0, 0, 0.12);
@@ -302,12 +302,12 @@ $btn-material-box-shadow-active:
 	pointer-events: none;
 }
 
-// ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO)
+/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
 .btn-material[class*="low"]:disabled {
   background-color: $no-color;
 }
 
-// AJUSTE DE POSICIONAMIENTO DEL ICONO
+/* AJUSTE DE POSICIONAMIENTO DEL ICONO */
 .btn-material > i {
 	vertical-align: middle;
 	padding-bottom: 2px;
