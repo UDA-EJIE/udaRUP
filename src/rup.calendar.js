@@ -551,8 +551,8 @@ import { Exception, Utils } from 'handlebars';
 	 * @property {boolean} weekbox - Determina si se muestra o no un div con el número de la semana en la vista de mes.
 	 * @property {object} headers - Cabeceras para las llamadas ajax realizadas desde el calendario.
 	 * @property {boolean} cell_navigation - Determina si se cambia la vista al día o mes haciendo doble click en la celda o click en el número de dia o nombre de mes.
-	 * @property {number} date_range_start - Indica la fecha mínima (en milisegundos) del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que pasar el valor null.
-	 * @property {number} date_range_end - Indica la fecha máxima (en milisegundos) del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que padar el valor null.
+	 * @property {number} date_range_start - Indica la fecha mínima del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que pasar el valor null.
+	 * @property {number} date_range_end - Indica la fecha máxima del rango de operación permitido del calendario. Para retirar esta opcion mediante el método 'options' hay que padar el valor null.
 	 * @property {function} onAfterEventsLoad - Callback que se ejecuta tras cargar los eventos (Recibe los eventos como parámetros).
 	 * @property {function} onBeforeEventsLoad - Callback que se ejecuta antes de cargar los eventos.
 	 * @property {function} onAfterViewLoad - Callback que se ejecuta tras cargar una nueva vista (Recibe la vista como parámetro).

@@ -715,12 +715,15 @@ if(!String.prototype.formatNum) {
 		if(holiday !== false) {
 			t.tooltip = holiday;
 		}
+		// Transformamos la fecha a local de existir  y la usamos para establecer los out of range.
 		if(this.options.date_range_start) {
+			this.options.date_range_start = $.datepicker.parseDate('dd/mm/yy',this.options.date_range_start.toLocaleDateString());
 			if(curdate.getTime() < this.options.date_range_start.getTime()) {
 				cls += ' rup-out-of-range';
 			}
 		}
 		if(this.options.date_range_end) {
+			this.options.date_range_end = $.datepicker.parseDate('dd/mm/yy',this.options.date_range_end.toLocaleDateString());
 			if(curdate.getTime() > this.options.date_range_end.getTime()) {
 				cls += ' rup-out-of-range';
 			}
@@ -1118,6 +1121,11 @@ if(!String.prototype.formatNum) {
 				var view = $('[data-cal-date]', this).data('cal-view');
 				self.options.day = $('[data-cal-date]', this).data('cal-date');
 				self.view(view);
+			});
+			// Los que estén fuera de rango los quitamos.
+			$('.rup-out-of-range').each(function (i,e) {
+				$(e).parent().off('dblclick');
+				$('span', $(e)).off('click');
 			});
 		}
 
