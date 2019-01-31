@@ -16,13 +16,17 @@
   box-sizing: border-box;
 }
 
-.form-groupMaterial input:hover {
+.form-groupMaterial input:hover:enabled {
   border-color: #212529;
 }
 
-.form-groupMaterial input:focus {
+.form-groupMaterial input:focus:enabled {
   border-color: #1472a4;
   border-width: 2px;
+}
+
+.form-groupMaterial input:placeholder-shown:disabled {
+  color: transparent;
 }
 
 /* ESTILOS DE LOS LABELS */
@@ -40,8 +44,8 @@
   -webkit-transition: 0.2s ease all;
 }
 
-.form-groupMaterial input:focus ~ label,
-.form-groupMaterial input:valid ~ label {
+.form-groupMaterial input:focus:enabled ~ label,
+.form-groupMaterial input:valid:enabled ~ label {
   top: -12px;
   font-size: 14px;
   color: #1472a4;
