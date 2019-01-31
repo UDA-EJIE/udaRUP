@@ -11,12 +11,13 @@ var properties = { day: 'now',	classes: {		months: {			inmonth: 'cal-day-inm
 
 * [rup_calendar](#module_rup_calendar)
     * [~getYear](#module_rup_calendar..getYear) ⇒ <code>number</code>
-    * [~getMonth](#module_rup_calendar..getMonth) ⇒ <code>number</code>
+    * [~getMonth](#module_rup_calendar..getMonth) ⇒ <code>string</code>
     * [~getWeek](#module_rup_calendar..getWeek) ⇒ <code>number</code>
     * [~getDay](#module_rup_calendar..getDay) ⇒ <code>string</code>
     * [~defaults](#module_rup_calendar..defaults)
     * [~classes](#module_rup_calendar..classes)
     * [~views](#module_rup_calendar..views)
+    * [~Eventos](#module_rup_calendar..Eventos)
     * [~navigate(navigation)](#module_rup_calendar..navigate)
     * [~isToday()](#module_rup_calendar..isToday) ⇒ <code>boolean</code>
     * [~instance()](#module_rup_calendar..instance) ⇒ <code>object</code>
@@ -45,11 +46,11 @@ $('#calendar').rup_calendar('getYear');
 ```
 <a name="module_rup_calendar..getMonth"></a>
 
-### rup_calendar~getMonth ⇒ <code>number</code>
-Obtiene el mes del calendario (1 - 12)
+### rup_calendar~getMonth ⇒ <code>string</code>
+Obtiene el mes del calendario (Enero, Febrero, ..., Diciembre)
 
 **Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
-**Returns**: <code>number</code> - el mes del calendario  
+**Returns**: <code>string</code> - el mes del calendario  
 **Example**  
 ```js
 $('#calendar').rup_calendar('getMonth');
@@ -162,10 +163,27 @@ Propiedades del objeto 'views'
 | views.day | <code>object</code> | Establece las opciones para la vista diaria. |
 | views.day.enable | <code>integer</code> | Si el valor es 1 habilita la vista. |
 
+<a name="module_rup_calendar..Eventos"></a>
+
+### rup_calendar~Eventos
+Ya sea desde local o remoto el JSON con los eventos es un array de objetos en el que cada objeto tiene las siguientes propiedades:
+
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | identificador único del evento. |
+| title | <code>string</code> | texto o html que aparecerá al desplegar la celda con el evento. |
+| start | <code>string</code> | la fecha en la que inicia el evento (En milisegundos). |
+| class | <code>string</code> | clase a añadir al evento (Sirve para la visualización del evento). |
+| end | <code>string</code> | la fecha en la que finaliza el evento. |
+| url | <code>string</code> | ruta a la que llevar cuando se haga click sobre el evento. |
+
 <a name="module_rup_calendar..navigate"></a>
 
 ### rup_calendar~navigate(navigation)
-Navega en el calendario al punto especificado
+Navega en el calendario al punto especificadoSi el parámetro es un string las únicas opciones son: - next - prev - today
 
 **Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 
@@ -301,7 +319,7 @@ Muestra los eventos de la casilla con la fecha especificada.
 
 **Example**  
 ```js
-$('#calendar').rup_calendar('showCell');
+$('#calendar').rup_calendar('showCell', new Date('2000-01-01'));
 ```
 <a name="module_rup_calendar..hideCells"></a>
 

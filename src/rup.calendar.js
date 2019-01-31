@@ -87,6 +87,10 @@ import { Exception, Utils } from 'handlebars';
 	$.fn.rup_calendar('extend', {
 		/**
 		 * Navega en el calendario al punto especificado
+		 * Si el parámetro es un string las únicas opciones son:
+		 *  - next
+		 *  - prev
+		 *  - today
 		 *
 		 * @name navigate
 		 * @param {(string|Date)} navigation Hacia dónde navegar
@@ -206,9 +210,9 @@ import { Exception, Utils } from 'handlebars';
 			return $(ctx).data('cal').getYear();
 		},
 		/**
-		 * Obtiene el mes del calendario (1 - 12)
+		 * Obtiene el mes del calendario (Enero, Febrero, ..., Diciembre)
 		 * @name getMonth
-		 * @returns {number} el mes del calendario
+		 * @returns {string} el mes del calendario
 		 * @example
 		 * $('#calendar').rup_calendar('getMonth');
 		 */
@@ -349,7 +353,7 @@ import { Exception, Utils } from 'handlebars';
 		 * @param {Date} fecha fecha a consultar
 		 * @returns {boolean} true si había eventos. false en caso contrario.
 		 * @example
-		 * $('#calendar').rup_calendar('showCell');
+		 * $('#calendar').rup_calendar('showCell', new Date('2000-01-01'));
 		 */
 		showCell : function(date) {
 			var ctx = this;
@@ -592,6 +596,21 @@ import { Exception, Utils } from 'handlebars';
 	 * @property {object} views.day - Establece las opciones para la vista diaria.
 	 * @property {integer} views.day.enable - Si el valor es 1 habilita la vista.
 	 */
+
+	 /**
+	  * @description Ya sea desde local o remoto el JSON con los eventos es un array de objetos en el que
+	  *  cada objeto tiene las siguientes propiedades:
+	  * 
+	  * @name Eventos
+	  * 
+	  * @property {string} id identificador único del evento.
+	  * @property {string} title texto o html que aparecerá al desplegar la celda con el evento.
+	  * @property {string} start la fecha en la que inicia el evento (En milisegundos).
+	  * @property {string} class clase a añadir al evento (Sirve para la visualización del evento).
+	  * @property {string} end la fecha en la que finaliza el evento.
+	  * @property {string} url ruta a la que llevar cuando se haga click sobre el evento.
+	  * 
+	  */
 
 	$.fn.rup_calendar.defaults = {
 		events_source: () => {
