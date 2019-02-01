@@ -3567,8 +3567,7 @@ tfoot .rup-date-input-group {
 .tr-highlight {
   border: 1px solid #dad55e;
   background: #fffa90;
-  color: #777620;
-  font-weight: bold; }
+  color: #777620; }
 
 table.dataTable tbody > tr:hover {
   background: #b9d4ec !important;
@@ -3587,9 +3586,8 @@ table.dataTable tbody > tr:hover {
 
 .tr-highlight {
   border: 1px solid #dad55e;
-  background: #fffa90;
-  color: #777620;
-  font-weight: bold; }
+  background: #fffa90 !important;
+  color: #000000; }
 
 .datatable_checkbox {
   width: 11px;
@@ -3694,19 +3692,19 @@ table.dataTable tbody > tr:hover {
   content: '+'; }
 
 .openResponsive:hover {
-  background-color: #197019; }
+  background-color: #004eff; }
 
 .openResponsive {
-  background-color: #31b131; }
+  background-color: #007bff; }
 
 .closeResponsive:before {
   content: '-'; }
 
 .closeResponsive {
-  background-color: #d33333; }
+  background-color: #007bff; }
 
 .closeResponsive:hover {
-  background-color: #fc081f; }
+  background-color: #004eff; }
 
 .select-checkbox {
   text-align: center; }
@@ -4116,7 +4114,8 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   border-color: #007bff !important; }
 
 ul.dtr-details .dtr-title {
-  display: block; }
+  display: block;
+  font-weight: bold; }
 
 ul.dtr-details .dtr-data {
   max-width: 300px;

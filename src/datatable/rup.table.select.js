@@ -138,6 +138,9 @@ function _selectRowIndex(dt,index,tr){
 	var rowsBody = $( ctx.nTBody);
 	if(tr.hasClass( "tr-highlight" )){//se deselecciona
 		tr.removeClass('selected tr-highlight');
+		if(tr.next('.child').length >= 1){
+			tr.next('.child').removeClass('selected tr-highlight');
+		}
 		ctx.multiselection.numSelected = 0;
 		ctx.multiselection.selectedIds = [];
 		ctx.multiselection.lastSelectedId = '';
@@ -149,6 +152,9 @@ function _selectRowIndex(dt,index,tr){
 	}else{ //se selecciona
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
+		if(tr.next('.child').length >= 1){
+			tr.next('.child').addClass('selected tr-highlight');
+		}
 		tr.triggerHandler('tableHighlightRowAsSelected');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){

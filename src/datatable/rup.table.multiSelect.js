@@ -578,6 +578,9 @@ function init ( ctx ) {
 			// Row
 			if ( d._multiSelect_selected ) {
 				$( row ).addClass( ctx._multiSelect.className );
+				if(api.row(index).child() !== undefined){
+					api.row(index).child().addClass( ctx._multiSelect.className );
+				}
 			}
 
 			// Cells and columns - if separated out, we would need to do two
@@ -678,6 +681,9 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			if(api.row(idx).child() !== undefined){
+				api.row(idx).child().addClass( ctx._multiSelect.className );
+			}
 			// Marcamos el checkbox
 			$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
@@ -1558,6 +1564,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		
 		// Añadimos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().addClass( ctx._multiSelect.className );
+		}
 		// Marcamos el checkbox
 		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 		
@@ -1586,6 +1595,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 					ctx.aoData[ idx ]._multiSelect_selected = true;
 					// Añadimos el fondo amarillo
 					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+					if(api.row(idx).child() !== undefined){
+						api.row(idx).child().addClass( ctx._multiSelect.className );
+					}
 					// Marcamos el checkbox
 					$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 
@@ -1691,6 +1703,9 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		
 		// Quitamos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().removeClass( ctx._multiSelect.className );
+		}
 		// Desmarcamos el checkbox
 		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', false);
 		

@@ -5792,8 +5792,7 @@ tfoot .rup-date-input-group {
 .tr-highlight {
   border: 1px solid #dad55e;
   background: #fffa90;
-  color: #777620;
-  font-weight: bold; }
+  color: #777620; }
 
 table.dataTable tbody > tr:hover {
   background: #b9d4ec !important;
@@ -5812,9 +5811,8 @@ table.dataTable tbody > tr:hover {
 
 .tr-highlight {
   border: 1px solid #dad55e;
-  background: #fffa90;
-  color: #777620;
-  font-weight: bold; }
+  background: #fffa90 !important;
+  color: #000000; }
 
 .datatable_checkbox {
   width: 11px;
@@ -5919,19 +5917,19 @@ table.dataTable tbody > tr:hover {
   content: '+'; }
 
 .openResponsive:hover {
-  background-color: #197019; }
+  background-color: #004eff; }
 
 .openResponsive {
-  background-color: #31b131; }
+  background-color: #007bff; }
 
 .closeResponsive:before {
   content: '-'; }
 
 .closeResponsive {
-  background-color: #d33333; }
+  background-color: #007bff; }
 
 .closeResponsive:hover {
-  background-color: #fc081f; }
+  background-color: #004eff; }
 
 .select-checkbox {
   text-align: center; }
@@ -6339,6 +6337,14 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   color: #fff !important;
   background-color: #007bff !important;
   border-color: #007bff !important; }
+
+ul.dtr-details .dtr-title {
+  display: block;
+  font-weight: bold; }
+
+ul.dtr-details .dtr-data {
+  max-width: 300px;
+  width: 90%; }
 
 .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
 .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,

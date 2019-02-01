@@ -5237,7 +5237,6 @@
   border: 1px solid #dad55e;
   background: #fffa90;
   color: #777620;
-  font-weight: bold;
 }
 
 .r01gContainer table.dataTable tbody > tr:hover {
@@ -5265,9 +5264,8 @@
 
 .r01gContainer .tr-highlight {
   border: 1px solid #dad55e;
-  background: #fffa90;
-  color: #777620;
-  font-weight: bold;
+  background: #fffa90 !important;
+  color: #000000;
 }
 
 .r01gContainer .datatable_checkbox {
@@ -5408,11 +5406,11 @@
 }
 
 .r01gContainer .openResponsive:hover {
-  background-color: #197019;
+  background-color: #004eff;
 }
 
 .r01gContainer .openResponsive {
-  background-color: #31b131;
+  background-color: #007bff;
 }
 
 .r01gContainer .closeResponsive:before {
@@ -5420,11 +5418,11 @@
 }
 
 .r01gContainer .closeResponsive {
-  background-color: #d33333;
+  background-color: #007bff;
 }
 
 .r01gContainer .closeResponsive:hover {
-  background-color: #fc081f;
+  background-color: #004eff;
 }
 
 .r01gContainer .select-checkbox {
@@ -6081,6 +6079,16 @@
   color: #fff !important;
   background-color: #007bff !important;
   border-color: #007bff !important;
+}
+
+.r01gContainer ul.dtr-details .dtr-title {
+  display: block;
+  font-weight: bold;
+}
+
+.r01gContainer ul.dtr-details .dtr-data {
+  max-width: 300px;
+  width: 90%;
 }
 
 .r01gContainer .col-lg,

@@ -96,6 +96,9 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    			DataTable.Api().rupTable.selectPencil(ctx,0);
 	    		}
 	    	}
+			if($(row.node()).hasClass('selected')){
+				row.child().addClass( "selected tr-highlight");
+			}
 	    }
 	} );
 	
@@ -414,7 +417,9 @@ function _addChildIcons(ctx){
 					}
 				});
 				if(ctx.inlineEdit !== undefined && $fila.hasClass('editable')){
-					setTimeout(_comprobarFila(ctx,$fila), 500);
+					//setTimeout(_comprobarFila(ctx,$fila), 500);
+					_comprobarFila(ctx,$fila);
+					//console.log('entro al TIMEOUT --------- ---------');
 				}
 			});
 		}else{//si la edicion en linea esta activada
@@ -448,7 +453,7 @@ function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
 		_restaurarFila(ctx,false);
 	}
-	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
+	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	if(!$rowSelect.hasClass("editable")){
 		_changeInputsToRup(ctx,idRow);
 		//se deshabilita los botones de la tabla.
@@ -683,7 +688,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+positionLastRow+')');
+		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+positionLastRow+')');
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -738,14 +743,14 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
+		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
 		ctx.inlineEdit.lastRow.idx = idRow;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
-		var $fila = $('#'+ctx.sTableId+' tbody tr:eq('+idRow+')');
+		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
 		//Si existe el responsive
 		//Campos sin responsive
 		var $target = $fila.find(ctx.oInit.responsive.details.target);
@@ -798,7 +803,15 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+				var $span = $celda.find('.openResponsive');
+
 				$celda.html($input);
+				if($span.length >= 1){
+					$span.click(function(event){
+						event.stopPropagation();
+					});
+					$celda.prepend($span);
+				}
 				
 				//Convertir a input.
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
@@ -1258,36 +1271,40 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	var table = $('#'+ctx.sTableId).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
 	table.columns().responsiveHidden().each( function(valor,i) {
-		if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
-			var value = "";
-			if(valor){//se coge el valor del child.
-				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
-				cont = cont + i - total;
-				var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
-				value = $inputChild.val();
-				$inputChild.prop('disabled', false);
-
-			}else{//se coge el valor de los inputs ocultos.
-				var $input = $fila.find('td:eq('+i+')').find('select,input');
-				value = $input.val();
-				$input.prop('disabled', true);
-			}
-			
-		}else{
-			var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-			var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
-			contar = contar + i - totalContar;
-			// se asigna valor normal
-			
-			if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
-				value = $fila.find('td:eq('+i+')').find('select,input').val();
+		if(!$fila.find('td:eq('+i+')').hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
+			if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
+				var value = "";
+				if(valor){//se coge el valor del child.
+					var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+					var total = ctx.inlineEdit.lastRow.columnsHidden.length;
+					cont = cont + i - total;
+					var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
+					value = $inputChild.val();
+					if($inputChild.length > 0){
+						$('#'+$inputChild[0].id.replace("_child","")).prop('disabled', false);
+					}
+	
+				}else{//se coge el valor de los inputs ocultos.
+					var $input = $fila.find('td:eq('+i+')').find('select,input');
+					value = $input.val();
+					$input.prop('disabled', true);
+				}
+				
 			}else{
-				value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
+				var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+				var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
+				contar = contar + i - totalContar;
+				// se asigna valor normal
+				
+				if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
+					value = $fila.find('td:eq('+i+')').find('select,input').val();
+				}else{
+					value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
+				}
 			}
+			//Guardar los inputs
+			ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
 		}
-		//Guardar los inputs
-		ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
 	});
 }
 
@@ -1320,6 +1337,8 @@ function _asignarInputsValues(ctx,$fila){
 				}
 				 contChild++;
 			}
+		}else if(!celda.visible){//si esta oculto, es un child no editable por lo que hay que contarlo.
+			contChild++;
 		}
 	});
 }
