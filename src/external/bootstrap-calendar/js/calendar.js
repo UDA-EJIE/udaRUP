@@ -397,6 +397,7 @@ if(!String.prototype.formatNum) {
 		this.options = $.extend(true, {position: {start: new Date(), end: new Date()}}, defaults, params);
 		this.setLanguage(this.options.language);
 		this.context = context;
+		
 
 		context.css('width', this.options.width).addClass('cal-context');
 
@@ -432,7 +433,7 @@ if(!String.prototype.formatNum) {
 		this.stop_cycling = false;
 
 		var data = {};
-		data.cal = this;
+		data.cal = $.extend({},this);
 		data.day = 1;
 
 		// Getting list of days in a week in correct order. Works for month and week views
@@ -717,14 +718,18 @@ if(!String.prototype.formatNum) {
 		}
 		// Transformamos la fecha a local de existir  y la usamos para establecer los out of range.
 		if(this.options.date_range_start) {
-			this.options.date_range_start = $.datepicker.parseDate('dd/mm/yy',this.options.date_range_start.toLocaleDateString());
-			if(curdate.getTime() < this.options.date_range_start.getTime()) {
+			var date = this.options.date_range_start;
+			var strDate = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+			var start = $.datepicker.parseDate('dd/mm/yy',strDate);
+			if(curdate.getTime() < start.getTime()) {
 				cls += ' rup-out-of-range';
 			}
 		}
 		if(this.options.date_range_end) {
-			this.options.date_range_end = $.datepicker.parseDate('dd/mm/yy',this.options.date_range_end.toLocaleDateString());
-			if(curdate.getTime() > this.options.date_range_end.getTime()) {
+			var date = this.options.date_range_end;
+			var strDate = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+			var end = $.datepicker.parseDate('dd/mm/yy',strDate);
+			if(curdate.getTime() > end.getTime()) {
 				cls += ' rup-out-of-range';
 			}
 		}
@@ -982,7 +987,10 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype.isToday = function() {
 		var now = new Date().getTime();
 
-		return ((now > this.options.position.start) && (now < this.options.position.end));
+		if(now > this.options.position.start.getTime() && now < this.options.position.end.getTime()){
+			return true;
+		}
+		return false;
 	}
 
 	Calendar.prototype.getStartDate = function() {
