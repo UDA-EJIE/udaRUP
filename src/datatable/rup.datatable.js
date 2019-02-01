@@ -422,6 +422,9 @@
 							ctx.oInit.inlineEdit.alta = undefined;
 						}
 						DataTable.Api().seeker.disabledButtons(ctx);
+						if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
+							ctx.inlineEdit.lastRow.idx = -1;
+						}
 					}
 
 					return ret.data;
@@ -988,9 +991,6 @@
 			}
 			
 			
-			if(settings.formEdit === undefined && settings.inlineEdit === undefined){
-				settings.buttons = undefined;
-			}
 			if(settings.formEdit !== undefined){
 				settings.inlineEdit = undefined;
 			}
@@ -1102,6 +1102,9 @@
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
 						DataTable.Api().select.drawSelectId(tabla.context[0]);
+						if(tabla.context[0].oInit.inlineEdit !== undefined){
+							DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
+						}
 					}
 					if(settingsTable.seeker !== undefined 
 							&& settingsTable.seeker.search !== undefined){

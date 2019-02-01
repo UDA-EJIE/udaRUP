@@ -181,7 +181,9 @@ function _createFilterColumn(dt,ctx){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
 		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+		        			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
 		        	}
@@ -293,7 +295,9 @@ function _createSearchRow (dt,ctx){
     			ajaxOptions.data.multiselection.internalFeedback = [];
     		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-    		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+    			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 		});
 

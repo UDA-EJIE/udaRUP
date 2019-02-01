@@ -2041,11 +2041,15 @@ DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
 	}
 } );
 
-DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx) {
+DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) {
 	var opts = ctx._buttons[0].inst.s.buttons;
 	$.each(opts, function () {
-		$(this.node).addClass('disabledDatatable');//para el toolbar
-		$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
+		if(exception === undefined){
+			$(this.node).addClass('disabledDatatable');//para el toolbar
+			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
+		}else if(this.node.id !== exception){//ponemos los regex a cero menos la excepcion
+			this.conf.displayRegex = undefined;
+		}
 	});
 	ctx._buttons[0].inst.s.disableAllButttons = true;
 } );
@@ -2909,6 +2913,13 @@ function inicio(ctx) {
 			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
 		}
 	} );
+	
+	if(ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined){
+		// se deja el boton solo de informes
+		DataTable.Api().buttons.disableAllButtons(ctx,ctx.sTableId+'informes_01');	
+		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		DataTable.Api().buttons.displayRegex(ctx);
+	}
 	
 } ;
 
