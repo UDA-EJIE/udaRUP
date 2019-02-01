@@ -709,20 +709,30 @@ function _paintCheckboxSelect(ctx){
 	if(columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox'){
 		//Se rellena todo, la columna select.
 
-		var input =  $("<input/>")
-									.attr('id','inputSelectTableHead'+ctx.sTableId)
-									.attr('type','checkbox');
+		var input =  $("<div>")
+						.attr('id','divSelectTableHead_'+ctx.sTableId)
+						.attr('class','divSelectTableHead checkbox-material checkbox-material-inline')
+						.append(
+								$("<input/>")
+									.attr('id','inputSelectTableHead_'+ctx.sTableId)
+								 	.attr('type','checkbox')
+						).append(
+								$("<label/>")
+						);
+			
 
 		var link = $("<a/>")
-							 	 .addClass("ui-icon rup-datatable_checkmenu_arrow")
-								 .attr('id','linkSelectTableHead'+ctx.sTableId);
+				 	   .addClass("ui-icon rup-datatable_checkmenu_arrow")
+					   .attr('id','linkSelectTableHead'+ctx.sTableId);
 
 		input.click(function () {
 		  var dt = new DataTable.Api( ctx );
-		  if(input.is(':checked')) {
-			  selectAllPage(dt);
+		  if($(this).find('input').is(':checked')) {
+			  deselectAllPage(dt);
+	    	  $("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 	      } else {
-	    	  deselectAllPage(dt);
+	    	  $("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
+			  selectAllPage(dt);
 	      }
 	    });
 

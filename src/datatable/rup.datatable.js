@@ -974,7 +974,7 @@
 			        className: 'select-checkbox',
 			        targets: 0,
 			        render: function (data, type, full, meta){
-			             return '<input type="checkbox">';
+			        	return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
 			        }
 			    });
 				//Modulo incompatible

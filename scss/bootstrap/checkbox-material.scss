@@ -5,12 +5,12 @@ $checkbox-material-border-color-disabled: rgba(0, 0, 0, 0.26);
 $checkbox-material-checked-color-disabled: rgba(0, 0, 0, 0.26);
 
 /* ESTILOS */
-$checkbox-material-margin: 1em 0;
+$checkbox-material-margin: 0.5em 0;
 $checkbox-material-size: 1.25em;
 $checkbox-material-padding: .25em;
 $checkbox-material-border-width: 2px;
 $checkbox-material-border-radius: 0.125em;
-$checkbox-material-ripple-size: 10px;
+$checkbox-material-ripple-size: 6.5px;
 $md-checkmark-width: 0.125em;
 $md-checkmark-color: #fff;
 $checkbox-material-label-padding: .75em;
@@ -43,10 +43,6 @@ $checkbox-material-label-padding: .75em;
 	position: relative;
 	margin: $checkbox-material-margin;
 	text-align: left;
-	
-	&.checkbox-material-inline {
-		display: inline-block;
-	}
   
   	label {
 	    cursor: pointer;
@@ -131,4 +127,17 @@ $checkbox-material-label-padding: .75em;
 			}
 		}
   	}
+}
+
+.checkbox-material-inline {
+	display: inline-block;
+	margin: initial;
+}
+
+table div.checkbox-material-inline {
+	label {
+		&:before, &:after {
+			top: 3px;
+	    }
+	}
 }

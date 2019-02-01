@@ -4,9 +4,9 @@ $radio-material-disabled-color: rgba(0, 0, 0, 0.26);
 $radio-material-border-color: rgba(0, 0, 0, 0.54);
 
 /* ESTILOS */
-$radio-material-size: 20px;
-$radio-material-checked-size: 10px; 
-$radio-material-ripple-size: 10px;
+$radio-material-size: 18px;
+$radio-material-checked-size: 8px; 
+$radio-material-ripple-size: 6px;
 
 @keyframes ripple-hover {
   0% {
@@ -33,7 +33,7 @@ $radio-material-ripple-size: 10px;
 }
 
 .radio-material {
-    margin: 16px 0;
+    margin: 0.5em 0;
     
     &.radio-material-inline {
         display: inline-block;
