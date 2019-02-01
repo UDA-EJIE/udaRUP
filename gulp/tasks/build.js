@@ -70,8 +70,9 @@ gulp.task('build:resources', function (callback) {
 
 	// fonts
 	console.log('dist/fonts');
-	gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
-		.pipe(gulp.dest('dist/css/externals/fonts'));
+	gulp.src('./node_modules/font-awesome/fonts/*.*')
+		.pipe(gulp.dest('dist/css/externals/fonts'))
+		.pipe(gulp.dest('dist/portal/externals/fonts'));
 
 	// externals
 	console.log('externals ');

@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter','./rup.table.inlineEdit'], factory );
 	} else {
 
 		// Browser globals
@@ -130,7 +130,7 @@
 			var apiRegister = DataTable.Api.register;
 			
 			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
-					//Se limina el lapicero indicador.
+					//Se elimina el lapicero indicador.
 					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
 					//se añade el span con el lapicero
 					if(idRow >= 0){
@@ -155,6 +155,7 @@
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 					if(options.buttons !== undefined){
+						ctx._buttons[0].inst.s.disableAllButttons = undefined;
 						DataTable.Api().buttons.displayRegex(ctx);
 					}
 			} );
@@ -172,6 +173,136 @@
 				
 				return id;
 		} );
+		
+		/**
+		* Método que gestiona el bloqueo de la edición de las claves primarias.
+		*
+		* @name blockPKEdit
+		* @function
+		* @since UDA 3.7.0 // Datatable 1.0.0
+		*
+		* @param {object} ctx - Settings object to operate on.
+		* @param {string} actionType - Método de operación CRUD.
+		*
+		*/
+		apiRegister( 'rupTable.blockPKEdit()', function ( ctx, actionType ) {
+
+			var blockPK = ctx.oInit.blockPKeditForm;
+			var idForm = ctx.oInit.formEdit.idForm;
+			var primaryKey = ctx.oInit.primaryKey;
+			
+			// Comprobamos si el bloqueo de claves primarias esta activo y la tabla tiene alguna columna definida como clave primaria.
+			if(blockPK && primaryKey.length > 0) {
+				// En caso de ser edición bloqueamos la modificación
+				if(actionType === "PUT") {
+					$.each(primaryKey,function(key,id) {
+						var input = $(idForm[0]).find(":input[name=" + id + "]");
+						
+						// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
+						if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
+							input.rup_date("disable");
+						} 
+						else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
+							input.rup_combo("disable");
+						}
+						else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
+							input.rup_time("disable");
+						}
+						else if(input.attr("type") === "checkbox") {
+							if(!input.hasClass("checkboxPKBloqueado")) {
+								input.addClass("checkboxPKBloqueado");						
+							}
+							
+							var valorCheck = input.is(":checked") ? 1 : 0;
+							var selectorInputSustituto = $("#" + id + "_bloqueado");
+							
+							// Comprobamos si es necesario cambiar el check
+							if(selectorInputSustituto.attr("valor") !== valorCheck){
+								if(selectorInputSustituto.attr("valor") !== undefined){
+									selectorInputSustituto.remove();
+								}
+								
+								if(valorCheck === 1) {
+									input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+								} else {
+									input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+								}
+							}
+						}
+						else {
+							input.prop("readOnly", true);
+						}
+						
+						// Quitamos el foco del elemento
+						input.on('mousedown', function(event) {
+							event.preventDefault();
+						});
+					});
+				} 
+				// En caso de ser clonación permitimos la edición
+				else if(actionType === "POST"){
+					$.each(primaryKey,function(key,id) {
+						var input = $(idForm[0]).find(":input[name=" + id + "]");
+						
+						// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
+						if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
+							input.rup_date("enable");
+						} 
+						else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
+							input.rup_combo("enable");
+						}
+						else if(input.attr("ruptype") === "time" && input.rup_time("isDisabled")) {
+							input.rup_time("enable");
+						}
+						else if(input.attr("type") === "checkbox") {
+							input.removeClass("checkboxPKBloqueado");
+							$("#" + id + "_bloqueado").remove();
+						}
+						else {
+							input.prop("readOnly", false);
+						}
+						
+						// Devolvemos el foco al elemento
+						input.on('mousedown', function(event) {
+							$(this).unbind(event.preventDefault());
+							input.focus();
+						});
+					});
+				}
+			}
+
+		}	);
+			
+			if(options.inlineEdit !== undefined){
+				//RSPONSIBLE CON EDITLINE
+	            var renderer = function ( api, rowIdx, columns ) {
+	    			var data = $.map( columns, function ( col ) {
+	    				var colShow = col.hidden ?
+	    					'<li data-dtr-index="'+col.columnIndex+'" data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+	    						'<span class="dtr-title">'+
+	    							col.title+
+	    						'</span> '+
+	    						'<span class="dtr-data">'+
+	    							col.data+
+	    						'</span>'+
+	    					'</li>' :
+	    					'';
+	    				return colShow;
+	    			} ).join('');
+	
+	    			var value = data ?	$('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>').append( data ) :	false;
+	    			var ctx = api.context[0];
+	    			var $row = $('#'+ctx.sTableId+' tbody tr:not(.child):eq('+rowIdx+')');
+	    			if($row.hasClass('editable')){
+	    				DataTable.Api().inlineEdit.inResponsiveChangeInputsValues(ctx,$row);
+	    				if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'cambioEstado'){
+	    					ctx.oInit.inlineEdit.rowDefault = 'estadoFinal';
+	    				}
+	    			}
+	    			return value;
+	            };
+	            options.responsive.details.renderer = renderer;
+			}
 
 			return options;
 		},
@@ -219,7 +350,7 @@
 			    }});
 				}
 				return {
-					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx')
+					data: e.getAttribute('data-col-prop'),sidx:e.getAttribute('data-col-sidx'),editable:!(e.getAttribute('data-col-edit') === "false") 
 				};
 			});
 			
@@ -275,13 +406,25 @@
 		     		var table = $('#'+options.id).DataTable();
 					var ctx = table.context[0];
 
-					var settings = ctx.oInit;//$(ctx.nTable).data('settings'+ctx.sTableId);
+					var settings = ctx.oInit;
 					if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
 						DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
 					}
 					if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
 							&& json.reorderedSeeker !== undefined){
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
+					}
+					
+					if(ctx.oInit.inlineEdit !== undefined ){
+						if(ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
+							ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+						}else{
+							ctx.oInit.inlineEdit.alta = undefined;
+						}
+						DataTable.Api().seeker.disabledButtons(ctx);
+						if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
+							ctx.inlineEdit.lastRow.idx = -1;
+						}
 					}
 
 					return ret.data;
@@ -713,7 +856,7 @@
 
 			},
 			/**
-		     * Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
+		     * Crea un evento para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 		     *
 		     * @name createEventSelect
 		     * @function
@@ -787,8 +930,7 @@
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
 				DataTable.Api().rupTable.selectPencil(ctx,-1);
 				if (ctx.multiselection === undefined) {
@@ -839,15 +981,18 @@
 				settings.columnDefs.push({
 			        orderable: false,
 			        className: 'select-checkbox',
-			        targets:   0
-			    	});
+			        targets: 0,
+			        render: function (data, type, full, meta){
+			             return '<input type="checkbox">';
+			        }
+			    });
 				//Modulo incompatible
 				settings.select = undefined;
 			}
 			
 			
-			if(settings.formEdit === undefined){
-				settings.buttons = undefined;
+			if(settings.formEdit !== undefined){
+				settings.inlineEdit = undefined;
 			}
 
 			// getDefault multifilter
@@ -899,6 +1044,17 @@
 
 			}
 			
+			if(settings.inlineEdit !== undefined && args[0].responsive === undefined){//si el usuario no cambia el selector
+				var responsive = {           
+					details: {
+				    	type: 'column',
+				    	target: 'td span.openResponsive'
+							},
+					selectorResponsive: 'td span.dtr-data'};		
+					
+				settings.responsive = responsive;;
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
@@ -946,6 +1102,9 @@
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
 						DataTable.Api().select.drawSelectId(tabla.context[0]);
+						if(tabla.context[0].oInit.inlineEdit !== undefined){
+							DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
+						}
 					}
 					if(settingsTable.seeker !== undefined 
 							&& settingsTable.seeker.search !== undefined){
@@ -961,20 +1120,45 @@
 				$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
 					$self._createTooltip($(this));
 				});
+				
+				if(settingsTable.inlineEdit !== undefined ){
+					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
+					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
+						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
+							DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						}//else{
+							DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+							var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+							if(count > 0){
+								ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
+							}else{
+								ctx.oInit.inlineEdit.rowDefault = undefined;
+							}
+					//	}
+					}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
+						var rowsBody = $( ctx.nTBody);
+						var $tr = $('tr:nth-child(1)',rowsBody);
+						if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id){
+							$tr.addClass('selected tr-highlight');
+						}
+					}
+				}
+
 			  });
 			
 			tabla.on( 'destroy', function (e,settingsTable) {
-				/*if(settingsTable.oInit.clone === true){
-					$('#'+settingsTable.sTableId+'_filter_form').append(clone);
-				}*/
+
 				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
 				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
-			/*	tabla.off( 'draw');
-				tabla.off( 'destroy');
-				tabla.off( 'draw.dtSelect.dt select.dtSelect.dt');*/
+
+				
 			});
 			
+			if(settings.inlineEdit !== undefined){
+				DataTable.Api().inlineEdit.onResponsiveResize(tabla);
+			}
 
+			
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
 				new $.fn.dataTable.Buttons(
@@ -1021,10 +1205,17 @@ $.fn.rup_datatable.defaults = {
 				delay:1000
 			}
 		},
-    dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
+	responsive: {           
+		details: {
+	    	type: 'column',
+	    	target: 'tr'
+				},
+		selectorResponsive: 'td span.dtr-data'		
+		}, 
+	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
     multiplePkToken: '~',
     primaryKey:["id"],
-	responsive: true,
+    blockPKeditForm: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
@@ -1033,7 +1224,6 @@ $.fn.rup_datatable.defaults = {
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
-	//adapter: "datatable_jqueryui",
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]]
 	};
