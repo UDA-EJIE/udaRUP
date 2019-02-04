@@ -350,9 +350,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						debugger;
 						$comboMulti.rup_combo('select', [2, 3]);
-						debugger;
 					});
 					it('Debe modificar la ui ', () => {
 						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);

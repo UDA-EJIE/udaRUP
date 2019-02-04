@@ -550,7 +550,6 @@ function testDate(lang) {
                 describe('Date normal > ', () => {
                     beforeEach(() => {
                         $date.rup_date('disable');
-                        debugger;
                     });
                     it(langStr(lang) + 'Debe marcarse como deshabilitada', () => {
                         expect($date.attr('readonly')).toBe('readonly');
