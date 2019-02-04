@@ -67,12 +67,6 @@ li[id$='_contextMenuToolbar'] {
     border-bottom: 1px solid #DDD;
 }
 
-li[id$='_contextMenuToolbar'] > span {
-	position: absolute;
-	left: 30px;
-	font-size: 1.1rem;
-}
-
 .context-menu-item > label > input,
 .context-menu-item > label > textarea {
     -webkit-user-select: text;

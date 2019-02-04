@@ -137,7 +137,8 @@ DataTable.editForm.init = function ( dt ) {
 					{
 						id: this.conf.id + '_contextMenuToolbar',
 						name: this.conf.text(dt),
-						icon: this.conf.icon,
+						// TODO: buscar manera de insertar un icono como elemento en vez de clase.
+						//icon: this.conf.icon,
 						inCollection: this.inCollection,
 						idCollection: undefined
 					}
@@ -153,7 +154,8 @@ DataTable.editForm.init = function ( dt ) {
 							{
 								id: this.conf.id + '_contextMenuToolbar',
 								name: this.conf.text(dt),
-								icon: this.conf.icon,
+								// TODO: buscar manera de insertar un icono como elemento en vez de clase.
+								//icon: this.conf.icon,
 								inCollection: this.inCollection,
 								idCollection: idCollection
 							}
