@@ -350,7 +350,9 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
+						debugger;
 						$comboMulti.rup_combo('select', [2, 3]);
+						debugger;
 					});
 					it('Debe modificar la ui ', () => {
 						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
@@ -374,7 +376,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$comboGroup.rup_combo('select', 1);
+						$comboGroup.rup_combo('select', 2);
 					});
 					it('Debe cambiar la ui:', () => {
 						expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
@@ -523,7 +525,7 @@ describe('Test Combo > ', () => {
 			});
 			describe('Combo optGroup > ', () => {
 				it('Debe devolver la label de la seleccion', () => {
-					expect($comboGroup.rup_combo('index')).toBe(3);
+					expect($comboGroup.rup_combo('index')).toBe(4);
 				});
 			});
 		});
@@ -903,7 +905,7 @@ function setupCombos() {
 			$('#comboSimple').addClass('randomClass');
 		},
 		source: source,
-		blank: '0',
+		blank:'0',
 		selected: '2'
 	};
 	let optionsMulti = {
@@ -951,7 +953,7 @@ function setupCombos() {
 				value: '2.2'
 			}]
 		},
-		blank: '0',
+		blank:'0',
 		selected: '1.1'
 	};
 	let optionsGroup = {

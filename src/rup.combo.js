@@ -600,17 +600,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 							if(isOptgroup) {
 								settings.blankDone = false;
-							} 
-							// Si es un combo normal añade un registro nuevo al array.
-							else {
-								//Algunos combos como los combos con parent (maestro-detalle) tienen a modo
-								//de source un objeto. Y otros como el multiselect no tiene blank (Simplemente
-								//hay 0 seleccionados)
-								if(settings.blank && !settings.multiselect) {
-									if(settings.source instanceof Array) {
-										settings.source.unshift({value:settings.blank,i18nCaption:$.rup.i18n.base.rup_combo.blankNotDefined});
-									}
-								}
 							}
 						}
 						
@@ -667,10 +656,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								if(isOptgroup) {
 									settings.blankDone = false;
 								} 
-								// Si es un combo normal añade un registro nuevo al array.
-								else {
-									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
-								}
 							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
@@ -1648,10 +1633,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 						if(isOptgroup) {
 							settings.blankDone = false;
-						} 
-						// Si es un combo normal añade un registro nuevo al array.
-						else {
-							settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 						}
 					}
 					
@@ -1710,10 +1691,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if(isOptgroup) {
 									settings.blankDone = false;
-								} 
-								// Si es un combo normal añade un registro nuevo al array.
-								else {
-									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 								}
 							}
 							rupCombo._ajaxSuccess(data, settings, html);
