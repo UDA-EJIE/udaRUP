@@ -254,10 +254,10 @@ describe('Test Combo > ', () => {
 				$comboMulti.rup_combo('checkAll');
 			});
 			it('Debe modificar el ui ', () => {
-				expect($('#comboMulti-button > span:not([class])').text()).toBe('6 ' + selectedLiteral);
+				expect($('#comboMulti-button > span:not([class])').text()).toBe('7 ' + selectedLiteral);
 			});
 			it('Debe reflejarse en el getRupValue ', () => {
-				expect($comboMulti.rup_combo('getRupValue')).toEqual(['1', '2', '3', '4', '5', '6']);
+				expect($comboMulti.rup_combo('getRupValue')).toEqual(['0','1', '2', '3', '4', '5', '6']);
 			});
 		});
 		describe('Método select > ', () => {
@@ -275,7 +275,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$combo.rup_combo('select', 1);
+						$combo.rup_combo('select', 2);
 					});
 					it('Debe modificar la ui ', () => {
 						expect($('#comboSimple-button > span.ui-selectmenu-status').text()).toBe('Opcion1');
@@ -303,7 +303,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$comboPadre.rup_combo('select', 2);
+						$comboPadre.rup_combo('select', 3);
 					});
 					it('Debe modificar la ui ', () => {
 						expect($('#comboPadre-button > span.ui-selectmenu-status').text()).toBe('Opt2');
@@ -358,10 +358,10 @@ describe('Test Combo > ', () => {
 						$comboMulti.rup_combo('select', [2, 3]);
 					});
 					it('Debe modificar la ui ', () => {
-						expect($('#comboMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
+						expect($('#comboMulti-button > span:not(class)').text()).toBe('2 ' + selectedLiteral);
 					});
 					it('Debe reflejarse en el método getRupValue', () => {
-						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3', '4']);
+						expect($comboMulti.rup_combo('getRupValue')).toEqual(['2', '3']);
 					});
 				});
 			});
@@ -379,7 +379,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$comboGroup.rup_combo('select', 1);
+						$comboGroup.rup_combo('select', 2);
 					});
 					it('Debe cambiar la ui:', () => {
 						expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
@@ -508,12 +508,12 @@ describe('Test Combo > ', () => {
 		describe('Método index > ', () => {
 			describe('Combo simple > ', () => {
 				it('Debe devolver el indice de la seleccion', () => {
-					expect($combo.rup_combo('index')).toBe(2);
+					expect($combo.rup_combo('index')).toBe(3);
 				});
 			});
 			describe('Combo padre > ', () => {
 				it('Debe devolver el indice de la seleccion', () => {
-					expect($comboPadre.rup_combo('index')).toBe(1);
+					expect($comboPadre.rup_combo('index')).toBe(2);
 				});
 			});
 			describe('Combo hijo > ', () => {
@@ -523,12 +523,12 @@ describe('Test Combo > ', () => {
 			});
 			describe('Combo multiple > ', () => {
 				it('Debe devolver el indice de la seleccion', () => {
-					expect($comboMulti.rup_combo('index')).toEqual([1]);
+					expect($comboMulti.rup_combo('index')).toEqual([2]);
 				});
 			});
 			describe('Combo optGroup > ', () => {
 				it('Debe devolver la label de la seleccion', () => {
-					expect($comboGroup.rup_combo('index')).toBe(3);
+					expect($comboGroup.rup_combo('index')).toBe(4);
 				});
 			});
 		});
@@ -795,7 +795,7 @@ describe('Test Combo > ', () => {
 					$combo.rup_combo('order');
 				});
 				it('Intruso debe ser la primera opcion', () => {
-					expect($('#comboSimple-menu > li').eq(1).text()).toBe('Intruso');
+					expect($('#comboSimple-menu > li').eq(2).text()).toBe('Intruso');
 				});
 			});
 			describe('Combo padre > ', () => {
@@ -806,7 +806,7 @@ describe('Test Combo > ', () => {
 					$comboPadre.rup_combo('order');
 				});
 				it('Intruso debe ser la primera opcion', () => {
-					expect($('#comboPadre-menu > li').eq(1).text()).toBe('Intruso');
+					expect($('#comboPadre-menu > li').eq(2).text()).toBe('Intruso');
 				});
 			});
 			describe('Combo hijo > ', () => {
@@ -828,7 +828,7 @@ describe('Test Combo > ', () => {
 					$comboMulti.rup_combo('order');
 				});
 				it('Intruso debe ser la primera opcion', () => {
-					expect($('#rup-multiCombo_comboMulti > ul > li').eq(0).text()).toBe('Intruso');
+					expect($('#rup-multiCombo_comboMulti > ul > li').eq(1).text()).toBe('Intruso');
 				});
 			});
 			describe('Combo optGroup > ', () => {
@@ -908,7 +908,7 @@ function setupCombos() {
 			$('#comboSimple').addClass('randomClass');
 		},
 		source: source,
-		blank: '0',
+		blank:'0',
 		selected: '2'
 	};
 	let optionsMulti = {
@@ -956,7 +956,7 @@ function setupCombos() {
 				value: '2.2'
 			}]
 		},
-		blank: '0',
+		blank:'0',
 		selected: '1.1'
 	};
 	let optionsGroup = {

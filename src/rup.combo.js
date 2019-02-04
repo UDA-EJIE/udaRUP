@@ -144,7 +144,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
-				$(this).rup_combo('select',"-1");
+				$(this).rup_combo('select',0);
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect('uncheckAll');
@@ -603,7 +603,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							} 
 							// Si es un combo normal añade un registro nuevo al array.
 							else {
-								settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
+								//Algunos combos como los combos con parent (maestro-detalle) tienen a modo
+								//de source un objeto. Y otros como el multiselect no tiene blank (Simplemente
+								//hay 0 seleccionados)
+								if(settings.blank && !settings.multiselect) {
+									if(settings.source instanceof Array) {
+										settings.source.unshift({value:settings.blank,i18nCaption:$.rup.i18n.base.rup_combo.blankNotDefined});
+									}
+								}
 							}
 						}
 						

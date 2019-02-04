@@ -855,7 +855,6 @@ describe('Test rup_calendar (default)', () => {
                 cal.rup_calendar('navigate', new Date('2018-12-01'));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
-                debugger;
                 expect($('#cal-slide-box').css('display')).toBe('block');
             });
         });
