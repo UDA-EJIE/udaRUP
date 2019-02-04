@@ -275,13 +275,13 @@ $btn-material-box-shadow-active:
 /* ESTILOS GENERICOS */
 .btn-material {
 	min-width: 64px;
-	height: 36px;
-	padding: 7.5px 16px;
+	height: 34px;
+	padding: 6px 10px;
 	border: none;
 	border-radius: 4px;
-	font-size: 14px;
-	font-weight: 700;
-	letter-spacing: 1.25px;
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: initial;
 	text-decoration: none;
 	text-transform: uppercase;
 	box-sizing: border-box;
@@ -308,6 +308,5 @@ $btn-material-box-shadow-active:
 
 /* AJUSTE DE POSICIONAMIENTO DEL ICONO */
 .btn-material > i {
-	vertical-align: middle;
-	padding-bottom: 2px;
+	vertical-align: text-bottom;
 }

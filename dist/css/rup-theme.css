@@ -4112,6 +4112,36 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   background-color: #007bff !important;
   border-color: #007bff !important; }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(externals/icons/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local("externals/icons/Material Icons"), local("externals/icons/MaterialIcons-Regular"), url(externals/icons/MaterialIcons-Regular.woff2) format("woff2"), url(externals/icons/MaterialIcons-Regular.woff) format("woff"), url(externals/icons/MaterialIcons-Regular.ttf) format("truetype"); }
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga'; }
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
 /* ESTILOS */
@@ -4292,13 +4322,13 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 /* ESTILOS GENERICOS */
 .btn-material {
   min-width: 64px;
-  height: 36px;
-  padding: 7.5px 16px;
+  height: 34px;
+  padding: 6px 10px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1.25px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: initial;
   text-decoration: none;
   text-transform: uppercase;
   box-sizing: border-box; }
@@ -4321,8 +4351,7 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 
 /* AJUSTE DE POSICIONAMIENTO DEL ICONO */
 .btn-material > i {
-  vertical-align: middle;
-  padding-bottom: 2px; }
+  vertical-align: text-bottom; }
 
 /* ESTILOS DE LOS CONTENEDORES DE INPUTS */
 .form-groupMaterial {

@@ -83,9 +83,9 @@ gulp.task('build:resources', function (callback) {
 	
 	// material-design-icons
 	console.log('material-design-icons');
-	gulp.src(['./node_modules/material-design-icons/iconfont/*.css', './node_modules/material-design-icons/iconfont/MaterialIcons-*.*'])
+	gulp.src(['./node_modules/material-design-icons/iconfont/MaterialIcons-*.*'])
 		.pipe(gulp.dest('./dist/css/externals/icons'))
-		.pipe(gulp.dest('./dist/portal/externals/icons'))
+		.pipe(gulp.dest('./dist/portal/externals/icons'));
 	
 	// tether
 	console.log('tether');
