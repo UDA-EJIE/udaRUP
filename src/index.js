@@ -41,6 +41,7 @@ import './rup.upload';
 import './rup.validate';
 import './rup.wizard';
 import './rup.list';
+import './rup.calendar';
 
 
 

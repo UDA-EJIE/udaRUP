@@ -47,7 +47,7 @@ Opciones por defecto de configuración del componente.
 | url | <code>string</code> |  | Ruta al Controller encargado de generar el informe |
 | columns | [<code>columns</code>](#module_rup_report..columns) |  | Objeto que define si se van a enviar los datos de las columnas (nombres y posiciones): |
 | customDialog | <code>string</code> |  | Identificador del dialogo propio definido en el componente |
-| isInline | <code>boolean</code> | <code>false</code> | Indica que el informe se genera en una pestaña nueva del navegador. Sólo soportado en PDF |
+| [isInline] | <code>boolean</code> | <code>false</code> | Indica que el informe se genera en una pestaña nueva del navegador. Sólo soportado en PDF |
 
 <a name="module_rup_report..columns"></a>
 
@@ -61,7 +61,7 @@ Objeto que define si se van a enviar los datos de las columnas (nombres y posici
 | --- | --- | --- | --- |
 | grid | <code>string</code> |  | identificador del grid del que obtener las columnas. |
 | customNames | <code>array</code> |  | array que indica el nombre de las columnas a incluir (atributo name del grid). |
-| hidden | <code>boolean</code> | <code>false</code> | Indica si se desean incluir las columnas ocultas. |
+| [hidden] | <code>boolean</code> | <code>false</code> | Indica si se desean incluir las columnas ocultas. |
 
 <a name="module_rup_report..dialog"></a>
 

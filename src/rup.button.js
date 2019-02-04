@@ -304,10 +304,7 @@
 
 
 						}
-
-
 					}
-
 				} else {
 					// Inicialización del dropdown
 					$.extend(true, settings.dropdown, $.fn.rup_button.dropdown_defaults, args[0].dropdown);
@@ -385,6 +382,8 @@
 						$self._doDropdownByButtons($dropdownButton, $container, dropdownSettings);
 					}
 				}
+				//Se audita el componente
+				$.rup.auditComponent('rup_button', 'init');
 			});
 			// TODO : Invocación al plugin
 

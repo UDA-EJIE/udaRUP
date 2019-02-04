@@ -70,39 +70,39 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| disabled | <code>boolean</code> | <code>false</code> | Indica si el componente debe aparecer deshabilitado o no. |
-| labelMaskId | <code>string</code> |  | Identificador del label que contendrá la máscara que indica el formato de la hora. |
-| timeFormat | <code>string</code> | <code>&quot;hh:mm&quot;</code> | Formato en el que se muestra la hora. Los posibles modificadores son: <ul><li> h: modificador relativo a las horas. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (hh). </li><li> m: modificador relativo a los minutos. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (mm). </li><li>s: modificador relativo a los segundos. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (ss). </li></ul> |
-| hour | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente las horas del componente.. |
-| minute | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente los minutos del componente. |
-| second | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente los segundos del componente. |
-| hourMin | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en las horas del componente. |
-| hourMax | <code>Integer</code> | <code>23</code> | Valor máximo seleccionable en las horas del componente. |
-| minuteMin | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en los minutos del componente. |
-| minuteMax | <code>Integer</code> | <code>59</code> | Valor máximo seleccionable en los minutos del componente. |
-| secondMin | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en los segundos del componente. |
-| secondMax | <code>Integer</code> | <code>59</code> | Valor mínimo seleccionable en los segundos del componente. |
-| showHour | <code>boolean</code> | <code>true</code> | Indica si se muestran o no las horas. |
-| showMinute | <code>boolean</code> | <code>true</code> | Indica si se muestran o no los minutos. |
-| showSecond | <code>boolean</code> | <code>false</code> | Indica si se muestran o no los segundos. |
-| stepHour | <code>Integer</code> | <code>1</code> | Establece el incremento de la barra de scroll relativa a las horas. |
-| stepMinute | <code>Integer</code> | <code>1</code> | Establece el incremento de la barra de scroll relativa a los minutos. |
-| stepSecond | <code>Integer</code> | <code>1</code> | establece el incremento de la barra de scroll relativa a los segundos. |
-| hourGrid | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a las horas. Al pinchar sobre dichos números se selecciona ese valor. |
-| minuteGrid | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a los minutos. Al pinchar sobre dichos números se selecciona ese valor. |
-| secondGrid | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a los segundos. Al pinchar sobre dichos números se selecciona ese valor. |
-| showTime | <code>boolean</code> | <code>true</code> | Determina si se desea mostrar o no la fecha en el desplegable. |
-| ampm | <code>boolean</code> | <code>false</code> | Determina si en lugar de mostrar la hora en formato 0-24 se muestra con el literal am/pm. |
-| showButtonPanel | <code>boolean</code> | <code>false</code> | Indica si se muestran los botones de la parte inferior (ahora y cerrar). |
-| mask | <code>string</code> |  | Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
-| buttonText | <code>string</code> |  | Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
-| closeText | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el desplegable. Su valor por defecto se obtiene del fichero de idioma.. |
-| currentText | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la hora actual en el desplegable. Su valor por defecto se obtiene del fichero de idioma. |
-| timeOnlyTitle | <code>string</code> |  | Texto que aparece en la cabecera del desplegable. Su valor por defecto se obtiene del fichero de idioma. |
-| timeText | <code>string</code> |  | Texto que aparece delante de la hora seleccionada (en caso de que esté activo el atributo showTime). Su valor por defecto se obtiene del fichero de idioma. |
-| hourText | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de horas. Su valor por defecto se obtiene del fichero de idioma. |
-| minuteText | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de minutos. Su valor por defecto se obtiene del fichero de idioma. |
-| secondText | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de segundos. Su valor por defecto se obtiene del fichero de idioma. |
+| [disabled] | <code>boolean</code> | <code>false</code> | Indica si el componente debe aparecer deshabilitado o no. |
+| [labelMaskId] | <code>string</code> |  | Identificador del label que contendrá la máscara que indica el formato de la hora. |
+| [timeFormat] | <code>string</code> | <code>&quot;hh:mm&quot;</code> | Formato en el que se muestra la hora. Los posibles modificadores son: <ul><li> h: modificador relativo a las horas. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (hh). </li><li> m: modificador relativo a los minutos. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (mm). </li><li>s: modificador relativo a los segundos. En caso de querer que las horas inferiores a 10 muestren el 0 deberá incluirse por duplicado (ss). </li></ul> |
+| [hour] | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente las horas del componente.. |
+| [minute] | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente los minutos del componente. |
+| [second] | <code>Integer</code> | <code>0</code> | Valor con el que se carga inicialmente los segundos del componente. |
+| [hourMin] | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en las horas del componente. |
+| [hourMax] | <code>Integer</code> | <code>23</code> | Valor máximo seleccionable en las horas del componente. |
+| [minuteMin] | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en los minutos del componente. |
+| [minuteMax] | <code>Integer</code> | <code>59</code> | Valor máximo seleccionable en los minutos del componente. |
+| [secondMin] | <code>Integer</code> | <code>0</code> | Valor mínimo seleccionable en los segundos del componente. |
+| [secondMax] | <code>Integer</code> | <code>59</code> | Valor mínimo seleccionable en los segundos del componente. |
+| [showHour] | <code>boolean</code> | <code>true</code> | Indica si se muestran o no las horas. |
+| [showMinute] | <code>boolean</code> | <code>true</code> | Indica si se muestran o no los minutos. |
+| [showSecond] | <code>boolean</code> | <code>false</code> | Indica si se muestran o no los segundos. |
+| [stepHour] | <code>Integer</code> | <code>1</code> | Establece el incremento de la barra de scroll relativa a las horas. |
+| [stepMinute] | <code>Integer</code> | <code>1</code> | Establece el incremento de la barra de scroll relativa a los minutos. |
+| [stepSecond] | <code>Integer</code> | <code>1</code> | establece el incremento de la barra de scroll relativa a los segundos. |
+| [hourGrid] | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a las horas. Al pinchar sobre dichos números se selecciona ese valor. |
+| [minuteGrid] | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a los minutos. Al pinchar sobre dichos números se selecciona ese valor. |
+| [secondGrid] | <code>Integer</code> | <code>0</code> | Indica el intervalo de los números que aparecen bajo la barra de scroll relativa a los segundos. Al pinchar sobre dichos números se selecciona ese valor. |
+| [showTime] | <code>boolean</code> | <code>true</code> | Determina si se desea mostrar o no la fecha en el desplegable. |
+| [ampm] | <code>boolean</code> | <code>false</code> | Determina si en lugar de mostrar la hora en formato 0-24 se muestra con el literal am/pm. |
+| [showButtonPanel] | <code>boolean</code> | <code>false</code> | Indica si se muestran los botones de la parte inferior (ahora y cerrar). |
+| [mask] | <code>string</code> |  | Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
+| [buttonText] | <code>string</code> |  | Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
+| [closeText] | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el desplegable. Su valor por defecto se obtiene del fichero de idioma.. |
+| [currentText] | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la hora actual en el desplegable. Su valor por defecto se obtiene del fichero de idioma. |
+| [timeOnlyTitle] | <code>string</code> |  | Texto que aparece en la cabecera del desplegable. Su valor por defecto se obtiene del fichero de idioma. |
+| [timeText] | <code>string</code> |  | Texto que aparece delante de la hora seleccionada (en caso de que esté activo el atributo showTime). Su valor por defecto se obtiene del fichero de idioma. |
+| [hourText] | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de horas. Su valor por defecto se obtiene del fichero de idioma. |
+| [minuteText] | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de minutos. Su valor por defecto se obtiene del fichero de idioma. |
+| [secondText] | <code>string</code> |  | Texto que aparece delante de la barra de scroll de selección de segundos. Su valor por defecto se obtiene del fichero de idioma. |
 
 <a name="module_rup_time..getRupValue"></a>
 

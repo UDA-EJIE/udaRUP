@@ -22,7 +22,8 @@
 			'./ValidateJQueryUIAdapter',
 			'./ValidateBootstrapAdapter',
 			'./FeedbackJQueryUIAdapter',
-			'./FeedbackBootstrapAdapter'
+			'./FeedbackBootstrapAdapter',
+			'./CalendarBootstrapAdapter'
 		], factory);
 	} else {
 
@@ -46,7 +47,8 @@
 	ValidateJQueryUIAdapter,
 	ValidateBootstrapAdapter,
 	FeedbackJQueryUIAdapter,
-	FeedbackBootstrapAdapter
+	FeedbackBootstrapAdapter,
+	CalendarBootstrapAdapter
 ) {
 
 

@@ -144,7 +144,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
-				$(this).rup_combo('select',"-1");
+				$(this).rup_combo('select',0);
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect('uncheckAll');
@@ -600,10 +600,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 							if(isOptgroup) {
 								settings.blankDone = false;
-							} 
-							// Si es un combo normal añade un registro nuevo al array.
-							else {
-								settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 							}
 						}
 						
@@ -660,10 +656,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								if(isOptgroup) {
 									settings.blankDone = false;
 								} 
-								// Si es un combo normal añade un registro nuevo al array.
-								else {
-									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
-								}
 							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
@@ -1641,10 +1633,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 						if(isOptgroup) {
 							settings.blankDone = false;
-						} 
-						// Si es un combo normal añade un registro nuevo al array.
-						else {
-							settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 						}
 					}
 					
@@ -1703,10 +1691,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if(isOptgroup) {
 									settings.blankDone = false;
-								} 
-								// Si es un combo normal añade un registro nuevo al array.
-								else {
-									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 								}
 							}
 							rupCombo._ajaxSuccess(data, settings, html);
@@ -1760,7 +1744,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$('#' + settings.id).next('a').click(function (event) {
 					$('#ui-datepicker-div').hide();
 				});
-
+				
+				//Se audita el componente
+				$.rup.auditComponent('rup_combo', 'init');
 			}
 		}
 	});

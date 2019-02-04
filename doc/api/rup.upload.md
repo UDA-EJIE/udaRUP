@@ -210,19 +210,19 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| namespace | <code>string</code> |  | Se utiliza para asociar el capturador de eventos del dropZone y del fileInpurt. Por defecto toma el valor del widget (“fileupload”). |
-| dropZone | <code>jQuery</code> | <code>$(document)</code> | Indica el objeto jQuery que representa el área de dropZone. Para deshabilitar el soporte drag & drop se deberá indicar el valor null. |
-| fileInput | <code>jQuery</code> |  | Objeto jQuery sobre el cual se monitorizarán los eventos de cambio del mismo. En caso de no especificarse se tomarán los input de tipo file existentes dentro del objeto sobre el que se ha creado el componente upload. Para deshabilitar el capturador de eventos se deberá indicar el valor null. |
-| replaceFileInput | <code>boolean</code> | <code>true</code> | Determinar si el campo file es reemplazado por un nuevo objeto a partir de un clone. |
-| paramName | <code>string</code> |  | Indica el nombre del parámetro de la request mediante el cual se enviará la información del fichero. En caso de no especificarse, se tomará el valor de la propiedad name del campo file. En caso de no especificarse dicha propiedad se tomará el valor files[] por defecto. |
-| singleFileUploads | <code>boolean</code> | <code>true</code> | Especifica si la subida de ficheros se realizar de manera individual, es decir, si se realiza una petición XHR por cada uno de los ficheros que se deben de enviar. |
-| limitMultiFileUploads | <code>boolean</code> | <code>true</code> | Especifica el número de ficheros que pueden ser enviados en una única petición XHR. |
-| sequentialUploads | <code>boolean</code> | <code>false</code> | Especifica si el envío de los ficheros se realizan de manera secuencial en vez de manera simultánea. |
-| limitConcurrentUploads | <code>Integer</code> |  | Indica el número máximo de peticiones concurrentes para la subida de ficheros. |
-| forceIframeTransport | <code>boolean</code> | <code>false</code> | Determina si se debe forzar el uso de iframe al realizar la subida de ficheros. Esta opción puede ser útil en caso de subida de ficheros entre diferentes dominios. |
-| multipart | <code>boolean</code> | <code>true</code> | Indica si la subida de ficheros se realiza como multipart/form-data. |
-| recalculateProgress | <code>boolean</code> | <code>true</code> | Por defecto, los envíos de ficheros erróneos o cancelados son excluidos del cálculo del progreso global de subida de ficheros. Para evitar el recálculo del progreso global se deberá de especificar esta opción como false. |
-| formData | <code>object</code> \| <code>Array.&lt;object&gt;</code> \| <code>function</code> |  | Información adicional que se desea enviar al realizarse la subida de ficheros. El parámetro acepta lo siguiente: <ul><li>Array de objetos con propiedades</li><li>Objeto simple</li><li>Función que retorna uno de los tipos de datos especificados anteriormente.</li></ul> |
+| [namespace] | <code>string</code> |  | Se utiliza para asociar el capturador de eventos del dropZone y del fileInpurt. Por defecto toma el valor del widget (“fileupload”). |
+| [dropZone] | <code>jQuery</code> | <code>$(document)</code> | Indica el objeto jQuery que representa el área de dropZone. Para deshabilitar el soporte drag & drop se deberá indicar el valor null. |
+| [fileInput] | <code>jQuery</code> |  | Objeto jQuery sobre el cual se monitorizarán los eventos de cambio del mismo. En caso de no especificarse se tomarán los input de tipo file existentes dentro del objeto sobre el que se ha creado el componente upload. Para deshabilitar el capturador de eventos se deberá indicar el valor null. |
+| [replaceFileInput] | <code>boolean</code> | <code>true</code> | Determinar si el campo file es reemplazado por un nuevo objeto a partir de un clone. |
+| [paramName] | <code>string</code> |  | Indica el nombre del parámetro de la request mediante el cual se enviará la información del fichero. En caso de no especificarse, se tomará el valor de la propiedad name del campo file. En caso de no especificarse dicha propiedad se tomará el valor files[] por defecto. |
+| [singleFileUploads] | <code>boolean</code> | <code>true</code> | Especifica si la subida de ficheros se realizar de manera individual, es decir, si se realiza una petición XHR por cada uno de los ficheros que se deben de enviar. |
+| [limitMultiFileUploads] | <code>boolean</code> | <code>true</code> | Especifica el número de ficheros que pueden ser enviados en una única petición XHR. |
+| [sequentialUploads] | <code>boolean</code> | <code>false</code> | Especifica si el envío de los ficheros se realizan de manera secuencial en vez de manera simultánea. |
+| [limitConcurrentUploads] | <code>Integer</code> |  | Indica el número máximo de peticiones concurrentes para la subida de ficheros. |
+| [forceIframeTransport] | <code>boolean</code> | <code>false</code> | Determina si se debe forzar el uso de iframe al realizar la subida de ficheros. Esta opción puede ser útil en caso de subida de ficheros entre diferentes dominios. |
+| [multipart] | <code>boolean</code> | <code>true</code> | Indica si la subida de ficheros se realiza como multipart/form-data. |
+| [recalculateProgress] | <code>boolean</code> | <code>true</code> | Por defecto, los envíos de ficheros erróneos o cancelados son excluidos del cálculo del progreso global de subida de ficheros. Para evitar el recálculo del progreso global se deberá de especificar esta opción como false. |
+| [formData] | <code>object</code> \| <code>Array.&lt;object&gt;</code> \| <code>function</code> |  | Información adicional que se desea enviar al realizarse la subida de ficheros. El parámetro acepta lo siguiente: <ul><li>Array de objetos con propiedades</li><li>Objeto simple</li><li>Función que retorna uno de los tipos de datos especificados anteriormente.</li></ul> |
 
 <a name="module_rup_upload..destroy"></a>
 

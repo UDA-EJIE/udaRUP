@@ -458,7 +458,6 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
-					debugger;
 					$formAlt.rup_form('destroy');
 					$formAlt.rup_form('clearForm');
 				});

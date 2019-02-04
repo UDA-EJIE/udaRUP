@@ -572,6 +572,9 @@
 				} else {
 					delete settings.contextmenu;
 				}
+
+				//Se audita el componente
+				$.rup.auditComponent('rup_tree', 'init');
 			}
 		},
 		/* revisar funcionamiento */

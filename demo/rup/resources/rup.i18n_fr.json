@@ -50,15 +50,15 @@
     "closeText": "Cerrar",
     "currentText": "Hoy",
     "dateFormat": "dd/mm/yy",
-    "dayNames" :["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    "dayNamesMin" :["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-    "dayNamesShort" :["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    "dayNamesShort": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
     "firstDay": "1",
     "mask": "(dd/mm/aaaa)",
     "maskDateTime": "(dd/mm/aaaa hh:mm)",
     "maskDateTimeSec": "(dd/mm/aaaa hh:mm:ss)",
-    "monthNames" :["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-		"monthNamesShort" :["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "monthNamesShort": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
     "nextText": "Siguiente",
     "prevText": "Anterior",
     "weekHeader": "&nbsp;&nbsp;&nbsp;"
@@ -221,29 +221,29 @@
         "thousandsSeparator": "."
       },
       "date": {
-        "AmPm" :[
-                   "am",
-                   "pm",
-                   "AM",
-                   "PM"
+        "AmPm": [
+          "am",
+          "pm",
+          "AM",
+          "PM"
         ],
         "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames":[
-                    "Do",
-                    "Lu",
-                    "Ma",
-                    "Mi",
-                    "Ju",
-                    "Vi",
-                    "Sa",
-                    "Domingo",
-                    "Lunes",
-                    "Martes",
-                    "Miércoles",
-                    "Jueves",
-                    "Viernes",
-                    "Sábado"
-                ],
+        "dayNames": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa",
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado"
+        ],
         "masks": {
           "FullDateTime": "l, F d, Y g:i:s A",
           "ISO8601Long": "Y-m-d H:i:s",
@@ -262,32 +262,32 @@
           "UniversalSortableDateTime": "Y-m-d H:i:sO",
           "YearMonth": "F, Y"
         },
-        "monthNames":[
-                    "Ene",
-                    "Feb",
-                    "Mar",
-                    "Abr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Ago",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dic",
-                    "Enero",
-                    "Febrero",
-                    "Marzo",
-                    "Abril",
-                    "Mayo",
-                    "Junio",
-                    "Julio",
-                    "Agosto",
-                    "Septiembre",
-                    "Octubre",
-                    "Noviembre",
-                    "Diciembre"
-                ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
         "newformat": "d/m/Y",
         "reformatAfterEdit": "false",
         "srcformat": "d/m/y H:i:s"
@@ -352,7 +352,7 @@
       "jerarquia": {
         "deselectChild": "fr_Deseleccionar hijos",
         "deselectDescendent": "fr_Deseleccionar descendientes",
-		"filtered": "fr_El elemento cumple el filtro",
+        "filtered": "fr_El elemento cumple el filtro",
         "selectChild": "fr_Seleccionar hijos",
         "selectDescendent": "fr_Seleccionar descendientes"
       },
@@ -392,8 +392,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [
-        {
+      "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -403,21 +402,21 @@
         }
       ],
       "matchText": " match",
-      "odata":[
-                "igual",
-                "no igual a",
-                "menor que",
-                "menor o igual que",
-                "mayor que",
-                "mayor o igual a",
-                "empiece por",
-                "no empiece por",
-                "está en",
-                "no está en",
-                "termina por",
-                "no termina por",
-                "contiene",
-                "no contiene"
+      "odata": [
+        "igual",
+        "no igual a",
+        "menor que",
+        "menor o igual que",
+        "mayor que",
+        "mayor o igual a",
+        "empiece por",
+        "no empiece por",
+        "está en",
+        "no está en",
+        "termina por",
+        "no termina por",
+        "contiene",
+        "no contiene"
       ],
       "rulesText": " reglas"
     },
@@ -462,11 +461,11 @@
         "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
         "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
         "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer'></div>",
-        "navClearLink": "<a id='{0}' class='rup-table_linkSearchNav rup-table_linkClear' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
+        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
         "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-        "navLink": "<a id='{0}' class='rup-table_linkSearchNav ui-state-disabled' href='javascript:void(0)' alt='{1}'>{1}</a>",
-        "navSearchButton": "<button id='{0}' class='ui-button ui-widget ui-state-default ui-corner-all rup-table_searchButton' type='button' ><span class='ui-button-icon-primary ui-icon ui-icon-search search_nav_button_icon'></span><span class='ui-button-text'>{1}</span></button>",
+        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
+        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
         "searchRow": "<tr class='search_row'></tr>",
         "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
@@ -555,7 +554,7 @@
       "url": "Veuillez entrer une URL valide."
     },
     "regexp": {
-      "decimal":"^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
+      "decimal": "^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
     }
   },
   "rup_wizard": {
@@ -563,7 +562,488 @@
     "prev": "Anterior_fr",
     "summary": "Resumen_fr"
   },
-    "rup_button":{
-        "new": "Nuevo_fr"
+  "rup_button": {
+    "new": "Nuevo_fr"
+  },
+  "rup_datatable": {
+    "seleccionada": "[FR]seleccionada",
+    "seleccionadas": "[FR]seleccionadas",
+    "fila": "[FR]fila",
+    "toolbar": {
+      "add": "[FR]Añadir",
+      "edit": "[FR]Editar",
+      "clone": "[FR]Clonar",
+      "delete": "[FR]Eliminar",
+      "reports": {
+        "main": "[FR]Informes",
+        "copyButton": "[FR]Copiar"
+      }
+    },
+    "copyButton": {
+      "changes": "[FR]Copia de registros en portapapeles",
+      "saveAndContinue": {
+        "_": "[FR]¿Desea copiar %d registros?",
+        "1": "[FR]¿Desea copiar un registro?"
+      },
+      "saved": {
+        "_": "[FR]Copiados %d registros al portapapeles",
+        "1": "[FR]Copiado un registro al portapapeles"
+      },
+      "copyTitle": "[FR]Copiar al portapapeles",
+      "copyKeys": "[FR]Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
+    },
+    "collection": "[FR]Collection",
+    "pageLength": {
+      "-1": "[FR]Show all rows",
+      "_": "[FR]Show %d rows"
+    },
+    "cancel": "Cancelar",
+    "changes": "fr_Control de cambios",
+    "checkAddedSelectedElems": "fr_Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
+    "checkSelectedElems": "fr_Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
+    "clearSelection": "deshacer selección",
+    "col": {
+      "bCancel": "Cancelar",
+      "bSubmit": "Enviar",
+      "caption": "Mostrar/ocultar columnas"
+    },
+    "de": "fr_de",
+    "deSelectAll": "deseleccionar los ",
+    "deSelectedElems": "Se han deseleccionado los ",
+    "defaults": {
+      "detailForm_pager": "Mostrando {0} de {1}",
+      "emptyrecords": "Sin registros que mostrar",
+      "loadtext": "Cargando...",
+      "pgtext": "Página {0} de {1}",
+      "recordtext": "Mostrando {0} - {1} de {2}"
+    },
+    "del": {
+      "bCancel": "Cancelar",
+      "bSubmit": "Eliminar",
+      "caption": "Eliminar",
+      "msg": "¿Desea eliminar los registros seleccionados?"
+    },
+    "delete": "fr_Eliminar",
+    "deleteAll": "fr_¿Está seguro que desea eliminar todos los registros seleccionados?",
+    "deletedOK": "fr_El elemento se ha borrado correctamente.",
+    "deselectMsg": "Se han deseleccionado los {0} elementos de la página {1}.",
+    "deselectRestMsg": "Deseleccionar los {0} restantes",
+    "detailTitle": "fr_Detalle de Registro",
+    "edit": {
+      "addCaption": "Agregar registro",
+      "bCancel": "Cancelar",
+      "bClose": "Cerrar",
+      "bExit": "Cancelar",
+      "bNo": "No",
+      "bSubmit": "Guardar",
+      "bYes": "Sí",
+      "editCaption": "Modificar registro",
+      "msg": {
+        "customarray": "La función personalizada debe devolver un array.",
+        "customfcheck": "La función personalizada debe estar presente en el caso de validación personalizada.",
+        "date": "Introduza una fecha correcta ",
+        "email": "No es una dirección de correo válida",
+        "integer": "Introduzca un valor entero",
+        "maxValue": "El valor debe ser menor o igual a ",
+        "minValue": "El valor debe ser mayor o igual a ",
+        "nodefined": " no está definido.",
+        "novalue": " valor de retorno es requerido.",
+        "number": "Introduzca un número",
+        "required": "Campo obligatorio",
+        "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
+      },
+      "saveData": "Se han modificado los datos, ¿guardar cambios?"
+    },
+    "element(s)": "fr_Elemento(s)",
+    "elements": "fr_Elementos",
+    "emptyChanges": "fr_No se han realizado cambios.",
+    "errors": {
+      "errcap": "Error",
+      "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
+      "model": "Las columnas de nombres son diferentes de las columnas de modelo",
+      "norecords": "No hay datos para procesar",
+      "nourl": "No se ha especificado una URL"
+    },
+    "feedback": {
+      "deletedOK": "fr_El elemento se ha borrado correctamente.",
+      "insertError": "fr_Error al insertar el elemento.",
+      "insertOK": "fr_El elemento se ha añadido correctamente.",
+      "modifyOK": "fr_El elemento se ha modificado correctamente.",
+      "validateError": "fr_Se han producido los siguientes errores:<br/>"
+    },
+    "filter": "fr_Filtrar",
+    "first": "fr_Primero",
+    "formatter": {
+      "baseLinkUrl": "",
+      "checkbox": {
+        "disabled": "true"
+      },
+      "currency": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "prefix": "",
+        "suffix": "",
+        "thousandsSeparator": "."
+      },
+      "date": {
+        "AmPm": [
+          "am",
+          "pm",
+          "AM",
+          "PM"
+        ],
+        "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
+        "dayNames": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa",
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado"
+        ],
+        "masks": {
+          "FullDateTime": "l, F d, Y g:i:s A",
+          "ISO8601Long": "Y-m-d H:i:s",
+          "ISO8601Short": "Y-m-d",
+          "LongDate": "l, F d, Y",
+          "LongTime": "g:i:s A",
+          "MonthDay": "F d",
+          "RupDate": "d/m/Y",
+          "RupDateTime": "d/m/Y H:i",
+          "RupDateTimeSec": "d/m/Y H:i:s",
+          "RupTime": "H:i",
+          "RupTimeSec": "H:i:s",
+          "ShortDate": "n/j/Y",
+          "ShortTime": "g:i A",
+          "SortableDateTime": "Y-m-dTH:i:s",
+          "UniversalSortableDateTime": "Y-m-d H:i:sO",
+          "YearMonth": "F, Y"
+        },
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
+        "newformat": "d/m/Y",
+        "reformatAfterEdit": "false",
+        "srcformat": "d/m/y H:i:s"
+      },
+      "idName": "id",
+      "integer": {
+        "defaultValue": "0",
+        "thousandsSeparator": "."
+      },
+      "number": {
+        "decimalPlaces": "2",
+        "decimalSeparator": ",",
+        "defaultValue": "0,00",
+        "thousandsSeparator": "."
+      },
+      "showAction": "",
+      "target": ""
+    },
+    "insertError": "fr_Error al insertar el elemento.",
+    "insertOK": "fr_El elemento se ha añadido correctamente.",
+    "invalidRowId": "fr_El identificador de la fila no es válido. No se puede completar la acción",
+    "last": "fr_Último",
+    "modify": "fr_Editar",
+    "modifyOK": "fr_El elemento se ha modificado correctamente.",
+    "multiselectHeader": "fr_Seleccionar todos los elementos de la página",
+    "nav": {
+      "addtext": " ",
+      "addtitle": "Agregar nueva fila",
+      "alertcap": "Aviso",
+      "alerttext": "Seleccione una fila",
+      "deltext": " ",
+      "deltitle": "Eliminar fila seleccionada",
+      "edittext": " ",
+      "edittitle": "Modificar fila seleccionada",
+      "refreshtext": "",
+      "refreshtitle": "Recargar datos",
+      "searchtext": " ",
+      "searchtitle": "Buscar información",
+      "viewtext": "",
+      "viewtitle": "Ver fila seleccionada"
+    },
+    "new": "fr_Añadir",
+    "next": "fr_Siguiente",
+    "noGrid": "fr_No es posible crear un mantenimiento sin un grid.",
+    "noRecordsFound": "No hay registros.",
+    "noReg": "fr_Seleccione un registro.",
+    "numResult": "fr_Número de resultados",
+    "ofPage": " elementos de la página.",
+    "pager": {
+      "anterior": "Anterior",
+      "input": "Página actual",
+      "primPag": "Primera Página",
+      "select": "Número de elementos por página",
+      "selected": "seleccionados",
+      "siguiente": "Siguiente",
+      "ultiPag": "Última Página"
+    },
+    "plugins": {
+      "filter": {
+        "filterCriteria": "fr_Criterios de filtrado"
+      },
+      "jerarquia": {
+        "deselectChild": "fr_Deseleccionar hijos",
+        "deselectDescendent": "fr_Deseleccionar descendientes",
+        "filtered": "fr_El elemento cumple el filtro",
+        "selectChild": "fr_Seleccionar hijos",
+        "selectDescendent": "fr_Seleccionar descendientes"
+      },
+      "multifilter": {
+        "apply": "fr_Aplicar",
+        "cancel": "fr_Cancelar",
+        "close": "fr_Cerrar",
+        "defaultFilter": "fr_Filtro por defecto",
+        "emptyName": "fr_Seleccione un filtro",
+        "error": "fr_Error al completar la acción",
+        "errorNoexiste": "fr_Nombre de filtro inexistente",
+        "errorValidate": "fr_Formulario sin validar",
+        "filters": "fr_Nombre",
+        "noRecords": "fr_No existe un filtro con ese nombre",
+        "ok": "fr_Acción completada con éxito",
+        "remove": "fr_Eliminar",
+        "save": "fr_Guardar",
+        "tittle": "fr_Administrador de filtros",
+        "tooLong": "fr_Nombre demasiado largo"
+      },
+      "multiselection": {
+        "deselectAll": "fr_Desmarcar todos",
+        "deselectAllPage": "fr_Desmarcar visibles",
+        "selectAll": "fr_Marcar todos",
+        "selectAllPage": "fr_Marcar visibles"
+      },
+      "search": {
+        "matchedRecords": "fr_{0} elementos encontrados",
+        "matchedRecordsCount": "fr_Elemento {0} de {1} encontrados",
+        "searchCriteria": "fr_Criterios de búsqueda"
+      }
+    },
+    "previous": "fr_Anterior",
+    "save": "fr_Guardar",
+    "saveAndContinue": "fr_Se perderan los cambios en los datos modificados, ¿desea continuar?",
+    "search": {
+      "Find": "Buscar",
+      "Reset": "Limpiar",
+      "caption": "Búsqueda...",
+      "groupOps": [{
+          "op": "AND",
+          "text": "todo"
+        },
+        {
+          "op": "OR",
+          "text": "cualquier"
+        }
+      ],
+      "matchText": " match",
+      "odata": [
+        "igual",
+        "no igual a",
+        "menor que",
+        "menor o igual que",
+        "mayor que",
+        "mayor o igual a",
+        "empiece por",
+        "no empiece por",
+        "está en",
+        "no está en",
+        "termina por",
+        "no termina por",
+        "contiene",
+        "no contiene"
+      ],
+      "rulesText": " reglas"
+    },
+    "searchOptions": "fr_Criterios de Búsqueda:",
+    "selectAll": "seleccionar los ",
+    "selectAllRest": "restantes",
+    "selectMsg": "Se han seleccionado los {0} elementos de la página {1}.",
+    "selectRestMsg": "Seleccionar los {0} restantes",
+    "selected": "fr_seleccionados",
+    "selectedElems": "Se han seleccionado los ",
+    "summary": {
+      "cabecera": "Cabecera de la tabla",
+      "datos": "Datos de la tabla",
+      "paginador": "Elemento de paginación de la tabla",
+      "paginador_navegar": "Elemento de navegación de la paginación de la tabla"
+    },
+    "templates": {
+      "detailForm": {
+        "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
+        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
+        "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
+        "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
+        "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
+        "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
+        "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
+      },
+      "filter": {
+        "filterSummary": "<span id='{0}'></span>",
+        "toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
+        "toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>",
+        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
+      },
+      "message": {
+        "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
+      },
+      "multiselection": {
+        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+      },
+      "search": {
+        "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
+        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
+        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
+        "matchedLabel": "<span id='{0}'>{1}</span>",
+        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
+        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
+        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
+        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
+        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
+        "searchRow": "<tr class='search_row'></tr>",
+        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
+      }
+    },
+    "titleDelAll": "fr_Eliminar los registros",
+    "toolbarNewButtonError": "fr_Error al crear un nuevo botón. <br/>Las tres variables de todo nuevo botón deben estar informadas.",
+    "validateError": "fr_Se han producido los siguientes errores:<br/>",
+    "view": {
+      "bClose": "Cerrar",
+      "caption": "Consultar registro"
     }
+  },
+  "sProcessing": "[FR]Procesando...",
+  "sLengthMenu": "_MENU_",
+  "sZeroRecords": "[FR]No se encontraron resultados",
+  "sEmptyTable": "[FR]Ningún dato disponible en esta tabla",
+  "sInfo": "[FR]Mostrando _START_ - _END_ de _TOTAL_",
+  "sInfoEmpty": "[FR]Mostrando 0 - 0 de 0",
+  "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+  "sInfoPostFix": "",
+  "sSearch": "[FR]Buscar:",
+  "sUrl": "",
+  "sInfoThousands": ",",
+  "sLoadingRecords": "[FR]Cargando...",
+  "oPaginate": {
+    "sFirst": "[FR]Primero",
+    "sLast": "[FR]Último",
+    "sNext": "[FR]Siguiente",
+    "sPrevious": "[FR]Anterior"
+  },
+  "oAria": {
+    "sSortAscending": ": [FR]Activar para ordenar la columna de manera ascendente",
+    "sSortDescending": ": [FR]Activar para ordenar la columna de manera descendente"
+  },
+  "pagina": "[FR]Página ",
+  "toPagina": " [FR]de {0}",
+  "rup_calendar": {
+    "error_noview": "Calendario: Vista {0} no encontrada",
+    "error_dateformat": "Calendario: Formato de fecha inválido {0}. Debe ser \"now\" o \"yyyy-mm-dd\"",
+    "error_loadurl": "Calendario: URL de carga de eventos no configurada",
+    "error_where": "Calendario: Dirección de navegación incorrecta {0}. Los valores correctos son \"next\" o \"prev\" o \"today\"",
+    "error_timedevide": "Calendario: parámetro para el separador de hora debe dividir 60 por un entero. Por ejemplo 10, 15, 30",
+
+    "no_events_in_day": "No hay eventos hoy",
+
+    "title_year": "Año {0}",
+    "title_month": "{0} {1}",
+    "title_week": "Semana {0} del {1}",
+    "title_day": "{0} {1} {2} {3}",
+
+    "week": "Semana {0}",
+    "all_day": "Todo el día",
+    "time": "Tiempo",
+    "events": "Eventos",
+    "before_time": "Horas previas",
+    "after_time": "Horas posteriores",
+
+    "m0": "Enero",
+    "m1": "Febrero",
+    "m2": "Marzo",
+    "m3": "Abril",
+    "m4": "Mayo",
+    "m5": "Junio",
+    "m6": "Julio",
+    "m7": "Agosto",
+    "m8": "Septiembre",
+    "m9": "Octubre",
+    "m10": "Noviembre",
+    "m11": "Diciembre",
+
+    "ms0": "Ene",
+    "ms1": "Feb",
+    "ms2": "Mar",
+    "ms3": "Abr",
+    "ms4": "May",
+    "ms5": "Jun",
+    "ms6": "Jul",
+    "ms7": "Ago",
+    "ms8": "Sep",
+    "ms9": "Oct",
+    "ms10": "Nov",
+    "ms11": "Dic",
+
+    "d0": "Domingo",
+    "d1": "Lunes",
+    "d2": "Martes",
+    "d3": "Miércoles",
+    "d4": "Jueves",
+    "d5": "Viernes",
+    "d6": "Sábado",
+
+    "easter": "Pascua",
+    "easterMonday": "Lunes de Pascua",
+
+    "first_day": 1,
+    "week_numbers_iso_8601": true,
+
+    "holidays": {
+      "01-01": "Año Nuevo",
+      "06-01": "Día de Reyes",
+      "19-03": "San José",
+      "easter-3": "Jueves Santo",
+      "easter-2": "Viernes Santo",
+      "easter": "Pascua",
+      "easter+1": "Lunes de Pascua",
+      "01-05": "Día del Trabajador",
+      "15-08": "Asunción",
+      "12-10": "Fiesta Nacional de España",
+      "01-11": "Día de todos los Santos",
+      "06-12": "Día de la Constitución",
+      "08-12": "Inmaculada Concepción",
+      "25-12": "Navidad"
+    }
+  }
 }

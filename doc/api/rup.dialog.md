@@ -41,29 +41,29 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| url | <code>string</code> |  | Url de donde se obtendrá el contenido del diálogo. |
-| rupCheckStyle | <code>boolean</code> | <code>true</code> | Propiedad definida por el componentes base, si está a true se mostraran los mensajes específicos del componente base marcados por la guía de estilos, es decir, que si el desarrollador no cumple con la guisa de estilos o desarrollo el objeto base mostrará los mensajes advirtiendo su incumplimiento, si se pone a false no se mostraran. Esta acción queda bajo la responsabilidad de la aplicación, ya que esta propiedad no debería modificarse. |
+| [url] | <code>string</code> |  | Url de donde se obtendrá el contenido del diálogo. |
+| [rupCheckStyle] | <code>boolean</code> | <code>true</code> | Propiedad definida por el componentes base, si está a true se mostraran los mensajes específicos del componente base marcados por la guía de estilos, es decir, que si el desarrollador no cumple con la guisa de estilos o desarrollo el objeto base mostrará los mensajes advirtiendo su incumplimiento, si se pone a false no se mostraran. Esta acción queda bajo la responsabilidad de la aplicación, ya que esta propiedad no debería modificarse. |
 | type | [<code>DIV</code>](#module_rup_dialog..DIV) \| [<code>TEXT</code>](#module_rup_dialog..TEXT) \| [<code>AJAX</code>](#module_rup_dialog..AJAX) \| [<code>LINK</code>](#module_rup_dialog..LINK) |  | Propiedad que establece el tipo de diálogo a mostrar. |
 | ajaxOptions | <code>jQuery.rup_dialog~ajaxOptions</code> |  | Establece las todas las propiedades para configurar la petición ajax. |
-| showLoading | <code>boolean</code> | <code>true</code> | Esta propiedad mostrará una capa de cargando datos en los diálogos de tipo Ajax durante la carga del mismo. |
-| disabled | <code>boolean</code> | <code>false</code> | Propiedad que deshabilita o no el diálogo. |
-| autoOpen | <code>boolean</code> | <code>true</code> | Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)). |
-| buttons | <code>Object</code> |  | Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo. |
-| closeOnEscape | <code>boolean</code> | <code>true</code> | Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC. |
+| [showLoading] | <code>boolean</code> | <code>true</code> | Esta propiedad mostrará una capa de cargando datos en los diálogos de tipo Ajax durante la carga del mismo. |
+| [disabled] | <code>boolean</code> | <code>false</code> | Propiedad que deshabilita o no el diálogo. |
+| [autoOpen] | <code>boolean</code> | <code>true</code> | Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)). |
+| [buttons] | <code>Object</code> |  | Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo. |
+| [closeOnEscape] | <code>boolean</code> | <code>true</code> | Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC. |
 | dialogClass | <code>string</code> |  | Porpiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes. |
-| draggable | <code>boolean</code> | <code>true</code> | Si su valor es true el diáologo sera dragable pinchando sobre el título. |
-| height | <code>string</code> \| <code>number</code> | <code>&quot;auto&quot;</code> | Establece el alto del diálogoen pixeles. |
-| hide | <code>string</code> | <code>null</code> | Efecto utilizado cuando se cierra el diálogo. |
-| maxHeight | <code>boolean</code> \| <code>number</code> | <code>false</code> | Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
-| maxWidth | <code>boolean</code> \| <code>number</code> | <code>false</code> | Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
-| minHeight | <code>boolean</code> \| <code>number</code> | <code>100</code> | Alto mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
-| minWidth | <code>boolean</code> \| <code>number</code> | <code>150</code> | Ancho mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
-| modal | <code>boolean</code> | <code>false</code> | Si se establece esta propiedad a true el diálogo se abrirá de forma modal, por encima del resto de elementos. |
+| [draggable] | <code>boolean</code> | <code>true</code> | Si su valor es true el diáologo sera dragable pinchando sobre el título. |
+| [height] | <code>string</code> \| <code>number</code> | <code>&quot;auto&quot;</code> | Establece el alto del diálogoen pixeles. |
+| [hide] | <code>string</code> | <code>null</code> | Efecto utilizado cuando se cierra el diálogo. |
+| [maxHeight] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
+| [maxWidth] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
+| [minHeight] | <code>boolean</code> \| <code>number</code> | <code>100</code> | Alto mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
+| [minWidth] | <code>boolean</code> \| <code>number</code> | <code>150</code> | Ancho mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
+| [modal] | <code>boolean</code> | <code>false</code> | Si se establece esta propiedad a true el diálogo se abrirá de forma modal, por encima del resto de elementos. |
 | position | <code>string</code> \| <code>Array.&lt;string&gt;</code> \| <code>Array.&lt;number&gt;</code> |  | Esta propiedad especifica donde debe mostrarse el diálogo. Sus posibles valores son: Un simple String representando la posición. 'center', 'left', 'right', 'top', 'bottom'. Un array con las coordenadas x, y en pixles (e. [350,100]). Un array con string que representan la posición (e. ['right','top']). |
-| resizable | <code>boolean</code> | <code>true</code> | Si se establece esta propiedad a true el diálogo se redimensionable. |
-| show | <code>string</code> |  | Efecto a realizar cuando se abre el diálogo. |
-| title | <code>string</code> |  | Establece el título de la ventana. Puede ser cualquier html válido. |
-| width | <code>number</code> | <code>300</code> | Establece el ancho del diálogo en pixeles. |
+| [resizable] | <code>boolean</code> | <code>true</code> | Si se establece esta propiedad a true el diálogo se redimensionable. |
+| [show] | <code>string</code> |  | Efecto a realizar cuando se abre el diálogo. |
+| [title] | <code>string</code> |  | Establece el título de la ventana. Puede ser cualquier html válido. |
+| [width] | <code>number</code> | <code>300</code> | Establece el ancho del diálogo en pixeles. |
 | open | <code>jQuery.rup_dialog~onOpen</code> |  | Evento que se lanza cuando se abre el diálogo. |
 | close | [<code>onClose</code>](#jQuery.rup_dialog..onClose) |  | Evento que se lanza a la hora de cerrar el diálogo. |
 | beforeClose | <code>jQuery.rup_dialog~onBeforeClose</code> |  | Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto. |

@@ -1,6 +1,7 @@
 
 
 	var	APP_RESOURCES = 'demo/x21a',
+	AUDIT_PATH ='http://localhost:8081/audit',
 	CTX_PATH = '/x21aResponsive/',
 	STATICS = '',
     RESOURCES_PATH = '../../i18n/',

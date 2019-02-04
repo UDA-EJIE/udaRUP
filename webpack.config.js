@@ -63,6 +63,12 @@ module.exports = [{
 					loader: 'expose-loader',
 					options: 'Tether'
 				}]
+			}, {
+				test: require.resolve('popper.js'),
+				use: [{
+					loader: 'expose-loader',
+					options: 'Popper'
+				}]
 			}]
 	},
 	stats: {
@@ -97,6 +103,7 @@ module.exports = [{
 
 				'jquery.ui.widget': 'jquery-ui/widget.js',
 				'tmpl': 'blueimp-tmpl/js/tmpl.js',
+				'calendar-tmpls': 'bootstrap-calendar/tmpls'
 			}
 
 		}
