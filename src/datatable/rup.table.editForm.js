@@ -235,6 +235,10 @@ DataTable.editForm.init = function ( dt ) {
 
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
+	
+	$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+		_addChildIcons(ctx);
+	} ) );
 
 };
 
@@ -1215,6 +1219,145 @@ function _comprobarSeeker(row,ctx,idRow){
 	}
 }
 
+/**
+* Método que gestiona el bloqueo de la edición de las claves primarias.
+*
+* @name _blockPKeditForm
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {string} actionType - Método de operación CRUD.
+*
+*/
+function _blockPKeditForm(ctx, actionType){
+	var blockPK = ctx.oInit.blockPKeditForm;
+	var idForm = ctx.oInit.formEdit.idForm;
+	
+	if(blockPK) {
+		// En caso de ser edición bloqueamos la modificación
+		if(actionType === "PUT") {
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
+				if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
+					input.rup_date("disable");
+				} 
+				else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
+					input.rup_combo("disable");
+				}
+				else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
+					input.rup_time("disable");
+				}
+				else if(input.attr("type") === "checkbox") {
+					if(!input.hasClass("checkboxPKBloqueado")) {
+						input.addClass("checkboxPKBloqueado");						
+					}
+					
+					var valorCheck = input.is(":checked") ? 1 : 0;
+					var selectorInputSustituto = $("#" + id + "_bloqueado");
+					
+					// Comprobamos si es necesario cambiar el check
+					if(selectorInputSustituto.attr("valor") !== valorCheck){
+						if(selectorInputSustituto.attr("valor") !== undefined){
+							selectorInputSustituto.remove();
+						}
+						
+						if(valorCheck === 1) {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+						} else {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+						}
+					}
+				}
+				else {
+					input.prop("readOnly", true);
+				}
+				
+				// Quitamos el foco del elemento
+				input.on('mousedown', function(event) {
+					event.preventDefault();
+				});
+			});
+		} 
+		// En caso de ser clonación permitimos la edición
+		else if(actionType === "POST"){
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
+				if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
+					input.rup_date("enable");
+				} 
+				else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
+					input.rup_combo("enable");
+				}
+				else if(input.attr("ruptype") === "time" && input.rup_time("isDisabled")) {
+					input.rup_time("enable");
+				}
+				else if(input.attr("type") === "checkbox") {
+					input.removeClass("checkboxPKBloqueado");
+					$("#" + id + "_bloqueado").remove();
+				}
+				else {
+					input.prop("readOnly", false);
+				}
+				
+				// Devolvemos el foco al elemento
+				input.on('mousedown', function(event) {
+					$(this).unbind(event.preventDefault());
+					input.focus();
+				});
+			});
+		}
+	}
+}
+
+
+/**
+* Se añaden los iconos al responsive.
+*
+* @name _addChildIcons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
+function _addChildIcons(ctx){
+	var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
+		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
+		if(count > 0){//añadir span ala primera fila
+			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
+				var $span = $('<span/>');
+				if($(this).find('span.openResponsive').length === 0){
+					$(this).prepend($span.addClass('openResponsive'));
+				}else{//si ya existe se asigna el valor.
+					$span = $(this).find('span.openResponsive');
+				}
+				if($(this).parent().next().hasClass('child')){
+					$span.addClass('closeResponsive');
+				}
+				var $fila = $(this).parent();
+				$span.click(function(event){
+					if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+						event.stopPropagation();
+					}else{
+						if($span.hasClass('closeResponsive')){
+							$span.removeClass('closeResponsive');
+						}else{
+							$span.addClass('closeResponsive');
+						}
+					}
+				});
+			});
+		}
+	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -1247,6 +1390,10 @@ apiRegister( 'editForm.getLineByPageSelected()', function ( ctx,linea ) {
 
 apiRegister( 'editForm.getLineByPageSelectedReverse()', function ( ctx,linea ) {
 	return _getLineByPageSelectedReverse(ctx,linea);
+} );
+
+apiRegister( 'editForm.addchildIcons()', function (ctx) {
+	_addChildIcons(ctx);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

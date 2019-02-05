@@ -892,7 +892,7 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 	if($fila.hasClass("editable")){
 		var colModel = ctx.oInit.colModel;
 		$fila.removeClass("editable");
-	
+		
 		$celdas.each( function() {
 			var celda = $(this);
 			var $celda = $(celda);
@@ -901,19 +901,25 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
-					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad
-						var $span = $celda.find('span.openResponsive');
-						$span.click(function(event){
-							if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
-								event.stopPropagation();
-							}else{
-								if($span.hasClass('closeResponsive')){
-									$span.removeClass('closeResponsive');
+					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad, y es responsive
+						var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+					
+						if(count > 0){// si hay responsive	
+							var $span = $celda.find('span.openResponsive');
+							$span.click(function(event){
+								if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+									event.stopPropagation();
 								}else{
-									$span.addClass('closeResponsive');
+									if($span.hasClass('closeResponsive')){
+										$span.removeClass('closeResponsive');
+									}else{
+										$span.addClass('closeResponsive');
+									}
 								}
-							}
-						});
+							});
+						}else{//si NO hay responsive
+							$celda.find('span.openResponsive').remove();
+						}
 					}
 				}
 				contRest++;
@@ -1283,11 +1289,25 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 					if($inputChild.length > 0){
 						$('#'+$inputChild[0].id.replace("_child","")).prop('disabled', false);
 					}
+					if($inputChild.is(':checkbox')){//x si es checkbox
+						if($inputChild.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					} 
 	
 				}else{//se coge el valor de los inputs ocultos.
 					var $input = $fila.find('td:eq('+i+')').find('select,input');
 					value = $input.val();
 					$input.prop('disabled', true);
+					if($input.is(':checkbox')){//x si es checkbox
+						if($input.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
 				}
 				
 			}else{
@@ -1297,9 +1317,25 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				// se asigna valor normal
 				
 				if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
-					value = $fila.find('td:eq('+i+')').find('select,input').val();
+					var $input2 = $fila.find('td:eq('+i+')').find('select,input');
+					value = $input2.val();
+					if($input2.is(':checkbox')){//x si es checkbox
+						if($input2.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
 				}else{
-					value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
+					var $inputChild2 = $fila.next('.child').find('li:eq('+contar+')').find('select,input');
+					value = $inputChild2.val();
+					if($inputChild2.is(':checkbox')){//x si es checkbox
+						if($inputChild2.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
 				}
 			}
 			//Guardar los inputs
@@ -1328,12 +1364,26 @@ function _asignarInputsValues(ctx,$fila){
 					$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
 				}else{
 					$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+					if($fila.find('td:eq('+celda.idCell+') input').is(':checkbox')){
+						if(celda.value){
+							$fila.find('td:eq('+celda.idCell+') input').prop('checked',true);
+						}else{
+							$fila.find('td:eq('+celda.idCell+') input').prop('checked',false);
+						}
+					}
 				}
 			}else{//se asignan alos child
 				if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
 					$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
 				}else{
 					$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+					if($fila.next('.child').find('li:eq('+contChild+') input').is(':checkbox')){
+						if(celda.value){
+							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',true);
+						}else{
+							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',false);
+						}
+					}
 				}
 				 contChild++;
 			}

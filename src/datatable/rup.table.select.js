@@ -71,19 +71,27 @@ DataTable.select.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
-		if(e.target.className.indexOf("openResponsive") > -1 
-				|| $(this).hasClass('editable')){
-			return false;
+		if(!$(e.target).is(':checkbox')){//no hacer nada si el evento es de un checkbox, esta en ediccion
+			if(e.target.className.indexOf("openResponsive") > -1 
+					|| $(this).hasClass('editable')){
+				return false;
+			}
+			$(this).triggerHandler('tableSelectBeforeSelectRow');
+			var idRow = this._DT_RowIndex;
+			 _selectRowIndex(dt,idRow,$(this));
+			 $(this).triggerHandler('tableSelectAfterSelectRow');
 		}
-		$(this).triggerHandler('tableSelectBeforeSelectRow');
-		var idRow = this._DT_RowIndex;
-		 _selectRowIndex(dt,idRow,$(this));
-		 $(this).triggerHandler('tableSelectAfterSelectRow');
 	} );
 	
 	//Se genera el div para el feedback del datatable.
 	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
 	ctx.multiselection.internalFeedback = divFeedback;
+	
+	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			} ) );
+	 }
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

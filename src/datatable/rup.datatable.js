@@ -1044,7 +1044,7 @@
 
 			}
 			
-			if(settings.inlineEdit !== undefined && args[0].responsive === undefined){//si el usuario no cambia el selector
+			if(args[0].responsive === undefined){//si el usuario no cambia el selector
 				var responsive = {           
 					details: {
 				    	type: 'column',
@@ -1142,6 +1142,14 @@
 							$tr.addClass('selected tr-highlight');
 						}
 					}
+				}
+				
+				if(settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined
+						&& settingsTable.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+					DataTable.Api().editForm.addchildIcons(settingsTable);
+				}
+				if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+					DataTable.Api().editForm.addchildIcons(settingsTable);
 				}
 
 			  });
