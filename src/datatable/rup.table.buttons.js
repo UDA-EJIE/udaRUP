@@ -2755,12 +2755,18 @@ $.rup_messages('msgConfirm', {
 		1: '¿Desea copiar un registro?'
 	}, exportDataRows),
 	OKFunction: function () {
-		ctx.oInit.formEdit.okCallBack = true;
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.okCallBack = true;
+		}
 		_reportsCopyDataToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
-		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		}
 	},
 	beforeClose: function (){
-		ctx.oInit.formEdit.okCallBack = false
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.okCallBack = false
+		}
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
 		// del if evita un error
 		if (that.processing !== undefined) {
