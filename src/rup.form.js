@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate'], factory);
+		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate', './rup.message'], factory);
 	} else {
 
 		// Browser globals
@@ -74,6 +74,10 @@
 		ajaxFormSubmit: function (options) {
 			if((this.is('form') && !this.hasClass('rup_form')) || 
 				!$('form:first',this.parents()).hasClass('rup_form')) {
+				$.rup_messages("msgError", {
+					title: "Error :",
+					message: "<p>El formulario debe tener la clase rup_form informada</p>"
+				});
 				return undefined;
 			}
 			var $self = this;
@@ -93,7 +97,7 @@
 		ajaxSubmit: function (argOptions) {
 			if((this.is('form') && !this.hasClass('rup_form')) || 
 				!$('form:first',this.parents()).hasClass('rup_form')) {
-				$.rup_message("msgError", {
+				$.rup_messages("msgError", {
 					title: "Error :",
 					message: "<p>El formulario debe tener la clase rup_form informada</p>"
 				});
