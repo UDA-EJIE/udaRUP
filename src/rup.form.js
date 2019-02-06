@@ -93,6 +93,10 @@
 		ajaxSubmit: function (argOptions) {
 			if((this.is('form') && !this.hasClass('rup_form')) || 
 				!$('form:first',this.parents()).hasClass('rup_form')) {
+				$.rup_message("msgError", {
+					title: "Error :",
+					message: "<p>El formulario debe tener la clase rup_form informada</p>"
+				});
 				return undefined;
 			}
 			var $self = this,
