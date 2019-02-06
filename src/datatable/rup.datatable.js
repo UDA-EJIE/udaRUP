@@ -303,7 +303,7 @@
 	            };
 	            options.responsive.details.renderer = renderer;
 			}
-
+			
 			return options;
 		},
 
@@ -1186,6 +1186,13 @@
 			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
 			$self.triggerHandler('tableAfterInit');
+			
+			 if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
+					 settings.multiselect === undefined && settings.select === undefined){
+					$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+						DataTable.Api().editForm.addchildIcons(tabla.context[0]);
+					} ) );
+			 }
 		}
 	});
 

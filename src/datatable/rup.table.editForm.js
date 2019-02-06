@@ -1326,7 +1326,7 @@ function _blockPKeditForm(ctx, actionType){
 *
 */
 function _addChildIcons(ctx){
-	var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	var count = ctx.responsive._columnsVisiblity().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
 		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
 		if(count > 0){//añadir span ala primera fila
