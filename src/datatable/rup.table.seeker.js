@@ -182,6 +182,7 @@ function _createFilterColumn(dt,ctx){
 		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
 		        		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+		        			$('#'+idTabla+'_search_searchForm').rup_form();
 		        			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
 		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
@@ -296,6 +297,7 @@ function _createSearchRow (dt,ctx){
     		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
     		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+    			$('#'+idTabla+'_search_searchForm').rup_form();
     			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
     		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
@@ -340,7 +342,7 @@ function _createSearchRow (dt,ctx){
 		});
 
 		// Se recubre con un form
-		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm').addClass('rup_form');
+		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
 
 		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();

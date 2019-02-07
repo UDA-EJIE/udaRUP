@@ -1230,6 +1230,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(ctx.inlineEdit.lastRow !== undefined){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
+	idForm.rup_form();
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 

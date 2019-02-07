@@ -607,6 +607,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
 
+	ctx.oInit.formEdit.idForm.rup_form();
 	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
