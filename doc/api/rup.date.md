@@ -92,52 +92,52 @@ A continuación se muestran los posibles parámetros de configuración que recib
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| datetimepicker | <code>boolean</code> | <code>false</code> | Indica si el componente permite introducir la hora además de la fecha |
-| disabled | <code>boolean</code> | <code>false</code> | Indica si el componente debe aparecer deshabilitado o no. |
+| [datetimepicker] | <code>boolean</code> | <code>false</code> | Indica si el componente permite introducir la hora además de la fecha |
+| [disabled] | <code>boolean</code> | <code>false</code> | Indica si el componente debe aparecer deshabilitado o no. |
 | altField | <code>string</code> |  | Identificador de un campo adicional para que muestre la fecha en otro formato. |
 | altFormat | <code>string</code> |  | Formato que debe seguir la fecha en el campo adicional |
 | appendText | <code>string</code> |  | Texto que se puede añadir detrás de cada campo de fecha. Se recomienda el uso del atributo “labelMaskId” que se detalla a continuación en lugar de este atributo. |
 | labelMaskId | <code>string</code> |  | Identificador del label que contendrá la máscara que indica el formato de la fecha. |
 | mask | <code>string</code> |  | Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
-| autoSize | <code>boolean</code> | <code>false</code> | Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido |
+| [autoSize] | <code>boolean</code> | <code>false</code> | Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido |
 | buttonImage | <code>string</code> |  | Ruta a la imagen que se muestra junto al campo de la fecha y que sirve para desplegar el calendario pulsando sobre ella. Por defecto se muestra una imagen incluida en los ficheros de RUP. |
 | buttonText | <code>string</code> |  | Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma. |
-| changeMonth | <code>boolean</code> | <code>true</code> | Indica si se muestra un combo que en la cabecera que facilita el cambio de mes |
-| changeYear | <code>boolean</code> | <code>true</code> | indica si se muestra un combo que en la cabecera que facilita el cambio de año |
-| closeText | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el calendario. Su valor por defecto se obtiene del fichero de idioma. |
+| [changeMonth] | <code>boolean</code> | <code>true</code> | Indica si se muestra un combo que en la cabecera que facilita el cambio de mes |
+| [changeYear] | <code>boolean</code> | <code>true</code> | indica si se muestra un combo que en la cabecera que facilita el cambio de año |
+| [closeText] | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el calendario. Su valor por defecto se obtiene del fichero de idioma. |
 | currentText | <code>string</code> |  | Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la fecha actual en el calendario. Su valor por defecto se obtiene del fichero de idioma. |
 | dateFormat | <code>string</code> |  | Formato de la fecha a introducir (ej: dd/mm/yy para 20/01/2011). Su valor por defecto se obtiene del fichero de idioma. |
 | dayNames | <code>array</code> |  | Literales para los días [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | dayNamesMin | <code>array</code> |  | Literales para los días (mínimos) [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | dayNamesShort | <code>array</code> |  | Literales para los días (corto) [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | defaultDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver la explicación al final de este apartado). Por defecto se destaca la fecha del día. |
-| duration | <code>string</code> \| <code>number</code> | <code>&quot;normal&quot;</code> | Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos). |
+| [duration] | <code>string</code> \| <code>number</code> | <code>&quot;normal&quot;</code> | Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos). |
 | firstDay | <code>number</code> |  | Número que indica en qué día de la semana debe empezar el calendario. El valor 0 equivale al domingo, el 1 al lunes y así sucesivamente. |
-| hideIfNoPrevNext | <code>boolean</code> | <code>false</code> | Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan |
+| [hideIfNoPrevNext] | <code>boolean</code> | <code>false</code> | Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan |
 | maxDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite. |
 | minDate | <code>date</code> \| <code>string</code> \| <code>number</code> |  | Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite. |
 | monthNames | <code>array</code> |  | Literales para los meses [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | monthNamesShort | <code>array</code> |  | Literales para los meses (corto) [array]. Su valor por defecto se obtiene del fichero de idioma. |
 | nextText | <code>string</code> |  | Literal a mostrar en el enlace de siguiente. Su valor por defecto se obtiene del fichero de idioma. |
-| numberOfMonths | <code>number</code> \| <code>array</code> | <code>1</code> | Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]). |
+| [numberOfMonths] | <code>number</code> \| <code>array</code> | <code>1</code> | Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]). |
 | prevText | <code>string</code> |  | Literal a mostrar en el enlace de anterior. Su valor por defecto se obtiene del fichero de idioma. |
-| selectOtherMonths | <code>boolean</code> | <code>false</code> | Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths |
-| showAnim | <code>string</code> | <code>&quot;show&quot;</code> | Indica el tipo de animación que se emplea para mostrar el calendario en pantalla. |
-| showButtonPanel | <code>boolean</code> | <code>false</code> | Indica si se muestran los botones de la parte inferior (hoy y cerrar). |
-| showCurrentAtPos | <code>number</code> | <code>0</code> | Cuando se muestra más de un mes, indica la posición que ocupa el mes actual. |
+| [selectOtherMonths] | <code>boolean</code> | <code>false</code> | Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths |
+| [showAnim] | <code>string</code> | <code>&quot;show&quot;</code> | Indica el tipo de animación que se emplea para mostrar el calendario en pantalla. |
+| [showButtonPanel] | <code>boolean</code> | <code>false</code> | Indica si se muestran los botones de la parte inferior (hoy y cerrar). |
+| [showCurrentAtPos] | <code>number</code> | <code>0</code> | Cuando se muestra más de un mes, indica la posición que ocupa el mes actual. |
 | showMonthAfterYear | <code>boolean</code> |  | Intercambia la posición del mes y del año en la cabecera del calendario. |
 | showOptions | <code>object</code> |  | Objeto que determina las propiedades de la animación del calendario. Para más información ver la siguiente  [página](http://api.jqueryui.com/datepicker/#option-showAnim) . |
-| showWeek | <code>boolean</code> | <code>false</code> | Indica si se debe mostrar el número de semana. |
+| [showWeek] | <code>boolean</code> | <code>false</code> | Indica si se debe mostrar el número de semana. |
 | stepMonths | <code>number</code> |  | Indica el número de meses que se avanzan al pulsar los enlaces anterior/siguiente. |
 | weekHeader | <code>string</code> |  | Literal que aparece sobre los números de semana. Su valor por defecto se obtiene del fichero de idioma. |
 | yearRange | <code>string</code> |  | Determina el rango de años a mostrar en el combo de la cabecera del calendario. No implica que sea el límite de años a seleccionar. Se debe definir como un literal que indique el inicio y el fin separado por dos puntos ej. 2001:2011. Puede usarse el la letra c como valor actual restándole y sumándole un numérico ej. c-10:c+10. Su valor por defecto es c-10:c+10 |
 | yearSuffix | <code>string</code> |  | Texto adicional a mostrar en la cabecera del calendario junto al año. |
-| noWeekend | <code>booelan</code> | <code>false</code> | Indica si se muestran o no los días del fin de semana (sábado y domingo). |
+| [noWeekend] | <code>booelan</code> | <code>false</code> | Indica si se muestran o no los días del fin de semana (sábado y domingo). |
 | from | <code>string</code> |  | Indica el selector del campo inicial en los intervalos de fechas |
 | to | <code>string</code> |  | Indica el selector del campo final en los intervalos de fechas |
 | multiselect | <code>array</code> \| <code>number</code> |  | Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica. |
-| autoFillToField | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo hasta |
-| autoFillFromField | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo desde |
+| [autoFillToField] | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo hasta |
+| [autoFillFromField] | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo desde |
 
 <a name="module_rup_date..getRupValue"></a>
 

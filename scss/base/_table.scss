@@ -450,6 +450,26 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
     }
 }
 
+// No usamos "display: none" para evitar que el elemento sea ignorado
+.checkboxPKBloqueado {
+	visibility: hidden;
+	position: absolute;
+}
+
+.sustitutoCheckboxPKBloqueadoGeneral {
+	display: block;
+	width: 16px;
+	height: 15px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #C4C4C4;
+	background-color: #FAFAFA;
+}
+
+.sustitutoCheckboxPKBloqueadoCross {
+	padding-left: 1.5px;
+}
+
 /* BORRARME CUANDO LA TABLA LEGACY SEA ELIMINADA */
 .btn-outline-primary {
  color:#007bff !important;

@@ -26,10 +26,10 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| getValue | <code>function</code> |  | Permite especificar una función de callback para implementar el dato a emplear a la hora de ejecutar los métodos getRupValue y setRupValue. |
-| readAsString | <code>boolean</code> | <code>false</code> | Permite asignar elementos seleccionados indicados mediante un string de identificadores separados por comas. |
-| submitAsJSON | <code>boolean</code> | <code>false</code> | Determina que los elementos seleccionados se enviarán representados mediante un objeto JSON. |
-| submitAsString | <code>boolean</code> | <code>false</code> | Determina que los elementos seleccionados se enviarán representados mediante un string de identificadores separados por comas. |
+| [getValue] | <code>function</code> |  | Permite especificar una función de callback para implementar el dato a emplear a la hora de ejecutar los métodos getRupValue y setRupValue. |
+| [readAsString] | <code>boolean</code> | <code>false</code> | Permite asignar elementos seleccionados indicados mediante un string de identificadores separados por comas. |
+| [submitAsJSON] | <code>boolean</code> | <code>false</code> | Determina que los elementos seleccionados se enviarán representados mediante un objeto JSON. |
+| [submitAsString] | <code>boolean</code> | <code>false</code> | Determina que los elementos seleccionados se enviarán representados mediante un string de identificadores separados por comas. |
 
 <a name="module_rup_tree..getRupValue"></a>
 

@@ -181,7 +181,9 @@ function _createFilterColumn(dt,ctx){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
 		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+		        			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
 		        	}
@@ -293,7 +295,9 @@ function _createSearchRow (dt,ctx){
     			ajaxOptions.data.multiselection.internalFeedback = [];
     		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-    		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+    			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 		});
 
@@ -336,7 +340,7 @@ function _createSearchRow (dt,ctx){
 		});
 
 		// Se recubre con un form
-		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
+		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm').addClass('rup_form');
 
 		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
@@ -376,11 +380,9 @@ function _selectSearch(dt,ctx,rows){
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
-				if(ctx.oInit.multiSelect !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
-				}else if(ctx.oInit.select !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
-				}
+
+				$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
+
 			}
 		});
 		var rowUnique = rows[ctx.seeker.search.pos];
@@ -391,7 +393,7 @@ function _selectSearch(dt,ctx,rows){
 			if(ctx.oInit.multiSelect !== undefined){
 				dt['row'](rowUnique.pageLine-1).multiSelect();
 			}else if(ctx.oInit.select !== undefined){
-				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
+				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine - 1, true);
 			}
 		}
 		ctx.seeker.search.accion = '';
@@ -515,43 +517,44 @@ function _getDatos(ctx){
 *
 */
 function _createRupComponent(dt,ctx){
-    var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
-    if(colModel !== undefined){
-       $('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
-		   var cellColModel = colModel[i];
-		   var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
-		
-		   var colModelName = cellColModel.name;
-		   var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
-		   // Se añade el title de los elementos de acuerdo al colname
-		   $elem.attr({
-			   'title': ctx.aoColumns[i].sTitle,
-		       'class': 'editable customelement'
-		   }).removeAttr('readOnly');
-		
-		   // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-		   if(searchRupType!==undefined) {
-			   searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-		
-	           /*
-	           * PRE Configuración de los componentes RUP
-	           */
-	           if(searchRupType === 'combo'){
-	        	   searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
-	           } else if(searchRupType === 'date'){
-	        	   $elem.css('width','86%');
-	               $elem.css('max-width','80px');
-	               $elem.css('min-width','75px');
-	           }
+	var colModel = ctx.oInit.colModel, searchEditOptions;
+	if(colModel !== undefined){
+		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+
+				var cellColModel = colModel[i];
+				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
-	           // Invocación al componente RUP
-	           $elem['rup_'+searchRupType](searchEditOptions);
-		   }
-       });
-    }
+				var colModelName = cellColModel.name;
+				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
+				// Se añade el title de los elementos de acuerdo al colname
+				$elem.attr({
+					'title': ctx.aoColumns[i].sTitle,
+					'class': 'editable customelement'
+				}).removeAttr('readOnly');
+	
+				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+				if(searchRupType!==undefined) {
+					searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+	
+					/*
+					 * PRE Configuración de los componentes RUP
+					 */
+					if(searchRupType === 'combo'){
+						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
+					} else if(searchRupType === 'date'){
+						$elem.css('width','86%');
+						$elem.css('max-width','80px');
+						$elem.css('min-width','75px');
+					}
+	
+					// Invocación al componente RUP
+					$elem['rup_'+searchRupType](searchEditOptions);
+				}
+
+		});
+	}
 
 }
-
 
 function _limpiarSeeker(dt,ctx){
 	$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
@@ -563,6 +566,23 @@ function _limpiarSeeker(dt,ctx){
 	_processData(dt,ctx,[]);
 	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
 }
+
+function _enabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
+		$('#'+ctx.sTableId+' tfoot button').attr('disabled', true);
+	}
+}
+
+function _disabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
+		$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
+		$('#'+ctx.sTableId+' tfoot button').removeAttr('disabled');
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -589,6 +609,13 @@ apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,tota
 	_updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
 });
 
+apiRegister('seeker.disabledButtons()', function ( ctx) {
+	_disabledButtons(ctx);
+});
+
+apiRegister('seeker.enabledButtons()', function ( ctx) {
+	_enabledButtons(ctx);
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization
  */

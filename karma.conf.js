@@ -206,7 +206,18 @@ module.exports = function (config) {
                         query: {
                             cacheDirectory: true,
                         },
-                    },
+                    },{
+                        test: /\.(html)\??.*$/,
+                        use: {
+                            loader: 'file-loader',
+                            options: {
+                                limit: 1024,
+                                name: '[name].[ext]',
+                                publicPath: '/rup/html/templates/rup_calendar/',
+                                outputPath: 'rup/html/templates/rup_calendar/'
+                            }
+                        },
+                    }
                 ],
             },
             resolve: {
@@ -216,6 +227,7 @@ module.exports = function (config) {
                     'handlebars': 'handlebars/dist/handlebars.js',
                     'marionette': 'backbone.marionette/lib/backbone.marionette.js',
                     'jquery': 'jquery/dist/jquery.js',
+                    'jasmine-jquery': 'jasmine-jquery/lib/jasmine-jquery.js',
                     'jquery-ui': 'jquery-ui/ui/',
                     'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
                     'highlight': 'highlight.js/lib/highlight.js',
@@ -246,9 +258,11 @@ module.exports = function (config) {
                     'jquery.ui.widget': 'jquery-ui/widget.js',
                     'tmpl': 'blueimp-tmpl/js/tmpl.js',
 
-                    'bt4': path.resolve(__dirname, '../dist/js/externals/bt4.min.js'),
+                    'bt4': path.resolve(__dirname, 'dist/js/externals/bootstrap/bt4.min.js'),
 
-                    'templates': path.resolve(__dirname, 'templates.js')
+                    'templates': path.resolve(__dirname, 'templates.js'),
+                    'popper': 'popper.js/dist/umd/popper.js',
+			        'calendar': 'bootstrap-calendar'
                 }
 
             },

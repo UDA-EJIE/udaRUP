@@ -558,7 +558,7 @@ function testDate(lang) {
                         $date.rup_date('disable');
                     });
                     it(langStr(lang) + 'Debe marcarse como deshabilitada', () => {
-                        expect($date.attr('disabled')).toBe('disabled');
+                        expect($date.attr('readonly')).toBe('readonly');
                     });
                     it(langStr(lang) + 'Debe reflejarse en isDisabled:', () => {
                         expect($date.rup_date('isDisabled')).toBe(true);
@@ -569,7 +569,7 @@ function testDate(lang) {
                         $altDate.rup_date('disable');
                     });
                     it(langStr(lang) + 'Debe marcarse como deshabilitada', () => {
-                        expect($altDate.attr('disabled')).toBe('disabled');
+                        expect($altDate.attr('readonly')).toBe('readonly');
                     });
                     it(langStr(lang) + 'Debe reflejarse en isDisabled:', () => {
                         expect($altDate.rup_date('isDisabled')).toBe(true);
@@ -580,7 +580,7 @@ function testDate(lang) {
                         $multiDate.rup_date('disable');
                     });
                     it(langStr(lang) + 'Debe marcarse como deshabilitada', () => {
-                        expect($multiDate.attr('disabled')).toBe('disabled');
+                        expect($multiDate.attr('readonly')).toBe('readonly');
                     });
                     it(langStr(lang) + 'Debe reflejarse en isDisabled:', () => {
                         expect($multiDate.rup_date('isDisabled')).toBe(true);
@@ -592,8 +592,8 @@ function testDate(lang) {
                         $('#hasta').rup_date('disable');
                     });
                     it(langStr(lang) + 'Debe marcarse como deshabilitada', () => {
-                        expect($('#desde').attr('disabled')).toBe('disabled');
-                        expect($('#hasta').attr('disabled')).toBe('disabled');
+                        expect($('#desde').attr('readonly')).toBe('readonly');
+                        expect($('#hasta').attr('readonly')).toBe('readonly');
                     });
                     it(langStr(lang) + 'Debe reflejarse en isDisabled:', () => {
                         expect($('#desde').rup_date('isDisabled')).toBe(true);

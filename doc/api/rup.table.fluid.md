@@ -25,10 +25,10 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| baseLayer | <code>string</code> |  | Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”. |
-| minWidth | <code>integer</code> | <code>100</code> | Determina la anchura máxima a la que se va a redimensionar la capa. |
-| maxWidth | <code>integer</code> | <code>2000</code> | Determina la anchura mínima a la que se va a redimensionar la capa. |
-| fluidOffset | <code>integer</code> | <code>0</code> | Desplazamiento que se aplica a la capa redimensionada. |
+| [baseLayer] | <code>string</code> |  | Identificador de la capa que contiene al componente. Se tomará como base para redimensionar las diferentes partes de la tabla. En caso de no indicarse se tomará por defecto una generada con el patrón identificadorTabla+”_div”. |
+| [minWidth] | <code>integer</code> | <code>100</code> | Determina la anchura máxima a la que se va a redimensionar la capa. |
+| [maxWidth] | <code>integer</code> | <code>2000</code> | Determina la anchura mínima a la que se va a redimensionar la capa. |
+| [fluidOffset] | <code>integer</code> | <code>0</code> | Desplazamiento que se aplica a la capa redimensionada. |
 
 <a name="module_rup_table/fluid..postConfigureFluid"></a>
 

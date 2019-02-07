@@ -32,10 +32,10 @@ Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| addEditOptions | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
-| addOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| editOptions | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| deleteOptions | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
+| [addEditOptions] | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
+| [addOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [editOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
+| [deleteOptions] | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
 
 <a name="module_rup_table/inlineEdit..preConfigureInlineEdit"></a>
 

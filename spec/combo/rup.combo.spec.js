@@ -176,7 +176,7 @@ describe('Test Combo > ', () => {
 					$comboHijo.rup_combo('clear');
 				});
 				it('Debe actualizar la ui ', () => {
-					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Falta literal]');
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
@@ -379,7 +379,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$comboGroup.rup_combo('select', 1);
+						$comboGroup.rup_combo('select', 2);
 					});
 					it('Debe cambiar la ui:', () => {
 						expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
@@ -528,7 +528,7 @@ describe('Test Combo > ', () => {
 			});
 			describe('Combo optGroup > ', () => {
 				it('Debe devolver la label de la seleccion', () => {
-					expect($comboGroup.rup_combo('index')).toBe(3);
+					expect($comboGroup.rup_combo('index')).toBe(4);
 				});
 			});
 		});
@@ -908,7 +908,7 @@ function setupCombos() {
 			$('#comboSimple').addClass('randomClass');
 		},
 		source: source,
-		blank: '0',
+		blank:'0',
 		selected: '2'
 	};
 	let optionsMulti = {
@@ -956,7 +956,7 @@ function setupCombos() {
 				value: '2.2'
 			}]
 		},
-		blank: '0',
+		blank:'0',
 		selected: '1.1'
 	};
 	let optionsGroup = {

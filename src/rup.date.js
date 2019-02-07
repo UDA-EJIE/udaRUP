@@ -177,7 +177,9 @@
      * $("#idDate").rup_date("disable");
      */
 		disable: function () {
-			$(this).datepicker('disable');
+			$(this).datepicker('option', 'showOn', 'button');
+			$(this).next("button").prop("disabled", true);
+			$(this).prop("readonly", true);
 		},
 		/**
      * Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
@@ -187,7 +189,9 @@
      * $("#idDate").rup_date("enable");
      */
 		enable: function () {
-			$(this).datepicker('enable');
+			$(this).next("button").prop("disabled", false);
+			$(this).datepicker('option', 'showOn', 'both');
+			$(this).prop("readonly", false);
 		},
 		/**
      * Indica si el componente se encuentra deshabilitado o no.
@@ -198,7 +202,7 @@
      * $("#idDate").rup_date("isDisabled");
      */
 		isDisabled: function () {
-			return $(this).datepicker('isDisabled');
+			return $(this).prop('readonly');
 		},
 		/**
      * Oculta el calendario para seleccionar una fecha.

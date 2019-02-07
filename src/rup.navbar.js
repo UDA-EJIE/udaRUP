@@ -269,13 +269,13 @@
 				}, 500);
 			});
 
+			//Se audita el componente
+			$.rup.auditComponent('rup_navbar', 'init');
+			
 			//Añadimos un handler para cuando esté en modo responsive
 			$('button.navbar-toggler', $(this).parent()).on('click', function () {
 				$('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
 			});
-
-			//Se audita el componente
-			$.rup.auditComponent('rup_navbar', 'init');
 		}
 	});
 

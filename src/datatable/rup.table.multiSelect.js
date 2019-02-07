@@ -78,7 +78,7 @@ DataTable.multiSelect.init = function ( dt ) {
 	var style = 'api';
 	var blurable = false;
 	var info = true;
-	var selector = 'td:first-child';
+	var selector = 'td';
 	var className = 'selected tr-highlight';
 	var setStyle = false;
 
@@ -116,7 +116,7 @@ DataTable.multiSelect.init = function ( dt ) {
 			setStyle = true;
 		}
 
-		if ( opts.selector !== undefined ) {
+		if ( ctx.oInit.selector !== undefined ) {
 			selector = opts.selector;
 		}
 
@@ -368,6 +368,9 @@ function enableMouseSelection ( dt )
 			container.css( '-moz-user-select', '' );
 		} )
 		.on( 'click.dtSelect', selector, function ( e ) {
+			if(e.target !== undefined && e.target.className.indexOf("openResponsive") > -1){
+				return false;
+			}
 			var items = dt.multiSelect.items();
 			var idx;
 
@@ -575,6 +578,9 @@ function init ( ctx ) {
 			// Row
 			if ( d._multiSelect_selected ) {
 				$( row ).addClass( ctx._multiSelect.className );
+				if(api.row(index).child() !== undefined){
+					api.row(index).child().addClass( ctx._multiSelect.className );
+				}
 			}
 
 			// Cells and columns - if separated out, we would need to do two
@@ -644,6 +650,12 @@ function init ( ctx ) {
 		disableMouseSelection( api );
 		api.off( '.dtSelect' );
 	} );
+	
+	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			} ) );
+	 }
 }
 
 /**
@@ -675,6 +687,11 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			if(api.row(idx).child() !== undefined){
+				api.row(idx).child().addClass( ctx._multiSelect.className );
+			}
+			// Marcamos el checkbox
+			$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
 			if(ctx.multiselection.lastSelectedId === value){
 				pos = idx;
@@ -685,6 +702,10 @@ function _drawSelectId(api,ctx){
 		}
 	});
 	if(pos >= 0){
+		//si hay mas columnas porque aun no ha refrescado al crear y clonar.
+		if(ctx._iDisplayLength < ctx.json.rows.length && !$('#'+ctx.sTableId+' tbody tr').hasClass('new')){
+			pos--;
+		}
 		DataTable.Api().rupTable.selectPencil(api.context[0],pos);
 	}
 }
@@ -704,33 +725,21 @@ function _paintCheckboxSelect(ctx){
 	if(columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox'){
 		//Se rellena todo, la columna select.
 
-		var divHead =  $("<div/>").attr('id','divSelectTableHead'+ctx.sTableId).addClass("divSelectTableHead");
-
 		var input =  $("<input/>")
 									.attr('id','inputSelectTableHead'+ctx.sTableId)
-									.attr('type','checkbox')
-									.addClass("hiddenInput");
-
-		var label = $("<label/>")
-									.attr('id', 'labelSelectTableHead'+ctx.sTableId)
-									.attr('for','inputSelectTableHead'+ctx.sTableId)
-									.addClass("selectTableHead");
+									.attr('type','checkbox');
 
 		var link = $("<a/>")
 							 	 .addClass("ui-icon rup-datatable_checkmenu_arrow")
 								 .attr('id','linkSelectTableHead'+ctx.sTableId);
 
 		input.click(function () {
-			var dt = new DataTable.Api( ctx );
-			if(input.is(':checked')) {
-				label.addClass("selectTableHeadCheck");
-				link.addClass("rup-datatable_checkmenu_arrow_margin");
-				selectAllPage(dt);
-      } else {
-				label.removeClass("selectTableHeadCheck");
-				link.removeClass("rup-datatable_checkmenu_arrow_margin");
-      	deselectAllPage(dt);
-      }
+		  var dt = new DataTable.Api( ctx );
+		  if(input.is(':checked')) {
+			  selectAllPage(dt);
+	      } else {
+	    	  deselectAllPage(dt);
+	      }
 	    });
 
 		link.click(function () {
@@ -742,8 +751,7 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 				// Marcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			};
 			//Desmarcar todos
 			if(!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length  === 0){
@@ -752,8 +760,7 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			};
 			if(ctx.multiselection.selectedIds.length  > 0){
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
@@ -767,14 +774,12 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 				// Marcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			}else{
 				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			}
 
 			//Si la pagina esta completamente deseleccionada
@@ -783,26 +788,23 @@ function _paintCheckboxSelect(ctx){
 				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 				// Desmarcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			}else{
 				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
 				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
 				// Marcamos el check del tHead
-				$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
-				$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			}
 
 	    });
 
-		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContex
+		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContext
 			_createContexMenuSelect($('#'+link[0].id),ctx)
-			divHead.append(input, label, link);
 		}
 
 		if(ctx.nTable.tHead !== null){
 			var th = $(ctx.nTable.tHead.rows[0].cells[0])
-			th.append(divHead);
+			th.append(input, link);
 		}
 
 		//Se aseguro que no sea orderable
@@ -887,7 +889,7 @@ function _createContexMenuSelect(id,ctx){
 			}
 		});
 	}
-	if (options.separator) {
+	if (options.headerContextMenu.separator) {
 		jQuery.extend(items, {
 			'separator': ''
 		});
@@ -950,8 +952,7 @@ function selectAllPage(dt){
 	
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	// Marcamos el check del tHead
-	$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
-	$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 
 	//FeedBack
 	var countPage = dt.page()+1;
@@ -996,8 +997,7 @@ function deselectAllPage(dt){
 	
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	// Desmarcamos el check del tHead
-	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
 	//FeedBack
 	var countPage = dt.page()+1;
@@ -1036,8 +1036,7 @@ function selectAll(dt){
 	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
 	// Marcamos el check del tHead
-	$("#labelSelectTableHead" + ctx.sTableId).addClass('selectTableHeadCheck');
-	$("#linkSelectTableHead" + ctx.sTableId).addClass('rup-datatable_checkmenu_arrow_margin');
+	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 
 	dt['rows']().multiSelect();
 	if(dt.page() === 0){
@@ -1215,7 +1214,7 @@ function typeSelect ( e, dt, ctx, type, idx )
 }
 
 /**
-* Metodo que inicialida las propiedades para el multiselect.
+* Metodo que inicializa las propiedades para el multiselect.
 *
 * @name initializeMultiselectionProps
 * @function
@@ -1253,8 +1252,7 @@ function _initializeMultiselectionProps ( ctx ) {
 	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
 	$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
 	// Desmarcamos el check del tHead
-	$("#labelSelectTableHead" + ctx.sTableId).removeClass('selectTableHeadCheck');
-	$("#linkSelectTableHead" + ctx.sTableId).removeClass('rup-datatable_checkmenu_arrow_margin');
+	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
 	DataTable.Api().rupTable.selectPencil(ctx,-1);
 	return $self.multiselection;
@@ -1316,7 +1314,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 			ctx.multiselection.selectedRowsPerPage.splice(pos,0,arra);
 
 
-			//FIn ordenacion
+			//Fin ordenacion
 		}
 	}else{//Deselect
 		indexInArray = jQuery.inArray(id, ctx.multiselection.selectedIds);//Se elimina el ids
@@ -1541,7 +1539,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	}
 	//Al pagina comprobar el checkGeneral.
 
-	//Se miral si hay feedback y en ese caso se elimina.
+	//Se mira si hay feedback y en ese caso se elimina.
 	var feedBack = ctx.multiselection.internalFeedback;
 	if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
 		ctx.multiselection.internalFeedback.rup_feedback('destroy');
@@ -1557,14 +1555,27 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		return deselectes;
 
 	}
-
-
+	
 	this.iterator( 'row', function ( ctx, idx ) {
+		// si es en edicion en linea,
+		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
+				&& ctx.inlineEdit.lastRow.idx !== idx){	
+			
+			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
+		}
 		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
 		clear( ctx );
 		pagina = false;
 		ctx.aoData[ idx ]._multiSelect_selected = true;
+		
+		// Añadimos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().addClass( ctx._multiSelect.className );
+		}
+		// Marcamos el checkbox
+		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
+		
 		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para sumar seleccionados
@@ -1588,7 +1599,13 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 				//Si esta en la lista de deselecionados, significa que no debería marcarse.
 				if(jQuery.inArray(id, ctx.multiselection.deselectedIds) === -1){
 					ctx.aoData[ idx ]._multiSelect_selected = true;
+					// Añadimos el fondo amarillo
 					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+					if(api.row(idx).child() !== undefined){
+						api.row(idx).child().addClass( ctx._multiSelect.className );
+					}
+					// Marcamos el checkbox
+					$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 
 					//para seleccionar todos los de la pagina actual.
 					maintIdsRows(DataTable,id,1,pagina,0,ctx);
@@ -1596,7 +1613,7 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 			});
 		}
 		if (ctx.oInit.buttons !== undefined) {
-			//Mirar la propiedad para el contex menu y dejar la clase marcada.
+			//Mirar la propiedad para el contextMenu y dejar la clase marcada.
 			$('#' + ctx.sTableId + ' > tbody > tr').addClass('context-menu-cursor');
 		}
 	}
@@ -1605,18 +1622,13 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
-	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
-	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
+	var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(":input");
+	var link = $(ctx.nTable.tHead.rows[0].cells[0]).find("a");
 
 	if(checkPageSelectedAll(api,true)){
-		input.attr('checked',true);
-		label.addClass("selectTableHeadCheck");
-		link.addClass("rup-datatable_checkmenu_arrow_margin");
+		input.prop('checked', true);
 	}else{
-		input.attr('checked',false);
-		label.removeClass("selectTableHeadCheck");
-		link.removeClass("rup-datatable_checkmenu_arrow_margin");
+		input.prop('checked', false);
 	}
 
 	return this;
@@ -1694,7 +1706,15 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 
 	this.iterator( 'row', function ( ctx, idx ) {
 		ctx.aoData[ idx ]._multiSelect_selected = false;
+		
+		// Quitamos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().removeClass( ctx._multiSelect.className );
+		}
+		// Desmarcamos el checkbox
+		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', false);
+		
 		var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[ idx ]._aData);
 
 		//Se mira el contador para restar deselecionados.
@@ -1710,7 +1730,12 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		}else if(ctx.multiselection.accion === ""){//es que se resta uno solo.
 			ctx.multiselection.numSelected--;
 		}
-
+		
+		//Si es en edicion en linea, no hacer nada
+		if(ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx,idx)){
+			//Seleccionar la fila otra vez.
+			api.rows( idx ).multiSelect();
+		}
 	} );
 
 	this.iterator( 'table', function ( ctx, i ) {
@@ -1718,18 +1743,13 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 	} );
 
 	//al paginar
-	var input = $("#divSelectTableHead"+ctx.sTableId+" :input");
-	var label = $("#divSelectTableHead"+ctx.sTableId).find("label");
-	var link = $("#divSelectTableHead"+ctx.sTableId).find("a");
+	var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(":input");
+	var link = $(ctx.nTable.tHead.rows[0].cells[0]).find("a");
 
 	if(checkPageSelectedAll(api,true)){
-		input.attr('checked',true);
-		label.addClass("selectTableHeadCheck");
-		link.addClass("rup-datatable_checkmenu_arrow_margin");
+		input.prop('checked', true);
 	}else{
-		input.attr('checked',false);
-		label.removeClass("selectTableHeadCheck");
-		link.removeClass("rup-datatable_checkmenu_arrow_margin");
+		input.prop('checked', false);
 	}
 
 	return this;
