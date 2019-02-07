@@ -650,6 +650,12 @@ function init ( ctx ) {
 		disableMouseSelection( api );
 		api.off( '.dtSelect' );
 	} );
+	
+	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			} ) );
+	 }
 }
 
 /**

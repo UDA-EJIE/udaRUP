@@ -303,7 +303,7 @@
 	            };
 	            options.responsive.details.renderer = renderer;
 			}
-
+			
 			return options;
 		},
 
@@ -1044,7 +1044,7 @@
 
 			}
 			
-			if(settings.inlineEdit !== undefined && args[0].responsive === undefined){//si el usuario no cambia el selector
+			if(args[0].responsive === undefined){//si el usuario no cambia el selector
 				var responsive = {           
 					details: {
 				    	type: 'column',
@@ -1143,6 +1143,14 @@
 						}
 					}
 				}
+				
+				if(settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined
+						&& settingsTable.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+					DataTable.Api().editForm.addchildIcons(settingsTable);
+				}
+				if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+					DataTable.Api().editForm.addchildIcons(settingsTable);
+				}
 
 			  });
 			
@@ -1178,6 +1186,13 @@
 			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
 			$self.triggerHandler('tableAfterInit');
+			
+			 if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
+					 settings.multiselect === undefined && settings.select === undefined){
+					$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+						DataTable.Api().editForm.addchildIcons(tabla.context[0]);
+					} ) );
+			 }
 		}
 	});
 

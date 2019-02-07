@@ -340,7 +340,7 @@ function _createSearchRow (dt,ctx){
 		});
 
 		// Se recubre con un form
-		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
+		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm').addClass('rup_form');
 
 		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
@@ -380,11 +380,9 @@ function _selectSearch(dt,ctx,rows){
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
-				if(ctx.oInit.multiSelect !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
-				}else if(ctx.oInit.select !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
-				}
+
+				$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
+
 			}
 		});
 		var rowUnique = rows[ctx.seeker.search.pos];
