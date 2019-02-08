@@ -466,10 +466,11 @@ describe('Test Form', () => {
 			describe('Form alternativo > ', () => {
 				beforeEach(() => {
 					$formAlt.rup_form('destroy');
-					$formAlt.rup_form('clearForm');
 				});
 				it('No debe existir', () => {
-					expect($('#nombre').val()).toBe('pop');
+					expect(() => {
+						$formAlt.rup_form('clearForm');
+					}).toThrowError();
 				});
 			});
 		});
