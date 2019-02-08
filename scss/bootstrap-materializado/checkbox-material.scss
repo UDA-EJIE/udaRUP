@@ -1,9 +1,3 @@
-/* COLORES */
-$checkbox-material-checked-color: rgb(20, 114, 164);
-$checkbox-material-border-color: rgba(0, 0, 0, 0.54);
-$checkbox-material-border-color-disabled: rgba(0, 0, 0, 0.26);
-$checkbox-material-checked-color-disabled: rgba(0, 0, 0, 0.26);
-
 /* ESTILOS */
 $checkbox-material-margin: 0.5em 0;
 $checkbox-material-size: 1.25em;
@@ -109,8 +103,6 @@ $checkbox-material-label-padding: .75em;
 		&:active:enabled + label:before {
 		  	animation: ripple-active 0.2s linear forwards;
 		}
-      
-      	/* TODO: FALTA EL FOCUS */
       
       	/* CUANDO ESTA DISABLED */
     	&:disabled {

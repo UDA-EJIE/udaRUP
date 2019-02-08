@@ -7,6 +7,7 @@
 		// AMD. Register as an anonymous module.
 		define(['jquery',
 			'./DateBootstrapAdapter',
+			'./DateMaterialAdapter',
 			'./TimeJQueryUIAdapter',
 			'./TimeBootstrapAdapter',
 			'./UploadJQueryUIAdapter',
@@ -25,12 +26,12 @@
 			'./FeedbackBootstrapAdapter'
 		], factory);
 	} else {
-
 		// Browser globals
 		factory(jQuery);
 	}
 }(function ($, Templates,
 	DateBootstrapAdapter,
+	DateMaterialAdapter,
 	TimeJQueryUIAdapter,
 	TimeBootstrapAdapter,
 	UploadJQueryUIAdapter,
@@ -48,14 +49,5 @@
 	FeedbackJQueryUIAdapter,
 	FeedbackBootstrapAdapter
 ) {
-
-
-
-
-
-
-
 	return $;
-
-
 }));

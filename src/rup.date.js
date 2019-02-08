@@ -643,7 +643,7 @@
 
 
 	$.fn.rup_date.defaults = {
-		adapter: 'date_bootstrap',
+		adapter: 'date_material',
 		placeholderMask: false,
 		datetimepicker: false,
 		multiSelect: false,

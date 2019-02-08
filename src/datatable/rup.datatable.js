@@ -1194,7 +1194,7 @@ $.fn.rup_datatable.defaults = {
   	  filterToolbar:"table_filter_toolbar",
   	  collapsableLayerId:"table_filter_fieldset"
      },
-	adapter: 'datatable_bootstrap',
+	adapter: 'datatable_material',
     order: [[ 1, 'asc' ]]
 	};
 

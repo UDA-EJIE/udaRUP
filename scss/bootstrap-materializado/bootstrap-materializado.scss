@@ -1,5 +1,14 @@
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
+@import 'colours-material';
 @import 'button-material';
 @import 'input-material';
 @import 'radio-material';
 @import 'checkbox-material';
+@import 'select-material';
+@import 'rup.date-material';
+@import 'table-material';
+
+/* ESTILOS GENERALES */
+.material-rounded {
+	border-radius: 16px;
+}

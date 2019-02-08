@@ -5062,14 +5062,32 @@
   border: none;
 }
 
+.r01gContainer .ui-datepicker head {
+  border-bottom: .1em solid black;
+}
+
+.r01gContainer .ui-datepicker head th {
+  padding-bottom: 0;
+}
+
+.r01gContainer .ui-datepicker td {
+  padding: unset;
+}
+
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td {
   background: none;
+  /* Estilo predeterminado de los días */
+  /* Día de hoy (azul) */
+  /* Fin de semana (sab-dom) */
+  /* Día seleccionado (verde)*/
+  /* Hover sobre el elemento */
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td a {
-  border: none;
   text-align: center;
-  background: #fff;
+  border: .1em solid #fff;
+  background-color: #fff;
+  color: #000;
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-unselectable {
@@ -5079,31 +5097,37 @@
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-unselectable span {
   border: none;
   text-align: center;
-  background: #fff;
+  background-color: #fff;
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-today a {
-  background: #337ab7 !important;
-  border: 0.1em solid #337ab7 !important;
-  color: #fffcfb;
+  background-color: #337ab7;
+  border: .1em solid #337ab7;
+  color: #fff;
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-week-end a {
-  background: #f0b9b8 !important;
-  border: 0.1em solid #f0b9b8 !important;
-  color: #fffcfb;
+  background-color: #f0b9b8;
+  border: .1em solid #f0b9b8;
+  color: #000;
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-state-highlight a {
-  background: #c7e6c7 !important;
-  border: 0.1em solid #c7e6c7 !important;
-  color: #fffcfb;
+  background-color: #b4fdcc;
+  border: .1em solid #175c2e;
+  color: #000;
+}
+
+.r01gContainer .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-current-day a {
+  background-color: #b4fdcc;
+  border: .1em solid #175c2e;
+  color: #000;
 }
 
 .r01gContainer .ui-datepicker .ui-datepicker-calendar td:hover a {
-  background: #69a3d6 !important;
-  border: 0.1em solid #69a3d6 !important;
-  color: #fffcfb;
+  background: #69a3d6;
+  border: .1em solid #69a3d6;
+  color: #fff;
 }
 
 .r01gContainer .ui-dialog {
@@ -8832,7 +8856,7 @@
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 18px;
+  font-size: 1.3rem;
   /* Preferred icon size */
   display: inline-block;
   line-height: 1;
@@ -9096,16 +9120,32 @@
 
 .r01gContainer .btn-material {
   min-width: 64px;
-  height: 34px;
+  height: 30px;
   padding: 6px 10px;
   border: none;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: .9rem;
   font-weight: 400;
   letter-spacing: initial;
   text-decoration: none;
   text-transform: uppercase;
   box-sizing: border-box;
+}
+
+/* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
+
+.r01gContainer .btn-material-sm {
+  height: 26px;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+}
+
+/* ESTILOS PARA CREAR BOTONES MAS GRANDES */
+
+.r01gContainer .btn-material-lg {
+  font-size: 1rem;
+  height: 34px;
+  padding: 6px 13px;
 }
 
 /* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
@@ -9133,7 +9173,7 @@
 /* AJUSTE DE POSICIONAMIENTO DEL ICONO */
 
 .r01gContainer .btn-material > i {
-  vertical-align: text-bottom;
+  vertical-align: bottom;
 }
 
 /* ESTILOS DE LOS CONTENEDORES DE INPUTS */
@@ -9148,9 +9188,9 @@
 .r01gContainer .form-groupMaterial input {
   display: block;
   width: 100%;
-  height: 3rem;
-  font-size: 18px;
-  padding: 7px 7px 6px 18px;
+  height: 2rem;
+  font-size: 1rem;
+  padding: 5px 7px 5px 18px;
   border: 1px solid #757575;
   border-radius: 5px;
   box-sizing: border-box;
@@ -9173,12 +9213,12 @@
 
 .r01gContainer .form-groupMaterial label {
   color: #999;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 400;
   position: absolute;
   pointer-events: none;
   left: 15px;
-  top: 5px;
+  top: 4px;
   padding-left: 5px;
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
@@ -9187,14 +9227,12 @@
 
 .r01gContainer .form-groupMaterial input:focus:enabled ~ label,
 .r01gContainer .form-groupMaterial input:valid:enabled ~ label {
-  top: -12px;
-  font-size: 14px;
+  top: -10px;
+  font-size: .9rem;
   color: #1472a4;
   padding: 0 5px;
   background-color: white;
 }
-
-/* COLORES */
 
 /* ESTILOS */
 
@@ -9238,7 +9276,6 @@
   display: none;
   /* CUANDO PASA EL RATON POR ENCIMA */
   /* CUANDO ESTA SELECCIONADO */
-  /* TODO: FALTA EL FOCUS */
   /* CUANDO ESTA DISABLED */
 }
 
@@ -9307,8 +9344,6 @@
 .r01gContainer .radio-material label:disabled {
   pointer-events: none;
 }
-
-/* COLORES */
 
 /* ESTILOS */
 
@@ -9392,7 +9427,6 @@
   float: left;
   font-size: inherit;
   /* CUANDO PASA EL RATON POR ENCIMA */
-  /* TODO: FALTA EL FOCUS */
   /* CUANDO ESTA DISABLED */
 }
 
@@ -9439,6 +9473,120 @@
 .r01gContainer table div.checkbox-material-inline label:before,
 .r01gContainer table div.checkbox-material-inline label:after {
   top: 3px;
+}
+
+/* LABEL */
+
+.r01gContainer label.select-material {
+  top: 2px;
+  left: 25px;
+  font-size: .9rem;
+  color: #1472a4;
+  padding: 0 5px;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+}
+
+/* SELECT */
+
+.r01gContainer a.select-material {
+  width: 100%;
+  height: 2rem;
+  display: block;
+  padding: 1px 0px 1px 18px;
+  border: 1px solid #757575;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  overflow: visible;
+  background-color: #fff;
+}
+
+.r01gContainer a.select-material > span:first-child {
+  color: #999;
+  font-size: 1rem;
+  font-weight: 400;
+  position: absolute;
+  pointer-events: none;
+  left: 12px;
+  top: 1px;
+  padding-left: 5px;
+}
+
+.r01gContainer a.select-material:hover {
+  background-color: initial;
+  border-color: #212529;
+}
+
+/* MENU */
+
+.r01gContainer ul.select-material > li {
+  background-color: #b8d4e3;
+}
+
+/* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
+
+.r01gContainer div.rup-date-input-group-material > input {
+  width: calc(100% - 27px);
+  display: inline-block;
+}
+
+.r01gContainer div.rup-date-input-group-material > button,
+.r01gContainer div.rup-date-input-group-material > .ui-button.rup-button,
+.r01gContainer .rup-dropdown-btn-group div.rup-date-input-group-material > .rup-dropdown-button,
+.r01gContainer div.rup-date-input-group-material > a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-wizard div.rup-date-input-group-material > a.rup-wizard_next,
+.r01gContainer .rup-wizard div.rup-date-input-group-material > a.rup-wizard_prev,
+.r01gContainer .rup-wizard div.rup-date-input-group-material > .rup-wizard_submitButton {
+  width: 30px;
+  height: 2rem;
+  margin-left: -3px;
+  padding: 3px;
+  vertical-align: bottom;
+}
+
+/* REDONDEAMOS EL LOS BORDES DE LA TABLA */
+
+.r01gContainer table.table-material {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.r01gContainer table.table-material > thead > tr > th:first-child {
+  border-top-left-radius: 13px;
+}
+
+.r01gContainer table.table-material > thead > tr > th:last-child {
+  border-top-right-radius: 13px;
+}
+
+.r01gContainer form + div.paginationContainer {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+/* QUITAMOS LAS BARRAS VERTICALES */
+
+.r01gContainer table.table-material th,
+.r01gContainer table.table-material td {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #dee2e6;
+}
+
+/* EVENTOS */
+
+.r01gContainer table.table-material > thead th:hover,
+.r01gContainer table.table-material > tbody tr:hover > td,
+.r01gContainer table.table-material > tfoot th:hover {
+  background-color: #b8d4e3;
+}
+
+/* ESTILOS GENERALES */
+
+.r01gContainer .material-rounded {
+  border-radius: 16px;
 }
 
 /*!
@@ -11128,7 +11276,7 @@
 }
 
 /*!
- * Copyright 2013 E.J.I.E., S.A.
+ * Copyright 2019 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -11142,42 +11290,6 @@
  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
  * que establece la Licencia.
  */
-
-.r01gContainer #ui-datepicker-div {
-  display: none;
-}
-
-.r01gContainer .ui-datepicker-calendar td {
-  border: none !important;
-}
-
-/* Fin de semana (sab-dom) */
-
-.r01gContainer .ui-datepicker-week-end a {
-  font-weight: normal !important;
-  background: #FFC0CB none no-repeat scroll 50% 50% !important;
-  border: 0.1em solid red !important;
-  color: black !important;
-}
-
-/* Día de hoy (azul) */
-
-.r01gContainer .ui-datepicker-today a {
-  font-weight: normal !important;
-  background: #DDE7FF none no-repeat scroll 50% 50% !important;
-  border: 0.1em solid #195FFE !important;
-  color: black important;
-}
-
-/* Día seleccionado (verde)*/
-
-.r01gContainer .ui-datepicker-calendar .ui-state-highlight a,
-.r01gContainer .ui-datepicker-current-day a {
-  font-weight: normal !important;
-  background: #B4FDCC none no-repeat scroll 50% 50% !important;
-  border: 0.1em solid #175C2E !important;
-  color: black !important;
-}
 
 .r01gContainer .rup_dashboard {
   margin-left: 4px;

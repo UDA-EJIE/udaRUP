@@ -1,0 +1,32 @@
+/* REDONDEAMOS EL LOS BORDES DE LA TABLA */
+table.table-material {
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+table.table-material > thead > tr > th:first-child {
+	border-top-left-radius: 13px;
+}
+
+table.table-material > thead > tr > th:last-child {
+	border-top-right-radius: 13px;
+}
+
+form + div.paginationContainer {
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+/* QUITAMOS LAS BARRAS VERTICALES */
+table.table-material th, table.table-material td {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #dee2e6;
+}
+
+/* EVENTOS */
+table.table-material > thead th:hover, 
+table.table-material > tbody tr:hover > td,
+table.table-material > tfoot th:hover {
+	background-color: $primary-color-light;
+}

@@ -1,0 +1,13 @@
+/* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
+div.rup-date-input-group-material > input {
+	width: calc(100% - 27px);
+	display: inline-block;
+}
+
+div.rup-date-input-group-material > button {
+	width: 30px;
+	height: 2rem;
+	margin-left: -3px;
+	padding: 3px;
+	vertical-align: bottom;
+}

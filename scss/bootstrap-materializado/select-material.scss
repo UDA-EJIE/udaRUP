@@ -1,0 +1,46 @@
+/* LABEL */
+label.select-material {
+ 	top: 2px;
+	left: 25px;
+	font-size: .9rem;
+	color: $primary-color;
+	padding: 0 5px;
+	background-color: white;
+	position: absolute;
+	z-index: 1;
+}
+
+/* SELECT */
+a.select-material {
+	width: 100%;
+	height: 2rem;
+	display: block;
+	padding: 1px 0px 1px 18px;
+	border: 1px solid #757575;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 1rem;
+	overflow: visible;
+	background-color: #fff;
+}
+
+a.select-material > span:first-child {
+	color: #999; 
+	font-size: 1rem;
+	font-weight: 400;
+	position: absolute;
+	pointer-events: none;
+	left: 12px;
+	top: 1px;
+	padding-left: 5px;
+}
+
+a.select-material:hover {
+	background-color: initial;
+  	border-color: $black-color;
+}
+
+/* MENU */
+ul.select-material > li {
+	background-color: $primary-color-light;
+}

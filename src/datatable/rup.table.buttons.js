@@ -887,7 +887,6 @@ $.extend( Buttons.prototype, {
 					config.icon = "&#xe24d;";
 					break;
 				case 'copyButton':
-					// TODO: cambiar icono por uno de material icons
 					config.icon = "&#xe85d;";
 					break;
 				default:

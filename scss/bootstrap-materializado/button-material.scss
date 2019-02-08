@@ -1,33 +1,3 @@
-/* COLORES */
-$no-color: transparent;
-$white-color: #FFFFFF;
-$black-color: #212529;
-
-$primary-color: #1472a4;
-$primary-color-light: #b8d4e3;
-$primary-color-very-light: #e7f0f5;
-
-$secondary-color: #6c757d;
-$secondary-color-light: #d2d5d8;
-$secondary-color-very-light: #f0f1f2;
-
-$success-color: #4caf50;
-$success-color-light: #c9e7ca;
-$success-color-very-light: #edf7ed;
-
-$danger-color: #dc3545;
-$danger-color-light: #f4c2c7;
-$danger-color-very-light: #fbeaec;
-
-$warning-color: #ffc107;
-$warning-color-light: #ffecb4;
-$warning-color-very-light: #fff8e6;
-
-$info-color: #03a9f4;
-$info-color-light: #b3e5fb;
-$info-color-very-light: #e5f6fd;
-
-
 /* ESTILOS */
 $opacity-hover: 0.9;
 $opacity-active: 0.5;
@@ -275,16 +245,30 @@ $btn-material-box-shadow-active:
 /* ESTILOS GENERICOS */
 .btn-material {
 	min-width: 64px;
-	height: 34px;
+	height: 30px;
 	padding: 6px 10px;
 	border: none;
 	border-radius: 4px;
-	font-size: 12px;
+	font-size: .9rem;
 	font-weight: 400;
 	letter-spacing: initial;
 	text-decoration: none;
 	text-transform: uppercase;
 	box-sizing: border-box;
+}
+
+/* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
+.btn-material-sm {
+	height: 26px;
+	font-size: 0.85rem;
+	padding: 6px 8px;
+}
+
+/* ESTILOS PARA CREAR BOTONES MAS GRANDES */
+.btn-material-lg {
+	font-size: 1rem;
+	height: 34px;
+	padding: 6px 13px;
 }
 
 /* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
@@ -308,5 +292,5 @@ $btn-material-box-shadow-active:
 
 /* AJUSTE DE POSICIONAMIENTO DEL ICONO */
 .btn-material > i {
-	vertical-align: text-bottom;
+	vertical-align: bottom;
 }
