@@ -5407,7 +5407,6 @@
 
   .r01gContainer .recolocatedPagination_length {
     width: 50%;
-    text-align: right;
   }
 
   .r01gContainer .recolocatedPagination_rellenoDrc {
@@ -6404,7 +6403,8 @@
   padding: 6px 10px;
   border: none;
   border-radius: 4px;
-  font-size: .9rem;
+  font-size: .9rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   font-weight: 400;
   letter-spacing: initial;
   text-decoration: none;
@@ -6416,14 +6416,16 @@
 
 .r01gContainer .btn-material-sm {
   height: 26px;
-  font-size: 0.85rem;
+  font-size: 0.85rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   padding: 6px 8px;
 }
 
 /* ESTILOS PARA CREAR BOTONES MAS GRANDES */
 
 .r01gContainer .btn-material-lg {
-  font-size: 1rem;
+  font-size: 1rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   height: 34px;
   padding: 6px 13px;
 }

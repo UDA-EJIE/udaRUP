@@ -5916,8 +5916,7 @@ table.dataTable tbody > tr:hover {
   .recolocatedPagination_rellenoCtr > ul {
     display: inline-block; }
   .recolocatedPagination_length {
-    width: 50%;
-    text-align: right; }
+    width: 50%; }
   .recolocatedPagination_rellenoDrc {
     float: unset;
     width: 50%;
@@ -6583,7 +6582,8 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   padding: 6px 10px;
   border: none;
   border-radius: 4px;
-  font-size: .9rem;
+  font-size: .9rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   font-weight: 400;
   letter-spacing: initial;
   text-decoration: none;
@@ -6593,12 +6593,14 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 /* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
 .btn-material-sm {
   height: 26px;
-  font-size: 0.85rem;
+  font-size: 0.85rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   padding: 6px 8px; }
 
 /* ESTILOS PARA CREAR BOTONES MAS GRANDES */
 .btn-material-lg {
-  font-size: 1rem;
+  font-size: 1rem !important;
+  /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   height: 34px;
   padding: 6px 13px; }
 

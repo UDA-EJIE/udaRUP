@@ -757,31 +757,28 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método reload > ', () => {
-			describe('', () => {
-				beforeEach((done) => {
-					let html = '<select id="comboRemoto"></select>';
-					$('body').append(html);
-					$('#comboRemoto').rup_combo({
-						source: testutils.DEMO + '/comboSimple/remote',
-						sourceParam: {
-							label: "descEu",
-							value: "value",
-							style: "css"
-						},
-						onLoadError: done,
-						onLoadSuccess: done
-					});
+			beforeEach((done) => {
+				let html = '<select id="comboRemoto"></select>';
+				$('body').append(html);
+				var callback = () => {
+					$('#comboRemoto').data('settings').onLoadSuccess = () => { done(); };
+					$('#comboRemoto').append('<option class="intruso">intruso</option>');
+					$('#comboRemoto').rup_combo('refresh');
+					$('#comboRemoto').rup_combo('reload');
+				};
+				$('#comboRemoto').rup_combo({
+					source: testutils.DEMO + '/comboSimple/remote',
+					sourceParam: {
+						label: "descEu",
+						value: "value",
+						style: "css"
+					},
+					onLoadError: () => { fail('No se ha cargado el combo'); },
+					onLoadSuccess: () => { callback(); }
 				});
-				describe('', () => {
-					beforeEach((done) => {
-						$('#comboRemoto').append('<option class="intruso">intruso</option>');
-						$('#comboRemoto').rup_combo('refresh');
-						$('#comboRemoto').rup_combo('reload');
-					});
-				});
-				it('Debe crearse', () => {
-					expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
-				});
+			});
+			it('Debe recuperar su estado anterior a los cambios:', () => {
+				expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
 			});
 		});
 		describe('Método order > ', () => {
