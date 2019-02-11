@@ -5393,11 +5393,40 @@
 
 @media (max-width: 650px) {
   .r01gContainer .recolocatedPagination_container {
-    width: 45%;
+    width: 100%;
+  }
+
+  .r01gContainer .recolocatedPagination_rellenoCtr {
+    display: block;
+    text-align: center;
+  }
+
+  .r01gContainer .recolocatedPagination_rellenoCtr > ul {
+    display: inline-block;
   }
 
   .r01gContainer .recolocatedPagination_length {
-    padding: 7px 0 8px;
+    width: 50%;
+    text-align: right;
+  }
+
+  .r01gContainer .recolocatedPagination_rellenoDrc {
+    float: unset;
+    width: 50%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 515px) {
+  .r01gContainer .recolocatedPagination_length {
+    width: 100%;
+    display: block;
+  }
+
+  .r01gContainer .recolocatedPagination_rellenoDrc {
+    display: block;
+    text-align: center;
+    width: 100%;
   }
 }
 

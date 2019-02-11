@@ -3687,9 +3687,28 @@ table.dataTable tbody > tr:hover {
 
 @media (max-width: 650px) {
   .recolocatedPagination_container {
-    width: 45%; }
+    width: 100%; }
+  .recolocatedPagination_rellenoCtr {
+    display: block;
+    text-align: center; }
+  .recolocatedPagination_rellenoCtr > ul {
+    display: inline-block; }
   .recolocatedPagination_length {
-    padding: 7px 0 8px; } }
+    width: 50%;
+    text-align: right; }
+  .recolocatedPagination_rellenoDrc {
+    float: unset;
+    width: 50%;
+    text-align: left; } }
+
+@media (max-width: 515px) {
+  .recolocatedPagination_length {
+    width: 100%;
+    display: block; }
+  .recolocatedPagination_rellenoDrc {
+    display: block;
+    text-align: center;
+    width: 100%; } }
 
 .openResponsive, .closeResponsive {
   height: 14px;
