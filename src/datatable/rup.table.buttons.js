@@ -1986,6 +1986,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 					DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 				}
 			}else{//edicion en linea
+				ctx.oInit.inlineEdit.currentPos = undefined;
 				DataTable.Api().inlineEdit.add(dt,ctx);
 			}
 			break;
@@ -1998,6 +1999,8 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
 			}else{//edicion en linea
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
+				ctx.oInit.inlineEdit.currentPos = undefined;
+				ctx.oInit.inlineEdit.alta = undefined;
 				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'PUT').line;
 			}
 			break;
@@ -2008,6 +2011,7 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 				DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
 			}else{//edicion en linea
 				ctx.oInit.inlineEdit.alta = true;
+				ctx.oInit.inlineEdit.currentPos = undefined;
 				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'CLONE').line;
 			}
 			break;

@@ -586,6 +586,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
+				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 			}
 			// Recargar datos
 			//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
