@@ -515,16 +515,16 @@
 			// Añade iconos para versiones moviles/tablets
 			$('#'+tabla[0].id+'_first')
 				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-double-left'/>");
+				.append("<i class='material-icons'>&#xe5dc;</i>");
 			$('#'+tabla[0].id+'_previous')
 				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-left'/>");
+				.append("<i class='material-icons'>&#xe314;</i>");
 			$('#'+tabla[0].id+'_next')
 				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-right'/>");
+				.append("<i class='material-icons'>&#xe315;</i>");
 			$('#'+tabla[0].id+'_last')
 				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-double-right'/>");
+				.append("<i class='material-icons'>&#xe5dd;</i>");
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
 			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
