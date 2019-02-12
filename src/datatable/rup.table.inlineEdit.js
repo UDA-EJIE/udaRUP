@@ -1196,6 +1196,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
+				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
@@ -1230,6 +1231,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(ctx.inlineEdit.lastRow !== undefined){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
+	idForm.rup_form();
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
