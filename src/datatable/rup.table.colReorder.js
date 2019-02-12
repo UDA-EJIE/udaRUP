@@ -494,7 +494,11 @@ var ColReorder = function( dt, opts )
 	var table = $('#'+settings.sTableId).DataTable();
 	
 	table.on( 'column-reorder', function (  ) {// si se reordena se revisa para mantener los iconos.
-		DataTable.Api().editForm.addchildIcons(settings);
+		if(settings._multiSelect !== undefined && settings.multiselection.numSelected > 0){
+			table.ajax.reload();
+		}else{
+			DataTable.Api().editForm.addchildIcons(settings);
+		}		
 	} );
 	
 	return this;

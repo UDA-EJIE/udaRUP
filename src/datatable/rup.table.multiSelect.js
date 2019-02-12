@@ -1287,9 +1287,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 		}
 		if(id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0){
 			var pos = 0;
-			var arra = {id:id,page:ctx.json.page,line:line};
-			//ctx.multiselection.selectedIds.splice(pos,0,id);
-			//ctx.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:ctx.json.page,line:line});
+			var arra = {id:id,page:Number(ctx.json.page),line:line};
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 
@@ -1342,7 +1340,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 
 			}
 			var posDeselect = 0;
-			var arraDeselect = {id:id,page:ctx.json.page,line:line};
+			var arraDeselect = {id:id,page:Number(ctx.json.page),line:line};
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 			$.each(ctx.multiselection.deselectedRowsPerPage,function(index,p) {
