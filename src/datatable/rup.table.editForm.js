@@ -230,7 +230,7 @@ DataTable.editForm.init = function ( dt ) {
 
 
 		}
-		//En caso de aceptar se cierrar y se limpia.
+		//En caso de aceptar se cierra y se limpia.
 		if(!ctx.oInit.formEdit.okCallBack || ctx.oInit.formEdit.okCallBack === undefined){
 			return false;
 		}
@@ -405,9 +405,9 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		$('#'+ctx.sTableId).triggerHandler('tableEditFormAfterFillData');
 		_updateDetailPagination(ctx,indexInArray+1,numTotal);
 		DataTable.Api().rupTable.selectPencil(ctx,idRow);
-		//Se guarda el ultimo id editado.
+		// Se guarda el ultimo id editado.
 		ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
-		//Se muestra el dialog.
+		// Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 		// Asignamos un valor a la variable del título del formulario
 		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
@@ -433,21 +433,21 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	// encuentre habilitado en el formulario
 	$(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
 
-	//Se guardan los datos originales
+	// Se guardan los datos originales
 	ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
 	ctx.oInit.formEdit.okCallBack = false
 
 
 	button.unbind( "click" );
 	button.bind('click', function() {
-		//Comprobar si row ha sido modificada
-		//Se serializa el formulario con los cambios
+		// Comprobar si row ha sido modificada
+		// Se serializa el formulario con los cambios
 		row = _editFormSerialize(idForm);
         
-		//Verificar los checkbox vacíos.
+		// Verificar los checkbox vacíos.
 		row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
         
-        //Se transforma
+        // Se transforma
 		row = $.rup_utils.queryStringToJson(row);
 		ctx.oInit.formEdit.okCallBack = true;
 
@@ -460,14 +460,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	buttonContinue.unbind( "click" );
 	buttonContinue.bind('click', function() {
 		var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
-		//Comprobar si row ha sido modificada
-		//Se serializa el formulario con los cambios
+		// Comprobar si row ha sido modificada
+		// Se serializa el formulario con los cambios
 		row = _editFormSerialize(idForm);
 		
-		//Verificar los checkbox vacíos.
+		// Verificar los checkbox vacíos.
 		row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
 		
-		//Se transforma
+		// Se transforma
 		row = $.rup_utils.queryStringToJson(row);
 		
 		_callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'')
@@ -549,7 +549,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
 				}else{
-					//Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
+					// Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
 					if(ctx.oInit.select !== undefined){
 						DataTable.Api().select.deselect(ctx);
 					}
@@ -561,14 +561,14 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					});
 					ctx.json.rows.pop();
 					ctx.json.rows.splice(0,0,row);
-					//Se guardan los datos para pasar de nuevo a editable.
+					// Se guardan los datos para pasar de nuevo a editable.
 					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
 					ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
 					if(ctx.oInit.multiSelect !== undefined){
 						ctx.multiselection.internalFeedback.type = "noBorrar";
 						dt['row']().multiSelect();
 					}
-					//Se actualiza la linea
+					// Se actualiza la linea
 					if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
 						ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
 					}
@@ -625,7 +625,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
 	feedback.rup_feedback({message:msgFeedBack,type:type,block:false,gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
-	//Aseguramos que el estilo es correcto.
+	// Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
 		setTimeout(function(){
 			feedback.rup_feedback('destroy');
@@ -663,7 +663,7 @@ function _returnCheckEmpty(idForm,values){
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
-* @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
+* @param {integer} currentRowNum - Número de la posición actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
 *
 */
@@ -696,10 +696,10 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
-	//Funcion para obtener los parametros de navegacion.
+	// Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
 		var execute = false,
 			changePage = false,
@@ -822,11 +822,11 @@ function _callNavigationBar(dt){
 */
 function _callNavigationSelectBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 
-	//Funcion para obtener los parametros de navegacion.
+	// Funcion para obtener los parametros de navegacion.
 	settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
 		var execute = false,
 			changePage = false,
@@ -860,14 +860,14 @@ function _callNavigationSelectBar(dt){
 			ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.rows.length-1;
 
 		}
-		//Cambio de pagina
+		// Cambio de pagina
 		if(Number(futurePage) !== page){
 			var table = $('#'+ctx.sTableId).DataTable();
 			ctx.select.selectedRowsPerPage = {};
 			ctx.select.selectedRowsPerPage.cambio = linkType;
 			ctx.select.selectedRowsPerPage.page = futurePage;
 			table.page( futurePage-1 ).draw( 'page' );
-		}else{//Si nose pagina se abre directamente la funcion.
+		}else{//Si no se pagina se abre directamente la funcion.
 			DataTable.editForm.fnOpenSaveDialog('PUT',dt,ctx.multiselection.selectedRowsPerPage[0].line);
 			var rowSelectAux = ctx.json.rows[ctx.multiselection.selectedRowsPerPage[0].line];
 			ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);

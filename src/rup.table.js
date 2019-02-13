@@ -17406,7 +17406,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							settings.formEdit.$detailFormDiv = $objDetailForm.parent();
 							settings.formEdit.$detailForm = $objDetailForm;
 						} else {
-							alert('El fomrmulario no está incluido dentro de un div');
+							alert('El formulario no está incluido dentro de un div');
 						}
 					} else if ($objDetailForm.is('div')) {
 						var $objFormAux = $objDetailForm.find('form');
