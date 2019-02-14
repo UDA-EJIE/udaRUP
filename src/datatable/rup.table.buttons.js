@@ -2058,6 +2058,10 @@ DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) 
 	ctx._buttons[0].inst.s.disableAllButttons = true;
 } );
 
+DataTable.Api.register( 'buttons.initButtons()', function (ctx,opts) {
+	_initButtons(ctx,opts);
+} );
+
 
 
 /**
@@ -2796,99 +2800,98 @@ $.rup_messages('msgConfirm', {
 */
 var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv, textarea)
 {
-// Para los navegadores que soportan el comando de copia 'execCommand'
-if (document.queryCommandSupported('copy')) {
-	hiddenDiv.appendTo(dt.table().container());
+	// Para los navegadores que soportan el comando de copia 'execCommand'
+	if (document.queryCommandSupported('copy')) {
+		hiddenDiv.appendTo(dt.table().container());
+		textarea[0].focus();
+		textarea[0].select();
+	
+		try {
+			var successful = document.execCommand('copy');
+			hiddenDiv.remove();
+	
+			if (successful) {
+				dt.buttons.info(
+					dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_datatable.copyButton.saved', {
+						_: 'Copiados %d registros al portapapeles',
+						1: 'Copiado un registro al portapapeles'
+					}, exportDataRows),
+					2000
+				);
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (that.processing !== undefined) {
+					that.processing(false);
+				}
+				return;
+			}
+		}
+		catch (t) {}
+	}
+	
+	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
+	// con las instrucciones de como copiar los elementos seleccionados
+	var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
+		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
+		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
+	)
+	.append(hiddenDiv);
+	
+	dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
+	
+	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
+	// se le pegue ese texto
 	textarea[0].focus();
 	textarea[0].select();
-
-	try {
-		var successful = document.execCommand('copy');
-		hiddenDiv.remove();
-
-		if (successful) {
-			dt.buttons.info(
-				dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
-				dt.i18n('rup_datatable.copyButton.saved', {
-					_: 'Copiados %d registros al portapapeles',
-					1: 'Copiado un registro al portapapeles'
-				}, exportDataRows),
-				2000
-			);
-			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
-			// del if evita un error
-			if (that.processing !== undefined) {
-				that.processing(false);
-			}
-			return;
-		}
-	}
-	catch (t) {}
-}
-
-// Si no soportan la copia mediante 'execCommand', se mostrara un text box
-// con las instrucciones de como copiar los elementos seleccionados
-var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
-	'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
-	'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
-)
-.append(hiddenDiv);
-
-dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
-
-// Selecciona el texto para cuando el usuario accione la copia al portapapeles
-// se le pegue ese texto
-textarea[0].focus();
-textarea[0].select();
-
-// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
-var container = $(message).closest('.dt-button-info');
-var close = function () {
-	container.off('click.buttons-copy');
-	$(document).off('.buttons-copy');
-	dt.buttons.info(false);
-	// Si es llamado desde el contextMenu este paso es innecesario y la condicion
-	// del if evita un error
-	if (that.processing !== undefined) {
-		that.processing(false);
-	}
-};
-
-container.on('click.buttons-copy', close);
-$(document)
-	.on('keydown.buttons-copy', function (e) {
-		if (e.keyCode === 27) { // esc
-			close();
-		}
-	})
-	.on('copy.buttons-copy cut.buttons-copy', function () {
-		close();
+	
+	// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
+	var container = $(message).closest('.dt-button-info');
+	var close = function () {
+		container.off('click.buttons-copy');
+		$(document).off('.buttons-copy');
+		dt.buttons.info(false);
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
 		// del if evita un error
 		if (that.processing !== undefined) {
 			that.processing(false);
 		}
-	});
+	};
+	
+	container.on('click.buttons-copy', close);
+	$(document)
+		.on('keydown.buttons-copy', function (e) {
+			if (e.keyCode === 27) { // esc
+				close();
+			}
+		})
+		.on('copy.buttons-copy cut.buttons-copy', function () {
+			close();
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (that.processing !== undefined) {
+				that.processing(false);
+			}
+		});
 };
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables interface
- */
-
-// Attach to DataTables objects for global access
-$.fn.dataTable.Buttons = Buttons;
-$.fn.DataTable.Buttons = Buttons;
-
-function inicio(ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = ctx.multiselection.numSelected;
-	var collectionObject;
-
+/**
+* Inicializa los botones
+*
+* @name _initButtons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on
+* @param {List<object>} opts Lista de botones
+*
+*/
+var _initButtons = function(ctx,opts){
 	$.each(opts, function (i) {
 		// Activa/desactiva los botones en el inicio en funcion de la propiedad
 		// 'displayRegex' que tengan asociada
-		collectionObject = null;
+		var collectionObject = null;
+		var numOfSelectedRows = ctx.multiselection.numSelected;
 		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
@@ -2915,6 +2918,23 @@ function inicio(ctx) {
 			}
 		}
 	});
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables interface
+ */
+
+// Attach to DataTables objects for global access
+$.fn.dataTable.Buttons = Buttons;
+$.fn.DataTable.Buttons = Buttons;
+
+function inicio(ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
+	var collectionObject;
+
+	DataTable.Api().buttons.initButtons(opts);
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
