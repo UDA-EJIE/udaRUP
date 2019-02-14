@@ -164,7 +164,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).selectmenu('change');
 			} else {
 				//Multiple > multiselect
-				$(this).triggerHandler('change');
+				$(this).data('settings').change();
 			}
 		},
 		/**
