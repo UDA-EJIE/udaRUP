@@ -147,7 +147,7 @@ function postConfigureMultifilter (ctx) {
 
 
 
-	dropdownButtonConfig =  $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter].multifilter.dropdown;
+	dropdownButtonConfig =  $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter].multifilter.dropdown;
 	
 	$('#' + ctx.sTableId+'_filter_filterButton')
 		.rup_button({

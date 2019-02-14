@@ -207,6 +207,46 @@ DataTable.inlineEdit.init = function ( dt ) {
 				items
 			});
 		});
+		
+		//Crear botones Guardar y Cancelar
+		//Boton guardar
+	      var btSave = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
+	             },
+	             id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnSave',
+	             icon: "fa-save",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'save',
+	             action: function ( e, dt, button, config ) {
+	            	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+	            	 _guardar(ctx,$selector,false);
+	           }
+	       });
+	      
+	       //boton Cancelar
+	    var btCancel = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
+	             },
+	             id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnCancel',
+	             icon: "fa-times",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'cancel',
+	             action: function ( ) {
+			    		ctx.inlineEdit.lastRow = undefined;
+			    		ctx.oInit.inlineEdit.alta = undefined;
+			    		dt.ajax.reload(undefined,false)
+	           }
+	       });
+	     
+	    DataTable.Api().buttons.initButtons(ctx,ctx._buttons[0].inst.s.buttons);
+
+
 	}
 };
 
@@ -459,6 +499,9 @@ function _editInline ( dt,ctx, idRow ){
 		//se deshabilita los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
+	
+	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledDatatable');
+	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledDatatable');
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
@@ -486,6 +529,10 @@ function _editInline ( dt,ctx, idRow ){
 	}
 	
 	dt.responsive.recalc();
+	if(ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined
+			 && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $selectorTr.find('span.openResponsive').length === 0){//revisar cuadno es clone por si el responsive falla
+		 _addChildIcons(ctx);
+	}
 }
 
 /**
@@ -758,8 +805,15 @@ function _changeInputsToRup(ctx,idRow){
 			$target.click();
 		}
 		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
+		if(!$fila.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline');
+		}
 		//Mirar los campos que estan en responsive.
-		_recorrerCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),cont);
+		var $filaChild = $fila.next('.child');
+		_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),cont);
+		if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
+		}
 
 	}
 }
@@ -783,15 +837,20 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	var child = "";
 	if($fila.hasClass('child')){
 		child = "_child";
+		$fila = $fila.prev();
 	}
 	var ocultos = 0;
+	var edicion = true;
+	if($fila.hasClass('new') || ctx.oInit.inlineEdit.alta){
+		edicion = false;
+	}
 	$celdas.each( function() {
 		var celda = $(this);
 		var $celda = $(celda);
 		
 		if(!$celda.hasClass("select-checkbox")){
 			var cellColModel = colModel[cont];
-			if(cellColModel.editable===true){
+			if(cellColModel.editable===true || !edicion){
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
 				$input.attr('id', cellColModel.name+'_inline'+child).attr("oldtitle",title);
@@ -824,7 +883,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				});
 				$elem.attr({
 					'title': columns[cont].sTitle,
-					'class': 'editable customelement'
+					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 				if(searchRupType!==undefined) {
@@ -862,6 +921,14 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(ctx.inlineEdit.lastRow.ponerFocus){
 					$input.focus();
 					ctx.inlineEdit.lastRow.ponerFocus = false;
+					//Realaizar comprobaciones x si el id es NO editable
+					if(edicion && ctx.oInit.blockPKeditForm && ctx.oInit.primaryKey.length > 0){
+						$.each(ctx.oInit.primaryKey,function(key,id) {
+							if(id === cellColModel.name){
+								ctx.inlineEdit.lastRow.ponerFocus = true;
+							}
+						});
+					}
 				}
 			}
 			cont++;
@@ -955,6 +1022,9 @@ function _comprobarFila(ctx,$fila){
 		contFields--;
 	}
 	_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
+	if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+		DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
+	}
 	//Se crea el evento para el tr child de escape
 	 _crearEventos(ctx,$filaChild);
 	var tabla = $('#'+ctx.sTableId).DataTable();
@@ -988,7 +1058,10 @@ function _crearEventos(ctx,$selector){
 		    }else if (e.keyCode === 13 || 
 		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
-		    	if($selector.find('.child').length === 1){
+		    	if($selector.parent('tr').length > 0){//si e smayor que cero la seleccion es en el td,hay que pasar al tr.
+		    		$selector = $selector.parent('tr');
+		    	}
+		    	if($selector.find('.child').length === 1 || $selector.hasClass('child')){
 		    		child = true;;
 		    	}
 		    	_guardar(ctx,$selector,child);
@@ -1085,14 +1158,16 @@ function _inlineEditFormSerialize($fila,ctx,child){
 		});
 	});
 	
-	//añadir los no editables
-	jQuery.grep(ctx.oInit.colModel, function( n,i) {
-		  if ( n.editable !== true ){
-			  var text = ctx.json.rows[$fila.index()][n.name];
-			  serializedForm[n.name] = text;
-			  return n;
-		  }
-	});
+	//añadir los no editables,en caso de SOLO edicción, 
+	if(!selectores[0].hasClass('new')){
+		jQuery.grep(ctx.oInit.colModel, function( n,i) {
+			  if ( n.editable !== true ){
+				  var text = ctx.json.rows[$fila.index()][n.name];
+				  serializedForm[n.name] = text;
+				  return n;
+			  }
+		});
+	}
 	
 	return serializedForm;
 }

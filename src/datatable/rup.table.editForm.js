@@ -701,7 +701,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
@@ -827,7 +827,7 @@ function _callNavigationBar(dt){
 */
 function _callNavigationSelectBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 

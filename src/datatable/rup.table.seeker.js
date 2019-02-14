@@ -531,7 +531,7 @@ function _createRupComponent(dt,ctx){
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
 					'title': ctx.aoColumns[i].sTitle,
-					'class': 'editable customelement'
+					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 	
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
@@ -571,17 +571,40 @@ function _limpiarSeeker(dt,ctx){
 
 function _enabledButtons(ctx){
 	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot button').attr('disabled', true);
+		$.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
+			if($(this).attr("ruptype") === "date") {
+				$(this).rup_date("disable");
+				$(this).next().addClass('form-control-customer');
+			} 
+			else if($(this).attr("ruptype") === "combo") {
+				$(this).rup_combo("disable");
+				$(this).next().find('a').addClass('form-control-customer').attr('readonly',true);
+			}
+			else if($(this).attr("ruptype") === "time") {
+				$(this).rup_time("disable");
+			}else{
+				$(this).attr('disabled', true);
+			}
+		});
 	}
 }
 
 function _disabledButtons(ctx){
 	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-		$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-		$('#'+ctx.sTableId+' tfoot button').removeAttr('disabled');
+		$.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
+			if($(this).attr("ruptype") === "date") {
+				$(this).rup_date("enable");
+			} 
+			else if($(this).attr("ruptype") === "combo") {
+				$(this).rup_combo("enable");
+				$(this).next().find('a').attr('readonly',false);
+			}
+			else if($(this).attr("ruptype") === "time") {
+				$(this).rup_time("enable");
+			}else{
+				$(this).removeAttr('disabled');
+			}
+		});
 	}
 }
 

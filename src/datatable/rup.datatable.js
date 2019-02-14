@@ -185,10 +185,15 @@
 		* @param {string} actionType - Método de operación CRUD.
 		*
 		*/
-		apiRegister( 'rupTable.blockPKEdit()', function ( ctx, actionType ) {
+		apiRegister( 'rupTable.blockPKEdit()', function ( ctx, actionType , sufijo) {
 
 			var blockPK = ctx.oInit.blockPKeditForm;
-			var idForm = ctx.oInit.formEdit.idForm;
+			var idForm = '';
+			if(ctx.oInit.formEdit !== undefined){
+				idForm = ctx.oInit.formEdit.idForm;
+			}else{
+				idForm = $('#'+ctx.sTableId+'_search_searchForm');
+			}
 			var primaryKey = ctx.oInit.primaryKey;
 			
 			// Comprobamos si el bloqueo de claves primarias esta activo y la tabla tiene alguna columna definida como clave primaria.
@@ -197,6 +202,9 @@
 				if(actionType === "PUT") {
 					$.each(primaryKey,function(key,id) {
 						var input = $(idForm[0]).find(":input[name=" + id + "]");
+						if(sufijo !== undefined){
+							input = $(idForm[0]).find(":input[name=" + id + sufijo + "]");
+						}
 						
 						// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
 						if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
