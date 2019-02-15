@@ -508,6 +508,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			validaciones.rules = {};
 		}	
 	}
+	
+	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+		jQuery.extend(row, masterPkObject);
+	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
 		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',

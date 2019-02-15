@@ -26,6 +26,7 @@ define(['marionette',
 			templateJs: FormJsCodeTemplate
 		}));
 		$view.Test.show(new FormTestView());
+		window.$ = $;
 	}
 
 

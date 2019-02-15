@@ -25,8 +25,12 @@ module.exports = {
 	devServer:{
 		port:8080,
 		proxy:{
-			'/audit':'http://localhost:8081',
-			'/demo':'http://localhost:8081'
+			'/audit':{
+				target:'http://localhost:8081'
+			},
+			'/demo':{
+				target:'http://localhost:8081'
+			}
 		}
 	},
 	plugins: [
