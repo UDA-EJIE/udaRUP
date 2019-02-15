@@ -1219,6 +1219,11 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
+	
+	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+		jQuery.extend(row, masterPkObject);
+	}
 
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
