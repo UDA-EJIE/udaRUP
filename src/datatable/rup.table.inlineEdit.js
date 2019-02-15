@@ -207,6 +207,46 @@ DataTable.inlineEdit.init = function ( dt ) {
 				items
 			});
 		});
+		
+		//Crear botones Guardar y Cancelar
+		//Boton guardar
+	      var btSave = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
+	             },
+	             id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnSave',
+	             icon: "fa-save",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'save',
+	             action: function ( e, dt, button, config ) {
+	            	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+	            	 _guardar(ctx,$selector,false);
+	           }
+	       });
+	      
+	       //boton Cancelar
+	    var btCancel = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
+	             },
+	             id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnCancel',
+	             icon: "fa-times",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'cancel',
+	             action: function ( ) {
+			    		ctx.inlineEdit.lastRow = undefined;
+			    		ctx.oInit.inlineEdit.alta = undefined;
+			    		dt.ajax.reload(undefined,false)
+	           }
+	       });
+	     
+	    DataTable.Api().buttons.initButtons(ctx,ctx._buttons[0].inst.s.buttons);
+
+
 	}
 };
 
@@ -459,6 +499,9 @@ function _editInline ( dt,ctx, idRow ){
 		//se deshabilita los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
+	
+	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledDatatable');
+	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledDatatable');
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
@@ -979,6 +1022,9 @@ function _comprobarFila(ctx,$fila){
 		contFields--;
 	}
 	_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
+	if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+		DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
+	}
 	//Se crea el evento para el tr child de escape
 	 _crearEventos(ctx,$filaChild);
 	var tabla = $('#'+ctx.sTableId).DataTable();
@@ -1172,6 +1218,11 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+	}
+	
+	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+		jQuery.extend(row, masterPkObject);
 	}
 
 	var ajaxOptions = {
