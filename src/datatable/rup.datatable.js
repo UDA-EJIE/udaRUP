@@ -501,14 +501,15 @@
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
 			if($('#'+tabla[0].id+'_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0'){
-				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
+				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
 				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
 				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
-				var input = $('<input/>').attr({type: "text", size: "3",value:settingsT.json.page,maxlength:"3"})
-							.addClass('ui-pg-input')
+				var input = $('<input/>').attr({type: "text", size: "3",value:settingsT.json.page,maxlength:"3"}).addClass('ui-pg-input');
+				
 				liSearch.append(textPagina);
 				liSearch.append(input);
 				liSearch.append(toPagina);
+				
 				$('#'+tabla[0].id+'_previous').after(liSearch);
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
@@ -524,33 +525,34 @@
 				//Sacar un error
 			}
 			
-			// Crea un div que albergara la lista de botones de paginacion
-			$('#'+tabla[0].id+'_paginate').prepend(
-					"<div id='" + tabla[0].id + "_buttons' class='recolocatedPagination_buttons' />"
-			);
-			
 			// Añade iconos para versiones moviles/tablets
-			$('#'+tabla[0].id+'_first')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-double-left'/>");
-			$('#'+tabla[0].id+'_previous')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-left'/>");
-			$('#'+tabla[0].id+'_next')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-right'/>");
-			$('#'+tabla[0].id+'_last')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='fa fa-angle-double-right'/>");
+			$("<i class='fa fa-angle-double-left d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_first')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-left d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_previous')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-right d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_next')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-double-right d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_last')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
-			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
-			
-			// Añadimos clases para acabar con la recolocacion
-			$('#'+tabla[0].id+'_paginate').addClass('recolocatedPagination_container');
-			$('#'+tabla[0].id+'_buttons').addClass('recolocatedPagination_rellenoCtr');
-			$('#'+tabla[0].id+'_info').addClass('recolocatedPagination_rellenoDrc');
-			$('#'+tabla[0].id+'_length').addClass('recolocatedPagination_length');
+			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_paginate'));
 
 		},
 
@@ -1235,7 +1237,16 @@ $.fn.rup_datatable.defaults = {
 				},
 		selectorResponsive: 'td span.dtr-data'		
 		}, 
-	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
+	dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
+		't<"container-fluid paginationContainer"' +
+			'<"row"' +
+				'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+				'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+				'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+				'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+			'>' +
+		'>' +
+		'r',
     multiplePkToken: '~',
     primaryKey:["id"],
     blockPKeditForm: true,
