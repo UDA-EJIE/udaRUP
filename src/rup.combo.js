@@ -164,7 +164,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).selectmenu('change');
 			} else {
 				//Multiple > multiselect
-				$(this).data('settings').change();
+                //comprobamos si tiene o no change asociado. De ser el caso lo ejecutamos
+				$(this).data('settings').change && $(this).data('settings').change();
 			}
 		},
 		/**
