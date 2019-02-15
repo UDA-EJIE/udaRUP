@@ -1,4 +1,4 @@
-**
+/**
   * Genera los botones del datatable
   *
   * @summary 		Extensión del componente RUP Datatable
