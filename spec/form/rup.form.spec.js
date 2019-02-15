@@ -450,28 +450,5 @@ describe('Test Form', () => {
 				});
 			});
 		});
-
-		describe('Método destroy > ', () => {
-			describe('Form por defecto > ', () => {
-				beforeEach(() => {
-					$form.rup_form('destroy');
-					$form.rup_form('clearForm');
-				});
-				it('No debe existir', () => {
-					expect($('#input1').val()).toBe('txt1');
-					expect($('#input2').val()).toBe('txt2');
-					expect($('#input3').val()).toBe('opt1');
-				});
-			});
-			describe('Form alternativo > ', () => {
-				beforeEach(() => {
-					$formAlt.rup_form('destroy');
-					$formAlt.rup_form('clearForm');
-				});
-				it('No debe existir', () => {
-					expect($('#nombre').val()).toBe('pop');
-				});
-			});
-		});
 	});
 });
