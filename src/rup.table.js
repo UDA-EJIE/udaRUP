@@ -17432,7 +17432,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				ajaxOptions.feedback = settings.$detailFeedback;
 				// Se elimina el valor de la propiedad contentType para que la gestione automáticamente el componente rup.form
 				delete ajaxOptions.contentType;
-				if (jQuery.isPlainObject(ajaxOptions.data)) {
+				if (jQuery.isPlainObject(ajaxOptions.data) && settings.masterDetail === undefined) {
 					ajaxOptions.data = $.rup_utils.unnestjson(ajaxOptions.data);
 				}
 				ajaxOptions.beforeSubmit = function (a, $form, options) {
