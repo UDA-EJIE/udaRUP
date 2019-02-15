@@ -3733,6 +3733,10 @@ table.dataTable tbody > tr:hover {
   vertical-align: inherit;
   margin-right: 3px; }
 
+.form-control-customer[readonly], .form-control-customer:disabled {
+  background-color: #eceeef;
+  opacity: 1; }
+
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
 
