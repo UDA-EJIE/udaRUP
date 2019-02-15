@@ -526,16 +526,16 @@ function info ( api )
 
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = $(el);
+		el = $("div.paginationContainer > div > div:first-child");
 
 		var output  = $('<span class="select-info"/>');
 		add( output, 'row', rows );
 		add( output, 'column', columns );
 		add( output, 'cell', cells  );
 
-		var exisiting = el.children('span.select-info');
-		if ( exisiting.length ) {
-			exisiting.remove();
+		var existing = el.children('span.select-info');
+		if ( existing.length ) {
+			existing.remove();
 		}
 
 		if ( output.text() !== '' ) {
