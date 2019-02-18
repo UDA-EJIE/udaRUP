@@ -1532,7 +1532,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				settings.name = $(this).attr('name');
 
                 // Se alade  la variable que indica la finalización de la cargado
-                $('#'+settings.id).data('init') = false;
+                $('#'+settings.id).data('init', false);
 				//Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 				if (!settings.i18nId) {
 					settings.i18nId = settings.id;
@@ -1750,7 +1750,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$.rup.auditComponent('rup_combo', 'init');
 
                 //Se establece a true la variable que indica la finalizacion de la creacion del componente
-                $('#'+settings.id).data('init') = true;
+                $('#'+settings.id).data('init', true);
 			}
 		}
 	});
