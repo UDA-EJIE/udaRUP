@@ -158,15 +158,18 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          * $("#idCombo").rup_combo("change");
          */
 		change: function () {
-			//Tipo de combo
-			if (this.length === 0 || !$(this).data('settings').multiselect) {
-				//Simple > selectmenu
-				$(this).selectmenu('change');
-			} else {
-				//Multiple > multiselect
-                //comprobamos si tiene o no change asociado. De ser el caso lo ejecutamos
-				$(this).data('settings').change && $(this).data('settings').change();
-			}
+            //Comprobamos que el componente esté inicializado
+            if($(this).data('init')) {
+                //Tipo de combo
+    			if (this.length === 0 || !$(this).data('settings').multiselect) {
+    				//Simple > selectmenu
+    				$(this).selectmenu('change');
+    			} else {
+    				//Multiple > multiselect
+                    //comprobamos si tiene o no change asociado. De ser el caso lo ejecutamos
+    				$(this).data('settings').change && $(this).data('settings').change();
+    			}
+            }
 		},
 		/**
          * Realiza una reinicizalización del estado del componente.
@@ -1528,6 +1531,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				settings.id = $.rup_utils.escapeId($(this).attr('id'));
 				settings.name = $(this).attr('name');
 
+                // Se alade  la variable que indica la finalización de la cargado
+                $('#'+settings.id).data('init') = false;
 				//Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 				if (!settings.i18nId) {
 					settings.i18nId = settings.id;
@@ -1743,6 +1748,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 				//Se audita el componente
 				$.rup.auditComponent('rup_combo', 'init');
+
+                //Se establece a true la variable que indica la finalizacion de la creacion del componente
+                $('#'+settings.id).data('init') = true;
 			}
 		}
 	});
