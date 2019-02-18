@@ -164,7 +164,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).selectmenu('change');
 			} else {
 				//Multiple > multiselect
-				$(this).triggerHandler('change');
+                //comprobamos si tiene o no change asociado. De ser el caso lo ejecutamos
+				$(this).data('settings').change && $(this).data('settings').change();
 			}
 		},
 		/**
@@ -584,25 +585,25 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//LOCAL
 					source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
 					if (source !== undefined) {
-						
+
 						if (settings.blank != null) {
 							var isOptgroup = false;
-							
+
 							// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-							$.each(settings.sourceGroup, function(key, value) { 
+							$.each(settings.sourceGroup, function(key, value) {
 							    if(typeof value === "object" && value !== null) {
 							    	isOptgroup = true;
-							        return false; 
+							        return false;
 							    }
 							});
-							
-							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+
+							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
 							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 							if(isOptgroup) {
 								settings.blankDone = false;
 							}
 						}
-						
+
 						//Parsear datos
 						this._parseLOCAL(source, settings, $('#' + settings.id));
 
@@ -642,20 +643,20 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						success: function (data, textStatus, jqXHR) {
 							if (settings.blank != null) {
 								var isOptgroup = false;
-								
+
 								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-								$.each(data[0], function(key, value) { 
+								$.each(data[0], function(key, value) {
 								    if(typeof value === "object" && value !== null) {
 								    	isOptgroup = true;
-								        return false; 
+								        return false;
 								    }
 								});
-								
-								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if(isOptgroup) {
 									settings.blankDone = false;
-								} 
+								}
 							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
@@ -1005,11 +1006,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Almacenar los settings
 			$('#' + settings.id).data('settings', settings);
 
-			//Añadir evento change
-			if(settings.change) {
-				$('#' + settings.id).on('change',settings.change);
-			}
-
 			//Tipo de combo
 			if (!settings.multiselect) {
 				//Simple > selectmenu
@@ -1017,7 +1013,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				if(settings.selected !== undefined && settings.selected !== ''){
 					$('#' + settings.id).rup_combo("setRupValue", settings.selected);
 				}
-				
+
 			} else {
 				//Multiple > multiselect
 				$('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
@@ -1163,14 +1159,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_parseOptGroupLOCAL: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
-			
+
 			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
 			// añadimos una opcion en la primera posicion de la lista del combo.
 			if(!settings.blankDone && settings.blankDone != undefined) {
 				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
 				settings.blankDone = true;
 			}
-			
+
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1223,14 +1219,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_parseOptGroupREMOTE: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
-			
+
 			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
 			// añadimos una opcion en la primera posicion de la lista del combo.
 			if(!settings.blankDone && settings.blankDone != undefined) {
 				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
 				settings.blankDone = true;
 			}
-			
+
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1617,25 +1613,25 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 				} else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
 					//LOCAL
-					
+
 					if (settings.blank != null) {
 						var isOptgroup = false;
-						
+
 						// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-						$.each(settings.sourceGroup, function(key, value) { 
+						$.each(settings.sourceGroup, function(key, value) {
 						    if(typeof value === "object" && value !== null) {
 						    	isOptgroup = true;
-						        return false; 
+						        return false;
 						    }
 						});
-						
-						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+
+						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
 						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 						if(isOptgroup) {
 							settings.blankDone = false;
 						}
 					}
-					
+
 					//Parsear datos
 					if (settings.loadFromSelect === false) {
 						if (settings.source) {
@@ -1678,16 +1674,16 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						success: function (data, textStatus, jqXHR) {
 							if (settings.blank != null) {
 								var isOptgroup = false;
-								
+
 								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-								$.each(data[0], function(key, value) { 
+								$.each(data[0], function(key, value) {
 								    if(typeof value === "object" && value !== null) {
 								    	isOptgroup = true;
 										return false;
 								    }
 								});
-								
-								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if(isOptgroup) {
 									settings.blankDone = false;
@@ -1744,7 +1740,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$('#' + settings.id).next('a').click(function (event) {
 					$('#ui-datepicker-div').hide();
 				});
-				
+
 				//Se audita el componente
 				$.rup.auditComponent('rup_combo', 'init');
 			}
