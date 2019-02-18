@@ -514,11 +514,19 @@ function info ( api )
 		name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
 		var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionadas');
 		var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionada');
-		el.append( $('<span class="select-item"/>').append( api.i18n(
-			'select.'+name+'s',
-			{ _: '%d '+name+'s '+sels+'', 0: '', 1: '1 '+name+' '+sel+'' },
-			num
-		) ) );
+		if(ctx.oInit.showMultiSelectedZero){//se muestra el mensaje
+			el.append( $('<span class="select-item"/>').append( api.i18n(
+				'select.'+name+'s',
+				{ _: '%d '+name+'s '+sels+'', 1: '1 '+name+' '+sel+'' },
+				num
+			) ) );
+		}else{// nose muestra.
+			el.append( $('<span class="select-item"/>').append( api.i18n(
+					'select.'+name+'s',
+					{ _: '%d '+name+'s '+sels+'', 0: '', 1: '1 '+name+' '+sel+'' },
+					num
+				) ) );
+		}
 	};
 
 	rows = ctx.multiselection.numSelected;
@@ -530,8 +538,8 @@ function info ( api )
 
 		var output  = $('<span class="select-info"/>');
 		add( output, 'row', rows );
-		add( output, 'column', columns );
-		add( output, 'cell', cells  );
+		//add( output, 'column', columns );
+		//add( output, 'cell', cells  );
 
 		var existing = el.children('span.select-info');
 		if ( existing.length ) {
