@@ -1,0 +1,11 @@
+div.dialog-content-material {
+	position: relative;
+	border: 0;
+	padding: .5em 1em;
+	background: 0 0;
+	overflow: auto;
+}
+
+div.dialog-content-material + div.rup-datatable-buttonpanel-material {
+	padding: .3em .4em .5em .4em;
+}

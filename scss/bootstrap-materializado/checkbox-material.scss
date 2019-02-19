@@ -73,7 +73,7 @@ $checkbox-material-label-padding: .75em;
   
   	input[type="checkbox"] {
 	    outline: 0;
-	    visibility: hidden;
+	    opacity: 0;
 	    width: $checkbox-material-size;
 	    margin: 0;
 	    display: block;
@@ -83,6 +83,11 @@ $checkbox-material-label-padding: .75em;
 		/* CUANDO PASA EL RATON POR ENCIMA */  
 		&:hover:enabled + label:before, &:checked:hover:enabled + label:before {
 			animation: ripple-hover 0.2s linear forwards;
+		}
+		
+		/* CUANDO TIENE EL FOCO */
+		&:focus + label:before {
+			animation: ripple-active 0.2s linear forwards;
 		}
       
 		&:checked {
@@ -132,4 +137,15 @@ table div.checkbox-material-inline {
 			top: 3px;
 	    }
 	}
+}
+
+/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
+.form-groupMaterial.checkbox-material > label {
+    position: initial;
+    line-height: 2.9em;
+    
+    &:before {
+    	left: 5px;
+    	top: 10px;
+    }
 }

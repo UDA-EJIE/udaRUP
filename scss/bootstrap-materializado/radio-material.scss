@@ -35,12 +35,17 @@ $radio-material-ripple-size: 6px;
     }
 
     input[type="radio"] {
-        display: none;
+        opacity: 0;
         
         /* CUANDO PASA EL RATON POR ENCIMA */  
         &:hover:enabled + label:before, &:checked:hover:enabled + label:before {
             animation: ripple-hover 0.2s linear forwards;
         }
+        
+        /* CUANDO TIENE EL FOCO */
+        &:focus + label:before {
+			animation: ripple-active 0.2s linear forwards;
+		}
         
         /* CUANDO ESTA SELECCIONADO */  
         &:checked + label:before {
