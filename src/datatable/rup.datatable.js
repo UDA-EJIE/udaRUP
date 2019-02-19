@@ -1259,7 +1259,8 @@ $.fn.rup_datatable.defaults = {
   	  collapsableLayerId:"table_filter_fieldset"
      },
 	adapter: 'datatable_bootstrap',
-    order: [[ 1, 'asc' ]]
+    order: [[ 1, 'asc' ]],
+    showMultiSelectedZero: true
 	};
 
 }));
