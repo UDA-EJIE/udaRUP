@@ -144,7 +144,7 @@ table div.checkbox-material-inline {
     position: initial;
     line-height: 2.9em;
     
-    &:before {
+    &:before, &:after {
     	left: 5px;
     	top: 10px;
     }
