@@ -4622,7 +4622,7 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
 .form-groupMaterial.checkbox-material > label {
   position: initial;
   line-height: 2.9em; }
-  .form-groupMaterial.checkbox-material > label:before {
+  .form-groupMaterial.checkbox-material > label:before, .form-groupMaterial.checkbox-material > label:after {
     left: 5px;
     top: 10px; }
 
@@ -4667,7 +4667,8 @@ a.select-material {
   a.select-material:focus {
     border-color: #1472a4;
     border-width: 2px;
-    box-shadow: none; }
+    box-shadow: none;
+    outline: none; }
   a.select-material span:first-child {
     color: #495057;
     font-size: 1rem;

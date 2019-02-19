@@ -84,25 +84,20 @@
 		  */
 		_initOptions: function(options) {
 			var $self = this;
-
+			var sTableId = $self[0].id;
 
 			options.processing = true;
 			options.serverSide = true;
 			options.columns = options.columns || $self._getColumns(options);
 
-
-			//filter
-
+			//filter			
 			// options.filterForm = $self.attr('data-filter-form');
 			options.$filterForm = $(options.filterForm);
 
-			options.$filterButton = options.$filterForm.find('.rup-filtrar');
-			options.$clearButton = options.$filterForm.find('.rup-limpiar');
+			options.$filterButton = options.$filterForm.find('#' + sTableId + '_filter_filterButton');
+			options.$clearButton = options.$filterForm.find('#' + sTableId + '_filter_cleanButton');
 			options.$filterButton.on('click', function(){ $self._doFilter(options);});
 			options.$clearButton.on('click', function(){$self._clearFilter(options);});
-
-
-
 
 			// Urls
 			var baseUrl = options.urlBase;
@@ -117,7 +112,6 @@
 				'url': $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json'
 			};
 
-
 			//Extend 
 			/*{targets:   4,data: "download_link",render: function (  ) {
 		         return '<a href="">Download</a>';
@@ -129,48 +123,48 @@
 			//Se cargan los metodos en la API, Se referencia al Register
 			var apiRegister = DataTable.Api.register;
 			
-			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
-					//Se elimina el lapicero indicador.
-					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
-					//se añade el span con el lapicero
-					if(idRow >= 0){
-						var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
-						$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
-					}
+			DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
+				//Se elimina el lapicero indicador.
+				$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+				//se añade el span con el lapicero
+				if(idRow >= 0){
+					var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
+					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+				}
 			} );
 			 
 			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
-					//Se mira la nueva reordenacion y se ordena.
+				//Se mira la nueva reordenacion y se ordena.
 
-					ctx.multiselection.selectedIds = [];
-					ctx.multiselection.selectedRowsPerPage = [];
-					//Viene del servidor por eso la linea de la pagina es 1 menos.
-					$.each(json.reorderedSelection,function(index,p) {
-						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-						ctx.multiselection.selectedIds.splice(index,0,arra.id);
-						ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
-					});
-					if(!ctx.multiselection.selectedAll){
-						ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
-					}
-					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-					if(options.buttons !== undefined){
-						DataTable.Api().buttons.displayRegex(ctx);
-					}
+				ctx.multiselection.selectedIds = [];
+				ctx.multiselection.selectedRowsPerPage = [];
+				//Viene del servidor por eso la linea de la pagina es 1 menos.
+				$.each(json.reorderedSelection,function(index,p) {
+					var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
+					ctx.multiselection.selectedIds.splice(index,0,arra.id);
+					ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
+				});
+				if(!ctx.multiselection.selectedAll){
+					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
+				}
+				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+				if(options.buttons !== undefined){
+					DataTable.Api().buttons.displayRegex(ctx);
+				}
 			} );
 			
 			apiRegister( 'rupTable.getIdPk()', function ( json ) {
 
-				var id = '';
+			var id = '';
 
-				$.each(options.primaryKey,function(index,key) {
-					id = id + json[key];
-					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
-						id = id+options.multiplePkToken;
-					}
-				});
-				
-				return id;
+			$.each(options.primaryKey,function(index,key) {
+				id = id + json[key];
+				if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
+					id = id+options.multiplePkToken;
+				}
+			});
+			
+			return id;
 		} );
 		
 		/**

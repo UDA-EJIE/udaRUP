@@ -6789,7 +6789,8 @@
   line-height: 2.9em;
 }
 
-.r01gContainer .form-groupMaterial.checkbox-material > label:before {
+.r01gContainer .form-groupMaterial.checkbox-material > label:before,
+.r01gContainer .form-groupMaterial.checkbox-material > label:after {
   left: 5px;
   top: 10px;
 }
@@ -6845,6 +6846,7 @@
   border-color: #1472a4;
   border-width: 2px;
   box-shadow: none;
+  outline: none;
 }
 
 .r01gContainer a.select-material span:first-child {

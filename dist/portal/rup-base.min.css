@@ -5741,6 +5741,7 @@
   line-height: 2.9em;
 }
 
+.r01gContainer .form-groupMaterial.checkbox-material>label:after,
 .r01gContainer .form-groupMaterial.checkbox-material>label:before {
   left: 5px;
   top: 10px;
@@ -5793,6 +5794,7 @@
   border-color: #1472a4;
   border-width: 2px;
   box-shadow: none;
+  outline: 0;
 }
 
 .r01gContainer .rup-dropdown-dialog,
