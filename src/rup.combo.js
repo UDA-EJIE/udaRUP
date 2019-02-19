@@ -1519,12 +1519,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					attrs;
 
 				// Cambiamos el método change
-				var userChange = settings.change;
-				settings.change = function(){
-                    if($('#' + settings.id).hasClass('inited')) {
-                        userChange();
-                    }
-                }
+				if(settings.change) {
+					settings.userChange = settings.change;
+					settings.change = function(){
+						if($('#' + settings.id).hasClass('inited')) {
+							$('#' + settings.id).data('settings').userChange();
+						}
+					}
+				}
 				//Se recoge el tabindex indicado en el elemento
 				settings.tabindex = $(this).attr('tabindex');
 
