@@ -578,6 +578,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				var settings = $(this).data('settings'),
 					source, setRupValue;
 
+				$('#' + settings.id).removeClass('inited');
 				//Vaciar combo, quitarle valor y deshabilitar
 				$('#' + settings.id).rup_combo('disableChild');
 
@@ -623,6 +624,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							//Vaciar combo, quitarle valor y deshabilitar
 							$('#' + settings.id).rup_combo('select', setRupValue);
 						}
+						$('#' + settings.id).addClass('inited');
 					}
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
@@ -664,12 +666,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
 							}
+							$('#' + settings.id).addClass('inited');
 						},
 						error: function (xhr, textStatus, errorThrown) {
 							if (settings.onLoadError !== null) {
 								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 							} else {
-								self._ajaxError(xhr, textStatus, errorThrown);
+								rupCombo._ajaxError(xhr, textStatus, errorThrown);
 							}
 						}
 					});
@@ -679,6 +682,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//Se lanza la funcion que obtiene los valores a mostrar
 					jQuery(settings.source);
 					this._makeCombo(settings);
+					$('#' + settings.id).addClass('inited');
 				}
 			}
 		},
@@ -972,6 +976,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_makeCombo: function (settings) {
 
+			$('#' + settings.id).removeClass('inited');
 			//Opción vacía
 			if (settings.blank != null) {
 				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
@@ -1117,6 +1122,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					});
 				}
 			}
+
+			$('#' + settings.id).addClass('inited');
 		},
 		/**
          * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
@@ -1621,7 +1628,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					}
 
 					//Se establece a true la variable que indica la finalizacion de la creacion del componente
-					$('#'+settings.id).addClass('inited');
+					//$('#'+settings.id).addClass('inited');
 
 				} else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
 					//LOCAL
@@ -1676,8 +1683,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
 					var url = settings.source ? settings.source : settings.sourceGroup,
-						rupCombo = this,
-						self = this;
+						rupCombo = this
+
 					var labelBlank = this._getBlankLabel(settings.id);
 					$.rup_ajax({
 						url: url,
@@ -1715,7 +1722,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (settings.onLoadError !== null) {
 								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 							} else {
-								self._ajaxError(xhr, textStatus, errorThrown);
+								rupCombo._ajaxError(xhr, textStatus, errorThrown);
 							}
 						}
 					});
