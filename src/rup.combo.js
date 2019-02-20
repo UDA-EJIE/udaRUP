@@ -615,7 +615,10 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						if (settings.onLoadSuccess !== null) {
 							jQuery(settings.onLoadSuccess($('#' + settings.id)));
 						}
-
+						// Estamos haciendo reload asi que quitamos el inited que se ha generado en el 
+						// _makeCombo
+						$('#' + settings.id).removeClass('inited');
+						
 						//Lanzar cambio para que se recarguen hijos
 						$('#' + settings.id).rup_combo('change');
 
