@@ -808,7 +808,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						$(selector).selectmenu('value', param);
 						$(selector).trigger('_setElement');
 					} else {
-						return false;
+						$(selector).selectmenu('value', selector.data().settings.blank);
+						$(selector).trigger('_setElement');
 					}
 				} else if (typeof param === 'number') {
 					if ($('option', selector).length >= param) { //Controlamos que se intenten seleccionar una posición existente
