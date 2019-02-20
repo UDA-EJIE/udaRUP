@@ -979,7 +979,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          * @param {object} settings - Parametros de configuración con los que se ha inicializado el combo.
          */
 		_makeCombo: function (settings) {
-
 			$('#' + settings.id).removeClass('inited');
 			//Opción vacía
 			if (settings.blank != null) {
@@ -1126,8 +1125,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					});
 				}
 			}
-
-			$('#' + settings.id).addClass('inited');
 		},
 		/**
          * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
