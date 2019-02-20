@@ -1823,7 +1823,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 	$.fn.rup_combo.defaults = {
 		onLoadError: null,
 		width: 200,
-		blank: null,
+		blank: "",
 		style: 'dropdown',
 		showValue: false,
 		token: '|',
