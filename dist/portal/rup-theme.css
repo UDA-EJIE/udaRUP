@@ -6139,6 +6139,7 @@
   /* Preferred icon size */
   display: inline-block;
   line-height: 1;
+  vertical-align: middle;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
@@ -6152,6 +6153,11 @@
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+.r01gContainer ul .material-icons {
+  /* Espacio por defecto de la separación entre el icono y el texto */
+  margin-right: 1rem;
 }
 
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
@@ -6341,24 +6347,24 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.r01gContainer .btn-material[class*="dark-high-emphasis"] {
-  color: #212529;
-}
-
 .r01gContainer .btn-material[class*="high-emphasis"]:hover {
   color: #FFFFFF;
   opacity: 0.9;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
-.r01gContainer .btn-material[class*="dark-high-emphasis"]:hover {
-  color: #212529;
-}
-
 .r01gContainer .btn-material[class*="high-emphasis"]:active {
   color: #FFFFFF;
   opacity: 0.5;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.r01gContainer .btn-material[class*="dark-high-emphasis"] {
+  color: #212529;
+}
+
+.r01gContainer .btn-material[class*="dark-high-emphasis"]:hover {
+  color: #212529;
 }
 
 .r01gContainer .btn-material[class*="dark-high-emphasis"]:active {
@@ -6373,20 +6379,20 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.r01gContainer .btn-material[class*="dark-medium-emphasis"] {
-  color: #212529;
-}
-
 .r01gContainer .btn-material[class*="medium-emphasis"]:hover {
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
-.r01gContainer .btn-material[class*="dark-medium-emphasis"]:hover {
+.r01gContainer .btn-material[class*="medium-emphasis"]:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.r01gContainer .btn-material[class*="dark-medium-emphasis"] {
   color: #212529;
 }
 
-.r01gContainer .btn-material[class*="medium-emphasis"]:active {
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+.r01gContainer .btn-material[class*="dark-medium-emphasis"]:hover {
+  color: #212529;
 }
 
 /* ENFASIS BAJO */
@@ -6410,6 +6416,36 @@
   text-decoration: none;
   text-transform: uppercase;
   box-sizing: border-box;
+  /* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
+  /* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
+  /* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
+  /* AJUSTE DE POSICIONAMIENTO VERTICAL DEL ICONO Y TEXTO DEL BOTON */
+  /* AJUSTE DE MARGEN DEL ICONO */
+}
+
+.r01gContainer .btn-material:focus {
+  outline: none;
+}
+
+.r01gContainer .btn-material:disabled {
+  color: rgba(0, 0, 0, 0.37);
+  background-color: rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.r01gContainer .btn-material[class*="low"]:disabled {
+  background-color: transparent;
+}
+
+.r01gContainer .btn-material > i,
+.r01gContainer .btn-material span {
+  vertical-align: middle;
+}
+
+.r01gContainer .btn-material > i {
+  margin-right: .3rem;
 }
 
 /* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
@@ -6428,34 +6464,6 @@
   /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   height: 34px;
   padding: 6px 13px;
-}
-
-/* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
-
-.r01gContainer .btn-material:focus {
-  outline: none;
-}
-
-/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
-
-.r01gContainer .btn-material:disabled {
-  color: rgba(0, 0, 0, 0.37);
-  background-color: rgba(0, 0, 0, 0.12);
-  box-shadow: none;
-  cursor: default;
-  pointer-events: none;
-}
-
-/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
-
-.r01gContainer .btn-material[class*="low"]:disabled {
-  background-color: transparent;
-}
-
-/* AJUSTE DE POSICIONAMIENTO DEL ICONO */
-
-.r01gContainer .btn-material > i {
-  vertical-align: bottom;
 }
 
 .r01gContainer .form-groupMaterial {
@@ -6931,6 +6939,20 @@
   color: #FFFFFF;
 }
 
+.r01gContainer div.rup-date-input-group-material button i,
+.r01gContainer div.rup-date-input-group-material .ui-button.rup-button i,
+.r01gContainer div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button i,
+.r01gContainer .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button i,
+.r01gContainer div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i,
+.r01gContainer div.rup-date-input-group-material .rup-wizard a.rup-wizard_next i,
+.r01gContainer .rup-wizard div.rup-date-input-group-material a.rup-wizard_next i,
+.r01gContainer div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev i,
+.r01gContainer .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev i,
+.r01gContainer div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i,
+.r01gContainer .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i {
+  vertical-align: initial;
+}
+
 .r01gContainer div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ button,
 .r01gContainer div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .ui-button.rup-button,
 .r01gContainer div.rup-date-input-group-material .rup-dropdown-btn-group input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-dropdown-button,
@@ -6971,6 +6993,35 @@
   background-color: white;
   position: absolute;
   z-index: 1;
+}
+
+.r01gContainer div.rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
+  content: initial;
+}
+
+.r01gContainer div.rup-feedback.rup-feedback_image > i.material-icons {
+  margin-right: 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.r01gContainer div.rup-feedback.rup-feedback_image > i.material-icons + div {
+  display: initial;
+  vertical-align: middle;
+}
+
+.r01gContainer div.rup-feedback.rup-feedback_image button.btn-material,
+.r01gContainer div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button,
+.r01gContainer div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button,
+.r01gContainer div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button,
+.r01gContainer div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next,
+.r01gContainer .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next,
+.r01gContainer div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev,
+.r01gContainer .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev,
+.r01gContainer div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton,
+.r01gContainer .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
+  margin-left: 1rem;
 }
 
 /* REDONDEAMOS EL LOS BORDES DE LA TABLA */

@@ -1,0 +1,22 @@
+div.rup-feedback.rup-feedback_image {
+	div.rup-feedback_closeLink{
+      &:before{
+        content: initial;
+      }
+    }
+	
+	> i.material-icons {
+		margin-right: 1rem;
+		font-weight: 700;
+		font-size: 2rem;
+		
+		+ div {
+			display: initial;
+			vertical-align: middle;
+		}
+	}
+	
+	button.btn-material {
+		margin-left: 1rem;
+	}
+}

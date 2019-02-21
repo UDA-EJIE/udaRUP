@@ -26,6 +26,10 @@ div.rup-date-input-group-material {
 				color: $white-color;
 			}
 		}
+		
+		i {
+			vertical-align: initial;
+		}
 	}
 
  	input:not([type="checkbox"]):not([type="radio"]):hover ~ button {

@@ -6384,6 +6384,7 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   /* Preferred icon size */
   display: inline-block;
   line-height: 1;
+  vertical-align: middle;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
@@ -6398,6 +6399,10 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   /* Support for IE. */
   font-feature-settings: 'liga'; }
 
+ul .material-icons {
+  /* Espacio por defecto de la separación entre el icono y el texto */
+  margin-right: 1rem; }
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
 /* ESTILOS */
@@ -6405,171 +6410,141 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
 /* ENFASIS ALTO */
 .btn-material[class*="primary-high-emphasis"] {
   background-color: #1472a4; }
-
-.btn-material[class*="primary-high-emphasis"]:hover {
-  background-color: #1472a4; }
+  .btn-material[class*="primary-high-emphasis"]:hover {
+    background-color: #1472a4; }
 
 .btn-material[class*="secondary-high-emphasis"] {
   background-color: #6c757d; }
-
-.btn-material[class*="secondary-high-emphasis"]:hover {
-  background-color: #6c757d; }
+  .btn-material[class*="secondary-high-emphasis"]:hover {
+    background-color: #6c757d; }
 
 .btn-material[class*="success-high-emphasis"] {
   background-color: #4caf50; }
-
-.btn-material[class*="success-high-emphasis"]:hover {
-  background-color: #4caf50; }
+  .btn-material[class*="success-high-emphasis"]:hover {
+    background-color: #4caf50; }
 
 .btn-material[class*="danger-high-emphasis"] {
   background-color: #dc3545; }
-
-.btn-material[class*="danger-high-emphasis"]:hover {
-  background-color: #dc3545; }
+  .btn-material[class*="danger-high-emphasis"]:hover {
+    background-color: #dc3545; }
 
 .btn-material[class*="warning-dark-high-emphasis"] {
   background-color: #ffc107; }
-
-.btn-material[class*="warning-dark-high-emphasis"]:hover {
-  background-color: #ffc107; }
+  .btn-material[class*="warning-dark-high-emphasis"]:hover {
+    background-color: #ffc107; }
 
 .btn-material[class*="info-high-emphasis"] {
   background-color: #03a9f4; }
-
-.btn-material[class*="info-high-emphasis"]:hover {
-  background-color: #03a9f4; }
+  .btn-material[class*="info-high-emphasis"]:hover {
+    background-color: #03a9f4; }
 
 /* ENFASIS MEDIO */
 .btn-material[class*="primary-medium-emphasis"] {
   color: #1472a4; }
-
-.btn-material[class*="primary-medium-emphasis"]:hover {
-  background-color: #e7f0f5; }
+  .btn-material[class*="primary-medium-emphasis"]:hover {
+    background-color: #e7f0f5; }
 
 .btn-material[class*="secondary-medium-emphasis"] {
   color: #6c757d; }
-
-.btn-material[class*="secondary-medium-emphasis"]:hover {
-  background-color: #f0f1f2; }
+  .btn-material[class*="secondary-medium-emphasis"]:hover {
+    background-color: #f0f1f2; }
 
 .btn-material[class*="success-medium-emphasis"] {
   color: #4caf50; }
-
-.btn-material[class*="success-medium-emphasis"]:hover {
-  background-color: #edf7ed; }
+  .btn-material[class*="success-medium-emphasis"]:hover {
+    background-color: #edf7ed; }
 
 .btn-material[class*="danger-medium-emphasis"] {
   color: #dc3545; }
-
-.btn-material[class*="danger-medium-emphasis"]:hover {
-  background-color: #fbeaec; }
+  .btn-material[class*="danger-medium-emphasis"]:hover {
+    background-color: #fbeaec; }
 
 .btn-material[class*="warning-dark-medium-emphasis"]:hover {
   background-color: #fff8e6; }
 
 .btn-material[class*="info-medium-emphasis"] {
   color: #03a9f4; }
-
-.btn-material[class*="info-medium-emphasis"]:hover {
-  background-color: #e5f6fd; }
+  .btn-material[class*="info-medium-emphasis"]:hover {
+    background-color: #e5f6fd; }
 
 /* ENFASIS BAJO */
 .btn-material[class*="primary-low-emphasis"] {
   color: #1472a4; }
-
-.btn-material[class*="primary-low-emphasis"]:hover {
-  background-color: #e7f0f5; }
-
-.btn-material[class*="primary-low-emphasis"]:active {
-  background-color: #b8d4e3; }
+  .btn-material[class*="primary-low-emphasis"]:hover {
+    background-color: #e7f0f5; }
+  .btn-material[class*="primary-low-emphasis"]:active {
+    background-color: #b8d4e3; }
 
 .btn-material[class*="secondary-low-emphasis"] {
   color: #6c757d; }
-
-.btn-material[class*="secondary-low-emphasis"]:hover {
-  background-color: #f0f1f2; }
-
-.btn-material[class*="secondary-low-emphasis"]:active {
-  background-color: #d2d5d8; }
+  .btn-material[class*="secondary-low-emphasis"]:hover {
+    background-color: #f0f1f2; }
+  .btn-material[class*="secondary-low-emphasis"]:active {
+    background-color: #d2d5d8; }
 
 .btn-material[class*="success-low-emphasis"] {
   color: #4caf50; }
-
-.btn-material[class*="success-low-emphasis"]:hover {
-  background-color: #edf7ed; }
-
-.btn-material[class*="success-low-emphasis"]:active {
-  background-color: #c9e7ca; }
+  .btn-material[class*="success-low-emphasis"]:hover {
+    background-color: #edf7ed; }
+  .btn-material[class*="success-low-emphasis"]:active {
+    background-color: #c9e7ca; }
 
 .btn-material[class*="danger-low-emphasis"] {
   color: #dc3545; }
-
-.btn-material[class*="danger-low-emphasis"]:hover {
-  background-color: #fbeaec; }
-
-.btn-material[class*="danger-low-emphasis"]:active {
-  background-color: #f4c2c7; }
+  .btn-material[class*="danger-low-emphasis"]:hover {
+    background-color: #fbeaec; }
+  .btn-material[class*="danger-low-emphasis"]:active {
+    background-color: #f4c2c7; }
 
 .btn-material[class*="warning-dark-low-emphasis"] {
   color: #212529; }
-
-.btn-material[class*="warning-dark-low-emphasis"]:hover {
-  background-color: #fff8e6; }
-
-.btn-material[class*="warning-dark-low-emphasis"]:active {
-  background-color: #ffecb4; }
+  .btn-material[class*="warning-dark-low-emphasis"]:hover {
+    background-color: #fff8e6; }
+  .btn-material[class*="warning-dark-low-emphasis"]:active {
+    background-color: #ffecb4; }
 
 .btn-material[class*="info-low-emphasis"] {
   color: #03a9f4; }
-
-.btn-material[class*="info-low-emphasis"]:hover {
-  background-color: #e5f6fd; }
-
-.btn-material[class*="info-low-emphasis"]:active {
-  background-color: #b3e5fb; }
+  .btn-material[class*="info-low-emphasis"]:hover {
+    background-color: #e5f6fd; }
+  .btn-material[class*="info-low-emphasis"]:active {
+    background-color: #b3e5fb; }
 
 /* ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES */
 /* ENFASIS ALTO */
 .btn-material[class*="high-emphasis"] {
   color: #FFFFFF;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  .btn-material[class*="high-emphasis"]:hover {
+    color: #FFFFFF;
+    opacity: 0.9;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+  .btn-material[class*="high-emphasis"]:active {
+    color: #FFFFFF;
+    opacity: 0.5;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); }
 
 .btn-material[class*="dark-high-emphasis"] {
   color: #212529; }
-
-.btn-material[class*="high-emphasis"]:hover {
-  color: #FFFFFF;
-  opacity: 0.9;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
-
-.btn-material[class*="dark-high-emphasis"]:hover {
-  color: #212529; }
-
-.btn-material[class*="high-emphasis"]:active {
-  color: #FFFFFF;
-  opacity: 0.5;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); }
-
-.btn-material[class*="dark-high-emphasis"]:active {
-  color: #212529; }
+  .btn-material[class*="dark-high-emphasis"]:hover {
+    color: #212529; }
+  .btn-material[class*="dark-high-emphasis"]:active {
+    color: #212529; }
 
 /* ENFASIS MEDIO */
 .btn-material[class*="medium-emphasis"] {
   background-color: #FFFFFF;
   border-color: #FFFFFF;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  .btn-material[class*="medium-emphasis"]:hover {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+  .btn-material[class*="medium-emphasis"]:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); }
 
 .btn-material[class*="dark-medium-emphasis"] {
   color: #212529; }
-
-.btn-material[class*="medium-emphasis"]:hover {
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
-
-.btn-material[class*="dark-medium-emphasis"]:hover {
-  color: #212529; }
-
-.btn-material[class*="medium-emphasis"]:active {
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); }
+  .btn-material[class*="dark-medium-emphasis"]:hover {
+    color: #212529; }
 
 /* ENFASIS BAJO */
 .btn-material[class*="low-emphasis"] {
@@ -6588,7 +6563,26 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   letter-spacing: initial;
   text-decoration: none;
   text-transform: uppercase;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  /* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
+  /* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
+  /* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
+  /* AJUSTE DE POSICIONAMIENTO VERTICAL DEL ICONO Y TEXTO DEL BOTON */
+  /* AJUSTE DE MARGEN DEL ICONO */ }
+  .btn-material:focus {
+    outline: none; }
+  .btn-material:disabled {
+    color: rgba(0, 0, 0, 0.37);
+    background-color: rgba(0, 0, 0, 0.12);
+    box-shadow: none;
+    cursor: default;
+    pointer-events: none; }
+  .btn-material[class*="low"]:disabled {
+    background-color: transparent; }
+  .btn-material > i, .btn-material span {
+    vertical-align: middle; }
+  .btn-material > i {
+    margin-right: .3rem; }
 
 /* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
 .btn-material-sm {
@@ -6603,26 +6597,6 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   height: 34px;
   padding: 6px 13px; }
-
-/* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
-.btn-material:focus {
-  outline: none; }
-
-/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
-.btn-material:disabled {
-  color: rgba(0, 0, 0, 0.37);
-  background-color: rgba(0, 0, 0, 0.12);
-  box-shadow: none;
-  cursor: default;
-  pointer-events: none; }
-
-/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
-.btn-material[class*="low"]:disabled {
-  background-color: transparent; }
-
-/* AJUSTE DE POSICIONAMIENTO DEL ICONO */
-.btn-material > i {
-  vertical-align: bottom; }
 
 .form-groupMaterial {
   /* ESTILOS DE LOS CONTENEDORES DE INPUTS */
@@ -6931,6 +6905,8 @@ div.rup-date-input-group-material button, div.rup-date-input-group-material .ui-
     background-color: #1472a4; }
     div.rup-date-input-group-material button:focus i, div.rup-date-input-group-material .ui-button.rup-button:focus i, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button:focus i, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button:focus i, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button:focus i, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next:focus i, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next:focus i, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev:focus i, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev:focus i, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton:focus i, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton:focus i {
       color: #FFFFFF; }
+  div.rup-date-input-group-material button i, div.rup-date-input-group-material .ui-button.rup-button i, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button i, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button i, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next i, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next i, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev i, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev i, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i {
+    vertical-align: initial; }
 
 div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .ui-button.rup-button, div.rup-date-input-group-material .rup-dropdown-btn-group input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-dropdown-button, .rup-dropdown-btn-group div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-dropdown-button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-toolbar_menuButton.ui-button, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_next, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_next, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_prev, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_prev, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-wizard_submitButton, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-wizard_submitButton {
   border-color: #212529; }
@@ -6950,6 +6926,20 @@ div.rup-date-input-group-material + label {
   background-color: white;
   position: absolute;
   z-index: 1; }
+
+div.rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
+  content: initial; }
+
+div.rup-feedback.rup-feedback_image > i.material-icons {
+  margin-right: 1rem;
+  font-weight: 700;
+  font-size: 2rem; }
+  div.rup-feedback.rup-feedback_image > i.material-icons + div {
+    display: initial;
+    vertical-align: middle; }
+
+div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button, div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button, div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev, div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
+  margin-left: 1rem; }
 
 /* REDONDEAMOS EL LOS BORDES DE LA TABLA */
 table.table-material {

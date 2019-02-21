@@ -78,7 +78,7 @@ de la aplicación pueda cerrar la capa manualmente.
 			_idFeedback: null,
 			_divClose: null,
 		},
-		/**
+	/**
      * @function	_setOption
      * @private
      * @description Modifica las opciones de configuración del componente.
@@ -116,7 +116,7 @@ de la aplicación pueda cerrar la capa manualmente.
 			}
 			$.Widget.prototype._setOption.apply(this, arguments);
 		},
-		/**
+	/**
      * @function	_create
      * @private
      * @description Crea en el DOM los elementos que conforman el componente.
@@ -124,36 +124,46 @@ de la aplicación pueda cerrar la capa manualmente.
 		_create: function () {
 			var opciones = this.options;
 			opciones._idFeedback =
-								this.element
-									.addClass('rup-feedback ui-widget ui-widget-content ui-corner-all')
-									.addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
-									.attr({
-										role: 'alert'
-									})
-									.css('display', opciones.block ? 'block' : 'none')
-									.css('visibility', 'hidden').append('<span class=\'rup-feedback-icon\'>')
-									.context.id;
+				this.element
+					.addClass('rup-feedback ui-widget ui-widget-content ui-corner-all')
+					.addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
+					.attr({
+						role: 'alert'
+					})
+					.css('display', opciones.block ? 'block' : 'none')
+					.css('visibility', 'hidden').append(
+							$.fn.rup_feedback.defaults.adapter === 'feedback_material' ? '<i class="material-icons">&#xe5ca;</i>' : '<span class=\'rup-feedback-icon\'>'
+					)
+					.context.id;
 
 			//Crear capa cierre
-
 			var clase = $.rup.adapter[$.fn.rup_feedback.defaults.adapter].classComponent();
-			opciones._divClose = $('<div />')
-				.html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeLiteral())
-				.attr('id', opciones._idFeedback + '_closeDiv')
-				.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
-				.addClass('rup-feedback_closeLink')
-				.addClass(clase);
-
-
-
-
+			
+			if($.fn.rup_feedback.defaults.adapter === 'feedback_material') {
+				opciones._divClose = $('<div />')
+					.html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeIcon())
+					.attr('id', opciones._idFeedback + '_closeDiv')
+					.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
+					.addClass('rup-feedback_closeLink')
+					.addClass(clase);
+			}
+			// Se comprueba si ya esta el icono de font-awesome
+			else if($.fn.rup_feedback.defaults.adapter === ('feedback_bootstrap' || 'feedback_jqueryui')) {
+				opciones._divClose = $('<div />')
+					.html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeLiteral())
+					.attr('id', opciones._idFeedback + '_closeDiv')
+					.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
+					.addClass('rup-feedback_closeLink')
+					.addClass(clase);
+			}
+			
 			//Si se define texto sacarlo
 			if (opciones.message) {
 				this.set(opciones.message, opciones.type, opciones.imgClass);
 			}
 
 		},
-		/**
+	/**
      * @description Añade el enlace de cierre.
      *
      * @function	_addCloseLink
@@ -166,7 +176,7 @@ de la aplicación pueda cerrar la capa manualmente.
 			});
 			this.element.prepend(opciones._divClose);
 		},
-		/**
+	/**
      * Elimina las modificaciones realizadas sobre la capa para convertirla en feedback volviendo a ser una simple capa.
      *
      * @function	destroy
@@ -310,10 +320,10 @@ de la aplicación pueda cerrar la capa manualmente.
 			}
 		},
 		/**
-     * Muesta la capa del feedback. <br/><br/>
+     * Muestra la capa del feedback.
      * Esta función será invocada automáticamente cada vez que se invoque la función set(…)
      *
-     * @function	show
+     * @function show
      * @fires module:rup_feedback#rupFeedback_show
      * @example
      * // Muestra el feedback.
@@ -325,10 +335,15 @@ de la aplicación pueda cerrar la capa manualmente.
 			element.css('display', 'block');
 			element.css('visibility', 'visible');
 			
-			//Se comprueba que el icono esta
-			if($('.rup-feedback-icon',element).length === 0){
+			// Se comprueba si ya esta el icono material
+			if($.fn.rup_feedback.defaults.adapter === 'feedback_material' && $('.material-icons',element).length === 0) {
+				element.prepend('<i class=\'material-icons\'>');
+			}
+			// Se comprueba si ya esta el icono de font-awesome
+			else if($.fn.rup_feedback.defaults.adapter === ('feedback_bootstrap' || 'feedback_jqueryui') && $('.rup-feedback-icon',element).length === 0) {
 				element.prepend('<span class=\'rup-feedback-icon\'>');
 			}
+			
 			// Se aplica el tooltip
 			this.element.find('[title]').rup_tooltip({
 				position: {
@@ -353,7 +368,7 @@ de la aplicación pueda cerrar la capa manualmente.
 		// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 		//*******************************************************
 		/*  $.fn.rup_feedback.defaults = {
-        adapter = "feedback_bootstrap"
+        adapter = "feedback_material"
       };*/
 
 		/**
@@ -376,7 +391,7 @@ de la aplicación pueda cerrar la capa manualmente.
      */
 	});
 	/*  $.fn.rup_feedback.defaults = {
-      adapter = "feedback_bootstrap"
+      adapter = "feedback_material"
     };*/
 
 	var rup_feedback = {};
@@ -385,7 +400,7 @@ de la aplicación pueda cerrar la capa manualmente.
 	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_feedback', rup_feedback));
 
 	$.fn.rup_feedback.defaults = {
-		adapter: 'feedback_bootstrap'
+		adapter: 'feedback_material'
 	};
 
 }));

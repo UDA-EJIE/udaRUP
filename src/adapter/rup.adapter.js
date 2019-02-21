@@ -24,7 +24,8 @@
 			'./ValidateJQueryUIAdapter',
 			'./ValidateBootstrapAdapter',
 			'./FeedbackJQueryUIAdapter',
-			'./FeedbackBootstrapAdapter'
+			'./FeedbackBootstrapAdapter',
+			'./FeedbackMaterialAdapter'
 		], factory);
 	} else {
 		// Browser globals
@@ -49,7 +50,8 @@
 	ValidateJQueryUIAdapter,
 	ValidateBootstrapAdapter,
 	FeedbackJQueryUIAdapter,
-	FeedbackBootstrapAdapter
+	FeedbackBootstrapAdapter,
+	FeedbackMaterialAdapter
 ) {
 	return $;
 }));
