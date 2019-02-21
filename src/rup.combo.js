@@ -981,7 +981,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		_makeCombo: function (settings) {
 			$('#' + settings.id).removeClass('inited');
 			//Opción vacía -> No tiene sentido que un multiselect tenga 'blank'
-			if (!!settings.blank && !settings.multiselect) {
+			if (settings.blank !== undefined && !settings.multiselect) {
 				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 			//Gestionar Imagenes
@@ -1827,7 +1827,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
      *
      * @property {jQuery.rup_combo~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
      * @property {number} [width=200] - Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria.
-     * @property {string} [blank=null] - Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento.
+     * @property {string} [blank] - Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento.
      * @property {string} [style=dropdown] - Tipo de visualización de la lista de opciones del combo.
      * @property {boolean} [showValue=false] - Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple).
      * @property {string} [token="|"] - Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal.
@@ -1849,7 +1849,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 	$.fn.rup_combo.defaults = {
 		onLoadError: null,
 		width: 200,
-		blank: "",
 		style: 'dropdown',
 		showValue: false,
 		token: '|',
