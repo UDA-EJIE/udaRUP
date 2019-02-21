@@ -980,8 +980,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_makeCombo: function (settings) {
 			$('#' + settings.id).removeClass('inited');
-			//Opción vacía
-			if (settings.blank != null) {
+			//Opción vacía -> No tiene sentido que un multiselect tenga 'blank'
+			if (!!settings.blank && !settings.multiselect) {
 				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
