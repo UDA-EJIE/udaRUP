@@ -980,11 +980,10 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_makeCombo: function (settings) {
 			$('#' + settings.id).removeClass('inited');
-			//Opción vacía
-			if (settings.blank != null) {
+			//Opción vacía -> No tiene sentido que un multiselect tenga 'blank'
+			if (!!settings.blank && !settings.multiselect) {
 				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
-
 			//Gestionar Imagenes
 			if (settings.imgs) {
 				var icons = [],
@@ -1678,6 +1677,20 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//Almacenar los settings
 					$('#' + settings.id).data('settings', settings);
 
+					// Hacer que se lance el change al variar los checkboxes de los combos
+					// multiseleccion
+					if(settings.multiselect) {
+						var ctx = $('#rup-multiCombo_' + settings.id);
+						$('ul > li > label > input', ctx).change(
+							{ combo: settings.id },
+							function(e) {
+								e.preventDefault();
+								e.stopPropagation();
+								$('#' + e.data.combo).rup_combo('change');
+							}
+						);
+					}
+
 					//Se establece a true la variable que indica la finalizacion de la creacion del componente
 					$('#'+settings.id).addClass('inited');
 
@@ -1715,6 +1728,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							rupCombo._ajaxSuccess(data, settings, html);
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
+							}
+							// Hacer que se lance el change al variar los checkboxes de los combos
+							// multiseleccion
+							if(settings.multiselect) {
+								var ctx = $('#rup-multiCombo_' + settings.id);
+								$('ul > li > label > input', ctx).change(
+									{ combo: settings.id },
+									function(e) {
+										e.preventDefault();
+										e.stopPropagation();
+										$('#' + e.data.combo).rup_combo('change');
+									}
+								);
 							}
 							//Se establece a true la variable que indica la finalizacion de la creacion del componente
 							$('#'+settings.id).addClass('inited');
