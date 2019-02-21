@@ -972,9 +972,15 @@
 	// MÉTODO DE INICIALIZACION
 	//*******************************
 	$.fn.rup_datatable('extend', {
-		_init : function(args){
-			var $self = this,
-				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
+		_init : function(args){			
+			var $self = this;
+			//Se añade filter por defecto
+			$.fn.rup_datatable.defaults.filter = {
+									id:$self[0].id+"_filter_form",
+									filterToolbar:$self[0].id+"_filter_toolbar",
+									collapsableLayerId:$self[0].id+"_filter_fieldset"
+		       						};
+			var	settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
 			
 			$self.triggerHandler('tableBeforeInit');
 			
@@ -1253,11 +1259,6 @@ $.fn.rup_datatable.defaults = {
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
-    filter:{
-  	  id:"table_filter_form",
-  	  filterToolbar:"table_filter_toolbar",
-  	  collapsableLayerId:"table_filter_fieldset"
-     },
 	adapter: 'datatable_bootstrap',
     order: [[ 1, 'asc' ]],
     showMultiSelectedZero: true
