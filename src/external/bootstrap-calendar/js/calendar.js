@@ -1118,7 +1118,12 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update = function() {
 		var self = this;
 
-		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container, html: true});
+		$('*[data-toggle="tooltip"]').tooltip({
+			container: this.options.tooltip_container, 
+			html: true, 
+			trigger: 'hover'
+		});
+
 		if(self.options.cell_navigation === true) {
 			$('*[data-cal-date]').click(function() {
 				var view = $(this).data('cal-view');
@@ -1128,6 +1133,7 @@ if(!String.prototype.formatNum) {
 			$('.cal-cell').dblclick(function() {
 				var view = $('[data-cal-date]', this).data('cal-view');
 				self.options.day = $('[data-cal-date]', this).data('cal-date');
+				$('.tooltip').hide();
 				self.view(view);
 			});
 			// Los que estén fuera de rango los quitamos.
@@ -1300,6 +1306,9 @@ if(!String.prototype.formatNum) {
 				downbox.hide();
 			})
 			.on('click', function(event) {
+				if ($(event.target).hasClass('event')){
+					return;
+				}
 				if($('.events-list', this).length == 0) {
 					return;
 				}
