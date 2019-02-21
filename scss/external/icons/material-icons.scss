@@ -36,7 +36,15 @@
 	font-feature-settings: 'liga';
 }
 
-ul .material-icons{
-	/* Espacio por defecto de la separación entre el icono y el texto */
-	margin-right: 1rem;
+ul > li {
+	> a i.material-icons {
+		/* Aumento del tamaño del icono para cuando este se ubica en el navbar */
+		font-size: 2rem;
+	}
+	
+	> div a i.material-icons {
+		/* Espacio por defecto de la separación entre el icono y el texto */
+		/* para cuando este se ubica en un menu desplegable del navbar */
+		margin-right: .5rem;
+	}
 }

@@ -8082,7 +8082,7 @@
   line-height: 3.5em;
 }
 
-.r01gContainer .tableFit {
+.r01gContainer table.tableFit:not(.DTCR_clonedTable) {
   width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0;
