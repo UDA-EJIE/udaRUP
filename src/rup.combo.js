@@ -1892,7 +1892,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		onLoadError: null,
 		width: 200,
 		style: 'dropdown',
-		blank:"",
+		blank:null,
 		showValue: false,
 		token: '|',
 		multiValueToken: '##',
