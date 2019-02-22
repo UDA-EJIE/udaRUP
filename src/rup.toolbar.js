@@ -142,6 +142,12 @@
          * $("#idToolbar").rup_date("addMButton", mButton);
          */
 		addMButton: function (obj, json_i18n) {
+			if(obj.idParent === undefined) {
+				obj.idParent = this.id;
+			}
+			if(!obj.click){
+				obj.click = this.showMButton;
+			}
 			return $.proxy(this[0]._ADAPTER.addMButton, this)(obj, json_i18n);
 		},
 
@@ -181,7 +187,6 @@
 				top = self.offset().top + self.getTotalHeight(),
 				showingMB = $.rup_toolbar.showingMB,
 				actualMB = this.id;
-
 			if (showingMB === actualMB) {
 				$("ul[id*='" + showingMB + "']").slideUp('fast');
 				self.removeClass('rup-toolbar_menuButtonSlided');
@@ -333,15 +338,19 @@
 		return $(this).height() + parseInt($(this).css('paddingTop')) + parseInt($(this).css('paddingBottom')) + parseInt($(this).css('borderTopWidth')) + parseInt($(this).css('borderBottomWidth'));
 	};
 
-	$.fn.rup_toolbar = function (properties) {
+	$.fn.rup_toolbar = function (...properties) {
+		if(typeof properties[0] == "string") {
+			this[properties[0]].apply(this,properties.splice(1));
+			return undefined;
+		}
 		return this.each(function () {
 
 
 			//Carga de los valores por defecto para los atributos que no ha introducido el usuario
-			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties),
+			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
 				t = $(this),
 				json_i18n, rightButtons = [];
-
+				
 			this._ADAPTER = $.rup.adapter[settings.adapter];
 			//Se guarda el marcador de foco de la botonera
 			if ($.rup_toolbar.focusedExternally === undefined) {
@@ -374,12 +383,12 @@
 
 						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
 						mbutton = t.addMButton($.extend({
+							idParent: this.id,
 							id: obj.id,
 							i18nCaption: obj.i18nCaption,
 							css: obj.css,
 							click: t.showMButton
 						}, obj), json_i18n);
-
 						if (mbutton !== null) {
 							t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
 						}
@@ -414,6 +423,9 @@
 					t.addButton(dObj, json_i18n);
 				}
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_toolbar', 'init');
 		});
 	};
 

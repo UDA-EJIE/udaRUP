@@ -3,6 +3,7 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
+import 'rup.tooltip';
 import 'rup.combo';
 
 
@@ -175,7 +176,7 @@ describe('Test Combo > ', () => {
 					$comboHijo.rup_combo('clear');
 				});
 				it('Debe actualizar la ui ', () => {
-					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Falta literal]');
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
@@ -378,7 +379,7 @@ describe('Test Combo > ', () => {
 				});
 				describe('Selección por índice > ', () => {
 					beforeEach(() => {
-						$comboGroup.rup_combo('select', 1);
+						$comboGroup.rup_combo('select', 2);
 					});
 					it('Debe cambiar la ui:', () => {
 						expect($('#comboGroup-button > span.ui-selectmenu-status').text()).toBe('Opt11');
@@ -527,7 +528,7 @@ describe('Test Combo > ', () => {
 			});
 			describe('Combo optGroup > ', () => {
 				it('Debe devolver la label de la seleccion', () => {
-					expect($comboGroup.rup_combo('index')).toBe(3);
+					expect($comboGroup.rup_combo('index')).toBe(4);
 				});
 			});
 		});
@@ -761,31 +762,28 @@ describe('Test Combo > ', () => {
 			});
 		});
 		describe('Método reload > ', () => {
-			describe('', () => {
-				beforeEach((done) => {
-					let html = '<select id="comboRemoto"></select>';
-					$('body').append(html);
-					$('#comboRemoto').rup_combo({
-						source: testutils.DEMO + '/comboSimple/remote',
-						sourceParam: {
-							label: "descEu",
-							value: "value",
-							style: "css"
-						},
-						onLoadError: done,
-						onLoadSuccess: done
-					});
+			beforeEach((done) => {
+				let html = '<select id="comboRemoto"></select>';
+				$('body').append(html);
+				var callback = () => {
+					$('#comboRemoto').data('settings').onLoadSuccess = () => { done(); };
+					$('#comboRemoto').append('<option class="intruso">intruso</option>');
+					$('#comboRemoto').rup_combo('refresh');
+					$('#comboRemoto').rup_combo('reload');
+				};
+				$('#comboRemoto').rup_combo({
+					source: testutils.DEMO + '/comboSimple/remote',
+					sourceParam: {
+						label: "descEu",
+						value: "value",
+						style: "css"
+					},
+					onLoadError: () => { fail('No se ha cargado el combo'); },
+					onLoadSuccess: () => { callback(); }
 				});
-				describe('', () => {
-					beforeEach((done) => {
-						$('#comboRemoto').append('<option class="intruso">intruso</option>');
-						$('#comboRemoto').rup_combo('refresh');
-						$('#comboRemoto').rup_combo('reload');
-					});
-				});
-				it('Debe crearse', () => {
-					expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
-				});
+			});
+			it('Debe recuperar su estado anterior a los cambios:', () => {
+				expect($('#comboRemoto-menu > li > a:contains("intruso")').length).toBe(0);
 			});
 		});
 		describe('Método order > ', () => {
@@ -910,7 +908,7 @@ function setupCombos() {
 			$('#comboSimple').addClass('randomClass');
 		},
 		source: source,
-		blank: '0',
+		blank:'0',
 		selected: '2'
 	};
 	let optionsMulti = {
@@ -958,7 +956,7 @@ function setupCombos() {
 				value: '2.2'
 			}]
 		},
-		blank: '0',
+		blank:'0',
 		selected: '1.1'
 	};
 	let optionsGroup = {

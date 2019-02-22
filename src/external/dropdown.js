@@ -118,7 +118,7 @@ const Dropdown = (($) => {
 
       $(parent).toggleClass(ClassName.OPEN)
       $(parent).trigger($.Event(Event.SHOWN, relatedTarget))
-
+      $(parent).trigger('toggleEnd')
       return false
     }
 
@@ -192,6 +192,7 @@ const Dropdown = (($) => {
         $(parent)
           .removeClass(ClassName.OPEN)
           .trigger($.Event(Event.HIDDEN, relatedTarget))
+          .trigger('toggleEnd')
       }
     }
 

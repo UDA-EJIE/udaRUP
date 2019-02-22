@@ -322,10 +322,10 @@ describe('Test Form', () => {
 			});
 			describe('Form alternativo > ', () => {
 				it('Debe devolver un string con los datos de los fields:', () => {
-					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=' +
-						'&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-						'&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
-					expect($('input', $formAlt).rup_form('fieldSerialize')).toBe(out);
+					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono='+
+						'&dni=&usuario=&password=&password_confirm=&email=&email_confirm='+
+						'&provincia.id=&municipio.id=&calle.id=';
+					expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldSerialize')).toBe(out);
 				});
 			});
 		});
@@ -340,9 +340,9 @@ describe('Test Form', () => {
 				it('Debe devolver los valores en un array', () => {
 					let out = [
 						"pop", "", "", "", "", "", "",
-						"", "", "", "", "", "", "", ""
+						"", "", "", "", "", "", ""
 					];
-					expect($('input', $formAlt).rup_form('fieldValue')).toEqual(out);
+					expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldValue')).toEqual(out);
 				});
 			});
 		});
@@ -440,29 +440,6 @@ describe('Test Form', () => {
 					expect($('#nombre').val()).toBe('NOMBRE');
 					expect($('#apellido1').val()).toBe('APELLIDO1');
 					expect($('#apellido2').val()).toBe('');
-				});
-			});
-		});
-
-		describe('Método destroy', () => {
-			describe('Form por defecto > ', () => {
-				beforeEach(() => {
-					$form.rup_form('destroy');
-					$form.rup_form('clearForm');
-				});
-				it('No debe existir', () => {
-					expect($('#input1').val()).toBe('txt1');
-					expect($('#input2').val()).toBe('txt2');
-					expect($('#input3').val()).toBe('opt1');
-				});
-			});
-			describe('Form alternativo > ', () => {
-				beforeEach(() => {
-					$formAlt.rup_form('destroy');
-					$formAlt.rup_form('clearForm');
-				});
-				it('No debe existir', () => {
-					expect($('#nombre').val()).toBe('pop');
 				});
 			});
 		});

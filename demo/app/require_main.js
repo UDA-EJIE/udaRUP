@@ -33,8 +33,7 @@ requirejs.config({
 		'jquery-ui': '../../node_modules/jquery-ui-dist/jquery-ui',
 		'backbone': '../../node_modules/backbone/backbone',
 		'bootstrap': '../../node_modules/bootstrap/dist/js/bootstrap.min',
-		'bt3': '../../dist/js/externals/bt3.min',
-		'bt4': '../../dist/js/externals/bt4.min',
+		'bt4': '../../dist/js/externals/bootstrap/bt4.min',
 		'underscore': '../../node_modules/underscore/underscore',
 		'handlebars': '../../node_modules/handlebars/dist/handlebars',
 		'handlebars-i18n': '../js/handlebars-helper-i18n',
@@ -43,6 +42,7 @@ requirejs.config({
 		'qtip2': '../../node_modules/qtip2/dist/jquery.qtip',
 		'jquery.fileDownload': '../../src/core/utils/jquery.fileDownload',
 		'tether': '../../node_modules/tether/dist/js/tether',
+		"popper": "../../node_modules/popper.js/dist/umd/popper.min",
 		'rcarousel': '../../src/core/jquery.ui.rcarousel',
 
 		//"highlight": "../../node_modules/highlight.js/lib/highlight",
@@ -107,13 +107,13 @@ requirejs.config({
 			'deps': ['base'],
 		},
 		'bootstrap': {
-			'deps': ['jquery', 'tether']
+			'deps': ['jquery', 'tether', 'popper.js']
 		},
 		'bt3': {
 			'deps': ['jquery']
 		},
 		'bt4': {
-			'deps': ['jquery', 'tether']
+			'deps': ['jquery', 'tether', 'popper.js']
 		},
 		'handlebars-i18n': {
 			'deps': ['handlebars']

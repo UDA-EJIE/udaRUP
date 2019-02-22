@@ -1,6 +1,7 @@
 
 
 	var	APP_RESOURCES = 'demo/x21a',
+	AUDIT_PATH ='http://localhost:8081/audit',
 	CTX_PATH = '/x21aResponsive/',
 	STATICS = '',
     RESOURCES_PATH = '../../i18n/',
@@ -17,3 +18,4 @@
 	LOGGED_USER = "NULL",
 	DESTROY_XLNETS_SESSION = "false";
 	document.cookie = "language=es";
+	IS_EJIE = false;

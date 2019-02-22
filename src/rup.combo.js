@@ -143,7 +143,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
-				$(this).rup_combo('select');
+				$(this).rup_combo('select',"-1");
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect('uncheckAll');
@@ -611,33 +611,36 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
 					var labelBlank = this._getBlankLabel(settings.id);
-					$.rup_ajax({
-						url: settings.source ? settings.source : settings.sourceGroup,
-						data: data,
-						dataType: 'json',
-						contentType: 'application/json',
-						beforeSend: function (xhr) {
-							rupCombo._ajaxBeforeSend(xhr, settings);
-						},
-						success: function (data, textStatus, jqXHR) {
-							if (settings.blank != null) {
-								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+					if(settings.ultimaLlamada === undefined || settings.ultimaLlamada !== data){//si es la misma busqueda, no tiene sentido volver a intentarlo.
+						$.rup_ajax({
+							url: settings.source ? settings.source : settings.sourceGroup,
+							data: data,
+							dataType: 'json',
+							contentType: 'application/json',
+							beforeSend: function (xhr) {
+								rupCombo._ajaxBeforeSend(xhr, settings);
+							},
+							success: function (data, textStatus, jqXHR) {
+								if (settings.blank != null) {
+									data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+								}
+								rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
+	
+								// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
+								if (settings.onLoadSuccess !== null) {
+									jQuery(settings.onLoadSuccess($('#' + settings.id)));
+								}
+							},
+							error: function (xhr, textStatus, errorThrown) {
+								if (settings.onLoadError !== null) {
+									jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+								} else {
+									self._ajaxError(xhr, textStatus, errorThrown);
+								}
 							}
-							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
-
-							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
-							if (settings.onLoadSuccess !== null) {
-								jQuery(settings.onLoadSuccess($('#' + settings.id)));
-							}
-						},
-						error: function (xhr, textStatus, errorThrown) {
-							if (settings.onLoadError !== null) {
-								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-							} else {
-								self._ajaxError(xhr, textStatus, errorThrown);
-							}
-						}
-					});
+						});
+						settings.ultimaLlamada = data;
+					}
 
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {

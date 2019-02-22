@@ -138,6 +138,9 @@
      * $("#selector").rup_dialog("open");
      */
 		open: function () { //abre el dialogo y estable el foco en el primer botón.
+			if($(this).hasClass('disabled')){
+				return undefined;
+			}
 			var settings = $.extend({}, $(this).dialog('option')),
 				$overlayEl;
 			//Guardar el elemento que tenía el foco antes de abrir el diálogo
@@ -167,7 +170,7 @@
 				}
 			}
 
-			$('div[aria-describedby=' + this[0].id + '] .ui-dialog-buttonpane button:first').focus();
+			$('div.ui-dialog-buttonpane button:first').trigger('focus');
 		},
 		/**
      * Borra el dialogo si este estubiera oculto o visible.
@@ -189,7 +192,10 @@
      * $("#selector").rup_dialog("disable");
      */
 		disable: function () {
-			$(this).dialog('disable');
+			if(!$(this).hasClass('disabled')){
+				$(this).addClass('disabled');
+			}
+			// $(this).dialog('disable');
 		},
 		/**
      * Funcion que, en caso de estar desahibilitado, habilita el dialogo sobre el que se aplica.
@@ -200,7 +206,9 @@
      * $("#selector").rup_dialog("enable");
      */
 		enable: function () {
-			$(this).dialog('enable');
+			if($(this).hasClass('disabled')){
+				$(this).removeClass('disabled')
+			}
 		},
 		widget: function () {
 			return ($(this).dialog('widget'));
@@ -214,6 +222,9 @@
      * $("#selector").rup_dialog("moveToTop");
      */
 		moveToTop: function () {
+			if($(this).hasClass('disabled')){
+				return undefined;
+			}
 			$(this).dialog('moveToTop');
 		},
 		/**
@@ -225,7 +236,13 @@
      * $("#selector").rup_dialog("close");
      */
 		close: function () { //Cierra el dialogo.
-			$(this).dialog('close');
+			if($(this).hasClass('disabled')){
+				return undefined;
+			}
+			var toClose = $(this).triggerHandler('onBeforeClose');
+			if(toClose !== false) {
+				$(this).dialog('close');
+			}
 		},
 		/**
      * Función que devuelve si el dialogo esta abierto o no.
@@ -291,7 +308,7 @@
 				}
 				return;
 			}
-			if (opt === 'title') {
+			else{
 				if (value !== undefined) {
 					$(this).dialog('option', opt, value);
 				} else {
@@ -309,6 +326,9 @@
      * $("#selector").rup_dialog("createBtnLinks", btnObj, "idDialog");
      */
 		createBtnLinks: function (btn, id) {
+			if($(this).hasClass('disabled')){
+				return undefined;
+			}
 			/**
        * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
        */
@@ -354,7 +374,12 @@
 					}
 				};
 
-
+				//Añadimos el callback onBeforeClose
+				if(settings.onBeforeClose && typeof settings.onBeforeClose === 'function') {
+					$(this).on('onBeforeClose', function (){
+						return settings.onBeforeClose();
+					});
+				}
 				//Se verifica que el selector solo contenga un diálogo
 				if (settings.type !== null && $(this).length > 0) {
 
@@ -524,6 +549,9 @@
 						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.dialogTypeError'));
 					}
 				}
+
+				//Se audita el componente
+				$.rup.auditComponent('rup_dialog', 'init');
 			}
 		},
 		/**

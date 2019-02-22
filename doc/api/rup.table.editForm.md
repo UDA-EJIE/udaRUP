@@ -1,6 +1,6 @@
-<a name="module_dataTables.editForm"></a>
+<a name="module_rup.table.editForm"></a>
 
-## dataTables.editForm
+## rup.table.editForm
 Módulo que habilita la edicción mediante un formulario.
 
 **Summary**: Extensión del componente RUP Datatable  
@@ -8,53 +8,54 @@ Módulo que habilita la edicción mediante un formulario.
 **License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
-* [dataTables.editForm](#module_dataTables.editForm)
-    * [~init(dt)](#module_dataTables.editForm..init)
-    * [~init(ctx)](#module_dataTables.editForm..init)
-    * [~openSaveDialog(actionType, dt, idRow)](#module_dataTables.editForm..openSaveDialog)
-    * [~openSaveDialog(actionType, dt, row, idRow, continuar, idTableDetail, url)](#module_dataTables.editForm..openSaveDialog)
-    * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_dataTables.editForm..callFeedbackOk)
-    * [~returnCheckEmpty(idForm, values)](#module_dataTables.editForm..returnCheckEmpty)
-    * [~updateDetailPagination(ctx, currentRowNum, totalRowNum)](#module_dataTables.editForm..updateDetailPagination)
-    * [~callNavigatorBar(dt)](#module_dataTables.editForm..callNavigatorBar)
-    * [~callNavigatorSelectBar(dt)](#module_dataTables.editForm..callNavigatorSelectBar)
-    * [~getRowSelected(dt, actionType)](#module_dataTables.editForm..getRowSelected) ⇒
-    * [~getNextPageSelected(ctx, pageInit, orden)](#module_dataTables.editForm..getNextPageSelected) ⇒
-    * [~getPrevPageSelected(ctx, pageInit)](#module_dataTables.editForm..getPrevPageSelected) ⇒
-    * [~getLineByPageSelected(ctx, lineInit)](#module_dataTables.editForm..getLineByPageSelected) ⇒
-    * [~getLineByPageSelectedReverse(ctx, lineInit)](#module_dataTables.editForm..getLineByPageSelectedReverse) ⇒
-    * [~deleteAllSelects(dt)](#module_dataTables.editForm..deleteAllSelects)
+* [rup.table.editForm](#module_rup.table.editForm)
+    * [~init(dt)](#module_rup.table.editForm..init)
+    * [~init(ctx)](#module_rup.table.editForm..init)
+    * [~openSaveDialog(actionType, dt, idRow)](#module_rup.table.editForm..openSaveDialog)
+    * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url)](#module_rup.table.editForm.._callSaveAjax)
+    * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
+    * [~returnCheckEmpty(idForm, values)](#module_rup.table.editForm..returnCheckEmpty)
+    * [~updateDetailPagination(ctx, currentRowNum, totalRowNum)](#module_rup.table.editForm..updateDetailPagination)
+    * [~callNavigatorBar(dt)](#module_rup.table.editForm..callNavigatorBar)
+    * [~callNavigatorSelectBar(dt)](#module_rup.table.editForm..callNavigatorSelectBar)
+    * [~getRowSelected(dt, actionType)](#module_rup.table.editForm..getRowSelected) ⇒ <code>object</code>
+    * [~getNextPageSelected(ctx, pageInit, orden)](#module_rup.table.editForm..getNextPageSelected) ⇒
+    * [~getPrevPageSelected(ctx, pageInit)](#module_rup.table.editForm..getPrevPageSelected) ⇒
+    * [~getLineByPageSelected(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelected) ⇒
+    * [~getLineByPageSelectedReverse(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelectedReverse) ⇒
+    * [~deleteAllSelects(dt)](#module_rup.table.editForm..deleteAllSelects)
+    * [~_editFormSerialize(idForm)](#module_rup.table.editForm.._editFormSerialize) ⇒ <code>string</code>
 
-<a name="module_dataTables.editForm..init"></a>
+<a name="module_rup.table.editForm..init"></a>
 
-### dataTables.editForm~init(dt)
+### rup.table.editForm~init(dt)
 Se inicializa el componente editForm
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto datatable. |
 
-<a name="module_dataTables.editForm..init"></a>
+<a name="module_rup.table.editForm..init"></a>
 
-### dataTables.editForm~init(ctx)
+### rup.table.editForm~init(ctx)
 Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>DataTable.settings</code> | Settings object to operate on |
 
-<a name="module_dataTables.editForm..openSaveDialog"></a>
+<a name="module_rup.table.editForm..openSaveDialog"></a>
 
-### dataTables.editForm~openSaveDialog(actionType, dt, idRow)
-Función que lleva todo el comportamiento para abrir el dialog y editar un resgistro.
+### rup.table.editForm~openSaveDialog(actionType, dt, idRow)
+Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -63,30 +64,30 @@ Función que lleva todo el comportamiento para abrir el dialog y editar un resgi
 | dt | <code>object</code> | Es el objeto datatable. |
 | idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
 
-<a name="module_dataTables.editForm..openSaveDialog"></a>
+<a name="module_rup.table.editForm.._callSaveAjax"></a>
 
-### dataTables.editForm~openSaveDialog(actionType, dt, row, idRow, continuar, idTableDetail, url)
+### rup.table.editForm~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url)
 Llamada al servidor con los datos de edición.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | actionType | <code>string</code> | Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest. |
 | dt | <code>object</code> | Es el objeto datatable. |
-| row | <code>object</code> | son los datos que se cargan. |
+| row | <code>object</code> | Son los datos que se cargan. |
 | idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
-| continuar | <code>boolean</code> | Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierrar el dialog. |
+| continuar | <code>boolean</code> | Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog. |
 | idTableDetail | <code>string</code> | Identificdor del detail de la table. |
-| url | <code>string</code> | Url que se añade para llmar  al controller. |
+| url | <code>string</code> | Url que se añade para llamar  al controller. |
 
-<a name="module_dataTables.editForm..callFeedbackOk"></a>
+<a name="module_rup.table.editForm..callFeedbackOk"></a>
 
-### dataTables.editForm~callFeedbackOk(ctx, feedback, msgFeedBack, type)
-Llamada para crear el feedback detro del dialog.
+### rup.table.editForm~callFeedbackOk(ctx, feedback, msgFeedBack, type)
+Llamada para crear el feedback dentro del dialog.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -96,12 +97,12 @@ Llamada para crear el feedback detro del dialog.
 | msgFeedBack | <code>string</code> | Mensaje para el feedback. |
 | type | <code>string</code> | Tipos del feedback, mirar en el rup.feedback.. |
 
-<a name="module_dataTables.editForm..returnCheckEmpty"></a>
+<a name="module_rup.table.editForm..returnCheckEmpty"></a>
 
-### dataTables.editForm~returnCheckEmpty(idForm, values)
+### rup.table.editForm~returnCheckEmpty(idForm, values)
 Se verifican los check vacios dentro de un formulario.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -109,12 +110,12 @@ Se verifican los check vacios dentro de un formulario.
 | idForm | <code>object</code> | Identificador del formulario. |
 | values | <code>string</code> | Values ya añadidos al formulario. |
 
-<a name="module_dataTables.editForm..updateDetailPagination"></a>
+<a name="module_rup.table.editForm..updateDetailPagination"></a>
 
-### dataTables.editForm~updateDetailPagination(ctx, currentRowNum, totalRowNum)
+### rup.table.editForm~updateDetailPagination(ctx, currentRowNum, totalRowNum)
 Actualiza la navegación del dialogo.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -123,37 +124,37 @@ Actualiza la navegación del dialogo.
 | currentRowNum | <code>integer</code> | Número de la posción actual del registro selecionado. |
 | totalRowNum | <code>integer</code> | Número total de registros seleccionados. |
 
-<a name="module_dataTables.editForm..callNavigatorBar"></a>
+<a name="module_rup.table.editForm..callNavigatorBar"></a>
 
-### dataTables.editForm~callNavigatorBar(dt)
+### rup.table.editForm~callNavigatorBar(dt)
 Constructor de la barra de navegación.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto datatable. |
 
-<a name="module_dataTables.editForm..callNavigatorSelectBar"></a>
+<a name="module_rup.table.editForm..callNavigatorSelectBar"></a>
 
-### dataTables.editForm~callNavigatorSelectBar(dt)
+### rup.table.editForm~callNavigatorSelectBar(dt)
 Constructor de la barra de navegación.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto datatable. |
 
-<a name="module_dataTables.editForm..getRowSelected"></a>
+<a name="module_rup.table.editForm..getRowSelected"></a>
 
-### dataTables.editForm~getRowSelected(dt, actionType) ⇒
+### rup.table.editForm~getRowSelected(dt, actionType) ⇒ <code>object</code>
 Metodo que obtiene la fila siguiente seleccionada.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
-**Returns**: object que contiene  el identificador, la pagina y la linea de la fila seleccionada  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Returns**: <code>object</code> - que contiene  el identificador, la pagina y la linea de la fila seleccionada  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
@@ -161,12 +162,12 @@ Metodo que obtiene la fila siguiente seleccionada.
 | dt | <code>object</code> | Es el objeto datatable. |
 | actionType | <code>string</code> | Es el objeto datatable. |
 
-<a name="module_dataTables.editForm..getNextPageSelected"></a>
+<a name="module_rup.table.editForm..getNextPageSelected"></a>
 
-### dataTables.editForm~getNextPageSelected(ctx, pageInit, orden) ⇒
+### rup.table.editForm~getNextPageSelected(ctx, pageInit, orden) ⇒
 Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la página  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
@@ -176,12 +177,12 @@ Metodo que obtiene la página siguiente donde esta el primer elemento o elemento
 | pageInit | <code>integer</code> | Página a partir de la cual hay que mirar, en general serà la 1. |
 | orden | <code>string</code> | Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás. |
 
-<a name="module_dataTables.editForm..getPrevPageSelected"></a>
+<a name="module_rup.table.editForm..getPrevPageSelected"></a>
 
-### dataTables.editForm~getPrevPageSelected(ctx, pageInit) ⇒
+### rup.table.editForm~getPrevPageSelected(ctx, pageInit) ⇒
 Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la página  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
@@ -190,26 +191,26 @@ Metodo que obtiene la página siguiente donde esta el primer elemento o elemento
 | ctx | <code>object</code> | Settings object to operate on. |
 | pageInit | <code>integer</code> | Página a partir de la cual hay que mirar, en general serà la 1. |
 
-<a name="module_dataTables.editForm..getLineByPageSelected"></a>
+<a name="module_rup.table.editForm..getLineByPageSelected"></a>
 
-### dataTables.editForm~getLineByPageSelected(ctx, lineInit) ⇒
+### rup.table.editForm~getLineByPageSelected(ctx, lineInit) ⇒
 Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento seleccionado.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la linea  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>object</code> | Settings object to operate on. |
-| lineInit | <code>integer</code> | Linea a partir de la cual hay que mirar, en general serà la 1. |
+| lineInit | <code>integer</code> | Linea a partir de la cual hay que mirar, en general será la 1. |
 
-<a name="module_dataTables.editForm..getLineByPageSelectedReverse"></a>
+<a name="module_rup.table.editForm..getLineByPageSelectedReverse"></a>
 
-### dataTables.editForm~getLineByPageSelectedReverse(ctx, lineInit) ⇒
+### rup.table.editForm~getLineByPageSelectedReverse(ctx, lineInit) ⇒
 Metodo que obtiene la última linea siguiente donde esta el primer elemento o elemento seleccionado.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la linea  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
@@ -218,15 +219,28 @@ Metodo que obtiene la última linea siguiente donde esta el primer elemento o el
 | ctx | <code>object</code> | Settings object to operate on. |
 | lineInit | <code>integer</code> | Linea a partir de la cual hay que mirar. |
 
-<a name="module_dataTables.editForm..deleteAllSelects"></a>
+<a name="module_rup.table.editForm..deleteAllSelects"></a>
 
-### dataTables.editForm~deleteAllSelects(dt)
+### rup.table.editForm~deleteAllSelects(dt)
 Metodo que elimina todos los registros seleccionados.
 
-**Kind**: inner method of [<code>dataTables.editForm</code>](#module_dataTables.editForm)  
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Datatable 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto datatable. |
+
+<a name="module_rup.table.editForm.._editFormSerialize"></a>
+
+### rup.table.editForm~_editFormSerialize(idForm) ⇒ <code>string</code>
+Metodo que serializa los datos del formulario.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  
+**Since**: UDA 3.6.0 // Datatable 1.2.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| idForm | <code>object</code> | Formulario que alberga los datos. |
 

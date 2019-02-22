@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate'], factory);
+		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate', './rup.message'], factory);
 	} else {
 
 		// Browser globals
@@ -112,6 +112,7 @@
          */
 		destroy: function () {
 			var $self = this;
+			$self.removeClass('rup_form');
 			$.removeData($self[0]);
 			$self.ajaxFormUnbind();
 			$self.unbind();
@@ -419,6 +420,9 @@
 			} else {
 				$self.ajaxForm(settings);
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_form', 'init');
 		}
 	});
 

@@ -52,30 +52,30 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| debug | <code>boolean</code> | <code>false</code> | Activa el modo debug. En caso de estar activado el formulario no se envía el formulario y los errores de ejecución que se hayan producido se visualizan en la consola. Requiere Firebug o Firebug lite. |
-| submitHandler | [<code>onSubmitHandler</code>](#module_rup_validate..onSubmitHandler) |  | Método callback utilizado para capturar el evento submit cuando el formulario es válido. Reemplaza el submit por defecto. Es el método utilizado para realizar un submit mediante AJAX después de ser validado. |
-| invalidHandler | [<code>onInvalidHandler</code>](#module_rup_validate..onInvalidHandler) |  | Método callback que se ejecuta cuando un formulario presenta errores de validación. |
-| ignore | <code>Selector</code> |  | Selector jQuery que identifica los elementos del formulario que van a ser ignorados al realizarse las validaciones. |
-| messages | <code>object</code> |  | Utilizado para indicar mensajes propios para las validaciones. Estos se especifican mediante pares de clave/valor. La clave es el nombre del elemento mientras que el valor es el texto que se ha de mostrar en caso de producirse un error en la validación. |
-| groups | <code>object</code> |  | Se utiliza para realizar agrupamientos de mensajes de error. |
-| onsubmit | <code>boolean</code> | <code>true</code> | Determina si se valida el formulario al realizarse el submit. Marcar como false para realizar las validaciones mediante el resto de eventos. |
-| ofocusout | <code>boolean</code> | <code>true</code> | Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos blur. Estas validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido. |
-| okeyup | <code>boolean</code> | <code>true</code> | Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos keyup. Las validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido. |
-| onclick | <code>boolean</code> | <code>true</code> | Determina si se realizan las validaciones de los checkbox y radio al realizar un click sobre los mismos. |
-| focusInvalid | <code>boolean</code> | <code>true</code> | Posiciona el foco en el último campo activo o en el primer campo inválido la realizarse la validación de los campos. En caso de encontrarse el foco en un campo al realizarse la validación se mantiene en dicho campo. En caso de no encontrarse el foco en un campo, se posicionará en el primer campo inválido existente. |
-| focusCleanup | <code>boolean</code> | <code>false</code> | En caso de activarse, elimina el errorClass correspondiente y oculta los mensajes de error de los campos que reciben el foco. Evitar utilizar esta propiedad en conjunción con focusInvalid. |
-| meta | <code>Selector</code> |  | En caso de utilizar metainformación en los campos que sea utilizada por otros plugins, es posible indicar un identificador para envolver la metadata correspondiente al el componente validate dentro de un objeto propio. |
-| errorClass | <code>String</code> | <code>error</code> | Determina el nombre del class que va a aplicarse a los campos que presenten errores de validación. |
-| validClass | <code>String</code> | <code>valid</code> | Determina el nombre del class que va a aplicarse a los campos que han sido validados y no presenten errores. |
-| errorElement | <code>String</code> | <code>label</code> | Determina el tipo del elemento que va a utilizarse para generar los mensajes de error. |
-| wrapper | <code>String</code> | <code>window</code> | Recubre los mensajes de error con el elemento especificado. Util en conjunción la propiedad errorLabelContainer para crear listado de errores. |
-| errorLabelContainer | <code>Selector</code> |  | Determina el objeto contenedor en el que se van a mostrar los mensajes de error. |
-| errorContainer | <code>Selector</code> |  | Determina un contenedor adicional para los mensajes de error. |
-| ignoreTitle | <code>boolean</code> | <code>false</code> | Determina si se evita el obtener los mensajes a partir del atributo title. |
-| showErrors | [<code>onShowErrors</code>](#module_rup_validate..onShowErrors) |  | Función callback para realizar un tratamiento  personalizado de los errores de validación. |
-| errorPlacement | [<code>onErrorPlacement</code>](#module_rup_validate..onErrorPlacement) |  | Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error. |
-| highlight | [<code>onHighlight</code>](#module_rup_validate..onHighlight) |  | Función de callback para determinar como se debe resaltar los campos inválidos. |
-| unhighlight | [<code>onUnhighlight</code>](#module_rup_validate..onUnhighlight) |  | Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight. |
+| [debug] | <code>boolean</code> | <code>false</code> | Activa el modo debug. En caso de estar activado el formulario no se envía el formulario y los errores de ejecución que se hayan producido se visualizan en la consola. Requiere Firebug o Firebug lite. |
+| [submitHandler] | [<code>onSubmitHandler</code>](#module_rup_validate..onSubmitHandler) |  | Método callback utilizado para capturar el evento submit cuando el formulario es válido. Reemplaza el submit por defecto. Es el método utilizado para realizar un submit mediante AJAX después de ser validado. |
+| [invalidHandler] | [<code>onInvalidHandler</code>](#module_rup_validate..onInvalidHandler) |  | Método callback que se ejecuta cuando un formulario presenta errores de validación. |
+| [ignore] | <code>Selector</code> |  | Selector jQuery que identifica los elementos del formulario que van a ser ignorados al realizarse las validaciones. |
+| [messages] | <code>object</code> |  | Utilizado para indicar mensajes propios para las validaciones. Estos se especifican mediante pares de clave/valor. La clave es el nombre del elemento mientras que el valor es el texto que se ha de mostrar en caso de producirse un error en la validación. |
+| [groups] | <code>object</code> |  | Se utiliza para realizar agrupamientos de mensajes de error. |
+| [onsubmit] | <code>boolean</code> | <code>true</code> | Determina si se valida el formulario al realizarse el submit. Marcar como false para realizar las validaciones mediante el resto de eventos. |
+| [ofocusout] | <code>boolean</code> | <code>true</code> | Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos blur. Estas validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido. |
+| [okeyup] | <code>boolean</code> | <code>true</code> | Determina si se realiza la validación de los campos (excepto los checkbox y radio) al lanzarse los eventos keyup. Las validaciones se realizan únicamente una vez que un campo ha sido marcado como inválido. |
+| [onclick] | <code>boolean</code> | <code>true</code> | Determina si se realizan las validaciones de los checkbox y radio al realizar un click sobre los mismos. |
+| [focusInvalid] | <code>boolean</code> | <code>true</code> | Posiciona el foco en el último campo activo o en el primer campo inválido la realizarse la validación de los campos. En caso de encontrarse el foco en un campo al realizarse la validación se mantiene en dicho campo. En caso de no encontrarse el foco en un campo, se posicionará en el primer campo inválido existente. |
+| [focusCleanup] | <code>boolean</code> | <code>false</code> | En caso de activarse, elimina el errorClass correspondiente y oculta los mensajes de error de los campos que reciben el foco. Evitar utilizar esta propiedad en conjunción con focusInvalid. |
+| [meta] | <code>Selector</code> |  | En caso de utilizar metainformación en los campos que sea utilizada por otros plugins, es posible indicar un identificador para envolver la metadata correspondiente al el componente validate dentro de un objeto propio. |
+| [errorClass] | <code>String</code> | <code>error</code> | Determina el nombre del class que va a aplicarse a los campos que presenten errores de validación. |
+| [validClass] | <code>String</code> | <code>valid</code> | Determina el nombre del class que va a aplicarse a los campos que han sido validados y no presenten errores. |
+| [errorElement] | <code>String</code> | <code>label</code> | Determina el tipo del elemento que va a utilizarse para generar los mensajes de error. |
+| [wrapper] | <code>String</code> | <code>window</code> | Recubre los mensajes de error con el elemento especificado. Util en conjunción la propiedad errorLabelContainer para crear listado de errores. |
+| [errorLabelContainer] | <code>Selector</code> |  | Determina el objeto contenedor en el que se van a mostrar los mensajes de error. |
+| [errorContainer] | <code>Selector</code> |  | Determina un contenedor adicional para los mensajes de error. |
+| [ignoreTitle] | <code>boolean</code> | <code>false</code> | Determina si se evita el obtener los mensajes a partir del atributo title. |
+| [showErrors] | [<code>onShowErrors</code>](#module_rup_validate..onShowErrors) |  | Función callback para realizar un tratamiento  personalizado de los errores de validación. |
+| [errorPlacement] | [<code>onErrorPlacement</code>](#module_rup_validate..onErrorPlacement) |  | Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error. |
+| [highlight] | [<code>onHighlight</code>](#module_rup_validate..onHighlight) |  | Función de callback para determinar como se debe resaltar los campos inválidos. |
+| [unhighlight] | [<code>onUnhighlight</code>](#module_rup_validate..onUnhighlight) |  | Función de callback para restaurar los cambios realizados por la función indicada en la propiedad highlight. |
 
 <a name="module_rup_validate..destroy"></a>
 

@@ -1,6 +1,7 @@
 /* jslint multistr: true */
 
 
+
 var $autocomplete, $autocomplete2, $autocompleteLabel, $autocompleteLabel2;
 
 function createAutocomplete() {
@@ -8,46 +9,17 @@ function createAutocomplete() {
                 <input type="text" id="exampleAutocompleteDos">\
                 <input type="text" id="exampleAutocompleteTres">';
     $('#content').append(html);
-    let sourceJson = [{
-            i18nCaption: 'ab',
-            value: 'ab_value'
-        },
-        {
-            i18nCaption: 'tc',
-            value: 'tc_value'
-        },
-        {
-            i18nCaption: 'ud',
-            value: 'ud_value'
-        },
-        {
-            i18nCaption: 'le',
-            value: 'le_value'
-        },
-        {
-            i18nCaption: 'af',
-            value: 'af_value'
-        },
-        {
-            i18nCaption: 'mg',
-            value: 'mg_value'
-        },
-        {
-            i18nCaption: 'ah',
-            value: 'ah_value'
-        },
-        {
-            i18nCaption: 'ui',
-            value: 'ui_value'
-        },
-        {
-            i18nCaption: 'uj',
-            value: 'uj_value'
-        },
-        {
-            i18nCaption: 'ak',
-            value: 'ak_value'
-        }
+    let sourceJson = [
+        {i18nCaption: 'ab', value: 'ab_value'},
+        {i18nCaption: 'tc', value: 'tc_value'},
+        {i18nCaption: 'ud', value: 'ud_value'},
+        {i18nCaption: 'le', value: 'le_value'},
+        {i18nCaption: 'af', value: 'af_value'},
+        {i18nCaption: 'mg', value: 'mg_value'},
+        {i18nCaption: 'ah', value: 'ah_value'},
+        {i18nCaption: 'ui', value: 'ui_value'},
+        {i18nCaption: 'uj', value: 'uj_value'},
+        {i18nCaption: 'ak', value: 'ak_value'}
     ];
     $('#exampleAutocomplete').rup_autocomplete({
         source: sourceJson,
@@ -55,7 +27,7 @@ function createAutocomplete() {
         contains: false,
         delay: 0
     });
-    $('#exampleAutocompleteDos').rup_autocomplete({
+     $('#exampleAutocompleteDos').rup_autocomplete({
         source: sourceJson,
         defaultValue: 'a',
         contains: true,
@@ -102,31 +74,45 @@ describe('Test Autocomplete > ', () => {
     });
     describe('Métodos públicos > ', () => {
         describe('Método on > ', () => {
-            beforeEach(() => {
-                $('body').trigger('mousedown');
-                $autocomplete.rup_autocomplete('off');
-                $autocomplete.rup_autocomplete('on');
-                $autocomplete.rup_autocomplete('search', 'u');
-
-                $autocomplete2.rup_autocomplete('off');
-                $autocomplete2.rup_autocomplete('on');
-                $autocomplete2.rup_autocomplete('search', 'u');
-
-                $autocomplete3.rup_autocomplete('off');
-                $autocomplete3.rup_autocomplete('on');
-                $autocomplete3.rup_autocomplete('search', 'u');
+            describe('Autocomplete > ', () => {
+                beforeEach(() => {
+                    $('body').trigger('mousedown');
+                    $autocomplete.rup_autocomplete('off');
+                    $autocomplete.rup_autocomplete('on');
+                    $autocomplete.rup_autocomplete('search', 'u');
+                });
+                it('Deben mostrarse el menu', () => {
+                    expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
+                });
             });
-            it('Debe mostrarse el menu', () => {
-                expect($('#exampleAutocomplete_menu').is(':visible')).toBeTruthy();
-                expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
-                expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeTruthy();
+            describe('Autocomplete2 > ', () => {
+                beforeEach(() => {
+                    $autocomplete2.rup_autocomplete('off');
+                    $autocomplete2.rup_autocomplete('on');
+                    $autocomplete2.rup_autocomplete('search', 'u');
+                });
+                it('Deben mostrarse el menu', () => {
+                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeTruthy();
+                });
+
+            });
+            describe('Autocomplete3 > ', () => {
+                beforeEach(() => {
+                    $autocomplete3.rup_autocomplete('off');
+                    $autocomplete3.rup_autocomplete('on');
+                    $autocomplete3.rup_autocomplete('search', 'u');
+                });
+                it('No deben mostrarse el menu', () => {
+                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeFalsy();
+                });
+                
             });
         });
         describe('Método off > ', () => {
             beforeEach(() => {
                 $('body').trigger('mousedown');
-                $autocomplete.rup_autocomplete('off');
-                $autocomplete.rup_autocomplete('search', 'u');
+                $autocompleteLabel.rup_autocomplete('off');
+                $autocompleteLabel.rup_autocomplete('search', 'u');
 
                 $autocomplete2.rup_autocomplete('off');
                 $autocomplete2.rup_autocomplete('search', 'u');
@@ -144,9 +130,7 @@ describe('Test Autocomplete > ', () => {
             beforeEach(() => {
                 $('body').trigger('mousedown');
                 $autocomplete.rup_autocomplete('option', 'combobox', true);
-
                 $autocomplete2.rup_autocomplete('option', 'combobox', true);
-
                 $autocomplete3.rup_autocomplete('option', 'combobox', true);
             });
             it('Debe tener la clase de combobox', () => {
@@ -157,26 +141,43 @@ describe('Test Autocomplete > ', () => {
         });
         describe('Método search > ', () => {
             describe('Empieza por una letra > ', () => {
-                beforeEach(() => {
-                    $('body').trigger('mousedown');
-                    $autocomplete.rup_autocomplete('search', 'u');
-
-                    $autocomplete2.rup_autocomplete('search', 'u');
-
-                    $autocomplete3.rup_autocomplete('search', 'u');
+                describe('Autocomplete > ', () => {
+                    beforeEach(() => {
+                        $autocomplete.rup_autocomplete('search', 'u');
+                    });
+                    it('Deben mostrarse autocomplete', () => {
+                        expect($('#exampleAutocomplete_menu').is(':visible')).toBe(true);
+                    });
                 });
-                it('Deben mostrarse ambos autocomplete:', () => {
-                    expect($('#exampleAutocomplete_menu').is(':visible')).toBe(true);
-                    expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
-                    expect($('#exampleAutocompleteTres_menu').is(':visible')).toBe(true);
+
+                describe('Autocomplete2 > ', () => {
+                    beforeEach(() => {
+                        $autocomplete2.rup_autocomplete('search', 'u');
+                    });
+                    it('Deben mostrarse autocomplete', () => {
+                        expect($('#exampleAutocompleteDos_menu').is(':visible')).toBe(true);
+                    });
+                });
+
+                describe('Autocomplete3 > ', () => {
+                    beforeEach(() => {
+                       $autocomplete3.rup_autocomplete('search', 'u');
+                    });
+                    it('Deben no mostrarse autocomplete', () => {
+                        expect($('#exampleAutocompleteTres_menu').is(':visible')).toBe(false);
+                    });
                 });
             });
             describe('Contiene una letra > ', () => {
-                beforeEach(() => {
-                    $('body').trigger('mousedown');
-                    $autocomplete.rup_autocomplete('search', 'j');
 
+            });
+            describe('Contiene una letra > ', () => {
+                 beforeEach(() => {
+                     $('body').trigger('mousedown');
+
+                    $autocomplete.rup_autocomplete('search', 'a');
                     $autocomplete2.rup_autocomplete('search', 'j');
+
                 });
                 it('Solo debe mostrarse el segundo autocomplete:', () => {
                     expect($('#exampleAutocomplete_menu').is(':visible')).toBe(false);
@@ -185,7 +186,7 @@ describe('Test Autocomplete > ', () => {
             });
         });
         describe('Método close > ', () => {
-            beforeEach(() => {
+             beforeEach(() => {
                 $autocomplete.rup_autocomplete('close');
             });
             it('Deben mostrarse la opciones', () => {
@@ -195,16 +196,17 @@ describe('Test Autocomplete > ', () => {
         describe('Método val > ', () => {
             beforeEach(() => {
                 $('body').trigger('mousedown');
-                $autocomplete.rup_autocomplete('search', 'ui');
+                $autocompleteLabel.rup_autocomplete('search', 'ui');
+                $autocompleteLabel.blur();
             });
             it('Debe devolver el valor seleccionado', () => {
-                expect($autocomplete.rup_autocomplete('val')).toBe('ui_value');
+                expect($('#exampleAutocomplete').rup_autocomplete('val')).toBe('ui_value');
             });
         });
         describe('Método set > ', () => {
             beforeEach(() => {
                 $('body').trigger('mousedown');
-                $autocomplete.rup_autocomplete('set', 'ui', 'ui_value');
+                $autocomplete.rup_autocomplete('set', 'ui_value', 'ui');
             });
             it('Debe devolver el valor seleccionado', () => {
                 expect($autocomplete.rup_autocomplete('val')).toBe('ui_value');
@@ -224,7 +226,7 @@ describe('Test Autocomplete > ', () => {
                 $autocomplete.rup_autocomplete('disable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                expect($autocomplete.attr('disabled')).toBe('disabled');
+                expect($autocompleteLabel.attr('disabled')).toBe('disabled');
             });
         });
         describe('Método enable > ', () => {

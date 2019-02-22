@@ -1,13 +1,15 @@
 exports.json = function(req, res) {
     var json = [
         {
-            data: 'Padre',
-            children: ['Hijo 2', 'Hijo 1']
+            data: 'Padre1',
+            attr:{id:'node1'},
+            children: [
+                {data:'Hijo1', attr:{id:'node11'}},
+                {data:'Hijo2', attr:{id:'node12'}},
+            ]
         }
-    ]
-  
+    ];
     res.status(200).json(json);
-  
   };
 
   exports.xml = function(req, res) {

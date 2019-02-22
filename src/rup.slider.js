@@ -164,7 +164,7 @@
          * jQuery("#idSlider").rup_slider("instance");
          */
 		instance: function () {
-			return this.progressbar('instance');
+			return this.slider('instance');
 		},
 		/**
          * Devuelve un objeto clave/valor que contiene las propiedades de configuración del control.
@@ -248,10 +248,11 @@
 			$self.addClass('rup-slider');
 			$self.attr('ruptype', 'slider');
 			$self.slider(settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_slider', 'init');
+
 			// TODO : Invocación al plugin
-
-
-
 		}
 	});
 

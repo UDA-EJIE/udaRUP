@@ -32,10 +32,14 @@ export function loadCss(callback) {
                                             $.when($.ajax(DIST + '/css/rup-jqueryui-theme.css'))
                                                 .then((data, textStatus, jqXHR) => {
                                                     $('head > style').append(data);
-                                                    if($('#content').length === 0) {
-                                                        $('body').append('<div id="content"></div>');
-                                                    }
-                                                    callback();
+                                                    $.when($.ajax(DIST + '/css/main.css'))
+                                                    .then((data, textStatus, jqXHR) => {
+                                                        $('head > style').append(data);
+                                                        if($('#content').length === 0) {
+                                                            $('body').append('<div id="content" class="container"></div>');
+                                                        }
+                                                        callback();
+                                                    });
                                                 });
                                         });
                                 });

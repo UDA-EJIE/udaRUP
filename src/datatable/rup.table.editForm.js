@@ -137,6 +137,7 @@ DataTable.editForm.init = function ( dt ) {
 					{
 						id: this.conf.id + '_contextMenuToolbar',
 						name: this.conf.text(dt),
+						icon: this.conf.icon,
 						inCollection: this.inCollection,
 						idCollection: undefined
 					}
@@ -152,6 +153,7 @@ DataTable.editForm.init = function ( dt ) {
 							{
 								id: this.conf.id + '_contextMenuToolbar',
 								name: this.conf.text(dt),
+								icon: this.conf.icon,
 								inCollection: this.inCollection,
 								idCollection: idCollection
 							}
@@ -233,6 +235,10 @@ DataTable.editForm.init = function ( dt ) {
 
 	} );
 	ctx.oInit.formEdit.detailForm.settings = {type: $.rup.dialog.DIV};
+	
+	$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+		_addChildIcons(ctx);
+	} ) );
 
 };
 
@@ -385,7 +391,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = ctx.multiselection;
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
-		if(ctx.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects.,solo la primera vez es necesario.
+		if(ctx.multiselection.selectedAll){//Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
 			indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
 		}
 		if(indexInArray === undefined){
@@ -408,16 +414,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		// Asignamos un valor a la variable del título del formulario
 		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
 		// Comprobamos si se desea bloquear la edicion de las claves primarias
-		if(ctx.oInit.blockPKeditForm) {
-			$.each(ctx.oInit.primaryKey,function(key,id) {
-				$(idForm[0]).find("input[name=" + id + "]").prop("readOnly", true);
-			});
-		}
+		DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(rowArray, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
 		// Asignamos un valor a la variable del título del formulario
 		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
+		// Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
+		DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	}
 	
 	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
@@ -443,7 +447,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		row = _editFormSerialize(idForm);
         
 		//Verificar los checkbox vacíos.
-        row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
+		row = _returnCheckEmpty(idForm,_editFormSerialize(idForm));
         
         //Se transforma
 		row = $.rup_utils.queryStringToJson(row);
@@ -497,8 +501,18 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
+	var validaciones = ctx.oInit.formEdit.validate;
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+		if(validaciones !== undefined){
+			validaciones.rules = {};
+		}	
+	}
+	
+	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+		jQuery.extend(true,masterPkObject,row);
+		row = masterPkObject;
 	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -578,9 +592,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
+				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 			}
 			// Recargar datos
-			dt.ajax.reload();
+			//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
+			dt.ajax.reload(undefined,false);
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
 		},
 		complete : function() {
@@ -594,10 +610,11 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
-		validate:ctx.oInit.formEdit.validate,
+		validate:validaciones,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
 
+	ctx.oInit.formEdit.idForm.rup_form();
 	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
@@ -617,7 +634,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	$('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false});
+	feedback.rup_feedback({message:msgFeedBack,type:type,block:false,gotoTop:false});
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
@@ -690,7 +707,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	//Funcion para obtener los parametros de navegacion.
@@ -816,7 +833,7 @@ function _callNavigationBar(dt){
 */
 function _callNavigationSelectBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.plugins.core.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 
@@ -907,12 +924,16 @@ function _getRowSelected(dt,actionType){
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
 				rowDefault.indexSelected = index;
-				ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+				if(ctx.oInit.formEdit !== undefined){
+					ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+				}
 				return false;
 			}
 		});
 	}else{
-		ctx.oInit.formEdit.$navigationBar.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+		}
 		if(lastSelectedId === undefined || lastSelectedId === ''){
 			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
 			rowDefault.line = _getLineByPageSelected(ctx,-1);
@@ -930,17 +951,22 @@ function _getRowSelected(dt,actionType){
 					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
 				});
 			rowDefault.indexSelected = index-result.length;//Buscar indice
-			ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected-1;
+			if(ctx.oInit.formEdit !== undefined){
+				ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected-1;
+			}
 		}
-
-		ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+		}
 	}
 
 	//En caso de estar en una pagina distinta , navegamos a ella
 	if(dt.page()+1 !== Number(rowDefault.page)){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
-		ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+		}
 	}
 
 	return rowDefault;
@@ -1061,7 +1087,9 @@ function _getLineByPageSelected(ctx,lineInit){
 			if(indexInArray === -1){
 				line = index;
 				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
-				ctx.oInit.formEdit.$navigationBar.currentPos = arra;
+				if(ctx.oInit.formEdit !== undefined){
+					ctx.oInit.formEdit.$navigationBar.currentPos = arra;
+				}
 				return false;
 			}
 		}
@@ -1104,7 +1132,7 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 /**
 * Metodo que elimina todos los registros seleccionados.
 *
-* @name deleteAllSelects
+* @name _deleteAllSelects
 * @function
 * @since UDA 3.4.0 // Datatable 1.0.0
 *
@@ -1167,6 +1195,18 @@ function _editFormSerialize(idForm){
 	return serializedForm;
 }
 
+/**
+* Metodo que comprueba el seeker.
+*
+* @name _comprobarSeeker
+* @function
+* @since UDA 3.4.0 // Datatable 1.0.0
+*
+* @param {object} row - Son los datos que se cargan.
+* @param {object} ctx - Settings object to operate on.
+* @param {number} idRow - Identificador de la fila.
+*
+*/
 function _comprobarSeeker(row,ctx,idRow){
 	var cumple = true;
 	$.each( ctx.seeker.ajaxOption.data.search, function( key, obj ) {
@@ -1186,6 +1226,146 @@ function _comprobarSeeker(row,ctx,idRow){
 		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
 	}
 }
+
+/**
+* Método que gestiona el bloqueo de la edición de las claves primarias.
+*
+* @name _blockPKeditForm
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on.
+* @param {string} actionType - Método de operación CRUD.
+*
+*/
+function _blockPKeditForm(ctx, actionType){
+	var blockPK = ctx.oInit.blockPKeditForm;
+	var idForm = ctx.oInit.formEdit.idForm;
+	
+	if(blockPK) {
+		// En caso de ser edición bloqueamos la modificación
+		if(actionType === "PUT") {
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
+				if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
+					input.rup_date("disable");
+				} 
+				else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
+					input.rup_combo("disable");
+				}
+				else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
+					input.rup_time("disable");
+				}
+				else if(input.attr("type") === "checkbox") {
+					if(!input.hasClass("checkboxPKBloqueado")) {
+						input.addClass("checkboxPKBloqueado");						
+					}
+					
+					var valorCheck = input.is(":checked") ? 1 : 0;
+					var selectorInputSustituto = $("#" + id + "_bloqueado");
+					
+					// Comprobamos si es necesario cambiar el check
+					if(selectorInputSustituto.attr("valor") !== valorCheck){
+						if(selectorInputSustituto.attr("valor") !== undefined){
+							selectorInputSustituto.remove();
+						}
+						
+						if(valorCheck === 1) {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+						} else {
+							input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+						}
+					}
+				}
+				else {
+					input.prop("readOnly", true);
+				}
+				
+				// Quitamos el foco del elemento
+				input.on('mousedown', function(event) {
+					event.preventDefault();
+				});
+			});
+		} 
+		// En caso de ser clonación permitimos la edición
+		else if(actionType === "POST"){
+			$.each(ctx.oInit.primaryKey,function(key,id) {
+				var input = $(idForm[0]).find(":input[name=" + id + "]");
+				
+				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
+				if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
+					input.rup_date("enable");
+				} 
+				else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
+					input.rup_combo("enable");
+				}
+				else if(input.attr("ruptype") === "time" && input.rup_time("isDisabled")) {
+					input.rup_time("enable");
+				}
+				else if(input.attr("type") === "checkbox") {
+					input.removeClass("checkboxPKBloqueado");
+					$("#" + id + "_bloqueado").remove();
+				}
+				else {
+					input.prop("readOnly", false);
+				}
+				
+				// Devolvemos el foco al elemento
+				input.on('mousedown', function(event) {
+					$(this).unbind(event.preventDefault());
+					input.focus();
+				});
+			});
+		}
+	}
+}
+
+
+/**
+* Se añaden los iconos al responsive.
+*
+* @name _addChildIcons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Contexto del Datatable.
+*
+*/
+function _addChildIcons(ctx){
+	var count = ctx.responsive._columnsVisiblity().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
+		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
+		if(count > 0){//añadir span ala primera fila
+			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
+				var $span = $('<span/>');
+				if($(this).find('span.openResponsive').length === 0){
+					$(this).prepend($span.addClass('openResponsive'));
+				}else{//si ya existe se asigna el valor.
+					$span = $(this).find('span.openResponsive');
+				}
+				if($(this).parent().next().hasClass('child')){
+					$span.addClass('closeResponsive');
+				}
+				var $fila = $(this).parent();
+				$span.click(function(event){
+					if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+						event.stopPropagation();
+					}else{
+						if($span.hasClass('closeResponsive')){
+							$span.removeClass('closeResponsive');
+						}else{
+							$span.addClass('closeResponsive');
+						}
+					}
+				});
+			});
+		}
+	}
+	$('#'+ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -1218,6 +1398,10 @@ apiRegister( 'editForm.getLineByPageSelected()', function ( ctx,linea ) {
 
 apiRegister( 'editForm.getLineByPageSelectedReverse()', function ( ctx,linea ) {
 	return _getLineByPageSelectedReverse(ctx,linea);
+} );
+
+apiRegister( 'editForm.addchildIcons()', function (ctx) {
+	_addChildIcons(ctx);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

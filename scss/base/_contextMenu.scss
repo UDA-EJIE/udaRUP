@@ -49,7 +49,8 @@
 }
 
 .context-menu-item {
-    padding: 2px 2px 2px 24px;
+	display: block;
+    padding: 2px 2px 2px 4px;
     background-color: #EEE;
     position: relative;
     -webkit-user-select: none;
@@ -58,9 +59,20 @@
             user-select: none;
 }
 
+li[id$='_contextMenuToolbar'] {
+	padding: 4px 2px 4px 4px;
+}
+
 .context-menu-separator {
-    padding-bottom:0;
+    padding-bottom: 0;
     border-bottom: 1px solid #DDD;
+}
+
+li[id$='_contextMenuToolbar'] > span {
+	position: absolute;
+	left: 30px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Open Sans", sans-serif;
+	font-size: 1.1rem;
 }
 
 .context-menu-item > label > input,

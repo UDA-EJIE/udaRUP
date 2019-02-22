@@ -200,6 +200,9 @@
 					$self._ajaxLoad(settingsInit);
 			 }
 		
+			//Se audita el componente
+			$.rup.auditComponent('rup_list', 'init');
+
 			return $self;
 
 		}

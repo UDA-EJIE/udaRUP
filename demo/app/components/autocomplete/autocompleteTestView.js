@@ -39,7 +39,8 @@ define(['marionette',
 		this.ui.autocompleteLocal.rup_autocomplete({
 			source : this.languageList,
 			defaultValue : 'java',
-			contains : false
+			contains : false,
+			menuMaxHeight: 40
 		});
 
 		this.ui.autocompleteRemote.rup_autocomplete({

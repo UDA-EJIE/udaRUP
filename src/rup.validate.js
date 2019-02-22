@@ -539,6 +539,9 @@
 				settings = $.extend(true, settings, defaultPresetSettings.showFieldErrorAsDefault);
 			}
 			settings = $.extend(true, {}, settings, args[0]);
+			if(settings.onSubmitHandler !== undefined) {
+				settings.submitHandler = settings.onSubmitHandler;
+			}
 			// Se realiza la invocacion al plugin jquery.validate
 			self.validate(settings);
 
@@ -559,6 +562,9 @@
 
 			// Se almacena la configuracion del componente en el objeto dom para poder recuperarla en sucesivas invocaciones a los metodos del componente.
 			self.data('settings', settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_validate', 'init');
 		}
 	});
 

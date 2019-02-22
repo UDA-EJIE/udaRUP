@@ -26,6 +26,8 @@ define(['marionette',
 			templateJs: ComboSimpleJsCodeTemplate
 		}));
 		$view.Test.show(new ComboSimpleTestView());
+
+		window.$ = $;
 	}
 
 

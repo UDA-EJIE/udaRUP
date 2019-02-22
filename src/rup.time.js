@@ -147,7 +147,7 @@
      * $("#idTime").rup_time("hide");
      */
 		hide: function () {
-			$(this).timepicker('hide');
+			$('#ui-datepicker-div').css('display','none');
 		},
 		/**
      * Muestra el desplegable para seleccionar una hora.
@@ -183,6 +183,8 @@
      */
 		setTime: function (time) {
 			$(this).timepicker('refresh'); //Necesario para 'inicializar' el componente
+			//Consideramos que el uso de esta función es una seleccion.
+			$(this).data('datepicker').settings.onSelect(); 
 			$.datepicker._setTime($.datepicker._getInst($('#' + $(this).data('datepicker').settings.id)[0]), time);
 		},
 		/**
@@ -212,7 +214,13 @@
      * $("#idTime").rup_time("option", {showSecond: true, showButtonPanel: true});
      */
 		option: function (optionName, value) {
-			$(this).timepicker('option', optionName, value);
+			//JqueryUI.timepicker no trae método option por defecto. Lo implementamos aquí.
+			if(value === undefined) {
+				return $(this).data('datepicker').settings[optionName];
+			}
+			else {
+				$(this).data('datepicker').settings[optionName] = value;
+			}
 		}
 		//No soportadas: widget, dialog
 	});
@@ -286,6 +294,9 @@
 				$self.parent().find('[title]').rup_tooltip({
 					'applyToPortal': true
 				});
+
+				//Se audita el componente
+				$.rup.auditComponent('rup_time', 'init');
 			}
 		}
 	});

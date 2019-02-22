@@ -3433,6 +3433,7 @@
   min-height: 4rem;
   margin-bottom: 0;
   position: relative;
+  display: block;
 }
 
 .r01gContainer .rup-navbar .nav {
@@ -5054,11 +5055,6 @@
   padding-top: 0.755em;
 }
 
-.r01gContainer .dataTables_wrapper .dataTables_paginate {
-  float: right;
-  text-align: right;
-}
-
 .r01gContainer .dataTables_wrapper .dataTables_paginate .paginate_button {
   box-sizing: border-box;
   display: inline-block;
@@ -5225,6 +5221,7 @@
 
 .r01gContainer .dataTables_length label {
   display: inline-flex;
+  margin-bottom: initial;
 }
 
 .r01gContainer .dataTables_length select,
@@ -5237,7 +5234,6 @@
   border: 1px solid #dad55e;
   background: #fffa90;
   color: #777620;
-  font-weight: bold;
 }
 
 .r01gContainer table.dataTable tbody > tr:hover {
@@ -5265,9 +5261,8 @@
 
 .r01gContainer .tr-highlight {
   border: 1px solid #dad55e;
-  background: #fffa90;
-  color: #777620;
-  font-weight: bold;
+  background: #fffa90 !important;
+  color: #000000;
 }
 
 .r01gContainer .datatable_checkbox {
@@ -5275,54 +5270,8 @@
   margin: 0 auto;
 }
 
-.r01gContainer .filtered-row {
-  float: left;
-  margin-top: 3px;
-}
-
-.r01gContainer .hiddenInput {
-  visibility: hidden;
-}
-
 .r01gContainer .dtr-data {
   display: inline-block;
-}
-
-.r01gContainer .recolocatedPagination_container {
-  display: inline-block;
-  width: 65%;
-  float: none !important;
-  padding-top: 0;
-}
-
-.r01gContainer .dataTables_length {
-  float: none;
-}
-
-.r01gContainer .recolocatedPagination_length {
-  display: inline-block;
-  padding: 7px 10px 8px 10px;
-}
-
-.r01gContainer .recolocatedPagination_length label {
-  margin-bottom: 0;
-}
-
-.r01gContainer .recolocatedPagination_rellenoCtr {
-  display: inline-block;
-}
-
-.r01gContainer .dataTables_info {
-  float: right;
-  padding-top: 0;
-}
-
-.r01gContainer .recolocatedPagination_rellenoDrc {
-  display: inline-block;
-  padding-right: 10px;
-  text-align: right;
-  float: right;
-  line-height: 3.5em;
 }
 
 .r01gContainer .tableFit {
@@ -5333,64 +5282,73 @@
 
 .r01gContainer .pagination {
   margin-bottom: 0;
+  justify-content: center;
+  -ms-flex-pack: center;
 }
 
 .r01gContainer .paginationContainer {
   border: 1px solid #dee2e6;
   border-top: none;
+  padding: 10px 0;
 }
 
-@media (max-width: 930px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 60%;
-  }
+.r01gContainer .openResponsive,
+.r01gContainer .closeResponsive {
+  height: 14px;
+  width: 14px;
+  display: inline-block;
+  margin-right: 8px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 14px;
+  box-shadow: 0 0 3px #444;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 14px;
+  content: '+';
+  cursor: pointer;
 }
 
-@media (max-width: 930px) and (min-width: 851px) {
-  .r01gContainer .paginate_button {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
+.r01gContainer .openResponsive:before {
+  content: '+';
 }
 
-@media (min-width: 851px) {
-  .r01gContainer .recolocatedPagination_iconButton a {
-    display: initial;
-  }
-
-  .r01gContainer .recolocatedPagination_iconButton i {
-    display: none;
-  }
+.r01gContainer .openResponsive:hover {
+  background-color: #004eff;
 }
 
-@media (max-width: 850px) {
-  .r01gContainer .recolocatedPagination_iconButton a {
-    display: none;
-  }
-
-  .r01gContainer .recolocatedPagination_iconButton i {
-    display: block;
-  }
-
-  .r01gContainer .searchPaginator {
-    padding-top: 3px !important;
-  }
+.r01gContainer .openResponsive {
+  background-color: #007bff;
 }
 
-@media (max-width: 850px) and (min-width: 651px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 50%;
-  }
+.r01gContainer .closeResponsive:before {
+  content: '-';
 }
 
-@media (max-width: 650px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 45%;
-  }
+.r01gContainer .closeResponsive {
+  background-color: #007bff;
+}
 
-  .r01gContainer .recolocatedPagination_length {
-    padding: 7px 0 8px;
-  }
+.r01gContainer .closeResponsive:hover {
+  background-color: #004eff;
+}
+
+.r01gContainer .select-checkbox {
+  text-align: center;
+}
+
+.r01gContainer .select-checkbox input {
+  display: inline-block;
+  vertical-align: inherit;
+  margin-right: 3px;
+}
+
+.r01gContainer .form-control-customer[readonly],
+.r01gContainer .form-control-customer:disabled {
+  background-color: #eceeef;
+  opacity: 1;
 }
 
 .r01gContainer table.dataTable tbody > tr.selected,
@@ -5485,42 +5443,6 @@
   background-color: #a2aec7;
 }
 
-.r01gContainer table.dataTable tbody td.select-checkbox,
-.r01gContainer table.dataTable tbody th.select-checkbox {
-  position: relative;
-}
-
-.r01gContainer table.dataTable tbody td.select-checkbox:before,
-.r01gContainer table.dataTable tbody td.select-checkbox:after,
-.r01gContainer table.dataTable tbody th.select-checkbox:before,
-.r01gContainer table.dataTable tbody th.select-checkbox:after {
-  display: block;
-  position: absolute;
-  top: 1.2em;
-  left: 50%;
-  width: 15px;
-  height: 15px;
-  box-sizing: border-box;
-}
-
-.r01gContainer table.dataTable tbody td.select-checkbox:before,
-.r01gContainer table.dataTable tbody th.select-checkbox:before {
-  content: ' ';
-  margin-top: -4px;
-  margin-left: -6px;
-  border: 1px solid black;
-  border-radius: 3px;
-}
-
-.r01gContainer table.dataTable tr.selected td.select-checkbox:after,
-.r01gContainer table.dataTable tr.selected th.select-checkbox:after {
-  content: '\2714';
-  margin-top: -6.7px;
-  margin-left: -6.3px;
-  text-align: center;
-  color: #000;
-}
-
 .r01gContainer div.dataTables_wrapper span.select-info,
 .r01gContainer div.dataTables_wrapper span.select-item {
   margin-left: 0.5em;
@@ -5536,12 +5458,9 @@
 
 .r01gContainer .rup-datatable_checkmenu_arrow {
   position: absolute;
+  margin-top: 4px;
   cursor: pointer;
   background-position: -64px -16px;
-}
-
-.r01gContainer .rup-datatable_checkmenu_arrow_margin {
-  margin-top: 3px;
 }
 
 .r01gContainer table.dataTable thead th:hover,
@@ -5552,11 +5471,6 @@
 .r01gContainer .disabledDatatable {
   pointer-events: none;
   opacity: 0.6;
-}
-
-.r01gContainer .selected-pencil {
-  float: right;
-  margin-top: 3px;
 }
 
 .r01gContainer .divSelectTableHead {
@@ -6081,6 +5995,16 @@
   color: #fff !important;
   background-color: #007bff !important;
   border-color: #007bff !important;
+}
+
+.r01gContainer ul.dtr-details .dtr-title {
+  display: block;
+  font-weight: bold;
+}
+
+.r01gContainer ul.dtr-details .dtr-data {
+  max-width: 300px;
+  width: 90%;
 }
 
 .r01gContainer .col-lg,

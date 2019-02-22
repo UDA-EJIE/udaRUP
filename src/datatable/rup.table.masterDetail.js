@@ -94,7 +94,50 @@ DataTable.masterDetail.init = function ( dt ) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Local functions
  */
+/**
+ * Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
+ *
+ * @function getMasterTablePkObject
+	 * @param {object} options - Opciones de configuración de la acción de inserción.
+	 * @return {object} - Objeto json con la clave primaria del registro correspondiente de la tabla maestra
+ *
+ */
+function _getMasterTablePkObject(ctx){
 
+	var	masterPkValue = $(ctx.oInit.masterDetail.master+'_selector_'+ctx.sTableId).val();
+	var	masterPkName = ctx.oInit.masterDetail.masterPrimaryKey;
+
+	function nestJSON(key, value){
+	    var retObj = {};
+	    var splitedKey = key.split('.');
+	    if (splitedKey.length===1){
+	        retObj[key]=value;
+	        return retObj;
+	    }else{
+	        retObj[splitedKey[0]]=nestJSON(key.substr(key.indexOf('.')+1), value);
+	        return retObj;
+	    }
+	}
+	//Inicio compatibilidad con masterPrimaryKey compuestas
+	if($.isArray(masterPkName) && masterPkName.length>0 && (masterPkValue.length===1)){
+		var multiplePkToken = ctx.oInit.masterDetail.multiplePkToken;
+		var splitedMasterPkValue = masterPkValue[0].split(multiplePkToken);
+		var retPkObj = {};
+		if(splitedMasterPkValue.length===masterPkName.length){
+			$.each( masterPkName, function( index, value ) {
+				jQuery.extend(true, retPkObj, nestJSON(value, splitedMasterPkValue[index]));
+			});
+		}
+		return retPkObj;
+	//Fin compatibilidad con masterPrimaryKey compuestas
+	}else{
+		if (masterPkValue.length===1){
+			return nestJSON(masterPkName, masterPkValue[0]);
+		}else if(masterPkValue.length===0){
+			return null;
+		}
+	}
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables selectors
@@ -115,6 +158,10 @@ apiRegister( 'masterDetail()', function () {
 	return this.iterator( 'table', function ( ctx ) {
 		DataTable.masterDetail.init( new DataTable.Api( ctx ) );
 	} );
+} );
+
+apiRegister( 'masterDetail.getMasterTablePkObject()', function (ctx) {
+	return _getMasterTablePkObject(ctx);
 } );
 
 

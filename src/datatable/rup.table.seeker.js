@@ -145,14 +145,28 @@ function _createFilterColumn(dt,ctx){
 
 	var idTabla = ctx.sTableId;
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
-	   $('#'+idTabla+' tfoot th').each( function () {
-	        var title = $(this).text();
-	        if($(this).index() > 0 || ctx.oInit.multiSelect === undefined){
-	        	var position = $(this).index()+1;
-	        	var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
-	        	$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
-	        }
-	    } );
+		$('#'+idTabla+' tfoot th').each( function () {
+			var title = $(this).text();
+			var index = $(this).index();
+			
+			if(index > 0 || ctx.oInit.multiSelect === undefined){
+				
+				var colModelIndex = index;
+				var position = index + 1;
+				
+				if(ctx.oInit.multiSelect != undefined) {
+					colModelIndex--;
+				}
+				
+				// Comprobamos si queremos deshabilitar la búsqueda de la columna
+				if(ctx.oInit.seeker.colModel != undefined && ctx.oInit.seeker.colModel[colModelIndex].hidden) {
+					$(this).empty();
+				} else {
+					var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
+					$(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
+				}
+			}
+		} );
 
 
 	   dt.columns().eq(0).each(function(colIdx) {
@@ -167,7 +181,10 @@ function _createFilterColumn(dt,ctx){
 		        			ajaxOptions.data.multiselection.internalFeedback = [];
 		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-		        		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+		        			$('#'+idTabla+'_search_searchForm').rup_form();
+		        			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+		        		}
 		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
 		        	}
@@ -279,7 +296,10 @@ function _createSearchRow (dt,ctx){
     			ajaxOptions.data.multiselection.internalFeedback = [];
     		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-    		$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
+    			$('#'+idTabla+'_search_searchForm').rup_form();
+    			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+    		}
     		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 		});
 
@@ -362,11 +382,9 @@ function _selectSearch(dt,ctx,rows){
 			});
 			if(result.length === 1){
 				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
-				if(ctx.oInit.multiSelect !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idx]).append(spanSearch);
-				}else if(ctx.oInit.select !== undefined){
-					$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
-				}
+
+				$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
+
 			}
 		});
 		var rowUnique = rows[ctx.seeker.search.pos];
@@ -377,11 +395,12 @@ function _selectSearch(dt,ctx,rows){
 			if(ctx.oInit.multiSelect !== undefined){
 				dt['row'](rowUnique.pageLine-1).multiSelect();
 			}else if(ctx.oInit.select !== undefined){
-				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine);
+				DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine - 1, true);
 			}
 		}
 		ctx.seeker.search.accion = '';
 	}
+	$('#'+ctx.sTableId).trigger('selected.rup.dt');
 }
 
 /**
@@ -500,19 +519,19 @@ function _getDatos(ctx){
 *
 */
 function _createRupComponent(dt,ctx){
-	var colModel = ctx.oInit.seeker.colModel, searchEditOptions;
+	var colModel = ctx.oInit.colModel, searchEditOptions;
 	if(colModel !== undefined){
-		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th').each(function (i) { // El primer tr corresponde al desplegable de filtros
-			if(i > 0){//La primera columna no vale es la de los select
-				var cellColModel = colModel[i-1];
+		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+
+				var cellColModel = colModel[i];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
 				var colModelName = cellColModel.name;
 				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
-					'title': ctx.aoColumns[i-1].sTitle,
-					'class': 'editable customelement'
+					'title': ctx.aoColumns[i].sTitle,
+					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 	
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
@@ -533,7 +552,7 @@ function _createRupComponent(dt,ctx){
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 				}
-			}
+
 		});
 	}
 
@@ -549,6 +568,46 @@ function _limpiarSeeker(dt,ctx){
 	_processData(dt,ctx,[]);
 	$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
 }
+
+function _enabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
+			if($(this).attr("ruptype") === "date") {
+				$(this).rup_date("disable");
+				$(this).next().addClass('form-control-customer');
+			} 
+			else if($(this).attr("ruptype") === "combo") {
+				$(this).rup_combo("disable");
+				$(this).next().find('a').addClass('form-control-customer').attr('readonly',true);
+			}
+			else if($(this).attr("ruptype") === "time") {
+				$(this).rup_time("disable");
+			}else{
+				$(this).attr('disabled', true);
+			}
+		});
+	}
+}
+
+function _disabledButtons(ctx){
+	if(ctx.seeker !== undefined){
+		$.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
+			if($(this).attr("ruptype") === "date") {
+				$(this).rup_date("enable");
+			} 
+			else if($(this).attr("ruptype") === "combo") {
+				$(this).rup_combo("enable");
+				$(this).next().find('a').attr('readonly',false);
+			}
+			else if($(this).attr("ruptype") === "time") {
+				$(this).rup_time("enable");
+			}else{
+				$(this).removeAttr('disabled');
+			}
+		});
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
@@ -575,6 +634,13 @@ apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,tota
 	_updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
 });
 
+apiRegister('seeker.disabledButtons()', function ( ctx) {
+	_disabledButtons(ctx);
+});
+
+apiRegister('seeker.enabledButtons()', function ( ctx) {
+	_enabledButtons(ctx);
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialization
  */

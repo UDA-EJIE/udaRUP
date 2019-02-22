@@ -225,7 +225,7 @@ var Buttons = function( dt, config )
 
 	this.dom = {
 		container: $('<'+this.c.dom.container.tag+'/>')
-			.addClass( this.c.dom.container.className )
+			.addClass( this.c.dom.container.className ).attr('id',ctx.sTableId+'_containerToolbar')
 	};
 
 	this._constructor();
@@ -1960,45 +1960,68 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 	// Añade aquí las funciones de tus botones
 	switch (config.type) {
 		case 'add':
-			var idTableDetail = ctx.oInit.formEdit.detailForm;
-			// Limpiamos el formulario
-			$(idTableDetail).find('form')[0].reset();
-			if(ctx.multiselection.numSelected > 0){
-				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
-					OKFunction: function () {
-						// Abrimos el formulario
-						if(ctx.oInit.seeker !== undefined){
-							DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
-						}else{
-							if(ctx.oInit.multiSelect !== undefined){
-								DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
-							}else if(ctx.oInit.select !== undefined){
-								DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+			if(ctx.oInit.formEdit !== undefined){
+				var idTableDetail = ctx.oInit.formEdit.detailForm;
+				// Limpiamos el formulario
+				$(idTableDetail).find('form')[0].reset();
+				if(ctx.multiselection.numSelected > 0){
+					$.rup_messages('msgConfirm', {
+						message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
+						title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+						OKFunction: function () {
+							// Abrimos el formulario
+							if(ctx.oInit.seeker !== undefined){
+								DataTable.Api().seeker.limpiarSeeker(dt, ctx);// Y deselecionamos los checks y seekers
+							}else{
+								if(ctx.oInit.multiSelect !== undefined){
+									DataTable.Api().multiSelect.deselectAll(dt);// Y deselecionamos los checks y seekers
+								}else if(ctx.oInit.select !== undefined){
+									DataTable.Api().select.deselect(ctx);// Y deselecionamos los checks y seekers
+							}
+							}
+							DataTable.Api().editForm.openSaveDialog('POST', dt, null);
 						}
-						}
-						DataTable.Api().editForm.openSaveDialog('POST', dt, null);
-					}
-				});
-			}else{
-				DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+					});
+				}else{
+					DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+				}
+			}else{//edicion en linea
+				ctx.oInit.inlineEdit.currentPos = undefined;
+				DataTable.Api().inlineEdit.add(dt,ctx);
 			}
 			break;
 		case 'edit':
 			// Abrimos el formulario
-			//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-			var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
-			DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+			
+			if(ctx.oInit.formEdit !== undefined){
+				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
+				var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
+				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+			}else{//edicion en linea
+				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
+				ctx.oInit.inlineEdit.currentPos = undefined;
+				ctx.oInit.inlineEdit.alta = undefined;
+				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'PUT').line;
+			}
 			break;
 		case 'clone':
 			// Abrimos el formulario
-			var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;
-			DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
+			if(ctx.oInit.formEdit !== undefined){
+				var idRow = DataTable.Api().editForm.getRowSelected(dt,'CLONE').line;
+				DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
+			}else{//edicion en linea
+				ctx.oInit.inlineEdit.alta = true;
+				ctx.oInit.inlineEdit.currentPos = undefined;
+				var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt,'CLONE').line;
+			}
 			break;
 		case 'delete':
 			// borramos todos los seleccionados.
-			DataTable.Api().editForm.deleteAllSelects(dt);
+			if(ctx.oInit.formEdit !== undefined){
+				DataTable.Api().editForm.deleteAllSelects(dt);
+			}else{//edicion en linea
+				DataTable.Api().inlineEdit.deleteAllSelects(dt);
+			}
 			break;
 	}
 } );
@@ -2006,18 +2029,37 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
 // los botones
 DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = ctx.multiselection.numSelected;
-	var collectionObject;
-	$.each(opts, function (i) {
-		collectionObject = null;
-		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
-		// Comprueba si tiene botones hijos
-		if (this.buttons.length > 0) {
-			collectionObject = this;
+	if(ctx._buttons[0].inst.s.disableAllButttons === undefined){
+		var opts = ctx._buttons[0].inst.s.buttons;
+		var numOfSelectedRows = ctx.multiselection.numSelected;
+		var collectionObject;
+		$.each(opts, function (i) {
+			collectionObject = null;
 			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
+			// Comprueba si tiene botones hijos
+			if (this.buttons.length > 0) {
+				collectionObject = this;
+				_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
+			}
+		});
+	}
+} );
+
+DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	$.each(opts, function () {
+		if(exception === undefined){
+			$(this.node).addClass('disabledDatatable');//para el toolbar
+			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
+		}else if(this.node.id !== exception){//ponemos los regex a cero menos la excepcion
+			this.conf.displayRegex = undefined;
 		}
 	});
+	ctx._buttons[0].inst.s.disableAllButttons = true;
+} );
+
+DataTable.Api.register( 'buttons.initButtons()', function (ctx,opts) {
+	_initButtons(ctx,opts);
 } );
 
 
@@ -2721,12 +2763,18 @@ $.rup_messages('msgConfirm', {
 		1: '¿Desea copiar un registro?'
 	}, exportDataRows),
 	OKFunction: function () {
-		ctx.oInit.formEdit.okCallBack = true;
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.okCallBack = true;
+		}
 		_reportsCopyDataToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
-		ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.detailForm.rup_dialog("close");
+		}
 	},
 	beforeClose: function (){
-		ctx.oInit.formEdit.okCallBack = false
+		if(ctx.oInit.formEdit !== undefined){
+			ctx.oInit.formEdit.okCallBack = false
+		}
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
 		// del if evita un error
 		if (that.processing !== undefined) {
@@ -2752,99 +2800,98 @@ $.rup_messages('msgConfirm', {
 */
 var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv, textarea)
 {
-// Para los navegadores que soportan el comando de copia 'execCommand'
-if (document.queryCommandSupported('copy')) {
-	hiddenDiv.appendTo(dt.table().container());
+	// Para los navegadores que soportan el comando de copia 'execCommand'
+	if (document.queryCommandSupported('copy')) {
+		hiddenDiv.appendTo(dt.table().container());
+		textarea[0].focus();
+		textarea[0].select();
+	
+		try {
+			var successful = document.execCommand('copy');
+			hiddenDiv.remove();
+	
+			if (successful) {
+				dt.buttons.info(
+					dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_datatable.copyButton.saved', {
+						_: 'Copiados %d registros al portapapeles',
+						1: 'Copiado un registro al portapapeles'
+					}, exportDataRows),
+					2000
+				);
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (that.processing !== undefined) {
+					that.processing(false);
+				}
+				return;
+			}
+		}
+		catch (t) {}
+	}
+	
+	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
+	// con las instrucciones de como copiar los elementos seleccionados
+	var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
+		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
+		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
+	)
+	.append(hiddenDiv);
+	
+	dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
+	
+	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
+	// se le pegue ese texto
 	textarea[0].focus();
 	textarea[0].select();
-
-	try {
-		var successful = document.execCommand('copy');
-		hiddenDiv.remove();
-
-		if (successful) {
-			dt.buttons.info(
-				dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
-				dt.i18n('rup_datatable.copyButton.saved', {
-					_: 'Copiados %d registros al portapapeles',
-					1: 'Copiado un registro al portapapeles'
-				}, exportDataRows),
-				2000
-			);
-			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
-			// del if evita un error
-			if (that.processing !== undefined) {
-				that.processing(false);
-			}
-			return;
-		}
-	}
-	catch (t) {}
-}
-
-// Si no soportan la copia mediante 'execCommand', se mostrara un text box
-// con las instrucciones de como copiar los elementos seleccionados
-var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
-	'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
-	'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
-)
-.append(hiddenDiv);
-
-dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
-
-// Selecciona el texto para cuando el usuario accione la copia al portapapeles
-// se le pegue ese texto
-textarea[0].focus();
-textarea[0].select();
-
-// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
-var container = $(message).closest('.dt-button-info');
-var close = function () {
-	container.off('click.buttons-copy');
-	$(document).off('.buttons-copy');
-	dt.buttons.info(false);
-	// Si es llamado desde el contextMenu este paso es innecesario y la condicion
-	// del if evita un error
-	if (that.processing !== undefined) {
-		that.processing(false);
-	}
-};
-
-container.on('click.buttons-copy', close);
-$(document)
-	.on('keydown.buttons-copy', function (e) {
-		if (e.keyCode === 27) { // esc
-			close();
-		}
-	})
-	.on('copy.buttons-copy cut.buttons-copy', function () {
-		close();
+	
+	// Evento que oculta el mensaje cuando el usuario ha terminado con la copia
+	var container = $(message).closest('.dt-button-info');
+	var close = function () {
+		container.off('click.buttons-copy');
+		$(document).off('.buttons-copy');
+		dt.buttons.info(false);
 		// Si es llamado desde el contextMenu este paso es innecesario y la condicion
 		// del if evita un error
 		if (that.processing !== undefined) {
 			that.processing(false);
 		}
-	});
+	};
+	
+	container.on('click.buttons-copy', close);
+	$(document)
+		.on('keydown.buttons-copy', function (e) {
+			if (e.keyCode === 27) { // esc
+				close();
+			}
+		})
+		.on('copy.buttons-copy cut.buttons-copy', function () {
+			close();
+			// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+			// del if evita un error
+			if (that.processing !== undefined) {
+				that.processing(false);
+			}
+		});
 };
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables interface
- */
-
-// Attach to DataTables objects for global access
-$.fn.dataTable.Buttons = Buttons;
-$.fn.DataTable.Buttons = Buttons;
-
-function inicio(ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
-	var numOfSelectedRows = ctx.multiselection.numSelected;
-	var collectionObject;
-
+/**
+* Inicializa los botones
+*
+* @name _initButtons
+* @function
+* @since UDA 3.7.0 // Datatable 1.0.0
+*
+* @param {object} ctx - Settings object to operate on
+* @param {List<object>} opts Lista de botones
+*
+*/
+var _initButtons = function(ctx,opts){
 	$.each(opts, function (i) {
 		// Activa/desactiva los botones en el inicio en funcion de la propiedad
 		// 'displayRegex' que tengan asociada
-		collectionObject = null;
+		var collectionObject = null;
+		var numOfSelectedRows = ctx.multiselection.numSelected;
 		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
@@ -2871,14 +2918,35 @@ function inicio(ctx) {
 			}
 		}
 	});
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables interface
+ */
+
+// Attach to DataTables objects for global access
+$.fn.dataTable.Buttons = Buttons;
+$.fn.DataTable.Buttons = Buttons;
+
+function inicio(ctx) {
+	var opts = ctx._buttons[0].inst.s.buttons;
+	var numOfSelectedRows = ctx.multiselection.numSelected;
+	var collectionObject;
+
+	DataTable.Api().buttons.initButtons(opts);
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(ctx);
-		if(event.type === 'contextmenu' && event.srcElement) {
-			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
-		}
 	} );
+	
+	if(ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined){
+		// se deja el boton solo de informes
+		DataTable.Api().buttons.disableAllButtons(ctx,ctx.sTableId+'informes_01');	
+		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		DataTable.Api().buttons.displayRegex(ctx);
+	}
 	
 } ;
 

@@ -35,9 +35,9 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| width | <code>Integer</code> | <code></code> | Tamaño que tendrá la botonera. Por defecto ocupará toda la página. |
-| buttons | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Array de botones a mostrar. |
-| mbuttons | [<code>Array.&lt;mButton&gt;</code>](#module_rup_toolbar..mButton) |  | Array de botones con menú a mostrar. |
+| [width] | <code>Integer</code> | <code></code> | Tamaño que tendrá la botonera. Por defecto ocupará toda la página. |
+| [buttons] | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Array de botones a mostrar. |
+| [mbuttons] | [<code>Array.&lt;mButton&gt;</code>](#module_rup_toolbar..mButton) |  | Array de botones con menú a mostrar. |
 
 <a name="module_rup_toolbar..addButton"></a>
 
@@ -221,10 +221,10 @@ Definición del tipo de objeto que representa un botón de la botonera.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| id | <code>string</code> |  | Identificador único del botón con menú. |
-| i18nCaption | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
-| css | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
-| right | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
+| [id] | <code>string</code> |  | Identificador único del botón con menú. |
+| [i18nCaption] | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
+| [css] | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
+| [right] | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
 | click | [<code>buttonClick</code>](#module_rup_toolbar..buttonClick) |  | Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado. |
 
 <a name="module_rup_toolbar..mButton"></a>
@@ -238,8 +238,8 @@ Definición del tipo de objeto que representa un mButton de la botonera.
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | id | <code>string</code> |  | Identificador único del botón con menú. |
-| i18nCaption | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
-| css | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
-| right | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
+| [i18nCaption] | <code>string</code> |  | Texto que se mostrará en el botón. Se indica el key del literar que se obtendrá de los ficheros de internacionalización correspondientes. |
+| [css] | <code>string</code> |  | Define el estilo a aplicar. Se utilizará para mostrar imágenes a la izquierda del botón. |
+| [right] | <code>boolean</code> | <code>false</code> | Determina si el botón aparece alineado a la derecha (true) o a la izquierda (false). |
 | buttons | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Botones que va a incluir el botón con menú. |
 

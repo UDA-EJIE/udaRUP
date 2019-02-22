@@ -48,6 +48,11 @@ gulp.task('build:resources', function (callback) {
 	// Generamos la carpeta de distribuibles
 	console.log('Generando la carpeta de distribuibles...');
 	
+	// dist/html
+	console.log('dist/html');
+	gulp.src(['./assets/html/**/*.*'])
+		.pipe(gulp.dest('dist/html'));
+
 	// dist/css/images
 	console.log('dist/css/images');
 	gulp.src(['./assets/images/**/*.*'])
@@ -65,8 +70,9 @@ gulp.task('build:resources', function (callback) {
 
 	// fonts
 	console.log('dist/fonts');
-	gulp.src('./node_modules/font-awesome/fonts/fontawesome-webfont*.*')
-		.pipe(gulp.dest('dist/css/externals/fonts'));
+	gulp.src('./node_modules/font-awesome/fonts/*.*')
+		.pipe(gulp.dest('dist/css/externals/fonts'))
+		.pipe(gulp.dest('dist/portal/externals/fonts'));
 
 	// externals
 	console.log('externals ');
@@ -91,6 +97,11 @@ gulp.task('build:resources', function (callback) {
 	
 	gulp.src(['./node_modules/tether/dist/js/*min*.*'])
 		.pipe(gulp.dest('./dist/js/externals/tether'));
+
+	// popper.js
+	console.log('popper');
+	gulp.src(['./node_modules/popper.js/dist/umd/*min*.*'])
+		.pipe(gulp.dest('./dist/js/externals/popper'));
 	
 	// jasmine
 	console.log('jasmine');

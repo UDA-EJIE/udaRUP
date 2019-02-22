@@ -491,6 +491,16 @@ var ColReorder = function( dt, opts )
 	this.s.dt._colReorder = this;
 	this._fnConstruct();
 
+	var table = $('#'+settings.sTableId).DataTable();
+	
+	table.on( 'column-reorder', function (  ) {// si se reordena se revisa para mantener los iconos.
+		if(settings._multiSelect !== undefined && settings.multiselection.numSelected > 0){
+			table.ajax.reload();
+		}else{
+			DataTable.Api().editForm.addchildIcons(settings);
+		}		
+	} );
+	
 	return this;
 };
 
@@ -1313,7 +1323,7 @@ $(document).on( 'preInit.dt.colReorder', function (e, settings) {
 	var init = settings.oInit.colReorder;
 	var defaults = DataTable.defaults.colReorder;
 
-	if ( init || defaults ) {
+	if ( settings.oInit.inlineEdit === undefined && (init || defaults) ) {
 		var opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {

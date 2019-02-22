@@ -35,7 +35,7 @@
 	};
 
 	ValidateJQueryUIAdapter.prototype.forInputIdElement = function (fieldTmp, labelAttributes) {
-		return $("#"+fieldTmp.id).find('input[id=\'' + labelAttributes.labelForId + '\']')[0];
+		return $("#"+fieldTmp.id).find(':input[id=\'' + labelAttributes.labelForId + '\']')[0];
 	};
 
 	ValidateJQueryUIAdapter.prototype.highlight = function (element, errorClass) {
