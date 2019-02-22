@@ -2448,7 +2448,7 @@
 
 .r01gContainer .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 
 .r01gContainer .qtip-youtube .qtip-content {
@@ -2784,14 +2784,18 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group
+.ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard
+.ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -4936,7 +4940,13 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer select.form-control-sm {
+.r01gContainer .ui-multiselect,
+.r01gContainer .ui-selectmenu-dropdown,
+.r01gContainer .form-control.ui-multiselect,
+.r01gContainer .form-control.ui-selectmenu-dropdown,
+.r01gContainer select.form-control-sm,
+.r01gContainer .form-control-sm.ui-multiselect,
+.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -6450,7 +6460,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e5e5;
+    background-color: #e6e6e6;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -7798,11 +7808,6 @@
   padding-top: 0.755em;
 }
 
-.r01gContainer .dataTables_wrapper .dataTables_paginate {
-  float: right;
-  text-align: right;
-}
-
 .r01gContainer .dataTables_wrapper .dataTables_paginate .paginate_button {
   box-sizing: border-box;
   display: inline-block;
@@ -7969,6 +7974,7 @@
 
 .r01gContainer .dataTables_length label {
   display: inline-flex;
+  margin-bottom: initial;
 }
 
 .r01gContainer .dataTables_length select,
@@ -8021,43 +8027,6 @@
   display: inline-block;
 }
 
-.r01gContainer .recolocatedPagination_container {
-  display: inline-block;
-  width: 65%;
-  float: none !important;
-  padding-top: 0;
-}
-
-.r01gContainer .dataTables_length {
-  float: none;
-}
-
-.r01gContainer .recolocatedPagination_length {
-  display: inline-block;
-  padding: 7px 10px 8px 10px;
-}
-
-.r01gContainer .recolocatedPagination_length label {
-  margin-bottom: 0;
-}
-
-.r01gContainer .recolocatedPagination_rellenoCtr {
-  display: inline-block;
-}
-
-.r01gContainer .dataTables_info {
-  float: right;
-  padding-top: 0;
-}
-
-.r01gContainer .recolocatedPagination_rellenoDrc {
-  display: inline-block;
-  padding-right: 10px;
-  text-align: right;
-  float: right;
-  line-height: 3.5em;
-}
-
 .r01gContainer .tableFit {
   width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
@@ -8066,92 +8035,14 @@
 
 .r01gContainer .pagination {
   margin-bottom: 0;
+  justify-content: center;
+  -ms-flex-pack: center;
 }
 
 .r01gContainer .paginationContainer {
   border: 1px solid #dee2e6;
   border-top: none;
-}
-
-@media (max-width: 930px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 60%;
-  }
-}
-
-@media (max-width: 930px) and (min-width: 851px) {
-  .r01gContainer .paginate_button {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-
-@media (min-width: 851px) {
-  .r01gContainer .recolocatedPagination_iconButton a {
-    display: initial;
-  }
-
-  .r01gContainer .recolocatedPagination_iconButton i {
-    display: none;
-  }
-}
-
-@media (max-width: 850px) {
-  .r01gContainer .recolocatedPagination_iconButton a {
-    display: none;
-  }
-
-  .r01gContainer .recolocatedPagination_iconButton i {
-    display: block;
-  }
-
-  .r01gContainer .searchPaginator {
-    padding-top: 3px !important;
-  }
-}
-
-@media (max-width: 850px) and (min-width: 651px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 50%;
-  }
-}
-
-@media (max-width: 650px) {
-  .r01gContainer .recolocatedPagination_container {
-    width: 100%;
-  }
-
-  .r01gContainer .recolocatedPagination_rellenoCtr {
-    display: block;
-    text-align: center;
-  }
-
-  .r01gContainer .recolocatedPagination_rellenoCtr > ul {
-    display: inline-block;
-  }
-
-  .r01gContainer .recolocatedPagination_length {
-    width: 50%;
-  }
-
-  .r01gContainer .recolocatedPagination_rellenoDrc {
-    float: unset;
-    width: 50%;
-    text-align: left;
-  }
-}
-
-@media (max-width: 515px) {
-  .r01gContainer .recolocatedPagination_length {
-    width: 100%;
-    display: block;
-  }
-
-  .r01gContainer .recolocatedPagination_rellenoDrc {
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
+  padding: 10px 0;
 }
 
 .r01gContainer .openResponsive,
@@ -8205,6 +8096,12 @@
   display: inline-block;
   vertical-align: inherit;
   margin-right: 3px;
+}
+
+.r01gContainer .form-control-customer[readonly],
+.r01gContainer .form-control-customer:disabled {
+  background-color: #eceeef;
+  opacity: 1;
 }
 
 .r01gContainer table.dataTable tbody > tr.selected,
