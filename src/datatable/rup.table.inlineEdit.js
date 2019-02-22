@@ -416,7 +416,7 @@ function _add(dt,ctx){
 		} );
 
 	}
-
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineAddRow');
 }
 
 /**
@@ -622,7 +622,7 @@ function _getRowSelected(dt,actionType){
 }
 
 function _cloneLine(dt,ctx,line){
-	
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone');
 	dt.row(0).data(dt.row(line+1).data());
 	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
@@ -732,6 +732,7 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 */
 function _restaurarFila(ctx,limpiar){
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineRestaurarFilaInit');
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
@@ -770,7 +771,7 @@ function _restaurarFila(ctx,limpiar){
 		ctx._buttons[0].inst.s.disableAllButttons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFila');
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd');
 }
 
 /**
