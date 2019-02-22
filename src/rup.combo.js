@@ -164,8 +164,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).selectmenu('change');
 			} else {
 				//Multiple > multiselect
-				//comprobamos si tiene o no change asociado. De ser el caso lo ejecutamos
-				$(this).data('settings').change && $(this).data('settings').change();
+				$(this).triggerHandler('change');
 			}
 		},
 		/**
@@ -597,7 +596,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								}
 							});
 
-							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
+							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 							if (isOptgroup) {
 								settings.blankDone = false;
@@ -652,7 +651,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 									}
 								});
 
-								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if (isOptgroup) {
 									settings.blankDone = false;
@@ -1004,6 +1003,11 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Almacenar los settings
 			$('#' + settings.id).data('settings', settings);
+
+			//Añadir evento change
+			if (settings.change) {
+				$('#' + settings.id).on('change', settings.change);
+			}
 
 			//Tipo de combo
 			if (!settings.multiselect) {
@@ -1624,7 +1628,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							}
 						});
 
-						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
+						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
 						if (isOptgroup) {
 							settings.blankDone = false;
@@ -1682,7 +1686,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 									}
 								});
 
-								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
 								if (isOptgroup) {
 									settings.blankDone = false;
