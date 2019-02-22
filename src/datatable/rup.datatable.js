@@ -338,16 +338,22 @@
 				if($self[0].tHead !== null){
 					$(th).insertBefore($self[0].tHead.rows[0].cells[0])
 				}
-				//se crea el th tfoot
-				if($self[0].tFoot !== null){
-					$('<th/>').insertBefore($self[0].tFoot.rows[0].cells[0])
-				}
+
 				//Se aseguro que no sea orderable
 				if(options.columnDefs.length > 0){
 					options.columnDefs[0].orderable = false;
 				}
 			}
+			
+			//se crea el tfoot
+			var $tfoot = $('<tfoot>').appendTo($self[0]);
+			var $tr = $('<tr>').appendTo($tfoot);
+			
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
+				//se añaden las columnas al tfoot
+				var $th = $('<th>').appendTo($tr);
+				$th.text($(e).text());
+				
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
 						var iconCheck = 'fa fa-times';
