@@ -627,6 +627,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							//Vaciar combo, quitarle valor y deshabilitar
 							$('#' + settings.id).rup_combo('select', setRupValue);
 						}
+						// Hacer que se lance el change al variar los checkboxes de los combos
+						// multiseleccion
+						if(settings.multiselect) {
+							var ctx = $('#rup-multiCombo_' + settings.id);
+							$('ul > li > label > input', ctx).change(
+								{ combo: settings.id },
+								function(e) {
+									e.preventDefault();
+									e.stopPropagation();
+									$('#' + e.data.combo).rup_combo('change');
+								}
+							);
+						}
 						$('#' + settings.id).addClass('inited');
 					}
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
@@ -665,6 +678,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							}
 							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
 
+							// Hacer que se lance el change al variar los checkboxes de los combos
+							// multiseleccion
+							if(settings.multiselect) {
+								var ctx = $('#rup-multiCombo_' + settings.id);
+								$('ul > li > label > input', ctx).change(
+									{ combo: settings.id },
+									function(e) {
+										e.preventDefault();
+										e.stopPropagation();
+										$('#' + e.data.combo).rup_combo('change');
+									}
+								);
+							}
 							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
@@ -685,6 +711,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//Se lanza la funcion que obtiene los valores a mostrar
 					jQuery(settings.source);
 					this._makeCombo(settings);
+					// Hacer que se lance el change al variar los checkboxes de los combos
+					// multiseleccion
+					if(settings.multiselect) {
+						var ctx = $('#rup-multiCombo_' + settings.id);
+						$('ul > li > label > input', ctx).change(
+							{ combo: settings.id },
+							function(e) {
+								e.preventDefault();
+								e.stopPropagation();
+								$('#' + e.data.combo).rup_combo('change');
+							}
+						);
+					}
 					$('#' + settings.id).addClass('inited');
 				}
 			}
@@ -1137,6 +1176,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		_parseLOCAL: function (array, settings, html) {
 			var imgs = settings.imgs ? settings.imgs : [],
 				label, value;
+			this.empty(); // vaciar el combo antes de rellenarlo
 			for (var i = 0; i < array.length; i = i + 1) {
 				label = value = array[i];
 				if (typeof array[i] === 'object') { //multi-idioma
@@ -1770,11 +1810,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 				//Asociar evento CHANGE para propagar cambios a los hijos
 				$('#' + settings.id).bind('change', function (event, ui) {
+					$(settings.id).removeClass('inited');
 					// En caso de modificarse el valor del select, se actualiza el valor del rup.combo (con esta accion se recargan tambien los hijos)
 					if (!settings.multiselect) {
 						$('#' + settings.id).rup_combo('select', $('#' + settings.id).val());
 					} else {
-						$('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupvalue'));
+						$('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupValue'));
 					}
 
 						//Lanzar cambio para que se recarguen hijos, si los tiene
@@ -1784,6 +1825,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 								$('#' + hijos[i]).rup_combo('reload', hijos[i]);
 							}
 						}
+					$(settings.id).addClass('inited');
 				});
 
 				//Borrar referencia
@@ -1850,6 +1892,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		onLoadError: null,
 		width: 200,
 		style: 'dropdown',
+		blank:"",
 		showValue: false,
 		token: '|',
 		multiValueToken: '##',
