@@ -2939,9 +2939,6 @@ function inicio(ctx) {
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(ctx);
-		if(event.type === 'contextmenu' && event.srcElement) {
-			$(event.srcElement.parentElement).triggerHandler('tableButtonsOpenContextMenu');
-		}
 	} );
 	
 	if(ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined){
