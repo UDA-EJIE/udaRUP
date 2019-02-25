@@ -133,19 +133,40 @@
 				}
 			} );
 			
+			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
+				//Se mira la nueva reordenacion y se ordena.
+
+				ctx.multiselection.selectedIds = [];
+				ctx.multiselection.selectedRowsPerPage = [];
+				//Viene del servidor por eso la linea de la pagina es 1 menos.
+				$.each(json.reorderedSelection,function(index,p) {
+					var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
+					ctx.multiselection.selectedIds.splice(index,0,arra.id);
+					ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
+				});
+				if(!ctx.multiselection.selectedAll){
+					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
+				}
+				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+				if(options.buttons !== undefined){
+					ctx._buttons[0].inst.s.disableAllButttons = undefined;
+					DataTable.Api().buttons.displayRegex(ctx);
+				}
+			} );
+			
 			apiRegister( 'rupTable.getIdPk()', function ( json ) {
 
-			var id = '';
-
-			$.each(options.primaryKey,function(index,key) {
-				id = id + json[key];
-				if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
-					id = id+options.multiplePkToken;
-				}
-			});
-			
-			return id;
-		} );
+				var id = '';
+	
+				$.each(options.primaryKey,function(index,key) {
+					id = id + json[key];
+					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
+						id = id+options.multiplePkToken;
+					}
+				});
+				
+				return id;
+			} );
 		
 		/**
 		* Método que gestiona el bloqueo de la edición de las claves primarias.
