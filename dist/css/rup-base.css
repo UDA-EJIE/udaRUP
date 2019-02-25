@@ -5868,10 +5868,20 @@ table.dataTable tbody > tr:hover {
   float: right;
   line-height: 3.5em; }
 
+/* SE USA EL ':not(.DTCR_clonedTable)' PARA EVITAR QUE ESTOS ESTILOS SE APLIQUEN TAMBIEN AL COLREORDER */
 table.tableFit:not(.DTCR_clonedTable) {
   width: calc(100% - 1px) !important;
   max-width: calc(100% - 1px);
   margin-bottom: 0; }
+
+table.tableFit.DTCR_clonedTable {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 10; }
+
+table.tableFit.DTCR_clonedTable > thead > tr > th:first-child:last-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
 
 .pagination {
   margin-bottom: 0; }
@@ -6399,9 +6409,14 @@ button.dt-button.processing:after, .dt-button.processing.ui-button.rup-button:af
   /* Support for IE. */
   font-feature-settings: 'liga'; }
 
-ul .material-icons {
+ul > li > a i.material-icons {
+  /* Aumento del tamaño del icono para cuando este se ubica en el navbar */
+  font-size: 2rem; }
+
+ul > li > div a i.material-icons {
   /* Espacio por defecto de la separación entre el icono y el texto */
-  margin-right: 1rem; }
+  /* para cuando este se ubica en un menu desplegable del navbar */
+  margin-right: .5rem; }
 
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
@@ -6943,30 +6958,27 @@ div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-fe
 
 /* REDONDEAMOS EL LOS BORDES DE LA TABLA */
 table.table-material {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px; }
-
-table.table-material > thead > tr > th:first-child {
-  border-top-left-radius: 13px; }
-
-table.table-material > thead > tr > th:last-child {
-  border-top-right-radius: 13px; }
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  /* QUITAMOS LAS BARRAS VERTICALES */ }
+  table.table-material > thead th:hover {
+    background-color: #b8d4e3; }
+  table.table-material > thead > tr > th:first-child {
+    border-top-left-radius: 5px; }
+  table.table-material > thead > tr > th:last-child {
+    border-top-right-radius: 5px; }
+  table.table-material > tbody tr:hover > td {
+    background-color: #b8d4e3; }
+  table.table-material > tfoot th:hover {
+    background-color: #b8d4e3; }
+  table.table-material th, table.table-material table.table-material td {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #dee2e6; }
 
 form + div.paginationContainer {
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px; }
-
-/* QUITAMOS LAS BARRAS VERTICALES */
-table.table-material th, table.table-material td {
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: #dee2e6; }
-
-/* EVENTOS */
-table.table-material > thead th:hover,
-table.table-material > tbody tr:hover > td,
-table.table-material > tfoot th:hover {
-  background-color: #b8d4e3; }
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px; }
 
 /* ESTILOS GENERALES */
 .material-rounded {
