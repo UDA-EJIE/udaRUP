@@ -71,18 +71,27 @@ DataTable.select.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
-		if(e.target.className.indexOf("openResponsive") > -1){
-			return false;
+		if(!$(e.target).is(':checkbox')){//no hacer nada si el evento es de un checkbox, esta en ediccion
+			if(e.target.className.indexOf("openResponsive") > -1 
+					|| $(this).hasClass('editable')){
+				return false;
+			}
+			$(this).triggerHandler('tableSelectBeforeSelectRow');
+			var idRow = this._DT_RowIndex;
+			 _selectRowIndex(dt,idRow,$(this));
+			 $(this).triggerHandler('tableSelectAfterSelectRow');
 		}
-		$(this).triggerHandler('tableSelectBeforeSelectRow');
-		var idRow = this._DT_RowIndex;
-		 _selectRowIndex(dt,idRow,$(this));
-		 $(this).triggerHandler('tableSelectAfterSelectRow');
 	} );
 	
 	//Se genera el div para el feedback del datatable.
 	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
 	ctx.multiselection.internalFeedback = divFeedback;
+	
+	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			} ) );
+	 }
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -137,6 +146,9 @@ function _selectRowIndex(dt,index,tr){
 	var rowsBody = $( ctx.nTBody);
 	if(tr.hasClass( "tr-highlight" )){//se deselecciona
 		tr.removeClass('selected tr-highlight');
+		if(tr.next('.child').length >= 1){
+			tr.next('.child').removeClass('selected tr-highlight');
+		}
 		ctx.multiselection.numSelected = 0;
 		ctx.multiselection.selectedIds = [];
 		ctx.multiselection.lastSelectedId = '';
@@ -148,6 +160,9 @@ function _selectRowIndex(dt,index,tr){
 	}else{ //se selecciona
 		$('tr',rowsBody).removeClass('selected tr-highlight');
 		tr.addClass('selected tr-highlight');
+		if(tr.next('.child').length >= 1){
+			tr.next('.child').addClass('selected tr-highlight');
+		}
 		tr.triggerHandler('tableHighlightRowAsSelected');
 		var row = ctx.json.rows[index];
 		if(row !== undefined){

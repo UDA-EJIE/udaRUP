@@ -25,7 +25,8 @@
 			'./ValidateBootstrapAdapter',
 			'./FeedbackJQueryUIAdapter',
 			'./FeedbackBootstrapAdapter',
-			'./FeedbackMaterialAdapter'
+			'./FeedbackMaterialAdapter',
+			'./CalendarBootstrapAdapter'
 		], factory);
 	} else {
 		// Browser globals
@@ -51,7 +52,8 @@
 	ValidateBootstrapAdapter,
 	FeedbackJQueryUIAdapter,
 	FeedbackBootstrapAdapter,
-	FeedbackMaterialAdapter
+	FeedbackMaterialAdapter,
+	CalendarBootstrapAdapter
 ) {
 	return $;
 }));

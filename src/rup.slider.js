@@ -248,10 +248,11 @@
 			$self.addClass('rup-slider');
 			$self.attr('ruptype', 'slider');
 			$self.slider(settings);
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_slider', 'init');
+
 			// TODO : Invocación al plugin
-
-
-
 		}
 	});
 

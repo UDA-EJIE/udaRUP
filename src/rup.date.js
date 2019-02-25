@@ -202,7 +202,7 @@
      * $("#idDate").rup_date("isDisabled");
      */
 		isDisabled: function () {
-			return $(this).datepicker('isDisabled');
+			return $(this).prop('readonly');
 		},
 		/**
      * Oculta el calendario para seleccionar una fecha.
@@ -469,6 +469,9 @@
 				if(settings.create) {
 					settings.create();
 				}
+
+				//Se audita el componente
+				$.rup.auditComponent('rup_date', 'init');
 			}
 		}
 	});

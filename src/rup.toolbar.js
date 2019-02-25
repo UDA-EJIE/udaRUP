@@ -347,10 +347,10 @@
 
 
 			//Carga de los valores por defecto para los atributos que no ha introducido el usuario
-			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties),
+			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
 				t = $(this),
 				json_i18n, rightButtons = [];
-
+				
 			this._ADAPTER = $.rup.adapter[settings.adapter];
 			//Se guarda el marcador de foco de la botonera
 			if ($.rup_toolbar.focusedExternally === undefined) {
@@ -373,8 +373,8 @@
 			//Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
 			$(document).add("ul li").on('click', $.rup_toolbar.hideMButtons);
 			//Botones
-			for (var i = 0; i < settings[0].buttons.length; i += 1) {
-				var obj = settings[0].buttons[i];
+			for (var i = 0; i < settings.buttons.length; i += 1) {
+				var obj = settings.buttons[i];
 
 				// Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
 				if (!(obj.right !== undefined && obj.right === true)) {
@@ -423,6 +423,9 @@
 					t.addButton(dObj, json_i18n);
 				}
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_toolbar', 'init');
 		});
 	};
 

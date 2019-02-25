@@ -72,6 +72,9 @@ DataTable.inlineEdit.init = function ( dt ) {
 	//Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
 	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
+		if($(this).hasClass('editable')){
+			return false;
+		}
 		idRow = this._DT_RowIndex;
 		_editInline(dt,ctx,idRow);
 		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
@@ -88,7 +91,14 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		ctx.oInit.inlineEdit.rowDefault = undefined;
 	    		_restaurarFila(ctx,true);;
 	    		_editInline(dt,ctx,row.index());
+	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
+	    			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	    			DataTable.Api().rupTable.selectPencil(ctx,0);
+	    		}
 	    	}
+			if($(row.node()).hasClass('selected')){
+				row.child().addClass( "selected tr-highlight");
+			}
 	    }
 	} );
 	
@@ -197,6 +207,46 @@ DataTable.inlineEdit.init = function ( dt ) {
 				items
 			});
 		});
+		
+		//Crear botones Guardar y Cancelar
+		//Boton guardar
+	      var btSave = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
+	             },
+	             id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnSave',
+	             icon: "fa-save",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'save',
+	             action: function ( e, dt, button, config ) {
+	            	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+	            	 _guardar(ctx,$selector,false);
+	           }
+	       });
+	      
+	       //boton Cancelar
+	    var btCancel = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
+	             text: function (dt) {
+	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
+	             },
+	             id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	             className: 'datatable_toolbar_btnCancel',
+	             icon: "fa-times",
+	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	             type: 'cancel',
+	             action: function ( ) {
+			    		ctx.inlineEdit.lastRow = undefined;
+			    		ctx.oInit.inlineEdit.alta = undefined;
+			    		dt.ajax.reload(undefined,false)
+	           }
+	       });
+	     
+	    DataTable.Api().buttons.initButtons(ctx,ctx._buttons[0].inst.s.buttons);
+
+
 	}
 };
 
@@ -366,7 +416,7 @@ function _add(dt,ctx){
 		} );
 
 	}
-
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineAddRow');
 }
 
 /**
@@ -407,7 +457,9 @@ function _addChildIcons(ctx){
 					}
 				});
 				if(ctx.inlineEdit !== undefined && $fila.hasClass('editable')){
-					setTimeout(_comprobarFila(ctx,$fila), 500);
+					//setTimeout(_comprobarFila(ctx,$fila), 500);
+					_comprobarFila(ctx,$fila);
+					//console.log('entro al TIMEOUT --------- ---------');
 				}
 			});
 		}else{//si la edicion en linea esta activada
@@ -441,16 +493,18 @@ function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la mismafila.
 		_restaurarFila(ctx,false);
 	}
-	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:eq('+idRow+')'); 
+	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	if(!$rowSelect.hasClass("editable")){
 		_changeInputsToRup(ctx,idRow);
 		//se deshabilita los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
-	if(ctx.seeker !== undefined){
-		$('#'+ctx.sTableId+' tfoot input').attr('disabled', true);
-		$('#'+ctx.sTableId+' tfoot select').attr('disabled', true);
-	}
+	
+	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledDatatable');
+	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledDatatable');
+
+	DataTable.Api().seeker.enabledButtons(ctx);
+	
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
@@ -462,16 +516,23 @@ function _editInline ( dt,ctx, idRow ){
 	$.each(selectores,function() {//se crea eventor para los selectores creados.
 		_crearEventos(ctx,this);
 	});
-	//Añadir la seleccion del mismo.
-	if (ctx.oInit.multiSelect !== undefined) {
-		dt['row'](idRow).multiSelect();
-	}else{
-		var rowsBody = $( ctx.nTBody);
-		$('tr',rowsBody).removeClass('selected tr-highlight');
-		DataTable.Api().select.selectRowIndex(dt,idRow,true);
+	
+	if(ctx.oInit.inlineEdit.clone !== true){
+		//Añadir la seleccion del mismo.
+		if (ctx.oInit.multiSelect !== undefined) {
+			dt['row'](idRow).multiSelect();
+		}else{
+			var rowsBody = $( ctx.nTBody);
+			$('tr',rowsBody).removeClass('selected tr-highlight');
+			DataTable.Api().select.selectRowIndex(dt,idRow,true);
+		}
 	}
 	
 	dt.responsive.recalc();
+	if(ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined
+			 && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $selectorTr.find('span.openResponsive').length === 0){//revisar cuadno es clone por si el responsive falla
+		 _addChildIcons(ctx);
+	}
 }
 
 /**
@@ -544,13 +605,38 @@ function _getRowSelected(dt,actionType){
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		if(ctx.oInit.inlineEdit !== undefined){
+			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
 	}else{
-		_editInline(dt,ctx,rowDefault.line);
+		if(actionType === 'PUT'){
+			_editInline(dt,ctx,rowDefault.line);
+		}else if(actionType === 'CLONE'){
+			dt.ajax.reload( undefined,false );
+			rowDefault.actionType = actionType;
+			ctx.oInit.inlineEdit.rowDefault = rowDefault;
+		}
 	}
 
 	return rowDefault;
+}
+
+function _cloneLine(dt,ctx,line){
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone');
+	dt.row(0).data(dt.row(line+1).data());
+	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
+		ctx.oInit.inlineEdit.rowDefault.line = 0;
+	}
+	ctx.multiselection.selectedIds = [];
+	ctx.multiselection.lastSelectedId = "";
+	ctx.multiselection.numSelected = 0;
+	$.each(ctx.oInit.primaryKey,function() {
+		dt.row(0).data()[this] = "";
+	});
+	var columnsHide = dt.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
+		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	}
 }
 
 /**
@@ -646,10 +732,11 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 */
 function _restaurarFila(ctx,limpiar){
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineRestaurarFilaInit');
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $(ctx.aoData[ positionLastRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+positionLastRow+')');
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -666,10 +753,9 @@ function _restaurarFila(ctx,limpiar){
 		if($selectorTr.data( "events" ) !== undefined){
 			$selectorTr.off('keydown');
 		}
-		if(ctx.seeker !== undefined){
-			$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-			$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-		}
+		
+		DataTable.Api().seeker.disabledButtons(ctx);
+		
 		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
 			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
 		}
@@ -685,7 +771,7 @@ function _restaurarFila(ctx,limpiar){
 		ctx._buttons[0].inst.s.disableAllButttons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFila');
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd');
 }
 
 /**
@@ -705,13 +791,14 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = ctx.aoData[ idRow ];
+		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
+		ctx.inlineEdit.lastRow.idx = idRow;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
-		var $fila = $(ctx.aoData[ idRow ].nTr);
+		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
 		//Si existe el responsive
 		//Campos sin responsive
 		var $target = $fila.find(ctx.oInit.responsive.details.target);
@@ -719,8 +806,15 @@ function _changeInputsToRup(ctx,idRow){
 			$target.click();
 		}
 		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
+		if(!$fila.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline');
+		}
 		//Mirar los campos que estan en responsive.
-		_recorrerCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),cont);
+		var $filaChild = $fila.next('.child');
+		_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),cont);
+		if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
+		}
 
 	}
 }
@@ -744,15 +838,20 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	var child = "";
 	if($fila.hasClass('child')){
 		child = "_child";
+		$fila = $fila.prev();
 	}
 	var ocultos = 0;
+	var edicion = true;
+	if($fila.hasClass('new') || ctx.oInit.inlineEdit.alta){
+		edicion = false;
+	}
 	$celdas.each( function() {
 		var celda = $(this);
 		var $celda = $(celda);
 		
 		if(!$celda.hasClass("select-checkbox")){
 			var cellColModel = colModel[cont];
-			if(cellColModel.editable===true){
+			if(cellColModel.editable===true || !edicion){
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
 				$input.attr('id', cellColModel.name+'_inline'+child).attr("oldtitle",title);
@@ -764,7 +863,15 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				ctx.inlineEdit.lastRow.cellValues[cont] = $celda.html();
+				var $span = $celda.find('.openResponsive');
+
 				$celda.html($input);
+				if($span.length >= 1){
+					$span.click(function(event){
+						event.stopPropagation();
+					});
+					$celda.prepend($span);
+				}
 				
 				//Convertir a input.
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
@@ -777,7 +884,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				});
 				$elem.attr({
 					'title': columns[cont].sTitle,
-					'class': 'editable customelement'
+					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 				if(searchRupType!==undefined) {
@@ -815,6 +922,14 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(ctx.inlineEdit.lastRow.ponerFocus){
 					$input.focus();
 					ctx.inlineEdit.lastRow.ponerFocus = false;
+					//Realaizar comprobaciones x si el id es NO editable
+					if(edicion && ctx.oInit.blockPKeditForm && ctx.oInit.primaryKey.length > 0){
+						$.each(ctx.oInit.primaryKey,function(key,id) {
+							if(id === cellColModel.name){
+								ctx.inlineEdit.lastRow.ponerFocus = true;
+							}
+						});
+					}
 				}
 			}
 			cont++;
@@ -845,7 +960,7 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 	if($fila.hasClass("editable")){
 		var colModel = ctx.oInit.colModel;
 		$fila.removeClass("editable");
-	
+		
 		$celdas.each( function() {
 			var celda = $(this);
 			var $celda = $(celda);
@@ -854,19 +969,25 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
-					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad
-						var $span = $celda.find('span.openResponsive');
-						$span.click(function(event){
-							if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
-								event.stopPropagation();
-							}else{
-								if($span.hasClass('closeResponsive')){
-									$span.removeClass('closeResponsive');
+					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad, y es responsive
+						var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+					
+						if(count > 0){// si hay responsive	
+							var $span = $celda.find('span.openResponsive');
+							$span.click(function(event){
+								if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+									event.stopPropagation();
 								}else{
-									$span.addClass('closeResponsive');
+									if($span.hasClass('closeResponsive')){
+										$span.removeClass('closeResponsive');
+									}else{
+										$span.addClass('closeResponsive');
+									}
 								}
-							}
-						});
+							});
+						}else{//si NO hay responsive
+							$celda.find('span.openResponsive').remove();
+						}
 					}
 				}
 				contRest++;
@@ -902,6 +1023,9 @@ function _comprobarFila(ctx,$fila){
 		contFields--;
 	}
 	_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),contFields);
+	if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+		DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
+	}
 	//Se crea el evento para el tr child de escape
 	 _crearEventos(ctx,$filaChild);
 	var tabla = $('#'+ctx.sTableId).DataTable();
@@ -926,17 +1050,23 @@ function _crearEventos(ctx,$selector){
 		    	if($selector.hasClass("new")){//si se da alta y se cancela.
 		    		var dt = $('#'+ctx.sTableId).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
-		    		dt.ajax.reload();
+		    		ctx.oInit.inlineEdit.alta = undefined;
+		    		//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+		    		dt.ajax.reload(undefined,false);
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
 		    }else if (e.keyCode === 13 || 
 		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
-		    	if($selector.find('.child').length === 1){
+		    	if($selector.parent('tr').length > 0){//si e smayor que cero la seleccion es en el td,hay que pasar al tr.
+		    		$selector = $selector.parent('tr');
+		    	}
+		    	if($selector.find('.child').length === 1 || $selector.hasClass('child')){
 		    		child = true;;
 		    	}
 		    	_guardar(ctx,$selector,child);
+		    	return false;
 		    }
 		});
 	}
@@ -1029,14 +1159,16 @@ function _inlineEditFormSerialize($fila,ctx,child){
 		});
 	});
 	
-	//añadir los no editables
-	jQuery.grep(ctx.oInit.colModel, function( n,i) {
-		  if ( n.editable !== true ){
-			  var text = ctx.json.rows[$fila.index()][n.name];
-			  serializedForm[n.name] = text;
-			  return n;
-		  }
-	});
+	//añadir los no editables,en caso de SOLO edicción, 
+	if(!selectores[0].hasClass('new')){
+		jQuery.grep(ctx.oInit.colModel, function( n,i) {
+			  if ( n.editable !== true ){
+				  var text = ctx.json.rows[$fila.index()][n.name];
+				  serializedForm[n.name] = text;
+				  return n;
+			  }
+		});
+	}
 	
 	return serializedForm;
 }
@@ -1088,6 +1220,12 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
 	}
+	
+	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+		jQuery.extend(true,masterPkObject,row);
+		row = masterPkObject;
+	}
 
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
@@ -1101,6 +1239,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
+			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
@@ -1139,18 +1278,19 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					DataTable.Api().select.deselect(ctx);
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
+				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
-			if(ctx.seeker !== undefined){
-				$('#'+ctx.sTableId+' tfoot input').removeAttr('disabled');
-				$('#'+ctx.sTableId+' tfoot select').removeAttr('disabled');
-			}
-			
-				// Recargar datos
-			dt.ajax.reload( function (  ) {
-				_addChildIcons(ctx);
-			} );
+
+			DataTable.Api().seeker.disabledButtons(ctx);
+		
+					// Recargar datos
+				//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+				dt.ajax.reload( function (  ) {
+					_addChildIcons(ctx);
+				},false );
+		
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
 		},
@@ -1173,6 +1313,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(ctx.inlineEdit.lastRow !== undefined){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
+	idForm.rup_form();
 	idForm.rup_form('ajaxSubmit', ajaxOptions);
 }
 
@@ -1220,36 +1361,70 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	var table = $('#'+ctx.sTableId).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
 	table.columns().responsiveHidden().each( function(valor,i) {
-		if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
-			var value = "";
-			if(valor){//se coge el valor del child.
-				var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-				var total = ctx.inlineEdit.lastRow.columnsHidden.length;
-				cont = cont + i - total;
-				var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
-				value = $inputChild.val();
-				$inputChild.prop('disabled', false);
-
-			}else{//se coge el valor de los inputs ocultos.
-				var $input = $fila.find('td:eq('+i+')').find('select,input');
-				value = $input.val();
-				$input.prop('disabled', true);
-			}
-			
-		}else{
-			var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-			var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
-			contar = contar + i - totalContar;
-			// se asigna valor normal
-			
-			if(valor){
-				value = $fila.find('td:eq('+i+')').find('select,input').val();
+		if(!$fila.find('td:eq('+i+')').hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
+			if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
+				var value = "";
+				if(valor){//se coge el valor del child.
+					var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+					var total = ctx.inlineEdit.lastRow.columnsHidden.length;
+					cont = cont + i - total;
+					var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
+					value = $inputChild.val();
+					if($inputChild.length > 0){
+						$('#'+$inputChild[0].id.replace("_child","")).prop('disabled', false);
+					}
+					if($inputChild.is(':checkbox')){//x si es checkbox
+						if($inputChild.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					} 
+	
+				}else{//se coge el valor de los inputs ocultos.
+					var $input = $fila.find('td:eq('+i+')').find('select,input');
+					value = $input.val();
+					$input.prop('disabled', true);
+					if($input.is(':checkbox')){//x si es checkbox
+						if($input.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
+				}
+				
 			}else{
-				value = $fila.next('.child').find('li:eq('+contar+')').find('select,input').val();
+				var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+				var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
+				contar = contar + i - totalContar;
+				// se asigna valor normal
+				
+				if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
+					var $input2 = $fila.find('td:eq('+i+')').find('select,input');
+					value = $input2.val();
+					if($input2.is(':checkbox')){//x si es checkbox
+						if($input2.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
+				}else{
+					var $inputChild2 = $fila.next('.child').find('li:eq('+contar+')').find('select,input');
+					value = $inputChild2.val();
+					if($inputChild2.is(':checkbox')){//x si es checkbox
+						if($inputChild2.prop('checked')){
+							value = true;
+						}else{
+							value = false;
+						}
+					}
+				}
 			}
+			//Guardar los inputs
+			ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
 		}
-		//Guardar los inputs
-		ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
 	});
 }
 
@@ -1267,19 +1442,37 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 function _asignarInputsValues(ctx,$fila){
 	var contChild = 0;
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
-		if(celda.visible && celda.value !== undefined ){// se asignan a los inputs ocultos
-			if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
-				$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+		if(celda.value !== undefined ){
+			if(celda.visible){// se asignan a los inputs ocultos
+				if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
+					$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
+					if($fila.find('td:eq('+celda.idCell+') input').is(':checkbox')){
+						if(celda.value){
+							$fila.find('td:eq('+celda.idCell+') input').prop('checked',true);
+						}else{
+							$fila.find('td:eq('+celda.idCell+') input').prop('checked',false);
+						}
+					}
+				}
+			}else{//se asignan alos child
+				if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
+					$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
+				}else{
+					$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
+					if($fila.next('.child').find('li:eq('+contChild+') input').is(':checkbox')){
+						if(celda.value){
+							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',true);
+						}else{
+							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',false);
+						}
+					}
+				}
+				 contChild++;
 			}
-		}else{//se asignan alos child
-			if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
-				$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
-			}else{
-				$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
-			}
-			 contChild++;
+		}else if(!celda.visible){//si esta oculto, es un child no editable por lo que hay que contarlo.
+			contChild++;
 		}
 	});
 }
@@ -1298,10 +1491,12 @@ function _asignarInputsValues(ctx,$fila){
 */
 function  _createTr(dt,ctx,columns){
 	var row = {};
-	jQuery.grep(ctx.oInit.colModel, function( n) {
-		row[n.name] = '';
-	});
-	columns.unshift(row);
+	if(ctx.oInit.colModel !== undefined){
+		jQuery.grep(ctx.oInit.colModel, function( n) {
+			row[n.name] = '';
+		});
+		columns.unshift(row);
+	}
 	return columns;
 }
 
@@ -1498,6 +1693,10 @@ apiRegister( 'inlineEdit.getRowSelected()', function ( dt,actionType ) {
 
 apiRegister( 'inlineEdit.deleteAllSelects()', function ( dt ) {
 	return _deleteAllSelects(dt);
+} );
+
+apiRegister( 'inlineEdit.cloneLine()', function (dt, ctx, idRow ) {
+	_cloneLine(dt,ctx,idRow);
 } );
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

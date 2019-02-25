@@ -34,7 +34,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate'], factory);
+		define(['jquery', './core/utils/jquery.form', './core/utils/form2object', './rup.base', './rup.validate', './rup.message'], factory);
 	} else {
 
 		// Browser globals
@@ -72,10 +72,6 @@
          * jQuery("#form").rup_form("ajaxFormSubmit", options);
          */
 		ajaxFormSubmit: function (options) {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var $self = this;
 			// Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
 			$.set_uda_ajax_mode_on();
@@ -91,10 +87,6 @@
          * jQuery("#form").rup_form("ajaxSubmit", options);
          */
 		ajaxSubmit: function (argOptions) {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var $self = this,
 				options = $.extend(true, {}, $.fn.rup_form.defaults, argOptions);
 			// Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
@@ -119,10 +111,6 @@
          * jQuery("#form").rup_form("destroy");
          */
 		destroy: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var $self = this;
 			$self.removeClass('rup_form');
 			$.removeData($self[0]);
@@ -138,10 +126,6 @@
          * jQuery("#form").rup_form("formSerialize");
          */
 		formSerialize: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var $self = this,
 				fieldArray, element, ruptype, fieldArray = [];
 
@@ -169,10 +153,6 @@
          * jQuery("#form").rup_form("formToJson");
          */
 		formToJson: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			return form2object(this[0]);
 		},
 		/**
@@ -184,10 +164,6 @@
          * jQuery("#form .specialFields").rup_form("fieldSerialize");
          */
 		fieldSerialize: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var a = [];
 			this.each(function () {
 				var n = $(this).attr('name');
@@ -220,10 +196,6 @@
          * jQuery("#form .specialFields").rup_form("fieldValue");
          */
 		fieldValue: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var valuesArray = [],
 				value;
 			this.each(function () {
@@ -248,10 +220,6 @@
          * jQuery("#form").rup_form("resetForm");
          */
 		resetForm: function () {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			return this.each(function () {
 				$(this).resetForm();
 			});
@@ -269,10 +237,6 @@
          * jQuery("#form").rup_form("clearForm", true);
          */
 		clearForm: function (includeHidden) {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			return this.each(function () {
 				$('input,select,textarea', this).rup_form('clearFields', includeHidden);
 			});
@@ -290,10 +254,6 @@
          * jQuery("#form .specialFields").rup_form("clearFields", true);
          */
 		clearFields: function (includeHidden) {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			return this.each(function () {
 				var ruptype = $(this).attr('ruptype');
 
@@ -311,10 +271,6 @@
          * @param {object} settings - Propiedades de configuración
          */
 		configureOptions: function (settings) {
-			if((this.is('form') && !this.hasClass('rup_form')) || 
-				!$('form:first',this.parents()).hasClass('rup_form')) {
-				return undefined;
-			}
 			var $self = this,
 				hasFileInputs, beforeSendUserEvent, beforeSubmitUserEvent;
 
@@ -464,6 +420,9 @@
 			} else {
 				$self.ajaxForm(settings);
 			}
+
+			//Se audita el componente
+			$.rup.auditComponent('rup_form', 'init');
 		}
 	});
 

@@ -23,7 +23,7 @@ Opciones por defecto del objeto de configuración del menú desplegable asociado
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| dropdownIcon | <code>string</code> | <code>&quot;ui-icon-triangle-1-s&quot;</code> | Clase css correspondiente al icono del control que despliega el menú. |
+| [dropdownIcon] | <code>string</code> | <code>&quot;ui-icon-triangle-1-s&quot;</code> | Clase css correspondiente al icono del control que despliega el menú. |
 
 <a name="module_rup_button..defaults"></a>
 
@@ -35,5 +35,5 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| dropdown | <code>boolean</code> \| <code>Object</code> | <code>false</code> | Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo. |
+| [dropdown] | <code>boolean</code> \| <code>Object</code> | <code>false</code> | Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo. |
 

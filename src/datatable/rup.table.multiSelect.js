@@ -514,11 +514,19 @@ function info ( api )
 		name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
 		var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionadas');
 		var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionada');
-		el.append( $('<span class="select-item"/>').append( api.i18n(
-			'select.'+name+'s',
-			{ _: '%d '+name+'s '+sels+'', 0: '', 1: '1 '+name+' '+sel+'' },
-			num
-		) ) );
+		if(ctx.oInit.showMultiSelectedZero){//se muestra el mensaje
+			el.append( $('<span class="select-item"/>').append( api.i18n(
+				'select.'+name+'s',
+				{ _: '%d '+name+'s '+sels+'', 1: '1 '+name+' '+sel+'' },
+				num
+			) ) );
+		}else{// nose muestra.
+			el.append( $('<span class="select-item"/>').append( api.i18n(
+					'select.'+name+'s',
+					{ _: '%d '+name+'s '+sels+'', 0: '', 1: '1 '+name+' '+sel+'' },
+					num
+				) ) );
+		}
 	};
 
 	rows = ctx.multiselection.numSelected;
@@ -526,16 +534,16 @@ function info ( api )
 
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = $(el);
+		el = $("div.paginationContainer > div > div:first-child");
 
 		var output  = $('<span class="select-info"/>');
 		add( output, 'row', rows );
-		add( output, 'column', columns );
-		add( output, 'cell', cells  );
+		//add( output, 'column', columns );
+		//add( output, 'cell', cells  );
 
-		var exisiting = el.children('span.select-info');
-		if ( exisiting.length ) {
-			exisiting.remove();
+		var existing = el.children('span.select-info');
+		if ( existing.length ) {
+			existing.remove();
 		}
 
 		if ( output.text() !== '' ) {
@@ -578,6 +586,9 @@ function init ( ctx ) {
 			// Row
 			if ( d._multiSelect_selected ) {
 				$( row ).addClass( ctx._multiSelect.className );
+				if(api.row(index).child() !== undefined){
+					api.row(index).child().addClass( ctx._multiSelect.className );
+				}
 			}
 
 			// Cells and columns - if separated out, we would need to do two
@@ -647,6 +658,12 @@ function init ( ctx ) {
 		disableMouseSelection( api );
 		api.off( '.dtSelect' );
 	} );
+	
+	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
+			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			} ) );
+	 }
 }
 
 /**
@@ -678,6 +695,9 @@ function _drawSelectId(api,ctx){
 		if(idx >= 0){
 			api.context[0].aoData[ idx ]._multiSelect_selected = true;
 			$( api.context[0].aoData[ idx ].nTr ).addClass( api.context[0]._multiSelect.className );
+			if(api.row(idx).child() !== undefined){
+				api.row(idx).child().addClass( ctx._multiSelect.className );
+			}
 			// Marcamos el checkbox
 			$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 			$( api.context[0].aoData[ idx ].nTr ).triggerHandler('tableHighlightRowAsSelected');
@@ -690,6 +710,10 @@ function _drawSelectId(api,ctx){
 		}
 	});
 	if(pos >= 0){
+		//si hay mas columnas porque aun no ha refrescado al crear y clonar.
+		if(ctx._iDisplayLength < ctx.json.rows.length && !$('#'+ctx.sTableId+' tbody tr').hasClass('new')){
+			pos--;
+		}
 		DataTable.Api().rupTable.selectPencil(api.context[0],pos);
 	}
 }
@@ -1281,9 +1305,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 		}
 		if(id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0){
 			var pos = 0;
-			var arra = {id:id,page:ctx.json.page,line:line};
-			//ctx.multiselection.selectedIds.splice(pos,0,id);
-			//ctx.multiselection.selectedRowsPerPage.splice(pos,0,{id:id,page:ctx.json.page,line:line});
+			var arra = {id:id,page:Number(ctx.json.page),line:line};
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 
@@ -1336,7 +1358,7 @@ function maintIdsRows(DataTable,id,select,pagina,line,ctx){
 
 			}
 			var posDeselect = 0;
-			var arraDeselect = {id:id,page:ctx.json.page,line:line};
+			var arraDeselect = {id:id,page:Number(ctx.json.page),line:line};
 
 			//Inicio de ordenacion, Se ordena los selected ids.
 			$.each(ctx.multiselection.deselectedRowsPerPage,function(index,p) {
@@ -1553,7 +1575,8 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 	this.iterator( 'row', function ( ctx, idx ) {
 		// si es en edicion en linea,
 		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
-				&& ctx.inlineEdit.lastRow.idx !== idx){
+				&& ctx.inlineEdit.lastRow.idx !== idx){	
+			
 			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
 		}
 		$(ctx.aoData[ idx ].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
@@ -1563,6 +1586,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 		
 		// Añadimos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().addClass( ctx._multiSelect.className );
+		}
 		// Marcamos el checkbox
 		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 		
@@ -1591,6 +1617,9 @@ apiRegisterPlural( 'rows().multiSelect()', 'row().multiSelect()', function ( mul
 					ctx.aoData[ idx ]._multiSelect_selected = true;
 					// Añadimos el fondo amarillo
 					$( ctx.aoData[ idx ].nTr ).addClass( ctx._multiSelect.className );
+					if(api.row(idx).child() !== undefined){
+						api.row(idx).child().addClass( ctx._multiSelect.className );
+					}
 					// Marcamos el checkbox
 					$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', true);
 
@@ -1696,6 +1725,9 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 		
 		// Quitamos el fondo amarillo
 		$( ctx.aoData[ idx ].nTr ).removeClass( ctx._multiSelect.className );
+		if(api.row(idx).child() !== undefined){
+			api.row(idx).child().removeClass( ctx._multiSelect.className );
+		}
 		// Desmarcamos el checkbox
 		$($( ctx.aoData[ idx ].anCells ).filter('.select-checkbox')).find(':input').prop('checked', false);
 		

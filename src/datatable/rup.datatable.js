@@ -132,26 +132,6 @@
 					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
 				}
 			} );
-			 
-			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
-				//Se mira la nueva reordenacion y se ordena.
-
-				ctx.multiselection.selectedIds = [];
-				ctx.multiselection.selectedRowsPerPage = [];
-				//Viene del servidor por eso la linea de la pagina es 1 menos.
-				$.each(json.reorderedSelection,function(index,p) {
-					var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-					ctx.multiselection.selectedIds.splice(index,0,arra.id);
-					ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
-				});
-				if(!ctx.multiselection.selectedAll){
-					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
-				}
-				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-				if(options.buttons !== undefined){
-					DataTable.Api().buttons.displayRegex(ctx);
-				}
-			} );
 			
 			apiRegister( 'rupTable.getIdPk()', function ( json ) {
 
@@ -178,10 +158,15 @@
 		* @param {string} actionType - Método de operación CRUD.
 		*
 		*/
-		apiRegister( 'rupTable.blockPKEdit()', function ( ctx, actionType ) {
+		apiRegister( 'rupTable.blockPKEdit()', function ( ctx, actionType , sufijo) {
 
 			var blockPK = ctx.oInit.blockPKeditForm;
-			var idForm = ctx.oInit.formEdit.idForm;
+			var idForm = '';
+			if(ctx.oInit.formEdit !== undefined){
+				idForm = ctx.oInit.formEdit.idForm;
+			}else{
+				idForm = $('#'+ctx.sTableId+'_search_searchForm');
+			}
 			var primaryKey = ctx.oInit.primaryKey;
 			
 			// Comprobamos si el bloqueo de claves primarias esta activo y la tabla tiene alguna columna definida como clave primaria.
@@ -190,6 +175,9 @@
 				if(actionType === "PUT") {
 					$.each(primaryKey,function(key,id) {
 						var input = $(idForm[0]).find(":input[name=" + id + "]");
+						if(sufijo !== undefined){
+							input = $(idForm[0]).find(":input[name=" + id + sufijo + "]");
+						}
 						
 						// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
 						if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
@@ -296,7 +284,7 @@
 	            };
 	            options.responsive.details.renderer = renderer;
 			}
-
+			
 			return options;
 		},
 
@@ -323,16 +311,22 @@
 				if($self[0].tHead !== null){
 					$(th).insertBefore($self[0].tHead.rows[0].cells[0])
 				}
-				//se crea el th tfoot
-				if($self[0].tFoot !== null){
-					$('<th/>').insertBefore($self[0].tFoot.rows[0].cells[0])
-				}
+
 				//Se aseguro que no sea orderable
 				if(options.columnDefs.length > 0){
 					options.columnDefs[0].orderable = false;
 				}
 			}
+			
+			//se crea el tfoot
+			var $tfoot = $('<tfoot>').appendTo($self[0]);
+			var $tr = $('<tr>').appendTo($tfoot);
+			
 			var columns = this.find('th[data-col-prop]').map((i, e) => {
+				//se añaden las columnas al tfoot
+				var $th = $('<th>').appendTo($tr);
+				$th.text($(e).text());
+				
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
 						var iconCheck = 'fa fa-times';
@@ -408,8 +402,16 @@
 						ctx.seeker.search.funcionParams = json.reorderedSeeker;
 					}
 					
-					if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.alta){
-						ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+					if(ctx.oInit.inlineEdit !== undefined ){
+						if(ctx.oInit.inlineEdit.alta && !$('#'+ctx.sTableId+' tbody tr:eq(0)').hasClass("new")){
+							ret.data = DataTable.Api().inlineEdit.createTr(table,ctx,ret.data);
+						}else{
+							ctx.oInit.inlineEdit.alta = undefined;
+						}
+						DataTable.Api().seeker.disabledButtons(ctx);
+						if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
+							ctx.inlineEdit.lastRow.idx = -1;
+						}
 					}
 
 					return ret.data;
@@ -478,14 +480,15 @@
 		_createSearchPaginator(tabla,settingsT){
 			//buscar la paginación.
 			if($('#'+tabla[0].id+'_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0'){
-				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator');
+				var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
 				var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina',settingsT.json.total);
 				var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina',settingsT.json.total);
-				var input = $('<input/>').attr({type: "text", size: "3",value:settingsT.json.page,maxlength:"3"})
-							.addClass('ui-pg-input')
+				var input = $('<input/>').attr({type: "text", size: "3",value:settingsT.json.page,maxlength:"3"}).addClass('ui-pg-input');
+				
 				liSearch.append(textPagina);
 				liSearch.append(input);
 				liSearch.append(toPagina);
+				
 				$('#'+tabla[0].id+'_previous').after(liSearch);
 				input.keypress(function (e) {
 					 if(e.which === 13)  // the enter key code
@@ -501,12 +504,8 @@
 				//Sacar un error
 			}
 			
-			// Crea un div que albergara la lista de botones de paginacion
-			$('#'+tabla[0].id+'_paginate').prepend(
-					"<div id='" + tabla[0].id + "_buttons' class='recolocatedPagination_buttons' />"
-			);
-			
 			// Añade iconos para versiones moviles/tablets
+			// TODO: comprobar el adapter y en funcion a eso usar unos iconos u otros
 			$('#'+tabla[0].id+'_first')
 				.addClass('recolocatedPagination_iconButton')
 				.append("<i class='material-icons'>&#xe5dc;</i>");
@@ -519,15 +518,34 @@
 			$('#'+tabla[0].id+'_last')
 				.addClass('recolocatedPagination_iconButton')
 				.append("<i class='material-icons'>&#xe5dd;</i>");
+
+			/*$("<i class='fa fa-angle-double-left d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_first')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-left d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_previous')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-right d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_next')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='fa fa-angle-double-right d-sm-none'/>")
+				.insertAfter($('#'+tabla[0].id+'_last')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);*/
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
-			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_buttons'));
-			
-			// Añadimos clases para acabar con la recolocacion
-			$('#'+tabla[0].id+'_paginate').addClass('recolocatedPagination_container');
-			$('#'+tabla[0].id+'_buttons').addClass('recolocatedPagination_rellenoCtr');
-			$('#'+tabla[0].id+'_info').addClass('recolocatedPagination_rellenoDrc');
-			$('#'+tabla[0].id+'_length').addClass('recolocatedPagination_length');
+			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_paginate'));
 
 		},
 
@@ -947,9 +965,15 @@
 	// MÉTODO DE INICIALIZACION
 	//*******************************
 	$.fn.rup_datatable('extend', {
-		_init : function(args){
-			var $self = this,
-				settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
+		_init : function(args){			
+			var $self = this;
+			//Se añade filter por defecto
+			$.fn.rup_datatable.defaults.filter = {
+									id:$self[0].id+"_filter_form",
+									filterToolbar:$self[0].id+"_filter_toolbar",
+									collapsableLayerId:$self[0].id+"_filter_fieldset"
+		       						};
+			var	settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
 			
 			$self.triggerHandler('tableBeforeInit');
 			
@@ -976,9 +1000,6 @@
 			}
 			
 			
-			if(settings.formEdit === undefined && settings.inlineEdit === undefined){
-				settings.buttons = undefined;
-			}
 			if(settings.formEdit !== undefined){
 				settings.inlineEdit = undefined;
 			}
@@ -1032,6 +1053,17 @@
 
 			}
 			
+			if(args[0].responsive === undefined){//si el usuario no cambia el selector
+				var responsive = {           
+					details: {
+				    	type: 'column',
+				    	target: 'td span.openResponsive'
+							},
+					selectorResponsive: 'td span.dtr-data'};		
+					
+				settings.responsive = responsive;;
+			}
+			
 			$self._initOptions(settings);
 			
 			var tabla = $self.DataTable(settings);
@@ -1079,6 +1111,9 @@
 							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
 						}
 						DataTable.Api().select.drawSelectId(tabla.context[0]);
+						if(tabla.context[0].oInit.inlineEdit !== undefined){
+							DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
+						}
 					}
 					if(settingsTable.seeker !== undefined 
 							&& settingsTable.seeker.search !== undefined){
@@ -1098,14 +1133,32 @@
 				if(settingsTable.inlineEdit !== undefined ){
 					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
 					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
-						DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-						var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-						if(count > 0){
-							ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
-						}else{
-							ctx.oInit.inlineEdit.rowDefault = undefined;
+						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
+							DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						}//else{
+							DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+							var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+							if(count > 0){
+								ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
+							}else{
+								ctx.oInit.inlineEdit.rowDefault = undefined;
+							}
+					//	}
+					}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
+						var rowsBody = $( ctx.nTBody);
+						var $tr = $('tr:nth-child(1)',rowsBody);
+						if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id){
+							$tr.addClass('selected tr-highlight');
 						}
 					}
+				}
+				
+				if(settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined
+						&& settingsTable.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+					DataTable.Api().editForm.addchildIcons(settingsTable);
+				}
+				if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+					DataTable.Api().editForm.addchildIcons(settingsTable);
 				}
 
 			  });
@@ -1142,6 +1195,13 @@
 			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 			
 			$self.triggerHandler('tableAfterInit');
+			
+			 if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
+					 settings.multiselect === undefined && settings.select === undefined){
+					$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+						DataTable.Api().editForm.addchildIcons(tabla.context[0]);
+					} ) );
+			 }
 		}
 	});
 
@@ -1172,24 +1232,29 @@ $.fn.rup_datatable.defaults = {
 	responsive: {           
 		details: {
 	    	type: 'column',
-	    	target: 'td span.openResponsive'
+	    	target: 'tr'
 				},
 		selectorResponsive: 'td span.dtr-data'		
 		}, 
-	dom: 't<"paginationContainer"pli>r',//i: Info, t: table, p:pagination, r: procesing , l:length:
+	dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
+		't<"container-fluid paginationContainer"' +
+			'<"row"' +
+				'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+				'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+				'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+				'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+			'>' +
+		'>' +
+		'r',
     multiplePkToken: '~',
     primaryKey:["id"],
     blockPKeditForm: true,
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
-    filter:{
-  	  id:"table_filter_form",
-  	  filterToolbar:"table_filter_toolbar",
-  	  collapsableLayerId:"table_filter_fieldset"
-     },
 	adapter: 'datatable_material',
-    order: [[ 1, 'asc' ]]
+    order: [[ 1, 'asc' ]],
+    showMultiSelectedZero: true
 	};
 
 }));

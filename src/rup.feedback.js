@@ -162,6 +162,8 @@ de la aplicación pueda cerrar la capa manualmente.
 				this.set(opciones.message, opciones.type, opciones.imgClass);
 			}
 
+			//Se audita el componente
+			$.rup.auditComponent('rup_feedback', 'init');
 		},
 	/**
      * @description Añade el enlace de cierre.

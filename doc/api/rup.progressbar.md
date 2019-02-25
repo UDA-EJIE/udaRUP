@@ -36,9 +36,9 @@ Propiedades de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| disabled | <code>boolean</code> | <code>false</code> | Determina si la barra de progreso está habilitada o deshabilitada. |
-| max | <code>number</code> | <code>100</code> | Indica el valor máximo que determinará el 100% de progreso. |
-| value | <code>number</code> | <code>0</code> | Determina el valor de progreso con el que se incializará la barra de progreso. |
+| [disabled] | <code>boolean</code> | <code>false</code> | Determina si la barra de progreso está habilitada o deshabilitada. |
+| [max] | <code>number</code> | <code>100</code> | Indica el valor máximo que determinará el 100% de progreso. |
+| [value] | <code>number</code> | <code>0</code> | Determina el valor de progreso con el que se incializará la barra de progreso. |
 
 <a name="module_rup_progressbar..getRupValue"></a>
 

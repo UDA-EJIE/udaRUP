@@ -13,8 +13,7 @@ Genera un datatable
     * [~_getColumns(options)](#module_rup.datatable.._getColumns)
     * [~_doFilter(options)](#module_rup.datatable.._doFilter)
     * [~_ajaxOptions(options)](#module_rup.datatable.._ajaxOptions)
-    * [~_ajaxSuccessData(json)](#module_rup.datatable.._ajaxSuccessData)
-    * [~_ajaxRequestData(data, options)](#module_rup.datatable.._ajaxRequestData)
+    * [~_ajaxRequestData(data, ctx)](#module_rup.datatable.._ajaxRequestData)
     * [~_createSearchPaginator(tabla, settingsT)](#module_rup.datatable.._createSearchPaginator)
     * [~_clearFilter(options)](#module_rup.datatable.._clearFilter)
     * [~preConfigureFilter(settings)](#module_rup.datatable..preConfigureFilter)
@@ -70,21 +69,9 @@ Prepara el objeto necesario para la consulta de registros al servidor
 | --- | --- | --- |
 | options | <code>object</code> | Opciones del componente |
 
-<a name="module_rup.datatable.._ajaxSuccessData"></a>
-
-### rup.datatable~_ajaxSuccessData(json)
-Obtiene los datos devueltos por el servidor de manera ordenada
-
-**Kind**: inner method of [<code>rup.datatable</code>](#module_rup.datatable)  
-**Since**: UDA 3.4.0 // Datatable 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| json | <code>object</code> | Información de los registros de la página actual |
-
 <a name="module_rup.datatable.._ajaxRequestData"></a>
 
-### rup.datatable~_ajaxRequestData(data, options)
+### rup.datatable~_ajaxRequestData(data, ctx)
 Solicita los datos al servidor
 
 **Kind**: inner method of [<code>rup.datatable</code>](#module_rup.datatable)  
@@ -93,7 +80,7 @@ Solicita los datos al servidor
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>object</code> | Opciones del datatable |
-| options | <code>object</code> | Opciones del componente |
+| ctx | <code>object</code> | contexto  del componente table |
 
 <a name="module_rup.datatable.._createSearchPaginator"></a>
 
@@ -140,13 +127,13 @@ Actualiza el resumen de los criterios de filtrado a partir de los valores existe
 <a name="module_rup.datatable..createEventSelect"></a>
 
 ### rup.datatable~createEventSelect(tabla)
-Crea un evente para mantener la multiseleccin y el seeke y el select ya que accede a bbdd.
+Crea un evente para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
 
 **Kind**: inner method of [<code>rup.datatable</code>](#module_rup.datatable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| tabla | <code>object</code> | LA configuración de la tabla. |
+| tabla | <code>object</code> | La configuración de la tabla. |
 
 <a name="module_rup.datatable..initializeMultiselectionProps"></a>
 
