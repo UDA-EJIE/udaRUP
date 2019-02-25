@@ -2934,7 +2934,7 @@ function inicio(ctx) {
 	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 
-	DataTable.Api().buttons.initButtons(opts);
+	DataTable.Api().buttons.initButtons(ctx,opts);
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
