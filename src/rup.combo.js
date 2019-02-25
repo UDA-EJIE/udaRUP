@@ -1317,6 +1317,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				if (setRupValue) {
 					//Vaciar combo, quitarle valor y deshabilitar
 					$('#' + settings.id).rup_combo('select', setRupValue);
+					if($('#' + settings.id).rup_combo("getRupValue") != settings.selected && settings.blank != null) {
+						$('#' + settings.id).rup_combo("setRupValue", settings.blank);
+					}
 				} else {
 					//Lanzar cambio para que se recarguen hijos
 					$('#' + settings.id).trigger('change');
