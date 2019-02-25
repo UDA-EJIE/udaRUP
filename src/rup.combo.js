@@ -583,6 +583,28 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//LOCAL
 					source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
 					if (source !== undefined) {
+						if (settings.blank != null) {
+							var isOptgroup = false;
+							
+							// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+							$.each(settings.sourceGroup, function(key, value) { 
+							    if(typeof value === "object" && value !== null) {
+							    	isOptgroup = true;
+							        return false; 
+							    }
+							});
+							
+							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
+							if(isOptgroup) {
+								settings.blankDone = false;
+							} 
+							// Si es un combo normal añade un registro nuevo al array.
+							else {
+								settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
+							}
+						}
+						
 						//Parsear datos
 						this._parseLOCAL(source, settings, $('#' + settings.id));
 
@@ -622,10 +644,28 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							},
 							success: function (data, textStatus, jqXHR) {
 								if (settings.blank != null) {
-									data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+									var isOptgroup = false;
+									
+									// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+									$.each(data[0], function(key, value) { 
+									    if(typeof value === "object" && value !== null) {
+									    	isOptgroup = true;
+									        return false; 
+									    }
+									});
+									
+									// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+									// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+									if(isOptgroup) {
+										settings.blankDone = false;
+									} 
+									// Si es un combo normal añade un registro nuevo al array.
+									else {
+										data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
+									}
 								}
 								rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
-	
+
 								// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
 								if (settings.onLoadSuccess !== null) {
 									jQuery(settings.onLoadSuccess($('#' + settings.id)));
@@ -991,7 +1031,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$('#' + settings.id).rup_combo('refresh'); //Actualizar cambios (remotos)
 				$('#' + settings.id).attr('multiple', 'multiple');
 
-				// Asignaci�n de eventos de teclado
+				// Asignación de eventos de teclado
 				var self = this;
 				$('#' + settings.id).data('echMultiselect').button.on('keypress.selectmenu', function (event) {
 					if (event.which > 0) {
@@ -1127,7 +1167,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_parseOptGroupLOCAL: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
-
+			
+			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
+			// añadimos una opcion en la primera posicion de la lista del combo.
+			if(!settings.blankDone && settings.blankDone != undefined) {
+				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
+				settings.blankDone = true;
+			}
+			
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1180,6 +1227,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
          */
 		_parseOptGroupREMOTE: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
+			
+			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
+			// añadimos una opcion en la primera posicion de la lista del combo.
+			if(!settings.blankDone && settings.blankDone != undefined) {
+				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
+				settings.blankDone = true;
+			}
+			
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1566,6 +1621,29 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 				} else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
 					//LOCAL
+					
+					if (settings.blank != null) {
+						var isOptgroup = false;
+						
+						// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+						$.each(settings.sourceGroup, function(key, value) { 
+						    if(typeof value === "object" && value !== null) {
+						    	isOptgroup = true;
+						        return false; 
+						    }
+						});
+						
+						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
+						if(isOptgroup) {
+							settings.blankDone = false;
+						} 
+						// Si es un combo normal añade un registro nuevo al array.
+						else {
+							settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
+						}
+					}
+					
 					//Parsear datos
 					if (settings.loadFromSelect === false) {
 						if (settings.source) {
@@ -1607,7 +1685,25 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						},
 						success: function (data, textStatus, jqXHR) {
 							if (settings.blank != null) {
-								data.splice(0,0,{style:"",value:settings.blank,label:labelBlank});
+								var isOptgroup = false;
+								
+								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+								$.each(data[0], function(key, value) { 
+								    if(typeof value === "object" && value !== null) {
+								    	isOptgroup = true;
+										return false;
+								    }
+								});
+								
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+								if(isOptgroup) {
+									settings.blankDone = false;
+								} 
+								// Si es un combo normal añade un registro nuevo al array.
+								else {
+									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
+								}
 							}
 							rupCombo._ajaxSuccess(data, settings, html);
 							if (settings.onLoadSuccess !== null) {
@@ -1709,6 +1805,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
      * @property {boolean} [rowStriping=false] - Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
      * @property {number} [typeAhead=false] - Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
      * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
+     * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
      */
 	$.fn.rup_combo.defaults = {
 		onLoadError: null,
@@ -1730,7 +1827,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		readAsString: false,
 		rowStriping: false,
 		typeAhead: 1000,
-		legacyWrapMode: false
+		legacyWrapMode: false,
+		open: function( event, ui ) {
+			var anchoCombo = $("#" + this.id + "-button").width();
+			$("#" + this.id + "-menu").closest('div').attr('id', 'ui-selectmenu-menu').width(anchoCombo);
+			$("#" + this.id + "-menu").width(anchoCombo - 2);
+		}
 	};
 
 

@@ -43,5 +43,3 @@ Una vez tenemos la botonera declarada le podemos añadir botones declarándolos 
 	}
 };
 ```
-
-Toda la lógica de los botones la podemos encontrar en el fichero __buttons.custom.js__. En caso de necesitar crear nuevo botones deberemos hacerlo dentro de este fichero.
