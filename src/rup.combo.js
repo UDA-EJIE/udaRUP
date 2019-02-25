@@ -159,13 +159,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		 */
 		change: function () {
 			//Tipo de combo
-			if (this.length === 0 || !$(this).data('settings').multiselect) {
-				//Simple > selectmenu
-				$(this).selectmenu('change');
-			} else {
-				//Multiple > multiselect
-				$(this).triggerHandler('change');
-			}
+			$(this).data('settings').change && $(this).data('settings').change();
+			// if (this.length === 0 || !$(this).data('settings').multiselect) {
+			// 	//Simple > selectmenu
+			// 	$(this).data('settings').change();
+			// } else {
+			// 	//Multiple > multiselect
+			// 	$(this).triggerHandler('change');
+			// }
 		},
 		/**
 		 * Realiza una reinicizalización del estado del componente.
@@ -575,13 +576,15 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		reload: function (id) {
 			if (this.length !== 0) {
 				var settings = $(this).data('settings'),
-					source, setRupValue;
+					source, setRupValue, wasInited = false;
 
+				$('#' + settings.id).removeClass('inited') && (wasInited = !!1)
 				//Vaciar combo, quitarle valor y deshabilitar
 				$('#' + settings.id).rup_combo('disableChild');
 
 				if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
 					//LOCAL
+					$('#' + settings.id).removeClass('inited');
 					source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
 					if (source !== undefined) {
 
@@ -623,6 +626,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							$('#' + settings.id).rup_combo('select', setRupValue);
 						}
 					}
+					multiChange(settings);
+					wasInited && $('#' + settings.id).addClass('inited');
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
 					var data = this._getParentsValues(settings.parent, true),
@@ -638,6 +643,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						contentType: 'application/json',
 						beforeSend: function (xhr) {
 							rupCombo._ajaxBeforeSend(xhr, settings);
+							$('#' + settings.id).removeClass('inited');
 						},
 						success: function (data, textStatus, jqXHR) {
 							if (settings.blank != null) {
@@ -663,12 +669,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
 							}
+							multiChange(settings);
+							wasInited && $('#' + settings.id).addClass('inited');
 						},
 						error: function (xhr, textStatus, errorThrown) {
 							if (settings.onLoadError !== null) {
 								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 							} else {
-								self._ajaxError(xhr, textStatus, errorThrown);
+								rupCombo._ajaxError(xhr, textStatus, errorThrown);
 							}
 						}
 					});
@@ -676,8 +684,11 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
 					//Se lanza la funcion que obtiene los valores a mostrar
+					$('#' + settings.id).removeClass('inited');
 					jQuery(settings.source);
 					this._makeCombo(settings);
+					multiChange(settings);
+					wasInited && $('#' + settings.id).addClass('inited');
 				}
 			}
 		},
@@ -1005,9 +1016,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			$('#' + settings.id).data('settings', settings);
 
 			//Añadir evento change
-			if (settings.change) {
-				$('#' + settings.id).on('change', settings.change);
-			}
+			// if (settings.change) {
+			// 	$('#' + settings.id).on('change', settings.change);
+			// }
 
 			//Tipo de combo
 			if (!settings.multiselect) {
@@ -1282,6 +1293,11 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			$(icon).removeClass('rup-combo_loading');
 			$(icon).addClass('ui-icon-triangle-1-s');
 
+			var isInited = false;
+			$('#' + settings.id).is('.inited') && (isInited = true);
+
+			$('#' + settings.id).removeClass('inited');
+
 			//Vaciar combo
 			$('#' + settings.id).empty();
 
@@ -1297,17 +1313,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Crear combo
 				this._makeCombo(settings);
 
-				setRupValue = $.data($('#' + settings.id)[0], 'setRupValue');
+				var setRupValue = $.data($('#' + settings.id)[0], 'setRupValue');
 				if (setRupValue) {
 					//Vaciar combo, quitarle valor y deshabilitar
 					$('#' + settings.id).rup_combo('select', setRupValue);
 				} else {
 					//Lanzar cambio para que se recarguen hijos
-					$('#' + settings.id).rup_combo('change');
+					$('#' + settings.id).trigger('change');
 				}
 			} else {
 				$('#' + settings.id).append('<option></option>');
 			}
+
+			isInited && $('#' + settings.id).removeClass('inited');
 		},
 		/**
 		 * Procesa la respuesta de la petición AJAX en el caso de que se haya producido un error en la misma.
@@ -1521,6 +1539,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					attrsJson = {},
 					attrs;
 
+				// Se sobreescribe el change:
+				settings.change && (settings.userChange = settings.change);
+				settings.userChange && (settings.change = function() {
+					$('#' + settings.id).is('.inited') && settings.userChange();
+				});
+
 				//Se recoge el tabindex indicado en el elemento
 				settings.tabindex = $(this).attr('tabindex');
 
@@ -1613,6 +1637,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
 						$('#' + settings.id).rup_combo('reload', settings.id);
 					}
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
 
 				} else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
 					//LOCAL
@@ -1661,6 +1687,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//Almacenar los settings
 					$('#' + settings.id).data('settings', settings);
 
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
+
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
 					var url = settings.source ? settings.source : settings.sourceGroup,
@@ -1696,6 +1725,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
 							}
+
+							multiChange(settings);
+							$('#' + settings.id).addClass('inited');
 						},
 						error: function (xhr, textStatus, errorThrown) {
 							if (settings.onLoadError !== null) {
@@ -1716,6 +1748,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 					//Almacenar los settings
 					$('#' + settings.id).data('settings', settings);
+
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
 				}
 
 				//Asociar evento CHANGE para propagar cambios a los hijos
@@ -1749,6 +1784,22 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		}
 	});
+
+	// Creamos un método para añadir el change a los multiselect
+	var multiChange = function(settings) {
+		settings.multiselect && (
+			$('#' + settings.id).on('multiselectopen',() => {
+				!settings.opened &&(settings.lastMultiValue = $('#' + settings.id).rup_combo('getRupValue'));
+				settings.opened = !!1;
+			}),
+			$('#' + settings.id).on('multiselectclose', () => {
+				let changed = (settings.lastMultiValue.toString() !=
+							  $('#' + settings.id).rup_combo('getRupValue').toString());
+				changed && settings.opened && settings.change();
+				settings.opened = !!0;
+			})
+		);
+	}
 
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
