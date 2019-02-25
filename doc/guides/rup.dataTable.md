@@ -109,17 +109,6 @@ Este sería un ejemplo del código que se debería de incluir en la jsp:
                 <th data-col-prop="rol" data-col-type="combo">Rol</th>
             </tr>
         </thead>
-        <tfoot>
-          <tr>
-              <th>Id</th>
-              <th>Nombre</th>
-              <th>Primer apellido</th>
-              <th>Ejie</th>
-              <th>Fecha alta</th>
-              <th>Fecha baja</th>
-              <th>Rol</th>
-          </tr>
-        </tfoot>
 </table>
 
 <jsp:include page="includes/datatableEdit.jsp"></jsp:include>
@@ -129,7 +118,7 @@ Este sería un ejemplo del código que se debería de incluir en la jsp:
 * **data-col-prop**: Identificador de la columna que va asociado a los formularios.
 * **data-col-type**: Tipo que hace correspondencia con los RUP.
 * **data-col-sidx**: Identificador de base de datos.
-* **tfoot**: Formulario de filtrado. Los campos incluidos en este formulario se utilizarán como valores de filtrado de los registros.
+* **tfoot**: Se usa para el formulario de filtrado. Los campos incluidos en este formulario se utilizarán como valores de filtrado de los registros.
 
 ### 5.1. Código Javascript
 
@@ -303,9 +292,12 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Diseño responsivo (RWD)
 * Edición en formulario
 * Multiselección
-* Búsqueda
+* Búsqueda (seeker)
 * Botonera
 * Reporting (Parcial)
+* Edición en linea
+* ColReorder
+* Selección simple
 
 ## 7. Sobreescritura del theme
 
