@@ -94,15 +94,15 @@ gulp.task('build:resources', function (callback) {
 	
 	// tether
 	console.log('tether');
-	gulp.src(['./node_modules/tether/dist/css/*min*.*'])
+	gulp.src(['./node_modules/tether/dist/css/tether\.*'])
 	.pipe(gulp.dest('./dist/css/externals/tether'));
 	
-	gulp.src(['./node_modules/tether/dist/js/*min*.*'])
+	gulp.src(['./node_modules/tether/dist/js/tether\.*'])
 		.pipe(gulp.dest('./dist/js/externals/tether'));
 
 	// popper.js
 	console.log('popper');
-	gulp.src(['./node_modules/popper.js/dist/umd/*min*.*'])
+	gulp.src(['./node_modules/popper.js/dist/umd/popper\.*'])
 		.pipe(gulp.dest('./dist/js/externals/popper'));
 	
 	// jasmine
