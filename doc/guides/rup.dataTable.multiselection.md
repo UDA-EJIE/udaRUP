@@ -10,8 +10,6 @@ El uso del plugin en el componente se realiza incluyendo en el array de la propi
 
 ```js
 $("#idComponente").rup_datatable({
-  url: "../jqGridUsuario",
-  usePlugins:["multiselection"],
   multiselect:{
     // Propiedades de configuraci�n del plugin multiselection
   }
@@ -20,12 +18,13 @@ $("#idComponente").rup_datatable({
 
 ## Funcionamiento interno
 
-Para su funcioanmiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiSelect.multiselection```.
+Para su funcioanmiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiselection```.
 
 Se puede acceder a esta estructura mediante la siguiente instrucci�n.
 
 ```js
-var multiselectionObj = DataTable.multiSelect.multiselection;
+var table = $('#example').DataTable();
+var multiselectionObj = table.context[0].multiselection;
 ```
 Se puede acceder a los m�todos de la api del multiSelect
 ``DataTable.Api().multiSelect.metodoEjemplo()`
