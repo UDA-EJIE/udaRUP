@@ -68,13 +68,13 @@
 	//*******************************
 	$.fn.rup_combo('extend', {
 		/**
-         * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del Combo.
-         *
-         * @function  getRupValue
-         * @return {string | number} - Devuelve el valor actual del componente seleccionado por el usuario.
-         * @example
-         * $("#idCombo").rup_combo("getRupValue");
-         */
+		 * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del Combo.
+		 *
+		 * @function  getRupValue
+		 * @return {string | number} - Devuelve el valor actual del componente seleccionado por el usuario.
+		 * @example
+		 * $("#idCombo").rup_combo("getRupValue");
+		 */
 		getRupValue: function (param) {
 			var $self = $(this),
 				settings = $self.data('settings'),
@@ -129,50 +129,52 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				$(this).rup_combo('select', param.toString());
 			} else {
 				//Multiple > multiselect
+				$(this).multiselect('uncheckAll');
 				$(this).rup_combo('select', (settings.readAsString === true ? param.split(',') : param));
 			}
 		},
 		/**
-         * Método que limpia el valor seleccionado en el combo. En el caso de selección múltiple los valores seleccionados.
-         *
-         * @function clear
-         * @example
-         * $("#idCombo").rup_combo("clear");
-         */
+		 * Método que limpia el valor seleccionado en el combo. En el caso de selección múltiple los valores seleccionados.
+		 *
+		 * @function clear
+		 * @example
+		 * $("#idCombo").rup_combo("clear");
+		 */
 		clear: function () {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
 				//Simple > selectmenu
-				$(this).rup_combo('select',"-1");
+				$(this).rup_combo('select', 0);
 			} else {
 				//Multiple > multiselect
 				$(this).multiselect('uncheckAll');
 			}
 		},
 		/**
-         * Método que lanza el evento change del componente.
-         *
-         * @function change
-         * @example
-         * $("#idCombo").rup_combo("change");
-         */
+		 * Método que lanza el evento change del componente.
+		 *
+		 * @function change
+		 * @example
+		 * $("#idCombo").rup_combo("change");
+		 */
 		change: function () {
 			//Tipo de combo
-			if (this.length === 0 || !$(this).data('settings').multiselect) {
-				//Simple > selectmenu
-				$(this).selectmenu('change');
-			} else {
-				//Multiple > multiselect
-				$(this).triggerHandler('change');
-			}
+			$(this).data('settings').change && $(this).data('settings').change();
+			// if (this.length === 0 || !$(this).data('settings').multiselect) {
+			// 	//Simple > selectmenu
+			// 	$(this).data('settings').change();
+			// } else {
+			// 	//Multiple > multiselect
+			// 	$(this).triggerHandler('change');
+			// }
 		},
 		/**
-         * Realiza una reinicizalización del estado del componente.
-         *
-         * @function  reset
-         * @example
-         * $("#idCombo").rup_combo("reset");
-         */
+		 * Realiza una reinicizalización del estado del componente.
+		 *
+		 * @function  reset
+		 * @example
+		 * $("#idCombo").rup_combo("reset");
+		 */
 		reset: function () {
 			var $self = $(this);
 
@@ -180,12 +182,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 		},
 		/**
-         * Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
-         *
-         * @function  checkAll
-         * @example
-         * $("#idCombo").rup_combo("checkAll");
-         */
+		 * Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
+		 *
+		 * @function  checkAll
+		 * @example
+		 * $("#idCombo").rup_combo("checkAll");
+		 */
 		checkAll: function () {
 			//Tipo de combo
 			if ($(this).data('settings').multiselect) {
@@ -197,16 +199,16 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Selecciona el elemento enviado como parámetro. En caso de ser un numérico se selecciona por la posición (comenzando en 0) y si es un literal se selecciona por el valor. En el caso de selección múltiple el parámetro será un array.
-         *
-         * @function  select
-         * @param {string | number | string[] | number[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
-         * @example
-         * // Simple
-         * $("#idCombo").rup_combo("select", 2);
-         * // Multiple
-         * $("#idCombo").rup_combo("select", [0,2]);
-         */
+		 * Selecciona el elemento enviado como parámetro. En caso de ser un numérico se selecciona por la posición (comenzando en 0) y si es un literal se selecciona por el valor. En el caso de selección múltiple el parámetro será un array.
+		 *
+		 * @function  select
+		 * @param {string | number | string[] | number[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
+		 * @example
+		 * // Simple
+		 * $("#idCombo").rup_combo("select", 2);
+		 * // Multiple
+		 * $("#idCombo").rup_combo("select", [0,2]);
+		 */
 		select: function (param) {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -228,16 +230,16 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Selecciona el elemento del combo que contiene como texto el indicado. En caso de no existir el texto a buscar el combo no sufrirá cambios En el caso de selección múltiple el parámetro será un array.
-         *
-         * @function  selectLabel
-         * @param {string | string[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
-         * @example
-         * // Simple
-         * $("#idCombo").rup_combo("selectLabel", "No");
-         * // Multiple
-         * $("#idCombo").rup_combo("selectLabel", ["No","Si"]);
-         */
+		 * Selecciona el elemento del combo que contiene como texto el indicado. En caso de no existir el texto a buscar el combo no sufrirá cambios En el caso de selección múltiple el parámetro será un array.
+		 *
+		 * @function  selectLabel
+		 * @param {string | string[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
+		 * @example
+		 * // Simple
+		 * $("#idCombo").rup_combo("selectLabel", "No");
+		 * // Multiple
+		 * $("#idCombo").rup_combo("selectLabel", ["No","Si"]);
+		 */
 		selectLabel: function (param) {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -263,13 +265,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
-         *
-         * @function  value
-         * @return {string | string[]} - Valor del elemento o elementos seleccionados.
-         * @example
-         * $("#idCombo").rup_combo("value");
-         */
+		 * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
+		 *
+		 * @function  value
+		 * @return {string | string[]} - Valor del elemento o elementos seleccionados.
+		 * @example
+		 * $("#idCombo").rup_combo("value");
+		 */
 		value: function () {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -286,13 +288,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Método que devuelve el label asociado al valor seleccionado en el combo. En el caso de la selección múltiple se devolverá un array.
-         *
-         * @function  label
-         * @return {string | string[]} - Texto del elemento o elementos seleccionado.
-         * @example
-         * $("#idCombo").rup_combo("label");
-         */
+		 * Método que devuelve el label asociado al valor seleccionado en el combo. En el caso de la selección múltiple se devolverá un array.
+		 *
+		 * @function  label
+		 * @return {string | string[]} - Texto del elemento o elementos seleccionado.
+		 * @example
+		 * $("#idCombo").rup_combo("label");
+		 */
 		label: function () {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -308,13 +310,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Devuelve el índice de la opción seleccionada en el combo (empezando en 0). En el caso de la selección múltiple se devolverá un array.
-         *
-         * @function  index
-         * @return {number | number[]} - Índice del elemento o elementos seleccionados.
-         * @example
-         * $("#idCombo").rup_combo("index");
-         */
+		 * Devuelve el índice de la opción seleccionada en el combo (empezando en 0). En el caso de la selección múltiple se devolverá un array.
+		 *
+		 * @function  index
+		 * @return {number | number[]} - Índice del elemento o elementos seleccionados.
+		 * @example
+		 * $("#idCombo").rup_combo("index");
+		 */
 		index: function () {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -335,12 +337,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 		},
 		/**
-         * Deshabilita el combo.
-         *
-         * @function  disable
-         * @example
-         * $("#idCombo").rup_combo("disable");
-         */
+		 * Deshabilita el combo.
+		 *
+		 * @function  disable
+		 * @example
+		 * $("#idCombo").rup_combo("disable");
+		 */
 		disable: function () {
 			//Tipo de combo
 			var $self = $(this);
@@ -360,12 +362,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Habilita el combo.
-         *
-         * @function  enable
-         * @example
-         * $("#idCombo").rup_combo("enable");
-         */
+		 * Habilita el combo.
+		 *
+		 * @function  enable
+		 * @example
+		 * $("#idCombo").rup_combo("enable");
+		 */
 		enable: function () {
 			//Tipo de combo
 			var $self = $(this),
@@ -383,13 +385,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Indica si el combo está deshabilitado o no.
-         *
-         * @function  isDisabled
-         * @param {boolean} - Devuelve si el combo está deshabilitado o no.
-         * @example
-         * $("#idCombo").rup_combo("isDisabled");
-         */
+		 * Indica si el combo está deshabilitado o no.
+		 *
+		 * @function  isDisabled
+		 * @param {boolean} - Devuelve si el combo está deshabilitado o no.
+		 * @example
+		 * $("#idCombo").rup_combo("isDisabled");
+		 */
 		isDisabled: function () {
 			if ($(this).attr('aria-disabled') === 'false') {
 				return false;
@@ -398,12 +400,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
-         *
-         * @function  disableChild
-         * @example
-         * $("#idCombo").rup_combo("disableChild");
-         */
+		 * Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
+		 *
+		 * @function  disableChild
+		 * @example
+		 * $("#idCombo").rup_combo("disableChild");
+		 */
 		disableChild: function () {
 			//Vaciar combo, deshabilitarlo
 			$(this).empty().append('<option></option>').rup_combo('disable');
@@ -418,13 +420,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Deshabilita una opción de un combo multiselección.
-         *
-         * @function  disableOpt
-         * @param {string} optValue - Value del option que queremos deshabilitar.
-         * @example
-         * $("#idCombo").rup_combo("disableOpt", "opt1");
-         */
+		 * Deshabilita una opción de un combo multiselección.
+		 *
+		 * @function  disableOpt
+		 * @param {string} optValue - Value del option que queremos deshabilitar.
+		 * @example
+		 * $("#idCombo").rup_combo("disableOpt", "opt1");
+		 */
 		disableOpt: function (optValue) {
 			if ($(this).data('settings').multiselect) {
 				//Deshabilitar select
@@ -463,13 +465,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Deshabilita varias opciones del combo. Las opciones se identifican mediante un array.
-         *
-         * @function disableOptArr
-         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a deshabilitar.
-         * @example
-         * $("#idCombo").rup_combo("disableOptArr", ["opt1","opt2"]);
-         */
+		 * Deshabilita varias opciones del combo. Las opciones se identifican mediante un array.
+		 *
+		 * @function disableOptArr
+		 * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a deshabilitar.
+		 * @example
+		 * $("#idCombo").rup_combo("disableOptArr", ["opt1","opt2"]);
+		 */
 		disableOptArr: function (optValueArr) {
 			if ($(this).data('settings').multiselect) {
 				for (var i = 0; i < optValueArr.length; i++) {
@@ -480,13 +482,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Habilita una opción de un combo multiselección.
-         *
-         * @function enableOpt
-         * @param {string} enableOpt - Value del option que queremos habilitar.
-         * @example
-         * $("#idCombo").rup_combo("enableOpt", "opt1");
-         */
+		 * Habilita una opción de un combo multiselección.
+		 *
+		 * @function enableOpt
+		 * @param {string} enableOpt - Value del option que queremos habilitar.
+		 * @example
+		 * $("#idCombo").rup_combo("enableOpt", "opt1");
+		 */
 		enableOpt: function (optValue) {
 			if ($(this).data('settings').multiselect) {
 				//Habilitar select
@@ -517,13 +519,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Habilita varias opciones del combo. Las opciones se identifican mediante un array.
-         *
-         * @function enableOptArr
-         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a habilitar.
-         * @example
-         * $("#idCombo").rup_combo("enableOptArr", ["opt1","opt2"]);
-         */
+		 * Habilita varias opciones del combo. Las opciones se identifican mediante un array.
+		 *
+		 * @function enableOptArr
+		 * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a habilitar.
+		 * @example
+		 * $("#idCombo").rup_combo("enableOptArr", ["opt1","opt2"]);
+		 */
 		enableOptArr: function (optValueArr) {
 			if ($(this).data('settings').multiselect) {
 				for (var i = 0; i < optValueArr.length; i++) {
@@ -534,12 +536,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Refresca los valores asociados al combo.
-         *
-         * @function  refresh
-         * @example
-         * $("#idCombo").rup_combo("refresh");
-         */
+		 * Refresca los valores asociados al combo.
+		 *
+		 * @function  refresh
+		 * @example
+		 * $("#idCombo").rup_combo("refresh");
+		 */
 		refresh: function () {
 			//Tipo de combo
 			if (this.length === 0 || !$(this).data('settings').multiselect) {
@@ -565,46 +567,45 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Realiza una recarga de los combos.
-         *
-         * @function   reload
-         * @example
-         * $("#idCombo").rup_combo("reload");
-         */
+		 * Realiza una recarga de los combos.
+		 *
+		 * @function   reload
+		 * @example
+		 * $("#idCombo").rup_combo("reload");
+		 */
 		reload: function (id) {
 			if (this.length !== 0) {
 				var settings = $(this).data('settings'),
-					source, setRupValue;
+					source, setRupValue, wasInited = false;
 
+				$('#' + settings.id).removeClass('inited') && (wasInited = !!1)
 				//Vaciar combo, quitarle valor y deshabilitar
 				$('#' + settings.id).rup_combo('disableChild');
 
 				if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
 					//LOCAL
+					$('#' + settings.id).removeClass('inited');
 					source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
 					if (source !== undefined) {
+
 						if (settings.blank != null) {
 							var isOptgroup = false;
-							
+
 							// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-							$.each(settings.sourceGroup, function(key, value) { 
-							    if(typeof value === "object" && value !== null) {
-							    	isOptgroup = true;
-							        return false; 
-							    }
+							$.each(settings.sourceGroup, function (key, value) {
+								if (typeof value === "object" && value !== null) {
+									isOptgroup = true;
+									return false;
+								}
 							});
-							
+
 							// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 							// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
-							if(isOptgroup) {
+							if (isOptgroup) {
 								settings.blankDone = false;
-							} 
-							// Si es un combo normal añade un registro nuevo al array.
-							else {
-								settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 							}
 						}
-						
+
 						//Parsear datos
 						this._parseLOCAL(source, settings, $('#' + settings.id));
 
@@ -625,6 +626,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 							$('#' + settings.id).rup_combo('select', setRupValue);
 						}
 					}
+					multiChange(settings);
+					wasInited && $('#' + settings.id).addClass('inited');
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
 					var data = this._getParentsValues(settings.parent, true),
@@ -633,73 +636,72 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
 					var labelBlank = this._getBlankLabel(settings.id);
-					if(settings.ultimaLlamada === undefined || settings.ultimaLlamada !== data){//si es la misma busqueda, no tiene sentido volver a intentarlo.
-						$.rup_ajax({
-							url: settings.source ? settings.source : settings.sourceGroup,
-							data: data,
-							dataType: 'json',
-							contentType: 'application/json',
-							beforeSend: function (xhr) {
-								rupCombo._ajaxBeforeSend(xhr, settings);
-							},
-							success: function (data, textStatus, jqXHR) {
-								if (settings.blank != null) {
-									var isOptgroup = false;
-									
-									// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-									$.each(data[0], function(key, value) { 
-									    if(typeof value === "object" && value !== null) {
-									    	isOptgroup = true;
-									        return false; 
-									    }
-									});
-									
-									// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
-									// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
-									if(isOptgroup) {
-										settings.blankDone = false;
-									} 
-									// Si es un combo normal añade un registro nuevo al array.
-									else {
-										data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
-									}
-								}
-								rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
+					$.rup_ajax({
+						url: settings.source ? settings.source : settings.sourceGroup,
+						data: data,
+						dataType: 'json',
+						contentType: 'application/json',
+						beforeSend: function (xhr) {
+							rupCombo._ajaxBeforeSend(xhr, settings);
+							$('#' + settings.id).removeClass('inited');
+						},
+						success: function (data, textStatus, jqXHR) {
+							if (settings.blank != null) {
+								var isOptgroup = false;
 
-								// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
-								if (settings.onLoadSuccess !== null) {
-									jQuery(settings.onLoadSuccess($('#' + settings.id)));
-								}
-							},
-							error: function (xhr, textStatus, errorThrown) {
-								if (settings.onLoadError !== null) {
-									jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-								} else {
-									self._ajaxError(xhr, textStatus, errorThrown);
+								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+								$.each(data[0], function (key, value) {
+									if (typeof value === "object" && value !== null) {
+										isOptgroup = true;
+										return false;
+									}
+								});
+
+								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+								if (isOptgroup) {
+									settings.blankDone = false;
 								}
 							}
-						});
-						settings.ultimaLlamada = data;
-					}
+							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
+
+							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
+							if (settings.onLoadSuccess !== null) {
+								jQuery(settings.onLoadSuccess($('#' + settings.id)));
+							}
+							multiChange(settings);
+							wasInited && $('#' + settings.id).addClass('inited');
+						},
+						error: function (xhr, textStatus, errorThrown) {
+							if (settings.onLoadError !== null) {
+								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+							} else {
+								rupCombo._ajaxError(xhr, textStatus, errorThrown);
+							}
+						}
+					});
 
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
 					//Se lanza la funcion que obtiene los valores a mostrar
+					$('#' + settings.id).removeClass('inited');
 					jQuery(settings.source);
 					this._makeCombo(settings);
+					multiChange(settings);
+					wasInited && $('#' + settings.id).addClass('inited');
 				}
 			}
 		},
 		/**
-         * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
-         *
-         * @function  order
-         * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
-         * @param {boolean} orderAsNumber - Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos.
-         * @param {boolean} skipFirst - Determina si se debe de obviar el primer elemento.
-         * @example
-         * $("#idCombo").rup_combo("reload");
-         */
+		 * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
+		 *
+		 * @function  order
+		 * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
+		 * @param {boolean} orderAsNumber - Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos.
+		 * @param {boolean} skipFirst - Determina si se debe de obviar el primer elemento.
+		 * @example
+		 * $("#idCombo").rup_combo("reload");
+		 */
 		order: function (orderedByValue, orderAsNumber, skipFirst) {
 			var combo = $(this),
 				options = $('option', combo),
@@ -792,15 +794,15 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 	//*******************************
 	$.fn.rup_combo('extend', {
 		/**
-         * Establece un elemento del combo por posición o valor.
-         *
-         * @function  _setElement
-         * @private
-         * @param {object} selector - Referencia al objeto jQuery del combo.
-         * @param {object} param - Value correspondiente.
-         * @param {boolean} multicombo - Indica si el combo permite la multiselección.
-         * @param {boolean} markOptSelected - Determina si se debe marcar como seleccionado el elemento.
-         */
+		 * Establece un elemento del combo por posición o valor.
+		 *
+		 * @function  _setElement
+		 * @private
+		 * @param {object} selector - Referencia al objeto jQuery del combo.
+		 * @param {object} param - Value correspondiente.
+		 * @param {boolean} multicombo - Indica si el combo permite la multiselección.
+		 * @param {boolean} markOptSelected - Determina si se debe marcar como seleccionado el elemento.
+		 */
 		_setElement: function (selector, param, multicombo, markOptSelected) {
 			if (multicombo !== true) {
 				//Simple > selectmenu
@@ -849,13 +851,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Selecciona el elemento correspondiente al label indicado
-         *
-         * @function  _selectLabel
-         * @private
-         * @param {object} selector - Referencia al objeto jQuery del combo.
-         * @param {object} param - Value correspondiente.
-         */
+		 * Selecciona el elemento correspondiente al label indicado
+		 *
+		 * @function  _selectLabel
+		 * @private
+		 * @param {object} selector - Referencia al objeto jQuery del combo.
+		 * @param {object} param - Value correspondiente.
+		 */
 		_selectLabel: function (selector, param) {
 			var $option;
 			for (var i = 0; i < $('option', selector).length; i = i + 1) {
@@ -868,12 +870,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			return false;
 		},
 		/**
-         * Obtener la opción vacía a partir del fichero de internacionalización de la aplicación o del fichero por defecto.
-         *
-         * @function  _getBlankLabel
-         * @private
-         * @param {string} id - Identificador del fichero
-         */
+		 * Obtener la opción vacía a partir del fichero de internacionalización de la aplicación o del fichero por defecto.
+		 *
+		 * @function  _getBlankLabel
+		 * @private
+		 * @param {string} id - Identificador del fichero
+		 */
 		_getBlankLabel: function (id) {
 			var app = $.rup.i18n.app;
 			if (app[id] && app[id]._blank) {
@@ -882,14 +884,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			return $.rup.i18n.base.rup_combo.blankNotDefined;
 		},
 		/**
-         * Realiza el formateo de los registros que se muestran en la lista desplegable del combo.
-         *
-         * @function  _defaultFormatting
-         * @private
-         */
+		 * Realiza el formateo de los registros que se muestran en la lista desplegable del combo.
+		 *
+		 * @function  _defaultFormatting
+		 * @private
+		 */
 		_defaultFormatting: function (text) {
-			var findreps = [
-				{
+			var findreps = [{
 					find: /^([^\-]+) \- /g,
 					rep: '<span class="ui-selectmenu-item-header">$1</span>'
 				},
@@ -916,15 +917,15 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			return text;
 		},
 		/**
-         * Obtener valores de los combos padres (si no están cargados o valores 'vacíos' devuelve null). En caso de disponer de varios combos padres se devolverán separados por un caracter delimitador.
-         *
-         * @function  _getParentsValues
-         * @private
-         * @param {object[]} array - Array con los elementos a mostrar.
-         * @param {boolean} remote - Determina si la fuente de datos es remota o no.
-         * @param {string} multiValueToken - Caracter separador en el caso de devolver varios elementos.
-         * @return {string} - Devuelve los values seleccionados de los combos padres.
-         */
+		 * Obtener valores de los combos padres (si no están cargados o valores 'vacíos' devuelve null). En caso de disponer de varios combos padres se devolverán separados por un caracter delimitador.
+		 *
+		 * @function  _getParentsValues
+		 * @private
+		 * @param {object[]} array - Array con los elementos a mostrar.
+		 * @param {boolean} remote - Determina si la fuente de datos es remota o no.
+		 * @param {string} multiValueToken - Caracter separador en el caso de devolver varios elementos.
+		 * @return {string} - Devuelve los values seleccionados de los combos padres.
+		 */
 		_getParentsValues: function (array, remote, multiValueToken) {
 			var retorno = '',
 				id, texto, multiValueToken = multiValueToken != null ? multiValueToken : '',
@@ -940,7 +941,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					texto = $('#' + id + '-button span:first-child').text();
 					//Comprobar si tiene valor por defecto (bien propio o valor base por no haberlo definido)
 					if (texto === $.rup.i18n.base.rup_combo.blankNotDefined ||
-																								(($.rup.i18n.app[id] !== undefined) && (texto === $.rup.i18n.app[array[i]]._blank))) {
+						(($.rup.i18n.app[id] !== undefined) && (texto === $.rup.i18n.app[array[i]]._blank))) {
 						return null;
 					}
 				}
@@ -972,17 +973,17 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			return retorno;
 		},
 		/**
-         * Función principal en el proceso de crear un combo. Genera todos los elementos html y objetos js internos necesarios para el funcionamiento del mismo.
-         *
-         * @function  _makeCombo
-         * @private
-         * @param {object} settings - Parametros de configuración con los que se ha inicializado el combo.
-         */
+		 * Función principal en el proceso de crear un combo. Genera todos los elementos html y objetos js internos necesarios para el funcionamiento del mismo.
+		 *
+		 * @function  _makeCombo
+		 * @private
+		 * @param {object} settings - Parametros de configuración con los que se ha inicializado el combo.
+		 */
 		_makeCombo: function (settings) {
 
 			//Opción vacía
 			if (settings.blank != null) {
-				//$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+				$('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
 			}
 
 			//Gestionar Imagenes
@@ -1014,14 +1015,19 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			//Almacenar los settings
 			$('#' + settings.id).data('settings', settings);
 
+			//Añadir evento change
+			// if (settings.change) {
+			// 	$('#' + settings.id).on('change', settings.change);
+			// }
+
 			//Tipo de combo
 			if (!settings.multiselect) {
 				//Simple > selectmenu
 				$('#' + settings.id).selectmenu(settings);
-				if(settings.selected !== undefined && settings.selected !== ''){
+				if (settings.selected !== undefined && settings.selected !== '') {
 					$('#' + settings.id).rup_combo("setRupValue", settings.selected);
 				}
-				
+
 			} else {
 				//Multiple > multiselect
 				$('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
@@ -1069,7 +1075,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			//Seleccionar elemento (valor del input, valor settings combo)
 			if (!settings.loadFromSelect && (settings.inputValue === undefined || settings.inputValue === '') ||
-																settings.loadFromSelect && settings.selected !== undefined) {
+				settings.loadFromSelect && settings.selected !== undefined) {
 				this._setElement($('#' + settings.id), settings.selected, settings.multiselect, true);
 			} else {
 				if (settings.multiselect) {
@@ -1127,14 +1133,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
-         *
-         * @function  _parseLOCAL
-         * @private
-         * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         */
+		 * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
+		 *
+		 * @function  _parseLOCAL
+		 * @private
+		 * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 */
 		_parseLOCAL: function (array, settings, html) {
 			var imgs = settings.imgs ? settings.imgs : [],
 				label, value;
@@ -1157,24 +1163,24 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local. Este método se emplea en el caso de existir agrupación de los mismos.
-         *
-         * @function  _parseOptGroupLOCAL
-         * @private
-         * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         */
+		 * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local. Este método se emplea en el caso de existir agrupación de los mismos.
+		 *
+		 * @function  _parseOptGroupLOCAL
+		 * @private
+		 * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 */
 		_parseOptGroupLOCAL: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
-			
+
 			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
 			// añadimos una opcion en la primera posicion de la lista del combo.
-			if(!settings.blankDone && settings.blankDone != undefined) {
+			if (!settings.blankDone && settings.blankDone != undefined) {
 				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
 				settings.blankDone = true;
 			}
-			
+
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1190,15 +1196,15 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto.
-         *
-         * @function  _parseREMOTE
-         * @private
-         * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         * @param {string} optGroupKey - Identificador del optionGroup al que pertenece.
-         */
+		 * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto.
+		 *
+		 * @function  _parseREMOTE
+		 * @private
+		 * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 * @param {string} optGroupKey - Identificador del optionGroup al que pertenece.
+		 */
 		_parseREMOTE: function (array, settings, html, optGroupKey) {
 			var remoteImgs = settings.imgs ? settings.imgs : [],
 				item, setRupValue;
@@ -1217,24 +1223,24 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto. Este método se emplea en el caso de existir agrupación de los mismos.
-         *
-         * @function  _parseOptGroupREMOTE
-         * @private
-         * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         */
+		 * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto. Este método se emplea en el caso de existir agrupación de los mismos.
+		 *
+		 * @function  _parseOptGroupREMOTE
+		 * @private
+		 * @param {object[]} arrayGroup - Array de registros obtenidos a partir del origen de datos.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 */
 		_parseOptGroupREMOTE: function (arrayGroup, settings, html) {
 			var optGroup, self = this;
-			
+
 			// En caso de que se haya especificado la propiedad 'blank' en la llamada a 'rup_combo',
 			// añadimos una opcion en la primera posicion de la lista del combo.
-			if(!settings.blankDone && settings.blankDone != undefined) {
+			if (!settings.blankDone && settings.blankDone != undefined) {
 				html.append($('<option>').attr('value', settings.blank).text(settings.blank));
 				settings.blankDone = true;
 			}
-			
+
 			for (var i = 0; i < arrayGroup.length; i = i + 1) {
 				optGroup = arrayGroup[i];
 				$.each(optGroup, function (key, elemGroup) {
@@ -1246,14 +1252,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Prepara la petición AJAX que se va a realizar para obtener los registros a partir de un origen remoto. Se añaden las cabeceras RUP correspondientes para realizar la serialización json de manera correcta.
-         *
-         * @function  _ajaxBeforeSend
-         * @private
-         * @param {object} xhr - Objeto xhr que se va a enviar en la petición
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         */
+		 * Prepara la petición AJAX que se va a realizar para obtener los registros a partir de un origen remoto. Se añaden las cabeceras RUP correspondientes para realizar la serialización json de manera correcta.
+		 *
+		 * @function  _ajaxBeforeSend
+		 * @private
+		 * @param {object} xhr - Objeto xhr que se va a enviar en la petición
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 */
 		_ajaxBeforeSend: function (xhr, settings, html) {
 			//Crear combo (vacío) y deshabilitarlo
 			if (html !== undefined) {
@@ -1272,20 +1278,25 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
 		},
 		/**
-         * Procesa la respuesta de la petición AJAX en el caso de que esta haya finalizado correctamente.
-         *
-         * @function  _ajaxSuccess
-         * @private
-         * @param {object} data - Objeto enviado en la respuesta.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         */
+		 * Procesa la respuesta de la petición AJAX en el caso de que esta haya finalizado correctamente.
+		 *
+		 * @function  _ajaxSuccess
+		 * @private
+		 * @param {object} data - Objeto enviado en la respuesta.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+		 */
 		_ajaxSuccess: function (data, settings, html) {
 			//UNLOADING...
 			$('#' + settings.id + '-button span:first-child').removeClass('rup-combo_loadingText').text('');
 			var icon = $('#' + settings.id + '-button span:last-child');
 			$(icon).removeClass('rup-combo_loading');
 			$(icon).addClass('ui-icon-triangle-1-s');
+
+			var isInited = false;
+			$('#' + settings.id).is('.inited') && (isInited = true);
+
+			$('#' + settings.id).removeClass('inited');
 
 			//Vaciar combo
 			$('#' + settings.id).empty();
@@ -1302,28 +1313,33 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Crear combo
 				this._makeCombo(settings);
 
-				setRupValue = $.data($('#' + settings.id)[0], 'setRupValue');
+				var setRupValue = $.data($('#' + settings.id)[0], 'setRupValue');
 				if (setRupValue) {
 					//Vaciar combo, quitarle valor y deshabilitar
 					$('#' + settings.id).rup_combo('select', setRupValue);
+					if($('#' + settings.id).rup_combo("getRupValue") != settings.selected && settings.blank != null) {
+						$('#' + settings.id).rup_combo("setRupValue", settings.blank);
+					}
 				} else {
 					//Lanzar cambio para que se recarguen hijos
-					$('#' + settings.id).rup_combo('change');
+					$('#' + settings.id).trigger('change');
 				}
 			} else {
 				$('#' + settings.id).append('<option></option>');
 			}
+
+			isInited && $('#' + settings.id).removeClass('inited');
 		},
 		/**
-         * Procesa la respuesta de la petición AJAX en el caso de que se haya producido un error en la misma.
-         *
-         * @function  _ajaxError
-         * @private
-         * @param {object} xhr - Objeto xhr enviado en la respuesta.
-         * @param {string} textStatus - Cadena identificadora del error que se ha producido en la petición.
-         * @param {object} errorThrown - Objeto error correspondiente al que se ha producido en la petición.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         */
+		 * Procesa la respuesta de la petición AJAX en el caso de que se haya producido un error en la misma.
+		 *
+		 * @function  _ajaxError
+		 * @private
+		 * @param {object} xhr - Objeto xhr enviado en la respuesta.
+		 * @param {string} textStatus - Cadena identificadora del error que se ha producido en la petición.
+		 * @param {object} errorThrown - Objeto error correspondiente al que se ha producido en la petición.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 */
 		_ajaxError: function (xhr, textStatus, errorThrown, settings) {
 			if (xhr.responseText !== null) {
 				$.rup.showErrorToUser(xhr.responseText);
@@ -1332,13 +1348,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}
 		},
 		/**
-         * Crea la etiqueta correspondiente a una agrupación.
-         *
-         * @function  _generateOptGroupLabel
-         * @private
-         * @param {jQuery} object - Referencia al propio componente.
-         * @param {string} multiOptgroupIconText - Prefijo de los option group.
-         */
+		 * Crea la etiqueta correspondiente a una agrupación.
+		 *
+		 * @function  _generateOptGroupLabel
+		 * @private
+		 * @param {jQuery} object - Referencia al propio componente.
+		 * @param {string} multiOptgroupIconText - Prefijo de los option group.
+		 */
 		_generateOptGroupLabel: function (object, multiOptgroupIconText) {
 			//Texto A > SPAN
 			$(object).append($('<span />')
@@ -1383,25 +1399,25 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			$(object).append($('<span />').text(' ]'));
 		},
 		/**
-         * Devuelve los li de los elementos seleccionados en un combo multiselección.
-         *
-         * @function  _selectedOptionLiMultiselect
-         * @private
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @return {jQuery | jQuery[]} - Objetos jQuery con referencias a los elementos seleccionados.
-         */
+		 * Devuelve los li de los elementos seleccionados en un combo multiselección.
+		 *
+		 * @function  _selectedOptionLiMultiselect
+		 * @private
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @return {jQuery | jQuery[]} - Objetos jQuery con referencias a los elementos seleccionados.
+		 */
 		_selectedOptionLiMultiselect: function (settings) {
 			var multiselectSettings = $('#' + settings.id).data('echMultiselect');
 			return this._optionLis.eq(this._selectedIndex());
 		},
 		/**
-         * Devuelve el li del elemento que contiene el foco en un combo multiselección.
-         *
-         * @function  _focusedOptionLiMultiselect
-         * @private
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @return {jQuery} - Objeto jQuery con referencia al elemento que contiene el foco.
-         */
+		 * Devuelve el li del elemento que contiene el foco en un combo multiselección.
+		 *
+		 * @function  _focusedOptionLiMultiselect
+		 * @private
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 * @return {jQuery} - Objeto jQuery con referencia al elemento que contiene el foco.
+		 */
 
 		_focusedOptionLiMultiselect: function (settings) {
 			var multiselectSettings = $('#' + settings.id).data('echMultiselect');
@@ -1417,14 +1433,14 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			return $elem;
 		},
 		/**
-         * Procesa los eventos de introducción de caracteres de teclado por parte del usuario.
-         *
-         * @function  _typeAheadMultiselect
-         * @private
-         * @param {number} code - Código ASCII correspondiente al caracter introducido por el usuario.
-         * @param {object} eventType - Objeto event de jQuery.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         */
+		 * Procesa los eventos de introducción de caracteres de teclado por parte del usuario.
+		 *
+		 * @function  _typeAheadMultiselect
+		 * @private
+		 * @param {number} code - Código ASCII correspondiente al caracter introducido por el usuario.
+		 * @param {object} eventType - Objeto event de jQuery.
+		 * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+		 */
 		_typeAheadMultiselect: function (code, eventType, settings) {
 			var self = this,
 				c = String.fromCharCode(code).toLowerCase(),
@@ -1442,7 +1458,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 			// Detect if we are in cyciling mode or direct selection mode
 			if (self._typeAhead_chars.length < 2 ||
-																(self._typeAhead_chars.substr(-2, 1) === c && self._typeAhead_cycling)) {
+				(self._typeAhead_chars.substr(-2, 1) === c && self._typeAhead_cycling)) {
 				self._typeAhead_cycling = true;
 
 				// Match only the first character and loop
@@ -1509,12 +1525,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			}, settings.typeAhead);
 		},
 		/**
-         * Método de inicialización del componente.
-         *
-         * @function  _init
-         * @private
-         * @param {object} args - Parámetros de inicialización del componente.
-         */
+		 * Método de inicialización del componente.
+		 *
+		 * @function  _init
+		 * @private
+		 * @param {object} args - Parámetros de inicialización del componente.
+		 */
 		_init: function (args) {
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
@@ -1525,6 +1541,12 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					isValidableElem = false,
 					attrsJson = {},
 					attrs;
+
+				// Se sobreescribe el change:
+				settings.change && (settings.userChange = settings.change);
+				settings.userChange && (settings.change = function() {
+					$('#' + settings.id).is('.inited') && settings.userChange();
+				});
 
 				//Se recoge el tabindex indicado en el elemento
 				settings.tabindex = $(this).attr('tabindex');
@@ -1618,32 +1640,30 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
 						$('#' + settings.id).rup_combo('reload', settings.id);
 					}
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
 
 				} else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
 					//LOCAL
-					
+
 					if (settings.blank != null) {
 						var isOptgroup = false;
-						
+
 						// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-						$.each(settings.sourceGroup, function(key, value) { 
-						    if(typeof value === "object" && value !== null) {
-						    	isOptgroup = true;
-						        return false; 
-						    }
+						$.each(settings.sourceGroup, function (key, value) {
+							if (typeof value === "object" && value !== null) {
+								isOptgroup = true;
+								return false;
+							}
 						});
-						
+
 						// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 						// en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
-						if(isOptgroup) {
+						if (isOptgroup) {
 							settings.blankDone = false;
-						} 
-						// Si es un combo normal añade un registro nuevo al array.
-						else {
-							settings.source.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 						}
 					}
-					
+
 					//Parsear datos
 					if (settings.loadFromSelect === false) {
 						if (settings.source) {
@@ -1670,6 +1690,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					//Almacenar los settings
 					$('#' + settings.id).data('settings', settings);
 
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
+
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 					//REMOTO
 					var url = settings.source ? settings.source : settings.sourceGroup,
@@ -1686,29 +1709,28 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						success: function (data, textStatus, jqXHR) {
 							if (settings.blank != null) {
 								var isOptgroup = false;
-								
+
 								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-								$.each(data[0], function(key, value) { 
-								    if(typeof value === "object" && value !== null) {
-								    	isOptgroup = true;
+								$.each(data[0], function (key, value) {
+									if (typeof value === "object" && value !== null) {
+										isOptgroup = true;
 										return false;
-								    }
+									}
 								});
-								
+
 								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
 								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
-								if(isOptgroup) {
+								if (isOptgroup) {
 									settings.blankDone = false;
-								} 
-								// Si es un combo normal añade un registro nuevo al array.
-								else {
-									data.splice(0,0,{style:"",value:settings.blank,label:settings.blank});
 								}
 							}
 							rupCombo._ajaxSuccess(data, settings, html);
 							if (settings.onLoadSuccess !== null) {
 								jQuery(settings.onLoadSuccess($('#' + settings.id)));
 							}
+
+							multiChange(settings);
+							$('#' + settings.id).addClass('inited');
 						},
 						error: function (xhr, textStatus, errorThrown) {
 							if (settings.onLoadError !== null) {
@@ -1729,6 +1751,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 					//Almacenar los settings
 					$('#' + settings.id).data('settings', settings);
+
+					multiChange(settings);
+					$('#' + settings.id).addClass('inited');
 				}
 
 				//Asociar evento CHANGE para propagar cambios a los hijos
@@ -1740,13 +1765,13 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						$('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupvalue'));
 					}
 
-						//Lanzar cambio para que se recarguen hijos, si los tiene
-						var hijos = $(this).data('childs');
-						if (hijos !== undefined) {
-							for (var i = 0; i < hijos.length; i = i + 1) {
-								$('#' + hijos[i]).rup_combo('reload', hijos[i]);
-							}
+					//Lanzar cambio para que se recarguen hijos, si los tiene
+					var hijos = $(this).data('childs');
+					if (hijos !== undefined) {
+						for (var i = 0; i < hijos.length; i = i + 1) {
+							$('#' + hijos[i]).rup_combo('reload', hijos[i]);
 						}
+					}
 				});
 
 				//Borrar referencia
@@ -1757,56 +1782,74 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					$('#ui-datepicker-div').hide();
 				});
 
+				//Se audita el componente
+				$.rup.auditComponent('rup_combo', 'init');
 			}
 		}
 	});
+
+	// Creamos un método para añadir el change a los multiselect
+	var multiChange = function(settings) {
+		settings.multiselect && (
+			$('#' + settings.id).on('multiselectopen',() => {
+				!settings.opened &&(settings.lastMultiValue = $('#' + settings.id).rup_combo('getRupValue'));
+				settings.opened = !!1;
+			}),
+			$('#' + settings.id).on('multiselectclose', () => {
+				let changed = (settings.lastMultiValue.toString() !=
+							  $('#' + settings.id).rup_combo('getRupValue').toString());
+				changed && settings.opened && settings.change();
+				settings.opened = !!0;
+			})
+		);
+	}
 
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
 
 	/**
-     * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
-     *
-     * @callback jQuery.rup_combo~onLoadError
-     * @param {Object} xhr - Objeto XHR que contiene la respuesta de la petición realizada.
-     * @param {string} textStatus - Texto que identifica el error producido.
-     * @param {Object} errorThrown - Objeto error que contiene las propiedades del error devuelto en la petición.
-     */
+	 * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
+	 *
+	 * @callback jQuery.rup_combo~onLoadError
+	 * @param {Object} xhr - Objeto XHR que contiene la respuesta de la petición realizada.
+	 * @param {string} textStatus - Texto que identifica el error producido.
+	 * @param {Object} errorThrown - Objeto error que contiene las propiedades del error devuelto en la petición.
+	 */
 
 	/**
-     * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
-     *
-     * @callback jQuery.rup_combo~onLoadSuccess
-     * @param {jQuery} self - Referencia al objeto jQuery del propio combo.
-     */
+	 * Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
+	 *
+	 * @callback jQuery.rup_combo~onLoadSuccess
+	 * @param {jQuery} self - Referencia al objeto jQuery del propio combo.
+	 */
 
 	/**
-     * @description Opciones por defecto de configuración del componente.
-     *
-     * @name defaults
-     *
-     * @property {jQuery.rup_combo~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
-     * @property {number} [width=200] - Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria.
-     * @property {string} [blank=null] - Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento.
-     * @property {string} [style=dropdown] - Tipo de visualización de la lista de opciones del combo.
-     * @property {boolean} [showValue=false] - Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple).
-     * @property {string} [token="|"] - Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal.
-     * @property {string} [multiValueToken="##"] - Define el separador a utilizar en combos enlazados locales.
-     * @property {boolean} [ordered=true] - Indica si el combo debe ordenarse.
-     * @property {boolean} [orderedByValue=false] - Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto.
-     * @property {jQuery.rup_combo~onLoadSuccess} [onLoadSuccess=null] - Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente.
-     * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
-     * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
-     * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
-     * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
-     * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
-     * @property {boolean} [readAsString=false] - Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json.
-     * @property {boolean} [rowStriping=false] - Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
-     * @property {number} [typeAhead=false] - Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
-     * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
-     * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
-     */
+	 * @description Opciones por defecto de configuración del componente.
+	 *
+	 * @name defaults
+	 *
+	 * @property {jQuery.rup_combo~onLoadError} [onLoadError] - Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
+	 * @property {number} [width=200] - Determina el tamaño del combo. Su valor por defecto es 200 para la selección simple. En el caso de selección múltiple su declaración es obligatoria.
+	 * @property {string} [blank=null] - Se utiliza para declarar un valor independiente de la lógica del negocio. En ocasiones se representa como “Seleccione un elemento.
+	 * @property {string} [style=dropdown] - Tipo de visualización de la lista de opciones del combo.
+	 * @property {boolean} [showValue=false] - Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple).
+	 * @property {string} [token="|"] - Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal.
+	 * @property {string} [multiValueToken="##"] - Define el separador a utilizar en combos enlazados locales.
+	 * @property {boolean} [ordered=true] - Indica si el combo debe ordenarse.
+	 * @property {boolean} [orderedByValue=false] - Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto.
+	 * @property {jQuery.rup_combo~onLoadSuccess} [onLoadSuccess=null] - Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente.
+	 * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
+	 * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
+	 * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
+	 * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
+	 * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
+	 * @property {boolean} [readAsString=false] - Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json.
+	 * @property {boolean} [rowStriping=false] - Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
+	 * @property {number} [typeAhead=false] - Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
+	 * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
+	 * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
+	 */
 	$.fn.rup_combo.defaults = {
 		onLoadError: null,
 		width: 200,
@@ -1828,7 +1871,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		rowStriping: false,
 		typeAhead: 1000,
 		legacyWrapMode: false,
-		open: function( event, ui ) {
+		open: function (event, ui) {
 			var anchoCombo = $("#" + this.id + "-button").width();
 			$("#" + this.id + "-menu").closest('div').attr('id', 'ui-selectmenu-menu').width(anchoCombo);
 			$("#" + this.id + "-menu").width(anchoCombo - 2);
