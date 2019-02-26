@@ -527,18 +527,30 @@
 			
 			// Añade iconos para versiones moviles/tablets
 			// TODO: comprobar el adapter y en funcion a eso usar unos iconos u otros
-			$('#'+tabla[0].id+'_first')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='material-icons'>&#xe5dc;</i>");
-			$('#'+tabla[0].id+'_previous')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='material-icons'>&#xe314;</i>");
-			$('#'+tabla[0].id+'_next')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='material-icons'>&#xe315;</i>");
-			$('#'+tabla[0].id+'_last')
-				.addClass('recolocatedPagination_iconButton')
-				.append("<i class='material-icons'>&#xe5dd;</i>");
+			$("<i class='material-icons d-sm-none'>&#xe5dc;</i>")
+				.insertAfter($('#'+tabla[0].id+'_first')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='material-icons d-sm-none'>&#xe314;</i>")
+				.insertAfter($('#'+tabla[0].id+'_previous')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='material-icons d-sm-none'>&#xe315;</i>")
+				.insertAfter($('#'+tabla[0].id+'_next')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
+			$("<i class='material-icons d-sm-none'>&#xe5dd;</i>")
+				.insertAfter($('#'+tabla[0].id+'_last')
+					.addClass('recolocatedPagination_iconButton')
+					.children('a')
+					.addClass('d-none d-sm-block')
+				);
 
 			/*$("<i class='fa fa-angle-double-left d-sm-none'/>")
 				.insertAfter($('#'+tabla[0].id+'_first')
