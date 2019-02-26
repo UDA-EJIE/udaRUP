@@ -5881,6 +5881,21 @@ table.dataTable tbody > tr:hover {
   background-color: #eceeef;
   opacity: 1; }
 
+/* SE USA EL ':not(.DTCR_clonedTable)' PARA EVITAR QUE ESTOS ESTILOS SE APLIQUEN TAMBIEN AL COLREORDER */
+table.tableFit:not(.DTCR_clonedTable) {
+  width: calc(100% - 1px) !important;
+  max-width: calc(100% - 1px);
+  margin-bottom: 0; }
+
+table.tableFit.DTCR_clonedTable {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 10; }
+
+table.tableFit.DTCR_clonedTable > thead > tr > th:first-child:last-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   background-color: #B0BED9; }
 
