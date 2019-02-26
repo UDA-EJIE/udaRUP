@@ -818,7 +818,7 @@ function _callNavigationBar(dt){
 
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
-	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	
 	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
@@ -892,7 +892,7 @@ function _callNavigationSelectBar(dt){
 
 
 	ctx.oInit.formEdit.$navigationBar.data('settings', settings);
-	//var barraNavegacion = $.proxy(ctx.oInit.adapter.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
+	
 	var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
 	ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
 }
