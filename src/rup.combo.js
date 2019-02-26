@@ -636,50 +636,53 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
 					var labelBlank = this._getBlankLabel(settings.id);
-					$.rup_ajax({
-						url: settings.source ? settings.source : settings.sourceGroup,
-						data: data,
-						dataType: 'json',
-						contentType: 'application/json',
-						beforeSend: function (xhr) {
-							rupCombo._ajaxBeforeSend(xhr, settings);
-							$('#' + settings.id).removeClass('inited');
-						},
-						success: function (data, textStatus, jqXHR) {
-							if (settings.blank != null) {
-								var isOptgroup = false;
-
-								// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-								$.each(data[0], function (key, value) {
-									if (typeof value === "object" && value !== null) {
-										isOptgroup = true;
-										return false;
+					if(settings.ultimaLlamada === undefined || settings.ultimaLlamada !== data){//si es la misma busqueda, no tiene sentido volver a intentarlo.
+						$.rup_ajax({
+							url: settings.source ? settings.source : settings.sourceGroup,
+							data: data,
+							dataType: 'json',
+							contentType: 'application/json',
+							beforeSend: function (xhr) {
+								rupCombo._ajaxBeforeSend(xhr, settings);
+								$('#' + settings.id).removeClass('inited');
+							},
+							success: function (data, textStatus, jqXHR) {
+								if (settings.blank != null) {
+									var isOptgroup = false;
+	
+									// Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+									$.each(data[0], function (key, value) {
+										if (typeof value === "object" && value !== null) {
+											isOptgroup = true;
+											return false;
+										}
+									});
+	
+									// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+									// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+									if (isOptgroup) {
+										settings.blankDone = false;
 									}
-								});
-
-								// Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
-								// en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
-								if (isOptgroup) {
-									settings.blankDone = false;
+								}
+								rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
+	
+								// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
+								if (settings.onLoadSuccess !== null) {
+									jQuery(settings.onLoadSuccess($('#' + settings.id)));
+								}
+								multiChange(settings);
+								wasInited && $('#' + settings.id).addClass('inited');
+							},
+							error: function (xhr, textStatus, errorThrown) {
+								if (settings.onLoadError !== null) {
+									jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+								} else {
+									rupCombo._ajaxError(xhr, textStatus, errorThrown);
 								}
 							}
-							rupCombo._ajaxSuccess(data, settings, $('#' + settings.id));
-
-							// Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
-							if (settings.onLoadSuccess !== null) {
-								jQuery(settings.onLoadSuccess($('#' + settings.id)));
-							}
-							multiChange(settings);
-							wasInited && $('#' + settings.id).addClass('inited');
-						},
-						error: function (xhr, textStatus, errorThrown) {
-							if (settings.onLoadError !== null) {
-								jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-							} else {
-								rupCombo._ajaxError(xhr, textStatus, errorThrown);
-							}
-						}
-					});
+						});
+					settings.ultimaLlamada = data;
+					}
 
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
