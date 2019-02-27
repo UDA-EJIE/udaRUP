@@ -1801,7 +1801,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 			$('#' + settings.id).on('multiselectclose', () => {
 				let changed = (settings.lastMultiValue.toString() !=
 							  $('#' + settings.id).rup_combo('getRupValue').toString());
-				changed && settings.opened && settings.change();
+				settings.change && changed && settings.opened && settings.change();
 				settings.opened = !!0;
 			})
 		);
