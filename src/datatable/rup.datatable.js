@@ -350,11 +350,11 @@
 				
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
-						var iconCheck = 'fa fa-times';
+						var iconCheck = '&#xe5cd;';
 						if(data === '1'){
-							iconCheck = 'fa fa-check';
+							iconCheck = '&#xe5ca;';
 						}
-				    return '<div class="datatable_checkbox"><i class="' + iconCheck + '"></i></div>';
+				    return '<div class="d-flex"><i class="material-icons mx-auto">' + iconCheck + '</i></div>';
 			    }});
 				}
 				return {
