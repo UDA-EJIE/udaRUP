@@ -2901,7 +2901,10 @@ var _initButtons = function(ctx,opts){
 		// Comprueba si tiene un icono asociado
 		if (this.conf.icon !== undefined) {
 			// Establece el icono de los botones
-			$('#' + this.conf.id).prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+			if($(this.node).find('i').length === 0){
+				$('#' + this.conf.id).prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+			}
+
 			// Comprueba si tiene botones hijos
 			if (this.buttons.length > 0 && $('#' + this.conf.id).length > 0) {
 				// Añadimos un evento para cuando se pulse sobre el boton padre, se le
@@ -2910,8 +2913,12 @@ var _initButtons = function(ctx,opts){
 					var that = this;
 					$.each(opts[i].buttons, function (i) {
 						var selectorCollection = $('#' + this.conf.id);
+						
 						// Establece el icono de los botones hijos
-						selectorCollection.prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+						if($(this.node).find('i').length === 0){
+							selectorCollection.prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+						}
+
 						that.removeEventListener('click', eventHandler);
 					});
 				}, false);

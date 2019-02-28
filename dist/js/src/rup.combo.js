@@ -1134,15 +1134,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					});
 				}
 			}
-			
-			// Añade clases personalizadas establecidas en los parametros de configuración.
-			if(settings.customClasses) {
-				$.each(settings.customClasses, function(index, value) {
-					$('#' + settings.id + '-button' + ', #' + settings.id + '-menu').addClass(value);
-					$('[for=' + settings.id + ']').addClass(value);
-				});	
-			}
-			
 		},
 		/**
 		 * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local.
