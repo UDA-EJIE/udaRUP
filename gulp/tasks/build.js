@@ -130,5 +130,9 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./spec/specRunner.html'])
 	.pipe(gulp.dest('./dist/html'));
 	
+	// Archivos fuentes
+	gulp.src(['./src/*'])
+		.pipe(gulp.dest('./dist/js/src'));
+	
 	callback();
 });
