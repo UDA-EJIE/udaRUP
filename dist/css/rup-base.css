@@ -5923,10 +5923,6 @@ table.dataTable tbody > tr:hover {
   color: #777620;
   font-weight: bold; }
 
-.datatable_checkbox {
-  width: 11px;
-  margin: 0 auto; }
-
 .dtr-data {
   display: inline-block; }
 
