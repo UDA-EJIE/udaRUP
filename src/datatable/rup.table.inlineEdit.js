@@ -1276,9 +1276,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
+					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+		
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;

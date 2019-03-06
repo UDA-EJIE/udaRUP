@@ -76,6 +76,10 @@ DataTable.editForm.init = function ( dt ) {
 	ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
 	ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
 	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
+	if(ctx.oInit.formEdit.detailForm !== undefined && 
+			$('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).length > 0){
+		$('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).remove();
+	}
 
 	//Se coge el adapter, y se crea la barra de navegación
 	if(ctx.oInit.multiSelect === undefined){// si es de select
@@ -590,9 +594,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
+					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+				
 			}
 			// Recargar datos
 			//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
