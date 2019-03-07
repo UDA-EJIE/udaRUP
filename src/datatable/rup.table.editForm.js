@@ -93,21 +93,9 @@ DataTable.editForm.init = function ( dt ) {
 	//se añade el boton de cancelar
 	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
-		ctx.oInit.formEdit.okCallBack = false;
-		var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
-
-		//Despues de cerrar
-		//Se limpia los elementos.
-		if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
-			ctx.oInit.formEdit.idForm.rup_validate("resetElements");
-		}
-
+		cancelPopup(ctx);
 		//Se cierra el dialog
 		ctx.oInit.formEdit.detailForm.rup_dialog("close");
-		//Se cierran los mensajes del feedback
-		if(feedback[0].className !== ''){
-			feedback.rup_feedback('hide');
-		}
 	});
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
@@ -211,9 +199,13 @@ DataTable.editForm.init = function ( dt ) {
 
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
+		if(event.originalEvent !== undefined){//el evento es cerrado por el aspa
+			ctx.oInit.formEdit.okCallBack = false;
+		}
 		// si es igual no hacer nada.
 		var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
 		if(ctx.oInit.formEdit.dataOrigin === formSerializado){
+			cancelPopup(ctx);
 			return true;
 		}
 		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
@@ -222,6 +214,7 @@ DataTable.editForm.init = function ( dt ) {
 				message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.saveAndContinue'),
 				title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 				OKFunction: function () {
+					cancelPopup(ctx);
 					ctx.oInit.formEdit.okCallBack = true;
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
 					},
@@ -346,6 +339,23 @@ function eventTrigger ( api, type, args, any )
 	args.unshift( api );
 
 	$(api.table().node()).trigger( type, args );
+}
+
+function cancelPopup(ctx){
+	ctx.oInit.formEdit.okCallBack = false;
+	var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+
+	//Despues de cerrar
+	//Se limpia los elementos.
+	if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
+		ctx.oInit.formEdit.idForm.rup_validate("resetElements");
+	}
+
+
+	//Se cierran los mensajes del feedback
+	if(feedback[0].className !== ''){
+		feedback.rup_feedback('hide');
+	}
 }
 
 /**
