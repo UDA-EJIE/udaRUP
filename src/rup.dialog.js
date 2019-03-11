@@ -335,7 +335,7 @@
 			var buttonHREF = $('<button></button>')
 				.attr('type', 'button')
 				.attr('id', 'rup_dialog' + btn.text)
-				.addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
+				.addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
 				.html(btn.text)
 				.click(btn.click);
 			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').prepend(buttonHREF);
@@ -514,7 +514,7 @@
 						// Limpieza del componente y añadidas clases restantes de los botones
 						$self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
 						$self.data('uiDialog').uiDialog.find('button').
-							addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
+							addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
 							.removeClass('ui-button ui-corner-all ui-widget');
 
 						if (autopen) { //si se auto abría lo mostramos
