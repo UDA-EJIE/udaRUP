@@ -526,7 +526,6 @@
 			}
 			
 			// Añade iconos para versiones moviles/tablets
-			// TODO: comprobar el adapter y en funcion a eso usar unos iconos u otros
 			$("<i class='material-icons d-sm-none'>&#xe5dc;</i>")
 				.insertAfter($('#'+tabla[0].id+'_first')
 					.addClass('recolocatedPagination_iconButton')
@@ -551,31 +550,6 @@
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-
-			/*$("<i class='fa fa-angle-double-left d-sm-none'/>")
-				.insertAfter($('#'+tabla[0].id+'_first')
-					.addClass('recolocatedPagination_iconButton')
-					.children('a')
-					.addClass('d-none d-sm-block')
-				);
-			$("<i class='fa fa-angle-left d-sm-none'/>")
-				.insertAfter($('#'+tabla[0].id+'_previous')
-					.addClass('recolocatedPagination_iconButton')
-					.children('a')
-					.addClass('d-none d-sm-block')
-				);
-			$("<i class='fa fa-angle-right d-sm-none'/>")
-				.insertAfter($('#'+tabla[0].id+'_next')
-					.addClass('recolocatedPagination_iconButton')
-					.children('a')
-					.addClass('d-none d-sm-block')
-				);
-			$("<i class='fa fa-angle-double-right d-sm-none'/>")
-				.insertAfter($('#'+tabla[0].id+'_last')
-					.addClass('recolocatedPagination_iconButton')
-					.children('a')
-					.addClass('d-none d-sm-block')
-				);*/
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
 			$('#'+tabla[0].id+'_paginate ul').detach().appendTo($('#'+tabla[0].id+'_paginate'));

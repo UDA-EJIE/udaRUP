@@ -170,7 +170,7 @@
 				}
 			}
 
-			$('div.ui-dialog-buttonpane button:first').trigger('focus');
+			$('div.ui-dialog-buttonpane button:last').trigger('focus');
 		},
 		/**
      * Borra el dialogo si este estubiera oculto o visible.
@@ -317,7 +317,7 @@
 			}
 		},
 		/**
-     * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones.
+     * Función que crea los botones y se los añade al panel de botones al final de los botones.
      *
      * @function  createBtnLinks
      * @param {object} btn - Objeto de definición del botón.
@@ -330,15 +330,15 @@
 				return undefined;
 			}
 			/**
-       * Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
-       */
+		      * Función que crea los botones y se los añade al panel de botones al final de los botones
+		    */
 			var buttonHREF = $('<button></button>')
 				.attr('type', 'button')
 				.attr('id', 'rup_dialog' + btn.text)
-				.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
+				.addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
 				.html(btn.text)
 				.click(btn.click);
-			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').append(buttonHREF);
+			$('div[aria-describedby=' + id + '] .ui-dialog-buttonset ').prepend(buttonHREF);
 		}
 	});
 
@@ -488,33 +488,11 @@
 
 							$self.data('uiDialog').uiDialog.addClass('rup-dialog');
 
-							closeSpan = '<span id=\'closeText_' + settings.id + '\' style=\'float:right;font-size:0.85em\'>' + $.rup.i18nParse($.rup.i18n.base, 'rup_global.cerrar') + '</span>';
-							aClose = $('<a href=\'#\'></a>')
-								.attr('role', 'button')
-								.css('margin-right', '0.9em')
-								.css('float', 'right')
-								.css('width', '50px')
-								.addClass('ui-dialog-title')
-								.html(closeSpan)
-								.click(function (event) {
+							$self.prev("div")
+								.append('<i class="material-icons float-right pointer" aria-hidden="true">&#xe5cd;</i>')
+								.on('click', 'i.material-icons', function (event) {
 									$self.dialog('close');
 									return false;
-								})
-								.hover(function (eventObject) { //Evento lanzado para que se cambie el icono de la X a hover, marcado por ARISTA
-									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').addClass('ui-state-hover');
-									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').css('padding', '0px');
-								},
-								function (eventObject) {
-									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').removeClass('ui-state-hover');
-									$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').attr('style', '');
-								})
-								.insertAfter(jQuery('span.ui-dialog-title', jQuery('#' + settings.id).parent()));
-							$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-titlebar-close').hover(
-								function () {
-									aClose.css('text-decoration', 'none');
-								},
-								function () {
-									aClose.css('text-decoration', '');
 								});
 
 							if (linkButtonsLength > 0) { //si tenemos enlaces los añadimos
@@ -531,12 +509,19 @@
 								$('#ui-dialog-title-' + settings.id).text(settings.title);
 							}
 						}
+						
+
+						// Limpieza del componente y añadidas clases restantes de los botones
+						$self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+						$self.data('uiDialog').uiDialog.find('button').
+							addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
+							.removeClass('ui-button ui-corner-all ui-widget');
 
 						if (autopen) { //si se auto abría lo mostramos
 							if (settings.type !== $.rup.dialog.AJAX) {
 								$self.rup_dialog('open');
 								//le establecemos el foco
-								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:first').focus();
+								$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
 							} else {
 								settings.autoOpen = true;
 							}
@@ -586,7 +571,7 @@
 					if (settings.autoOpen === true) {
 						$('#' + settings.id).rup_dialog('open');
 						//le establecemos el foco
-						$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:first').focus();
+						$('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
 					}
 				}
 				if (settings.ajaxOptions && settings.ajaxOptions.success !== undefined && settings.ajaxOptions.success !== null && typeof settings.ajaxOptions.success === 'function') {
@@ -694,6 +679,7 @@
    * @property {jQuery.rup_dialog~onOpen} open - Evento que se lanza cuando se abre el diálogo.
    * @property {jQuery.rup_dialog~onClose} close - Evento que se lanza a la hora de cerrar el diálogo.
    * @property {jQuery.rup_dialog~onBeforeClose} beforeClose - Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto.
+   * @property {string} adapter - Permite cambiar el aspecto visual del componente.
    */
 	$.fn.rup_dialog.defaults = {
 		rupCheckStyle: true,
@@ -702,7 +688,8 @@
 		minHeight: 100,
 		ajaxCache: true,
 		specificLocation: '',
-		clone: undefined
+		clone: undefined,
+		adapter: 'dialog_material'
 	};
 
 

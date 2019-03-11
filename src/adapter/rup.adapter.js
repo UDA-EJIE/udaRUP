@@ -26,6 +26,10 @@
 			'./FeedbackJQueryUIAdapter',
 			'./FeedbackBootstrapAdapter',
 			'./FeedbackMaterialAdapter',
+			'./DialogBootstrapAdapter',
+			'./DialogMaterialAdapter',
+			'./MessageBootstrapAdapter',
+			'./MessageMaterialAdapter',
 			'./CalendarBootstrapAdapter'
 		], factory);
 	} else {
@@ -53,6 +57,10 @@
 	FeedbackJQueryUIAdapter,
 	FeedbackBootstrapAdapter,
 	FeedbackMaterialAdapter,
+	DialogBootstrapAdapter,
+	DialogMaterialAdapter,
+	MessageBootstrapAdapter,
+	MessageMaterialAdapter,
 	CalendarBootstrapAdapter
 ) {
 	return $;
