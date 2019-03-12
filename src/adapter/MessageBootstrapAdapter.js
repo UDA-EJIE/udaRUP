@@ -23,13 +23,10 @@
 		switch(type){
 			case 'error':
 				return 'btn btn-outline-danger';
-				break;
 			case 'ok':
 				return 'btn btn-outline-success';
-				break;
 			case 'alert':
 				return 'btn btn-light';
-				break;
 			default:
 				return 'btn btn-outline-primary';
 		}

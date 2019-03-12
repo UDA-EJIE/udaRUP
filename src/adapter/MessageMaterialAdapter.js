@@ -23,13 +23,10 @@
 		switch(type){
 			case 'error':
 				return 'btn-material btn-material-sm btn-material-primary-danger-low-emphasis';
-				break;
 			case 'ok':
 				return 'btn-material btn-material-sm btn-material-primary-success-low-emphasis';
-				break;
 			case 'alert':
 				return 'btn-material btn-material-sm btn-material-primary-low-secondary-emphasis';
-				break;
 			default:
 				return 'btn-material btn-material-sm btn-material-primary-low-emphasis';
 		}
