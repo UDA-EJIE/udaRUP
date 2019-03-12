@@ -26,6 +26,21 @@
 	FeedbackMaterialAdapter.prototype.closeIcon = function () {
 		return '<i class="material-icons">&#xe5cd;</i>';
 	};
+	
+	FeedbackMaterialAdapter.prototype.containerClass = function () {
+		return 'rup-feedback';
+	};
+	
+	FeedbackMaterialAdapter.prototype.feedbackIcon = function (type) {
+		switch(type) {
+			case 'alert':
+				return '<i class="material-icons">&#xe002;</i>'
+			case 'error':
+				return '<i class="material-icons">&#xe001;</i>'
+			default:
+				return '<i class="material-icons">&#xe86c;</i>'
+		}
+	};
 
 
 	$.rup = $.rup || {};

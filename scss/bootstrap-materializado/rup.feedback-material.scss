@@ -1,4 +1,7 @@
 div.rup-feedback.rup-feedback_image {
+	border: 1px solid #c5c5c5;
+	color: $dark-grey-color;
+	
 	div.rup-feedback_closeLink{
       &:before{
         content: initial;

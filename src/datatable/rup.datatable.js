@@ -1233,7 +1233,7 @@ $.fn.rup_datatable.defaults = {
 	feedback:{
 			okFeedbackConfig:{
 				closeLink: true,
-				delay:1000
+				delay:2000
 			}
 		},
 	responsive: {           
