@@ -22,6 +22,7 @@
 	
 	input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
 	  border-color: $primary-color;
+	  caret-color: $primary-color;
 	  border-width: 2px;
 	  box-shadow: none;
 	}

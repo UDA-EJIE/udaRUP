@@ -613,7 +613,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 		},
 		validate:validaciones,
-		feedback:feed.rup_feedback({type:"ok",block:false})
+		feedback:feed.rup_feedback({type:"error",block:false})
 	};
 
 	ctx.oInit.formEdit.idForm.rup_form();

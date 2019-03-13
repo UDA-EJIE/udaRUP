@@ -33,6 +33,11 @@ table.table-material {
 		border-style: solid;
 		border-color: #dee2e6;
 	}
+	
+	/* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */
+	i.material-icons {
+		font-weight: bold;
+	}
 }
 
 form + div.paginationContainer {

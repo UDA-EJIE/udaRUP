@@ -23,7 +23,7 @@ input{
   }
 }
 
-div.error, label.error{
+div.error, label.error, span.error{
   color: $rup-validate-icon-color;
   font-style: italic;
 }

@@ -1,0 +1,42 @@
+/* ESTILOS DE LOS INPUTS CUANDO NO HAN PASADO LAS VALIDACIONES */
+.form-groupMaterial {
+	input:not([type="checkbox"]):not([type="radio"]).error {
+		border: 1px solid $validation-error-color-light;
+		background-image: none;
+		
+		&:enabled ~ label {
+			color: $validation-error-color-light;
+		}
+		
+		&:invalid:enabled ~ label {
+			color: $grey-color;
+		}
+		
+		&:hover:enabled {
+			border-color: $validation-error-color;
+		}
+		
+		&:focus:enabled {
+			border: 2px solid $validation-error-color;
+			caret-color: $validation-error-color;
+			
+			&:invalid ~ label {
+				color: $validation-error-color-light;
+			}
+		}
+	}
+	
+	i.material-icons.error {
+		color: $validation-error-color-light;
+		position: absolute;
+		top: 4px;
+		right: 10px;
+		font-size: 1.3rem;
+		font-style: normal;
+		font-weight: 400;
+	}
+	
+	.rup-validate-field-error{
+		position: initial;
+	}
+}
