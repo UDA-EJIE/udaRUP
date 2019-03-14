@@ -5487,7 +5487,7 @@
   background-color: #aecff7;
 }
 
-.r01gContainer .disabledDatatable {
+.r01gContainer .disabledButtonsTable {
   pointer-events: none;
   opacity: 0.6;
 }
