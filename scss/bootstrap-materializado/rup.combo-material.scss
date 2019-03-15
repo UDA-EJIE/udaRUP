@@ -35,6 +35,11 @@ a.select-material {
 		border-width: 2px;
 		box-shadow: none;
 		outline: none;
+	  	padding-left: 17px;
+	  	
+	  	span:first-child {
+			left: 11px;	  	
+		}
 	}
 	
 	span:first-child {
@@ -51,6 +56,15 @@ a.select-material {
 
 /* ESTILOS ESPECIFICOS PARA CUANDO EL SELECT SE ENCUENTRA DENTRO DE UN FORM-GROUP */
 .form-groupMaterial {
+	/* ESTE CASO ES PARA CUANDO SE USAN COMPONENTES COMO EL COMBO A LA VEZ QUE LAS CLASES DE GRID DE BOOTSTRAP */
+	&[class*="col-"] {
+		[ruptype="combo"] {
+			~ label.select-material {
+				left: 28px;
+			}
+		}
+	}
+	
 	label.select-material {
 		top: -10px;
 		left: 15px;

@@ -2,7 +2,6 @@
 .form-groupMaterial {
 	input:not([type="checkbox"]):not([type="radio"]).error {
 		border: 1px solid $validation-error-color-light;
-		background-image: none;
 		
 		&:enabled ~ label {
 			color: $validation-error-color-light;
@@ -34,6 +33,12 @@
 		font-size: 1.3rem;
 		font-style: normal;
 		font-weight: 400;
+	}
+	
+	.error:last-child {
+		display: block;
+		padding-top: 2px;
+		padding-left: 19px;
 	}
 	
 	.rup-validate-field-error{

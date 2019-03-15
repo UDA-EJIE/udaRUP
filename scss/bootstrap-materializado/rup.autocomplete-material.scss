@@ -1,0 +1,20 @@
+/* ESTE CASO ES PARA CUANDO SE USAN COMPONENTES COMO EL AUTOCOMPLETE A LA VEZ QUE LAS CLASES DE GRID DE BOOTSTRAP */
+:not(.form-row) {
+	> .form-groupMaterial {
+		&[class*="col-"] {
+			[ruptype="autocomplete"] {
+				&:focus {
+					padding-left: 17px;
+				}
+			
+				~ label {
+					left: 30px;
+				}
+				
+				~ i.material-icons.error {
+					right: 26px;
+				}
+			}
+		}
+	}
+}
