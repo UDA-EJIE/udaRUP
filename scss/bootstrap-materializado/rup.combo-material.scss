@@ -54,17 +54,7 @@ a.select-material {
 	}
 }
 
-/* ESTILOS ESPECIFICOS PARA CUANDO EL SELECT SE ENCUENTRA DENTRO DE UN FORM-GROUP */
 .form-groupMaterial {
-	/* ESTE CASO ES PARA CUANDO SE USAN COMPONENTES COMO EL COMBO A LA VEZ QUE LAS CLASES DE GRID DE BOOTSTRAP */
-	&[class*="col-"] {
-		[ruptype="combo"] {
-			~ label.select-material {
-				left: 28px;
-			}
-		}
-	}
-	
 	label.select-material {
 		top: -10px;
 		left: 15px;
@@ -73,6 +63,57 @@ a.select-material {
 	a.select-material {
 		span:first-child {
 			top: 0;
+		}
+	}
+	
+	/* ESTABLECE LOS ESTILOS ESPECIFICOS DE LAS VALIDACIONES CON ERROR */
+	&.rup-validate-field-error {
+		a.select-material {
+			span:last-child {
+				right: 30px;
+			}
+		}
+	}
+}
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO NO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+:not(.form-row) {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="combo"] {
+				~ label.select-material {
+					left: 28px;
+				}
+			}
+			
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
+			&.rup-validate-field-error {
+				select ~ i.material-icons {
+					right: 15px;
+				}
+			}
+		}
+	}
+}
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+.form-row {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="combo"] {
+				~ label.select-material {
+					left: 18px;
+				}
+			}
+		
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
+			&.rup-validate-field-error {			
+				i.material-icons {
+					right: 15px;
+				}
+			}
 		}
 	}
 }

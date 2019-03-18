@@ -1,47 +1,68 @@
-/* ESTILOS DE LOS INPUTS CUANDO NO HAN PASADO LAS VALIDACIONES */
+/* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
 .form-groupMaterial {
-	input:not([type="checkbox"]):not([type="radio"]).error {
-		border: 1px solid $validation-error-color-light;
+	&.rup-validate-field-error {
+		input:not([type="checkbox"]):not([type="radio"]), select {
+			&:enabled ~ label {
+				color: $validation-error-color-light;
+			}
+			
+			&:enabled ~ span {
+				color: $validation-error-color-light;
+				
+				/* PARA LOS COMBOS */
+				a.select-material {
+					border-color: $validation-error-color-light;
+					
+					&:hover {
+						border-color: $validation-error-color;
+					}
+					
+					&:focus {
+						border: 2px solid $validation-error-color;
+					}
+				}
+			}
+			
+			&:invalid:enabled ~ label {
+				color: $grey-color;
+			}
+			
+			&:enabled {
+				border-color: $validation-error-color-light;
+			}
+			
+			&:hover:enabled {
+				border-color: $validation-error-color;
+			}
+			
+			&:focus:enabled {
+				border: 2px solid $validation-error-color;
+				caret-color: $validation-error-color;
+				
+				&:invalid ~ label {
+					color: $validation-error-color-light;
+				}
+			}
+		}
 		
-		&:enabled ~ label {
+		span {
 			color: $validation-error-color-light;
 		}
 		
-		&:invalid:enabled ~ label {
-			color: $grey-color;
+		i.material-icons.error {
+			color: $validation-error-color-light;
+			position: absolute;
+			top: 4px;
+			right: 10px;
+			font-size: 1.3rem;
+			font-style: normal;
+			font-weight: 400;
 		}
 		
-		&:hover:enabled {
-			border-color: $validation-error-color;
+		.error:last-child {
+			display: block;
+			padding-top: 2px;
+			padding-left: 19px;
 		}
-		
-		&:focus:enabled {
-			border: 2px solid $validation-error-color;
-			caret-color: $validation-error-color;
-			
-			&:invalid ~ label {
-				color: $validation-error-color-light;
-			}
-		}
-	}
-	
-	i.material-icons.error {
-		color: $validation-error-color-light;
-		position: absolute;
-		top: 4px;
-		right: 10px;
-		font-size: 1.3rem;
-		font-style: normal;
-		font-weight: 400;
-	}
-	
-	.error:last-child {
-		display: block;
-		padding-top: 2px;
-		padding-left: 19px;
-	}
-	
-	.rup-validate-field-error{
-		position: initial;
 	}
 }
