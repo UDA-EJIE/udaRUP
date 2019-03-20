@@ -71,7 +71,7 @@ $radio-material-ripple-size: 6px;
         display: inline-block;
         height: $radio-material-size;
         position: relative;
-        padding: 0 ($radio-material-size + 10px);
+        padding-left: ($radio-material-size + 10px);
         margin-bottom: 0;
         cursor: pointer;
         vertical-align: bottom;

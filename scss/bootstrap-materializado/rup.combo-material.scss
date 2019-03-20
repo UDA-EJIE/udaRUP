@@ -73,6 +73,16 @@ a.select-material {
 				right: 30px;
 			}
 		}
+		
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {		
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
+			&.rup-validate-field-error {			
+				select ~ i.material-icons.error {
+					right: 15px;
+				}
+			}
+		}
 	}
 }
 
@@ -86,11 +96,19 @@ a.select-material {
 					left: 28px;
 				}
 			}
-			
+		}
+	}
+}
+
+/* TODO: hacerlo funcionar sin obligar a que sea un hijo directo */
+:not(.form-row) {
+	> .form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
 			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
 			&.rup-validate-field-error {
-				select ~ i.material-icons {
-					right: 15px;
+				select ~ i.material-icons.error {
+					right: 25px;
 				}
 			}
 		}
@@ -105,13 +123,6 @@ a.select-material {
 			[ruptype="combo"] {
 				~ label.select-material {
 					left: 18px;
-				}
-			}
-		
-			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
-			&.rup-validate-field-error {			
-				i.material-icons {
-					right: 15px;
 				}
 			}
 		}

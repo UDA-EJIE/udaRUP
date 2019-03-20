@@ -315,7 +315,7 @@
 			self.unbind();
 		},
 		/**
-     * Se realiza un reset del formulario y se eliminan los menssajes de error de las reglas de validacion.
+     * Se realiza un reset del formulario y se eliminan los mensajes de error de las reglas de validacion.
      *
      * @function resetForm
      * @example

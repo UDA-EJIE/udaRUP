@@ -1,4 +1,8 @@
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
+i.material-icons.error {
+	color: $validation-error-color-light;
+}
+
 .form-groupMaterial {
 	&.rup-validate-field-error {
 		input:not([type="checkbox"]):not([type="radio"]), select {
@@ -50,7 +54,6 @@
 		}
 		
 		i.material-icons.error {
-			color: $validation-error-color-light;
 			position: absolute;
 			top: 4px;
 			right: 10px;
