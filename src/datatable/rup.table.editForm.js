@@ -402,6 +402,37 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	var title;
 
 	if (actionType === 'PUT') {
+		//se obtiene el row entero de bbdd, meter parametro opcional.
+		var pk = DataTable.Api().rupTable.getIdPk(row);
+		var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+		var ajaxOptions = {
+				url : ctx.oInit.urlBase+'/'+pk,
+				accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+					'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+					'text':'text/plain','xml':'application/xml, text/xml'},
+				type : 'GET',
+				data : row,
+				dataType : 'json',
+				showLoading : false,
+				contentType : 'application/json',
+				async : false,
+				success : function(data, status, xhr) {
+					row = data;
+				},
+				error : function(xhr, ajaxOptions,thrownError) {
+					var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+					if(divErrorFeedback.length === 0){
+						divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+					}
+					_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
+					$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+				}
+			};
+		$.rup_ajax(ajaxOptions);
+		//Se carga desde bbdd y se actualiza la fila
+		dt.row(idRow).data(row);
+		ctx.json.rows[idRow] = row;
+		rowArray = $.rup_utils.jsontoarray(row);
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = ctx.multiselection;
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
@@ -628,9 +659,15 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		validate:validaciones,
 		feedback:feed.rup_feedback({type:"ok",block:false})
 	};
-
-	ctx.oInit.formEdit.idForm.rup_form();
-	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+	
+	if(url !== '/deleteAll' && actionType !== 'DELETE'){
+		ctx.oInit.formEdit.idForm.rup_form();
+		ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+	}else{
+		//Se cambia el data
+		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+		$.rup_ajax(ajaxOptions);
+	}
 }
 
 /**
@@ -900,6 +937,10 @@ function _callNavigationSelectBar(dt){
 			DataTable.Api().select.deselect(ctx);
 			DataTable.Api().select.drawSelectId(ctx);
 		}
+		//Se actualiza la ultima posicion movida.
+		//ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
+		//Se añade un parametro respecto el rup.table para permitir la convivencia.
+		return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1,''];
 
 	};
 
@@ -977,10 +1018,11 @@ function _getRowSelected(dt,actionType){
 
 	//En caso de estar en una pagina distinta , navegamos a ella
 	if(dt.page()+1 !== Number(rowDefault.page)){
+		var pageActual = dt.page()+1;
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		if(ctx.oInit.formEdit !== undefined){
-			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line,undefined,pageActual];
 		}
 	}
 

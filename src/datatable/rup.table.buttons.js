@@ -2002,7 +2002,11 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			if(ctx.oInit.formEdit !== undefined){
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
-				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				if(ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
+						ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
+						dt.page()+1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])){
+					DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				}
 			}else{//edicion en linea
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				ctx.oInit.inlineEdit.currentPos = undefined;
