@@ -1,9 +1,17 @@
 /* COLORES */
 $no-color: transparent;
+
 $white-color: #FFFFFF;
-$black-color: #212529;
-$dark-grey-color: #333333;
+
+$whitish-grey-color: #dee2e6;
+
 $grey-color: #495057;
+$grey-color-light: #757575;
+$grey-color-very-light: #999;
+$grey-color-ultra-light: #c5c5c5;
+
+$black-color: #212529;
+$black-color-light: #333333;
 
 $primary-color: #1472a4;
 $primary-color-light: #b8d4e3;
@@ -40,3 +48,5 @@ $radio-material-border-color: rgba(0, 0, 0, 0.54);
 
 $validation-error-color: #d43f3a;
 $validation-error-color-light: #d9534f;
+
+$readonly-background-color: #e9ecef;

@@ -18,12 +18,12 @@ a.select-material {
 	height: 2rem;
 	display: block;
 	padding: 1px 0px 1px 18px;
-	border: 1px solid #757575;
+	border: 1px solid $grey-color-light;
 	border-radius: 5px;
 	box-sizing: border-box;
 	font-size: 1rem;
 	overflow: visible;
-	background-color: #fff;
+	background-color: $white-color;
 	
 	&:hover {
 		background-color: initial;
@@ -51,6 +51,30 @@ a.select-material {
 		left: 12px;
 		top: 1px;
 		padding-left: 5px;
+	}
+	
+	/* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */
+	&.ui-selectmenu {
+		border: 1px solid $grey-color-light;
+		font-size: 1rem;
+		background-color: $white-color;
+		
+		&:hover {
+			background-color: initial;
+		  	border-color: $black-color;
+		}
+		
+		&:focus {
+			border-color: $primary-color;
+			border-width: 2px;
+			box-shadow: none;
+			outline: none;
+		  	padding-left: 17px;
+		  	
+		  	span:first-child {
+				left: 11px;	  	
+			}
+		}
 	}
 }
 

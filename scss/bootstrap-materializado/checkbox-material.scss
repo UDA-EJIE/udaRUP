@@ -6,7 +6,7 @@ $checkbox-material-border-width: 2px;
 $checkbox-material-border-radius: 0.125em;
 $checkbox-material-ripple-size: 6.5px;
 $md-checkmark-width: 0.125em;
-$md-checkmark-color: #fff;
+$md-checkmark-color: $white-color;
 $checkbox-material-label-padding: .75em;
 
 @keyframes ripple-hover {
@@ -60,7 +60,7 @@ $checkbox-material-label-padding: .75em;
 		    /* CAJA */
 		    width: $checkbox-material-size;
 		    height: $checkbox-material-size;
-		    background: #fff;
+		    background: $white-color;
 		    border: $checkbox-material-border-width solid $checkbox-material-border-color;
 		    border-radius: $checkbox-material-border-radius;
 		    cursor: pointer;
@@ -148,4 +148,15 @@ table div.checkbox-material-inline {
     	left: 5px;
     	top: 10px;
     }
+}
+
+/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
+.dialog-content-material {
+	.checkbox-material {
+		label {
+			&:before, &:after {
+				left: 6px;
+			}
+		}
+	}
 }

@@ -1247,7 +1247,7 @@ function _blockPKeditForm(ctx, actionType){
 	if(blockPK) {
 		// En caso de ser edición bloqueamos la modificación
 		if(actionType === "PUT") {
-			$.each(ctx.oInit.primaryKey,function(key,id) {
+			$.each(ctx.oInit.primaryKey, function(key,id) {
 				var input = $(idForm[0]).find(":input[name=" + id + "]");
 				
 				// Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
@@ -1352,7 +1352,7 @@ function _addChildIcons(ctx){
 				}
 				var $fila = $(this).parent();
 				$span.click(function(event){
-					if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//nose hace nada. si esta editando
+					if($fila.hasClass('editable') && $fila.find('.closeResponsive').length){//no se hace nada. si esta editando
 						event.stopPropagation();
 					}else{
 						if($span.hasClass('closeResponsive')){

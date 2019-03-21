@@ -104,3 +104,14 @@ $radio-material-ripple-size: 6px;
         }
     }
 }
+
+/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
+.dialog-content-material {
+	.radio-material {
+		label {
+			&:before, &:after {
+				left: 6px;
+			}
+		}
+	}
+}
