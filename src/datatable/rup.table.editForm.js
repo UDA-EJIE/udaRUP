@@ -402,37 +402,42 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	var title;
 
 	if (actionType === 'PUT') {
-		//se obtiene el row entero de bbdd, meter parametro opcional.
-		var pk = DataTable.Api().rupTable.getIdPk(row);
-		var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
-		var ajaxOptions = {
-				url : ctx.oInit.urlBase+'/'+pk,
-				accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
-					'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-					'text':'text/plain','xml':'application/xml, text/xml'},
-				type : 'GET',
-				data : row,
-				dataType : 'json',
-				showLoading : false,
-				contentType : 'application/json',
-				async : false,
-				success : function(data, status, xhr) {
-					row = data;
-				},
-				error : function(xhr, ajaxOptions,thrownError) {
-					var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
-					if(divErrorFeedback.length === 0){
-						divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+		if(ctx.oInit.formEdit.direct === undefined){//Si existe esta variable, no accedemos a bbdd a por el registro.
+			//se obtiene el row entero de bbdd, meter parametro opcional.
+			var pk = DataTable.Api().rupTable.getIdPk(row);
+			var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+			var ajaxOptions = {
+					url : ctx.oInit.urlBase+'/'+pk,
+					accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+						'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+						'text':'text/plain','xml':'application/xml, text/xml'},
+					type : 'GET',
+					data : row,
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					async : false,
+					success : function(data, status, xhr) {
+						row = data;
+					},
+					error : function(xhr, ajaxOptions,thrownError) {
+						var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+						if(divErrorFeedback.length === 0){
+							divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+						}
+						_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
+						$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
 					}
-					_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-					$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
-				}
-			};
-		$.rup_ajax(ajaxOptions);
-		//Se carga desde bbdd y se actualiza la fila
-		dt.row(idRow).data(row);
-		ctx.json.rows[idRow] = row;
-		rowArray = $.rup_utils.jsontoarray(row);
+				};
+			$.rup_ajax(ajaxOptions);
+			//Se carga desde bbdd y se actualiza la fila
+			dt.row(idRow).data(row);
+			ctx.json.rows[idRow] = row;
+			//Se mantiene el checked sin quitar.
+			var identy = idRow + 1;
+			$('#'+ctx.sTableId+' > tbody > tr:nth-child('+identy+') > td.select-checkbox > input[type="checkbox"]').prop('checked',true)
+			rowArray = $.rup_utils.jsontoarray(row);
+		}
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = ctx.multiselection;
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
