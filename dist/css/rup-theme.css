@@ -1295,7 +1295,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   font-family: "FontAwesome"; }
 
 .rup-feedback {
-  margin: 0.8rem 0; }
+  margin: 0.8rem 0 2rem 0; }
   .rup-feedback.rup-feedback_image {
     background-image: none;
     padding: 1em 0.5em 1em 1.5em; }
@@ -1314,7 +1314,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
     .rup-feedback.rup-feedback_image div.rup-feedback_closeLink {
       text-decoration: none;
       float: right;
-      padding-right: 0.5rem;
+      padding-right: 2rem;
       margin: 0;
       color: #818a91; }
       .rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
@@ -3056,7 +3056,7 @@ input.error {
     right: 0.8rem;
     line-height: 1.9; }
 
-div.error, label.error {
+div.error, label.error, span.error {
   color: #d9534f;
   font-style: italic; }
 
@@ -4518,13 +4518,16 @@ ul > li > div a i.material-icons {
     border: 1px solid #757575;
     border-radius: 5px;
     box-sizing: border-box;
-    color: #495057; }
+    color: #495057;
+    background-image: none; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):hover:enabled {
     border-color: #212529; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
     border-color: #1472a4;
+    caret-color: #1472a4;
     border-width: 2px;
-    box-shadow: none; }
+    box-shadow: none;
+    padding-left: 17px; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:disabled {
     color: transparent; }
   .form-groupMaterial label {
@@ -4533,7 +4536,7 @@ ul > li > div a i.material-icons {
     font-weight: 400;
     position: absolute;
     pointer-events: none;
-    left: 15px;
+    left: 14px;
     top: 4px;
     padding-left: 5px;
     transition: 0.2s ease all;
@@ -4545,19 +4548,32 @@ ul > li > div a i.material-icons {
     font-size: .9rem;
     color: #1472a4;
     padding: 0 5px;
-    background-color: white; }
-  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
-    top: -10px;
-    font-size: .9rem;
-    color: #212529;
-    padding: 0 5px;
-    background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
-  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only ~ label {
-    top: -10px;
-    font-size: .9rem;
-    color: #212529;
-    padding: 0 5px;
-    background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
+    background-color: #FFFFFF;
+    background-image: none; }
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+    background-color: #e9ecef; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+      border-color: #757575; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+      top: -10px;
+      font-size: .9rem;
+      color: #212529;
+      padding: 0 5px;
+      background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only {
+    background-color: #e9ecef; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only:hover {
+      border-color: #757575; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only ~ label {
+      top: -10px;
+      font-size: .9rem;
+      color: #212529;
+      padding: 0 5px;
+      background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
+
+/* ESTE CASO ES PARA CUANDO SE USAN LOS ESTILOS EN CONJUNTO CON LAS CLASES DE GRID DE BOOTSTRAP */
+.form-groupMaterial[class*="col-"] input ~ label {
+  left: 19px; }
 
 /* ESTILOS */
 @keyframes ripple-hover {
@@ -4604,7 +4620,7 @@ ul > li > div a i.material-icons {
     display: inline-block;
     height: 18px;
     position: relative;
-    padding: 0 28px;
+    padding-left: 28px;
     margin-bottom: 0;
     cursor: pointer;
     vertical-align: bottom; }
@@ -4630,6 +4646,10 @@ ul > li > div a i.material-icons {
       background: #1472a4; }
     .radio-material label:disabled {
       pointer-events: none; }
+
+/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
+.dialog-content-material .radio-material label:before, .dialog-content-material .radio-material label:after {
+  left: 6px; }
 
 /* ESTILOS */
 @keyframes ripple-hover {
@@ -4671,7 +4691,7 @@ ul > li > div a i.material-icons {
       /* CAJA */
       width: 1.25em;
       height: 1.25em;
-      background: #fff;
+      background: #FFFFFF;
       border: 2px solid rgba(0, 0, 0, 0.54);
       border-radius: 0.125em;
       cursor: pointer;
@@ -4700,7 +4720,7 @@ ul > li > div a i.material-icons {
       transform: translate(0.25em, 0.33653846em) rotate(-45deg);
       width: 0.75em;
       height: 0.375em;
-      border: 0.125em solid #fff;
+      border: 0.125em solid #FFFFFF;
       border-top-style: none;
       border-right-style: none; }
     .checkbox-material input[type="checkbox"]:active:enabled + label:before {
@@ -4726,6 +4746,28 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
   .form-groupMaterial.checkbox-material > label:before, .form-groupMaterial.checkbox-material > label:after {
     left: 5px;
     top: 10px; }
+
+/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
+.dialog-content-material .checkbox-material label:before, .dialog-content-material .checkbox-material label:after {
+  left: 6px; }
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
+:not(.form-row) .form-groupMaterial {
+  /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+  :not(.form-row) .form-groupMaterial[class*="col-"] [ruptype="autocomplete"]:focus {
+    padding-left: 17px; }
+  :not(.form-row) .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ label {
+    left: 30px; }
+  :not(.form-row) .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ i.material-icons.error {
+    right: 26px; }
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
+.form-row .form-groupMaterial {
+  /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+  .form-row .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ label {
+    left: 20px; }
+  .form-row .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ i.material-icons.error {
+    right: 16px; }
 
 div.dialog-content-material {
   position: relative;
@@ -4761,7 +4803,8 @@ a.select-material {
   box-sizing: border-box;
   font-size: 1rem;
   overflow: visible;
-  background-color: #fff; }
+  background-color: #FFFFFF;
+  /* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */ }
   a.select-material:hover {
     background-color: initial;
     border-color: #212529; }
@@ -4769,7 +4812,10 @@ a.select-material {
     border-color: #1472a4;
     border-width: 2px;
     box-shadow: none;
-    outline: none; }
+    outline: none;
+    padding-left: 17px; }
+    a.select-material:focus span:first-child {
+      left: 11px; }
   a.select-material span:first-child {
     color: #495057;
     font-size: 1rem;
@@ -4779,14 +4825,57 @@ a.select-material {
     left: 12px;
     top: 1px;
     padding-left: 5px; }
+  a.select-material.ui-selectmenu {
+    border: 1px solid #757575;
+    font-size: 1rem;
+    background-color: #FFFFFF; }
+    a.select-material.ui-selectmenu:hover {
+      background-color: initial;
+      border-color: #212529; }
+    a.select-material.ui-selectmenu:focus {
+      border-color: #1472a4;
+      border-width: 2px;
+      box-shadow: none;
+      outline: none;
+      padding-left: 17px; }
+      a.select-material.ui-selectmenu:focus span:first-child {
+        left: 11px; }
 
-/* ESTILOS ESPECIFICOS PARA CUANDO EL SELECT SE ENCUENTRA DENTRO DE UN FORM-GROUP */
-.form-groupMaterial label.select-material {
-  top: -10px;
-  left: 15px; }
+.form-groupMaterial {
+  /* ESTABLECE LOS ESTILOS ESPECIFICOS DE LAS VALIDACIONES CON ERROR */ }
+  .form-groupMaterial label.select-material {
+    top: -10px;
+    left: 15px; }
+  .form-groupMaterial a.select-material span:first-child {
+    top: 0; }
+  .form-groupMaterial.rup-validate-field-error {
+    /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+    .form-groupMaterial.rup-validate-field-error a.select-material span:last-child {
+      right: 30px; }
+    .form-groupMaterial.rup-validate-field-error[class*="col-"] {
+      /* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */ }
+      .form-groupMaterial.rup-validate-field-error[class*="col-"].rup-validate-field-error select ~ i.material-icons.error, .form-groupMaterial.rup-validate-field-error[class*="col-"].rup-validate-field-error .ui-multiselect ~ i.material-icons.error, .form-groupMaterial.rup-validate-field-error[class*="col-"].rup-validate-field-error .ui-selectmenu-dropdown ~ i.material-icons.error {
+        right: 15px; }
 
-.form-groupMaterial a.select-material span:first-child {
-  top: 0; }
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO NO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+:not(.form-row) .form-groupMaterial {
+  /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+  :not(.form-row) .form-groupMaterial[class*="col-"] [ruptype="combo"] ~ label.select-material {
+    left: 28px; }
+
+/* TODO: hacerlo funcionar sin obligar a que sea un hijo directo */
+:not(.form-row) > .form-groupMaterial {
+  /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+  :not(.form-row) > .form-groupMaterial[class*="col-"] {
+    /* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */ }
+    :not(.form-row) > .form-groupMaterial[class*="col-"].rup-validate-field-error select ~ i.material-icons.error, :not(.form-row) > .form-groupMaterial[class*="col-"].rup-validate-field-error .ui-multiselect ~ i.material-icons.error, :not(.form-row) > .form-groupMaterial[class*="col-"].rup-validate-field-error .ui-selectmenu-dropdown ~ i.material-icons.error {
+      right: 25px; }
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+.form-row .form-groupMaterial {
+  /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
+  .form-row .form-groupMaterial[class*="col-"] [ruptype="combo"] ~ label.select-material {
+    left: 18px; }
 
 /* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
 div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]) {
@@ -4832,25 +4921,75 @@ div.rup-date-input-group-material + label {
   position: absolute;
   z-index: 1; }
 
-div.rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
-  content: initial; }
+div.rup-feedback.rup-feedback_image {
+  border: 1px solid #c5c5c5;
+  color: #495057; }
+  div.rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
+    content: initial; }
+  div.rup-feedback.rup-feedback_image > i.material-icons {
+    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 2rem; }
+    div.rup-feedback.rup-feedback_image > i.material-icons + div {
+      display: initial;
+      vertical-align: middle; }
+  div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button, div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button, div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev, div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
+    margin-left: 1rem; }
 
-div.rup-feedback.rup-feedback_image > i.material-icons {
-  margin-right: 1rem;
-  font-weight: 700;
-  font-size: 2rem; }
-  div.rup-feedback.rup-feedback_image > i.material-icons + div {
-    display: initial;
-    vertical-align: middle; }
+/* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
+i.material-icons.error {
+  color: #d9534f; }
 
-div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button, div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button, div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev, div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
-  margin-left: 1rem; }
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ label, .form-groupMaterial.rup-validate-field-error select:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ label {
+  color: #d9534f; }
+
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span, .form-groupMaterial.rup-validate-field-error select:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span {
+  color: #d9534f;
+  /* PARA LOS COMBOS */ }
+  .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material {
+    border-color: #d9534f; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:hover {
+      border-color: #d43f3a; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:focus {
+      border: 2px solid #d43f3a; }
+
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error select:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:invalid:enabled ~ label {
+  color: #495057; }
+
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled, .form-groupMaterial.rup-validate-field-error select:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled {
+  border-color: #d9534f; }
+
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):hover:enabled, .form-groupMaterial.rup-validate-field-error select:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:hover:enabled {
+  border-color: #d43f3a; }
+
+.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled, .form-groupMaterial.rup-validate-field-error select:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled {
+  border: 2px solid #d43f3a;
+  caret-color: #d43f3a; }
+  .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error select:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:invalid ~ label {
+    color: #d9534f; }
+
+.form-groupMaterial.rup-validate-field-error span {
+  color: #d9534f; }
+
+.form-groupMaterial.rup-validate-field-error i.material-icons.error {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 400; }
+
+.form-groupMaterial.rup-validate-field-error .error:last-child {
+  display: block;
+  padding-top: 2px;
+  padding-left: 19px; }
 
 /* REDONDEAMOS EL LOS BORDES DE LA TABLA */
 table.table-material {
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  /* QUITAMOS LAS BARRAS VERTICALES */ }
+  /* QUITAMOS LAS BARRAS VERTICALES */
+  /* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */ }
   table.table-material > thead th:hover {
     background-color: #b8d4e3; }
   table.table-material > thead > tr > th:first-child {
@@ -4865,6 +5004,8 @@ table.table-material {
     border-width: 1px 0;
     border-style: solid;
     border-color: #dee2e6; }
+  table.table-material i.material-icons {
+    font-weight: bold; }
 
 form + div.paginationContainer {
   border-bottom-left-radius: 7px;
@@ -4873,3 +5014,6 @@ form + div.paginationContainer {
 /* ESTILOS GENERALES */
 .material-rounded {
   border-radius: 16px; }
+
+.pointer {
+  cursor: pointer; }
