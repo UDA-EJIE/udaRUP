@@ -108,7 +108,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	
 	//Crear feedback;
 	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
-	$('#'+ctx.sTableId+'_containerToolbar').prepend($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
+	$('#'+ctx.sTableId+'_containerToolbar').before($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
 	
 	//se cambia el nombre de los validadores.
 	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
@@ -1276,9 +1276,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
+					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+		
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
@@ -1300,7 +1301,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		error : function(xhr, ajaxOptions,thrownError) {
 			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
 			if(divErrorFeedback.length === 0){
-				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertAfter('#'+ctx.sTableId);
+				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertBefore('#'+ctx.sTableId);
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
@@ -1313,8 +1314,15 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(ctx.inlineEdit.lastRow !== undefined){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
-	idForm.rup_form();
-	idForm.rup_form('ajaxSubmit', ajaxOptions);
+	
+	if(url !== '/deleteAll' && actionType !== 'DELETE'){
+		idForm.rup_form();
+		idForm.rup_form('ajaxSubmit', ajaxOptions);
+	}else{
+		//Se cambia el data
+		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+		$.rup_ajax(ajaxOptions);
+	}
 }
 
 

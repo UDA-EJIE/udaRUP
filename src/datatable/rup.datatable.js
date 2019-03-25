@@ -62,7 +62,57 @@
 	//*******************************
 	$.fn.rup_datatable('extend',{
 		foo: function() {
-			return this;
+				return this;
+		},
+		createButton: function(pos,props) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+			var idTable = ctx.sTableId;
+			if(pos === undefined){
+				pos = 0;
+			}
+			if(ctx.oInit.buttons !== undefined && props !== undefined){
+				if(props.custom === undefined){
+					props.custom = true;
+				}
+				// Añadimos el boton de refrescar los datos de la tabla
+				dt.button().add(pos, {
+					text: props.text,
+					id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
+					className: props.className,
+					icon: props.icon,
+					displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
+					insideContextMenu: props.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+					action: props.action,
+					custom:props.custom
+				});
+			}else{
+				alert('Está función requiere el plugin de buttons y dos parámetros.');
+			}
+		},
+		removeButton: function(selector) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).remove();
+			}
+		},
+		disableButton: function(selector,contextMenu) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).disable(contextMenu);
+			}
+		},
+		enableButton: function(selector,flag,contextMenu) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).enable(flag,contextMenu);
+			}
 		}
 	});
 

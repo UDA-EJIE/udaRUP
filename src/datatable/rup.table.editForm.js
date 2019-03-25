@@ -76,6 +76,10 @@ DataTable.editForm.init = function ( dt ) {
 	ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
 	ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
 	ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
+	if(ctx.oInit.formEdit.detailForm !== undefined && 
+			$('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).length > 0){
+		$('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).remove();
+	}
 
 	//Se coge el adapter, y se crea la barra de navegación
 	if(ctx.oInit.multiSelect === undefined){// si es de select
@@ -89,21 +93,9 @@ DataTable.editForm.init = function ( dt ) {
 	//se añade el boton de cancelar
 	ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_button_cancel');
 	ctx.oInit.formEdit.buttoCancel.bind('click', function() {
-		ctx.oInit.formEdit.okCallBack = false;
-		var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
-
-		//Despues de cerrar
-		//Se limpia los elementos.
-		if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
-			ctx.oInit.formEdit.idForm.rup_validate("resetElements");
-		}
-
+		cancelPopup(ctx);
 		//Se cierra el dialog
 		ctx.oInit.formEdit.detailForm.rup_dialog("close");
-		//Se cierran los mensajes del feedback
-		if(feedback[0].className !== ''){
-			feedback.rup_feedback('hide');
-		}
 	});
 	var idRow;
 	var rowsBody = $( ctx.nTBody);
@@ -209,9 +201,13 @@ DataTable.editForm.init = function ( dt ) {
 
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
+		if(event.originalEvent !== undefined){//el evento es cerrado por el aspa
+			ctx.oInit.formEdit.okCallBack = false;
+		}
 		// si es igual no hacer nada.
 		var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
 		if(ctx.oInit.formEdit.dataOrigin === formSerializado){
+			cancelPopup(ctx);
 			return true;
 		}
 		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
@@ -220,6 +216,7 @@ DataTable.editForm.init = function ( dt ) {
 				message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.saveAndContinue'),
 				title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
 				OKFunction: function () {
+					cancelPopup(ctx);
 					ctx.oInit.formEdit.okCallBack = true;
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
 					},
@@ -346,6 +343,23 @@ function eventTrigger ( api, type, args, any )
 	$(api.table().node()).trigger( type, args );
 }
 
+function cancelPopup(ctx){
+	ctx.oInit.formEdit.okCallBack = false;
+	var feedback = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+
+	//Despues de cerrar
+	//Se limpia los elementos.
+	if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
+		ctx.oInit.formEdit.idForm.rup_validate("resetElements");
+	}
+
+
+	//Se cierran los mensajes del feedback
+	if(feedback[0].className !== ''){
+		feedback.rup_feedback('hide');
+	}
+}
+
 /**
 * Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
 *
@@ -390,6 +404,42 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 	var title;
 
 	if (actionType === 'PUT') {
+		if(ctx.oInit.formEdit.direct === undefined){//Si existe esta variable, no accedemos a bbdd a por el registro.
+			//se obtiene el row entero de bbdd, meter parametro opcional.
+			var pk = DataTable.Api().rupTable.getIdPk(row);
+			var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+			var ajaxOptions = {
+					url : ctx.oInit.urlBase+'/'+pk,
+					accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+						'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+						'text':'text/plain','xml':'application/xml, text/xml'},
+					type : 'GET',
+					data : row,
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					async : false,
+					success : function(data, status, xhr) {
+						row = data;
+					},
+					error : function(xhr, ajaxOptions,thrownError) {
+						var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+						if(divErrorFeedback.length === 0){
+							divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+						}
+						_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
+						$('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+					}
+				};
+			$.rup_ajax(ajaxOptions);
+			//Se carga desde bbdd y se actualiza la fila
+			dt.row(idRow).data(row);
+			ctx.json.rows[idRow] = row;
+			//Se mantiene el checked sin quitar.
+			var identy = idRow + 1;
+			$('#'+ctx.sTableId+' > tbody > tr:nth-child('+identy+') > td.select-checkbox > input[type="checkbox"]').prop('checked',true)
+			rowArray = $.rup_utils.jsontoarray(row);
+		}
 		$.rup_utils.populateForm(rowArray, idForm);
 		var multiselection = ctx.multiselection;
 		var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
@@ -592,9 +642,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
+					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterDelete');
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+				
 			}
 			// Recargar datos
 			//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
@@ -615,9 +666,15 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		validate:validaciones,
 		feedback:feed.rup_feedback({type:"error",block:false})
 	};
-
-	ctx.oInit.formEdit.idForm.rup_form();
-	ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+	
+	if(url !== '/deleteAll' && actionType !== 'DELETE'){
+		ctx.oInit.formEdit.idForm.rup_form();
+		ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+	}else{
+		//Se cambia el data
+		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+		$.rup_ajax(ajaxOptions);
+	}
 }
 
 /**
@@ -887,6 +944,10 @@ function _callNavigationSelectBar(dt){
 			DataTable.Api().select.deselect(ctx);
 			DataTable.Api().select.drawSelectId(ctx);
 		}
+		//Se actualiza la ultima posicion movida.
+		//ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
+		//Se añade un parametro respecto el rup.table para permitir la convivencia.
+		return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1,''];
 
 	};
 
@@ -964,10 +1025,11 @@ function _getRowSelected(dt,actionType){
 
 	//En caso de estar en una pagina distinta , navegamos a ella
 	if(dt.page()+1 !== Number(rowDefault.page)){
+		var pageActual = dt.page()+1;
 		var table = $('#'+ctx.sTableId).DataTable();
 		table.page( rowDefault.page-1 ).draw( 'page' );
 		if(ctx.oInit.formEdit !== undefined){
-			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line];
+			ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType,dt,rowDefault.line,undefined,pageActual];
 		}
 	}
 

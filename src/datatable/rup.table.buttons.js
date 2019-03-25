@@ -360,10 +360,13 @@ $.extend( Buttons.prototype, {
 	 * @return {Buttons} Self for chaining
 	 *
 	 */
-	disable: function ( node ) {
+	disable: function ( node,contextMenu ) {
 		var button = this._nodeToButton( node );
 
 		$(button.node).addClass( this.c.dom.button.disabled );
+		if(contextMenu){
+			$('#'+button.node.id+'_contextMenuToolbar').addClass(this.c.dom.button.disabled );
+		}
 
 		return this;
 	},
@@ -421,7 +424,7 @@ $.extend( Buttons.prototype, {
 	 * @return {Buttons} Self for chaining
 	 *
 	 */
-	enable: function ( node, flag )
+	enable: function ( node, flag, contextMenu )
 	{
 		if ( flag === false ) {
 			return this.disable( node );
@@ -429,6 +432,9 @@ $.extend( Buttons.prototype, {
 
 		var button = this._nodeToButton( node );
 		$(button.node).removeClass( this.c.dom.button.disabled );
+		if(contextMenu){
+			$('#'+button.node.id+'_contextMenuToolbar').removeClass(this.c.dom.button.disabled );
+		}
 
 		return this;
 	},
@@ -1485,7 +1491,7 @@ Buttons.defaults = {
 			tag: 'button',
 			className: 'btn-material btn-material-primary-high-emphasis',
 			active: 'active',
-			disabled: 'disabled'
+			disabled: 'disabledButtonsTable'
 		},
 		buttonLiner: {
 			tag: 'span',
@@ -1778,16 +1784,16 @@ DataTable.Api.registerPlural( 'buttons().action()', 'button().action()', functio
 } );
 
 // Enable / disable buttons
-DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag ) {
+DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag,contextMenu ) {
 	return this.each( function ( set ) {
-		set.inst.enable( set.node, flag );
+		set.inst.enable( set.node, flag,contextMenu );
 	} );
 } );
 
 // Disable buttons
-DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function () {
+DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function (contextMenu) {
 	return this.each( function ( set ) {
-		set.inst.disable( set.node );
+		set.inst.disable( set.node,contextMenu );
 	} );
 } );
 
@@ -1996,7 +2002,11 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			if(ctx.oInit.formEdit !== undefined){
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
-				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				if(ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
+						ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
+						dt.page()+1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])){
+					DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				}
 			}else{//edicion en linea
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				ctx.oInit.inlineEdit.currentPos = undefined;
@@ -2049,8 +2059,8 @@ DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) 
 	var opts = ctx._buttons[0].inst.s.buttons;
 	$.each(opts, function () {
 		if(exception === undefined){
-			$(this.node).addClass('disabledDatatable');//para el toolbar
-			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
+			$(this.node).addClass('disabledButtonsTable');//para el toolbar
+			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledButtonsTable');//para el contexmenu
 		}else if(this.node.id !== exception){//ponemos los regex a cero menos la excepcion
 			this.conf.displayRegex = undefined;
 		}
@@ -2299,7 +2309,7 @@ var _exportData = function ( dt, inOpts )
  */
 var _enableCollection = function ( id )
 {
-	$('#' + id).removeClass('disabledDatatable');
+	$('#' + id).removeClass('disabledButtonsTable');
 };
 
 /**
@@ -2314,7 +2324,7 @@ var _enableCollection = function ( id )
  */
 var _disableCollection = function ( id )
 {
-	$('#' + id).addClass('disabledDatatable');
+	$('#' + id).addClass('disabledButtonsTable');
 };
 
 /**
@@ -2329,7 +2339,7 @@ var _disableCollection = function ( id )
  */
 var _enableButtonAndContextMenuOption = function ( id )
 {
-	$('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledDatatable');
+	$('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledButtonsTable');
 };
 
 /**
@@ -2344,7 +2354,7 @@ var _enableButtonAndContextMenuOption = function ( id )
  */
 var _disableButtonAndContextMenuOption = function ( id )
 {
-	$('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledDatatable');
+	$('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledButtonsTable');
 };
 
 /**
@@ -2361,90 +2371,92 @@ var _disableButtonAndContextMenuOption = function ( id )
  *
  */
 var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionObject,ctx )
-{
-	// Si pertenece a un collection o es un collection
-	if (opts.collection !== null && collectionObject) {
-		var collectionId = collectionObject.conf.id;
-		var collectionDisplayRegex = collectionObject.conf.displayRegex;
-		var alreadyExecuted = false;
-		// Recorre todos los botones dentro del collection
-		$.each(collectionObject.buttons, function(key, value) {
-			// Activa/desactiva en funcion de la propiedad 'displayRegex' del padre y los hijos
-			if (collectionDisplayRegex !== undefined && value.conf.displayRegex !== undefined) {
-				if (collectionDisplayRegex.test(numOfSelectedRows) && value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
-				}
-				else {
-					_disableButtonAndContextMenuOption(value.conf.id);
-				}
-			}
-			// Activa/desactiva en funcion de la propiedad 'displayRegex' de sus hijos
-			else if (collectionDisplayRegex === undefined && value.conf.displayRegex !== undefined) {
-				// Habilita la coleccion si cumple el regex (solo se ejecuta una vez como
-				// maximo gracias al booleano 'alreadyExecuted')
-				if (value.conf.displayRegex.test(numOfSelectedRows) && !alreadyExecuted) {
-					_enableCollection(collectionId);
-					alreadyExecuted = true;
-				}
-				// Habilita el boton si cumple el displayRegex
-				if (value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
-				}
-				// Como este boton no cumple el 'displayRegex' para ser habilitado, se deshabilitan
-				// tanto el boton como su opcion en el contextMenu
-				else {
-					_disableButtonAndContextMenuOption(value.conf.id);
-				}
-				// En caso de que ningun regex cumpliese, se fuerza la deshabilitacion
-				if (!alreadyExecuted) {
-					_disableCollection(collectionId);
-				}
-			}
-			// Desactiva todo si ni el collection ni los hijos tienen la propiedad 'displayRegex'
-			// o simplemente si los hijos no tienen la propiedad
-			else {
-				_disableButtonAndContextMenuOption(value.conf.id);
-				if (!alreadyExecuted) {
-					_disableCollection(collectionId);
-					alreadyExecuted = true;
-				}
-			}
-		});
-		// Genera un evento encargado de ocultar los botones dentro del collection.
-		// Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
-		// el rendimiento
-		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
-			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
-			// el valor recibido cuando se creo el evento
-			var numOfSelectedRows = ctx.multiselection.numSelected;
+{   
+	if(opts.conf.custom === undefined || !opts.conf.custom){
+		// Si pertenece a un collection o es un collection
+		if (opts.collection !== null && collectionObject) {
+			var collectionId = collectionObject.conf.id;
+			var collectionDisplayRegex = collectionObject.conf.displayRegex;
+			var alreadyExecuted = false;
+			// Recorre todos los botones dentro del collection
 			$.each(collectionObject.buttons, function(key, value) {
-				// Habilita el boton dentro del collection
-				if (value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
+				// Activa/desactiva en funcion de la propiedad 'displayRegex' del padre y los hijos
+				if (collectionDisplayRegex !== undefined && value.conf.displayRegex !== undefined) {
+					if (collectionDisplayRegex.test(numOfSelectedRows) && value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
 				}
-				// Deshabilita el boton dentro del collection
+				// Activa/desactiva en funcion de la propiedad 'displayRegex' de sus hijos
+				else if (collectionDisplayRegex === undefined && value.conf.displayRegex !== undefined) {
+					// Habilita la coleccion si cumple el regex (solo se ejecuta una vez como
+					// maximo gracias al booleano 'alreadyExecuted')
+					if (value.conf.displayRegex.test(numOfSelectedRows) && !alreadyExecuted) {
+						_enableCollection(collectionId);
+						alreadyExecuted = true;
+					}
+					// Habilita el boton si cumple el displayRegex
+					if (value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					// Como este boton no cumple el 'displayRegex' para ser habilitado, se deshabilitan
+					// tanto el boton como su opcion en el contextMenu
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
+					// En caso de que ningun regex cumpliese, se fuerza la deshabilitacion
+					if (!alreadyExecuted) {
+						_disableCollection(collectionId);
+					}
+				}
+				// Desactiva todo si ni el collection ni los hijos tienen la propiedad 'displayRegex'
+				// o simplemente si los hijos no tienen la propiedad
 				else {
 					_disableButtonAndContextMenuOption(value.conf.id);
+					if (!alreadyExecuted) {
+						_disableCollection(collectionId);
+						alreadyExecuted = true;
+					}
 				}
 			});
-		} );
-	}
-	// Si el boton no tiene un regex definido, permanecera siempre desactivado
-	else if (opts.conf.displayRegex === undefined) {
-		// Deshabilita el boton y su opcion dentro del context menu
-		_disableButtonAndContextMenuOption(opts.conf.id);
-	}
-	// Si tiene un regex definido, lo activa y desactiva en funcion de este
-	else if (opts.conf.displayRegex !== undefined) {
-		// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
-		// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
-		// oculto
-		if (opts.conf.displayRegex.test(numOfSelectedRows)) {
-			// Habilita el boton y su opcion dentro del context menu
-			_enableButtonAndContextMenuOption(opts.conf.id);
-		} else {
+			// Genera un evento encargado de ocultar los botones dentro del collection.
+			// Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
+			// el rendimiento
+			$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
+				// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
+				// el valor recibido cuando se creo el evento
+				var numOfSelectedRows = ctx.multiselection.numSelected;
+				$.each(collectionObject.buttons, function(key, value) {
+					// Habilita el boton dentro del collection
+					if (value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					// Deshabilita el boton dentro del collection
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
+				});
+			} );
+		}
+		// Si el boton no tiene un regex definido, permanecera siempre desactivado
+		else if (opts.conf.displayRegex === undefined) {
 			// Deshabilita el boton y su opcion dentro del context menu
 			_disableButtonAndContextMenuOption(opts.conf.id);
+		}
+		// Si tiene un regex definido, lo activa y desactiva en funcion de este
+		else if (opts.conf.displayRegex !== undefined) {
+			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+			// oculto
+			if (opts.conf.displayRegex.test(numOfSelectedRows)) {
+				// Habilita el boton y su opcion dentro del context menu
+				_enableButtonAndContextMenuOption(opts.conf.id);
+			} else {
+				// Deshabilita el boton y su opcion dentro del context menu
+				_disableButtonAndContextMenuOption(opts.conf.id);
+			}
 		}
 	}
 };
