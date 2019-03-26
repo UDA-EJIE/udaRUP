@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter','./rup.table.inlineEdit'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -198,7 +198,7 @@
 					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
 				}
 				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-				if(options.buttons !== undefined){
+				if(options.buttons !== undefined && ctx._buttons !== undefined){
 					ctx._buttons[0].inst.s.disableAllButttons = undefined;
 					DataTable.Api().buttons.displayRegex(ctx);
 				}
@@ -1044,7 +1044,7 @@
 			
 			//Comprobar plugin dependientes
 			if(settings.multiSelect !== undefined){
-				settings.columnDefs.push({
+				settings.columnDefs.unshift({
 			        orderable: false,
 			        className: 'select-checkbox',
 			        targets: 0,
@@ -1233,15 +1233,6 @@
 			}
 
 			
-			if(settings.buttons !== undefined){
-				// Toolbar por defecto del datatable
-				new $.fn.dataTable.Buttons(
-					tabla,
-					DataTable.Buttons.defaults.buttons
-				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
-			}
-
-
 			if(settings.multiSelect !== undefined || settings.select !== undefined){
 				$self._createEventSelect(tabla);				
 			}

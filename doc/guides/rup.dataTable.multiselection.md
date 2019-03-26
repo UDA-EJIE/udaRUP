@@ -1,35 +1,35 @@
 # RUP dataTable - Multiselection
 
-Permite realizar una selecci�n m�ltiple de los registros que se muestran en la tabla.
+Permite realizar una selección móltiple de los registros que se muestran en la tabla.
 
 ![Imagen 1](img/rup.datatable.multiselection_1.png)
 
-## 1. Declaraci�n y configuraci�n
+## 1. Declaración y configuración
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor multiselection. La configuraci�n del plugin se especifica en la propiedad multiselect.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor multiselection. La configuración del plugin se especifica en la propiedad multiselect.
 
 ```js
 $("#idComponente").rup_datatable({
   multiselect:{
-    // Propiedades de configuraci�n del plugin multiselection
+    // Propiedades de configuración del plugin multiselection
   }
 });
 ```
 
 ## Funcionamiento interno
 
-Para su funcioanmiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiselection```.
+Para su funcionamiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiselection```.
 
-Se puede acceder a esta estructura mediante la siguiente instrucci�n.
+Se puede acceder a esta estructura mediante la siguiente instrucción.
 
 ```js
 var table = $('#example').DataTable();
 var multiselectionObj = table.context[0].multiselection;
 ```
-Se puede acceder a los m�todos de la api del multiSelect
+Se puede acceder a los mótodos de la api del multiSelect
 ``DataTable.Api().multiSelect.metodoEjemplo()`
 
-Adem�s de las propiedades de configuraci�n asociadas a la configuraci�n del plugin de multiselecci�n se pueden observar las siguientes propiedades.
+Ademós de las propiedades de configuración asociadas a la configuración del plugin de multiselección se pueden observar las siguientes propiedades.
 
 
 ```js
@@ -45,40 +45,40 @@ Adem�s de las propiedades de configuraci�n asociadas a la configuraci�n de
 }
 ```
 
-La funci�n de cada propiedad es la siguiente:
+La función de cada propiedad es la siguiente:
 
-* **numSelected**: N�mero de registros seleccionados en la tabla.
+* **numSelected**: Nómero de registros seleccionados en la tabla.
 * **selectedAll**: Indica si se han seleccionado todos los elementos de la tabla.
 * **selectedIds**: Array que almacena los identificadores de los registros *seleccionados*.
-* **selectedRowsPerPage**: Array que almacena la informaci�n de los registros *seleccionados* por cada p�gina.
+* **selectedRowsPerPage**: Array que almacena la información de los registros *seleccionados* por cada pógina.
 * **deselectedIds**: Array que almacena los identificadores de los registros *deseleccionados*.
-* **deselectedRowsPerPage**: Array que almacena la informaci�n de los registros *deseleccionados* por cada p�gina.
-* **lastSelectedId**: -identificador con el �ltimo registro seleccionado*.
-* **accion**: Variable para distingir la acci�n de checkAll, uncheckAll, checkAllPage y uncheckAllPage*.
+* **deselectedRowsPerPage**: Array que almacena la información de los registros *deseleccionados* por cada pógina.
+* **lastSelectedId**: -identificador con el óltimo registro seleccionado*.
+* **accion**: Variable para distingir la acción de checkAll, uncheckAll, checkAllPage y uncheckAllPage*.
 
-Existen dos modos de selecci�n de registros en la tabla.
+Existen dos modos de selección de registros en la tabla.
 
-* Selecci�n de registros **ordinaria**.
-* Selecci�n de registros **inversa**.
+* Selección de registros **ordinaria**.
+* Selección de registros **inversa**.
 
-### Selecci�n de registros ordinaria
+### Selección de registros ordinaria
 
-En este caso la selecci�n de registros se realiza de manera normal. Cuando se selecciona un registro de la tabla se:
+En este caso la selección de registros se realiza de manera normal. Cuando se selecciona un registro de la tabla se:
 
 * Incrementa el contador de la propiedad ``numSelected``.
-* Se almacena el �ltimo id seleccionado ``lastSelectedId``.
+* Se almacena el óltimo id seleccionado ``lastSelectedId``.
 
 Supongamos el siguiente ejemplo.
 
-Se accede a la aplicaci�n y sobre un componente RUP Table con el plugin de multiselecci�n activado se procede a seleccionar los siguientes registros:
+Se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado se procede a seleccionar los siguientes registros:
 
-* Pagina 1, registro de la l�nea 3 con el id "47"
-* Pagina 1, registro de la l�nea 6 con el id "56"
-* Pagina 3, registro de la l�nea 1 con el id "89"
-* Pagina 4, registro de la l�nea 7 con el id "176"
-* Pagina 4, registro de la l�nea 8 con el id "201"
+* Pagina 1, registro de la línea 3 con el id "47"
+* Pagina 1, registro de la línea 6 con el id "56"
+* Pagina 3, registro de la línea 1 con el id "89"
+* Pagina 4, registro de la línea 7 con el id "176"
+* Pagina 4, registro de la línea 8 con el id "201"
 
-Despu�s de realizar las multiselecci�n sobre los registros el estado de la estructura ser� la siguiente:
+Despuós de realizar las multiselección sobre los registros el estado de la estructura seró la siguiente:
 
 ```js
 {
@@ -98,26 +98,26 @@ Despu�s de realizar las multiselecci�n sobre los registros el estado de la e
 ```
 
 
-### Selecci�n de registros inversa
+### Selección de registros inversa
 
-La selecci�n inversa se realiza cuando el usuario ha seleccionado todos los registros de la tabla mediante el control correspondiente **selectAll**. En este caso, se almacena la informaci�n de los registros deseleccionados en vez de los registros seleccionados.
+La selección inversa se realiza cuando el usuario ha seleccionado todos los registros de la tabla mediante el control correspondiente **selectAll**. En este caso, se almacena la información de los registros deseleccionados en vez de los registros seleccionados.
 
 Cuando se deselecciona un registro de la tabla se:
 
 * Disminuye el contador de la propiedad ``numSelected``.
-* Se almacena la informaci�n del registro en las propiedades ``deselected``.
+* Se almacena la información del registro en las propiedades ``deselected``.
 
 Supongamos el siguiente ejemplo.
 
-Se accede a la aplicaci�n y sobre un componente RUP Table con el plugin de multiselecci�n activado.
+Se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado.
 
 El número de registros totales es de 1500 elementos. Se seleccionan todos los registros mediante la opción **selectAll** y se procede a deseleccionar los siguientes registros:
 
-* Pagina 1, registro de la l�nea 3 con el id "47"
-* Pagina 1, registro de la l�nea 6 con el id "56"
-* Pagina 3, registro de la l�nea 1 con el id "89"
-* Pagina 4, registro de la l�nea 7 con el id "176"
-* Pagina 4, registro de la l�nea 8 con el id "201"
+* Pagina 1, registro de la línea 3 con el id "47"
+* Pagina 1, registro de la línea 6 con el id "56"
+* Pagina 3, registro de la línea 1 con el id "89"
+* Pagina 4, registro de la línea 7 con el id "176"
+* Pagina 4, registro de la línea 8 con el id "201"
 
 Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 

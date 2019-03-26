@@ -116,89 +116,6 @@ DataTable.editForm.init = function ( dt ) {
 		} );
 	}
 
-	// Creacion del Context Menu
-	if (ctx.oInit.buttons !== undefined) {
-		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
-		var items = {};
-		$.when(
-			$.each(botonesToolbar, function (i) {
-				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-				if (this.conf.insideContextMenu) {
-					// Poblamos el objeto 'items' con los botones habilitados
-					items[this.conf.id] =
-					{
-						id: this.conf.id + '_contextMenuToolbar',
-						name: this.conf.text(dt),
-						// TODO: buscar manera de insertar un icono como elemento en vez de clase.
-						//icon: this.conf.icon,
-						inCollection: this.inCollection,
-						idCollection: undefined
-					}
-				}
-				// Comprueba si tiene botones hijos
-				if (this.buttons.length > 0) {
-					var idCollection = this.conf.id;
-					$.each(this.buttons, function (i) {
-						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-						if (this.conf.insideContextMenu) {
-							// Poblamos el objeto 'items' con los botones habilitados
-							items[this.conf.id] =
-							{
-								id: this.conf.id + '_contextMenuToolbar',
-								name: this.conf.text(dt),
-								// TODO: buscar manera de insertar un icono como elemento en vez de clase.
-								//icon: this.conf.icon,
-								inCollection: this.inCollection,
-								idCollection: idCollection
-							}
-						}
-					});
-				}
-			})
-		).done(function () {
-			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
-			tableTr.rup_contextMenu({
-				callback: function(key, options) {
-					var selector = items[key];
-					// Recogemos el id de la accion pulsada en el context menu
-					var contextMenuActionId = selector.id;
-					// Le quitamos la extension '_contextMenuToolbar' para tener asi
-					// el id del boton que queremos accionar
-					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
-					// Variable que nos dira si esta dentro de una coleccion
-					var inCollection = selector.inCollection;
-					// Variable que almacena el id de la coleccion (si no pertenece a una
-					// siempre sera 'undefined')
-					var idCollection = selector.idCollection;
-					// Comprobamos si existe el elemento con este id
-					if (inCollection && idCollection !== undefined) {
-						// Obtenemos la info necesaria del boton y la guardamos en variables
-						var buttonName;
-						var eventDT;
-						var eventConfig;
-
-						$.each( ctx.ext.buttons, function( key ) {
-							var buttonObject = ctx.ext.buttons[key];
-							if (buttonObject.id === buttonId) {
-								buttonName = key;
-								eventDT = buttonObject.eventDT;
-								eventConfig = buttonObject;
-							}
-						});
-
-						// Llamamos directamente al action para no hacer aparecer y desaparecer
-						// el boton, empeorando la UX
-						ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
-					} else {
-						$('#' + buttonId).trigger('click');
-					}
-					
-			  },
-				items
-			});
-		});
-	}
-
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
 		if(event.originalEvent !== undefined){//el evento es cerrado por el aspa
@@ -408,6 +325,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 			//se obtiene el row entero de bbdd, meter parametro opcional.
 			var pk = DataTable.Api().rupTable.getIdPk(row);
 			var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+			pk = pk.replace(ctx.oInit.multiplePkToken,'/');
 			var ajaxOptions = {
 					url : ctx.oInit.urlBase+'/'+pk,
 					accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
