@@ -298,6 +298,9 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Edición en linea
 * ColReorder
 * Selección simple
+* Maestro detalle
+* RowGroup
+* Multifilter
 
 ## 7. Sobreescritura del theme
 

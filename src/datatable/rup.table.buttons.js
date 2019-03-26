@@ -194,6 +194,21 @@ var Buttons = function( dt, config )
 			'copyButton'
 		]
 	};
+	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
+		$.extend( ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
+		for ( var nameButton in ctx.oInit.inlineEdit.myButtons  ) {
+			Buttons.defaults.buttons.push(nameButton);
+		}
+	}
+	//añadir botones personalizados//se almacenan en plugin de buttons
+	if(ctx.oInit.buttons.myButtons !== undefined){// añadir botones edición en linea
+		//se aseguran que todos sean customs.
+		$.extend( ctx.ext.buttons, ctx.oInit.buttons.myButtons);
+		for ( var nameButton in ctx.oInit.buttons.myButtons  ) {
+			Buttons.defaults.buttons.push(nameButton);
+			//ctx.oInit.buttons.myButtons[nameButton].custom = true;
+		}
+	}
 	// If there is no config set it to an empty object
 	if ( typeof( config ) === 'undefined' ) {
 		config = {};
@@ -2887,6 +2902,91 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 		});
 };
 
+var _initContextMenu = function(ctx,api){
+	// Creacion del Context Menu
+	if (ctx.oInit.buttons !== undefined) {
+		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(api),
+						icon: this.conf.icon,
+						inCollection: this.inCollection,
+						idCollection: undefined
+					}
+				}
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(api),
+								icon: this.conf.icon,
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
+						}
+					});
+				}
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			if(!jQuery.isEmptyObject(items)){
+				tableTr.rup_contextMenu({
+					callback: function(key, options) {
+						var selector = items[key];
+						// Recogemos el id de la accion pulsada en el context menu
+						var contextMenuActionId = selector.id;
+						// Le quitamos la extension '_contextMenuToolbar' para tener asi
+						// el id del boton que queremos accionar
+						var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+						// Variable que nos dira si esta dentro de una coleccion
+						var inCollection = selector.inCollection;
+						// Variable que almacena el id de la coleccion (si no pertenece a una
+						// siempre sera 'undefined')
+						var idCollection = selector.idCollection;
+						// Comprobamos si existe el elemento con este id
+						if (inCollection && idCollection !== undefined) {
+							// Obtenemos la info necesaria del boton y la guardamos en variables
+							var buttonName;
+							var eventDT;
+							var eventConfig;
+	
+							$.each( ctx.ext.buttons, function( key ) {
+								var buttonObject = ctx.ext.buttons[key];
+								if (buttonObject.id === buttonId) {
+									buttonName = key;
+									eventDT = buttonObject.eventDT;
+									eventConfig = buttonObject;
+								}
+							});
+	
+							// Llamamos directamente al action para no hacer aparecer y desaparecer
+							// el boton, empeorando la UX
+							ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+						} else {
+							$('#' + buttonId).trigger('click');
+						}
+						
+				  },
+					items
+				});
+			}
+		});
+	}
+}
+
 /**
 * Inicializa los botones
 *
@@ -2946,11 +3046,28 @@ $.fn.dataTable.Buttons = Buttons;
 $.fn.DataTable.Buttons = Buttons;
 
 function inicio(ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
+	var api = new DataTable.Api( ctx );
+	var defaultButtons = api.init().buttons || DataTable.defaults.buttons
 	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
-
+	
+	// Toolbar por defecto del datatable
+	//lista negra de botones por defecto.
+	if(ctx.oInit.buttons.blackListButtons !== undefined){
+		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+			Buttons.defaults.buttons = [];
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				var name = this;
+				Buttons.defaults.buttons.splice($.inArray(name, Buttons.defaults.buttons),1);
+			});
+			
+		}
+	}
+	new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	var opts = ctx._buttons[0].inst.s.buttons;
 	DataTable.Api().buttons.initButtons(ctx,opts);
+	_initContextMenu(ctx,api);
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
@@ -2987,7 +3104,7 @@ $(document).on( 'plugin-init.dt', function (e, settings) {
 		return;
 	}
 
-	if ( settings.oInit.buttons !== undefined && settings._buttons ) {
+	if ( settings.oInit.buttons !== undefined ) {
 		inicio(settings);
 	}
 } );
