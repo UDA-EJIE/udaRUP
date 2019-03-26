@@ -115,9 +115,14 @@ table.dataTable tfoot th:hover {
     background-color: #aecff7
 }
 
-.disabledDatatable {
+.disabledButtonsTable {
     pointer-events: none;
     opacity: 0.6
+}
+
+.divSelectTableHead {
+	padding-top: 3px;
+	padding-left: 20px
 }
 
 .selectTableHead {
