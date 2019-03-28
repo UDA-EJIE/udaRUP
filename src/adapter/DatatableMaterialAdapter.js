@@ -212,6 +212,14 @@
 	};
 
 	DatatableMaterialAdapter.prototype.multifilter = {
+		classes:{
+			container: "form-groupMaterial",
+			label: "",
+			defaultFilter: {
+				container: "checkbox-material",
+				checkBox: ""
+			}
+		},
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
