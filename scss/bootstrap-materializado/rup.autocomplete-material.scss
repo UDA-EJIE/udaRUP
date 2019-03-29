@@ -16,6 +16,10 @@
 					right: 26px;
 				}
 			}
+			
+			.rup-combobox ~ i.material-icons.error {
+				right: 42px;
+			}
 		}
 	}
 }
@@ -34,6 +38,57 @@
 					right: 16px;
 				}
 			}
+			
+			.rup-combobox ~ i.material-icons.error {
+				right: 32px;
+			}
+		}
+	}
+}
+
+.form-groupMaterial {
+	/* PARA CUANDO ES UN COMBOBOX */
+	.rup-combobox {
+		width: 100%;
+		
+		input:not([type="checkbox"]):not([type="radio"]) {
+			display: inline-block;
+			width: calc(100% - 22.4px);
+			border-right-style: hidden;
+			
+			&:hover:enabled ~ a {
+				border-color: $black-color;
+			}
+			
+			&:focus:enabled ~ a {
+				border-color: $primary-color;
+				border-width: 2px;
+			}
+		}
+		
+		a {
+			width: 26.4px;
+			margin-left: -4px;
+			border: 1px solid $grey-color-light;
+			border-left-style: hidden;
+			
+			&:focus {
+				background-color: $primary-color;
+				
+				/* USAR CON ICONOS MATERIAL
+				i {
+					color: $white-color;
+				}*/
+			}
+		}
+		
+		~ input[ruptype="autocomplete"][type="hidden"] ~ label {
+			color: $primary-color;
+			background: $white-color;
+		}
+		
+		~ i.material-icons.error {
+			right: 32px;
 		}
 	}
 }

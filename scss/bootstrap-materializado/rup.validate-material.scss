@@ -67,5 +67,27 @@ i.material-icons.error {
 			padding-top: 2px;
 			padding-left: 19px;
 		}
+		
+		/* AUTOCOMPLETE COMBOBOX */
+		span.rup-combobox {	
+			input:not([type="checkbox"]):not([type="radio"]) {
+				&:enabled ~ a {
+					border-color: $validation-error-color-light;
+				}
+				
+				&:hover:enabled ~ a {
+					border-color: $validation-error-color;
+				}
+				
+				&:focus:enabled ~ a {
+					border: 2px solid $validation-error-color;
+					border-left-style: hidden;
+				}
+				
+				~ a:focus {
+					background-color: $validation-error-color-light;
+				}
+			}
+		}
 	}
 }
