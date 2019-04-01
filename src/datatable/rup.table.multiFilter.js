@@ -274,7 +274,7 @@ function postConfigureMultifilter (ctx) {
 	settings.multiFilter.$comboButton=$('#' + ctx.sTableId+'_multifilter_dropdownDialog .rup-combobox-toggle');
 	settings.multiFilter.$defaultCheck=$('#' + ctx.sTableId	+  '_multifilter_defaultFilter');
 	settings.multiFilter.$feedback=$('#' + ctx.sTableId	+ '_multifilter_dropdownDialog_feedback');
-	settings.multiFilter.$closeDialog=$('#closeText_'+ctx.sTableId+'_multifilter_dropdownDialog');
+	settings.multiFilter.$closeDialog=$('#'+ctx.sTableId+'_multifilter_dropdownDialog_close');
 	
 	
 	
@@ -305,7 +305,8 @@ function postConfigureMultifilter (ctx) {
 	_configCombo(ctx);
 	
 	settings.multiFilter.$feedback.rup_feedback({
-		block : false
+		block : false,
+		delay: 2000
 	});
 	
 	//gesión por filtroPorDefecto
@@ -747,19 +748,15 @@ function getMultifilterDialogTemplate(ctx) {
 
 		var $dropdownDiaglogTemplate = jQuery('<div id="'
 				+ multifilterSettings.dropdownDialogId
-				+ '" style="display:none" class="rup_multifilter_dropdown">'
+				+ '" style="display:none" class="dialog-content-material">'
 				+ '<div id="'
 				+ multifilterSettings.dropdownDialogId
 				+ '_feedback"></div>'
 				+ '<form>'
-				+ '<fieldset class="dropdownButton-inputs">'
-				+ '<div id="'
-				+ multifilterSettings.dropdownDialogId
-				+ '_columna_cnt">'
 				+ '<div class="form-row">'
 				+ '<div id="'
 				+ multifilterSettings.dropdownDialogId
-				+ '_lineaCombo"  class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.container + '">'
+				+ '_lineaCombo"  class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.container + ' col-12">'
 				+ '<input id="'
 				+ ctx.sTableId
 				+ '_multifilter_combo" class="rup_multifilter_selector" />'
@@ -773,7 +770,7 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '<div  class="form-row">'
 				+ '<div id="'
 				+ multifilterSettings.dropdownDialogId
-				+ '_lineaDefault" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.container + '">'
+				+ '_lineaDefault" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.container + ' col-12">'
 				+ '<input type="checkbox" id="'
 				+ ctx.sTableId
 				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.checkBox + '"/>'
@@ -782,9 +779,9 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
 				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
 				+ '</label>'
-				+ '</div>' 
 				+ '</div>'
-				+ '</fieldset>' + '</form>' + '</div>');
+				+ '</form>'
+				+ '</div>');
 
 		return $dropdownDiaglogTemplate;
 }

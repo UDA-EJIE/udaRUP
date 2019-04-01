@@ -50,6 +50,7 @@
 	/* PARA CUANDO ES UN COMBOBOX */
 	.rup-combobox {
 		width: 100%;
+		margin-right: 0;
 		
 		input:not([type="checkbox"]):not([type="radio"]) {
 			display: inline-block;

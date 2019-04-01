@@ -223,7 +223,7 @@
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="material-icons" aria-hidden="true">&#xe14c;</i>'
+				title : '<i class="material-icons" aria-hidden="true">&#xe152;</i>'
 			}
 		}
 
