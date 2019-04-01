@@ -85,6 +85,21 @@ DataTable.masterDetail.init = function ( dt ) {
 			var id = DataTable.Api().rupTable.getIdPk(row[0]);
 			$("#"+idHidden).val(""+id);
 			$('#'+ctx.sTableId+'_filter_filterButton').click();
+		}else{//se deselecciona
+			$("#"+idHidden).val("-1");
+			$('#'+ctx.sTableId + " > tbody tr").remove();
+			var asStripeClasses = ctx.asStripeClasses;
+			var iStripes = asStripeClasses.length;
+			var numberVisibles = dt.columns().responsiveHidden().reduce( function (a,b) {return b === true ? a+1 : a;}, 0 );
+			var $tr = $( '<tr/>', { 'class': iStripes ? asStripeClasses[0] : '' } )
+			.append( $('<td />', {
+				'valign':  'top',
+				'colSpan': numberVisibles,
+				'class':   ctx.oClasses.sRowEmpty
+			} ).html( ctx.oLanguage.sZeroRecords ) )[0];
+			$('#'+ctx.sTableId + " > tbody").append($tr);
+			ctx.seeker.search.$searchRow.hide();
+			$("#"+ctx.sTableId+'addButton_1').addClass('disabledButtonsTable');
 		}
 
 	} );

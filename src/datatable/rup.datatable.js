@@ -1129,6 +1129,10 @@
 			
 			$self._initOptions(settings);
 			
+			if(settings.loadOnStartUp !== undefined && !settings.loadOnStartUp){
+				settings.deferLoading = 0;
+			}
+			
 			var tabla = $self.DataTable(settings);
 
 			settings.sTableId = $self[0].id;
