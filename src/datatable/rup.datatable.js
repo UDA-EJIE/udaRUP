@@ -210,14 +210,19 @@
 					}
 			} );
 			
-			apiRegister( 'rupTable.getIdPk()', function ( json ) {
+			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {
+				
+				var opts = options;
+				if(optionsParam !== undefined){
+					opts = optionsParam;
+				}
 
 				var id = '';
 
-				$.each(options.primaryKey,function(index,key) {
+				$.each(opts.primaryKey,function(index,key) {
 					id = id + json[key];
-					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
-						id = id+options.multiplePkToken;
+					if(opts.primaryKey.length > 1 && index < opts.primaryKey.length-1){
+						id = id+opts.multiplePkToken;
 					}
 				});
 				

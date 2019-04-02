@@ -82,7 +82,7 @@ DataTable.masterDetail.init = function ( dt ) {
 		var rowSelected = tableMaster.rows( '.selected' ).indexes();
 		if(rowSelected[0] !== undefined){//Se ha deseleccionado, no entrar.
 			var row = tableMaster.rows( rowSelected ).data();
-			var id = DataTable.Api().rupTable.getIdPk(row[0]);
+			var id = DataTable.Api().rupTable.getIdPk(row[0],tableMaster.context[0].oInit);
 			$("#"+idHidden).val(""+id);
 			$('#'+ctx.sTableId+'_filter_filterButton').click();
 		}else{//se deselecciona
