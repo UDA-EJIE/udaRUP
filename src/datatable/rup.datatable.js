@@ -64,7 +64,8 @@
 		foo: function() {
 				return this;
 		},
-		createButton: function(pos,props) {
+		//$("#idTable").rup_datatable("createButton",options, posicion);
+		createButton: function(props,pos) {
 			var dt = $("#"+this[0].id).DataTable();
 			var ctx = dt.context[0];
 			var idTable = ctx.sTableId;
@@ -75,7 +76,7 @@
 				if(props.custom === undefined){
 					props.custom = true;
 				}
-				// Añadimos el boton de refrescar los datos de la tabla
+				// Añadimos el boton genérico
 				dt.button().add(pos, {
 					text: props.text,
 					id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
@@ -204,14 +205,19 @@
 				}
 			} );
 			
-			apiRegister( 'rupTable.getIdPk()', function ( json ) {
+			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {
+				
+				var opts = options;
+				if(optionsParam !== undefined){
+					opts = optionsParam;
+				}
 
 				var id = '';
-	
-				$.each(options.primaryKey,function(index,key) {
+				
+				$.each(opts.primaryKey,function(index,key) {
 					id = id + json[key];
-					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
-						id = id+options.multiplePkToken;
+					if(opts.primaryKey.length > 1 && index < opts.primaryKey.length-1){
+						id = id+opts.multiplePkToken;
 					}
 				});
 				
@@ -1122,6 +1128,10 @@
 			}
 			
 			$self._initOptions(settings);
+			
+			if(settings.loadOnStartUp !== undefined && !settings.loadOnStartUp){
+				settings.deferLoading = 0;
+			}
 			
 			var tabla = $self.DataTable(settings);
 

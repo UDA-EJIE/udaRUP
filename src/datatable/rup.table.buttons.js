@@ -2056,10 +2056,16 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
 	if(ctx._buttons[0].inst.s.disableAllButttons === undefined){
 		var opts = ctx._buttons[0].inst.s.buttons;
-		var numOfSelectedRows = ctx.multiselection.numSelected;
 		var collectionObject;
 		$.each(opts, function (i) {
 			collectionObject = null;
+			var numOfSelectedRows = ctx.multiselection.numSelected;
+			if(ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId+'addButton_1'){
+				//si es maestro detalle para el boton add ,solo se renderiza cuando hay selección en el padre.
+				var table = $(ctx.oInit.masterDetail.master).DataTable();
+				numOfSelectedRows = table.context[0].multiselection.numSelected;//Nums del padre
+				this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular
+			}
 			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 			// Comprueba si tiene botones hijos
 			if (this.buttons.length > 0) {
@@ -3004,6 +3010,12 @@ var _initButtons = function(ctx,opts){
 		// 'displayRegex' que tengan asociada
 		var collectionObject = null;
 		var numOfSelectedRows = ctx.multiselection.numSelected;
+		if(ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId+'addButton_1'){
+			//si es maestro detalle para el boton add ,solo se renderiza cuando hay selección en el padre.
+			var table = $(ctx.oInit.masterDetail.master).DataTable();
+			numOfSelectedRows = table.context[0].multiselection.numSelected;//Nums del padre
+			this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular
+		}
 		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {

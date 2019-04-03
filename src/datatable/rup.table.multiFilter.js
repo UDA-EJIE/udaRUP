@@ -922,10 +922,30 @@ function _searchFilterInCombo (ctx) {
 		var name = $('#' + ctx.sTableId	+ '_multifilter_combo_label').val();
 
 		var listaFiltros = $('#' + ctx.sTableId+ '_multifilter_combo_label').data('tmp.data');
+		
+		// Verificamos si la lista esta vacia. En caso de estarla sera necesario pedirsela al servidor.
+		if($.isEmptyObject(listaFiltros)) {
+			// Parametros consulta
+			var selector = settings.multiFilter.idFilter;	
+			var usuario = settings.multiFilter.userFilter;
+			
+			$.rup_ajax({
+				url: settings.urlBase
+						+ '/multiFilter/getAll?filterSelector='
+						+ selector + '&user='
+						+ usuario,
+				type: 'GET',
+				async: false,
+				success: function(data) {
+					// Añadimos a la lista todos los filtros del usuario
+					listaFiltros = $.parseJSON(data);
+				}
+			});
+		} 
+			
 		// Busco el valor del filtro
 		var objFiltro = $.grep(listaFiltros, function(obj,i) {
-			if (obj.label === name)
-				return obj;
+			if (obj.filterName === name) return obj;
 		});
 		
 		var sourceParam = {
