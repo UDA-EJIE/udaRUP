@@ -10,26 +10,38 @@
 	} else {
 
 		// Browser globals
-		root.ButtonBootstrapAdapter = factory( jQuery );
+		root.ButtonMaterialAdapter = factory( jQuery );
 	}
 } (this,  function( $, Rup ) {
 
-	function ButtonBootstrapAdapter(){
+	function ButtonMaterialAdapter(){
 
 	}
 
-	ButtonBootstrapAdapter.prototype.NAME = 'button_bootstrap';
+	ButtonMaterialAdapter.prototype.NAME = 'button_material';
 
-	ButtonBootstrapAdapter.prototype.createDropdownButton = function (settings) {
+	ButtonMaterialAdapter.prototype.createDropdownButton = function (settings) {
 		var $self = this, dropdownSettings = settings.dropdown;
+		
+		// Limpieza de las clases de jQuery UI
+		$self.removeClass('ui-button ui-corner-all ui-widget');
+		
+		var classes = 'rup-dropdown-button-material';
+		
+		$.each($self[0].classList, function(key, value){
+			if(value.indexOf("btn-material") >= 0) {
+				classes = classes + ' ' + value;
+			}
+		});
 
 		return $(Rup.Templates.rup.button.dropdownButton({
 			id: $self.prop('id')+'_dropdown',
-			classes: 'rup-dropdown-button'
+			// Usamos las clases del boton principal para que el enfasis sea siempre el mismo
+			classes: classes
 		}));
 	};
 
-	ButtonBootstrapAdapter.prototype.createMButton = function (settings, label) {
+	ButtonMaterialAdapter.prototype.createMButton = function (settings, label) {
 		var $self = this, dropdownSettings = settings.dropdown;
 
 		return $(Rup.Templates.rup.button.mbutton({
@@ -40,7 +52,7 @@
 		}));
 	};
 
-	ButtonBootstrapAdapter.prototype.createMButtonContainer = function (settings, label) {
+	ButtonMaterialAdapter.prototype.createMButtonContainer = function (settings, label) {
 		var $self = this, dropdownSettings = settings.dropdown;
 
 		return $(Rup.Templates.rup.button.mbutton-container({
@@ -54,7 +66,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[ButtonBootstrapAdapter.prototype.NAME ] = new ButtonBootstrapAdapter;
+	$.rup.adapter[ButtonMaterialAdapter.prototype.NAME ] = new ButtonMaterialAdapter;
 
 	return $;
 }));

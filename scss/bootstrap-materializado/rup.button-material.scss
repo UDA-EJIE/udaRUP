@@ -1,0 +1,22 @@
+/* BOTON DROPDOWN */
+.btn-material {
+	&.rup-dropdown {
+		border-top-right-radius: initial;
+		border-bottom-right-radius: initial;
+		box-shadow: initial;
+	}
+	
+	&.rup-dropdown-button-material {
+		min-width: initial;
+		width: 25px;
+		padding: initial;
+		margin-left: 0px;
+		border-top-left-radius: initial;
+		border-bottom-left-radius: initial;
+		box-shadow: initial;
+		
+		i.material-icons {
+			margin-right: initial;
+		}
+	}
+}
