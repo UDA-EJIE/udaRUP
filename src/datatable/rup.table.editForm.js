@@ -489,6 +489,9 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		jQuery.extend(true,masterPkObject,row);
 		row = masterPkObject;
 	}
+	if(ctx.oInit.formEdit.multiPart){//si es multiPart el row se coje solo.
+		row = {};
+	}
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
 		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',

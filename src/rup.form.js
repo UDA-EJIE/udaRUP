@@ -278,7 +278,7 @@
 				$self.attr('action', settings.url);
 			}
 
-			hasFileInputs = $('input:file', $self).length > 0;
+			hasFileInputs = $('input[type=file]:enabled', $self).length > 0;
 
 			if (settings.useJsonIfPossible && !hasFileInputs) {
 				settings.contentType = 'application/json';
