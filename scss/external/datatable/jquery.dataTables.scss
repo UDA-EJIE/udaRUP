@@ -667,7 +667,7 @@ table.tableFit {
 	&.DTCR_clonedTable {
 		border-top-left-radius: 0;
 	    border-top-right-radius: 0;
-	    z-index: 10
+	    z-index: 10;
 	    
 	    > thead > tr > th:first-child:last-child {
 	    	border-top-left-radius: 0;

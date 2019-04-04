@@ -15,6 +15,7 @@
 		box-sizing: border-box;
 		color: $grey-color;
 		background-image: none;
+		background-color: $white-color;
 	}
 	
 	input:not([type="checkbox"]):not([type="radio"]):hover:enabled {
@@ -31,6 +32,13 @@
 	
 	input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:disabled {
 	  	color: $no-color;
+	}
+	
+	input[type="file"] {
+		/* TODO: SON ESTILOS TEMPORALES PARA LOS INPUTS DE TIPO FILE */
+    	&:enabled {
+    		padding-bottom: 29px;
+    	}
 	}
 	
 	/* ESTILOS DE LOS LABELS */
