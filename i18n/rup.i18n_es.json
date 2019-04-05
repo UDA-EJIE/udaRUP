@@ -535,7 +535,8 @@
       "delete": "Eliminar",
       "reports": {
         "main": "Informes",
-        "copyButton": "Copiar"
+        "copyButton": "Copiar",
+        "excelButton": "Excel"
       }
     },
     "copyButton": {
