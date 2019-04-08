@@ -121,9 +121,33 @@ var Buttons = function( dt, config )
 				}
 				var that = this;
 				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick');
-				_reportsExcel(dt, that, config);
+				_reports(dt, that, config);
 				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick');
-			}
+			},
+			url:'/xlsReport'
+		};
+	
+	ctx.ext.buttons.pdfButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.pdfButton');
+			},
+			id: idTable+'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'pdfButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick');
+			},
+			url:'/pdfReport'
 		};
 
 	ctx.ext.buttons.addButton = {
@@ -213,7 +237,7 @@ var Buttons = function( dt, config )
 		autoClose: true,
 		type: 'reports',
 		buttons: [
-			'copyButton','excelButton'
+			'copyButton','excelButton','pdfButton'
 		]
 	};
 	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
@@ -934,6 +958,9 @@ $.extend( Buttons.prototype, {
 					break;
 				case 'excelButton':
 					config.icon = "fa-file-excel";
+					break;
+				case 'pdfButton':
+					config.icon = "fa-file-pdf";
 					break;
 				default:
 					config.icon = "fa-cog";
@@ -2579,7 +2606,7 @@ $.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds))
 * @param {object} config Configuracion del boton
 *
 */
-var _reportsExcel = function (dt, that, config)
+var _reports = function (dt, that, config)
 {
 	var ctx = dt.settings()[0];
 	var info = dt.buttons.exportInfo(config);
@@ -2612,39 +2639,19 @@ var _reportsExcel = function (dt, that, config)
 	var typeAjax;
 	var excludeColumns = ctx.oInit.buttons.excludeColumns;
 
-	// Completa el objeto 'ajaxOptions' con los parametros necesarios para la
-	// llamada que se realizara al servidor
-	ajaxOptions.contentType = 'application/json';
-	ajaxOptions.dataType = 'json';
-	ajaxOptions.url = ctx.oInit.urlBase+'/xlsReport';
-	ajaxOptions.type = 'POST';
-
-	//ajaxOptions.data = JSON.stringify(row);
-	
 	var report = {
 		columns:{},
 		excludeColumns:['rupInfoCol','cb'],
 		sendPostDataParams: ['_search','core','nd','page','rows','sidx','sord']
 	};
-	report.appendTo = "exampleinformes_01";
-	//report.columns = $.toJSON(columns);
+	//report.appendTo = "exampleinformes_01";
+
 	_callJqueryReports(dt, ctx, config);
-	/*jQuery.rup_report(report);
-		
-	$.ajax(ajaxOptions)
-	.done(function(data) {
-		$('#' + ctx.sTableId).triggerHandler('tableButtonsSuccessReportsRequestData');
-	})
-	.complete(function() {
-		$('#' + ctx.sTableId).triggerHandler('tableButtonsCompleteReportsRequestData');
-	})
-	.error(function() {
-		$('#' + ctx.sTableId).triggerHandler('tableButtonsErrorReportsRequestData');
-	});*/
+
 };
 
 var _callJqueryReports = function(dt,ctx,config){
-	var row = {};
+	var data = {};
 	
 	var columns ;
 	var columnsArray = [];
@@ -2652,7 +2659,7 @@ var _callJqueryReports = function(dt,ctx,config){
 	if(ctx.oInit.buttons.reportColumns !== undefined){
 		columns = ctx.oInit.buttons.reportColumns;
 	}else{
-		columns = jQuery.map(ctx.oInit.colModel, function(elem, index){
+		columns = jQuery.map(ctx.oInit.colModel, function(elem){
 			if (jQuery.inArray(elem.name, ctx.oInit.buttons.excludeColumns) === -1){
 				var column = [];
 				column.push(elem.name);
@@ -2664,27 +2671,30 @@ var _callJqueryReports = function(dt,ctx,config){
 			}
 		});
 	}
+	
+	//Add parametros de usuario . plugins.buttons.report.reportsParams
+	if(ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined !== undefined){
+		var reportsParams = ctx.oInit.buttons.report.reportsParams;
+		$.each( reportsParams, function( key, obj ) {
+			data[Object.keys(obj)] = obj[Object.keys(obj)];
+		});
+	}
 
 	
-	row.core =  {
+	data.core =  {
 		'pkToken': ctx.oInit.multiplePkToken,
 		'pkNames': ctx.oInit.primaryKey
 	};
-	row.columns = columns;
-	row['columns'] = $.toJSON(columnsArray);
-	row.multiselection = {};
-	row.multiselection.selectedAll =  ctx.multiselection.selectedAll;
-	if (row.multiselection.selectedAll) {
-		row.multiselection.selectedIds =  ctx.multiselection.deselectedIds;
+	data.columns = columns;
+	data['columns'] = $.toJSON(columnsArray);
+	data.multiselection = {};
+	data.multiselection.selectedAll =  ctx.multiselection.selectedAll;
+	if (data.multiselection.selectedAll) {
+		data.multiselection.selectedIds =  ctx.multiselection.deselectedIds;
 	} else {
-		row.multiselection.selectedIds = ctx.multiselection.selectedIds;
+		data.multiselection.selectedIds = ctx.multiselection.selectedIds;
 	}
 
-		//Controlar columnas
-		var data = {};
-
-
-		data = row;
 		//Dialogo propio?
 		var standarDialog = true;
 		if (config.customDialog !== undefined) {
@@ -2734,13 +2744,23 @@ var _callJqueryReports = function(dt,ctx,config){
 		});
 		if (standarDialog) {
 			//Titulo
-			$reportFileWait.rup_dialog('setOption', 'title', 'Cargar');
+			var titulo = "Cargando;"
+			var message = "Descargando informe, por favor espere"; 
+			if(ctx.oInit.buttons.report !== undefined){
+				if(ctx.oInit.buttons.report.title !== undefined){
+					titulo = ctx.oInit.buttons.report.title;
+				}	
+				if(ctx.oInit.buttons.report.message !== undefined){
+					message = ctx.oInit.buttons.report.message;
+				}
+			}
+			$reportFileWait.rup_dialog('setOption', 'title', titulo);
 			//Contenido
 			var content = $reportFileWait.html().split($reportFileWait.text()),
 				html = '';
 			for (var i = 0; i < content.length; i++) {
 				if (content[i] === '') {
-					html += 'Se esta cargando';
+					html += message;
 				} else {
 					html += content[i];
 				}
@@ -2748,7 +2768,7 @@ var _callJqueryReports = function(dt,ctx,config){
 			$reportFileWait.html(html);
 		}
 		$reportFileWait.rup_dialog('open');
-		var url = ctx.oInit.urlBase+'/xlsReport';
+		var url = ctx.oInit.urlBase+config.url;
 
 		//Lanzar petición
 		$.fileDownload( url, {

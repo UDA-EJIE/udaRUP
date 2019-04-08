@@ -999,8 +999,8 @@
 				multi.multiselection.deselectedIds = [];
 				multi.multiselection.accion = "";//uncheckAll,uncheck
 				//$self.multiselection.deselectedPages = [];
-				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
