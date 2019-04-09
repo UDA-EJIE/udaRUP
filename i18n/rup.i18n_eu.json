@@ -581,7 +581,10 @@
       "reports": {
         "main": "Txostenak",
         "copyButton": "Kopiatu",
-        "excelButton": "Excel"
+        "excelButton": "Excel",
+        "odsButton": "Ods",
+        "pdfButton": "Pdf",
+        "csvButton": "Csv"
       }
     },
     "copyButton": {

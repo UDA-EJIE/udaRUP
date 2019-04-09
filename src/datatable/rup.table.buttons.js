@@ -149,6 +149,52 @@ var Buttons = function( dt, config )
 			},
 			url:'/pdfReport'
 		};
+	
+	ctx.ext.buttons.odsButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.odsButton');
+			},
+			id: idTable+'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'odsButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick');
+			},
+			url:'/odsReport'
+		};
+	
+	ctx.ext.buttons.csvButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.csvButton');
+			},
+			id: idTable+'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'csvButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick');
+			},
+			url:'/csvReport'
+		};
 
 	ctx.ext.buttons.addButton = {
 		text: function (dt) {
@@ -237,7 +283,7 @@ var Buttons = function( dt, config )
 		autoClose: true,
 		type: 'reports',
 		buttons: [
-			'copyButton','excelButton','pdfButton'
+			'copyButton','excelButton','pdfButton','odsButton','csvButton'
 		]
 	};
 	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
@@ -957,10 +1003,16 @@ $.extend( Buttons.prototype, {
 					config.icon = "fa-clipboard";
 					break;
 				case 'excelButton':
-					config.icon = "fa-file-excel";
+					config.icon = "fa-file-excel-o";
 					break;
 				case 'pdfButton':
-					config.icon = "fa-file-pdf";
+					config.icon = "fa-file-pdf-o";
+					break;
+				case 'odsButton':
+					config.icon = "fa-file-archive-o";
+					break;
+				case 'csvButton':
+					config.icon = "fa-file-code-o";
 					break;
 				default:
 					config.icon = "fa-cog";

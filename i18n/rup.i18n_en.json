@@ -578,7 +578,11 @@
      "reports": {
        "main": "[EN]Informes",
        "copyButton": "[EN]Copiar",
-        "excelButton": "Excel"
+        "excelButton": "Excel",
+        "odsButton": "Ods",
+        "pdfButton": "Pdf",
+        "csvButton": "Csv"
+        
      }
    },
    "copyButton": {
