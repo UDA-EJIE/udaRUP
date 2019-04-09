@@ -6,6 +6,8 @@ i.material-icons.error {
 .form-groupMaterial {
 	&.rup-validate-field-error {
 		input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+			padding-right: 30px;
+			
 			&:enabled ~ label {
 				color: $validation-error-color-light;
 			}
@@ -77,9 +79,13 @@ i.material-icons.error {
 		}
 		
 		/* TEXTAREA */
-		textarea ~ i.material-icons.error {
-			top: 7px;
-			right: 20px;
+		textarea {
+			padding-right: 35px;
+			
+			~ i.material-icons.error {
+				top: 7px;
+				right: 25px;
+			}
 		}
 		
 		/* AUTOCOMPLETE COMBOBOX */
