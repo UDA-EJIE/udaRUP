@@ -57,7 +57,8 @@
 	}
 	
 	input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ label,
-	input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label {
+	input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label,
+	input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:required ~ label {
 		top: -10px;
 		font-size: .9rem;
 		color: $primary-color;
@@ -73,7 +74,13 @@
 			border-color: $grey-color-light;
 		}
 		
-		~ label {
+		&:focus {
+			border-color: $grey-color-light;
+			caret-color: $no-color;
+			padding-left: 18px;
+		}
+		
+		&:focus ~ label, ~ label {
 			top: -10px;
 			font-size: .9rem;
 			color: $black-color;
@@ -89,7 +96,13 @@
 			border-color: $grey-color-light;
 		}
 		
-		~ label {
+		&:focus {
+			border-color: $grey-color-light;
+			caret-color: $no-color;
+			padding-left: 18px;
+		}
+		
+		&:focus ~ label, ~ label {
 			top: -10px;
 			font-size: .9rem;
 			color: $black-color;

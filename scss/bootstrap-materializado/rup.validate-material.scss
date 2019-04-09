@@ -5,7 +5,7 @@ i.material-icons.error {
 
 .form-groupMaterial {
 	&.rup-validate-field-error {
-		input:not([type="checkbox"]):not([type="radio"]), select {
+		input:not([type="checkbox"]):not([type="radio"]), select, textarea {
 			&:enabled ~ label {
 				color: $validation-error-color-light;
 			}
@@ -42,6 +42,14 @@ i.material-icons.error {
 			&:focus:enabled {
 				border: 2px solid $validation-error-color;
 				caret-color: $validation-error-color;
+			
+				&:read-only {
+					caret-color: $no-color;
+				}
+				
+				&:-moz-read-only {
+					caret-color: $no-color;
+				}
 				
 				&:invalid ~ label {
 					color: $validation-error-color-light;
@@ -66,6 +74,12 @@ i.material-icons.error {
 			display: block;
 			padding-top: 2px;
 			padding-left: 19px;
+		}
+		
+		/* TEXTAREA */
+		textarea ~ i.material-icons.error {
+			top: 7px;
+			right: 20px;
 		}
 		
 		/* AUTOCOMPLETE COMBOBOX */
