@@ -114,6 +114,11 @@
 			if(ctx.oInit.buttons !== undefined){
 				dt.buttons( selector ).enable(flag,contextMenu);
 			}
+		},
+		//$("#idTable").rup_datatable("getContext");
+		getContext: function() {
+			var dt = $("#"+this[0].id).DataTable();
+			return dt.context[0];
 		}
 	});
 
@@ -993,8 +998,8 @@
 				multi.multiselection.deselectedIds = [];
 				multi.multiselection.accion = "";//uncheckAll,uncheck
 				//$self.multiselection.deselectedPages = [];
-				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 

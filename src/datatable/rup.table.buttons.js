@@ -103,6 +103,98 @@ var Buttons = function( dt, config )
 			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
 		}
 	};
+	
+	ctx.ext.buttons.excelButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.excelButton');
+			},
+			id: idTable+'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'excelButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick');
+			},
+			url:'/xlsReport'
+		};
+	
+	ctx.ext.buttons.pdfButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.pdfButton');
+			},
+			id: idTable+'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'pdfButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick');
+			},
+			url:'/pdfReport'
+		};
+	
+	ctx.ext.buttons.odsButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.odsButton');
+			},
+			id: idTable+'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'odsButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick');
+			},
+			url:'/odsReport'
+		};
+	
+	ctx.ext.buttons.csvButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.csvButton');
+			},
+			id: idTable+'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'csvButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick');
+			},
+			url:'/csvReport'
+		};
 
 	ctx.ext.buttons.addButton = {
 		text: function (dt) {
@@ -179,6 +271,24 @@ var Buttons = function( dt, config )
 			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
 		}
 	};
+	
+	var listadoExports = ['copyButton','excelButton','pdfButton','odsButton','csvButton'];
+	
+	
+	if(ctx.oInit.buttons.blackListButtons !== undefined){
+		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+			listadoExports = [];
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				var name = this;
+				var pos = $.inArray(name, listadoExports);
+				if(pos >= 0){
+					listadoExports.splice(pos,1);
+				}
+			});
+			
+		}
+	}
 
 	ctx.ext.buttons.reportsButton = {
 		extend: 'collection',
@@ -190,9 +300,7 @@ var Buttons = function( dt, config )
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		autoClose: true,
 		type: 'reports',
-		buttons: [
-			'copyButton'
-		]
+		buttons: listadoExports
 	};
 	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
 		$.extend( ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
@@ -909,6 +1017,18 @@ $.extend( Buttons.prototype, {
 					break;
 				case 'copyButton':
 					config.icon = "&#xe85d;";
+					break;
+				case 'excelButton':
+					config.icon = "fa-file-excel-o";
+					break;
+				case 'pdfButton':
+					config.icon = "fa-file-pdf-o";
+					break;
+				case 'odsButton':
+					config.icon = "fa-file-archive-o";
+					break;
+				case 'csvButton':
+					config.icon = "fa-file-code-o";
 					break;
 				default:
 					config.icon = "&#xe8b8;";
@@ -2542,6 +2662,206 @@ $.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds))
 };
 
 /**
+* Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+* e inicia la gestión para finalmente obtenerlos
+*
+* @name _reportsExcel
+* @function
+* @since UDA 3.7.1 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {object} that Objeto del boton
+* @param {object} config Configuracion del boton
+*
+*/
+var _reports = function (dt, that, config)
+{
+	var ctx = dt.settings()[0];
+	var info = dt.buttons.exportInfo(config);
+	var type;
+	var multiselection = ctx.multiselection;
+	var selectedAll = multiselection.selectedAll;
+	var deselectedIds = multiselection.deselectedIds;
+	
+	if (selectedAll) {
+		if (deselectedIds.length > 0) {
+			// Este caso es para cuando se selecciona todo y despues se
+			// deseleccionan algunos registros
+			type = "all-deselected";
+		} else {
+			// Este caso es para cuando se seleccionan todos los registros
+			type = "all";
+		}
+	} else {
+		// Este caso para cuando hay determinados registros seleccionados manualmente
+		type = "selected";
+	}
+
+	var ctx = dt.settings()[0];
+	var deferred = $.Deferred();
+	var exportData;
+	var selectedIds = multiselection.selectedIds;
+	var selectedRows = multiselection.selectedRowsPerPage;
+	var ajaxOptions = {};
+	var urlAjax;
+	var typeAjax;
+	var excludeColumns = ctx.oInit.buttons.excludeColumns;
+
+	var report = {
+		columns:{},
+		excludeColumns:['rupInfoCol','cb'],
+		sendPostDataParams: ['_search','core','nd','page','rows','sidx','sord']
+	};
+	//report.appendTo = "exampleinformes_01";
+
+	_callJqueryReports(dt, ctx, config);
+
+};
+
+var _callJqueryReports = function(dt,ctx,config){
+	var data = {};
+	
+	var columns ;
+	var columnsArray = [];
+	
+	if(ctx.oInit.buttons.reportColumns !== undefined){
+		columns = ctx.oInit.buttons.reportColumns;
+	}else{
+		columns = jQuery.map(ctx.oInit.colModel, function(elem){
+			if (jQuery.inArray(elem.name, ctx.oInit.buttons.excludeColumns) === -1){
+				var column = [];
+				column.push(elem.name);
+				column.push(elem.name);
+				columnsArray.push(column);
+				return elem.name;
+			}else{
+				return null;
+			}
+		});
+	}
+	
+	//Add parametros de usuario . plugins.buttons.report.reportsParams
+	if(ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined !== undefined){
+		var reportsParams = ctx.oInit.buttons.report.reportsParams;
+		$.each( reportsParams, function( key, obj ) {
+			data[Object.keys(obj)] = obj[Object.keys(obj)];
+		});
+	}
+
+	
+	data.core =  {
+		'pkToken': ctx.oInit.multiplePkToken,
+		'pkNames': ctx.oInit.primaryKey
+	};
+	data.columns = columns;
+	data['columns'] = $.toJSON(columnsArray);
+	data.multiselection = {};
+	data.multiselection.selectedAll =  ctx.multiselection.selectedAll;
+	if (data.multiselection.selectedAll) {
+		data.multiselection.selectedIds =  ctx.multiselection.deselectedIds;
+	} else {
+		data.multiselection.selectedIds = ctx.multiselection.selectedIds;
+	}
+
+		//Dialogo propio?
+		var standarDialog = true;
+		if (config.customDialog !== undefined) {
+			//Buscar el dialogo correspondiente
+			var actualDialog = customDialog[button.customDialog];
+
+			/** WAIT **/
+			//Sobreescritura del defaultDialog-wait
+			if (actualDialog.waitDiv === undefined) {
+				dialog.wait = actualDialog.wait;
+				//Dialogo propio completo
+			} else {
+				dialog.waitDiv = actualDialog.waitDiv;
+				$('#' + dialog.waitDiv).addClass('rup_report');
+			}
+
+			/** ERROR **/
+			//Sobreescritura del defaultDialog-error
+			if (actualDialog.errorDiv === undefined) {
+				dialog.error = actualDialog.error;
+				//Dialogo propio completo
+			} else {
+				dialog.errorDiv = actualDialog.errorDiv;
+				$('#' + dialog.errorDiv).addClass('rup_report');
+			}
+
+			dialog.successCallback = actualDialog.successCallback;
+			dialog.failCallback = actualDialog.failCallback;
+		}
+
+		//Dialogo de espera
+		var $reportFileWait = $('#' + ctx.sTableId+'reportFileWait');
+		$reportFileWait.rup_dialog({
+			type: $.rup.dialog.TEXT,
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			close: function (event, ui) {
+				if ($.rup.browser.isIE) {
+					//IE
+					document.execCommand('Stop');
+				} else {
+					//Netscape/Mozilla/Firefox
+					window.stop();
+				}
+			}
+		});
+		if (standarDialog) {
+			//Titulo
+			var titulo = "Cargando;"
+			var message = "Descargando informe, por favor espere"; 
+			if(ctx.oInit.buttons.report !== undefined){
+				if(ctx.oInit.buttons.report.title !== undefined){
+					titulo = ctx.oInit.buttons.report.title;
+				}	
+				if(ctx.oInit.buttons.report.message !== undefined){
+					message = ctx.oInit.buttons.report.message;
+				}
+			}
+			$reportFileWait.rup_dialog('setOption', 'title', titulo);
+			//Contenido
+			var content = $reportFileWait.html().split($reportFileWait.text()),
+				html = '';
+			for (var i = 0; i < content.length; i++) {
+				if (content[i] === '') {
+					html += message;
+				} else {
+					html += content[i];
+				}
+			}
+			$reportFileWait.html(html);
+		}
+		$reportFileWait.rup_dialog('open');
+		var url = ctx.oInit.urlBase+config.url;
+
+		//Lanzar petición
+		$.fileDownload( url, {
+			httpMethod: 'POST',
+			data: jQuery.rup_utils.unnestjson(data),
+			successCallback: function (url) {
+				$reportFileWait.rup_dialog('close');
+			},
+			failCallback: function (responseHtml, url) {
+				try{
+					if($('#'+$reportFileWait.attr('id')).length > 0) {
+						$reportFileWait.rup_dialog('close');
+						console.info('ERROR-----------'+responseHtml);
+					}
+				}
+				catch(e){
+					console.info('ERROR-----------');
+				}
+			}
+		});
+		return false;
+
+}
+
+/**
 * Se encarga de mapear los datos de json a datos separados por el tabulador.
 *
 * @name ConvertToTabulador
@@ -2966,21 +3286,20 @@ var _initContextMenu = function(ctx,api){
 						if (inCollection && idCollection !== undefined) {
 							// Obtenemos la info necesaria del boton y la guardamos en variables
 							var buttonName;
-							var eventDT;
+							var dt = $('#'+ctx.sTableId).DataTable();
 							var eventConfig;
 	
 							$.each( ctx.ext.buttons, function( key ) {
 								var buttonObject = ctx.ext.buttons[key];
 								if (buttonObject.id === buttonId) {
 									buttonName = key;
-									eventDT = buttonObject.eventDT;
 									eventConfig = buttonObject;
 								}
 							});
-	
+							
 							// Llamamos directamente al action para no hacer aparecer y desaparecer
 							// el boton, empeorando la UX
-							ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
+							ctx.ext.buttons[buttonName].action(undefined, dt, undefined, eventConfig);
 						} else {
 							$('#' + buttonId).trigger('click');
 						}
@@ -3049,6 +3368,27 @@ var _initButtons = function(ctx,opts){
 			}
 		}
 	});
+	
+	//Añadir dialogo por defecto
+	var $defaultDialog_wait = $('<div />')
+			.attr('id', ctx.sTableId+'reportFileWait')
+			.attr('title', 'Tittle Prueba')
+			.text('prueba')
+			.addClass('rup_report')
+			.hide()
+			//progressbar
+			.append($('<div />').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
+		$defaultDialog_error = $('<div />')
+			.attr('id', ctx.sTableId+'reportFileError')
+			.attr('title', 'Error')
+			.text('error')
+			.addClass('rup_report')
+			.hide(),
+		$defaultDialog = $('<div />')
+			.attr('id', ctx.sTableId+'rup_report_dialogsContainer')
+			.append($defaultDialog_wait)
+			.append($defaultDialog_error);
+	$('#'+ctx.sTableId).after($defaultDialog);
 }
 
 
@@ -3074,7 +3414,10 @@ function inicio(ctx) {
 		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
 			$.each(ctx.oInit.buttons.blackListButtons, function () {
 				var name = this;
-				Buttons.defaults.buttons.splice($.inArray(name, Buttons.defaults.buttons),1);
+				var pos = $.inArray(name, Buttons.defaults.buttons);
+				if(pos >= 0){
+					Buttons.defaults.buttons.splice(pos,1);
+				}
 			});
 			
 		}

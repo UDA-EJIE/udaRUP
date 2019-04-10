@@ -577,7 +577,12 @@
      "delete": "[EN]Eliminar",
      "reports": {
        "main": "[EN]Informes",
-       "copyButton": "[EN]Copiar"
+       "copyButton": "[EN]Copiar",
+        "excelButton": "Excel",
+        "odsButton": "Ods",
+        "pdfButton": "Pdf",
+        "csvButton": "Csv"
+        
      }
    },
    "copyButton": {

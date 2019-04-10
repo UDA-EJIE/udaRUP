@@ -764,52 +764,52 @@ function _paintCheckboxSelect(ctx){
 			var dt = new DataTable.Api( ctx );
 			//Marcar todos
 			if(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  === 0){
-				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledButtonsTable');
 				// Marcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			};
 			//Desmarcar todos
 			if(!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length  === 0){
-				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			};
 			if(ctx.multiselection.selectedIds.length  > 0){
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledButtonsTable');
 			}
 			if(ctx.multiselection.deselectedIds.length  > 0){
-				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledButtonsTable');
 			}
 			//Si la pagina esta completamente seleccionada
 			if(checkPageSelectedAll(dt,true)){
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-check").addClass('disabledButtonsTable');
 				// Marcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			}else{
-				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			}
 
 			//Si la pagina esta completamente deseleccionada
 			if(checkPageSelectedAll(dt,false)){
-				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-check_all").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-check").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 			}else{
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").removeClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").removeClass('disabledButtonsTable');
 				// Marcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 			}
@@ -968,7 +968,7 @@ function selectAllPage(dt){
 	ctx.multiselection.accion = "checkAll";
 	dt['rows']().multiSelect();
 	
-	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledButtonsTable');
 	// Marcamos el check del tHead
 	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 
@@ -1013,7 +1013,7 @@ function deselectAllPage(dt){
 	ctx.multiselection.accion = "uncheck";
 	dt['rows']().deselect();
 	
-	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
+	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
 	// Desmarcamos el check del tHead
 	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
@@ -1051,8 +1051,8 @@ function selectAll(dt){
 	ctx.multiselection.deselectedRowsPerPage = [];
 	ctx.multiselection.numSelected = ctx.json.recordsTotal;
 	ctx.multiselection.accion = "checkAll";
-	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledDatatable');
-	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledDatatable');
+	$("#contextMenu1 li.context-menu-icon-check_all").addClass('disabledButtonsTable');
+	$("#contextMenu1 li.context-menu-icon-check").addClass('disabledButtonsTable');
 	// Marcamos el check del tHead
 	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
 
@@ -1267,8 +1267,8 @@ function _initializeMultiselectionProps ( ctx ) {
 	$self.multiselection.deselectedIds = [];
 	$self.multiselection.accion = "";//uncheckAll,uncheck
 	//$self.multiselection.deselectedPages = [];
-	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
-	$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+	$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
+	$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledButtonsTable');
 	// Desmarcamos el check del tHead
 	$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
