@@ -114,6 +114,11 @@
 			if(ctx.oInit.buttons !== undefined){
 				dt.buttons( selector ).enable(flag,contextMenu);
 			}
+		},
+		//$("#idTable").rup_datatable("getContext");
+		getContext: function() {
+			var dt = $("#"+this[0].id).DataTable();
+			return dt.context[0];
 		}
 	});
 

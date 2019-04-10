@@ -271,6 +271,24 @@ var Buttons = function( dt, config )
 			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
 		}
 	};
+	
+	var listadoExports = ['copyButton','excelButton','pdfButton','odsButton','csvButton'];
+	
+	
+	if(ctx.oInit.buttons.blackListButtons !== undefined){
+		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+			listadoExports = [];
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				var name = this;
+				var pos = $.inArray(name, listadoExports);
+				if(pos >= 0){
+					listadoExports.splice(pos,1);
+				}
+			});
+			
+		}
+	}
 
 	ctx.ext.buttons.reportsButton = {
 		extend: 'collection',
@@ -282,9 +300,7 @@ var Buttons = function( dt, config )
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		autoClose: true,
 		type: 'reports',
-		buttons: [
-			'copyButton','excelButton','pdfButton','odsButton','csvButton'
-		]
+		buttons: listadoExports
 	};
 	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
 		$.extend( ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
@@ -3395,7 +3411,10 @@ function inicio(ctx) {
 		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
 			$.each(ctx.oInit.buttons.blackListButtons, function () {
 				var name = this;
-				Buttons.defaults.buttons.splice($.inArray(name, Buttons.defaults.buttons),1);
+				var pos = $.inArray(name, Buttons.defaults.buttons);
+				if(pos >= 0){
+					Buttons.defaults.buttons.splice(pos,1);
+				}
 			});
 			
 		}

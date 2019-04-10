@@ -4088,7 +4088,9 @@ div.dt-button-collection {
 
 div.dt-button-collection > button, div.dt-button-collection > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button, div.dt-button-collection > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-button-collection > a.rup-wizard_next, .rup-wizard div.dt-button-collection > a.rup-wizard_prev, .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
   display: block;
-  margin: auto; }
+  margin: auto;
+  width: 100%;
+  text-align: left; }
 
 div.dt-button-collection > button:not(:last-child), div.dt-button-collection > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button:not(:last-child), div.dt-button-collection > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.dt-button-collection > a.rup-wizard_next:not(:last-child), .rup-wizard div.dt-button-collection > a.rup-wizard_prev:not(:last-child), .rup-wizard div.dt-button-collection > .rup-wizard_submitButton:not(:last-child) {
   margin-bottom: 4px; }

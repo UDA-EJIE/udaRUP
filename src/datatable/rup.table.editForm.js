@@ -116,11 +116,6 @@ DataTable.editForm.init = function ( dt ) {
 		} );
 	}
 
-	// Creacion del Context Menu
-	if (ctx.oInit.buttons !== undefined) {
-		
-	}
-
 	//Se captura evento de cierre
 	ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
 		if(event.originalEvent !== undefined){//el evento es cerrado por el aspa

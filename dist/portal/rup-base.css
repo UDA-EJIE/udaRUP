@@ -8538,6 +8538,8 @@
 .r01gContainer .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
   display: block;
   margin: auto;
+  width: 100%;
+  text-align: left;
 }
 
 .r01gContainer div.dt-button-collection > button:not(:last-child),
