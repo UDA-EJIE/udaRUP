@@ -208,7 +208,9 @@ div.dt-button-collection {
 
 div.dt-button-collection>button {
     display: block;
-    margin: auto
+    margin: auto;
+    width: 100%;
+    text-align: left;
 }
 
 div.dt-button-collection>button:not(:last-child) {
