@@ -580,7 +580,11 @@
       "delete": "Ezabatu",
       "reports": {
         "main": "Txostenak",
-        "copyButton": "Kopiatu"
+        "copyButton": "Kopiatu",
+        "excelButton": "Excel",
+        "odsButton": "Ods",
+        "pdfButton": "Pdf",
+        "csvButton": "Csv"
       }
     },
     "copyButton": {

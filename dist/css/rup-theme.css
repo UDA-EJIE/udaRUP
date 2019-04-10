@@ -3707,21 +3707,6 @@ table.dataTable tbody > tr:hover {
 .dataTables_length {
   float: none; }
 
-/* SE USA EL ':not(.DTCR_clonedTable)' PARA EVITAR QUE ESTOS ESTILOS SE APLIQUEN TAMBIEN AL COLREORDER */
-table.tableFit:not(.DTCR_clonedTable) {
-  width: calc(100% - 1px) !important;
-  max-width: calc(100% - 1px);
-  margin-bottom: 0; }
-
-table.tableFit.DTCR_clonedTable {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  z-index: 10; }
-
-table.tableFit.DTCR_clonedTable > thead > tr > th:first-child:last-child {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0; }
-
 .pagination {
   margin-bottom: 0;
   justify-content: center;
@@ -3779,6 +3764,20 @@ table.tableFit.DTCR_clonedTable > thead > tr > th:first-child:last-child {
 .form-control-customer:disabled {
   background-color: #eceeef;
   opacity: 1; }
+
+/* SE USA EL ':not(.DTCR_clonedTable)' PARA EVITAR QUE ESTOS ESTILOS SE APLIQUEN TAMBIEN AL COLREORDER */
+table.tableFit:not(.DTCR_clonedTable) {
+  width: calc(100% - 1px) !important;
+  max-width: calc(100% - 1px);
+  margin-bottom: 0; }
+
+table.tableFit.DTCR_clonedTable {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 10; }
+  table.tableFit.DTCR_clonedTable > thead > tr > th:first-child:last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0; }
 
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
@@ -3876,9 +3875,13 @@ table.dataTable thead th:hover,
 table.dataTable tfoot th:hover {
   background-color: #aecff7; }
 
-.disabledDatatable {
+.disabledButtonsTable {
   pointer-events: none;
   opacity: 0.6; }
+
+.divSelectTableHead {
+  padding-top: 3px;
+  padding-left: 20px; }
 
 .selectTableHead {
   margin: 0; }
@@ -4098,7 +4101,12 @@ div.dt-button-collection {
 
 div.dt-button-collection > button, div.dt-button-collection > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button, div.dt-button-collection > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-button-collection > a.rup-wizard_next, .rup-wizard div.dt-button-collection > a.rup-wizard_prev, .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
   display: block;
-  margin: auto; }
+  margin: auto;
+  width: 100%;
+  text-align: left; }
+
+div.dt-button-collection > button:not(:last-child), div.dt-button-collection > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button:not(:last-child), div.dt-button-collection > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.dt-button-collection > a.rup-wizard_next:not(:last-child), .rup-wizard div.dt-button-collection > a.rup-wizard_prev:not(:last-child), .rup-wizard div.dt-button-collection > .rup-wizard_submitButton:not(:last-child) {
+  margin-bottom: 4px; }
 
 div.dt-button-collection button.dt-button, div.dt-button-collection .dt-button.ui-button.rup-button, div.dt-button-collection .rup-dropdown-btn-group .dt-button.rup-dropdown-button, .rup-dropdown-btn-group div.dt-button-collection .dt-button.rup-dropdown-button, div.dt-button-collection a.dt-button.rup-toolbar_menuButton.ui-button, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_next, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_next, div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_prev, .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_prev, div.dt-button-collection .rup-wizard .dt-button.rup-wizard_submitButton, .rup-wizard div.dt-button-collection .dt-button.rup-wizard_submitButton,
 div.dt-button-collection div.dt-button,
@@ -4514,12 +4522,13 @@ ul > li > div a i.material-icons {
     width: 100%;
     height: 2rem;
     font-size: 1rem;
-    padding: 5px 7px 5px 18px;
+    padding: 5px 17px 5px 18px;
     border: 1px solid #757575;
     border-radius: 5px;
     box-sizing: border-box;
     color: #495057;
-    background-image: none; }
+    background-image: none;
+    background-color: #FFFFFF; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):hover:enabled {
     border-color: #212529; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
@@ -4530,6 +4539,10 @@ ul > li > div a i.material-icons {
     padding-left: 17px; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:disabled {
     color: transparent; }
+  .form-groupMaterial input[type="file"] {
+    /* TODO: SON ESTILOS TEMPORALES PARA LOS INPUTS DE TIPO FILE */ }
+    .form-groupMaterial input[type="file"]:enabled {
+      padding-bottom: 29px; }
   .form-groupMaterial label {
     color: #999;
     font-size: 1rem;
@@ -4543,7 +4556,8 @@ ul > li > div a i.material-icons {
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ label,
-  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label {
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label,
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:required ~ label {
     top: -10px;
     font-size: .9rem;
     color: #1472a4;
@@ -4554,7 +4568,11 @@ ul > li > div a i.material-icons {
     background-color: #e9ecef; }
     .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
       border-color: #757575; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+      border-color: #757575;
+      caret-color: transparent;
+      padding-left: 18px; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
       top: -10px;
       font-size: .9rem;
       color: #212529;
@@ -4564,7 +4582,11 @@ ul > li > div a i.material-icons {
     background-color: #e9ecef; }
     .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only:hover {
       border-color: #757575; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only ~ label {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only:focus {
+      border-color: #757575;
+      caret-color: transparent;
+      padding-left: 18px; }
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):-moz-read-only ~ label {
       top: -10px;
       font-size: .9rem;
       color: #212529;
@@ -4573,6 +4595,76 @@ ul > li > div a i.material-icons {
 
 /* ESTE CASO ES PARA CUANDO SE USAN LOS ESTILOS EN CONJUNTO CON LAS CLASES DE GRID DE BOOTSTRAP */
 .form-groupMaterial[class*="col-"] input ~ label {
+  left: 19px; }
+
+.form-groupMaterial {
+  /* ESTILOS DE LOS CONTENEDORES DE TEXTAREAS */
+  /*position: relative;
+  	margin: 1rem 0;*/
+  /* ESTILOS DE LOS TEXTAREA */ }
+  .form-groupMaterial textarea {
+    display: block;
+    width: 100%;
+    min-height: 2.4rem;
+    font-size: 1rem;
+    padding: 5px 17px 5px 18px;
+    border: 1px solid #757575;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #495057;
+    background-image: none;
+    background-color: #FFFFFF;
+    /* ESTILOS DE LOS LABELS */ }
+    .form-groupMaterial textarea:hover:enabled {
+      border-color: #212529; }
+    .form-groupMaterial textarea:focus:enabled {
+      border-color: #1472a4;
+      caret-color: #1472a4;
+      border-width: 2px;
+      box-shadow: none;
+      padding-left: 17px; }
+    .form-groupMaterial textarea:placeholder-shown:disabled {
+      color: transparent; }
+    .form-groupMaterial textarea:focus:enabled ~ label,
+    .form-groupMaterial textarea:valid:enabled ~ label,
+    .form-groupMaterial textarea:placeholder-shown:required ~ label {
+      top: -10px;
+      font-size: .9rem;
+      color: #1472a4;
+      padding: 0 5px;
+      background-color: #FFFFFF;
+      background-image: none; }
+    .form-groupMaterial textarea:read-only {
+      background-color: #e9ecef; }
+      .form-groupMaterial textarea:read-only:hover {
+        border-color: #757575; }
+      .form-groupMaterial textarea:read-only:focus {
+        border-color: #757575;
+        caret-color: transparent;
+        padding-left: 18px; }
+      .form-groupMaterial textarea:read-only:focus ~ label, .form-groupMaterial textarea:read-only ~ label {
+        top: -10px;
+        font-size: .9rem;
+        color: #212529;
+        padding: 0 5px;
+        background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
+    .form-groupMaterial textarea:-moz-read-only {
+      background-color: #e9ecef; }
+      .form-groupMaterial textarea:-moz-read-only:hover {
+        border-color: #757575; }
+      .form-groupMaterial textarea:-moz-read-only:focus {
+        border-color: #757575;
+        caret-color: transparent;
+        padding-left: 18px; }
+      .form-groupMaterial textarea:-moz-read-only:focus ~ label, .form-groupMaterial textarea:-moz-read-only ~ label {
+        top: -10px;
+        font-size: .9rem;
+        color: #212529;
+        padding: 0 5px;
+        background: linear-gradient(to top, #e9ecef 0%, #e9ecef 40%, transparent 40%, transparent 100%); }
+
+/* ESTE CASO ES PARA CUANDO SE USAN LOS ESTILOS EN CONJUNTO CON LAS CLASES DE GRID DE BOOTSTRAP */
+.form-groupMaterial[class*="col-"] textarea ~ label {
   left: 19px; }
 
 /* ESTILOS */
@@ -4760,6 +4852,8 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
     left: 30px; }
   :not(.form-row) .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ i.material-icons.error {
     right: 26px; }
+  :not(.form-row) .form-groupMaterial[class*="col-"] .rup-combobox ~ i.material-icons.error {
+    right: 42px; }
 
 /* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
 .form-row .form-groupMaterial {
@@ -4768,6 +4862,56 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
     left: 20px; }
   .form-row .form-groupMaterial[class*="col-"] [ruptype="autocomplete"] ~ i.material-icons.error {
     right: 16px; }
+  .form-row .form-groupMaterial[class*="col-"] .rup-combobox ~ i.material-icons.error {
+    right: 32px; }
+
+.form-groupMaterial {
+  /* PARA CUANDO ES UN COMBOBOX */ }
+  .form-groupMaterial .rup-combobox {
+    width: 100%;
+    margin-right: 0; }
+    .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]) {
+      display: inline-block;
+      width: calc(100% - 22.4px);
+      border-right-style: hidden; }
+      .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a {
+        border-color: #212529; }
+      .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ a {
+        border-color: #1472a4;
+        border-width: 2px; }
+    .form-groupMaterial .rup-combobox a {
+      width: 26.4px;
+      margin-left: -4px;
+      border: 1px solid #757575;
+      border-left-style: hidden; }
+      .form-groupMaterial .rup-combobox a:focus {
+        background-color: #1472a4;
+        /* USAR CON ICONOS MATERIAL
+				i {
+					color: $white-color;
+				}*/ }
+    .form-groupMaterial .rup-combobox ~ input[ruptype="autocomplete"][type="hidden"] ~ label {
+      color: #1472a4;
+      background: #FFFFFF; }
+    .form-groupMaterial .rup-combobox ~ i.material-icons.error {
+      right: 32px; }
+
+/* BOTON DROPDOWN */
+.btn-material.rup-dropdown {
+  border-top-right-radius: initial;
+  border-bottom-right-radius: initial;
+  box-shadow: initial; }
+
+.btn-material.rup-dropdown-button-material {
+  min-width: initial;
+  width: 25px;
+  padding: initial;
+  margin-left: 0px;
+  border-top-left-radius: initial;
+  border-bottom-left-radius: initial;
+  box-shadow: initial; }
+  .btn-material.rup-dropdown-button-material i.material-icons {
+    margin-right: initial; }
 
 div.dialog-content-material {
   position: relative;
@@ -4787,7 +4931,7 @@ label.select-material {
   font-size: .9rem;
   color: #1472a4;
   padding: 0 5px;
-  background-color: white;
+  background-color: #FFFFFF;
   position: absolute;
   z-index: 1; }
 
@@ -4917,7 +5061,7 @@ div.rup-date-input-group-material + label {
   font-size: .9rem;
   color: #1472a4;
   padding: 0 5px;
-  background-color: white;
+  background-color: #FFFFFF;
   position: absolute;
   z-index: 1; }
 
@@ -4940,49 +5084,64 @@ div.rup-feedback.rup-feedback_image {
 i.material-icons.error {
   color: #d9534f; }
 
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ label, .form-groupMaterial.rup-validate-field-error select:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ label {
-  color: #d9534f; }
-
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span, .form-groupMaterial.rup-validate-field-error select:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span {
-  color: #d9534f;
-  /* PARA LOS COMBOS */ }
-  .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material {
-    border-color: #d9534f; }
-    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:hover {
+.form-groupMaterial.rup-validate-field-error {
+  /* TEXTAREA */
+  /* AUTOCOMPLETE COMBOBOX */ }
+  .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]), .form-groupMaterial.rup-validate-field-error select, .form-groupMaterial.rup-validate-field-error .ui-multiselect, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown, .form-groupMaterial.rup-validate-field-error textarea {
+    padding-right: 30px; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ label, .form-groupMaterial.rup-validate-field-error select:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ label, .form-groupMaterial.rup-validate-field-error textarea:enabled ~ label {
+      color: #d9534f; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span, .form-groupMaterial.rup-validate-field-error select:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span, .form-groupMaterial.rup-validate-field-error textarea:enabled ~ span {
+      color: #d9534f;
+      /* PARA LOS COMBOS */ }
+      .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material, .form-groupMaterial.rup-validate-field-error textarea:enabled ~ span a.select-material {
+        border-color: #d9534f; }
+        .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:hover, .form-groupMaterial.rup-validate-field-error textarea:enabled ~ span a.select-material:hover {
+          border-color: #d43f3a; }
+        .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error textarea:enabled ~ span a.select-material:focus {
+          border: 2px solid #d43f3a; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error select:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error textarea:invalid:enabled ~ label {
+      color: #495057; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled, .form-groupMaterial.rup-validate-field-error select:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled, .form-groupMaterial.rup-validate-field-error textarea:enabled {
+      border-color: #d9534f; }
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):hover:enabled, .form-groupMaterial.rup-validate-field-error select:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:hover:enabled, .form-groupMaterial.rup-validate-field-error textarea:hover:enabled {
       border-color: #d43f3a; }
-    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error select:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled ~ span a.select-material:focus, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled ~ span a.select-material:focus {
-      border: 2px solid #d43f3a; }
-
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error select:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:invalid:enabled ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:invalid:enabled ~ label {
-  color: #495057; }
-
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):enabled, .form-groupMaterial.rup-validate-field-error select:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:enabled {
-  border-color: #d9534f; }
-
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):hover:enabled, .form-groupMaterial.rup-validate-field-error select:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:hover:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:hover:enabled {
-  border-color: #d43f3a; }
-
-.form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled, .form-groupMaterial.rup-validate-field-error select:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled {
-  border: 2px solid #d43f3a;
-  caret-color: #d43f3a; }
-  .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error select:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:invalid ~ label {
+    .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled, .form-groupMaterial.rup-validate-field-error select:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled {
+      border: 2px solid #d43f3a;
+      caret-color: #d43f3a; }
+      .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error select:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled:read-only {
+        caret-color: transparent; }
+      .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error select:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled:-moz-read-only {
+        caret-color: transparent; }
+      .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error select:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:invalid ~ label, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled:invalid ~ label {
+        color: #d9534f; }
+  .form-groupMaterial.rup-validate-field-error span {
     color: #d9534f; }
-
-.form-groupMaterial.rup-validate-field-error span {
-  color: #d9534f; }
-
-.form-groupMaterial.rup-validate-field-error i.material-icons.error {
-  position: absolute;
-  top: 4px;
-  right: 10px;
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 400; }
-
-.form-groupMaterial.rup-validate-field-error .error:last-child {
-  display: block;
-  padding-top: 2px;
-  padding-left: 19px; }
+  .form-groupMaterial.rup-validate-field-error i.material-icons.error {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400; }
+  .form-groupMaterial.rup-validate-field-error .error:last-child {
+    display: block;
+    padding-top: 2px;
+    padding-left: 19px; }
+  .form-groupMaterial.rup-validate-field-error textarea {
+    padding-right: 35px; }
+    .form-groupMaterial.rup-validate-field-error textarea ~ i.material-icons.error {
+      top: 7px;
+      right: 25px; }
+  .form-groupMaterial.rup-validate-field-error span.rup-combobox input:not([type="checkbox"]):not([type="radio"]):enabled ~ a {
+    border-color: #d9534f; }
+  .form-groupMaterial.rup-validate-field-error span.rup-combobox input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a {
+    border-color: #d43f3a; }
+  .form-groupMaterial.rup-validate-field-error span.rup-combobox input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ a {
+    border: 2px solid #d43f3a;
+    border-left-style: hidden; }
+  .form-groupMaterial.rup-validate-field-error span.rup-combobox input:not([type="checkbox"]):not([type="radio"]) ~ a:focus {
+    background-color: #d9534f; }
 
 /* REDONDEAMOS EL LOS BORDES DE LA TABLA */
 table.table-material {
