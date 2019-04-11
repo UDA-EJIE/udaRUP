@@ -283,6 +283,19 @@ El componente dataTable se ha implementado siguiendo una arquitectura modular. D
 * Simplificar la extensión y sobreescritura de los métodos de determinados plugins.
 * Permitir la creación de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
 
+Todos los plugins están montados sobre el contexto de la tabla para obtener dicho contexto :
+
+```
+var ctx = $("#idTable").rup_datatable("getContext");
+```
+
+
+Dentro del contexto puedes acceder a todas sus propiedades ya todos sus plugins, ejemplo:
+
+```
+ctx.seeker
+```
+
 Los detalles de cada uno de los plugins se pueden consultar en los documentos correspondientes:
 
 * Core
@@ -301,6 +314,15 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Maestro detalle
 * RowGroup
 * Multifilter
+
+Propiedades de la tabla:
+
+* multiplePkToken -> Es el token que se va usar cuando el id sea múltiple.
+* primaryKey      -> El identificador principal de la tabla.
+* blockPKeditForm -> Si deseas que el pk se bloquee en modo edición (true o false).
+* searchPaginator -> Si deseas tener paginador con número o no (true o false).
+
+Para obtener las propiedades del plugin subyacente consultar en https://datatables.net/reference/api/
 
 ## 7. Sobreescritura del theme
 
