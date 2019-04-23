@@ -103,6 +103,98 @@ var Buttons = function( dt, config )
 			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
 		}
 	};
+	
+	ctx.ext.buttons.excelButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.excelButton');
+			},
+			id: idTable+'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'excelButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick');
+			},
+			url:'/xlsReport'
+		};
+	
+	ctx.ext.buttons.pdfButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.pdfButton');
+			},
+			id: idTable+'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'pdfButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick');
+			},
+			url:'/pdfReport'
+		};
+	
+	ctx.ext.buttons.odsButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.odsButton');
+			},
+			id: idTable+'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'odsButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick');
+			},
+			url:'/odsReport'
+		};
+	
+	ctx.ext.buttons.csvButton = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.csvButton');
+			},
+			id: idTable+'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'buttons-copyButton',
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'csvButton',
+			action: function (e, dt, button, config) {
+				// Si es llamado desde el contextMenu este paso es innecesario y la condicion
+				// del if evita un error
+				if (this.processing !== undefined) {
+					this.processing(true);
+				}
+				var that = this;
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick');
+				_reports(dt, that, config);
+				$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick');
+			},
+			url:'/csvReport'
+		};
 
 	ctx.ext.buttons.addButton = {
 		text: function (dt) {
@@ -179,6 +271,24 @@ var Buttons = function( dt, config )
 			$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
 		}
 	};
+	
+	var listadoExports = ['copyButton','excelButton','pdfButton','odsButton','csvButton'];
+	
+	
+	if(ctx.oInit.buttons.blackListButtons !== undefined){
+		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+			listadoExports = [];
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				var name = this;
+				var pos = $.inArray(name, listadoExports);
+				if(pos >= 0){
+					listadoExports.splice(pos,1);
+				}
+			});
+			
+		}
+	}
 
 	ctx.ext.buttons.reportsButton = {
 		extend: 'collection',
@@ -190,10 +300,23 @@ var Buttons = function( dt, config )
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		autoClose: true,
 		type: 'reports',
-		buttons: [
-			'copyButton'
-		]
+		buttons: listadoExports
 	};
+	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
+		$.extend( ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
+		for ( var nameButton in ctx.oInit.inlineEdit.myButtons  ) {
+			Buttons.defaults.buttons.push(nameButton);
+		}
+	}
+	//añadir botones personalizados//se almacenan en plugin de buttons
+	if(ctx.oInit.buttons.myButtons !== undefined){// añadir botones edición en linea
+		//se aseguran que todos sean customs.
+		$.extend( ctx.ext.buttons, ctx.oInit.buttons.myButtons);
+		for ( var nameButton in ctx.oInit.buttons.myButtons  ) {
+			Buttons.defaults.buttons.push(nameButton);
+			//ctx.oInit.buttons.myButtons[nameButton].custom = true;
+		}
+	}
 	// If there is no config set it to an empty object
 	if ( typeof( config ) === 'undefined' ) {
 		config = {};
@@ -360,10 +483,13 @@ $.extend( Buttons.prototype, {
 	 * @return {Buttons} Self for chaining
 	 *
 	 */
-	disable: function ( node ) {
+	disable: function ( node,contextMenu ) {
 		var button = this._nodeToButton( node );
 
 		$(button.node).addClass( this.c.dom.button.disabled );
+		if(contextMenu){
+			$('#'+button.node.id+'_contextMenuToolbar').addClass(this.c.dom.button.disabled );
+		}
 
 		return this;
 	},
@@ -421,7 +547,7 @@ $.extend( Buttons.prototype, {
 	 * @return {Buttons} Self for chaining
 	 *
 	 */
-	enable: function ( node, flag )
+	enable: function ( node, flag, contextMenu )
 	{
 		if ( flag === false ) {
 			return this.disable( node );
@@ -429,6 +555,9 @@ $.extend( Buttons.prototype, {
 
 		var button = this._nodeToButton( node );
 		$(button.node).removeClass( this.c.dom.button.disabled );
+		if(contextMenu){
+			$('#'+button.node.id+'_contextMenuToolbar').removeClass(this.c.dom.button.disabled );
+		}
 
 		return this;
 	},
@@ -888,6 +1017,18 @@ $.extend( Buttons.prototype, {
 					break;
 				case 'copyButton':
 					config.icon = "fa-clipboard";
+					break;
+				case 'excelButton':
+					config.icon = "fa-file-excel-o";
+					break;
+				case 'pdfButton':
+					config.icon = "fa-file-pdf-o";
+					break;
+				case 'odsButton':
+					config.icon = "fa-file-archive-o";
+					break;
+				case 'csvButton':
+					config.icon = "fa-file-code-o";
 					break;
 				default:
 					config.icon = "fa-cog";
@@ -1485,7 +1626,7 @@ Buttons.defaults = {
 			tag: 'button',
 			className: 'btn btn-primary',
 			active: 'active',
-			disabled: 'disabled'
+			disabled: 'disabledButtonsTable'
 		},
 		buttonLiner: {
 			tag: 'span',
@@ -1778,16 +1919,16 @@ DataTable.Api.registerPlural( 'buttons().action()', 'button().action()', functio
 } );
 
 // Enable / disable buttons
-DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag ) {
+DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag,contextMenu ) {
 	return this.each( function ( set ) {
-		set.inst.enable( set.node, flag );
+		set.inst.enable( set.node, flag,contextMenu );
 	} );
 } );
 
 // Disable buttons
-DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function () {
+DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function (contextMenu) {
 	return this.each( function ( set ) {
-		set.inst.disable( set.node );
+		set.inst.disable( set.node,contextMenu );
 	} );
 } );
 
@@ -1996,7 +2137,11 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 			if(ctx.oInit.formEdit !== undefined){
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				var idRow = DataTable.Api().editForm.getRowSelected(dt,'PUT').line;
-				DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				if(ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
+						ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
+						dt.page()+1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])){
+					DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+				}
 			}else{//edicion en linea
 				//Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
 				ctx.oInit.inlineEdit.currentPos = undefined;
@@ -2031,10 +2176,16 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 DataTable.Api.register( 'buttons.displayRegex()', function (ctx) {
 	if(ctx._buttons[0].inst.s.disableAllButttons === undefined){
 		var opts = ctx._buttons[0].inst.s.buttons;
-		var numOfSelectedRows = ctx.multiselection.numSelected;
 		var collectionObject;
 		$.each(opts, function (i) {
 			collectionObject = null;
+			var numOfSelectedRows = ctx.multiselection.numSelected;
+			if(ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId+'addButton_1'){
+				//si es maestro detalle para el boton add ,solo se renderiza cuando hay selección en el padre.
+				var table = $(ctx.oInit.masterDetail.master).DataTable();
+				numOfSelectedRows = table.context[0].multiselection.numSelected;//Nums del padre
+				this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular
+			}
 			_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 			// Comprueba si tiene botones hijos
 			if (this.buttons.length > 0) {
@@ -2049,8 +2200,8 @@ DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) 
 	var opts = ctx._buttons[0].inst.s.buttons;
 	$.each(opts, function () {
 		if(exception === undefined){
-			$(this.node).addClass('disabledDatatable');//para el toolbar
-			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledDatatable');//para el contexmenu
+			$(this.node).addClass('disabledButtonsTable');//para el toolbar
+			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledButtonsTable');//para el contexmenu
 		}else if(this.node.id !== exception){//ponemos los regex a cero menos la excepcion
 			this.conf.displayRegex = undefined;
 		}
@@ -2299,7 +2450,7 @@ var _exportData = function ( dt, inOpts )
  */
 var _enableCollection = function ( id )
 {
-	$('#' + id).removeClass('disabledDatatable');
+	$('#' + id).removeClass('disabledButtonsTable');
 };
 
 /**
@@ -2314,7 +2465,7 @@ var _enableCollection = function ( id )
  */
 var _disableCollection = function ( id )
 {
-	$('#' + id).addClass('disabledDatatable');
+	$('#' + id).addClass('disabledButtonsTable');
 };
 
 /**
@@ -2329,7 +2480,7 @@ var _disableCollection = function ( id )
  */
 var _enableButtonAndContextMenuOption = function ( id )
 {
-	$('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledDatatable');
+	$('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledButtonsTable');
 };
 
 /**
@@ -2344,7 +2495,7 @@ var _enableButtonAndContextMenuOption = function ( id )
  */
 var _disableButtonAndContextMenuOption = function ( id )
 {
-	$('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledDatatable');
+	$('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledButtonsTable');
 };
 
 /**
@@ -2361,90 +2512,92 @@ var _disableButtonAndContextMenuOption = function ( id )
  *
  */
 var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, collectionObject,ctx )
-{
-	// Si pertenece a un collection o es un collection
-	if (opts.collection !== null && collectionObject) {
-		var collectionId = collectionObject.conf.id;
-		var collectionDisplayRegex = collectionObject.conf.displayRegex;
-		var alreadyExecuted = false;
-		// Recorre todos los botones dentro del collection
-		$.each(collectionObject.buttons, function(key, value) {
-			// Activa/desactiva en funcion de la propiedad 'displayRegex' del padre y los hijos
-			if (collectionDisplayRegex !== undefined && value.conf.displayRegex !== undefined) {
-				if (collectionDisplayRegex.test(numOfSelectedRows) && value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
-				}
-				else {
-					_disableButtonAndContextMenuOption(value.conf.id);
-				}
-			}
-			// Activa/desactiva en funcion de la propiedad 'displayRegex' de sus hijos
-			else if (collectionDisplayRegex === undefined && value.conf.displayRegex !== undefined) {
-				// Habilita la coleccion si cumple el regex (solo se ejecuta una vez como
-				// maximo gracias al booleano 'alreadyExecuted')
-				if (value.conf.displayRegex.test(numOfSelectedRows) && !alreadyExecuted) {
-					_enableCollection(collectionId);
-					alreadyExecuted = true;
-				}
-				// Habilita el boton si cumple el displayRegex
-				if (value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
-				}
-				// Como este boton no cumple el 'displayRegex' para ser habilitado, se deshabilitan
-				// tanto el boton como su opcion en el contextMenu
-				else {
-					_disableButtonAndContextMenuOption(value.conf.id);
-				}
-				// En caso de que ningun regex cumpliese, se fuerza la deshabilitacion
-				if (!alreadyExecuted) {
-					_disableCollection(collectionId);
-				}
-			}
-			// Desactiva todo si ni el collection ni los hijos tienen la propiedad 'displayRegex'
-			// o simplemente si los hijos no tienen la propiedad
-			else {
-				_disableButtonAndContextMenuOption(value.conf.id);
-				if (!alreadyExecuted) {
-					_disableCollection(collectionId);
-					alreadyExecuted = true;
-				}
-			}
-		});
-		// Genera un evento encargado de ocultar los botones dentro del collection.
-		// Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
-		// el rendimiento
-		$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
-			// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
-			// el valor recibido cuando se creo el evento
-			var numOfSelectedRows = ctx.multiselection.numSelected;
+{   
+	if(opts.conf.custom === undefined || !opts.conf.custom){
+		// Si pertenece a un collection o es un collection
+		if (opts.collection !== null && collectionObject) {
+			var collectionId = collectionObject.conf.id;
+			var collectionDisplayRegex = collectionObject.conf.displayRegex;
+			var alreadyExecuted = false;
+			// Recorre todos los botones dentro del collection
 			$.each(collectionObject.buttons, function(key, value) {
-				// Habilita el boton dentro del collection
-				if (value.conf.displayRegex.test(numOfSelectedRows)) {
-					_enableButtonAndContextMenuOption(value.conf.id);
+				// Activa/desactiva en funcion de la propiedad 'displayRegex' del padre y los hijos
+				if (collectionDisplayRegex !== undefined && value.conf.displayRegex !== undefined) {
+					if (collectionDisplayRegex.test(numOfSelectedRows) && value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
 				}
-				// Deshabilita el boton dentro del collection
+				// Activa/desactiva en funcion de la propiedad 'displayRegex' de sus hijos
+				else if (collectionDisplayRegex === undefined && value.conf.displayRegex !== undefined) {
+					// Habilita la coleccion si cumple el regex (solo se ejecuta una vez como
+					// maximo gracias al booleano 'alreadyExecuted')
+					if (value.conf.displayRegex.test(numOfSelectedRows) && !alreadyExecuted) {
+						_enableCollection(collectionId);
+						alreadyExecuted = true;
+					}
+					// Habilita el boton si cumple el displayRegex
+					if (value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					// Como este boton no cumple el 'displayRegex' para ser habilitado, se deshabilitan
+					// tanto el boton como su opcion en el contextMenu
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
+					// En caso de que ningun regex cumpliese, se fuerza la deshabilitacion
+					if (!alreadyExecuted) {
+						_disableCollection(collectionId);
+					}
+				}
+				// Desactiva todo si ni el collection ni los hijos tienen la propiedad 'displayRegex'
+				// o simplemente si los hijos no tienen la propiedad
 				else {
 					_disableButtonAndContextMenuOption(value.conf.id);
+					if (!alreadyExecuted) {
+						_disableCollection(collectionId);
+						alreadyExecuted = true;
+					}
 				}
 			});
-		} );
-	}
-	// Si el boton no tiene un regex definido, permanecera siempre desactivado
-	else if (opts.conf.displayRegex === undefined) {
-		// Deshabilita el boton y su opcion dentro del context menu
-		_disableButtonAndContextMenuOption(opts.conf.id);
-	}
-	// Si tiene un regex definido, lo activa y desactiva en funcion de este
-	else if (opts.conf.displayRegex !== undefined) {
-		// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
-		// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
-		// oculto
-		if (opts.conf.displayRegex.test(numOfSelectedRows)) {
-			// Habilita el boton y su opcion dentro del context menu
-			_enableButtonAndContextMenuOption(opts.conf.id);
-		} else {
+			// Genera un evento encargado de ocultar los botones dentro del collection.
+			// Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
+			// el rendimiento
+			$('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function ( e ) {
+				// Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
+				// el valor recibido cuando se creo el evento
+				var numOfSelectedRows = ctx.multiselection.numSelected;
+				$.each(collectionObject.buttons, function(key, value) {
+					// Habilita el boton dentro del collection
+					if (value.conf.displayRegex.test(numOfSelectedRows)) {
+						_enableButtonAndContextMenuOption(value.conf.id);
+					}
+					// Deshabilita el boton dentro del collection
+					else {
+						_disableButtonAndContextMenuOption(value.conf.id);
+					}
+				});
+			} );
+		}
+		// Si el boton no tiene un regex definido, permanecera siempre desactivado
+		else if (opts.conf.displayRegex === undefined) {
 			// Deshabilita el boton y su opcion dentro del context menu
 			_disableButtonAndContextMenuOption(opts.conf.id);
+		}
+		// Si tiene un regex definido, lo activa y desactiva en funcion de este
+		else if (opts.conf.displayRegex !== undefined) {
+			// Si el regex recibido de cada boton cumple la sentencia al probarlo contra
+			// el numero de filas seleccionadas, se mostrara, en caso contrario, permanecera
+			// oculto
+			if (opts.conf.displayRegex.test(numOfSelectedRows)) {
+				// Habilita el boton y su opcion dentro del context menu
+				_enableButtonAndContextMenuOption(opts.conf.id);
+			} else {
+				// Deshabilita el boton y su opcion dentro del context menu
+				_disableButtonAndContextMenuOption(opts.conf.id);
+			}
 		}
 	}
 };
@@ -2507,6 +2660,206 @@ $.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds))
 	_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
 });
 };
+
+/**
+* Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+* e inicia la gestión para finalmente obtenerlos
+*
+* @name _reportsExcel
+* @function
+* @since UDA 3.7.1 // Datatable 1.0.0
+*
+* @param {object} dt Instancia del datatable
+* @param {object} that Objeto del boton
+* @param {object} config Configuracion del boton
+*
+*/
+var _reports = function (dt, that, config)
+{
+	var ctx = dt.settings()[0];
+	var info = dt.buttons.exportInfo(config);
+	var type;
+	var multiselection = ctx.multiselection;
+	var selectedAll = multiselection.selectedAll;
+	var deselectedIds = multiselection.deselectedIds;
+	
+	if (selectedAll) {
+		if (deselectedIds.length > 0) {
+			// Este caso es para cuando se selecciona todo y despues se
+			// deseleccionan algunos registros
+			type = "all-deselected";
+		} else {
+			// Este caso es para cuando se seleccionan todos los registros
+			type = "all";
+		}
+	} else {
+		// Este caso para cuando hay determinados registros seleccionados manualmente
+		type = "selected";
+	}
+
+	var ctx = dt.settings()[0];
+	var deferred = $.Deferred();
+	var exportData;
+	var selectedIds = multiselection.selectedIds;
+	var selectedRows = multiselection.selectedRowsPerPage;
+	var ajaxOptions = {};
+	var urlAjax;
+	var typeAjax;
+	var excludeColumns = ctx.oInit.buttons.excludeColumns;
+
+	var report = {
+		columns:{},
+		excludeColumns:['rupInfoCol','cb'],
+		sendPostDataParams: ['_search','core','nd','page','rows','sidx','sord']
+	};
+	//report.appendTo = "exampleinformes_01";
+
+	_callJqueryReports(dt, ctx, config);
+
+};
+
+var _callJqueryReports = function(dt,ctx,config){
+	var data = {};
+	
+	var columns ;
+	var columnsArray = [];
+	
+	if(ctx.oInit.buttons.reportColumns !== undefined){
+		columns = ctx.oInit.buttons.reportColumns;
+	}else{
+		columns = jQuery.map(ctx.oInit.colModel, function(elem){
+			if (jQuery.inArray(elem.name, ctx.oInit.buttons.excludeColumns) === -1){
+				var column = [];
+				column.push(elem.name);
+				column.push(elem.name);
+				columnsArray.push(column);
+				return elem.name;
+			}else{
+				return null;
+			}
+		});
+	}
+	
+	//Add parametros de usuario . plugins.buttons.report.reportsParams
+	if(ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined !== undefined){
+		var reportsParams = ctx.oInit.buttons.report.reportsParams;
+		$.each( reportsParams, function( key, obj ) {
+			data[Object.keys(obj)] = obj[Object.keys(obj)];
+		});
+	}
+
+	
+	data.core =  {
+		'pkToken': ctx.oInit.multiplePkToken,
+		'pkNames': ctx.oInit.primaryKey
+	};
+	data.columns = columns;
+	data['columns'] = $.toJSON(columnsArray);
+	data.multiselection = {};
+	data.multiselection.selectedAll =  ctx.multiselection.selectedAll;
+	if (data.multiselection.selectedAll) {
+		data.multiselection.selectedIds =  ctx.multiselection.deselectedIds;
+	} else {
+		data.multiselection.selectedIds = ctx.multiselection.selectedIds;
+	}
+
+		//Dialogo propio?
+		var standarDialog = true;
+		if (config.customDialog !== undefined) {
+			//Buscar el dialogo correspondiente
+			var actualDialog = customDialog[button.customDialog];
+
+			/** WAIT **/
+			//Sobreescritura del defaultDialog-wait
+			if (actualDialog.waitDiv === undefined) {
+				dialog.wait = actualDialog.wait;
+				//Dialogo propio completo
+			} else {
+				dialog.waitDiv = actualDialog.waitDiv;
+				$('#' + dialog.waitDiv).addClass('rup_report');
+			}
+
+			/** ERROR **/
+			//Sobreescritura del defaultDialog-error
+			if (actualDialog.errorDiv === undefined) {
+				dialog.error = actualDialog.error;
+				//Dialogo propio completo
+			} else {
+				dialog.errorDiv = actualDialog.errorDiv;
+				$('#' + dialog.errorDiv).addClass('rup_report');
+			}
+
+			dialog.successCallback = actualDialog.successCallback;
+			dialog.failCallback = actualDialog.failCallback;
+		}
+
+		//Dialogo de espera
+		var $reportFileWait = $('#' + ctx.sTableId+'reportFileWait');
+		$reportFileWait.rup_dialog({
+			type: $.rup.dialog.TEXT,
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			close: function (event, ui) {
+				if ($.rup.browser.isIE) {
+					//IE
+					document.execCommand('Stop');
+				} else {
+					//Netscape/Mozilla/Firefox
+					window.stop();
+				}
+			}
+		});
+		if (standarDialog) {
+			//Titulo
+			var titulo = "Cargando;"
+			var message = "Descargando informe, por favor espere"; 
+			if(ctx.oInit.buttons.report !== undefined){
+				if(ctx.oInit.buttons.report.title !== undefined){
+					titulo = ctx.oInit.buttons.report.title;
+				}	
+				if(ctx.oInit.buttons.report.message !== undefined){
+					message = ctx.oInit.buttons.report.message;
+				}
+			}
+			$reportFileWait.rup_dialog('setOption', 'title', titulo);
+			//Contenido
+			var content = $reportFileWait.html().split($reportFileWait.text()),
+				html = '';
+			for (var i = 0; i < content.length; i++) {
+				if (content[i] === '') {
+					html += message;
+				} else {
+					html += content[i];
+				}
+			}
+			$reportFileWait.html(html);
+		}
+		$reportFileWait.rup_dialog('open');
+		var url = ctx.oInit.urlBase+config.url;
+
+		//Lanzar petición
+		$.fileDownload( url, {
+			httpMethod: 'POST',
+			data: jQuery.rup_utils.unnestjson(data),
+			successCallback: function (url) {
+				$reportFileWait.rup_dialog('close');
+			},
+			failCallback: function (responseHtml, url) {
+				try{
+					if($('#'+$reportFileWait.attr('id')).length > 0) {
+						$reportFileWait.rup_dialog('close');
+						console.info('ERROR-----------'+responseHtml);
+					}
+				}
+				catch(e){
+					console.info('ERROR-----------');
+				}
+			}
+		});
+		return false;
+
+}
 
 /**
 * Se encarga de mapear los datos de json a datos separados por el tabulador.
@@ -2875,6 +3228,90 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 		});
 };
 
+var _initContextMenu = function(ctx,api){
+	// Creacion del Context Menu
+	if (ctx.oInit.buttons !== undefined) {
+		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
+		var items = {};
+		$.when(
+			$.each(botonesToolbar, function (i) {
+				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+				if (this.conf.insideContextMenu) {
+					// Poblamos el objeto 'items' con los botones habilitados
+					items[this.conf.id] =
+					{
+						id: this.conf.id + '_contextMenuToolbar',
+						name: this.conf.text(api),
+						icon: this.conf.icon,
+						inCollection: this.inCollection,
+						idCollection: undefined
+					}
+				}
+				// Comprueba si tiene botones hijos
+				if (this.buttons.length > 0) {
+					var idCollection = this.conf.id;
+					$.each(this.buttons, function (i) {
+						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+						if (this.conf.insideContextMenu) {
+							// Poblamos el objeto 'items' con los botones habilitados
+							items[this.conf.id] =
+							{
+								id: this.conf.id + '_contextMenuToolbar',
+								name: this.conf.text(api),
+								icon: this.conf.icon,
+								inCollection: this.inCollection,
+								idCollection: idCollection
+							}
+						}
+					});
+				}
+			})
+		).done(function () {
+			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
+			if(!jQuery.isEmptyObject(items)){
+				tableTr.rup_contextMenu({
+					callback: function(key, options) {
+						var selector = items[key];
+						// Recogemos el id de la accion pulsada en el context menu
+						var contextMenuActionId = selector.id;
+						// Le quitamos la extension '_contextMenuToolbar' para tener asi
+						// el id del boton que queremos accionar
+						var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+						// Variable que nos dira si esta dentro de una coleccion
+						var inCollection = selector.inCollection;
+						// Variable que almacena el id de la coleccion (si no pertenece a una
+						// siempre sera 'undefined')
+						var idCollection = selector.idCollection;
+						// Comprobamos si existe el elemento con este id
+						if (inCollection && idCollection !== undefined) {
+							// Obtenemos la info necesaria del boton y la guardamos en variables
+							var buttonName;
+							var dt = $('#'+ctx.sTableId).DataTable();
+							var eventConfig;
+	
+							$.each( ctx.ext.buttons, function( key ) {
+								var buttonObject = ctx.ext.buttons[key];
+								if (buttonObject.id === buttonId) {
+									buttonName = key;
+									eventConfig = buttonObject;
+								}
+							});
+							
+							// Llamamos directamente al action para no hacer aparecer y desaparecer
+							// el boton, empeorando la UX
+							ctx.ext.buttons[buttonName].action(undefined, dt, undefined, eventConfig);
+						} else {
+							$('#' + buttonId).trigger('click');
+						}
+						
+				  },
+					items
+				});
+			}
+		});
+	}
+}
+
 /**
 * Inicializa los botones
 *
@@ -2892,6 +3329,12 @@ var _initButtons = function(ctx,opts){
 		// 'displayRegex' que tengan asociada
 		var collectionObject = null;
 		var numOfSelectedRows = ctx.multiselection.numSelected;
+		if(ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId+'addButton_1'){
+			//si es maestro detalle para el boton add ,solo se renderiza cuando hay selección en el padre.
+			var table = $(ctx.oInit.masterDetail.master).DataTable();
+			numOfSelectedRows = table.context[0].multiselection.numSelected;//Nums del padre
+			this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular
+		}
 		_manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject,ctx);
 		// Comprueba si tiene botones hijos
 		if (this.buttons.length > 0) {
@@ -2922,6 +3365,27 @@ var _initButtons = function(ctx,opts){
 			}
 		}
 	});
+	
+	//Añadir dialogo por defecto
+	var $defaultDialog_wait = $('<div />')
+			.attr('id', ctx.sTableId+'reportFileWait')
+			.attr('title', 'Tittle Prueba')
+			.text('prueba')
+			.addClass('rup_report')
+			.hide()
+			//progressbar
+			.append($('<div />').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
+		$defaultDialog_error = $('<div />')
+			.attr('id', ctx.sTableId+'reportFileError')
+			.attr('title', 'Error')
+			.text('error')
+			.addClass('rup_report')
+			.hide(),
+		$defaultDialog = $('<div />')
+			.attr('id', ctx.sTableId+'rup_report_dialogsContainer')
+			.append($defaultDialog_wait)
+			.append($defaultDialog_error);
+	$('#'+ctx.sTableId).after($defaultDialog);
 }
 
 
@@ -2934,11 +3398,31 @@ $.fn.dataTable.Buttons = Buttons;
 $.fn.DataTable.Buttons = Buttons;
 
 function inicio(ctx) {
-	var opts = ctx._buttons[0].inst.s.buttons;
+	var api = new DataTable.Api( ctx );
+	var defaultButtons = api.init().buttons || DataTable.defaults.buttons
 	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
-
+	
+	// Toolbar por defecto del datatable
+	//lista negra de botones por defecto.
+	if(ctx.oInit.buttons.blackListButtons !== undefined){
+		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+			Buttons.defaults.buttons = [];
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				var name = this;
+				var pos = $.inArray(name, Buttons.defaults.buttons);
+				if(pos >= 0){
+					Buttons.defaults.buttons.splice(pos,1);
+				}
+			});
+			
+		}
+	}
+	new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	var opts = ctx._buttons[0].inst.s.buttons;
 	DataTable.Api().buttons.initButtons(ctx,opts);
+	_initContextMenu(ctx,api);
 
 	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
@@ -2975,7 +3459,7 @@ $(document).on( 'plugin-init.dt', function (e, settings) {
 		return;
 	}
 
-	if ( settings.oInit.buttons !== undefined && settings._buttons ) {
+	if ( settings.oInit.buttons !== undefined ) {
 		inicio(settings);
 	}
 } );

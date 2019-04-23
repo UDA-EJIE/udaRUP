@@ -577,7 +577,12 @@
      "delete": "[EN]Eliminar",
      "reports": {
        "main": "[EN]Informes",
-       "copyButton": "[EN]Copiar"
+       "copyButton": "[EN]Copiar",
+        "excelButton": "Excel",
+        "odsButton": "Ods",
+        "pdfButton": "Pdf",
+        "csvButton": "Csv"
+        
      }
    },
    "copyButton": {
@@ -969,7 +974,7 @@
      "sSortDescending": ": [EN]Activar para ordenar la columna de manera descendente"
  },
  "pagina": "[EN]Página ",
- "toPagina": " [EN]de {0}", ,
+ "toPagina": " [EN]de {0}",
  "rup_calendar": {
    "error_noview": "Calendario: Vista {0} no encontrada",
    "error_dateformat": "Calendario: Formato de fecha inválido {0}. Debe ser \"now\" o \"yyyy-mm-dd\"",

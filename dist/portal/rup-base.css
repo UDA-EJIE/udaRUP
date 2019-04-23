@@ -2448,7 +2448,7 @@
 
 .r01gContainer .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 
 .r01gContainer .qtip-youtube .qtip-content {
@@ -2784,14 +2784,18 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group
+.ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard
+.ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard
+.ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -4936,7 +4940,13 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer select.form-control-sm {
+.r01gContainer .ui-multiselect,
+.r01gContainer .ui-selectmenu-dropdown,
+.r01gContainer .form-control.ui-multiselect,
+.r01gContainer .form-control.ui-selectmenu-dropdown,
+.r01gContainer select.form-control-sm,
+.r01gContainer .form-control-sm.ui-multiselect,
+.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -6450,7 +6460,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e5e5;
+    background-color: #e6e6e6;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -8017,12 +8027,6 @@
   display: inline-block;
 }
 
-.r01gContainer .tableFit {
-  width: calc(100% - 1px) !important;
-  max-width: calc(100% - 1px);
-  margin-bottom: 0;
-}
-
 .r01gContainer .pagination {
   margin-bottom: 0;
   justify-content: center;
@@ -8230,7 +8234,7 @@
   background-color: #aecff7;
 }
 
-.r01gContainer .disabledDatatable {
+.r01gContainer .disabledButtonsTable {
   pointer-events: none;
   opacity: 0.6;
 }
@@ -8353,7 +8357,7 @@
   background-image: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
   background-image: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
   background-image: linear-gradient(to bottom, #fff 0%, #e9e9e9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='white', EndColorStr='#e9e9e9');
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -8380,7 +8384,7 @@
   background-image: -ms-linear-gradient(top, #fff 0%, #f9f9f9 100%);
   background-image: -o-linear-gradient(top, #fff 0%, #f9f9f9 100%);
   background-image: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#f9f9f9');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#f9f9f9');
 }
 
 .r01gContainer button.dt-button:active:not(.disabled),
@@ -8407,7 +8411,7 @@
   background-image: -ms-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
   background-image: -o-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
   background-image: linear-gradient(to bottom, #f3f3f3 0%, #e2e2e2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f3f3f3', EndColorStr='#e2e2e2');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#f3f3f3', EndColorStr='#e2e2e2');
   box-shadow: inset 1px 1px 3px #999999;
 }
 
@@ -8436,7 +8440,7 @@
   background-image: -ms-linear-gradient(top, #eaeaea 0%, #ccc 100%);
   background-image: -o-linear-gradient(top, #eaeaea 0%, #ccc 100%);
   background-image: linear-gradient(to bottom, #eaeaea 0%, #ccc 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#eaeaea', EndColorStr='#cccccc');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#eaeaea', EndColorStr='#cccccc');
 }
 
 .r01gContainer button.dt-button:hover,
@@ -8467,7 +8471,7 @@
   background-image: -ms-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
   background-image: -o-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
   background-image: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f9f9f9', EndColorStr='#e0e0e0');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#f9f9f9', EndColorStr='#e0e0e0');
 }
 
 .r01gContainer button.dt-button:focus:not(.disabled),
@@ -8488,7 +8492,7 @@
   background-image: -ms-linear-gradient(top, #bddef4 0%, #79ace9 100%);
   background-image: -o-linear-gradient(top, #bddef4 0%, #79ace9 100%);
   background-image: linear-gradient(to bottom, #bddef4 0%, #79ace9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#bddef4', EndColorStr='#79ace9');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#bddef4', EndColorStr='#79ace9');
 }
 
 .r01gContainer .dt-button embed {
@@ -8534,6 +8538,18 @@
 .r01gContainer .rup-wizard div.dt-button-collection > .rup-wizard_submitButton {
   display: block;
   margin: auto;
+  width: 100%;
+  text-align: left;
+}
+
+.r01gContainer div.dt-button-collection > button:not(:last-child),
+.r01gContainer div.dt-button-collection > .ui-button.rup-button:not(:last-child),
+.r01gContainer .rup-dropdown-btn-group div.dt-button-collection > .rup-dropdown-button:not(:last-child),
+.r01gContainer div.dt-button-collection > a.rup-toolbar_menuButton.ui-button:not(:last-child),
+.r01gContainer .rup-wizard div.dt-button-collection > a.rup-wizard_next:not(:last-child),
+.r01gContainer .rup-wizard div.dt-button-collection > a.rup-wizard_prev:not(:last-child),
+.r01gContainer .rup-wizard div.dt-button-collection > .rup-wizard_submitButton:not(:last-child) {
+  margin-bottom: 4px;
 }
 
 .r01gContainer div.dt-button-collection button.dt-button,
@@ -8573,14 +8589,18 @@
 .r01gContainer div.dt-button-collection button.dt-button.active:not(.disabled),
 .r01gContainer div.dt-button-collection .dt-button.active.ui-button.rup-button:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-dropdown-btn-group .dt-button.active.rup-dropdown-button:not(.disabled),
-.r01gContainer .rup-dropdown-btn-group div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
+.r01gContainer .rup-dropdown-btn-group
+div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
 .r01gContainer div.dt-button-collection a.dt-button.active.rup-toolbar_menuButton.ui-button:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_next:not(.disabled),
-.r01gContainer .rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
+.r01gContainer .rup-wizard
+div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_prev:not(.disabled),
-.r01gContainer .rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
+.r01gContainer .rup-wizard
+div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard .dt-button.active.rup-wizard_submitButton:not(.disabled),
-.r01gContainer .rup-wizard div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
+.r01gContainer .rup-wizard
+div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
 .r01gContainer div.dt-button-collection div.dt-button:active:not(.disabled),
 .r01gContainer div.dt-button-collection div.dt-button.active:not(.disabled),
 .r01gContainer div.dt-button-collection a.dt-button:active:not(.disabled),
@@ -8591,7 +8611,7 @@
   background-image: -ms-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
   background-image: -o-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
   background-image: linear-gradient(to bottom, #f0f0f0 0%, #dadada 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f0f0f0', EndColorStr='#dadada');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#f0f0f0', EndColorStr='#dadada');
   box-shadow: inset 1px 1px 3px #666;
 }
 

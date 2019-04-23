@@ -108,7 +108,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	
 	//Crear feedback;
 	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
-	$('#'+ctx.sTableId+'_containerToolbar').prepend($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
+	$('#'+ctx.sTableId+'_containerToolbar').before($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
 	
 	//se cambia el nombre de los validadores.
 	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
@@ -127,127 +127,47 @@ DataTable.inlineEdit.init = function ( dt ) {
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
-	
-	// Creacion del Context Menu
-	if (ctx.oInit.buttons !== undefined) {
-		var botonesToolbar = ctx._buttons[0].inst.s.buttons;
-		var items = {};
-		$.when(
-			$.each(botonesToolbar, function (i) {
-				// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-				if (this.conf.insideContextMenu) {
-					// Poblamos el objeto 'items' con los botones habilitados
-					items[this.conf.id] =
-					{
-						id: this.conf.id + '_contextMenuToolbar',
-						name: this.conf.text(dt),
-						icon: this.conf.icon,
-						inCollection: this.inCollection,
-						idCollection: undefined
-					}
-				}
-				// Comprueba si tiene botones hijos
-				if (this.buttons.length > 0) {
-					var idCollection = this.conf.id;
-					$.each(this.buttons, function (i) {
-						// Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-						if (this.conf.insideContextMenu) {
-							// Poblamos el objeto 'items' con los botones habilitados
-							items[this.conf.id] =
-							{
-								id: this.conf.id + '_contextMenuToolbar',
-								name: this.conf.text(dt),
-								icon: this.conf.icon,
-								inCollection: this.inCollection,
-								idCollection: idCollection
-							}
-						}
-					});
-				}
-			})
-		).done(function () {
-			var tableTr = $('#' + ctx.sTableId + ' > tbody > tr');
-			tableTr.rup_contextMenu({
-				callback: function(key, options) {
-					var selector = items[key];
-					// Recogemos el id de la accion pulsada en el context menu
-					var contextMenuActionId = selector.id;
-					// Le quitamos la extension '_contextMenuToolbar' para tener asi
-					// el id del boton que queremos accionar
-					var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
-					// Variable que nos dira si esta dentro de una coleccion
-					var inCollection = selector.inCollection;
-					// Variable que almacena el id de la coleccion (si no pertenece a una
-					// siempre sera 'undefined')
-					var idCollection = selector.idCollection;
-					// Comprobamos si existe el elemento con este id
-					if (inCollection && idCollection !== undefined) {
-						// Obtenemos la info necesaria del boton y la guardamos en variables
-						var buttonName;
-						var eventDT;
-						var eventConfig;
-
-						$.each( ctx.ext.buttons, function( key ) {
-							var buttonObject = ctx.ext.buttons[key];
-							if (buttonObject.id === buttonId) {
-								buttonName = key;
-								eventDT = buttonObject.eventDT;
-								eventConfig = buttonObject;
-							}
-						});
-
-						// Llamamos directamente al action para no hacer aparecer y desaparecer
-						// el boton, empeorando la UX
-						ctx.ext.buttons[buttonName].action(undefined, eventDT, undefined, eventConfig);
-					} else {
-						$('#' + buttonId).trigger('click');
-					}
-					
-			  },
-				items
-			});
-		});
 		
-		//Crear botones Guardar y Cancelar
-		//Boton guardar
-	      var btSave = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
-	             text: function (dt) {
-	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
-	             },
-	             id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-	             className: 'datatable_toolbar_btnSave',
-	             icon: "fa-save",
-	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
-	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-	             type: 'save',
-	             action: function ( e, dt, button, config ) {
-	            	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
-	            	 _guardar(ctx,$selector,false);
-	           }
-	       });
-	      
-	       //boton Cancelar
-	    var btCancel = dt.button().add(ctx._buttons[0].inst.c.buttons.length - 1, {
-	             text: function (dt) {
-	                    return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
-	             },
-	             id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-	             className: 'datatable_toolbar_btnCancel',
-	             icon: "fa-times",
-	             displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
-	             insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-	             type: 'cancel',
-	             action: function ( ) {
-			    		ctx.inlineEdit.lastRow = undefined;
-			    		ctx.oInit.inlineEdit.alta = undefined;
-			    		dt.ajax.reload(undefined,false)
-	           }
-	       });
-	     
-	    DataTable.Api().buttons.initButtons(ctx,ctx._buttons[0].inst.s.buttons);
-
-
-	}
+  //Crear botones Guardar y Cancelar
+	ctx.oInit.inlineEdit.myButtons = {};
+  //Boton guardar
+  ctx.oInit.inlineEdit.myButtons.guardar = {
+         text: function (dt) {
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
+         },
+         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+         className: 'datatable_toolbar_btnSave disabledButtonsTable',
+         icon: "fa-save",
+         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+         type: 'save',
+         action: function ( e, dt, button, config ) {
+        	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+        	 _guardar(ctx,$selector,false);
+       },
+       custom:true
+   };
+  
+   //boton Cancelar
+  ctx.oInit.inlineEdit.myButtons.cancelar = {
+         text: function (dt) {
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
+         },
+         id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+         className: 'datatable_toolbar_btnCancel disabledButtonsTable',
+         icon: "fa-times",
+         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+         type: 'cancel',
+         action: function ( ) {
+        	 	$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+        	 	$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
+	    		ctx.inlineEdit.lastRow = undefined;
+	    		ctx.oInit.inlineEdit.alta = undefined;
+	    		dt.ajax.reload(undefined,false)
+       },
+       custom:true
+   };
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -500,8 +420,8 @@ function _editInline ( dt,ctx, idRow ){
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
 	
-	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledDatatable');
-	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledDatatable');
+	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledButtonsTable');
+	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledButtonsTable');
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
@@ -1239,6 +1159,8 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
+			$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+			$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
 			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
@@ -1276,9 +1198,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					DataTable.Api().multiSelect.deselectAll(dt);
 				}else if(ctx.oInit.select !== undefined){
 					DataTable.Api().select.deselect(ctx);
+					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
 				}
 				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+		
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
@@ -1300,7 +1223,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		error : function(xhr, ajaxOptions,thrownError) {
 			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
 			if(divErrorFeedback.length === 0){
-				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertAfter('#'+ctx.sTableId);
+				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertBefore('#'+ctx.sTableId);
 			}
 			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
@@ -1313,8 +1236,15 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	if(ctx.inlineEdit.lastRow !== undefined){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
-	idForm.rup_form();
-	idForm.rup_form('ajaxSubmit', ajaxOptions);
+	
+	if(url !== '/deleteAll' && actionType !== 'DELETE'){
+		idForm.rup_form();
+		idForm.rup_form('ajaxSubmit', ajaxOptions);
+	}else{
+		//Se cambia el data
+		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+		$.rup_ajax(ajaxOptions);
+	}
 }
 
 

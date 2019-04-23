@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.buttons','./rup.table.editForm','./rup.table.seeker','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter','./rup.table.inlineEdit'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiselect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -62,7 +62,63 @@
 	//*******************************
 	$.fn.rup_datatable('extend',{
 		foo: function() {
-			return this;
+				return this;
+		},
+		//$("#idTable").rup_datatable("createButton",options, posicion);
+		createButton: function(props,pos) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+			var idTable = ctx.sTableId;
+			if(pos === undefined){
+				pos = 0;
+			}
+			if(ctx.oInit.buttons !== undefined && props !== undefined){
+				if(props.custom === undefined){
+					props.custom = true;
+				}
+				// Añadimos el boton genérico
+				dt.button().add(pos, {
+					text: props.text,
+					id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
+					className: props.className,
+					icon: props.icon,
+					displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
+					insideContextMenu: props.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+					action: props.action,
+					custom:props.custom
+				});
+			}else{
+				alert('Está función requiere el plugin de buttons y dos parámetros.');
+			}
+		},
+		removeButton: function(selector) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).remove();
+			}
+		},
+		disableButton: function(selector,contextMenu) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).disable(contextMenu);
+			}
+		},
+		enableButton: function(selector,flag,contextMenu) {
+			var dt = $("#"+this[0].id).DataTable();
+			var ctx = dt.context[0];
+
+			if(ctx.oInit.buttons !== undefined){
+				dt.buttons( selector ).enable(flag,contextMenu);
+			}
+		},
+		//$("#idTable").rup_datatable("getContext");
+		getContext: function() {
+			var dt = $("#"+this[0].id).DataTable();
+			return dt.context[0];
 		}
 	});
 
@@ -154,20 +210,25 @@
 						ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
 					}
 					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-					if(options.buttons !== undefined){
+					if(options.buttons !== undefined && ctx._buttons !== undefined){
 						ctx._buttons[0].inst.s.disableAllButttons = undefined;
 						DataTable.Api().buttons.displayRegex(ctx);
 					}
 			} );
 			
-			apiRegister( 'rupTable.getIdPk()', function ( json ) {
+			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {
+				
+				var opts = options;
+				if(optionsParam !== undefined){
+					opts = optionsParam;
+				}
 
 				var id = '';
 
-				$.each(options.primaryKey,function(index,key) {
+				$.each(opts.primaryKey,function(index,key) {
 					id = id + json[key];
-					if(options.primaryKey.length > 1 && index < options.primaryKey.length-1){
-						id = id+options.multiplePkToken;
+					if(opts.primaryKey.length > 1 && index < opts.primaryKey.length-1){
+						id = id+opts.multiplePkToken;
 					}
 				});
 				
@@ -943,8 +1004,8 @@
 				multi.multiselection.deselectedIds = [];
 				multi.multiselection.accion = "";//uncheckAll,uncheck
 				//$self.multiselection.deselectedPages = [];
-				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledDatatable');
-				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledDatatable');
+				$("#contextMenu1 li.context-menu-icon-uncheck").addClass('disabledButtonsTable');
+				$("#contextMenu1 li.context-menu-icon-uncheck_all").addClass('disabledButtonsTable');
 				// Desmarcamos el check del tHead
 				$("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 
@@ -1000,7 +1061,7 @@
 			
 			//Comprobar plugin dependientes
 			if(settings.multiSelect !== undefined){
-				settings.columnDefs.push({
+				settings.columnDefs.unshift({
 			        orderable: false,
 			        className: 'select-checkbox',
 			        targets: 0,
@@ -1078,6 +1139,10 @@
 			}
 			
 			$self._initOptions(settings);
+			
+			if(settings.loadOnStartUp !== undefined && !settings.loadOnStartUp){
+				settings.deferLoading = 0;
+			}
 			
 			var tabla = $self.DataTable(settings);
 
@@ -1191,10 +1256,10 @@
 			
 			if(settings.buttons !== undefined){
 				// Toolbar por defecto del datatable
-				new $.fn.dataTable.Buttons(
+			/*	new $.fn.dataTable.Buttons(
 					tabla,
 					DataTable.Buttons.defaults.buttons
-				).container().insertBefore($('#'+$self[0].id+'_filter_form'));
+				).container().insertBefore($('#'+$self[0].id+'_filter_form'));*/
 			}
 
 
