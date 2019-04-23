@@ -193,7 +193,7 @@
     <!-- Realiza el build y generación de distribuibles de udaRup:
         - Actualiza los números de versión en los recursos de udaRup
         - Realiza el build de udaRup ejecutando gulp dist
-        - Genera los ditribuibles en la carpeta dist
+        - Genera los distribuibles en la carpeta dist
     -->
     <target name="buildUdaRupVersion" 
             description="Actualiza los recursos a la versión correspondiente de udaDemoApp y genera los distribuibles" 

@@ -501,10 +501,6 @@ table.dataTable td {
 }
 
 @media screen and (max-width: 767px) {
-    .dataTables_wrapper .dataTables_wrapper .dataTables_paginate {
-        float: none;
-        text-align: center
-    }
     .dataTables_wrapper .dataTables_paginate {
         margin-top: 0.5em
     }
@@ -539,7 +535,6 @@ tfoot .rup-date-input-group {
 
 .dataTables_length label {
     display: inline-flex;
-    margin-bottom: initial
 }
 
 .dataTables_length select {
@@ -550,6 +545,7 @@ tfoot .rup-date-input-group {
     border: 1px solid #dad55e;
     background: #fffa90;
     color: #777620;
+    font-weight: bold
 }
 
 table.dataTable tbody>tr:hover {
@@ -575,17 +571,17 @@ table.dataTable tbody>tr:hover {
 
 .tr-highlight {
     border: 1px solid #dad55e;
-    background: #fffa90 !important;
-    color: #000000;
-}
-
-.datatable_checkbox {
-    width: 11px;
-    margin: 0 auto
+    background: #fffa90;
+    color: #777620;
+    font-weight: bold
 }
 
 .dtr-data {
     display: inline-block
+}
+
+.dataTables_length {
+    float: none
 }
 
 .pagination {
@@ -597,7 +593,7 @@ table.dataTable tbody>tr:hover {
 .paginationContainer {
     border: 1px solid #dee2e6;
     border-top: none;
-    padding: 10px 0
+    padding: 5px 0
 }
 
 .openResponsive,
@@ -613,7 +609,6 @@ table.dataTable tbody>tr:hover {
     box-sizing: content-box;
     text-align: center;
     text-indent: 0 !important;
-    font-family: 'Courier New', Courier, monospace;
     line-height: 14px;
     content: '+';
     cursor: pointer
@@ -624,11 +619,11 @@ table.dataTable tbody>tr:hover {
 }
 
 .openResponsive:hover {
-    background-color: #004eff;
+    background-color: #197019;
 }
 
 .openResponsive {
-    background-color: #007bff;
+    background-color: #31b131;
 }
 
 .closeResponsive:before {
@@ -636,11 +631,11 @@ table.dataTable tbody>tr:hover {
 }
 
 .closeResponsive {
-    background-color: #007bff;
+    background-color: #d33333;
 }
 
 .closeResponsive:hover {
-    background-color: #004eff;
+    background-color: #fc081f;
 }
 
 .select-checkbox {

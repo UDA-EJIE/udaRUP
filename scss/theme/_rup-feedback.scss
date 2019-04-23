@@ -12,7 +12,7 @@
 
 .rup-feedback{
   @extend .shadow-2;
-  margin: 0.8rem 0;
+  margin: 0.8rem 0 2rem 0;
   &.rup-feedback_image{
     background-image: none;
     padding: 1em 0.5em 1em 1.5em;
@@ -54,7 +54,7 @@
       //visibility: hidden;
       text-decoration: none;
       float: right;
-      padding-right: 0.5rem;
+      padding-right: 2rem;
       margin: 0;
       @extend %feedback-icon;
       @extend .rup-fa-close;

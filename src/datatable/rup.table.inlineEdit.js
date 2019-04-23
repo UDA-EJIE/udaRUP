@@ -127,12 +127,12 @@ DataTable.inlineEdit.init = function ( dt ) {
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
-		
-  //Crear botones Guardar y Cancelar
+	
+    //Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
-  //Boton guardar
-  ctx.oInit.inlineEdit.myButtons.guardar = {
-         text: function (dt) {
+    //Boton guardar
+	ctx.oInit.inlineEdit.myButtons.guardar = {
+		 text: function (dt) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
@@ -144,12 +144,12 @@ DataTable.inlineEdit.init = function ( dt ) {
          action: function ( e, dt, button, config ) {
         	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
         	 _guardar(ctx,$selector,false);
-       },
-       custom:true
-   };
+         },
+         custom:true
+    };
   
-   //boton Cancelar
-  ctx.oInit.inlineEdit.myButtons.cancelar = {
+    //boton Cancelar
+    ctx.oInit.inlineEdit.myButtons.cancelar = {
          text: function (dt) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
          },
@@ -167,7 +167,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		dt.ajax.reload(undefined,false)
        },
        custom:true
-   };
+    };
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

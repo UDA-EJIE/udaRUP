@@ -1,0 +1,46 @@
+/* REDONDEAMOS EL LOS BORDES DE LA TABLA */
+table.table-material {
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	
+	> thead {
+		th:hover {
+			background-color: $primary-color-light;
+		}
+		
+		> tr > th {
+			&:first-child {
+				border-top-left-radius: 5px;
+			}
+			
+			&:last-child {
+				border-top-right-radius: 5px;
+			}
+		}
+	}
+	
+	> tbody tr:hover > td {
+		background-color: $primary-color-light;
+	}
+	
+	> tfoot th:hover {
+		background-color: $primary-color-light;
+	}
+	
+	/* QUITAMOS LAS BARRAS VERTICALES */
+	th, table.table-material td {
+		border-width: 1px 0;
+		border-style: solid;
+		border-color: $whitish-grey-color;
+	}
+	
+	/* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */
+	i.material-icons {
+		font-weight: bold;
+	}
+}
+
+form + div.paginationContainer {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+}

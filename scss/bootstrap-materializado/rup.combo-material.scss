@@ -1,0 +1,154 @@
+/* LABEL */
+label.select-material {
+ 	top: 2px;
+	left: 25px;
+	margin: 0;
+	font-size: .9rem;
+	color: $primary-color;
+	padding: 0 5px;
+	background-color: $white-color;
+	position: absolute;
+	z-index: 1;
+}
+
+/* SELECT */
+a.select-material {
+	width: 100%;
+	max-width: 100%;
+	height: 2rem;
+	display: block;
+	padding: 1px 0px 1px 18px;
+	border: 1px solid $grey-color-light;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 1rem;
+	overflow: visible;
+	background-color: $white-color;
+	
+	&:hover {
+		background-color: initial;
+	  	border-color: $black-color;
+	}
+	
+	&:focus {
+		border-color: $primary-color;
+		border-width: 2px;
+		box-shadow: none;
+		outline: none;
+	  	padding-left: 17px;
+	  	
+	  	span:first-child {
+			left: 11px;	  	
+		}
+	}
+	
+	span:first-child {
+		color: $grey-color; 
+		font-size: 1rem;
+		font-weight: 400;
+		position: absolute;
+		pointer-events: none;
+		left: 12px;
+		top: 1px;
+		padding-left: 5px;
+	}
+	
+	/* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */
+	&.ui-selectmenu {
+		border: 1px solid $grey-color-light;
+		font-size: 1rem;
+		background-color: $white-color;
+		
+		&:hover {
+			background-color: initial;
+		  	border-color: $black-color;
+		}
+		
+		&:focus {
+			border-color: $primary-color;
+			border-width: 2px;
+			box-shadow: none;
+			outline: none;
+		  	padding-left: 17px;
+		  	
+		  	span:first-child {
+				left: 11px;	  	
+			}
+		}
+	}
+}
+
+.form-groupMaterial {
+	label.select-material {
+		top: -10px;
+		left: 15px;
+	}
+	
+	a.select-material {
+		span:first-child {
+			top: 0;
+		}
+	}
+	
+	/* ESTABLECE LOS ESTILOS ESPECIFICOS DE LAS VALIDACIONES CON ERROR */
+	&.rup-validate-field-error {
+		a.select-material {
+			span:last-child {
+				right: 30px;
+			}
+		}
+		
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {		
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
+			&.rup-validate-field-error {			
+				select ~ i.material-icons.error {
+					right: 15px;
+				}
+			}
+		}
+	}
+}
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO NO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+:not(.form-row) {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="combo"] {
+				~ label.select-material {
+					left: 28px;
+				}
+			}
+		}
+	}
+}
+
+/* TODO: hacerlo funcionar sin obligar a que sea un hijo directo */
+:not(.form-row) {
+	> .form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
+			&.rup-validate-field-error {
+				select ~ i.material-icons.error {
+					right: 25px;
+				}
+			}
+		}
+	}
+}
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL COMBO SE ENCUENTRA DENTRO DE UN FORM-ROW */
+.form-row {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="combo"] {
+				~ label.select-material {
+					left: 18px;
+				}
+			}
+		}
+	}
+}

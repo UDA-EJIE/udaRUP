@@ -1,0 +1,113 @@
+/* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
+i.material-icons.error {
+	color: $validation-error-color-light;
+}
+
+.form-groupMaterial {
+	&.rup-validate-field-error {
+		input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+			padding-right: 30px;
+			
+			&:enabled ~ label {
+				color: $validation-error-color-light;
+			}
+			
+			&:enabled ~ span {
+				color: $validation-error-color-light;
+				
+				/* PARA LOS COMBOS */
+				a.select-material {
+					border-color: $validation-error-color-light;
+					
+					&:hover {
+						border-color: $validation-error-color;
+					}
+					
+					&:focus {
+						border: 2px solid $validation-error-color;
+					}
+				}
+			}
+			
+			&:invalid:enabled ~ label {
+				color: $grey-color;
+			}
+			
+			&:enabled {
+				border-color: $validation-error-color-light;
+			}
+			
+			&:hover:enabled {
+				border-color: $validation-error-color;
+			}
+			
+			&:focus:enabled {
+				border: 2px solid $validation-error-color;
+				caret-color: $validation-error-color;
+			
+				&:read-only {
+					caret-color: $no-color;
+				}
+				
+				&:-moz-read-only {
+					caret-color: $no-color;
+				}
+				
+				&:invalid ~ label {
+					color: $validation-error-color-light;
+				}
+			}
+		}
+		
+		span {
+			color: $validation-error-color-light;
+		}
+		
+		i.material-icons.error {
+			position: absolute;
+			top: 4px;
+			right: 10px;
+			font-size: 1.3rem;
+			font-style: normal;
+			font-weight: 400;
+		}
+		
+		.error:last-child {
+			display: block;
+			padding-top: 2px;
+			padding-left: 19px;
+		}
+		
+		/* TEXTAREA */
+		textarea {
+			padding-right: 35px;
+			
+			~ i.material-icons.error {
+				top: 7px;
+				right: 25px;
+			}
+		}
+		
+		/* AUTOCOMPLETE COMBOBOX */
+		span.rup-combobox {	
+			input:not([type="checkbox"]):not([type="radio"]) {
+				&:enabled ~ a {
+					border-color: $validation-error-color-light;
+				}
+				
+				&:hover:enabled ~ a {
+					border-color: $validation-error-color;
+				}
+				
+				&:focus:enabled ~ a {
+					border: 2px solid $validation-error-color;
+					border-left-style: hidden;
+				}
+				
+				~ a:focus {
+					background-color: $validation-error-color-light;
+				}
+			}
+		}
+	}
+}

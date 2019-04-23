@@ -1,0 +1,95 @@
+/* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
+:not(.form-row) {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="autocomplete"] {
+				&:focus {
+					padding-left: 17px;
+				}
+			
+				~ label {
+					left: 30px;
+				}
+				
+				~ i.material-icons.error {
+					right: 26px;
+				}
+			}
+			
+			.rup-combobox ~ i.material-icons.error {
+				right: 42px;
+			}
+		}
+	}
+}
+
+/* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
+.form-row {
+	.form-groupMaterial {
+		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
+		&[class*="col-"] {
+			[ruptype="autocomplete"] {
+				~ label {
+					left: 20px;
+				}
+				
+				~ i.material-icons.error {
+					right: 16px;
+				}
+			}
+			
+			.rup-combobox ~ i.material-icons.error {
+				right: 32px;
+			}
+		}
+	}
+}
+
+.form-groupMaterial {
+	/* PARA CUANDO ES UN COMBOBOX */
+	.rup-combobox {
+		width: 100%;
+		margin-right: 0;
+		
+		input:not([type="checkbox"]):not([type="radio"]) {
+			display: inline-block;
+			width: calc(100% - 22.4px);
+			border-right-style: hidden;
+			
+			&:hover:enabled ~ a {
+				border-color: $black-color;
+			}
+			
+			&:focus:enabled ~ a {
+				border-color: $primary-color;
+				border-width: 2px;
+			}
+		}
+		
+		a {
+			width: 26.4px;
+			margin-left: -4px;
+			border: 1px solid $grey-color-light;
+			border-left-style: hidden;
+			
+			&:focus {
+				background-color: $primary-color;
+				
+				/* USAR CON ICONOS MATERIAL
+				i {
+					color: $white-color;
+				}*/
+			}
+		}
+		
+		~ input[ruptype="autocomplete"][type="hidden"] ~ label {
+			color: $primary-color;
+			background: $white-color;
+		}
+		
+		~ i.material-icons.error {
+			right: 32px;
+		}
+	}
+}

@@ -1,0 +1,56 @@
+/* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
+div.rup-date-input-group-material { 
+	input:not([type="checkbox"]):not([type="radio"]) {
+		width: calc(100% - 26px);
+		display: inline-block;
+		border-right-style: hidden;
+		color: $grey-color; 
+	}
+
+ 	button {
+		width: 30px;
+		height: 2rem;
+		margin-left: -4px;
+		padding: 3px;
+		vertical-align: bottom;
+		border: 1px solid $grey-color-light;
+		border-left-style: hidden;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		outline: none;
+		
+		&:focus {
+			background-color: $primary-color;
+			
+			i {
+				color: $white-color;
+			}
+		}
+		
+		i {
+			vertical-align: initial;
+		}
+	}
+
+ 	input:not([type="checkbox"]):not([type="radio"]):hover ~ button {
+		border-color: $black-color;
+	}
+	
+	input:not([type="checkbox"]):not([type="radio"]):focus ~ button {
+		border-color: $primary-color;
+		border-width: 2px;
+		outline: none;
+	}
+}
+
+div.rup-date-input-group-material + label {
+	top: -10px;
+	left: 15px;
+	margin: 0;
+	font-size: .9rem;
+	color: $primary-color;
+	padding: 0 5px;
+	background-color: $white-color;
+	position: absolute;
+	z-index: 1;
+}

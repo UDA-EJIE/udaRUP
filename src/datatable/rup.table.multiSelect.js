@@ -733,20 +733,30 @@ function _paintCheckboxSelect(ctx){
 	if(columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox'){
 		//Se rellena todo, la columna select.
 
-		var input =  $("<input/>")
-									.attr('id','inputSelectTableHead'+ctx.sTableId)
-									.attr('type','checkbox');
+		var input =  $("<div>")
+						.attr('id','divSelectTableHead_'+ctx.sTableId)
+						.attr('class','divSelectTableHead checkbox-material checkbox-material-inline')
+						.append(
+								$("<input/>")
+									.attr('id','inputSelectTableHead_'+ctx.sTableId)
+								 	.attr('type','checkbox')
+						).append(
+								$("<label/>")
+						);
+			
 
 		var link = $("<a/>")
-							 	 .addClass("ui-icon rup-datatable_checkmenu_arrow")
-								 .attr('id','linkSelectTableHead'+ctx.sTableId);
+				 	   .addClass("ui-icon rup-datatable_checkmenu_arrow")
+					   .attr('id','linkSelectTableHead'+ctx.sTableId);
 
 		input.click(function () {
 		  var dt = new DataTable.Api( ctx );
-		  if(input.is(':checked')) {
-			  selectAllPage(dt);
+		  if($(this).find('input').is(':checked')) {
+			  deselectAllPage(dt);
+	    	  $("#inputSelectTableHead" + ctx.sTableId).prop('checked', false);
 	      } else {
-	    	  deselectAllPage(dt);
+	    	  $("#inputSelectTableHead" + ctx.sTableId).prop('checked', true);
+			  selectAllPage(dt);
 	      }
 	    });
 
@@ -964,9 +974,9 @@ function selectAllPage(dt){
 
 	//FeedBack
 	var countPage = dt.page()+1;
-	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
 	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', ctx.json.recordsTotal);
-	var remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.selectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'selectAll'));
+	var remainingSelectButton = "<button id='rup_table_" + dt.context[0].sTableId + "_selectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(!ctx.multiselection.selectedAll ||
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
 		ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
@@ -1009,9 +1019,9 @@ function deselectAllPage(dt){
 
 	//FeedBack
 	var countPage = dt.page()+1;
-	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<b>' + dt.rows()[0].length + '</b>', '<b>' + countPage + '</b>');
+	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
 	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', ctx.multiselection.numSelected);
-	var remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.templates.multiselection.deselectRemainingRecords', dt.context[0].sTableId, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'deSelectAll'));
+	var remainingDeselectButton = "<button id='rup_table_" + dt.context[0].sTableId + "_deselectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(ctx.multiselection.numSelected  > 0){
 		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';

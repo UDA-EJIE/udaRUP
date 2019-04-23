@@ -57,12 +57,12 @@ exports.comboEnlazadoSimple.remoteEnlazadoProvincia = function(req, res) {
 
 exports.comboEnlazadoSimple.remoteEnlazadoComarca = function(req, res) {
   var json = require('./json/comboEnlazadoSimple.remoteEnlazadoComarca.json');
-  res.status(200).json(json[req.query.undefined+""]);
+  res.status(200).json(json[req.query.provincia+""]);
 };
 
 exports.comboEnlazadoSimple.remoteEnlazadoLocalidad = function(req, res) {
   var json = require('./json/comboEnlazadoSimple.remoteEnlazadoLocalidad.json');
-  res.status(200).json(json[req.query.undefined+""]);
+  res.status(200).json(json[req.query.comarca+""]);
 };
 
 exports.comboEnlazadoMultiple.departamentoRemote = function(req, res) {

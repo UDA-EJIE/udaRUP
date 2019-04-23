@@ -315,7 +315,7 @@
 			self.unbind();
 		},
 		/**
-     * Se realiza un reset del formulario y se eliminan los menssajes de error de las reglas de validacion.
+     * Se realiza un reset del formulario y se eliminan los mensajes de error de las reglas de validacion.
      *
      * @function resetForm
      * @example
@@ -445,7 +445,7 @@
 						self.errorList[i].message = newMessage;
 					}
 				}
-				// Se eliminan los etilos de error previos
+				// Se eliminan los estilos de error previos
 				$('.' + self.settings.errorClass + ':not(.rup-maint_validateIcon)', self.currentForm).removeClass(self.settings.errorClass);
 				//Se eliminan los iconos duplicados
 				var elements = self.currentForm.getElementsByClassName('rup-validate-error-icon');
@@ -573,7 +573,7 @@
 	//*******************************************************
 
 	$.fn.rup_validate.defaults = {
-		adapter: 'validate_bootstrap',
+		adapter: 'validate_material',
 		ignore: ':hidden[ruptype!=\'autocomplete\'][ruptype!=\'combo\']',
 		feedbackOptions: {
 			gotoTop: false,
@@ -598,7 +598,7 @@
 				
 				labelElem = $.rup.adapter[$.fn.rup_validate.defaults.adapter];
 				
-				if ($.fn.rup_validate.defaults.adapter === 'validate_bootstrap') {
+				if ($.fn.rup_validate.defaults.adapter === 'validate_bootstrap' || 'validate_material') {
 					labelElem = labelElem.forLabelElement(form, labelAttributes);
 				} else {
 					if (labelAttributes.labelForTitle === undefined || labelAttributes.labelForTitle === '') {

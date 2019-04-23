@@ -1,964 +1,763 @@
 {
-  "rup_accordion": {
-    "headFormatError": "Error de estructura html.<br/>El accordion requiere de un objeto html &#34&#60a&#62&#34 integrado en cada cabecera.<br/>Revise su html en busca de errores de emparejado o de composición general.",
-    "strucPairError": "Error de estructura html.<br/>El accordion debe contener pares de objetos cabecera y contenido.<br/>Revise su html en busca de errores de emparejado o de composición general."
+  "GRID_alumno": {
+    "apellido1": "Primer apellido",
+    "apellido2": "Segundo apellido",
+    "dni": "DNI",
+    "id": "Id",
+    "importeMatricula": "Importe matrícula",
+    "nombre": "Nombre",
+    "usuario": "Usuario"
   },
-  "rup_ajax": {
-    "errorTitle": "Error",
-    "httpStatus0": "No dispone de conexión a internet. Por favor compruebe su conexión a internet",
-    "httpStatus401": "No tiene permisos",
-    "httpStatus404": "La url a la que intenta acceder no es válida",
-    "httpStatus500": "Se ha producido un error interno",
-    "httpStatus503": "El servicio solicitado no está disponible"
+  "GRID_edlinea##ejie": {
+    "0": "No",
+    "1": "Sí"
   },
-  "rup_autocomplete": {
-    "ajaxError": "Se ha producido un error al recuperar los datos del servidor",
-    "showAllItems": "Mostrar todos los resultados"
+  "GRID_multi##ejie": {
+    "0": "No",
+    "1": "Sí"
   },
-  "rup_blockUI": {
-    "cargando": "Procesando, espere por favor"
+  "GRID_simple##ejie": {
+    "0": "No",
+    "1": "Sí"
   },
-  "rup_breadCrumb": {
-    "disconnect": "Desconectar",
-    "exit": "Salir",
-    "menuDisconnectMessage": "¿Está seguro de que desea desconectar su sesión de usuario actual?",
-    "menuDisconnectTitle": "Desconexión de Usuario",
-    "menuSecuritySystemDisconnectMessage": "¿Está seguro de que desea finalizar la sesión de usuario actual del sistema de seguridad?",
-    "start": "Inicio",
-    "userAre": " está en:",
-    "youAre": "Usted está en:"
+  "GRID_simple##rol": {
+    "administrador": "administrador",
+    "desarrollador": "desarrollador",
+    "espectador": "espectador",
+    "informador": "informador",
+    "manager": "manager"
   },
-  "rup_combo": {
-    "ajaxError": "Se ha producido un error al recuperar los datos del servidor",
-    "blankNotDefined": "[Falta literal]",
-    "loadingText": "Cargando...",
-    "multiselect": {
-      "checkAllText": "Seleccionar todo",
-      "checkAllTitle": "Seleccionar todos los elementos",
-      "noneSelectedText": "Seleccione las opciones",
-      "optGroupDeselect": "Deseleccionar grupo",
-      "optGroupDeselectTitle": "Deseleccionar todos los elementos de este grupo",
-      "optGroupSelect": "Seleccionar grupo",
-      "optGroupSelectTitle": "Seleccionar todos los elementos de este grupo",
-      "selectedText": "# seleccionado(s)",
-      "uncheckAllText": "Deseleccionar todo",
-      "uncheckAllTitle": "Deseleccionar todos los elementos"
+  "GRID_simple##subtipo": {
+    "0_0A_A": "Subtipo_No_TipoA_A",
+    "0_0A_B": "Subtipo_No_TipoA_B",
+    "0_0B_A": "Subtipo_No_TipoB_A",
+    "0_0B_B": "Subtipo_No_TipoB_B",
+    "0_1A_A": "Subtipo_No_TipoA_A",
+    "0_1A_B": "Subtipo_No_TipoA_B",
+    "0_1B_A": "Subtipo_No_TipoB_A",
+    "0_1B_B": "Subtipo_No_TipoB_B",
+    "1_0A_A": "Subtipo_Si_TipoA_A",
+    "1_0A_B": "Subtipo_Si_TipoA_B",
+    "1_0B_A": "Subtipo_Si_TipoB_A",
+    "1_0B_B": "Subtipo_Si_TipoB_B",
+    "1_1A_A": "Subtipo_Si_TipoB_A",
+    "1_1A_B": "Subtipo_Si_TipoB_B"
+  },
+  "GRID_simple##tipo": {
+    "0A": "Tipo_No_A",
+    "0B": "Tipo_No_B",
+    "1A": "Tipo_Si_A",
+    "1B": "Tipo_Si_B"
+  },
+  "GRID_usuarioJerarquia##ejie": {
+    "0": "No",
+    "1": "Sí"
+  },
+  "GRID_usuarioJerarquia#ejie": {
+    "0": "No",
+    "1": "Si"
+  },
+  "Tiny": {
+    "aviso_ver_html": "¿Está seguro de que desea cambiar el código HTML?<br/>Esto puede acarrear comportamientos inesperados en el tratamiento del bloque.",
+    "insert_bloque": "Insertar bloques",
+    "insert_page": "Insertar número de página",
+    "insert_pageCount": "Insertar número total de páginas",
+    "insert_variable": "Insertar variables",
+    "limpiar": "Limpiar",
+    "ver_html": "Ver código HTML"
+  },
+  "_coment": "COMBO_ENLAZADO_MULTIPLE",
+  "_comment": "MULTI_COMBO",
+  "alumno": {
+    "email_confirm": "Los correos introducidos no coinciden",
+    "password_confirm": "Las contraseñas no coinciden"
+  },
+  "autocomplete": {
+    "asp": "asp",
+    "c": "c",
+    "c++": "c++",
+    "coldfusion": "coldfusion",
+    "groovy": "groovy",
+    "haskell": "haskell",
+    "java": "java",
+    "javascript": "javascript",
+    "perl": "perl",
+    "php": "php",
+    "python": "python",
+    "ruby": "ruby",
+    "scala": "scala"
+  },
+  "breadCrumb": {
+    "integracion": "Integración",
+    "nora": "NORA",
+    "tiny": "TinyMCE",
+    "z-index": "Capas RUP (z-index)"
+  },
+  "breadCrumb_2": {
+    "integracion": "Integración",
+    "nora": "NORA",
+    "tiny": "TinyMCE",
+    "z-index": "Capas RUP (z-index)"
+  },
+  "charts": {
+    "bar": "Barras",
+    "bubble": "Burbuja",
+    "charts": "Gráficos",
+    "colorLabels": {
+      "[0]": "rojo",
+      "[1]": "azul",
+      "[2]": "amarillo"
+    },
+    "datasetRadar": {
+      "dataset1": "dataset 1",
+      "dataset2": "dataset 2"
+    },
+    "doughnut": "Donut",
+    "line": "Líneas",
+    "mesesLabels": {
+      "[0]": "Enero",
+      "[1]": "Febrero",
+      "[2]": "Marzo",
+      "[3]": "Abril",
+      "[4]": "Mayo",
+      "[5]": "Junio",
+      "[6]": "Julio"
+    },
+    "pie": "Tarta",
+    "polar": "Polar",
+    "radar": "Radar",
+    "radarLabels": {
+      "[0]": "Comida",
+      "[1]": "Bebida",
+      "[2]": "Dormir",
+      "[3]": "Diseño",
+      "[4]": "Programacion",
+      "[5]": "Bicicleta",
+      "[6]": "Correr"
     }
   },
-  "rup_date": {
-    "buttonText": "Abrir calendario",
-    "closeText": "Cerrar",
-    "currentText": "Hoy",
-    "dateFormat": "dd/mm/yy",
-    "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-    "dayNamesShort": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-    "firstDay": "1",
-    "mask": "(dd/mm/aaaa)",
-    "maskDateTime": "(dd/mm/aaaa hh:mm)",
-    "maskDateTimeSec": "(dd/mm/aaaa hh:mm:ss)",
-    "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    "monthNamesShort": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-    "nextText": "Siguiente",
-    "prevText": "Anterior",
-    "weekHeader": "&nbsp;&nbsp;&nbsp;"
+  "combo": {
+    "_blank": "[Seleccione un elemento]",
+    "asp": "asp",
+    "c": "c",
+    "c++": "c++",
+    "coldfusion": "coldfusion",
+    "groovy": "groovy",
+    "haskell": "haskell",
+    "java": "java",
+    "javascript": "javascript",
+    "perl": "perl",
+    "php": "php",
+    "python": "python",
+    "ruby": "ruby",
+    "scala": "scala"
   },
-  "rup_dialog": {
-    "errorLoadingData": "<b>Error recuperando los datos solicitados para crear el diálogo.</b>",
-    "noURL": "No puede crearse un diálogo de tipo ajax sin URL definida."
+  "comboAbuelo": {
+    "_blank": "[Selecciona Abuelo]",
+    "a": "Álava",
+    "b": "Vizcaya",
+    "g": "Gipúzcoa"
   },
-  "rup_feedback": {
-    "closingLiteral": "Cierre del mensaje"
+  "comboAbueloRemoto": {
+    "_blank": "[Selecciona Abuelo Remoto]"
   },
-  "rup_global": {
-    "aceptar": "Aceptar",
-    "cancel": "Cancelar",
+  "comboGrupos": {
+    "alaves": "Alaves",
+    "ath": "Athletic",
+    "baloncesto": "Baloncesto",
+    "bilbao": "BBB",
+    "falonso": "Fernando Alonso",
+    "formula1": "Formula 1",
+    "futbol": "Futbol",
+    "hamilton": "Lewis Hamilton",
+    "laboral": "Caja Laboral",
+    "lagun aro": "Lagun Aro",
+    "real": "Real Sociedad",
+    "vettel": "Sebastian Vettel"
+  },
+  "comboHijo": {
+    "_blank": "[Selecciona Hijo]"
+  },
+  "comboLargo": {
+    "jane_doe": "Jane Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "jon_doe": "John Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "joseph_doe": "Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
+    "mad_doe": "Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
+  },
+  "comboMunicipios": {
+    "_blank": "Seleccione un elemento"
+  },
+  "comboMunicipiosAPI": {
+    "_blank": "Seleccione un elemento"
+  },
+  "comboPadre": {
+    "a1": "A-Zona1",
+    "a2": "A-Zona2",
+    "a3": "A-Zona3",
+    "b1": "Gran Bilbao",
+    "b2": "Margen Derecha",
+    "b3": "Margen Izquierda",
+    "g1": "G-Zona1",
+    "g2": "G-Zona2",
+    "g3": "G-Zona3"
+  },
+  "comboProvincias": {
+    "_blank": "Seleccione un elemento"
+  },
+  "comboProvinciasAPI": {
+    "_blank": "Seleccione un elemento"
+  },
+  "comons": {
+    "rupWidget": {
+      "configuracion": "Personalización",
+      "confirmaAccion": "Confirma la acción, por favor.",
+      "confirmaAnadePanel": "Se va a añadir un panel. ¿Seguro  que deseas añadirlo?",
+      "confirmaEliminarEscritorio": "Se va a eliminar el escritorio actual. La acción no puede deshacerse. ¿Seguro que deseas eliminarlo?",
+      "confirmaEliminarEscritorioSeleccionado": "Se va a eliminar el escritorio seleccionado. La acción no puede deshacerse. ¿Seguro que deseas eliminarlo?",
+      "dashboardRenameOk": "El escritorio se ha renombrado correctamente",
+      "deseaEliminar": "¿Desea eliminar el panel?",
+      "setDefaultOk": "El escritorio se ha establecido como predeterminado",
+      "urlConsulta": "Puedes consultar su funcionamiento en el siguiente <a href=\"{0}\" target=\"_blank\">enlace </a>",
+      "widgetAnadidoOk": "El panel se ha añadido correctamente al final del escritorio, y está pendiente de personalizarlo. También puedes cambiarlo de lugar en el escritorio.",
+      "widgetDeleteOk": "Se ha eliminado el panel correctamente"
+    }
+  },
+  "contextmenuDemo": {
+    "exampleEntry": "Ejemplo de entrada(rename)",
+    "udaRename": "udaRename"
+  },
+  "departamentoRemote": {
+    "_blank": "[Selecciona Dpto.]"
+  },
+  "diaObligatorio": {
+    "domingo": "Domingo",
+    "jueves": "Jueves",
+    "lunes": "Lunes",
+    "martes": "Martes",
+    "miercoles": "Miércoles",
+    "sabado": "Sabado",
+    "viernes": "Viernes"
+  },
+  "grid##ejie": {
+    "0": "No",
+    "1": "Sí"
+  },
+  "gridDialog##ejie": {
+    "0": "No",
+    "1": "Sí"
+  },
+  "gridTree": {
+    "gana": "Gana:",
+    "total": "Total:"
+  },
+  "loginUserMock": {
+    "logginOk1": "Usuario '",
+    "logginOk2": "' Seleccionado correctamente"
+  },
+  "maintTab": {
+    "edit1": "Mantenimiento edición en línea",
+    "maint1": "Mantenimiento Simple 1",
+    "maint2": "Mantenimiento Simple 2",
+    "maint3": "Mantenimiento Simple 3",
+    "multi1": "Mantenimiento múltiple"
+  },
+  "mixto2_comboAbuelo": {
+    "_blank": "[Selecciona Abuelo]",
+    "a": "Álava",
+    "b": "Vizcaya",
+    "g": "Gipúzcoa"
+  },
+  "mixto2_departamento": {
+    "ayto": "Ayuntamiento",
+    "bomb": "Bomberos",
+    "dipu": "Diputación",
+    "poli": "Policía"
+  },
+  "mixto_comboPadre": {
+    "a1": "A-Zona1",
+    "a2": "A-Zona2",
+    "a3": "A-Zona3",
+    "b1": "Gran Bilbao",
+    "b2": "Margen Derecha",
+    "b3": "Margen Izquierda",
+    "g1": "G-Zona1",
+    "g2": "G-Zona2",
+    "g3": "G-Zona3"
+  },
+  "mixto_provincia": {
+    "a": "Álava",
+    "b": "Vizcaya",
+    "g": "Gipúzcoa"
+  },
+  "multicombo": {
+    "asp": "asp",
+    "c": "c",
+    "c++": "c++",
+    "coldfusion": "coldfusion",
+    "groovy": "groovy",
+    "haskell": "haskell",
+    "java": "java",
+    "javascript": "javascript",
+    "perl": "perl",
+    "php": "php",
+    "python": "python",
+    "ruby": "ruby",
+    "scala": "scala"
+  },
+  "multicomboGrupos": {
+    "alaves": "Alaves",
+    "ath": "Athletic",
+    "baloncesto": "Baloncesto",
+    "bilbao": "BBB",
+    "falonso": "Fernando Alonso",
+    "formula1": "Formula 1",
+    "futbol": "Futbol",
+    "hamilton": "Lewis Hamilton",
+    "laboral": "Caja Laboral",
+    "lagun aro": "Lagun Aro",
+    "real": "Real Sociedad",
+    "vettel": "Sebastian Vettel"
+  },
+  "provinciaRemote": {
+    "_blank": "[Selecciona Prov.]"
+  },
+  "pruebaSub3Maint": {
+    "maint1": "Mantenimiento 1",
+    "maint2": "Mantenimiento 2",
+    "maint3": "Mantenimiento 3"
+  },
+  "sexo": {
+    "femenino": "Femenino",
+    "masculino": "Masculino"
+  },
+  "simpelMaint": {
+    "actualizar": "Ejemplo de botón personalizado"
+  },
+  "table": {
+    "apellido1": "Primer apellido",
+    "apellido2": "Segundo apellido",
+    "ejie": "Ejie",
+    "fechaAlta": "Fecha de alta",
+    "fechaBaja": "Fecha de baja",
+    "id": "Id",
+    "nombre": "Nombre",
+    "rol": "Rol"
+  },
+  "tabs": {
+    "PestañasMaint": "Pestaña con Mantenimientos",
+    "nuevaPestaña": "Nuevo Nivel",
+    "pestana0": "Tab 0",
+    "pestana1": "Tab 1",
+    "pestana2": "Tab 2",
+    "pestanaAna": "Nueva Pestaña",
+    "sub00": "sub00",
+    "sub000": "sub000",
+    "sub001": "sub001",
+    "sub0010": "sub0010",
+    "sub0011": "sub0011",
+    "sub00110": "sub00110",
+    "sub00111": "sub00111",
+    "sub002": "sub002",
+    "sub01": "sub01",
+    "sub02": "sub02",
+    "sub10": "sub10",
+    "sub11": "sub11"
+  },
+  "tabsDialog": {
+    "pestana0": "Tab 0",
+    "pestana1": "Tab 1",
+    "sub01": "sub01",
+    "sub02": "sub02",
+    "sub10": "sub10",
+    "sub11": "sub11"
+  },
+  "tabsFormulario": {
+    "ejemploYFunciones": "Ejemplo y métodos",
+    "multiplesEntidades": "Envío de varias entidades"
+  },
+  "tabsMaint": {
+    "edit1": "Mantenimiento edición en línea",
+    "maint1": "Mantenimiento Simple 1",
+    "maint2": "Mantenimiento Simple 2",
+    "maint3": "Mantenimiento Simple 3",
+    "multi1": "Mantenimiento múltiple"
+  },
+  "tabsMixta": {
+    "pestanaHtml": "Pestaña con html",
+    "pestanaUrl": "Pestaña con url"
+  },
+  "tabsScrollableExample": {
+    "pestana1": "Tab 1",
+    "pestana10": "Tab 10",
+    "pestana11": "Tab 11",
+    "pestana12": "sub012",
+    "pestana13": "sub013",
+    "pestana14": "sub014",
+    "pestana15": "sub15",
+    "pestana16": "sub16",
+    "pestana17": "tab17",
+    "pestana18": "sub18",
+    "pestana19": "sub19",
+    "pestana2": "Tab 2",
+    "pestana3": "sub03",
+    "pestana4": "sub04",
+    "pestana5": "sub05",
+    "pestana6": "sub06",
+    "pestana7": "sub07",
+    "pestana8": "sub08",
+    "pestana9": "sub09"
+  },
+  "tabsStatic": {
+    "pestana0": "Pestaña 1",
+    "pestana1": "Pestaña 2",
+    "pestana2": "Pestaña 3",
+    "pestanaAna": "Pestaña Añadida"
+  },
+  "tabsValidacion": {
+    "reglasValidacion": "Reglas de validación",
+    "validacionComponentes": "Validación de componentes",
+    "validacionesCliente": "Validaciones en cliente",
+    "validacionesServidor": "Validaciones en servidor"
+  },
+  "tasksTree": {
+    "depAdmin": "DEP de Administración",
+    "depClientes": "DEP de Clientes",
+    "depReparaciones": "DEP de Suministros",
+    "depSuministros": "DEP de Suministros",
+    "factura_Lindo": "Cobros Lindo S.A.",
+    "factura_OM": "Cobro Oscar Mayer",
+    "factura_VH": "Cobros Valle Hermoso",
+    "factura_devolucion": "Revisar devolución de cobro IT",
+    "facturas": "Facturas por cobrar",
+    "informe_calidad": "Calidad de servicio",
+    "informe_desperfectos": "Desperfectos Granizada",
+    "informe_deudas": "Deudas pendientes de pagar",
+    "informe_gastos_generales": "Gastos generales (oficina)",
+    "informe_perdidas": "Material extraviado",
+    "informe_trimestral": "Informe general (1º trimestre)",
+    "informes": "Informes",
+    "mp_botas": "40 pares de botas de seguridad",
+    "mp_cascos": "40 cascos de obra",
+    "mp_cemento": "3 camiones de cemento",
+    "mp_clavos": "Clavos del 5cm",
+    "mp_jabon": "Jabón de manos (8 cajas)",
+    "mp_ladrillos": "3ton ladrillos",
+    "mp_recambios": "ruedas",
+    "pedido_cemento": "Abastecimiento de cemento Andoain",
+    "pedido_lujua": "Ladrillos para Loiu",
+    "pedido_martillo": "Martillo nuevo a Donosti",
+    "raiz": "Tareas Pendientes",
+    "reparacion_fachada": "Arreglos en fachadas",
+    "reparacion_indundacion": "Limpieza por anegación",
+    "reparacion_ratas": "Revisión de desratización",
+    "reparacion_suelo": "Reparación de la tarima",
+    "reparaciones": "Reparaciones",
+    "suministros": "Pedidos de suministros",
+    "transportes": "Portes en espera",
+    "workers": "Trabajadores"
+  },
+  "title": {
+    "accesoFamilias": "Aquí dispones de los accesos directos a familias de Tramitagune",
+    "anadePanel": "Añade un panel a tu escritorio",
+    "cerrar": "Cerrar",
+    "configuracion": "Personalizar",
+    "eliminar": "Eliminar",
+    "escritorioSel": "Este es el escritorio que has seleccionado. Haz click para cambiarlo.",
+    "herramientas": "Listado de herramientas para la tramitación",
+    "maximizar": "Maximizar",
+    "minimizar": "Minimizar",
+    "mostrarOcultar": "Mostrar/Ocultar",
+    "necesario": "Es necesario personalizar el panel {0}",
+    "opciones": "Opciones de personalización de este escritorio",
+    "refrescar": "Refrescar"
+  },
+  "toolbar": {
+    "DLL": "DLL",
+    "DOC": "DOC",
+    "EXE": "EXE",
+    "GIF": "GIF",
+    "JPG": "JPG",
+    "JS": "JS",
+    "PDF": "PDF",
+    "PPT": "PPT",
+    "TXT": "TXT",
+    "XLS": "XLS",
+    "ZIP": "ZIP",
+    "borrar": "Borrar",
+    "buscar": "Buscar",
     "cancelar": "Cancelar",
-    "cerrar": "cerrar",
-    "clean": "Limpiar",
-    "close": "Cerrar",
-    "developerError": "Error de desarrollo",
-    "dialogTypeError": "¡ERROR¡</br> No se ha especificado el tipo de diálogo, por lo que el dialogo no puede crearse correctamente.",
-    "error": "Error",
-    "initError": "Se ha especificado más de un elemento en el constructor.</br> Por favor revise la función de creación para el objeto con ID:",
-    "metodError": "Error en el método:",
-    "parameterError": "Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
-    "parametro": "Parametro: ",
-    "rupCheckStyleError": "NO SE CUMPLEN LAS NORMAS DE LA GUIA DE ESTILOS DE RUP. DEBE EXISTIR UNA ACCIÓN SECUNDARIA.",
+    "editar": "Editar",
+    "ficheros": "Ficheros",
+    "filtrar": "Filtrar",
+    "imprimir": "Imprimir",
+    "nuevo": "Nuevo",
+    "otros": "Otros botones"
+  },
+  "toolbarRight": {
+    "DLL": "DLL",
+    "DOC": "DOC",
+    "EXE": "EXE",
+    "GIF": "GIF",
+    "JPG": "JPG",
+    "JS": "JS",
+    "PDF": "PDF",
+    "PPT": "PPT",
+    "TXT": "TXT",
+    "XLS": "XLS",
+    "ZIP": "ZIP",
+    "borrar": "Borrar",
+    "buscar": "Buscar",
+    "cancelar": "Cancelar",
+    "editar": "Editar",
+    "ficheros": "Ficheros",
+    "filtrar": "Filtrar",
+    "imprimir": "Imprimir",
+    "nuevo": "Nuevo",
+    "otros": "Otros botones"
+  },
+  "tree": {
+    "example": {
+      "ajax": "Carga datos mediante AJAX (json)",
+      "changeView": "Ejemplo de cambio visual",
+      "checkbox": "Ejemplo checkbox",
+      "contextmenu": "Ejemplo menú contextual",
+      "default": "Ejemplo por defecto",
+      "hotkeys": "Ejemplo con teclado",
+      "jqueryuiStyles": "Ejemplo estilos jQueryUI",
+      "json": "Carga datos json",
+      "select": "Ejemplo selección",
+      "sort": "Ejemplo ordenación",
+      "specificStyle": "Ejemplo de estilo propio",
+      "tittle": "Árbol",
+      "unique": "Ejemplo de nodos únicos",
+      "xml": "Carga datos xml"
+    },
+    "treeDAD": {
+      "Interchange": "Intercambio de nodos en ambas direcciones",
+      "code": {
+        "htmlCode": "Código HTML",
+        "jsTreeCode": "Código JavaScript, creación árbol",
+        "jsTreeData": "Código JavaScript, Json de creación del árbol",
+        "jsTypesCode": "Código JavaScript, topología de objetos del árbol"
+      },
+      "dismissals": "DESPIDOS",
+      "exchange": "Intercambio de nodos entre árboles_es",
+      "formation": "FORMACIÓN",
+      "promotions": "PROMOCIONES",
+      "reorder": "Ordenación de los nodos del árbol",
+      "rightDirec": "Traslade los empleados a su ubicación",
+      "title": "Árbol con interacción Drag and Drop"
+    },
+    "verCodigo": {
+      "boton": "Ver código Fuente"
+    }
+  },
+  "treeCodeDialog": {
+    "html": "HTML",
+    "javascript": "JavaScript",
+    "title": "Código usado para generar el árbol"
+  },
+  "treeExample": {
+    "Hijo1": "Nodo primer nivel",
+    "Hijo2": "Nodo segundo nivel",
+    "Hijo3": "Nodo tercer nivel",
+    "HijoA": "A",
+    "HijoAtreeExample": {
+      "HijoA": "AA",
+      "HijoB": "AB",
+      "HijoC": "AC",
+      "HijoCtreeExample": {
+        "HijoA": "ACA"
+      }
+    },
+    "HijoB": "B",
+    "HijoC": "C",
+    "HijoCtreeExample": {
+      "HijoA": "CA",
+      "HijoB": "CB"
+    },
+    "checkAll": "Sec Tod",
+    "deselect": "Deselec",
+    "disable": "Desactivar",
+    "dots": "Puntos",
+    "enable": "Activar",
+    "hoja": "hoja",
+    "icons": "Iconos",
+    "load": "Cargar",
+    "new": "Nuevo",
+    "rename": "Renombrar",
+    "renameKey": "(opcional: F2)",
     "save": "Guardar",
-    "save_repeat": "Guardar y continuar",
-    "search": "Buscar",
-    "selectorError": "El selector especificado es incorrecto (no devuelve nada)"
+    "showHide": "Show/Hide",
+    "theme": "Tema",
+    "unCheckAll": "Des Tod"
   },
-  "rup_language": {
-    "changeLanguage": "Cambiar Idioma",
-    "changeLanguageLiteral": "Idioma actual de la página en ",
-    "changeLanguageLiteral_en": "Switch the language of the website ",
-    "changeLanguageLiteral_es": "Cambia el idioma de la página a ",
-    "changeLanguageLiteral_eu": "Web-aren hizkuntza aldatu ",
-    "changeLanguageLiteral_fr": "De changer la langue du site ",
-    "closingLiteral": "Cierre del menu idiomático",
-    "en": "English",
-    "en_short": "en",
-    "es": "Castellano",
-    "es_short": "es",
-    "eu": "Euskara",
-    "eu_short": "eu",
-    "fr": "Français",
-    "fr_short": "fr"
+  "treeNodesExchangePanel_center": {
+    "errorOp": "Operación errónea",
+    "funtError": "La imagen no es un botón. El objetivo de esta imagen es indicar el, posible, traspaso de los distintos nodos entre un árbol y otro. </br></br> La forma en la que esta dispuesto es mediante \"Drag&Drop\"."
   },
-  "rup_menu": {
-    "developerError": "Error de desarrollo",
-    "displayMenuError": "El valor del atributo &#34display&#34 es incorrecto. Por favor introduzca uno de los siguientes valores:&#34vertical&#34 o &#34horizontal&#34. ",
-    "structuralError": "No se ha especificado correctamente el área de visualizacion de pagina.<br> Al incluirse un menú vertical o un menú mixto, dicho área (&#60;div&#62;) debe ir identificada como contentMV (id=&#34;contentMV&#34;)"
+  "uniqueDemo": {
+    "duplicateKey": "Clave duplicada",
+    "duplicateNodes": "Se ha producido una duplicidad del nodo ",
+    "inFunction": " con la función "
   },
-  "rup_message": {
-    "aceptar": "Aceptar",
-    "alert": "Alerta",
-    "confirmacion": "Confirmación",
-    "correct": "Correcto",
-    "error": "error",
-    "tituloError": "Se ha producido un error"
+  "upload": {
+    "button": {
+      "addFiles": "Seleccionar..."
+    },
+    "paragraph": {
+      "basic": "La configuración básica del componente sería la siguiente:",
+      "line1": "Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.",
+      "line2": "La interfaz del componente puede configurarse de diferentes maneras dependiendo de las necesidades de la aplicación."
+    },
+    "title": "Upload"
   },
-  "rup_progressbar": {
-    "loading": "Cargando...",
-    "progress": "${value} de ${max}"
+  "uploadTabs": {
+    "upload": "Upload",
+    "uploadForm": "Upload form",
+    "uploadFormMultiple": "Multiples upload en formulario",
+    "uploadFormPif": "Integración con PIF",
+    "uploadFormSimple": "Upload simple en formulario",
+    "uploadTable": "Upload en tabla"
   },
-  "rup_report": {
-    "errorMsg": "Se ha producido un error al generar el documento, por favor vuelva a intentarlo.",
-    "errorTitle": "Error al generar informe",
-    "waitMsg": "Generando el documento, por favor espere...",
-    "waitTitle": "Descargar informe"
+  "validaciones": {
+    "email_confirm": "Los correos introducidos no coinciden",
+    "password_confirm": "Las contraseñas no coinciden"
   },
-  "rup_table": {
-    "cancel": "Cancelar",
-    "changes": "Control de cambios",
-    "checkAddedSelectedElems": "Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
-    "checkSelectedElems": "Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
-    "clearSelection": "deshacer selección",
-    "clone": "Clonar",
-    "col": {
-      "bCancel": "Cancelar",
-      "bSubmit": "Enviar",
-      "caption": "Mostrar/ocultar columnas"
-    },
-    "de": "de",
-    "deSelectAll": "deseleccionar los ",
-    "deSelectedElems": "Se han deseleccionado los ",
-    "defaults": {
-      "detailForm_pager": "Mostrando {0} de {1}",
-      "emptyrecords": "Sin registros que mostrar",
-      "loadtext": "Cargando...",
-      "pgtext": "Página {0} de {1}",
-      "recordtext": "Mostrando {0} - {1} de {2}"
-    },
-    "del": {
-      "bCancel": "Cancelar",
-      "bSubmit": "Eliminar",
-      "caption": "Eliminar",
-      "msg": "¿Desea eliminar los registros seleccionados?"
-    },
-    "delete": "Eliminar",
-    "deleteAll": "¿Está seguro que desea eliminar todos los registros seleccionados?",
-    "deletedOK": "El elemento se ha borrado correctamente.",
-    "deselectMsg": "Se han deseleccionado los {0} elementos de la página {1}.",
-    "deselectRestMsg": "Deseleccionar los {0} restantes",
-    "detailTitle": "Detalle de registro",
-    "edit": {
-      "addCaption": "Agregar registro",
-      "bCancel": "Cancelar",
-      "bClose": "Cerrar",
-      "bExit": "Cancelar",
-      "bNo": "No",
-      "bSubmit": "Guardar",
-      "bYes": "Sí",
-      "editCaption": "Modificar registro",
-      "msg": {
-        "customarray": "La función personalizada debe devolver un array.",
-        "customfcheck": "La función personalizada debe estar presente en el caso de validación personalizada.",
-        "date": "Introduza una fecha correcta ",
-        "email": "No es una dirección de correo válida",
-        "integer": "Introduzca un valor entero",
-        "maxValue": "El valor debe ser menor o igual a ",
-        "minValue": "El valor debe ser mayor o igual a ",
-        "nodefined": " no está definido.",
-        "novalue": " valor de retorno es requerido.",
-        "number": "Introduzca un número",
-        "required": "Campo obligatorio",
-        "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
-      },
-      "saveData": "Se han modificado los datos, ¿guardar cambios?"
-    },
-    "element(s)": "Elemento(s)",
-    "elements": "Elementos",
-    "emptyChanges": "No se han realizado cambios.",
-    "errors": {
-      "errcap": "Error",
-      "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
-      "model": "Las columnas de nombres son diferentes de las columnas de modelo",
-      "norecords": "No hay datos para procesar",
-      "nourl": "No se ha especificado una URL"
-    },
-    "feedback": {
-      "deletedOK": "El elemento se ha borrado correctamente.",
-      "insertError": "Error al insertar el elemento.",
-      "insertOK": "El elemento se ha añadido correctamente.",
-      "modifyOK": "El elemento se ha modificado correctamente.",
-      "validateError": "Se han producido los siguientes errores:<br/>"
-    },
-    "filter": "Filtrar",
-    "first": "Primero",
-    "formatter": {
-      "baseLinkUrl": "",
-      "checkbox": {
-        "disabled": "true"
-      },
-      "currency": {
-        "decimalPlaces": "2",
-        "decimalSeparator": ",",
-        "defaultValue": "0,00",
-        "prefix": "",
-        "suffix": "",
-        "thousandsSeparator": "."
-      },
-      "date": {
-        "AmPm": ["am", "pm", "AM", "PM"],
-        "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        "masks": {
-          "FullDateTime": "l, F d, Y g:i:s A",
-          "ISO8601Long": "Y-m-d H:i:s",
-          "ISO8601Short": "Y-m-d",
-          "LongDate": "l, F d, Y",
-          "LongTime": "g:i:s A",
-          "MonthDay": "F d",
-          "RupDate": "d/m/Y",
-          "RupDateTime": "d/m/Y H:i",
-          "RupDateTimeSec": "d/m/Y H:i:s",
-          "RupTime": "H:i",
-          "RupTimeSec": "H:i:s",
-          "ShortDate": "n/j/Y",
-          "ShortTime": "g:i A",
-          "SortableDateTime": "Y-m-dTH:i:s",
-          "UniversalSortableDateTime": "Y-m-d H:i:sO",
-          "YearMonth": "F, Y"
-        },
-        "monthNames": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        "newformat": "d/m/Y",
-        "reformatAfterEdit": "false",
-        "srcformat": "d/m/y H:i:s"
-      },
-      "idName": "id",
-      "integer": {
-        "defaultValue": "0",
-        "thousandsSeparator": "."
-      },
-      "number": {
-        "decimalPlaces": "2",
-        "decimalSeparator": ",",
-        "defaultValue": "0,00",
-        "thousandsSeparator": "."
-      },
-      "showAction": "",
-      "target": ""
-    },
-    "insertError": "Error al insertar el elemento.",
-    "insertOK": "El elemento se ha añadido correctamente.",
-    "invalidRowId": "El identificador de la fila no es válido. No se puede completar la acción",
-    "last": "Último",
-    "modify": "Editar",
-    "modifyOK": "El elemento se ha modificado correctamente.",
-    "multiselectHeader": "Seleccionar todos los elementos de la página",
-    "nav": {
-      "addtext": " ",
-      "addtitle": "Agregar nueva fila",
-      "alertcap": "Aviso",
-      "alerttext": "Seleccione una fila",
-      "deltext": " ",
-      "deltitle": "Eliminar fila seleccionada",
-      "edittext": " ",
-      "edittitle": "Modificar fila seleccionada",
-      "refreshtext": "",
-      "refreshtitle": "Recargar datos",
-      "searchtext": " ",
-      "searchtitle": "Buscar información",
-      "viewtext": "",
-      "viewtitle": "Ver fila seleccionada"
-    },
-    "new": "Añadir",
-    "next": "Siguiente",
-    "noGrid": "No es posible crear un mantenimiento sin un grid.",
-    "noRecordsFound": "No hay registros.",
-    "noReg": "Seleccione un registro.",
-    "numResult": "Número de resultados",
-    "ofPage": " elementos de la página.",
-    "pager": {
-      "anterior": "Anterior",
-      "input": "Página actual",
-      "primPag": "Primera Página",
-      "select": "Número de elementos por página",
-      "selected": "seleccionados",
-      "siguiente": "Siguiente",
-      "ultiPag": "Última Página"
-    },
-    "plugins": {
-      "filter": {
-        "filterCriteria": "Criterios de filtrado"
-      },
-      "jerarquia": {
-        "deselectChild": "Deseleccionar hijos",
-        "deselectDescendent": "Deseleccionar descendientes",
-        "filtered": "El elemento cumple el filtro",
-        "selectChild": "Seleccionar hijos",
-        "selectDescendent": "Seleccionar descendientes"
-      },
-      "multifilter": {
-        "apply": "Aplicar",
-        "cancel": "Cancelar",
-        "close": "Cerrar",
-        "defaultFilter": "Filtro por defecto",
-        "emptyName": "Seleccione un filtro",
-        "error": "Error al completar la acción",
-        "errorNoexiste": "Nombre de filtro inexistente",
-        "errorValidate": "Formulario sin validar",
-        "filters": "Nombre",
-        "input": "Introduzca un nombre para el filtro",
-        "noRecords": "No existe un filtro con ese nombre",
-        "ok": "Acción completada con éxito",
-        "remove": "Eliminar",
-        "save": "Guardar",
-        "tittle": "Administrador de filtros",
-        "tooLong": "Nombre demasiado largo"
-      },
-      "multiselection": {
-        "deselectAll": "Desmarcar todos",
-        "deselectAllPage": "Desmarcar visibles",
-        "selectAll": "Marcar todos",
-        "selectAllPage": "Marcar visibles"
-      },
-      "search": {
-        "matchedRecords": "{0} elementos encontrados",
-        "matchedRecordsCount": "Elemento {0} de {1} encontrados",
-        "searchCriteria": "Criterios de búsqueda"
-      }
-    },
-    "previous": "Anterior",
-    "save": "Guardar",
-    "saveAndContinue": "Se perderán los cambios en los datos modificados, ¿desea continuar?",
-    "search": {
-      "Find": "Buscar",
-      "Reset": "Limpiar",
-      "caption": "Búsqueda...",
-      "groupOps": [{
-          "op": "AND",
-          "text": "todo"
-        },
-        {
-          "op": "OR",
-          "text": "cualquier"
-        }
-      ],
-      "matchText": " match",
-      "odata": [
-        "igual",
-        "no igual a",
-        "menor que",
-        "menor o igual que",
-        "mayor que",
-        "mayor o igual a",
-        "empiece por",
-        "no empiece por",
-        "está en",
-        "no está en",
-        "termina por",
-        "no termina por",
-        "contiene",
-        "no contiene"
-      ],
-      "rulesText": " reglas"
-    },
-    "searchOptions": "Criterios de búsqueda:",
-    "selectAll": "seleccionar los ",
-    "selectAllRest": "restantes",
-    "selectMsg": "Se han seleccionado los {0} elementos de la página {1}.",
-    "selectRestMsg": "Seleccionar los {0} restantes",
-    "selected": "seleccionados",
-    "selectedElems": "Se han seleccionado los ",
-    "summary": {
-      "cabecera": "Cabecera de la tabla",
-      "datos": "Datos de la tabla",
-      "paginador": "Elemento de paginación de la tabla",
-      "paginador_navegar": "Elemento de navegación de la paginación de la tabla"
-    },
-    "templates": {
-      "detailForm": {
-        "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
-        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
-        "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
-        "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
-        "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
-        "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
-        "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
-      },
-      "filter": {
-        "filterSummary": "<span id='{0}'></span>",
-        "toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
-        "toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>",
-        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
-      },
-      "message": {
-        "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
-      },
-      "multiselection": {
-        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-      },
-      "search": {
-        "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
-        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-        "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
-        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
-        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
-        "searchRow": "<tr class='search_row'></tr>",
-        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
-      }
-    },
-    "titleDelAll": "Eliminar los registros",
-    "toolbarNewButtonError": "Error al crear un nuevo botón. <br/>Las tres variables de todo nuevo botón deben estar informadas.",
-    "validateError": "Se han producido los siguientes errores:<br/>",
-    "view": {
-      "bClose": "Cerrar",
-      "caption": "Consultar registro"
-    }
+  "x21aMantenimientosWar_migas": {
+    "administracion": "Administración",
+    "alumno": "Alumno",
+    "edlinea": "Edición en línea",
+    "formPropio": "Form Propio",
+    "jerarquia": "Jerarquia",
+    "multi": "Multiselección",
+    "simple": "Selección simple",
+    "uda": "UDA",
+    "usuarioJerarquia": "Normal",
+    "usuarioJerarquiaCol": "Columna independiente",
+    "usuarioJerarquiaGroup": "Agrupado",
+    "usuarioJerarquiaGroupMulti": "Multiselección agrupado",
+    "usuarioJerarquiaMulti": "Multiselección"
   },
-  "rup_tabs": {
-    "serverError": "Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
+  "x21aPilotoPatronesWar_menu_mixto": {
+    "accordion": "Accordion",
+    "all": "[Todos los patrones]",
+    "autocomplete": "Autocomplete",
+    "combo": "Combo",
+    "comboEnlazadoMulti": "Combo Enlazado (múltiple)",
+    "comboEnlazadoSimple": "Combo Enlazado (simple)",
+    "comboSimple": "Combo Simple",
+    "contextMenu": "Menú contextual",
+    "date": "Fecha",
+    "dialog": "Diálogos",
+    "experimental": "Experimental",
+    "feedback": "Feedback",
+    "form": "Formulario",
+    "grid": "Tabla",
+    "grid_arbol": "Tabla Arbol",
+    "grid_base": "Tabla Basico",
+    "grid_grupo": "Tabla Agrupada",
+    "inicio": "Inicio",
+    "integracion": "Integración",
+    "maestro_detalle": "Maestro-Detalle",
+    "maintTab": "Pestañas con mantenimientos",
+    "mant_clave_compuesta": "Mantenimiento clave-compuesta",
+    "mant_clave_compuesta_edlinea": "Edición en línea",
+    "mant_clave_compuesta_multi": "Multiselección",
+    "mant_multi_entidad": "Mantenimiento multi-entidad",
+    "mantenimientos": "x21aMantenimientosWar",
+    "menu": "Menú",
+    "menuHorizontal": "Horizontal",
+    "menuMixto": "Mixto",
+    "menuVertical": "Vertical",
+    "message": "Mensajes",
+    "multicombo": "Combo Multiselección",
+    "navMenu": "Con navegación",
+    "nora": "NORA",
+    "patrones": "Patrones",
+    "tabs": "Pestañas",
+    "tabsAjax": "Pestañas carga Ajax",
+    "tabsMixto": "Pestañas carga mixta",
+    "tabsStatic": "Pestañas carga estática",
+    "time": "Hora",
+    "tiny": "TinyMCE",
+    "titulo-estru": "Estructuración de pantalla",
+    "titulo-inser": "Inserción de datos",
+    "titulo-nave": "Navegación",
+    "titulo-notifi": "Notificaciones",
+    "toolbar": "Botonera",
+    "tooltip": "Tooltip",
+    "tree": "Árbol",
+    "treeDAD": "Árboles con interaccion mediante Drag & Drop",
+    "tree_panel": "Árbol con panel de detalle",
+    "trees": "Árboles con diferentes configuraciones",
+    "trees_formats": "Árboles con diferentes formatos de datos",
+    "uda": "UDA",
+    "upload": "Upload",
+    "validate": "Validación",
+    "wizard": "Wizard",
+    "wizardA": "Wizard simple",
+    "wizardB": "Wizard <%@ include %>",
+    "wizardC": "Wizard <jsp:include>",
+    "wizardD": "Wizard <c:import>",
+    "wizardE": "Wizard dinámico",
+    "z-index": "Capas RUP (z-index)"
   },
-  "rup_time": {
-    "buttonText": "Abrir hora",
-    "closeText": "Cerrar",
-    "currentText": "Ahora",
-    "hourText": "Hora",
-    "mask": "(hh:mm)",
-    "minuteText": "Minuto",
-    "secondText": "Segundo",
-    "timeOnlyTitle": "Seleccione tiempo",
-    "timeText": "Tiempo"
-  },
-  "rup_tree": {
-    "ccp": {
-      "copy": "Copiar",
-      "cut": "Cortar",
-      "label": "Edición",
-      "paste": "Pegar"
-    },
-    "create": "Nuevo",
-    "loading": "Cargando ...",
-    "new_node": "Nuevo nodo",
-    "remove": "Eliminar",
-    "rename": "Cambiar nombre"
-  },
-  "rup_upload": {
-    "acceptFileTypesError": "El tipo de archivo no es válido",
-    "cancelUpload": "Cancelar",
-    "deleteUploaded": "Eliminar",
-    "maxFileSizeError": "El fichero supera el límite máximo de tamaño",
-    "maxNumberOfFilesError": "Se ha excedido el número máximo de ficheros",
-    "minFileSizeError": "El fichero no supera el límite mínimo de tamaño",
-    "openUploaded": "Abrir",
-    "startUpload": "Subir"
-  },
-  "rup_utils": {
-    "paramsError": "Alguno de los parámetros especificados es 'null' o 'undefined'",
-    "relToAbsUrlParamError": "La url => <b style='color:red'>&#34",
-    "relToAbsUrlParamErrorEnd": "&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta.",
-    "relToAbsUrlParamFormatError": "Parametro del método &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String."
-  },
-  "rup_validate": {
-    "format": {
-      "date": "dd/mm/yyyy"
-    },
-    "messages": {
-      "accept": "Por favor, escribe un valor con una extensión aceptada.",
-      "alphanumeric": "Por favor, introduzca letras, números, espacios o guiones bajos.",
-      "creditcard": "Por favor, escribe un número de tarjeta válido.",
-      "date": "Por favor, escribe una fecha válida.",
-      "dateISO": "Por favor, escribe una fecha (ISO) válida.",
-      "digits": "Por favor, escribe sólo dígitos.",
-      "dni": "Por favor, introduzca un dni válido.",
-      "email": "Por favor, escribe una dirección de correo válida",
-      "equalTo": "Por favor, escribe el mismo valor de nuevo.",
-      "integer": "Por favor, introduzca un número entero positivo o negativo.",
-      "lettersonly": "Por favor, introduzca únicamente letras.",
-      "letterswithbasicpunc": "Por favor, introduzca únicamente letras y signos de puntuación.",
-      "max": "Por favor, escribe un valor menor o igual a {0}.",
-      "maxWords": "Por favor, no escribas mas de {0} palabras.",
-      "maxlength": "Por favor, no escribas más de {0} caracteres.",
-      "min": "Por favor, escribe un valor mayor o igual a {0}.",
-      "minWords": "Por favor, no escribas menos de {0} palabras.",
-      "minlength": "Por favor, no escribas menos de {0} caracteres.",
-      "nowhitespace": "Por favor, no introduzca espacios en blanco.",
-      "number": "Por favor, escribe un número entero válido.",
-      "pattern": "El formato no es válido",
-      "range": "Por favor, escribe un valor entre {0} y {1}.",
-      "rangeWords": "Por favor, escribe un valor entre {0} y {1} palabras.",
-      "rangelength": "Por favor, escribe un valor entre {0} y {1} caracteres.",
-      "remote": "Por favor, rellena este campo.",
-      "required": "Campo obligatorio.",
-      "url": "Por favor, escribe una URL válida."
-    },
-    "regexp": {
-      "decimal": "^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
-    }
-  },
-  "rup_wizard": {
-    "next": "Siguiente",
-    "prev": "Anterior",
-    "summary": "Resumen"
-  },
-  "rup_button": {
-    "new": "Nuevo"
-  },
-  "rup_datatable": {
-    "seleccionada": "seleccionada",
-    "seleccionadas": "seleccionadas",
-    "fila": "fila",
-    "toolbar": {
-      "add": "Añadir",
-      "edit": "Editar",
-      "clone": "Clonar",
-      "delete": "Eliminar",
-      "reports": {
-        "main": "Informes",
-        "copyButton": "Copiar"
-      }
-    },
-    "copyButton": {
-      "changes": "Copia de registros en portapapeles",
-      "saveAndContinue": {
-        "_": "¿Desea copiar %d registros?",
-        "1": "¿Desea copiar un registro?"
-      },
-      "saved": {
-        "_": "Copiados %d registros al portapapeles",
-        "1": "Copiado un registro al portapapeles"
-      },
-      "copyTitle": "Copiar al portapapeles",
-      "copyKeys": "Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles. Para cancelar, haz click sobre este mensaje o pulsa el botón escape."
-    },
-    "collection": "Collection",
-    "pageLength": {
-      "-1": "Show all rows",
-      "_": "Show %d rows"
-    },
-    "cancel": "Cancelar",
-    "changes": "Control de cambios",
-    "checkAddedSelectedElems": "Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
-    "checkSelectedElems": "Se van a deseleccionar los elementos seleccionados, ¿desea continuar?",
-    "clearSelection": "deshacer selección",
-    "clone": "Clonar",
-    "col": {
-      "bCancel": "Cancelar",
-      "bSubmit": "Enviar",
-      "caption": "Mostrar/ocultar columnas"
-    },
-    "de": "de",
-    "deSelectAll": "deseleccionar los ",
-    "deSelectedElems": "Se han deseleccionado los ",
-    "defaults": {
-      "detailForm_pager": "Mostrando {0} de {1}",
-      "emptyrecords": "Sin registros que mostrar",
-      "loadtext": "Cargando...",
-      "pgtext": "Página {0} de {1}",
-      "recordtext": "Mostrando {0} - {1} de {2}"
-    },
-    "del": {
-      "bCancel": "Cancelar",
-      "bSubmit": "Eliminar",
-      "caption": "Eliminar",
-      "msg": "¿Desea eliminar los registros seleccionados?"
-    },
-    "delete": "Eliminar",
-    "deleteAll": "¿Está seguro que desea eliminar todos los registros seleccionados?",
-    "deletedOK": "El elemento se ha borrado correctamente.",
-    "deselectMsg": "Se han deseleccionado los {0} elementos de la página {1}.",
-    "deselectRestMsg": "Deseleccionar los {0} restantes",
-    "detailTitle": "Detalle de registro",
-    "edit": {
-      "addCaption": "Agregar registro",
-      "bCancel": "Cancelar",
-      "bClose": "Cerrar",
-      "bExit": "Cancelar",
-      "bNo": "No",
-      "bSubmit": "Guardar",
-      "bYes": "Sí",
-      "editCaption": "Modificar registro",
-      "msg": {
-        "customarray": "La función personalizada debe devolver un array.",
-        "customfcheck": "La función personalizada debe estar presente en el caso de validación personalizada.",
-        "date": "Introduza una fecha correcta ",
-        "email": "No es una dirección de correo válida",
-        "integer": "Introduzca un valor entero",
-        "maxValue": "El valor debe ser menor o igual a ",
-        "minValue": "El valor debe ser mayor o igual a ",
-        "nodefined": " no está definido.",
-        "novalue": " valor de retorno es requerido.",
-        "number": "Introduzca un número",
-        "required": "Campo obligatorio",
-        "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
-      },
-      "saveData": "Se han modificado los datos, ¿guardar cambios?"
-    },
-    "element(s)": "Elemento(s)",
-    "elements": "Elementos",
-    "emptyChanges": "No se han realizado cambios.",
-    "errors": {
-      "errcap": "Error",
-      "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
-      "model": "Las columnas de nombres son diferentes de las columnas de modelo",
-      "norecords": "No hay datos para procesar",
-      "nourl": "No se ha especificado una URL"
-    },
-    "feedback": {
-      "deletedOK": "El elemento se ha borrado correctamente.",
-      "insertError": "Error al insertar el elemento.",
-      "insertOK": "El elemento se ha añadido correctamente.",
-      "modifyOK": "El elemento se ha modificado correctamente.",
-      "validateError": "Se han producido los siguientes errores:<br/>"
-    },
-    "filter": "Filtrar",
-    "first": "Primero",
-    "formatter": {
-      "baseLinkUrl": "",
-      "checkbox": {
-        "disabled": "true"
-      },
-      "currency": {
-        "decimalPlaces": "2",
-        "decimalSeparator": ",",
-        "defaultValue": "0,00",
-        "prefix": "",
-        "suffix": "",
-        "thousandsSeparator": "."
-      },
-      "date": {
-        "AmPm": ["am", "pm", "AM", "PM"],
-        "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        "masks": {
-          "FullDateTime": "l, F d, Y g:i:s A",
-          "ISO8601Long": "Y-m-d H:i:s",
-          "ISO8601Short": "Y-m-d",
-          "LongDate": "l, F d, Y",
-          "LongTime": "g:i:s A",
-          "MonthDay": "F d",
-          "RupDate": "d/m/Y",
-          "RupDateTime": "d/m/Y H:i",
-          "RupDateTimeSec": "d/m/Y H:i:s",
-          "RupTime": "H:i",
-          "RupTimeSec": "H:i:s",
-          "ShortDate": "n/j/Y",
-          "ShortTime": "g:i A",
-          "SortableDateTime": "Y-m-dTH:i:s",
-          "UniversalSortableDateTime": "Y-m-d H:i:sO",
-          "YearMonth": "F, Y"
-        },
-        "monthNames": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        "newformat": "d/m/Y",
-        "reformatAfterEdit": "false",
-        "srcformat": "d/m/y H:i:s"
-      },
-      "idName": "id",
-      "integer": {
-        "defaultValue": "0",
-        "thousandsSeparator": "."
-      },
-      "number": {
-        "decimalPlaces": "2",
-        "decimalSeparator": ",",
-        "defaultValue": "0,00",
-        "thousandsSeparator": "."
-      },
-      "showAction": "",
-      "target": ""
-    },
-    "insertError": "Error al insertar el elemento.",
-    "insertOK": "El elemento se ha añadido correctamente.",
-    "invalidRowId": "El identificador de la fila no es válido. No se puede completar la acción",
-    "last": "Último",
-    "modify": "Editar",
-    "modifyOK": "El elemento se ha modificado correctamente.",
-    "multiselectHeader": "Seleccionar todos los elementos de la página",
-    "nav": {
-      "addtext": " ",
-      "addtitle": "Agregar nueva fila",
-      "alertcap": "Aviso",
-      "alerttext": "Seleccione una fila",
-      "deltext": " ",
-      "deltitle": "Eliminar fila seleccionada",
-      "edittext": " ",
-      "edittitle": "Modificar fila seleccionada",
-      "refreshtext": "",
-      "refreshtitle": "Recargar datos",
-      "searchtext": " ",
-      "searchtitle": "Buscar información",
-      "viewtext": "",
-      "viewtitle": "Ver fila seleccionada"
-    },
-    "new": "Añadir",
-    "next": "Siguiente",
-    "noGrid": "No es posible crear un mantenimiento sin un grid.",
-    "noRecordsFound": "No hay registros.",
-    "noReg": "Seleccione un registro.",
-    "numResult": "Número de resultados",
-    "ofPage": " elementos de la página.",
-    "pager": {
-      "anterior": "Anterior",
-      "input": "Página actual",
-      "primPag": "Primera Página",
-      "select": "Número de elementos por página",
-      "selected": "seleccionados",
-      "siguiente": "Siguiente",
-      "ultiPag": "Última Página"
-    },
-    "plugins": {
-      "filter": {
-        "filterCriteria": "Criterios de filtrado"
-      },
-      "jerarquia": {
-        "deselectChild": "Deseleccionar hijos",
-        "deselectDescendent": "Deseleccionar descendientes",
-        "filtered": "El elemento cumple el filtro",
-        "selectChild": "Seleccionar hijos",
-        "selectDescendent": "Seleccionar descendientes"
-      },
-      "multifilter": {
-        "apply": "Aplicar",
-        "cancel": "Cancelar",
-        "close": "Cerrar",
-        "defaultFilter": "Filtro por defecto",
-        "emptyName": "Seleccione un filtro",
-        "error": "Error al completar la acción",
-        "errorNoexiste": "Nombre de filtro inexistente",
-        "errorValidate": "Formulario sin validar",
-        "filters": "Nombre",
-        "input": "Introduzca un nombre para el filtro",
-        "noRecords": "No existe un filtro con ese nombre",
-        "ok": "Acción completada con éxito",
-        "remove": "Eliminar",
-        "save": "Guardar",
-        "tittle": "Administrador de filtros",
-        "tooLong": "Nombre demasiado largo"
-      },
-      "multiselection": {
-        "deselectAll": "Desmarcar todos",
-        "deselectAllPage": "Desmarcar visibles",
-        "selectAll": "Marcar todos",
-        "selectAllPage": "Marcar visibles"
-      },
-      "search": {
-        "matchedRecords": "{0} elementos encontrados",
-        "matchedRecordsCount": "Elemento {0} de {1} encontrados",
-        "searchCriteria": "Criterios de búsqueda"
-      }
-    },
-    "previous": "Anterior",
-    "save": "Guardar",
-    "saveAndContinue": "Se perderán los cambios en los datos modificados, ¿desea continuar?",
-    "search": {
-      "Find": "Buscar",
-      "Reset": "Limpiar",
-      "caption": "Búsqueda...",
-      "groupOps": [{
-          "op": "AND",
-          "text": "todo"
-        },
-        {
-          "op": "OR",
-          "text": "cualquier"
-        }
-      ],
-      "matchText": " match",
-      "odata": [
-        "igual",
-        "no igual a",
-        "menor que",
-        "menor o igual que",
-        "mayor que",
-        "mayor o igual a",
-        "empiece por",
-        "no empiece por",
-        "está en",
-        "no está en",
-        "termina por",
-        "no termina por",
-        "contiene",
-        "no contiene"
-      ],
-      "rulesText": " reglas"
-    },
-    "searchOptions": "Criterios de búsqueda:",
-    "selectAll": "seleccionar los ",
-    "selectAllRest": "restantes",
-    "selectMsg": "Se han seleccionado los {0} elementos de la página {1}.",
-    "selectRestMsg": "Seleccionar los {0} restantes",
-    "selected": "seleccionados",
-    "selectedElems": "Se han seleccionado los ",
-    "summary": {
-      "cabecera": "Cabecera de la tabla",
-      "datos": "Datos de la tabla",
-      "paginador": "Elemento de paginación de la tabla",
-      "paginador_navegar": "Elemento de navegación de la paginación de la tabla"
-    },
-    "templates": {
-      "detailForm": {
-        "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
-        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
-        "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
-        "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
-        "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
-        "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
-        "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
-      },
-      "filter": {
-        "filterSummary": "<span id='{0}'></span>",
-        "toggleIcon1": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-s'></span>",
-        "toggleIcon2": "<span id='{0}' class='collapse_icon_right ui-icon ui-icon-circle-triangle-n'></span>",
-        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
-      },
-      "message": {
-        "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
-      },
-      "multiselection": {
-        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-      },
-      "search": {
-        "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
-        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-        "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
-        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
-        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
-        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
-        "searchRow": "<tr class='search_row'></tr>",
-        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
-      }
-    },
-    "titleDelAll": "Eliminar los registros",
-    "toolbarNewButtonError": "Error al crear un nuevo botón. <br/>Las tres variables de todo nuevo botón deben estar informadas.",
-    "validateError": "Se han producido los siguientes errores:<br/>",
-    "view": {
-      "bClose": "Cerrar",
-      "caption": "Consultar registro"
-    }
-  },
-  "sProcessing": "Procesando...",
-  "sLengthMenu": "_MENU_",
-  "sZeroRecords": "No se encontraron resultados",
-  "sEmptyTable": "Ningún dato disponible en esta tabla",
-  "sInfo": "Mostrando _START_ - _END_ de _TOTAL_",
-  "sInfoEmpty": "Mostrando 0 - 0 de 0",
-  "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-  "sInfoPostFix": "",
-  "sSearch": "Buscar:",
-  "sUrl": "",
-  "sInfoThousands": ",",
-  "sLoadingRecords": "Cargando...",
-  "oPaginate": {
-    "sFirst": "Primero",
-    "sLast": "Último",
-    "sNext": "Siguiente",
-    "sPrevious": "Anterior"
-  },
-  "oAria": {
-    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-  },
-  "pagina": "Página ",
-  "toPagina": " de {0}",
-  "rup_calendar": {
-    "error_noview": "Calendario: Vista {0} no encontrada",
-    "error_dateformat": "Calendario: Formato de fecha inválido {0}. Debe ser \"now\" o \"yyyy-mm-dd\"",
-    "error_loadurl": "Calendario: URL de carga de eventos no configurada",
-    "error_where": "Calendario: Dirección de navegación incorrecta {0}. Los valores correctos son \"next\" o \"prev\" o \"today\"",
-    "error_timedevide": "Calendario: parámetro para el separador de hora debe dividir 60 por un entero. Por ejemplo 10, 15, 30",
-
-    "no_events_in_day": "No hay eventos hoy",
-
-    "title_year": "Año {0}",
-    "title_month": "{0} {1}",
-    "title_week": "Semana {0} del {1}",
-    "title_day": "{0} {1} {2} {3}",
-
-    "week": "Semana {0}",
-    "all_day": "Todo el día",
-    "time": "Tiempo",
-    "events": "Eventos",
-    "before_time": "Horas previas",
-    "after_time": "Horas posteriores",
-
-    "m0": "Enero",
-    "m1": "Febrero",
-    "m2": "Marzo",
-    "m3": "Abril",
-    "m4": "Mayo",
-    "m5": "Junio",
-    "m6": "Julio",
-    "m7": "Agosto",
-    "m8": "Septiembre",
-    "m9": "Octubre",
-    "m10": "Noviembre",
-    "m11": "Diciembre",
-
-    "ms0": "Ene",
-    "ms1": "Feb",
-    "ms2": "Mar",
-    "ms3": "Abr",
-    "ms4": "May",
-    "ms5": "Jun",
-    "ms6": "Jul",
-    "ms7": "Ago",
-    "ms8": "Sep",
-    "ms9": "Oct",
-    "ms10": "Nov",
-    "ms11": "Dic",
-
-    "d0": "Domingo",
-    "d1": "Lunes",
-    "d2": "Martes",
-    "d3": "Miércoles",
-    "d4": "Jueves",
-    "d5": "Viernes",
-    "d6": "Sábado",
-
-    "easter": "Pascua",
-    "easterMonday": "Lunes de Pascua",
-
-    "first_day": 1,
-    "week_numbers_iso_8601": true,
-
-    "holidays": {
-      "01-01": "Año Nuevo",
-      "06-01": "Día de Reyes",
-      "19-03": "San José",
-      "easter-3": "Jueves Santo",
-      "easter-2": "Viernes Santo",
-      "easter": "Pascua",
-      "easter+1": "Lunes de Pascua",
-      "01-05": "Día del Trabajador",
-      "15-08": "Asunción",
-      "12-10": "Fiesta Nacional de España",
-      "01-11": "Día de todos los Santos",
-      "06-12": "Día de la Constitución",
-      "08-12": "Inmaculada Concepción",
-      "25-12": "Navidad"
-    }
+  "x21aPilotoPatronesWar_migas": {
+    "accordion": "Accordion",
+    "all": "[Todos los patrones]",
+    "autocomplete": "Autocomplete",
+    "comboEnlazadoMulti": "Combo Enlazado (múltiple)",
+    "comboEnlazadoSimple": "Combo Enlazado (simple)",
+    "comboSimple": "Combo Simple",
+    "contextMenu": "Menú contextual",
+    "date": "Fecha",
+    "dialog": "Diálogos",
+    "experimental": "Experimental",
+    "feedback": "Feedback",
+    "form": "Formulario",
+    "grid": "Tabla",
+    "grid_arbol": "Tabla Arbol",
+    "grid_base": "Tabla Basico",
+    "grid_grupo": "Tabla Agrupada",
+    "integracion": "Integración",
+    "maestro_detalle": "Maestro-Detalle",
+    "maintTab": "Pestañas con mantenimientos",
+    "mant_clave_compuesta": "Mantenimiento clave-compuesta",
+    "mant_clave_compuesta_edlinea": "Edición en línea",
+    "mant_clave_compuesta_multi": "Multiselección",
+    "mant_multi_entidad": "Mantenimiento multi-entidad",
+    "menu": "Menú Horizontal",
+    "menuHorizontal": "Horizontal",
+    "menuMixto": "Menú Mixto",
+    "menuVertical": "Menú Vertical",
+    "message": "Mensajes",
+    "multicombo": "Combo Multiselección",
+    "navMenu": "Menú con navegación",
+    "nora": "NORA",
+    "patrones": "Patrones",
+    "tabs": "Pestañas",
+    "tabsAjax": "Pestañas carga Ajax",
+    "tabsMixto": "Pestañas carga mixta",
+    "tabsStatic": "Pestañas carga estática",
+    "time": "Hora",
+    "tiny": "TinyMCE",
+    "toolbar": "Botonera",
+    "tooltip": "Tooltip",
+    "tree": "Árbol",
+    "treeDAD": "Árbol con D&D",
+    "treePanel": "Árbol con panel",
+    "trees": "Árboles",
+    "treesFormats": "Árboles formateados",
+    "uda": "UDA",
+    "upload": "Upload",
+    "validate": "Validación",
+    "wizard": "Wizard",
+    "wizardA": "Wizard simple",
+    "wizardB": "Wizard <%@ include %>",
+    "wizardC": "Wizard <jsp:include>",
+    "wizardD": "Wizard <c:import>",
+    "wizardE": "Wizard dinámico",
+    "z-index": "Capas RUP (z-index)"
   }
 }

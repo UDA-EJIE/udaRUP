@@ -1,0 +1,25 @@
+/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
+@import 'colours-material';
+@import 'button-material';
+@import 'input-material';
+@import 'textarea-material';
+@import 'radio-material';
+@import 'checkbox-material';
+@import 'rup.autocomplete-material';
+@import 'rup.breadCrumb-material';
+@import 'rup.button-material';
+@import 'rup.dialog-material';
+@import 'rup.combo-material';
+@import 'rup.date-material';
+@import 'rup.feedback-material';
+@import 'rup.validate-material';
+@import 'table-material';
+
+/* ESTILOS GENERALES */
+.material-rounded {
+	border-radius: 16px;
+}
+
+.pointer {
+	cursor: pointer;
+}

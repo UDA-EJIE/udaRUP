@@ -140,25 +140,20 @@
 		  */
 		_initOptions: function(options) {
 			var $self = this;
-
+			var sTableId = $self[0].id;
 
 			options.processing = true;
 			options.serverSide = true;
 			options.columns = options.columns || $self._getColumns(options);
 
-
-			//filter
-
+			//filter			
 			// options.filterForm = $self.attr('data-filter-form');
 			options.$filterForm = $(options.filterForm);
 
-			options.$filterButton = options.$filterForm.find('.rup-filtrar');
-			options.$clearButton = options.$filterForm.find('.rup-limpiar');
+			options.$filterButton = options.$filterForm.find('#' + sTableId + '_filter_filterButton');
+			options.$clearButton = options.$filterForm.find('#' + sTableId + '_filter_cleanButton');
 			options.$filterButton.on('click', function(){ $self._doFilter(options);});
 			options.$clearButton.on('click', function(){$self._clearFilter(options);});
-
-
-
 
 			// Urls
 			var baseUrl = options.urlBase;
@@ -173,7 +168,6 @@
 				'url': $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json'
 			};
 
-
 			//Extend 
 			/*{targets:   4,data: "download_link",render: function (  ) {
 		         return '<a href="">Download</a>';
@@ -185,35 +179,35 @@
 			//Se cargan los metodos en la API, Se referencia al Register
 			var apiRegister = DataTable.Api.register;
 			
-			 DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
-					//Se elimina el lapicero indicador.
-					$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
-					//se añade el span con el lapicero
-					if(idRow >= 0){
-						var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
-						$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
-					}
+			DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
+				//Se elimina el lapicero indicador.
+				$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+				//se añade el span con el lapicero
+				if(idRow >= 0){
+					var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
+					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+				}
 			} );
-			 
+			
 			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
-					//Se mira la nueva reordenacion y se ordena.
+				//Se mira la nueva reordenacion y se ordena.
 
-					ctx.multiselection.selectedIds = [];
-					ctx.multiselection.selectedRowsPerPage = [];
-					//Viene del servidor por eso la linea de la pagina es 1 menos.
-					$.each(json.reorderedSelection,function(index,p) {
-						var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
-						ctx.multiselection.selectedIds.splice(index,0,arra.id);
-						ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
-					});
-					if(!ctx.multiselection.selectedAll){
-						ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
-					}
-					// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-					if(options.buttons !== undefined && ctx._buttons !== undefined){
-						ctx._buttons[0].inst.s.disableAllButttons = undefined;
-						DataTable.Api().buttons.displayRegex(ctx);
-					}
+				ctx.multiselection.selectedIds = [];
+				ctx.multiselection.selectedRowsPerPage = [];
+				//Viene del servidor por eso la linea de la pagina es 1 menos.
+				$.each(json.reorderedSelection,function(index,p) {
+					var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
+					ctx.multiselection.selectedIds.splice(index,0,arra.id);
+					ctx.multiselection.selectedRowsPerPage.splice(index,0,arra);
+				});
+				if(!ctx.multiselection.selectedAll){
+					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
+				}
+				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
+				if(options.buttons !== undefined && ctx._buttons !== undefined){
+					ctx._buttons[0].inst.s.disableAllButttons = undefined;
+					DataTable.Api().buttons.displayRegex(ctx);
+				}
 			} );
 			
 			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {
@@ -224,7 +218,7 @@
 				}
 
 				var id = '';
-
+				
 				$.each(opts.primaryKey,function(index,key) {
 					id = id + json[key];
 					if(opts.primaryKey.length > 1 && index < opts.primaryKey.length-1){
@@ -233,7 +227,7 @@
 				});
 				
 				return id;
-		} );
+			} );
 		
 		/**
 		* Método que gestiona el bloqueo de la edición de las claves primarias.
@@ -417,11 +411,11 @@
 				
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
-						var iconCheck = 'fa fa-times';
+						var iconCheck = '&#xe5cd;';
 						if(data === '1'){
-							iconCheck = 'fa fa-check';
+							iconCheck = '&#xe5ca;';
 						}
-				    return '<div class="datatable_checkbox"><i class="' + iconCheck + '"></i></div>';
+				    return '<div class="d-flex"><i class="material-icons mx-auto">' + iconCheck + '</i></div>';
 			    }});
 				}
 				return {
@@ -593,25 +587,25 @@
 			}
 			
 			// Añade iconos para versiones moviles/tablets
-			$("<i class='fa fa-angle-double-left d-sm-none'/>")
+			$("<i class='material-icons d-sm-none'>&#xe5dc;</i>")
 				.insertAfter($('#'+tabla[0].id+'_first')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='fa fa-angle-left d-sm-none'/>")
+			$("<i class='material-icons d-sm-none'>&#xe314;</i>")
 				.insertAfter($('#'+tabla[0].id+'_previous')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='fa fa-angle-right d-sm-none'/>")
+			$("<i class='material-icons d-sm-none'>&#xe315;</i>")
 				.insertAfter($('#'+tabla[0].id+'_next')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='fa fa-angle-double-right d-sm-none'/>")
+			$("<i class='material-icons d-sm-none'>&#xe5dd;</i>")
 				.insertAfter($('#'+tabla[0].id+'_last')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
@@ -1066,7 +1060,7 @@
 			        className: 'select-checkbox',
 			        targets: 0,
 			        render: function (data, type, full, meta){
-			             return '<input type="checkbox">';
+			        	return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
 			        }
 			    });
 				//Modulo incompatible
@@ -1254,15 +1248,6 @@
 			}
 
 			
-			if(settings.buttons !== undefined){
-				// Toolbar por defecto del datatable
-			/*	new $.fn.dataTable.Buttons(
-					tabla,
-					DataTable.Buttons.defaults.buttons
-				).container().insertBefore($('#'+$self[0].id+'_filter_form'));*/
-			}
-
-
 			if(settings.multiSelect !== undefined || settings.select !== undefined){
 				$self._createEventSelect(tabla);				
 			}
@@ -1304,7 +1289,7 @@ $.fn.rup_datatable.defaults = {
 	feedback:{
 			okFeedbackConfig:{
 				closeLink: true,
-				delay:1000
+				delay:2000
 			}
 		},
 	responsive: {           
@@ -1330,7 +1315,7 @@ $.fn.rup_datatable.defaults = {
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
-	adapter: 'datatable_bootstrap',
+	adapter: 'datatable_material',
     order: [[ 1, 'asc' ]],
     showMultiSelectedZero: true
 	};

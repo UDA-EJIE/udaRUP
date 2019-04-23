@@ -204,6 +204,14 @@
 	};
 
 	DatatableBootstrapAdapter.prototype.multifilter = {
+		classes:{
+			container: "form-group fix-align col-sm",
+			label: "formulario_linea_label",
+			defaultFilter: {
+				container: "form-group col-sm",
+				checkBox: "formulario_linea_input form-control"
+			}
+		},
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {

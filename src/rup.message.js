@@ -119,6 +119,7 @@
 			//parámetros específicos de tipo de mensaje
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('error'),
 				click: function () {
 					$this._destroy(self);
 				}
@@ -133,6 +134,10 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+			
+			// Limpieza del componente
+			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');
@@ -176,20 +181,20 @@
 			};
 
 			var self = this._createDiv().appendTo('body'),
-				aceptButton;
+				acceptButton;
 			self.dialog(settings);
 			self.data('uiDialog').uiDialog.addClass('rup-message rup-message-confirm');
 
 			//parámetros específicos de tipo de mensaje
-			aceptButton = [{
+			acceptButton = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
-				class: "btn-outline-primary",
+				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('confirm'),
 				click: function () {
 					$this._destroy(self);
 					settings.OKFunction.call(this, self);
 				}
 			}];
-			self.dialog('option', 'buttons', aceptButton);
+			self.dialog('option', 'buttons', acceptButton);
 
 			this._createCloseLink(self);
 			this._addStyles(self, 'confirm', settings.message);
@@ -198,9 +203,13 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+			
+			// Limpieza del componente
+			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Le ponemos el foco al botón aceptar en vez de al enlace
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:first').focus();
+			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:last').focus();
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');
@@ -238,6 +247,7 @@
 			//parámetros específicos de tipo de mensaje
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('ok'),
 				click: function () {
 					$this._destroy(self);
 				}
@@ -253,6 +263,10 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+			
+			// Limpieza del componente
+			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');
@@ -290,6 +304,7 @@
 			//parámetros específicos de tipo de mensaje
 			settings.buttons = [{
 				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('alert'),
 				click: function () {
 					$this._destroy(self);
 				}
@@ -304,6 +319,10 @@
 			docWidth = $(document).width();
 			self.dialog('open');
 			this._dialogInPortal(docWidth, docHeight, self, settings);
+			
+			// Limpieza del componente
+			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');
@@ -325,7 +344,7 @@
          * @private
          */
 		_createDiv: function () {
-			return $('<div/>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true');
+			return $('<div/>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true').addClass('row py-4');
 		},
 		/**
          * Crea los el enlace de cerrar en el título del mensaje de acuerdo a los estándares de accesibilidad.
@@ -335,30 +354,11 @@
          * @private
          */
 		_createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
-			var closeSpan = '<span id=\'closeText_' + self[0].id + '\' style=\'float:right;font-size:0.85em;\'>' + $.rup.i18nParse($.rup.i18n.base, 'rup_global.cerrar') + '</span>',
-				aClose = $('<a href=\'#\'></a>')
-					.attr('role', 'button')
-					.css('margin-right', '0.9em')
-					.css('float', 'right')
-					.addClass('ui-dialog-title')
-					.html(closeSpan)
-					.click(function (event) {
-						self.dialog('close');
-						return false;
-					}).hover(function (eventObject) { //Evento lanzado para que se cambie el icono de la X a hover, marcado por ARISTA
-						$('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').addClass('ui-state-hover');
-						$('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').css('padding', '0px');
-					},
-					function (eventObject) {
-						$('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').removeClass('ui-state-hover');
-						$('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').attr('style', '');
-					}).insertAfter(jQuery('span.ui-dialog-title', self.parent()));
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-titlebar-close').hover(
-				function () {
-					aClose.css('text-decoration', 'none');
-				},
-				function () {
-					aClose.css('text-decoration', '');
+			self.prev("div")
+				.append('<i class="material-icons float-right pointer" aria-hidden="true">&#xe5cd;</i>')
+				.on('click', 'i.material-icons', function (event) {
+					self.dialog('close');
+					return false;
 				});
 		},
 		/**
@@ -370,9 +370,29 @@
          * @function  _addStyles
          * @private
          */
-		_addStyles: function (self, css, message) { //Le a?ade los divs del mensaje a mostrar y el icono correpondiente
-			var divMessageIcon = $('<div>').attr('id', 'rup_msgDIV_msg_icon').addClass('rup-message_icon-' + css),
-				divMessage = $('<div>').attr('id', 'rup_msgDIV_msg').addClass('rup-message_msg-' + css).html(message);
+		_addStyles: function (self, css, message) { //Le añade los divs del mensaje a mostrar y el icono correpondiente
+			// Establecemos el icono dependiendo del tipo de mensaje
+			var icon = '';
+			
+			switch(css){
+				case 'error':
+					icon = '<i class="material-icons" aria-hidden="true">&#xe000;</i>';
+					break;
+				case 'confirm':
+					icon = '<i class="material-icons" aria-hidden="true">&#xe002;</i>';
+					break;
+				case 'ok':
+					icon = '<i class="material-icons" aria-hidden="true">&#xe86c;</i>';
+					break;
+				case 'alert':
+					icon = '<i class="material-icons" aria-hidden="true">&#xe87f;</i>';
+					break;
+				default:
+					icon = '<i class="material-icons" aria-hidden="true">&#xe002;</i>';
+			}
+			
+			var divMessageIcon = $('<div>').attr('id', 'rup_msgDIV_msg_icon').addClass('col-2').append(icon),
+				divMessage = $('<div>').attr('id', 'rup_msgDIV_msg').addClass('col-10').html(message);
 			self.append(divMessageIcon);
 			self.append(divMessage);
 		},
@@ -390,7 +410,7 @@
 				cancelHREF = $('<button></button>')
 					.attr('type', 'button')
 					.attr('id', self[0].id + '_cancel')
-					.addClass('btn-outline-primary ui-button ui-corner-all ui-widget')
+					.addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
 					.html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
 					.click(function (event) {
 						self.dialog('close');
@@ -399,7 +419,7 @@
 						}
 						return false;
 					});
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').append(cancelHREF);
+			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
 		},
 		/**
          * Ajuste en la visualización del mensaje para que se muestre correctamente en aplicaciones integradas en portal.
@@ -456,9 +476,11 @@
      * @name defaults
      *
      * @property {Number}  [minHeight=100] - Altura mínima con la que se va a mostrar el mensaje.
+     * @property {string} adapter - Permite cambiar el aspecto visual del componente.
      */
 	$.rup_messages.defaults = {
-		minHeight: 100
+		minHeight: 100,
+		adapter: 'message_material'
 	};
 
 }));

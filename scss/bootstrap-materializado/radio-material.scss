@@ -1,0 +1,117 @@
+/* ESTILOS */
+$radio-material-size: 18px;
+$radio-material-checked-size: 8px; 
+$radio-material-ripple-size: 6px;
+
+@keyframes ripple-hover {
+  0% {
+      box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
+  }
+  50% { 
+      box-shadow: 0px 0px 0px $radio-material-ripple-size rgba(20, 114, 164, 0.05);
+  }
+  100% {
+      box-shadow: 0px 0px 0px $radio-material-ripple-size rgba(20, 114, 164, 0.1);
+  }
+}
+
+@keyframes ripple-active {
+  0% {
+      box-shadow: 0px 0px 0px $radio-material-ripple-size rgba(20, 114, 164, 0.1);
+  }
+  50% { 
+      box-shadow: 0px 0px 0px $radio-material-ripple-size rgba(20, 114, 164, 0.4);
+  }
+  100% {
+      box-shadow: 0px 0px 0px $radio-material-ripple-size rgba(20, 114, 164, 0.6);
+  }
+}
+
+.radio-material {
+    margin: 0.5em 0;
+    
+    &.radio-material-inline {
+        display: inline-block;
+    }
+
+    input[type="radio"] {
+        opacity: 0;
+        
+        /* CUANDO PASA EL RATON POR ENCIMA */  
+        &:hover:enabled + label:before, &:checked:hover:enabled + label:before {
+            animation: ripple-hover 0.2s linear forwards;
+        }
+        
+        /* CUANDO TIENE EL FOCO */
+        &:focus + label:before {
+			animation: ripple-active 0.2s linear forwards;
+		}
+        
+        /* CUANDO ESTA SELECCIONADO */  
+        &:checked + label:before {
+            border-color: $radio-material-checked-color; 
+        }
+        &:checked + label:after {
+            transform: scale(1);
+        }
+        &:active:enabled + label:before {
+            animation: ripple-active 0.2s linear forwards;
+        }
+        
+        /* CUANDO ESTA DISABLED */
+        &:disabled + label:before {
+            border-color: $radio-material-disabled-color;
+        }
+        &:disabled + label:after {
+            background: $radio-material-disabled-color;
+        }
+    }
+    
+    label {
+        display: inline-block;
+        height: $radio-material-size;
+        position: relative;
+        padding-left: ($radio-material-size + 10px);
+        margin-bottom: 0;
+        cursor: pointer;
+        vertical-align: bottom;
+        
+        &:before, &:after {
+            position: absolute;            
+            content: '';  
+            border-radius: 50%;
+            box-sizing: border-box;
+            transition: all .3s ease;
+            transition-property: transform, border-color;
+        }
+        &:before {
+            left: 0;
+            top: 0;
+            width: $radio-material-size;
+            height: $radio-material-size;
+            border: 2px solid $radio-material-border-color;
+        }
+        &:after {
+            top: $radio-material-size / 2 - $radio-material-checked-size / 2;
+            left: $radio-material-size / 2 - $radio-material-checked-size / 2;
+            width: $radio-material-checked-size;
+            height: $radio-material-checked-size;
+            transform: scale(0);
+            background: $radio-material-checked-color;
+        }
+        &:disabled {
+            pointer-events: none;
+        }
+    }
+}
+
+/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
+.dialog-content-material {
+	.radio-material {
+		label {
+			&:before, &:after {
+				left: 6px;
+			}
+		}
+	}
+}

@@ -129,7 +129,7 @@
 /* Tipsy style */
 .ui-tooltip-tipsy { border: 0; }
 
-.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content {background: transparent; background: rgba(0, 0, 0, .87); filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white; border: 0px transparent; font-size: 11px; font-family: 'Lucida Grande', sans-serif; font-weight: bold; line-height: 16px; text-shadow: 0 1px black; }
+.ui-tooltip-tipsy .ui-tooltip-titlebar, .ui-tooltip-tipsy .ui-tooltip-content {background: transparent; background: rgba(0, 0, 0, .87); filter: "progid : DXImageTransform.Microsoft.gradient ( startColorstr = #D9000000, endColorstr = #D9000000 )";	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)"; color: white; border: 0px transparent; font-size: 11px; font-weight: bold; line-height: 16px; text-shadow: 0 1px black; }
 .ui-tooltip-tipsy .ui-tooltip-titlebar { padding: 6px 35px 0 10; }
 .ui-tooltip-tipsy .ui-tooltip-content { padding: 6px 10; }
 .ui-tooltip-tipsy .ui-tooltip-icon { border-color: #222; text-shadow: none; }
@@ -139,7 +139,7 @@
 .ui-tooltip-tipped {}
 
 .ui-tooltip-tipped .ui-tooltip-titlebar, .ui-tooltip-tipped .ui-tooltip-content { border: 3px solid #959FA9; filter: none; -ms-filter: none; }
-/* cssParserFix - .ui-tooltip-tipped .ui-tooltip-titlebar { background: #3A79B8; background-image: -moz-linear-gradient(top, #3A79B8, #2E629D); background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D) ); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #3A79B8, endColorstr = #2E629D ); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"; color: white; font-weight: normal; font-family: serif; border-bottom-width: 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; } */
+/* cssParserFix - .ui-tooltip-tipped .ui-tooltip-titlebar { background: #3A79B8; background-image: -moz-linear-gradient(top, #3A79B8, #2E629D); background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D) ); filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr = #3A79B8, endColorstr = #2E629D ); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"; color: white; font-weight: normal; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; } */
 .ui-tooltip-tipped .ui-tooltip-content { background-color: #F9F9F9; color: #454545; -moz-border-radius: 0 0 3px 3px; -webkit-border-radius: 0 0 3px 3px; border-radius: 0 0 3px 3px; }
 .ui-tooltip-tipped .ui-tooltip-icon { border: 2px solid #285589; background: #285589; }
 .ui-tooltip-tipped .ui-tooltip-icon .ui-icon { background-color: #FBFBFB; color: #555; }

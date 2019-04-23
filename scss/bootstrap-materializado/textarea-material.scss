@@ -1,0 +1,103 @@
+.form-groupMaterial {
+	/* ESTILOS DE LOS CONTENEDORES DE TEXTAREAS */
+	/*position: relative;
+  	margin: 1rem 0;*/
+	
+	/* ESTILOS DE LOS TEXTAREA */
+	textarea {
+	  	display: block;
+		width: 100%;
+		min-height: 2.4rem;
+		font-size: 1rem;
+		padding: 5px 17px 5px 18px;
+		border: 1px solid $grey-color-light;
+		border-radius: 5px;
+		box-sizing: border-box;
+		color: $grey-color;
+		background-image: none;
+		background-color: $white-color;
+		
+		&:hover:enabled {
+	  		border-color: $black-color;
+		}
+	
+		&:focus:enabled {
+		  	border-color: $primary-color;
+		  	caret-color: $primary-color;
+		  	border-width: 2px;
+		  	box-shadow: none;
+		  	padding-left: 17px;
+		}
+		
+		&:placeholder-shown:disabled {
+		  	color: $no-color;
+		}
+		
+		/* ESTILOS DE LOS LABELS */
+		&:focus:enabled ~ label,
+		&:valid:enabled ~ label,
+		&:placeholder-shown:required ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+		
+		&:read-only {
+			background-color: $readonly-background-color;
+			
+			&:hover {
+				border-color: $grey-color-light;
+			}
+		
+			&:focus {
+				border-color: $grey-color-light;
+				caret-color: $no-color;
+				padding-left: 18px;
+			}
+			
+			&:focus ~ label, ~ label {
+				top: -10px;
+				font-size: .9rem;
+				color: $black-color;
+				padding: 0 5px;
+				background: linear-gradient(to top, $readonly-background-color 0%, $readonly-background-color 40%, $no-color 40%, $no-color 100%);
+			}
+		}
+		
+		&:-moz-read-only {
+			background-color: $readonly-background-color;
+			
+			&:hover {
+				border-color: $grey-color-light;
+			}
+		
+			&:focus {
+				border-color: $grey-color-light;
+				caret-color: $no-color;
+				padding-left: 18px;
+			}
+			
+			&:focus ~ label, ~ label {
+				top: -10px;
+				font-size: .9rem;
+				color: $black-color;
+				padding: 0 5px;
+				background: linear-gradient(to top, $readonly-background-color 0%, $readonly-background-color 40%, $no-color 40%, $no-color 100%);
+			}
+		}
+	}	
+}
+
+/* ESTE CASO ES PARA CUANDO SE USAN LOS ESTILOS EN CONJUNTO CON LAS CLASES DE GRID DE BOOTSTRAP */
+.form-groupMaterial {
+	&[class*="col-"] {
+		textarea {
+			~ label {
+				left: 19px;
+			}
+		}
+	}
+}

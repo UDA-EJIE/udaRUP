@@ -92,14 +92,14 @@ define(['marionette',
 
 		// Combo pais
 		$view.ui.fieldPais.rup_combo({
-			source : 'nora/pais',
+			source : 'api/nora/pais',
 			sourceParam : {label:'dsO', value:'id'},
 			blank : '0'
 		});
 
 		// Combo autonomia
 		$view.ui.fieldAutonomia.rup_combo({
-			source : 'nora/autonomia',
+			source : 'api/nora/autonomia',
 			sourceParam : {label:'dsO', value:'id'},
 			width : 400,
 			blank : ''
@@ -112,7 +112,7 @@ define(['marionette',
 		// Combo provincia
 		$view.ui.fieldProvincia.rup_combo({
 			parent: ['autonomia'],
-			source : '../nora/provincia',
+			source : '../api/nora/provincia',
 			firstLoad:[{'value':'01','label':'Alava/Araba'},{'value':'20','label':'Gipuzkoa'},{'value':'48','label':'Bizkaia'}],
 			sourceParam : {label:'dsO', value:'id'},
 			width : 300,
@@ -121,14 +121,14 @@ define(['marionette',
 
 		// Autocomplete municipio
 		$view.ui.fieldMunicipio.rup_autocomplete({
-			source : '../nora/municipio',
+			source : '../api/nora/municipio',
 			sourceParam : {label:'dsO', value:'id'},
 			minLength: 4
 		});
 
 		// Autocomplete calle
 		$view.ui.fieldCalle.rup_autocomplete({
-			source : '../nora/calle',
+			source : '../api/nora/calle',
 			sourceParam : {label:'dsO', value:'id'},
 			minLength: 4
 		});

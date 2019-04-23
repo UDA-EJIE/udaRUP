@@ -1001,22 +1001,22 @@ $.extend( Buttons.prototype, {
 			// Comprueba si es alguno de los botones con iconos definidos por defecto
 			switch (config.type) {
 				case 'add':
-					config.icon = "fa-plus";
+					config.icon = "&#xe145;";
 					break;
 				case 'edit':
-					config.icon = "fa-pencil-square-o";
+					config.icon = "&#xe3c9;";
 					break;
 				case 'clone':
-					config.icon = "fa-clone";
+					config.icon = "&#xe14d;";
 					break;
 				case 'delete':
-					config.icon = "fa-trash-o";
+					config.icon = "&#xe872;";
 					break;
 				case 'reports':
-					config.icon = "fa-file-o";
+					config.icon = "&#xe24d;";
 					break;
 				case 'copyButton':
-					config.icon = "fa-clipboard";
+					config.icon = "&#xe85d;";
 					break;
 				case 'excelButton':
 					config.icon = "fa-file-excel-o";
@@ -1031,7 +1031,7 @@ $.extend( Buttons.prototype, {
 					config.icon = "fa-file-code-o";
 					break;
 				default:
-					config.icon = "fa-cog";
+					config.icon = "&#xe8b8;";
 			}
 		}
 
@@ -1624,7 +1624,7 @@ Buttons.defaults = {
 		},
 		button: {
 			tag: 'button',
-			className: 'btn btn-primary',
+			className: 'btn-material btn-material-primary-high-emphasis',
 			active: 'active',
 			disabled: 'disabledButtonsTable'
 		},
@@ -3345,8 +3345,9 @@ var _initButtons = function(ctx,opts){
 		if (this.conf.icon !== undefined) {
 			// Establece el icono de los botones
 			if($(this.node).find('i').length === 0){
-				$('#' + this.conf.id).prepend('<i class="fa ' + this.conf.icon + ' right-separator" aria-hidden="true"></i>');
+				$('#' + this.conf.id).prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
 			}
+
 			// Comprueba si tiene botones hijos
 			if (this.buttons.length > 0 && $('#' + this.conf.id).length > 0) {
 				// Añadimos un evento para cuando se pulse sobre el boton padre, se le
@@ -3355,10 +3356,12 @@ var _initButtons = function(ctx,opts){
 					var that = this;
 					$.each(opts[i].buttons, function (i) {
 						var selectorCollection = $('#' + this.conf.id);
+						
 						// Establece el icono de los botones hijos
 						if($(this.node).find('i').length === 0){
-							selectorCollection.prepend('<i class="fa ' + this.conf.icon + ' right-separator" aria-hidden="true"></i>');
+							selectorCollection.prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
 						}
+
 						that.removeEventListener('click', eventHandler);
 					});
 				}, false);

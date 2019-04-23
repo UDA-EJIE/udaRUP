@@ -24,7 +24,8 @@
 		var $self = this, dropdownSettings = settings.dropdown;
 
 		return $(Rup.Templates.rup.button.dropdownButton({
-			id: $self.prop('id')+'_dropdown'
+			id: $self.prop('id')+'_dropdown',
+			classes: 'rup-dropdown-button'
 		}));
 	};
 

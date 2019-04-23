@@ -23,8 +23,23 @@
 		return 'rup-jqueryui';
 	};
 
-	FeedbackJQueryUIAdapter.prototype.closeLiteral = function () {
+	FeedbackJQueryUIAdapter.prototype.closeIcon = function () {
 		return $.rup.i18nParse($.rup.i18n.base, 'rup_global.cerrar');
+	};
+	
+	FeedbackJQueryUIAdapter.prototype.containerClass = function () {
+		return 'rup-feedback ui-widget ui-widget-content ui-corner-all';
+	};
+	
+	FeedbackJQueryUIAdapter.prototype.feedbackIcon = function (type) {
+		switch(type) {
+			case 'alert':
+				return '<i class="material-icons">&#xe002;</i>'
+			case 'error':
+				return '<i class="material-icons">&#xe001;</i>'
+			default:
+				return '<i class="material-icons">&#xe86c;</i>'
+		}
 	};
 
 

@@ -2,16 +2,16 @@
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-   - [1   Introducción](#1-introducción)   
-   - [2   Ejemplo](#2-ejemplo)   
-   - [3   Casos de uso](#3-casos-de-uso)   
-   - [4   Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
-   - [5   Invocación](#5-invocación)   
-   - [6    API](#6-api)   
-   - [7.  Sobreescritura del theme](#7-sobreescritura-del-theme)   
+   - [1   Introducción](#1introducción)   
+   - [2   Ejemplo](#2ejemplo)   
+   - [3   Casos de uso](#3casos-de-uso)   
+   - [4   Infraestructura](#4infraestructura)   
+      - [4.1 Ficheros](#4.1ficheros)   
+      - [4.2 Dependencias](#4.2dependencias)   
+      - [4.3 Versión minimizada](#4.3versión-minimizada)   
+   - [5   Invocación](#5invocación)   
+   - [6    API](#6api)   
+   - [7.  Sobreescritura del theme](#7sobreescritura-del-theme)   
 
 <!-- /MDTOC -->
 
@@ -79,7 +79,7 @@ $(selector).rup_contextMenu(properties);
 ```
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
 
-## 6	API
+##	6	API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.contextMenu.md).
 
 ##	7	Sobreescritura del theme

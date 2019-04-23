@@ -23,8 +23,23 @@
 		return 'rup-bootstrap';
 	};
 
-	FeedbackBootstrapAdapter.prototype.closeLiteral = function () {
-		return '';
+	FeedbackBootstrapAdapter.prototype.closeIcon = function () {
+		return '<i class="material-icons">&#xe5cd;</i>';
+	};
+	
+	FeedbackBootstrapAdapter.prototype.containerClass = function () {
+		return 'rup-feedback ui-widget ui-widget-content ui-corner-all';
+	};
+	
+	FeedbackBootstrapAdapter.prototype.feedbackIcon = function (type) {
+		switch(type) {
+			case 'alert':
+				return '<i class="material-icons">&#xe002;</i>'
+			case 'error':
+				return '<i class="material-icons">&#xe001;</i>'
+			default:
+				return '<i class="material-icons">&#xe86c;</i>'
+		}
 	};
 
 

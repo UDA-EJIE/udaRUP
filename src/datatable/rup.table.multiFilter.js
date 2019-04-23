@@ -160,7 +160,6 @@ function postConfigureMultifilter (ctx) {
 					buttons : [
 						{
 							id : ctx.sTableId+ '_multifilter_BtnSave',
-							"class" : 'btn-outline-primary',
 							text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
 							click : function() {
 	
@@ -187,7 +186,6 @@ function postConfigureMultifilter (ctx) {
 						},
 						{
 							id : ctx.sTableId+ '_multifilter_BtnApply',
-							"class" : 'btn-outline-primary',
 							text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
 							click : function() {
 	
@@ -232,7 +230,6 @@ function postConfigureMultifilter (ctx) {
 						},
 						{
 							id : ctx.sTableId+ '_multifilter_BtnRemove',
-							"class" : 'btn-outline-primary',
 							text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 							click : function() {
 	
@@ -277,7 +274,7 @@ function postConfigureMultifilter (ctx) {
 	settings.multiFilter.$comboButton=$('#' + ctx.sTableId+'_multifilter_dropdownDialog .rup-combobox-toggle');
 	settings.multiFilter.$defaultCheck=$('#' + ctx.sTableId	+  '_multifilter_defaultFilter');
 	settings.multiFilter.$feedback=$('#' + ctx.sTableId	+ '_multifilter_dropdownDialog_feedback');
-	settings.multiFilter.$closeDialog=$('#closeText_'+ctx.sTableId+'_multifilter_dropdownDialog');
+	settings.multiFilter.$closeDialog=$('#'+ctx.sTableId+'_multifilter_dropdownDialog_close');
 	
 	
 	
@@ -308,7 +305,8 @@ function postConfigureMultifilter (ctx) {
 	_configCombo(ctx);
 	
 	settings.multiFilter.$feedback.rup_feedback({
-		block : false
+		block : false,
+		delay: 2000
 	});
 	
 	//gesión por filtroPorDefecto
@@ -749,45 +747,41 @@ function getMultifilterDialogTemplate(ctx) {
 		var multifilterSettings = settings.multiFilter;
 
 		var $dropdownDiaglogTemplate = jQuery('<div id="'
-			+ multifilterSettings.dropdownDialogId
-			+ '" style="display:none" class="rup_multifilter_dropdown">'
-			+ '<div id="'
-			+ multifilterSettings.dropdownDialogId
-			+ '_feedback"></div>'
-			+ '<form>'
-			+ '<fieldset class="dropdownButton-inputs">'
-			+ '<div id="'
-			+ multifilterSettings.dropdownDialogId
-			+ '_columna_cnt">'
-			+ '<div class="form-row">'
-			+ '<div id="'
-			+ multifilterSettings.dropdownDialogId
-			+ '_lineaCombo"  class="form-group fix-align col-sm">'
-			+ '<label for="'
-			+ ctx.sTableId
-			+ '_multifilter_combo" class="formulario_linea_label">'
-			+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
-			+ '</label>'
-			+ '<input id="'
-			+ ctx.sTableId
-			+ '_multifilter_combo" class="rup_multifilter_selector" />'
-			+ '</div>'
-			+ '</div>'
-			+ '<div  class="form-row">'
-			+ '<div id="'
-			+ multifilterSettings.dropdownDialogId
-			+ '_lineaDefault" class="form-group col-sm">'
-			+ '<label for="'
-			+ ctx.sTableId
-			+ '_multifilter_defaultFilter" class="formulario_linea_label">'
-			+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
-			+ '</label>'
-			+ '<input type="checkbox" id="'
-			+ ctx.sTableId
-			+ '_multifilter_defaultFilter" class="formulario_linea_input form-control"/>'
-			+ '</div>' 
-			+ '</div>'
-			+ '</fieldset>' + '</form>' + '</div>');
+				+ multifilterSettings.dropdownDialogId
+				+ '" style="display:none" class="dialog-content-material">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_feedback"></div>'
+				+ '<form>'
+				+ '<div class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaCombo"  class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.container + ' col-12">'
+				+ '<input id="'
+				+ ctx.sTableId
+				+ '_multifilter_combo" class="rup_multifilter_selector" />'
+				+ '<label for="'
+				+ ctx.sTableId
+				+ '_multifilter_combo" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ '</label>'
+				+ '</div>'
+				+ '</div>'
+				+ '<div  class="form-row">'
+				+ '<div id="'
+				+ multifilterSettings.dropdownDialogId
+				+ '_lineaDefault" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.container + ' col-12">'
+				+ '<input type="checkbox" id="'
+				+ ctx.sTableId
+				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.checkBox + '"/>'
+				+ '<label for="'
+				+ ctx.sTableId
+				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
+				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ '</label>'
+				+ '</div>'
+				+ '</form>'
+				+ '</div>');
 
 		return $dropdownDiaglogTemplate;
 }
@@ -831,9 +825,9 @@ function configureMultifilter (ctx) {
 		jQuery('#' + ctx.sTableId + '_multifilter_combo').rup_autocomplete(
 			{
 				source : settings.urlBase
-													+ '/multiFilter/getAll?filterSelector='
-													+ selector + '&user='
-													+ usuario,
+							+ '/multiFilter/getAll?filterSelector='
+							+ selector + '&user='
+							+ usuario,
 				sourceParam : {
 					label : 'filterName',
 					value : 'filterDefault',
@@ -846,9 +840,6 @@ function configureMultifilter (ctx) {
 				menuAppendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
 				appendTo : $('#' + settings.multiFilter.dropdownDialogId).parent(),
 				select : function() {
-
-
-
 					var valorFiltro=_searchFilterInCombo(ctx);
 
 					//limpiar Filtro
@@ -856,14 +847,8 @@ function configureMultifilter (ctx) {
 					_cleanFilterForm(ctx);
 					$('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterCleanFilterForm');
 
-
 					// rellenar el formulario del filtro
 					_fillForm(valorFiltro,ctx);
-
-					//
-
-
-
 				}
 			});
 

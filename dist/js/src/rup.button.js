@@ -327,16 +327,6 @@
 
 
 					var $dropdownButton = $.proxy(self._ADAPTER.createDropdownButton, $self)(settings);
-					// var $dropdownButton = jQuery("<button>").attr({
-					// 	type: "button",
-					// 	id: $self.prop("id")+"_dropdown"
-					//
-					// }).text("Administración de filtros").button({
-					// 	icons:{
-					// 		primary: dropdownSettings.dropdownIcon
-					// 	},
-					// 	text: false
-					// }).addClass("rup-dropdown-button");
 
 					$self.after($dropdownButton);
 
@@ -401,7 +391,7 @@
      * @property {boolean | Object} [dropdown=false] - Determina si el botón va a contar con un menú desplegable de acciones secundarias. En caso de mostrar un desplegable esta propiedad contendrá el objeto de configuración del mismo.
      */
 	$.fn.rup_button.defaults = {
-		adapter: 'button_bootstrap',
+		adapter: 'button_material',
 		dropdown: false,
 		fab: false,
 		fixed: false,
@@ -418,14 +408,8 @@
      * @description Opciones por defecto del objeto de configuración del menú desplegable asociado al botón.
      *
      * @name dropdown_defaults
-     *
-     * @property {string} [dropdownIcon=ui-icon-triangle-1-s] - Clase css correspondiente al icono del control que despliega el menú.
      */
 	$.fn.rup_button.dropdown_defaults = {
-
-		// dropdownIcon: "ui-icon-triangle-1-s",
-
-		dropdownIcon: 'fa fa-caret-down',
 		dropdownListId: undefined,
 		dropdownDialog: undefined,
 		dropdownDialogConfig: {

@@ -29,72 +29,91 @@
   background: $rup-color-date-bg;
 
   &:not(.ui-datepicker-inline){
-    @extend .shadow-2;
+    	@extend .shadow-2;
   }
 
   .ui-datepicker-header{
-    background: $rup-color-date-header-bg;
-    border: none;
+    	background: $rup-color-date-header-bg;
+    	border: none;
+  }
+  
+  head {
+  		border-bottom: .1em solid black;
+  		
+  		th {
+  			padding-bottom: 0;
+  		}
+  }
+  
+  td {
+  		padding: unset;
   }
 
   .ui-datepicker-calendar{
-    td{
-      background: none;
-
-      a{
-        border: none;
-        text-align: center;
-        background: $rup-color-date-day-bg;
-      }
-
-      &.ui-datepicker-unselectable{
-        opacity: 0.5;
-
-        span{
-          border: none;
-          text-align: center;
-          background: $rup-color-date-day-bg;
-        }
-
-      }
-
-      &.ui-datepicker-today{
-
-        a{
-          background: $rup-color-date-today-bg !important;
-          border: $rup-color-date-today-border;
-          color: $rup-color-date-today-text;
-        }
-      }
-      &.ui-datepicker-week-end{
-        a{
-          background: $rup-color-date-weekend-bg !important;
-          border: $rup-color-date-weekend-border;
-          color: $rup-color-date-weekend-text;
-        }
-      }
-      &.ui-state-highlight{
-
-        a{
-          background: $rup-color-date-current-bg !important;
-          border: $rup-color-date-current-border;
-          color: $rup-color-date-current-text;
-        }
-      }
-
-
-
-      &:hover{
-        a{
-          background: $rup-color-date-hover-bg !important;
-          border: $rup-color-date-hover-border;
-          color: $rup-color-date-hover-text;
-        }
-      }
-    }
-
-
-
-
+		td{
+			background: none;
+			
+			/* Estilo predeterminado de los días */
+		    a{
+		    	text-align: center;
+		      	border: .1em solid #fff;
+		      	background-color: #fff;
+				color: #000;
+		    }
+		
+		    &.ui-datepicker-unselectable{
+		      opacity: 0.5;
+		
+		      span{
+		        	border: none;
+		        	text-align: center;
+		        	background-color: $rup-color-date-day-bg;
+		      }
+		
+		    }
+			
+			/* Día de hoy (azul) */
+		    &.ui-datepicker-today{
+		      	a{
+					background-color: #337ab7;
+					border: .1em solid #337ab7;
+					color: #fff;
+		      	}
+		    }
+		    
+		    /* Fin de semana (sab-dom) */
+		    &.ui-datepicker-week-end{
+		      	a{
+					background-color: #f0b9b8;
+					border: .1em solid #f0b9b8;
+					color: #000; 
+		      	}
+		    }
+		    
+		    /* Día seleccionado (verde)*/
+		    &.ui-state-highlight{
+		      	a{
+					background-color: #b4fdcc;
+					border: .1em solid #175c2e;
+					color: #000;
+		      	}
+		    }
+		    &.ui-datepicker-current-day{
+		    	a{
+		    		background-color: #b4fdcc;
+					border: .1em solid #175c2e;
+					color: #000;
+		    	}
+		    }
+			
+			/* Hover sobre el elemento */
+		    &:hover{
+		      	a{
+					background: #69a3d6;
+					border: .1em solid #69a3d6;
+					color: #fff;
+		      	}
+		    }
+    	}
   }
 }
