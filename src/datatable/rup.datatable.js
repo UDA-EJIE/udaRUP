@@ -214,6 +214,7 @@
 						ctx._buttons[0].inst.s.disableAllButttons = undefined;
 						DataTable.Api().buttons.displayRegex(ctx);
 					}
+					$('#'+ctx.sTableId).triggerHandler('tableAfterReorderData');
 			} );
 			
 			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {

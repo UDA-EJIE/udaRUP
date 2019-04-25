@@ -76,9 +76,12 @@ DataTable.masterDetail.init = function ( dt ) {
 	    name: ctx.oInit.masterDetail.masterPrimaryKey
 	}).appendTo(ctx.oInit.$filterForm)
 	var rowsBody = $(ctx.oInit.masterDetail.master + " > tbody");
+	
+	var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
+	
 	//Se edita el row/fila.
 	rowsBody.on( 'click.DT','tr[role="row"]',  function () {
-		var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
+		//var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
 		var rowSelected = tableMaster.rows( '.selected' ).indexes();
 		if(rowSelected[0] !== undefined){//Se ha deseleccionado, no entrar.
 			var row = tableMaster.rows( rowSelected ).data();
@@ -86,20 +89,19 @@ DataTable.masterDetail.init = function ( dt ) {
 			$("#"+idHidden).val(""+id);
 			$('#'+ctx.sTableId+'_filter_filterButton').click();
 		}else{//se deselecciona
-			$("#"+idHidden).val("-1");
-			$('#'+ctx.sTableId + " > tbody tr").remove();
-			var asStripeClasses = ctx.asStripeClasses;
-			var iStripes = asStripeClasses.length;
-			var numberVisibles = dt.columns().responsiveHidden().reduce( function (a,b) {return b === true ? a+1 : a;}, 0 );
-			var $tr = $( '<tr/>', { 'class': iStripes ? asStripeClasses[0] : '' } )
-			.append( $('<td />', {
-				'valign':  'top',
-				'colSpan': numberVisibles,
-				'class':   ctx.oClasses.sRowEmpty
-			} ).html( ctx.oLanguage.sZeroRecords ) )[0];
-			$('#'+ctx.sTableId + " > tbody").append($tr);
-			ctx.seeker.search.$searchRow.hide();
-			$("#"+ctx.sTableId+'addButton_1').addClass('disabledButtonsTable');
+			_deselectMaster(dt,ctx,idHidden);
+		}
+
+	} );
+	
+	//Se filtra.
+	tableMaster.on( 'tableAfterReorderData',  function () {
+		var multi = tableMaster.context[0].multiselection;
+		if(multi.selectedIds.length === 0){
+			_deselectMaster(dt,ctx,idHidden);
+		}else{
+			$("#"+idHidden).val(""+multi.selectedIds[0]);
+			$('#'+ctx.sTableId+'_filter_filterButton').click();
 		}
 
 	} );
@@ -109,6 +111,24 @@ DataTable.masterDetail.init = function ( dt ) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Local functions
  */
+
+function _deselectMaster(dt,ctx,idHidden){
+	$("#"+idHidden).val("-1");
+	$('#'+ctx.sTableId + " > tbody tr").remove();
+	var asStripeClasses = ctx.asStripeClasses;
+	var iStripes = asStripeClasses.length;
+	var numberVisibles = dt.columns().responsiveHidden().reduce( function (a,b) {return b === true ? a+1 : a;}, 0 );
+	var $tr = $( '<tr/>', { 'class': iStripes ? asStripeClasses[0] : '' } )
+	.append( $('<td />', {
+		'valign':  'top',
+		'colSpan': numberVisibles,
+		'class':   ctx.oClasses.sRowEmpty
+	} ).html( ctx.oLanguage.sZeroRecords ) )[0];
+	$('#'+ctx.sTableId + " > tbody").append($tr);
+	ctx.seeker.search.$searchRow.hide();
+	$("#"+ctx.sTableId+'addButton_1').addClass('disabledButtonsTable');
+}
+
 /**
  * Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
  *
