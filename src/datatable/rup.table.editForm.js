@@ -332,7 +332,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 						'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
 						'text':'text/plain','xml':'application/xml, text/xml'},
 					type : 'GET',
-					data : row,
+					data : [],
 					dataType : 'json',
 					showLoading : false,
 					contentType : 'application/json',
