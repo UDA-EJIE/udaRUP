@@ -3496,7 +3496,7 @@
 
 .r01gContainer .rup-navbar .navbar-nav.rup-nav-tools .rup-nav-tool-icon span {
   font-size: 1.2rem;
-  vertical-align: bottom;
+  vertical-align: middle;
   padding-left: 0.2rem;
 }
 
@@ -3608,7 +3608,7 @@
 
 .r01gContainer .navbar-nav.rup-nav-tools .rup-nav-tool-icon span {
   font-size: 1.2rem;
-  vertical-align: bottom;
+  vertical-align: middle;
   padding-left: 0.2rem;
 }
 
@@ -6981,6 +6981,11 @@
 
 .r01gContainer .form-groupMaterial .rup-combobox ~ i.material-icons.error {
   right: 32px;
+}
+
+.r01gContainer .rup-breadCrumb_logoutDiv .rup-breadCrumb_link span.material-icons {
+  vertical-align: text-bottom;
+  margin-right: .5rem;
 }
 
 /* BOTON DROPDOWN */

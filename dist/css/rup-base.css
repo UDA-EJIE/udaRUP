@@ -4622,7 +4622,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
         display: none; }
       .rup-navbar .navbar-nav.rup-nav-tools .rup-nav-tool-icon span {
         font-size: 1.2rem;
-        vertical-align: bottom;
+        vertical-align: middle;
         padding-left: 0.2rem; }
     .rup-navbar .navbar-nav.rup-nav-tools .swingTop {
       width: 0;
@@ -4699,7 +4699,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
       display: none; }
     .navbar-nav.rup-nav-tools .rup-nav-tool-icon span {
       font-size: 1.2rem;
-      vertical-align: bottom;
+      vertical-align: middle;
       padding-left: 0.2rem; }
 
 .navbar-nav > .nav-item {
@@ -7117,6 +7117,10 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
       background: #FFFFFF; }
     .form-groupMaterial .rup-combobox ~ i.material-icons.error {
       right: 32px; }
+
+.rup-breadCrumb_logoutDiv .rup-breadCrumb_link span.material-icons {
+  vertical-align: text-bottom;
+  margin-right: .5rem; }
 
 /* BOTON DROPDOWN */
 .btn-material.rup-dropdown {
