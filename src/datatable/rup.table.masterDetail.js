@@ -127,6 +127,7 @@ function _deselectMaster(dt,ctx,idHidden){
 	$('#'+ctx.sTableId + " > tbody").append($tr);
 	ctx.seeker.search.$searchRow.hide();
 	$("#"+ctx.sTableId+'addButton_1').addClass('disabledButtonsTable');
+	DataTable.Api().select.deselect(ctx);
 }
 
 /**
