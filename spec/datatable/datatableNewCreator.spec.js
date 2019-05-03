@@ -127,7 +127,7 @@ function createDatatable1(ctx, callback) {
     }
 
     var defaults = {
-        urlBase: "http://desarrollo.jakina.ejiedes.net:7001/x21aAppWar/table",
+        urlBase: window.location.origin+"/x21aAppWar/table",
         pageLength: 9,
         fixedHeader: {
             footer: false,
@@ -228,7 +228,7 @@ function createDatatable2(callback) {
         multiSelect: {
             style: "multi"
         },
-        urlBase: "http://desarrollo.jakina.ejiedes.net:7001/x21aAppWar/table",
+        urlBase: window.location.origin+"/x21aAppWar/table",
         // serverSide: true,
         // deferLoading: 15,
         pageLength: 5,
