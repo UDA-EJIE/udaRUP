@@ -38,7 +38,9 @@
          });
 
          afterEach((done) => {
-             clearDatatable(done);
+        	 setTimeout(() => {
+            	 clearDatatable(done);
+             }, 1500); 
          });
          
        describe('Funcionamiento > ', () => {
