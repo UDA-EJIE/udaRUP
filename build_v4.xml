@@ -4,7 +4,7 @@
     
     
     <property name="udaVersion" value="4.0.0"/>
-    <property name="previousUdaVersion" value="3.7.1"/>
+    <property name="previousUdaVersion" value="3.7.2"/>
     <property name="udaLibVersion" value="4.0.0"/>
     <property name="previousUdaLibVersion" value="3.7.1"/>
     <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
@@ -434,18 +434,6 @@
 			</head><body></body></html>
 		]]>
 		</echo>
-	</target> 
-	
-	 <!-- Como las rutas son absolutas, se realizan unos replace para que sean relativas. -->
-	<target name="replaceTextHtml">
-		<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
-		               match='\\'
-		               replace='/'
-		               byline="true" flags="g"/>
-			<replaceregexp file="${udaDemoAppBaseDir}/${udaDemoAppStaticsRupDir}/html/specRunner.html"
-		               match='((src=").*(3.6.0\/rup))'
-		               replace='src="..'
-		               byline="true" flags="g"/> 
 	</target>
     
 </project>
