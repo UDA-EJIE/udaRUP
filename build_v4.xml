@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <project name="uda" default="buildVersion">
     
-    
-    
-    <property name="udaVersion" value="4.0.0"/>
+	<property name="udaVersion" value="4.0.0"/>
     <property name="previousUdaVersion" value="3.7.2"/>
     <property name="udaLibVersion" value="4.0.0"/>
     <property name="previousUdaLibVersion" value="3.7.1"/>
@@ -12,7 +10,6 @@
     
     <property name="baseDir" value="../"/>
     <property name="destDir" value="${baseDir}/dist"/>
-    
     
     <property name="udaLibBaseDir" value="${baseDir}/udaLib/x38ShLibClasses"/>
     <property name="udaLibBuildDir" value="${udaLibBaseDir}/bin"/>
@@ -57,8 +54,7 @@
     <!-- ***************************** -->
     <!-- ******** udaLib ************* -->
     <!-- ***************************** -->
-    
-    
+     
     <!-- Realiza el build de la versión de udaLib
         - Actualiza los números de versión en los recursos correspondientes.
         - Genera los jar correspondientes
@@ -74,7 +70,6 @@
             - /build.xml
             - /src/META-INF/MANIFEST.MF
     -->
-    
     <target name="udaLibRenameVersion" description="Modifica los numeros de versión de los entregables">
         <echo>Updating resources version...</echo>
         
@@ -105,7 +100,6 @@
     <!-- Genera los diferentes jar de la librería x38 -->
     <target name="udaLibDist" description="Genera los diferentes jar de x38">
         
-
         <echo>Creando distribuibles de udaLib...</echo>
         
         <echo>Eliminando ficheros existentes ...</echo>
@@ -270,7 +264,6 @@
     <!-- ******** udaDemoApp ************* -->
     <!-- ***************************** -->
     
-    
     <!-- Realiza el build y generación de distribuibles de udaDemoApp:
         - Actualiza los números de versión en los recursos de udaDemoApp
         - Copia los distribuibles de la carpeta rup dentro la la aplicación udaDemoApp
@@ -281,8 +274,7 @@
             depends="udaRupToUdaDemoApp, udaDemoAppRenameVersion" >
         
     </target>
-    
-    
+     
     <!-- Copia los distribuibles de la carpeta rup dentro la la aplicación udaDemoApp -->
     <target name="udaRupToUdaDemoApp" description="Copia los distribuibles de udaRup a la aplicación de ejemplo udaDemoApp">
         
@@ -300,7 +292,6 @@
             </fileset>
         </copy>
     </target>
-    
     
     <target name="udaDemoAppRenameVersion" description="Modifica los numeros de versión de los resources de udaDemoApp" depends="udaRupToUdaDemoApp">
         <echo>Updating resources version...</echo>
@@ -324,24 +315,17 @@
     <!-- ******** udaTemplates ************* -->
     <!-- ***************************** -->
     
-    
     <!-- Realiza el build y generación de distribuibles de udaTemplates:
         - Actualiza los números de versión en los recursos de udaTemplates
         - Copia los distribuibles de la carpeta rup dentro la la aplicación udaTemplates
         - Actualiza los rup*.inc de udaDemoApp dentro la la aplicación udaTemplates
         - Genera los ditribuibles en la carpeta dist
-    -->
-    
+    --> 
     <target name="buildUdaTemplatesVersion" 
             description="Actualiza los recursos de udaTemplates con los fuentes de udaRup recursos de udaDemoApp y con la versión correspondiente" 
             depends="udaRupToTemplates, udaTemplatesRenameVersion, udaTemplatesDist" >
         
     </target>
-    
-    
-    
-    
-    
     
     <!-- Copia los distribuibles de la carpeta rup dentro de los templates -->
     <target name="udaRupToTemplates" description="Copia los distribuibles de udaRup a los templates">
@@ -353,8 +337,7 @@
         <echo>Copiando fuentes...</echo>
         <echo>Origen: ${udaRupDestDir}/${udaRupFolder}</echo>
         <echo>Destino: ${udaTemplatesBaseDir}/${udaTemplatesRupFolder}</echo>
-        
-        
+          
         <copy todir="${udaTemplatesBaseDir}/${udaTemplatesRupFolder}">
             <fileset dir="${udaRupDestDir}/${udaRupFolder}">
                 <exclude name="css/main.css"/>
