@@ -1969,7 +1969,7 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 
 .qtip-youtube .qtip-titlebar {
   background-color: #4A4A4A;
-  background-color: transparent; }
+  background-color: rgba(0, 0, 0, 0); }
 
 .qtip-youtube .qtip-content {
   padding: .75em;
@@ -2251,15 +2251,15 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 .ui-widget textarea,
 .ui-widget button,
 .ui-widget .ui-button.rup-button,
-.ui-widget .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group
-.ui-widget .rup-dropdown-button,
+.ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
+.rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
 .ui-widget a.rup-toolbar_menuButton.ui-button,
-.ui-widget .rup-wizard a.rup-wizard_next, .rup-wizard
-.ui-widget a.rup-wizard_next,
-.ui-widget .rup-wizard a.rup-wizard_prev, .rup-wizard
-.ui-widget a.rup-wizard_prev,
-.ui-widget .rup-wizard .rup-wizard_submitButton, .rup-wizard
-.ui-widget .rup-wizard_submitButton {
+.ui-widget .rup-wizard a.rup-wizard_next,
+.rup-wizard .ui-widget a.rup-wizard_next,
+.ui-widget .rup-wizard a.rup-wizard_prev,
+.rup-wizard .ui-widget a.rup-wizard_prev,
+.ui-widget .rup-wizard .rup-wizard_submitButton,
+.rup-wizard .ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em; }
 
@@ -3726,7 +3726,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
 
-select, select.form-control, .ui-multiselect, .ui-selectmenu-dropdown, .form-control.ui-multiselect, .form-control.ui-selectmenu-dropdown, select.form-control-sm, .form-control-sm.ui-multiselect, .form-control-sm.ui-selectmenu-dropdown {
+select, select.form-control, select.form-control-sm {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -4762,7 +4762,7 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
           -moz-border-radius: 0;
           border-radius: 0; }
           .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-            background-color: #e6e6e6; }
+            background-color: #e6e5e5; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
           display: none; }
         .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::after {
@@ -6335,15 +6335,15 @@ div.dt-button-collection a.dt-button {
 div.dt-button-collection button.dt-button:active:not(.disabled), div.dt-button-collection .dt-button.ui-button.rup-button:active:not(.disabled), div.dt-button-collection .rup-dropdown-btn-group .dt-button.rup-dropdown-button:active:not(.disabled), .rup-dropdown-btn-group div.dt-button-collection .dt-button.rup-dropdown-button:active:not(.disabled), div.dt-button-collection a.dt-button.rup-toolbar_menuButton.ui-button:active:not(.disabled), div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_next:active:not(.disabled), .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_next:active:not(.disabled), div.dt-button-collection .rup-wizard a.dt-button.rup-wizard_prev:active:not(.disabled), .rup-wizard div.dt-button-collection a.dt-button.rup-wizard_prev:active:not(.disabled), div.dt-button-collection .rup-wizard .dt-button.rup-wizard_submitButton:active:not(.disabled), .rup-wizard div.dt-button-collection .dt-button.rup-wizard_submitButton:active:not(.disabled),
 div.dt-button-collection button.dt-button.active:not(.disabled),
 div.dt-button-collection .dt-button.active.ui-button.rup-button:not(.disabled),
-div.dt-button-collection .rup-dropdown-btn-group .dt-button.active.rup-dropdown-button:not(.disabled), .rup-dropdown-btn-group
-div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
+div.dt-button-collection .rup-dropdown-btn-group .dt-button.active.rup-dropdown-button:not(.disabled),
+.rup-dropdown-btn-group div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
 div.dt-button-collection a.dt-button.active.rup-toolbar_menuButton.ui-button:not(.disabled),
-div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_next:not(.disabled), .rup-wizard
-div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
-div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_prev:not(.disabled), .rup-wizard
-div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
-div.dt-button-collection .rup-wizard .dt-button.active.rup-wizard_submitButton:not(.disabled), .rup-wizard
-div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
+div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_next:not(.disabled),
+.rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
+div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_prev:not(.disabled),
+.rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
+div.dt-button-collection .rup-wizard .dt-button.active.rup-wizard_submitButton:not(.disabled),
+.rup-wizard div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
 div.dt-button-collection div.dt-button:active:not(.disabled),
 div.dt-button-collection div.dt-button.active:not(.disabled),
 div.dt-button-collection a.dt-button:active:not(.disabled),
@@ -6508,29 +6508,29 @@ ul.dtr-details .dtr-data {
     padding-left: 15px; } }
 
 @media (min-width: 768px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md,
-  .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1,
-  .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10,
-  .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11,
-  .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 992px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
-  .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
-  .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
-  .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9,
-  .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
 @media (min-width: 1200px) {
-  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7,
-  .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
-  .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7,
-  .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7,
-  .col-xs-8, .col-xs-9 {
+  .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1,
+  .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10,
+  .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11,
+  .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+  .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     padding-right: 15px;
     padding-left: 15px; } }
 
@@ -7410,7 +7410,9 @@ nav a {
 input.ui-button {
   padding: 0.2em 0.6em; }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
   font-weight: bold; }
 
 /** ICONOS **/
@@ -10507,7 +10509,9 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   height: 18px; }
 
 @media \0screen {
-  .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+  .ui-state-disabled,
+  .ui-widget-content .ui-state-disabled,
+  .ui-widget-header .ui-state-disabled {
     z-index: 0; } }
 
 /*Posicionamiento derecho de botones en la botonera*/

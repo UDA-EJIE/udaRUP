@@ -31,18 +31,14 @@
 .r01gContainer .ui-widget button,
 .r01gContainer .ui-widget .ui-button.rup-button,
 .r01gContainer .ui-widget .rup-dropdown-btn-group .rup-dropdown-button,
-.r01gContainer .rup-dropdown-btn-group
-.ui-widget .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .ui-widget .rup-dropdown-button,
 .r01gContainer .ui-widget a.rup-toolbar_menuButton.ui-button,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_next,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_next,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_next,
 .r01gContainer .ui-widget .rup-wizard a.rup-wizard_prev,
-.r01gContainer .rup-wizard
-.ui-widget a.rup-wizard_prev,
+.r01gContainer .rup-wizard .ui-widget a.rup-wizard_prev,
 .r01gContainer .ui-widget .rup-wizard .rup-wizard_submitButton,
-.r01gContainer .rup-wizard
-.ui-widget .rup-wizard_submitButton {
+.r01gContainer .rup-wizard .ui-widget .rup-wizard_submitButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
@@ -2187,13 +2183,7 @@
 
 .r01gContainer select,
 .r01gContainer select.form-control,
-.r01gContainer .ui-multiselect,
-.r01gContainer .ui-selectmenu-dropdown,
-.r01gContainer .form-control.ui-multiselect,
-.r01gContainer .form-control.ui-selectmenu-dropdown,
-.r01gContainer select.form-control-sm,
-.r01gContainer .form-control-sm.ui-multiselect,
-.r01gContainer .form-control-sm.ui-selectmenu-dropdown {
+.r01gContainer select.form-control-sm {
   font-size: 1rem;
   height: 2rem;
   padding: 0;
@@ -3707,7 +3697,7 @@
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu .dropdown-submenu .dropdown-menu {
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
   }
 
   .r01gContainer .navbar-toggleable-md .navbar-nav .nav-item .dropdown-menu::before {
@@ -5836,18 +5826,14 @@
 .r01gContainer div.dt-button-collection button.dt-button.active:not(.disabled),
 .r01gContainer div.dt-button-collection .dt-button.active.ui-button.rup-button:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-dropdown-btn-group .dt-button.active.rup-dropdown-button:not(.disabled),
-.r01gContainer .rup-dropdown-btn-group
-div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
+.r01gContainer .rup-dropdown-btn-group div.dt-button-collection .dt-button.active.rup-dropdown-button:not(.disabled),
 .r01gContainer div.dt-button-collection a.dt-button.active.rup-toolbar_menuButton.ui-button:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_next:not(.disabled),
-.r01gContainer .rup-wizard
-div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
+.r01gContainer .rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_next:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard a.dt-button.active.rup-wizard_prev:not(.disabled),
-.r01gContainer .rup-wizard
-div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
+.r01gContainer .rup-wizard div.dt-button-collection a.dt-button.active.rup-wizard_prev:not(.disabled),
 .r01gContainer div.dt-button-collection .rup-wizard .dt-button.active.rup-wizard_submitButton:not(.disabled),
-.r01gContainer .rup-wizard
-div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
+.r01gContainer .rup-wizard div.dt-button-collection .dt-button.active.rup-wizard_submitButton:not(.disabled),
 .r01gContainer div.dt-button-collection div.dt-button:active:not(.disabled),
 .r01gContainer div.dt-button-collection div.dt-button.active:not(.disabled),
 .r01gContainer div.dt-button-collection a.dt-button:active:not(.disabled),
