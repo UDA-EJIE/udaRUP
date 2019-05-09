@@ -16,7 +16,7 @@ describe('Test auditoría > ', () => {
             <input id="exampleSpinner"></input>';
         $contenido.append(html);
         // Para que realice las auditorias
-        $.rup.IS_EJIE = true;
+        $.rup.IS_EJIE = true;debugger;
         //Creamos los componentes rup sobre el html añadido.
         $('#exampleProgressbar').rup_progressbar({ value: 0 });
         $('#exampleSpinner').rup_spinner();

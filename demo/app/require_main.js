@@ -42,6 +42,7 @@ requirejs.config({
 		'qtip2': '../../node_modules/qtip2/dist/jquery.qtip',
 		'jquery.fileDownload': '../../src/core/utils/jquery.fileDownload',
 		'tether': '../../node_modules/tether/dist/js/tether',
+		'popper': '../../node_modules/popper.js/dist/umd/popper.min',
 		'rcarousel': '../../src/core/jquery.ui.rcarousel',
 
 		//"highlight": "../../node_modules/highlight.js/lib/highlight",
@@ -106,7 +107,7 @@ requirejs.config({
 			'deps': ['base'],
 		},
 		'bootstrap': {
-			'deps': ['jquery', 'tether']
+			'deps': ['jquery', 'tether', 'popper.js']
 		},
 		'bt3': {
 			'deps': ['jquery']

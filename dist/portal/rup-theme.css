@@ -5050,7 +5050,6 @@
 .r01gContainer .dataTables_wrapper {
   position: relative;
   clear: both;
-  *zoom: 1;
   zoom: 1;
   padding-left: 2px;
   padding-right: 3px;
@@ -5068,7 +5067,6 @@
 
 .r01gContainer .dataTables_wrapper {
   clear: both;
-  float: left;
   padding-top: 0.755em;
 }
 

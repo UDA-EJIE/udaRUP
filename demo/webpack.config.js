@@ -5,6 +5,9 @@
 var path = require('path');
 const webpack = require('webpack');
 
+const createBackendServer = require('../backend.js');
+createBackendServer(8081);
+
 module.exports = {
 	entry: {
 		bt4: './demo/app/main-bt4.js'
@@ -21,6 +24,17 @@ module.exports = {
 	},
 	node: {
 		fs: 'empty'
+	},
+	devServer: {
+		port: 8080,
+		proxy: {
+			'/audit': {
+				target: 'http://localhost:8081'
+			},
+			'/demo': {
+				target: 'http://localhost:8081'
+			}
+		}
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
@@ -74,7 +88,7 @@ module.exports = {
 							'../images': path.join(__dirname, '../demo/images'),
 							'./cursors': path.join(__dirname, '../assets/cursors'),
 							'../css/images/datatable': path.join(__dirname, '/images'),
-
+							'./externals/icons': 'material-icons/'
 						}
 					} // translates CSS into CommonJS
 				}, {
@@ -116,6 +130,17 @@ module.exports = {
 				use: [{
 					loader: 'url-loader'
 				}]
+			}, {
+				test: /\.(html)\??.*$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						limit: 1024,
+						name: '[name].[ext]',
+						publicPath: '/rup/html/templates/rup_calendar/',
+						outputPath: 'rup/html/templates/rup_calendar/'
+					}
+				},
 			}
 		]
 
@@ -138,34 +163,21 @@ module.exports = {
 			alias: {
 				'handlebars' : 'handlebars/dist/handlebars.js',
 				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
-				// 'jquery': 'jquery/dist/jquery.js',
 				'jquery-ui': 'jquery-ui/ui/',
 				'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-				// 'highlight': 'highlight.js/lib/highlight.js',
-
 				'jquery.fileupload': 'blueimp-file-upload/js/',
 				'load-image': 'blueimp-load-image/js/load-image.js',
 				'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
 				'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
 				'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
-				// 'jquery.scrollTo': 'jquery.scrollto/jquery.scrollTo.js',
-				// 'jquery-contextMenu': 'jquery-contextmenu/dist/jquery.contextMenu.js',
-				// 'jquery-ui-timepicker': 'src/core/ui/jquery-ui.timepicker.js',
-				// 'jquery-ui-multidatespicker': 'src/core/ui/jquery-ui.multidatespicker.js',
 				'jquery-form': 'jquery-form/jquery.form.js',
-				// 'jquery.validate': 'jquery-validation/dist/jquery.validate.js',
 				'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
-				// 'chartjs': 'chart.js/dist/Chart.js',
-				// 'jquery-jstree': 'src/core/utils/jquery.jstree.js',
-				// 'jquery-hotkeys': 'src/core/utils/jquery.hotkeys.js',
-				// 'form2object': 'src/core/utils/form2object.js',
-				// 'jquery.fileDownload': 'src/core/utils/jquery.fileDownload.js',
 				'jquery.ui.widget': 'jquery-ui/widget.js',
 				'tmpl': 'blueimp-tmpl/js/tmpl.js',
-
-				'bt4':  path.resolve(__dirname, '../dist/js/externals/bootstrap/bt4.min.js'),
-				'tether':  'tether/dist/js/tether.js',
-
+				'tether': 'tether/dist/js/tether.js',
+				'popper': 'popper.js/dist/umd/popper.js',
+				'calendar': 'bootstrap-calendar',
+				'material-icons': 'material-design-icons/iconfont/'
 				// 'templates':  path.resolve(__dirname, 'templates.js')
 			}
 
