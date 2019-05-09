@@ -1,4 +1,4 @@
-const DIST = "/x21aStatics/3x/rup";
+const DIST = "/"+window.location.pathname.substring(1,window.location.pathname.indexOf('/rup/')+4);
 const DEMO = "/demo";
 
 function testTrace(title, toTrace) {
