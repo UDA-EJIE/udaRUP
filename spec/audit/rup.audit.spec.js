@@ -2,6 +2,7 @@ import 'jquery';
 import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.progressbar';
+import 'rup.spinner';
 
 describe('Test auditoría > ', () => {
     var $contenido;
@@ -16,7 +17,7 @@ describe('Test auditoría > ', () => {
             <input id="exampleSpinner"></input>';
         $contenido.append(html);
         // Para que realice las auditorias
-        $.rup.IS_EJIE = true;debugger;
+        $.rup.IS_EJIE = true;
         //Creamos los componentes rup sobre el html añadido.
         $('#exampleProgressbar').rup_progressbar({ value: 0 });
         $('#exampleSpinner').rup_spinner();
