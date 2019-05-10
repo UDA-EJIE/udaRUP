@@ -167,15 +167,15 @@
 									});
 								}).mouseover(
 								function () {
-									$(this).find('i.material-icons')[0].innerHTML = "&#xe897;";
+									$(this).find('i.mdi').removeClass('mdi-lock-open').addClass("mdi-lock");
 								}).mouseleave(
 								function () {
-									$(this).find('i.material-icons')[0].innerHTML = "&#xe898;";
+									$(this).find('i.mdi').removeClass('mdi-lock').addClass("mdi-lock-open");
 								})
 								.html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.disconnect'))
 								.attr('id', 'logOutLink')
 								.prepend(
-										$('<span>').addClass('material-icons').append('<i class="material-icons" aria-hidden="true">&#xe898;</i>')
+										$('<i class="mdi mdi-lock-open" aria-hidden="true"></i>')
 								)
 							)
 						);

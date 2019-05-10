@@ -21,7 +21,7 @@ this["Rup"]["Templates"]["rup"]["button"]["dropdownButton"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" class=\""
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
-    + "\" type=\"button\">\r\n  <i class=\"material-icons\" aria-hidden=\"true\">&#xe5c5;</i>\r\n</button>";
+    + "\" type=\"button\">\r\n  <i class=\"mdi mdi-menu-down\" aria-hidden=\"true\"></i>\r\n</button>";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["button"]["mbutton-container"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -134,9 +134,9 @@ this["Rup"]["Templates"]["rup"]["datatable"]["detail"]["navigation"]["material"]
 
   return "<div id=\"pagination_"
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-info\">\r\n	<i class=\"material-icons\" aria-hidden=\"true\" title=\""
+    + "\" class=\"rup-table-detail-info\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
-    + "\">&#xe8ef;</i>\r\n  	<span id=\"rup_table_selectedElements_"
+    + "\"></i>\r\n  	<span id=\"rup_table_selectedElements_"
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-currentElement\" >\r\n    	"
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))

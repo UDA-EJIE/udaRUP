@@ -324,8 +324,8 @@ de la aplicación pueda cerrar la capa manualmente.
 			element.css('visibility', 'visible');
 			
 			// Se comprueba si ya esta el icono material
-			if($('.material-icons',element).length === 0) {
-				element.prepend('<i class=\'material-icons\'>');
+			if($('.mdi',element).length === 0) {
+				element.prepend('<i class=\'mdi\'>');
 			}
 			
 			// Se aplica el tooltip
