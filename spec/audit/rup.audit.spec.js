@@ -2,6 +2,7 @@ import 'jquery';
 import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.progressbar';
+import 'rup.spinner';
 
 describe('Test auditoría > ', () => {
     var $contenido;
