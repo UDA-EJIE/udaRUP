@@ -332,7 +332,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 						'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
 						'text':'text/plain','xml':'application/xml, text/xml'},
 					type : 'GET',
-					data : row,
+					data : [],
 					dataType : 'json',
 					showLoading : false,
 					contentType : 'application/json',
@@ -543,7 +543,15 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					ctx.json.rows.pop();
 					ctx.json.rows.splice(0,0,row);
 					//Se guardan los datos para pasar de nuevo a editable.
-					ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
+					if(ctx.oInit.formEdit.saveContinueEdit){
+						ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
+						DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT');
+					}else{//mantener y borrar
+						var idForm = ctx.oInit.formEdit.idForm;
+						idForm.resetForm();
+						jQuery('.ui-selectmenu-status',idForm).text('--');
+						jQuery('[ruptype=\'combo\']',idForm).rup_combo('clear');
+					}
 					ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
 					if(ctx.oInit.multiSelect !== undefined){
 						ctx.multiselection.internalFeedback.type = "noBorrar";
