@@ -92,6 +92,14 @@ gulp.task('build:resources', function (callback) {
 		.pipe(gulp.dest('./dist/css/externals/icons'))
 		.pipe(gulp.dest('./dist/portal/externals/icons'));
 	
+	// font-awesome (deprecado - sera eliminado en UDA v5.0.0)
+	console.log('font-awesome (deprecado - sera eliminado en UDA v5.0.0)');
+	gulp.src('./node_modules/font-awesome/fonts/*.*')
+		.pipe(gulp.dest('dist/css/externals/fonts'))
+		.pipe(gulp.dest('dist/portal/externals/fonts'));
+	gulp.src(['./node_modules/font-awesome/css/font-awesome.min.css', './node_modules/font-awesome/css/font-awesome.css.map'])
+		.pipe(gulp.dest('./dist/css/externals/font-awesome'));
+	
 	// tether
 	console.log('tether');
 	gulp.src(['./node_modules/tether/dist/css/tether\.*'])
