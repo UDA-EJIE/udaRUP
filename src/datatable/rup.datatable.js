@@ -191,9 +191,9 @@
 			
 			apiRegister( 'rupTable.reorderDataFromServer()', function ( json,ctx ) {
 				//Se mira la nueva reordenacion y se ordena.
-
 				ctx.multiselection.selectedIds = [];
 				ctx.multiselection.selectedRowsPerPage = [];
+				
 				//Viene del servidor por eso la linea de la pagina es 1 menos.
 				$.each(json.reorderedSelection,function(index,p) {
 					var arra = {id:DataTable.Api().rupTable.getIdPk(p.pk),page:p.page,line:p.pageLine-1};
@@ -203,11 +203,13 @@
 				if(!ctx.multiselection.selectedAll){
 					ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
 				}
+				
 				// Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
 				if(options.buttons !== undefined && ctx._buttons !== undefined){
 					ctx._buttons[0].inst.s.disableAllButttons = undefined;
 					DataTable.Api().buttons.displayRegex(ctx);
 				}
+				$('#'+ctx.sTableId).triggerHandler('tableAfterReorderData');
 			} );
 			
 			apiRegister( 'rupTable.getIdPk()', function ( json, optionsParam ) {

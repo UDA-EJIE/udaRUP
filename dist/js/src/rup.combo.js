@@ -579,6 +579,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					source, setRupValue, wasInited = false;
 
 				$('#' + settings.id).removeClass('inited') && (wasInited = !!1)
+				//Vaciar combo, quitarle valor y deshabilitar
+				$('#' + settings.id).rup_combo('disableChild');
 
 				if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
 					//LOCAL
@@ -627,8 +629,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					multiChange(settings);
 					wasInited && $('#' + settings.id).addClass('inited');
 				} else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
-					//Vaciar combo, quitarle valor y deshabilitar
-					$('#' + settings.id).rup_combo('disableChild');
 					//REMOTO
 					var data = this._getParentsValues(settings.parent, true),
 						rupCombo = this;
@@ -686,8 +686,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 					//delete rupCombo;
 				} else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
-					//Vaciar combo, quitarle valor y deshabilitar
-					$('#' + settings.id).rup_combo('disableChild');
 					//Se lanza la funcion que obtiene los valores a mostrar
 					$('#' + settings.id).removeClass('inited');
 					jQuery(settings.source);
