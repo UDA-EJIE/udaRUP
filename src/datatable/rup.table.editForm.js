@@ -1206,8 +1206,8 @@ function _comprobarSeeker(row,ctx,idRow){
 			});
 		// se borra el icono
 		
-		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox span.ui-icon-search').remove();
-		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td span.ui-icon-search').remove();
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox i.filtered-row').remove();
+		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td i.filtered-row').remove();
 		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
 	}
 }

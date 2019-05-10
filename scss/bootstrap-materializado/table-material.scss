@@ -35,8 +35,10 @@ table.table-material {
 	}
 	
 	/* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */
-	i.material-icons {
+	i.mdi {
 		font-weight: bold;
+		vertical-align: middle;
+		font-size: 1.35rem;
 	}
 }
 

@@ -1030,7 +1030,7 @@ function deselectAllPage(dt){
 	$('#'+$(remainingDeselectButton)[0].id).on('click', function (event) {
 		deselectAll(dt);
 	});
-	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+	$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
 
 }
 
@@ -1084,7 +1084,7 @@ function deselectAll(dt){
 	$self._initializeMultiselectionProps(ctx);
 
 	ctx.multiselection.accion = "uncheckAll";
-	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+	$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
 	dt['rows']().deselect();
 
 }

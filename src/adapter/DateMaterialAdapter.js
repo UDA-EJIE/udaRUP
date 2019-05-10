@@ -21,7 +21,7 @@
 
 	DateMaterialAdapter.prototype.initIconTrigger = function (settings) {
 		//Imagen del calendario
-		settings.buttonText = '<i class="material-icons" aria-hidden="true">&#xe8df;</i>';
+		settings.buttonText = '<i class="mdi mdi-calendar-today" aria-hidden="true"></i>';
 		//Atributos NO MODIFICABLES
 		//La imagen no debe ser un botón
 		settings.buttonImageOnly = false;

@@ -22,12 +22,12 @@ div.rup-date-input-group-material {
 		&:focus {
 			background-color: $primary-color;
 			
-			i {
+			i.mdi {
 				color: $white-color;
 			}
 		}
 		
-		i {
+		i.mdi {
 			vertical-align: initial;
 		}
 	}

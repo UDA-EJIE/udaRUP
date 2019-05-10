@@ -24,22 +24,22 @@
 			operations: {
 				defaultOperations: {
 					'add': {
-						icon: '&#xe145;'
+						icon: 'mdi-plus'
 					},
 					'edit': {
-						icon: '&#xe3c9;'
+						icon: 'mdi-pencil'
 					},
 					'clone': {
-						icon: '&#xe14d;'
+						icon: 'mdi-content-duplicate'
 					},
 					'delete': {
-						icon: '&#xe872;'
+						icon: 'mdi-delete'
 					},
 					'reports': {
-						icon: '&#xe24d;'
+						icon: 'mdi-file-export'
 					},
 					'copyButton': {
-						icon: '&#xe85d;'
+						icon: 'mdi-content-paste'
 					}
 				}
 			}
@@ -106,32 +106,28 @@
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.primPag'),
-					icon: '&#xe020;'
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.primPag')
 				}))
-				.addClass('material-icons')
+				.addClass('mdi mdi-rewind')
 				.removeClass('ui-pg-button');
 
 			jQuery('#prev_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.anterior'),
-					icon: '&#xe314;'
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.anterior')
 				}))
-				.addClass('material-icons')
+				.addClass('mdi mdi-menu-left')
 				.removeClass('ui-pg-button');
 			jQuery('#next_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.siguiente'),
-					icon: '&#xe315;'
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.siguiente')
 				}))
-				.addClass('material-icons')
+				.addClass('mdi mdi-menu-right')
 				.removeClass('ui-pg-button');
 			jQuery('#last_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.ultiPag'),
-					icon: '&#xe01f;'
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.ultiPag')
 				}))
-				.addClass('material-icons')
+				.addClass('mdi mdi-fast-forward')
 				.removeClass('ui-pg-button');
 		}
 	};
@@ -223,7 +219,7 @@
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="material-icons" aria-hidden="true">&#xe152;</i>'
+				title : '<i class="mdi mdi-filter-variant" aria-hidden="true"></i>'
 			}
 		}
 

@@ -252,6 +252,7 @@ $btn-material-box-shadow-active:
 	font-size: .9rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	font-weight: 400;
 	letter-spacing: initial;
+	line-height: 1;
 	text-decoration: none;
 	text-transform: uppercase;
 	box-sizing: border-box;
@@ -280,9 +281,10 @@ $btn-material-box-shadow-active:
 		vertical-align: middle;
 	}
 
-	/* AJUSTE DE MARGEN DEL ICONO */
-	> i {
-		margin-right: .3rem
+	/* AJUSTE DE TAMAÑO Y MARGEN DEL ICONO */
+	> i.mdi {
+		margin-right: .3rem;
+		font-size: 1.5rem;
 	}
 }
 
@@ -291,6 +293,11 @@ $btn-material-box-shadow-active:
 	height: 26px;
 	font-size: 0.85rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	padding: 6px 8px;
+	
+	/* AJUSTE DE TAMAÑO DEL ICONO */
+	> i.mdi {
+		font-size: 1.15rem;
+	}
 }
 
 /* ESTILOS PARA CREAR BOTONES MAS GRANDES */
@@ -298,4 +305,9 @@ $btn-material-box-shadow-active:
 	font-size: 1rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	height: 34px;
 	padding: 6px 13px;
+	
+	/* AJUSTE DE TAMAÑO DEL ICONO */
+	> i.mdi {
+		font-size: 1.6rem;
+	}
 }

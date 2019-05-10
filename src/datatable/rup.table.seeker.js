@@ -365,8 +365,8 @@ function _createSearchRow (dt,ctx){
 */
 function _selectSearch(dt,ctx,rows){
 	//Se limina el lapicero indicador.
-	$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-search').remove();
-	$('#'+ctx.sTableId+' tbody tr td span.ui-icon-search').remove();
+	$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.filtered-row').remove();
+	$('#'+ctx.sTableId+' tbody tr td i.filtered-row').remove();
 
 	//se añade el span con la lupa
 	if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
@@ -381,9 +381,9 @@ function _selectSearch(dt,ctx,rows){
 				return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
 			});
 			if(result.length === 1){
-				var spanSearch = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-search filtered-row');
+				var searchIcon = $("<i/>").addClass('mdi mdi-table-search ui-icon-rupInfoCol filtered-row');
 
-				$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(spanSearch);
+				$($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(searchIcon);
 
 			}
 		});

@@ -1,5 +1,5 @@
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
-i.material-icons.error {
+i.mdi.error {
 	color: $validation-error-color-light;
 }
 
@@ -63,7 +63,7 @@ i.material-icons.error {
 			color: $validation-error-color-light;
 		}
 		
-		i.material-icons.error {
+		i.mdi.error {
 			position: absolute;
 			top: 4px;
 			right: 10px;
@@ -82,7 +82,7 @@ i.material-icons.error {
 		textarea {
 			padding-right: 35px;
 			
-			~ i.material-icons.error {
+			~ i.mdi.error {
 				top: 7px;
 				right: 25px;
 			}

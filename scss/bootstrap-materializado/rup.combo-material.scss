@@ -102,7 +102,7 @@ a.select-material {
 		&[class*="col-"] {		
 			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
 			&.rup-validate-field-error {			
-				select ~ i.material-icons.error {
+				select ~ i.mdi.error {
 					right: 15px;
 				}
 			}
@@ -131,7 +131,7 @@ a.select-material {
 		&[class*="col-"] {
 			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
 			&.rup-validate-field-error {
-				select ~ i.material-icons.error {
+				select ~ i.mdi.error {
 					right: 25px;
 				}
 			}

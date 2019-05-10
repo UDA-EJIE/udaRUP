@@ -355,8 +355,8 @@
          */
 		_createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
 			self.prev("div")
-				.append('<i class="material-icons float-right pointer" aria-hidden="true">&#xe5cd;</i>')
-				.on('click', 'i.material-icons', function (event) {
+				.append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
+				.on('click', 'i.mdi', function (event) {
 					self.dialog('close');
 					return false;
 				});
@@ -376,19 +376,19 @@
 			
 			switch(css){
 				case 'error':
-					icon = '<i class="material-icons" aria-hidden="true">&#xe000;</i>';
+					icon = '<i class="mdi mdi-alert-circle" aria-hidden="true"></i>';
 					break;
 				case 'confirm':
-					icon = '<i class="material-icons" aria-hidden="true">&#xe002;</i>';
+					icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
 					break;
 				case 'ok':
-					icon = '<i class="material-icons" aria-hidden="true">&#xe86c;</i>';
+					icon = '<i class="mdi mdi-check-circle" aria-hidden="true"></i>';
 					break;
 				case 'alert':
-					icon = '<i class="material-icons" aria-hidden="true">&#xe87f;</i>';
+					icon = '<i class="mdi mdi-message-alert" aria-hidden="true"></i>';
 					break;
 				default:
-					icon = '<i class="material-icons" aria-hidden="true">&#xe002;</i>';
+					icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
 			}
 			
 			var divMessageIcon = $('<div>').attr('id', 'rup_msgDIV_msg_icon').addClass('col-2').append(icon),

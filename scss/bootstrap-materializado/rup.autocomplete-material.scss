@@ -12,12 +12,12 @@
 					left: 30px;
 				}
 				
-				~ i.material-icons.error {
+				~ i.mdi.error {
 					right: 26px;
 				}
 			}
 			
-			.rup-combobox ~ i.material-icons.error {
+			.rup-combobox ~ i.mdi.error {
 				right: 42px;
 			}
 		}
@@ -34,12 +34,12 @@
 					left: 20px;
 				}
 				
-				~ i.material-icons.error {
+				~ i.mdi.error {
 					right: 16px;
 				}
 			}
 			
-			.rup-combobox ~ i.material-icons.error {
+			.rup-combobox ~ i.mdi.error {
 				right: 32px;
 			}
 		}
@@ -88,7 +88,7 @@
 			background: $white-color;
 		}
 		
-		~ i.material-icons.error {
+		~ i.mdi.error {
 			right: 32px;
 		}
 	}

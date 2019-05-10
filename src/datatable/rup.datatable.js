@@ -181,10 +181,10 @@
 			
 			DataTable.Api.register( 'rupTable.selectPencil()', function ( ctx,idRow ) {
 				//Se elimina el lapicero indicador.
-				$('#'+ctx.sTableId+' tbody tr td.select-checkbox span.ui-icon-pencil').remove();
+				$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
 				//se añade el span con el lapicero
 				if(idRow >= 0){
-					var spanPencil = $("<span/>").addClass('ui-icon ui-icon-rupInfoCol ui-icon-pencil selected-pencil');
+					var spanPencil = $("<i/>").addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
 					$($('#'+ctx.sTableId+' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
 				}
 			} );
@@ -411,11 +411,11 @@
 				
 				if(e.getAttribute('data-col-type') === 'Checkbox'){
 					options.columnDefs.push({targets:i,data: "",render: function (data, visibility, object, colRows ) {
-						var iconCheck = '&#xe5cd;';
+						var iconCheck = 'mdi-close';
 						if(data === '1'){
-							iconCheck = '&#xe5ca;';
+							iconCheck = 'mdi-check';
 						}
-				    return '<div class="d-flex"><i class="material-icons mx-auto">' + iconCheck + '</i></div>';
+				    return '<div class="d-flex"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
 			    }});
 				}
 				return {
@@ -587,25 +587,25 @@
 			}
 			
 			// Añade iconos para versiones moviles/tablets
-			$("<i class='material-icons d-sm-none'>&#xe5dc;</i>")
+			$("<i class='mdi mdi-page-first d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_first')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='material-icons d-sm-none'>&#xe314;</i>")
+			$("<i class='mdi mdi-arrow-left d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_previous')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='material-icons d-sm-none'>&#xe315;</i>")
+			$("<i class='mdi mdi-arrow-right d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_next')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='material-icons d-sm-none'>&#xe5dd;</i>")
+			$("<i class='mdi mdi-page-last d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_last')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')

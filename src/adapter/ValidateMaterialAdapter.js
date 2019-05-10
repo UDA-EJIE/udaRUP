@@ -51,7 +51,7 @@
 	function clearValidation(element) {
 		if ($(element).parent().hasClass('rup-validate-field-error')) {
 			$(element).parent().removeClass('rup-validate-field-error');
-			$(element).parent().find('i.material-icons').remove();
+			$(element).parent().find('i.mdi').remove();
 			$(element).parent().find('span.error').remove();
 		}
 	}
@@ -63,7 +63,7 @@
 
 		var name = element.prop('name'),
 			$container = element.parent();
-			$icon = $('<i class="material-icons error" aria-hidden="true">&#xe5cd;</i>');
+			$icon = $('<i class="mdi mdi-close error" aria-hidden="true"></i>');
 			
 		// Posicionamiento del label e icon
 		$container

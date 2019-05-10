@@ -489,8 +489,8 @@
 							$self.data('uiDialog').uiDialog.addClass('rup-dialog');
 
 							$self.prev("div")
-								.append('<i id="' + settings.id + '_close" class="material-icons float-right pointer" aria-hidden="true">&#xe5cd;</i>')
-								.on('click', 'i.material-icons', function (event) {
+								.append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
+								.on('click', 'i.mdi', function (event) {
 									$self.dialog('close');
 									return false;
 								});

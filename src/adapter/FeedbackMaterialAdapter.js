@@ -24,7 +24,7 @@
 	};
 
 	FeedbackMaterialAdapter.prototype.closeIcon = function () {
-		return '<i class="material-icons">&#xe5cd;</i>';
+		return '<i class="mdi mdi-close"></i>';
 	};
 	
 	FeedbackMaterialAdapter.prototype.containerClass = function () {
@@ -34,11 +34,11 @@
 	FeedbackMaterialAdapter.prototype.feedbackIcon = function (type) {
 		switch(type) {
 			case 'alert':
-				return '<i class="material-icons">&#xe002;</i>'
+				return '<i class="mdi mdi-alert"></i>'
 			case 'error':
-				return '<i class="material-icons">&#xe001;</i>'
+				return '<i class="mdi mdi-alert-circle-outline"></i>'
 			default:
-				return '<i class="material-icons">&#xe86c;</i>'
+				return '<i class="mdi mdi-check-circle"></i>'
 		}
 	};
 

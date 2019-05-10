@@ -3345,7 +3345,7 @@ var _initButtons = function(ctx,opts){
 		if (this.conf.icon !== undefined) {
 			// Establece el icono de los botones
 			if($(this.node).find('i').length === 0){
-				$('#' + this.conf.id).prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+				$('#' + this.conf.id).prepend('<i class="mdi ' + this.conf.icon + '" aria-hidden="true"></i>');
 			}
 
 			// Comprueba si tiene botones hijos
@@ -3359,7 +3359,7 @@ var _initButtons = function(ctx,opts){
 						
 						// Establece el icono de los botones hijos
 						if($(this.node).find('i').length === 0){
-							selectorCollection.prepend('<i class="material-icons" aria-hidden="true">' + this.conf.icon + '</i>');
+							selectorCollection.prepend('<i class="mdi ' + this.conf.icon + '" aria-hidden="true"></i>');
 						}
 
 						that.removeEventListener('click', eventHandler);
