@@ -86,9 +86,9 @@ gulp.task('build:resources', function (callback) {
 	gulp.src(['./node_modules/bootstrap/dist/js/*bundle*.*'])
 		.pipe(gulp.dest('./dist/js/externals/bootstrap'));
 	
-	// material-design-icons
-	console.log('material-design-icons');
-	gulp.src(['./node_modules/material-design-icons/iconfont/MaterialIcons-*.*'])
+	// @mdi/font (fuente iconos material)
+	console.log('@mdi/font (fuente iconos material)');
+	gulp.src(['./node_modules/@mdi/font/fonts/materialdesignicons-*.*'])
 		.pipe(gulp.dest('./dist/css/externals/icons'))
 		.pipe(gulp.dest('./dist/portal/externals/icons'));
 	
