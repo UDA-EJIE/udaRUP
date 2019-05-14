@@ -138,7 +138,7 @@ function preConfigureMultifilter(ctx) {
 *
 * @name postConfigureMultifilter
 * @function
-* @fires module:rup_table#rupTable_multifilter_fillForm
+* @fires module:rup_jqtable#rupTable_multifilter_fillForm
 * @param {object} settings - Parámetros de configuración del componente.
 */
 function postConfigureMultifilter (ctx) {
@@ -155,12 +155,12 @@ function postConfigureMultifilter (ctx) {
 				dropdownIcon : dropdownButtonConfig.dropdownIcon,
 				dropdownDialog : settings.multiFilter.dropdownDialogId,
 				dropdownDialogConfig : {
-					title : dropdownButtonConfig.dropdownDialogConfig.title + $.rup.i18n.base.rup_table.plugins.multifilter.tittle,
+					title : dropdownButtonConfig.dropdownDialogConfig.title + $.rup.i18n.base.rup_jqtable.plugins.multifilter.tittle,
 					width : '450px',
 					buttons : [
 						{
 							id : ctx.sTableId+ '_multifilter_BtnSave',
-							text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
+							text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.save,
 							click : function() {
 	
 								if (_checkLabel(ctx)) {
@@ -170,7 +170,7 @@ function postConfigureMultifilter (ctx) {
 	
 									var bfr = _validForm(ctx);
 									if (bfr === false || bfr === 'stop') {
-										settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.errorValidate,'error');
+										settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.errorValidate,'error');
 										return; }
 	
 	
@@ -186,7 +186,7 @@ function postConfigureMultifilter (ctx) {
 						},
 						{
 							id : ctx.sTableId+ '_multifilter_BtnApply',
-							text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
+							text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.apply,
 							click : function() {
 	
 								//Deshabilitar el nombre del filtro en el filterSummary una vez que ha terminado el filtro por defecto
@@ -220,7 +220,7 @@ function postConfigureMultifilter (ctx) {
 	
 	
 									else{
-										settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.errorNoexiste,'error');
+										settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.errorNoexiste,'error');
 	
 									}
 	
@@ -230,7 +230,7 @@ function postConfigureMultifilter (ctx) {
 						},
 						{
 							id : ctx.sTableId+ '_multifilter_BtnRemove',
-							text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
+							text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.remove,
 							click : function() {
 	
 	
@@ -247,7 +247,7 @@ function postConfigureMultifilter (ctx) {
 							}
 						},
 						{
-							text : $.rup.i18n.base.rup_table.plugins.multifilter.cancel,
+							text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.cancel,
 							click : function() {
 	
 								var filtroAnterior= settings.multiFilter.filtroAnterior;
@@ -371,7 +371,7 @@ function postConfigureMultifilter (ctx) {
 		contentType : 'application/json',
 		async : false,
 		success : function(data, status, xhr) {
-			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.ok,'ok');
+			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.ok,'ok');
 			settings.multiFilter.$combo.rup_autocomplete('set','', '');
 			settings.multiFilter.$comboLabel.data('tmp.loadObjects.term',null);
 			settings.multiFilter.$comboLabel.data('loadObjects', {});
@@ -383,7 +383,7 @@ function postConfigureMultifilter (ctx) {
 			}
 
 			if (data.filterFeedback == 'no_records') {
-				settings.multiFilter.$feedback.rup_feedback('set',	$.rup.i18n.base.rup_table.plugins.multifilter.noRecords,'error');
+				settings.multiFilter.$feedback.rup_feedback('set',	$.rup.i18n.base.rup_jqtable.plugins.multifilter.noRecords,'error');
 
 			}
 			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessDeleteFilter');
@@ -392,7 +392,7 @@ function postConfigureMultifilter (ctx) {
 			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteDeleteFilter');
 		},
 		error : function(xhr, ajaxOptions,	thrownError) {
-			settings.multiFilter.$feedback.rup_feedback(	'set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
+			settings.multiFilter.$feedback.rup_feedback(	'set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.error,'error');
 			$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorDeleteFilter');
 		}
 	});
@@ -403,9 +403,9 @@ function postConfigureMultifilter (ctx) {
  *
  * @function  addFilter
 	 * @param {object} filter - Objeto json con la información del filtro a añadir.
-	 * @fires module:rup_table#rupTable_multifilter_beforeAdd
+	 * @fires module:rup_jqtable#rupTable_multifilter_beforeAdd
  * @example
- * $("#idComponente").rup_table("addFilter", filter);
+ * $("#idComponente").rup_jqtable("addFilter", filter);
  */
 function _addFilter (filter,ctx) {
 	var settings = ctx.oInit;
@@ -431,7 +431,7 @@ function _addFilter (filter,ctx) {
 				settings.multiFilter.$savedFilterName=data.filterName;
 				settings.multiFilter.$savedFilterValue=data.filterValue;
 
-				settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.ok,'ok');
+				settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.ok,'ok');
 
 
 				settings.multiFilter.$comboLabel.data('tmp.loadObjects.term',null);
@@ -448,7 +448,7 @@ function _addFilter (filter,ctx) {
 				$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteAddFilter');
 			},
 			error : function(xhr, ajaxOptions,thrownError) {
-				settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
+				settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.error,'error');
 				$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorAddFilter');
 			}
 		});
@@ -537,10 +537,10 @@ function _checkLabel (ctx) {
 
 		if ($.trim(settings.multiFilter.$comboLabel.val()) === '') {
 
-			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.emptyName,'error');
+			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.emptyName,'error');
 			return false;
 		} else if (settings.multiFilter.$comboLabel.val().length > settings.multiFilter.labelSize) {
-			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.tooLong,	'error');
+			settings.multiFilter.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.tooLong,	'error');
 
 			return false;
 		}
@@ -654,7 +654,7 @@ function _configCombo (ctx){
 
 		settings.multiFilter.$comboLabel.off('blur click');
 
-		settings.multiFilter.$comboLabel.attr('placeholder',$.rup.i18n.base.rup_table.plugins.multifilter.input);
+		settings.multiFilter.$comboLabel.attr('placeholder',$.rup.i18n.base.rup_jqtable.plugins.multifilter.input);
 
 		settings.multiFilter.$comboLabel.on('blur',function(event) {
 
@@ -740,7 +740,7 @@ function _configCombo (ctx){
 	 * @param {object} settings - Propiedades de configuración del componente.
 	 * @return {object} - Objeto jQuery con el contenido html de la template.
  * @example
- * $("#idComponente").rup_table("getMultifilterDialogTemplate", settings);
+ * $("#idComponente").rup_jqtable("getMultifilterDialogTemplate", settings);
  */
 function getMultifilterDialogTemplate(ctx) {
 		var settings = ctx.oInit;
@@ -763,7 +763,7 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '<label for="'
 				+ ctx.sTableId
 				+ '_multifilter_combo" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
-				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.filters
 				+ '</label>'
 				+ '</div>'
 				+ '</div>'
@@ -777,7 +777,7 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '<label for="'
 				+ ctx.sTableId
 				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
-				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.defaultFilter
 				+ '</label>'
 				+ '</div>'
 				+ '</form>'
@@ -792,7 +792,7 @@ function getMultifilterDialogTemplate(ctx) {
  * @function  configureMultifilter
 	 * @param {object} settings - Propiedades de configuración del componente.
  * @example
- * $("#idComponente").rup_table("configureMultifilter", settings);
+ * $("#idComponente").rup_jqtable("configureMultifilter", settings);
  */
 function configureMultifilter (ctx) {
 		var settings = ctx.oInit;

@@ -25018,6 +25018,7 @@
 .r01gContainer div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i.mdi,
 .r01gContainer .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i.mdi {
   vertical-align: initial;
+  line-height: 1;
 }
 
 .r01gContainer div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ button,
@@ -25219,7 +25220,7 @@
 
 .r01gContainer .form-groupMaterial.rup-validate-field-error i.mdi.error {
   position: absolute;
-  top: 4px;
+  top: 1px;
   right: 10px;
   font-size: 1.3rem;
   font-style: normal;
@@ -28860,11 +28861,21 @@
 }
 
 @media (max-width: 575px) {
-  .r01gContainer .rup_tableEdit_buttonsContainerResposive {
+  .r01gContainer .rup_jqtableEdit_buttonsContainerResposive {
     float: none !important;
   }
 
-  .r01gContainer .rup_tableEdit_buttonsResposive {
+  .r01gContainer .rup_jqtableEdit_buttonsResposive {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .r01gContainer .rup_datatableEdit_buttonsContainerResposive {
+    float: none !important;
+  }
+
+  .r01gContainer .rup_datatableEdit_buttonsResposive {
     width: 100%;
   }
 }

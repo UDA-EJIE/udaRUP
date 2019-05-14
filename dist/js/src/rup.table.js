@@ -12496,7 +12496,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
  *
  * @summary Componente RUP Table.
- * @module rup_table
+ * @module rup_jqtable
  * @see El componente está basado en el plugin {@link http://www.trirand.com/blog/|jQuery Grid Plugin – jqGrid}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://www.trirand.com/jqgridwiki/doku.php|aquí}.
  * @example
  *
@@ -12523,7 +12523,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  *		primaryKey: "id"
  *	};
  *
- * $("#table").rup_table(properties);
+ * $("#table").rup_jqtable(properties);
  */
 
 /*global jQuery */
@@ -12534,21 +12534,21 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//*****************************************************************************************************************
 	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
 	//*****************************************************************************************************************
-	var rup_table = {};
-	rup_table.plugins = [];
+	var rup_jqtable = {};
+	rup_jqtable.plugins = [];
 
-	jQuery.rup_table = jQuery.rup_table || {};
-	jQuery.extend(jQuery.rup_table, {
+	jQuery.rup_jqtable = jQuery.rup_jqtable || {};
+	jQuery.extend(jQuery.rup_jqtable, {
 		registerPlugin: function (name, settings) {
-			if (jQuery.inArray(name, rup_table.plugins) === -1) {
-				rup_table.plugins.push(name);
-				rup_table.plugins[name] = settings;
+			if (jQuery.inArray(name, rup_jqtable.plugins) === -1) {
+				rup_jqtable.plugins.push(name);
+				rup_jqtable.plugins[name] = settings;
 			}
 		}
 	});
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	jQuery.extend(jQuery.rup.iniRup, jQuery.rup.rupSelectorObjectConstructor('rup_table', rup_table));
+	jQuery.extend(jQuery.rup.iniRup, jQuery.rup.rupSelectorObjectConstructor('rup_jqtable', rup_jqtable));
 
 	$.fn.fmatter.rup_combo = function (cellval, opts, rwd, act) {
 
@@ -12783,7 +12783,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 
-	jQuery.extend(jQuery.rup_table, {
+	jQuery.extend(jQuery.rup_jqtable, {
 		proxyAjax: function (ajaxOptions, identifier) {
 			jQuery.rup_ajax(ajaxOptions);
 		}
@@ -12792,7 +12792,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/* ******************************
    * FUNCIONES DE CONFIGURACION
    * ******************************/
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Metodo que realiza la pre-configuración del core del componente RUP Table.
      * Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
@@ -12800,9 +12800,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name preConfigureCore
      * @function
      * @param {object} settings - Parámetros de configuración del componente.
-     * @fires module:rup_table#rupTable_checkOutOfGrid
-     * @fires module:rup_table#rupTable_serializeGridData
-     * @fires module:rup_table#rupTable_beforeProcessing
+     * @fires module:rup_jqtable#rupTable_checkOutOfGrid
+     * @fires module:rup_jqtable#rupTable_serializeGridData
+     * @fires module:rup_jqtable#rupTable_beforeProcessing
      */
 		preConfigureCore: function (settings) {
 			var $self = this,
@@ -12833,7 +12833,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			});
 
 			/*
-       * Configuración de los identificadores por defecto de los componentes del rup_table
+       * Configuración de los identificadores por defecto de los componentes del rup_jqtable
        */
 			if (settings.pager !== false) {
 				settings.pager = $.rup_utils.getJQueryId(settings.pager !== null ? settings.pager : settings.id + '_pager');
@@ -12965,7 +12965,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.serializeGridData = function (postData) {
 				var newPostData,
 					pageNum = parseInt(postData.page),
-					lastpage = parseInt($self.rup_table('getGridParam', 'lastpage'));
+					lastpage = parseInt($self.rup_jqtable('getGridParam', 'lastpage'));
 
 				if (lastpage !== 0 && pageNum > lastpage) {
 					postData.page = lastpage;
@@ -13050,18 +13050,18 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.getActiveRowId = function () {
 				var $self = this;
 
-				return $self.rup_table('getGridParam', 'selrow');
+				return $self.rup_jqtable('getGridParam', 'selrow');
 			};
 
 			settings.getSelectedRows = function () {
 				var $self = this,
-					selrow = $self.rup_table('getGridParam', 'selrow');
+					selrow = $self.rup_jqtable('getGridParam', 'selrow');
 				return selrow === null ? [] : [selrow];
 			};
 
 			settings.getSelectedLines = function () {
 				var $self = this,
-					selrow = $self.rup_table('getGridParam', 'selrow');
+					selrow = $self.rup_jqtable('getGridParam', 'selrow');
 				return selrow === null ? [] : [$.inArray(selrow, $self.jqGrid('getDataIDs'))];
 			};
 
@@ -13078,7 +13078,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				'jqGridBeforeRequest': function () {
 					jQuery.set_uda_ajax_mode_on();
 				},
-				'jqGridLoadComplete.rup_table.tooltip': function (event, data) {
+				'jqGridLoadComplete.rup_jqtable.tooltip': function (event, data) {
 					var $self = $(this);
 					if (data !== undefined) {
 						// Redimensionado del campo de número de página en base al número de página máximo
@@ -13103,20 +13103,20 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				},
 
-				'jqGridGridComplete.rup_table.core': function (event) {
+				'jqGridGridComplete.rup_jqtable.core': function (event) {
 					var $self = $(this),
 						$tbody;
 
-					if ($self.rup_table('getGridParam', 'records') === 0) {
+					if ($self.rup_jqtable('getGridParam', 'records') === 0) {
 						// No se han encontrado registros
 
 						$self.prev().remove(); //Borrar div vacío
 						$($self.jqGrid('getGridParam', 'pager')).hide();
 						var content = '<tr class="ui-widget-content jqgrow ui-row-ltr" role="row" id="' + $self[0].id + '_noRecords" aria-selected="false">';
-						content += '<td aria-describedby="' + $self[0].id + '_NO_REGISTROS" title="' + $.rup.i18nParse($.rup.i18n.base, 'rup_table.noRecordsFound') + '" style="border:0;padding-left: 0.5em ! important;text-align: left;width:' + $('#gview_' + $self.attr('id')).width() + 'px;background:white;" role="gridcell">';
-						//content += 	'<div id="RUP_GRID_' + self[0].id + '_noRecord_ext" class="cellLayout" style="padding-left: 0.5em ! important;">' + $.rup.i18nParse($.rup.i18n.base,"rup_table.noRecordsFound");
+						content += '<td aria-describedby="' + $self[0].id + '_NO_REGISTROS" title="' + $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.noRecordsFound') + '" style="border:0;padding-left: 0.5em ! important;text-align: left;width:' + $('#gview_' + $self.attr('id')).width() + 'px;background:white;" role="gridcell">';
+						//content += 	'<div id="RUP_GRID_' + self[0].id + '_noRecord_ext" class="cellLayout" style="padding-left: 0.5em ! important;">' + $.rup.i18nParse($.rup.i18n.base,"rup_jqtable.noRecordsFound");
 						//content += '</div></td></tr>';
-						content += $.rup.i18nParse($.rup.i18n.base, 'rup_table.noRecordsFound');
+						content += $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.noRecordsFound');
 						content += '</td></tr>';
 						$self.before(content);
 						$('[aria-describedby="' + $self[0].id + '_NO_REGISTROS"]').rup_tooltip({
@@ -13133,7 +13133,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					}
 				},
-				'jqGridGridComplete.rup_table.tooltip': function (event) {
+				'jqGridGridComplete.rup_jqtable.tooltip': function (event) {
 					var $self = $(this),
 						$tbody;
 
@@ -13192,12 +13192,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			// Se configura la funcionalidad de redimensionado de la tabla.
 			if (settings.resizable !== false) {
-				$self.rup_table('gridResize', (jQuery.isPlainObject(settings.resizable) ? settings.resizable : {}));
+				$self.rup_jqtable('gridResize', (jQuery.isPlainObject(settings.resizable) ? settings.resizable : {}));
 			}
 
 			// Configruación pager
 			if (settings.pager !== false) {
-				$self.rup_table('configurePager', settings);
+				$self.rup_jqtable('configurePager', settings);
 			}
 
 			// Se añaden los tooltip a las cabeceras de la tabla
@@ -13223,7 +13223,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 			// Implementación del ellipsis en las cabeceras de las columnas de la tabla
-			jQuery($self.rup_table('getGridParam', 'colModel')).each(function (index, element) {
+			jQuery($self.rup_jqtable('getGridParam', 'colModel')).each(function (index, element) {
 				var $headerLabel;
 
 				//Si la columna define ellipsis...
@@ -13249,7 +13249,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			if (settings.loadOnStartUp === false || settings.multifilter != undefined) {
 				settings.datatype = $self.data('tmp.loadOnStartUp.datatype');
-				$self.rup_table('setGridParam', {
+				$self.rup_jqtable('setGridParam', {
 					datatype: $self.data('tmp.loadOnStartUp.datatype')
 				});
 				$self.removeData('tmp.loadOnStartUp.datatype');
@@ -13264,7 +13264,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Devuelve la propiedad colModel del jqGrid.
      *
@@ -13272,7 +13272,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {object} - Propiedad colModel del jqGrid.
      * @example
-     * $("#idComponente").rup_table("getColModel");
+     * $("#idComponente").rup_jqtable("getColModel");
      */
 		getColModel: function () {
 			return $(this).jqGrid('getGridParam', 'colModel');
@@ -13285,7 +13285,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} pName - Nombre del parámetro que se desea obtener.
      * @return {object} - Valor del parámetro.
      * @example
-     * $("#idComponente").rup_table("getGridParam","nombreParametro");
+     * $("#idComponente").rup_jqtable("getGridParam","nombreParametro");
      */
 		getGridParam: function (pName) {
 			return $(this).jqGrid('getGridParam', pName);
@@ -13298,7 +13298,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {object} options - Parámetros para configurar la altura y anchura del redimensionado.
      * @return {jQuery} - Referencia al propio componente.
      * @example
-     * $("#idComponente").rup_table("gridResize",{});
+     * $("#idComponente").rup_jqtable("gridResize",{});
      */
 		gridResize: function (options) {
 			return $(this).jqGrid('gridResize', options);
@@ -13310,7 +13310,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {string[]} - Array con los identificadores de los registros seleccionados.
      * @example
-     * $("#idComponente").rup_table("getSelectedRows");
+     * $("#idComponente").rup_jqtable("getSelectedRows");
      */
 		getSelectedRows: function () {
 			var $self = this,
@@ -13325,7 +13325,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {number[]} - Array con los índices de las líneas de los registros seleccionados.
      * @example
-     * $("#idComponente").rup_table("getSelectedLines");
+     * $("#idComponente").rup_jqtable("getSelectedLines");
      */
 		getSelectedLines: function () {
 			var $self = this,
@@ -13342,7 +13342,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} rowId - Identificador del registro.
      * @return {string} - Url para obtener los valores del registro correspondiente.
      * @example
-     * $("#idComponente").rup_table("getPkUrl","0001");
+     * $("#idComponente").rup_jqtable("getPkUrl","0001");
      */
 		getPkUrl: function (rowId) {
 			var $self = this,
@@ -13364,12 +13364,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {boolean} async - Indica si la llamada debe ser asíncrona o síncrona.
      * @param {boolean} notSelect - Indica si debe seleccionar el primer elemento o no.
      * @example
-     * $("#idComponente").rup_table("reloadGrid", true);
+     * $("#idComponente").rup_jqtable("reloadGrid", true);
      */
 		reloadGrid: function (async, notSelect) {
 			var $self = this,
 				settings = $self.data('settings'),
-				page = $self.rup_table('getGridParam', 'page');
+				page = $self.rup_jqtable('getGridParam', 'page');
 			var ajaxOptions = $self.jqGrid('getGridParam', 'ajaxGridOptions');
 			var ajaxOptionsAsync = ajaxOptions.async;
 			ajaxOptions.async = false;
@@ -13399,7 +13399,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {jQuery} $form - Objeto jQuery que referencia el formulario que se desea resetear.
      * @return {jQuery} - Referencia al propio objeto.
      * @example
-     * $("#idComponente").rup_table("resetForm", $("#idFormulario"));
+     * $("#idComponente").rup_jqtable("resetForm", $("#idFormulario"));
      */
 		resetForm: function ($form) {
 			var $self = this,
@@ -13448,7 +13448,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {object} newParams - Objeto que contiene los parámetros y sus valores.
      * @return {jQuery} - Referencia al propio objeto.
      * @example
-     * $("#idComponente").rup_table("setGridParam", {param1:value1, param2:value2});
+     * $("#idComponente").rup_jqtable("setGridParam", {param1:value1, param2:value2});
      */
 		setGridParam: function (newParams) {
 			$(this).jqGrid('setGridParam', newParams);
@@ -13462,7 +13462,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string | string[]} selectedRows - Identificador o array de identificadores de los registros que se desea seleccionar o deseleccionar.
      * @param {boolean} status - En caso de ser true se seleccionarán los registros indicados. En caso de ser false se deseleccionarán.
      * @example
-     * $("#idComponente").rup_table("setSelection", ["3","7"], true);
+     * $("#idComponente").rup_jqtable("setSelection", ["3","7"], true);
      */
 		setSelection: function (selection, status, e) {
 			var $self = this,
@@ -13483,7 +13483,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {jQuery} $form - Objeto jQuery que referencia el formulario que se desea resetear.
      * @param {object} errors - Objeto json que contiene los errores de validación que se han dado para cada campo.
      * @example
-     * $("#idComponente").rup_table("showServerValidationFieldErrors ", $("#idFormulario"), {});
+     * $("#idComponente").rup_jqtable("showServerValidationFieldErrors ", $("#idFormulario"), {});
      */
 		showServerValidationFieldErrors: function ($form, errors) {
 			var $self = $(this);
@@ -13493,7 +13493,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				$form.validate().invalid = errors.rupErrorFields;
 				$form.validate().showErrors(errors.rupErrorFields);
 			} else if (errors.rupFeedback !== undefined) {
-				$self.rup_table('showFeedback', $form.validate().settings.feedback, $.rup_utils.printMsg(errors.rupFeedback.message), (errors.rupFeedback.imgClass !== undefined ? errors.rupFeedback.imgClass : null));
+				$self.rup_jqtable('showFeedback', $form.validate().settings.feedback, $.rup_utils.printMsg(errors.rupFeedback.message), (errors.rupFeedback.imgClass !== undefined ? errors.rupFeedback.imgClass : null));
 			}
 
 		},
@@ -13503,9 +13503,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name rupTableClearHighlightedRowAsSelected
      * @function
      * @param {jQuery} $row - Objeto jQuery que referencia a la línea de la tabla.
-     * @fires module:rup_table#rupTableClearHighlightedRowAsSelected
+     * @fires module:rup_jqtable#rupTableClearHighlightedRowAsSelected
      * @example
-     * $("#idComponente").rup_table("clearHighlightedRowAsSelected", $("#idFila"));
+     * $("#idComponente").rup_jqtable("clearHighlightedRowAsSelected", $("#idFila"));
      */
 		clearHighlightedRowAsSelected: function ($row) {
 			var $self = this,
@@ -13531,9 +13531,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @name highlightRowAsSelected
      * @function
      * @param {jQuery} $row - Objeto jQuery que referencia a la línea de la tabla.
-     * @fires module:rup_table#rupTableHighlightRowAsSelected
+     * @fires module:rup_jqtable#rupTableHighlightRowAsSelected
      * @example
-     * $("#idComponente").rup_table("highlightRowAsSelected", $("#idFila"));
+     * $("#idComponente").rup_jqtable("highlightRowAsSelected", $("#idFila"));
      */
 		highlightRowAsSelected: function ($row) {
 			var $self = this,
@@ -13562,7 +13562,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} currentRowNumArg - Número actual de los registros que se están mostrando.
      * @param {string} totalRowNumArg - Número total de los registros que se muestran en la tabla.
      * @example
-     * $("#idComponente").rup_table("updateDetailPagination", "1-10", "586" );
+     * $("#idComponente").rup_jqtable("updateDetailPagination", "1-10", "586" );
      */
 		updateDetailPagination: function (currentRowNumArg, totalRowNumArg) {
 			var $self = this,
@@ -13583,7 +13583,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				$('#forward_' + tableId + ', #last_' + tableId, settings.$detailFormDiv).removeClass('ui-state-disabled');
 			}
 
-			$('#rup_table_selectedElements_' + $self.attr('id')).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+			$('#rup_jqtable_selectedElements_' + $self.attr('id')).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 		},
 		/**
      * Función de callback que se ejecutará desde el método updateSavedData.
@@ -13591,7 +13591,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @callback jQuery.rup_validate~onSubmitHandler
      * @param {object} savedData - Objeto interno que almacena en formato json los datos con los que se han inicializado los campos del formulario.
      * @example <caption>Envia el formulario cuando este es válido.</caption>
-     * $("#idComponente").rup_table("updateSavedData", function(savedData){
+     * $("#idComponente").rup_jqtable("updateSavedData", function(savedData){
      * });
      */
 		/**
@@ -13599,9 +13599,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @name updateSavedData
      * @function
-     * @param {module:rup_table~onUpdateSavedData} arg -Función de callback desde la que se puede modificar el objeto _savedData.
+     * @param {module:rup_jqtable~onUpdateSavedData} arg -Función de callback desde la que se puede modificar el objeto _savedData.
      * @example
-     * $("#idComponente").rup_table("updateSavedData", function(savedData){
+     * $("#idComponente").rup_jqtable("updateSavedData", function(savedData){
      * });
      */
 		updateSavedData: function (arg) {
@@ -13622,7 +13622,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Realiza la configuración interna del paginador de acuerdo a los parámetros de configuración indicados en la inicialización del componente.
      *
@@ -13630,7 +13630,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @param {object} settings - Parámetros de configuración del componente.
      * @example
-     * $("#idComponente").rup_table("configurePager", settings);
+     * $("#idComponente").rup_jqtable("configurePager", settings);
      */
 		configurePager: function (settings) {
 			var $self = this;
@@ -13644,7 +13644,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//********************************
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Método de inicialización del componente.
      *
@@ -13652,7 +13652,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @private
      * @param {object} args - Parámetros de configuración del componente.
-     * @fires module:rup_table#rupTable_coreConfigFinished
+     * @fires module:rup_jqtable#rupTable_coreConfigFinished
      */
 		_init: function (args) {
 			if (args.length > 1) {
@@ -13667,13 +13667,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				/* *************************
          * CONFIGURACION
          * *************************/
-				var defaultPugins = (jQuery.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_table.defaults.defaultPlugins),
+				var defaultPugins = (jQuery.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
 					userPlugins = jQuery.merge([], args[0].usePlugins),
 					configuredPlugins = jQuery.merge(jQuery.merge([], defaultPugins), userPlugins);
 
 
 				jQuery.rup_utils.sortArray(configuredPlugins, function (obj1, obj2) {
-					return rup_table.plugins[obj2].loadOrder - rup_table.plugins[obj1].loadOrder;
+					return rup_jqtable.plugins[obj2].loadOrder - rup_jqtable.plugins[obj1].loadOrder;
 				});
 
 
@@ -13686,7 +13686,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$("[aria-describedby="+$self.attr('id')+"_detail_div]").remove();
 				}
 
-				settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins.core.defaults);
+				settings = $.extend(true, {}, settings, jQuery.fn.rup_jqtable.plugins.core.defaults);
 
 				$self[0]._ADAPTER = $.rup.adapter[settings.adapter];
 
@@ -13695,19 +13695,19 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
          * *********************************************************
          */
 				$.each(configuredPlugins, function (index, name) {
-					if (rup_table.plugins[name] !== undefined && jQuery.fn.rup_table.plugins[name] !== undefined) {
-						settings = $.extend(true, {}, settings, jQuery.fn.rup_table.plugins[name].defaults);
+					if (rup_jqtable.plugins[name] !== undefined && jQuery.fn.rup_jqtable.plugins[name] !== undefined) {
+						settings = $.extend(true, {}, settings, jQuery.fn.rup_jqtable.plugins[name].defaults);
 					}
 				});
 
 				// Se sobreescribe la configuración por defecto con la especificada por el usaurio
-				settings = jQuery.extend(true, {}, jQuery.fn.rup_table.defaults, settings, args[0]);
+				settings = jQuery.extend(true, {}, jQuery.fn.rup_jqtable.defaults, settings, args[0]);
 
 				/* *********************************************************
          * EJECUCION DE LA PRECONFIGURACION DEL CORE
          * *********************************************************/
 
-				$self.rup_table('preConfigureCore', settings);
+				$self.rup_jqtable('preConfigureCore', settings);
 
 
 				/* *********************************************************
@@ -13716,8 +13716,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
          */
 
 				$.each(configuredPlugins, function (index, name) {
-					if (jQuery.isFunction(rup_table.plugins[name].preConfiguration)) {
-						jQuery.proxy(rup_table.plugins[name].preConfiguration, $self)(settings);
+					if (jQuery.isFunction(rup_jqtable.plugins[name].preConfiguration)) {
+						jQuery.proxy(rup_jqtable.plugins[name].preConfiguration, $self)(settings);
 					}
 				});
 
@@ -13730,14 +13730,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
          * EJECUCION DE LA POSTCONFIGURACION DEL CORE
          * *********************************************************/
 
-				$self.rup_table('postConfigureCore', settings);
+				$self.rup_jqtable('postConfigureCore', settings);
 
 				/* *********************************************************
          * EJECUCION DE FUNCIONES DE POSTCONFIGURACION DE LOS PLUGINS
          * *********************************************************/
 				$.each(configuredPlugins, function (index, name) {
-					if (jQuery.isFunction(rup_table.plugins[name].postConfiguration)) {
-						jQuery.proxy(rup_table.plugins[name].postConfiguration, $self)(settings);
+					if (jQuery.isFunction(rup_jqtable.plugins[name].postConfiguration)) {
+						jQuery.proxy(rup_jqtable.plugins[name].postConfiguration, $self)(settings);
 					}
 				});
 
@@ -13762,7 +13762,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				tableghead = settings.id + 'ghead_',
 				count = 0,
 				$row, id;
-			if ($self.rup_table('getGridParam', 'grouping') === true) {
+			if ($self.rup_jqtable('getGridParam', 'grouping') === true) {
 				for (var i = 0; i < $self[0].rows.length; i++) {
 					$row = jQuery($self[0].rows[i]);
 					id = $row.attr('id');
@@ -13783,7 +13783,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// MÉTODOS PARA MANTENER LA RETROCOMPATIBILIDAD CON LA API DEL RUP.GRID
 	//*********************************************************************
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Añade una nueva línea a la tabla. Esta operación no realiza una inserción del registro en el sistema de persistencia, sino que únicamente añade una nueva fila de modo visual.
      *
@@ -13795,7 +13795,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} srcrowid -En el caso de indicarse se insertará la nueva línea en la posición relativa al registro que identifica y el valor del parámetro position.
      * @return {jQuery} - Referencia al propio componente.
      * @example
-     * $("#idComponente").rup_table("addRowData", "10", {campo1:valor1,campo2:valor2});
+     * $("#idComponente").rup_jqtable("addRowData", "10", {campo1:valor1,campo2:valor2});
      */
 		addRowData: function (rowid, data, position, srcrowid) {
 			var $self = $(this);
@@ -13823,7 +13823,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} rowid - Identificador del registro.
      * @return {jQuery} - Referencia al propio componente.
      * @example
-     * $("#idComponente").rup_table("delRowData","10");
+     * $("#idComponente").rup_jqtable("delRowData","10");
      */
 		delRowData: function (rowid) {
 			var $self = $(this);
@@ -13839,7 +13839,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {string} - Identificador de la línea activa.
      * @example
-     * $("#idComponente").rup_table("getActiveRowId");
+     * $("#idComponente").rup_jqtable("getActiveRowId");
      */
 		getActiveRowId: function () {
 			var $self = this,
@@ -13854,7 +13854,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {string} - Índice de la línea activa.
      * @example
-     * $("#idComponente").rup_table("getActiveLineId");
+     * $("#idComponente").rup_jqtable("getActiveLineId");
      */
 		getActiveLineId: function () {
 			var $self = this,
@@ -13871,7 +13871,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {object} data - Objeto json que contiene los valores de cada columna de la nueva línea.
      * @param {string} cssp - En caso de especificarse, se añadirán a la línea las class de estilos aquí indicadas.
      * @example
-     * $("#idComponente").rup_table("setRowData", "10", {campo1:valor1,campo2:valor2});
+     * $("#idComponente").rup_jqtable("setRowData", "10", {campo1:valor1,campo2:valor2});
      */
 		setRowData: function (rowid, data, cssp) {
 			var $self = $(this);
@@ -13897,7 +13897,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} rowid - Identificador del registro del que se quieren recuperar los datos.
      * @return {object} - Objecto json con los valores del registro.
      * @example
-     * $("#idComponente").rup_table("getRowData", "10");
+     * $("#idComponente").rup_jqtable("getRowData", "10");
      */
 		getRowData: function (rowid) {
 			var $self = $(this);
@@ -13910,7 +13910,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {string[]} - Identificadores de lso registros mostrados en la página actual.
      * @example
-     * $("#idComponente").rup_table("getDataIDs");
+     * $("#idComponente").rup_jqtable("getDataIDs");
      */
 		getDataIDs: function () {
 			var $self = $(this);
@@ -13923,7 +13923,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @param {boolean} clearfooter - En caso de indicarse como true se elimina la información del pié de la tabla.
      * @example
-     * $("#idComponente").rup_table("clearGridData", false);
+     * $("#idComponente").rup_jqtable("clearGridData", false);
      */
 		clearGridData: function (clearfooter) {
 			var $self = $(this);
@@ -13936,7 +13936,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function
      * @return {object} - Objeto colModel de la tabla.
      * @example
-     * $("#idComponente").rup_table("getColModel");
+     * $("#idComponente").rup_jqtable("getColModel");
      */
 		getColModel: function () { // Función que devuelve el colModel directamente.
 			var $self = $(this);
@@ -13950,7 +13950,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {string} rowid - Identificador de la fila.
      * @param {string} colName - Nombre de la columna.
      * @example
-     * $("#idComponente").rup_table("getCol", "10", "nombre");
+     * $("#idComponente").rup_jqtable("getCol", "10", "nombre");
      */
 		getCol: function (rowid, colName) { //Función que devuelve el valor de la celda de la fila que se le pasa como paramtero. El colName puede ser o el indice de la columna o el nombre de la misma
 			var $self = $(this);
@@ -13964,7 +13964,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @param {jQuery} form - Formulario que se desea serializar.
      * @param {boolean} skipEmpty - En caso de indicarse true se omiten los campos que no contienen valor.
      * @example
-     * $("#idComponente").rup_table("getSerializedForm", $("#idFormulario"), false);
+     * $("#idComponente").rup_jqtable("getSerializedForm", $("#idFormulario"), false);
      */
 		getSerializedForm: function (form, skipEmpty, delimeter) {
 			return form2object(form instanceof jQuery ? form[0] : form, delimeter ? delimeter : null, skipEmpty ? skipEmpty : false);
@@ -13975,9 +13975,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	jQuery.fn.rup_table.plugins = {};
-	jQuery.fn.rup_table.plugins.core = {};
-	jQuery.fn.rup_table.plugins.core.defaults = {
+	jQuery.fn.rup_jqtable.plugins = {};
+	jQuery.fn.rup_jqtable.plugins.core = {};
+	jQuery.fn.rup_jqtable.plugins.core.defaults = {
 		// adapter: "table_jqueryui",
 		adapter: 'table_bootstrap',
 		core: {
@@ -13992,7 +13992,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
    *
-   * @callback module:rup_table~onOperation
+   * @callback module:rup_jqtable~onOperation
    * @param {string} key - Identificador de la operación
    * @param {object} options - Opciones de configuración de la operación.
    * @example
@@ -14004,7 +14004,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Función de callback que determina si la operación debe estar habilitada o no.
    *
-   * @callback module:rup_table~isEnabled
+   * @callback module:rup_jqtable~isEnabled
    * @return {boolean} - Devuelve si la operación debe de estar habilitada o no.
    * @example
    * enabled: function(){
@@ -14015,11 +14015,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
    *
-   * @typedef {Object} module:rup_table~Operations
+   * @typedef {Object} module:rup_jqtable~Operations
    * @property {string} [name] - Texto a mostrar al usuario a la hora de visualizar la operación.
    * @property {string} [icon] - Clase CSS correspondiente al icono que se quiere visualizar junto a la operación.
-   * @property {module:rup_table~isEnabled} [enabled] - Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada.
-   * @property {module:rup_table~onOperation} [callback] - Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
+   * @property {module:rup_jqtable~isEnabled} [enabled] - Función que determina si el botón se debe mostrar habilitado o deshabilitado. Esto se determina devolviendo true/false desde la función de callback aquí indicada.
+   * @property {module:rup_jqtable~onOperation} [callback] - Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
    * @example
    * core:{
    * 	operations:{
@@ -14050,7 +14050,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
    *
-   * @typedef module:rup_table~ShowOperations
+   * @typedef module:rup_jqtable~ShowOperations
    * @example
    * core:{
    *		showOperations:{
@@ -14078,17 +14078,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * @property {boolean} [viewrecords=true] - Indica si se debe mostrar el rango de elementos que se están visualizando en la tabla.
    * @property {boolean} [loadOnStartUp=true] - Determina si se debe realizar automáticamente la búsqueda al cargar la página.
    * @property {string} [multiplePkToken=~] - Separador que se utiliza en los casos en los que la clave primaria sea múltiple. Se creará una columna que contenga un identificador único resultante de la concatenación de las claves primarias realizada mediante el separador aquí indicado.
-   * @property {module:rup_table~Operations} [operations] - Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
-   * @property {module:rup_table~ShowOperations} [showOperations] - Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
+   * @property {module:rup_jqtable~Operations} [operations] - Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
+   * @property {module:rup_jqtable~ShowOperations} [showOperations] - Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
    * @property {number} [startOnPage=1] - Permite especificar el número de página inicial que se mostrará al cargar la página.
    */
 
-	jQuery.fn.rup_table.defaults = {
+	jQuery.fn.rup_jqtable.defaults = {
 
 		altRows: true,
 		altclass: 'rup-grid_oddRow',
 		datatype: 'json', // Tipo de dato esperado para representar los registros de la tabla (jqGrid)
-		editable: false, // Determina si la tabla permite la edición en línea (rup_table)
+		editable: false, // Determina si la tabla permite la edición en línea (rup_jqtable)
 		height: 'auto', // Ajusta la altura de la tabla al contenido (jqGrid)
 		jsonReader: {
 			repeatitems: false
@@ -14111,9 +14111,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		},
 		loadOnStartUp: true,
 		// Callback ejecutado en las peticiones AJAX de la tabla
-		loadBeforeSend: function rup_table_defaults_loadBeforeSend(xhr, settings) {
+		loadBeforeSend: function rup_jqtable_defaults_loadBeforeSend(xhr, settings) {
 			// Se modifica la request para incluir las siguientes cabeceras:
-			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_table
+			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_jqtable
 			xhr.setRequestHeader('JQGridModel', 'true');
 			// Se indica que el tipo de contenido enviado en la cabecera es application/jsons
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -14121,7 +14121,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		loadui: 'block',
 		validate: {},
 		defaultPlugins: [],
-		dataProxy: jQuery.rup_table.proxyAjax,
+		dataProxy: jQuery.rup_jqtable.proxyAjax,
 		defaultGridInfoCol: {
 			name: 'rupInfoCol',
 			index: 'rupInfoCol',
@@ -14160,7 +14160,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.
    *
-   * @event module:rup_table#rupTable_checkOutOfGrid
+   * @event module:rup_jqtable#rupTable_checkOutOfGrid
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @property {jQuery} $originalTarget - Objeto jQuery que referencia el elemento del dom con el que ha interactuado el usuario.
    * @example
@@ -14171,7 +14171,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.
    *
-   * @event module:rup_table#rupTable_serializeGridData
+   * @event module:rup_jqtable#rupTable_serializeGridData
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @property {object} data - Información serializada que va a ser enviada. Se puede modificar o agregar nuevos campos para completarla.
    * @example
@@ -14182,7 +14182,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Evento que se lanza antes de que se procese la información recibida del servidor.
    *
-   * @event module:rup_table#rupTable_beforeProcessing
+   * @event module:rup_jqtable#rupTable_beforeProcessing
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @property {object} data - Información recibida del servidor.
    * @property {string} st - Mensaje de status de la petición.
@@ -14195,7 +14195,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Se produce cuando se elimina el resaltado de un registro de la tabla.
    *
-   * @event module:rup_table#rupTableClearHighlightedRowAsSelected
+   * @event module:rup_jqtable#rupTableClearHighlightedRowAsSelected
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @property {jQuery} $row - Objeto jQuery que identifica la línea que se ha procesado.
    * @example
@@ -14205,7 +14205,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Se produce cuando se añade el resaltado a un registro de la tabla.
    *
-   * @event module:rup_table#rupTableHighlightRowAsSelected
+   * @event module:rup_jqtable#rupTableHighlightRowAsSelected
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @property {jQuery} $row - Objeto jQuery que identifica la línea que se ha procesado.
    * @example
@@ -14215,7 +14215,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.
    *
-   * @event module:rup_table#rupTable_coreConfigFinished
+   * @event module:rup_jqtable#rupTable_coreConfigFinished
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @example
    * $("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
@@ -14243,9 +14243,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Tiene como objetivo proporcionar al componente RUP Table de las funcionalidades que ofrece el uso de un menú contextual.
  *
  * @summary Plugin de menú contextual del componente RUP Table.
- * @module rup_table/contextMenu
+ * @module rup_jqtable/contextMenu
  * @example
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  *	usePlugins:["contextMenu"],
  *	contextMenu:{
@@ -14263,15 +14263,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 */
 /*global jQuery */
 
-	jQuery.rup_table.registerPlugin('contextMenu',{
+	jQuery.rup_jqtable.registerPlugin('contextMenu',{
 		loadOrder:4,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureContextMenu', settings);
+			return $self.rup_jqtable('preConfigureContextMenu', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureContextMenu', settings);
+			return $self.rup_jqtable('postConfigureContextMenu', settings);
 		}
 	});
 
@@ -14280,7 +14280,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 * Extensión del componente rup_jqtable para permitir la gestión del diseño líquido del componente.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -14291,7 +14291,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		 * Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.
 		 * Este método se ejecuta antes de la incialización del plugin.
@@ -14453,11 +14453,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * @property {string} [tbodyTdSelector='tbody:first tr.jqgrow td'] - Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna.
 	 * @property {string} [theadThSelector='thead:first th'] - Selector de jQuery que identifica las cabeceras de las columnas de la tabla.
    * @property {object} [items={}}] - Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros.
-	 * @property {rup_table~Operations[]} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual.
+	 * @property {rup_jqtable~Operations[]} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual.
    */
 
-	jQuery.fn.rup_table.plugins.contextMenu = {};
-	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
+	jQuery.fn.rup_jqtable.plugins.contextMenu = {};
+	jQuery.fn.rup_jqtable.plugins.contextMenu.defaults = {
 		contextMenu:{
 			colNames: null,
 			createDefaultRowOperations:true,
@@ -14495,10 +14495,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Gestiona las operaciones de filtrado de datos sobre el origen de datos que utiliza el componente.
  *
  * @summary Plugin de filtrado del componente RUP Table.
- * @module rup_table/filter
+ * @module rup_jqtable/filter
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["filter"],
  * 	filter:{
@@ -14514,15 +14514,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('filter',{
+	jQuery.rup_jqtable.registerPlugin('filter',{
 		loadOrder:1,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureFilter', settings);
+			return $self.rup_jqtable('preConfigureFilter', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureFilter', settings);
+			return $self.rup_jqtable('postConfigureFilter', settings);
 		}
 	});
 
@@ -14531,7 +14531,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del filtrado de registros de la tabla.
+	 * Extensión del componente rup_jqtable para permitir la gestión del filtrado de registros de la tabla.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -14547,7 +14547,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.filter.$filterSummary : Contenedor donde se especifican los criterios de filtrado
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 			* Metodo que realiza la pre-configuración del plugin filter del componente RUP Table.
 			* Este método se ejecuta antes de la incialización del plugin.
@@ -14595,13 +14595,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
 				 */
-				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon1');
-				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleLabel');
-				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.filterSummary');
-				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon2');
+				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleIcon1');
+				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleLabel');
+				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.filterSummary');
+				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleIcon2');
 
 				$toggleIcon1 = $(jQuery.jgrid.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
-				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
+				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
 				$filterSummary = $(jQuery.jgrid.format(filterSummaryTmpl, filterSettings.filterSummaryId));
 				$toggleIcon2 = $(jQuery.jgrid.format(toggleIcon2Tmpl, filterSettings.toggleIcon2Id));
 
@@ -14633,7 +14633,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				// Se utiliza el plugin ajaxForm de jQuery para configurar el formualario de busqueda como AJAX.
 				// Se redimensiona el formulario de busqueda al tamanyo del grid.
-				filterSettings.$filterContainer.parent().css('width',$self.rup_table('getGridParam', 'width'));
+				filterSettings.$filterContainer.parent().css('width',$self.rup_jqtable('getGridParam', 'width'));
 
 				// Se configura la url de filtrado
 				if (settings.filter.url === null){
@@ -14642,7 +14642,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				settings.url = settings.filter.url;
 
 				// Se almacena en las propiedades la url utilizada para la busqueda a partir de la especificada en el grid.
-				settings.searchURL = $self.rup_table('getGridParam', 'url');
+				settings.searchURL = $self.rup_jqtable('getGridParam', 'url');
 
 
 
@@ -14655,8 +14655,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				filterSettings.$filterContainer.bind('keydown', function(evt) {
 					if (evt.keyCode == 13) {
 						// TODO : poner como evento
-						//$self.rup_table("showSearchCriteria");
-						$self.rup_table('filter');
+						//$self.rup_jqtable("showSearchCriteria");
+						$self.rup_jqtable('filter');
 					}
 				});
 
@@ -14670,8 +14670,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						settings.$firstStartUp=false;
 					}
-					//$self.rup_table("showSearchCriteria");
-					$self.rup_table('filter');
+					//$self.rup_jqtable("showSearchCriteria");
+					$self.rup_jqtable('filter');
 				});
 
 
@@ -14683,11 +14683,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						settings.$firstStartUp=false;
 					}
 
-					$self.rup_table('cleanFilterForm').rup_table('filter');
+					$self.rup_jqtable('cleanFilterForm').rup_jqtable('filter');
 					if (filterSettings.validate!==undefined){
 						jQuery('.rup-maint_validateIcon', filterSettings.$filterContainer).remove();
 					}
-					//$self.rup_table("showSearchCriteria");
+					//$self.rup_jqtable("showSearchCriteria");
 				});
 
 				filterSettings.$toggleIcon1.add(filterSettings.$toggleLabel).add(filterSettings.$toggleIcon2)
@@ -14695,14 +14695,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					.on({
 						'keydown':function(evt) {
 							if (evt.keyCode == 13) {
-								$self.rup_table('toggleFilterForm');
+								$self.rup_jqtable('toggleFilterForm');
 							}
 						}
 					});
 
 				filterSettings.$filterToolbar.addClass('cursor_pointer').on({
 					'click':function(){
-						$self.rup_table('toggleFilterForm');
+						$self.rup_jqtable('toggleFilterForm');
 					}
 				});
 
@@ -14763,7 +14763,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$self.on('jqGridGridComplete',function(event){
 				if ($self.data('settings')!==undefined){
-					$self.rup_table('showSearchCriteria');
+					$self.rup_jqtable('showSearchCriteria');
 				}
 			});
 
@@ -14812,7 +14812,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						complete : function(jqXHR,
 							textStatus) {
 							if (settings.loadOnStartUp){
-								$self.rup_table('filter');
+								$self.rup_jqtable('filter');
 							}
 							$self.triggerHandler('rupTable_multifilter_fillForm',$self.data.filterData);
 
@@ -14873,21 +14873,21 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * toggleFilterForm: Método encargado de ocultar y mostrar el formulario de filtrado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Limpia los campos del formulario de filtrado.
      *
      * @function  cleanFilterForm
-		 * @fires module:rup_table#rupTable_filter_beforeCleanFilterForm
-		 * @fires module:rup_table#rupTable_filter_afterCleanFilterForm
+		 * @fires module:rup_jqtable#rupTable_filter_beforeCleanFilterForm
+		 * @fires module:rup_jqtable#rupTable_filter_afterCleanFilterForm
      * @example
-     * $("#idComponente").rup_table("cleanFilterForm");
+     * $("#idComponente").rup_jqtable("cleanFilterForm");
      */
 		cleanFilterForm : function () {
 			var $self = this,
 				settings = $self.data('settings');
 			$self.triggerHandler('rupTable_filter_beforeCleanFilterForm');
-			$self.rup_table('resetForm', settings.filter.$filterContainer);
+			$self.rup_jqtable('resetForm', settings.filter.$filterContainer);
 			$self.triggerHandler('rupTable_filter_afterCleanFilterForm');
 
 			return $self;
@@ -14896,9 +14896,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * Realiza el filtrado de acuerdo a los datos existentes en el formulario de filtrado.
      *
      * @function  filter
-		 * @fires module:rup_table#rupTable_beforeFilter
+		 * @fires module:rup_jqtable#rupTable_beforeFilter
      * @example
-     * $("#idComponente").rup_table("filter");
+     * $("#idComponente").rup_jqtable("filter");
      */
 		filter : function(){
 			var $self = this,
@@ -14913,7 +14913,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if ( bfr === false ) { return; }
 			}
 
-			$self.rup_table('setGridParam',{page:'1'});
+			$self.rup_jqtable('setGridParam',{page:'1'});
 
 			$self.trigger('reloadGrid');
 		},
@@ -14922,7 +14922,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function  getFilterParams
      * @example
-     * $("#idComponente").rup_table("getFilterParams");
+     * $("#idComponente").rup_jqtable("getFilterParams");
      */
 		getFilterParams : function(){
 			var $self = this,
@@ -14935,7 +14935,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function  hideFilterForm
      * @example
-     * $("#idComponente").rup_table("hideFilterForm");
+     * $("#idComponente").rup_jqtable("hideFilterForm");
      */
 		hideFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
@@ -14953,7 +14953,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function showFilterForm
      * @example
-     * $("#idComponente").rup_table("showFilterForm");
+     * $("#idComponente").rup_jqtable("showFilterForm");
      */
 		showFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
@@ -14978,18 +14978,18 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function toggleFilterForm
      * @example
-     * $("#idComponente").rup_table("toggleFilterForm");
+     * $("#idComponente").rup_jqtable("toggleFilterForm");
      */
 		toggleFilterForm: function(){
 			var $self = $(this), settings = $self.data('settings'), filterSettings = settings.filter;
 
 			if (filterSettings.$collapsableLayer.is(':hidden')) {
 				//MOSTRAR
-				$self.rup_table('showFilterForm');
+				$self.rup_jqtable('showFilterForm');
 
 			}else{
 				// OCULTAR
-				$self.rup_table('hideFilterForm');
+				$self.rup_jqtable('hideFilterForm');
 			}
 
 			return $self;
@@ -14999,7 +14999,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function showSearchCriteria
      * @example
-     * $("#idComponente").rup_table("showSearchCriteria");
+     * $("#idComponente").rup_jqtable("showSearchCriteria");
      */
 		showSearchCriteria: function(){
 			var $self = this, settings = $self.data('settings'),
@@ -15217,7 +15217,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Obtiene el label correspondiente a un campo por el que se realiza el filtrado.
      *
@@ -15329,8 +15329,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  	* @property {object} [transitionConfig] - Configuración del efecto de la animación de mostrar/ocultar el formulario defiltrado.
  	* @property {function} [fncSearchCriteria] - Permite especificar una función de callback en la cual es posible modificar la cadena de texto con la que se muestra el resumen de los parámetros de filtrado.
  	*/
-	jQuery.fn.rup_table.plugins.filter = {};
-	jQuery.fn.rup_table.plugins.filter.defaults = {
+	jQuery.fn.rup_jqtable.plugins.filter = {};
+	jQuery.fn.rup_jqtable.plugins.filter.defaults = {
 		core:{
 			startOnPage :null
 		},
@@ -15351,7 +15351,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    *  Se lanza antes de producirse la petición de filtrado.
    *
-   * @event module:rup_table#rupTable_beforeFilter
+   * @event module:rup_jqtable#rupTable_beforeFilter
    * @property {Event} e - Objeto Event correspondiente al evento disparado.
    * @example
    * $("#idComponente").on("rupTable_beforeFilter", function(event){ });
@@ -15360,7 +15360,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
     *   El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza antes de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
     *
-    * @event module:rup_table#rupTable_filter_beforeCleanFilterForm
+    * @event module:rup_jqtable#rupTable_filter_beforeCleanFilterForm
     * @property {Event} e - Objeto Event correspondiente al evento disparado.
     * @example
     * $("#idComponente").on("rupTable_filter_beforeCleanFilterForm", function(event){ });
@@ -15369,7 +15369,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
     *   El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza después de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
     *
-    * @event module:rup_table#rupTable_filter_afterCleanFilterForm
+    * @event module:rup_jqtable#rupTable_filter_afterCleanFilterForm
     * @property {Event} e - Objeto Event correspondiente al evento disparado.
     * @example
     * $("#idComponente").on("rupTable_filter_afterCleanFilterForm", function(event,){ });
@@ -15400,10 +15400,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Permite al usuario realizar una búsqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
  *
  * @summary Plugin de search del componente RUP Table.
- * @module rup_table/search
+ * @module rup_jqtable/search
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["search"],
  * 	search:{
@@ -15420,15 +15420,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('search',{
+	jQuery.rup_jqtable.registerPlugin('search',{
 		loadOrder:9,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureSearch', settings);
+			return $self.rup_jqtable('preConfigureSearch', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureSearch', settings);
+			return $self.rup_jqtable('postConfigureSearch', settings);
 
 		}
 	});
@@ -15438,7 +15438,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la búsqueda de registros.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la búsqueda de registros.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -15446,7 +15446,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfigureSearch(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin search del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -15477,16 +15477,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		postConfigureSearch: function(settings){
 			var $self = this;
 
-			$self.rup_table('createSearchRow', settings);
+			$self.rup_jqtable('createSearchRow', settings);
 			$self._initializeSearchProps(settings);
 
 			$self.on({
 				'jqGridLoadComplete.rupTable.search': function(data){
-					var page = parseInt($self.rup_table('getGridParam', 'page'),10);
+					var page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
 
 
 					if($self._hasPageMatchedElements(page)){
-						$self.rup_table('highlightMatchedRowsInPage', page);
+						$self.rup_jqtable('highlightMatchedRowsInPage', page);
 						//						// TODO: Generalizar
 						//						$self.find("td[aria-describedby='"+settings.id+"_infoSearch'] img.ui-icon.ui-icon-search").remove();
 						//						for (var i=0;i<settings.search.matchedRowsPerPage[page].length;i++){
@@ -15495,15 +15495,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						//						}
 					}
 
-					$self.rup_table('updateSearchPagination');
+					$self.rup_jqtable('updateSearchPagination');
 				},
 				'jqGridSelectRow.rupTable.search rupTable_setSelection.search': function(event, id, status, obj){
-					$self.rup_table('updateSearchPagination', id);
+					$self.rup_jqtable('updateSearchPagination', id);
 				},
-				'jqGridGridComplete.rup_table.search': function(event){
+				'jqGridGridComplete.rup_jqtable.search': function(event){
 					var $self = $(this), settings = $self.data('settings');
 
-					if ($self.rup_table('getGridParam','records')===0){
+					if ($self.rup_jqtable('getGridParam','records')===0){
 						settings.search.$searchRow.hide();
 					}else{
 						settings.search.$searchRow.show();
@@ -15578,19 +15578,19 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * getSearchCurrentRowCount(): Devuelve el resgistro actual en el que se encuentra el registro seleccionado respecto al conjunto de resultados.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      *  Muestra/Oculta el formulario de búsqueda.
      *
      * @function toggleSearchForm
      * @example
-     * $("#idTable").rup_table("toggleSearchForm");
+     * $("#idTable").rup_jqtable("toggleSearchForm");
      */
 		toggleSearchForm: function(){
 			var $self = this, settings = $self.data('settings'), prop = $self[0].p, trow, trow2;
 
 			if (!settings.search.created){
-				$self.rup_table('createSearchToolbar');
+				$self.rup_jqtable('createSearchToolbar');
 				settings.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
 				settings.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
 				jQuery('#searchNavLayer_'+settings.id).show();
@@ -15598,7 +15598,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				jQuery('input','table thead tr.ui-search-toolbar').keypress(function(e){
 					var key = e.charCode || e.keyCode || 0;
 					if(key == 13){
-						$self.rup_table('search');
+						$self.rup_jqtable('search');
 						return false;
 					}
 					return this;
@@ -15630,9 +15630,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * Genera la barra de controles para gestionar la búsqueda.
      *
      * @function createSearchToolbar
-		 * @fires module:rup_table#rupTable_searchAfterCreateToolbar
+		 * @fires module:rup_jqtable#rupTable_searchAfterCreateToolbar
      * @example
-     * $("#idTable").rup_table("createSearchToolbar");
+     * $("#idTable").rup_jqtable("createSearchToolbar");
      */
 		createSearchToolbar: function(){
 			var $self = this, settings =  $self.data('settings'), prop = $self[0].p,
@@ -15713,43 +15713,43 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function createSearchRow
 		 * @param {object} settings - Genera la línea de busqueda de acuerdo a las propiedades de configuración especificadas.
      * @example
-     * $("#idTable").rup_table("createSearchRow", settings);
+     * $("#idTable").rup_jqtable("createSearchRow", settings);
      */
 		createSearchRow: function(settings){
 			var $self = this,
 				$gridHead = jQuery('table thead','#gview_'+settings.id),
 				searchForm,
 				// Templates
-				searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRowHeader'),
-				collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLayer'),
-				collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseIcon'),
-				collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLabel'),
-				matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLayer'),
-				matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
-				navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
-				navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
-				navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
-				navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
+				searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.searchRowHeader'),
+				collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.collapseLayer'),
+				collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.collapseIcon'),
+				collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.collapseLabel'),
+				matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.matchedLayer'),
+				matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.matchedLabel'),
+				navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.navLayer'),
+				navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.navButton'),
+				navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.navSearchButton'),
+				navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.navClearButton'),
 
 				// Objetos
-				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
+				$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.search.searchRow')),
 				$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length-$gridHead.find('th:hidden').length)),
 				// Capa que controla el colapso del formualario
 				$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+settings.id)),
 				$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+settings.id)),
-				$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+				$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.searchCriteria'))),
 				// Capa que muestra el número de ocurrencias
 				$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+settings.id)),
-				$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+settings.id, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+				$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+settings.id, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecords'),0))),
 
 				// Capa que controla la navegación entre las diferentes ocurrencias
 				$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+settings.id)),
-				$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-				$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-				$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-				$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-				$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-				$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+				$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.first'))),
+				$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.previous'))),
+				$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.next'))),
+				$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.last'))),
+				$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.search.Find'))),
+				$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+settings.id, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.search.Reset')));
 
 			// Construcción del objeto final
 			$collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -15779,24 +15779,24 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			// Creacion del enlace de mostrar/ocultar el formulario
 			$collapseIcon.add($collapseLabel).on('click', function(){
-				$self.rup_table('toggleSearchForm');
+				$self.rup_jqtable('toggleSearchForm');
 			});
 
 			// Evento de búsqueda asociado al botón
 			$navSearchButton.on('click', function(){
-				$self.rup_table('search');
+				$self.rup_jqtable('search');
 			});
 
 			// Evento asociado a limpiar el fomulario de búsqueda
 			$navClearButton.on('click', function(){
-				$self.rup_table('clearSearch');
+				$self.rup_jqtable('clearSearch');
 			});
 
 			$navLayer.hide();
 
 			function doSearchButtonNavigation($button, buttonId){
 				if (!$button.hasClass('ui-state-disabled')){
-					$self.rup_table('navigateToMatchedRow', buttonId);
+					$self.rup_jqtable('navigateToMatchedRow', buttonId);
 				}
 			}
 
@@ -15833,19 +15833,19 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function navigateToMatchedRow
 		 * @param {string} matchedRow - Identificador de la línea a la cual se quiere navegar.
      * @example
-     * $("#idTable").rup_table("navigateToMatchedRow", matchedRow);
+     * $("#idTable").rup_jqtable("navigateToMatchedRow", matchedRow);
      */
 		navigateToMatchedRow: function(matchedRow){
-			var $self = this, retNavParams  = $self.rup_table('fncGetSearchNavigationParams', matchedRow);
-			$self.rup_table('doSearchNavigation', retNavParams);
+			var $self = this, retNavParams  = $self.rup_jqtable('fncGetSearchNavigationParams', matchedRow);
+			$self.rup_jqtable('doSearchNavigation', retNavParams);
 		},
 		/**
      * Lanza la operación de búsqueda además del evento previo.
      *
      * @function search
-		 * @fires module:rup_table#rupTable_beforeSearch
+		 * @fires module:rup_jqtable#rupTable_beforeSearch
      * @example
-     * $("#idTable").rup_table("search");
+     * $("#idTable").rup_jqtable("search");
      */
 		search : function(){
 			var $self = this,
@@ -15860,22 +15860,22 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if ( bfr === false ) { return; }
 			}
 
-			$self.rup_table('doSearch');
+			$self.rup_jqtable('doSearch');
 		},
 		/**
      *  Lanza la operación de búsqueda.
      *
      * @function navigateToMatchedRow
-		 * @fires module:rup_table#rupTable_searchBeforeSubmit.rupTable.masterDetail
+		 * @fires module:rup_jqtable#rupTable_searchBeforeSubmit.rupTable.masterDetail
      * @example
-     * $("#idTable").rup_table("doSearch");
+     * $("#idTable").rup_jqtable("doSearch");
      */
 		doSearch: function(){
 			var $self = this, settings = $self.data('settings'),ret, jsonData={},
-				page = parseInt($self.rup_table('getGridParam', 'page'),10),
-				postData =$self.rup_table('getGridParam','postData');
-			//			jsonData.filterParams =$self.rup_table("getGridParam","postData"),
-			jsonData.filter = $self.rup_table('getFilterParams');
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'),10),
+				postData =$self.rup_jqtable('getGridParam','postData');
+			//			jsonData.filterParams =$self.rup_jqtable("getGridParam","postData"),
+			jsonData.filter = $self.rup_jqtable('getFilterParams');
 			jsonData.search = form2object(settings.search.$searchRowInputs[0]);
 			$self._initializeSearchProps(settings);
 
@@ -15890,12 +15890,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				data: jQuery.toJSON($.extend(true, {}, postData, jsonData)),
 				contentType: 'application/json',
 				success: function(xhr,b,c){
-					rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'),10);
+					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
 
 					if (xhr.length===0){
 						$self._initializeSearchProps(settings);
-						$self.rup_table('updateSearchPagination');
-						$self.rup_table('clearHighlightedMatchedRows');
+						$self.rup_jqtable('updateSearchPagination');
+						$self.rup_jqtable('clearHighlightedMatchedRows');
 					}else{
 						jQuery.each(xhr, function(index, elem){
 							//							if (settings.primaryKey.length>1){
@@ -15911,7 +15911,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$self._processMatchedRow(settings, elem);
 						});
 						$self.trigger('rupTableSearchSuccess');
-						$self.rup_table('goToFirstMatched', page);
+						$self.rup_jqtable('goToFirstMatched', page);
 					}
 				}
 			});
@@ -15922,7 +15922,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function goToFirstMatched
 		 * @param {paramPage} paramPage - En caso de indicarse una página se utilizará en vez de la página actual.
      * @example
-     * $("#idTable").rup_table("goToFirstMatched", paramPage);
+     * $("#idTable").rup_jqtable("goToFirstMatched", paramPage);
      */
 		goToFirstMatched: function(paramPage){
 			var $self = this, settings = $self.data('settings'),
@@ -15936,11 +15936,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//					$($self.jqGrid("getInd",newIndexPos, true)).find("td[aria-describedby='"+settings.id+"_infoSearch']").html($("<img/>").addClass("ui-icon ui-icon-search")[0]);
 				//				}
 
-				$self.rup_table('setSelection', settings.search.matchedRowsPerPage[page][0], true);
-				$self.rup_table('highlightMatchedRowsInPage', page);
+				$self.rup_jqtable('setSelection', settings.search.matchedRowsPerPage[page][0], true);
+				$self.rup_jqtable('highlightMatchedRowsInPage', page);
 
 			}else{
-				$self.rup_table('navigateToMatchedRow', 'first');
+				$self.rup_jqtable('navigateToMatchedRow', 'first');
 			}
 
 
@@ -15952,22 +15952,22 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {paramPage} buttonType - Tipo de parámetro first, prev, next o last.-
 		 * @return {object} - Parametros de configuración asociados al tipo de enlace.
      * @example
-     * $("#idTable").rup_table("fncGetSearchNavigationParams", buttonType);
+     * $("#idTable").rup_jqtable("fncGetSearchNavigationParams", buttonType);
      */
 		fncGetSearchNavigationParams : function(buttonType){
 			var $self = this, settings = $self.data('settings'), execute = false, changePage = false, index=0, newPageIndex=0,
 				npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-				page = parseInt($self.rup_table('getGridParam', 'page'),10),
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'),10),
 				newPage=page,
 				activeLineId,
-				//			lastPage = parseInt(Math.ceil($self.rup_table("getGridParam", "records")/$self.rup_table("getGridParam", "rowNum")),10),
+				//			lastPage = parseInt(Math.ceil($self.rup_jqtable("getGridParam", "records")/$self.rup_jqtable("getGridParam", "rowNum")),10),
 				currentArrayIndex, selectedLines, pageArrayIndex;
 
 			$self.trigger('rupTableAfterSearchNav',[buttonType]);
 
 			npos[0] = parseInt(npos[0],10);
 
-			activeLineId = $self.rup_table('getActiveLineId');
+			activeLineId = $self.rup_jqtable('getActiveLineId');
 
 			$('#'+settings.formEdit.feedbackId, settings.$detailForm).hide();
 			switch (buttonType){
@@ -16091,7 +16091,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function fncGetSearchNavigationParams
 		 * @param {object[]} arrParams - Array de parámetros que determinan la navegación.
      * @example
-     * $("#idTable").rup_table("doSearchNavigation", arrParams);
+     * $("#idTable").rup_jqtable("doSearchNavigation", arrParams);
      */
 		doSearchNavigation: function(arrParams){
 			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
@@ -16106,18 +16106,18 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				newPageIndex = arrParams[6];
 
 				if (execute){
-					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+					$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 					//					$self.triggerHandler("jqGridAddEditClickPgButtons", [buttonType, settings.$detailForm, npos[1][npos[index]]]);
 					pagePos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
 
 					//					actualRowId = npos[1][npos[0]];
-					actualRowId = $self.rup_table('getActiveRowId');
+					actualRowId = $self.rup_jqtable('getActiveRowId');
 
 					//					ret = $self.triggerHandler("rupTable_searchNavigation_deselect", actualRowId);
 					//					if (ret!==false){
 					$row = jQuery($self.jqGrid('getInd', actualRowId, true));
 					if ($row.data('tmp.search.notToDeselect')!=='true'){
-						$self.rup_table('setSelection', actualRowId, false);
+						$self.rup_jqtable('setSelection', actualRowId, false);
 						if ($row.data('tmp.search.notToDeselect')!==undefined){
 							delete $row.data('tmp.search.notToDeselect');
 						}
@@ -16136,7 +16136,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								$row.data('tmp.search.notToDeselect','true');
 							}
 
-							$self.rup_table('setSelection', rowId, true);
+							$self.rup_jqtable('setSelection', rowId, true);
 
 							$self.off('jqGridAfterLoadComplete.rupTable.serach.pagination');
 						});
@@ -16150,7 +16150,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$row.data('tmp.search.notToDeselect','true');
 						}
 
-						$self.rup_table('setSelection', rowId, true);
+						$self.rup_jqtable('setSelection', rowId, true);
 					}
 				}
 			}
@@ -16160,13 +16160,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function clearSearch
      * @example
-     * $("#idTable").rup_table("clearSearch");
+     * $("#idTable").rup_jqtable("clearSearch");
      */
 		clearSearch: function(){
 			var $self = this, settings = $self.data('settings');
 			$self._initializeSearchProps(settings);
-			$self.rup_table('updateSearchPagination');
-			$self.rup_table('clearHighlightedMatchedRows');
+			$self.rup_jqtable('updateSearchPagination');
+			$self.rup_jqtable('clearHighlightedMatchedRows');
 			jQuery('input,textarea','#gview_'+settings.id+' table thead tr.ui-search-toolbar').val('');
 			jQuery('table thead tr.ui-search-toolbar [ruptype=\'combo\']','#gview_'+settings.id).rup_combo('clear');
 		},
@@ -16175,7 +16175,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function clearHighlightedMatchedRows
      * @example
-     * $("#idTable").rup_table("clearHighlightedMatchedRows");
+     * $("#idTable").rup_jqtable("clearHighlightedMatchedRows");
      */
 		clearHighlightedMatchedRows: function(){
 			var $self = this, settings = $self.data('settings');
@@ -16187,18 +16187,18 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function highlightMatchedRowsInPage
 		 * @param {string} page - Identificador de la página en la que se desean resaltar los registos.
      * @example
-     * $("#idTable").rup_table("highlightMatchedRowsInPage", page);
+     * $("#idTable").rup_jqtable("highlightMatchedRowsInPage", page);
      */
 		highlightMatchedRowsInPage:function(page){
 			var $self = this, settings = $self.data('settings'), internalProps = $self[0].p, $row;
 
-			$self.rup_table('clearHighlightedMatchedRows');
+			$self.rup_jqtable('clearHighlightedMatchedRows');
 
 
 			for (var i=0;i<settings.search.matchedRowsPerPage[page].length;i++){
 				newIndexPos = settings.search.matchedRowsPerPage[page][i];
 				$row = $($self.jqGrid('getInd',newIndexPos, true));
-				$self.rup_table('highlightMatchedRow', $row);
+				$self.rup_jqtable('highlightMatchedRow', $row);
 				//				if (i==0){
 				//					internalProps.selarrrow.push($row[0].id);
 				//					internalProps.selrow = $row[0].id;
@@ -16211,7 +16211,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function highlightMatchedRow
 		 * @param {string} $row - Objeto jQuery que referencia la línea de la tabla que se quiere resaltar.
      * @example
-     * $("#idTable").rup_table("highlightMatchedRow", $("#idRow"));
+     * $("#idTable").rup_jqtable("highlightMatchedRow", $("#idRow"));
      */
 		highlightMatchedRow: function($row){
 			var $self = this, settings = $self.data('settings');
@@ -16223,12 +16223,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function updateSearchPagination
 		 * @param {string} paramRowId - Identificador de la página.
      * @example
-     * $("#idTable").rup_table("updateSearchPagination", paramRowId);
+     * $("#idTable").rup_jqtable("updateSearchPagination", paramRowId);
      */
 		updateSearchPagination:function(paramRowId){
 			var $self = this, settings = $self.data('settings'),
 				rowId, pagePos, currentArrayIndex,
-				page = parseInt($self.rup_table('getGridParam', 'page'),10),
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'),10),
 				numMatched, formatter = $.jgrid.formatter.integer;
 
 			if (paramRowId!==undefined){
@@ -16240,15 +16240,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			if (settings.search.numMatched===0){
 				settings.search.$firstNavButton.add(settings.search.$backNavButton).add(settings.search.$forwardNavButton).add(settings.search.$lastNavButton).addClass('ui-state-disabled');
-				settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
+				settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecords'),'0'));
 			}else if (rowId!==-1){
 				// Comprobamos si el registro seleccionado es uno de los resultados de la busqueda
 				if (jQuery.inArray(rowId, settings.search.matchedRowsPerPage[page])!==-1){
 					// Calculamos el
-					numMatched = $self.rup_table('getSearchCurrentRowCount', rowId);
+					numMatched = $self.rup_jqtable('getSearchCurrentRowCount', rowId);
 
 					if (settings.search && settings.search.numMatched){
-						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),$.fmatter.util.NumberFormat(numMatched,formatter), $.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
+						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecordsCount'),$.fmatter.util.NumberFormat(numMatched,formatter), $.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
 
 					if (numMatched===1){
@@ -16269,7 +16269,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				}else{
 					if (settings.search && settings.search.numMatched){
-						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
+						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
 					settings.search.$firstNavButton.removeClass('ui-state-disabled');
 					settings.search.$backNavButton.removeClass('ui-state-disabled');
@@ -16288,7 +16288,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						settings.search.$forwardNavButton.addClass('ui-state-disabled');
 						settings.search.$lastNavButton.addClass('ui-state-disabled');
 					}else{
-						pagePos = $self.rup_table('getActiveLineId');
+						pagePos = $self.rup_jqtable('getActiveLineId');
 						if(settings.search.matchedLinesPerPage[page] !== undefined){
 							currentArrayIndex = $.rup_utils.insertSorted($.merge([],settings.search.matchedLinesPerPage[page]), pagePos+1);
 						}
@@ -16309,14 +16309,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function getSearchCurrentRowCount
 		 * @param {string} selectedRowId - Identificador del registro.
      * @example
-     * $("#idTable").rup_table("getSearchCurrentRowCount", "05");
+     * $("#idTable").rup_jqtable("getSearchCurrentRowCount", "05");
      */
 		getSearchCurrentRowCount : function(selectedRowId){
 			var $self = this, settings = $self.data('settings'),
-				page = parseInt($self.rup_table('getGridParam', 'page'),10),
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'),10),
 				currentPos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-				selectedRows = $self.rup_table('getSelectedRows'),
-				//			rowsPerPage = parseInt($self.rup_table("getGridParam", "rowNum"),10),
+				selectedRows = $self.rup_jqtable('getSelectedRows'),
+				//			rowsPerPage = parseInt($self.rup_jqtable("getGridParam", "rowNum"),10),
 				selectedPagesArrayIndex,
 				currentRow = jQuery.inArray(selectedRowId!==undefined?selectedRowId:selectedRows[0],currentPos[1]),
 				cont=0;
@@ -16345,7 +16345,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * _initializeSearchProps(settings): Se realiza la inicialización de los componentes del plugin search.
 	 * _processMatchedRow(settings, matchedElem): Se gestiona el registro indicado.
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Devuelve true/false dependiendo si la página tiene registros que coinciden con los criterios de búsqueda o no.
      *
@@ -16433,8 +16433,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  	* @property {string} [url=null] - Url que se va a utilizar para realizar las peticiones de filtrado de la tabla. En caso de no especificarse una concreta, se utilizará por defecto una construida a partir de la url base. (urlBase + /search).
 	* @property {object} [validate] - Mediante esta propiedad es posible especificar reglas de validación que se especifican en la guía de uso del componente RUP validation.
  	*/
-	jQuery.fn.rup_table.plugins.search = {};
-	jQuery.fn.rup_table.plugins.search.defaults = {
+	jQuery.fn.rup_jqtable.plugins.search = {};
+	jQuery.fn.rup_jqtable.plugins.search.defaults = {
 		showGridInfoCol:true,
 		search:{
 			url: null,
@@ -16460,7 +16460,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    *  Se lanza al finalizar la creación de la linea de búsqueda de la tabla.
    *
-   * @event module:rup_table#rupTable_searchAfterCreateToolbar
+   * @event module:rup_jqtable#rupTable_searchAfterCreateToolbar
    * @property {Event} event - Objeto Event correspondiente al evento disparado.
 	 * @property {Event} $searchRow - Linea de la tabla destinada a la búsqueda.
    * @example
@@ -16470,7 +16470,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
     * Evento lanzado antes de realizarse la búsqueda.
     *
-    * @event module:rup_table#rupTable_beforeSearch
+    * @event module:rup_jqtable#rupTable_beforeSearch
     * @property {Event} event - Objeto Event correspondiente al evento disparado.
     * @example
     * $("#idComponente").on("rupTable_beforeSearch", function(event){ });
@@ -16479,7 +16479,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
     * Evento lanzado antes de realizarse la petición de búsqueda al servidor
     *
-    * @event module:rup_table#rupTable_searchBeforeSubmit.rupTable.masterDetail
+    * @event module:rup_jqtable#rupTable_searchBeforeSubmit.rupTable.masterDetail
     * @property {Event} event - Objeto Event correspondiente al evento disparado.
 		* @property {object} postData - Objeto data que va a ser enviado en la petición.
 		* @property {object} jsonData - Objeto json con los parámetros de búsqueda.
@@ -16512,10 +16512,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
  *
  * @summary Plugin de toolbar del componente RUP Table.
- * @module rup_table/toolbar
+ * @module rup_jqtable/toolbar
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["toolbar"],
  * 	toolbar:{
@@ -16532,16 +16532,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('toolbar',{
+	jQuery.rup_jqtable.registerPlugin('toolbar',{
 		loadOrder:3,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureToolbar', settings);
+			return $self.rup_jqtable('preConfigureToolbar', settings);
 
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureToolbar', settings);
+			return $self.rup_jqtable('postConfigureToolbar', settings);
 
 		}
 	});
@@ -16551,7 +16551,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la botonera asociada a la tabla.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -16559,7 +16559,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfigureToolbar(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin toolbar del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -16604,7 +16604,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			// autoAjustToolbar: Realiza el autoajuste del toolbar al tamanyo del grid.
 			if (toolbarSettings.autoAjustToolbar) {
-				settings.$toolbar.css('width', $self.rup_table('getGridParam', 'width') - 5);//-5 para ajustar el ancho
+				settings.$toolbar.css('width', $self.rup_jqtable('getGridParam', 'width') - 5);//-5 para ajustar el ancho
 			}
 
 			// createDefaultToolButtons: Determina la creacion de los botones basicos por defecto del toolbar.
@@ -16623,7 +16623,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		*
 		* @name postConfigureToolbar
 		* @function
-		* @fires module:rup_table#rupTable_feedbackClose
+		* @fires module:rup_jqtable#rupTable_feedbackClose
 		* @param {object} settings - Parámetros de configuración del componente.
 		*/
 		postConfigureToolbar: function(settings){
@@ -16642,7 +16642,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							index: counter++,
 							dropdown: operationCfg.dropdown,
 							right: operationCfg.right
-						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table')).bind('click', function(event){
+						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable')).bind('click', function(event){
 							jQuery.proxy(operationCfg.callback,$self)($self, event);
 						});
 					}
@@ -16664,7 +16664,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					 	 var mButton = settings.$toolbar.addMButton(object, object.json_i18n).bind('click', settings.$toolbar.showMButton);
 					 	 settings.$toolbar.addButtonsToMButton(object.buttons, mButton, object.json_i18n);
 					}else{
-						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,'rup_table.toolbarNewButtonError'));
+						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,'rup_jqtable.toolbarNewButtonError'));
 					}
 				});
 			}
@@ -16702,7 +16702,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				'rupTable_internalFeedbackClose': function(){
 					var $self = jQuery(this), settings = $self.data('settings');
 					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
-					// if ($self.rup_table('isPluginLoaded', 'feedback')){
+					// if ($self.rup_jqtable('isPluginLoaded', 'feedback')){
 					// 	settings.$internalFeedback.rup_feedback('close');
 					// }
 				}
@@ -16728,8 +16728,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
 	* @property {object} [buttons] - Permite definir nuevos botones que se mostrarán en la toolbar. Los nuevos botones se especificarán del mismo modo que se describe en el componente rup_toolbar.
 	*/
-	jQuery.fn.rup_table.plugins.toolbar = {};
-	jQuery.fn.rup_table.plugins.toolbar.defaults = {
+	jQuery.fn.rup_jqtable.plugins.toolbar = {};
+	jQuery.fn.rup_jqtable.plugins.toolbar.defaults = {
 		toolbar:{
 			id: null,
 			autoAjustToolbar: true,
@@ -16755,7 +16755,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza cuando se cierra el feedback.
 	*
-	* @event module:rup_table#rupTable_feedbackClose
+	* @event module:rup_jqtable#rupTable_feedbackClose
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} $feedback - Referencia jQuery al feedback interno.
 	* @example
@@ -16788,10 +16788,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Permite configurar un área para informar al usuario de cómo interactuar con el componente. Mediante el componente feedback se mostraran al usuario mensajes de confirmación, avisos y errores que faciliten y mejoren la interacción del usuario con la aplicación.
  *
  * @summary Plugin de feedback del componente RUP Table.
- * @module rup_table/feedback
+ * @module rup_jqtable/feedback
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  *	usePlugins:["feedback"],
  * 	feedback:{
@@ -16808,15 +16808,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('feedback',{
+	jQuery.rup_jqtable.registerPlugin('feedback',{
 		loadOrder:2,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureFeedback', settings);
+			return $self.rup_jqtable('preConfigureFeedback', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureFeedback', settings);
+			return $self.rup_jqtable('postConfigureFeedback', settings);
 		}
 	});
 
@@ -16825,7 +16825,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la botonera asociada a la tabla.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -16838,7 +16838,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 */
 
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/*
 		 * Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 		 *
@@ -16871,7 +16871,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			if (!jQuery.isFunction(settings.loadError)){
 				settings.loadError = function(xhr){
-					$self.rup_table('showFeedback', settings.$feedback, xhr.responseText, 'error');
+					$self.rup_jqtable('showFeedback', settings.$feedback, xhr.responseText, 'error');
 				};
 			}
 
@@ -16883,7 +16883,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$($feedback).rup_feedback('close');
 				},
 				'rupTable_feedbackShow': function (events, $feedback, msg, type, options){
-					$self.rup_table('showFeedback', $($feedback), msg, type, options);
+					$self.rup_jqtable('showFeedback', $($feedback), msg, type, options);
 				}
 			});
 
@@ -16904,7 +16904,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 
 		/**
      * Muestra el feedback indicado con la configuración especificada.
@@ -16915,7 +16915,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} type -  Clase de feedback a mostrar.
 		 * @param {object} options - Propiedades de configuración del feedback
      * @example
-     * $("#idTable").rup_table("showFeedback", $("#idFeedback"), "Texto...", "ok"), {};
+     * $("#idTable").rup_jqtable("showFeedback", $("#idFeedback"), "Texto...", "ok"), {};
      */
 		showFeedback: function($feedback, msg, type, options){
 			var $self = this, settings = $self.data('settings'), options_backup, default_options;
@@ -16962,11 +16962,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {object} [alertFeedbackConfig] - Determina la configuración por defecto del feedback en los casos de mensajes tipo ALERT.
 	* @property {object} [internalFeedbackConfig] - Determina la configuración por defecto del feedback interno de la tabla.
 	*/
-	jQuery.fn.rup_table.plugins.feedback = {};
-	jQuery.fn.rup_table.plugins.feedback.defaults = {
+	jQuery.fn.rup_jqtable.plugins.feedback = {};
+	jQuery.fn.rup_jqtable.plugins.feedback.defaults = {
 		loadError : function(xhr,st,err){
 			var $self = $(this), settings = $self.data('settings');
-			$self.rup_table('showFeedback', settings.$feedback, xhr.responseText, 'error');
+			$self.rup_jqtable('showFeedback', settings.$feedback, xhr.responseText, 'error');
 		},
 		feedback:{
 			okFeedbackConfig:{
@@ -17024,11 +17024,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
  *
  * @summary Plugin de filtrado múltiple del componente RUP Table.
- * @module rup_table/fluid
+ * @module rup_jqtable/fluid
  * @deprecated
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["fuild"],
  * 	fuild:{
@@ -17044,11 +17044,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('fluid',{
+	jQuery.rup_jqtable.registerPlugin('fluid',{
 		loadOrder:5,
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureFluid', settings);
+			return $self.rup_jqtable('postConfigureFluid', settings);
 		}
 	});
 
@@ -17057,7 +17057,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 * Extensión del componente rup_jqtable para permitir la gestión del diseño líquido del componente.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -17068,7 +17068,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/*
 		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
 		 *
@@ -17156,8 +17156,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  	* @property {integer} [maxWidth=2000] -  Determina la anchura mínima a la que se va a redimensionar la capa.
  	* @property {integer} [fluidOffset=0] - Desplazamiento que se aplica a la capa redimensionada.
  	*/
-	jQuery.fn.rup_table.plugins.fluid = {};
-	jQuery.fn.rup_table.plugins.fluid.defaults = {
+	jQuery.fn.rup_jqtable.plugins.fluid = {};
+	jQuery.fn.rup_jqtable.plugins.fluid.defaults = {
 		fluid:{
 			baseLayer:null,
 			minWidth: 100,
@@ -17194,10 +17194,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * - Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre losdiferentes elementos.
  *
  * @summary Plugin de edición en formulario del componente RUP Table.
- * @module rup_table/formEdit
+ * @module rup_jqtable/formEdit
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["formEdit"],
  * 	formEdit:{
@@ -17214,17 +17214,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
      *
      */
-	jQuery.rup_table.registerPlugin('formEdit', {
+	jQuery.rup_jqtable.registerPlugin('formEdit', {
 		loadOrder: 6,
 		preConfiguration: function (settings) {
 			var $self = this;
 
-			return $self.rup_table('preConfigureFormEdit', settings);
+			return $self.rup_jqtable('preConfigureFormEdit', settings);
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
 
-			return $self.rup_table('postConfigureFormEdit', settings);
+			return $self.rup_jqtable('postConfigureFormEdit', settings);
 		}
 	});
 
@@ -17233,7 +17233,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-     * Extensión del componente rup_table para permitir la edición de los registros mediante un formulario.
+     * Extensión del componente rup_jqtable para permitir la edición de los registros mediante un formulario.
      *
      * Los métodos implementados son:
      *
@@ -17246,7 +17246,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * settings.formEdit.$detailFormDiv : Referencia al div que arropa el formulario de detalle y sobre el que se inicializa el componente rup_dialog.
      *
      */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin formEdit del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -17291,7 +17291,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 			settings.ondblClickRow = function (rowid, iRow, iCol, e) {
-				$self.rup_table('editElement', rowid);
+				$self.rup_jqtable('editElement', rowid);
 				return false;
 			};
 
@@ -17299,7 +17299,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.formEdit.deleteOptions.ajaxDelOptions = jQuery.extend(true, settings.formEdit.deleteOptions.ajaxDelOptions, {
 				success: function (data, st, xhr) {
 					$self.triggerHandler('rupTableAfterDelete', [data, st, xhr]);
-					$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK'), 'ok');
+					$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.deletedOK'), 'ok');
 				}
 			});
 
@@ -17315,17 +17315,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			settings.core.defaultOperations = {
 				'add': {
-					name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.new'),
+					name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.new'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
 					enabled: function () {
 						return true;
 					},
 					callback: function (key, options) {
-						$self.rup_table('newElement');
+						$self.rup_jqtable('newElement');
 					}
 				},
 				'edit': {
-					name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.modify'),
+					name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.modify'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.edit.icon,
 					enabled: function () {
 						var $self = this,
@@ -17333,7 +17333,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						return jQuery.proxy(settings.fncHasSelectedElements, $self)();
 					},
 					callback: function (key, options) {
-						$self.rup_table('editElement');
+						$self.rup_jqtable('editElement');
 					}
 				},
 				//				"save": {
@@ -17343,16 +17343,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//						return false;
 				//					}},
 				//					callback: function(key, options){
-				//						$self.rup_table("newElement");
+				//						$self.rup_jqtable("newElement");
 				//					}},
 				'clone': {
-					name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.clone'),
+					name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.clone'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.clone.icon,
 					enabled: function () {
 						return jQuery.proxy(settings.fncHasSelectedElements, $self)();
 					},
 					callback: function (key, options) {
-						$self.rup_table('cloneElement');
+						$self.rup_jqtable('cloneElement');
 					}
 				},
 				//				"cancel": {
@@ -17362,7 +17362,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//						return false;
 				//					}},
 				'delete': {
-					name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+					name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.delete'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
 					enabled: function () {
 						var $self = this,
@@ -17370,7 +17370,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						return jQuery.proxy(settings.fncHasSelectedElements, $self)();
 					},
 					callback: function (key, options) {
-						$self.rup_table('deleteElement');
+						$self.rup_jqtable('deleteElement');
 					}
 				}
 			};
@@ -17456,7 +17456,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			settings.getDetailTotalRowCount = function () {
 				var $self = this;
-				return $self.rup_table('getGridParam', 'records');
+				return $self.rup_jqtable('getGridParam', 'records');
 			};
 
 			settings.getDetailCurrentRowCount = function () {
@@ -17464,14 +17464,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					page, rowNum, rowId, rowsPerPage, cont;
 
 				// Obtenemos la pagina actual
-				page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 				// Obtenemos el identificador del registro seleccionado
-				rowId = $self.rup_table('getGridParam', 'selrow');
+				rowId = $self.rup_jqtable('getGridParam', 'selrow');
 				// Obtenemos el numero de linea
 				//				rowNum = $self.jqGrid("getInd", rowId);
 				rowNum = jQuery.inArray(rowId, jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])()[1]) + 1;
 				// Numero de registros por pagina que se visualizan
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
 				// Flag de todos los registros seleccionados
 				cont = (page * rowsPerPage) - rowsPerPage + rowNum;
 
@@ -17500,9 +17500,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					newPage = 0,
 					newPageIndex = 0,
 					npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
-					rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10),
-					lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records') / $self.rup_table('getGridParam', 'rowNum')), 10);
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
+					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10),
+					lastPage = parseInt(Math.ceil($self.rup_jqtable('getGridParam', 'records') / $self.rup_jqtable('getGridParam', 'rowNum')), 10);
 
 				npos[0] = parseInt(npos[0], 10);
 
@@ -17572,7 +17572,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					newPageIndex = arrParams[6];
 
 					if (execute) {
-						$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+						$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 						$self.triggerHandler('jqGridAddEditClickPgButtons', [linkType, settings.formEdit.$detailForm, npos[1][npos[index]]]);
 						if (changePage) {
 							$self.trigger('reloadGrid', [{
@@ -17676,16 +17676,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					// Dependiendo del boton de guardado seleccionado se realiza el comportamiento correspondiente
 					if (formEditSaveType === 'SAVE') {
 						if (oper === 'edit') {
-							$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK'), 'ok');
+							$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.modifyOK'), 'ok');
 						} else {
-							$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_table.insertOK'), 'ok');
+							$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.insertOK'), 'ok');
 						}
 						settings.formEdit.$detailFormDiv.rup_dialog('close');
 					} else if (formEditSaveType === 'SAVE_REPEAT') {
 						if (oper === 'edit') {
-							$self.rup_table('showFeedback', settings.$detailFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK'), 'ok');
+							$self.rup_jqtable('showFeedback', settings.$detailFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.modifyOK'), 'ok');
 						} else {
-							$self.rup_table('showFeedback', settings.$detailFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_table.insertOK'), 'ok');
+							$self.rup_jqtable('showFeedback', settings.$detailFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.insertOK'), 'ok');
 						}
 					}
 
@@ -17715,17 +17715,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						try {
 							responseJSON = jQuery.parseJSON(data.responseText);
 							if (responseJSON.rupErrorFields) {
-								$self.rup_table('showServerValidationFieldErrors', settings.formEdit.$detailForm, responseJSON);
+								$self.rup_jqtable('showServerValidationFieldErrors', settings.formEdit.$detailForm, responseJSON);
 							}
 						} catch (e) {
 							// El mensaje JSON
-							$self.rup_table('showFeedback', settings.$detailFeedback, data.responseText, 'error');
+							$self.rup_jqtable('showFeedback', settings.$detailFeedback, data.responseText, 'error');
 						}
 
 					}
 				},
 				//				 "jqGridDblClickRow.rupTable.formEditing": function (event, rowid, iRow, iCol, e){
-				//					$self.rup_table('editElement', rowid);
+				//					$self.rup_jqtable('editElement', rowid);
 				//				 },
 				'jqGridAddEditBeforeShowForm.rupTable.formEditing': function (event, $detailForm, frmoper) {
 					var $self = $(this),
@@ -17734,7 +17734,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						colModel = $self[0].p.colModel;
 
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
-					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+					$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
 						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
@@ -17773,7 +17773,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var $self = $(this),
 						settings = $self.data('settings');
 					// Ubicamos el foco en el primer elemento del formulario
-					$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+					$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 					jQuery(':focusable:enabled:not([readonly]):first', $detailForm).focus();
 				}
 			});
@@ -17794,14 +17794,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * s($form): Oculta los mensaje de error visualizado en el
      *
      */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Devuelve la template HTML correspondiente a la capa de navegación del fomulario de filtrado.
      *
      * @function  createDetailNavigation
 		 * @return {object} - Template correspondiente a la capa de navegación.
      * @example
-     * $("#idTable").rup_table("createDetailNavigation");
+     * $("#idTable").rup_jqtable("createDetailNavigation");
      */
 		createDetailNavigation: function () {
 			var $self = $(this);
@@ -17816,22 +17816,22 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador del registro que se desea eliminar.
 		 * @param {object} options - Opciones de configuración de la operación de borrado.
 		 * @return {object} - Referencia al propio objecto jQuery.
-		 * @fires module:rup_table#rupTable_deleteAfterSubmit
-		 * @fires module:rup_table#rupTable_afterDeleteRow
-		 * @fires module:rup_table#rupTable_beforeDeleteRow
+		 * @fires module:rup_jqtable#rupTable_deleteAfterSubmit
+		 * @fires module:rup_jqtable#rupTable_afterDeleteRow
+		 * @fires module:rup_jqtable#rupTable_beforeDeleteRow
 		 * @example
-		 * $("#idComponente").rup_table("deleteElement", rowId, options);
+		 * $("#idComponente").rup_jqtable("deleteElement", rowId, options);
 		 */
 		deleteElement: function (rowId, options) {
 			var $self = this,
 				settings = $self.data('settings'),
 				deleteOptions = jQuery.extend(true, {}, settings.formEdit.deleteOptions, options),
-				selectedRow = (rowId === undefined ? $self.rup_table('getSelectedRows') : rowId);
+				selectedRow = (rowId === undefined ? $self.rup_jqtable('getSelectedRows') : rowId);
 
 			// En caso de especificarse el uso del método HTTP DELETE, se anyade el identificador como PathParameter
 			if (selectedRow.length === 1) {
 				if (deleteOptions.mtype === 'DELETE') {
-					deleteOptions.url = settings.formEdit.editurl + '/' + $self.rup_table('getPkUrl', selectedRow);
+					deleteOptions.url = settings.formEdit.editurl + '/' + $self.rup_jqtable('getPkUrl', selectedRow);
 				}
 			} else {
 				deleteOptions.mtype = 'POST';
@@ -17845,8 +17845,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							'pkToken': settings.multiplePkToken,
 							'pkNames': settings.primaryKey
 						},
-						'multiselection': $self.rup_table('getSelectedIds'),
-						'filter': $self.rup_table('getFilterParams')
+						'multiselection': $self.rup_jqtable('getSelectedIds'),
+						'filter': $self.rup_jqtable('getFilterParams')
 					});
 				};
 			}
@@ -17873,9 +17873,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador del registro que se desea editar.
 		 * @param {object} options - Opciones de configuración de la operación de edición.
 		 * @return {object} - Referencia al propio objecto jQuery.
-		 * @fires module:rup_table#rupTable_beforeEditRow
+		 * @fires module:rup_jqtable#rupTable_beforeEditRow
 		 * @example
-		 * $("#idComponente").rup_table("editElement", rowId, options);
+		 * $("#idComponente").rup_jqtable("editElement", rowId, options);
 		 */
 		editElement: function (rowId, options) {
 			var $self = this,
@@ -17913,9 +17913,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @function  newElement
 		 * @param {boolean} addEvent - Determina si se debe lanzar (true) o no (false) el evento rupTable_beforeAddRow.
 		 * @return {object} - Referencia al propio objecto jQuery.
-		 * @fires module:rup_table#rupTable_beforeAddRow
+		 * @fires module:rup_jqtable#rupTable_beforeAddRow
 		 * @example
-		 * $("#idComponente").rup_table("newElement", true);
+		 * $("#idComponente").rup_jqtable("newElement", true);
 		 */
 		newElement: function (addEvent) {
 			var $self = this,
@@ -17953,9 +17953,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {object} options - Opciones de configuración de la operación de clonado.
 		 * @param {boolean} cloneEvent - Determina si se debe lanzar (true) o no (false) el evento rupTable_beforeCloneRow.
 		 * @return {object} - Referencia al propio objecto jQuery.
-		 * @fires module:rup_table#rupTable_beforeCloneRow
+		 * @fires module:rup_jqtable#rupTable_beforeCloneRow
 		 * @example
-		 * $("#idComponente").rup_table("cloneElement", rowId, options, cloneEvent);
+		 * $("#idComponente").rup_jqtable("cloneElement", rowId, options, cloneEvent);
 		 */
 		cloneElement: function (rowId, options, cloneEvent) {
 			var $self = this,
@@ -17993,7 +17993,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @function  hideFormErrors
 		 * @param {object} $form - Formulario del que se desea ocultar los mensajes de error.
 		 * @example
-		 * $("#idComponente").rup_table("hideFormErrors", $form);
+		 * $("#idComponente").rup_jqtable("hideFormErrors", $form);
 		 */
 		hideFormErrors: function ($form) {
 			var $self = this,
@@ -18160,7 +18160,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 			var cm = obj.p.colModel;
 			if (rowid == '_empty') {
-				$self.rup_table('resetForm', settings.formEdit.$detailForm);
+				$self.rup_jqtable('resetForm', settings.formEdit.$detailForm);
 				$(cm).each(function () {
 					nm = this.name;
 					id = this.id !== undefined ? this.id : nm;
@@ -18323,7 +18323,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				$detailFormToPopulate = ($form !== undefined ? $form : settings.formEdit.$detailForm);
 
 			if (rowid == '_empty') {
-				$self.rup_table('resetForm', settings.formEdit.$detailForm);
+				$self.rup_jqtable('resetForm', settings.formEdit.$detailForm);
 
 				$.proxy($.jgrid.getFormData, $t)(postdata, {});
 				rp_ge[$t.p.id]._savedData = $.rup_utils.unnestjson(postdata);
@@ -18362,7 +18362,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				}
 			}, settings.formEdit.detailOptions.ajaxDetailOptions);
 
-			ajaxOptions.url += '/' + $self.rup_table('getPkUrl', rowid);
+			ajaxOptions.url += '/' + $self.rup_jqtable('getPkUrl', rowid);
 			$.when($.rup_ajax(ajaxOptions)).then(function (success, statusText, xhr) {
 				$self.triggerHandler('jqGridAddEditAfterFillData', [$form, frmoper]);
 			});
@@ -18741,8 +18741,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				if (compareDataEvent.isDifferent) {
 					$.rup_messages('msgConfirm', {
-						message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-						title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+						message: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.saveAndContinue'),
+						title: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.changes'),
 						OKFunction: function () {
 
 							if (jQuery.isFunction(okCallback)) {
@@ -18805,7 +18805,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$('#nData', frmtb + '_2').removeClass('ui-state-disabled');
 				}
 			}
-			$self.rup_table('updateDetailPagination');
+			$self.rup_jqtable('updateDetailPagination');
 		}
 	});
 
@@ -18994,8 +18994,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				} else {
 					var dh = isNaN(p.dataheight) ? p.dataheight : p.dataheight + 'px',
 						dw = isNaN(p.datawidth) ? p.datawidth : p.datawidth + 'px',
-						frm = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.form', frmgr, dh)).data('disabled', false),
-						tbl = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.body', frmtborg)),
+						frm = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.detailForm.form', frmgr, dh)).data('disabled', false),
+						tbl = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.detailForm.body', frmtborg)),
 						showFrm = $($t).triggerHandler('jqGridAddEditBeforeInitData', [$('#' + frmgr), frmoper]), flr;
 					if (typeof (showFrm) == 'undefined') {
 						showFrm = true;
@@ -19013,7 +19013,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						maxRows = Math.max(maxRows, fmto ? fmto.rowpos || 0 : 0);
 					});
 					$(frm).append(tbl);
-					flr = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.errorFeedback', settings.formEdit.feedbackId));
+					flr = $(jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.detailForm.errorFeedback', settings.formEdit.feedbackId));
 					flr[0].rp = 0;
 					$(tbl).append(flr);
 					/* ADD	*/
@@ -19095,7 +19095,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
                      * Añadida barra de navegación entre elementos
                      */
 
-					var barraNavegacion = $self.rup_table('createDetailNavigation'),
+					var barraNavegacion = $self.rup_jqtable('createDetailNavigation'),
 						tms;
 
 
@@ -19368,7 +19368,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				}
 				var posInit = $.proxy($.jgrid.getCurrPos, $t)();
-				$self.rup_table('updateDetailPagination');
+				$self.rup_jqtable('updateDetailPagination');
 				$.proxy($.jgrid.updateNav, $t)(posInit[0], posInit[1].length - 1);
 			});
 		}
@@ -19409,8 +19409,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {boolean} [defaultCompareData] - Determina si se debe de realizar la comparación por defecto en el control de cambios del formulario de edición. Por defecto a true.
 	* @property {object} [dialogOptions] - Permite especificar opciones de configuración para el diálogo que contiene el formulario de detalle. Las opciones de configuración se pueden consultar en la guía de desarrollo del componente RUP Diálogo.
 	*/
-	jQuery.fn.rup_table.plugins.formEdit = {};
-	jQuery.fn.rup_table.plugins.formEdit.defaults = {
+	jQuery.fn.rup_jqtable.plugins.formEdit = {};
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults = {
 		toolbar: {
 			defaultButtons: {
 				add: true,
@@ -19443,12 +19443,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
-	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.deleteOptions = {
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults.formEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'),
 		cancelicon: [false, 'left', 'icono_cancelar'],
 		delicon: [false],
 		linkStyleButtons: ['#eData'],
-		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deleteAll') + '</div>',
+		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.deleteAll') + '</div>',
 		mtype: 'DELETE',
 		width: 320,
 		reloadAfterSubmit: false,
@@ -19458,7 +19458,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configuración por defecto para la acción de añadir y editar un registro.
-	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.addEditOptions = {
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults.formEdit.addEditOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_message.aceptar'),
 		closeicon: [false],
 		checkOnUpdate: true,
@@ -19466,7 +19466,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		fillDataMethod: 'serverSide', // clientSide || serverSide
 		saveicon: [false],
 		linkStyleButtons: ['#cData'],
-		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deleteAll') + '</div>',
+		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.deleteAll') + '</div>',
 		mtype: 'PUT',
 		reloadAfterSubmit: false,
 		resize: false,
@@ -19480,7 +19480,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación específicos para la acción de añadir un registro
-	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.addOptions = {
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults.formEdit.addOptions = {
 		mtype: 'POST',
 		ajaxEditOptions: {
 			type: 'POST'
@@ -19488,7 +19488,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación específicos para la acción de editar un registro
-	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.editOptions = {
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults.formEdit.editOptions = {
 		mtype: 'PUT',
 		ajaxEditOptions: {
 			type: 'PUT'
@@ -19496,7 +19496,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configuración por defecto para la obtención del detalle de un registro
-	jQuery.fn.rup_table.plugins.formEdit.defaults.formEdit.detailOptions = {
+	jQuery.fn.rup_jqtable.plugins.formEdit.defaults.formEdit.detailOptions = {
 		ajaxDetailOptions: {
 			dataType: 'json',
 			type: 'GET',
@@ -19513,7 +19513,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeDeleteRow
+	* @event module:rup_jqtable#rupTable_beforeDeleteRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} deleteOptions - Opciones de configuración de la operación de borrado.
 	* @property {string} selectedRow - Identificador de la fila que se desea eliminar.
@@ -19524,7 +19524,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeEditRow
+	* @event module:rup_jqtable#rupTable_beforeEditRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} editOptions - Opciones de configuración de la operación de edición.
 	* @property {string} selectedRow - Identificador de la fila que se desea editar.
@@ -19535,7 +19535,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo después de realizarse la petición de borrado de un registro.
 	*
-	* @event module:rup_table#rupTable_deleteAfterSubmit
+	* @event module:rup_jqtable#rupTable_deleteAfterSubmit
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @example
 	* $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
@@ -19544,7 +19544,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
 	*
-	* @event module:rup_table#rupTable_beforeAddRow
+	* @event module:rup_jqtable#rupTable_beforeAddRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} addOptions -  Opciones de configuración de la acción de insertar un elemento.
 	* @example
@@ -19554,7 +19554,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 	*
-	* @event module:rup_table#rupTable_beforeCloneRow
+	* @event module:rup_jqtable#rupTable_beforeCloneRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
 	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
@@ -19564,7 +19564,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 	*
-	* @event module:rup_table#rupTable_beforeCloneRow
+	* @event module:rup_jqtable#rupTable_beforeCloneRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
 	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
@@ -19576,7 +19576,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado después de que ha finalizado correctamente el proceso de eliminar un registro..
 	*
-	* @event module:rup_table#rupTable_afterDeleteRow
+	* @event module:rup_jqtable#rupTable_afterDeleteRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @example
 	* $("#idComponente").on("rupTable_afterDeleteRow", function(event){ });
@@ -19585,7 +19585,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado después de que ha finalizado correctamente el proceso de carga de datos en el formulario de edición a partir de una petición al servidor de aplicaciones.
 	*
-	* @event module:rup_table#rupTable_afterFormFillDataServerSide
+	* @event module:rup_jqtable#rupTable_afterFormFillDataServerSide
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} xhr - Objeto enviado como respuesta desde el servidor.
 	* @property {object} $detailFormToPopulate - Referencia al formulario de detalle.
@@ -19598,7 +19598,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	código que indique al proceso de control de cambios si se han producido modificaciones o no.
 
 	*
-	* @event module:rup_table#rupTable_formEditCompareData
+	* @event module:rup_jqtable#rupTable_formEditCompareData
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} savedData - Objeto que contiene los valores iniciales del formulario a partir de la serialización del mismo.
 	* @property {object} newData - Objeto que contiene los valores actuales del formulario a partir de la serialización del mismo.
@@ -19644,10 +19644,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
 	 *
 	 * @summary Plugin de edición en línea del componente RUP Table.
-	 * @module rup_table/inlineEdit
+	 * @module rup_jqtable/inlineEdit
 	 * @example
 	 *
-	 * $("#idComponente").rup_table({
+	 * $("#idComponente").rup_jqtable({
 	 * 	url: "../jqGridUsuario",
 	 * 	usePlugins:["inlineEdit"],
 	 * 	inlineEdit:{
@@ -19655,22 +19655,22 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * 	}
 	 * });
 	 */
-	jQuery.rup_table.registerPlugin('inlineEdit',{
+	jQuery.rup_jqtable.registerPlugin('inlineEdit',{
 		loadOrder:7,
 		preConfiguration: function(settings){
 			var $self = this;
 
-			$self.rup_table('preConfigureInlineEdit',settings);
+			$self.rup_jqtable('preConfigureInlineEdit',settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
 
-			$self.rup_table('postConfigureInlineEdit',settings);
+			$self.rup_jqtable('postConfigureInlineEdit',settings);
 		}
 	});
 
 	/**
-	 * Extensión del componente rup_table para permitir la edición en línea de los registros visualizados.
+	 * Extensión del componente rup_jqtable para permitir la edición en línea de los registros visualizados.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -19683,7 +19683,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.$inlineForm : Referencia al formulario utilizado para enviar los datos del registro que está siendo editado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -19711,7 +19711,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.inlineEdit.deleteOptions.ajaxDelOptions = $.extend(true, settings.inlineEdit.deleteOptions.ajaxDelOptions, {
 				success: function(data,st, xhr){
 					$self.triggerHandler('rupTableAfterDelete', [data,st, xhr]);
-					$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.deletedOK'), 'ok');
+					$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.deletedOK'), 'ok');
 				}
 			});
 
@@ -19731,11 +19731,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					 try{
 						 responseJSON = jQuery.parseJSON(data.responseText);
 						 if (responseJSON.rupErrorFields){
-							 $self.rup_table('showServerValidationFieldErrors',settings.inlineEdit.$inlineForm, responseJSON);
+							 $self.rup_jqtable('showServerValidationFieldErrors',settings.inlineEdit.$inlineForm, responseJSON);
 						 }
 					 }catch(e){
 						 // El mensaje JSON
-						 $self.rup_table('showFeedback', settings.$feedback, data.responseText, 'error');
+						 $self.rup_jqtable('showFeedback', settings.$feedback, data.responseText, 'error');
 					 }
 				 }
 			};
@@ -19777,7 +19777,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			settings.core.defaultOperations = {
 				'add': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.new'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.new'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
 					enabled: function(){
 						var $self = this;
@@ -19785,11 +19785,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					},
 					callback: function(key, options){
 						var $self = this;
-						$self.rup_table('addRow');
+						$self.rup_jqtable('addRow');
 					}
 				},
 				'edit': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.modify'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.modify'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.edit.icon,
 					enabled: function(){
 						var $self = this,
@@ -19806,11 +19806,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						return selrow && newRow;
 					},
 					callback: function(key, options){
-						$self.rup_table('editRow', jQuery.proxy(settings.getRowForEditing,$self)());
+						$self.rup_jqtable('editRow', jQuery.proxy(settings.getRowForEditing,$self)());
 					}
 				},
 				'save': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.save'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.save'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.save.icon,
 					enabled: function(){
 						var $self = this;
@@ -19818,12 +19818,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					},
 					callback: function(object,event){
 						if(event.type === 'click'){
-							$self.rup_table('saveRow');
+							$self.rup_jqtable('saveRow');
 						}
 					}
 				},
 				'clone': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.clone'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.clone'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.clone.icon,
 					enabled: function(){
 						var $self = this,
@@ -19840,32 +19840,32 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						return selrow && newRow;
 
 						//						if (settings.inlineEdit.autoEditRow===true){
-						//							return $self.rup_table("getSelectedRows").length === 1;
+						//							return $self.rup_jqtable("getSelectedRows").length === 1;
 						//						}else{
-						//							return $self.rup_table("getSelectedRows").length === 1 && jQuery("tr[editable='1']", $self).length===0;
+						//							return $self.rup_jqtable("getSelectedRows").length === 1 && jQuery("tr[editable='1']", $self).length===0;
 						//						}
 
 					},
 					callback: function(key, options){
 						if (jQuery('tr[editable=\'1\']', $self).length>0){
-							$self.rup_table('restoreRow');
+							$self.rup_jqtable('restoreRow');
 						}
-						$self.rup_table('cloneRow');
+						$self.rup_jqtable('cloneRow');
 					}
 				},
 				'cancel': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.cancel'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.cancel'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.cancel.icon,
 					enabled: function(){
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
 					callback: function(key, options){
-						$self.rup_table('restoreRow');
+						$self.rup_jqtable('restoreRow');
 					}
 				},
 				'delete': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.delete'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.delete'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
 					enabled: function(){
 						var $self = this,
@@ -19876,7 +19876,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						return jQuery('tr[editable=\'1\']:not(.jqgrid-new-row)', $self).length>0 || selrow;
 					},
 					callback: function(key, options){
-						$self.rup_table('deleteRow');
+						$self.rup_jqtable('deleteRow');
 					}
 				}
 			};
@@ -19901,7 +19901,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//				},
 				'jqGridInlineErrorSaveRow.rupTable.inlineEditing': function(event, rowid, data){
 					jQuery($self.getInd(rowid,true)).attr('id',settings.inlineEditingRow);
-					$self.rup_table('setSelection',settings.inlineEditingRow);
+					$self.rup_jqtable('setSelection',settings.inlineEditingRow);
 				},
 				'jqGridInlineAfterSaveRow.rupTable.inlineEditing': function(event, rowid, res, tmp, options){
 
@@ -19910,9 +19910,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					// Una vez se haya realizado el guardado del registro se muestra el mensaje correspondiente en el feedback dependiendo del modo en el que se encuentra.
 					if (options.oper === 'edit') {
-						$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.modifyOK'), 'ok');
+						$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.modifyOK'), 'ok');
 					} else {
-						$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.insertOK'), 'ok');
+						$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.insertOK'), 'ok');
 					}
 				},
 				'jqGridInlineEditRow.rupTable.inlineEditing': function oneditfunc_default(event, rowId){
@@ -19971,12 +19971,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					function addNextRow (rowId, iCol){
 						$self.on('jqGridInlineAfterSaveRow.inlineEditing.addNextRow', function(event){
-							$self.rup_table('addRow');
+							$self.rup_jqtable('addRow');
 							jQuery($self.getInd($self[0].p.selrow, true)).find(':not([readonly]):focusable:first').focus();
 							$self.off('jqGridInlineAfterSaveRow.inlineEditing.addNextRow');
 						});
 
-						$self.rup_table('saveRow', rowId);
+						$self.rup_jqtable('saveRow', rowId);
 						return true;
 					}
 
@@ -19984,13 +19984,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var idsArray, rowIndex, rowsPerPage, page, lastPage, $focusableElem;
 						idsArray = $self.getDataIDs();
 						rowIndex = $self.getInd(rowId)-1;
-						rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'),10);
+						rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
 
 
 						if (rowIndex===rowsPerPage-1){
 							// Cambio de página
-							page = parseInt($self.rup_table('getGridParam', 'page'),10);
-							lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records')/$self.rup_table('getGridParam', 'rowNum')),10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
+							lastPage = parseInt(Math.ceil($self.rup_jqtable('getGridParam', 'records')/$self.rup_jqtable('getGridParam', 'rowNum')),10);
 							if (page<lastPage){
 								$self.trigger('reloadGrid',[{page: page+1}]);
 								$self.on('jqGridAfterLoadComplete.rupTable.inlineEdit',function(event,data){
@@ -20033,7 +20033,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						if (rowIndex===0){
 							// Cambio de página
-							page = parseInt($self.rup_table('getGridParam', 'page'),10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
 
 							if (page>1){
 								$self.trigger('reloadGrid',[{page: page-1}]);
@@ -20079,7 +20079,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					jQuery(ind).on({
 						'keydown': function(event) {
 							if (event.keyCode === 27) {
-								$self.rup_table('restoreRow',$(this).attr('id'), settings.afterrestorefunc);
+								$self.rup_jqtable('restoreRow',$(this).attr('id'), settings.afterrestorefunc);
 								return false;
 							}
 							if (event.keyCode === 13) {
@@ -20087,7 +20087,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								if(ta.tagName == 'TEXTAREA') {
 									return true;
 								}
-								$self.rup_table('saveRow');
+								$self.rup_jqtable('saveRow');
 								return false;
 							}
 						}
@@ -20098,7 +20098,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							var iCol, nameArray;
 
 							if (event.keyCode === 38) {
-								nameArray = $.map($self.rup_table('getColModel'),function(elem, index){
+								nameArray = $.map($self.rup_jqtable('getColModel'),function(elem, index){
 									   return elem.name;
 								});
 								iCol = jQuery.inArray($(this).attr('aria-describedby').split(settings.id+'_')[1], nameArray);
@@ -20106,7 +20106,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								return false;
 							}
 							if (event.keyCode === 40) {
-								nameArray = $.map($self.rup_table('getColModel'),function(elem, index){
+								nameArray = $.map($self.rup_jqtable('getColModel'),function(elem, index){
 								   return elem.name;
 								});
 								iCol = jQuery.inArray($(this).attr('aria-describedby').split(settings.id+'_')[1], nameArray);
@@ -20121,7 +20121,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							//							var $row = $(this).parent().parent();
 							//
 							//							settings.inlineEditingRow  = $row.attr("id");
-							//							$self.rup_table("setSelection",$row.attr("id"));
+							//							$self.rup_jqtable("setSelection",$row.attr("id"));
 						}
 					});
 
@@ -20152,7 +20152,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 									if (rowIndex===0){
 										// Cambio de página
-										page = parseInt($self.rup_table('getGridParam', 'page'),10);
+										page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
 
 										if (page>1){
 											$self.trigger('reloadGrid',[{page: page-1}]);
@@ -20187,7 +20187,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				'jqGridDblClickRow.rupTable.inlineEdit': function (rowid, iRow, iCol, e){
 					if (!settings.inlineEdit.autoEditRow){
-						$self.rup_table('editRow', iRow);
+						$self.rup_jqtable('editRow', iRow);
 					}else{
 						return false;
 					}
@@ -20196,7 +20196,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var self = this, $self = $(this),
 						json = self.p.savedRow[0];
 
-					$self.rup_table('restoreInlineRupFields', rowid, json);
+					$self.rup_jqtable('restoreInlineRupFields', rowid, json);
 				},
 				'rupTable_beforeSaveRow.inlineEditing.processRupObjects': function(event, rowid, options){
 					var self = this, $self = $(this), $row, $cell, ruptypeObj;
@@ -20230,7 +20230,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var json = jQuery.parseJSON(res.responseText),
 						self = this, $self = $(self);
 
-					$self.rup_table('restoreInlineRupFields', rowid, json);
+					$self.rup_jqtable('restoreInlineRupFields', rowid, json);
 
 					return [true, json, rowid];
 				},
@@ -20251,14 +20251,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							// Se confiura un handler para el evento jqGridInlineSuccessSaveRow que indica que se ha completado con exito el guardado del registro modificado.
 							$self.on('jqGridInlineSuccessSaveRow.inlineEditing_beforeSelectRow', function(event){
 								// Una vez se haya realizado correctamente el guardado del registo se procede a seleccionar el registro solicitado por el usuario.
-								$self.rup_table('setSelection',rowid);
+								$self.rup_jqtable('setSelection',rowid);
 								// Se elimina el handler del evento para evitar duplicidades
 								$self.off('jqGridInlineSuccessSaveRow.inlineEditing_beforeSelectRow');
 							});
 
 							// Se procede a realizar el guardado de los registros editados
 							for (var i=0; i<editableRows.length;i++){
-								$self.rup_table('saveRow', editableRows[0].id);
+								$self.rup_jqtable('saveRow', editableRows[0].id);
 							}
 
 							// Se retorna un false para deterner la selección del registro y permitir que se realice antes la gestión del guardado.
@@ -20284,7 +20284,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					if (settings.inlineEdit.autoEditRow){
 						// Se procede a entrar en modo edición en la línea seleccionada.
-						$self.rup_table('editRow', rowid);
+						$self.rup_jqtable('editRow', rowid);
 					}
 				},
 				'rupTable_checkOutOfGrid.rupTable.inlineEditing': function(event, $target){
@@ -20334,7 +20334,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				var rowid = $self.jqGrid('getGridParam','selrow');
 
 				jQuery($self.getInd(rowid,true)).attr('id',settings.inlineEditingRow);
-				$self.rup_table('setSelection',settings.inlineEditingRow);
+				$self.rup_jqtable('setSelection',settings.inlineEditingRow);
 			});
 
 			$self.on({
@@ -20343,7 +20343,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					if (settings.inlineEdit.autoselectFirstRecord){
 						nPos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
-						$self.rup_table('highlightRowAsSelected', jQuery($self.jqGrid('getInd', nPos[1][0],true)));
+						$self.rup_jqtable('highlightRowAsSelected', jQuery($self.jqGrid('getInd', nPos[1][0],true)));
 					}
 				}
 			});
@@ -20367,16 +20367,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.$inlineForm : Referencia al formulario utilizado para enviar los datos del registro que está siendo editado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
      *
      * @function addRow
 		 * @param {object} options - Opciones de configuración de la acción de inserción.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeAddRow
+		 * @fires module:rup_jqtable#rupTable_beforeAddRow
      * @example
-     * $("#idTable").rup_table("addRow", options);
+     * $("#idTable").rup_jqtable("addRow", options);
      */
 		addRow: function(options){
 			var $self = this,
@@ -20417,9 +20417,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId -  Identificador del registro a partir del cual se desea realizar el clonado.
 		 * @param {object} options - Opciones de configuración de la acción de clonado.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeCloneRow
+		 * @fires module:rup_jqtable#rupTable_beforeCloneRow
      * @example
-     * $("#idTable").rup_table("cloneRow", rowId, options);
+     * $("#idTable").rup_jqtable("cloneRow", rowId, options);
      */
 		cloneRow: function(rowId, options){
 			var $self = this,
@@ -20430,7 +20430,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			if ($self.triggerHandler('rupTable_beforeCloneRow',[settings, rowId])!==false){
 				rowdata = $self.jqGrid('getRowData',selectedRow);
-				$self.rup_table('addRow');
+				$self.rup_jqtable('addRow');
 				clonedRowId = jQuery('tbody:first tr[id*=\'jqg\']',$self).attr('id');
 				$self.jqGrid('setRowData',clonedRowId, rowdata);
 				jQuery($self.jqGrid('getInd',clonedRowId,true)).attr('editable','0');
@@ -20451,7 +20451,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				}
 
-				$self.rup_table('editRow', clonedRowId, {}, true);
+				$self.rup_jqtable('editRow', clonedRowId, {}, true);
 			}
 		},
 		/**
@@ -20461,9 +20461,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador del registro que se desea editar.
 		 * @param {object} options - Opciones de configuración de la acción de modificación.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeEditRow
+		 * @fires module:rup_jqtable#rupTable_beforeEditRow
      * @example
-     * $("#idTable").rup_table("editRow", rowId, options, true);
+     * $("#idTable").rup_jqtable("editRow", rowId, options, true);
      */
 		editRow: function (rowId, options, skipFieldCheck){
 			var $self = this,
@@ -20500,25 +20500,25 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador del registro que se desea eliminar.
 		 * @param {object} options - Opciones de configuración de la acción de borrado..
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_deleteAfterSubmit
-		 * @fires module:rup_table#rupTable_deleteAfterComplete
-		 * @fires module:rup_table#rupTable_beforeDeleteRow
+		 * @fires module:rup_jqtable#rupTable_deleteAfterSubmit
+		 * @fires module:rup_jqtable#rupTable_deleteAfterComplete
+		 * @fires module:rup_jqtable#rupTable_beforeDeleteRow
      * @example
-     * $("#idTable").rup_table("deleteRow", rowId, options);
+     * $("#idTable").rup_jqtable("deleteRow", rowId, options);
      */
 		deleteRow: function (rowId, options){
 
 
 			var $self = this,
 				settings = $self.data('settings'),
-				//			deleteOptions = jQuery.extend(true, {}, jQuery.fn.rup_table.defaults.deleteOptions, options),
+				//			deleteOptions = jQuery.extend(true, {}, jQuery.fn.rup_jqtable.defaults.deleteOptions, options),
 				deleteOptions = jQuery.extend(true, {}, settings.inlineEdit.deleteOptions, options),
-				selectedRow = (rowId===undefined?$self.rup_table('getSelectedRows'):rowId);
+				selectedRow = (rowId===undefined?$self.rup_jqtable('getSelectedRows'):rowId);
 
 			// En caso de especificarse el uso del método HTTP DELETE, se anyade el identificador como PathParameter
 			if (selectedRow.length===1){
 				if (deleteOptions.mtype==='DELETE'){
-					deleteOptions.url = settings.baseUrl+'/'+$self.rup_table('getPkUrl',selectedRow);
+					deleteOptions.url = settings.baseUrl+'/'+$self.rup_jqtable('getPkUrl',selectedRow);
 				}
 			}else{
 				deleteOptions.mtype = 'POST';
@@ -20527,13 +20527,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				deleteOptions.ajaxDelOptions.dataType = 'json';
 				deleteOptions.url = settings.baseUrl+'/deleteAll';
 				deleteOptions.serializeDelData = function(ts,postData){
-					//					$self.rup_table("getFilterParams")
+					//					$self.rup_jqtable("getFilterParams")
 					return jQuery.toJSON({
 						'core':{
 							'pkToken':settings.multiplePkToken,
 							'pkNames':settings.primaryKey
 						},
-						'multiselection':$self.rup_table('getSelectedIds')
+						'multiselection':$self.rup_jqtable('getSelectedIds')
 					});
 				};
 			}
@@ -20560,9 +20560,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador del registro que se desea guardar.
 		 * @param {object} options - Opciones de configuración de la acción de guardado..
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeSaveRow
+		 * @fires module:rup_jqtable#rupTable_beforeSaveRow
      * @example
-     * $("#idTable").rup_table("saveRow", rowId, options);
+     * $("#idTable").rup_jqtable("saveRow", rowId, options);
      */
 		saveRow : function(rowId, options){
 			var $self = this, settings = $self.data('settings'),
@@ -20586,9 +20586,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador de la línea que se desea guardar.
 		 * @param {function} afterrestorefunc - Función de callback que se ejecuta después de restaurar la fila.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeRestoreRow
+		 * @fires module:rup_jqtable#rupTable_beforeRestoreRow
      * @example
-     * $("#idTable").rup_table("restoreRow", rowId, function(){});
+     * $("#idTable").rup_jqtable("restoreRow", rowId, function(){});
      */
 		restoreRow: function(rowId, afterrestorefunc){
 			var $self = this,
@@ -20606,7 +20606,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {string} rowId - Identificador de la línea que se desea guardar.
 		 * @return {object} - Referencia jQuery a la propia tabla.
      * @example
-     * $("#idTable").rup_table("restoreRow", rowId, options);
+     * $("#idTable").rup_jqtable("restoreRow", rowId, options);
      */
 		restoreInlineRupFields: function (rowid){
 			var $self = this, self = this[0], $row, $cell, val;
@@ -20667,8 +20667,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
 	*/
 
-	jQuery.fn.rup_table.plugins.inlineEdit = {};
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit = {};
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults = {
 		toolbar:{
 			defaultButtons:{
 				add : true,
@@ -20700,7 +20700,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación comunes para las acciónes de añadir y editar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.addEditOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.addEditOptions = {
 		contentType: 'application/json',
 		type:'PUT',
 		dataType: 'json',
@@ -20712,7 +20712,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación específicos para la acción de añadir un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.addOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.addOptions = {
 		mtype: 'POST',
 		ajaxRowOptions:{
 			type:'POST'
@@ -20720,7 +20720,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación específicos para la acción de editar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.editOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.editOptions = {
 		mtype: 'PUT',
 		ajaxRowOptions:{
 			type:'PUT'
@@ -20728,12 +20728,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	};
 
 	// Parámetros de configruación específicos para la acción de eliminar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
 		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
-		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',
+		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.deleteAll')+'</div>',
 		mtype:'DELETE',
 		width: 320,
 		reloadAfterSubmit:false,
@@ -20755,7 +20755,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeDeleteRow
+	* @event module:rup_jqtable#rupTable_beforeDeleteRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} deleteOptions - Opciones de configuración de la operación de borrado.
 	* @property {string} selectedRow - Identificador de la fila que se desea eliminar.
@@ -20766,7 +20766,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeEditRow
+	* @event module:rup_jqtable#rupTable_beforeEditRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} editOptions - Opciones de configuración de la operación de edición.
 	* @property {string} selectedRow - Identificador de la fila que se desea editar.
@@ -20777,7 +20777,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento que se lanza justo después de realizarse la petición de borrado de un registro.
 	*
-	* @event module:rup_table#rupTable_deleteAfterSubmit
+	* @event module:rup_jqtable#rupTable_deleteAfterSubmit
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @example
 	* $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
@@ -20786,7 +20786,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
 	*
-	* @event module:rup_table#rupTable_beforeAddRow
+	* @event module:rup_jqtable#rupTable_beforeAddRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} addOptions -  Opciones de configuración de la acción de insertar un elemento.
 	* @example
@@ -20796,7 +20796,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 	*
-	* @event module:rup_table#rupTable_beforeCloneRow
+	* @event module:rup_jqtable#rupTable_beforeCloneRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
 	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
@@ -20829,10 +20829,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Permite realizar una selección múltiple de los registros que se muestran en la tabla.
  *
  * @summary Plugin de multiselection del componente RUP Table.
- * @module rup_table/multiselection
+ * @module rup_jqtable/multiselection
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["multiselection"],
  * 	multiselection:{
@@ -20849,17 +20849,17 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
    *
    */
-	jQuery.rup_table.registerPlugin('multiselection', {
+	jQuery.rup_jqtable.registerPlugin('multiselection', {
 		loadOrder: 8,
 		preConfiguration: function (settings) {
 			var $self = this;
-			$self.rup_table('preConfigureMultiselection', settings);
+			$self.rup_jqtable('preConfigureMultiselection', settings);
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
 
 			if (settings.multiselect === true) {
-				$self.rup_table('postConfigureMultiselection', settings);
+				$self.rup_jqtable('postConfigureMultiselection', settings);
 			}
 		}
 	});
@@ -20868,7 +20868,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
 	/**
-   * Extensión del componente rup_table para permitir la gestión de la multiselección.
+   * Extensión del componente rup_jqtable para permitir la gestión de la multiselección.
    *
    * Los métodos implementados son:
    *
@@ -20876,7 +20876,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * postConfigureMultiselection(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
    *
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin multiselection del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -20936,7 +20936,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.getSelectedLines = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
 				if (settings.multiselection.selectedAll !== true) {
 					return settings.multiselection.selectedLinesPerPage[page];
@@ -20965,7 +20965,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					tmpLastSearch = $self.data('tmp.lastSearch');
 					if (tmpLastSearch !== undefined && tmpLastSearch !== getLastSearchStr(postData)) {
 						if (settings && settings.multiselection && settings.multiselection.numSelected > 0) {
-							multiselectionObj = $self.rup_table('getSelectedIds');
+							multiselectionObj = $self.rup_jqtable('getSelectedIds');
 							jQuery.extend(true, postData, {
 								'multiselection': multiselectionObj
 							});
@@ -20975,7 +20975,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					$self.data('tmp.lastSearch', getLastSearchStr(postData));
 				},
 				'rupTable_setSelection.multiselection': function (events, selectedRows, status, reorderSelection) {
-					var page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+					var page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
 					if (jQuery.isArray(selectedRows)) {
 						for (var i = 0; i < selectedRows.length; i++) {
@@ -20991,7 +20991,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$self.off('rupTable_serializeGridData.multiselection.reorderSelection');
 
 							jQuery.extend(true, postData, {
-								'multiselection': $self.rup_table('getSelectedIds')
+								'multiselection': $self.rup_jqtable('getSelectedIds')
 							});
 						});
 					}
@@ -21028,7 +21028,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.getRowForEditing = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					nPos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
 					index, retNavParams;
 
@@ -21071,9 +21071,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.getDetailCurrentRowCount = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					currentRow = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-					rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10),
+					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10),
 					selectedPagesArrayIndex, tmpSelectedPage,
 					cont = 0;
 
@@ -21109,9 +21109,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					index = 0,
 					newPageIndex = 0,
 					npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					newPage = page,
-					lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records') / $self.rup_table('getGridParam', 'rowNum')), 10),
+					lastPage = parseInt(Math.ceil($self.rup_jqtable('getGridParam', 'records') / $self.rup_jqtable('getGridParam', 'rowNum')), 10),
 					currentArrayIndex, selectedLines;
 
 				npos[0] = parseInt(npos[0], 10);
@@ -21256,7 +21256,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					newPageIndex = arrParams[6];
 
 					if (execute) {
-						$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+						$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 						$self.triggerHandler('jqGridAddEditClickPgButtons', [linkType, settings.formEdit.$detailForm, npos[1][npos[index]]]);
 						if (changePage) {
 							$self.trigger('reloadGrid', [{
@@ -21272,8 +21272,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								//								$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 								settings.multiselection.rowForEditing = newIndexPos;
 
-								$self.rup_table('clearHighlightedEditableRows');
-								$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', newIndexPos, true));
+								$self.rup_jqtable('clearHighlightedEditableRows');
+								$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', newIndexPos, true));
 								//								$($self.jqGrid("getInd",newIndexPos, true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 
 								$self.off('jqGridAfterLoadComplete.pagination');
@@ -21285,8 +21285,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							//							$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 							settings.multiselection.rowForEditing = npos[1][index];
 
-							$self.rup_table('clearHighlightedEditableRows');
-							$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', npos[1][index], true));
+							$self.rup_jqtable('clearHighlightedEditableRows');
+							$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', npos[1][index], true));
 							//							$($self.jqGrid("getInd",npos[1][index], true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 
 						}
@@ -21323,14 +21323,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						}
 
 						if (!(jQuery.rup.isCtrlPressed() || jQuery.rup.isShiftPressed()) && (settings.multiboxonly === true && obj !== undefined && !(obj.originalEvent !== undefined && jQuery(obj.originalEvent.target).is(':checkbox') && jQuery(obj.originalEvent.target).attr('id').indexOf('jqg_') !== -1))) {
-							$self.rup_table('deselectRemainingRows');
+							$self.rup_jqtable('deselectRemainingRows');
 						}
 
 						// Shift presed
 
 						if (jQuery.rup.isShiftPressed() === true) {
 							selectedLineId = $self.jqGrid('getInd', id, false);
-							activeLineId = $self.rup_table('getActiveLineId');
+							activeLineId = $self.rup_jqtable('getActiveLineId');
 							if (activeLineId < selectedLineId) {
 								toLine = selectedLineId - 1;
 								fromLine = activeLineId + 1;
@@ -21343,7 +21343,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 							for (var i = fromLine; i < toLine; i++) {
 								$self._processSelectedRow(settings, idsArr[i], status);
-								$self.rup_table('highlightRowAsSelected', jQuery($self.jqGrid('getInd', idsArr[i], true)));
+								$self.rup_jqtable('highlightRowAsSelected', jQuery($self.jqGrid('getInd', idsArr[i], true)));
 							}
 
 						}
@@ -21351,39 +21351,39 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						// Se gestiona la selección o deselección del registro indicado
 						$self._processSelectedRow(settings, id, status);
 						// Actualización del número de registros seleccionados
-						$self.rup_table('updateSelectedRowNumber');
+						$self.rup_jqtable('updateSelectedRowNumber');
 						// Se cierra el feedback para (de)seleccionar el resto de registros
 						$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 						// Se gestiona el icono de linea editable
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 						//						$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 						if (status) {
 							settings.multiselection.rowForEditing = id;
-							$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', id, true));
+							$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', id, true));
 							//							$($self.jqGrid("getInd",id, true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 						} else {
-							page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 							if ($self._hasPageSelectedElements(page)) {
-								$self.rup_table('highlightFirstEditableRow');
+								$self.rup_jqtable('highlightFirstEditableRow');
 								//								firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 								//								firstSelectedId = $self.jqGrid("getDataIDs")[firstSelectedLine-1];
 								//								settings.multiselection.rowForEditing=firstSelectedId;
-								//								$self.rup_table("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
+								//								$self.rup_jqtable("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
 							}
 						}
 					}
 				},
 				'jqGridDblClickRow.rupTable.multiselection': function (event, rowid, iRow, iCol, e) {
-					$self.rup_table('setSelection', rowid, true);
-					$self.rup_table('clearHighlightedEditableRows');
-					$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', rowid, true));
+					$self.rup_jqtable('setSelection', rowid, true);
+					$self.rup_jqtable('clearHighlightedEditableRows');
+					$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', rowid, true));
 				},
-				'jqGridGridComplete.rup_table.multiselection': function (event) {
+				'jqGridGridComplete.rup_jqtable.multiselection': function (event) {
 					var $self = $(this),
 						settings = $self.data('settings');
 
-					if ($self.rup_table('getGridParam', 'records') === 0) {
+					if ($self.rup_jqtable('getGridParam', 'records') === 0) {
 						jQuery(jQuery('#cb_' + $self.attr('id'), settings.core.$tableDiv)[0]).attr('disabled', 'disabled');
 					} else {
 						jQuery(jQuery('#cb_' + $self.attr('id'), settings.core.$tableDiv)[0]).removeAttr('disabled');
@@ -21399,8 +21399,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				'jqGridLoadComplete.rupTable.multiselection': function (data, xhr) {
 					var self = $self[0],
 						internalProps = self.p,
-						page = $self.rup_table('getGridParam', 'page'),
-						rowNum = $self.rup_table('getGridParam', 'rowNum'),
+						page = $self.rup_jqtable('getGridParam', 'page'),
+						rowNum = $self.rup_jqtable('getGridParam', 'rowNum'),
 						rows,
 						selectedRows = settings.multiselection.selectedRowsPerPage[page],
 						deselectedRows = settings.multiselection.deselectedRowsPerPage[page] || [],
@@ -21463,7 +21463,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								}
 							}
 						}
-						//						$self.rup_table("updateSelectedRowNumber");
+						//						$self.rup_jqtable("updateSelectedRowNumber");
 					}
 
 					// Se genera el evento que indica la modificación de los elementos seleccionados.
@@ -21476,15 +21476,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					if ($self._hasPageSelectedElements(page)) {
 
 						if (settings.multiselection.rowForEditing !== undefined && jQuery.inArray(settings.multiselection.rowForEditing, $self.jqGrid('getDataIDs')) !== -1) {
-							$self.rup_table('highlightEditableRow', jQuery($self.jqGrid('getInd', settings.multiselection.rowForEditing, true)), true);
+							$self.rup_jqtable('highlightEditableRow', jQuery($self.jqGrid('getInd', settings.multiselection.rowForEditing, true)), true);
 						} else {
-							$self.rup_table('highlightFirstEditableRow');
+							$self.rup_jqtable('highlightFirstEditableRow');
 						}
 
 						//						firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 						//						firstSelectedId = $self.jqGrid("getDataIDs")[firstSelectedLine-1];
 						//						settings.multiselection.rowForEditing=firstSelectedId;
-						//						$self.rup_table("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
+						//						$self.rup_jqtable("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
 					}
 
 
@@ -21524,7 +21524,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
          *  status: true en caso de selección, false en caso de deselección.
          */
 				'jqGridSelectAll.rupTable.multiselection': function (event, selectedRows, status) {
-					var page = $self.rup_table('getGridParam', 'page'),
+					var page = $self.rup_jqtable('getGridParam', 'page'),
 						selectMsg, deselectMsg, elementosRestantes, selectRestMsg, remainingSelectButton, remainingDeselectButton, cont;
 
 					// Se oculta el posible mensaje de feedback que se muestre
@@ -21540,8 +21540,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 
 
-					selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
-					deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
+					selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.selectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
+					deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.deselectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
 
 					// Se comprueba el valor de status para determinar si se está seleccionando (true) o deseleccionando (false) todos los registos de la página
 					if (status) {
@@ -21549,8 +21549,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						elementosRestantes = $self._getRemainingRecordNum(settings, selectedRows);
 						if (elementosRestantes !== 0) {
 							// En caso de existir registros sin seleccionar se muestra el mensaje junto con un botón para permitir la selecón de dichos elementos
-							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', elementosRestantes);
-							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
+							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.selectRestMsg', elementosRestantes);
+							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.selectAll'));
 							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por seleccionar se muestra solo un mensaje informativo
@@ -21558,16 +21558,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						}
 
 						// Se asocia el handler al evento click del botón de seleccionar el resto de registros
-						$('#rup_table_' + $self[0].id + '_selectAll').on('click', function (event) {
-							$self.rup_table('selectRemainingRows');
+						$('#rup_jqtable_' + $self[0].id + '_selectAll').on('click', function (event) {
+							$self.rup_jqtable('selectRemainingRows');
 						});
-						$self.rup_table('highlightFirstEditableRow');
+						$self.rup_jqtable('highlightFirstEditableRow');
 					} else {
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 						// En caso de existir elementos seleccionados se muestra un mensaje que incluye un botón para permitir la deselección del todos los elementos seleccionados
 						if (settings.multiselection.numSelected > 0) {
-							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', settings.multiselection.numSelected);
-							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
+							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.deselectRestMsg', settings.multiselection.numSelected);
+							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.deSelectAll'));
 							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por deseleccionar se muestra solo un mensaje informativo
@@ -21575,25 +21575,25 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						}
 
 						// Se asocia el handler al evento click del botón de deseleccionar el resto de registros
-						$('#rup_table_' + $self[0].id + '_deselectAll').on('click', function (event) {
-							$self.rup_table('deselectRemainingRows');
+						$('#rup_jqtable_' + $self[0].id + '_deselectAll').on('click', function (event) {
+							$self.rup_jqtable('deselectRemainingRows');
 						});
 					}
 
 					// Se actualiza el contador de elementos seleccionados
-					$self.rup_table('updateSelectedRowNumber');
+					$self.rup_jqtable('updateSelectedRowNumber');
 				},
 				'rupTableAfterSearchNav.rupTable.multiselection rupTableSearchSuccess.rupTable.multiselection rupTableAfterDelete.rupTable.multiselection': function () {
 					var $self = $(this);
-					$self.rup_table('resetSelection');
+					$self.rup_jqtable('resetSelection');
 				},
 				'rupTable_multiselectionUpdated.multiselection': function () {
 					var $self = $(this),
 						self = $self[0],
-						page = $self.rup_table('getGridParam', 'page'),
+						page = $self.rup_jqtable('getGridParam', 'page'),
 						settings = $self.data('settings'),
 						internalProps = self.p,
-						rowNum = $self.rup_table('getGridParam', 'rowNum'),
+						rowNum = $self.rup_jqtable('getGridParam', 'rowNum'),
 						rows,
 						selectedRows = settings.multiselection.selectedRowsPerPage[page],
 						deselectedRows = settings.multiselection.deselectedRowsPerPage[page] || [];
@@ -21618,10 +21618,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							// Se comprueba si el registro se encuentra en el array de deseleccionados.
 							if (jQuery.inArray(rows[i].id, deselectedRows) === -1) {
 								// En caso de no ser un elemento deseleccionado se marca como seleccionado.
-								$self.rup_table('highlightRowAsSelected', $(rows[i]));
+								$self.rup_jqtable('highlightRowAsSelected', $(rows[i]));
 							} else {
 								// En caso de ser un elemento deseleccionado se desmarca.
-								$self.rup_table('clearHighlightedRowAsSelected', $(rows[i]));
+								$self.rup_jqtable('clearHighlightedRowAsSelected', $(rows[i]));
 							}
 						}
 
@@ -21641,10 +21641,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								// Se comprueba si el registro se encuentra en el array de seleccionados
 								if (jQuery.inArray(rows[i].id, selectedRows) !== -1) {
 									// En caso de ser un elemento seleccionado, se marca como tal.
-									$self.rup_table('highlightRowAsSelected', $(rows[i]));
+									$self.rup_jqtable('highlightRowAsSelected', $(rows[i]));
 								} else {
 									// En caso de no ser un elemento seleccionado se desmarca.
-									$self.rup_table('clearHighlightedRowAsSelected', $(rows[i]));
+									$self.rup_jqtable('clearHighlightedRowAsSelected', $(rows[i]));
 								}
 							}
 
@@ -21654,7 +21654,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							}
 						}
 					}
-					$self.rup_table('updateSelectedRowNumber');
+					$self.rup_jqtable('updateSelectedRowNumber');
 				},
 				'rupTable_beforeAddRow.multiselection': function (event, addCloneOptions) {
 					// Si la edición en línea no está activada, no comprobamos los elementos seleccionados y devolvemos true
@@ -21663,16 +21663,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 					$self._checkSelectedElements(function () {
 						$self.jqGrid('editGridRow', 'new', addCloneOptions);
-						$self.rup_table('resetSelection');
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('resetSelection');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 					});
 
 					return false;
 				},
 				'jqGridAddEditAfterSubmit.rupTable.formEditing': function (event, res, postData, oper) {
 					if (oper !== 'edit') {
-						$self.rup_table('resetSelection');
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('resetSelection');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 					}
 				}
 			});
@@ -21739,7 +21739,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * resetSelection(): Limpia a selección realizada por el usuario.
    * updateSelectedRowNumber(): Refresca el identificador de resgistros seleccionados
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		getSelectedIds: function () {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -21777,16 +21777,16 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		highlightFirstEditableRow: function () {
 			var $self = this,
 				settings = $self.data('settings'),
-				page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 				firstSelectedLine, firstSelectedId;
 
-			$self.rup_table('clearHighlightedEditableRows');
+			$self.rup_jqtable('clearHighlightedEditableRows');
 
 			if ($self._hasPageSelectedElements(page)) {
 				firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 				firstSelectedId = $self.jqGrid('getDataIDs')[firstSelectedLine - 1];
 				settings.multiselection.rowForEditing = firstSelectedId;
-				$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', firstSelectedId, true));
+				$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', firstSelectedId, true));
 			}
 		},
 		highlightEditableRow: function ($row) {
@@ -21812,7 +21812,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				settings = $self.data('settings'),
 				arr, $row;
 
-			$self.rup_table('selectRemainingRows');
+			$self.rup_jqtable('selectRemainingRows');
 
 			jQuery('#cb_' + settings.id).attr('checked', 'checked');
 
@@ -21821,10 +21821,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			for (var i = 0; i < arr.length; i++) {
 				$row = jQuery($self.jqGrid('getInd', arr[i], true));
-				$self.rup_table('highlightRowAsSelected', $row);
+				$self.rup_jqtable('highlightRowAsSelected', $row);
 			}
 
-			$self.rup_table('highlightFirstEditableRow');
+			$self.rup_jqtable('highlightFirstEditableRow');
 		},
 		selectRemainingRows: function (event) {
 			var $self = this,
@@ -21834,9 +21834,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// Se marca el flag de todos seleccionados a true
 			settings.multiselection.selectedAll = true;
 			// Numero de registros seleccionados
-			settings.multiselection.numSelected = $self.rup_table('getGridParam', 'records');
+			settings.multiselection.numSelected = $self.rup_jqtable('getGridParam', 'records');
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 
 			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
@@ -21847,8 +21847,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				arr, $row,
 				internalProps = $self[0].p;
 
-			$self.rup_table('deselectRemainingRows');
-			$self.rup_table('clearHighlightedEditableRows');
+			$self.rup_jqtable('deselectRemainingRows');
+			$self.rup_jqtable('clearHighlightedEditableRows');
 
 			jQuery('#cb_' + settings.id).removeAttr('checked');
 
@@ -21858,7 +21858,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			for (var i = 0; i < arr.length; i++) {
 				$row = jQuery($self.jqGrid('getInd', arr[i], true));
-				$self.rup_table('clearHighlightedRowAsSelected', $row);
+				$self.rup_jqtable('clearHighlightedRowAsSelected', $row);
 			}
 		},
 		deselectRemainingRows: function (event) {
@@ -21867,7 +21867,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$self._initializeMultiselectionProps(settings);
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 		},
 		/*
@@ -21876,7 +21876,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		updateSelectedRowNumber: function () {
 			var $self = $(this),
 				settings = $self.data('settings');
-			$('div .ui-paging-selected', settings.$pager).html(settings.multiselection.numSelected + ' ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.selected'));
+			$('div .ui-paging-selected', settings.$pager).html(settings.multiselection.numSelected + ' ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected'));
 			$self.triggerHandler('rupTableSelectedRowNumberUpdated');
 		}
 
@@ -21901,7 +21901,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * _getSelectedLinesOfPage(page): Devuelve el número de registros seleccionados de que dispone la página indicada por parámetro.
    * _processSelectedRow(settings, rowId, status): Gestióna la acción de seleción/deselección del registro indicado.
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		//Añade flecha contextMenu
 		_addArrow: function (object) {
 			jQuery(object).after(
@@ -21916,14 +21916,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		_checkSelectedElements: function (okCallback) {
 			var $self = $(this),
 				self = $self[0],
-				page = $self.rup_table('getGridParam', 'page'),
+				page = $self.rup_jqtable('getGridParam', 'page'),
 				settings = $self.data('settings');
 
 			//if(prop.showMultiselectAlerts && selectedRows && selectedRows.length>0){
 			if (settings.multiselection.numSelected > 0) {
 				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					message: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.checkSelectedElems'),
+					title: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.changes'),
 					OKFunction: function () {
 						okCallback.call();
 					}
@@ -21939,10 +21939,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			if (options.selectAllPage) {
 				jQuery.extend(items, {
 					'selectAllPage': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.selectAllPage'),
 						icon: 'check',
 						disabled: function (key, opt) {
-							return $self._getSelectedLinesOfPage(parseInt($self.rup_table('getGridParam', 'page'))).length === $self.jqGrid('getGridParam', 'reccount');
+							return $self._getSelectedLinesOfPage(parseInt($self.rup_jqtable('getGridParam', 'page'))).length === $self.jqGrid('getGridParam', 'reccount');
 						},
 						callback: function (key, options) {
 							$('[id=\'cb_' + settings.id + '\']').attr('checked', 'checked').click().attr('checked', 'checked');
@@ -21953,10 +21953,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			if (options.deselectAllPage) {
 				jQuery.extend(items, {
 					'deselectAllPage': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.deselectAllPage'),
 						icon: 'uncheck',
 						disabled: function (key, opt) {
-							return $self._getSelectedLinesOfPage(parseInt($self.rup_table('getGridParam', 'page'))).length === 0;
+							return $self._getSelectedLinesOfPage(parseInt($self.rup_jqtable('getGridParam', 'page'))).length === 0;
 						},
 						callback: function (key, options) {
 							$('[id=\'cb_' + settings.id + '\']').removeAttr('checked').click().removeAttr('checked');
@@ -21972,13 +21972,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			if (options.selectAll) {
 				jQuery.extend(items, {
 					'selectAll': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.selectAll'),
 						icon: 'check_all',
 						disabled: function (key, opt) {
-							return settings.multiselection.numSelected === $self.rup_table('getGridParam', 'records');
+							return settings.multiselection.numSelected === $self.rup_jqtable('getGridParam', 'records');
 						},
 						callback: function (key, options) {
-							$self.rup_table('selectAllRows');
+							$self.rup_jqtable('selectAllRows');
 						}
 					}
 				});
@@ -21986,13 +21986,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			if (options.deselectAll) {
 				jQuery.extend(items, {
 					'deselectAll': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.deselectAll'),
 						icon: 'uncheck_all',
 						disabled: function (key, opt) {
 							return settings.multiselection.numSelected === 0;
 						},
 						callback: function (key, options) {
-							$self.rup_table('deselectAllRows');
+							$self.rup_jqtable('deselectAllRows');
 						}
 					}
 				});
@@ -22010,7 +22010,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if (options.selectChild) {
 					jQuery.extend(items, {
 						'selectChild': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.selectChild'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.selectChild'),
 							icon: 'child',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -22021,7 +22021,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if (options.selectDescendent) {
 					jQuery.extend(items, {
 						'selectDescendent': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.selectDescendent'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.selectDescendent'),
 							icon: 'descendent',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -22037,7 +22037,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if (options.deselectChild) {
 					jQuery.extend(items, {
 						'deselectChild': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.deselectChild'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.deselectChild'),
 							icon: 'uncheck',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -22048,7 +22048,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				if (options.deselectDescendent) {
 					jQuery.extend(items, {
 						'deselectDescendent': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.deselectDescendent'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.deselectDescendent'),
 							icon: 'uncheck',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -22160,7 +22160,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			} else {
 				// En caso de haberse seleccionado todos los registros de la tabla
 				// Generamos un array inicializado con los index de las lineas de las tablas
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
 
 				// Obtenemos el número de registro por página que se visualizan
 				// Se comprueba si el número de registros deseleccionados es igual al número de registros por página, en cuyo caso significará que no hay elementos seleccionados
@@ -22217,7 +22217,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					return 1;
 				}
 				// Obtenemos el número de registro por página que se visualizan
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
 				// Se comprueba si el número de registros deseleccionados es igual al número de registros por página, en cuyo caso significará que no hay eleme
 				if (settings.multiselection.deselectedLinesPerPage[page].length === rowsPerPage) {
 					return false;
@@ -22233,8 +22233,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		},
 		_getRemainingRecordNum: function (settings, selectedRows) {
 			var $self = this,
-				totalRegistros = $self.rup_table('getGridParam', 'records'),
-				registrosPagina = $self.rup_table('getGridParam', 'reccount'),
+				totalRegistros = $self.rup_jqtable('getGridParam', 'records'),
+				registrosPagina = $self.rup_jqtable('getGridParam', 'reccount'),
 				registrosSelPagina = selectedRows.length,
 				registrosSelTotal = settings.multiselection.numSelected,
 				elementosRestantes = ((totalRegistros - registrosPagina) !== 0) ?
@@ -22260,8 +22260,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			} else {
 				// En caso de haberse seleccionado todos los registros de la tabla
 				// Generamos un array inicializado con los index de las lineas de las tablas
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
-				records = $self.rup_table('getGridParam', 'records');
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
+				records = $self.rup_jqtable('getGridParam', 'records');
 				lastPage = parseInt(Math.ceil(records / rowsPerPage, 10));
 
 				// En caso de ser la última página se recalcula el número de elementos que se muestran en ella
@@ -22289,7 +22289,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		},
 		_processSelectedRow: function (settings, rowId, status) {
 			var $self = this,
-				page = $self.rup_table('getGridParam', 'page'),
+				page = $self.rup_jqtable('getGridParam', 'page'),
 				pageInt = parseInt(page),
 				lineIndex, indexInArray, indexAtPage, indexPage;
 			// Se selecciona o deselecciona el elemento en los arrays que almacenan los registros seleccionados.
@@ -22380,7 +22380,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				}
 			}
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 		}
 	});
 
@@ -22388,8 +22388,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	jQuery.fn.rup_table.plugins.multiselection = jQuery.fn.rup_table.plugins.multiselection || {};
-	jQuery.fn.rup_table.plugins.multiselection.defaults = {
+	jQuery.fn.rup_jqtable.plugins.multiselection = jQuery.fn.rup_jqtable.plugins.multiselection || {};
+	jQuery.fn.rup_jqtable.plugins.multiselection.defaults = {
 		showGridInfoCol: true,
 		formEdit: {
 			autoselectFirstRecord: false
@@ -22426,10 +22426,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		}
 	};
 
-	jQuery.fn.rup_table.defaults.multiselection = {
-		loadBeforeSend: function rup_table_defaults_loadBeforeSend(xhr, settings) {
+	jQuery.fn.rup_jqtable.defaults.multiselection = {
+		loadBeforeSend: function rup_jqtable_defaults_loadBeforeSend(xhr, settings) {
 			// Se modifica la request para incluir las siguientes cabeceras:
-			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_table
+			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_jqtable
 			xhr.setRequestHeader('JQGridModel', 'true');
 			// Se indica que el tipo de contenido enviado en la cabecera es application/jsons
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -22461,10 +22461,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * El objetivo principal del módulo Jerarquía es la presentación de un conjunto de datos (tabla) ordenados jerárquicamente en base a una relación existente entre ellos.
  *
  * @summary Plugin de edición en línea del componente RUP Table.
- * @module rup_table/jerarquia
+ * @module rup_jqtable/jerarquia
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["jerarquia"],
  * 	jerarquia:{
@@ -22475,23 +22475,23 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 (function (jQuery) {
 
-	jQuery.rup_table.registerPlugin('jerarquia', {
+	jQuery.rup_jqtable.registerPlugin('jerarquia', {
 		loadOrder: 11,
 		preConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('preConfigurejerarquia', settings);
+			return $self.rup_jqtable('preConfigurejerarquia', settings);
 
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('postConfigurejerarquia', settings);
+			return $self.rup_jqtable('postConfigurejerarquia', settings);
 		}
 	});
 
 	//********************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin jerarquia del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -22625,14 +22625,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 
 					//ICONOS: filtrado (filter) y tooltip (parentNodes)
-					var rows = $self.rup_table('getGridParam', 'data'),
+					var rows = $self.rup_jqtable('getGridParam', 'data'),
 						rows_length = rows.length,
 						$filterIcon = jQuery('<div />')
 							.addClass('rup-jerarquia_filter ui-icon')
 							.addClass(jerarquiaSettings['icons']['filter'])
-							.text(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.jerarquia.filtered'));
+							.text(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.filtered'));
 					for (var i = 0; i < rows_length; i++) {
-						var rowId = jQuery.jgrid.getAccessor(rows[i], $self.rup_table('getGridParam', 'localReader').id),
+						var rowId = jQuery.jgrid.getAccessor(rows[i], $self.rup_jqtable('getGridParam', 'localReader').id),
 							$rowColumn = jQuery('tr[id=\'' + rowId + '\'] > td .tree-wrap');
 						//Filtro
 						if (rows[i].filter) {
@@ -22652,9 +22652,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					jQuery('.tree-plus, .tree-minus').off('click');
 					jQuery('.tree-plus, .tree-minus').on('click', function (event) {
 						var $iconDiv = jQuery(this),
-							rowId = $self.rup_table('getGridParam', '_index')[$iconDiv.closest('tr.jqgrow')[0].id],
-							rowData = $self.rup_table('getGridParam', 'data')[rowId],
-							nodeId = jQuery.jgrid.getAccessor(rowData, $self.rup_table('getGridParam', 'localReader').id);
+							rowId = $self.rup_jqtable('getGridParam', '_index')[$iconDiv.closest('tr.jqgrow')[0].id],
+							rowData = $self.rup_jqtable('getGridParam', 'data')[rowId],
+							nodeId = jQuery.jgrid.getAccessor(rowData, $self.rup_jqtable('getGridParam', 'localReader').id);
 
 						//Añadir o eliminar elemento para query (y almacenarlo en la tabla)
 						if ($iconDiv.hasClass(settings.treeIcons.plus)) {
@@ -22720,14 +22720,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    *
    * reset: Reiniciar los elementos expandidos
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		//Reiniciar los elementos expandidos
 		/**
      * Colapsa los nodos que han sido expandidos.
      *
      * @function reset
      * @example
-     * $("#idTable").rup_table("reset");
+     * $("#idTable").rup_jqtable("reset");
      */
 		reset: function () {
 			jQuery(this).data('tree', []);
@@ -22750,7 +22750,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * _parseParentNodes(parentNodes): Procesar valores del tooltip
    * _getJerarquiaChildren($trigger, key, options : Obtener los hijos/descendientes para seleccionar/deseleccionar
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
      * Colapsa los nodos que han sido expandidos.
      *
@@ -22785,8 +22785,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		_getJerarquiaChildren: function ($trigger, key, options) {
 			var $self = this,
 				settings = $self.data('settings'),
-				//        		rowData = $self.rup_table("getGridParam","data")[$trigger.parent().index()-1],
-				rowData = $self.rup_table('getRowData', $trigger.parent().attr('id')),
+				//        		rowData = $self.rup_jqtable("getGridParam","data")[$trigger.parent().index()-1],
+				rowData = $self.rup_jqtable('getRowData', $trigger.parent().attr('id')),
 				ajaxData = {
 					jerarquia: {
 						//tree : {}, //Obviar elementos contraidos
@@ -22794,9 +22794,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						child: key.toLowerCase().indexOf('child') != -1
 						//FIXME: Quitar esto
 					},
-					filter: $self.rup_table('getFilterParams')
+					filter: $self.rup_jqtable('getFilterParams')
 				};
-			jQuery.extend(true, ajaxData, $self.rup_table('getGridParam', 'postData'));
+			jQuery.extend(true, ajaxData, $self.rup_jqtable('getGridParam', 'postData'));
 			var primaryKey = jQuery.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
 			jQuery.rup_ajax({
 				url: settings.filter.childrenUrl,
@@ -22853,8 +22853,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {boolean} [contextMenu=true] - Determina si se muestra el menú contextual para cada nodo.
 	*/
 
-	jQuery.fn.rup_table.plugins.jerarquia = {};
-	jQuery.fn.rup_table.plugins.jerarquia.defaults = {
+	jQuery.fn.rup_jqtable.plugins.jerarquia = {};
+	jQuery.fn.rup_jqtable.plugins.jerarquia.defaults = {
 		treedatatype: 'json',
 		formEdit: {
 			addEditOptions: {
@@ -22898,14 +22898,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Permite relacionar dos tablas de modo que tengan una relación maestro-detalle. De este modo, los resultados de la tabla detalle se muestran a partir del seleccionado en la tabla maestro.
  *
  * @summary Plugin de edición en línea del componente RUP Table.
- * @module rup_table/masterDetail
+ * @module rup_jqtable/masterDetail
  * @example
  *
- * $("#idComponenteMaestro").rup_table({
+ * $("#idComponenteMaestro").rup_jqtable({
  *	url: "../jqGridUsuarioMaestro",
  * });
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuarioDetalle",
  * 	usePlugins:["masterDetail"],
  * 	inlineEdit:{
@@ -22917,11 +22917,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 (function ($) {
 
 
-	jQuery.rup_table.registerPlugin('masterDetail',{
+	jQuery.rup_jqtable.registerPlugin('masterDetail',{
 		loadOrder:10,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureMasterDetail', settings);
+			return $self.rup_jqtable('preConfigureMasterDetail', settings);
 
 		}
 	});
@@ -22931,7 +22931,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la edición de los registros mediante un formulario.
+	 * Extensión del componente rup_jqtable para permitir la edición de los registros mediante un formulario.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -22947,7 +22947,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * settings.$detailFormDiv : Referencia al div que arropa el formulario de detalle y sobre el que se inicializa el componente rup_dialog.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 
 	 /**
  		* Metodo que realiza la pre-configuración del plugin masterDetail del componente RUP Table.
@@ -22966,7 +22966,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$self.on({
 				'rupTable_serializeGridData.rupTable.masterDetail': function(events, postData){
-					var masterPkObject = $self.rup_table('getMasterTablePkObject');
+					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
 						jsonParam={'filter':masterPkObject};
@@ -22974,7 +22974,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 				},
 				'jqGridAddEditBeforeSubmit.rupTable.masterDetail': function(event, postData, frmoper){
-					var masterPkObject = $self.rup_table('getMasterTablePkObject');
+					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
 						jQuery.extend(postData, masterPkObject);
@@ -22982,7 +22982,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				},
 				'rupTable_searchBeforeSubmit.rupTable.masterDetail':function(event, postData, jsonData){
 
-					var masterPkObject = $self.rup_table('getMasterTablePkObject');
+					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
 						jsonParam={'filter':masterPkObject};
@@ -22997,10 +22997,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					if (lastRowid === undefined || lastRowid!==rowid){
 						if (jQuery.inArray('filter', settings.usePlugins) !== -1){
 		                    $self.data('tmp.masterDetail.lastRowid', rowid);
-		                    $self.rup_table('showSearchCriteria');
-		                    $self.rup_table('filter');
+		                    $self.rup_jqtable('showSearchCriteria');
+		                    $self.rup_jqtable('filter');
 		                } else {
-		                    $self.rup_table('reloadGrid');
+		                    $self.rup_jqtable('reloadGrid');
 		                }
 					}
 				},
@@ -23014,7 +23014,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		}
 	});
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
      *
@@ -23022,11 +23022,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {object} options - Opciones de configuración de la acción de inserción.
 		 * @return {object} - Objeto json con la clave primaria del registro correspondiente de la tabla maestra
      * @example
-     * $("#idTable").rup_table("getMasterTablePkObject");
+     * $("#idTable").rup_jqtable("getMasterTablePkObject");
      */
 		getMasterTablePkObject: function(){
 			var $self = this, settings = $self.data('settings'), $master = settings.masterDetail.$master,
-				masterPkValue = $master.rup_table('getSelectedRows'),
+				masterPkValue = $master.rup_jqtable('getSelectedRows'),
 				masterPkName = settings.masterDetail.masterPrimaryKey;
 
 			function nestJSON(key, value){
@@ -23042,7 +23042,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 			//Inicio compatibilidad con masterPrimaryKey compuestas
 			if($.isArray(masterPkName) && masterPkName.length>0 && (masterPkValue.length===1)){
-				var multiplePkToken = $master.rup_table('getGridParam','multiplePkToken');
+				var multiplePkToken = $master.rup_jqtable('getGridParam','multiplePkToken');
 				var splitedMasterPkValue = masterPkValue[0].split(multiplePkToken);
 				var retPkObj = {};
 				if(splitedMasterPkValue.length===masterPkName.length){
@@ -23078,8 +23078,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	*/
 
 	// Parámetros de configuración por defecto para la acción de eliminar un registro.
-	jQuery.fn.rup_table.plugins.masterDetail = {};
-	jQuery.fn.rup_table.plugins.masterDetail.defaults = {
+	jQuery.fn.rup_jqtable.plugins.masterDetail = {};
+	jQuery.fn.rup_jqtable.plugins.masterDetail.defaults = {
 	};
 
 
@@ -23108,10 +23108,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Genera los controles necesarios para permitir al usuario la exportación de los datos mostrados en la tabla.
  *
  * @summary Plugin de reporting del componente RUP Table.
- * @module rup_table/report
+ * @module rup_jqtable/report
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["report"],
  * 	report:{
@@ -23127,15 +23127,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('report',{
+	jQuery.rup_jqtable.registerPlugin('report',{
 		loadOrder:11,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureReport', settings);
+			return $self.rup_jqtable('preConfigureReport', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureReport', settings);
+			return $self.rup_jqtable('postConfigureReport', settings);
 		}
 	});
 
@@ -23144,7 +23144,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la generaciónd de informes.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la generaciónd de informes.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -23152,7 +23152,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 *
 	 * postConfigureReport(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin report del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -23173,11 +23173,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		* @name postConfigureReport
 		* @function
 		* @param {object} settings - Parámetros de configuración del componente.
-		* @fires module:rup_table#rupTable_serializeReportData
+		* @fires module:rup_jqtable#rupTable_serializeReportData
 		*/
 		postConfigureReport: function(settings){
 			var $self = this,
-				colModel = $self.rup_table('getColModel'),
+				colModel = $self.rup_jqtable('getColModel'),
 				reportsColums,
 				reportSettings = settings.report;
 
@@ -23222,7 +23222,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				});
 
 				if (settings.filter !== undefined && settings.filter.$filterContainer!== undefined){
-					filterData = $self.rup_table('getFilterParams');
+					filterData = $self.rup_jqtable('getFilterParams');
 				}
 
 				jQuery.extend(true, data, filterData);
@@ -23242,7 +23242,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Devuelve las columnas de la tabla para las que se va a generar el informe.
      *
@@ -23280,8 +23280,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	* @property {string[]} [excludeColumns] - Determina las columnas que van a ser excluidas de la generación del informe.
 	* @property {string[]} [sendPostDataParams] - Parámetros del jqGrid que van a ser enviados en la petición de generación del informe.
 	*/
-	jQuery.fn.rup_table.plugins.report = {};
-	jQuery.fn.rup_table.plugins.report.defaults = {
+	jQuery.fn.rup_jqtable.plugins.report = {};
+	jQuery.fn.rup_jqtable.plugins.report.defaults = {
 		report:{
 			columns:{},
 			excludeColumns:['rupInfoCol','cb'],
@@ -23297,7 +23297,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    * Permite asociar un manejador al evento que se produce en el momento en el que se construye el objeto que se envía al servidor para solicitar la generación del informe. Permite la modificación del objeto postData para añadir, modificar o eliminar los parámetros que van a ser enviados.
    *
-   * @event module:rup_table#rupTable_serializeReportData
+   * @event module:rup_jqtable#rupTable_serializeReportData
    * @property {Event} event - Objeto Event correspondiente al evento disparado.
 	 * @property {Event} dta - Linea de la tabla destinada a la búsqueda.
    * @example
@@ -23329,10 +23329,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Gestiona las operaciones de filtrado múltiple de datos sobre el origen de datos que utiliza el componente.
  *
  * @summary Plugin de filtrado múltiple del componente RUP Table.
- * @module rup_table/multifilter
+ * @module rup_jqtable/multifilter
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["multifilter"],
  * 	filter:{
@@ -23350,15 +23350,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('multifilter', {
+	jQuery.rup_jqtable.registerPlugin('multifilter', {
 		loadOrder : 15,
 		preConfiguration : function(settings) {
 			var $self = this;
-			return $self.rup_table('preConfigureMultifilter', settings);
+			return $self.rup_jqtable('preConfigureMultifilter', settings);
 		},
 		postConfiguration : function(settings) {
 			var $self = this;
-			return $self.rup_table('postConfigureMultifilter', settings);
+			return $self.rup_jqtable('postConfigureMultifilter', settings);
 		}
 
 	});
@@ -23368,7 +23368,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// ********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del filtrado
+	 * Extensión del componente rup_jqtable para permitir la gestión del filtrado
 	 * de registros de la tabla.
 	 *
 	 * Los métodos implementados son:
@@ -23387,7 +23387,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * criterios de filtrado
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 			* Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.
 			* Este método se ejecuta antes de la incialización del plugin.
@@ -23407,12 +23407,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 
-			$dropdownDiaglogTemplate = $self.rup_table('getMultifilterDialogTemplate', settings);
+			$dropdownDiaglogTemplate = $self.rup_jqtable('getMultifilterDialogTemplate', settings);
 
 			settings.filter.$filterContainer
 				.after($dropdownDiaglogTemplate);
 
-			$self.rup_table('configureMultifilter', settings);
+			$self.rup_jqtable('configureMultifilter', settings);
 
 			// configuracion del resumen del filtro para que
 			// apareza el nombre del filtro
@@ -23451,7 +23451,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			*
 			* @name postConfigureMultifilter
 			* @function
-			* @fires module:rup_table#rupTable_multifilter_fillForm
+			* @fires module:rup_jqtable#rupTable_multifilter_fillForm
 			* @param {object} settings - Parámetros de configuración del componente.
 			*/
 		postConfigureMultifilter : function(settings) {
@@ -23477,13 +23477,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						dropdownIcon : dropdownButtonConfig.dropdownIcon,
 						dropdownDialog : multifilterSettings.dropdownDialogId,
 						dropdownDialogConfig : {
-							title : dropdownButtonConfig.dropdownDialogConfig.title + $.rup.i18n.base.rup_table.plugins.multifilter.tittle,
+							title : dropdownButtonConfig.dropdownDialogConfig.title + $.rup.i18n.base.rup_jqtable.plugins.multifilter.tittle,
 							width : '450px',
 							buttons : [
 								{
 									id : settings.id+ '_multifilter_BtnSave',
 									"class" : 'btn-outline-primary',
-									text : $.rup.i18n.base.rup_table.plugins.multifilter.save,
+									text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.save,
 									click : function() {
 
 										if ($self._checkLabel(settings)) {
@@ -23493,12 +23493,12 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 											var bfr = $self.triggerHandler('rupTable_beforeAdd');
 											if (bfr === false || bfr === 'stop') {
-												multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.errorValidate,'error');
+												multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.errorValidate,'error');
 												return; }
 
 
 											// añado el filtro
-											$self.rup_table('addFilter',filter);
+											$self.rup_jqtable('addFilter',filter);
 
 
 										}
@@ -23509,7 +23509,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								{
 									id : settings.id+ '_multifilter_BtnApply',
 									"class" : 'btn-outline-primary',
-									text : $.rup.i18n.base.rup_table.plugins.multifilter.apply,
+									text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.apply,
 									click : function() {
 
 										//Deshabilitar el nombre del filtro en el filterSummary una vez que ha terminado el filtro por defecto
@@ -23528,20 +23528,20 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 											var valorFiltro= $self._searchFilterInCombo(settings);
 											if (valorFiltro!=undefined){
 												//limpiamos el filtro
-												$self.rup_table('cleanFilterForm');
+												$self.rup_jqtable('cleanFilterForm');
 
 												//Cargamos de nuevo el filtro en el formulario del filtro
 												// rellenar el formulario del filtro
 												$self.triggerHandler('rupTable_multifilter_fillForm',valorFiltro);
 												$self._fillForm(valorFiltro);
-												$self.rup_table('filter');
+												$self.rup_jqtable('filter');
 												multifilterSettings.$closeDialog.click();
 											}
 
 
 
 											else{
-												multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.errorNoexiste,'error');
+												multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.errorNoexiste,'error');
 
 											}
 
@@ -23553,7 +23553,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 
-											//$self.rup_table("filter");
+											//$self.rup_jqtable("filter");
 											// crea el tooptip del resumen del filtro
 											//var filterCriteria = $self._createTooltip();
 
@@ -23566,7 +23566,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 								{
 									id : settings.id+ '_multifilter_BtnRemove',
 									"class" : 'btn-outline-primary',
-									text : $.rup.i18n.base.rup_table.plugins.multifilter.remove,
+									text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.remove,
 									click : function() {
 
 
@@ -23576,18 +23576,18 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 											var filter = $self._createFilterFromForm(settings);
 
 											// borro el filtro
-											$self.rup_table('deleteFilter',filter);
+											$self.rup_jqtable('deleteFilter',filter);
 										}
 									}
 								},
 								{
-									text : $.rup.i18n.base.rup_table.plugins.multifilter.cancel,
+									text : $.rup.i18n.base.rup_jqtable.plugins.multifilter.cancel,
 									click : function() {
 
 										var filtroAnterior= $self.data('filtroAnterior');
 										if (filtroAnterior!=null){
 											//var xhrArray=$.rup_utils.jsontoarray(filtroAnterior);
-											$self.rup_table('cleanFilterForm');
+											$self.rup_jqtable('cleanFilterForm');
 											//$.rup_utils.populateForm(filtroAnterior,settings.filter.$filterForm);
 											$self.triggerHandler('rupTable_multifilter_fillForm',filtroAnterior);
 											$self._fillForm(filtroAnterior);
@@ -23660,7 +23660,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			//gesión por filtroPorDefecto
 
-			//$self.rup_table("showSearchCriteria");
+			//$self.rup_jqtable("showSearchCriteria");
 
 			//if(filtroDefault!=null)
 			//$("#"+settings.id+"_filter_summary").prepend(filtroDefault.filterName +" "+ $("#"+settings.id+"_filter_summary").val() );
@@ -23676,7 +23676,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$self.data('filtroAnterior',valorFiltro);
 
-			//$self.rup_table("filter");
+			//$self.rup_jqtable("filter");
 
 			//settings.filter.$filterButton.trigger("click");
 			//$self.triggerHandler("rupTable_multifilter_fillForm",form2object(settings.filter.$filterContainer[0]));
@@ -23714,7 +23714,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	 * y mostrar el formulario de filtrado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Devuelve la template html empleada para renderizar los controles del formulario de filtrado múltiple.
      *
@@ -23722,7 +23722,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @param {object} settings - Propiedades de configuración del componente.
 		 * @return {object} - Objeto jQuery con el contenido html de la template.
      * @example
-     * $("#idComponente").rup_table("getMultifilterDialogTemplate", settings);
+     * $("#idComponente").rup_jqtable("getMultifilterDialogTemplate", settings);
      */
 		getMultifilterDialogTemplate : function(settings) {
 			var $self = this, multifilterSettings = settings.multifilter;
@@ -23745,7 +23745,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				+ '<label for="'
 				+ settings.id
 				+ '_multifilter_combo" class="formulario_linea_label">'
-				+ $.rup.i18n.base.rup_table.plugins.multifilter.filters
+				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.filters
 				+ '</label>'
 				+ '<input id="'
 				+ settings.id
@@ -23759,7 +23759,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				+ '<label for="'
 				+ settings.id
 				+ '_multifilter_defaultFilter" class="formulario_linea_label">'
-				+ $.rup.i18n.base.rup_table.plugins.multifilter.defaultFilter
+				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.defaultFilter
 				+ '</label>'
 				+ '<input type="checkbox" id="'
 				+ settings.id
@@ -23777,7 +23777,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * @function  configureMultifilter
 		 * @param {object} settings - Propiedades de configuración del componente.
      * @example
-     * $("#idComponente").rup_table("configureMultifilter", settings);
+     * $("#idComponente").rup_jqtable("configureMultifilter", settings);
      */
 		configureMultifilter : function(settings) {
 			var $self = this, multifilterSettings = settings.multifilter,$filterForm ;
@@ -23849,8 +23849,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						var valorFiltro=$self._searchFilterInCombo(settings);
 
 						//limpiar Filtro
-						//$self.rup_table("resetForm",settings.filter.$filterForm);
-						$self.rup_table('cleanFilterForm');
+						//$self.rup_jqtable("resetForm",settings.filter.$filterForm);
+						$self.rup_jqtable('cleanFilterForm');
 
 
 						// rellenar el formulario del filtro
@@ -23886,7 +23886,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$('.jstree').on('rup_filter_treeLoaded',function(event,data){
 				$(this).rup_tree('setRupValue',data);
-				//$self.rup_table("showSearchCriteria");
+				//$self.rup_jqtable("showSearchCriteria");
 			});
 
 
@@ -23901,9 +23901,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      *
      * @function  addFilter
 		 * @param {object} filter - Objeto json con la información del filtro a añadir.
-		 * @fires module:rup_table#rupTable_multifilter_beforeAdd
+		 * @fires module:rup_jqtable#rupTable_multifilter_beforeAdd
      * @example
-     * $("#idComponente").rup_table("addFilter", filter);
+     * $("#idComponente").rup_jqtable("addFilter", filter);
      */
 		addFilter : function(filter) {
 			var $self=this;
@@ -23934,7 +23934,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					multifilterSettings.$savedFilterName=data.filterName;
 					multifilterSettings.$savedFilterValue=data.filterValue;
 
-					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.ok,'ok');
+					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.ok,'ok');
 
 					//multifilterSettings.$combo.rup_autocomplete("set","", "");
 					multifilterSettings.$comboLabel.data('tmp.loadObjects.term',null);
@@ -23949,7 +23949,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 				},
 				error : function(xhr, ajaxOptions,thrownError) {
-					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
+					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.error,'error');
 
 				}
 			});
@@ -23962,7 +23962,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 * @function  deleteFilter
 		 * @param {object} filter - Objeto json con la información del filtro a eliminar.
 		 * @example
-		 * $("#idComponente").rup_table("deleteFilter", filter);
+		 * $("#idComponente").rup_jqtable("deleteFilter", filter);
 		 */
 		deleteFilter : function(filter) {
 
@@ -23992,7 +23992,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				contentType : 'application/json',
 				async : false,
 				success : function(data, status, xhr) {
-					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.ok,'ok');
+					multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.ok,'ok');
 					multifilterSettings.$combo.rup_autocomplete('set','', '');
 					multifilterSettings.$comboLabel.data('tmp.loadObjects.term',null);
 					multifilterSettings.$comboLabel.data('loadObjects', {});
@@ -24004,13 +24004,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}
 
 					if (data.filterFeedback == 'no_records') {
-						multifilterSettings.$feedback.rup_feedback('set',	$.rup.i18n.base.rup_table.plugins.multifilter.noRecords,'error');
+						multifilterSettings.$feedback.rup_feedback('set',	$.rup.i18n.base.rup_jqtable.plugins.multifilter.noRecords,'error');
 
 					}
 
 				},
 				error : function(xhr, ajaxOptions,	thrownError) {
-					multifilterSettings.$feedback.rup_feedback(	'set',$.rup.i18n.base.rup_table.plugins.multifilter.error,'error');
+					multifilterSettings.$feedback.rup_feedback(	'set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.error,'error');
 
 				}
 			});
@@ -24021,7 +24021,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	// *******************************
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 
 		/**
      * Genera el objeto json de datos de filtrado correspondiente al formulario empleado.
@@ -24123,7 +24123,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			multifilterSettings.$comboLabel.off('blur click');
 
-			multifilterSettings.$comboLabel.attr('placeholder',$.rup.i18n.base.rup_table.plugins.multifilter.input);
+			multifilterSettings.$comboLabel.attr('placeholder',$.rup.i18n.base.rup_jqtable.plugins.multifilter.input);
 
 			multifilterSettings.$comboLabel.on('blur',function(event) {
 
@@ -24242,10 +24242,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			if ($.trim(multifilterSettings.$comboLabel.val()) == '') {
 
-				multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.emptyName,'error');
+				multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.emptyName,'error');
 				return false;
 			} else if (multifilterSettings.$comboLabel.val().length > settings.multifilter.labelSize) {
-				multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_table.plugins.multifilter.tooLong,	'error');
+				multifilterSettings.$feedback.rup_feedback('set',$.rup.i18n.base.rup_jqtable.plugins.multifilter.tooLong,	'error');
 
 				return false;
 			}
@@ -24353,7 +24353,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// rellenar el formulario
 			$.rup_utils.populateForm(xhrArray, $(this.selector+ '_filter_form'));
 			// $self._fillForm(filtroNuevo);
-			// $self.rup_table("filter");
+			// $self.rup_jqtable("filter");
 
 		}
 
@@ -24375,13 +24375,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	*
 	* @name options
 	*
-	* @property {string} [idFilter] - Permite asignar un identificador al filtro. Debe ser único para toda la aplicación. En caso de no asignar un id, se asigna el selector del rup_table.
+	* @property {string} [idFilter] - Permite asignar un identificador al filtro. Debe ser único para toda la aplicación. En caso de no asignar un id, se asigna el selector del rup_jqtable.
 	* @property {string} labelSize - Permite especificar el tamaño máximo permitido para el nombre del filtro. Es una propiedad obligatoria.
 	* @property {string} [userFilter] - En caso de que la aplicación donde se tiene que implementar el multifiltro no implemente la variable LOGGED_USER, para conservar el usuario identificado, con este parámetro permite asignar un identificador de usuario alternativo.
 	* @property {boolean} [getDefault=true] - Determina si el multifiltro debe de cargar el filtro por defecto al cargar la página.
 	*/
-	jQuery.fn.rup_table.plugins.multifilter = {};
-	jQuery.fn.rup_table.plugins.multifilter.defaults = {
+	jQuery.fn.rup_jqtable.plugins.multifilter = {};
+	jQuery.fn.rup_jqtable.plugins.multifilter.defaults = {
 		multifilter : {}
 	};
 
@@ -24393,7 +24393,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
    *  Evento lanzado justo antes de añadir un filtro.
    *
-   * @event module:rup_table#rupTable_multifilter_beforeAdd
+   * @event module:rup_jqtable#rupTable_multifilter_beforeAdd
    * @property {Event} event - Objeto Event correspondiente al evento disparado.
 	 * @property {Event} xhr - Objecto XHR empleado en la petición AJAX de nuevo filtro.
 	 * @property {Event} options - Opciones de comfiguración de la petición AJAX de nuevo filtro.
@@ -24404,7 +24404,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	/**
 		* Evento ejecutado cuando se rellenar el formulario del filtro. Cada vez que se cancela, limpia o se selecciona un filtro se lanza este evento.
 		*
-		* @event module:rup_table#rupTable_multifilter_fillForm:
+		* @event module:rup_jqtable#rupTable_multifilter_fillForm:
 		* @property {Event} event - Objeto Event correspondiente al evento disparado.
 		* @property {Event} filterData - Valor del filtro.
 		* @example
@@ -24435,10 +24435,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  * Proporciona al componente RUP Table ciertas funcionalidades responsive.
  *
  * @summary Plugin de toolbar del componente RUP Table.
- * @module rup_table/responsive
+ * @module rup_jqtable/responsive
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["responsive"],
  * 	responsive:{
@@ -24455,15 +24455,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
    * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
    *
    */
-	jQuery.rup_table.registerPlugin('responsive', {
+	jQuery.rup_jqtable.registerPlugin('responsive', {
 		loadOrder: 20,
 		preConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('preConfigureResponsive', settings);
+			return $self.rup_jqtable('preConfigureResponsive', settings);
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('postConfigureResponsive', settings);
+			return $self.rup_jqtable('postConfigureResponsive', settings);
 		}
 	});
 
@@ -24482,7 +24482,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	//********************************
 
 	/**
-   * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+   * Extensión del componente rup_jqtable para permitir la gestión de la botonera asociada a la tabla.
    *
    * Los métodos implementados son:
    *
@@ -24502,7 +24502,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 	});
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin responsive del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -24556,15 +24556,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						currentDisplay = 'xs';
 					}
 
-					rwdConfigArray = $self.rup_table('getRwdColConfig');
+					rwdConfigArray = $self.rup_jqtable('getRwdColConfig');
 
 
 					$.each(rwdConfigArray, function (i, obj) {
 
 						if (obj[currentDisplay] === true) {
-							$self.rup_table('showCol', obj.name);
+							$self.rup_jqtable('showCol', obj.name);
 						} else {
-							$self.rup_table('hideCol', obj.name);
+							$self.rup_jqtable('hideCol', obj.name);
 						}
 					});
 
@@ -24737,7 +24737,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Obtiene a partir de la configuración del colModel, la información correspondiente al comportamiento responsive de las columnas.
 		*
@@ -24752,7 +24752,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				jsonAux = {},
 				colRwdClasses, splitAux, splitAux2;
 
-			rwdCols = $.grep($self.rup_table('getColModel'), function (obj, i) {
+			rwdCols = $.grep($self.rup_jqtable('getColModel'), function (obj, i) {
 				return obj['rwdClasses'];
 			});
 
@@ -24805,8 +24805,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  	*/
 
 
-	jQuery.fn.rup_table.plugins.responsive = {};
-	jQuery.fn.rup_table.plugins.responsive.defaults = {
+	jQuery.fn.rup_jqtable.plugins.responsive = {};
+	jQuery.fn.rup_jqtable.plugins.responsive.defaults = {
 		// autowidth:true,
 		fluid: {
 			baseLayer: null,
@@ -24821,7 +24821,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 	};
 
-	// jQuery.fn.rup_table.plugins.toolbar.defaults = {
+	// jQuery.fn.rup_jqtable.plugins.toolbar.defaults = {
 	// 	toolbar:{
 	// 		autoAjustToolbar:false
 	// 	}

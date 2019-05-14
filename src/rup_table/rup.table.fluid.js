@@ -20,11 +20,11 @@
  * Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
  *
  * @summary Plugin de filtrado múltiple del componente RUP Table.
- * @module rup_table/fluid
+ * @module rup_jqtable/fluid
  * @deprecated
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["fuild"],
  * 	fuild:{
@@ -40,11 +40,11 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('fluid',{
+	jQuery.rup_jqtable.registerPlugin('fluid',{
 		loadOrder:5,
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureFluid', settings);
+			return $self.rup_jqtable('postConfigureFluid', settings);
 		}
 	});
 
@@ -53,7 +53,7 @@
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 * Extensión del componente rup_jqtable para permitir la gestión del diseño líquido del componente.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -64,7 +64,7 @@
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/*
 		 * Realiza la configuración interna necesaria para la gestión correcta de la edición mediante un formulario.
 		 *
@@ -152,8 +152,8 @@
  	* @property {integer} [maxWidth=2000] -  Determina la anchura mínima a la que se va a redimensionar la capa.
  	* @property {integer} [fluidOffset=0] - Desplazamiento que se aplica a la capa redimensionada.
  	*/
-	jQuery.fn.rup_table.plugins.fluid = {};
-	jQuery.fn.rup_table.plugins.fluid.defaults = {
+	jQuery.fn.rup_jqtable.plugins.fluid = {};
+	jQuery.fn.rup_jqtable.plugins.fluid.defaults = {
 		fluid:{
 			baseLayer:null,
 			minWidth: 100,

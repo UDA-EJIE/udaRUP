@@ -20,10 +20,10 @@
  * Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
  *
  * @summary Plugin de toolbar del componente RUP Table.
- * @module rup_table/toolbar
+ * @module rup_jqtable/toolbar
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["toolbar"],
  * 	toolbar:{
@@ -40,16 +40,16 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('toolbar',{
+	jQuery.rup_jqtable.registerPlugin('toolbar',{
 		loadOrder:3,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureToolbar', settings);
+			return $self.rup_jqtable('preConfigureToolbar', settings);
 
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureToolbar', settings);
+			return $self.rup_jqtable('postConfigureToolbar', settings);
 
 		}
 	});
@@ -59,7 +59,7 @@
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la botonera asociada a la tabla.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -67,7 +67,7 @@
 	 * postConfigureToolbar(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin toolbar del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -112,7 +112,7 @@
 
 			// autoAjustToolbar: Realiza el autoajuste del toolbar al tamanyo del grid.
 			if (toolbarSettings.autoAjustToolbar) {
-				settings.$toolbar.css('width', $self.rup_table('getGridParam', 'width') - 5);//-5 para ajustar el ancho
+				settings.$toolbar.css('width', $self.rup_jqtable('getGridParam', 'width') - 5);//-5 para ajustar el ancho
 			}
 
 			// createDefaultToolButtons: Determina la creacion de los botones basicos por defecto del toolbar.
@@ -131,7 +131,7 @@
 		*
 		* @name postConfigureToolbar
 		* @function
-		* @fires module:rup_table#rupTable_feedbackClose
+		* @fires module:rup_jqtable#rupTable_feedbackClose
 		* @param {object} settings - Parámetros de configuración del componente.
 		*/
 		postConfigureToolbar: function(settings){
@@ -150,7 +150,7 @@
 							index: counter++,
 							dropdown: operationCfg.dropdown,
 							right: operationCfg.right
-						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table')).bind('click', function(event){
+						}, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable')).bind('click', function(event){
 							jQuery.proxy(operationCfg.callback,$self)($self, event);
 						});
 					}
@@ -172,7 +172,7 @@
 					 	 var mButton = settings.$toolbar.addMButton(object, object.json_i18n).bind('click', settings.$toolbar.showMButton);
 					 	 settings.$toolbar.addButtonsToMButton(object.buttons, mButton, object.json_i18n);
 					}else{
-						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,'rup_table.toolbarNewButtonError'));
+						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base,'rup_jqtable.toolbarNewButtonError'));
 					}
 				});
 			}
@@ -210,7 +210,7 @@
 				'rupTable_internalFeedbackClose': function(){
 					var $self = jQuery(this), settings = $self.data('settings');
 					$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
-					// if ($self.rup_table('isPluginLoaded', 'feedback')){
+					// if ($self.rup_jqtable('isPluginLoaded', 'feedback')){
 					// 	settings.$internalFeedback.rup_feedback('close');
 					// }
 				}
@@ -236,8 +236,8 @@
 	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
 	* @property {object} [buttons] - Permite definir nuevos botones que se mostrarán en la toolbar. Los nuevos botones se especificarán del mismo modo que se describe en el componente rup_toolbar.
 	*/
-	jQuery.fn.rup_table.plugins.toolbar = {};
-	jQuery.fn.rup_table.plugins.toolbar.defaults = {
+	jQuery.fn.rup_jqtable.plugins.toolbar = {};
+	jQuery.fn.rup_jqtable.plugins.toolbar.defaults = {
 		toolbar:{
 			id: null,
 			autoAjustToolbar: true,
@@ -263,7 +263,7 @@
 	/**
 	*  Evento que se lanza cuando se cierra el feedback.
 	*
-	* @event module:rup_table#rupTable_feedbackClose
+	* @event module:rup_jqtable#rupTable_feedbackClose
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} $feedback - Referencia jQuery al feedback interno.
 	* @example

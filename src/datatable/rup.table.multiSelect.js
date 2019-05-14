@@ -976,7 +976,7 @@ function selectAllPage(dt){
 	var countPage = dt.page()+1;
 	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
 	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', ctx.json.recordsTotal);
-	var remainingSelectButton = "<button id='rup_table_" + dt.context[0].sTableId + "_selectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
+	var remainingSelectButton = "<button id='rup_jqtable_" + dt.context[0].sTableId + "_selectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(!ctx.multiselection.selectedAll ||
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
 		ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
@@ -1021,7 +1021,7 @@ function deselectAllPage(dt){
 	var countPage = dt.page()+1;
 	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
 	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', ctx.multiselection.numSelected);
-	var remainingDeselectButton = "<button id='rup_table_" + dt.context[0].sTableId + "_deselectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
+	var remainingDeselectButton = "<button id='rup_jqtable_" + dt.context[0].sTableId + "_deselectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(ctx.multiselection.numSelected  > 0){
 		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});
 		ctx.multiselection.internalFeedback.type = 'fijo';

@@ -156,7 +156,7 @@ define(['marionette',
 
 		var disable=1;
 
-		$view.ui.table.rup_table({
+		$view.ui.table.rup_jqtable({
 			url: 'api/jqGridUsuario',
 			colNames: this.tableColNames,
 			colModel: this.tableColModels,

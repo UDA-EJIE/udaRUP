@@ -18,9 +18,9 @@
  * Tiene como objetivo proporcionar al componente RUP Table de las funcionalidades que ofrece el uso de un menú contextual.
  *
  * @summary Plugin de menú contextual del componente RUP Table.
- * @module rup_table/contextMenu
+ * @module rup_jqtable/contextMenu
  * @example
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  *	usePlugins:["contextMenu"],
  *	contextMenu:{
@@ -38,15 +38,15 @@
 	 */
 /*global jQuery */
 
-	jQuery.rup_table.registerPlugin('contextMenu',{
+	jQuery.rup_jqtable.registerPlugin('contextMenu',{
 		loadOrder:4,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureContextMenu', settings);
+			return $self.rup_jqtable('preConfigureContextMenu', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureContextMenu', settings);
+			return $self.rup_jqtable('postConfigureContextMenu', settings);
 		}
 	});
 
@@ -55,7 +55,7 @@
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión del diseño líquido del componente.
+	 * Extensión del componente rup_jqtable para permitir la gestión del diseño líquido del componente.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -66,7 +66,7 @@
 	 * settings.$fluidBaseLayer : Referencia a la capa que se tomará como base para aplicar el diseño líquido.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		 * Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.
 		 * Este método se ejecuta antes de la incialización del plugin.
@@ -228,11 +228,11 @@
 	 * @property {string} [tbodyTdSelector='tbody:first tr.jqgrow td'] - Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna.
 	 * @property {string} [theadThSelector='thead:first th'] - Selector de jQuery que identifica las cabeceras de las columnas de la tabla.
    * @property {object} [items={}}] - Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros.
-	 * @property {rup_table~Operations[]} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual.
+	 * @property {rup_jqtable~Operations[]} [showOperations] - Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual.
    */
 
-	jQuery.fn.rup_table.plugins.contextMenu = {};
-	jQuery.fn.rup_table.plugins.contextMenu.defaults = {
+	jQuery.fn.rup_jqtable.plugins.contextMenu = {};
+	jQuery.fn.rup_jqtable.plugins.contextMenu.defaults = {
 		contextMenu:{
 			colNames: null,
 			createDefaultRowOperations:true,

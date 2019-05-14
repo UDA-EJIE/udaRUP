@@ -682,7 +682,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_table_selectedElements_' + tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_jqtable_selectedElements_' + tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**

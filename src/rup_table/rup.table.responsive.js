@@ -20,10 +20,10 @@
  * Proporciona al componente RUP Table ciertas funcionalidades responsive.
  *
  * @summary Plugin de toolbar del componente RUP Table.
- * @module rup_table/responsive
+ * @module rup_jqtable/responsive
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["responsive"],
  * 	responsive:{
@@ -40,15 +40,15 @@
    * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
    *
    */
-	jQuery.rup_table.registerPlugin('responsive', {
+	jQuery.rup_jqtable.registerPlugin('responsive', {
 		loadOrder: 20,
 		preConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('preConfigureResponsive', settings);
+			return $self.rup_jqtable('preConfigureResponsive', settings);
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
-			return $self.rup_table('postConfigureResponsive', settings);
+			return $self.rup_jqtable('postConfigureResponsive', settings);
 		}
 	});
 
@@ -67,7 +67,7 @@
 	//********************************
 
 	/**
-   * Extensión del componente rup_table para permitir la gestión de la botonera asociada a la tabla.
+   * Extensión del componente rup_jqtable para permitir la gestión de la botonera asociada a la tabla.
    *
    * Los métodos implementados son:
    *
@@ -87,7 +87,7 @@
 
 	});
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin responsive del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -141,15 +141,15 @@
 						currentDisplay = 'xs';
 					}
 
-					rwdConfigArray = $self.rup_table('getRwdColConfig');
+					rwdConfigArray = $self.rup_jqtable('getRwdColConfig');
 
 
 					$.each(rwdConfigArray, function (i, obj) {
 
 						if (obj[currentDisplay] === true) {
-							$self.rup_table('showCol', obj.name);
+							$self.rup_jqtable('showCol', obj.name);
 						} else {
-							$self.rup_table('hideCol', obj.name);
+							$self.rup_jqtable('hideCol', obj.name);
 						}
 					});
 
@@ -322,7 +322,7 @@
 	});
 
 
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Obtiene a partir de la configuración del colModel, la información correspondiente al comportamiento responsive de las columnas.
 		*
@@ -337,7 +337,7 @@
 				jsonAux = {},
 				colRwdClasses, splitAux, splitAux2;
 
-			rwdCols = $.grep($self.rup_table('getColModel'), function (obj, i) {
+			rwdCols = $.grep($self.rup_jqtable('getColModel'), function (obj, i) {
 				return obj['rwdClasses'];
 			});
 
@@ -390,8 +390,8 @@
  	*/
 
 
-	jQuery.fn.rup_table.plugins.responsive = {};
-	jQuery.fn.rup_table.plugins.responsive.defaults = {
+	jQuery.fn.rup_jqtable.plugins.responsive = {};
+	jQuery.fn.rup_jqtable.plugins.responsive.defaults = {
 		// autowidth:true,
 		fluid: {
 			baseLayer: null,
@@ -406,7 +406,7 @@
 
 	};
 
-	// jQuery.fn.rup_table.plugins.toolbar.defaults = {
+	// jQuery.fn.rup_jqtable.plugins.toolbar.defaults = {
 	// 	toolbar:{
 	// 		autoAjustToolbar:false
 	// 	}

@@ -581,7 +581,7 @@
 			delay: null
 		},
 		feedbackErrorConfig: {
-			errorMsg: $.rup.i18nParse($.rup.i18n.base, 'rup_table.validateError'),
+			errorMsg: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.validateError'),
 			getField: function (self, form, fieldName) {
 				return $('[name=\'' + fieldName + '\']', form);
 			},

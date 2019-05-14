@@ -18553,7 +18553,8 @@ div.rup-date-input-group-material button, div.rup-date-input-group-material .ui-
     div.rup-date-input-group-material button:focus i.mdi, div.rup-date-input-group-material .ui-button.rup-button:focus i.mdi, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button:focus i.mdi, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button:focus i.mdi, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button:focus i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next:focus i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next:focus i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev:focus i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev:focus i.mdi, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton:focus i.mdi, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton:focus i.mdi {
       color: #FFFFFF; }
   div.rup-date-input-group-material button i.mdi, div.rup-date-input-group-material .ui-button.rup-button i.mdi, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button i.mdi, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button i.mdi, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev i.mdi, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i.mdi, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i.mdi {
-    vertical-align: initial; }
+    vertical-align: initial;
+    line-height: 1; }
 
 div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .ui-button.rup-button, div.rup-date-input-group-material .rup-dropdown-btn-group input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-dropdown-button, .rup-dropdown-btn-group div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-dropdown-button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-toolbar_menuButton.ui-button, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_next, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_next, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_prev, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ a.rup-wizard_prev, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-wizard_submitButton, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover ~ .rup-wizard_submitButton {
   border-color: #212529; }
@@ -18628,7 +18629,7 @@ i.mdi.error {
     color: #d9534f; }
   .form-groupMaterial.rup-validate-field-error i.mdi.error {
     position: absolute;
-    top: 4px;
+    top: 1px;
     right: 10px;
     font-size: 1.3rem;
     font-style: normal;
@@ -21516,9 +21517,15 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   padding-top: .5rem; }
 
 @media (max-width: 575px) {
-  .rup_tableEdit_buttonsContainerResposive {
+  .rup_jqtableEdit_buttonsContainerResposive {
     float: none !important; }
-  .rup_tableEdit_buttonsResposive {
+  .rup_jqtableEdit_buttonsResposive {
+    width: 100%; } }
+
+@media (max-width: 575px) {
+  .rup_datatableEdit_buttonsContainerResposive {
+    float: none !important; }
+  .rup_datatableEdit_buttonsResposive {
     width: 100%; } }
 
 .checkboxPKBloqueado {

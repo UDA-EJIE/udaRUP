@@ -3550,6 +3550,7 @@
 .r01gContainer div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i.mdi,
 .r01gContainer div.rup-date-input-group-material button i.mdi {
   vertical-align: initial;
+  line-height: 1;
 }
 
 .r01gContainer .rup-dropdown-btn-group div.rup-date-input-group-material input:not([type=checkbox]):not([type=radio]):hover~.rup-dropdown-button,
@@ -3734,7 +3735,7 @@
 
 .r01gContainer .form-groupMaterial.rup-validate-field-error i.mdi.error {
   position: absolute;
-  top: 4px;
+  top: 1px;
   right: 10px;
   font-size: 1.3rem;
   font-style: normal;

@@ -35,7 +35,7 @@ gulp.task('doc:api', function () {
 	var outputPath = './doc/api/';
 
 	runJsdoc2md(fileSource, outputPath);
-	//rup_table
+	//rup_jqtable
 	fileSource = 'src/rup_table/rup*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);

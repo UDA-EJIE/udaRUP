@@ -249,8 +249,8 @@
 					$.rup.i18n.base = data;
 					//Se cargan los literales de la tabla por separado (consecuencia de la naturalza de JqGrid)
 					$.jgrid = {};
-					$.extend($.jgrid, data.rup_table);
-					$.jgrid.formatter.date.S = new Function('j', data.rup_table.formatter.date.S);
+					$.extend($.jgrid, data.rup_jqtable);
+					$.jgrid.formatter.date.S = new Function('j', data.rup_jqtable.formatter.date.S);
 				},
 				error: function (XMLHttpRequest, textStatus) {
 					//tratamiento de error

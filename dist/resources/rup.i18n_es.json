@@ -130,7 +130,7 @@
     "waitMsg": "Generando el documento, por favor espere...",
     "waitTitle": "Descargar informe"
   },
-  "rup_table": {
+  "rup_jqtable": {
     "cancel": "Cancelar",
     "changes": "Control de cambios",
     "checkAddedSelectedElems": "Los elementos añadidos en la pagina actual van a ser deseleccionados, ¿desea continuar?",
@@ -394,7 +394,7 @@
     "templates": {
       "detailForm": {
         "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
-        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
+        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_jqtable_selectedElements_{0}'></div></div>",
         "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
         "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
         "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
@@ -411,8 +411,8 @@
         "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
       },
       "multiselection": {
-        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+        "deselectRemainingRecords": "<input type='button' id='rup_jqtable_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        "selectRemainingRecords": "<input type='button' id='rup_jqtable_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
       },
       "search": {
         "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",
@@ -823,7 +823,7 @@
     "templates": {
       "detailForm": {
         "body": "<div id='{0}' style='padding-top:0.6em;'></div>",
-        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_table_selectedElements_{0}'></div></div>",
+        "elementCounter": "<div style='float:left;font-size:11px' id='pagination_{0}'><img src='{1}/rup/css/images/numero_elementos.png' alt='{2}'><div style='float: right; margin-left: 3px; margin-top: 2px; position: relative;' id='rup_jqtable_selectedElements_{0}'></div></div>",
         "errorFeedback": "<div id='{0}' style='display:none'><span></span></div>",
         "form": "<form name='FormPost' id='{0}' class='FormGrid' onSubmit='return false;' style='width:100%;overflow:auto;position:relative;height:{1};'></form>",
         "paginationBar": "<div style='float:right' id='pag_{0}'></div>",
@@ -840,8 +840,8 @@
         "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
       },
       "multiselection": {
-        "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
-        "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
+        "deselectRemainingRecords": "<input type='button' id='rup_jqtable_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
+        "selectRemainingRecords": "<input type='button' id='rup_jqtable_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
       },
       "search": {
         "collapseIcon": "<span id='{0}' class='collapse_icon ui-icon ui-icon-triangle-1-e'></span>",

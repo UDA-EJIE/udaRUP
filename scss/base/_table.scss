@@ -440,11 +440,21 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 }
 
 @media ( max-width : 575px) {
-    .rup_tableEdit_buttonsContainerResposive {
+    .rup_jqtableEdit_buttonsContainerResposive {
 		float: none !important;
     }
     
-    .rup_tableEdit_buttonsResposive {
+    .rup_jqtableEdit_buttonsResposive {
+		width: 100%;
+    }
+}
+
+@media ( max-width : 575px) {
+    .rup_datatableEdit_buttonsContainerResposive {
+		float: none !important;
+    }
+    
+    .rup_datatableEdit_buttonsResposive {
 		width: 100%;
     }
 }

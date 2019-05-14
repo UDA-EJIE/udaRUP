@@ -312,7 +312,7 @@ function _createSearchRow (dt,ctx){
 
 		function doSearchButtonNavigation($button, buttonId){
 			if (!$button.hasClass('ui-state-disabled')){
-				$self.rup_table('navigateToMatchedRow', buttonId);
+				$self.rup_jqtable('navigateToMatchedRow', buttonId);
 			}
 		}
 

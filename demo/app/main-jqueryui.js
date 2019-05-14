@@ -3,7 +3,7 @@ import * as Escritorio from 'app-jqueryui.js';
 
 $.fn.rup_button.defaults.adapter = 'button_jqueryui';
 $.fn.rup_date.defaults.adapter = 'date_jqueryui';
-$.fn.rup_table.plugins.core.defaults.adapter = 'table_jqueryui';
+$.fn.rup_jqtable.plugins.core.defaults.adapter = 'table_jqueryui';
 $.fn.rup_time.defaults.adapter = 'time_jqueryui';
 $.fn.rup_toolbar.defaults.adapter = 'toolbar_jqueryui';
 $.fn.rup_upload.defaults.adapter = 'upload_jqueryui';

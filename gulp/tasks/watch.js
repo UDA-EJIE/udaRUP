@@ -49,7 +49,7 @@ gulp.task('watch:minimize:js:rup', function () {
 });
 
 // gulp.task('watch:minimize:js:rup-classic', function () {
-//     gulp.watch(['./src/**/*.js', '!./src/rup_table/**/*.js'], ['minimize:js:rup-classic']);
+//     gulp.watch(['./src/**/*.js', '!./src/rup_jqtable/**/*.js'], ['minimize:js:rup-classic']);
 // });
 
 // WATCHES:templates

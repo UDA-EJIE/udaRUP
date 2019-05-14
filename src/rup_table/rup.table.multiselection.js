@@ -20,10 +20,10 @@
  * Permite realizar una selección múltiple de los registros que se muestran en la tabla.
  *
  * @summary Plugin de multiselection del componente RUP Table.
- * @module rup_table/multiselection
+ * @module rup_jqtable/multiselection
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["multiselection"],
  * 	multiselection:{
@@ -40,17 +40,17 @@
    * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
    *
    */
-	jQuery.rup_table.registerPlugin('multiselection', {
+	jQuery.rup_jqtable.registerPlugin('multiselection', {
 		loadOrder: 8,
 		preConfiguration: function (settings) {
 			var $self = this;
-			$self.rup_table('preConfigureMultiselection', settings);
+			$self.rup_jqtable('preConfigureMultiselection', settings);
 		},
 		postConfiguration: function (settings) {
 			var $self = this;
 
 			if (settings.multiselect === true) {
-				$self.rup_table('postConfigureMultiselection', settings);
+				$self.rup_jqtable('postConfigureMultiselection', settings);
 			}
 		}
 	});
@@ -59,7 +59,7 @@
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//********************************
 	/**
-   * Extensión del componente rup_table para permitir la gestión de la multiselección.
+   * Extensión del componente rup_jqtable para permitir la gestión de la multiselección.
    *
    * Los métodos implementados son:
    *
@@ -67,7 +67,7 @@
    * postConfigureMultiselection(settings): Método que define la postconfiguración necesaria para el correcto funcionamiento del componente.
    *
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		/**
 		* Metodo que realiza la pre-configuración del plugin multiselection del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -127,7 +127,7 @@
 			settings.getSelectedLines = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
 				if (settings.multiselection.selectedAll !== true) {
 					return settings.multiselection.selectedLinesPerPage[page];
@@ -156,7 +156,7 @@
 					tmpLastSearch = $self.data('tmp.lastSearch');
 					if (tmpLastSearch !== undefined && tmpLastSearch !== getLastSearchStr(postData)) {
 						if (settings && settings.multiselection && settings.multiselection.numSelected > 0) {
-							multiselectionObj = $self.rup_table('getSelectedIds');
+							multiselectionObj = $self.rup_jqtable('getSelectedIds');
 							jQuery.extend(true, postData, {
 								'multiselection': multiselectionObj
 							});
@@ -166,7 +166,7 @@
 					$self.data('tmp.lastSearch', getLastSearchStr(postData));
 				},
 				'rupTable_setSelection.multiselection': function (events, selectedRows, status, reorderSelection) {
-					var page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+					var page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
 					if (jQuery.isArray(selectedRows)) {
 						for (var i = 0; i < selectedRows.length; i++) {
@@ -182,7 +182,7 @@
 							$self.off('rupTable_serializeGridData.multiselection.reorderSelection');
 
 							jQuery.extend(true, postData, {
-								'multiselection': $self.rup_table('getSelectedIds')
+								'multiselection': $self.rup_jqtable('getSelectedIds')
 							});
 						});
 					}
@@ -219,7 +219,7 @@
 			settings.getRowForEditing = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					nPos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
 					index, retNavParams;
 
@@ -262,9 +262,9 @@
 			settings.getDetailCurrentRowCount = function () {
 				var $self = this,
 					settings = $self.data('settings'),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					currentRow = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-					rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10),
+					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10),
 					selectedPagesArrayIndex, tmpSelectedPage,
 					cont = 0;
 
@@ -300,9 +300,9 @@
 					index = 0,
 					newPageIndex = 0,
 					npos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])(),
-					page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+					page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 					newPage = page,
-					lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records') / $self.rup_table('getGridParam', 'rowNum')), 10),
+					lastPage = parseInt(Math.ceil($self.rup_jqtable('getGridParam', 'records') / $self.rup_jqtable('getGridParam', 'rowNum')), 10),
 					currentArrayIndex, selectedLines;
 
 				npos[0] = parseInt(npos[0], 10);
@@ -447,7 +447,7 @@
 					newPageIndex = arrParams[6];
 
 					if (execute) {
-						$self.rup_table('hideFormErrors', settings.formEdit.$detailForm);
+						$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 						$self.triggerHandler('jqGridAddEditClickPgButtons', [linkType, settings.formEdit.$detailForm, npos[1][npos[index]]]);
 						if (changePage) {
 							$self.trigger('reloadGrid', [{
@@ -463,8 +463,8 @@
 								//								$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 								settings.multiselection.rowForEditing = newIndexPos;
 
-								$self.rup_table('clearHighlightedEditableRows');
-								$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', newIndexPos, true));
+								$self.rup_jqtable('clearHighlightedEditableRows');
+								$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', newIndexPos, true));
 								//								$($self.jqGrid("getInd",newIndexPos, true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 
 								$self.off('jqGridAfterLoadComplete.pagination');
@@ -476,8 +476,8 @@
 							//							$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 							settings.multiselection.rowForEditing = npos[1][index];
 
-							$self.rup_table('clearHighlightedEditableRows');
-							$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', npos[1][index], true));
+							$self.rup_jqtable('clearHighlightedEditableRows');
+							$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', npos[1][index], true));
 							//							$($self.jqGrid("getInd",npos[1][index], true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 
 						}
@@ -514,14 +514,14 @@
 						}
 
 						if (!(jQuery.rup.isCtrlPressed() || jQuery.rup.isShiftPressed()) && (settings.multiboxonly === true && obj !== undefined && !(obj.originalEvent !== undefined && jQuery(obj.originalEvent.target).is(':checkbox') && jQuery(obj.originalEvent.target).attr('id').indexOf('jqg_') !== -1))) {
-							$self.rup_table('deselectRemainingRows');
+							$self.rup_jqtable('deselectRemainingRows');
 						}
 
 						// Shift presed
 
 						if (jQuery.rup.isShiftPressed() === true) {
 							selectedLineId = $self.jqGrid('getInd', id, false);
-							activeLineId = $self.rup_table('getActiveLineId');
+							activeLineId = $self.rup_jqtable('getActiveLineId');
 							if (activeLineId < selectedLineId) {
 								toLine = selectedLineId - 1;
 								fromLine = activeLineId + 1;
@@ -534,7 +534,7 @@
 
 							for (var i = fromLine; i < toLine; i++) {
 								$self._processSelectedRow(settings, idsArr[i], status);
-								$self.rup_table('highlightRowAsSelected', jQuery($self.jqGrid('getInd', idsArr[i], true)));
+								$self.rup_jqtable('highlightRowAsSelected', jQuery($self.jqGrid('getInd', idsArr[i], true)));
 							}
 
 						}
@@ -542,39 +542,39 @@
 						// Se gestiona la selección o deselección del registro indicado
 						$self._processSelectedRow(settings, id, status);
 						// Actualización del número de registros seleccionados
-						$self.rup_table('updateSelectedRowNumber');
+						$self.rup_jqtable('updateSelectedRowNumber');
 						// Se cierra el feedback para (de)seleccionar el resto de registros
 						$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
 						// Se gestiona el icono de linea editable
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 						//						$self.find("td[aria-describedby='"+settings.id+"_infoEditable'] img.ui-icon.ui-icon-pencil").remove();
 						if (status) {
 							settings.multiselection.rowForEditing = id;
-							$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', id, true));
+							$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', id, true));
 							//							$($self.jqGrid("getInd",id, true)).find("td[aria-describedby='"+settings.id+"_infoEditable']").html($("<img/>").addClass("ui-icon ui-icon-pencil")[0]);
 						} else {
-							page = parseInt($self.rup_table('getGridParam', 'page'), 10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 							if ($self._hasPageSelectedElements(page)) {
-								$self.rup_table('highlightFirstEditableRow');
+								$self.rup_jqtable('highlightFirstEditableRow');
 								//								firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 								//								firstSelectedId = $self.jqGrid("getDataIDs")[firstSelectedLine-1];
 								//								settings.multiselection.rowForEditing=firstSelectedId;
-								//								$self.rup_table("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
+								//								$self.rup_jqtable("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
 							}
 						}
 					}
 				},
 				'jqGridDblClickRow.rupTable.multiselection': function (event, rowid, iRow, iCol, e) {
-					$self.rup_table('setSelection', rowid, true);
-					$self.rup_table('clearHighlightedEditableRows');
-					$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', rowid, true));
+					$self.rup_jqtable('setSelection', rowid, true);
+					$self.rup_jqtable('clearHighlightedEditableRows');
+					$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', rowid, true));
 				},
-				'jqGridGridComplete.rup_table.multiselection': function (event) {
+				'jqGridGridComplete.rup_jqtable.multiselection': function (event) {
 					var $self = $(this),
 						settings = $self.data('settings');
 
-					if ($self.rup_table('getGridParam', 'records') === 0) {
+					if ($self.rup_jqtable('getGridParam', 'records') === 0) {
 						jQuery(jQuery('#cb_' + $self.attr('id'), settings.core.$tableDiv)[0]).attr('disabled', 'disabled');
 					} else {
 						jQuery(jQuery('#cb_' + $self.attr('id'), settings.core.$tableDiv)[0]).removeAttr('disabled');
@@ -590,8 +590,8 @@
 				'jqGridLoadComplete.rupTable.multiselection': function (data, xhr) {
 					var self = $self[0],
 						internalProps = self.p,
-						page = $self.rup_table('getGridParam', 'page'),
-						rowNum = $self.rup_table('getGridParam', 'rowNum'),
+						page = $self.rup_jqtable('getGridParam', 'page'),
+						rowNum = $self.rup_jqtable('getGridParam', 'rowNum'),
 						rows,
 						selectedRows = settings.multiselection.selectedRowsPerPage[page],
 						deselectedRows = settings.multiselection.deselectedRowsPerPage[page] || [],
@@ -654,7 +654,7 @@
 								}
 							}
 						}
-						//						$self.rup_table("updateSelectedRowNumber");
+						//						$self.rup_jqtable("updateSelectedRowNumber");
 					}
 
 					// Se genera el evento que indica la modificación de los elementos seleccionados.
@@ -667,15 +667,15 @@
 					if ($self._hasPageSelectedElements(page)) {
 
 						if (settings.multiselection.rowForEditing !== undefined && jQuery.inArray(settings.multiselection.rowForEditing, $self.jqGrid('getDataIDs')) !== -1) {
-							$self.rup_table('highlightEditableRow', jQuery($self.jqGrid('getInd', settings.multiselection.rowForEditing, true)), true);
+							$self.rup_jqtable('highlightEditableRow', jQuery($self.jqGrid('getInd', settings.multiselection.rowForEditing, true)), true);
 						} else {
-							$self.rup_table('highlightFirstEditableRow');
+							$self.rup_jqtable('highlightFirstEditableRow');
 						}
 
 						//						firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 						//						firstSelectedId = $self.jqGrid("getDataIDs")[firstSelectedLine-1];
 						//						settings.multiselection.rowForEditing=firstSelectedId;
-						//						$self.rup_table("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
+						//						$self.rup_jqtable("highlightEditableRow", $self.jqGrid("getInd",firstSelectedId, true));
 					}
 
 
@@ -715,7 +715,7 @@
          *  status: true en caso de selección, false en caso de deselección.
          */
 				'jqGridSelectAll.rupTable.multiselection': function (event, selectedRows, status) {
-					var page = $self.rup_table('getGridParam', 'page'),
+					var page = $self.rup_jqtable('getGridParam', 'page'),
 						selectMsg, deselectMsg, elementosRestantes, selectRestMsg, remainingSelectButton, remainingDeselectButton, cont;
 
 					// Se oculta el posible mensaje de feedback que se muestre
@@ -731,8 +731,8 @@
 					}
 
 
-					selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
-					deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
+					selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.selectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
+					deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.deselectMsg', '<b>' + cont + '</b>', '<b>' + page + '</b>');
 
 					// Se comprueba el valor de status para determinar si se está seleccionando (true) o deseleccionando (false) todos los registos de la página
 					if (status) {
@@ -740,8 +740,8 @@
 						elementosRestantes = $self._getRemainingRecordNum(settings, selectedRows);
 						if (elementosRestantes !== 0) {
 							// En caso de existir registros sin seleccionar se muestra el mensaje junto con un botón para permitir la selecón de dichos elementos
-							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', elementosRestantes);
-							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.selectAll'));
+							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.selectRestMsg', elementosRestantes);
+							remainingSelectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.multiselection.selectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.selectAll'));
 							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, selectMsg + remainingSelectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por seleccionar se muestra solo un mensaje informativo
@@ -749,16 +749,16 @@
 						}
 
 						// Se asocia el handler al evento click del botón de seleccionar el resto de registros
-						$('#rup_table_' + $self[0].id + '_selectAll').on('click', function (event) {
-							$self.rup_table('selectRemainingRows');
+						$('#rup_jqtable_' + $self[0].id + '_selectAll').on('click', function (event) {
+							$self.rup_jqtable('selectRemainingRows');
 						});
-						$self.rup_table('highlightFirstEditableRow');
+						$self.rup_jqtable('highlightFirstEditableRow');
 					} else {
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 						// En caso de existir elementos seleccionados se muestra un mensaje que incluye un botón para permitir la deselección del todos los elementos seleccionados
 						if (settings.multiselection.numSelected > 0) {
-							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', settings.multiselection.numSelected);
-							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.deSelectAll'));
+							selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.deselectRestMsg', settings.multiselection.numSelected);
+							remainingDeselectButton = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_jqtable.templates.multiselection.deselectRemainingRecords', $self[0].id, selectRestMsg, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.deSelectAll'));
 							$self.trigger('rupTable_feedbackShow', [settings.$internalFeedback, deselectMsg + remainingDeselectButton, 'alert']);
 						} else {
 							// Si no hay elementos restantes por deseleccionar se muestra solo un mensaje informativo
@@ -766,25 +766,25 @@
 						}
 
 						// Se asocia el handler al evento click del botón de deseleccionar el resto de registros
-						$('#rup_table_' + $self[0].id + '_deselectAll').on('click', function (event) {
-							$self.rup_table('deselectRemainingRows');
+						$('#rup_jqtable_' + $self[0].id + '_deselectAll').on('click', function (event) {
+							$self.rup_jqtable('deselectRemainingRows');
 						});
 					}
 
 					// Se actualiza el contador de elementos seleccionados
-					$self.rup_table('updateSelectedRowNumber');
+					$self.rup_jqtable('updateSelectedRowNumber');
 				},
 				'rupTableAfterSearchNav.rupTable.multiselection rupTableSearchSuccess.rupTable.multiselection rupTableAfterDelete.rupTable.multiselection': function () {
 					var $self = $(this);
-					$self.rup_table('resetSelection');
+					$self.rup_jqtable('resetSelection');
 				},
 				'rupTable_multiselectionUpdated.multiselection': function () {
 					var $self = $(this),
 						self = $self[0],
-						page = $self.rup_table('getGridParam', 'page'),
+						page = $self.rup_jqtable('getGridParam', 'page'),
 						settings = $self.data('settings'),
 						internalProps = self.p,
-						rowNum = $self.rup_table('getGridParam', 'rowNum'),
+						rowNum = $self.rup_jqtable('getGridParam', 'rowNum'),
 						rows,
 						selectedRows = settings.multiselection.selectedRowsPerPage[page],
 						deselectedRows = settings.multiselection.deselectedRowsPerPage[page] || [];
@@ -809,10 +809,10 @@
 							// Se comprueba si el registro se encuentra en el array de deseleccionados.
 							if (jQuery.inArray(rows[i].id, deselectedRows) === -1) {
 								// En caso de no ser un elemento deseleccionado se marca como seleccionado.
-								$self.rup_table('highlightRowAsSelected', $(rows[i]));
+								$self.rup_jqtable('highlightRowAsSelected', $(rows[i]));
 							} else {
 								// En caso de ser un elemento deseleccionado se desmarca.
-								$self.rup_table('clearHighlightedRowAsSelected', $(rows[i]));
+								$self.rup_jqtable('clearHighlightedRowAsSelected', $(rows[i]));
 							}
 						}
 
@@ -832,10 +832,10 @@
 								// Se comprueba si el registro se encuentra en el array de seleccionados
 								if (jQuery.inArray(rows[i].id, selectedRows) !== -1) {
 									// En caso de ser un elemento seleccionado, se marca como tal.
-									$self.rup_table('highlightRowAsSelected', $(rows[i]));
+									$self.rup_jqtable('highlightRowAsSelected', $(rows[i]));
 								} else {
 									// En caso de no ser un elemento seleccionado se desmarca.
-									$self.rup_table('clearHighlightedRowAsSelected', $(rows[i]));
+									$self.rup_jqtable('clearHighlightedRowAsSelected', $(rows[i]));
 								}
 							}
 
@@ -845,7 +845,7 @@
 							}
 						}
 					}
-					$self.rup_table('updateSelectedRowNumber');
+					$self.rup_jqtable('updateSelectedRowNumber');
 				},
 				'rupTable_beforeAddRow.multiselection': function (event, addCloneOptions) {
 					// Si la edición en línea no está activada, no comprobamos los elementos seleccionados y devolvemos true
@@ -854,16 +854,16 @@
 					}
 					$self._checkSelectedElements(function () {
 						$self.jqGrid('editGridRow', 'new', addCloneOptions);
-						$self.rup_table('resetSelection');
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('resetSelection');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 					});
 
 					return false;
 				},
 				'jqGridAddEditAfterSubmit.rupTable.formEditing': function (event, res, postData, oper) {
 					if (oper !== 'edit') {
-						$self.rup_table('resetSelection');
-						$self.rup_table('clearHighlightedEditableRows');
+						$self.rup_jqtable('resetSelection');
+						$self.rup_jqtable('clearHighlightedEditableRows');
 					}
 				}
 			});
@@ -930,7 +930,7 @@
    * resetSelection(): Limpia a selección realizada por el usuario.
    * updateSelectedRowNumber(): Refresca el identificador de resgistros seleccionados
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		getSelectedIds: function () {
 			var $self = this,
 				settings = $self.data('settings'),
@@ -968,16 +968,16 @@
 		highlightFirstEditableRow: function () {
 			var $self = this,
 				settings = $self.data('settings'),
-				page = parseInt($self.rup_table('getGridParam', 'page'), 10),
+				page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10),
 				firstSelectedLine, firstSelectedId;
 
-			$self.rup_table('clearHighlightedEditableRows');
+			$self.rup_jqtable('clearHighlightedEditableRows');
 
 			if ($self._hasPageSelectedElements(page)) {
 				firstSelectedLine = $self._getFirstSelectedElementOfPage(page);
 				firstSelectedId = $self.jqGrid('getDataIDs')[firstSelectedLine - 1];
 				settings.multiselection.rowForEditing = firstSelectedId;
-				$self.rup_table('highlightEditableRow', $self.jqGrid('getInd', firstSelectedId, true));
+				$self.rup_jqtable('highlightEditableRow', $self.jqGrid('getInd', firstSelectedId, true));
 			}
 		},
 		highlightEditableRow: function ($row) {
@@ -1003,7 +1003,7 @@
 				settings = $self.data('settings'),
 				arr, $row;
 
-			$self.rup_table('selectRemainingRows');
+			$self.rup_jqtable('selectRemainingRows');
 
 			jQuery('#cb_' + settings.id).attr('checked', 'checked');
 
@@ -1012,10 +1012,10 @@
 
 			for (var i = 0; i < arr.length; i++) {
 				$row = jQuery($self.jqGrid('getInd', arr[i], true));
-				$self.rup_table('highlightRowAsSelected', $row);
+				$self.rup_jqtable('highlightRowAsSelected', $row);
 			}
 
-			$self.rup_table('highlightFirstEditableRow');
+			$self.rup_jqtable('highlightFirstEditableRow');
 		},
 		selectRemainingRows: function (event) {
 			var $self = this,
@@ -1025,9 +1025,9 @@
 			// Se marca el flag de todos seleccionados a true
 			settings.multiselection.selectedAll = true;
 			// Numero de registros seleccionados
-			settings.multiselection.numSelected = $self.rup_table('getGridParam', 'records');
+			settings.multiselection.numSelected = $self.rup_jqtable('getGridParam', 'records');
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 
 			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 
@@ -1038,8 +1038,8 @@
 				arr, $row,
 				internalProps = $self[0].p;
 
-			$self.rup_table('deselectRemainingRows');
-			$self.rup_table('clearHighlightedEditableRows');
+			$self.rup_jqtable('deselectRemainingRows');
+			$self.rup_jqtable('clearHighlightedEditableRows');
 
 			jQuery('#cb_' + settings.id).removeAttr('checked');
 
@@ -1049,7 +1049,7 @@
 
 			for (var i = 0; i < arr.length; i++) {
 				$row = jQuery($self.jqGrid('getInd', arr[i], true));
-				$self.rup_table('clearHighlightedRowAsSelected', $row);
+				$self.rup_jqtable('clearHighlightedRowAsSelected', $row);
 			}
 		},
 		deselectRemainingRows: function (event) {
@@ -1058,7 +1058,7 @@
 
 			$self._initializeMultiselectionProps(settings);
 			// Se cierra el feedback para seleccionar/deseleccionar el resto de registros
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 			$self.trigger('rupTable_feedbackClose', settings.$internalFeedback);
 		},
 		/*
@@ -1067,7 +1067,7 @@
 		updateSelectedRowNumber: function () {
 			var $self = $(this),
 				settings = $self.data('settings');
-			$('div .ui-paging-selected', settings.$pager).html(settings.multiselection.numSelected + ' ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.selected'));
+			$('div .ui-paging-selected', settings.$pager).html(settings.multiselection.numSelected + ' ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected'));
 			$self.triggerHandler('rupTableSelectedRowNumberUpdated');
 		}
 
@@ -1092,7 +1092,7 @@
    * _getSelectedLinesOfPage(page): Devuelve el número de registros seleccionados de que dispone la página indicada por parámetro.
    * _processSelectedRow(settings, rowId, status): Gestióna la acción de seleción/deselección del registro indicado.
    */
-	jQuery.fn.rup_table('extend', {
+	jQuery.fn.rup_jqtable('extend', {
 		//Añade flecha contextMenu
 		_addArrow: function (object) {
 			jQuery(object).after(
@@ -1107,14 +1107,14 @@
 		_checkSelectedElements: function (okCallback) {
 			var $self = $(this),
 				self = $self[0],
-				page = $self.rup_table('getGridParam', 'page'),
+				page = $self.rup_jqtable('getGridParam', 'page'),
 				settings = $self.data('settings');
 
 			//if(prop.showMultiselectAlerts && selectedRows && selectedRows.length>0){
 			if (settings.multiselection.numSelected > 0) {
 				$.rup_messages('msgConfirm', {
-					message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-					title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					message: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.checkSelectedElems'),
+					title: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.changes'),
 					OKFunction: function () {
 						okCallback.call();
 					}
@@ -1130,10 +1130,10 @@
 			if (options.selectAllPage) {
 				jQuery.extend(items, {
 					'selectAllPage': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.selectAllPage'),
 						icon: 'check',
 						disabled: function (key, opt) {
-							return $self._getSelectedLinesOfPage(parseInt($self.rup_table('getGridParam', 'page'))).length === $self.jqGrid('getGridParam', 'reccount');
+							return $self._getSelectedLinesOfPage(parseInt($self.rup_jqtable('getGridParam', 'page'))).length === $self.jqGrid('getGridParam', 'reccount');
 						},
 						callback: function (key, options) {
 							$('[id=\'cb_' + settings.id + '\']').attr('checked', 'checked').click().attr('checked', 'checked');
@@ -1144,10 +1144,10 @@
 			if (options.deselectAllPage) {
 				jQuery.extend(items, {
 					'deselectAllPage': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.deselectAllPage'),
 						icon: 'uncheck',
 						disabled: function (key, opt) {
-							return $self._getSelectedLinesOfPage(parseInt($self.rup_table('getGridParam', 'page'))).length === 0;
+							return $self._getSelectedLinesOfPage(parseInt($self.rup_jqtable('getGridParam', 'page'))).length === 0;
 						},
 						callback: function (key, options) {
 							$('[id=\'cb_' + settings.id + '\']').removeAttr('checked').click().removeAttr('checked');
@@ -1163,13 +1163,13 @@
 			if (options.selectAll) {
 				jQuery.extend(items, {
 					'selectAll': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.selectAll'),
 						icon: 'check_all',
 						disabled: function (key, opt) {
-							return settings.multiselection.numSelected === $self.rup_table('getGridParam', 'records');
+							return settings.multiselection.numSelected === $self.rup_jqtable('getGridParam', 'records');
 						},
 						callback: function (key, options) {
-							$self.rup_table('selectAllRows');
+							$self.rup_jqtable('selectAllRows');
 						}
 					}
 				});
@@ -1177,13 +1177,13 @@
 			if (options.deselectAll) {
 				jQuery.extend(items, {
 					'deselectAll': {
-						name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
+						name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.multiselection.deselectAll'),
 						icon: 'uncheck_all',
 						disabled: function (key, opt) {
 							return settings.multiselection.numSelected === 0;
 						},
 						callback: function (key, options) {
-							$self.rup_table('deselectAllRows');
+							$self.rup_jqtable('deselectAllRows');
 						}
 					}
 				});
@@ -1201,7 +1201,7 @@
 				if (options.selectChild) {
 					jQuery.extend(items, {
 						'selectChild': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.selectChild'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.selectChild'),
 							icon: 'child',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -1212,7 +1212,7 @@
 				if (options.selectDescendent) {
 					jQuery.extend(items, {
 						'selectDescendent': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.selectDescendent'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.selectDescendent'),
 							icon: 'descendent',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -1228,7 +1228,7 @@
 				if (options.deselectChild) {
 					jQuery.extend(items, {
 						'deselectChild': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.deselectChild'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.deselectChild'),
 							icon: 'uncheck',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -1239,7 +1239,7 @@
 				if (options.deselectDescendent) {
 					jQuery.extend(items, {
 						'deselectDescendent': {
-							name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.jerarquia.deselectDescendent'),
+							name: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.deselectDescendent'),
 							icon: 'uncheck',
 							callback: function (key, options) {
 								$self._getJerarquiaChildren(this, key, options);
@@ -1351,7 +1351,7 @@
 			} else {
 				// En caso de haberse seleccionado todos los registros de la tabla
 				// Generamos un array inicializado con los index de las lineas de las tablas
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
 
 				// Obtenemos el número de registro por página que se visualizan
 				// Se comprueba si el número de registros deseleccionados es igual al número de registros por página, en cuyo caso significará que no hay elementos seleccionados
@@ -1408,7 +1408,7 @@
 					return 1;
 				}
 				// Obtenemos el número de registro por página que se visualizan
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
 				// Se comprueba si el número de registros deseleccionados es igual al número de registros por página, en cuyo caso significará que no hay eleme
 				if (settings.multiselection.deselectedLinesPerPage[page].length === rowsPerPage) {
 					return false;
@@ -1424,8 +1424,8 @@
 		},
 		_getRemainingRecordNum: function (settings, selectedRows) {
 			var $self = this,
-				totalRegistros = $self.rup_table('getGridParam', 'records'),
-				registrosPagina = $self.rup_table('getGridParam', 'reccount'),
+				totalRegistros = $self.rup_jqtable('getGridParam', 'records'),
+				registrosPagina = $self.rup_jqtable('getGridParam', 'reccount'),
 				registrosSelPagina = selectedRows.length,
 				registrosSelTotal = settings.multiselection.numSelected,
 				elementosRestantes = ((totalRegistros - registrosPagina) !== 0) ?
@@ -1451,8 +1451,8 @@
 			} else {
 				// En caso de haberse seleccionado todos los registros de la tabla
 				// Generamos un array inicializado con los index de las lineas de las tablas
-				rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'), 10);
-				records = $self.rup_table('getGridParam', 'records');
+				rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'), 10);
+				records = $self.rup_jqtable('getGridParam', 'records');
 				lastPage = parseInt(Math.ceil(records / rowsPerPage, 10));
 
 				// En caso de ser la última página se recalcula el número de elementos que se muestran en ella
@@ -1480,7 +1480,7 @@
 		},
 		_processSelectedRow: function (settings, rowId, status) {
 			var $self = this,
-				page = $self.rup_table('getGridParam', 'page'),
+				page = $self.rup_jqtable('getGridParam', 'page'),
 				pageInt = parseInt(page),
 				lineIndex, indexInArray, indexAtPage, indexPage;
 			// Se selecciona o deselecciona el elemento en los arrays que almacenan los registros seleccionados.
@@ -1571,7 +1571,7 @@
 					}
 				}
 			}
-			$self.rup_table('updateSelectedRowNumber');
+			$self.rup_jqtable('updateSelectedRowNumber');
 		}
 	});
 
@@ -1579,8 +1579,8 @@
 	//*******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//*******************************************************
-	jQuery.fn.rup_table.plugins.multiselection = jQuery.fn.rup_table.plugins.multiselection || {};
-	jQuery.fn.rup_table.plugins.multiselection.defaults = {
+	jQuery.fn.rup_jqtable.plugins.multiselection = jQuery.fn.rup_jqtable.plugins.multiselection || {};
+	jQuery.fn.rup_jqtable.plugins.multiselection.defaults = {
 		showGridInfoCol: true,
 		formEdit: {
 			autoselectFirstRecord: false
@@ -1617,10 +1617,10 @@
 		}
 	};
 
-	jQuery.fn.rup_table.defaults.multiselection = {
-		loadBeforeSend: function rup_table_defaults_loadBeforeSend(xhr, settings) {
+	jQuery.fn.rup_jqtable.defaults.multiselection = {
+		loadBeforeSend: function rup_jqtable_defaults_loadBeforeSend(xhr, settings) {
 			// Se modifica la request para incluir las siguientes cabeceras:
-			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_table
+			// Se añade la cabecera JQGridModel para indicar que la petición ha sido realizada por el componente rup_jqtable
 			xhr.setRequestHeader('JQGridModel', 'true');
 			// Se indica que el tipo de contenido enviado en la cabecera es application/jsons
 			xhr.setRequestHeader('Content-Type', 'application/json');

@@ -20,10 +20,10 @@
  * Genera los controles necesarios para permitir al usuario la exportación de los datos mostrados en la tabla.
  *
  * @summary Plugin de reporting del componente RUP Table.
- * @module rup_table/report
+ * @module rup_jqtable/report
  * @example
  *
- * $("#idComponente").rup_table({
+ * $("#idComponente").rup_jqtable({
  * 	url: "../jqGridUsuario",
  * 	usePlugins:["report"],
  * 	report:{
@@ -39,15 +39,15 @@
 	 * postConfiguration: Método que se ejecuta después de la invocación del componente jqGrid.
 	 *
 	 */
-	jQuery.rup_table.registerPlugin('report',{
+	jQuery.rup_jqtable.registerPlugin('report',{
 		loadOrder:11,
 		preConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('preConfigureReport', settings);
+			return $self.rup_jqtable('preConfigureReport', settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
-			return $self.rup_table('postConfigureReport', settings);
+			return $self.rup_jqtable('postConfigureReport', settings);
 		}
 	});
 
@@ -56,7 +56,7 @@
 	//********************************
 
 	/**
-	 * Extensión del componente rup_table para permitir la gestión de la generaciónd de informes.
+	 * Extensión del componente rup_jqtable para permitir la gestión de la generaciónd de informes.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -64,7 +64,7 @@
 	 *
 	 * postConfigureReport(settings): Método que define la preconfiguración necesaria para el correcto funcionamiento del componente.
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin report del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -85,11 +85,11 @@
 		* @name postConfigureReport
 		* @function
 		* @param {object} settings - Parámetros de configuración del componente.
-		* @fires module:rup_table#rupTable_serializeReportData
+		* @fires module:rup_jqtable#rupTable_serializeReportData
 		*/
 		postConfigureReport: function(settings){
 			var $self = this,
-				colModel = $self.rup_table('getColModel'),
+				colModel = $self.rup_jqtable('getColModel'),
 				reportsColums,
 				reportSettings = settings.report;
 
@@ -134,7 +134,7 @@
 				});
 
 				if (settings.filter !== undefined && settings.filter.$filterContainer!== undefined){
-					filterData = $self.rup_table('getFilterParams');
+					filterData = $self.rup_jqtable('getFilterParams');
 				}
 
 				jQuery.extend(true, data, filterData);
@@ -154,7 +154,7 @@
 	});
 
 
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Devuelve las columnas de la tabla para las que se va a generar el informe.
      *
@@ -192,8 +192,8 @@
 	* @property {string[]} [excludeColumns] - Determina las columnas que van a ser excluidas de la generación del informe.
 	* @property {string[]} [sendPostDataParams] - Parámetros del jqGrid que van a ser enviados en la petición de generación del informe.
 	*/
-	jQuery.fn.rup_table.plugins.report = {};
-	jQuery.fn.rup_table.plugins.report.defaults = {
+	jQuery.fn.rup_jqtable.plugins.report = {};
+	jQuery.fn.rup_jqtable.plugins.report.defaults = {
 		report:{
 			columns:{},
 			excludeColumns:['rupInfoCol','cb'],
@@ -209,7 +209,7 @@
 	/**
    * Permite asociar un manejador al evento que se produce en el momento en el que se construye el objeto que se envía al servidor para solicitar la generación del informe. Permite la modificación del objeto postData para añadir, modificar o eliminar los parámetros que van a ser enviados.
    *
-   * @event module:rup_table#rupTable_serializeReportData
+   * @event module:rup_jqtable#rupTable_serializeReportData
    * @property {Event} event - Objeto Event correspondiente al evento disparado.
 	 * @property {Event} dta - Linea de la tabla destinada a la búsqueda.
    * @example

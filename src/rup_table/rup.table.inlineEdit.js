@@ -30,10 +30,10 @@
 	 * Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
 	 *
 	 * @summary Plugin de edición en línea del componente RUP Table.
-	 * @module rup_table/inlineEdit
+	 * @module rup_jqtable/inlineEdit
 	 * @example
 	 *
-	 * $("#idComponente").rup_table({
+	 * $("#idComponente").rup_jqtable({
 	 * 	url: "../jqGridUsuario",
 	 * 	usePlugins:["inlineEdit"],
 	 * 	inlineEdit:{
@@ -41,22 +41,22 @@
 	 * 	}
 	 * });
 	 */
-	jQuery.rup_table.registerPlugin('inlineEdit',{
+	jQuery.rup_jqtable.registerPlugin('inlineEdit',{
 		loadOrder:7,
 		preConfiguration: function(settings){
 			var $self = this;
 
-			$self.rup_table('preConfigureInlineEdit',settings);
+			$self.rup_jqtable('preConfigureInlineEdit',settings);
 		},
 		postConfiguration: function(settings){
 			var $self = this;
 
-			$self.rup_table('postConfigureInlineEdit',settings);
+			$self.rup_jqtable('postConfigureInlineEdit',settings);
 		}
 	});
 
 	/**
-	 * Extensión del componente rup_table para permitir la edición en línea de los registros visualizados.
+	 * Extensión del componente rup_jqtable para permitir la edición en línea de los registros visualizados.
 	 *
 	 * Los métodos implementados son:
 	 *
@@ -69,7 +69,7 @@
 	 * settings.$inlineForm : Referencia al formulario utilizado para enviar los datos del registro que está siendo editado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
 		* Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.
 		* Este método se ejecuta antes de la incialización del plugin.
@@ -97,7 +97,7 @@
 			settings.inlineEdit.deleteOptions.ajaxDelOptions = $.extend(true, settings.inlineEdit.deleteOptions.ajaxDelOptions, {
 				success: function(data,st, xhr){
 					$self.triggerHandler('rupTableAfterDelete', [data,st, xhr]);
-					$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.deletedOK'), 'ok');
+					$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.deletedOK'), 'ok');
 				}
 			});
 
@@ -117,11 +117,11 @@
 					 try{
 						 responseJSON = jQuery.parseJSON(data.responseText);
 						 if (responseJSON.rupErrorFields){
-							 $self.rup_table('showServerValidationFieldErrors',settings.inlineEdit.$inlineForm, responseJSON);
+							 $self.rup_jqtable('showServerValidationFieldErrors',settings.inlineEdit.$inlineForm, responseJSON);
 						 }
 					 }catch(e){
 						 // El mensaje JSON
-						 $self.rup_table('showFeedback', settings.$feedback, data.responseText, 'error');
+						 $self.rup_jqtable('showFeedback', settings.$feedback, data.responseText, 'error');
 					 }
 				 }
 			};
@@ -163,7 +163,7 @@
 
 			settings.core.defaultOperations = {
 				'add': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.new'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.new'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.add.icon,
 					enabled: function(){
 						var $self = this;
@@ -171,11 +171,11 @@
 					},
 					callback: function(key, options){
 						var $self = this;
-						$self.rup_table('addRow');
+						$self.rup_jqtable('addRow');
 					}
 				},
 				'edit': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.modify'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.modify'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.edit.icon,
 					enabled: function(){
 						var $self = this,
@@ -192,11 +192,11 @@
 						return selrow && newRow;
 					},
 					callback: function(key, options){
-						$self.rup_table('editRow', jQuery.proxy(settings.getRowForEditing,$self)());
+						$self.rup_jqtable('editRow', jQuery.proxy(settings.getRowForEditing,$self)());
 					}
 				},
 				'save': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.save'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.save'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.save.icon,
 					enabled: function(){
 						var $self = this;
@@ -204,12 +204,12 @@
 					},
 					callback: function(object,event){
 						if(event.type === 'click'){
-							$self.rup_table('saveRow');
+							$self.rup_jqtable('saveRow');
 						}
 					}
 				},
 				'clone': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.clone'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.clone'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.clone.icon,
 					enabled: function(){
 						var $self = this,
@@ -226,32 +226,32 @@
 						return selrow && newRow;
 
 						//						if (settings.inlineEdit.autoEditRow===true){
-						//							return $self.rup_table("getSelectedRows").length === 1;
+						//							return $self.rup_jqtable("getSelectedRows").length === 1;
 						//						}else{
-						//							return $self.rup_table("getSelectedRows").length === 1 && jQuery("tr[editable='1']", $self).length===0;
+						//							return $self.rup_jqtable("getSelectedRows").length === 1 && jQuery("tr[editable='1']", $self).length===0;
 						//						}
 
 					},
 					callback: function(key, options){
 						if (jQuery('tr[editable=\'1\']', $self).length>0){
-							$self.rup_table('restoreRow');
+							$self.rup_jqtable('restoreRow');
 						}
-						$self.rup_table('cloneRow');
+						$self.rup_jqtable('cloneRow');
 					}
 				},
 				'cancel': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.cancel'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.cancel'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations.cancel.icon,
 					enabled: function(){
 						var $self = this;
 						return jQuery('tr[editable=\'1\']', $self).length>0;
 					},
 					callback: function(key, options){
-						$self.rup_table('restoreRow');
+						$self.rup_jqtable('restoreRow');
 					}
 				},
 				'delete': {
-					name: $.rup.i18nParse($.rup.i18n.base,'rup_table.delete'),
+					name: $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.delete'),
 					icon: self._ADAPTER.CONST.core.operations.defaultOperations['delete'].icon,
 					enabled: function(){
 						var $self = this,
@@ -262,7 +262,7 @@
 						return jQuery('tr[editable=\'1\']:not(.jqgrid-new-row)', $self).length>0 || selrow;
 					},
 					callback: function(key, options){
-						$self.rup_table('deleteRow');
+						$self.rup_jqtable('deleteRow');
 					}
 				}
 			};
@@ -287,7 +287,7 @@
 				//				},
 				'jqGridInlineErrorSaveRow.rupTable.inlineEditing': function(event, rowid, data){
 					jQuery($self.getInd(rowid,true)).attr('id',settings.inlineEditingRow);
-					$self.rup_table('setSelection',settings.inlineEditingRow);
+					$self.rup_jqtable('setSelection',settings.inlineEditingRow);
 				},
 				'jqGridInlineAfterSaveRow.rupTable.inlineEditing': function(event, rowid, res, tmp, options){
 
@@ -296,9 +296,9 @@
 
 					// Una vez se haya realizado el guardado del registro se muestra el mensaje correspondiente en el feedback dependiendo del modo en el que se encuentra.
 					if (options.oper === 'edit') {
-						$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.modifyOK'), 'ok');
+						$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.modifyOK'), 'ok');
 					} else {
-						$self.rup_table('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_table.insertOK'), 'ok');
+						$self.rup_jqtable('showFeedback', settings.$feedback, $.rup.i18nParse($.rup.i18n.base,'rup_jqtable.insertOK'), 'ok');
 					}
 				},
 				'jqGridInlineEditRow.rupTable.inlineEditing': function oneditfunc_default(event, rowId){
@@ -357,12 +357,12 @@
 
 					function addNextRow (rowId, iCol){
 						$self.on('jqGridInlineAfterSaveRow.inlineEditing.addNextRow', function(event){
-							$self.rup_table('addRow');
+							$self.rup_jqtable('addRow');
 							jQuery($self.getInd($self[0].p.selrow, true)).find(':not([readonly]):focusable:first').focus();
 							$self.off('jqGridInlineAfterSaveRow.inlineEditing.addNextRow');
 						});
 
-						$self.rup_table('saveRow', rowId);
+						$self.rup_jqtable('saveRow', rowId);
 						return true;
 					}
 
@@ -370,13 +370,13 @@
 						var idsArray, rowIndex, rowsPerPage, page, lastPage, $focusableElem;
 						idsArray = $self.getDataIDs();
 						rowIndex = $self.getInd(rowId)-1;
-						rowsPerPage = parseInt($self.rup_table('getGridParam', 'rowNum'),10);
+						rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
 
 
 						if (rowIndex===rowsPerPage-1){
 							// Cambio de página
-							page = parseInt($self.rup_table('getGridParam', 'page'),10);
-							lastPage = parseInt(Math.ceil($self.rup_table('getGridParam', 'records')/$self.rup_table('getGridParam', 'rowNum')),10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
+							lastPage = parseInt(Math.ceil($self.rup_jqtable('getGridParam', 'records')/$self.rup_jqtable('getGridParam', 'rowNum')),10);
 							if (page<lastPage){
 								$self.trigger('reloadGrid',[{page: page+1}]);
 								$self.on('jqGridAfterLoadComplete.rupTable.inlineEdit',function(event,data){
@@ -419,7 +419,7 @@
 
 						if (rowIndex===0){
 							// Cambio de página
-							page = parseInt($self.rup_table('getGridParam', 'page'),10);
+							page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
 
 							if (page>1){
 								$self.trigger('reloadGrid',[{page: page-1}]);
@@ -465,7 +465,7 @@
 					jQuery(ind).on({
 						'keydown': function(event) {
 							if (event.keyCode === 27) {
-								$self.rup_table('restoreRow',$(this).attr('id'), settings.afterrestorefunc);
+								$self.rup_jqtable('restoreRow',$(this).attr('id'), settings.afterrestorefunc);
 								return false;
 							}
 							if (event.keyCode === 13) {
@@ -473,7 +473,7 @@
 								if(ta.tagName == 'TEXTAREA') {
 									return true;
 								}
-								$self.rup_table('saveRow');
+								$self.rup_jqtable('saveRow');
 								return false;
 							}
 						}
@@ -484,7 +484,7 @@
 							var iCol, nameArray;
 
 							if (event.keyCode === 38) {
-								nameArray = $.map($self.rup_table('getColModel'),function(elem, index){
+								nameArray = $.map($self.rup_jqtable('getColModel'),function(elem, index){
 									   return elem.name;
 								});
 								iCol = jQuery.inArray($(this).attr('aria-describedby').split(settings.id+'_')[1], nameArray);
@@ -492,7 +492,7 @@
 								return false;
 							}
 							if (event.keyCode === 40) {
-								nameArray = $.map($self.rup_table('getColModel'),function(elem, index){
+								nameArray = $.map($self.rup_jqtable('getColModel'),function(elem, index){
 								   return elem.name;
 								});
 								iCol = jQuery.inArray($(this).attr('aria-describedby').split(settings.id+'_')[1], nameArray);
@@ -507,7 +507,7 @@
 							//							var $row = $(this).parent().parent();
 							//
 							//							settings.inlineEditingRow  = $row.attr("id");
-							//							$self.rup_table("setSelection",$row.attr("id"));
+							//							$self.rup_jqtable("setSelection",$row.attr("id"));
 						}
 					});
 
@@ -538,7 +538,7 @@
 
 									if (rowIndex===0){
 										// Cambio de página
-										page = parseInt($self.rup_table('getGridParam', 'page'),10);
+										page = parseInt($self.rup_jqtable('getGridParam', 'page'),10);
 
 										if (page>1){
 											$self.trigger('reloadGrid',[{page: page-1}]);
@@ -573,7 +573,7 @@
 				},
 				'jqGridDblClickRow.rupTable.inlineEdit': function (rowid, iRow, iCol, e){
 					if (!settings.inlineEdit.autoEditRow){
-						$self.rup_table('editRow', iRow);
+						$self.rup_jqtable('editRow', iRow);
 					}else{
 						return false;
 					}
@@ -582,7 +582,7 @@
 					var self = this, $self = $(this),
 						json = self.p.savedRow[0];
 
-					$self.rup_table('restoreInlineRupFields', rowid, json);
+					$self.rup_jqtable('restoreInlineRupFields', rowid, json);
 				},
 				'rupTable_beforeSaveRow.inlineEditing.processRupObjects': function(event, rowid, options){
 					var self = this, $self = $(this), $row, $cell, ruptypeObj;
@@ -616,7 +616,7 @@
 					var json = jQuery.parseJSON(res.responseText),
 						self = this, $self = $(self);
 
-					$self.rup_table('restoreInlineRupFields', rowid, json);
+					$self.rup_jqtable('restoreInlineRupFields', rowid, json);
 
 					return [true, json, rowid];
 				},
@@ -637,14 +637,14 @@
 							// Se confiura un handler para el evento jqGridInlineSuccessSaveRow que indica que se ha completado con exito el guardado del registro modificado.
 							$self.on('jqGridInlineSuccessSaveRow.inlineEditing_beforeSelectRow', function(event){
 								// Una vez se haya realizado correctamente el guardado del registo se procede a seleccionar el registro solicitado por el usuario.
-								$self.rup_table('setSelection',rowid);
+								$self.rup_jqtable('setSelection',rowid);
 								// Se elimina el handler del evento para evitar duplicidades
 								$self.off('jqGridInlineSuccessSaveRow.inlineEditing_beforeSelectRow');
 							});
 
 							// Se procede a realizar el guardado de los registros editados
 							for (var i=0; i<editableRows.length;i++){
-								$self.rup_table('saveRow', editableRows[0].id);
+								$self.rup_jqtable('saveRow', editableRows[0].id);
 							}
 
 							// Se retorna un false para deterner la selección del registro y permitir que se realice antes la gestión del guardado.
@@ -670,7 +670,7 @@
 
 					if (settings.inlineEdit.autoEditRow){
 						// Se procede a entrar en modo edición en la línea seleccionada.
-						$self.rup_table('editRow', rowid);
+						$self.rup_jqtable('editRow', rowid);
 					}
 				},
 				'rupTable_checkOutOfGrid.rupTable.inlineEditing': function(event, $target){
@@ -720,7 +720,7 @@
 				var rowid = $self.jqGrid('getGridParam','selrow');
 
 				jQuery($self.getInd(rowid,true)).attr('id',settings.inlineEditingRow);
-				$self.rup_table('setSelection',settings.inlineEditingRow);
+				$self.rup_jqtable('setSelection',settings.inlineEditingRow);
 			});
 
 			$self.on({
@@ -729,7 +729,7 @@
 
 					if (settings.inlineEdit.autoselectFirstRecord){
 						nPos = jQuery.proxy(jQuery.jgrid.getCurrPos, $self[0])();
-						$self.rup_table('highlightRowAsSelected', jQuery($self.jqGrid('getInd', nPos[1][0],true)));
+						$self.rup_jqtable('highlightRowAsSelected', jQuery($self.jqGrid('getInd', nPos[1][0],true)));
 					}
 				}
 			});
@@ -753,16 +753,16 @@
 	 * settings.$inlineForm : Referencia al formulario utilizado para enviar los datos del registro que está siendo editado.
 	 *
 	 */
-	jQuery.fn.rup_table('extend',{
+	jQuery.fn.rup_jqtable('extend',{
 		/**
      * Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
      *
      * @function addRow
 		 * @param {object} options - Opciones de configuración de la acción de inserción.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeAddRow
+		 * @fires module:rup_jqtable#rupTable_beforeAddRow
      * @example
-     * $("#idTable").rup_table("addRow", options);
+     * $("#idTable").rup_jqtable("addRow", options);
      */
 		addRow: function(options){
 			var $self = this,
@@ -803,9 +803,9 @@
 		 * @param {string} rowId -  Identificador del registro a partir del cual se desea realizar el clonado.
 		 * @param {object} options - Opciones de configuración de la acción de clonado.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeCloneRow
+		 * @fires module:rup_jqtable#rupTable_beforeCloneRow
      * @example
-     * $("#idTable").rup_table("cloneRow", rowId, options);
+     * $("#idTable").rup_jqtable("cloneRow", rowId, options);
      */
 		cloneRow: function(rowId, options){
 			var $self = this,
@@ -816,7 +816,7 @@
 
 			if ($self.triggerHandler('rupTable_beforeCloneRow',[settings, rowId])!==false){
 				rowdata = $self.jqGrid('getRowData',selectedRow);
-				$self.rup_table('addRow');
+				$self.rup_jqtable('addRow');
 				clonedRowId = jQuery('tbody:first tr[id*=\'jqg\']',$self).attr('id');
 				$self.jqGrid('setRowData',clonedRowId, rowdata);
 				jQuery($self.jqGrid('getInd',clonedRowId,true)).attr('editable','0');
@@ -837,7 +837,7 @@
 					}
 				}
 
-				$self.rup_table('editRow', clonedRowId, {}, true);
+				$self.rup_jqtable('editRow', clonedRowId, {}, true);
 			}
 		},
 		/**
@@ -847,9 +847,9 @@
 		 * @param {string} rowId - Identificador del registro que se desea editar.
 		 * @param {object} options - Opciones de configuración de la acción de modificación.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeEditRow
+		 * @fires module:rup_jqtable#rupTable_beforeEditRow
      * @example
-     * $("#idTable").rup_table("editRow", rowId, options, true);
+     * $("#idTable").rup_jqtable("editRow", rowId, options, true);
      */
 		editRow: function (rowId, options, skipFieldCheck){
 			var $self = this,
@@ -886,25 +886,25 @@
 		 * @param {string} rowId - Identificador del registro que se desea eliminar.
 		 * @param {object} options - Opciones de configuración de la acción de borrado..
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_deleteAfterSubmit
-		 * @fires module:rup_table#rupTable_deleteAfterComplete
-		 * @fires module:rup_table#rupTable_beforeDeleteRow
+		 * @fires module:rup_jqtable#rupTable_deleteAfterSubmit
+		 * @fires module:rup_jqtable#rupTable_deleteAfterComplete
+		 * @fires module:rup_jqtable#rupTable_beforeDeleteRow
      * @example
-     * $("#idTable").rup_table("deleteRow", rowId, options);
+     * $("#idTable").rup_jqtable("deleteRow", rowId, options);
      */
 		deleteRow: function (rowId, options){
 
 
 			var $self = this,
 				settings = $self.data('settings'),
-				//			deleteOptions = jQuery.extend(true, {}, jQuery.fn.rup_table.defaults.deleteOptions, options),
+				//			deleteOptions = jQuery.extend(true, {}, jQuery.fn.rup_jqtable.defaults.deleteOptions, options),
 				deleteOptions = jQuery.extend(true, {}, settings.inlineEdit.deleteOptions, options),
-				selectedRow = (rowId===undefined?$self.rup_table('getSelectedRows'):rowId);
+				selectedRow = (rowId===undefined?$self.rup_jqtable('getSelectedRows'):rowId);
 
 			// En caso de especificarse el uso del método HTTP DELETE, se anyade el identificador como PathParameter
 			if (selectedRow.length===1){
 				if (deleteOptions.mtype==='DELETE'){
-					deleteOptions.url = settings.baseUrl+'/'+$self.rup_table('getPkUrl',selectedRow);
+					deleteOptions.url = settings.baseUrl+'/'+$self.rup_jqtable('getPkUrl',selectedRow);
 				}
 			}else{
 				deleteOptions.mtype = 'POST';
@@ -913,13 +913,13 @@
 				deleteOptions.ajaxDelOptions.dataType = 'json';
 				deleteOptions.url = settings.baseUrl+'/deleteAll';
 				deleteOptions.serializeDelData = function(ts,postData){
-					//					$self.rup_table("getFilterParams")
+					//					$self.rup_jqtable("getFilterParams")
 					return jQuery.toJSON({
 						'core':{
 							'pkToken':settings.multiplePkToken,
 							'pkNames':settings.primaryKey
 						},
-						'multiselection':$self.rup_table('getSelectedIds')
+						'multiselection':$self.rup_jqtable('getSelectedIds')
 					});
 				};
 			}
@@ -946,9 +946,9 @@
 		 * @param {string} rowId - Identificador del registro que se desea guardar.
 		 * @param {object} options - Opciones de configuración de la acción de guardado..
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeSaveRow
+		 * @fires module:rup_jqtable#rupTable_beforeSaveRow
      * @example
-     * $("#idTable").rup_table("saveRow", rowId, options);
+     * $("#idTable").rup_jqtable("saveRow", rowId, options);
      */
 		saveRow : function(rowId, options){
 			var $self = this, settings = $self.data('settings'),
@@ -972,9 +972,9 @@
 		 * @param {string} rowId - Identificador de la línea que se desea guardar.
 		 * @param {function} afterrestorefunc - Función de callback que se ejecuta después de restaurar la fila.
 		 * @return {object} - Referencia jQuery a la propia tabla.
-		 * @fires module:rup_table#rupTable_beforeRestoreRow
+		 * @fires module:rup_jqtable#rupTable_beforeRestoreRow
      * @example
-     * $("#idTable").rup_table("restoreRow", rowId, function(){});
+     * $("#idTable").rup_jqtable("restoreRow", rowId, function(){});
      */
 		restoreRow: function(rowId, afterrestorefunc){
 			var $self = this,
@@ -992,7 +992,7 @@
 		 * @param {string} rowId - Identificador de la línea que se desea guardar.
 		 * @return {object} - Referencia jQuery a la propia tabla.
      * @example
-     * $("#idTable").rup_table("restoreRow", rowId, options);
+     * $("#idTable").rup_jqtable("restoreRow", rowId, options);
      */
 		restoreInlineRupFields: function (rowid){
 			var $self = this, self = this[0], $row, $cell, val;
@@ -1053,8 +1053,8 @@
 	* @property {object} [deleteOptions] - Propiedades de configuración de la acción de borrado de un registro.
 	*/
 
-	jQuery.fn.rup_table.plugins.inlineEdit = {};
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit = {};
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults = {
 		toolbar:{
 			defaultButtons:{
 				add : true,
@@ -1086,7 +1086,7 @@
 	};
 
 	// Parámetros de configruación comunes para las acciónes de añadir y editar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.addEditOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.addEditOptions = {
 		contentType: 'application/json',
 		type:'PUT',
 		dataType: 'json',
@@ -1098,7 +1098,7 @@
 	};
 
 	// Parámetros de configruación específicos para la acción de añadir un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.addOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.addOptions = {
 		mtype: 'POST',
 		ajaxRowOptions:{
 			type:'POST'
@@ -1106,7 +1106,7 @@
 	};
 
 	// Parámetros de configruación específicos para la acción de editar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.editOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.editOptions = {
 		mtype: 'PUT',
 		ajaxRowOptions:{
 			type:'PUT'
@@ -1114,12 +1114,12 @@
 	};
 
 	// Parámetros de configruación específicos para la acción de eliminar un registro
-	jQuery.fn.rup_table.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
+	jQuery.fn.rup_jqtable.plugins.inlineEdit.defaults.inlineEdit.deleteOptions = {
 		bSubmit: jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_message.aceptar'),
 		cancelicon:[false, 'left', 'icono_cancelar'],
 		delicon:[false],
 		linkStyleButtons: ['#eData'],
-		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.deleteAll')+'</div>',
+		msg: '<div id="rup_msgDIV_msg_icon" class="rup-message_icon-confirm"></div><div id="rup_msgDIV_msg" class="rup-message_msg-confirm white-space-normal">'+jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.deleteAll')+'</div>',
 		mtype:'DELETE',
 		width: 320,
 		reloadAfterSubmit:false,
@@ -1141,7 +1141,7 @@
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeDeleteRow
+	* @event module:rup_jqtable#rupTable_beforeDeleteRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} deleteOptions - Opciones de configuración de la operación de borrado.
 	* @property {string} selectedRow - Identificador de la fila que se desea eliminar.
@@ -1152,7 +1152,7 @@
 	/**
 	*  Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
 	*
-	* @event module:rup_table#rupTable_beforeEditRow
+	* @event module:rup_jqtable#rupTable_beforeEditRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} editOptions - Opciones de configuración de la operación de edición.
 	* @property {string} selectedRow - Identificador de la fila que se desea editar.
@@ -1163,7 +1163,7 @@
 	/**
 	*  Evento que se lanza justo después de realizarse la petición de borrado de un registro.
 	*
-	* @event module:rup_table#rupTable_deleteAfterSubmit
+	* @event module:rup_jqtable#rupTable_deleteAfterSubmit
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @example
 	* $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
@@ -1172,7 +1172,7 @@
 	/**
 	*  Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
 	*
-	* @event module:rup_table#rupTable_beforeAddRow
+	* @event module:rup_jqtable#rupTable_beforeAddRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} addOptions -  Opciones de configuración de la acción de insertar un elemento.
 	* @example
@@ -1182,7 +1182,7 @@
 	/**
 	*  Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 	*
-	* @event module:rup_table#rupTable_beforeCloneRow
+	* @event module:rup_jqtable#rupTable_beforeCloneRow
 	* @property {Event} event - Objeto Event correspondiente al evento disparado.
 	* @property {object} cloneOptions - Opciones de configuración de la operación de clonado.
 	* @property {string} selectedRow - Identificador de la fila que se desea clonar.
