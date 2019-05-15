@@ -147,7 +147,7 @@ function postConfigureMultifilter (ctx) {
 
 
 
-	dropdownButtonConfig =  $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter].multifilter.dropdown;
+	dropdownButtonConfig =  $.rup.adapter[jQuery.fn.rup_table.defaults.adapter].multifilter.dropdown;
 	
 	$('#' + ctx.sTableId+'_filter_filterButton')
 		.rup_button({
@@ -756,13 +756,13 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '<div class="form-row">'
 				+ '<div id="'
 				+ multifilterSettings.dropdownDialogId
-				+ '_lineaCombo"  class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.container + ' col-12">'
+				+ '_lineaCombo"  class="' + $.rup.adapter[$.fn.rup_table.defaults.adapter].multifilter.classes.container + ' col-12">'
 				+ '<input id="'
 				+ ctx.sTableId
 				+ '_multifilter_combo" class="rup_multifilter_selector" />'
 				+ '<label for="'
 				+ ctx.sTableId
-				+ '_multifilter_combo" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
+				+ '_multifilter_combo" class="' + $.rup.adapter[$.fn.rup_table.defaults.adapter].multifilter.classes.label + '">'
 				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.filters
 				+ '</label>'
 				+ '</div>'
@@ -770,13 +770,13 @@ function getMultifilterDialogTemplate(ctx) {
 				+ '<div  class="form-row">'
 				+ '<div id="'
 				+ multifilterSettings.dropdownDialogId
-				+ '_lineaDefault" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.container + ' col-12">'
+				+ '_lineaDefault" class="' + $.rup.adapter[$.fn.rup_table.defaults.adapter].multifilter.classes.defaultFilter.container + ' col-12">'
 				+ '<input type="checkbox" id="'
 				+ ctx.sTableId
-				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.defaultFilter.checkBox + '"/>'
+				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_table.defaults.adapter].multifilter.classes.defaultFilter.checkBox + '"/>'
 				+ '<label for="'
 				+ ctx.sTableId
-				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_datatable.defaults.adapter].multifilter.classes.label + '">'
+				+ '_multifilter_defaultFilter" class="' + $.rup.adapter[$.fn.rup_table.defaults.adapter].multifilter.classes.label + '">'
 				+ $.rup.i18n.base.rup_jqtable.plugins.multifilter.defaultFilter
 				+ '</label>'
 				+ '</div>'

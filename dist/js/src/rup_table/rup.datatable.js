@@ -40,15 +40,15 @@
 	//****************************************************************************************************************
 
 	var DataTable = $.fn.dataTable;
-	var rup_datatable = {};
+	var rup_table = {};
 
 	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_datatable', rup_datatable));
+	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_table', rup_table));
 
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS RUP
 	//*******************************
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_table('extend',{
 		getRupValue: function() {
 			return null;
 		},
@@ -60,11 +60,11 @@
 	//*******************************
 	// DEFINICIÓN DE MÉTODOS PÚBLICOS
 	//*******************************
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_table('extend',{
 		foo: function() {
 				return this;
 		},
-		//$("#idTable").rup_datatable("createButton",options, posicion);
+		//$("#idTable").rup_table("createButton",options, posicion);
 		createButton: function(props,pos) {
 			var dt = $("#"+this[0].id).DataTable();
 			var ctx = dt.context[0];
@@ -115,7 +115,7 @@
 				dt.buttons( selector ).enable(flag,contextMenu);
 			}
 		},
-		//$("#idTable").rup_datatable("getContext");
+		//$("#idTable").rup_table("getContext");
 		getContext: function() {
 			var dt = $("#"+this[0].id).DataTable();
 			return dt.context[0];
@@ -126,7 +126,7 @@
 	// DEFINICIÓN DE MÉTODOS PRIVADOS
 	//*******************************
 
-	$.fn.rup_datatable('extend',{
+	$.fn.rup_table('extend',{
 
 		/**
 			* Inicializa ciertas opciones del componente
@@ -1034,16 +1034,16 @@
 	//*******************************
 	// MÉTODO DE INICIALIZACION
 	//*******************************
-	$.fn.rup_datatable('extend', {
+	$.fn.rup_table('extend', {
 		_init : function(args){			
 			var $self = this;
 			//Se añade filter por defecto
-			$.fn.rup_datatable.defaults.filter = {
+			$.fn.rup_table.defaults.filter = {
 									id:$self[0].id+"_filter_form",
 									filterToolbar:$self[0].id+"_filter_toolbar",
 									collapsableLayerId:$self[0].id+"_filter_fieldset"
 		       						};
-			var	settings = $.extend({}, $.fn.rup_datatable.defaults, $self[0].dataset, args[0]);
+			var	settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 			
 			$self.triggerHandler('tableBeforeInit');
 			
@@ -1273,7 +1273,7 @@
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
-$.fn.rup_datatable.defaults = {
+$.fn.rup_table.defaults = {
 	foobar: false,
 	headerContextMenu: {
 			show: true,

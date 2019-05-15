@@ -21523,9 +21523,9 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
     width: 100%; } }
 
 @media (max-width: 575px) {
-  .rup_datatableEdit_buttonsContainerResposive {
+  .rup_tableEdit_buttonsContainerResposive {
     float: none !important; }
-  .rup_datatableEdit_buttonsResposive {
+  .rup_tableEdit_buttonsResposive {
     width: 100%; } }
 
 .checkboxPKBloqueado {

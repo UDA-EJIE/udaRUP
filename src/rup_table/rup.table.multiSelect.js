@@ -881,7 +881,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.selectAllPage) {
 		jQuery.extend(items, {
 			'selectAllPage': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.selectAllPage'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
 				icon: 'check',
 				disabled: function (key, opt) {
 					//
@@ -896,7 +896,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.deselectAllPage) {
 		jQuery.extend(items, {
 			'deselectAllPage': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.deselectAllPage'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
 				icon: 'uncheck',
 				disabled: function (key, opt){
 					//
@@ -915,7 +915,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.selectAll) {
 		jQuery.extend(items, {
 			'selectAll': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.selectAll'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
 				icon: 'check_all',
 				disabled: function (key, opt) {
 					//
@@ -929,7 +929,7 @@ function _createContexMenuSelect(id,ctx){
 	if (options.headerContextMenu.deselectAll) {
 		jQuery.extend(items, {
 			'deselectAll': {
-				name: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.plugins.multiselection.deselectAll'),
+				name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
 				icon: 'uncheck_all',
 				disabled: function (key, opt) {
 					//
@@ -974,8 +974,8 @@ function selectAllPage(dt){
 
 	//FeedBack
 	var countPage = dt.page()+1;
-	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.selectRestMsg', ctx.json.recordsTotal);
+	var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', ctx.json.recordsTotal);
 	var remainingSelectButton = "<button id='rup_jqtable_" + dt.context[0].sTableId + "_selectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(!ctx.multiselection.selectedAll ||
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
@@ -1019,8 +1019,8 @@ function deselectAllPage(dt){
 
 	//FeedBack
 	var countPage = dt.page()+1;
-	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
-	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_datatable.deselectRestMsg', ctx.multiselection.numSelected);
+	var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
+	var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', ctx.multiselection.numSelected);
 	var remainingDeselectButton = "<button id='rup_jqtable_" + dt.context[0].sTableId + "_deselectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
 	if(ctx.multiselection.numSelected  > 0){
 		ctx.multiselection.internalFeedback.rup_feedback({message:deselectMsg+remainingDeselectButton,type:"alert"});

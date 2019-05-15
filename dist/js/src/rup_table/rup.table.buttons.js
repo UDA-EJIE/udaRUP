@@ -81,7 +81,7 @@ var Buttons = function( dt, config )
 	ctx.ext.buttons = {};
 	ctx.ext.buttons.copyButton = {
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.copyButton');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.copyButton');
 		},
 		id: idTable+'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 		className: 'buttons-copyButton',
@@ -106,7 +106,7 @@ var Buttons = function( dt, config )
 	
 	ctx.ext.buttons.excelButton = {
 			text: function (dt) {
-				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.excelButton');
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.excelButton');
 			},
 			id: idTable+'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'buttons-copyButton',
@@ -129,7 +129,7 @@ var Buttons = function( dt, config )
 	
 	ctx.ext.buttons.pdfButton = {
 			text: function (dt) {
-				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.pdfButton');
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.pdfButton');
 			},
 			id: idTable+'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'buttons-copyButton',
@@ -152,7 +152,7 @@ var Buttons = function( dt, config )
 	
 	ctx.ext.buttons.odsButton = {
 			text: function (dt) {
-				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.odsButton');
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.odsButton');
 			},
 			id: idTable+'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'buttons-copyButton',
@@ -175,7 +175,7 @@ var Buttons = function( dt, config )
 	
 	ctx.ext.buttons.csvButton = {
 			text: function (dt) {
-				return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.csvButton');
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.csvButton');
 			},
 			id: idTable+'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'buttons-copyButton',
@@ -198,7 +198,7 @@ var Buttons = function( dt, config )
 
 	ctx.ext.buttons.addButton = {
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.add');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
 		},
 		id: idTable+'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 		className: 'datatable_toolbar_btnAdd',
@@ -217,7 +217,7 @@ var Buttons = function( dt, config )
 
 	ctx.ext.buttons.editButton = {
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.edit');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
 		},
 		id: idTable+'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 		className: 'datatable_toolbar_btnEdit',
@@ -236,7 +236,7 @@ var Buttons = function( dt, config )
 
 	ctx.ext.buttons.cloneButton = {
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.clone');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
 		},
 		id: idTable+'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 		className: 'datatable_toolbar_btnClone',
@@ -255,7 +255,7 @@ var Buttons = function( dt, config )
 
 	ctx.ext.buttons.deleteButton = {
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.delete');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
 		},
 		id: idTable+'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 		className: 'datatable_toolbar_btnDelete',
@@ -293,7 +293,7 @@ var Buttons = function( dt, config )
 	ctx.ext.buttons.reportsButton = {
 		extend: 'collection',
 		text: function (dt) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.toolbar.reports.main');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
 		},
 		id: idTable+'informes_01',
 		className: 'align-right',
@@ -1001,37 +1001,37 @@ $.extend( Buttons.prototype, {
 			// Comprueba si es alguno de los botones con iconos definidos por defecto
 			switch (config.type) {
 				case 'add':
-					config.icon = "&#xe145;";
+					config.icon = "mdi-plus";
 					break;
 				case 'edit':
-					config.icon = "&#xe3c9;";
+					config.icon = "mdi-playlist-edit";
 					break;
 				case 'clone':
-					config.icon = "&#xe14d;";
+					config.icon = "mdi-content-copy";
 					break;
 				case 'delete':
-					config.icon = "&#xe872;";
+					config.icon = "mdi-delete";
 					break;
 				case 'reports':
-					config.icon = "&#xe24d;";
+					config.icon = "mdi-file-export";
 					break;
 				case 'copyButton':
-					config.icon = "&#xe85d;";
+					config.icon = "mdi-clipboard-text-outline";
 					break;
 				case 'excelButton':
-					config.icon = "fa-file-excel-o";
+					config.icon = "mdi-file-excel";
 					break;
 				case 'pdfButton':
-					config.icon = "fa-file-pdf-o";
+					config.icon = "mdi-file-pdf";
 					break;
 				case 'odsButton':
-					config.icon = "fa-file-archive-o";
+					config.icon = "mdi-file";
 					break;
 				case 'csvButton':
-					config.icon = "fa-file-code-o";
+					config.icon = "mdi-file-table";
 					break;
 				default:
-					config.icon = "&#xe8b8;";
+					config.icon = "mdi-settings";
 			}
 		}
 
@@ -1804,7 +1804,7 @@ $.extend( _dtButtons, {
 		var vals = $.isArray( lengthMenu[0] ) ? lengthMenu[0] : lengthMenu;
 		var lang = $.isArray( lengthMenu[0] ) ? lengthMenu[1] : lengthMenu;
 		var text = function ( dt ) {
-			return dt.i18n( 'rup_datatable.pageLength', {
+			return dt.i18n( 'rup_table.pageLength', {
 				"-1": 'Show all rows',
 				_:    'Show %d rows'
 			}, dt.page.len() );
@@ -2107,8 +2107,8 @@ DataTable.Api.register( 'buttons.actions()', function ( dt, config ) {
 				$(idTableDetail).find('form')[0].reset();
 				if(ctx.multiselection.numSelected > 0){
 					$.rup_messages('msgConfirm', {
-						message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
-						title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+						message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
+						title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
 						OKFunction: function () {
 							// Abrimos el formulario
 							if(ctx.oInit.seeker !== undefined){
@@ -3110,8 +3110,8 @@ return deferred.promise();
 var _reportsOpenMessage = function (dt, ctx, that, exportDataRows, hiddenDiv, textarea)
 {
 $.rup_messages('msgConfirm', {
-	title: dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en clipboard'),
-	message: dt.i18n('rup_datatable.copyButton.saveAndContinue', {
+	title: dt.i18n('rup_table.copyButton.changes', 'Copia de registros en clipboard'),
+	message: dt.i18n('rup_table.copyButton.saveAndContinue', {
 		_: '¿Desea copiar %d registros?',
 		1: '¿Desea copiar un registro?'
 	}, exportDataRows),
@@ -3165,8 +3165,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 	
 			if (successful) {
 				dt.buttons.info(
-					dt.i18n('rup_datatable.copyButton.changes', 'Copia de registros en portapapeles'),
-					dt.i18n('rup_datatable.copyButton.saved', {
+					dt.i18n('rup_table.copyButton.changes', 'Copia de registros en portapapeles'),
+					dt.i18n('rup_table.copyButton.saved', {
 						_: 'Copiados %d registros al portapapeles',
 						1: 'Copiado un registro al portapapeles'
 					}, exportDataRows),
@@ -3185,13 +3185,13 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 	
 	// Si no soportan la copia mediante 'execCommand', se mostrara un text box
 	// con las instrucciones de como copiar los elementos seleccionados
-	var message = $('<span>' + dt.i18n('rup_datatable.copyButton.copyKeys',
+	var message = $('<span>' + dt.i18n('rup_table.copyButton.copyKeys',
 		'Presiona ctrl o ⌘ + C para copiar los datos de la tabla al portapapeles.' +
 		'Para cancelar, haz click sobre este mensaje o pulsa el botón escape.') + '</span>'
 	)
 	.append(hiddenDiv);
 	
-	dt.buttons.info(dt.i18n('rup_datatable.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
+	dt.buttons.info(dt.i18n('rup_table.copyButton.copyTitle', 'Copiar al portapapeles'), message, 0);
 	
 	// Selecciona el texto para cuando el usuario accione la copia al portapapeles
 	// se le pegue ese texto

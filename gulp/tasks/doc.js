@@ -39,11 +39,11 @@ gulp.task('doc:api', function () {
 	fileSource = 'src/rup_jqtable/rup*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
-	//rup_datatable
+	//rup_table
 	fileSource = 'src/datatable/*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
-	//rup_datatable addons
+	//rup_table addons
 	fileSource = 'src/datatable/addons/*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);

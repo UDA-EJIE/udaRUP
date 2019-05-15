@@ -130,8 +130,8 @@ DataTable.editForm.init = function ( dt ) {
 		if(ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack){
 
 			$.rup_messages('msgConfirm', {
-				message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.saveAndContinue'),
-				title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+				message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
+				title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
 				OKFunction: function () {
 					cancelPopup(ctx);
 					ctx.oInit.formEdit.okCallBack = true;
@@ -382,14 +382,14 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 		// Se muestra el dialog.
 		ctx.oInit.formEdit.$navigationBar.show();
 		// Asignamos un valor a la variable del título del formulario
-		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.editCaption');
+		title =  $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
 		// Comprobamos si se desea bloquear la edicion de las claves primarias
 		DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	} else if(actionType === 'POST'){
 		$.rup_utils.populateForm(rowArray, idForm);
 		ctx.oInit.formEdit.$navigationBar.hide();
 		// Asignamos un valor a la variable del título del formulario
-		title = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.edit.addCaption');
+		title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
 		// Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
 		DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	}
@@ -470,10 +470,10 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 	$('#'+ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
 	// add Filter
 	var feed = idTableDetail.find('#'+ctx.sTableId+'_detail_feedback');
-	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
+	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
 	var validaciones = ctx.oInit.formEdit.validate;
 	if(url === '/deleteAll' || actionType === 'DELETE'){
-		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
 		if(validaciones !== undefined){
 			validaciones.rules = {};
 		}	
@@ -682,7 +682,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 		$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).removeClass('ui-state-disabled');
 	}
 
-	$('#rup_jqtable_selectedElements_' + tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+	$('#rup_jqtable_selectedElements_' + tableId).text(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
 }
 
 /**
@@ -697,7 +697,7 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 */
 function _callNavigationBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 	// Funcion para obtener los parametros de navegacion.
@@ -823,7 +823,7 @@ function _callNavigationBar(dt){
 */
 function _callNavigationSelectBar(dt){
 	var ctx = dt.settings()[0];
-	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_datatable.defaults.adapter];
+	ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.defaults.adapter];
 	ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_navigation');
 	var settings = {};
 
@@ -1139,8 +1139,8 @@ function _deleteAllSelects(dt){
 	var row = ctx.multiselection.selectedIds;
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
-		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
-		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
 		OKFunction: function () {
 			if(ctx.multiselection.selectedIds.length > 1){
 				var row = {};

@@ -524,7 +524,7 @@
   "rup_button":{
    "new": "Nuevo"
   },
-  "rup_datatable": {
+  "rup_table": {
     "seleccionada": "seleccionada",
     "seleccionadas": "seleccionadas",
     "fila": "fila",

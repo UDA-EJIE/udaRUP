@@ -133,7 +133,7 @@ DataTable.inlineEdit.init = function ( dt ) {
     //Boton guardar
 	ctx.oInit.inlineEdit.myButtons.guardar = {
 		 text: function (dt) {
-                return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.save');
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnSave disabledButtonsTable',
@@ -151,7 +151,7 @@ DataTable.inlineEdit.init = function ( dt ) {
     //boton Cancelar
     ctx.oInit.inlineEdit.myButtons.cancelar = {
          text: function (dt) {
-                return $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.cancel');
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnCancel disabledButtonsTable',
@@ -302,8 +302,8 @@ function _onResponsiveResize(dt){
 function _add(dt,ctx){
 	if(ctx.multiselection.numSelected > 0){
 		$.rup_messages('msgConfirm', {
-			message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.checkSelectedElems'),
-			title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.changes'),
+			message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
+			title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
 			OKFunction: function () {
 				_restaurarFila(ctx,true);
 				// Abrimos el formulario
@@ -1136,9 +1136,9 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
 	// add Filter
 	var feed = $('#'+ctx.inlineEdit.nameFeedback);
-	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.modifyOK');
+	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
-		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deletedOK');
+		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
 	}
 	
 	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
@@ -1497,8 +1497,8 @@ function _deleteAllSelects(dt){
 	
 	var idRow = 0;
 	$.rup_messages('msgConfirm', {
-		message: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.deleteAll'),
-		title: $.rup.i18nParse($.rup.i18n.base, 'rup_datatable.delete'),
+		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
 		OKFunction: function () {
 			if(ctx.multiselection.selectedIds.length > 1){
 				var row = {};
