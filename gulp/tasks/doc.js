@@ -36,7 +36,7 @@ gulp.task('doc:api', function () {
 
 	runJsdoc2md(fileSource, outputPath);
 	//rup_jqtable
-	fileSource = 'src/rup_table/rup*.js';
+	fileSource = 'src/rup_jqtable/rup*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
 	//rup_datatable
@@ -50,7 +50,7 @@ gulp.task('doc:api', function () {
 });
 
 gulp.task('jsdocFile', function () {
-	var filePath = 'src/rup_table/';
+	var filePath = 'src/rup_jqtable/';
 	var basename = 'rup.table.report';
 	var outputPath = './doc/api/';
 	jsdoc2md.render({

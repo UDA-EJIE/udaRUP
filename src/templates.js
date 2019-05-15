@@ -97,7 +97,7 @@ this["Rup"]["Templates"]["rup"]["datatable"]["detail"]["navigation"]["bootstrap"
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-info\">\r\n  <i class=\"fa fa-list-alt\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
-    + "\"></i>\r\n  <span id=\"rup_table_selectedElements_"
+    + "\"></i>\r\n  <span id=\"rup_jqtable_selectedElements_"
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-currentElement\" >\r\n    "
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
@@ -136,7 +136,7 @@ this["Rup"]["Templates"]["rup"]["datatable"]["detail"]["navigation"]["material"]
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-info\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
-    + "\"></i>\r\n  	<span id=\"rup_table_selectedElements_"
+    + "\"></i>\r\n  	<span id=\"rup_jqtable_selectedElements_"
     + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-currentElement\" >\r\n    	"
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
@@ -198,7 +198,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-info\">\r\n  <i class=\"fa fa-list-alt\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
-    + "\"></i>\r\n  <span id=\"rup_table_selectedElements_"
+    + "\"></i>\r\n  <span id=\"rup_jqtable_selectedElements_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-table-detail-currentElement\" >\r\n    "
     + alias4(((helper = (helper = helpers.numResult || (depth0 != null ? depth0.numResult : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"numResult","hash":{},"data":data}) : helper)))
@@ -236,7 +236,7 @@ this["Rup"]["Templates"]["rup"]["table"]["pager"]["bootstrap"] = Handlebars.temp
 
   return "\r\n  <div id=\"pg_"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "_pager\" class=\"ui-pager-control rup_table_pager\" role=\"group\">\r\n    <div id=\""
+    + "_pager\" class=\"ui-pager-control rup_jqtable_pager\" role=\"group\">\r\n    <div id=\""
     + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))
     + "_left\" class=\"pager_left\"></div>\r\n    <div id=\""
     + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data}) : helper)))

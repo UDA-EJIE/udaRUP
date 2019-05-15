@@ -45,7 +45,7 @@ gulp.task('watch:sass:rup-jqueryui-theme', function () {
 // });
 
 gulp.task('watch:minimize:js:rup', function () {
-	gulp.watch(['./src/**/*.js', '!./src/rup_table/**/*.js'], ['minimize:js:rup']);
+	gulp.watch(['./src/**/*.js', '!./src/rup_jqtable/**/*.js'], ['minimize:js:rup']);
 });
 
 // gulp.task('watch:minimize:js:rup-classic', function () {
@@ -70,7 +70,7 @@ gulp.task('watch:templates:rup', function () {
 // WATCHES: build table
 
 gulp.task('watch:table', function () {
-	gulp.watch(['./src/rup_table/**/*.js'], ['rup:build:table']);
+	gulp.watch(['./src/rup_jqtable/**/*.js'], ['rup:build:table']);
 
 });
 

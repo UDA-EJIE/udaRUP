@@ -1,0 +1,35 @@
+
+
+  {{#each files}}
+    <li class="list-group-item template-download {{#if error}}error{{/if}}">
+      <div class="row">
+
+
+          <div class="col-xs-6 col-md-3">
+            <p class="name text-xs-left"><b>{{#if error}}{{name}}{{else}}<a href="{{url}}">{{name}}</a>{{/if}}</b></p>
+            <span class="name text-xs-left"><span class="type">{{type}}</span></span>
+
+            <p class="name text-xs-left error-text error">{{error}}</p>
+
+          </div>
+
+          {{#if error}}
+
+          {{else}}
+            <div class="col-xs-6 col-md-4 fileupload-buttonbar">
+                  <a href="{{url}}">
+                    <span  class="btn btn-primary download">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <span>{{i18n "rup_upload.openUploaded"}}</span>
+                    </span>
+                  </a>
+
+                    <span  class="btn btn-secondary delete" data-type="{{delete_type}}" data-url="{{delete_url}}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        <span>{{i18n "rup_upload.deleteUploaded"}}</span>
+                    </span>
+            </div>
+        {{/if}}
+      </div>
+    </li>
+  {{/each}}

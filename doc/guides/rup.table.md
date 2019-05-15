@@ -157,7 +157,7 @@ En caso de querer utilizar la edición en formulario se deberá de incluir en la
     </form>
   </div>
   <div class="rup-table-buttonpane ui-widget-content ui-helper-clearfix">
-    <div class="ui-dialog-buttonset rup_tableEdit_buttonsContainerResposive">
+    <div class="ui-dialog-buttonset rup_jqtableEdit_buttonsContainerResposive">
 		<button id="table_detail_button_save" class="btn btn-outline-primary rup_tableEdit_buttonsResposive fix-editForm-buttons-align" type="button">
 			<spring:message code="save" />
 		</button>
