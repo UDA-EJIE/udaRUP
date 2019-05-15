@@ -76,7 +76,7 @@
 
 			//Contador de seleccionados
 			if (settings.multiselect === true) {
-				$pagerLeft.append($('<div/>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.selected')));
+				$pagerLeft.append($('<div/>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.selected')));
 			}
 
 			// Pager center
@@ -85,7 +85,7 @@
 			// Evento de control de página máxima
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).on('change', function () {
 				var pageNum = parseInt($(this).val()),
-					totalNum = parseInt($self.rup_datatable('getGridParam', 'lastpage'));
+					totalNum = parseInt($self.rup_table('getGridParam', 'lastpage'));
 
 				if (isNaN(pageNum) === false && pageNum > totalNum) {
 					$(this).val(totalNum);
@@ -93,22 +93,22 @@
 			});
 
 			// Tooltip al combo de selección de número de registros
-			jQuery('.pagControls select.ui-pg-selbox', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.select')).rup_tooltip();
+			jQuery('.pagControls select.ui-pg-selbox', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.select')).rup_tooltip();
 			// Tooltip al input de selección de página
-			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.input')).rup_tooltip();
+			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.input')).rup_tooltip();
 
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.primPag')).addClass('linkPaginacion'))
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#prev_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.anterior')).addClass('linkPaginacion'))
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#next_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.siguiente')).addClass('linkPaginacion'))
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#last_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.pager.ultiPag')).addClass('linkPaginacion'))
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 		}
 	};
@@ -117,16 +117,16 @@
 		var $self = $(this),
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id'),
-			paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.templates.detailForm.paginationBar'),
-			paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.templates.detailForm.paginationLink'),
-			elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.templates.detailForm.elementCounter'),
-			$separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.templates.detailForm.separator')),
-			$elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.numResult'))),
+			paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.paginationBar'),
+			paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.paginationLink'),
+			elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.elementCounter'),
+			$separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.separator')),
+			$elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'))),
 			$paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, jqGridID)),
-			$firstPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'first_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.first'))),
-			$backPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'back_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.previous'))),
-			$forwardPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'forward_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.next'))),
-			$lastPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'last_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_datatable.last'))),
+			$firstPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'first_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'))),
+			$backPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'back_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'))),
+			$forwardPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'forward_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.next'))),
+			$lastPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'last_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.last'))),
 			extpost = undefined;
 
 		$paginationBar.append($firstPaginationLink)

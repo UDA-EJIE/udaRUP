@@ -16,7 +16,7 @@ import './rup.button';
 import './rup.chart';
 import './rup.combo';
 import './rup.contextMenu';
-import './datatable/rup.datatable';
+import './rup_table/rup.datatable';
 import './rup.date';
 import './rup.dav';
 import './rup.dialog';

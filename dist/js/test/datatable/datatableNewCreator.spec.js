@@ -218,7 +218,7 @@ function createDatatable1(ctx, callback) {
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
-    $('#' + idDatatable).rup_datatable(opts);
+    $('#' + idDatatable).rup_table(opts);
 
 }
 
@@ -317,5 +317,5 @@ function createDatatable2(callback) {
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
-    $('#' + idDatatable).rup_datatable(opts);
+    $('#' + idDatatable).rup_table(opts);
 }

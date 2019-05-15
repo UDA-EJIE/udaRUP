@@ -569,7 +569,7 @@
   "rup_button":{
    "new": "Nuevo_eu"
   },
-  "rup_datatable": {
+  "rup_table": {
     "seleccionada": "[EU]seleccionada",
     "seleccionadas": "[EU]seleccionadas",
     "fila": "[EU]fila",

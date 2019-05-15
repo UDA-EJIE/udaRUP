@@ -566,7 +566,7 @@
   "rup_button":{
       "new": "Nuevo_fr"
   },
-  "rup_datatable": {
+  "rup_table": {
     "seleccionada": "[FR]seleccionada",
     "seleccionadas": "[FR]seleccionadas",
     "fila": "[FR]fila",

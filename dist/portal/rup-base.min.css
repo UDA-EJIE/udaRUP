@@ -9190,11 +9190,11 @@
     width: 100%;
   }
 
-  .r01gContainer .rup_datatableEdit_buttonsContainerResposive {
+  .r01gContainer .rup_tableEdit_buttonsContainerResposive {
     float: none!important;
   }
 
-  .r01gContainer .rup_datatableEdit_buttonsResposive {
+  .r01gContainer .rup_tableEdit_buttonsResposive {
     width: 100%;
   }
 }

@@ -30,8 +30,8 @@ function fncOnDomRefresh(){
 	// var $view = this;
 
 	// var datatable = new RupDatatable('#example', {});
-	//  console.log($('#example').rup_datatable);
-	$('#example').rup_datatable();
+	//  console.log($('#example').rup_table);
+	$('#example').rup_table();
 
 
 }
