@@ -163,7 +163,7 @@
 								});
 		                      row.click();
 		                      $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-		                      $('.ui-dialog-buttonset > button.ui-widget:contains(Aceptar)').click();
+		                      $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
 		                  });
 		
 		                  it('Debe eliminar las líneas:', () => {

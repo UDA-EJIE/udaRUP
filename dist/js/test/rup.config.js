@@ -1,6 +1,6 @@
 
 
-	var	APP_RESOURCES = window.location.pathname.substring(1,window.location.pathname.indexOf('/3x'))+'/3x/x21a',
+	var	APP_RESOURCES = window.location.pathname.substring(1,window.location.pathname.indexOf('/4x'))+'/4x/x21a',
 	CTX_PATH = '/x21aResponsive/',
 	STATICS = '',
     RESOURCES_PATH = '../../i18n/',
