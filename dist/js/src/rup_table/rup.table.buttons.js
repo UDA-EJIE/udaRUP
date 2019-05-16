@@ -1001,37 +1001,37 @@ $.extend( Buttons.prototype, {
 			// Comprueba si es alguno de los botones con iconos definidos por defecto
 			switch (config.type) {
 				case 'add':
-					config.icon = "&#xe145;";
+					config.icon = "mdi-plus";
 					break;
 				case 'edit':
-					config.icon = "&#xe3c9;";
+					config.icon = "mdi-playlist-edit";
 					break;
 				case 'clone':
-					config.icon = "&#xe14d;";
+					config.icon = "mdi-content-copy";
 					break;
 				case 'delete':
-					config.icon = "&#xe872;";
+					config.icon = "mdi-delete";
 					break;
 				case 'reports':
-					config.icon = "&#xe24d;";
+					config.icon = "mdi-file-export";
 					break;
 				case 'copyButton':
-					config.icon = "&#xe85d;";
+					config.icon = "mdi-clipboard-text-outline";
 					break;
 				case 'excelButton':
-					config.icon = "fa-file-excel-o";
+					config.icon = "mdi-file-excel";
 					break;
 				case 'pdfButton':
-					config.icon = "fa-file-pdf-o";
+					config.icon = "mdi-file-pdf";
 					break;
 				case 'odsButton':
-					config.icon = "fa-file-archive-o";
+					config.icon = "mdi-file";
 					break;
 				case 'csvButton':
-					config.icon = "fa-file-code-o";
+					config.icon = "mdi-file-table";
 					break;
 				default:
-					config.icon = "&#xe8b8;";
+					config.icon = "mdi-settings";
 			}
 		}
 
