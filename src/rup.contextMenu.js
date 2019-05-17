@@ -183,6 +183,17 @@
 									if (itemCfg.id !== undefined) {
 										$item.attr('id', itemCfg.id);
 									}
+									// Añade el icono especificado en su configuracion
+									if (itemCfg.icon != undefined) {
+										// Para cuando son iconos de la liberia @mdi/font
+										if(itemCfg.icon.indexOf("mdi") >= 0) {
+											$item.prepend('<i class="mdi ' + itemCfg.icon + ' mr-2" />');	
+										}
+										// Para cuando se usan otras librerias de iconos
+										else {
+											$item.prepend('<i class="' + itemCfg.icon + ' mr-2" />');									
+										}
+									}
 								}
 							}
 						});
