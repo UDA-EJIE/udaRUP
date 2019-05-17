@@ -662,9 +662,9 @@
    * @property {boolean} [autoOpen=true] - Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)).
    * @property {Object} [buttons] - Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo.
    * @property {boolean} [closeOnEscape=true] - Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC.
-   * @property {string} dialogClass - Porpiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes.
+   * @property {string} dialogClass - Propiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes.
    * @property {boolean} [draggable=true] - Si su valor es true el diáologo sera dragable pinchando sobre el título.
-   * @property {string | number} [height=auto] - Establece el alto del diálogoen pixeles.
+   * @property {string | number} [height=auto] - Establece el alto del diálogo en pixeles.
    * @property {string} [hide=null] - Efecto utilizado cuando se cierra el diálogo.
    * @property {boolean | number} [maxHeight=false] - Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo.
    * @property {boolean | number} [maxWidth=false] - Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo.
