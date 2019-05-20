@@ -27,10 +27,10 @@
 						icon: 'mdi-plus'
 					},
 					'edit': {
-						icon: 'mdi-pencil'
+						icon: 'mdi-playlist-edit'
 					},
 					'clone': {
-						icon: 'mdi-content-duplicate'
+						icon: 'mdi-content-copy'
 					},
 					'delete': {
 						icon: 'mdi-delete'
@@ -39,7 +39,19 @@
 						icon: 'mdi-file-export'
 					},
 					'copyButton': {
-						icon: 'mdi-content-paste'
+						icon: 'mdi-clipboard-text-outline'
+					},
+					'excelButton': {
+						icon: 'mdi-file-excel'
+					},
+					'pdfButton': {
+						icon: 'mdi-file-pdf'
+					},
+					'odsButton': {
+						icon: 'mdi-file'
+					},
+					'csvButton': {
+						icon: 'mdi-file-table'
 					}
 				}
 			}
@@ -108,26 +120,28 @@
 				.html(pagerLinkTemplate({
 					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')
 				}))
-				.addClass('mdi mdi-rewind')
+				.addClass('mdi mdi-page-first')
 				.removeClass('ui-pg-button');
 
 			jQuery('#prev_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
 					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')
 				}))
-				.addClass('mdi mdi-menu-left')
+				.addClass('mdi mdi-chevron-left')
 				.removeClass('ui-pg-button');
+			
 			jQuery('#next_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
 					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')
 				}))
-				.addClass('mdi mdi-menu-right')
+				.addClass('mdi mdi-chevron-right')
 				.removeClass('ui-pg-button');
+			
 			jQuery('#last_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
 					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')
 				}))
-				.addClass('mdi mdi-fast-forward')
+				.addClass('mdi mdi-page-last')
 				.removeClass('ui-pg-button');
 		}
 	};
@@ -219,7 +233,7 @@
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="mdi mdi-filter-variant" aria-hidden="true"></i>'
+				title : '<i class="mdi mdi-filter" aria-hidden="true"></i>'
 			}
 		}
 

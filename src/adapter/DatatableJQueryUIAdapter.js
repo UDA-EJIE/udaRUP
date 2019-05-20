@@ -24,22 +24,34 @@
 			operations: {
 				defaultOperations: {
 					'add': {
-						icon: 'fa fa-plus'
+						icon: 'mdi-plus'
 					},
 					'edit': {
-						icon: 'fa fa-pencil-square-o'
+						icon: 'mdi-playlist-edit'
 					},
 					'clone': {
-						icon: 'fa fa-clone'
+						icon: 'mdi-content-copy'
 					},
 					'delete': {
-						icon: 'fa fa-trash-o'
+						icon: 'mdi-delete'
 					},
 					'reports': {
-						icon: 'fa fa-file-o'
+						icon: 'mdi-file-export'
 					},
 					'copyButton': {
-						icon: 'fa fa-clipboard'
+						icon: 'mdi-clipboard-text-outline'
+					},
+					'excelButton': {
+						icon: 'mdi-file-excel'
+					},
+					'pdfButton': {
+						icon: 'mdi-file-pdf'
+					},
+					'odsButton': {
+						icon: 'mdi-file'
+					},
+					'csvButton': {
+						icon: 'mdi-file-table'
 					}
 				}
 			}
@@ -101,12 +113,15 @@
 			jQuery('#first_' + pagerName, $pagerCenter)
 				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
+			
 			jQuery('#prev_' + pagerName, $pagerCenter)
 				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
+			
 			jQuery('#next_' + pagerName, $pagerCenter)
 				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
+			
 			jQuery('#last_' + pagerName, $pagerCenter)
 				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');

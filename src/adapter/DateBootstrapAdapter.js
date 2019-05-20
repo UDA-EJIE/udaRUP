@@ -22,7 +22,7 @@
 	DateBootstrapAdapter.prototype.initIconTrigger = function (settings) {
 		//Imagen del calendario
 		//settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : "/rup/css/images/calendario.png");
-		settings.buttonText = '<i class="fa fa-calendar" aria-hidden="true"></i>';
+		settings.buttonText = '<i class="mdi mdi-calendar-month" aria-hidden="true"></i>';
 		//Atributos NO MODIFICABLES
 		//La imagen no debe ser un botón
 		settings.buttonImageOnly = false;

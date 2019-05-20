@@ -1271,9 +1271,9 @@ function _blockPKeditForm(ctx, actionType){
 						}
 						
 						if(valorCheck === 1) {
-							input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+							input.after("<i id='" + id + "_bloqueado' class='mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
 						} else {
-							input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+							input.after("<i id='" + id + "_bloqueado' class='mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
 						}
 					}
 				}

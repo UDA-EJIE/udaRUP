@@ -830,9 +830,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem.prop('type', 'checkbox');
 					var valueCelda = ctx.inlineEdit.lastRow.cellValues[cont];
-					if($(valueCelda).find('i.fa-times').length === 1){
+					if($(valueCelda).find('i.mdi-close').length === 1){
 						$elem.prop('checked', false);
-					}else if($(valueCelda).find('i.fa-check').length === 1){
+					}else if($(valueCelda).find('i.mdi-check').length === 1){
 						$elem.prop('checked', true);
 					}
 				}

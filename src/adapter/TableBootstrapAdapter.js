@@ -24,22 +24,22 @@
 			operations: {
 				defaultOperations: {
 					'add': {
-						icon: 'fa fa-file-o'
+						icon: 'mdi-plus'
 					},
 					'save': {
-						icon: 'fa fa fa-floppy-o'
+						icon: 'mdi-content-save'
 					},
 					'edit': {
-						icon: 'fa fa-pencil-square-o'
+						icon: 'mdi-playlist-edit'
 					},
 					'clone': {
-						icon: 'fa fa-clone'
+						icon: 'mdi-content-copy'
 					},
 					'delete': {
-						icon: 'fa fa-trash-o'
+						icon: 'mdi-delete'
 					},
 					'cancel': {
-						icon: 'fa fa-times-circle'
+						icon: 'mdi-cancel'
 					}
 				}
 			}
@@ -106,25 +106,31 @@
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.primPag'),
-					icon: 'fa fa-angle-double-left'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.primPag')
+				}))
+				.addClass('mdi mdi-page-first')
+				.removeClass('ui-pg-button');
 
 			jQuery('#prev_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.anterior'),
-					icon: 'fa fa-angle-left'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.anterior')
+				}))
+				.addClass('mdi mdi-chevron-left')
+				.removeClass('ui-pg-button');
+			
 			jQuery('#next_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.siguiente'),
-					icon: 'fa fa-angle-right'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.siguiente')
+				}))
+				.addClass('mdi mdi-chevron-right')
+				.removeClass('ui-pg-button');
+			
 			jQuery('#last_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.ultiPag'),
-					icon: 'fa fa-angle-double-right'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.ultiPag')
+				}))
+				.addClass('mdi mdi-page-last')
+				.removeClass('ui-pg-button');
 		}
 	};
 
@@ -207,7 +213,7 @@
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="fa fa-filter" aria-hidden="true"></i>'
+				title : '<i class="mdi mdi-filter" aria-hidden="true"></i>'
 			}
 		}
 

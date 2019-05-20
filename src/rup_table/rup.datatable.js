@@ -288,9 +288,9 @@
 								}
 								
 								if(valorCheck === 1) {
-									input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+									input.after("<i id='" + id + "_bloqueado' class='mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
 								} else {
-									input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+									input.after("<i id='" + id + "_bloqueado' class='mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
 								}
 							}
 						}
@@ -595,13 +595,13 @@
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='mdi mdi-arrow-left d-sm-none'></i>")
+			$("<i class='mdi mdi-chevron-left d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_previous')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
 					.addClass('d-none d-sm-block')
 				);
-			$("<i class='mdi mdi-arrow-right d-sm-none'></i>")
+			$("<i class='mdi mdi-chevron-right d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_next')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
