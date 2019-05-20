@@ -529,6 +529,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
 					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
+					ctx.multiselection.internalFeedback.type = undefined;//se recarga el type no esta definido.
 				}else{
 					// Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
 					if(ctx.oInit.select !== undefined){
@@ -629,9 +630,11 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	// Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
 		setTimeout(function(){
-			feedback.rup_feedback('destroy');
-			feedback.css('width','100%');
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+			if(feedback.find('div').length > 0){//asegurar que esta inicializado
+				feedback.rup_feedback('destroy');
+				feedback.css('width','100%');
+				$('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+			}
 		}, confDelay);
 	}
 }

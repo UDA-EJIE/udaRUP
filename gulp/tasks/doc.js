@@ -39,19 +39,17 @@ gulp.task('doc:api', function () {
 	fileSource = 'src/rup_jqtable/rup*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
-	//rup_table
-	fileSource = 'src/datatable/*.js';
+	//rup_table antes datatable
+	fileSource = 'src/table/*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
-	//rup_table addons
-	fileSource = 'src/datatable/addons/*.js';
 	//outputPath = './doc/api/';
 	runJsdoc2md(fileSource, outputPath);
 });
 
 gulp.task('jsdocFile', function () {
 	var filePath = 'src/rup_jqtable/';
-	var basename = 'rup.table.report';
+	var basename = 'rup.jqtable.report';
 	var outputPath = './doc/api/';
 	jsdoc2md.render({
 		files: filePath + basename + '.js'
