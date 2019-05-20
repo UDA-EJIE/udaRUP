@@ -20,7 +20,7 @@ describe('TEST Tooltip', () => {
                         <input id="inputExample" name="inputExample" type="text" class="form-control">\
                             <span class="input-group-btn">\
                                 <button id="exampleTooltip" class="btn btn-secondary" type="button">\
-                                    <i class="fa fa-question-circle" aria-hidden="true"></i>\
+                                    <i class="mdi mdi-comment-question" aria-hidden="true"></i>\
                                 </button>\
                             </span>\
                     </div>';

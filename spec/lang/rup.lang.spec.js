@@ -15,12 +15,12 @@ describe('Test Lang >', () => {
     beforeEach(() => {
         var html = '<a class="nav-link rup-nav-tool-icon" href="#" \
                     id="exampleLang" data-toggle="dropdown">\
-                        <i class="fa fa-globe" aria-hidden="true"></i>\
+                        <i class="mdi mdi-earth" aria-hidden="true"></i>\
                         <span data-rup-lang-current=""></span></a>\
                     <div class="dropdown-menu" aria-labelledby="exampleLang"></div>\
                     <a class="nav-link rup-nav-tool-icon" href="#" \
                     id="exampleLang2" data-toggle="dropdown">\
-                        <i class="fa fa-globe" aria-hidden="true"></i>\
+                        <i class="mdi mdi-earth" aria-hidden="true"></i>\
                         <span data-rup-lang-current=""></span></a>\
                     <div class="dropdown-menu" aria-labelledby="exampleLang"></div>';
         $('#content').append(html);

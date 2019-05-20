@@ -26,7 +26,7 @@ describe('Test Report > ', () => {
             buttons: [
                 {
                     id: 'searchBtn',
-                    css: 'fa fa-search',
+                    css: 'mdi mdi-magnify',
                     i18nCaption: 'buscar',
                     click: handler
                 },
