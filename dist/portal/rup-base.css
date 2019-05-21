@@ -23850,6 +23850,56 @@
   }
 }
 
+/* IMPORTACIÓN DE LAS ANIMACIONES */
+
+/* ANIMACION FADE IN */
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 
 /* COLORES */
@@ -24797,6 +24847,16 @@
   padding: .3em .4em .5em .4em;
 }
 
+/* ANIMACION */
+
+.r01gContainer div.rup-dialog {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s;
+}
+
 /* LABEL */
 
 .r01gContainer label.select-material {
@@ -25095,6 +25155,16 @@
 .r01gContainer div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton,
 .r01gContainer .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
   margin-left: 1rem;
+}
+
+/* ANIMACION */
+
+.r01gContainer div.rup-message {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s;
 }
 
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */

@@ -17813,6 +17813,35 @@ ul.dtr-details .dtr-data {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 
+/* IMPORTACIÓN DE LAS ANIMACIONES */
+/* ANIMACION FADE IN */
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
 /* ESTILOS */
@@ -18432,6 +18461,14 @@ div.dialog-content-material {
 div.dialog-content-material + div.rup-datatable-buttonpanel-material {
   padding: .3em .4em .5em .4em; }
 
+/* ANIMACION */
+div.rup-dialog {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s; }
+
 /* LABEL */
 label.select-material {
   top: 2px;
@@ -18589,6 +18626,14 @@ div.rup-feedback.rup-feedback_image {
       vertical-align: middle; }
   div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button, div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button, div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev, div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
     margin-left: 1rem; }
+
+/* ANIMACION */
+div.rup-message {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s; }
 
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
 i.mdi.error {

@@ -137,7 +137,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnSave disabledButtonsTable',
-         icon: "fa-save",
+         icon: "mdi-content-save",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'save',
@@ -155,7 +155,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnCancel disabledButtonsTable',
-         icon: "fa-times",
+         icon: "mdi-cancel",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'cancel',
