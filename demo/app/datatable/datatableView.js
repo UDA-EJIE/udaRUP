@@ -4,7 +4,7 @@ import DatatableTemplate from './datatableTemplate.hbs';
 
 import $ from 'jquery';
 
-import RupDatatable from 'datatable/rup.datatable';
+import RupDatatable from 'table/rup.table';//antiguo 'datatable/rup.datatable'
 
 
 // define(['marionette',

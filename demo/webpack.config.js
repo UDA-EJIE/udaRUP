@@ -87,7 +87,7 @@ module.exports = {
 							'./images': path.join(__dirname, '../assets/images'),
 							'../images': path.join(__dirname, '../demo/images'),
 							'./cursors': path.join(__dirname, '../assets/cursors'),
-							'../css/images/datatable': path.join(__dirname, '/images'),
+							'../css/images/table': path.join(__dirname, '/images'),
 							'./externals/icons': 'material-icons/'
 						}
 					} // translates CSS into CommonJS

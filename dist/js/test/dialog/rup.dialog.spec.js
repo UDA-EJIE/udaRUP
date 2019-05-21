@@ -218,7 +218,7 @@ function testDialogType(type) {
 					$dialogo.rup_dialog('open');
 				});
 				it('Debe crear un enlace en el dialog:', () => {
-					expect($('button.btn-outline-primary.ui-button.ui-corner-all.ui-widget:contains(boton2)').length).toBe(1);
+					expect($('button.btn-material:contains(boton2)').length).toBe(1);
 				});
 			});
 		});

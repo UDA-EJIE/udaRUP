@@ -141,6 +141,9 @@ gulp.task('build:resources', function (callback) {
 	//Se traspasa el specRunner
 	gulp.src(['./spec/specRunner.html'])
 		.pipe(gulp.dest('./dist/html'));
+	//Se traspasa el demo
+	gulp.src(['./demo/demo-idx.html'])
+		.pipe(gulp.dest('./dist/html'));
 	
 	gulp.src(['./spec/rup.config.js'])
 		.pipe(gulp.dest('./dist/js/test'));
