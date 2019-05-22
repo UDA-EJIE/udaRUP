@@ -4608,9 +4608,15 @@
 }
 
 .r01gContainer .ui-button.rup-button.rup-button-fab.rup-button-fab-sm {
-  min-width: 3rem;
-  width: 3rem;
-  height: 3rem;
+  min-width: 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.r01gContainer .ui-button.rup-button.rup-button-fab.rup-button-fab-lg {
+  min-width: 7rem;
+  width: 7rem;
+  height: 7rem;
 }
 
 .r01gContainer .ui-button.rup-button.rup-button-fab:focus {
@@ -7000,11 +7006,6 @@
   overflow-y: hidden;
 }
 
-.r01gContainer .glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite;
-}
-
 /* Control del scroll */
 
 .r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -7254,30 +7255,6 @@
   width: 98%;
   height: 95%;
   z-index: 10000;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block;
 }
 
 .r01gContainer .rup-table-filter-fieldset {
@@ -23850,6 +23827,56 @@
   }
 }
 
+/* IMPORTACIÓN DE LAS ANIMACIONES */
+
+/* ANIMACION FADE IN */
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 
 /* COLORES */
@@ -24785,6 +24812,23 @@
   margin-right: initial;
 }
 
+/* MBUTTON */
+
+.r01gContainer .rup-mbutton-container button.btn-material,
+.r01gContainer .rup-mbutton-container .btn-material.ui-button.rup-button,
+.r01gContainer .rup-mbutton-container .rup-dropdown-btn-group .btn-material.rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup-mbutton-container .btn-material.rup-dropdown-button,
+.r01gContainer .rup-mbutton-container a.btn-material.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_next,
+.r01gContainer .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_next,
+.r01gContainer .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_prev,
+.r01gContainer .rup-mbutton-container .rup-wizard .btn-material.rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup-mbutton-container .btn-material.rup-wizard_submitButton {
+  margin: 5px 0;
+  height: 45px;
+}
+
 .r01gContainer div.dialog-content-material {
   position: relative;
   border: 0;
@@ -24795,6 +24839,16 @@
 
 .r01gContainer div.dialog-content-material + div.rup-datatable-buttonpanel-material {
   padding: .3em .4em .5em .4em;
+}
+
+/* ANIMACION */
+
+.r01gContainer div.rup-dialog {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s;
 }
 
 /* LABEL */
@@ -25095,6 +25149,16 @@
 .r01gContainer div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton,
 .r01gContainer .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
   margin-left: 1rem;
+}
+
+/* ANIMACION */
+
+.r01gContainer div.rup-message {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s;
 }
 
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
@@ -27048,11 +27112,6 @@
 
 .r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
   overflow-y: hidden;
-}
-
-.r01gContainer .glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite;
 }
 
 /* Control del scroll */
@@ -30128,30 +30187,6 @@
   width: 98%;
   height: 95%;
   z-index: 10000;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block;
 }
 
 /*!

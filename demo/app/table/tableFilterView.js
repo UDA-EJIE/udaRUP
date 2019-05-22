@@ -182,7 +182,7 @@ define(['marionette',
 				operations:{
 					'operacion1': {
 						name: 'Operación 1',
-						icon: 'fa fa-file-o',
+						icon: 'mdi mdi-file',
 						enabled: function(){
 							return (disable++ %2)===0;
 						},
@@ -192,7 +192,7 @@ define(['marionette',
 					},
 					'operacion2': {
 						name: 'Operación 2',
-						icon: 'fa fa-file-o',
+						icon: 'mdi mdi-file',
 						enabled: function(){
 							return true;
 						},

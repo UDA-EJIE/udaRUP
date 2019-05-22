@@ -36,12 +36,12 @@ function generateHtml(idDatatable) {
                     <div id="' + idDatatable + '_filter_buttonSet" class="right_buttons">\
                         <!-- Enlace de limpiar -->\
                         <button id="' + idDatatable + '_filter_cleanLink" type="button" class="btn btn-primary rup-limpiar">\
-                        <i class="fa fa-eraser"></i>\
+                        <i class="mdi mdi-eraser"></i>\
                         	<span>Limpiar</span>\
                         </button>\
                         <!-- Botón de filtrado -->\
                         <button id="' + idDatatable + '_filter_filterButton" type="button" class="btn rup-filtrar btn-primary">\
-                        	<i class="fa fa-filter"></i>\
+                        	<i class="mdi mdi-filter"></i>\
                         	<span>Filtrar</span> \
                         </button>\
                     </div>\

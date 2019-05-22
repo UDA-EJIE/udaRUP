@@ -24,22 +24,34 @@
 			operations: {
 				defaultOperations: {
 					'add': {
-						icon: 'fa fa-plus'
+						icon: 'mdi-plus'
 					},
 					'edit': {
-						icon: 'fa fa-pencil-square-o'
+						icon: 'mdi-playlist-edit'
 					},
 					'clone': {
-						icon: 'fa fa-clone'
+						icon: 'mdi-content-copy'
 					},
 					'delete': {
-						icon: 'fa fa-trash-o'
+						icon: 'mdi-delete'
 					},
 					'reports': {
-						icon: 'fa fa-file-o'
+						icon: 'mdi-file-export'
 					},
 					'copyButton': {
-						icon: 'fa fa-clipboard'
+						icon: 'mdi-clipboard-text-outline'
+					},
+					'excelButton': {
+						icon: 'mdi-file-excel'
+					},
+					'pdfButton': {
+						icon: 'mdi-file-pdf'
+					},
+					'odsButton': {
+						icon: 'mdi-file'
+					},
+					'csvButton': {
+						icon: 'mdi-file-table'
 					}
 				}
 			}
@@ -106,25 +118,31 @@
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag'),
-					icon: 'fa fa-angle-double-left'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')
+				}))
+				.addClass('mdi mdi-page-first')
+				.removeClass('ui-pg-button');
 
 			jQuery('#prev_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior'),
-					icon: 'fa fa-angle-left'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')
+				}))
+				.addClass('mdi mdi-chevron-left')
+				.removeClass('ui-pg-button');
+			
 			jQuery('#next_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente'),
-					icon: 'fa fa-angle-right'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')
+				}))
+				.addClass('mdi mdi-chevron-right')
+				.removeClass('ui-pg-button');
+			
 			jQuery('#last_' + pagerName, $pagerCenter)
 				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag'),
-					icon: 'fa fa-angle-double-right'
-				})).removeClass('ui-pg-button');
+					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')
+				}))
+				.addClass('mdi mdi-page-last')
+				.removeClass('ui-pg-button');
 		}
 	};
 
@@ -215,7 +233,7 @@
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="fa fa-filter" aria-hidden="true"></i>'
+				title : '<i class="mdi mdi-filter" aria-hidden="true"></i>'
 			}
 		}
 

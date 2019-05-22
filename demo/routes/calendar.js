@@ -1,6 +1,6 @@
 var evts = [{
     "id": "48605",
-    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
     "start": '' + new Date('2019-06-02').getTime(),
     "class": " vertido muestreo completada",
     "end": '' + new Date('2019-06-03').getTime(),
@@ -25,7 +25,7 @@ exports.getEvents = function (req, res) {
 exports.addEvent = function (req, res) {
     evts.push({
         "id": "48506",
-        "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+        "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
         "start": '' + new Date('2019-06-08').getTime(),
         "class": " vertido muestreo completada",
         "end": '' + new Date('2019-06-09').getTime(),

@@ -3558,9 +3558,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   width: 5rem;
   height: 5rem; }
   .ui-button.rup-button.rup-button-fab.rup-button-fab-sm {
-    min-width: 3rem;
-    width: 3rem;
-    height: 3rem; }
+    min-width: 4rem;
+    width: 4rem;
+    height: 4rem; }
+  .ui-button.rup-button.rup-button-fab.rup-button-fab-lg {
+    min-width: 7rem;
+    width: 7rem;
+    height: 7rem; }
   .ui-button.rup-button.rup-button-fab:focus {
     outline: none; }
 
@@ -5124,10 +5128,6 @@ a.rup-toolbar_menuButton.ui-button span {
 .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
   overflow-y: hidden; }
 
-.glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite; }
-
 /* Control del scroll */
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
   height: inherit;
@@ -5328,24 +5328,6 @@ div.error, label.error, span.error {
   width: 98%;
   height: 95%;
   z-index: 10000; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block; }
 
 .rup-table-filter-fieldset {
   padding-left: 5px;
@@ -17813,6 +17795,35 @@ ul.dtr-details .dtr-data {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 
+/* IMPORTACIÓN DE LAS ANIMACIONES */
+/* ANIMACION FADE IN */
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
 /* ESTILOS */
@@ -18422,6 +18433,11 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
   .btn-material.rup-dropdown-button-material i.mdi {
     margin-right: initial; }
 
+/* MBUTTON */
+.rup-mbutton-container button.btn-material, .rup-mbutton-container .btn-material.ui-button.rup-button, .rup-mbutton-container .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton-container .btn-material.rup-dropdown-button, .rup-mbutton-container a.btn-material.rup-toolbar_menuButton.ui-button, .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_next, .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_prev, .rup-mbutton-container .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard .rup-mbutton-container .btn-material.rup-wizard_submitButton {
+  margin: 5px 0;
+  height: 45px; }
+
 div.dialog-content-material {
   position: relative;
   border: 0;
@@ -18431,6 +18447,14 @@ div.dialog-content-material {
 
 div.dialog-content-material + div.rup-datatable-buttonpanel-material {
   padding: .3em .4em .5em .4em; }
+
+/* ANIMACION */
+div.rup-dialog {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s; }
 
 /* LABEL */
 label.select-material {
@@ -18589,6 +18613,14 @@ div.rup-feedback.rup-feedback_image {
       vertical-align: middle; }
   div.rup-feedback.rup-feedback_image button.btn-material, div.rup-feedback.rup-feedback_image .btn-material.ui-button.rup-button, div.rup-feedback.rup-feedback_image .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group div.rup-feedback.rup-feedback_image .btn-material.rup-dropdown-button, div.rup-feedback.rup-feedback_image a.btn-material.rup-toolbar_menuButton.ui-button, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_next, div.rup-feedback.rup-feedback_image .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard div.rup-feedback.rup-feedback_image a.btn-material.rup-wizard_prev, div.rup-feedback.rup-feedback_image .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard div.rup-feedback.rup-feedback_image .btn-material.rup-wizard_submitButton {
     margin-left: 1rem; }
+
+/* ANIMACION */
+div.rup-message {
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  -o-animation: fadein 1s; }
 
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
 i.mdi.error {
@@ -20093,10 +20125,6 @@ li[id$='_contextMenuToolbar'] {
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
   overflow-y: hidden; }
-
-.glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite; }
 
 /* Control del scroll */
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -22458,24 +22486,6 @@ form.rup_validate label.error {
   width: 98%;
   height: 95%;
   z-index: 10000; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.

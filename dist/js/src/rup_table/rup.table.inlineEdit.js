@@ -137,7 +137,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnSave disabledButtonsTable',
-         icon: "fa-save",
+         icon: "mdi-content-save",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'save',
@@ -155,7 +155,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'datatable_toolbar_btnCancel disabledButtonsTable',
-         icon: "fa-times",
+         icon: "mdi-cancel",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'cancel',
@@ -830,9 +830,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem.prop('type', 'checkbox');
 					var valueCelda = ctx.inlineEdit.lastRow.cellValues[cont];
-					if($(valueCelda).find('i.fa-times').length === 1){
+					if($(valueCelda).find('i.mdi-close').length === 1){
 						$elem.prop('checked', false);
-					}else if($(valueCelda).find('i.fa-check').length === 1){
+					}else if($(valueCelda).find('i.mdi-check').length === 1){
 						$elem.prop('checked', true);
 					}
 				}
