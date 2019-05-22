@@ -9,17 +9,17 @@
 	} else {
 
 		// Browser globals
-		root.DatatableMaterialAdapter = factory(jQuery);
+		root.TableMaterialAdapter = factory(jQuery);
 	}
 }(this, function ($, Rup) {
 
-	function DatatableMaterialAdapter() {
+	function TableMaterialAdapter() {
 
 	}
 
-	DatatableMaterialAdapter.prototype.NAME = 'datatable_material';
+	TableMaterialAdapter.prototype.NAME = 'datatable_material';
 
-	DatatableMaterialAdapter.prototype.CONST = {
+	TableMaterialAdapter.prototype.CONST = {
 		core: {
 			operations: {
 				defaultOperations: {
@@ -58,7 +58,7 @@
 		}
 	};
 
-	DatatableMaterialAdapter.prototype.configurePager = function (settings) {
+	TableMaterialAdapter.prototype.configurePager = function (settings) {
 		var $self = this,
 			pagerName,
 			$pagerCenter,
@@ -146,7 +146,7 @@
 		}
 	};
 
-	DatatableMaterialAdapter.prototype.createDetailNavigation = function () {
+	TableMaterialAdapter.prototype.createDetailNavigation = function () {
 
 		var $self = $(this),
 			settings = $self.data('settings'),
@@ -221,7 +221,7 @@
 		return $template;
 	};
 
-	DatatableMaterialAdapter.prototype.multifilter = {
+	TableMaterialAdapter.prototype.multifilter = {
 		classes:{
 			container: "form-groupMaterial",
 			label: "",
@@ -242,7 +242,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[DatatableMaterialAdapter.prototype.NAME ] = new DatatableMaterialAdapter;
+	$.rup.adapter[TableMaterialAdapter.prototype.NAME ] = new TableMaterialAdapter;
 
 	return $;
 }));

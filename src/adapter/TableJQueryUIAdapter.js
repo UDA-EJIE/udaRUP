@@ -5,21 +5,21 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', '../templates', '../rup.base', ], factory);
+		define(['jquery', '../rup.base', '../templates'], factory);
 	} else {
 
 		// Browser globals
-		root.DatatableBootstrapAdapter = factory(jQuery);
+		root.TableJQueryUIAdapter = factory(jQuery);
 	}
-}(this, function ($, Rup) {
+}(this, function ($) {
 
-	function DatatableBootstrapAdapter() {
+	function TableJQueryUIAdapter() {
 
 	}
 
-	DatatableBootstrapAdapter.prototype.NAME = 'datatable_bootstrap';
+	TableJQueryUIAdapter.prototype.NAME = 'datatable_jqueryui';
 
-	DatatableBootstrapAdapter.prototype.CONST = {
+	TableJQueryUIAdapter.prototype.CONST = {
 		core: {
 			operations: {
 				defaultOperations: {
@@ -58,15 +58,12 @@
 		}
 	};
 
-	DatatableBootstrapAdapter.prototype.configurePager = function (settings) {
+	TableJQueryUIAdapter.prototype.configurePager = function (settings) {
 		var $self = this,
 			pagerName,
 			$pagerCenter,
 			pagerLeft,
-			pagerRight,
-			$pagerLeft,
-			$pagerCenter,
-			$pagerRight;
+			pagerRight;
 
 
 		if (settings.pager !== undefined && settings.pager !== null) {
@@ -95,7 +92,6 @@
 			}
 
 			// Pager center
-			$pagerCenter.css('white-space', 'inherit');
 			jQuery('.pager_center datatable td', settings.$pager).addClass('pagControls');
 
 			// Evento de control de página máxima
@@ -113,80 +109,50 @@
 			// Tooltip al input de selección de página
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.input')).rup_tooltip();
 
-			var pagerLinkTemplate = Rup.Templates.rup.datatable.pager.link.bootstrap;
-
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
-				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')
-				}))
-				.addClass('mdi mdi-page-first')
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.primPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
-
+			
 			jQuery('#prev_' + pagerName, $pagerCenter)
-				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')
-				}))
-				.addClass('mdi mdi-chevron-left')
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.anterior')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			
 			jQuery('#next_' + pagerName, $pagerCenter)
-				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')
-				}))
-				.addClass('mdi mdi-chevron-right')
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.siguiente')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			
 			jQuery('#last_' + pagerName, $pagerCenter)
-				.html(pagerLinkTemplate({
-					label: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')
-				}))
-				.addClass('mdi mdi-page-last')
+				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.ultiPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 		}
 	};
 
-	DatatableBootstrapAdapter.prototype.createDetailNavigation = function () {
-
+	TableJQueryUIAdapter.prototype.createDetailNavigation = function () {
 		var $self = $(this),
 			settings = $self.data('settings'),
-			jqGridID = $self.attr('id');
-		var $template = $(Rup.Templates.rup.datatable.detail.navigation.bootstrap({
-			datatableId: $self.prop('id'),
-			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
-			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'),
-			labelPrev: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'),
-			labelNext: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.next'),
-			labelLast: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.last')
-
-		}));
-
-		// var $self = $(this),
-		//     settings = $self.data("settings"),
-		//     jqGridID = $self.attr("id"),
-		//     paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationBar"),
-		//     paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationLink"),
-		//     elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.elementCounter"),
-		//     $separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.separator")),
-		//     $elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.numResult"))),
-		//     $paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, jqGridID)),
-		var $firstPaginationLink = $('#first_' + jqGridID, $template),
-			$backPaginationLink = $('#back_' + jqGridID, $template),
-			$forwardPaginationLink = $('#forward_' + jqGridID, $template),
-			$lastPaginationLink = $('#last_' + jqGridID, $template),
+			jqGridID = $self.attr('id'),
+			paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.paginationBar'),
+			paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.paginationLink'),
+			elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.elementCounter'),
+			$separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.detailForm.separator')),
+			$elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'))),
+			$paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, jqGridID)),
+			$firstPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'first_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'))),
+			$backPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'back_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'))),
+			$forwardPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'forward_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.next'))),
+			$lastPaginationLink = $(jQuery.jgrid.format(paginationLinkTmpl, 'last_' + jqGridID, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.last'))),
 			extpost = undefined;
 
-		// $paginationBar.append($firstPaginationLink)
-		//     .append($backPaginationLink)
-		//     .append($forwardPaginationLink)
-		//     .append($lastPaginationLink);
-
-		// $pagina
+		$paginationBar.append($firstPaginationLink)
+			.append($backPaginationLink)
+			.append($forwardPaginationLink)
+			.append($lastPaginationLink);
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-			//Se comprueba el parametro 7 mientras este en convivencia con el rup.datatable el rup.datatable.
-			if (retNavParams[7] === undefined && !$link.hasClass('ui-state-disabled')) {
+			//Se comprueba el aprametro 7 mientras este en convivencia con el rup.datatable el rup.datatable.
+			if (retNavParams[7]  !== undefined && !$link.hasClass('ui-state-disabled')) {
 				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 					$.proxy(settings.doNavigation, $self)(retNavParams);
 				})) {
@@ -195,7 +161,7 @@
 			}
 		}
 
-
+		// Elemento primero
 		$firstPaginationLink.on('click', function () {
 			doLinkNavigation('first', $(this));
 		});
@@ -216,24 +182,14 @@
 		});
 
 
-		// return $("<div>").append($elementCounter).append($paginationBar).append($separator);
-		//
-		return $template;
+		return $('<div>').append($elementCounter).append($paginationBar).append($separator);
 	};
 
-	DatatableBootstrapAdapter.prototype.multifilter = {
-		classes:{
-			container: "form-group fix-align col-sm",
-			label: "formulario_linea_label",
-			defaultFilter: {
-				container: "form-group col-sm",
-				checkBox: "formulario_linea_input form-control"
-			}
-		},
+	TableJQueryUIAdapter.prototype.multifilter = {
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
-				title : '<i class="mdi mdi-filter" aria-hidden="true"></i>'
+				title : '<span class="rup-icon rup-icon-filter"></span>'
 			}
 		}
 
@@ -242,7 +198,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[DatatableBootstrapAdapter.prototype.NAME ] = new DatatableBootstrapAdapter;
+	$.rup.adapter[TableJQueryUIAdapter.prototype.NAME ] = new TableJQueryUIAdapter;
 
 	return $;
 }));
