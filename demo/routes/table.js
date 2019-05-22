@@ -1,90 +1,284 @@
-exports.filter = function(req, res) {
-	var json = require('./json/table.json');
-
-	//console.log(req.body.filter);
-	//  JSON.parse(result)
-
-	LokiDb = require('../../lokiDb');
-	//console.log(LokiDb.getText());
-	var users = LokiDb.getUsers();
-
-	//ret.rows = users.data;
-	var queryRes = users.chain().find(req.body.filter)
-		.simplesort(req.body.sidx, req.body.sord==='desc')
-		.data();
-
-
-	var page = parseInt(req.body.page);
-	var rows = parseInt(req.body.rows);
-	var from = (rows*(page-1)+1);
-	var to = from + rows;
-	var retRows = queryRes.slice(from, to);
-
-	console.log('REQUEST');
-	console.log('req.body.rows :' + rows);
-	console.log('req.body.page :' + page);
-	console.log('arg1 :' + from);
-	console.log('arg2 :' + to);
-	console.log('rows :' + retRows);
-
-
-
-	var ret = {
-		'page': page,
-		'records': queryRes.length,
-		'rows': retRows,
-		'total':Math.ceil(queryRes.length/rows),
-		'selectedAll':null,
-		'reorderedSelection':null
-	};
-
-
-
-	//console.log(users.data);
-
-
-	res.status(200).json(ret);
+var json = {
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+    ],
+    total: '3',
+    records: 15
 };
 
-
-exports.get = function(req, res) {
-
-	LokiDb = require('../../lokiDb');
-	//console.log(LokiDb.getText());
-	var users = LokiDb.getUsers();
-
-	//ret.rows = users.data;
-	console.log(users);
-	var queryRes = users.chain().find({id: req.params.id}).data();
-	console.log(req.params.id);
-	if (queryRes.length===1){
-		res.status(200).json(queryRes[0]);
-	}else{
-		res.status(200).json({});
-	}
+var jsonOrderedAsc ={
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' }
+    ],
+    total: '3',
+    records: 15
+};
+var jsonOrderedDesc ={
+    page: '1',
+    rows: [
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' }
+    ],
+    total: '3',
+    records: 15
 };
 
-exports.put = function(req, res) {
-
-
-
-	LokiDb = require('../../lokiDb');
-	console.log(req.body);
-	var users = LokiDb.getUsers();
-	//ret.rows = users.data;
-	//var queryRes = users.update(req.body);
-	LokiDb.upsert(users, 'id', req.body);
-
-	res.status(200).json(req.body);
+var json2 = {
+    page: '2',
+    rows: [
+        { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
+        { id: '7', nombre: 'paco', apellidos: 'Allende Chicharro', edad: '20' },
+        { id: '8', nombre: 'Maria', apellidos: 'Gumuzio Ayo', edad: '22' },
+        { id: '9', nombre: 'Ekaitz', apellidos: 'Zabala Pando', edad: '23' },
+        { id: '10', nombre: 'Juaquin', apellidos: 'Camison Dominguez', edad: '15' }
+    ],
+    total: '3',
+    records: 15
 };
 
-exports.post = function(req, res) {
+var json3 = {
+    page: '3',
+    rows: [
+        { id: '11', nombre: 'Kevin', apellidos: 'Agüero Vázquez', edad: '32' },
+        { id: '12', nombre: 'Roberto', apellidos: 'Arana Chicharro', edad: '20' },
+        { id: '13', nombre: 'Luis', apellidos: 'Tejedor Ayo', edad: '22' },
+        { id: '14', nombre: 'Javi', apellidos: 'Pérez Pando', edad: '23' },
+        { id: '15', nombre: 'Hugo', apellidos: 'Boss Dominguez', edad: '17' }
+    ],
+    total: '3',
+    records: 15
+};
 
-	LokiDb = require('../../lokiDb');
-	//console.log(LokiDb.getText());
-	var users = LokiDb.getUsers();
+var json4 = {
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
+        { id: '7', nombre: 'paco', apellidos: 'Allende Chicharro', edad: '20' },
+        { id: '8', nombre: 'Maria', apellidos: 'Gumuzio Ayo', edad: '22' },
+        { id: '9', nombre: 'Ekaitz', apellidos: 'Zabala Pando', edad: '23' },
+        { id: '10', nombre: 'Juaquin', apellidos: 'Camison Dominguez', edad: '15' }
+    ],
+    total: '2',
+    records: 15
+};
 
-	users.insert(req.body);
+var jsonMDInterFilter1 =  {
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+    ],
+    total: '3',
+    records: 15
+};
 
-	res.status(200).json(req.body);
+var jsonMDInterFilter2 =  {
+    page: '1',
+    rows: [
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
+    ],
+    total: '3',
+    records: 15
+};
+var jsonIDFilter1 = {
+    page: '1',
+    rows: [
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+    ],
+    total: '2',
+    records: 6
+};
+var jsonIDFilter2 = {
+    page: '2',
+    rows: [
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
+        { id: '7', nombre: 'paco', apellidos: 'Allende Chicharro', edad: '20' }
+    ],
+    total: '2',
+    records: 6
+};
+var jsonIDFilterOrdered1 = {
+    page: '1',
+    rows: [
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' }
+    ],
+    total: '2',
+    records: 6
+};
+
+function getFilterResp(req) {
+    let respuesta = {};
+    if (req.body.filter.id == '4') {
+        respuesta = {
+            page: '1',
+            rows: [
+                { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '23' }
+            ],
+            total: '1',
+            records: 1
+        };
+    } else {
+        if(req.body.filter.id == '5') {
+            respuesta = {
+                page: '1',
+                rows: [
+                    { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' }
+                ],
+                total: '1',
+                records: 1
+            };
+        }
+        else {
+            if(req.body.length == 10) {
+                respuesta = json4;
+            }
+            else{
+                if(req.body.filter.id == 1 ||
+                    req.body.filter.id == 2 ||
+                    req.body.filter.id == 3) {
+                    if(req.body.filter.id == 1) {
+                        respuesta = jsonMDInterFilter1;
+                    }
+                    if(req.body.filter.id == 2) {
+                        respuesta = jsonMDInterFilter2;
+                    }
+                    if(req.body.filter.id == 3) {
+                        if(req.body.sidx == 'nombre' && req.body.sord == 'asc') {
+                            respuesta = jsonIDFilterOrdered1;
+                        }
+                        else {
+                            if(req.body.page == 2) {
+                                respuesta = jsonIDFilter2;
+                            }
+                            else {
+                                respuesta = jsonIDFilter1;
+                            }
+                        }
+                    }
+                    if(req.body.filter.id == 5) {
+                        respuesta = jsonIDFilter2;
+                    }
+                }
+                else {
+                    if(req.body.filter.id == '2' || req.body.filter.id == '1') {
+                        if(req.body.filter.id == '1') {
+                            respuesta = jsonMDInterFilter1;
+                        }
+                        if(req.body.filter.id == '2') {
+                            respuesta = jsonMDInterFilter2;
+                        }
+                    }
+                    else {
+                        if (req.body.page == 1) {
+                            respuesta = json;
+                        }
+                        if (req.body.page == 2) {
+                            respuesta = json2;
+                        }
+                        if (req.body.page == 3) {
+                            respuesta = json3;
+                        }
+                        if (req.body.sidx == 'nombre') {
+                            if(req.body.sord == 'asc') {
+                                respuesta = jsonOrderedAsc;
+                            }
+                            if(req.body.sord == 'desc') {
+                                respuesta = jsonOrderedDesc;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(req.body.filter.id == 6) {
+        respuesta = 'KABOOM!';
+    }
+    return respuesta;
+}
+function getFilterStatus(req){
+    let status = 0;
+    if(req.body.filter.id == 6) {
+        status = 406;
+    }
+    else{
+        status = 200;
+    }
+    return status;
+}
+exports.filter = (req, res) => {
+    let respuesta = getFilterResp(req);
+    let status = getFilterStatus(req);
+    if(status === 200){
+        res.status(status).json(respuesta);
+    }
+    else{
+        res.status(status).send(respuesta);
+    }
+};
+
+exports.search = (req, res) => {
+    let search = req.body.search;
+    if(search.edad === 'asd') {
+        res.status(406);
+        res.send('KABOOM');
+    }
+    //console.info(search);
+    if (search.nombre === 'E') {
+        let ret = [
+            {
+                "page": 1,
+                "pageLine": 4,
+                "tableLine": 4,
+                "pk": {
+                    "id": "4"
+                }
+            },
+            {
+                "page": 1,
+                "pageLine": 5,
+                "tableLine": 5,
+                "pk": {
+                    "id": "5"
+                }
+            }
+        ];
+        res.status(200).json(ret);
+        return;
+    }
+    res.status(200).json([]);
+};
+exports.simple = (req, res) => {
+    let respuesta = req.body;
+    res.status(200).json(respuesta);
+};
+exports.formEdit = (req, res) => {
+    if(req.body.edad === 'asd') {
+        res.status(406);
+        res.send('KABOOM!');
+    }
+    let respuesta = req.body;
+    res.status(200).json(respuesta);
 };
