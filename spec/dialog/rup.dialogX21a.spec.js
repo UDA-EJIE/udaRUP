@@ -13,7 +13,7 @@ function testDialogType(type) {
 		var $dialogo;
 
 		beforeAll((done) => {
-			testutils.loadCss(done);
+			loadCss(done);
 		});
 
 		beforeEach(() => {
@@ -70,7 +70,7 @@ function testDialogType(type) {
 						$('#exampleDialogo').removeClass('randomClass');
 					},
 					type: type,
-					url: testutils.DEMO + '/demo-idx.html',
+					url: 'demo-idx.html',
 					autoOpen: false,
 					width: 200,
 					title: 'TituloDialogo',

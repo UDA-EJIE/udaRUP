@@ -9,17 +9,17 @@
 	} else {
 
 		// Browser globals
-		root.TableJQueryUIAdapter = factory(jQuery);
+		root.JqTableJQueryUIAdapter = factory(jQuery);
 	}
 }(this, function ($) {
 
-	function TableJQueryUIAdapter() {
+	function JqTableJQueryUIAdapter() {
 
 	}
 
-	TableJQueryUIAdapter.prototype.NAME = 'table_jqueryui';
+	JqTableJQueryUIAdapter.prototype.NAME = 'table_jqueryui';
 
-	TableJQueryUIAdapter.prototype.CONST = {
+	JqTableJQueryUIAdapter.prototype.CONST = {
 		core: {
 			operations: {
 				defaultOperations: {
@@ -46,7 +46,7 @@
 		}
 	};
 
-	TableJQueryUIAdapter.prototype.configurePager = function (settings) {
+	JqTableJQueryUIAdapter.prototype.configurePager = function (settings) {
 		var $self = this,
 			pagerName,
 			$pagerCenter,
@@ -113,7 +113,7 @@
 		}
 	};
 
-	TableJQueryUIAdapter.prototype.createDetailNavigation = function () {
+	JqTableJQueryUIAdapter.prototype.createDetailNavigation = function () {
 		var $self = $(this),
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id'),
@@ -167,7 +167,7 @@
 		return $('<div>').append($elementCounter).append($paginationBar).append($separator);
 	};
 
-	TableJQueryUIAdapter.prototype.multifilter = {
+	JqTableJQueryUIAdapter.prototype.multifilter = {
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
@@ -180,7 +180,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[TableJQueryUIAdapter.prototype.NAME ] = new TableJQueryUIAdapter;
+	$.rup.adapter[JqTableJQueryUIAdapter.prototype.NAME ] = new JqTableJQueryUIAdapter;
 
 	return $;
 }));

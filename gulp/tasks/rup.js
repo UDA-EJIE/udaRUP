@@ -13,7 +13,7 @@ gulp.task('rup:build:table', function (cb) {
 	return gulp.src(minimizeConf.rupTableFiles, {
 		cwd: 'src'
 	})
-		.pipe(concat('rup.table.js'))
+		.pipe(concat('rup.jqtable.js'))
 		.pipe(wrap(`
         ( function( factory ) {
          if ( typeof define === "function" && define.amd ) {

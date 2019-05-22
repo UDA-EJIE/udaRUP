@@ -9,17 +9,17 @@
 	} else {
 
 		// Browser globals
-		root.TableBootstrapAdapter = factory(jQuery);
+		root.JqTableBootstrapAdapter = factory(jQuery);
 	}
 }(this, function ($, Rup) {
 
-	function TableBootstrapAdapter() {
+	function JqTableBootstrapAdapter() {
 
 	}
 
-	TableBootstrapAdapter.prototype.NAME = 'table_bootstrap';
+	JqTableBootstrapAdapter.prototype.NAME = 'table_bootstrap';
 
-	TableBootstrapAdapter.prototype.CONST = {
+	JqTableBootstrapAdapter.prototype.CONST = {
 		core: {
 			operations: {
 				defaultOperations: {
@@ -46,7 +46,7 @@
 		}
 	};
 
-	TableBootstrapAdapter.prototype.configurePager = function (settings) {
+	JqTableBootstrapAdapter.prototype.configurePager = function (settings) {
 		var $self = this,
 			pagerName,
 			$pagerCenter,
@@ -134,7 +134,7 @@
 		}
 	};
 
-	TableBootstrapAdapter.prototype.createDetailNavigation = function () {
+	JqTableBootstrapAdapter.prototype.createDetailNavigation = function () {
 
 		var $self = $(this),
 			settings = $self.data('settings'),
@@ -209,7 +209,7 @@
 		return $template;
 	};
 
-	TableBootstrapAdapter.prototype.multifilter = {
+	JqTableBootstrapAdapter.prototype.multifilter = {
 		dropdown:{
 			dropdownIcon : 'ui-icon-gear',
 			dropdownDialogConfig : {
@@ -222,7 +222,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[TableBootstrapAdapter.prototype.NAME ] = new TableBootstrapAdapter;
+	$.rup.adapter[JqTableBootstrapAdapter.prototype.NAME ] = new JqTableBootstrapAdapter;
 
 	return $;
 }));
