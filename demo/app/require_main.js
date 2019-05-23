@@ -33,7 +33,7 @@ requirejs.config({
 		'jquery-ui': '../../node_modules/jquery-ui-dist/jquery-ui',
 		'backbone': '../../node_modules/backbone/backbone',
 		'bootstrap': '../../node_modules/bootstrap/dist/js/bootstrap.min',
-		'bt4': '../../dist/js/externals/bootstrap/bt4.min',
+		'bt4': '../../dist/js/externals/bootstrap/bootstrap.bundle.min',
 		'underscore': '../../node_modules/underscore/underscore',
 		'handlebars': '../../node_modules/handlebars/dist/handlebars',
 		'handlebars-i18n': '../js/handlebars-helper-i18n',
@@ -89,11 +89,7 @@ requirejs.config({
 
 
 		'datatables.net': '../../node_modules/datatables.net/js/jquery.dataTables',
-		'datatables.net-bs': '../../node_modules/datatables.net-bs/js/dataTables.bootstrap'
-
-
-
-
+		'datatables.net-bs4': '../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4'
 	},
 	shim: {
 		'free-jqgrid': {
@@ -108,9 +104,6 @@ requirejs.config({
 		},
 		'bootstrap': {
 			'deps': ['jquery', 'tether', 'popper.js']
-		},
-		'bt3': {
-			'deps': ['jquery']
 		},
 		'bt4': {
 			'deps': ['jquery', 'tether']

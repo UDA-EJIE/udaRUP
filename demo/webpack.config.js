@@ -11,11 +11,10 @@ createBackendServer(8081);
 module.exports = {
 	entry: {
 		bt4: './demo/app/main-bt4.js'
-		// bt3: './demo/app/main-bt3.js'
 		// jqueryui: './demo/app/main-jqueryui.js'
 	},
 	output: {
-		filename: '[name]-bundle.js',
+		filename: 'bootstrap.bundle.js',
 		path: path.join(__dirname, 'demo')
 		// publicPath: 'demo'
 	},
