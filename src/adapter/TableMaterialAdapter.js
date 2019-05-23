@@ -33,7 +33,7 @@
 						icon: 'mdi-content-copy'
 					},
 					'delete': {
-						icon: 'mdi-delete'
+						icon: 'mdi-trash-can-outline'
 					},
 					'reports': {
 						icon: 'mdi-file-export'
@@ -185,7 +185,7 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-			//Se comprueba el parametro 7 mientras este en convivencia con el rup.datatable el rup.datatable.
+			// Se comprueba el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
 			if (retNavParams[7] === undefined && !$link.hasClass('ui-state-disabled')) {
 				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 					$.proxy(settings.doNavigation, $self)(retNavParams);

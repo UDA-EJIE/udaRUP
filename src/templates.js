@@ -395,7 +395,7 @@ this["Rup"]["Templates"]["rup"]["upload"]["downloadTemplate"] = Handlebars.templ
     + alias4(((helper = (helper = helpers.delete_type || (depth0 != null ? depth0.delete_type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_type","hash":{},"data":data}) : helper)))
     + "\" data-url=\""
     + alias4(((helper = (helper = helpers.delete_url || (depth0 != null ? depth0.delete_url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_url","hash":{},"data":data}) : helper)))
-    + "\">\r\n                	<i class=\"mdi mdi-delete\" aria-hidden=\"true\"></i>\r\n                	<span>"
+    + "\">\r\n                	<i class=\"mdi mdi-trash-can-outline\" aria-hidden=\"true\"></i>\r\n                	<span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"rup_upload.deleteUploaded",{"name":"i18n","hash":{},"data":data}))
     + "</span>\r\n                </span>\r\n            </div>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -434,7 +434,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 
   return "          <span id=\"widgetClose-"
     + alias3(((helper = (helper = helpers.uuid || (depth0 != null ? depth0.uuid : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data}) : helper)))
-    + "\" class=\"widget-icon widget-icon-right mdi mdi-delete\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
+    + "\" class=\"widget-icon widget-icon-right mdi mdi-trash-can-outline\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.eliminar",{"name":"i18n","hash":{},"data":data}))
     + "\"></span>\r\n";
 },"3":function(container,depth0,helpers,partials,data) {
@@ -518,7 +518,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["configRequired"] = Handlebars.templat
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.urlConsulta : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</span><br>\r\n            <button id=\"btnConfigRequired\" type=\"button\" class=\"btn btn-primary\">\r\n                <span class=\"mdi mdi-settings\" aria-hidden=\"true\"></span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.configuracion",{"name":"i18n","hash":{},"data":data}))
-    + "</button>\r\n            <button id=\"btnDelete\" type=\"button\" class=\"btn btn-danger\">\r\n                <span class=\"mdi mdi-delete\" aria-hidden=\"true\"></span>"
+    + "</button>\r\n            <button id=\"btnDelete\" type=\"button\" class=\"btn btn-danger\">\r\n                <span class=\"mdi mdi-trash-can-outline\" aria-hidden=\"true\"></span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.eliminar",{"name":"i18n","hash":{},"data":data}))
     + "</button>\r\n            \r\n        </div>\r\n    </div>\r\n</div>";
 },"useData":true});
