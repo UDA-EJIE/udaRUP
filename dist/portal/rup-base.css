@@ -7463,23 +7463,23 @@
 }
 
 .r01gContainer table.dataTable thead .sorting {
-  background-image: url("../css/images/datatable/sort_both.png");
+  background-image: url("../css/images/table/sort_both.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_asc {
-  background-image: url("../css/images/datatable/sort_asc.png");
+  background-image: url("../css/images/table/sort_asc.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_desc {
-  background-image: url("../css/images/datatable/sort_desc.png");
+  background-image: url("../css/images/table/sort_desc.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_asc_disabled {
-  background-image: url("../css/images/datatable/sort_asc_disabled.png");
+  background-image: url("../css/images/table/sort_asc_disabled.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_desc_disabled {
-  background-image: url("../css/images/datatable/sort_desc_disabled.png");
+  background-image: url("../css/images/table/sort_desc_disabled.png");
 }
 
 .r01gContainer table.dataTable tbody tr {

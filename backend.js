@@ -17,10 +17,10 @@ var express = require('express'),
 	routesCombo = require('./demo/routes/combo'),
 	routesNora = require('./demo/routes/nora'),
 	routesTable = require('./demo/routes/table'),
+	routesJqtable = require('./demo/routes/jqtable'),
 	routesUpload = require('./demo/routes/upload'),
-	dashboardTable = require('./demo/routes/dashboard');
-	routesAudit = require('./demo/routes/audit');
-	routesDatatable = require('./demo/routes/datatable');
+	dashboardTable = require('./demo/routes/dashboard'),
+	routesAudit = require('./demo/routes/audit'),
 	routesCalendar = require('./demo/routes/calendar');
 
 // db
@@ -86,19 +86,19 @@ module.exports = (PORT) => {
 	app.get('/demo/nora/autonomia', routesNora.autonomia);
 	app.get('/demo/nora/provincia', routesNora.provincia);
 	app.post('/demo/nora', routesNora.submit);
-	// Table
-	app.post('/demo/jqGridUsuario/filter', routesTable.filter);
-	app.get('/demo/jqGridUsuario/:id', routesTable.get);
-	app.put('/demo/jqGridUsuario', routesTable.put);
-	app.post('/demo/jqGridUsuario', routesTable.post);
+	// Jqtable
+	app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
+	app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
+	app.put('/demo/jqGridUsuario', routesJqtable.put);
+	app.post('/demo/jqGridUsuario', routesJqtable.post);
 
 	// Upload
 	app.post('/upload', routesUpload.upload);
 
-	app.post('/demo/jqGridUsuario/filter', routesTable.filter);
-	app.get('/demo/jqGridUsuario/:id', routesTable.get);
-	app.put('/demo/jqGridUsuario', routesTable.put);
-	app.post('/demo/jqGridUsuario', routesTable.post);
+	app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
+	app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
+	app.put('/demo/jqGridUsuario', routesJqtable.put);
+	app.post('/demo/jqGridUsuario', routesJqtable.post);
 
 
 	// Dashboard
@@ -107,12 +107,12 @@ module.exports = (PORT) => {
 	app.post('/dashboard/post', dashboardTable.post);
 	app.put('/dashboard/put', dashboardTable.put);
 
-	//Datatable
-	app.post('/demo/datatable/remote/filter', routesDatatable.filter);
-	app.post('/demo/datatable/remote/search', routesDatatable.search);
-	app.put('/demo/datatable/remote/simple', routesDatatable.simple);
-	app.post('/demo/datatable/remote', routesDatatable.formEdit);
-	app.put('/demo/datatable/remote', routesDatatable.formEdit);
+	//Table
+	app.post('/demo/datatable/remote/filter', routesTable.filter);
+	app.post('/demo/datatable/remote/search', routesTable.search);
+	app.put('/demo/datatable/remote/simple', routesTable.simple);
+	app.post('/demo/datatable/remote', routesTable.formEdit);
+	app.put('/demo/datatable/remote', routesTable.formEdit);
 
 	//Audit
 	app.post('/audit', routesAudit.audit);

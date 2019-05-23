@@ -1,12 +1,12 @@
 define(['marionette',
-	'./tableFilterTemplate.hbs',
-	'rup.table'], function(Marionette, TableFilterTemplate){
+	'./jqtableFilterTemplate.hbs',
+	'rup.jqtable'], function(Marionette, JqtableFilterTemplate){
 
-	var TableFilterView = Marionette.LayoutView.extend({
-		template: TableFilterTemplate,
-		tableColNames: {},
-		tableColModels: {},
-		options_table_report: {},
+	var JqtableFilterView = Marionette.LayoutView.extend({
+		template: JqtableFilterTemplate,
+		jqtableColNames: {},
+		jqtableColModels: {},
+		options_jqtable_report: {},
 		options_ejie_combo: {},
 		options_role_combo: {},
 		ui:{
@@ -19,7 +19,7 @@ define(['marionette',
 
 	function fncInitilize(){
 
-		this.tableColNames = [
+		this.jqtableColNames = [
 			$.rup.i18n.app.table.id,
 			$.rup.i18n.app.table.nombre,
 			$.rup.i18n.app.table.apellido1,
@@ -30,7 +30,7 @@ define(['marionette',
 			$.rup.i18n.app.table.rol
 		];
 
-		this.tableColModels = [
+		this.jqtableColModels = [
 			{ name: 'id', index: 'id', editable:true, width: 80
 				, formoptions:{rowpos:1, colpos:1},
 				rwdClasses:'hidden-xs hidden-sm hidden-md'
@@ -100,7 +100,7 @@ define(['marionette',
 			}
 		];
 
-		this.options_table_report = {
+		this.options_jqtable_report = {
 			buttons:[
 				{id:'reports', i18nCaption:'Informes', right:true,
 					buttons:[
@@ -158,8 +158,8 @@ define(['marionette',
 
 		$view.ui.table.rup_jqtable({
 			url: 'api/jqGridUsuario',
-			colNames: this.tableColNames,
-			colModel: this.tableColModels,
+			colNames: this.jqtableColNames,
+			colModel: this.jqtableColModels,
 			primaryKey:['id'],
 
 			usePlugins:[
@@ -261,12 +261,12 @@ define(['marionette',
 					}
 				}
 			},
-			report: $view.options_table_report
+			report: $view.options_jqtable_report
 
 			// loadOnStartUp:false
 		});
 	}
 
-	return TableFilterView;
+	return JqtableFilterView;
 
 });

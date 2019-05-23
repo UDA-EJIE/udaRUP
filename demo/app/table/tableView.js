@@ -1,41 +1,19 @@
+define(['marionette',
+	'./tableTemplate.hbs',
+	'rup_table/rup.table'], function(Marionette, TableTemplate){
 
-import * as Marionette from 'marionette';
-import DatatableTemplate from './datatableTemplate.hbs';
-
-import $ from 'jquery';
-
-import RupDatatable from 'table/rup.table';//antiguo 'datatable/rup.datatable'
-
-
-// define(['marionette',
-// 	'templates',
-// 	'datatables.net-bs'], function(Marionette, App){
-
-var DatatableView = Marionette.LayoutView.extend({
-	template: DatatableTemplate,
+var TableView = Marionette.LayoutView.extend({
+	template: TableTemplate,
 	initialize: fncInitilize,
 	onDomRefresh: fncOnDomRefresh
-
 });
 
-function fncInitilize(){
-
-
-
-
-
-}
+function fncInitilize(){}
 
 function fncOnDomRefresh(){
 	// var $view = this;
 
-	// var datatable = new RupDatatable('#example', {});
-	//  console.log($('#example').rup_table);
 	$('#example').rup_table();
-
-
 }
 
-export { DatatableView as default };
-
-// });
+});

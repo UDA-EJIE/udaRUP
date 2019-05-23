@@ -1,5 +1,5 @@
 exports.filter = function(req, res) {
-	var json = require('./json/table.json');
+	var json = require('./json/jqtable.json');
 
 	//console.log(req.body.filter);
 	//  JSON.parse(result)
