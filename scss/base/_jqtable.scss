@@ -357,25 +357,25 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 }
 
 /* Formulario de detalle */
-.rup-table-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
-.rup-table-buttonpane .ui-dialog-buttonset { float: right; }
-.rup-table-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.rup-jqtable-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.rup-jqtable-buttonpane .ui-dialog-buttonset { float: right; }
+.rup-jqtable-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
 
-.rup-table-container{
+.rup-jqtable-container{
 	margin-top:0.5em;
 	margin-bottom:0.5em;
 }
-.rup-table-filter{
+.rup-jqtable-filter{
 	margin-top:0.2em;
 	margin-bottom:0.3em;
 	border:1px solid #DADADA;
 }
 
-.rup-table-filter-fieldset{
+.rup-jqtable-filter-fieldset{
 	clear:both;
 }
 
-.rup-table-formEdit-detail{
+.rup-jqtable-formEdit-detail{
 	display:none;
 }
 
@@ -392,7 +392,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search{
 }
 
 
-.rup-table-filter-toggle-label{
+.rup-jqtable-filter-toggle-label{
 	cursor:pointer;
 	text-decoration: underline;
 }
