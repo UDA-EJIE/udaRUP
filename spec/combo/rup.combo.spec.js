@@ -176,7 +176,7 @@ describe('Test Combo > ', () => {
 					$comboHijo.rup_combo('clear');
 				});
 				it('Debe actualizar la ui ', () => {
-					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Falta literal]');
+					expect($('#comboHijo-button > span.ui-selectmenu-status').text()).toBe('[Selecciona Hijo]');
 				});
 				it('El método getRupValue debe devolver el valor establecido', () => {
 					expect($comboHijo.rup_combo('getRupValue')).toEqual('0');
