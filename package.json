@@ -140,7 +140,8 @@
     "underscore": "^1.9.1",
     "url-loader": "^0.5.9",
     "webpack": "2.6.1",
-    "webpack-dev-server": "2.6.1"
+    "webpack-dev-server": "2.6.1",
+    "html-webpack-plugin": "^3.2.0"
   },
   "dependencies": {
     "block-ui": "2.70.1",

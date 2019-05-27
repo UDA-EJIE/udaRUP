@@ -53,7 +53,7 @@ module.exports = (PORT) => {
 		if (req.cookies.language===undefined){
 			res.cookie('language' , 'es',{expire : new Date() + 9999});
 		}
-		res.redirect('/demo/index-bt4.html');
+		res.redirect('/demo/index.html');
 	});
 
 	app.get('/test', function(req, res){
