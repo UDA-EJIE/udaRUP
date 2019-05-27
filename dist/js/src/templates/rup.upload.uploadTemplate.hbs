@@ -13,17 +13,17 @@
 
         <div class="col-xs-6 col-md-4 fileupload-buttonbar">
             {{#if ../notSubmitInForm}}
-                <button class="btn btn-primary start" disabled="true">
-                    <i class="fa fa-upload" aria-hidden="true"></i>
+                <button class="btn-material btn-material-primary-high-emphasis start" disabled="true">
+                    <i class="mdi mdi-upload" aria-hidden="true"></i>
                     <span>{{i18n "rup_upload.startUpload"}}</span>
                 </button>
 
             {{/if}}
 
-                <span class="btn btn-secondary cancel">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <button class="btn-material btn-material-secondary-high-emphasis cancel">
+                    <i class="mdi mdi-close-circle" aria-hidden="true"></i>
                     <span>{{i18n "rup_upload.cancelUpload"}}</span>
-                </span>
+                </button>
         </div>
 
       </div>

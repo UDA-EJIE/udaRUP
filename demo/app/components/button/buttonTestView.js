@@ -41,18 +41,18 @@ define(['marionette',
 
 		//Botón con icono JS
 		$view.ui.btnIconJs.rup_button({
-			iconCss: 'fa fa-cog'
+			iconCss: 'mdi mdi-settings'
 		});
 
 		// Botón Rwd HTML Sd
 		$view.ui.btnRwdHtmlSm.rup_button();
 		$view.ui.btnRwdHtmlMd.rup_button();
 		$view.ui.btnRwdJsSm.rup_button({
-			iconCss: 'fa fa-cog',
+			iconCss: 'mdi mdi-settings',
 			labelCss: 'hidden-sm-down'
 		});
 		$view.ui.btnRwdJsMd.rup_button({
-			iconCss: 'fa fa-cog',
+			iconCss: 'mdi mdi-settings',
 			labelCss: 'hidden-md-down'
 		});
 
@@ -87,7 +87,7 @@ define(['marionette',
 			});
 		});
 		$view.ui.btnClickRup.rup_button({
-			iconCss: 'fa fa-cog',
+			iconCss: 'mdi mdi-settings',
 			click: function(){
 				$.rup_messages('msgOK', {
 					title: 'Evento Click',

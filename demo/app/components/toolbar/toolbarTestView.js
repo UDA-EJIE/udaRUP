@@ -27,75 +27,75 @@ define(['marionette',
 		this.ui.toolbar.rup_toolbar({
 
 			buttons:[
-				{i18nCaption:'buscar', css:'fa fa-search', click: handlerBoton },
+				{i18nCaption:'buscar', css:'mdi mdi-magnify', click: handlerBoton },
 				{id: 'mbuton1', i18nCaption:'otros', buttons:[
-					{i18nCaption:'nuevo', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'editar', css:'fa fa-pencil-square-o', click: handlerMButtons},
-					{i18nCaption:'cancelar', css:'fa fa-times-circle', click: handlerMButtons},
-					{i18nCaption:'borrar', css:'fa fa-trash-o', click: handlerMButtons},
-					{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons},
-					{i18nCaption:'imprimir', css:'fa fa-print', click: handlerMButtons}
+					{i18nCaption:'nuevo', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons},
+					{i18nCaption:'cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons},
+					{i18nCaption:'borrar', css:'mdi mdi-delete', click: handlerMButtons},
+					{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons},
+					{i18nCaption:'imprimir', css:'mdi mdi-printer', click: handlerMButtons}
 				]},
-				{i18nCaption:'editar', css:'fa fa-pencil-square-o', click: handlerMButtons},
-				{i18nCaption:'borrar', css:'fa fa-trash-o', click: handlerMButtons},
+				{i18nCaption:'editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons},
+				{i18nCaption:'borrar', css:'mdi mdi-delete', click: handlerMButtons},
 				{id : 'mbuton2', i18nCaption:'ficheros', buttons:[
-					{i18nCaption:'DLL', css:'fa fa-file-o', click: handlerMButtons },
-					{i18nCaption:'DOC', css:'fa fa-file-word-o', click: handlerMButtons},
-					{i18nCaption:'EXE', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'GIF', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JPG', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JS',  css:'fa fa-file-code-o',  click: handlerMButtons},
-					{i18nCaption:'PDF', css:'fa fa-file-pdf-o', click: handlerMButtons},
-					{i18nCaption:'PPT', css:'fa fa-file-powerpoint-o', click: handlerMButtons},
-					{i18nCaption:'TXT', css:'fa fa-file-text-o', click: handlerMButtons},
-					{i18nCaption:'XLS', css:'fa fa-file-excel-o', click: handlerMButtons},
-					{i18nCaption:'ZIP', css:'fa fa-file-archive-o', click: handlerMButtons}
+					{i18nCaption:'DLL', css:'mdi mdi-file', click: handlerMButtons },
+					{i18nCaption:'DOC', css:'mdi mdi-file-word', click: handlerMButtons},
+					{i18nCaption:'EXE', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'GIF', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JPG', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JS',  css:'mdi mdi-file-xml',  click: handlerMButtons},
+					{i18nCaption:'PDF', css:'mdi mdi-file-pdf', click: handlerMButtons},
+					{i18nCaption:'PPT', css:'mdi mdi-file-powerpoint', click: handlerMButtons},
+					{i18nCaption:'TXT', css:'mdi mdi-file-document', click: handlerMButtons},
+					{i18nCaption:'XLS', css:'mdi mdi-file-excel', click: handlerMButtons},
+					{i18nCaption:'ZIP', css:'mdi mdi-zip-box', click: handlerMButtons}
 				]},
-				{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons}
+				{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons}
 			]
 		});
 
 		this.ui.toolbarRight.rup_toolbar({
 
 			buttons:[
-				{i18nCaption:'cancelar', css:'fa fa-times-circle', click: handlerMButtons, right: true},
-				{i18nCaption:'borrar', css:'fa fa-trash-o', click: handlerMButtons, right: true},
+				{i18nCaption:'cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons, right: true},
+				{i18nCaption:'borrar', css:'mdi mdi-delete', click: handlerMButtons, right: true},
 				{id: 'mbuton1', i18nCaption:'otros', right: true, buttons:[
-					{i18nCaption:'nuevo', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'editar', css:'fa fa-pencil-square-o', click: handlerMButtons},
-					{i18nCaption:'cancelar', css:'fa fa-times-circle', click: handlerMButtons},
-					{i18nCaption:'borrar', css:'fa fa-trash-o', click: handlerMButtons},
-					{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons},
-					{i18nCaption:'imprimir', css:'fa fa-print', click: handlerMButtons}
+					{i18nCaption:'nuevo', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons},
+					{i18nCaption:'cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons},
+					{i18nCaption:'borrar', css:'mdi mdi-delete', click: handlerMButtons},
+					{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons},
+					{i18nCaption:'imprimir', css:'mdi mdi-printer', click: handlerMButtons}
 				]},
-				{i18nCaption:'editar', css:'fa fa-pencil-square-o', click: handlerMButtons, right: true},
+				{i18nCaption:'editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons, right: true},
 				{id : 'mbuton2', i18nCaption:'ficheros', right: true, buttons:[
-					{i18nCaption:'DLL', css:'fa fa-file-o', click: handlerMButtons },
-					{i18nCaption:'DOC', css:'fa fa-file-word-o', click: handlerMButtons},
-					{i18nCaption:'EXE', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'GIF', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JPG', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JS',  css:'fa fa-file-code-o',  click: handlerMButtons},
-					{i18nCaption:'PDF', css:'fa fa-file-pdf-o', click: handlerMButtons},
-					{i18nCaption:'PPT', css:'fa fa-file-powerpoint-o', click: handlerMButtons},
-					{i18nCaption:'TXT', css:'fa fa-file-text-o', click: handlerMButtons},
-					{i18nCaption:'XLS', css:'fa fa-file-excel-o', click: handlerMButtons},
-					{i18nCaption:'ZIP', css:'fa fa-file-archive-o', click: handlerMButtons}
+					{i18nCaption:'DLL', css:'mdi mdi-file', click: handlerMButtons },
+					{i18nCaption:'DOC', css:'mdi mdi-file-word', click: handlerMButtons},
+					{i18nCaption:'EXE', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'GIF', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JPG', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JS',  css:'mdi mdi-file-xml',  click: handlerMButtons},
+					{i18nCaption:'PDF', css:'mdi mdi-file-pdf', click: handlerMButtons},
+					{i18nCaption:'PPT', css:'mdi mdi-file-powerpoint', click: handlerMButtons},
+					{i18nCaption:'TXT', css:'mdi mdi-file-document', click: handlerMButtons},
+					{i18nCaption:'XLS', css:'mdi mdi-file-excel', click: handlerMButtons},
+					{i18nCaption:'ZIP', css:'mdi mdi-zip-box', click: handlerMButtons}
 				]},
-				{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons, right: true},
-				{i18nCaption:'imprimir', css:'fa fa-print', click: handlerMButtons, right: true}
+				{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons, right: true},
+				{i18nCaption:'imprimir', css:'mdi mdi-printer', click: handlerMButtons, right: true}
 			]
 		});
 
 		this.ui.toolbarRwd.rup_toolbar({
 			buttons:[
-				{id: 'filter', text:'Filtrar', css:'fa fa-filter', click: handlerMButtons},
-				{id: 'print', text:'Imprimir', css:'fa fa-print', click: handlerMButtons},
+				{id: 'filter', text:'Filtrar', css:'mdi mdi-filter', click: handlerMButtons},
+				{id: 'print', text:'Imprimir', css:'mdi mdi-printer', click: handlerMButtons},
 				{id: 'others', id: 'mbuton1', text:'Otros', groupClasses:'rup-collapsed-md', buttons:[
-					{id: 'new', text:'Nuevo', css:'fa fa-file-o', click: handlerMButtons},
-					{id: 'edit', text:'Editar', css:'fa fa-pencil-square-o', click: handlerMButtons},
-					{id: 'cancel', text:'Cancelar', css:'fa fa-times-circle', click: handlerMButtons},
-					{id: 'delete', text:'Borrar', css:'fa fa-trash-o', click: handlerMButtons}
+					{id: 'new', text:'Nuevo', css:'mdi mdi-file', click: handlerMButtons},
+					{id: 'edit', text:'Editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons},
+					{id: 'cancel', text:'Cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons},
+					{id: 'delete', text:'Borrar', css:'mdi mdi-delete', click: handlerMButtons}
 				]}
 			]
 		});
@@ -103,31 +103,31 @@ define(['marionette',
 		this.ui.toolbarMixta.rup_toolbar({
 
 			buttons:[
-				{i18nCaption:'cancelar', css:'fa fa-times-circle', click: handlerMButtons, right: true},
-				{i18nCaption:'buscar', css:'fa fa-search', click: handlerBoton },
+				{i18nCaption:'cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons, right: true},
+				{i18nCaption:'buscar', css:'mdi mdi-magnify', click: handlerBoton },
 				{id: 'mbuton1', i18nCaption:'otros', buttons:[
-					{i18nCaption:'nuevo', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'editar', css:'fa fa-pencil-square-o', click: handlerMButtons},
-					{i18nCaption:'cancelar', css:'fa fa-times-circle', click: handlerMButtons},
-					{i18nCaption:'borrar', css:'fa fa-trash-o', click: handlerMButtons},
-					{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons},
-					{i18nCaption:'imprimir', css:'fa fa-print', click: handlerMButtons}
+					{i18nCaption:'nuevo', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'editar', css:'mdi mdi-square-edit-outline', click: handlerMButtons},
+					{i18nCaption:'cancelar', css:'mdi mdi-close-circle-outline', click: handlerMButtons},
+					{i18nCaption:'borrar', css:'mdi mdi-delete', click: handlerMButtons},
+					{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons},
+					{i18nCaption:'imprimir', css:'mdi mdi-printer', click: handlerMButtons}
 				]},
 				{id : 'mbuton2', i18nCaption:'ficheros', right: true, buttons:[
-					{i18nCaption:'DLL', css:'fa fa-file-o', click: handlerMButtons },
-					{i18nCaption:'DOC', css:'fa fa-file-word-o', click: handlerMButtons},
-					{i18nCaption:'EXE', css:'fa fa-file-o', click: handlerMButtons},
-					{i18nCaption:'GIF', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JPG', css:'fa fa-file-image-o', click: handlerMButtons},
-					{i18nCaption:'JS',  css:'fa fa-file-code-o',  click: handlerMButtons},
-					{i18nCaption:'PDF', css:'fa fa-file-pdf-o', click: handlerMButtons},
-					{i18nCaption:'PPT', css:'fa fa-file-powerpoint-o', click: handlerMButtons},
-					{i18nCaption:'TXT', css:'fa fa-file-text-o', click: handlerMButtons},
-					{i18nCaption:'XLS', css:'fa fa-file-excel-o', click: handlerMButtons},
-					{i18nCaption:'ZIP', css:'fa fa-file-archive-o', click: handlerMButtons}
+					{i18nCaption:'DLL', css:'mdi mdi-file', click: handlerMButtons },
+					{i18nCaption:'DOC', css:'mdi mdi-file-word', click: handlerMButtons},
+					{i18nCaption:'EXE', css:'mdi mdi-file', click: handlerMButtons},
+					{i18nCaption:'GIF', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JPG', css:'mdi mdi-file-image', click: handlerMButtons},
+					{i18nCaption:'JS',  css:'mdi mdi-file-xml',  click: handlerMButtons},
+					{i18nCaption:'PDF', css:'mdi mdi-file-pdf', click: handlerMButtons},
+					{i18nCaption:'PPT', css:'mdi mdi-file-powerpoint', click: handlerMButtons},
+					{i18nCaption:'TXT', css:'mdi mdi-file-document', click: handlerMButtons},
+					{i18nCaption:'XLS', css:'mdi mdi-file-excel', click: handlerMButtons},
+					{i18nCaption:'ZIP', css:'mdi mdi-zip-box', click: handlerMButtons}
 				]},
-				{i18nCaption:'filtrar', css:'fa fa-filter', click: handlerMButtons},
-				{i18nCaption:'imprimir', css:'fa fa-print', click: handlerMButtons, right: true}
+				{i18nCaption:'filtrar', css:'mdi mdi-filter', click: handlerMButtons},
+				{i18nCaption:'imprimir', css:'mdi mdi-printer', click: handlerMButtons, right: true}
 			]
 		});
 

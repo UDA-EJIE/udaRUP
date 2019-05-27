@@ -11,7 +11,7 @@ describe('Test Upload > ', () => {
 
     beforeEach(() => {
         let html = '<span class="btn btn-success fileinput-button">\
-                            <i class="glyphicon glyphicon-plus"></i>\
+                            <i class="mdi mdi-plus"></i>\
                             <span>Seleccionar...</span>\
                             <input id="exampleUpload" type="file" name="files[]" data-url="../upload" multiple="multiple" />\
                         </span>\

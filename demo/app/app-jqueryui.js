@@ -27,7 +27,7 @@ define(["marionette",
         "components/form/formView",
         "components/validate/validateView",
         "components/upload/uploadView",
-        "table/tableFilterView",
+        "jqtable/jqtableFilterView",
         "components/progressbar/progressbarView",
         "components/slider/sliderView",
         "components/spinner/spinnerView",
@@ -39,7 +39,7 @@ define(["marionette",
     ContextMenuView, ToolbarView, ButtonView, AccordionView, TabsStaticView,
     TabsAjaxView, TabsMixedView, TabsScrollableView, AutocompleteView,
     ComboSimpleView, ComboEnlazadoSimpleView, ComboEnlazadoMultipleView, ComboMultiseleccionView,
-    DateView, TimeView, FormView, ValidateView, UploadView, TableFilterView,
+    DateView, TimeView, FormView, ValidateView, UploadView, JqtableFilterView,
     ProgressbarView, SliderView, SpinnerView, ChartView) {
 
     var RupDemoApp = new Marionette.Application();
@@ -76,7 +76,7 @@ define(["marionette",
             'form': 'form',
             'validate': 'validate',
             'upload': 'upload',
-            'tableFilter': 'tableFilter',
+            'jqtableFilter': 'jqtableFilter',
             'progressbar': 'progressbar',
             'slider': 'slider',
             'spinner': 'spinner',
@@ -169,8 +169,8 @@ define(["marionette",
         upload: function () {
             RupDemoApp.mainView.Container.show(new UploadView());
         },
-        tableFilter: function () {
-            RupDemoApp.mainView.Container.show(new TableFilterView());
+        jqtableFilter: function () {
+            RupDemoApp.mainView.Container.show(new JqtableFilterView());
         },
         progressbar: function () {
             RupDemoApp.mainView.Container.show(new ProgressbarView());

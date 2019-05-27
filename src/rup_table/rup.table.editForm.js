@@ -802,7 +802,7 @@ function _callNavigationBar(dt){
 		}
 		//Se actualiza la ultima posicion movida.
 		ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
-		//Se añade un parametro respecto el rup.table para permitir la convivencia.
+		// Se añade el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
 		return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1,''];
 
 	};
@@ -880,7 +880,7 @@ function _callNavigationSelectBar(dt){
 		}
 		//Se actualiza la ultima posicion movida.
 		//ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
-		//Se añade un parametro respecto el rup.table para permitir la convivencia.
+		// Se añade el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
 		return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1,''];
 
 	};
@@ -1271,9 +1271,9 @@ function _blockPKeditForm(ctx, actionType){
 						}
 						
 						if(valorCheck === 1) {
-							input.after("<i id='" + id + "_bloqueado' class='fa fa-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+							input.after("<i id='" + id + "_bloqueado' class='mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
 						} else {
-							input.after("<i id='" + id + "_bloqueado' class='fa fa-times sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+							input.after("<i id='" + id + "_bloqueado' class='mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
 						}
 					}
 				}

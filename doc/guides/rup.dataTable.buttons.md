@@ -105,7 +105,7 @@ var optionButtonEdit = {
 ````
 Propiedades del propio botón:
 		id: // Campo obligatorio si se quiere usar desde el contextMenu
-		icon: //campo para asignar algún icono. Ejemplo, "fa-file-excel-o"
+		icon: //campo para asignar algún icono. Ejemplo, "mdi-file-excel"
 		displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro, es el regex para mostrar el botón 								tirando contra la popiedad de multiseleción
 		insideContextMenu: // Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el 							botón en el contextMenu
 		custom: // todos los botones deben ir con está propiedad a true, a menos que se quiere usar el displayRegex con la 			propiedade multiseleción.

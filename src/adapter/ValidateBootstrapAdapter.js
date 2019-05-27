@@ -76,7 +76,7 @@
 		//   }
 		// }else{
 		// var $inputGroup = $("<div>").addClass("form-input-group");
-		// var $iconError = $("<i>").addClass("fa fa-times");
+		// var $iconError = $("<i>").addClass("mdi mdi-close");
 		// element.wrap($inputGroup);
 
 		var name = element.prop('name'),
@@ -84,7 +84,7 @@
 			$labelContainer = $(labelProp),
 			iconProp = this.icons ? this.icons[name] : undefined,
 			$iconContainer = $(iconProp),
-			$icon = $('<i>').addClass('rup-validate-error-icon error fa fa-times').attr('aria-hidden', 'true');
+			$icon = $('<i>').addClass('rup-validate-error-icon error mdi mdi-close').attr('aria-hidden', 'true');
 
 
 		// Posicionamiento del label

@@ -163,7 +163,7 @@ $\qquad$ El uso de separadores tiene que estar obligatoriamente contenido por un
 ```html
 <li class="nav-item">
     <a class="nav-link" href="/x21aPilotoPatronesWar/../x21aMantenimientosWar/">
-        <i class="fa fa-window-restore" aria-hidden="true"></i>
+        <i class="mdi mdi-window-restore" aria-hidden="true"></i>
         <spring:message code="menu.mantenimientos" />
     </a>
 </li>

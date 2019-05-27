@@ -4,7 +4,6 @@ import * as Marionette from 'marionette';
 import MainView from 'shared/main/mainView';
 import IndexView from 'pages/index/indexView';
 import StyleGuideView from 'styleGuide/styleGuideView';
-import Bt3StyleGuideView from 'styleGuide/bt3/styleGuideView';
 import Bt4StyleGuideView from 'styleGuide/bt4/styleGuideView';
 import AutocompleteView from 'components/autocomplete/autocompleteView';
 import FeedbackView from 'components/feedback/feedbackView';
@@ -30,12 +29,12 @@ import TabsStaticView from 'components/tabs/tabsStaticView';
 import WizardSimpleView from 'components/wizard/simple/wizardSimpleView';
 import WizardDynamicView from 'components/wizard/dynamic/wizardDynamicView';
 import ComboSimpleView from 'components/combo/comboSimple/comboSimpleView';
-import TableFilterView from 'table/tableFilterView';
+import TableView from 'table/tableView';
+import JqtableFilterView from 'jqtable/jqtableFilterView';
 import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHorizontalView';
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
 // import DashboardView from 'dashboard/dashboardView';
-import DatatableView from 'datatable/datatableView';
 import CalendarView from 'components/calendar/calendarView';
 
 var RupResponsiveDemoApp = new Marionette.Application();
@@ -44,7 +43,6 @@ var MyRouter = Marionette.AppRouter.extend({
 	appRoutes: {
 		'' : 'index',
 		'styleGuide' : 'styleGuide',
-		'bt3StyleGuide' : 'bt3StyleGuide',
 		'bt4StyleGuide' : 'bt4StyleGuide',
 		'autocomplete' : 'autocomplete',
 		'feedback' : 'feedback',
@@ -70,13 +68,13 @@ var MyRouter = Marionette.AppRouter.extend({
 		'wizardSimple' : 'wizardSimple',
 		'wizardDynamic' : 'wizardDynamic',
 		'comboSimple' : 'comboSimple',
-		'tableFilter' : 'tableFilter',
+		'tableFilter': 'tableFilter',
+		'jqtableFilter' : 'jqtableFilter',
 		'stackedHorizontal': 'stackedHorizontal',
 		'mobileDesktop': 'mobileDesktop',
 		'mobileTabletDesktop': 'mobileTabletDesktop',
 		// 'mobileTabletDesktop': 'mobileTabletDesktop',
 		// 'dashboard': 'dashboard',
-		'datatable': 'datatable',
 		'calendar': 'calendar'
 	}
 });
@@ -87,9 +85,6 @@ var RouteController = Marionette.Controller.extend({
 	},
 	styleGuide: function() {
 		RupResponsiveDemoApp.mainView.Container.show(new StyleGuideView());
-	},
-	bt3StyleGuide: function() {
-		RupResponsiveDemoApp.mainView.Container.show(new Bt3StyleGuideView());
 	},
 	bt4StyleGuide: function() {
 		RupResponsiveDemoApp.mainView.Container.show(new Bt4StyleGuideView());
@@ -172,6 +167,9 @@ var RouteController = Marionette.Controller.extend({
 	tableFilter: function(){
 		RupResponsiveDemoApp.mainView.Container.show(new TableFilterView());
 	},
+	jqtableFilter: function(){
+		RupResponsiveDemoApp.mainView.Container.show(new JqtableFilterView());
+	},
 	stackedHorizontal: function(){
 		RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
 	},
@@ -186,9 +184,6 @@ var RouteController = Marionette.Controller.extend({
 	// 	jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass('dashboard-content');
 	// 	RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
 	// },
-	datatable: function(){
-		RupResponsiveDemoApp.mainView.Container.show(new DatatableView());
-	},
 	calendar: function () {
 		RupResponsiveDemoApp.mainView.Container.show(new CalendarView());
 	}

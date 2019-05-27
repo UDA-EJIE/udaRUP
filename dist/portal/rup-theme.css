@@ -1859,9 +1859,15 @@
 }
 
 .r01gContainer .ui-button.rup-button.rup-button-fab.rup-button-fab-sm {
-  min-width: 3rem;
-  width: 3rem;
-  height: 3rem;
+  min-width: 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.r01gContainer .ui-button.rup-button.rup-button-fab.rup-button-fab-lg {
+  min-width: 7rem;
+  width: 7rem;
+  height: 7rem;
 }
 
 .r01gContainer .ui-button.rup-button.rup-button-fab:focus {
@@ -4251,11 +4257,6 @@
   overflow-y: hidden;
 }
 
-.r01gContainer .glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite;
-}
-
 /* Control del scroll */
 
 .r01gContainer .grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -4507,30 +4508,6 @@
   z-index: 10000;
 }
 
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none;
-}
-
-.r01gContainer .grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block;
-}
-
 .r01gContainer .rup-table-filter-fieldset {
   padding-left: 5px;
   padding-right: 5px;
@@ -4737,23 +4714,23 @@
 }
 
 .r01gContainer table.dataTable thead .sorting {
-  background-image: url("../css/images/datatable/sort_both.png");
+  background-image: url("../css/images/table/sort_both.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_asc {
-  background-image: url("../css/images/datatable/sort_asc.png");
+  background-image: url("../css/images/table/sort_asc.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_desc {
-  background-image: url("../css/images/datatable/sort_desc.png");
+  background-image: url("../css/images/table/sort_desc.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_asc_disabled {
-  background-image: url("../css/images/datatable/sort_asc_disabled.png");
+  background-image: url("../css/images/table/sort_asc_disabled.png");
 }
 
 .r01gContainer table.dataTable thead .sorting_desc_disabled {
-  background-image: url("../css/images/datatable/sort_desc_disabled.png");
+  background-image: url("../css/images/table/sort_desc_disabled.png");
 }
 
 .r01gContainer table.dataTable tbody tr {
@@ -22084,6 +22061,23 @@
 
 .r01gContainer .btn-material.rup-dropdown-button-material i.mdi {
   margin-right: initial;
+}
+
+/* MBUTTON */
+
+.r01gContainer .rup-mbutton-container button.btn-material,
+.r01gContainer .rup-mbutton-container .btn-material.ui-button.rup-button,
+.r01gContainer .rup-mbutton-container .rup-dropdown-btn-group .btn-material.rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup-mbutton-container .btn-material.rup-dropdown-button,
+.r01gContainer .rup-mbutton-container a.btn-material.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_next,
+.r01gContainer .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_next,
+.r01gContainer .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_prev,
+.r01gContainer .rup-mbutton-container .rup-wizard .btn-material.rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup-mbutton-container .btn-material.rup-wizard_submitButton {
+  margin: 5px 0;
+  height: 45px;
 }
 
 .r01gContainer div.dialog-content-material {

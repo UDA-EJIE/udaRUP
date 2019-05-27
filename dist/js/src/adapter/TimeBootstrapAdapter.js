@@ -27,7 +27,7 @@
 
 			$div = $('<div>').addClass('rup-time-input-group');
 			$button = $('<button>').attr('type','button').addClass('ui-timepicker-trigger');
-			$icon = $('<i>').attr('aria-hidden', 'true').addClass('fa fa-clock-o');
+			$icon = $('<i>').attr('aria-hidden', 'true').addClass('mdi mdi-clock');
 
 			$button.append($icon);
 

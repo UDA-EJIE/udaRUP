@@ -466,7 +466,7 @@
         "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
         "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
         "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
+        "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='mdi mdi-magnify mr-2'></i><span class='ui-button-text'>{1}</span></button>",
         "searchRow": "<tr class='search_row'></tr>",
         "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
@@ -938,7 +938,7 @@
        "navClearButton": "<button id='{0}' class='btn-sm btn-outline-dark float-lg-right' type='button' alt='{1}'>{1}</button>",
        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
        "navButton": "<button id='{0}' class='btn-sm btn-outline-dark mr-3 ui-state-disabled' type='button' alt='{1}'>{1}</button>",
-       "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='fa fa-search mr-2'></i><span class='ui-button-text'>{1}</span></button>",
+       "navSearchButton": "<button id='{0}' class='btn-sm btn-outline-primary mr-3' type='button' ><i class='mdi mdi-magnify mr-2'></i><span class='ui-button-text'>{1}</span></button>",
        "searchRow": "<tr class='search_row'></tr>",
        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
      }

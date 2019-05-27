@@ -46,9 +46,9 @@
 
 		return $(Rup.Templates.rup.button.mbutton({
 			id: $self.prop('id'),
-			classes: 'rup-toolbar_menuButton ui-button ui-corner-all ui-widget rup-toolbar_menuButtonSlided',
+			classes: 'btn-material btn-material-primary-high-emphasis rup-toolbar_menuButton rup-toolbar_menuButtonSlided',
 			label: label,
-			iconClasses: 'ui-button-icon ui-icon rup-toolbar_menuButtonIcon'
+			iconClasses: 'rup-toolbar_menuButtonIcon'
 		}));
 	};
 
@@ -57,9 +57,9 @@
 
 		return $(Rup.Templates.rup.button.mbutton-container({
 			id: $self.prop('id')+'-container',
-			classes: 'ui-widget ui-widget-content rup-toolbar_menuButtonContainer',
+			classes: 'rup-toolbar_menuButtonContainer',
 			label: label,
-			iconClasses: 'ui-button-icon ui-icon rup-toolbar_menuButtonIcon'
+			iconClasses: 'rup-toolbar_menuButtonIcon'
 		}));
 	};
 

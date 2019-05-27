@@ -258,7 +258,7 @@ module.exports = function (config) {
                     'jquery.ui.widget': 'jquery-ui/widget.js',
                     'tmpl': 'blueimp-tmpl/js/tmpl.js',
 
-                    'bt4': path.resolve(__dirname, 'dist/js/externals/bootstrap/bt4.min.js'),
+                    'bt4': path.resolve(__dirname, 'dist/js/externals/bootstrap/bootstrap.bundle.min.js'),
 
                     'templates': path.resolve(__dirname, 'templates.js'),
                     'popper': 'popper.js/dist/umd/popper.js',

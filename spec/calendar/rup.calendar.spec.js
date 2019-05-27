@@ -6,7 +6,7 @@ import { Utils } from 'handlebars';
 
 var EVENTS = [{
     "id": "48605",
-    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
     "start": "1541890800000",
     "class": " vertido muestreo completada",
     "end": "1541890800001",
@@ -776,7 +776,7 @@ describe('Test rup_calendar (default)', () => {
                     .toEqual([
                         {
                             "id": "48605",
-                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
                             "start": "1541890800000",
                             "class": " vertido muestreo completada",
                             "end": "1541890800001",
@@ -811,7 +811,7 @@ describe('Test rup_calendar (default)', () => {
             beforeEach((done) => {
                 EVENTS.push({
                     "id": "48506",
-                    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+                    "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
                     "start": "1541890800000",
                     "class": " vertido muestreo completada",
                     "end": "1541890800000",
@@ -1398,7 +1398,7 @@ describe('Test rup_calendar (alternative)', () => {
                     .toEqual([
                         {
                             "id": "48605",
-                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='fa fa-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
                             "start": '' + new Date('2019-06-02').getTime(),
                             "class": " vertido muestreo completada",
                             "end": '' + new Date('2019-06-03').getTime(),
@@ -1619,11 +1619,11 @@ function createCalendar(opts,callback) {
                 <div class="pull-right form-inline">
                     <div class="btn-group mb-3">
                         <span class="btn btn-primary" data-calendar-nav="prev">
-                            <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;Prev.
+                            <i class="mdi mdi-chevron-left-circle" aria-hidden="true"></i>&nbsp;Prev.
                         </span>
                         <span class="btn light" data-calendar-nav="today">Hoy</span>
                         <span class="btn btn-primary" data-calendar-nav="next">
-                            Sig.&nbsp;<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                            Sig.&nbsp;<i class="mdi mdi-chevron-right-circle" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="pl-3 d-xs-none"></div>
@@ -1691,7 +1691,7 @@ function createCalendar(opts,callback) {
                 <div class="row row-noPadding">
                     <div class="col-md-1">
                         <div class="legend bgCheck">
-                            <i class="fa fa-check pr-1" style="color: black" aria-hidden="true"></i>
+                            <i class="mdi mdi-check pr-1" style="color: black" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="col-md-11">
@@ -1701,7 +1701,7 @@ function createCalendar(opts,callback) {
                 <div class="row row-noPadding">
                     <div class="col-md-1">
                         <div class="legend bgExclamation">
-                            <i class="fa fa-exclamation pr-1" style="color: black; padding: 6px 7px;" aria-hidden="true"></i>
+                            <i class="mdi mdi-exclamation pr-1" style="color: black; padding: 6px 7px;" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="col-md-11">

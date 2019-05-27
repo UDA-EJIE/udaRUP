@@ -3558,9 +3558,13 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   width: 5rem;
   height: 5rem; }
   .ui-button.rup-button.rup-button-fab.rup-button-fab-sm {
-    min-width: 3rem;
-    width: 3rem;
-    height: 3rem; }
+    min-width: 4rem;
+    width: 4rem;
+    height: 4rem; }
+  .ui-button.rup-button.rup-button-fab.rup-button-fab-lg {
+    min-width: 7rem;
+    width: 7rem;
+    height: 7rem; }
   .ui-button.rup-button.rup-button-fab:focus {
     outline: none; }
 
@@ -5124,10 +5128,6 @@ a.rup-toolbar_menuButton.ui-button span {
 .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
   overflow-y: hidden; }
 
-.glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite; }
-
 /* Control del scroll */
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
   height: inherit;
@@ -5329,24 +5329,6 @@ div.error, label.error, span.error {
   height: 95%;
   z-index: 10000; }
 
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block; }
-
 .rup-table-filter-fieldset {
   padding-left: 5px;
   padding-right: 5px; }
@@ -5481,19 +5463,19 @@ table.dataTable thead .sorting_desc_disabled {
   background-position: center right; }
 
 table.dataTable thead .sorting {
-  background-image: url("../css/images/datatable/sort_both.png"); }
+  background-image: url("../css/images/table/sort_both.png"); }
 
 table.dataTable thead .sorting_asc {
-  background-image: url("../css/images/datatable/sort_asc.png"); }
+  background-image: url("../css/images/table/sort_asc.png"); }
 
 table.dataTable thead .sorting_desc {
-  background-image: url("../css/images/datatable/sort_desc.png"); }
+  background-image: url("../css/images/table/sort_desc.png"); }
 
 table.dataTable thead .sorting_asc_disabled {
-  background-image: url("../css/images/datatable/sort_asc_disabled.png"); }
+  background-image: url("../css/images/table/sort_asc_disabled.png"); }
 
 table.dataTable thead .sorting_desc_disabled {
-  background-image: url("../css/images/datatable/sort_desc_disabled.png"); }
+  background-image: url("../css/images/table/sort_desc_disabled.png"); }
 
 table.dataTable tbody tr {
   background-color: #ffffff; }
@@ -18451,6 +18433,11 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
   .btn-material.rup-dropdown-button-material i.mdi {
     margin-right: initial; }
 
+/* MBUTTON */
+.rup-mbutton-container button.btn-material, .rup-mbutton-container .btn-material.ui-button.rup-button, .rup-mbutton-container .rup-dropdown-btn-group .btn-material.rup-dropdown-button, .rup-dropdown-btn-group .rup-mbutton-container .btn-material.rup-dropdown-button, .rup-mbutton-container a.btn-material.rup-toolbar_menuButton.ui-button, .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_next, .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_next, .rup-mbutton-container .rup-wizard a.btn-material.rup-wizard_prev, .rup-wizard .rup-mbutton-container a.btn-material.rup-wizard_prev, .rup-mbutton-container .rup-wizard .btn-material.rup-wizard_submitButton, .rup-wizard .rup-mbutton-container .btn-material.rup-wizard_submitButton {
+  margin: 5px 0;
+  height: 45px; }
+
 div.dialog-content-material {
   position: relative;
   border: 0;
@@ -20138,10 +20125,6 @@ li[id$='_contextMenuToolbar'] {
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content.no-scroll-y {
   overflow-y: hidden; }
-
-.glyphicon-refresh-animate {
-  -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite; }
 
 /* Control del scroll */
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -22503,24 +22486,6 @@ form.rup_validate label.error {
   width: 98%;
   height: 95%;
   z-index: 10000; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-cog {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-full {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-refresh {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-remove {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item .widget-header span.glyphicon-resize-small {
-  display: none; }
-
-.grid-stack.rup_dashboard > .grid-stack-item.widget-resize-full .widget-header span.glyphicon-resize-small {
-  display: block; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.

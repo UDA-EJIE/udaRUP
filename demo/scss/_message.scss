@@ -1,12 +1,10 @@
 .rup-message_icon-ok, .rup-message_icon-error, .rup-message_icon-confirm, .rup-message_icon-alert{
-  font-family: $glyphicon-font-family;
   content: "";
   background-image:none;
   height: auto;
   padding-top: 0.4em;
   margin-left: 0.4em;
   margin-right: 0;
-  font-size: $glyphicon-size-lg;
 }
 
 .rup-message_icon-ok::before{
