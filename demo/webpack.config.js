@@ -176,7 +176,7 @@ module.exports = {
 				'tether': 'tether/dist/js/tether.js',
 				'popper': 'popper.js/dist/umd/popper.js',
 				'calendar': 'bootstrap-calendar',
-				'material-icons': 'material-design-icons/iconfont/'
+				'material-icons': '@mdi/font/fonts/'
 				// 'templates':  path.resolve(__dirname, 'templates.js')
 			}
 
