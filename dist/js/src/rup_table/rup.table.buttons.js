@@ -1010,7 +1010,7 @@ $.extend( Buttons.prototype, {
 					config.icon = "mdi-content-copy";
 					break;
 				case 'delete':
-					config.icon = "mdi-delete";
+					config.icon = "mdi-trash-can-outline";
 					break;
 				case 'reports':
 					config.icon = "mdi-file-export";

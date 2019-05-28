@@ -33,7 +33,7 @@
 						icon: 'mdi-content-copy'
 					},
 					'delete': {
-						icon: 'mdi-delete'
+						icon: 'mdi-trash-can-outline'
 					},
 					'reports': {
 						icon: 'mdi-file-export'
@@ -113,7 +113,7 @@
 			// Tooltip al input de selección de página
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.input')).rup_tooltip();
 
-			var pagerLinkTemplate = Rup.Templates.rup.datatable.pager.link.material;
+			var pagerLinkTemplate = Rup.Templates.rup.table.pager.link.material;
 
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
@@ -151,7 +151,7 @@
 		var $self = $(this),
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id');
-		var $template = $(Rup.Templates.rup.datatable.detail.navigation.material({
+		var $template = $(Rup.Templates.rup.table.detail.navigation.material({
 			datatableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'),
@@ -185,7 +185,7 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
-			//Se comprueba el parametro 7 mientras este en convivencia con el rup.datatable el rup.datatable.
+			// Se comprueba el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
 			if (retNavParams[7] === undefined && !$link.hasClass('ui-state-disabled')) {
 				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 					$.proxy(settings.doNavigation, $self)(retNavParams);

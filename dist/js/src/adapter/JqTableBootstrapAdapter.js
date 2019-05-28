@@ -24,22 +24,22 @@
 			operations: {
 				defaultOperations: {
 					'add': {
-						icon: 'mdi-plus'
+						icon: 'mdi mdi-plus'
 					},
 					'save': {
-						icon: 'mdi-content-save'
+						icon: 'mdi mdi-content-save'
 					},
 					'edit': {
-						icon: 'mdi-playlist-edit'
+						icon: 'mdi mdi-playlist-edit'
 					},
 					'clone': {
-						icon: 'mdi-content-copy'
+						icon: 'mdi mdi-content-copy'
 					},
 					'delete': {
-						icon: 'mdi-delete'
+						icon: 'mdi mdi-trash-can-outline'
 					},
 					'cancel': {
-						icon: 'mdi-cancel'
+						icon: 'mdi mdi-cancel'
 					}
 				}
 			}
@@ -101,7 +101,7 @@
 			// Tooltip al input de selección de página
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.input')).rup_tooltip();
 
-			var pagerLinkTemplate = Rup.Templates.rup.table.pager.link.bootstrap;
+			var pagerLinkTemplate = Rup.Templates.rup.jqtable.pager.link.bootstrap;
 
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
@@ -139,7 +139,7 @@
 		var $self = $(this),
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id');
-		var $template = $(Rup.Templates.rup.table.detail.navigation.bootstrap({
+		var $template = $(Rup.Templates.rup.jqtable.detail.navigation.bootstrap({
 			tableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.first'),
@@ -173,7 +173,7 @@
 
 		function doLinkNavigation(linkId, $link) {
 			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId)
-			//mientras este en convivencia se mira el parametro para rup.table(entrar) y rup.datatable
+			// Se comprueba el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
 			if(retNavParams !== undefined && retNavParams[7] === undefined){
 				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
 					$.proxy(settings.doNavigation, $self)(retNavParams);
