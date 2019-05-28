@@ -1392,13 +1392,13 @@ tr.ui-search-toolbar select, tr.ui-search-toolbar .ui-multiselect, tr.ui-search-
 .ui-jqgrid .ui-pager-control {
   position: relative; }
 
-.ui-jqgrid .ui-pg-table {
+.ui-jqgrid .ui-pg-jqtable {
   position: relative;
   padding-bottom: 2px;
   width: auto;
   margin: 0em; }
 
-.ui-jqgrid .ui-pg-table td {
+.ui-jqgrid .ui-pg-jqtable td {
   font-weight: normal;
   vertical-align: middle;
   padding: 1px; }
@@ -4890,7 +4890,7 @@ nav > div > ul > li > div.dropdown-menu.show {
 input.rup_spinner {
   font-size: 1rem; }
 
-.rup-table-filter-fieldset {
+.rup-jqtable-filter-fieldset {
   padding-left: 5px;
   padding-right: 5px; }
 
@@ -4909,10 +4909,10 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
 .fix-align > input[type='checkbox'] {
   width: auto; }
 
-.rup-table-filter .collapse_icon {
+.rup-jqtable-filter .collapse_icon {
   margin-top: 0; }
 
-.rup-table-filter .collapse_icon_right {
+.rup-jqtable-filter .collapse_icon_right {
   margin-top: 0; }
 
 .rup-filter-dropdown {
@@ -4949,7 +4949,7 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
     font-family: "Roboto", sans-serif; }
     .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
       height: 3rem; }
-      .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
+      .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-jqtable td {
         vertical-align: baseline; }
     .ui-jqgrid .ui-jqgrid-pager .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-pager .ui-pg-input {
       height: inherit;
@@ -4967,18 +4967,18 @@ div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-
     .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
       display: none; } }
 
-.rup-dialog .rup-table-detail-info {
+.rup-dialog .rup-jqtable-detail-info {
   float: left; }
 
-.rup-dialog .rup-table-detail-currentElement {
+.rup-dialog .rup-jqtable-detail-currentElement {
   margin-left: 3px;
   margin-top: 2px;
   position: relative; }
 
-.rup-dialog .rup-table-detail-navigation {
+.rup-dialog .rup-jqtable-detail-navigation {
   float: right; }
 
-.rup-dialog .rup-table-detail-separator {
+.rup-dialog .rup-jqtable-detail-separator {
   border-bottom: 1px solid #D1D1D1;
   clear: both; }
 
@@ -5328,104 +5328,6 @@ div.error, label.error, span.error {
   width: 98%;
   height: 95%;
   z-index: 10000; }
-
-.rup-table-filter-fieldset {
-  padding-left: 5px;
-  padding-right: 5px; }
-
-div.right_buttons > button, div.right_buttons > .ui-button.rup-button, .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button, div.right_buttons > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.right_buttons > a.rup-wizard_next, .rup-wizard div.right_buttons > a.rup-wizard_prev, .rup-wizard div.right_buttons > .rup-wizard_submitButton {
-  float: right; }
-
-div.right_buttons .rup-dropdown-btn-group {
-  float: right; }
-
-div.right_buttons > button:not(:last-child), div.right_buttons > .ui-button.rup-button:not(:last-child), .rup-dropdown-btn-group div.right_buttons > .rup-dropdown-button:not(:last-child), div.right_buttons > a.rup-toolbar_menuButton.ui-button:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_next:not(:last-child), .rup-wizard div.right_buttons > a.rup-wizard_prev:not(:last-child), .rup-wizard div.right_buttons > .rup-wizard_submitButton:not(:last-child) {
-  margin-left: 5px; }
-
-.fix-align > div, .fix-align > span {
-  display: block; }
-
-.fix-align > input[type='checkbox'] {
-  width: auto; }
-
-.rup-table-filter .collapse_icon {
-  margin-top: 0; }
-
-.rup-table-filter .collapse_icon_right {
-  margin-top: 0; }
-
-.rup-filter-dropdown {
-  background-color: #17a2b8 !important;
-  color: #fff !important;
-  border-color: #17a2b8 !important;
-  border-radius: 4px !important; }
-
-.rup-filter-dropdown + button, .rup-filter-dropdown + .ui-button.rup-button, .rup-dropdown-btn-group .rup-filter-dropdown + .rup-dropdown-button, .rup-filter-dropdown + a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-filter-dropdown + a.rup-wizard_next, .rup-wizard .rup-filter-dropdown + a.rup-wizard_prev, .rup-wizard .rup-filter-dropdown + .rup-wizard_submitButton {
-  margin-left: -2px;
-  background-color: #17a2b8;
-  color: #fff;
-  border-color: #17a2b8;
-  border-radius: 0 4px 4px 0; }
-
-.form-radio-custom {
-  width: 100%;
-  padding: 0 .75rem; }
-
-.ui-jqgrid {
-  border-radius: 0; }
-  .ui-jqgrid .ui-jqgrid-hbox {
-    padding-right: 0; }
-    .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable {
-      border-collapse: inherit; }
-      .ui-jqgrid .ui-jqgrid-hbox .ui-jqgrid-htable th.ui-th-column:last-child {
-        border-right: none; }
-  .ui-jqgrid .ui-jqgrid-view {
-    font-size: inherit;
-    font-family: "Roboto", sans-serif; }
-    .ui-jqgrid .ui-jqgrid-view .ui-jqgrid-bdiv .ui-jqgrid-btable {
-      border-collapse: inherit; }
-  .ui-jqgrid .ui-jqgrid-pager {
-    font-family: "Roboto", sans-serif; }
-    .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
-      height: 3rem; }
-      .ui-jqgrid .ui-jqgrid-pager .ui-pager-control .ui-pg-table td {
-        vertical-align: baseline; }
-    .ui-jqgrid .ui-jqgrid-pager .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-pager .ui-pg-input {
-      height: inherit;
-      font-size: inherit;
-      padding: 0.17rem 0.4rem; }
-    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
-      vertical-align: middle;
-      font-size: 2rem; }
-    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
-      font-size: 1rem; }
-  @media (min-width: 993px) {
-    .ui-jqgrid .ui-jqgrid-pager .iconPaginacion {
-      display: none; } }
-  @media (max-width: 992px) {
-    .ui-jqgrid .ui-jqgrid-pager .linkPaginacion {
-      display: none; } }
-
-.rup-dialog .rup-table-detail-info {
-  float: left; }
-
-.rup-dialog .rup-table-detail-currentElement {
-  margin-left: 3px;
-  margin-top: 2px;
-  position: relative; }
-
-.rup-dialog .rup-table-detail-navigation {
-  float: right; }
-
-.rup-dialog .rup-table-detail-separator {
-  border-bottom: 1px solid #D1D1D1;
-  clear: both; }
-
-table.ui-jqgrid-htable > thead > tr.search_row {
-  height: 37px; }
-
-table.ui-jqgrid-htable > thead > tr.search_row > th > div {
-  height: initial !important; }
 
 table.dataTable {
   width: 100%;
@@ -11065,10 +10967,10 @@ ul.dtr-details .dtr-data {
 .mdi-file-send:before {
   content: "\F22A"; }
 
-.mdi-file-table:before {
+.mdi-file-jqtable:before {
   content: "\FC5A"; }
 
-.mdi-file-table-outline:before {
+.mdi-file-jqtable-outline:before {
   content: "\FC5B"; }
 
 .mdi-file-tree:before {
@@ -14329,10 +14231,10 @@ ul.dtr-details .dtr-data {
 .mdi-percent:before {
   content: "\F3F0"; }
 
-.mdi-periodic-table:before {
+.mdi-periodic-jqtable:before {
   content: "\F8B5"; }
 
-.mdi-periodic-table-co2:before {
+.mdi-periodic-jqtable-co2:before {
   content: "\F7E3"; }
 
 .mdi-periscope:before {
@@ -16153,67 +16055,67 @@ ul.dtr-details .dtr-data {
 .mdi-tab-unselected:before {
   content: "\F4EA"; }
 
-.mdi-table:before {
+.mdi-jqtable:before {
   content: "\F4EB"; }
 
-.mdi-table-border:before {
+.mdi-jqtable-border:before {
   content: "\FA17"; }
 
-.mdi-table-column:before {
+.mdi-jqtable-column:before {
   content: "\F834"; }
 
-.mdi-table-column-plus-after:before {
+.mdi-jqtable-column-plus-after:before {
   content: "\F4EC"; }
 
-.mdi-table-column-plus-before:before {
+.mdi-jqtable-column-plus-before:before {
   content: "\F4ED"; }
 
-.mdi-table-column-remove:before {
+.mdi-jqtable-column-remove:before {
   content: "\F4EE"; }
 
-.mdi-table-column-width:before {
+.mdi-jqtable-column-width:before {
   content: "\F4EF"; }
 
-.mdi-table-edit:before {
+.mdi-jqtable-edit:before {
   content: "\F4F0"; }
 
-.mdi-table-large:before {
+.mdi-jqtable-large:before {
   content: "\F4F1"; }
 
-.mdi-table-merge-cells:before {
+.mdi-jqtable-merge-cells:before {
   content: "\F9A5"; }
 
-.mdi-table-of-contents:before {
+.mdi-jqtable-of-contents:before {
   content: "\F835"; }
 
-.mdi-table-plus:before {
+.mdi-jqtable-plus:before {
   content: "\FA74"; }
 
-.mdi-table-remove:before {
+.mdi-jqtable-remove:before {
   content: "\FA75"; }
 
-.mdi-table-row:before {
+.mdi-jqtable-row:before {
   content: "\F836"; }
 
-.mdi-table-row-height:before {
+.mdi-jqtable-row-height:before {
   content: "\F4F2"; }
 
-.mdi-table-row-plus-after:before {
+.mdi-jqtable-row-plus-after:before {
   content: "\F4F3"; }
 
-.mdi-table-row-plus-before:before {
+.mdi-jqtable-row-plus-before:before {
   content: "\F4F4"; }
 
-.mdi-table-row-remove:before {
+.mdi-jqtable-row-remove:before {
   content: "\F4F5"; }
 
-.mdi-table-search:before {
+.mdi-jqtable-search:before {
   content: "\F90E"; }
 
-.mdi-table-settings:before {
+.mdi-jqtable-settings:before {
   content: "\F837"; }
 
-.mdi-table-tennis:before {
+.mdi-jqtable-tennis:before {
   content: "\FE4B"; }
 
 .mdi-tablet:before {
@@ -18445,7 +18347,7 @@ div.dialog-content-material {
   background: 0 0;
   overflow: auto; }
 
-div.dialog-content-material + div.rup-datatable-buttonpanel-material {
+div.dialog-content-material + div.rup-table-buttonpanel-material {
   padding: .3em .4em .5em .4em; }
 
 /* ANIMACION */
@@ -18689,22 +18591,25 @@ i.mdi.error {
 table.table-material {
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  /* QUITAMOS LAS BARRAS VERTICALES */
   /* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */ }
   table.table-material > thead th:hover {
     background-color: #b8d4e3; }
-  table.table-material > thead > tr > th:first-child {
-    border-top-left-radius: 5px; }
-  table.table-material > thead > tr > th:last-child {
-    border-top-right-radius: 5px; }
+  table.table-material > thead > tr > th {
+    border: none;
+    border-bottom: 1px solid #dee2e6; }
+    table.table-material > thead > tr > th:first-child {
+      border-top-left-radius: 5px; }
+    table.table-material > thead > tr > th:last-child {
+      border-top-right-radius: 5px; }
+  table.table-material > tbody tr > td {
+    border: none;
+    border-top: 1px solid #dee2e6; }
   table.table-material > tbody tr:hover > td {
     background-color: #b8d4e3; }
+  table.table-material > tfoot tr > th {
+    border: none; }
   table.table-material > tfoot th:hover {
     background-color: #b8d4e3; }
-  table.table-material th, table.table-material table.table-material td {
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: #dee2e6; }
   table.table-material i.mdi {
     font-weight: bold;
     vertical-align: middle;
@@ -19153,17 +19058,17 @@ input.ui-button {
   width: 3px;
   height: 5px; }
 
-.rup-icon-table-search-edit-222222 {
+.rup-icon-jqtable-search-edit-222222 {
   background-position: -148px -855px;
   width: 16px;
   height: 16px; }
 
-.rup-icon-table-search-edit-2e83ff {
+.rup-icon-jqtable-search-edit-2e83ff {
   background-position: -148px -921px;
   width: 16px;
   height: 16px; }
 
-.rup-icon-table-search-edit {
+.rup-icon-jqtable-search-edit {
   background-position: -148px -987px;
   width: 16px;
   height: 16px; }
@@ -21289,7 +21194,7 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
 
 /* Links deshabilitados sin cursor de mano */
 /* ************************ */
-/* AÑADIDOS PARA RUP.TABLE */
+/* AÑADIDOS PARA RUP.JQTABLE */
 /* ************************ */
 .cursor_pointer {
   cursor: pointer; }
@@ -21475,33 +21380,33 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   /*width: 15em; */ }
 
 /* Formulario de detalle */
-.rup-table-buttonpane {
+.rup-jqtable-buttonpane {
   text-align: left;
   border-width: 1px 0 0 0;
   background-image: none;
   margin: .5em 0 0 0;
   padding: .3em 1em .5em .4em; }
 
-.rup-table-buttonpane .ui-dialog-buttonset {
+.rup-jqtable-buttonpane .ui-dialog-buttonset {
   float: right; }
 
-.rup-table-buttonpane button, .rup-table-buttonpane .ui-button.rup-button, .rup-table-buttonpane .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-table-buttonpane .rup-dropdown-button, .rup-table-buttonpane a.rup-toolbar_menuButton.ui-button, .rup-table-buttonpane .rup-wizard a.rup-wizard_next, .rup-wizard .rup-table-buttonpane a.rup-wizard_next, .rup-table-buttonpane .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-table-buttonpane a.rup-wizard_prev, .rup-table-buttonpane .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-table-buttonpane .rup-wizard_submitButton {
+.rup-jqtable-buttonpane button, .rup-jqtable-buttonpane .ui-button.rup-button, .rup-jqtable-buttonpane .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup-jqtable-buttonpane .rup-dropdown-button, .rup-jqtable-buttonpane a.rup-toolbar_menuButton.ui-button, .rup-jqtable-buttonpane .rup-wizard a.rup-wizard_next, .rup-wizard .rup-jqtable-buttonpane a.rup-wizard_next, .rup-jqtable-buttonpane .rup-wizard a.rup-wizard_prev, .rup-wizard .rup-jqtable-buttonpane a.rup-wizard_prev, .rup-jqtable-buttonpane .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup-jqtable-buttonpane .rup-wizard_submitButton {
   margin: .5em .4em .5em 0;
   cursor: pointer; }
 
-.rup-table-container {
+.rup-jqtable-container {
   margin-top: 0.5em;
   margin-bottom: 0.5em; }
 
-.rup-table-filter {
+.rup-jqtable-filter {
   margin-top: 0.2em;
   margin-bottom: 0.3em;
   border: 1px solid #DADADA; }
 
-.rup-table-filter-fieldset {
+.rup-jqtable-filter-fieldset {
   clear: both; }
 
-.rup-table-formEdit-detail {
+.rup-jqtable-formEdit-detail {
   display: none; }
 
 .rup-table_linkPaginacionDetalle {
@@ -21515,7 +21420,7 @@ tr.ui-state-highlight .ui-icon.ui-icon-rupInfoCol.ui-icon-pencil.ui-icon-search 
   font-size: 0.88em;
   padding-right: 1.3em; }
 
-.rup-table-filter-toggle-label {
+.rup-jqtable-filter-toggle-label {
   cursor: pointer;
   text-decoration: underline; }
 

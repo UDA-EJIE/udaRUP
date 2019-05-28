@@ -113,7 +113,7 @@
 			// Tooltip al input de selección de página
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).attr('title', jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.pager.input')).rup_tooltip();
 
-			var pagerLinkTemplate = Rup.Templates.rup.datatable.pager.link.bootstrap;
+			var pagerLinkTemplate = Rup.Templates.rup.table.pager.link.bootstrap;
 
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
@@ -151,7 +151,7 @@
 		var $self = $(this),
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id');
-		var $template = $(Rup.Templates.rup.datatable.detail.navigation.bootstrap({
+		var $template = $(Rup.Templates.rup.table.detail.navigation.bootstrap({
 			datatableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'),

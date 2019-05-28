@@ -9,6 +9,9 @@ table.table-material {
 		}
 		
 		> tr > th {
+			border: none;
+			border-bottom: 1px solid $whitish-grey-color;
+		
 			&:first-child {
 				border-top-left-radius: 5px;
 			}
@@ -19,19 +22,25 @@ table.table-material {
 		}
 	}
 	
-	> tbody tr:hover > td {
-		background-color: $primary-color-light;
+	> tbody tr {
+		> td {
+			border: none;
+			border-top: 1px solid $whitish-grey-color;
+		}
+		
+		&:hover > td {
+			background-color: $primary-color-light;
+		}
 	}
 	
-	> tfoot th:hover {
-		background-color: $primary-color-light;
-	}
-	
-	/* QUITAMOS LAS BARRAS VERTICALES */
-	th, table.table-material td {
-		border-width: 1px 0;
-		border-style: solid;
-		border-color: $whitish-grey-color;
+	> tfoot {
+		tr > th {
+			border: none;
+		}
+		
+		th:hover {
+			background-color: $primary-color-light;
+		}
 	}
 	
 	/* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */
