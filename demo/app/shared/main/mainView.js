@@ -8,7 +8,7 @@ define(['marionette',
 	'shared/language/languageView',
 	'shared/footer/footerView',
 	'shared/menu/menuView',
-	'rup.breadcrumb'
+	'rup.breadCrumb'
 ], function(Marionette, MainTemplate, HeaderView, LanguageView, FooterView, MenuView){
 
 	'use strict';

@@ -4,19 +4,20 @@
 
 var path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const createBackendServer = require('../backend.js');
 createBackendServer(8081);
 
 module.exports = {
 	entry: {
-		bt4: './demo/app/main-bt4.js'
-		// jqueryui: './demo/app/main-jqueryui.js'
+		main: path.resolve(__dirname, "app/main-bt4.js")
 	},
 	output: {
-		filename: 'bootstrap.bundle.js',
-		path: path.join(__dirname, 'demo')
-		// publicPath: 'demo'
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: "/",
+		filename: 'demo/js/[name].js',
+		chunkFilename: 'demo/js/[name].js'
 	},
 	stats: {
 		colors: true
@@ -39,19 +40,27 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
+			"window.jQuery": "jquery",
 			Tether: 'tether',
 			Popper: ['popper.js', 'default'],
 			Util: 'exports-loader?Util!bootstrap/js/dist/util',
 			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown'
 		}),
 
-		new webpack.HotModuleReplacementPlugin()
+		new HtmlWebpackPlugin({
+			template: './demo/index.html',
+			inject: 'body',
+			hash: false,
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true
+			}
+		})
 	],
 
 	module: {
 
-		rules: [
-			{
+		rules: [{
 				test: /\.js$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {
@@ -61,18 +70,20 @@ module.exports = {
 					}
 				}
 			},
-			{ test: /\.hbs$/,
+			{
+				test: /\.hbs$/,
 				loader: 'handlebars-loader',
-				query:{
+				query: {
 					knownHelpers: ['i18n'],
 					helperDirs: [
 						path.join(__dirname, '../src/helper'),
 
-					] }
+					]
+				}
 			},
 			{
 				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader' ]
+				use: ['style-loader', 'css-loader']
 			},
 			{
 				test: /\.scss$/,
@@ -87,7 +98,7 @@ module.exports = {
 							'../images': path.join(__dirname, '../demo/images'),
 							'./cursors': path.join(__dirname, '../assets/cursors'),
 							'../css/images/table': path.join(__dirname, '/images'),
-							'./externals/icons': 'material-icons/'
+							'./externals/icons': path.join(__dirname, '../dist/css/externals/icons')
 						}
 					} // translates CSS into CommonJS
 				}, {
@@ -110,13 +121,13 @@ module.exports = {
 						// ] // compiles Sass to CSS
 					}
 				}]
-			// },{
-			// 	test: /\.woff2?$|\.ttf$|\.png$|\.eot$|\.gif$|\.cur$|\.svg$/,
-			// 	use: [{
-			// 		loader: 'file-loader'
-			// 	}]
-			// },{
-			},{
+				// },{
+				// 	test: /\.woff2?$|\.ttf$|\.png$|\.eot$|\.gif$|\.cur$|\.svg$/,
+				// 	use: [{
+				// 		loader: 'file-loader'
+				// 	}]
+				// },{
+			}, {
 				test: /\.png$|\.gif$|\.cur$|\.svg$/,
 				use: [{
 					loader: 'file-loader',
@@ -124,13 +135,13 @@ module.exports = {
 						publicPath: '/'
 					}
 				}]
-			},{
+			}, {
 				test: /\.woff2?$|\.ttf$|\.eot$/,
 				use: [{
 					loader: 'url-loader'
 				}]
 			}, {
-				test: /\.(html)\??.*$/,
+				test: /\.html$/,
 				use: {
 					loader: 'file-loader',
 					options: {
@@ -155,32 +166,31 @@ module.exports = {
 		// 		},
 		// 	}]
 	},
-	resolve:
-		{
+	resolve: {
 
-			modules: ['node_modules', path.resolve(__dirname, 'app'), 'src'],
-			alias: {
-				'handlebars' : 'handlebars/dist/handlebars.js',
-				'marionette' : 'backbone.marionette/lib/backbone.marionette.js',
-				'jquery-ui': 'jquery-ui/ui/',
-				'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-				'jquery.fileupload': 'blueimp-file-upload/js/',
-				'load-image': 'blueimp-load-image/js/load-image.js',
-				'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
-				'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
-				'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
-				'jquery-form': 'jquery-form/jquery.form.js',
-				'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
-				'jquery.ui.widget': 'jquery-ui/widget.js',
-				'tmpl': 'blueimp-tmpl/js/tmpl.js',
-				'tether': 'tether/dist/js/tether.js',
-				'popper': 'popper.js/dist/umd/popper.js',
-				'calendar': 'bootstrap-calendar',
-				'material-icons': 'material-design-icons/iconfont/'
-				// 'templates':  path.resolve(__dirname, 'templates.js')
-			}
+		modules: ['node_modules', path.resolve(__dirname, 'app'), 'src'],
+		alias: {
+			'handlebars': 'handlebars/dist/handlebars.js',
+			'marionette': 'backbone.marionette/lib/backbone.marionette.js',
+			'jquery-ui': 'jquery-ui/ui/',
+			'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
+			'jquery.fileupload': 'blueimp-file-upload/js/',
+			'load-image': 'blueimp-load-image/js/load-image.js',
+			'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
+			'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
+			'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
+			'jquery-form': 'jquery-form/jquery.form.js',
+			'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
+			'jquery.ui.widget': 'jquery-ui/widget.js',
+			'tmpl': 'blueimp-tmpl/js/tmpl.js',
+			'tether': 'tether/dist/js/tether.js',
+			'popper': 'popper.js/dist/umd/popper.js',
+			'calendar': 'bootstrap-calendar',
+			'material-icons': '@mdi/font/fonts/'
+			// 'templates':  path.resolve(__dirname, 'templates.js')
+		}
 
-		},
+	},
 
 	devtool: 'source-map'
 };

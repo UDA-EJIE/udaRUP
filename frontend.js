@@ -20,7 +20,7 @@ module.exports = (PORT, API_PORT) => {
 
 		hot: true,
 		disableHostCheck: true,
-		openPage: 'demo/index-bt4.html',
+		openPage: 'demo/index.html',
 		watchContentBase: true,
 		inline: true,
 		proxy: {
