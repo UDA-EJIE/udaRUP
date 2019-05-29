@@ -226,7 +226,7 @@ function _createSearchRow (dt,ctx){
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
 			$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
-			// Capa que controla el colapso del formualario
+			// Capa que controla el colapso del formulario
 			$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
 			$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
 			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
@@ -311,7 +311,7 @@ function _createSearchRow (dt,ctx){
 		$navLayer.hide();
 
 		function doSearchButtonNavigation($button, buttonId){
-			if (!$button.hasClass('ui-state-disabled')){
+			if (!$button.prop("disabled")){
 				$self.rup_jqtable('navigateToMatchedRow', buttonId);
 			}
 		}
@@ -437,18 +437,18 @@ function _paginar(ctx,dato){
 function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 
 	if (currentRowNum === 1) {
-		ctx.seeker.search.$firstNavButton.addClass('ui-state-disabled');
-		ctx.seeker.search.$backNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.prop("disabled", true);
+		ctx.seeker.search.$backNavButton.prop("disabled", true);
 	} else {
-		ctx.seeker.search.$firstNavButton.removeClass('ui-state-disabled');
-		ctx.seeker.search.$backNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.prop("disabled", false);
+		ctx.seeker.search.$backNavButton.prop("disabled", false);
 	}
 	if (currentRowNum === totalRowNum) {
-		ctx.seeker.search.$forwardNavButton.addClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.prop("disabled", true);
+		ctx.seeker.search.$lastNavButton.prop("disabled", true);
 	} else {
-		ctx.seeker.search.$forwardNavButton.removeClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.prop("disabled", false);
+		ctx.seeker.search.$lastNavButton.prop("disabled", false);
 	}
 
 	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
@@ -480,7 +480,7 @@ function _processData(dt,ctx,data){
 	}
 
 	if (data.length === 0){
-		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
 		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
@@ -508,7 +508,7 @@ function _getDatos(ctx){
 }
 
 /**
-* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo..
+* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo.
 *
 * @name createRupComponent
 * @function
@@ -522,7 +522,10 @@ function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.colModel, searchEditOptions;
 	if(colModel !== undefined){
 		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
-
+				
+				// Se añade la clase necesaria para mostrar los inputs con estilos material
+				$(this).addClass('form-groupMaterial');
+			
 				var cellColModel = colModel[i];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
@@ -537,17 +540,6 @@ function _createRupComponent(dt,ctx){
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 				if(searchRupType!==undefined) {
 					searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-	
-					/*
-					 * PRE Configuración de los componentes RUP
-					 */
-					if(searchRupType === 'combo'){
-						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
-					} else if(searchRupType === 'date'){
-						$elem.css('width','86%');
-						$elem.css('max-width','80px');
-						$elem.css('min-width','75px');
-					}
 	
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
