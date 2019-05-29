@@ -27,14 +27,15 @@ module.exports = {
 	},
 	devServer: {
 		port: 8080,
-		proxy: {
-			'/audit': {
-				target: 'http://localhost:8081'
-			},
-			'/demo': {
-				target: 'http://localhost:8081'
-			}
-		}
+		proxy: [{
+			context: '/audit',
+			target: 'http://localhost:8081/'
+		},
+		{
+			context: ['/demo', '/demo/api'],
+			target: 'http://localhost:8081/',
+			pathRewrite: {'/demo/api' : '/demo'}
+		}]
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
