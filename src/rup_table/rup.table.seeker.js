@@ -272,14 +272,14 @@ function _createSearchRow (dt,ctx){
 		// Creacion del enlace de mostrar/ocultar el formulario
 		$collapseIcon.add($collapseLabel).on('click', function(){
 			if (!ctx.seeker.search.created){
-				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
-				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-right');
+				ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-down');
 				ctx.seeker.search.created = true;
 				ctx.seeker.searchForm.show();
 				$navLayer.show();
 			}else{
-				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
-				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-down');
+				ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-right');
 				ctx.seeker.search.created = false;
 				ctx.seeker.searchForm.hide();
 				$navLayer.hide();

@@ -739,13 +739,13 @@
 					'click':function(){
 						if(settings.filter.showHidden === false){
 							filterSettings.$collapsableLayer.hide();
-							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+							filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+							filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
 							settings.filter.showHidden = true;
 						} else{
 							filterSettings.$collapsableLayer.show();
-							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+							filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+							filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -753,13 +753,13 @@
 
 				if (settings.filter.showHidden === true){
 					filterSettings.$collapsableLayer.hide();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+					filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+					filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
 					settings.filter.showHidden = true;
 				} else {
 					filterSettings.$collapsableLayer.show();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+					filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+					filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
 					settings.filter.showHidden = false;
 				}
 
