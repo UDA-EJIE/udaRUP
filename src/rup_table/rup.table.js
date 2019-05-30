@@ -593,25 +593,37 @@
 				.insertAfter($('#'+tabla[0].id+'_first')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-chevron-left d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_previous')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-chevron-right d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_next')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-page-last d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_last')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
