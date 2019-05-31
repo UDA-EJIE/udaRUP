@@ -53,6 +53,9 @@ module.exports = [{
 	optimization: optimization,
 	module: {
 		rules: [{
+				test: require.resolve("jquery-migrate"),
+				use: "imports-loader?define=>false",
+			}, {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {

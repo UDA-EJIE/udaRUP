@@ -28,7 +28,7 @@ define(['marionette',
 		/*data*/
 
 		this.mesesData = {
-			labels: $.rup.i18n.app.charts.mesesLabels,
+			labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio" ],
 			datasets: [{
 				label: $.rup.i18n.app.charts.datasetRadar.dataset1,
 				data: [65, 59, 80, 81, 56, 55, 40]
@@ -36,7 +36,7 @@ define(['marionette',
 		};
 		this.colorsData = {
 
-			labels: $.rup.i18n.app.charts.colorLabels,
+			labels: ["rojo", "azul", "amarillo"],
 			datasets: [{
 				data: [300, 50, 100],
 				backgroundColor: [
@@ -52,7 +52,7 @@ define(['marionette',
 			}]
 		};
 		this.radarData = {
-			labels: $.rup.i18n.app.charts.radarLabels,
+			labels: ["Comida", "Bebida", "Dormir", "Diseño", "Programacion", "Bicicleta", "Correr"],
 			datasets: [{
 				label: $.rup.i18n.app.charts.datasetRadar.dataset1,
 				data: [65, 59, 90, 81, 56, 55, 40]

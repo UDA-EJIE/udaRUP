@@ -1,4 +1,4 @@
-import 'jasmine-jquery';
+import 'jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.calendar';
 import * as util from 'util';
@@ -1567,7 +1567,7 @@ var opts1 = {
         $('.btn-group button').removeClass('active');
         $('button[data-calendar-view="' + view + '"]').addClass('active');
     }
-}
+};
 var opts2 = {
     tmpl_path: testutils.DIST +'/html/templates/rup_calendar/',
     events_source: '/demo/calendar/events',
@@ -1603,7 +1603,7 @@ var opts2 = {
         $('.btn-group button').removeClass('active');
         $('button[data-calendar-view="' + view + '"]').addClass('active');
     }
-}
+};
 function createCalendar(opts,callback) {
 
     let html = `

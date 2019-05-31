@@ -184,7 +184,10 @@
 		setTime: function (time) {
 			$(this).timepicker('refresh'); //Necesario para 'inicializar' el componente
 			//Consideramos que el uso de esta función es una seleccion.
-			$(this).data('datepicker').settings.onSelect(); 
+			if ($(this).data('datepicker').settings.onSelect){
+				$(this).data('datepicker').settings.onSelect(); 
+			}
+			
 			$.datepicker._setTime($.datepicker._getInst($('#' + $(this).data('datepicker').settings.id)[0]), time);
 		},
 		/**

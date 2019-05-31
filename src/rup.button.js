@@ -224,7 +224,7 @@
 
 				var self = this,
 					$self = $(this),
-					$dropdownList, $container, dropdownSettings;
+					$dropdownList, $container, dropdownSettings = {};
 
 				self._ADAPTER = $.rup.adapter[settings.adapter];
 
@@ -307,9 +307,7 @@
 					}
 				} else {
 					// Inicialización del dropdown
-					$.extend(true, settings.dropdown, $.fn.rup_button.dropdown_defaults, args[0].dropdown);
-
-					dropdownSettings = settings.dropdown;
+					$.extend(true, dropdownSettings, $.fn.rup_button.dropdown_defaults, args[0].dropdown);
 
 					$self.addClass('rup-button rup-dropdown');
 
@@ -317,7 +315,7 @@
 					$container = jQuery('<div>').attr('class', 'rup-dropdown-btn-group');
 
 					$container = $self.wrap($container).parent();
-
+debugger;
 					dropdownSettings.$container = $container;
 
 					$self.button({});
