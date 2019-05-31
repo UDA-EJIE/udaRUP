@@ -133,7 +133,7 @@ de la aplicación pueda cerrar la capa manualmente.
 					.css('display', opciones.block ? 'block' : 'none')
 					.css('visibility', 'hidden')
 					.append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
-					.context.id;
+					.attr('id');
 
 			//Crear capa cierre
 			opciones._divClose = $('<div />')

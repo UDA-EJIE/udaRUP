@@ -8,56 +8,61 @@ $.when(messageTester('Ok'))
 
 function messageTester(msgType) {
 	var def = $.Deferred();
-    describe('Test Message '+ msgType, () => {
+	describe('Test Message ' + msgType, () => {
 		beforeAll((done) => {
 			testutils.loadCss(done);
 		});
 		afterAll(() => {
 			def.resolve();
 		});
-		beforeEach(() => {
+		beforeEach((done) => {
 			let clsCallback = () => {
 				$('#content').addClass('msg-cls');
 			};
-			switch(msgType){
+			switch (msgType) {
 				case 'Ok':
 					$.rup_messages('msgOK', {
 						title: 'Correcto',
 						message: 'Todo ha ido Ok',
-						beforeClose: clsCallback
+						beforeClose: clsCallback,
+						open: done
 					});
 					break;
 				case 'Alert':
 					$.rup_messages('msgAlert', {
 						title: 'Aviso',
 						message: 'Advertencia',
-						beforeClose: clsCallback
+						beforeClose: clsCallback,
+						open: done
 					});
 					break;
 				case 'Error':
 					$.rup_messages('msgError', {
 						title: 'Error',
 						message: 'Fallo',
-						beforeClose: clsCallback
+						beforeClose: clsCallback,
+						open: done
 					});
 					break;
 				case 'Confirm':
 					$.rup_messages('msgConfirm', {
 						title: 'Confirmacion',
 						message: 'Confirma?',
-						beforeClose: clsCallback
+						beforeClose: clsCallback,
+						open: done
 					});
 					break;
 			}
 		});
-		afterEach(() => {
+		afterEach((done) => {
 			let $ctn = $('#content');
-			$ctn.is('.msg-cls') ? $ctn.removeClass('msg-cls') : undefined ;
+			$ctn.is('.msg-cls') ? $ctn.removeClass('msg-cls') : undefined;
 			$ctn.nextAll().remove();
+			done();
 		});
 		describe('Creación > ', () => {
-			it('Posee las clases adecuadas:', () => {
-				switch(msgType){
+			it('Posee las clases adecuadas:', (done) => {
+				switch (msgType) {
 					case 'Ok':
 						expect($('div.ui-dialog').is('.rup-message.rup-message-ok')).toBeTruthy();
 						break;
@@ -71,9 +76,10 @@ function messageTester(msgType) {
 						expect($('div.ui-dialog').is('.rup-message.rup-message-confirm')).toBeTruthy();
 						break;
 				}
+				done();
 			});
-			it('Posee el título correspondiente:', () => {
-				switch(msgType){
+			it('Posee el título correspondiente:', (done) => {
+				switch (msgType) {
 					case 'Ok':
 						expect($('.ui-dialog-titlebar > span.ui-dialog-title').text()).toBe('Correcto');
 						break;
@@ -87,52 +93,59 @@ function messageTester(msgType) {
 						expect($('.ui-dialog-titlebar > span.ui-dialog-title').text()).toBe('Confirmacion');
 						break;
 				}
+				done();
 			});
-			it('Posee el mensaje especificado:', () => {
-				switch(msgType){
+			it('Posee el mensaje especificado:', (done) => {
+				switch (msgType) {
 					case 'Ok':
-						expect($('.ui-dialog-content > div.rup-message_msg-ok').text()).toBe('Todo ha ido Ok');
+						expect($('.ui-dialog-content [id$="_msg"]').text()).toBe('Todo ha ido Ok');
 						break;
 					case 'Alert':
-						expect($('.ui-dialog-content > div.rup-message_msg-alert').text()).toBe('Advertencia');
+						expect($('.ui-dialog-content [id$="_msg"]').text()).toBe('Advertencia');
 						break;
 					case 'Error':
-						expect($('.ui-dialog-content > div.rup-message_msg-error').text()).toBe('Fallo');
+						expect($('.ui-dialog-content [id$="_msg"]').text()).toBe('Fallo');
 						break;
 					case 'Confirm':
-						expect($('.ui-dialog-content > div.rup-message_msg-confirm').text()).toBe('Confirma?');
+						expect($('.ui-dialog-content [id$="_msg"]').text()).toBe('Confirma?');
 						break;
 				}
+				done();
 			});
-			it('Posee los botones apropiados:', () => {
-				switch(msgType){
+			it('Posee los botones apropiados:', (done) => {
+				switch (msgType) {
 					case 'Ok':
-						expect($('button',$('.ui-dialog-buttonset')).text()).toBe('Aceptar');
+						expect($('button', $('.ui-dialog-buttonset')).text()).toBe('Aceptar');
 						break;
 					case 'Alert':
-						expect($('button',$('.ui-dialog-buttonset')).text()).toBe('Aceptar');
+						expect($('button', $('.ui-dialog-buttonset')).text()).toBe('Aceptar');
 						break;
 					case 'Error':
-						expect($('button',$('.ui-dialog-buttonset')).text()).toBe('Aceptar');
+						expect($('button', $('.ui-dialog-buttonset')).text()).toBe('Aceptar');
 						break;
 					case 'Confirm':
-						expect($('button',$('.ui-dialog-buttonset')).length).toBe(2);
-						expect($('button:first',$('.ui-dialog-buttonset')).text()).toBe('Aceptar');
-						expect($('button:last',$('.ui-dialog-buttonset')).text()).toBe('Cancelar');
+						expect($('button', $('.ui-dialog-buttonset')).length).toBe(2);
+						expect($('button:first', $('.ui-dialog-buttonset')).text()).toBe('Cancelar');
+						expect($('button:last', $('.ui-dialog-buttonset')).text()).toBe('Aceptar');
 						break;
 				}
+				done();
 			});
 		});
 		describe('Funcionamiento > ', () => {
 			describe('Cerrado del message > ', () => {
-				beforeEach(() => {
+				beforeEach((done) => {
+					window.done = done;
+					$('.ui-dialog').on('dialogclose', done);
 					$('button.ui-dialog-titlebar-close').click();
 				});
-				it('Se cierra el message:', () => {
-					expect($('.ui-dialog').length).toBe(0);
+				it('Se cierra el message:', (done) => {
+					expect($('.ui-dialog:visible').length).toBe(0);
+					done();
 				});
-				it('Se ejecuta el callback de cierre:', () => {
+				it('Se ejecuta el callback de cierre:', (done) => {
 					expect($('#content').is('.msg-cls')).toBeTruthy();
+					done();
 				});
 			});
 		});

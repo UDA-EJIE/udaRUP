@@ -30,11 +30,18 @@ module.exports = {
 		proxy: [{
 			context: '/audit',
 			target: 'http://localhost:8081/'
-		},
-		{
+		}, {
+			context: '/demo/rup/resources',
+			target: 'http://localhost:8080/',
+			pathRewrite: {
+				'/demo/rup/resources': '/i18n'
+			}
+		}, {
 			context: ['/demo', '/demo/api'],
 			target: 'http://localhost:8081/',
-			pathRewrite: {'/demo/api' : '/demo'}
+			pathRewrite: {
+				'/demo/api': '/demo'
+			}
 		}]
 	},
 	plugins: [
@@ -60,14 +67,16 @@ module.exports = {
 	],
 
 	module: {
-
 		rules: [{
+				test: require.resolve("jquery-migrate"),
+				use: "imports-loader?define=>false",
+			}, {
 				test: /\.js$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['es2015']
+						presets: ['env']
 					}
 				}
 			},
@@ -91,17 +100,7 @@ module.exports = {
 				use: [{
 					loader: 'style-loader' // creates style nodes from JS strings
 				}, {
-					loader: 'css-loader',
-					options: {
-						alias: {
-							// './images/ui-': path.join(__dirname, '../assets/images/jquery-ui/ui-'),
-							'./images': path.join(__dirname, '../assets/images'),
-							'../images': path.join(__dirname, '../demo/images'),
-							'./cursors': path.join(__dirname, '../assets/cursors'),
-							'../css/images/table': path.join(__dirname, '/images'),
-							'./externals/icons': path.join(__dirname, '../dist/css/externals/icons')
-						}
-					} // translates CSS into CommonJS
+					loader: 'css-loader', // translates CSS into CommonJS 
 				}, {
 					loader: 'postcss-loader', // Run post css actions
 					options: {
@@ -187,8 +186,14 @@ module.exports = {
 			'tether': 'tether/dist/js/tether.js',
 			'popper': 'popper.js/dist/umd/popper.js',
 			'calendar': 'bootstrap-calendar',
-			'material-icons': '@mdi/font/fonts/'
-			// 'templates':  path.resolve(__dirname, 'templates.js')
+			'material-icons': '@mdi/font/fonts/',
+
+			// CSS ROUTES
+			'./images': path.join(__dirname, '../assets/images'),
+			'../images': path.join(__dirname, '../demo/images'),
+			'./cursors': path.join(__dirname, '../assets/cursors'),
+			'../css/images/table': path.join(__dirname, '/images'),
+			'./externals/icons': path.join(__dirname, '../dist/css/externals/icons')
 		}
 
 	},

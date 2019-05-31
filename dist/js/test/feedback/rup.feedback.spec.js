@@ -22,8 +22,8 @@ describe('RUP Feedback Tests', () => {
 			jQuery('#feedback').remove();
 		});
 
-		it('debería disponer de los estilos de jQueryUI y RUP', () => {
-			expect($feedback).toHaveClass('rup-feedback ui-widget ui-widget-content ui-corner-all');
+		it('debería disponer de los estilos de RUP', () => {
+			expect($feedback).toHaveClass('rup-feedback');
 		});
 
 		it('debería reservar el área de visualización', () => {
