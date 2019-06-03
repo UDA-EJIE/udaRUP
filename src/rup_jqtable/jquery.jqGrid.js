@@ -16,7 +16,7 @@ function jqGridInclude()
 		{ include: true, incfile:'grid.treegrid.js'}, //jqGrid treegrid
 		{ include: true, incfile:'grid.grouping.js'}, //jqGrid grouping
 		{ include: true, incfile:'grid.custom.js'}, //jqGrid custom
-		{ include: true, incfile:'grid.tbltogrid.js'}, //jqGrid table to grid
+		{ include: true, incfile:'grid.tbltogrid.js'}, //jqGrid jqtable to grid
 		{ include: true, incfile:'grid.import.js'}, //jqGrid import
 		{ include: true, incfile:'jquery.fmatter.js'}, //jqGrid formater
 		{ include: true, incfile:'JsonXml.js'}, //xmljson utils

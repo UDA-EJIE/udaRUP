@@ -60,9 +60,9 @@ DataTable.multiSelect.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.multiSelect.init = function ( dt ) {
@@ -229,7 +229,7 @@ handler that will select the items using the API methods.
  *
  * @name cellRange
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0 
+ * @since UDA 3.4.0 // Table 1.0.0 
  * 
  * @param  {DataTable.Api} dt   DataTable
  * @param  {object}        idx  Cell index to select to
@@ -316,7 +316,7 @@ function cellRange( dt, idx, last )
  *
  * @name disabledMouseSelection
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param {DataTable.Api} dt DataTable to remove events from
  * e
@@ -339,7 +339,7 @@ function disableMouseSelection( dt )
  *
  * @name enableMouseSelection
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param {DataTable.Api} dt DataTable to remove events from
  * 
@@ -456,7 +456,7 @@ function enableMouseSelection ( dt )
  *
  * @name eventTrigger
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param {DataTable.Api} api      DataTable to trigger events on
  * @param  {boolean}      selected true if selected, false if deselected
@@ -486,7 +486,7 @@ function eventTrigger ( api, type, args, any )
  *
  * @name info
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {DataTable.Api} api DataTable to update
  * 
@@ -563,7 +563,7 @@ function info ( api )
  *
  * @name init
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param  {DataTable.settings} ctx Settings object to operate on
  * 
@@ -675,7 +675,7 @@ function init ( ctx ) {
  *
  * @name drawSelectId
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {DataTable.api} ctx
  * 
@@ -719,11 +719,11 @@ function _drawSelectId(api,ctx){
 }
 
 /**
- * Pinta la cabecera y pie del datatable con el checkbox all.
+ * Pinta la cabecera y pie del table con el checkbox all.
  *
  * @name paintCheckboxexSelect
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {DataTable.ctx} ctx Settings object to operate on
  *
@@ -828,7 +828,7 @@ function _paintCheckboxSelect(ctx){
 		//Se aseguro que no sea orderable
 		columnDefs[0].orderable = false;
 
-		//Se genera el div para el feedback del datatable.
+		//Se genera el div para el feedback del table.
 		var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
 		ctx.multiselection.internalFeedback = divFeedback;
 	}
@@ -839,9 +839,9 @@ function _paintCheckboxSelect(ctx){
 *
 * @name checkPageSelectedAll
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 * @param {boolean} selected - Es true o false para saber cual de los 2 quieres buscar.
 *
 */
@@ -867,10 +867,10 @@ function checkPageSelectedAll(dt,selected){
 *
 * @name createContexMenuSelect
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {string} id - Es el identificador del datatable.
-* @param {object} ctx - datatable.settings.
+* @param {string} id - Es el identificador del table.
+* @param {object} ctx - table.settings.
 *
 */
 function _createContexMenuSelect(id,ctx){
@@ -958,7 +958,7 @@ function _createContexMenuSelect(id,ctx){
 *
 * @name selectAllPage
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} dt - Datatable.
 *
@@ -1003,7 +1003,7 @@ function selectAllPage(dt){
 *
 * @name deselectAllPage
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
 * @param {object} dt - Datatable.
 *
@@ -1039,7 +1039,7 @@ function deselectAllPage(dt){
 *
 * @name selectAll
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} dt - Datatable.
 *
@@ -1074,7 +1074,7 @@ function selectAll(dt){
 *
 * @name deselectAll
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} dt - Datatable.
 *
@@ -1096,7 +1096,7 @@ function deselectAll(dt){
  *
  * @name rowColumnRange
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param  {DataTable.Api} dt   DataTable
  * @param  {string}        type Row or column range selector
@@ -1144,7 +1144,7 @@ function rowColumnRange( dt, type, idx, last )
  *
  * @name clear
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  * 
  * @param  {DataTable.settings} ctx Settings object of the host DataTable
  * @param  {boolean} [force=false] Force the de-selection to happen, regardless
@@ -1167,7 +1167,7 @@ function clear( ctx, force )
  *
  * @name typeSelect
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {object}             e    Mouse event object
  * @param  {DataTables.Api}     dt   DataTable
@@ -1236,7 +1236,7 @@ function typeSelect ( e, dt, ctx, type, idx )
 *
 * @name initializeMultiselectionProps
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 *
 */
@@ -1281,7 +1281,7 @@ function _initializeMultiselectionProps ( ctx ) {
 *
 * @name maintIdsRows
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
 * @param  {DataTables.Api}     DataTable   DataTable
 * @param  {string}     id   - id seleccionado

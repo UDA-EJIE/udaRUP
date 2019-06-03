@@ -1,5 +1,5 @@
 /**
-  * Buscador interno del datatable
+  * Buscador interno del table
   *
   * @summary 		Extensión del componente RUP Datatable
   * @module			"rup.table.seeker"
@@ -61,9 +61,9 @@ DataTable.seeker.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.seeker.init = function ( dt ) {
@@ -135,10 +135,10 @@ function _eventTrigger ( api, type, args, any )
 *
 * @name createFilterColumn
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 *
 */
 function _createFilterColumn(dt,ctx){
@@ -202,10 +202,10 @@ function _createFilterColumn(dt,ctx){
 *
 * @name createSearchRow
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 *
 */
 function _createSearchRow (dt,ctx){
@@ -356,11 +356,11 @@ function _createSearchRow (dt,ctx){
 *
 * @name selectSearch
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @param {object} rows - Filas del datatable de la página actual.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+* @param {object} rows - Filas del table de la página actual.
 *
 */
 function _selectSearch(dt,ctx,rows){
@@ -408,9 +408,9 @@ function _selectSearch(dt,ctx,rows){
 *
 * @name paginar
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
 *
 */
@@ -428,7 +428,7 @@ function _paginar(ctx,dato){
 *
 * @name updateDetailSeekPagination
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -459,10 +459,10 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 *
 * @name processData
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller.
 *
 */
@@ -492,9 +492,9 @@ function _processData(dt,ctx,data){
 *
 * @name getDatos
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 * 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
@@ -512,10 +512,10 @@ function _getDatos(ctx){
 *
 * @name createRupComponent
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 *
 */
 function _createRupComponent(dt,ctx){

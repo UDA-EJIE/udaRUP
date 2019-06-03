@@ -60,9 +60,9 @@ DataTable.inlineEdit.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.inlineEdit.init = function ( dt ) {
@@ -183,7 +183,7 @@ DataTable.inlineEdit.init = function ( dt ) {
  *
  * @name init
  * @function
- * @since UDA 3.7.0 // Datatable 1.0.0
+ * @since UDA 3.7.0 // Table 1.0.0
  *
  * @param  {DataTable.settings} ctx Settings object to operate on
  *
@@ -277,9 +277,9 @@ function eventTrigger ( api, type, args, any )
 *
 * @name _onResponsiveResize
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 function _onResponsiveResize(dt){
@@ -293,9 +293,9 @@ function _onResponsiveResize(dt){
 *
 * @name _add
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 * @param {object} ctx - Contexto del Datatable.
 *
 */
@@ -344,7 +344,7 @@ function _add(dt,ctx){
 *
 * @name _addChildIcons
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Contexto del Datatable.
 *
@@ -402,9 +402,9 @@ function _addChildIcons(ctx){
 *
 * @name _add
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 * @param {object} ctx - Contexto del Datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
 *
@@ -460,10 +460,10 @@ function _editInline ( dt,ctx, idRow ){
 *
 * @name getRowSelected
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
-* @param {string} actionType - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
+* @param {string} actionType - Es el objeto table.
 *
 * @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
@@ -564,7 +564,7 @@ function _cloneLine(dt,ctx,line){
 *
 * @name getNextPageSelected
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -612,7 +612,7 @@ function _getNextPageSelected(ctx,pageInit,orden){
 *
 * @name getLineByPageSelected
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
@@ -645,7 +645,7 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 * @name _restaurarFila
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Contexto del Datatable.
 * @param {boolean} limpiar - Si es true limpia e inicializa todo y si es false solo restaura la línea.
@@ -699,7 +699,7 @@ function _restaurarFila(ctx,limpiar){
 *
 * @name _changeInputsToRup
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Contexto del Datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
@@ -744,7 +744,7 @@ function _changeInputsToRup(ctx,idRow){
 *
 * @name _recorrerCeldas
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -867,7 +867,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 *
 * @name _restaurarCeldas
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -923,7 +923,7 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 *
 * @name _comprobarFila
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -957,7 +957,7 @@ function _comprobarFila(ctx,$fila){
 *
 * @name _crearEventos
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $selector - fila que se está editando.
@@ -998,7 +998,7 @@ function _crearEventos(ctx,$selector){
 *
 * @name _lastIndexEditable
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $target - fila que se está editando.
@@ -1037,10 +1037,10 @@ function _lastIndexEditable(ctx,$target){
 *
 * @name _inlineEditFormSerialize
 * @function
-* @since UDA 3.7.0 // Datatable 1.2.0
+* @since UDA 3.7.0 // Table 1.2.0
 *
 * @param {object} $fila - Fila la cual estamos editando.
-* @param {object} ctx - Contexto del datatable.
+* @param {object} ctx - Contexto del table.
 * @param {boolean} child - boolean para saber si tiene hijos en el responsive.
 *
 *
@@ -1098,7 +1098,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 *
 * @name _guardar
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -1122,10 +1122,10 @@ function _guardar(ctx,$fila,child){
 *
 * @name _callSaveAjax
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
-* @param {object} ctx - Es el contexto datatable.
+* @param {object} ctx - Es el contexto table.
 * @param {object} $fila - Fila que se está editando.
 * @param {object} $row - Son los datos que se cargan.
 * @param {string} url - Url que se añade para llamar  al controller. Añadir, editar o borrar.
@@ -1253,7 +1253,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 *
 * @name callFeedbackOk
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
@@ -1281,7 +1281,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 *
 * @name _inResponsiveChangeInputsValues
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -1363,7 +1363,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 *
 * @name _asignarInputsValues
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $fila - fila que se está editando.
@@ -1412,9 +1412,9 @@ function _asignarInputsValues(ctx,$fila){
 *
 * @name _createTr
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - datatable
+* @param {object} dt - table
 * @param {object} ctx - Es el contexto de cada tabla.
 * @param {object} $columns - Módelo de columnas de la tabla.
 *
@@ -1435,7 +1435,7 @@ function  _createTr(dt,ctx,columns){
 *
 * @name _drawInLineEdit
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} tabla - Api de la tabla
 * @param {object} ctx - Es el contexto de cada tabla.
@@ -1462,7 +1462,7 @@ function _drawInlineEdit(tabla,ctx){
 *
 * @name _notExistOnPage
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
 *
@@ -1487,9 +1487,9 @@ function _notExistOnPage(ctx){
 *
 * @name _deleteAllSelects
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 function _deleteAllSelects(dt){
@@ -1525,7 +1525,7 @@ function _deleteAllSelects(dt){
 *
 * @name _comprobarSeeker
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} row - Son los datos que se cargan.
 * @param {object} ctx - Settings object to operate on.

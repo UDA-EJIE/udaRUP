@@ -16901,7 +16901,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				$feedback.rup_feedback('set', msg, type);
 
 			}else{
-				// Se utilizan las opciones de configuración por defecto del componente table
+				// Se utilizan las opciones de configuración por defecto del componente jqtable
 				default_options = (settings.feedback[type+'FeedbackConfig']!==undefined?settings.feedback[type+'FeedbackConfig']:settings.feedback.okFeedbackConfig);
 				$feedback.rup_feedback('option', default_options);
 				$feedback.rup_feedback('set', msg, type);
@@ -23159,7 +23159,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			 * INICIALIZACION DE VALORES POR DEFECTO
 			 */
 
-			// Inicialización de la toolbar del componente table en caso de que no se especifique
+			// Inicialización de la toolbar del componente jqtable en caso de que no se especifique
 			if (reportSettings.appendTo===undefined){
 				reportSettings.appendTo = settings.toolbar.id;
 			}

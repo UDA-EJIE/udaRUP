@@ -100,7 +100,7 @@
 			 * INICIALIZACION DE VALORES POR DEFECTO
 			 */
 
-			// Inicialización de la toolbar del componente table en caso de que no se especifique
+			// Inicialización de la toolbar del componente jqtable en caso de que no se especifique
 			if (reportSettings.appendTo===undefined){
 				reportSettings.appendTo = settings.toolbar.id;
 			}

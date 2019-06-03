@@ -60,9 +60,9 @@ DataTable.editForm.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.editForm.init = function ( dt ) {
@@ -171,7 +171,7 @@ DataTable.editForm.init = function ( dt ) {
  *
  * @name init
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {DataTable.settings} ctx Settings object to operate on
  *
@@ -282,10 +282,10 @@ function cancelPopup(ctx){
 *
 * @name openSaveDialog
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
 *
 */
@@ -454,10 +454,10 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 *
 * @name _callSaveAjax
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 * @param {object} row - Son los datos que se cargan.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
 * @param {boolean} continuar - Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog.
@@ -614,7 +614,7 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 *
 * @name callFeedbackOk
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {object} feedback - Div donde se va ejecutar el feedback.
@@ -645,7 +645,7 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 *
 * @name returnCheckEmpty
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} idForm - Identificador del formulario.
 * @param {string} values - Values ya añadidos al formulario.
@@ -664,7 +664,7 @@ function _returnCheckEmpty(idForm,values){
 *
 * @name updateDetailPagination
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} currentRowNum - Número de la posición actual del registro selecionado.
@@ -693,9 +693,9 @@ function _updateDetailPagination(ctx,currentRowNum,totalRowNum){
 *
 * @name callNavigatorBar
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 function _callNavigationBar(dt){
@@ -819,9 +819,9 @@ function _callNavigationBar(dt){
 *
 * @name callNavigatorSelectBar
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 function _callNavigationSelectBar(dt){
@@ -897,10 +897,10 @@ function _callNavigationSelectBar(dt){
 *
 * @name getRowSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
-* @param {string} actionType - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
+* @param {string} actionType - Es el objeto table.
 *
 * @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
 *
@@ -975,7 +975,7 @@ function _getRowSelected(dt,actionType){
 *
 * @name getNextPageSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -1023,7 +1023,7 @@ function _getNextPageSelected(ctx,pageInit,orden){
 *
 * @name getPrevPageSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -1067,7 +1067,7 @@ function _getPrevPageSelected(ctx,pageInit){
 *
 * @name getLineByPageSelected
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
@@ -1100,7 +1100,7 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 * @name getLineByPageSelectedReverse
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
@@ -1132,9 +1132,9 @@ function _getLineByPageSelectedReverse(ctx,lineInit){
 *
 * @name _deleteAllSelects
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 function _deleteAllSelects(dt){
@@ -1170,7 +1170,7 @@ function _deleteAllSelects(dt){
 *
 * @name _editFormSerialize
 * @function
-* @since UDA 3.6.0 // Datatable 1.2.0
+* @since UDA 3.6.0 // Table 1.2.0
 *
 * @param {object} idForm - Formulario que alberga los datos.
 *
@@ -1198,7 +1198,7 @@ function _editFormSerialize(idForm){
 *
 * @name _comprobarSeeker
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} row - Son los datos que se cargan.
 * @param {object} ctx - Settings object to operate on.
@@ -1230,7 +1230,7 @@ function _comprobarSeeker(row,ctx,idRow){
 *
 * @name _blockPKeditForm
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on.
 * @param {string} actionType - Método de operación CRUD.
@@ -1326,7 +1326,7 @@ function _blockPKeditForm(ctx, actionType){
 *
 * @name _addChildIcons
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Contexto del Datatable.
 *

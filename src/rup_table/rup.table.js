@@ -1,8 +1,8 @@
 /**
-  * Genera un datatable
+  * Genera un table
   *
   * @summary 		Componente RUP Datatable
-  * @module			"rup.datatable"
+  * @module			"rup.table"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -133,7 +133,7 @@
 			*
 			* @name _initOptions
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -236,7 +236,7 @@
 		*
 		* @name blockPKEdit
 		* @function
-		* @since UDA 3.7.0 // Datatable 1.0.0
+		* @since UDA 3.7.0 // Table 1.0.0
 		*
 		* @param {object} ctx - Settings object to operate on.
 		* @param {string} actionType - Método de operación CRUD.
@@ -377,7 +377,7 @@
 			*
 			* @name _getColumns
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -435,7 +435,7 @@
 			*
 			* @name _doFilter
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -453,7 +453,7 @@
 			*
 			* @name _ajaxOptions
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -515,17 +515,17 @@
 			*
 			* @name _ajaxRequestData
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
-			* @param {object} data Opciones del datatable
+			* @param {object} data Opciones del table
 			* @param {object} ctx contexto  del componente table
 			*
 		  */
 		_ajaxRequestData(data, ctx) {
 
-			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
+			//Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
-			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
+			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object(ctx.oInit.$filterForm[0]);
 			data.multiselection = undefined;
 			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
@@ -555,7 +555,7 @@
 			*
 			* @name _createSearchPaginator
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} tabla Objeto que contiene la tabla
 			* @param {object} settingsT Opciones del componente
@@ -636,7 +636,7 @@
 			*
 			* @name _clearFilter
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -980,7 +980,7 @@
 			*
 			* @name initializeMultiselectionProps
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			*
 			*/

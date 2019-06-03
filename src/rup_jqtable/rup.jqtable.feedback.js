@@ -162,7 +162,7 @@
 				$feedback.rup_feedback('set', msg, type);
 
 			}else{
-				// Se utilizan las opciones de configuración por defecto del componente table
+				// Se utilizan las opciones de configuración por defecto del componente jqtable
 				default_options = (settings.feedback[type+'FeedbackConfig']!==undefined?settings.feedback[type+'FeedbackConfig']:settings.feedback.okFeedbackConfig);
 				$feedback.rup_feedback('option', default_options);
 				$feedback.rup_feedback('set', msg, type);
