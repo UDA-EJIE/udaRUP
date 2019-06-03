@@ -17,7 +17,7 @@
 
 	}
 
-	TableMaterialAdapter.prototype.NAME = 'datatable_material';
+	TableMaterialAdapter.prototype.NAME = 'table_material';
 
 	TableMaterialAdapter.prototype.CONST = {
 		core: {
@@ -96,7 +96,7 @@
 
 			// Pager center
 			$pagerCenter.css('white-space', 'inherit');
-			jQuery('.pager_center datatable td', settings.$pager).addClass('pagControls');
+			jQuery('.pager_center table td', settings.$pager).addClass('pagControls');
 
 			// Evento de control de página máxima
 			jQuery('.pagControls input.ui-pg-input', $pagerCenter).on('change', function () {
@@ -152,7 +152,7 @@
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id');
 		var $template = $(Rup.Templates.rup.table.detail.navigation.material({
-			datatableId: $self.prop('id'),
+			tableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'),
 			labelPrev: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'),
