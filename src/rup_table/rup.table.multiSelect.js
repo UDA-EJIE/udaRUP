@@ -746,7 +746,7 @@ function _paintCheckboxSelect(ctx){
 			
 
 		var link = $("<a/>")
-				 	   .addClass("ui-icon rup-datatable_checkmenu_arrow")
+				 	   .addClass("ui-icon rup-table_checkmenu_arrow")
 					   .attr('id','linkSelectTableHead'+ctx.sTableId);
 
 		input.click(function () {

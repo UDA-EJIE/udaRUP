@@ -1061,7 +1061,7 @@
 			
 			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
-			$self.attr('ruptype', 'datatable');
+			$self.attr('ruptype', 'table');
 			$self.triggerHandler('tableInit');
 			if(args[0].primaryKey !== undefined){
 				settings.primaryKey = args[0].primaryKey.split(";");
@@ -1329,7 +1329,7 @@ $.fn.rup_table.defaults = {
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
-	adapter: 'datatable_material',
+	adapter: 'table_material',
     order: [[ 1, 'asc' ]],
     showMultiSelectedZero: true
 	};

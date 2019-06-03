@@ -201,7 +201,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
 		},
 		id: idTable+'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnAdd',
+		className: 'table_toolbar_btnAdd',
 		displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'add',
@@ -220,7 +220,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
 		},
 		id: idTable+'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnEdit',
+		className: 'table_toolbar_btnEdit',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'edit',
@@ -239,7 +239,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
 		},
 		id: idTable+'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnClone',
+		className: 'table_toolbar_btnClone',
 		displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'clone',
@@ -258,7 +258,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
 		},
 		id: idTable+'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnDelete',
+		className: 'table_toolbar_btnDelete',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'delete',
@@ -1028,7 +1028,7 @@ $.extend( Buttons.prototype, {
 					config.icon = "mdi-file";
 					break;
 				case 'csvButton':
-					config.icon = "mdi-file-table";
+					config.icon = "mdi-file";
 					break;
 				default:
 					config.icon = "mdi-settings";
@@ -2037,7 +2037,7 @@ DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
 	var that = this;
 
 	if ( title === false ) {
-		$('#datatables_buttons_info').fadeOut( function () {
+		$('#table_buttons_info').fadeOut( function () {
 			$(this).remove();
 		} );
 		clearTimeout( _infoTimer );
@@ -2050,13 +2050,13 @@ DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
 		clearTimeout( _infoTimer );
 	}
 
-	if ( $('#datatables_buttons_info').length ) {
-		$('#datatables_buttons_info').remove();
+	if ( $('#table_buttons_info').length ) {
+		$('#table_buttons_info').remove();
 	}
 
 	title = title ? '<h2>'+title+'</h2>' : '';
 
-	$('<div id="datatables_buttons_info" class="dt-button-info"/>')
+	$('<div id="table_buttons_info" class="dt-button-info"/>')
 		.html( title )
 		.append( $('<div/>')[ typeof message === 'string' ? 'html' : 'append' ]( message ) )
 		.css( 'display', 'none' )

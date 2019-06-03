@@ -80,7 +80,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
 	} );
 	
-	dt.on( 'responsive-display', function ( e, datatable, row, showHide) {//si se crea el tr hijo
+	dt.on( 'responsive-display', function ( e, table, row, showHide) {//si se crea el tr hijo
 	    if(showHide && row.child() !== undefined){
 	    	row.child().on( 'dblclick.DT',  function () {
 	    		idRow = row.index();
@@ -136,7 +136,7 @@ DataTable.inlineEdit.init = function ( dt ) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'datatable_toolbar_btnSave disabledButtonsTable',
+         className: 'table_toolbar_btnSave disabledButtonsTable',
          icon: "mdi-content-save",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -154,7 +154,7 @@ DataTable.inlineEdit.init = function ( dt ) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'datatable_toolbar_btnCancel disabledButtonsTable',
+         className: 'table_toolbar_btnCancel disabledButtonsTable',
          icon: "mdi-cancel",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido

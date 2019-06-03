@@ -12494,7 +12494,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
  *		primaryKey: "id"
  *	};
  *
- * $("#table").rup_jqtable(properties);
+ * $("#jqtable").rup_jqtable(properties);
  */
 
 /*global jQuery */
@@ -12526,7 +12526,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		var labelProp, label, settings;
 
 
-		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
 
 		// Se añade la info del formatter
 		var formatterObj = {};
@@ -12583,14 +12583,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		formatterObj['rup_combo']['label'] = label;
 
 		$.extend(true, formatterData, rowObj);
-		$(this).data('rup.table.formatter', formatterData);
+		$(this).data('rup.jqtable.formatter', formatterData);
 
 		return label || '';
 
 	};
 
 	$.fn.fmatter.rup_combo.unformat = function (cellvalue, options) {
-		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_combo']['value'];
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_combo']['value'];
 
 		return val || '';
 
@@ -12602,7 +12602,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		var labelProp, label, settings;
 
 
-		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
 
 		// Se añade la info del formatter
 		var formatterObj = {};
@@ -12660,14 +12660,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		formatterObj['rup_autocomplete']['label'] = label;
 
 		$.extend(true, formatterData, rowObj);
-		$(this).data('rup.table.formatter', formatterData);
+		$(this).data('rup.jqtable.formatter', formatterData);
 
 		return label || '';
 
 	};
 
 	$.fn.fmatter.rup_autocomplete.unformat = function (cellvalue, options) {
-		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
 
 		return val || '';
 
@@ -12791,7 +12791,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			settings.id = $self.attr('id');
 
 			// Se da valor a la propiedad ruptype
-			$self.attr('ruptype', 'table');
+			$self.attr('ruptype', 'jqtable');
 
 			settings.core.tableDiv = settings.id + '_div';
 			settings.core.$tableDiv = jQuery('#' + settings.core.tableDiv);
@@ -13949,8 +13949,8 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	jQuery.fn.rup_jqtable.plugins = {};
 	jQuery.fn.rup_jqtable.plugins.core = {};
 	jQuery.fn.rup_jqtable.plugins.core.defaults = {
-		// adapter: "table_jqueryui",
-		adapter: 'table_bootstrap',
+		// adapter: "jqtable_jqueryui",
+		adapter: 'jqtable_bootstrap',
 		core: {
 			operations: {},
 			defaultOperations: {},
@@ -20180,15 +20180,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						if (ruptypeObj.attr('ruptype')==='combo'){
 
-							if ($self.data('rup.table.formatter')!==undefined){
-								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
+							if ($self.data('rup.jqtable.formatter')!==undefined){
+								$self.data('rup.jqtable.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
 									'label':ruptypeObj.rup_combo('label'),
 									'value':ruptypeObj.rup_combo('getRupValue')
 								};
 							}
 						} else if (ruptypeObj.attr('ruptype')==='autocomplete' && ruptypeObj.attr('rup_autocomplete_label')){
-							if ($self.data('rup.table.formatter')!==undefined){
-								$self.data('rup.table.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
+							if ($self.data('rup.jqtable.formatter')!==undefined){
+								$self.data('rup.jqtable.formatter')[rowid][this.name]['rup_'+ruptypeObj.attr('rupType')]= {
 									'label':$('[id="'+ruptypeObj.attr('id')+'_label"]').val(),
 									'value':ruptypeObj.rup_autocomplete('getRupValue')
 								};
@@ -20592,13 +20592,13 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				//				ruptypeObj = this.editoptions.ruptype;
 				if ( this.rupType){
 					if (this.rupType==='combo'){
-						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
+						if ($self.data('rup.jqtable.formatter')!==undefined){
+							val =  $self.data('rup.jqtable.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					} else if (this.rupType==='autocomplete'){
-						if ($self.data('rup.table.formatter')!==undefined){
-							val =  $self.data('rup.table.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
+						if ($self.data('rup.jqtable.formatter')!==undefined){
+							val =  $self.data('rup.jqtable.formatter')[$tempRowId][this.name]['rup_'+this.rupType]['label'];
 							$cell.html(val);
 						}
 					}
@@ -24439,7 +24439,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 	});
 
 	$.extend($.rup, {
-		table: {
+		jqtable: {
 			responsive: {
 				'SCREEN_SM': 768,
 				'SCREEN_MD': 992,
@@ -24517,11 +24517,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					windowWidth = $(window).width();
 
-					if (windowWidth > $.rup.table.responsive.SCREEN_LG) {
+					if (windowWidth > $.rup.jqtable.responsive.SCREEN_LG) {
 						currentDisplay = 'lg';
-					} else if (windowWidth > $.rup.table.responsive.SCREEN_MD) {
+					} else if (windowWidth > $.rup.jqtable.responsive.SCREEN_MD) {
 						currentDisplay = 'md';
-					} else if (windowWidth > $.rup.table.responsive.SCREEN_SM) {
+					} else if (windowWidth > $.rup.jqtable.responsive.SCREEN_SM) {
 						currentDisplay = 'sm';
 					} else {
 						currentDisplay = 'xs';
