@@ -2,7 +2,6 @@
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
-import 'jasmine-jquery';
 import 'rup.slider';
 
 describe('Test Slider > ', () => {
@@ -77,6 +76,8 @@ describe('Test Slider > ', () => {
             });
         });
         describe('Método option > ', () => {
+            var objConf = null;
+
             beforeEach(() => {
                 $slider.rup_slider('option', 'max', 400);
                 //Tras cambiar el max el objeto debe quedar así:
