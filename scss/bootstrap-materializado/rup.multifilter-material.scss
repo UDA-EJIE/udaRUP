@@ -1,0 +1,6 @@
+.form-groupMaterial {
+	input:not([type="checkbox"]):not([type="radio"]).rup_multifilter_selector {
+	    border-top-right-radius: 0;
+	    border-bottom-right-radius: 0;
+	}
+}
