@@ -315,7 +315,7 @@
 					$container = jQuery('<div>').attr('class', 'rup-dropdown-btn-group');
 
 					$container = $self.wrap($container).parent();
-debugger;
+
 					dropdownSettings.$container = $container;
 
 					$self.button({});
