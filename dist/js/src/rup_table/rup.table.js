@@ -1,8 +1,8 @@
 /**
-  * Genera un datatable
+  * Genera un table
   *
   * @summary 		Componente RUP Datatable
-  * @module			"rup.datatable"
+  * @module			"rup.table"
   * @version     1.0.0
   * @license
   * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
@@ -133,7 +133,7 @@
 			*
 			* @name _initOptions
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -236,7 +236,7 @@
 		*
 		* @name blockPKEdit
 		* @function
-		* @since UDA 3.7.0 // Datatable 1.0.0
+		* @since UDA 3.7.0 // Table 1.0.0
 		*
 		* @param {object} ctx - Settings object to operate on.
 		* @param {string} actionType - Método de operación CRUD.
@@ -377,7 +377,7 @@
 			*
 			* @name _getColumns
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -435,7 +435,7 @@
 			*
 			* @name _doFilter
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -453,7 +453,7 @@
 			*
 			* @name _ajaxOptions
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -515,17 +515,17 @@
 			*
 			* @name _ajaxRequestData
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
-			* @param {object} data Opciones del datatable
+			* @param {object} data Opciones del table
 			* @param {object} ctx contexto  del componente table
 			*
 		  */
 		_ajaxRequestData(data, ctx) {
 
-			//PAra añadir un id de busqueda distinto al value, como por ejemplo la fecha.
+			//Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
-			//el data viene del padre:Jqueru.datatable y como no tiene el prefijo de busqueda se añade.
+			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
 			data.filter = form2object(ctx.oInit.$filterForm[0]);
 			data.multiselection = undefined;
 			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
@@ -555,7 +555,7 @@
 			*
 			* @name _createSearchPaginator
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} tabla Objeto que contiene la tabla
 			* @param {object} settingsT Opciones del componente
@@ -593,25 +593,37 @@
 				.insertAfter($('#'+tabla[0].id+'_first')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-chevron-left d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_previous')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-chevron-right d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_next')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			$("<i class='mdi mdi-page-last d-sm-none'></i>")
 				.insertAfter($('#'+tabla[0].id+'_last')
 					.addClass('recolocatedPagination_iconButton')
 					.children('a')
-					.addClass('d-none d-sm-block')
+					.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+					.wrapInner(function() {
+						  return "<span/>";
+					})
 				);
 			
 			// Inserta la lista de botones de paginacion al div anteriormente creado
@@ -624,7 +636,7 @@
 			*
 			* @name _clearFilter
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			* @param {object} options Opciones del componente
 			*
@@ -693,10 +705,10 @@
 				 * $toggleIcon1Id : Control que oculta muestra el fomulario
 				 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
 				 */
-				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleIcon1');
-				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleLabel');
-				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.filterSummary');
-				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.templates.filter.toggleIcon2');
+				toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon1');
+				toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleLabel');
+				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.filterSummary');
+				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon2');
 
 				$toggleIcon1 = $(jQuery.jgrid.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
 				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
@@ -727,13 +739,13 @@
 					'click':function(){
 						if(settings.filter.showHidden === false){
 							filterSettings.$collapsableLayer.hide();
-							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+							filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+							filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
 							settings.filter.showHidden = true;
 						} else{
 							filterSettings.$collapsableLayer.show();
-							filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-							filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+							filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+							filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -741,13 +753,13 @@
 
 				if (settings.filter.showHidden === true){
 					filterSettings.$collapsableLayer.hide();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+					filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+					filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
 					settings.filter.showHidden = true;
 				} else {
 					filterSettings.$collapsableLayer.show();
-					filterSettings.$toggleIcon1.removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-					filterSettings.$toggleIcon2.removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+					filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+					filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
 					settings.filter.showHidden = false;
 				}
 
@@ -968,7 +980,7 @@
 			*
 			* @name initializeMultiselectionProps
 			* @function
-			* @since UDA 3.4.0 // Datatable 1.0.0
+			* @since UDA 3.4.0 // Table 1.0.0
 			*
 			*
 			*/
@@ -1049,7 +1061,7 @@
 			
 			var clone = jQuery("#"+$self[0].id).clone(true);	
 			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
-			$self.attr('ruptype', 'datatable');
+			$self.attr('ruptype', 'table');
 			$self.triggerHandler('tableInit');
 			if(args[0].primaryKey !== undefined){
 				settings.primaryKey = args[0].primaryKey.split(";");
@@ -1317,7 +1329,7 @@ $.fn.rup_table.defaults = {
     searchPaginator:true,
     pagingType: "full",
     columnDefs: [],
-	adapter: 'datatable_material',
+	adapter: 'table_material',
     order: [[ 1, 'asc' ]],
     showMultiSelectedZero: true
 	};

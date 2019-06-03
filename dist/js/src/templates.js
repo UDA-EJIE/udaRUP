@@ -94,35 +94,35 @@ this["Rup"]["Templates"]["rup"]["jqtable"]["detail"]["navigation"]["bootstrap"] 
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div id=\"pagination_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-jqtable-detail-info\">\r\n  <i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
     + "\"></i>\r\n  <span id=\"rup_jqtable_selectedElements_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-currentElement\" >\r\n    "
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"rup-jqtable-detail-currentElement\" >\r\n    "
     + alias4(((helper = (helper = helpers.numResult || (depth0 != null ? depth0.numResult : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"numResult","hash":{},"data":data}) : helper)))
     + "\r\n  </span>\r\n</div>\r\n<div id=\"pag_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"rup-jqtable-detail-navigation\">\r\n    <button type=\"button\" id=\"first_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"back_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"forward_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"last_"
-    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
     + "\">"
@@ -181,79 +181,79 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div id=\"pagination_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-info\">\r\n  	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"col-sm-5 text-center text-sm-left\">\r\n  	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_jqtable_selectedElements_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-currentElement\" >\r\n    	"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"ml-1\" >\r\n    	"
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-navigation\">\r\n    <button type=\"button\" id=\"first_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"col-sm-7 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"back_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"forward_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"last_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
-    + "</button>\r\n</div>\r\n<div class=\"rup-table-detail-separator separador\"></div>";
+    + "</button>\r\n</div>";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["material"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div id=\"pagination_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-info\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"col-sm-5 text-center text-sm-left\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_jqtable_selectedElements_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-currentElement\" >\r\n    	"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"ml-1\" >\r\n    	"
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
-    + "\" class=\"rup-table-detail-navigation\">\r\n    <button type=\"button\" id=\"first_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
+    + "\" class=\"col-sm-7 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-material btn-material-sm btn-material-secondary-low-emphasis\" alt=\""
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"back_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-material btn-material-sm btn-material-secondary-low-emphasis\" alt=\""
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"forward_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-material btn-material-sm btn-material-secondary-low-emphasis\" alt=\""
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data}) : helper)))
     + "</button>\r\n    <button type=\"button\" id=\"last_"
-    + alias4(((helper = (helper = helpers.datatableId || (depth0 != null ? depth0.datatableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"datatableId","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data}) : helper)))
     + "\" class=\"btn-material btn-material-sm btn-material-secondary-low-emphasis\" alt=\""
     + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data}) : helper)))
-    + "</button>\r\n</div>\r\n<div class=\"rup-table-detail-separator separador\"></div>";
+    + "</button>\r\n</div>";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["table"]["pager"] = this["Rup"]["Templates"]["rup"]["table"]["pager"] || {};
 this["Rup"]["Templates"]["rup"]["table"]["pager"]["link"] = this["Rup"]["Templates"]["rup"]["table"]["pager"]["link"] || {};
@@ -335,6 +335,17 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["button"]["jqueryui"] = Handlebars.te
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
     + "</span>\r\n</button>\r\n";
 },"useData":true});
+this["Rup"]["Templates"]["rup"]["toolbar"]["button"]["material"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "\r\n<button type=\"button\" id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\"btn-material btn-material-primary-high-emphasis rup-button\">\r\n	<i class=\""
+    + alias4(((helper = (helper = helpers.css || (depth0 != null ? depth0.css : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"css","hash":{},"data":data}) : helper)))
+    + "\" aria-hidden=\"true\"></i>\r\n    <span class=\"rup-ui-button-text\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\r\n</button>\r\n";
+},"useData":true});
 this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"] = this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"] || {};
 this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -345,7 +356,24 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.
     + alias4(((helper = (helper = helpers.groupClasses || (depth0 != null ? depth0.groupClasses : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data}) : helper)))
     + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\" data-mbutton=\"true\" class=\"btn-material btn-material btn-material-primary-high-emphasis rup-button\">\r\n			<i class=\"mdi mdi-settings\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
+    + "\" data-mbutton=\"true\" class=\"ui-button ui-corner-all ui-widget rup-button\">\r\n			<i class=\"mdi mdi-settings\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\r\n		</button>\r\n		<ul id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "-mbutton-container\" class=\"rup-mbutton-container\" aria-labelledby=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\r\n\r\n		</ul>\r\n</div>";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["material"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "-mbutton-group\" class=\"rup-mbutton "
+    + alias4(((helper = (helper = helpers.groupClasses || (depth0 != null ? depth0.groupClasses : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data}) : helper)))
+    + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-mbutton=\"true\" class=\"btn-material btn-material-primary-high-emphasis rup-button\">\r\n			<i class=\"mdi mdi-settings\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
     + "</span>\r\n		</button>\r\n		<ul id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -389,7 +417,7 @@ this["Rup"]["Templates"]["rup"]["upload"]["downloadTemplate"] = Handlebars.templ
 
   return "            <div class=\"col-xs-6 col-md-4 fileupload-buttonbar\">\r\n				<a href=\""
     + alias4(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data}) : helper)))
-    + "\">\r\n               		<span  class=\"btn btn-primary download\">\r\n                		<i class=\"mdi mdi-download\" aria-hidden=\"true\"></i>\r\n                		<span>"
+    + "\">\r\n               		<span  class=\"btn-material btn-material-primary-high-emphasis download\">\r\n                		<i class=\"mdi mdi-download\" aria-hidden=\"true\"></i>\r\n                		<span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"rup_upload.openUploaded",{"name":"i18n","hash":{},"data":data}))
     + "</span>\r\n                	</span>\r\n                </a>\r\n                <span class=\"btn-material btn-material-secondary-high-emphasis delete\" data-type=\""
     + alias4(((helper = (helper = helpers.delete_type || (depth0 != null ? depth0.delete_type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"delete_type","hash":{},"data":data}) : helper)))
@@ -516,9 +544,9 @@ this["Rup"]["Templates"]["rup"]["widget"]["configRequired"] = Handlebars.templat
     + "\" class=\"config-required-modal\">\r\n    <div>\r\n        <div>\r\n            <span>"
     + alias4(((helper = (helper = helpers.titulo || (depth0 != null ? depth0.titulo : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titulo","hash":{},"data":data}) : helper)))
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.urlConsulta : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</span><br>\r\n            <button id=\"btnConfigRequired\" type=\"button\" class=\"btn btn-primary\">\r\n                <span class=\"mdi mdi-settings\" aria-hidden=\"true\"></span>"
+    + "</span><br>\r\n            <button id=\"btnConfigRequired\" type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n                <span class=\"mdi mdi-settings\" aria-hidden=\"true\"></span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.configuracion",{"name":"i18n","hash":{},"data":data}))
-    + "</button>\r\n            <button id=\"btnDelete\" type=\"button\" class=\"btn btn-danger\">\r\n                <span class=\"mdi mdi-delete\" aria-hidden=\"true\"></span>"
+    + "</button>\r\n            <button id=\"btnDelete\" type=\"button\" class=\"btn-material btn-material-warning-dark-high-emphasis\">\r\n                <span class=\"mdi mdi-delete\" aria-hidden=\"true\"></span>"
     + alias4((helpers.i18n || (depth0 && depth0.i18n) || alias2).call(alias1,"title.eliminar",{"name":"i18n","hash":{},"data":data}))
     + "</button>\r\n            \r\n        </div>\r\n    </div>\r\n</div>";
 },"useData":true});
@@ -582,7 +610,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["search"] = Handlebars.template({"comp
     + alias4(((helper = (helper = helpers.fieldId || (depth0 != null ? depth0.fieldId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldId","hash":{},"data":data}) : helper)))
     + "\" placeholder=\""
     + alias4(((helper = (helper = helpers.fieldPlaceholder || (depth0 != null ? depth0.fieldPlaceholder : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldPlaceholder","hash":{},"data":data}) : helper)))
-    + "\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <button type=\"button\" class=\"btn btn-default\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn btn-primary\">\r\n            <span class=\"mdi mdi-settings\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
+    + "\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-settings\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"]["welcome"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression;

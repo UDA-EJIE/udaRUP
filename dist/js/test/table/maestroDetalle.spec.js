@@ -63,7 +63,7 @@
 //     });
 
 //     describe('Creación > ', () => {
-//         it('La datatable filtro debe contener elementos y la de resultados estar vacía:', () => {
+//         it('El table filtro debe contener elementos y la de resultados estar vacía:', () => {
 //             expect($('#example1 > tbody > tr').length).toBe(5);
 //             expect($('#example2 > tbody > tr').length).toBe(0);
 //         });

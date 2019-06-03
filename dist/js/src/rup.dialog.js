@@ -54,7 +54,7 @@
 	if (typeof define === 'function' && define.amd) {
 
 		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'block-ui'], factory);
+		define(['jquery', './rup.base', 'block-ui', './rup.message'], factory);
 	} else {
 
 		// Browser globals

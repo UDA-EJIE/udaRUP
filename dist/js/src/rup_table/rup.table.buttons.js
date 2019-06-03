@@ -1,5 +1,5 @@
 /**
-  * Genera los botones del datatable
+  * Genera los botones del table
   *
   * @summary 		Extensión del componente RUP Datatable
   * @module			"rup.table.buttons"
@@ -67,7 +67,7 @@ var _dtButtons = DataTable.ext.buttons;
   *
   * @name Buttons
   * @function
-  * @since UDA 3.4.0 // Datatable 1.0.0
+  * @since UDA 3.4.0 // Table 1.0.0
   *
   * @param {object} dt
   * @param {object} config
@@ -201,7 +201,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
 		},
 		id: idTable+'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnAdd',
+		className: 'table_toolbar_btnAdd',
 		displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'add',
@@ -220,7 +220,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
 		},
 		id: idTable+'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnEdit',
+		className: 'table_toolbar_btnEdit',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'edit',
@@ -239,7 +239,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
 		},
 		id: idTable+'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnClone',
+		className: 'table_toolbar_btnClone',
 		displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'clone',
@@ -258,7 +258,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
 		},
 		id: idTable+'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'datatable_toolbar_btnDelete',
+		className: 'table_toolbar_btnDelete',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'delete',
@@ -365,7 +365,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name action
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {int|string} Button index
 	 * @return {function}
@@ -376,7 +376,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name action
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button element
 	 * @param  {function} action Function to set
@@ -402,7 +402,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name active
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button element
 	 * @param  {boolean} [flag] Enable / disable flag
@@ -428,7 +428,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name add
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param {object} config Button configuration object, base string name or function
 	 * @param {int|string} [idx] Button index for where to insert the button
@@ -462,7 +462,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name container
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @return {jQuery} Buttons node
 	 *
@@ -477,7 +477,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name disable
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
@@ -500,7 +500,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name destroy
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @return {Buttons} Self for chaining
 	 *
@@ -540,7 +540,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name enable
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @param  {boolean} [flag=true] Enable / disable flag
@@ -567,7 +567,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name name
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @return {string} Instance name
 	 *
@@ -582,7 +582,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name node
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @return {jQuery} Button element
@@ -599,7 +599,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name processing
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {boolean} flag true to add, false to remove, undefined to get
 	 * @return {boolean|Buttons} Getter value or this if a setter.
@@ -623,7 +623,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name remove
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
@@ -662,7 +662,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name text
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {int|string} node Button index
 	 * @return {string} Button text
@@ -673,7 +673,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name text
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {int|string|function} node Button index
 	 * @param  {string} label Text
@@ -721,7 +721,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _constructor
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 */
 	_constructor: function ()
@@ -772,7 +772,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _addKey
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param {object} conf Resolved button configuration object
 	 *
@@ -791,7 +791,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _draw
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} [container] Recursive only - Insert point
 	 * @param  {array} [buttons] Recursive only - Buttons array
@@ -821,7 +821,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _expandButton
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {array} attachTo Buttons array to attach to
 	 * @param  {object} button Button definition
@@ -888,7 +888,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _buildButton
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {object} config            Resolved button configuration
 	 * @param  {boolean} inCollection `true` if a collection button
@@ -976,7 +976,7 @@ $.extend( Buttons.prototype, {
 		} else {
 			// Se desactiva el acceso desde el contextMenu por no tener un id establecido
 			config.insideContextMenu = false;
-			// Se asigna un id dinamico en funcion del nombre del datatable al que pertenece
+			// Se asigna un id dinamico en funcion del nombre del table al que pertenece
 			config.id = ctx.sTableId + '_button_' + (_buttonIdCounter++);
 			button.attr( 'id', config.id );
 		}
@@ -1028,7 +1028,7 @@ $.extend( Buttons.prototype, {
 					config.icon = "mdi-file";
 					break;
 				case 'csvButton':
-					config.icon = "mdi-file-table";
+					config.icon = "mdi-file";
 					break;
 				default:
 					config.icon = "mdi-settings";
@@ -1063,7 +1063,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _nodeToButton
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @param  {array} [buttons] Button array, uses base if not defined
@@ -1096,7 +1096,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _nodeToHost
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {node} node Button node
 	 * @param  {array} [buttons] Button array, uses base if not defined
@@ -1130,7 +1130,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _keypress
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {string} character The character pressed
 	 * @param  {object} e Key event that triggered this call
@@ -1198,7 +1198,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _removeKey
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {object} conf Button configuration
 	 *
@@ -1224,7 +1224,7 @@ $.extend( Buttons.prototype, {
 	 *
 	 * @name _resolveExtends
    * @function
-   * @since UDA 3.4.0 // Datatable 1.0.0
+   * @since UDA 3.4.0 // Table 1.0.0
 	 *
 	 * @param  {string|function|object} conf Button config to resolve
 	 * @return {object} Button configuration
@@ -1356,7 +1356,7 @@ $.extend( Buttons.prototype, {
  *
  * @name Buttons.background
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {boolean} Flag to indicate if the background should be shown or
  *   hidden
@@ -1394,7 +1394,7 @@ Buttons.background = function ( show, className, fade ) {
  *
  * @name Buttons.instanceSelector
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {string|int|array} Instance selector - see `instance-selector`
  *   documentation on the DataTables site
@@ -1458,7 +1458,7 @@ Buttons.instanceSelector = function ( group, buttons )
  *
  * @name Buttons.buttonSelector
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param  {array} Button instances array that the selector should operate on
  * @param  {string|int|node|jQuery|array} Button selector - see
@@ -1602,7 +1602,7 @@ Buttons.buttonSelector = function ( insts, selector )
  *
  * @name Buttons.defaults
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @type {Object}
  *
@@ -1640,7 +1640,7 @@ Buttons.defaults = {
  *
  * @name Buttons.version
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @type {string}
  *
@@ -1653,7 +1653,7 @@ Buttons.version = '1.5.1';
 $.extend( _dtButtons, {
 	collection: {
 		text: function ( dt ) {
-			return $.rup.i18nParse($.rup.i18n.base, 'rup.datatable.collection');
+			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.collection');
 		},
 		className: 'buttons-collection',
 		action: function ( e, dt, button, config ) {
@@ -2037,7 +2037,7 @@ DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
 	var that = this;
 
 	if ( title === false ) {
-		$('#datatables_buttons_info').fadeOut( function () {
+		$('#table_buttons_info').fadeOut( function () {
 			$(this).remove();
 		} );
 		clearTimeout( _infoTimer );
@@ -2050,13 +2050,13 @@ DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
 		clearTimeout( _infoTimer );
 	}
 
-	if ( $('#datatables_buttons_info').length ) {
-		$('#datatables_buttons_info').remove();
+	if ( $('#table_buttons_info').length ) {
+		$('#table_buttons_info').remove();
 	}
 
 	title = title ? '<h2>'+title+'</h2>' : '';
 
-	$('<div id="datatables_buttons_info" class="dt-button-info"/>')
+	$('<div id="table_buttons_info" class="dt-button-info"/>')
 		.html( title )
 		.append( $('<div/>')[ typeof message === 'string' ? 'html' : 'append' ]( message ) )
 		.css( 'display', 'none' )
@@ -2220,7 +2220,7 @@ DataTable.Api.register( 'buttons.initButtons()', function (ctx,opts) {
  *
  * @name _filename
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {object}	config Button configuration
  * @param {boolean} incExtension Include the file name extension
@@ -2261,7 +2261,7 @@ var _filename = function ( config )
  *
  * @name _stringOrFunction
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {undefined|string|function} option Option
  *
@@ -2284,7 +2284,7 @@ var _stringOrFunction = function ( option )
  *
  * @name _title
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {object} config	Button configuration
  *
@@ -2443,7 +2443,7 @@ var _exportData = function ( dt, inOpts )
  *
  * @name _enableCollection
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {string} id	Id of the button
  *
@@ -2458,7 +2458,7 @@ var _enableCollection = function ( id )
  *
  * @name _disableCollection
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {string} id	Id of the button
  *
@@ -2473,7 +2473,7 @@ var _disableCollection = function ( id )
  *
  * @name _enableButtonAndContextMenuOption
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {string} id	Id of the button
  *
@@ -2488,7 +2488,7 @@ var _enableButtonAndContextMenuOption = function ( id )
  *
  * @name _disableButtonAndContextMenuOption
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {string} id	Id of the button
  *
@@ -2504,7 +2504,7 @@ var _disableButtonAndContextMenuOption = function ( id )
  *
  * @name _manageButtonsAndButtonsContextMenu
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * @param {object} opts	Buttons properties
  * @param {int} numOfSelectedRows	Number of selected rows
@@ -2608,9 +2608,9 @@ var _manageButtonsAndButtonsContextMenu = function ( opts, numOfSelectedRows, co
 *
 * @name _reportsCopyData
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt Instancia del datatable
+* @param {object} dt Instancia del table
 * @param {object} that Objeto del boton
 * @param {object} config Configuracion del boton
 *
@@ -2667,9 +2667,9 @@ $.when(_reportsTypeOfCopy(dt, type, multiselection, selectedAll, deselectedIds))
 *
 * @name _reportsExcel
 * @function
-* @since UDA 3.7.1 // Datatable 1.0.0
+* @since UDA 3.7.1 // Table 1.0.0
 *
-* @param {object} dt Instancia del datatable
+* @param {object} dt Instancia del table
 * @param {object} that Objeto del boton
 * @param {object} config Configuracion del boton
 *
@@ -2866,7 +2866,7 @@ var _callJqueryReports = function(dt,ctx,config){
 *
 * @name ConvertToTabulador
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} objArray Objeto que contiene los datos a exportar
 * @param {boolean} true en caso de querer que se mueste la cabecera
@@ -2924,9 +2924,9 @@ return str;
 *
 * @name _reportsTypeOfCopy
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt Instancia del datatable
+* @param {object} dt Instancia del table
 * @param {string} type Tipo de funcion de copia a ejecutar
 * @param {object} multiselection Propiedades de la multiseleccion
 * @param {boolean} selectedAll Cuando es true significa que todas las filas estan marcadas
@@ -3016,7 +3016,7 @@ return deferred.promise();
 *
 * @name _reportsPrepareRequestData
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ajaxOptions Parametros de la llamada Ajax
 * @param {string} urlAjax Parametro para la URL
@@ -3067,7 +3067,7 @@ return ajaxOptions;
 *
 * @name _reportsRequestData
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
 * @param {object} ajaxOptions Parametros de la llamada Ajax
 * @param {object} ctx Contexto
@@ -3097,9 +3097,9 @@ return deferred.promise();
 *
 * @name _reportsOpenMessage
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt Instancia del datatable
+* @param {object} dt Instancia del table
 * @param {object} ctx Contexto
 * @param {object} that Objeto del boton
 * @param {int} exportDataRows Numero de filas a ser exportadas
@@ -3142,9 +3142,9 @@ $.rup_messages('msgConfirm', {
 *
 * @name _reportsCopyDataToClipboard
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 *
-* @param {object} dt Instancia del datatable
+* @param {object} dt Instancia del table
 * @param {object} that Objeto del boton
 * @param {int} exportDataRows Numero de filas a ser exportadas
 * @param {object} hiddenDiv Elemento del DOM
@@ -3317,7 +3317,7 @@ var _initContextMenu = function(ctx,api){
 *
 * @name _initButtons
 * @function
-* @since UDA 3.7.0 // Datatable 1.0.0
+* @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Settings object to operate on
 * @param {List<object>} opts Lista de botones
@@ -3406,7 +3406,7 @@ function inicio(ctx) {
 	var numOfSelectedRows = ctx.multiselection.numSelected;
 	var collectionObject;
 	
-	// Toolbar por defecto del datatable
+	// Toolbar por defecto del table
 	//lista negra de botones por defecto.
 	if(ctx.oInit.buttons.blackListButtons !== undefined){
 		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
@@ -3427,7 +3427,7 @@ function inicio(ctx) {
 	DataTable.Api().buttons.initButtons(ctx,opts);
 	_initContextMenu(ctx,api);
 
-	// Detecta cuando se selecciona o se deselecciona una fila en el datatable
+	// Detecta cuando se selecciona o se deselecciona una fila en el table
 	$('#' + ctx.sTableId).DataTable().on( 'select deselect contextmenu', function (event) {
 		DataTable.Api().buttons.displayRegex(ctx);
 	} );
