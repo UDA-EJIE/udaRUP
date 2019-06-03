@@ -1,6 +1,6 @@
 <a name="module_rup_language"></a>
 
-## rup_language
+## rup\_language
 El componente de idioma esta diseñado para permitir al usuario elegir, de forma intuitiva, el idioma en el que se presenta la aplicación.
 
 **Summary**: Componente RUP Language.  
@@ -18,7 +18,7 @@ var properties={  // Propiedades de configuración};$("#idlanguage").rup_lan
 ### rup_language~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_language</code>](#module_rup_language)  
+**Kind**: inner property of [<code>rup\_language</code>](#module_rup_language)  
 **Properties**
 
 | Name | Type | Description |
@@ -31,7 +31,7 @@ Opciones por defecto de configuración del componente.
 ### rup_language~destroy()
 Elimina el componente.
 
-**Kind**: inner method of [<code>rup_language</code>](#module_rup_language)  
+**Kind**: inner method of [<code>rup\_language</code>](#module_rup_language)  
 **Example**  
 ```js
 $("#idlanguage").rup_language("destroy");

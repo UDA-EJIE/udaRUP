@@ -1,6 +1,6 @@
 <a name="module_rup_time"></a>
 
-## rup_time
+## rup\_time
 El usuario puede introducir y seleccionar una hora tanto de forma manual como visual, moviéndose fácilmente por las horas y los minutos, recibiendo ayudas y sugerencias para minimizar las posibilidades de introducir una hora incorrecta.
 
 **Summary**: Componente RUP Time.  
@@ -33,7 +33,7 @@ var properties = {  labelMaskId : "hora-mask",  showSecond : true,  timeForma
 ### "onSelect"
 Permite asociar una función que se ejecutará cuando se modifique alguno de los valores del desplegable (hora, minutos o segundos). Los parámetros recibidos son la hora seleccionada (texto) y la instancia del componente
 
-**Kind**: event emitted by [<code>rup_time</code>](#module_rup_time)  
+**Kind**: event emitted by [<code>rup\_time</code>](#module_rup_time)  
 **Properties**
 
 | Name | Type | Description |
@@ -49,7 +49,7 @@ $(selector).rup_time({ onSelect: function(dateText, inst){...} });
 ### "onClose"
 Permite asociar una función que se ejecutará cuando se oculte el desplegable. Los parámetros recibidos son la hora seleccionada (texto) y la instancia del componente
 
-**Kind**: event emitted by [<code>rup_time</code>](#module_rup_time)  
+**Kind**: event emitted by [<code>rup\_time</code>](#module_rup_time)  
 **Properties**
 
 | Name | Type | Description |
@@ -65,7 +65,7 @@ $(selector).rup_time({ onClose: function(dateText, inst){...} });
 ### rup_time~defaults
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner property of [<code>rup\_time</code>](#module_rup_time)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -109,7 +109,7 @@ Propiedades de configuración del componente.
 ### rup_time~getRupValue() ⇒ <code>string</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Returns**: <code>string</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
@@ -120,7 +120,7 @@ $("#idTime").rup_time("getRupValue");
 ### rup_time~setRupValue(param)
 Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -135,7 +135,7 @@ $("#idTime").rup_time("setRupValue", "10:25:16");
 ### rup_time~destroy()
 Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("destroy");
@@ -145,7 +145,7 @@ $("#idTime").rup_time("destroy");
 ### rup_time~disable()
 Deshabilita el componente en pantalla no pudiendo introducirse ninguna hora ni se despliega el calendario.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("disable");
@@ -155,7 +155,7 @@ $("#idTime").rup_time("disable");
 ### rup_time~enable()
 Habilita el componente permitiendo introducir la hora tanto mediante teclado como mediante el desplegable.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("enable");
@@ -165,7 +165,7 @@ $("#idTime").rup_time("enable");
 ### rup_time~isDisabled() ⇒ <code>boolean</code>
 Indica si el componente se encuentra deshabilitado o no.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Returns**: <code>boolean</code> - - Determina si el componente está deshabilitado o no.  
 **Example**  
 ```js
@@ -176,7 +176,7 @@ $("#idTime").rup_time("isDisabled");
 ### rup_time~hide()
 Oculta el desplegable para seleccionar una hora.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("hide");
@@ -186,7 +186,7 @@ $("#idTime").rup_time("hide");
 ### rup_time~show()
 Muestra el desplegable para seleccionar una hora.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("show");
@@ -196,7 +196,7 @@ $("#idTime").rup_time("show");
 ### rup_time~getTime() ⇒ <code>string</code>
 Devuelve la hora seleccionada, si no se ha seleccionado nada devuelve vacío.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Returns**: <code>string</code> - - Devuelve la hora seleccionada por el usuario utilizando.  
 **Example**  
 ```js
@@ -207,7 +207,7 @@ $("#idTime").rup_time("getTime");
 ### rup_time~setTime() ⇒ <code>date</code>
 Establece la hora del componente.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Returns**: <code>date</code> - time - Hora que se desea asignar al componente.  
 **Example**  
 ```js
@@ -218,7 +218,7 @@ $("#idTime").rup_time("setTime", time);
 ### rup_time~refresh()
 Refresca el calendario desplegado por si ha habido algún cambio.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 **Example**  
 ```js
 $("#idTime").rup_time("refresh");
@@ -228,7 +228,7 @@ $("#idTime").rup_time("refresh");
 ### rup_time~option(optionName, [value])
 Permite consultar y modificar la configuración del componente.
 
-**Kind**: inner method of [<code>rup_time</code>](#module_rup_time)  
+**Kind**: inner method of [<code>rup\_time</code>](#module_rup_time)  
 
 | Param | Type | Description |
 | --- | --- | --- |

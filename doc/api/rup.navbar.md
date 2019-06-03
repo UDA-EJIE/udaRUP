@@ -1,6 +1,6 @@
 <a name="module_rup_navbar"></a>
 
-## rup_navbar
+## rup\_navbar
 Proporciona una herramienta para navegar a través de las aplicación web.
 
 **Summary**: Componente RUP Navbar  
@@ -72,7 +72,7 @@ var html = '<nav class="rup-navbar navbar">\
 ### rup_navbar~toggle()
 Funcion que alterna el estado del navbar entre desplegado y oculto.
 
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
+**Kind**: inner method of [<code>rup\_navbar</code>](#module_rup_navbar)  
 **Example**  
 ```js
 $('nav').rup_navbar('toggle');
@@ -82,7 +82,7 @@ $('nav').rup_navbar('toggle');
 ### rup_navbar~show()
 Funcion que despliega el navbar.
 
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
+**Kind**: inner method of [<code>rup\_navbar</code>](#module_rup_navbar)  
 **Example**  
 ```js
 $('nav').rup_navbar('show');
@@ -92,7 +92,7 @@ $('nav').rup_navbar('show');
 ### rup_navbar~hide()
 Funcion que oculta el navbar.
 
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
+**Kind**: inner method of [<code>rup\_navbar</code>](#module_rup_navbar)  
 **Example**  
 ```js
 $('nav').rup_navbar('hide');
@@ -102,7 +102,7 @@ $('nav').rup_navbar('hide');
 ### rup_navbar~setTransitioning(transición)
 Define si habrá o no transición al desplegar y ocultar el navbar
 
-**Kind**: inner method of [<code>rup_navbar</code>](#module_rup_navbar)  
+**Kind**: inner method of [<code>rup\_navbar</code>](#module_rup_navbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |

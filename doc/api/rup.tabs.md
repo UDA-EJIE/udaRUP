@@ -1,6 +1,6 @@
 <a name="module_rup_tabs"></a>
 
-## rup_tabs
+## rup\_tabs
 Permiten dar acceso de forma compacta a grupos de contenidos mutuamente excluyentes pudiendo ser integradas en zonas muy reducidas de la interfaz.
 
 **Summary**: Componente RUP Tabs.  
@@ -36,7 +36,7 @@ $("#ejemploArbolDiv").rup_tabs(properties);
 ### "create"
 Se lanza cada vez que se crea una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -52,7 +52,7 @@ $(selector).rup_tabs ({ create: function(){...} });
 ### "select"
 Se lanza el evento cada vez que se hace click sobre una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -68,7 +68,7 @@ $(selector).rup_tabs ({ select: function(){...} });
 ### "load"
 Este evento se desencadena después de que el contenido de una pestaña se ha cargado.
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -84,7 +84,7 @@ $(selector).rup_tabs ({ load: function(){...} });
 ### "activate"
 Este evento ocurre cuando una pestaña está preparada para ser mostrada.
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -100,7 +100,7 @@ $(selector).rup_tabs ({ activate: function(){...} });
 ### "add"
 Este evento se desencadena cuando se añade una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -116,7 +116,7 @@ $(selector).rup_tabs ({ add: function(){...} });
 ### "remove"
 Este evento se desencadena cuando se elimina una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -132,7 +132,7 @@ $(selector).rup_tabs ({ remove: function(){...} });
 ### "enable"
 Este evento se desencadena cuando se habilita una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -148,7 +148,7 @@ $(selector).rup_tabs ({ enable: function(){...} });
 ### "disable"
 Este evento se desencadena cuando se deshabilita una pestaña
 
-**Kind**: event emitted by [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Description |
@@ -162,7 +162,7 @@ $(selector).rup_tabs ({ disable: function(){...} });
 <a name="module_rup_tabs..options"></a>
 
 ### rup_tabs~options
-**Kind**: inner property of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner property of [<code>rup\_tabs</code>](#module_rup_tabs)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -183,7 +183,7 @@ $(selector).rup_tabs ({ disable: function(){...} });
 ### rup_tabs~disableTabs()
 Función encargada de deshabilitar una o un conjunto de pestañas de un mismo sub-nivel
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -199,7 +199,7 @@ Función encargada de deshabilitar una o un conjunto de pestañas de un mismo su
 ### rup_tabs~enableTabs()
 Función encargada de habilitar una o un conjunto de pestañas de un mismo subnivel.
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -215,7 +215,7 @@ Función encargada de habilitar una o un conjunto de pestañas de un mismo subni
 ### rup_tabs~loadTab()
 Función que fuerza la recarga de una pestaña. Si se especifica una nueva url, además de recargar la página con la nueva url, se inserta ésta como nueva url de la pestaña
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -232,7 +232,7 @@ Función que fuerza la recarga de una pestaña. Si se especifica una nueva url, 
 ### rup_tabs~changeUrlTab()
 Función encargada de actualizar la url de invocación de una pestaña determinada
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -249,7 +249,7 @@ $("#tabs").rup_tabs("changeUrlTab",{   idTab: "tabs",    position: 1,   url: 
 ### rup_tabs~changeLayerTab()
 Función encargada de actualizar la capa html, previamente cargada, que se muestra en la pestaña determinada
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -266,7 +266,7 @@ $("#tabs").rup_tabs("changeLayerTab",{   idTab: "tabs",  position: 2,  layer:
 ### rup_tabs~selectTab()
 Función encargada de seleccionar una pestaña determinada. El comportamiento es idéntico al click con el ratón.
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -282,7 +282,7 @@ $("#tabs").rup_tabs("selectTab",{   idTab: "tabs",   position: 1, });
 ### rup_tabs~addTab()
 Función encargada de añadir una nueva pestaña cuando el componente ya está creado. Es posible añadir una nueva pestaña al final o entre otras pestañas.
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -300,7 +300,7 @@ $("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  label: "nuevaPe
 ### rup_tabs~removeTab()
 Función encargada de eliminar una nueva pestaña cuando el componente ya está creado
 
-**Kind**: inner method of [<code>rup_tabs</code>](#module_rup_tabs)  
+**Kind**: inner method of [<code>rup\_tabs</code>](#module_rup_tabs)  
 
 | Param | Type | Description |
 | --- | --- | --- |

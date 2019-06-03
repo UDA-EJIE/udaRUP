@@ -1,6 +1,6 @@
 <a name="module_rup_combo"></a>
 
-## rup_combo
+## rup\_combo
 Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
 
 **Summary**: Componente RUP Combo.  
@@ -40,7 +40,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
 ### rup_combo~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner property of [<code>rup\_combo</code>](#module_rup_combo)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -64,13 +64,14 @@ Opciones por defecto de configuración del componente.
 | [rowStriping] | <code>boolean</code> | <code>false</code> | Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente. |
 | [typeAhead] | <code>number</code> | <code>false</code> | Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario. |
 | [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad. |
+| [open] | <code>function</code> | <code>function( event, ui )</code> | Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el. |
 
 <a name="module_rup_combo..getRupValue"></a>
 
 ### rup_combo~getRupValue() ⇒ <code>string</code> \| <code>number</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del Combo.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Returns**: <code>string</code> \| <code>number</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
@@ -82,7 +83,7 @@ $("#idCombo").rup_combo("getRupValue");
 Método utilizado para asignar el valor al componente. Este método es el utilizado por
 el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -97,7 +98,7 @@ $("#idCombo").rup_combo("setRupValue", "Si");
 ### rup_combo~clear()
 Método que limpia el valor seleccionado en el combo. En el caso de selección múltiple los valores seleccionados.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("clear");
@@ -107,7 +108,7 @@ $("#idCombo").rup_combo("clear");
 ### rup_combo~change()
 Método que lanza el evento change del componente.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("change");
@@ -117,7 +118,7 @@ $("#idCombo").rup_combo("change");
 ### rup_combo~reset()
 Realiza una reinicizalización del estado del componente.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("reset");
@@ -127,7 +128,7 @@ $("#idCombo").rup_combo("reset");
 ### rup_combo~checkAll()
 Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("checkAll");
@@ -137,7 +138,7 @@ $("#idCombo").rup_combo("checkAll");
 ### rup_combo~select(param)
 Selecciona el elemento enviado como parámetro. En caso de ser un numérico se selecciona por la posición (comenzando en 0) y si es un literal se selecciona por el valor. En el caso de selección múltiple el parámetro será un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -152,7 +153,7 @@ Selecciona el elemento enviado como parámetro. En caso de ser un numérico se s
 ### rup_combo~selectLabel(param)
 Selecciona el elemento del combo que contiene como texto el indicado. En caso de no existir el texto a buscar el combo no sufrirá cambios En el caso de selección múltiple el parámetro será un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -167,7 +168,7 @@ Selecciona el elemento del combo que contiene como texto el indicado. En caso de
 ### rup_combo~value() ⇒ <code>string</code> \| <code>Array.&lt;string&gt;</code>
 Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Valor del elemento o elementos seleccionados.  
 **Example**  
 ```js
@@ -178,7 +179,7 @@ $("#idCombo").rup_combo("value");
 ### rup_combo~label() ⇒ <code>string</code> \| <code>Array.&lt;string&gt;</code>
 Método que devuelve el label asociado al valor seleccionado en el combo. En el caso de la selección múltiple se devolverá un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Texto del elemento o elementos seleccionado.  
 **Example**  
 ```js
@@ -189,7 +190,7 @@ $("#idCombo").rup_combo("label");
 ### rup_combo~index() ⇒ <code>number</code> \| <code>Array.&lt;number&gt;</code>
 Devuelve el índice de la opción seleccionada en el combo (empezando en 0). En el caso de la selección múltiple se devolverá un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Returns**: <code>number</code> \| <code>Array.&lt;number&gt;</code> - - Índice del elemento o elementos seleccionados.  
 **Example**  
 ```js
@@ -200,7 +201,7 @@ $("#idCombo").rup_combo("index");
 ### rup_combo~disable()
 Deshabilita el combo.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("disable");
@@ -210,7 +211,7 @@ $("#idCombo").rup_combo("disable");
 ### rup_combo~enable()
 Habilita el combo.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("enable");
@@ -220,7 +221,7 @@ $("#idCombo").rup_combo("enable");
 ### rup_combo~isDisabled()
 Indica si el combo está deshabilitado o no.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Type | Description |
 | --- | --- |
@@ -235,7 +236,7 @@ $("#idCombo").rup_combo("isDisabled");
 ### rup_combo~disableChild()
 Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("disableChild");
@@ -245,7 +246,7 @@ $("#idCombo").rup_combo("disableChild");
 ### rup_combo~disableOpt(optValue)
 Deshabilita una opción de un combo multiselección.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -260,7 +261,7 @@ $("#idCombo").rup_combo("disableOpt", "opt1");
 ### rup_combo~disableOptArr(optValueArr)
 Deshabilita varias opciones del combo. Las opciones se identifican mediante un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -275,7 +276,7 @@ $("#idCombo").rup_combo("disableOptArr", ["opt1","opt2"]);
 ### rup_combo~enableOpt(enableOpt)
 Habilita una opción de un combo multiselección.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -290,7 +291,7 @@ $("#idCombo").rup_combo("enableOpt", "opt1");
 ### rup_combo~enableOptArr(optValueArr)
 Habilita varias opciones del combo. Las opciones se identifican mediante un array.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -305,7 +306,7 @@ $("#idCombo").rup_combo("enableOptArr", ["opt1","opt2"]);
 ### rup_combo~refresh()
 Refresca los valores asociados al combo.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("refresh");
@@ -315,7 +316,7 @@ $("#idCombo").rup_combo("refresh");
 ### rup_combo~reload()
 Realiza una recarga de los combos.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Example**  
 ```js
 $("#idCombo").rup_combo("reload");
@@ -325,7 +326,7 @@ $("#idCombo").rup_combo("reload");
 ### rup_combo~order(orderedByValue, orderAsNumber, skipFirst)
 Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
 
-**Kind**: inner method of [<code>rup_combo</code>](#module_rup_combo)  
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
