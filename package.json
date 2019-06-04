@@ -154,7 +154,7 @@
     "@mdi/font": "3.6.95",
     "block-ui": "2.70.1",
     "blueimp-canvas-to-blob": "3.3.0",
-    "blueimp-file-upload": "9.12.5",
+    "blueimp-file-upload": "^9.22.1",
     "blueimp-load-image": "2.6.1",
     "blueimp-tmpl": "3.4.0",
     "chart.js": "2.1.1",

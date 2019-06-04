@@ -382,7 +382,7 @@
 					if (obj.buttons) {
 
 						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-						mbutton = t.addMButton($.extend({
+						var mbutton = t.addMButton($.extend({
 							idParent: this.id,
 							id: obj.id,
 							i18nCaption: obj.i18nCaption,
