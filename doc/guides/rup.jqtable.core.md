@@ -1,4 +1,4 @@
-# RUP Table - Core
+# RUP jqTable - Core
 
 El modulo *core* es el común al resto de *plugins*. Contiene las propiedades de configuración imprescindibles para el correcto funcionamiento del componente.
 

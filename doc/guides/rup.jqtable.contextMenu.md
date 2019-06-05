@@ -1,10 +1,10 @@
-# RUP Table - Menú contextual
+# RUP jqTable - Menú contextual
 
 El modulo menu contextual (contextMenu) permite mostrar un menú con acciones relacionadas con el lugar del componente sobre el que se muestra.
 
 Por defecto permite realizar sobre los registros de la tabla, las mismas acciones principales que se muestran en la botonera.
 
-![Imagen 1](img/rup.table.contextMenu_1.png)
+![Imagen 1](img/rup.jqtable.contextMenu_1.png)
 
 ## 1. Declaración y configuración
 
@@ -13,7 +13,7 @@ El uso del plugin en el componente se realiza incluyendo en el array de la propi
 La configuración del plugin se especifica en la propiedad contextMenu.
 
 ```js
-$("#idComponente").rup_table({
+$("#idComponente").rup_jqtable({
   url: "../jqGridUsuario",
   usePlugins:["contextMenu"],
   contextMenu:{
@@ -30,7 +30,7 @@ $("#idComponente").rup_table({
 A continuación se va a mostrar un ejemplo de definición de un caso complejo de las opciones del menú contextual:
 
 ```js
-$("#idComponente").rup_table({
+$("#idComponente").rup_jqtable({
   usePlugins:["contextMenu"],
   core:{
     operations:{

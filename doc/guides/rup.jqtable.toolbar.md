@@ -1,4 +1,4 @@
-# RUP Table - Botonera
+# RUP jqTable - Botonera
 
 Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
 
@@ -7,7 +7,7 @@ Genera una botonera asociada a la tabla con la finalidad de agrupar los controle
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “toolbar”. La configuración del plugin se especifica en la propiedad toolbar.
 
 ```js
-$("#idComponente").rup_table({
+$("#idComponente").rup_jqtable({
   url: "../jqGridUsuario",
   usePlugins:["toolbar"],
   toolbar:{
@@ -21,7 +21,7 @@ $("#idComponente").rup_table({
 A continuación se va a mostrar un ejemplo de definición de un caso complejo de las opciones del toolbar:
 
 ```js
-$("#idComponente").rup_table({
+$("#idComponente").rup_jqtable({
     usePlugins:["toolbar"],
     core:{
         operations:{

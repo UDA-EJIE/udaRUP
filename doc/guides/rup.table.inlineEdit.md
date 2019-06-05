@@ -1,17 +1,20 @@
-# RUP Table - Edición en línea
+# RUP Table - Edición en linea
 
-Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
+Permite la edición de los registros de la tabla utilizando un formulario dentro de la tabla. El formulario se muestra
+dentro de una fila y ofrece las siguientes funcionalidades:
 
-![Imagen 1](img/rup.table.inlineEdit_1.png)
+* Añadir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserción o edición de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
+
+![Imagen 1](img/edicionEnLinea.png)
 
 # 1. Declaración y configuración
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “inlineEdit”. La configuración del plugin se especifica en la propiedad inlineEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor inlineEdit. La configuración del plugin se especifica en la propiedad inlineEdit.
 
- ```js
+```js
 $("#idComponente").rup_table({
-  url: "../jqGridUsuario",
-  usePlugins:["inlineEdit"],
   inlineEdit:{
   // Propiedades de configuración del plugin inlineEdit
   }

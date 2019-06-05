@@ -1,4 +1,4 @@
-# RUP Table - Diseño líquido
+# RUP jqTable - Diseño líquido
 
 Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
 
@@ -7,7 +7,7 @@ Aplica al componente un diseño líquido de modo que se adapte al ancho de la ca
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “fluid”. La configuración del plugin se especifica en la propiedad fluid.
 
 ```js
-$("#idComponente").rup_table({
+$("#idComponente").rup_jqtable({
   url: "../jqGridUsuario",
   usePlugins:["fluid"],
   fluid:{

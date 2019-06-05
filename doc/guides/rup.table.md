@@ -3,7 +3,7 @@
 
 ## 1. Introducción
 
-La descripción del componente Tabla, visto desde el punto de vista de RUP, es la siguiente:
+La descripción del componente table, visto desde el punto de vista de RUP, es la siguiente:
 
 *Se les presenta a los usuarios los datos tabulados para que la información se visualice de manera ágil y rápida, facilitando así su comprensión y manejo. Además, el componente implementa un nuevo patrón definido para facilitar la lógica necesaria en las acciones básicas, denominadas CRUD (create, read,update y delete), sobre una tabla.*
 
@@ -18,7 +18,7 @@ Se muestra a continuación una maquetación típica del componente:
 
 Se aconseja la utilización de este componente:
 
-* Cuando se tenga que presentar a los usuarios filas de datos y se desee facilitar la búsqueda dedatos.
+* Cuando se tenga que presentar a los usuarios filas de datos y se desee facilitar la búsqueda de datos.
 * Cuando se realicen mantenimientos de tablas haciendo uso de las especificaciones establecidas en la guía de desarrollo de UDA.
 
 
@@ -33,27 +33,23 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 - Ruta Javascript: rup/scripts/
 - Fichero de plugin: rup.table-x.y.z.js
 - Ruta theme: rup/css/
-- Fichero de estilos: +theme.table-x.y.z.css+ (modificable por el desarrollador) y ui.jqgrid.css (fichero base de los estilos de la tabla).
-- Ruta fichero de recursos: rup/resources/rup.i18n_idioma.json
+- Fichero de estilos: +theme.table-x.y.z.css+ (modificable por el desarrollador), jquery.table.css (fichero base del table), buttons.table.css (fichero base del plugin 'buttons'), select.table.css (fichero base del plugin 'select').
+- Ruta fichero de recursos: rup/resources/table_idioma.json
 
 ### 4.2. Dependencias
 
 Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
 * **jQuery 1.12.4**: http://jquery.com/
 
-La gestión de ciertas partes visuales de los componentes, se han realizado mediante el *plugin* **jQuery-UI** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este *plugin*, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la **1.12.0**.
-
-* **jQuery-UI 1.12.0**: http://jqueryui.com/
-
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
     jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js
-    jquery-ui-1.12.0.custom.css
     rup.base-x.y.z.js
     rup.table-x.y.z.js
-    jqgrid.js: http://www.trirand.com/blog/
-    Ejemplos online: http://www.trirand.com/blog/jqgrid/jqgrid.html
+    jquery.table.css
+    buttons.table.css
+    select.table.css
+    Ejemplos online: https://datatables.net/examples/index
 
 ### 4.3 Versión minimizada
 
@@ -67,17 +63,16 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 
 ## 5. Invocación
 
-El componente tabla necesita de una invocación de una llamada javascript sobre una estructura HTML existente.
+El componente table necesita de una invocación de una llamada javascript sobre una estructura HTML existente.
 
 Cada módulo del componente asocia funcionalidades y eventos a los diferentes objetos de la estructura HTML. De esto modo los componentes feedback, formulario de filtrado, formulario de detalle o multiselección entre otros, deberán de construirse sobre objetos HTML.
 
-En el componente table se ha optado por minimizar el código HTML que se genera al vuelo mediantejavascript. Esto permite una serie de mejoras.
+En el componente table se ha optado por minimizar el código HTML que se genera al vuelo mediante javascript. Esto permite una serie de mejoras.
 
 * Mayor velocidad de renderizado de la pantalla. El código HTML generado mediante javascript es significativamente más lento, sobre todo en navegadores antiguos.
 * Se facilitan las modificaciones y ajustes sobre las diferentes partes del componente ya que se tiene acceso a la mayoría de las mismas directamente desde la jsp.
 
-Para facilitar aún más y simplificar el código necesario a la hora de invocar y configurar el componente, se ha definido una nomenclatura estándar a la hora de indicar los identificadores de los diferentes objetosHTML. De este modo no será necesario indicarle al componente todos los objetos HTML sobre los que debe
-definir cada una de las funcionalidades.
+Para facilitar aún más y simplificar el código necesario a la hora de invocar y configurar el componente, se ha definido una nomenclatura estándar a la hora de indicar los identificadores de los diferentes objetos HTML. De este modo no será necesario indicarle al componente todos los objetos HTML sobre los que debe definir cada una de las funcionalidades.
 
 ### 5.1. Código HTML
 
@@ -89,97 +84,40 @@ Para el ejemplo supongamos que el componente RUP table se invoca sobre el elemen
 
 Partiendo de esto, el resto de identificadores se derivarán a partir de la norma:
 
-    table_<componente>
+    tableID_<componente>
 
-Este sería un ejemplo del código HTML que se debería de incluir en la jsp:
+Este sería un ejemplo del código que se debería de incluir en la jsp:
 
 ```xml
-<div id="table_div" class="rup-table-container">
-  <div id="table_feedback"></div>
-  <div id="table_toolbar"></div>
-  <div id="table_filter_div" class="rup-table-filter">
-    <form id="table_filter_form">
-      <div id="table_filter_toolbar" class="formulario_legend"></div>
-      <fieldset id="table_filter_fieldset" class="rup-table-filter-fieldset">
-        <!-- Campos del formulario de detalle -->
-        <div id="table_filter_buttonSet" class="right_buttons">          
-	    	<button id="table_filter_cleanButton" type="button" class="btn btn-warning rup-limpiar">
-	        	<i class="mdi mdi-eraser"></i>
-			    <span>
-			    	<spring:message code="clear" />
-			    </span>
-			</button>
-			<button id="table_filter_filterButton" type="button" class="btn rup-filtrar rup-filter-dropdown">
-			   	<i class="mdi mdi-filter"></i>
-			    <span>
-			    	<spring:message code="filter" />
-			    </span>
-			</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-  <div id="table_grid_div">
-    <!-- Tabla -->
-    <table id="table"></table>
-    <!-- Barra de paginación -->
-    <div id="table_pager"></div>
-  </div>
-</div>
+<%@include file="/WEB-INF/includeTemplate.inc"%>
+<h2>Table</h2> <!-- Titulo pagina -->
 
+<jsp:include page="includes/filterForm.jsp"></jsp:include>
+
+<table id="example" class="tableFit table-striped table-bordered table-material"
+	data-url-base="./jqGridUsuario"
+	data-filter-form="#table_filter_form">
+        <thead>
+            <tr>
+                <th data-col-prop="id">Id</th>
+                <th data-col-prop="nombre">Nombre</th>
+                <th data-col-prop="apellido1">Primer apellido</th>
+                <th data-col-prop="ejie" data-col-type="checkbox">Ejie</th>
+                <th data-col-prop="fechaAlta" data-col-sidx="fecha_alta" data-col-type="date">Fecha alta</th>
+                <th data-col-prop="fechaBaja" data-col-type="date">Fecha baja</th>
+                <th data-col-prop="rol" data-col-type="combo">Rol</th>
+            </tr>
+        </thead>
+</table>
+
+<jsp:include page="includes/tableEdit.jsp"></jsp:include>
 ```
 
-La funcionalid adasociada a cada identificador sería:
-
-* **table_div**: Capa contenedora del componente table. Contendrá todos los módulos del mismo excepto el formulario de detalle.
-* **table_feedback**: Elemento sobre el que se creará el feedback.
-table_toolbar: Elemento sobre el que se creará la botonera que contendrá las acciones a realizar sobre los registros.
-* **table_filter_div**: Capa que contiene el formulario de filtrado.
-table_filter_form: Formulario de filtrado. Los campos incluidos en este formulario se utilizarán como valores de filtrado de los registros.
-* **table_filter_toolbar**: Capa que contendrá los controles de operación del fomulario de filrado (plegar,desplegar, resumen de criterios de filtrado,..)
-* **table_filter_fieldset**: Fieldset que contendrá los campos del formulario de filtrado.
-* **filter_buttonSet**: Botonera del formulario de filtrado.
-* **table_filter_filterButton**: Botón que realiza el filtrado de los registros de la tabla.
-* **table_filter_cleanLink**: Enlace que realiza la limpieza de los campos del formulario.
-* **table_grid_div**: Capa que contiene la tabla propiamente dicha.
 * **table**: Componente HTML sobre el que se inicializa el componente RUP table.
-* **table_pager**: Paginador de la tabla.
-
-En caso de querer utilizar la edición en formulario se deberá de incluir en la misma jsp el siguiente código HTML:
-
-```xml
-<div id="table_detail_div" class="rup-table-formEdit-detail">
-  <div id ="table_detail_navigation"></div>
-  <div class="ui-dialog-content ui-widget-content" >
-    <form id="table_detail_form">
-      <div id ="table_detail_feedback"></div>
-      <!-- Campos del formulario de detalle -->
-    </form>
-  </div>
-  <div class="rup-table-buttonpane ui-widget-content ui-helper-clearfix">
-    <div class="ui-dialog-buttonset rup_jqtableEdit_buttonsContainerResposive">
-		<button id="table_detail_button_save" class="btn btn-outline-primary rup_tableEdit_buttonsResposive fix-editForm-buttons-align" type="button">
-			<spring:message code="save" />
-		</button>
-		<button id="table_detail_button_save_repeat" class="btn btn-outline-primary rup_tableEdit_buttonsResposive fix-editForm-buttons-align" type="button">
-			<spring:message code="saveAndContinue" />
-		</button>
-		<button id="table_detail_button_cancel" class="btn btn-outline-primary rup_tableEdit_buttonsResposive" type="button">
-			<spring:message code="cancel" />
-		</button>
-	</div>
-  </div>
-</div>
-```
-
-La funcionalidad asociada a cada identificador sería:
-* **table_detail_div**: Capa contenedora del formulario de detalle.
-* **table_detail_navigation**: Capa donde se incluirán los controles de navegación y información de los registros.
-* **table_detail_form**: Formulario que contendrá los campos que permitirán la edición de los registros.
-* **table_detail_feedback**: Feedback del formulario de detalle.
-* **table_detail_button_save**: Botón de guardado del registro.
-* **table_detail_button_save_repeat**: Botón que permite guarder el registro y continuar el proceso de edición.
-* **table_detail_link_cancel**: Enlace que permite cancelar el proceso de edición.
+* **data-col-prop**: Identificador de la columna que va asociado a los formularios.
+* **data-col-type**: Tipo que hace correspondencia con los RUP.
+* **data-col-sidx**: Identificador de base de datos.
+* **tfoot**: Se usa para el formulario de filtrado. Los campos incluidos en este formulario se utilizarán como valores de filtrado de los registros.
 
 ### 5.1. Código Javascript
 
@@ -187,58 +125,174 @@ La invocación del componente propiamente dicha se realizará desde el fichero j
 configuración mínima:
 
 ```js
-$("#table").rup_table({
-  url: "../tableUrl",
-  colNames: [
-    "id","nombre","..."]
-  ],
-  colModel: [
-    {name: "id", label: "id"},
-    {name: "nombre", label: "nombre"},
-    {name: "...", label: "..."}
-  ],
-  model:"Usuario",
-  usePlugins:[
-    "formEdit",
-    "feedback",
-    "toolbar",
-    "contextMenu",
-    "fluid",
-    "filter",
-    "search"
-  ],
-  primaryKey: "id"
+jQuery(function($){
+
+	//FILTRO Y DETALLE
+	var combo = [
+		   {rol: "---", codTipoSubsanacion:""},
+		   {rol: "Administrador", codTipoSubsanacion:"administrador"},
+		   {rol: "Desarrollador", codTipoSubsanacion:"desarrollador"},
+		   {rol: "Espectador", codTipoSubsanacion:"espectador"},
+		   {rol: "Informador", codTipoSubsanacion:"informador"},
+		   {rol: "Manager", codTipoSubsanacion:"manager"}
+		];
+
+	var tableColModels = [
+			{ name: "id", index: "id", editable:true, width: 80
+				, formoptions:{rowpos:1, colpos:1}
+			},
+			{ name: "nombre", index: "nombre", editable:true
+				, formoptions:{rowpos:2, colpos:1}
+			},
+			{ name: "apellido1", index: "apellido1", editable:true
+				, formoptions:{rowpos:3, colpos:1}
+				, classes:'ui-ellipsis'
+			},
+			{ name: "apellido2", index: "apellido2", editable:true
+				, formoptions:{rowpos:4, colpos:1}
+			},
+			{ name: "ejie", index: "ejie", editable:true, width: 60,
+				edittype: "checkbox",
+				formatter: "checkbox",
+				rwdClasses:"hidden-xs hidden-sm hidden-md",
+				align: "center",
+				editoptions: {
+					value:"1:0"
+				},
+				searchoptions:{
+					rupType: "combo",
+					source : [
+					   {label: "---", value:""},
+					   {label: "Si", value:"1"},
+					   {label: "No", value:"0"}
+					]
+				}
+				, formoptions:{rowpos:5, colpos:1}
+			},
+			{ name: "fechaAlta",  index: "fecha_alta", editable:true, width: 120,
+				rupType: "date",
+				rwdClasses:"hidden-xs hidden-sm hidden-md",
+				editoptions:{
+					labelMaskId : "fecha-mask",
+					showButtonPanel : true,
+					showOtherMonths : true,
+					noWeekend : true
+				}
+				, formoptions:{rowpos:2, colpos:2}
+			},
+			{ name: "fechaBaja", index: "fecha_baja", editable:true, width: 120,
+				rupType: "date",
+				rwdClasses:"hidden-xs hidden-sm hidden-md",
+				editoptions:{
+					labelMaskId : "fecha-mask",
+					showButtonPanel : true,
+					showOtherMonths : true,
+					noWeekend : true
+				}
+				, formoptions:{rowpos:3, colpos:2}
+			},
+			{ name: "rol", index: "rol", editable:true, width: 140,
+				rupType: "combo",
+				rwdClasses:"hidden-xs hidden-sm hidden-md",
+				formatter: "rup_combo",
+				editoptions: {
+					source: $.map(combo, function(elem){
+						return {
+							label: elem.rol,
+							value: elem.codTipoSubsanacion
+						};
+
+					})
+				}
+				, formoptions:{rowpos:3, colpos:2}
+			}
+     ],
+     options_ejie_combo = {
+			source : [
+			   {label: "---", value:""},
+			   {i18nCaption: "0", value:"0"},
+			   {i18nCaption: "1", value:"1"}
+			],
+			i18nId: "GRID_simple##ejie",
+			width: 120
+		},
+		options_role_combo = {
+			source : [
+			   {label: "---", value:""},
+			   {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
+			   {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
+			   {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
+			   {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
+			   {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
+			]
+		};
+
+
+	//Formulario de filtrado
+	jQuery("#ejie_filter_table").rup_combo(options_ejie_combo);
+	jQuery('#rol_filter_table').rup_combo(options_role_combo);
+
+	jQuery("#fechaAlta_filter_table").rup_date();
+	jQuery("#fechaBaja_filter_table").rup_date();
+
+	//Formulario de detalle
+	jQuery("#fechaAlta_detail_table").rup_date();
+	jQuery("#fechaBaja_detail_table").rup_date();
+
+	jQuery("#rol_detail_table").rup_combo(options_role_combo);
+
+	$('#example').rup_table({
+
+        multiSelect: {
+            style:    'multi'
+        },
+        order: [[ 1, 'asc' ]],
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        fixedHeader: {
+            footer: false,
+            header:true
+        },
+        formEdit:{
+        	detailForm: "#table_detail_div",
+        	validate:{
+    			rules:{
+    				"nombre":{required:true},
+    				"apellido1":{required:true},
+    				"fechaAlta":{date:true},
+    				"fechaBaja":{date:true}
+    			}
+    		},
+    		colModel: tableColModels
+        }
+    } );
 });
 ```
 
-El uso y configuración de los diferentes plugins de la tabla se especifica en el siguiente apartado.
+El uso y configuración de los diferentes plugins del table se especifica en el siguiente apartado.
 
 ## 6. Plugins
 
 El componente table se ha implementado siguiendo una arquitectura modular. De este modo se consigue:
-* Integrar las diferentes funcionalidades como plugins independientes logrando una nula interdependencia entre ellas.
+* Integrar las diferentes funcionalidades como plugins independientes logrando una pequeña interdependencia entre ellas.
 * Facilitar y simplificar el mantenimiento y la aplicación de correctivos en el componente.
 * Simplificar la extensión y sobreescritura de los métodos de determinados plugins.
 * Permitir la creación de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
 
-El uso de los diferentes plugins se determina en la declaración del componente. Mediante la propiedad
-*usePlugins* se determina los que se desean utilizar.
+Todos los plugins están montados sobre el contexto de la tabla para obtener dicho contexto :
 
-La configuración de cada uno de los plugins se indica mediante propiedades de configuración con el mismo nombre que el plugin correspondiente.
+```
+var ctx = $("#idTable").rup_table("getContext");
+```
 
-Un ejemplo sería el siguiente:
 
-```js
-$("#idComponente").rup_table({
-  url: "../jqGridUsuario",
-  usePlugins:["formEdit", "feedback", "toolbar", "contextMenu"],
-  formEdit:{
-  // Propiedades de configuración del plugin formEdit
-  },
-  contextMenu:{
-  // Propiedades de configuración del plugin contextMenu
-  }
-});
+Dentro del contexto puedes acceder a todas sus propiedades ya todos sus plugins, ejemplo:
+
+```
+ctx.seeker
 ```
 
 Los detalles de cada uno de los plugins se pueden consultar en los documentos correspondientes:
@@ -247,43 +301,53 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Menú contextual
 * Feedback
 * Filtrado
-* Multifiltrado
-* Diseño líquido
+* Diseño responsivo (RWD)
 * Edición en formulario
-* Edición en línea
-* Jerarquía
-* Maestro - detalle
 * Multiselección
-* Búsqueda
+* Búsqueda (seeker)
 * Botonera
-* Reporting
+* Reporting (Parcial)
+* Edición en linea
+* ColReorder
+* Selección simple
+* Maestro detalle
+* RowGroup
+* Multifilter
+
+Propiedades de la tabla:
+
+* multiplePkToken -> Es el token que se va usar cuando el id sea múltiple.
+* primaryKey      -> El identificador principal de la tabla.
+* blockPKeditForm -> Si deseas que el pk se bloquee en modo edición (true o false).
+* searchPaginator -> Si deseas tener paginador con número o no (true o false).
+
+Para obtener las propiedades del plugin subyacente consultar en https://datatables.net/reference/api/
 
 ## 7. Sobreescritura del theme
-El componente *tabla* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.table-x.y.z.css**.
+
+El componente *table* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.table-x.y.z.css**.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos (*codAppStatics/WebContent/codApp/styles*).
 
-Los estilos del componente se basan en los estilos básicos de los widgets de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta Theme Roller podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
+Los estilos del componente se basan en *Bootstrap*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
 
 
 ## 8. Internacionalización (i18n)
 
-La gestión de los literales de la tabla se realiza a través de ficheros json lo que flexibiliza el desarrollo. Para acceder a los literales se hará uso del objeto base RUP, mediante éste se accederá al objeto json correspondiente según el idioma obteniendo tanto los literales como los propios mensajes.
+La gestión de los literales del table se realiza a través de ficheros json, lo que flexibiliza el desarrollo. Para acceder a los literales se hará uso del objeto base RUP, mediante éste se accederá al objeto json correspondiente según el idioma obteniendo tanto los literales como los propios mensajes.
 
-Los literales definidos para el contenido de la tabla son texto simple. Para este componente los literales
-utilizados están en la parte global de la internacionalización dentro de los resources de rup.
+Los literales definidos para el contenido del table son texto simple. Para este componente los literales utilizados están en la parte global de la internacionalización dentro de los resources de rup.
 
-El objeto de internacionalización de la tabla se encuentra accesible del siguiente modo:
+El objeto de internacionalización del table se encuentra accesible del siguiente modo:
 
-    $.rup.i18n.base.rup_table
+    $.rup.i18n.base
 
 
 ## 9. Integración con UDA
 
 La interacción entre la capa de presentación y el servidor de aplicaciones que requiere el componente, hace uso de una serie de clases y configuraciones para facilitar su gestión.
 
-El componente ha sido implementado de manera que sea fácilmente extensible mediante plugins. Debido a
-esto es posible dotar al componente de funcionalidades extra que se ajusten a las necesidades de nuestra aplicación.
+El componente ha sido implementado de manera que sea fácilmente extensible mediante plugins. Debido a esto es posible dotar al componente de funcionalidades extra que se ajusten a las necesidades de nuestra aplicación.
 
 Dependiendo del tipo de nueva funcionalidad que se necesite es muy posible que la información que se transfiera se incremente.
 
@@ -291,8 +355,7 @@ Para facilitar este proceso y flexibilizar el proceso de extensibilidad del comp
 
 ### 9.1. Comunicación con la capa servidor
 
-La comunicación entre el componente y la capa servidor se realiza principalmente mediante en envío y
-recepción de objetos JSON.
+La comunicación entre el componente y la capa servidor se realiza principalmente mediante en envío y recepción de objetos JSON.
 
 Para facilitar los procesos de serialización y deserialización entre los objetos JSON y Java se proporcionan las siguientes clases Java:
 
@@ -304,7 +367,7 @@ Para facilitar los procesos de serialización y deserialización entre los objet
 
 Es necesario incluir la siguiente configuración en los ficheros de configuración de Spring:
 
-En el fichero mvc-config.xml se deberá de especificar el uso de un Argument Resolver para gestiónar el uso de las anotaciones ```@RequestBodyJson```.
+En el fichero *mvc-config.xml* se deberá de especificar el uso de un Argument Resolver para gestiónar el uso de las anotaciones ```@RequestBodyJson```.
 
 [mvc-config.xml]
 
@@ -361,24 +424,14 @@ public @ResponseBody List<String> removeMultiple(
 }
 ```
 
-* Filtrado jerarquía:
+* Copia de registros inversa:
 ```java
-@RequestMapping(value = "/jerarquia/filter", method = RequestMethod.POST)
-public @ResponseBody JQGridResponseDto< JerarquiaDto< Usuario>> jerarquia(
-@RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody JQGridRequestDto jqGridRequestDto) {
-  JQGridUsuarioController.logger.info("[POST - jerarquia] : Obtener Usuarios Jerarquia");
-  return this.jqGridUsuarioService.jerarquia(filterUsuario, jqGridRequestDto, false);
-}
-```
-
-* Obtención hijos jerarquía:
-```java
-@RequestMapping(value = "/jerarquiaChildren", method = RequestMethod.POST)
-public @ResponseBody JQGridResponseDto<JerarquiaDto<Usuario>> jerarquiaChildren (
-@RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody JQGridRequestDto jqGridRequestDto){
-  JQGridUsuarioController.logger.info("[GET - jqGrid] : Obtener Jerarquia - Hijos");
-  return this.jqGridUsuarioService.jerarquiaChildren(filterUsuario,jqGridRequestDto);
-}
+@RequestMapping(value = "/clipboardReport", method = RequestMethod.POST)
+	protected @ResponseBody List<Usuario> getClipboardReport(
+			@RequestJsonBody(param="filter") Usuario filterUsuario,
+			@RequestJsonBody JQGridRequestDto jqGridRequestDto){
+		JQGridUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
+	    JQGridUsuarioController.logger.info("All entities correctly copied!");
+	    return this.jqGridUsuarioService.getMultiple(filterUsuario, jqGridRequestDto, false);
+	}
 ```

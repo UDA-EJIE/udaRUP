@@ -12,15 +12,14 @@ El uso del plugin en el componente, se realiza incluyendo en el array de la prop
 
 ```js
 $("#idComponenteMaestro").rup_table({
-  url: "../jqGridUsuarioMaestro",
+  //Propiedades
 });
 
 $("#idComponenteDetalle").rup_table({
-  url: "../jqGridUsuarioDetalle",
-  usePlugins:["masterDetail"],
   masterDetail:{
     // Propiedades de configuración del plugin masterDetail
-    master: "#idComponenteMaestro"
+    master: "#idComponenteMaestro",
+    masterPrimaryKey:"#idComponenteMaestro.code"
   }
 });
 ```

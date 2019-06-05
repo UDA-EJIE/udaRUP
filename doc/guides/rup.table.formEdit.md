@@ -11,12 +11,10 @@ dentro de un diálogo y ofrece las siguientes funcionalidades:
 
 # 1. Declaración y configuración
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “formEdit”. La configuración del plugin se especifica en la propiedad formEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor formEdit. La configuración del plugin se especifica en la propiedad formEdit.
 
 ```js
 $("#idComponente").rup_table({
-  url: "../jqGridUsuario",
-  usePlugins:["formEdit"],
   formEdit:{
   // Propiedades de configuración del plugin formEdit
   }

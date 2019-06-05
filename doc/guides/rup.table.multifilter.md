@@ -1,4 +1,4 @@
-# RUP Table - Multifiltrado
+# RUP Table - MultiFiltro
 
 Permite la gestión de múltiples filtros para el componente rup_table.
 
@@ -6,15 +6,13 @@ Permite la gestión de múltiples filtros para el componente rup_table.
 
 # 1. Declaración y configuración
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “multtifilter”. La configuración del plugin se especifica en la propiedad multifilter.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor “multtiFilter”. La configuración del plugin se especifica en la propiedad multifilter.
 
-> Es condición indispensable para trabajar con el multifilter, haber habilitado el plugin “filter”.
+> Es condición indispensable para trabajar con el multifilter, declarar la propiedad multiFilter.
 
 ```js
 $("#idComponente").rup_table({
-  url: "../jqGridUsuario",
-  usePlugins:["multifilter"],
-  multifilter:{
+  multiFilter:{
   // Propiedades de configuración del plugin multifilter
   }
 });
@@ -77,14 +75,14 @@ Se ha de declarar una variable de tipo ```com.ejie.x38.rup.jqgrid.filter.service
 //añade o actualiza un filtro
 @RequestMapping(value = "/multiFilter/add", method = RequestMethod.POST)
 public @ResponseBody Filter filterAdd(@RequestJsonBody(param="filtro") Filter filtro){
-    JQGridUsuarioController.logger.info("[POST - jqGrid] : add filter");
+    UsuarioController.logger.info("[POST ] : add filter");
     return filterService.insert(filtro);
 }
 
 //borra un filtro
 @RequestMapping(value = "/multiFilter/delete", method = RequestMethod.POST)
 public @ResponseBody Filter filterDelete(@RequestJsonBody(param="filtro") Filter filtro) {
-    JQGridUsuarioController.logger.info("[POST - jqGrid] : delete filter");
+    UsuarioController.logger.info("[POST - jqGrid] : delete filter");
     return filterService.delete(filtro);
 }
 
@@ -94,7 +92,7 @@ public @ResponseBody List<Filter> filterGetAll(
     @RequestParam(value = "filterSelector", required = true) String filterSelector,
     @RequestParam(value = "user", required = true) String filterUser) {
 
-    JQGridUsuarioController.logger.info("[get - jqGrid] : GetAll filter");
+    UsuarioController.logger.info("[get ] : GetAll filter");
     return filterService.getAllFilters(filterSelector,filterUser);
 }
 
@@ -104,7 +102,7 @@ public @ResponseBody Filter filterGetDefault(
     @RequestParam(value = "filterSelector", required = true) String filterSelector,
     @RequestParam(value = "user", required = true) String filterUser) {
 
-    JQGridUsuarioJerarquiaController.logger.info("[get - jqGrid] : getDefault filter");
+    UsuarioJerarquiaController.logger.info("[get ] : getDefault filter");
     return filterService.getDefault(filterSelector, filterUser);
 }
 ```

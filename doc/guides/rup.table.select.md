@@ -1,4 +1,4 @@
-# RUP dataTable - Select
+# RUP Table - Select
 
 Permite realizar una selección simple de los registros que se muestran en la tabla.
 
