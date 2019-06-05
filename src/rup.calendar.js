@@ -129,7 +129,7 @@ import { Exception, Utils } from 'handlebars';
 			}
 			// Si no hay valor se considera que por defecto es "today"
 			navigation = navigation ? navigation : 'today';
-			if($.inArray(navigation,['next','prev','today']) < 0 ) {
+			if ($.inArray(navigation, ['next', 'prev', 'today']) < 0) {
 				throw Error('Parámetro inválido');
 			}
 			$(ctx).data('cal').navigate(navigation);
@@ -181,7 +181,7 @@ import { Exception, Utils } from 'handlebars';
 			}
 			// El valor por defecto es month.
 			viewmode = viewmode ? viewmode : 'month';
-			if( $.inArray(viewmode,['year','month','week', 'day']) < 0 ) {
+			if ($.inArray(viewmode, ['year', 'month', 'week', 'day']) < 0) {
 				throw Error('Parámetro inválido');
 			}
 			$(ctx).data('cal').view(viewmode);
@@ -516,6 +516,7 @@ import { Exception, Utils } from 'handlebars';
 				//Lanzar el plugin subyaciente
 				calObj = new $(self).calendar(settings);
 				this.data('cal',calObj);
+				this.trigger('afterInitCalendar');
 				// Se audita el componente
 				$.rup.auditComponent('rup_calendar', 'init');
 			}
