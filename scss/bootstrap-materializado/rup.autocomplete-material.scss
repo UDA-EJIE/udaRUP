@@ -56,6 +56,8 @@
 			display: inline-block;
 			width: calc(100% - 22.4px);
 			border-right-style: hidden;
+			border-top-right-radius: unset;
+			border-bottom-right-radius: unset;
 			
 			&:hover:enabled ~ a {
 				border-color: $black-color;
