@@ -427,7 +427,7 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._render = function() {
-		$(this.options.selector).trigger('beforeRender');
+		$(this.context).trigger('beforeRender');
 		this.context.html('');
 		this._loadTemplate(this.options.view);
 		this.stop_cycling = false;
@@ -465,7 +465,7 @@ if(!String.prototype.formatNum) {
 
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
-		$(this.options.selector).trigger('afterRender');
+		$(this.context).trigger('afterRender');
 	};
 
 	Calendar.prototype._format_hour = function(str_hour, leadingZero) {
@@ -798,7 +798,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype.view = function(view) {
-		$(this.options.selector).triggerHandler('beforeChangeView', view);
+		$(this.context).triggerHandler('beforeChangeView', view);
 		if(view) {
 			if(!this.options.views[view].enable) {
 				return;
@@ -811,7 +811,7 @@ if(!String.prototype.formatNum) {
 		this._render();
 
 		this.options.onAfterViewLoad.call(this, this.options.view);
-		$(this.options.selector).triggerHandler('afterChangeView', view);
+		$(this.context).triggerHandler('afterChangeView', view);
 	};
 
 	Calendar.prototype.navigate = function(where, next) {
@@ -1041,10 +1041,10 @@ if(!String.prototype.formatNum) {
 							async: false,
 							headers: self.options.headers,
 							error: function(e,a,s) {
-								$(self.options.selector).triggerHandler('afterLoadEventsError', e);
+								$(self.context).triggerHandler('afterLoadEventsError', e);
 							},
 							success: function (d) {
-								$(self.options.selector).triggerHandler('afterLoadEventsSuccess',d);
+								$(self.context).triggerHandler('afterLoadEventsSuccess',d);
 							}
 						}).done(function(json) {
 							if(!json.success) {
@@ -1052,7 +1052,7 @@ if(!String.prototype.formatNum) {
 							}
 							if(json.result) {
 								events = json.result;
-								$(self.options.selector).triggerHandler('afterLoadEventsSuccess');
+								$(self.context).triggerHandler('afterLoadEventsSuccess');
 							}
 						});
 						return events;
@@ -1066,7 +1066,7 @@ if(!String.prototype.formatNum) {
 		//Nos aseguramos de lanzar el evento beforeLoadEvents
 		var originalBEL = this.options.onBeforeEventsLoad;
 		this.options.onBeforeEventsLoad = function() {
-			$(self.options.selector).triggerHandler('beforeLoadEvents');
+			$(self.context).triggerHandler('beforeLoadEvents');
 			originalBEL(arguments[0]);
 		};
 		this.options.onBeforeEventsLoad.call(this, function() {
@@ -1083,7 +1083,7 @@ if(!String.prototype.formatNum) {
 			}
 			var originalAEL = self.options.onAfterEventsLoad;
 			self.options.onAfterEventsLoad = function() {
-				$(self.options.selector).triggerHandler('afterLoadEventsComplete');
+				$(self.context).triggerHandler('afterLoadEventsComplete');
 				originalAEL(arguments);
 			};
 			self.options.onAfterEventsLoad.call(self, self.options.events);

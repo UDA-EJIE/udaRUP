@@ -43,8 +43,10 @@ describe('TEST Tooltip', () => {
         $('#content').nextAll().remove();
     });
     describe('Creación', () => {
-        beforeEach(() => {
+        beforeEach((done) => {
+            $tooltip.data().qtip.options.events.show = done;
             $tooltip.rup_tooltip('open');
+            $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
         });
         it('Debe existir el elemento con clase .qtip', () => {
             //Se crea un .qtip (Que contiene el mensaje)
@@ -53,9 +55,10 @@ describe('TEST Tooltip', () => {
     });
     describe('Métodos públicos', () => {
         describe('Método open', () => {
-            beforeEach(() => {
+            beforeEach((done) => {
                 $tooltip.rup_tooltip('open');
                 $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
+                setTimeout(done, 600);
             });
             it('Debe ser visible', () => {
                 expect($qtip.is(':visible')).toBeTruthy();

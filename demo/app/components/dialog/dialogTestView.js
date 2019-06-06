@@ -68,7 +68,7 @@ define(['marionette',
 	}
 
 	function fncOpenAjaxDialogWar(){
-		$(document).rup_dialog({
+		this.ui.dialog.rup_dialog({
 			type: $.rup.dialog.AJAX,
 			url: 'dialog/dialogAjax' ,
 			autoOpen: true,
@@ -86,7 +86,7 @@ define(['marionette',
 	}
 
 	function fncOpenAjaxDialogStatics(){
-		$(document).rup_dialog({
+		this.ui.dialog.rup_dialog({
 			type: $.rup.dialog.AJAX,
 			url: 'app/components/dialog/ajaxDiv.htm',
 			autoOpen: true,
@@ -107,7 +107,7 @@ define(['marionette',
 	}
 
 	function fncOpenBtnTextDialog(){
-		$(document).rup_dialog({
+		this.ui.dialog.rup_dialog({
 			type: $.rup.dialog.TEXT,
 			autoOpen: true,
 			modal: true,

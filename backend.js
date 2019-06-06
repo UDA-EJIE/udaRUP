@@ -22,6 +22,7 @@ var express = require('express'),
 	dashboardTable = require('./demo/routes/dashboard'),
 	routesAudit = require('./demo/routes/audit'),
 	routesCalendar = require('./demo/routes/calendar');
+	routesDialog = require('./demo/routes/dialog');
 
 // db
 //var db = new lokijs('uda');
@@ -68,6 +69,7 @@ module.exports = (PORT) => {
 	//Autocomplete
 	app.get('/demo/autocomplete/remote', routesAutocomplete.remote);
 	//Tree
+	app.get('/demo/ajaxTree', routesTree.json);
 	app.get('/demo/tree/remote/json', routesTree.json);
 	app.get('/demo/tree/remote/xml', routesTree.xml);
 	// Combo
@@ -130,6 +132,8 @@ module.exports = (PORT) => {
 	app.post('/demo/calendar/events/add', routesCalendar.addEvent);
 	app.post('/demo/calendar/events/restore', routesCalendar.restore);
 
+	//Dialog
+	app.get('/demo/dialog/dialogAjax', routesDialog.getHTML);
 
 	app.listen(PORT);
 

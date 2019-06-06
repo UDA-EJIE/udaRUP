@@ -281,7 +281,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Multiple > multiselect
 				var retorno = [],
 					checked = $(this).multiselect('getChecked');
-				for (var i = 0; i < checked.size(); i++) {
+				for (var i = 0; i < checked.length; i++) {
 					retorno.push($(checked[i]).val());
 				}
 				return retorno;
@@ -303,7 +303,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Multiple > multiselect
 				var retorno = [],
 					checked = $(this).multiselect('getChecked');
-				for (var i = 0; i < checked.size(); i++) {
+				for (var i = 0; i < checked.length; i++) {
 					retorno.push($(checked[i]).next().text());
 				}
 				return retorno;
@@ -327,7 +327,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				var retorno = [],
 					checked = $(this).rup_combo('value'),
 					options = $(this).find('option');
-				for (var i = 0; i < options.size(); i++) {
+				for (var i = 0; i < options.length; i++) {
 					if ($.inArray($(options[i]).val(), checked) !== -1) {
 						retorno.push(i);
 					}
@@ -1634,7 +1634,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					} else {
 						var options = $(this).find('option');
 						var vacio = true;
-						for (var i = 0; i < options.size(); i = i + 1) {
+						for (var i = 0; i < options.length; i = i + 1) {
 							if ($(options[i]).attr('value') !== '') {
 								vacio = false;
 								break;
@@ -1884,9 +1884,9 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 		typeAhead: 1000,
 		legacyWrapMode: false,
 		open: function (event, ui) {
-			var anchoCombo = $("#" + this.id + "-button").width();
-			$("#" + this.id + "-menu").closest('div').attr('id', 'ui-selectmenu-menu').width(anchoCombo);
-			$("#" + this.id + "-menu").width(anchoCombo - 2);
+			var anchoCombo = $("#" + this.id + "-button").outerWidth();
+			$("#" + this.id + "-menu").parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
+			$("#" + this.id + "-menu").outerWidth(anchoCombo);
 		}
 	};
 
