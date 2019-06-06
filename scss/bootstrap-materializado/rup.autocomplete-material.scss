@@ -59,10 +59,6 @@
 			border-top-right-radius: unset;
 			border-bottom-right-radius: unset;
 			
-			&:focus:enabled {
-				border-right-style: hidden;
-			}
-			
 			&:hover:enabled ~ a {
 				border-color: $black-color;
 			}
@@ -96,6 +92,11 @@
 		
 		~ i.mdi.error {
 			right: 32px;
+		}
+	}
+	&.rup-validate-field-error .rup-combobox {
+		input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
+			border-right-style: hidden;
 		}
 	}
 }
