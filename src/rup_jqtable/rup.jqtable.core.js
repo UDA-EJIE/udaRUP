@@ -45,7 +45,7 @@
  *		primaryKey: "id"
  *	};
  *
- * $("#table").rup_jqtable(properties);
+ * $("#jqtable").rup_jqtable(properties);
  */
 
 /*global jQuery */
@@ -77,7 +77,7 @@
 		var labelProp, label, settings;
 
 
-		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
 
 		// Se añade la info del formatter
 		var formatterObj = {};
@@ -134,14 +134,14 @@
 		formatterObj['rup_combo']['label'] = label;
 
 		$.extend(true, formatterData, rowObj);
-		$(this).data('rup.table.formatter', formatterData);
+		$(this).data('rup.jqtable.formatter', formatterData);
 
 		return label || '';
 
 	};
 
 	$.fn.fmatter.rup_combo.unformat = function (cellvalue, options) {
-		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_combo']['value'];
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_combo']['value'];
 
 		return val || '';
 
@@ -153,7 +153,7 @@
 		var labelProp, label, settings;
 
 
-		var formatterData = $(this).data('rup.table.formatter') !== undefined ? $(this).data('rup.table.formatter') : {};
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
 
 		// Se añade la info del formatter
 		var formatterObj = {};
@@ -211,14 +211,14 @@
 		formatterObj['rup_autocomplete']['label'] = label;
 
 		$.extend(true, formatterData, rowObj);
-		$(this).data('rup.table.formatter', formatterData);
+		$(this).data('rup.jqtable.formatter', formatterData);
 
 		return label || '';
 
 	};
 
 	$.fn.fmatter.rup_autocomplete.unformat = function (cellvalue, options) {
-		var val = $(this).data('rup.table.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
 
 		return val || '';
 
@@ -342,7 +342,7 @@
 			settings.id = $self.attr('id');
 
 			// Se da valor a la propiedad ruptype
-			$self.attr('ruptype', 'table');
+			$self.attr('ruptype', 'jqtable');
 
 			settings.core.tableDiv = settings.id + '_div';
 			settings.core.$tableDiv = jQuery('#' + settings.core.tableDiv);
@@ -1500,8 +1500,8 @@
 	jQuery.fn.rup_jqtable.plugins = {};
 	jQuery.fn.rup_jqtable.plugins.core = {};
 	jQuery.fn.rup_jqtable.plugins.core.defaults = {
-		// adapter: "table_jqueryui",
-		adapter: 'table_bootstrap',
+		// adapter: "jqtable_jqueryui",
+		adapter: 'jqtable_bootstrap',
 		core: {
 			operations: {},
 			defaultOperations: {},

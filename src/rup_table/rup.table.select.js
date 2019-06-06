@@ -60,9 +60,9 @@ DataTable.select.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.select.init = function ( dt ) {
@@ -83,7 +83,7 @@ DataTable.select.init = function ( dt ) {
 		}
 	} );
 	
-	//Se genera el div para el feedback del datatable.
+	//Se genera el div para el feedback del table.
 	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
 	ctx.multiselection.internalFeedback = divFeedback;
 	
@@ -108,7 +108,7 @@ DataTable.select.init = function ( dt ) {
  *
  * @name drawSelectId
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * 
  */
@@ -135,7 +135,7 @@ function _drawSelectId(ctx){
  *
  * @name drawSelectId
  * @function
- * @since UDA 3.4.0 // Datatable 1.0.0
+ * @since UDA 3.4.0 // Table 1.0.0
  *
  * 
  */

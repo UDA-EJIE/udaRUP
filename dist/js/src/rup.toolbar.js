@@ -434,7 +434,7 @@
 		width: null,
 		buttons: [],
 		mbuttons: null,
-		adapter: 'toolbar_bootstrap'
+		adapter: 'toolbar_material'
 	};
 
 	/**

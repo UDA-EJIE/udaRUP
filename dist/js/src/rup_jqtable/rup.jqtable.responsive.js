@@ -53,7 +53,7 @@
 	});
 
 	$.extend($.rup, {
-		table: {
+		jqtable: {
 			responsive: {
 				'SCREEN_SM': 768,
 				'SCREEN_MD': 992,
@@ -131,11 +131,11 @@
 
 					windowWidth = $(window).width();
 
-					if (windowWidth > $.rup.table.responsive.SCREEN_LG) {
+					if (windowWidth > $.rup.jqtable.responsive.SCREEN_LG) {
 						currentDisplay = 'lg';
-					} else if (windowWidth > $.rup.table.responsive.SCREEN_MD) {
+					} else if (windowWidth > $.rup.jqtable.responsive.SCREEN_MD) {
 						currentDisplay = 'md';
-					} else if (windowWidth > $.rup.table.responsive.SCREEN_SM) {
+					} else if (windowWidth > $.rup.jqtable.responsive.SCREEN_SM) {
 						currentDisplay = 'sm';
 					} else {
 						currentDisplay = 'xs';

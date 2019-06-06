@@ -1,6 +1,6 @@
 <a name="module_rup_tree"></a>
 
-## rup_tree
+## rup\_tree
 Permite al usuario mostrar y ocultar de manera selectiva, información mostrada en una estructura jerárquica.
 
 **Summary**: Componente RUP Tree.  
@@ -20,7 +20,7 @@ $("#ejemploArbolDiv").rup_tree(properties);
 ### rup_tree~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup_tree</code>](#module_rup_tree)  
+**Kind**: inner property of [<code>rup\_tree</code>](#module_rup_tree)  
 **See**: Para mas información consulte la documentación acerca de las opciones de configuración del plugin [jstree](https://old.jstree.com/documentation).  
 **Properties**
 
@@ -36,7 +36,7 @@ Propiedades de configuración del componente.
 ### rup_tree~getRupValue() ⇒ <code>string</code> \| <code>number</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la  obtención del valor del Autocomplete
 
-**Kind**: inner method of [<code>rup_tree</code>](#module_rup_tree)  
+**Kind**: inner method of [<code>rup\_tree</code>](#module_rup_tree)  
 **Returns**: <code>string</code> \| <code>number</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
@@ -47,7 +47,7 @@ $(selector).rup_tree("getRupValue");
 ### rup_tree~setRupValue(param)
 Método utilizado para asignar el valor al componente. Este método es el utilizado porel resto de componentes RUP para estandarizar la asignación del valor al Autocomplete.
 
-**Kind**: inner method of [<code>rup_tree</code>](#module_rup_tree)  
+**Kind**: inner method of [<code>rup\_tree</code>](#module_rup_tree)  
 
 | Param | Type | Description |
 | --- | --- | --- |

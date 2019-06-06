@@ -1,6 +1,6 @@
 <a name="module_rup_button"></a>
 
-## rup_button
+## rup\_button
 Presenta un control de interación con el usuario. Se trata de extender los botones estandar del HTML para dotarles de mayores funcionalidades con las que mejorar la usabilidad de la aplicación.
 
 **Summary**: Componente RUP Button.  
@@ -15,22 +15,16 @@ Presenta un control de interación con el usuario. Se trata de extender los boto
 
 <a name="module_rup_button..dropdown_defaults"></a>
 
-### rup_button~dropdown_defaults
+### rup_button~dropdown\_defaults
 Opciones por defecto del objeto de configuración del menú desplegable asociado al botón.
 
-**Kind**: inner property of [<code>rup_button</code>](#module_rup_button)  
-**Properties**
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| [dropdownIcon] | <code>string</code> | <code>&quot;ui-icon-triangle-1-s&quot;</code> | Clase css correspondiente al icono del control que despliega el menú. |
-
+**Kind**: inner property of [<code>rup\_button</code>](#module_rup_button)  
 <a name="module_rup_button..defaults"></a>
 
 ### rup_button~defaults()
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner method of [<code>rup_button</code>](#module_rup_button)  
+**Kind**: inner method of [<code>rup\_button</code>](#module_rup_button)  
 **Properties**
 
 | Name | Type | Default | Description |

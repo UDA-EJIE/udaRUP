@@ -5,7 +5,7 @@
 // import 'rup.message';
 // import 'rup.contextMenu';
 // import 'rup.table';
-// import 'datatable/rup.datatable';
+// import 'table/rup.table';
 // import * as testutils from '../common/specCommonUtils.js';
 // import * as dtGen from './datatableCreator';
 
@@ -64,13 +64,13 @@
 //                 it('Debe tener los items esperados y solo el add debe estar habilitado:', () => {
 //                     expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
 //                         .toBe(1);
-//                     expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledDatatable').length)
+//                     expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
 //                         .toBe(1);
-//                     expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledDatatable').length)
+//                     expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledButtonsTable').length)
 //                         .toBe(1);
-//                     expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledDatatable').length)
+//                     expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
 //                         .toBe(1);
-//                     expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledDatatable').length)
+//                     expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledButtonsTable').length)
 //                         .toBe(1);
 //                 });
 
@@ -148,7 +148,7 @@
 //                         });
 
 //                         it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-//                             expect($('#datatables_buttons_info textarea').val()).toBe("id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n");
+//                             expect($('#table_buttons_info textarea').val()).toBe("id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n");
 //                         });
 //                     });
 //                 });
@@ -201,7 +201,7 @@
 
 //                 describe('Añadido de nuevos elementos > ', () => {
 //                     beforeEach(() => {
-//                         $('.datatable_toolbar_btnAdd').click();
+//                         $('.table_toolbar_btnAdd').click();
 //                     });
 
 //                     it('El formulario debe mostrarse:', () => {
@@ -514,11 +514,11 @@
 //                     });
 
 //                     it('Solo el botón add está habilitado:', () => {
-//                         expect($('.datatable_toolbar_btnAdd').hasClass('disabledDatatable')).toBeFalsy();
-//                         expect($('.datatable_toolbar_btnEdit').hasClass('disabledDatatable')).toBeTruthy();
-//                         expect($('.datatable_toolbar_btnClone').hasClass('disabledDatatable')).toBeTruthy();
-//                         expect($('.datatable_toolbar_btnDelete').hasClass('disabledDatatable')).toBeTruthy();
-//                         expect($('.buttons-collection').hasClass('disabledDatatable')).toBeTruthy();
+//                         expect($('.table_toolbar_btnAdd').hasClass('disabledButtonsTable')).toBeFalsy();
+//                         expect($('.table_toolbar_btnEdit').hasClass('disabledButtonsTable')).toBeTruthy();
+//                         expect($('.table_toolbar_btnClone').hasClass('disabledButtonsTable')).toBeTruthy();
+//                         expect($('.table_toolbar_btnDelete').hasClass('disabledButtonsTable')).toBeTruthy();
+//                         expect($('.buttons-collection').hasClass('disabledButtonsTable')).toBeTruthy();
 //                     });
 //                 });
 //                 // TODO: Añadir botón extra

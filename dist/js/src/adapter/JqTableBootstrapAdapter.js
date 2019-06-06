@@ -17,7 +17,7 @@
 
 	}
 
-	JqTableBootstrapAdapter.prototype.NAME = 'table_bootstrap';
+	JqTableBootstrapAdapter.prototype.NAME = 'jqtable_bootstrap';
 
 	JqTableBootstrapAdapter.prototype.CONST = {
 		core: {
@@ -140,7 +140,7 @@
 			settings = $self.data('settings'),
 			jqGridID = $self.attr('id');
 		var $template = $(Rup.Templates.rup.jqtable.detail.navigation.bootstrap({
-			tableId: $self.prop('id'),
+			jqtableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.first'),
 			labelPrev: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.previous'),

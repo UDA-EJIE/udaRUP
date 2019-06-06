@@ -1,6 +1,6 @@
 <a name="module_rup_messages"></a>
 
-## rup_messages
+## rup\_messages
 Tiene como objetivo mostrar al usuario de forma homogénea, clara y llamativa, los posibles mensajes que pueden desencadenar las acciones en la aplicación. Estos mensajes predefinidos pueden ser de diferente tipología: error, confirmación, aviso o alerta.
 
 **Summary**: Componente RUP Message.  
@@ -21,19 +21,20 @@ $.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK."});
 ### rup_messages~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_messages</code>](#module_rup_messages)  
+**Kind**: inner property of [<code>rup\_messages</code>](#module_rup_messages)  
 **Properties**
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | [minHeight] | <code>Number</code> | <code>100</code> | Altura mínima con la que se va a mostrar el mensaje. |
+| adapter | <code>string</code> |  | Permite cambiar el aspecto visual del componente. |
 
 <a name="module_rup_messages..msgError"></a>
 
 ### rup_messages~msgError(properties)
 Muestra un mensaje de error.
 
-**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
+**Kind**: inner method of [<code>rup\_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -51,7 +52,7 @@ Muestra un mensaje de error.
 ### rup_messages~msgConfirm(properties)
 Muestra un mensaje de confirmación.
 
-**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
+**Kind**: inner method of [<code>rup\_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -71,7 +72,7 @@ Muestra un mensaje de confirmación.
 ### rup_messages~msgOK(properties)
 Muestra un mensaje de aviso.
 
-**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
+**Kind**: inner method of [<code>rup\_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -89,7 +90,7 @@ Muestra un mensaje de aviso.
 ### rup_messages~msgAlert(properties)
 Muestra un mensaje de alerta.
 
-**Kind**: inner method of [<code>rup_messages</code>](#module_rup_messages)  
+**Kind**: inner method of [<code>rup\_messages</code>](#module_rup_messages)  
 
 | Param | Type | Description |
 | --- | --- | --- |

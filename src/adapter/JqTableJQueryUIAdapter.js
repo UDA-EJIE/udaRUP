@@ -17,7 +17,7 @@
 
 	}
 
-	JqTableJQueryUIAdapter.prototype.NAME = 'table_jqueryui';
+	JqTableJQueryUIAdapter.prototype.NAME = 'jqtable_jqueryui';
 
 	JqTableJQueryUIAdapter.prototype.CONST = {
 		core: {

@@ -1,5 +1,5 @@
 /**
-  * Buscador interno del datatable
+  * Buscador interno del table
   *
   * @summary 		Extensión del componente RUP Datatable
   * @module			"rup.table.seeker"
@@ -61,9 +61,9 @@ DataTable.seeker.version = '1.2.4';
 *
 * @name init
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
+* @param {object} dt - Es el objeto table.
 *
 */
 DataTable.seeker.init = function ( dt ) {
@@ -135,10 +135,10 @@ function _eventTrigger ( api, type, args, any )
 *
 * @name createFilterColumn
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 *
 */
 function _createFilterColumn(dt,ctx){
@@ -202,10 +202,10 @@ function _createFilterColumn(dt,ctx){
 *
 * @name createSearchRow
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 *
 */
 function _createSearchRow (dt,ctx){
@@ -220,13 +220,13 @@ function _createSearchRow (dt,ctx){
 			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
 			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
 			navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
-			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
 			navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
+			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
 			$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
-			// Capa que controla el colapso del formualario
+			// Capa que controla el colapso del formulario
 			$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
 			$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
 			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
@@ -240,13 +240,13 @@ function _createSearchRow (dt,ctx){
 			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
 			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
 			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
+			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
 		$matchedLayer.append($matchedLabel);
-		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
+		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navClearButton).append($navSearchButton);
 
 		$searchRowHeader.append($collapseLayer);
 		$searchRowHeader.append($matchedLayer);
@@ -272,14 +272,14 @@ function _createSearchRow (dt,ctx){
 		// Creacion del enlace de mostrar/ocultar el formulario
 		$collapseIcon.add($collapseLabel).on('click', function(){
 			if (!ctx.seeker.search.created){
-				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-e');
-				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-s');
+				ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-right');
+				ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-down');
 				ctx.seeker.search.created = true;
 				ctx.seeker.searchForm.show();
 				$navLayer.show();
 			}else{
-				ctx.seeker.search.$collapseIcon.removeClass('ui-icon-triangle-1-s');
-				ctx.seeker.search.$collapseIcon.addClass('ui-icon-triangle-1-e');
+				ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-down');
+				ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-right');
 				ctx.seeker.search.created = false;
 				ctx.seeker.searchForm.hide();
 				$navLayer.hide();
@@ -311,7 +311,7 @@ function _createSearchRow (dt,ctx){
 		$navLayer.hide();
 
 		function doSearchButtonNavigation($button, buttonId){
-			if (!$button.hasClass('ui-state-disabled')){
+			if (!$button.prop("disabled")){
 				$self.rup_jqtable('navigateToMatchedRow', buttonId);
 			}
 		}
@@ -356,11 +356,11 @@ function _createSearchRow (dt,ctx){
 *
 * @name selectSearch
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
-* @param {object} rows - Filas del datatable de la página actual.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+* @param {object} rows - Filas del table de la página actual.
 *
 */
 function _selectSearch(dt,ctx,rows){
@@ -408,9 +408,9 @@ function _selectSearch(dt,ctx,rows){
 *
 * @name paginar
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contexto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller..
 *
 */
@@ -428,7 +428,7 @@ function _paginar(ctx,dato){
 *
 * @name updateDetailSeekPagination
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
 * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
 * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -437,18 +437,18 @@ function _paginar(ctx,dato){
 function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 
 	if (currentRowNum === 1) {
-		ctx.seeker.search.$firstNavButton.addClass('ui-state-disabled');
-		ctx.seeker.search.$backNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.prop("disabled", true);
+		ctx.seeker.search.$backNavButton.prop("disabled", true);
 	} else {
-		ctx.seeker.search.$firstNavButton.removeClass('ui-state-disabled');
-		ctx.seeker.search.$backNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.prop("disabled", false);
+		ctx.seeker.search.$backNavButton.prop("disabled", false);
 	}
 	if (currentRowNum === totalRowNum) {
-		ctx.seeker.search.$forwardNavButton.addClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavButton.addClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.prop("disabled", true);
+		ctx.seeker.search.$lastNavButton.prop("disabled", true);
 	} else {
-		ctx.seeker.search.$forwardNavButton.removeClass('ui-state-disabled');
-		ctx.seeker.search.$lastNavButton.removeClass('ui-state-disabled');
+		ctx.seeker.search.$forwardNavButton.prop("disabled", false);
+		ctx.seeker.search.$lastNavButton.prop("disabled", false);
 	}
 
 	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
@@ -459,10 +459,10 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 *
 * @name processData
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 * @param {object} dato - Son los datos de las filas que viene del controller.
 *
 */
@@ -480,7 +480,7 @@ function _processData(dt,ctx,data){
 	}
 
 	if (data.length === 0){
-		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).addClass('ui-state-disabled');
+		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
 		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
@@ -492,9 +492,9 @@ function _processData(dt,ctx,data){
 *
 * @name getDatos
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 * 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
@@ -508,21 +508,24 @@ function _getDatos(ctx){
 }
 
 /**
-* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo..
+* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo.
 *
 * @name createRupComponent
 * @function
-* @since UDA 3.4.0 // Datatable 1.0.0
+* @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} dt - Es el objeto datatable.
-* @param {object} ctx - Es el contecto del datatable donde esta la configuración del mismo.
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
 *
 */
 function _createRupComponent(dt,ctx){
 	var colModel = ctx.oInit.colModel, searchEditOptions;
 	if(colModel !== undefined){
 		$('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
-
+				
+				// Se añade la clase necesaria para mostrar los inputs con estilos material
+				$(this).addClass('form-groupMaterial');
+			
 				var cellColModel = colModel[i];
 				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 	
@@ -537,17 +540,6 @@ function _createRupComponent(dt,ctx){
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 				if(searchRupType!==undefined) {
 					searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-	
-					/*
-					 * PRE Configuración de los componentes RUP
-					 */
-					if(searchRupType === 'combo'){
-						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
-					} else if(searchRupType === 'date'){
-						$elem.css('width','86%');
-						$elem.css('max-width','80px');
-						$elem.css('min-width','75px');
-					}
 	
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);

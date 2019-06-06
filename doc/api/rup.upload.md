@@ -1,6 +1,6 @@
 <a name="module_rup_upload"></a>
 
-## rup_upload
+## rup\_upload
 Permite al usuario seleccionar uno o varios archivos de su equipo y subirlos a la aplicación.
 
 **Summary**: Componente RUP Upload.  
@@ -34,7 +34,7 @@ $("#idUpload").rup_upload({});
 ### "fileuploadadd"
 Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -51,7 +51,7 @@ $("#fileupload").on("fileuploadadd", function (e, data) {});
 ### "fileuploadsubmit" ⇒ <code>boolean</code>
 Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Returns**: <code>boolean</code> - - Si la función retorna false el envío no se realiza.  
 **Properties**
 
@@ -69,7 +69,7 @@ $("#fileupload").on("fileuploadsubmit", function (e, data) {});
 ### "fileuploadsend" ⇒ <code>boolean</code>
 Permite asociar una función que se ejecutará al iniciarse el envío de cada fichero.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Returns**: <code>boolean</code> - - Si la función retorna false el envío no se realiza.  
 **Properties**
 
@@ -87,7 +87,7 @@ $("#fileupload").on("fileuploadsend", function (e, data) {});
 ### "fileuploaddone"
 Permite asociar una función que se ejecutará al realizarse de manera satisfactoria el envío de los ficheros.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -104,7 +104,7 @@ $("#fileupload").on("fileuploaddone", function (e, data) {});
 ### "fileuploadfail"
 Permite asociar una función que se ejecutará al producirse un error en el envío de los ficheros o al abortarse el envío.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -121,7 +121,7 @@ $("#fileupload").on("fileuploadfail", function (e, data) {});
 ### "fileuploadalways"
 Permite asociar una función que se ejecutará al producirse un envío correcto, erróneo o se aborte.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -138,7 +138,7 @@ $("#fileupload").on("fileuploadalways", function (e, data) {});
 ### "fileuploadprogress"
 Permite asociar una función que se ejecutará al producirse un evento relacionado con el indicador de progreso del envío de ficheros.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -155,7 +155,7 @@ $("#fileupload").on("fileuploadprogress", function (e, data) {});
 ### "fileuploadprogressall"
 Permite asociar una función que se ejecutará al producirse un evento relacionado el indicador de progreso global de envío de ficheros.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -172,7 +172,7 @@ $("#fileupload").on("fileuploadprogressall", function (e, data) {});
 ### "fileuploadstart"
 Permite asociar una función que se ejecutará al inicio del envío de los ficheros.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -188,7 +188,7 @@ $("#fileupload").on("fileuploadstart", function (e) {});
 ### "fileuploadstop"
 Permite asociar una función que se ejecutará al detenerse el proceso de envío de ficheros.
 
-**Kind**: event emitted by [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: event emitted by [<code>rup\_upload</code>](#module_rup_upload)  
 **Properties**
 
 | Name | Type | Description |
@@ -204,7 +204,7 @@ $("#fileupload").on("fileuploadstop", function (e) {});
 ### rup_upload~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: inner property of [<code>rup\_upload</code>](#module_rup_upload)  
 **See**: Para mas información consulte la documentación acerca de las opciones de configuración del plugin [jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload/wiki/Options).  
 **Properties**
 
@@ -229,7 +229,7 @@ Propiedades de configuración del componente.
 ### rup_upload~destroy()
 Elimina los objetos jQuery asociados al elemento identificado por el selector, durante el proceso de creación del componente upload
 
-**Kind**: inner method of [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: inner method of [<code>rup\_upload</code>](#module_rup_upload)  
 **Example**  
 ```js
 $(selector).rup_combo("destroy");
@@ -237,7 +237,7 @@ $(selector).rup_combo("destroy");
 <a name="module_rup_upload..enable"></a>
 
 ### rup_upload~enable()
-**Kind**: inner method of [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: inner method of [<code>rup\_upload</code>](#module_rup_upload)  
 **Example**  
 ```js
 $(selector).rup_upload("enable");
@@ -247,7 +247,7 @@ $(selector).rup_upload("enable");
 ### rup_upload~disable()
 Deshabilita el componente upload
 
-**Kind**: inner method of [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: inner method of [<code>rup\_upload</code>](#module_rup_upload)  
 **Example**  
 ```js
 $(selector).rup_upload("disable");
@@ -257,4 +257,4 @@ $(selector).rup_upload("disable");
 ### rup_upload~add()
 Permite asociar una función que se ejecutará cuando se añada un fichero mediante el componente. muestre el desplegable del combo
 
-**Kind**: inner method of [<code>rup_upload</code>](#module_rup_upload)  
+**Kind**: inner method of [<code>rup\_upload</code>](#module_rup_upload)  

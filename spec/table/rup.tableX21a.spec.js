@@ -197,7 +197,7 @@
 	                  });
 	
 	                  it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-	                	  expect($('#datatables_buttons_info textarea').val().indexOf($('#example > tbody  tr:eq(0) td:eq(1)').text()) !== -1).toBe(true);
+	                	  expect($('#table_buttons_info textarea').val().indexOf($('#example > tbody  tr:eq(0) td:eq(1)').text()) !== -1).toBe(true);
 	                  });
 	              }); 
           });

@@ -1,6 +1,6 @@
 <a name="module_rup_feedback"></a>
 
-## rup_feedback
+## rup\_feedback
 Se informa al usuario de cómo interactuar con los elementos de la aplicación y del resultado de cualquier acción que realice o cualquier problema que tenga y de cómo solucionarlo.
 
 **Summary**: Componente RUP Feedback.  
@@ -25,7 +25,7 @@ var properties = {  type: "ok",  delay: 500,  fadeSpeed: 600,  gotoTop: fals
 ### "rupFeedback_show"
 Permite asociar una función que se ejecutará cuando se muestre el feedback.
 
-**Kind**: event emitted by [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: event emitted by [<code>rup\_feedback</code>](#module_rup_feedback)  
 **Example**  
 ```js
 $("#feedback").on("rupFeedback_show", function(event){});
@@ -35,7 +35,7 @@ $("#feedback").on("rupFeedback_show", function(event){});
 ### rup_feedback~options
 Opciones por defecto de configuración del widget.
 
-**Kind**: inner property of [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: inner property of [<code>rup\_feedback</code>](#module_rup_feedback)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -54,7 +54,7 @@ Opciones por defecto de configuración del widget.
 ### rup_feedback~destroy()
 Elimina las modificaciones realizadas sobre la capa para convertirla en feedback volviendo a ser una simple capa.
 
-**Kind**: inner method of [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: inner method of [<code>rup\_feedback</code>](#module_rup_feedback)  
 **Example**  
 ```js
 // Elimina el feedbackjQuery("#feedback").rup_feedback("destroy");
@@ -64,7 +64,7 @@ Elimina las modificaciones realizadas sobre la capa para convertirla en feedback
 ### rup_feedback~set(message, type, imgClass)
 Establece el texto (msg) a mostrar en el feedback, que podrá ser tanto texto plano como html. <br/><br/>En caso de sólo definirse el parámetro msg, se mostrará como imagen aquella definida anteriormente ya sea de un tipo por defecto o de una imagen con estilo personalizado (si es que se había definido). <br/><br/>En caso de que se envíe el parámetro type informado de modificará la capa para mostrar la imagen por defecto asociada al tipo, borrando algún posible estilos personalizado establecido anteriormente. <br/><br/>Por último para realizar el cambio a un estilo personalizado se pasará como parámetro type null y como imgClass la clase con el estilo a establecer.
 
-**Kind**: inner method of [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: inner method of [<code>rup\_feedback</code>](#module_rup_feedback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ $("#id_capa").rup_feedback("set", "...", null, "imgPropio");
 ### rup_feedback~hide([delay], [fadeSpeed])
 Oculta la capa del feedback con una animación. <br/><br/>Si no se definen los parámetros se tomaran los definidos con anterioridad (creación del feedback por ejemplo) o si no los valores por defecto (null, null) que implica una animación sin espera con una “velocidad” de 400 ms.
 
-**Kind**: inner method of [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: inner method of [<code>rup\_feedback</code>](#module_rup_feedback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -109,7 +109,7 @@ Oculta la capa del feedback con una animación. <br/><br/>Si no se definen los 
 ### rup_feedback~close([notEmpty])
 Oculta la capa del feedback sin animación alguna.<br/>Esta función será invocada por el enlace de cierre (parámetro closeLink) en caso de que se muestre.
 
-**Kind**: inner method of [<code>rup_feedback</code>](#module_rup_feedback)  
+**Kind**: inner method of [<code>rup\_feedback</code>](#module_rup_feedback)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -122,10 +122,10 @@ Oculta la capa del feedback sin animación alguna.<br/>Esta función será invo
 <a name="module_rup_feedback..show"></a>
 
 ### rup_feedback~show()
-Muesta la capa del feedback. <br/><br/>Esta función será invocada automáticamente cada vez que se invoque la función set(…)
+Muestra la capa del feedback.Esta función será invocada automáticamente cada vez que se invoque la función set(…)
 
-**Kind**: inner method of [<code>rup_feedback</code>](#module_rup_feedback)  
-**Emits**: [<code>rupFeedback_show</code>](#module_rup_feedback+event_rupFeedback_show)  
+**Kind**: inner method of [<code>rup\_feedback</code>](#module_rup_feedback)  
+**Emits**: [<code>rupFeedback\_show</code>](#module_rup_feedback+event_rupFeedback_show)  
 **Example**  
 ```js
 // Muestra el feedback.jQuery("#feedback").rup_feedback("show");

@@ -282,7 +282,7 @@
 					// Botón normal
 
 					$self.button(settings);
-					$self.addClass('rup-button');
+					$self.addClass('rup-button').removeClass('ui-button ui-corner-all ui-widget');
 
 					if (settings.mbutton === true) {
 						// Configuramos el mbutton

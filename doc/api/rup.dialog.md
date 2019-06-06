@@ -1,6 +1,6 @@
 <a name="module_rup_dialog"></a>
 
-## rup_dialog
+## rup\_dialog
 Permite lanzar un subproceso o un mensaje de confirmación dentro de un proceso principal sin salirse de este. <br/><br/>Es una evolución del patrón mensaje.
 
 **Summary**: Componente RUP Dialog.  
@@ -36,7 +36,7 @@ var properties = {  type: $.rup.dialog.TEXT,  autoOpen: true,  modal: true, 
 ### rup_dialog~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner property of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -44,15 +44,15 @@ Opciones por defecto de configuración del componente.
 | [url] | <code>string</code> |  | Url de donde se obtendrá el contenido del diálogo. |
 | [rupCheckStyle] | <code>boolean</code> | <code>true</code> | Propiedad definida por el componentes base, si está a true se mostraran los mensajes específicos del componente base marcados por la guía de estilos, es decir, que si el desarrollador no cumple con la guisa de estilos o desarrollo el objeto base mostrará los mensajes advirtiendo su incumplimiento, si se pone a false no se mostraran. Esta acción queda bajo la responsabilidad de la aplicación, ya que esta propiedad no debería modificarse. |
 | type | [<code>DIV</code>](#module_rup_dialog..DIV) \| [<code>TEXT</code>](#module_rup_dialog..TEXT) \| [<code>AJAX</code>](#module_rup_dialog..AJAX) \| [<code>LINK</code>](#module_rup_dialog..LINK) |  | Propiedad que establece el tipo de diálogo a mostrar. |
-| ajaxOptions | <code>jQuery.rup_dialog~ajaxOptions</code> |  | Establece las todas las propiedades para configurar la petición ajax. |
+| ajaxOptions | <code>jQuery.rup\_dialog~ajaxOptions</code> |  | Establece las todas las propiedades para configurar la petición ajax. |
 | [showLoading] | <code>boolean</code> | <code>true</code> | Esta propiedad mostrará una capa de cargando datos en los diálogos de tipo Ajax durante la carga del mismo. |
 | [disabled] | <code>boolean</code> | <code>false</code> | Propiedad que deshabilita o no el diálogo. |
 | [autoOpen] | <code>boolean</code> | <code>true</code> | Si esta propiedad esta a true el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea false, el diálogo se mantendrá oculto hasta que se invoque a la función “open” (.rup_dialog(“open”)). |
 | [buttons] | <code>Object</code> |  | Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo Array. Donde cada elemento del array debe ser un objeto que define las propiedades de cada botón y el tipo del mismo. |
 | [closeOnEscape] | <code>boolean</code> | <code>true</code> | Especifica si se debe cerrar el diálogo cuando el tenga el foco y el usuario pulse la tecla ESC. |
-| dialogClass | <code>string</code> |  | Porpiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes. |
+| dialogClass | <code>string</code> |  | Propiedad que establece el/los estilos que se añadirán al dialogo para dotar al dialogo de estilos diferentes. |
 | [draggable] | <code>boolean</code> | <code>true</code> | Si su valor es true el diáologo sera dragable pinchando sobre el título. |
-| [height] | <code>string</code> \| <code>number</code> | <code>&quot;auto&quot;</code> | Establece el alto del diálogoen pixeles. |
+| [height] | <code>string</code> \| <code>number</code> | <code>&quot;auto&quot;</code> | Establece el alto del diálogo en pixeles. |
 | [hide] | <code>string</code> | <code>null</code> | Efecto utilizado cuando se cierra el diálogo. |
 | [maxHeight] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
 | [maxWidth] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
@@ -64,16 +64,17 @@ Opciones por defecto de configuración del componente.
 | [show] | <code>string</code> |  | Efecto a realizar cuando se abre el diálogo. |
 | [title] | <code>string</code> |  | Establece el título de la ventana. Puede ser cualquier html válido. |
 | [width] | <code>number</code> | <code>300</code> | Establece el ancho del diálogo en pixeles. |
-| open | <code>jQuery.rup_dialog~onOpen</code> |  | Evento que se lanza cuando se abre el diálogo. |
+| open | <code>jQuery.rup\_dialog~onOpen</code> |  | Evento que se lanza cuando se abre el diálogo. |
 | close | [<code>onClose</code>](#jQuery.rup_dialog..onClose) |  | Evento que se lanza a la hora de cerrar el diálogo. |
-| beforeClose | <code>jQuery.rup_dialog~onBeforeClose</code> |  | Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto. |
+| beforeClose | <code>jQuery.rup\_dialog~onBeforeClose</code> |  | Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto. |
+| adapter | <code>string</code> |  | Permite cambiar el aspecto visual del componente. |
 
 <a name="module_rup_dialog..open"></a>
 
 ### rup_dialog~open()
 Abre el diálogo y estable el foco en el primer botón.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("open");
@@ -83,7 +84,7 @@ $("#selector").rup_dialog("open");
 ### rup_dialog~destroy()
 Borra el dialogo si este estubiera oculto o visible.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("destroy");
@@ -93,7 +94,7 @@ $("#selector").rup_dialog("destroy");
 ### rup_dialog~disable()
 Función que deshabilita el dialogo sobre el que se aplica.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("disable");
@@ -103,7 +104,7 @@ $("#selector").rup_dialog("disable");
 ### rup_dialog~enable()
 Funcion que, en caso de estar desahibilitado, habilita el dialogo sobre el que se aplica.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("enable");
@@ -113,7 +114,7 @@ $("#selector").rup_dialog("enable");
 ### rup_dialog~moveToTop()
 Funcion encargada de poner por encima de todos los dialogos al dialogo sobre el que se aplica. Puede ser muy util se se tiene mas de un dialog abierto a la vez.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("moveToTop");
@@ -123,7 +124,7 @@ $("#selector").rup_dialog("moveToTop");
 ### rup_dialog~close()
 Cierra el dialogo.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $("#selector").rup_dialog("close");
@@ -133,7 +134,7 @@ $("#selector").rup_dialog("close");
 ### rup_dialog~isOpen() ⇒ <code>boolean</code>
 Función que devuelve si el dialogo esta abierto o no.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Returns**: <code>boolean</code> - - Determina si el diálogo está abierto o no.  
 **Example**  
 ```js
@@ -144,7 +145,7 @@ $("#selector").rup_dialog("isOpen");
 ### rup_dialog~getOption(opt) ⇒ <code>Object</code>
 Obtiene la propiedad que recibe como parametro.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Returns**: <code>Object</code> - - Valor de la propiedad especificada.  
 
 | Param | Type | Description |
@@ -160,7 +161,7 @@ $("#selector").rup_dialog("getOption","width");
 ### rup_dialog~setOption(opt, value)
 Establece la propiedad que recibe como parametro.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -174,9 +175,9 @@ $("#selector").rup_dialog("setOption","width", 200);
 <a name="module_rup_dialog..createBtnLinks"></a>
 
 ### rup_dialog~createBtnLinks(btn, id)
-Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones.
+Función que crea los botones y se los añade al panel de botones al final de los botones.
 
-**Kind**: inner method of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner method of [<code>rup\_dialog</code>](#module_rup_dialog)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -190,7 +191,7 @@ $("#selector").rup_dialog("createBtnLinks", btnObj, "idDialog");
 <a name="module_rup_dialog..createBtnLinks..buttonHREF"></a>
 
 #### createBtnLinks~buttonHREF
-Función que crea los botones como enlaces y se los añade al panel de botones al final de los botones
+Función que crea los botones y se los añade al panel de botones al final de los botones
 
 **Kind**: inner property of [<code>createBtnLinks</code>](#module_rup_dialog..createBtnLinks)  
 <a name="module_rup_dialog..DIV"></a>
@@ -198,7 +199,7 @@ Función que crea los botones como enlaces y se los añade al panel de botones a
 ### rup_dialog~DIV : <code>string</code>
 Dialogo creado a partir de un diálogo existente.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $.rup.dialog.DIV
@@ -208,7 +209,7 @@ $.rup.dialog.DIV
 ### rup_dialog~TEXT : <code>string</code>
 Dialogo creado a partir de un texto.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $.rup.dialog.TEXT
@@ -218,7 +219,7 @@ $.rup.dialog.TEXT
 ### rup_dialog~AJAX : <code>string</code>
 Dialogo creado a partir de la respuesta de una petición AJAX.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $.rup.dialog.AJAX
@@ -228,7 +229,7 @@ $.rup.dialog.AJAX
 ### rup_dialog~LINK : <code>string</code>
 Dialogo creado a partir del contenido de un enlace estático.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Example**  
 ```js
 $.rup.dialog.LINK
@@ -238,14 +239,14 @@ $.rup.dialog.LINK
 ### rup_dialog~ajaxOptions : <code>object</code>
 Propiedades de configuración de la petición Ajax.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **See**: [jQuery Ajax Settings](http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings)  
 <a name="module_rup_dialog..onOpen"></a>
 
 ### rup_dialog~onOpen : <code>function</code>
 Evento que se lanza cuando se abre el diálogo.
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **See**: [jQueryUI Dialog](http://api.jqueryui.com/dialog/#event-open)  
 
 | Param | Type | Description |
@@ -262,7 +263,7 @@ $("#idDialog").rup_dialog({ open: function(event, ui) { ... }});
 ### rup_dialog~onBeforeClose ⇒ <code>boolean</code>
 Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve false se anulará las acción de cierre y el dialogo seguirá abierto
 
-**Kind**: inner typedef of [<code>rup_dialog</code>](#module_rup_dialog)  
+**Kind**: inner typedef of [<code>rup\_dialog</code>](#module_rup_dialog)  
 **Returns**: <code>boolean</code> - - Si devuelve false se anulará las acción de cierre y el dialogo seguirá abierto.  
 **See**: [jQueryUI Dialog](http://api.jqueryui.com/dialog/#event-beforeClose)  
 

@@ -1,6 +1,6 @@
 <a name="module_rup_form"></a>
 
-## rup_form
+## rup\_form
 Permite al usuario introducir datos en una serie de campos para ser enviados al servidor y ser procesados.
 
 **Summary**: Componente RUP Form.  
@@ -28,7 +28,7 @@ var properties={  // Propiedades de configuración};$("#formulario").rup_for
 ### rup_form~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner property of [<code>rup\_form</code>](#module_rup_form)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -59,7 +59,7 @@ Opciones por defecto de configuración del componente.
 ### rup_form~ajaxFormSubmit(options)
 Realiza la misma función que ajaxSubmit. Se mantiene para asegurar la retrocompatibilidad con versiones anteriores.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -74,7 +74,7 @@ var options = {};jQuery("#form").rup_form("ajaxFormSubmit", options);
 ### rup_form~ajaxSubmit(argOptions)
 Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ var options = {};jQuery("#form").rup_form("ajaxSubmit", options);
 ### rup_form~destroy()
 Elimina la configuración realizada por el componente sobre el formulario html.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Example**  
 ```js
 var options = {};jQuery("#form").rup_form("destroy");
@@ -99,7 +99,7 @@ var options = {};jQuery("#form").rup_form("destroy");
 ### rup_form~formSerialize() ⇒ <code>string</code>
 Serializa el contenido del formulario en un query string.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>string</code> - - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.  
 **Example**  
 ```js
@@ -110,7 +110,7 @@ jQuery("#form").rup_form("formSerialize");
 ### rup_form~formToJson() ⇒ <code>string</code>
 Realiza la serialización de campos del formulario en un objeto json.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>string</code> - - Retorna un objeto con el formato {nombre1:valor1, nombre2:valor2…nombreN:valorN}.  
 **Example**  
 ```js
@@ -121,7 +121,7 @@ jQuery("#form").rup_form("formToJson");
 ### rup_form~fieldSerialize() ⇒ <code>string</code>
 Realiza la serialización de campos del formulario en un query string
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>string</code> - - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.  
 **Example**  
 ```js
@@ -132,7 +132,7 @@ jQuery("#form .specialFields").rup_form("fieldSerialize");
 ### rup_form~fieldValue() ⇒ <code>Array.&lt;string&gt;</code>
 Devuelve un array con el valor de los campos indicados.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>Array.&lt;string&gt;</code> - - Retorna una cadena de texto con el formato nombre1=valor1&nombre2=valor2.  
 **Example**  
 ```js
@@ -143,7 +143,7 @@ jQuery("#form .specialFields").rup_form("fieldValue");
 ### rup_form~resetForm() ⇒ <code>jQuery</code>
 Inicializa el formulario con su estado inicial invocando al método reset nativo.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>jQuery</code> - - Retorna el propio componente.  
 **Example**  
 ```js
@@ -154,7 +154,7 @@ jQuery("#form").rup_form("resetForm");
 ### rup_form~clearForm(includeHidden) ⇒ <code>jQuery</code>
 Limpia los elementos del formulario.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>jQuery</code> - - Retorna el propio componente.  
 
 | Param | Type | Description |
@@ -170,7 +170,7 @@ Limpia los elementos del formulario.
 ### rup_form~clearFields(includeHidden) ⇒ <code>jQuery</code>
 Limpia los campos especificados mediante el selector de jQuery.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Returns**: <code>jQuery</code> - - Retorna el propio componente.  
 
 | Param | Type | Description |
@@ -186,7 +186,7 @@ Limpia los campos especificados mediante el selector de jQuery.
 ### rup_form~configureOptions(settings)
 Función de inicialización del componente. Es un método de uso interno. No debería de invocarse de manera directa.
 
-**Kind**: inner method of [<code>rup_form</code>](#module_rup_form)  
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 
 | Param | Type | Description |
 | --- | --- | --- |

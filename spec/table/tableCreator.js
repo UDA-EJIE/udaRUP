@@ -133,7 +133,7 @@ export function createDatatable1(ctx, callback) {
     }
 
     var defaults = {
-        urlBase: "http://localhost:8081/demo/datatable/remote",
+        urlBase: "http://localhost:8081/demo/table/remote",
         pageLength: 5,
         fixedHeader: {
             footer: false,
@@ -231,7 +231,7 @@ export function createDatatable2(callback) {
         multiSelect: {
             style: "multi"
         },
-        urlBase: "http://localhost:8081/demo/datatable/remote",
+        urlBase: "http://localhost:8081/demo/table/remote",
         // serverSide: true,
         // deferLoading: 15,
         pageLength: 5,
