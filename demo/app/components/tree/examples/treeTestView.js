@@ -90,7 +90,7 @@ define(['marionette',
 		$('#specificStyleDemo').rup_tree({
 			'themes': {
 				'theme': 'default',
-				'url': STATICS + '/demo/css/tree/themes/default/style.css'
+				'url': STATICS + '/demoResponsive/css/tree/themes/default/style.css'
 			}
 		});
 
@@ -156,7 +156,12 @@ define(['marionette',
 			$view.ui.treeCodeDialog.rup_dialog('open');
 		});
 
-		$('#tree_example').rup_tree();
+		$('#tree_example').rup_tree({
+			'json_data': {
+
+			}
+
+		});
 
 
 		/* Ejemplo de un árbol con cambios en el modo de selección */

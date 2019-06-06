@@ -112,6 +112,13 @@ define(['marionette',
 			]
 		});
 
+		$('#provincia').rup_combo({
+			source : 'comboSimple/remote',
+			sourceParam : {label:'desc'+$.rup_utils.capitalizedLang(), value:'code', style:'css'},
+			selected: 'Combo',
+			width: 300
+		});
+
 		$.rup_date({
 			from: 'desde',
 			to: 'hasta',

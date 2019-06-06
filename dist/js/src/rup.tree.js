@@ -554,12 +554,12 @@
 					if (settings.contextmenu.defaultOptions !== undefined) {
 						var contextmenuItems = this.jstree('get_settings').contextmenu.items;
 						var defaultOptions = settings.contextmenu.defaultOptions;
-						for (let option in defaultOptions) {
+						for (option in defaultOptions) {
 							if (defaultOptions[option] === false) {
 								contextmenuItems[option] = null;
 							} else if (option === 'ccp') {
 								var ccpOptions = defaultOptions.ccp;
-								for (let ccpOption in ccpOptions) {
+								for (ccpOption in ccpOptions) {
 									if (ccpOptions[ccpOption] === false) {
 										contextmenuItems.ccp.submenu[ccpOption] = null;
 									}

@@ -24,7 +24,7 @@ describe('Test ContextMenu > ', () => {
                         </div>';
         $('#content').append(html);
         var props = {
-            selector: '#exampleContext',
+            
             items: {
                 'edit': {name: 'Clickable', icon: 'edit'},
                 'cut': {name: 'Disabled', icon: 'cut'}

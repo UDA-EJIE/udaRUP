@@ -62,7 +62,7 @@
 	ValidateMaterialAdapter.prototype.errorPlacement = function (error, element) {
 
 		var name = element.prop('name'),
-			$container = element.parent(),
+			$container = element.parent();
 			$icon = $('<i class="mdi mdi-close error" aria-hidden="true"></i>');
 			
 		// Posicionamiento del label e icon

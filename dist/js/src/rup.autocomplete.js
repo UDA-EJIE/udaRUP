@@ -309,7 +309,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 				if (value === true) {
 					if (!spanParent.hasClass('rup-combobox')) {
 						self.addClass('rup-combobox-input ui-corner-left');
-						var wasOpen = false;
+						wasOpen = false;
 						self.wrap(jQuery('<span>').addClass('rup-combobox'));
 						var $wrapper = self.parent();
 						var $button = $('<a>').attr('tabIndex', -1).attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
@@ -419,9 +419,9 @@ input.
 		set: function (value, label) {
 				if ($(this).attr('id').indexOf('_label') >= 0 ) {
 					var array = $(this).attr('id').split('_label');
-					var $self = $('#'+array[0]);
+					$self = $('#'+array[0]);
 				} else {
-					var $self = $(this);
+					$self = $(this);
 				}
 				var $selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
 				loadObjects, newObject = {};

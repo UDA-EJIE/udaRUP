@@ -281,7 +281,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Multiple > multiselect
 				var retorno = [],
 					checked = $(this).multiselect('getChecked');
-				for (var i = 0; i < checked.length; i++) {
+				for (var i = 0; i < checked.size(); i++) {
 					retorno.push($(checked[i]).val());
 				}
 				return retorno;
@@ -303,7 +303,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				//Multiple > multiselect
 				var retorno = [],
 					checked = $(this).multiselect('getChecked');
-				for (var i = 0; i < checked.length; i++) {
+				for (var i = 0; i < checked.size(); i++) {
 					retorno.push($(checked[i]).next().text());
 				}
 				return retorno;
@@ -327,7 +327,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 				var retorno = [],
 					checked = $(this).rup_combo('value'),
 					options = $(this).find('option');
-				for (var i = 0; i < options.length; i++) {
+				for (var i = 0; i < options.size(); i++) {
 					if ($.inArray($(options[i]).val(), checked) !== -1) {
 						retorno.push(i);
 					}
@@ -1634,7 +1634,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					} else {
 						var options = $(this).find('option');
 						var vacio = true;
-						for (var i = 0; i < options.length; i = i + 1) {
+						for (var i = 0; i < options.size(); i = i + 1) {
 							if ($(options[i]).attr('value') !== '') {
 								vacio = false;
 								break;

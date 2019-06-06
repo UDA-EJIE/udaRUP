@@ -1,12 +1,5 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "ie": "11"
-        }
-      }
-    ]
-  ]
+  "presets": ["es2015"],
+  "plugins": ["transform-remove-strict-mode"]
+
 }

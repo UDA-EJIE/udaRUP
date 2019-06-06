@@ -130,7 +130,6 @@ describe('Test Accordion > ', () => {
 		});
 		describe('Accordion con parámetros personalizados > ', () => {
 			describe('Cambiar la vista activa con mouseenter > ', () => {
-				var idNewActive;
 				beforeEach(() => {
 					$altAccordion.accordion( "option", "animate", 0 );	
 					//Enableamos el accordion

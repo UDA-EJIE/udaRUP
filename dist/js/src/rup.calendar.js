@@ -100,7 +100,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		navigate: function (navigation) {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('navigate');
 			}
 			// Si el valor es un objeto Date en función navegamos hasta la posición indicada
@@ -129,7 +129,7 @@ import { Exception, Utils } from 'handlebars';
 			}
 			// Si no hay valor se considera que por defecto es "today"
 			navigation = navigation ? navigation : 'today';
-			if ($.inArray(navigation, ['next', 'prev', 'today']) < 0) {
+			if($.inArray(navigation,['next','prev','today']) < 0 ) {
 				throw Error('Parámetro inválido');
 			}
 			$(ctx).data('cal').navigate(navigation);
@@ -144,7 +144,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		isToday: function() {
 			var ctx = this;
-			if (!$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('isToday');
 			}
 			return $(ctx).data('cal').isToday();
@@ -160,7 +160,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		instance: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('instance');
 			}
 			return $(ctx).data('cal');
@@ -176,12 +176,12 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		setView: function (viewmode) {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('setView');
 			}
 			// El valor por defecto es month.
 			viewmode = viewmode ? viewmode : 'month';
-			if ($.inArray(viewmode, ['year', 'month', 'week', 'day']) < 0) {
+			if( $.inArray(viewmode,['year','month','week', 'day']) < 0 ) {
 				throw Error('Parámetro inválido');
 			}
 			$(ctx).data('cal').view(viewmode);
@@ -197,7 +197,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getView: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getView');
 			}
 			return $(ctx).data('cal').options.view;
@@ -211,7 +211,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getYear: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getYear');
 			}
 			return $(ctx).data('cal').getYear();
@@ -225,7 +225,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getMonth: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getMonth');
 			}
 			return $(ctx).data('cal').getMonth();
@@ -239,7 +239,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getWeek: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getWeek');
 			}
 			let date = new Date($(ctx).data('cal').getStartDate());
@@ -254,7 +254,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getDay: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getDay');
 			}
 			return $(ctx).data('cal').getDay();
@@ -270,7 +270,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		'getTitle': function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getTitle');
 			}
 			return $(ctx).data('cal').getTitle();
@@ -285,7 +285,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getStartDate:function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getStartDate');
 			}
 			return $(ctx).data('cal').getStartDate();
@@ -300,7 +300,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getEndDate:function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getEndDate');
 			}
 			return $(ctx).data('cal').getEndDate();
@@ -318,7 +318,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		option: function(opt, val) {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('option');
 			}
 			if(typeof opt === 'object'){
@@ -348,7 +348,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		getEventsBetween: function(desde, hasta) {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('getEventsBetween');
 			}
 			return $(ctx).data('cal').getEventsBetween(desde,hasta);
@@ -364,7 +364,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		showCell : function(date) {
 			var ctx = this;
-			if (!$(ctx).data('cal').options) {
+			if ($(ctx).data('cal').options.selector === undefined) {
 				errorstr('showCell');
 			}
 			if (!date instanceof Date) {
@@ -377,7 +377,7 @@ import { Exception, Utils } from 'handlebars';
 					return $(e).attr('data-cal-start') <= ts && $(e).attr('data-cal-end') > ts
 				});
 				if(sel.length === 0) {
-					return false;
+					return false
 				}
 				return $(sel).parent();
 			};
@@ -385,9 +385,10 @@ import { Exception, Utils } from 'handlebars';
 			if( cell ) {
 				if ($('#cal-slide-box').css('display') === undefined ||
 					$('#cal-slide-box').css('display') === 'none' ){
-					$(ctx).trigger('beforeShowCell');
+					$($(ctx).data('cal').options.selector).trigger('beforeShowCell');
 					cell.mouseover();
 					cell.click();
+					$($(ctx).data('cal').options.selector).trigger('afterShowCell');
 				}
 			}
 			else {
@@ -403,12 +404,12 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		hideCells: function() {
 			var ctx = this;
-			if (!$(ctx).data('cal').options) {
+			if ($(ctx).data('cal').options.selector === undefined) {
 				errorstr('showCell');
 			}
-			$(ctx).trigger('beforeHideCell');
+			$($(ctx).data('cal').options.selector).trigger('beforeHideCell');
 			$('#cal-slide-box').css('display','none');
-			$(ctx).trigger('afterHideCell');
+			$($(ctx).data('cal').options.selector).trigger('afterHideCell');
 		},
 		/**
 		 * Recarga los eventos y aplica las opciones cambiadas
@@ -420,7 +421,7 @@ import { Exception, Utils } from 'handlebars';
 		 */
 		refresh: function() {
 			var ctx = this;
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('refresh');
 			}
 			//Primero actualizamos las opciones (Por si se cambia events_source)
@@ -443,14 +444,15 @@ import { Exception, Utils } from 'handlebars';
 			if($(ctx).data('cal') === undefined) {
 				errorstr('destroy');
 			}
-			if( !$(ctx).data('cal').options) {
+			if( $(ctx).data('cal').options.selector === undefined) {
 				errorstr('destroy');
 			}
+			let sel = $(ctx).data('cal').options.selector;
 			$(ctx).data('cal').options.selector = undefined;
-			$(ctx).removeClass('cal-context');
-			$(ctx).removeData();
-			$(ctx).children().remove();
-			$(ctx).trigger('afterDestroy');
+			$(sel).removeClass('cal-context');
+			$(sel).removeData();
+			$(sel).children().remove();
+			$(sel).trigger('afterDestroy');
 		}
 	});
 
@@ -495,14 +497,17 @@ import { Exception, Utils } from 'handlebars';
 				settings.onAfterEventsLoad = function (...args) {
 					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
 					self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
-					$(self).trigger('afterEventsLoad');
+					$(self.selector).trigger('afterEventsLoad');
 				};
 				settings.onAfterViewLoad = function (...args) {
 					self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterViewLoad, args);
 					self._callIfFunction.call(this, customSettings.rupAfterViewLoad, args);
-					$(self).trigger('afterViewLoad');
+					$(self.selector).trigger('afterViewLoad');
 				};
-				
+
+				//Asociar el selector
+				settings.selector = self.selector;
+
 				// if ($.rup_utils.aplicatioInPortal()) {
 				// 	settings.appendTo = '.r01gContainer';
 				// }
@@ -516,7 +521,6 @@ import { Exception, Utils } from 'handlebars';
 				//Lanzar el plugin subyaciente
 				calObj = new $(self).calendar(settings);
 				this.data('cal',calObj);
-				this.trigger('afterInitCalendar');
 				// Se audita el componente
 				$.rup.auditComponent('rup_calendar', 'init');
 			}

@@ -112,7 +112,7 @@
          * $("#idForm").rup_wizard("last");
          */
 		last: function () {
-			this.rup_wizard('step', $('#steps').children().length - 1);
+			this.rup_wizard('step', $('#steps').children().size() - 1);
 		},
 		/**
          * Devuelve el número del paso actual.
@@ -157,7 +157,7 @@
          * $("#idForm").rup_wizard("isCurrentStepLast");
          */
 		isCurrentStepLast: function () {
-			return ($('#steps').children().length - 1 === this.rup_wizard('getCurrentStep'));
+			return ($('#steps').children().size() - 1 === this.rup_wizard('getCurrentStep'));
 		},
 		/**
          * Indica si el paso activo es el resumen.
@@ -283,7 +283,7 @@
 				if (settings.summary) {
 					//Cabecera
 					$('#steps li:last').removeClass('rup-wizard_lastStepDesc');
-					var stepNumber = $('#steps').children().length,
+					var stepNumber = $('#steps').children().size(),
 						stepDesc = $('<li>')
 							.attr('id', 'stepDesc' + stepNumber)
 							.addClass('rup-wizard_stepDesc rup-wizard_summary rup-wizard_lastStepDesc')
@@ -359,7 +359,7 @@
 				}
 
 				// Si fuera necesario, se generar el resumen
-				if (jQuery('#steps').children().length - 1 === nextStep) {
+				if (jQuery('#steps').children().size() - 1 === nextStep) {
 					rupWizard._generateSummary(nextStep,
 						rupWizard, settings);
 				}
@@ -826,7 +826,7 @@
 			var element = this;
 
 			var steps = $(element).find('fieldset');
-			var count = steps.length;
+			var count = steps.size();
 			var submmitButtonName = '#' + options.submitButton;
 			$(submmitButtonName).hide();
 

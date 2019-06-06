@@ -4,9 +4,7 @@
 
 describe('Test Validate >  ', () => {
     var $validate, $feedBack, $validateEvent, $feedBackEvent;
-    var event_done = false,
-        event_fail = false,
-        event_success = false;
+    var  event_fail = false, event_success = false;
 
     beforeAll((done) => {
         testutils.loadCss(done);
@@ -126,7 +124,7 @@ describe('Test Validate >  ', () => {
                 $validateEvent.submit();
                 setTimeout(() => {
                     done();
-                }, 500);
+                },500);
             });
             it('Debe lanzarse el evento', () => {
                 expect(event_success).toBeTruthy();

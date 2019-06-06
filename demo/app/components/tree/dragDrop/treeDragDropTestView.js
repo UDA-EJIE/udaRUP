@@ -40,43 +40,43 @@ define(['marionette',
 			'types': {
 				'tasks': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/PendingWorks.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/PendingWorks.png'
 					},
 					'valid_children': ['forms', 'invoice', 'repair', 'suppliers', 'Transportation']
 				},
 				'forms': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/forms.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/forms.png'
 					},
 					'valid_children': ['job']
 				},
 				'invoice': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/invoice.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/invoice.png'
 					},
 					'valid_children': ['job']
 				},
 				'repair': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/repair.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/repair.png'
 					},
 					'valid_children': ['job']
 				},
 				'job': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/job.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/job.png'
 					},
 					'valid_children': ['none']
 				},
 				'suppliers': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/suppliers.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/suppliers.png'
 					},
 					'valid_children': ['job']
 				},
 				'Transportation': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/Transportation.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/Transportation.png'
 					},
 					'valid_children': ['job']
 				}
@@ -89,25 +89,25 @@ define(['marionette',
 			'types': {
 				'enterprise': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/enterprise.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/enterprise.png'
 					},
 					'valid_children': ['job']
 				},
 				'worker': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/worker.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/worker.png'
 					},
 					'valid_children': ['job']
 				},
 				'workers': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/workers.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/workers.png'
 					},
 					'valid_children': ['worker', 'enterprise']
 				},
 				'job': {
 					'icon': {
-						'image': $.rup.STATICS + '/demo/images/arbol/job.png'
+						'image': $.rup.STATICS + '/demoResponsive/images/arbol/job.png'
 					},
 					'valid_children': ['none']
 				}

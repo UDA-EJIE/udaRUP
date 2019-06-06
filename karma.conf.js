@@ -10,8 +10,11 @@ createBackendServer(8081);
 
 module.exports = function (config) {
     config.set({
+
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
+
+
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
@@ -33,22 +36,47 @@ module.exports = function (config) {
         reporters: ['progress', 'spec', 'coverage', 'html'],
         // htmlReporter configuration
         htmlReporter: {
-            outputDir: 'spec', // where to put the reports 
-            templatePath: null, // set if you moved jasmine_template.html
-            focusOnFailures: false, // reports show failures on start
-            namedFiles: true, // name files instead of creating sub-directories
-            pageTitle: 'Karma Report 3.5.0', // page title for reports; browser info by default
-            urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
-            reportName: 'karma_report_3.5.0', // report summary filename; browser info by default
-
-            // experimental
-            preserveDescribeNesting: false, // folded suites stay folded 
-            foldAll: false, // reports start folded (only with preserveDescribeNesting)
+          outputDir: 'spec', // where to put the reports 
+          templatePath: null, // set if you moved jasmine_template.html
+          focusOnFailures: false, // reports show failures on start
+          namedFiles: true, // name files instead of creating sub-directories
+          pageTitle: 'Karma Report 3.5.0', // page title for reports; browser info by default
+          urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
+          reportName: 'karma_report_3.5.0', // report summary filename; browser info by default
+          
+          // experimental
+          preserveDescribeNesting: false, // folded suites stay folded 
+          foldAll: false, // reports start folded (only with preserveDescribeNesting)
         },
         // list of files / patterns to load in the browser
         files: [{
                 pattern: 'spec/helpers/rup.config.js'
             },
+
+            //'node_modules/jasmine/lib/jasmine.js',
+            //'node_modules/karma-jasmine/lib/index.js',
+            //'node_modules/karma-firefox-launcher/index.js',
+            //      'node_modules/underscore/underscore.js',
+            //    'node_modules/requirejs/require.js',
+            //'node_modules/karma-requirejs/lib/index.js',
+            //'bower_components/handlebars/handlebars.js',
+
+            //  'node_modules/requirejs/require.js',
+
+            //  { pattern: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js', included: false},
+
+
+
+
+
+
+
+
+            //
+            // { pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js', included: false},
+            // { pattern: 'node_modules/jquery/dist/jquery.js', included: false},
+            // { pattern: 'node_modules/jquery-migrate/dist/jquery-migrate.js', included: false},
+            // { pattern: 'node_modules/jquery-ui-dist/jquery-ui.js', included: false},
             {
                 pattern: 'i18n/*.json',
                 watched: false,
@@ -62,9 +90,21 @@ module.exports = function (config) {
                 served: true,
                 included: false
             },
+            // { pattern: 'node_modules/handlebars/dist/handlebars.js', included: false },
+            // { pattern: 'src/helper/handlebars-helper-i18n.js', included: false },
+            //
+            // { pattern: 'node_modules/block-ui/jquery.blockUI.js', included: false },
+            // { pattern: 'node_modules/qtip2/dist/jquery.qtip.js', included: false },
+            // { pattern: 'src/**/*.js', included: false},
+            //
+            // 'spec/karma-main.js',
+            //
+            // { pattern: 'spec/**/*spec.js', included: false },
             {
                 pattern: 'test.webpack.js'
             },
+
+
         ],
         proxies: {
             '/audit': 'http://localhost:8081/audit',
@@ -72,9 +112,10 @@ module.exports = function (config) {
             '/demo': 'http://localhost:8081/demo',
             '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
             '/images': 'http://localhost:8081/dist/css/images',
-            '/x21aAppWar/': '/',
-            '/x21aAppWar/patrones/': '/'
+            '/x21aAppWar/' : '/',
+            '/x21aAppWar/patrones/' : '/'
         },
+
 
         // list of files to exclude
         exclude: [],
@@ -96,14 +137,30 @@ module.exports = function (config) {
         ],
 
         webpack: {
-            mode: 'none',
             cache: true,
             devtool: 'inline-source-map',
             module: {
-                rules: [{
-                        test: require.resolve("jquery-migrate"),
-                        use: "imports-loader?define=>false",
-                    }, {
+                // preLoaders: [
+                // 	{
+                // 		test: /-spec\.js$/,
+                // 		include: /spec/,
+                // 		exclude: /(bower_components|node_modules)/,
+                // 		loader: 'babel',
+                // 		query: {
+                // 			cacheDirectory: true,
+                // 		},
+                // 	}
+                // {
+                // 	test: /\.js?$/,
+                // 	include: /src/,
+                // 	exclude: /(node_modules|bower_components|__tests__)/,
+                // 	loader: 'babel-istanbul',
+                // 	query: {
+                // 		cacheDirectory: true,
+                // 	},
+                // },
+                // ],
+                loaders: [{
                         test: /spec\.js$/,
                         enforce: 'pre',
                         exclude: /(bower_components|node_modules)/,
@@ -128,7 +185,7 @@ module.exports = function (config) {
                         include: /src/,
                         enforce: 'pre',
                         exclude: /(node_modules|bower_components|spec)/,
-                        loader: 'babel-loader',
+                        loader: 'babel-istanbul-loader',
                         query: {
                             cacheDirectory: true,
                         },
@@ -145,11 +202,11 @@ module.exports = function (config) {
                         test: /\.js?$/,
                         enforce: 'pre',
                         include: path.resolve(__dirname, 'spec/common'),
-                        loader: 'babel-loader',
+                        loader: 'babel-istanbul-loader',
                         query: {
                             cacheDirectory: true,
                         },
-                    }, {
+                    },{
                         test: /\.(html)\??.*$/,
                         use: {
                             loader: 'file-loader',
@@ -171,7 +228,6 @@ module.exports = function (config) {
                     'marionette': 'backbone.marionette/lib/backbone.marionette.js',
                     'jquery': 'jquery/dist/jquery.js',
                     'jasmine-jquery': 'jasmine-jquery/lib/jasmine-jquery.js',
-                    'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
                     'jquery-ui': 'jquery-ui/ui/',
                     'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
                     'highlight': 'highlight.js/lib/highlight.js',
@@ -183,11 +239,10 @@ module.exports = function (config) {
                     'jquery.fileupload-audio': 'blueimp-file-upload/js/jquery.fileupload-audio.js',
                     'jquery.fileupload-video': 'blueimp-file-upload/js/jquery.fileupload-video.js',
                     'jquery.fileupload-validate': 'blueimp-file-upload/js/jquery.fileupload-validate.js',
-                    'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
-                    'load-image-meta': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-meta.js',
-                    'load-image-exif': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-exif.js',
-                    'load-image-scale': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-scale.js',
-                    'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
+                    'load-image': 'blueimp-load-image/js/load-image.js',
+                    'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
+                    'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
+                    'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
                     'jquery.scrollTo': 'jquery.scrollto/jquery.scrollTo.js',
                     'jquery-contextMenu': 'jquery-contextmenu/dist/jquery.contextMenu.js',
                     'jquery-ui-timepicker': 'src/core/ui/jquery-ui.timepicker.js',
@@ -207,7 +262,7 @@ module.exports = function (config) {
 
                     'templates': path.resolve(__dirname, 'templates.js'),
                     'popper': 'popper.js/dist/umd/popper.js',
-                    'calendar': 'bootstrap-calendar'
+			        'calendar': 'bootstrap-calendar'
                 }
 
             },
