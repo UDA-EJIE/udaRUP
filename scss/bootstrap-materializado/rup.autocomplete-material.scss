@@ -59,6 +59,10 @@
 			border-top-right-radius: unset;
 			border-bottom-right-radius: unset;
 			
+			&:focus:enabled {
+				border-right-style: hidden;
+			}
+			
 			&:hover:enabled ~ a {
 				border-color: $black-color;
 			}
