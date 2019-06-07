@@ -1033,7 +1033,7 @@ import 'rup.tooltip';
 							.append($('<span/>').addClass('ui-icon ui-icon-carat-1-e').html('Next tab').css('margin-top', arrowsTopMargin))
 							.click(function () {
 								//selecciona el tab anterior y lanza el evento scrollToTab
-								nextIndex = $tabsNav.find('li.ui-tabs-active').prevAll().length + 1;
+								var nextIndex = $tabsNav.find('li.ui-tabs-active').prevAll().length + 1;
 								//selecciona el tab
 								$tabsNav.find('li').eq(nextIndex).find('a').trigger('click');
 								return false;

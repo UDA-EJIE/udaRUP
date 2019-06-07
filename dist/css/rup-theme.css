@@ -1850,9 +1850,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   margin-left: 0.3em;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-left: 0.3em solid transparent; }
+  border-top: 0.3em solid !important;
+  border-right: 0.3em solid transparent !important;
+  border-left: 0.3em solid transparent !important; }
 
 .rup-navbar .dropdown-toggle:focus {
   outline: 0; }

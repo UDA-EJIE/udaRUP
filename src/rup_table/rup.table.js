@@ -383,7 +383,7 @@
 			*
 		  */
 		_getColumns(options) {
-			$self = this;
+			var $self = this;
 			//Se crea la columna del select.
 			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
