@@ -938,7 +938,7 @@
        "navClearButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
        "navLayer": "<div id='{0}' class='search_nav_layer'></div>",
        "navButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis mr-2' type='button' alt='{1}' disabled>{1}</button>",
-       "navSearchButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-medium-emphasis ml-2 mr-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
+       "navSearchButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis ml-2 mr-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
        "searchRow": "<tr class='search_row'></tr>",
        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
      }

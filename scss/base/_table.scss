@@ -21,3 +21,18 @@
 .rup-table-filter-toggle-label {
 	text-decoration: underline;
 }
+
+.table-bordered {
+    border: 1px solid silver;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.paginationContainer {
+	border: 1px solid silver;
+    border-top: none;
+    padding: 5px 0
+}
+
+td > div.centerOnResponsiveContainer {
+	display: flex;
+}

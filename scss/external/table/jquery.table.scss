@@ -529,6 +529,8 @@ tfoot .rup-date-input-group {
     border: 1px solid silver;
     margin-left: 2px;
     margin-right: 2px;
+    padding-left: 9px;
+    padding-right: 7px;
 }
 
 .dataTables_length label {
@@ -551,27 +553,10 @@ table.dataTable tbody>tr:hover {
     font-weight: initial
 }
 
-.formulario_legend {
-    border: 1px solid silver;
-    margin-left: 2px;
-    margin-right: 2px
-}
-
-.dataTables_length label {
-    display: inline-flex
-}
-
 .dataTables_length select,
 .dataTables_length .ui-multiselect,
 .dataTables_length .ui-selectmenu-dropdown {
     margin: 0px 5px
-}
-
-.tr-highlight {
-    border: 1px solid #dad55e;
-    background: #fffa90;
-    color: #777620;
-    font-weight: bold
 }
 
 .dtr-data {
@@ -586,12 +571,6 @@ table.dataTable tbody>tr:hover {
     margin-bottom: 0;
     justify-content: center;
     -ms-flex-pack: center
-}
-
-.paginationContainer {
-    border: 1px solid #dee2e6;
-    border-top: none;
-    padding: 5px 0
 }
 
 .openResponsive,

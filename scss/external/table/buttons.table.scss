@@ -177,7 +177,8 @@ a.dt-button:focus:not(.disabled) {
 }
 
 div.dt-buttons {
-    position: relative
+    position: relative;
+    border-radius: 5px;
 }
 
 div.dt-buttons.buttons-right {

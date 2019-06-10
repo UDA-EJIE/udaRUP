@@ -339,7 +339,7 @@
 		}	);
 			
 			if(options.inlineEdit !== undefined){
-				//RSPONSIBLE CON EDITLINE
+				//RESPONSIVO CON EDITLINE
 	            var renderer = function ( api, rowIdx, columns ) {
 	    			var data = $.map( columns, function ( col ) {
 	    				var colShow = col.hidden ?
@@ -417,7 +417,7 @@
 						if(data === '1'){
 							iconCheck = 'mdi-check';
 						}
-				    return '<div class="d-flex"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
+				    return '<div class="centerOnResponsiveContainer"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
 			    }});
 				}
 				return {
@@ -741,11 +741,13 @@
 							filterSettings.$collapsableLayer.hide();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+							filterSettings.$filterToolbar.removeClass('formulario_opened');
 							settings.filter.showHidden = true;
 						} else{
 							filterSettings.$collapsableLayer.show();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+							filterSettings.$filterToolbar.addClass('formulario_opened');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -755,11 +757,13 @@
 					filterSettings.$collapsableLayer.hide();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+					filterSettings.$filterToolbar.removeClass('formulario_opened');
 					settings.filter.showHidden = true;
 				} else {
 					filterSettings.$collapsableLayer.show();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+					filterSettings.$filterToolbar.addClass('formulario_opened');
 					settings.filter.showHidden = false;
 				}
 

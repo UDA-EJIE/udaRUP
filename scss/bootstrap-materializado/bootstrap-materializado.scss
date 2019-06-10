@@ -3,11 +3,13 @@
 
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 @import 'colours-material';
+@import 'fieldset-material';
 @import 'button-material';
 @import 'input-material';
 @import 'textarea-material';
 @import 'radio-material';
 @import 'checkbox-material';
+@import 'table-material';
 @import 'rup.autocomplete-material';
 @import 'rup.breadCrumb-material';
 @import 'rup.button-material';
@@ -17,8 +19,8 @@
 @import 'rup.feedback-material';
 @import 'rup.message-material';
 @import 'rup.multifilter-material';
+@import 'rup.table-material';
 @import 'rup.validate-material';
-@import 'table-material';
 
 /* ESTILOS GENERALES */
 .material-rounded {
