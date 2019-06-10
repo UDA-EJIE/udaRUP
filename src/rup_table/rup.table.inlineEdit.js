@@ -136,7 +136,7 @@ DataTable.inlineEdit.init = function ( dt ) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'table_toolbar_btnSave disabledButtonsTable',
+         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave disabledButtonsTable',
          icon: "mdi-content-save",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -154,7 +154,7 @@ DataTable.inlineEdit.init = function ( dt ) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'table_toolbar_btnCancel disabledButtonsTable',
+         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel disabledButtonsTable',
          icon: "mdi-cancel",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -810,18 +810,6 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(searchRupType!==undefined) {
 					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
 	
-					/*
-					 * PRE Configuración de los componentes RUP
-					 */
-					if(searchRupType === 'combo'){
-						searchEditOptions = $.extend({},{menuWidth:$elem.width()}, searchEditOptions, {width:'97%'});
-						$elem.val('');
-					} else if(searchRupType === 'date'){
-						$elem.css('width','86%');
-						$elem.css('max-width','80px');
-						$elem.css('min-width','75px');
-					}
-	
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 					if(searchRupType === 'combo'){//asignar el valor
@@ -838,11 +826,11 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				//Fin conversion
 				
-				//NOs aseguramos de que el input existe
+				//Nos aseguramos de que el input existe
 				if(ctx.inlineEdit.lastRow.ponerFocus){
 					$input.focus();
 					ctx.inlineEdit.lastRow.ponerFocus = false;
-					//Realaizar comprobaciones x si el id es NO editable
+					//Realizar comprobaciones por si el id es NO editable
 					if(edicion && ctx.oInit.blockPKeditForm && ctx.oInit.primaryKey.length > 0){
 						$.each(ctx.oInit.primaryKey,function(key,id) {
 							if(id === cellColModel.name){
@@ -971,7 +959,7 @@ function _crearEventos(ctx,$selector){
 		    		var dt = $('#'+ctx.sTableId).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
 		    		ctx.oInit.inlineEdit.alta = undefined;
-		    		//primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina si pones false
+		    		//primer parametro para mandar una funcion a ejecutar, segundo parametro bloquear la pagina si pones false
 		    		dt.ajax.reload(undefined,false);
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
@@ -979,7 +967,7 @@ function _crearEventos(ctx,$selector){
 		    }else if (e.keyCode === 13 || 
 		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
-		    	if($selector.parent('tr').length > 0){//si e smayor que cero la seleccion es en el td,hay que pasar al tr.
+		    	if($selector.parent('tr').length > 0){//si es mayor que cero la seleccion es en el td,hay que pasar al tr.
 		    		$selector = $selector.parent('tr');
 		    	}
 		    	if($selector.find('.child').length === 1 || $selector.hasClass('child')){
@@ -1007,7 +995,7 @@ function _crearEventos(ctx,$selector){
 */
 function _lastIndexEditable(ctx,$target){
 	var indexTarget = $target.closest('td').index();
-	//Se recooren las columnas a la inversa, si es editable, se devuelve la posicion
+	//Se recorren las columnas a la inversa, si es editable, se devuelve la posicion
 	//Si llama el hijo calcalur index
 	if($target.closest('tr.child').length === 1){
 		indexTarget = ctx.aoColumns.length - $target.closest('ul').find('li').length + $target.closest('li').index();
@@ -1049,7 +1037,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	var serializedForm = {};
 	var selectores = {};
 
-	//añadir columans child
+	//añadir columnas child
 	if(child === false){
 		selectores[0] = $fila;
 		if($fila.next().find('.child').length === 1){
@@ -1079,7 +1067,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 		});
 	});
 	
-	//añadir los no editables,en caso de SOLO edicción, 
+	//añadir los no editables,en caso de SOLO edición, 
 	if(!selectores[0].hasClass('new')){
 		jQuery.grep(ctx.oInit.colModel, function( n,i) {
 			  if ( n.editable !== true ){
