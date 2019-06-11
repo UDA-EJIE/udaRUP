@@ -9,8 +9,10 @@
             // Browser globals
             factory( jQuery );
          }
-        } ( function( $ ) {
-          // ==ClosureCompiler==
+        } ( 
+            function( $ ) {
+               initRupI18nPromise.then(() => {
+                  // ==ClosureCompiler==
 // @compilation_level SIMPLE_OPTIMIZATIONS
 
 /*
@@ -24800,5 +24802,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 })(jQuery);
 
-        }));
+               });
+            })
+        );
         

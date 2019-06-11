@@ -167,11 +167,7 @@ function _createFilterColumn(dt,ctx){
 				}
 			}
 		} );
-
-		_createSearchRow(dt, ctx);
-		ctx.seeker.searchForm = $('#' + idTabla + ' tfoot tr:nth-child(2)');
-		ctx.seeker.searchForm.hide();
-
+		
 	   dt.columns().eq(0).each(function(colIdx) {
 		   if(colIdx > 0){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
@@ -194,6 +190,10 @@ function _createFilterColumn(dt,ctx){
 		        } );
 		   }
 	   });
+
+	   _createSearchRow(dt, ctx);
+	   ctx.seeker.searchForm = $('#' + idTabla + ' tfoot tr:nth-child(2)');
+	   ctx.seeker.searchForm.hide();
 
 	   _createRupComponent(dt,ctx);
 }
@@ -501,7 +501,7 @@ function _processData(dt,ctx,data){
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
 	if(datos !== undefined){
-		datos.search = form2object(ctx.seeker.search.$searchForm);
+		datos.search = form2object(ctx.seeker.search.$searchForm[0]);
 	}
 	return datos;
 }

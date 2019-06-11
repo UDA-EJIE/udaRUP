@@ -1082,7 +1082,7 @@ function selectAll(dt){
 */
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
-	$self._initializeMultiselectionProps(ctx);
+	_initializeMultiselectionProps(ctx);
 
 	ctx.multiselection.accion = "uncheckAll";
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();

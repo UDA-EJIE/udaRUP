@@ -110,115 +110,119 @@
          * @private
          */
 		_create: function () {
-			var pathname = window.location.pathname,
-				breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
-				breadCrumbElems = breadCrumbEntry.split('/'),
-				breadCrumbSpan,
-				//breadCrumbSpan = $("<span>").addClass("rup-breadCrumbs_span").text($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.youAre")),
-				ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main'),
-				breadCrumbStruct = null,
-				lastCrum = null,
-				initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
-				i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId;
-			//Obtenemos la estructura del fichero que se recibe como parametro o el de por defecto del patrón
-			if (this.options.breadCrumb instanceof Object) {
-				breadCrumbStruct = this.options.breadCrumb;
-			} else {
-				$.rup.getFile(this.options.breadCrumb);
-				breadCrumbStruct = $.rup.i18n[this.options.breadCrumb];
-			}
+			initRupI18nPromise.then(() => {
 
-			if (!window.LOGGED_USER || LOGGED_USER === 'NULL') {
-				LOGGED_USER = '';
-			}
-			if (!window.DESTROY_XLNETS_SESSION) {
-				DESTROY_XLNETS_SESSION = 'false';
-			}
-			if (LOGGED_USER !== '') {
-				//Se añade el boton de desconexion si este fuera necesario
-				if (this.options.logOutUrl !== undefined) {
+				var pathname = window.location.pathname,
+					breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
+					breadCrumbElems = breadCrumbEntry.split('/'),
+					breadCrumbSpan,
+					//breadCrumbSpan = $("<span>").addClass("rup-breadCrumbs_span").text($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.youAre")),
+					ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main'),
+					breadCrumbStruct = null,
+					lastCrum = null,
+					initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
+					i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId;
+				//Obtenemos la estructura del fichero que se recibe como parametro o el de por defecto del patrón
+				if (this.options.breadCrumb instanceof Object) {
+					breadCrumbStruct = this.options.breadCrumb;
+				} else {
+					$.rup.getFile(this.options.breadCrumb);
+					breadCrumbStruct = $.rup.i18n[this.options.breadCrumb];
+				}
 
-					if (DESTROY_XLNETS_SESSION === 'false') {
+				if (!window.LOGGED_USER || LOGGED_USER === 'NULL') {
+					LOGGED_USER = '';
+				}
+				if (!window.DESTROY_XLNETS_SESSION) {
+					DESTROY_XLNETS_SESSION = 'false';
+				}
+				if (LOGGED_USER !== '') {
+					//Se añade el boton de desconexion si este fuera necesario
+					if (this.options.logOutUrl !== undefined) {
 
-						//función encargada de poner el icono y el literal de salida
-						this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
-							.append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
-								function () {
-									$.rup_messages('msgConfirm', {
-										message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
-										title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
-										OKFunction: function () {
-											$(window).attr('location', $('#logOutLink').attr('logOutHref'));
-										}
-									});
-								}).html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.exit')).attr('id', 'logOutLink').append($('<span>').addClass('ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg'))));
-					} else {
+						if (DESTROY_XLNETS_SESSION === 'false') {
 
-						//función encargada de poner el icono y el literal de desconexion
-						this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
-							.append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
-								function () {
-									$.rup_messages('msgConfirm', {
-										message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
-										title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
-										OKFunction: function () {
-											$(window).attr('location', $('#logOutLink').attr('logOutHref'));
-										}
-									});
-								}).mouseover(
-								function () {
-									$(this).find('i.mdi').removeClass('mdi-lock-open').addClass("mdi-lock");
-								}).mouseleave(
-								function () {
-									$(this).find('i.mdi').removeClass('mdi-lock').addClass("mdi-lock-open");
-								})
-								.html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.disconnect'))
-								.attr('id', 'logOutLink')
-								.prepend(
-										$('<i class="mdi mdi-lock-open" aria-hidden="true"></i>')
+							//función encargada de poner el icono y el literal de salida
+							this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
+								.append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+									function () {
+										$.rup_messages('msgConfirm', {
+											message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
+											title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
+											OKFunction: function () {
+												$(window).attr('location', $('#logOutLink').attr('logOutHref'));
+											}
+										});
+									}).html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.exit')).attr('id', 'logOutLink').append($('<span>').addClass('ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg'))));
+						} else {
+
+							//función encargada de poner el icono y el literal de desconexion
+							this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
+								.append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+									function () {
+										$.rup_messages('msgConfirm', {
+											message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
+											title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
+											OKFunction: function () {
+												$(window).attr('location', $('#logOutLink').attr('logOutHref'));
+											}
+										});
+									}).mouseover(
+									function () {
+										$(this).find('i.mdi').removeClass('mdi-lock-open').addClass("mdi-lock");
+									}).mouseleave(
+									function () {
+										$(this).find('i.mdi').removeClass('mdi-lock').addClass("mdi-lock-open");
+									})
+									.html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.disconnect'))
+									.attr('id', 'logOutLink')
+									.prepend(
+											$('<i class="mdi mdi-lock-open" aria-hidden="true"></i>')
+									)
 								)
-							)
-						);
+							);
+						}
+					}
+					//se añade el span con el texto de "xxx esta aqui"
+					breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text(LOGGED_USER + $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.userAre'));
+					this.element.append(breadCrumbSpan);
+				} else {
+					breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.youAre'));
+					//se añade el span con el texto de "Usted esta aqui"
+					this.element.append(breadCrumbSpan);
+				}
+
+				//se le añade el link de Incio
+				ulBreadCrumb.append(this._createLI($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.start'), initURL));
+				//nos recorremos los elementos del path y los buscamos en el fichero json de migas para crear los enlaces
+				for (var i = 0; i < breadCrumbElems.length; i++) {
+					//Si encontramos dentro del fichero de estructura de las migas el parte de la url
+					if (breadCrumbStruct[breadCrumbElems[i]]) {
+						//Generamos su miga de actualimos la estructura en la que buscar, devolviendo las estructura del nivel que se ha añadido
+						breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
 					}
 				}
-				//se añade el span con el texto de "xxx esta aqui"
-				breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text(LOGGED_USER + $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.userAre'));
-				this.element.append(breadCrumbSpan);
-			} else {
-				breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.youAre'));
-				//se añade el span con el texto de "Usted esta aqui"
-				this.element.append(breadCrumbSpan);
-			}
+				//se le añade al ultimo elemento el estilo current
+				//$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
+				//$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
+				$(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).addClass('rup-breadCrumb_current').find('img.rup-icon, span.rup-icon').remove();
+				//el último elemento no es navegable
+				//lastCrum = $("li:last a", ulBreadCrumb);
+				lastCrum = $('a:first', $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]));
 
-			//se le añade el link de Incio
-			ulBreadCrumb.append(this._createLI($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.start'), initURL));
-			//nos recorremos los elementos del path y los buscamos en el fichero json de migas para crear los enlaces
-			for (var i = 0; i < breadCrumbElems.length; i++) {
-				//Si encontramos dentro del fichero de estructura de las migas el parte de la url
-				if (breadCrumbStruct[breadCrumbElems[i]]) {
-					//Generamos su miga de actualimos la estructura en la que buscar, devolviendo las estructura del nivel que se ha añadido
-					breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
-				}
-			}
-			//se le añade al ultimo elemento el estilo current
-			//$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
-			//$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
-			$(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).addClass('rup-breadCrumb_current').find('img.rup-icon, span.rup-icon').remove();
-			//el último elemento no es navegable
-			//lastCrum = $("li:last a", ulBreadCrumb);
-			lastCrum = $('a:first', $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]));
+				lastCrum.replaceWith($('<span>').text(lastCrum.text()).css({
+					'font-weight': 'bold',
+					'color': '#333333'
+				}));
+				// delete lastCrum;
+				//y por ultimo se añade todo el ul a div que lo contiene
+				this.element.append(ulBreadCrumb);
+				ulBreadCrumb.xBreadcrumbs();
 
-			lastCrum.replaceWith($('<span>').text(lastCrum.text()).css({
-				'font-weight': 'bold',
-				'color': '#333333'
-			}));
-			// delete lastCrum;
-			//y por ultimo se añade todo el ul a div que lo contiene
-			this.element.append(ulBreadCrumb);
-			ulBreadCrumb.xBreadcrumbs();
+				//Se audita el componente
+				$.rup.auditComponent('rup_breadCrumb', 'init');
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_breadCrumb', 'init');
+			});
 		},
 		/**
          * Funcion que crea el li correspondiente de la miga accediendo al fichero de lenguage correspondiente.
