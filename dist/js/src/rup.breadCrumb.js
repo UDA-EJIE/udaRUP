@@ -218,6 +218,8 @@
 				//y por ultimo se añade todo el ul a div que lo contiene
 				this.element.append(ulBreadCrumb);
 				ulBreadCrumb.xBreadcrumbs();
+				
+				$(this.element).trigger('afterInit');
 
 				//Se audita el componente
 				$.rup.auditComponent('rup_breadCrumb', 'init');
