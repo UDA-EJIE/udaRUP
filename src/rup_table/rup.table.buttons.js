@@ -296,7 +296,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
 		},
 		id: idTable+'informes_01',
-		className: 'btn-material-primary-medium-emphasis align-right',
+		className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		autoClose: true,
 		type: 'reports',
@@ -1616,7 +1616,7 @@ Buttons.defaults = {
 	dom: {
 		container: {
 			tag: 'div',
-			className: 'dt-buttons'
+			className: 'dt-buttons row'
 		},
 		collection: {
 			tag: 'div',
@@ -1624,7 +1624,7 @@ Buttons.defaults = {
 		},
 		button: {
 			tag: 'button',
-			className: 'btn-material',
+			className: 'col-12 col-sm-auto btn-material',
 			active: 'active',
 			disabled: 'disabledButtonsTable'
 		},
@@ -1659,7 +1659,10 @@ $.extend( _dtButtons, {
 		action: function ( e, dt, button, config ) {
 			var host = button;
 			var collectionParent = $(button).parents('div.dt-button-collection');
-			var hostPosition = host.position();
+			var hostPosition = { 
+					top: host.position().top + parseInt(host.css('marginTop'), 10), 
+					left: host.position().left + parseInt(host.css('marginLeft'), 10) 
+			};
 			var tableContainer = $( dt.table().container() );
 			var multiLevel = false;
 			var insertPoint = host;
