@@ -20610,7 +20610,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			$(self.p.colModel).each(function(i){
 
 				$row= $(self.rows.namedItem(rowid));
-				$tempRowId = $self.data('settings').inlineEditingRow;
+				let $tempRowId = $self.data('settings').inlineEditingRow;
 				$cell = $row.find('td:eq('+i+')');
 				//ruptypeObj = $cell.find("[ruptype]");
 				//				ruptypeObj = this.editoptions.ruptype;
@@ -21695,7 +21695,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			/**
        * MENUS CONTEXTUALES
        */
-			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');debugger;
+			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');
 			let selector = '[id=\'' + settings.id + '_cb\']';
 			if (jQuery(selector).length>0){
 				jQuery(selector).rup_contextMenu({
@@ -22972,7 +22972,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
-						jsonParam={'filter':masterPkObject};
+						let jsonParam={'filter':masterPkObject};
 						jQuery.extend(true, postData, jsonParam);
 					}
 				},
@@ -22988,7 +22988,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
-						jsonParam={'filter':masterPkObject};
+						let jsonParam={'filter':masterPkObject};
 						jQuery.extend(true, jsonData, jsonParam);
 					}
 				}

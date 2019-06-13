@@ -891,7 +891,7 @@
 			/**
        * MENUS CONTEXTUALES
        */
-			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');debugger;
+			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');
 			let selector = '[id=\'' + settings.id + '_cb\']';
 			if (jQuery(selector).length>0){
 				jQuery(selector).rup_contextMenu({

@@ -18525,7 +18525,8 @@ div.rup-date-input-group-material button, div.rup-date-input-group-material .ui-
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   box-sizing: border-box;
-  outline: none; }
+  outline: none;
+  position: absolute; }
   div.rup-date-input-group-material button i.mdi, div.rup-date-input-group-material .ui-button.rup-button i.mdi, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button i.mdi, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button i.mdi, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev i.mdi, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i.mdi, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i.mdi {
     vertical-align: initial;
     line-height: 1; }
