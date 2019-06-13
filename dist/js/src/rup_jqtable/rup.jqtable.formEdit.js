@@ -565,10 +565,10 @@
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
 					$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
-						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
+						$title.text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
 					} else {
-						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].editCaption);
+						$title.text(rp_ge[$self[0].p.id].editCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).show();
 					}
 				},

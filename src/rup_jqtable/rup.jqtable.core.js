@@ -675,7 +675,7 @@
 							$obj = $(obj),
 							toolipTmpId, auxId, auxDescribedBy;
 
-						if (!$obj.attr('rup_tooltip') && $obj.attr('grid_tooltip')) {
+						if (!$obj.attr('rup_tooltip') && $obj.attr('grid_tooltip') && !$obj.data().qtip) {
 							auxId = $obj.parent().attr('id') ? $obj.parent().attr('id') : $obj.parents('tr[role=\'row\']').attr('id');
 							auxDescribedBy = $obj.attr('aria-describedby') ? $obj.attr('aria-describedby') : $obj.parents('td[role=\'gridcell\']').attr('aria-describedby');
 							$obj.attr('title', $obj.attr('grid_tooltip'));

@@ -1184,8 +1184,7 @@ body .ui-tooltip {
 
 .ui-jqgrid .ui-jqgrid-htable th div {
   overflow: hidden;
-  position: relative;
-  height: 17px; }
+  position: relative; }
 
 .ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
   overflow: hidden;

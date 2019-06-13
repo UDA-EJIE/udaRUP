@@ -13126,7 +13126,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 							$obj = $(obj),
 							toolipTmpId, auxId, auxDescribedBy;
 
-						if (!$obj.attr('rup_tooltip') && $obj.attr('grid_tooltip')) {
+						if (!$obj.attr('rup_tooltip') && $obj.attr('grid_tooltip') && !$obj.data().qtip) {
 							auxId = $obj.parent().attr('id') ? $obj.parent().attr('id') : $obj.parents('tr[role=\'row\']').attr('id');
 							auxDescribedBy = $obj.attr('aria-describedby') ? $obj.attr('aria-describedby') : $obj.parents('td[role=\'gridcell\']').attr('aria-describedby');
 							$obj.attr('title', $obj.attr('grid_tooltip'));
@@ -14307,7 +14307,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 			$self.one({
 				'jqGridLoadComplete.rupTable.contextMenu': function(data){
-					var $tbodyTr = jQuery('[id=\''+$self.attr('id')+'\'] tbody:first tr[role=\'row\'].jqgrow'), contextRowItems={},
+					var tbodyTr = '[id=\'' + $self.attr('id') + '\'] tbody:first tr[role=\'row\'].jqgrow',
+						$tbodyTr = jQuery(tbodyTr),
+						contextRowItems = {},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
@@ -14352,11 +14354,15 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')');
-							$.contextMenu( 'destroy', $contextMenuSelector );
-							$contextMenuSelector.rup_contextMenu({
-								items: contextRowItems
-							});
+							let contextMenuSelector = '[id=\'' + $self.attr('id') + '\'] ' + contextMenuSettings.tbodyTdSelector + ':nth-child(' + getTdIndex(thArray, contextMenuSettings.colNames[i]) + ')';
+							$contextMenuSelector = jQuery(contextMenuSelector);
+							if ($contextMenuSelector.length > 0) {
+								$.contextMenu('destroy', $contextMenuSelector);
+								$contextMenuSelector.rup_contextMenu({
+									selector: contextMenuSelector,
+									items: contextRowItems
+								});
+							}
 						}
 					}else if (cellLevelContextMenu){
 
@@ -14389,19 +14395,25 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-
-							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')');
+							let contextMenuSelector = '[id=\'' + $self.attr('id') + '\'] ' + contextMenuSettings.tbodyTdSelector + ':nth-child(' + getTdIndex(thArray, contextMenuSettings.colNames[i]) + ')';
+							$contextMenuSelector = jQuery(contextMenuSelector);
 							$.contextMenu( 'destroy', $contextMenuSelector );
-							$contextMenuSelector.rup_contextMenu({
-								items: item
-							});
+							if ($contextMenuSelector.length > 0) {
+								$contextMenuSelector.rup_contextMenu({
+									selector: contextMenuSelector,
+									items: item
+								});
+							}
 						});
 
 					}else{
 						$.contextMenu( 'destroy', $tbodyTr );
-						$tbodyTr.rup_contextMenu({
-							items: contextRowItems
-						});
+						if ($tbodyTr.length > 0) {
+							$tbodyTr.rup_contextMenu({
+								selector: tbodyTr,
+								items: contextRowItems
+							});
+						}
 					}
 
 				}
@@ -15489,7 +15501,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						cellColModel = colModel[i];
 						searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 
-						colModelName = cellColModel.name;
+						var colModelName = cellColModel.name;
 						$elem = $('[name=\''+colModelName+'\']',$searchRow);
 						// Se añade el title de los elementos de acuerdo al colname
 						$elem.attr({
@@ -15642,7 +15654,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						colM.stype = 'text';
 					}
 				}
-				soptions = $.extend({},colM.searchoptions || colM.editoptions || {}, {id:colM.name,name:colM.name});
+				var soptions = $.extend({},colM.searchoptions || colM.editoptions || {}, {id:colM.name,name:colM.name});
 				if(colM.search){
 					elc = $.jgrid.createEl.call($self[0],colM.stype!==undefined?colM.stype:colM.edittype,soptions,'',true,$.extend({},$.jgrid.ajaxOptions,soptions.ajaxSelectOptions || {}));
 					$elc=jQuery(elc);
@@ -15863,7 +15875,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				data: jQuery.toJSON($.extend(true, {}, postData, jsonData)),
 				contentType: 'application/json',
 				success: function(xhr,b,c){
-					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
+					var rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
 
 					if (xhr.length===0){
 						$self._initializeSearchProps(settings);
@@ -16067,7 +16079,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * $("#idTable").rup_jqtable("doSearchNavigation", arrParams);
      */
 		doSearchNavigation: function(arrParams){
-			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
+			var $self = this,
+				settings = $self.data('settings'),
+				buttonType, execute, changePage, index, npos, newPage, newPageIndex, indexAux, ret, actualRowId, rowId, pagePos, $row;
 
 			if ($.isArray(arrParams)){
 				buttonType = arrParams[0];
@@ -16169,7 +16183,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 			for (var i=0;i<settings.search.matchedRowsPerPage[page].length;i++){
-				newIndexPos = settings.search.matchedRowsPerPage[page][i];
+				var newIndexPos = settings.search.matchedRowsPerPage[page][i];
 				$row = $($self.jqGrid('getInd',newIndexPos, true));
 				$self.rup_jqtable('highlightMatchedRow', $row);
 				//				if (i==0){
@@ -16226,18 +16240,26 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 					if (numMatched===1){
 						settings.search.$firstNavButton.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.attr('disabled', 'disabled');
 						settings.search.$backNavButton.addClass('ui-state-disabled');
+						settings.search.$backNavButton.attr('disabled', 'disabled');
 					}else{
 						settings.search.$firstNavButton.removeClass('ui-state-disabled');
+						settings.search.$firstNavButton.removeAttr("disabled");
 						settings.search.$backNavButton.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeAttr("disabled");
 					}
 
 					if (numMatched===settings.search.numMatched){
 						settings.search.$lastNavButton.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.attr('disabled', 'disabled');
 						settings.search.$forwardNavButton.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.attr('disabled', 'disabled');
 					}else{
 						settings.search.$lastNavButton.removeClass('ui-state-disabled');
+						settings.search.$lastNavButton.removeAttr("disabled");
 						settings.search.$forwardNavButton.removeClass('ui-state-disabled');
+						settings.search.$forwardNavButton.removeAttr("disabled");
 					}
 
 				}else{
@@ -16245,9 +16267,9 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
 					settings.search.$firstNavButton.removeClass('ui-state-disabled');
-					settings.search.$backNavButton.removeClass('ui-state-disabled');
+					settings.search.$backNavButton.removeAttr("disabled");
 					settings.search.$forwardNavButton.removeClass('ui-state-disabled');
-					settings.search.$lastNavButton.removeClass('ui-state-disabled');
+					settings.search.$lastNavButton.removeAttr("disabled");
 
 					// Miramos a ver si desde la posición actual hay anterior
 					if (jQuery.inArray(settings.search.matchedPages, page) > 0){
@@ -17709,10 +17731,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					// Se ocultan los errores de validación mostrados en el formulario de detalle
 					$self.rup_jqtable('hideFormErrors', settings.formEdit.$detailForm);
 					if (frmoper === 'add' || frmoper === 'clone' || frmoper === 'clone_clear') {
-						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].addCaption);
+						$title.text(rp_ge[$self[0].p.id].addCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).hide();
 					} else {
-						$($title.context[0]).find(".ui-dialog-titlebar > span").text(rp_ge[$self[0].p.id].editCaption);
+						$title.text(rp_ge[$self[0].p.id].editCaption);
 						$('#pagination_' + settings.id + ',#pag_' + settings.id).show();
 					}
 				},
@@ -21673,25 +21695,14 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			/**
        * MENUS CONTEXTUALES
        */
-			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');
-			jQuery('[id=\'' + settings.id + '_cb\']').rup_contextMenu({
-				trigger: 'none',
-				callback: settings.multiselection.headerContextMenu.callback,
-				items: $self._headerContextMenuItems(settings.multiselection.headerContextMenu, settings),
-				position: function (contextMenu, x, y) {
-					var offset = this.offset();
-					contextMenu.$menu.css({
-						top: offset.top + this.height(),
-						left: offset.left
-					});
-				}
-			});
-			if (settings.multiselection.rowContextMenu_enabled) {
-				jQuery.contextMenu('destroy', 'td[aria-describedby=\'' + settings.id + '_cb\']');
-				jQuery('td[aria-describedby=\'' + settings.id + '_cb\']').rup_contextMenu({
+			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');debugger;
+			let selector = '[id=\'' + settings.id + '_cb\']';
+			if (jQuery(selector).length>0){
+				jQuery(selector).rup_contextMenu({
+					selector: selector,
 					trigger: 'none',
-					callback: settings.multiselection.rowContextMenu.callback,
-					items: $self._rowContextMenuItems(settings.multiselection.rowContextMenu, settings),
+					callback: settings.multiselection.headerContextMenu.callback,
+					items: $self._headerContextMenuItems(settings.multiselection.headerContextMenu, settings),
 					position: function (contextMenu, x, y) {
 						var offset = this.offset();
 						contextMenu.$menu.css({
@@ -21700,6 +21711,25 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						});
 					}
 				});
+			}
+			if (settings.multiselection.rowContextMenu_enabled) {
+				let selector = 'td[aria-describedby=\'' + settings.id + '_cb\']';
+				jQuery.contextMenu('destroy', selector);
+				if (jQuery(selector).length > 0) {
+					jQuery(selector).rup_contextMenu({
+						selector: selector,
+						trigger: 'none',
+						callback: settings.multiselection.rowContextMenu.callback,
+						items: $self._rowContextMenuItems(settings.multiselection.rowContextMenu, settings),
+						position: function (contextMenu, x, y) {
+							var offset = this.offset();
+							contextMenu.$menu.css({
+								top: offset.top + this.height(),
+								left: offset.left
+							});
+						}
+					});
+				}
 			}
 		}
 	});
@@ -23429,7 +23459,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			*/
 		postConfigureMultifilter : function(settings) {
 			var $self = this, multifilterSettings = settings.multifilter, filterSettings,$dropdownButton, $combo,$comboLabel
-				,$defaultCheck,$feedback,$comboButton,$closeDialog, dropdownButtonConfig;
+				,$defaultCheck,$feedback,$comboButton,$closeDialog, dropdownButtonConfig, xhrArray=[];
 
 
 			/*
@@ -23611,11 +23641,10 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// $('#'+multifilterSettings.dropdownDialogId).parent().addClass("rup_multifilter_container");
 			$('#' + multifilterSettings.dropdownDialogId).parent().css('width', '500px');
 
-
 			multifilterSettings.$dropdownButton.on('click', function(){
 				//guardo el filtroAnterior
 				var valorFiltro= form2object(settings.filter.$filterContainer[0]);
-				var xhrArray=$.rup_utils.jsontoarray(valorFiltro);
+				xhrArray=$.rup_utils.jsontoarray(valorFiltro);
 				$self.data('filtroAnterior',valorFiltro);
 
 
@@ -24236,7 +24265,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
      * $self._searchFilterInCombo(settings);
      */
 		_searchFilterInCombo : function(settings) {
-			var multifilterSettings = settings.multifilter;
+			var multifilterSettings = settings.multifilter, xhrArray=[];
 
 			var name = $('#' + settings.id	+ '_multifilter_combo_label').val();
 			// var listaFiltros = $("#" + this.id+
@@ -24255,8 +24284,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
 				var valorFiltro = $.parseJSON(objFiltro[0].value);
-
-				var xhrArray = [];
 
 				// $.map(valorFiltro,function(item) {
 				// xhrArray[item.name] = item.value;

@@ -891,25 +891,14 @@
 			/**
        * MENUS CONTEXTUALES
        */
-			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');
-			jQuery('[id=\'' + settings.id + '_cb\']').rup_contextMenu({
-				trigger: 'none',
-				callback: settings.multiselection.headerContextMenu.callback,
-				items: $self._headerContextMenuItems(settings.multiselection.headerContextMenu, settings),
-				position: function (contextMenu, x, y) {
-					var offset = this.offset();
-					contextMenu.$menu.css({
-						top: offset.top + this.height(),
-						left: offset.left
-					});
-				}
-			});
-			if (settings.multiselection.rowContextMenu_enabled) {
-				jQuery.contextMenu('destroy', 'td[aria-describedby=\'' + settings.id + '_cb\']');
-				jQuery('td[aria-describedby=\'' + settings.id + '_cb\']').rup_contextMenu({
+			jQuery.contextMenu('destroy', '[id=\'' + settings.id + '_cb\']');debugger;
+			let selector = '[id=\'' + settings.id + '_cb\']';
+			if (jQuery(selector).length>0){
+				jQuery(selector).rup_contextMenu({
+					selector: selector,
 					trigger: 'none',
-					callback: settings.multiselection.rowContextMenu.callback,
-					items: $self._rowContextMenuItems(settings.multiselection.rowContextMenu, settings),
+					callback: settings.multiselection.headerContextMenu.callback,
+					items: $self._headerContextMenuItems(settings.multiselection.headerContextMenu, settings),
 					position: function (contextMenu, x, y) {
 						var offset = this.offset();
 						contextMenu.$menu.css({
@@ -918,6 +907,25 @@
 						});
 					}
 				});
+			}
+			if (settings.multiselection.rowContextMenu_enabled) {
+				let selector = 'td[aria-describedby=\'' + settings.id + '_cb\']';
+				jQuery.contextMenu('destroy', selector);
+				if (jQuery(selector).length > 0) {
+					jQuery(selector).rup_contextMenu({
+						selector: selector,
+						trigger: 'none',
+						callback: settings.multiselection.rowContextMenu.callback,
+						items: $self._rowContextMenuItems(settings.multiselection.rowContextMenu, settings),
+						position: function (contextMenu, x, y) {
+							var offset = this.offset();
+							contextMenu.$menu.css({
+								top: offset.top + this.height(),
+								left: offset.left
+							});
+						}
+					});
+				}
 			}
 		}
 	});
