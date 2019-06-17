@@ -146,7 +146,7 @@ function _createFilterColumn(dt,ctx){
 	var idTabla = ctx.sTableId;
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
 		$('#'+idTabla+' tfoot th').each( function () {
-			var title = $(this).text();
+			var title = this.innerText;
 			var index = $(this).index();
 			
 			if(index > 0 || ctx.oInit.multiSelect === undefined){
@@ -494,7 +494,7 @@ function _processData(dt,ctx,data){
 * @function
 * @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 * 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
@@ -533,7 +533,7 @@ function _createRupComponent(dt,ctx){
 				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
-					'title': ctx.aoColumns[i].sTitle,
+					'title': $('#'+cellColModel.name+'_seeker').attr('placeholder'),
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 	
