@@ -1757,6 +1757,24 @@ $.extend( _dtButtons, {
 					}
 				} );
 			}, 10 );
+			
+			// Como el boton se posiciona de manera absoluta hay que establecerle la posicion
+			// cada vez que se cambia el tamaño de la pantalla.
+			$(window).on("resize.ajustarCollection",(function() {
+				if(!$('div.dt-button-collection').is(':visible')) {
+					$(window).off("resize.ajustarCollection");
+				} else{
+					hostPosition = { 
+				    	top: host.position().top + parseInt(host.css('marginTop'), 10), 
+						left: host.position().left + parseInt(host.css('marginLeft'), 10) 
+					};
+					
+					config._collection.css( {
+						top: hostPosition.top + host.outerHeight(),
+						left: hostPosition.left
+					} );
+				}
+			} ));
 
 			if ( config.autoClose ) {
 				dt.on( 'buttons-action.b-internal', function () {
