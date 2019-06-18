@@ -122,21 +122,21 @@ DataTable.inlineEdit.init = function ( dt ) {
 	}
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
-	//sino existe se crea
+	// Si no existe se crea
 	if(idForm.length === 0){
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
 	
-    //Crear botones Guardar y Cancelar
+    // Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
-    //Boton guardar
+    // Boton Guardar
 	ctx.oInit.inlineEdit.myButtons.guardar = {
 		 text: function (dt) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave disabledButtonsTable',
+         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
          icon: "mdi-content-save",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -144,29 +144,29 @@ DataTable.inlineEdit.init = function ( dt ) {
          action: function ( e, dt, button, config ) {
         	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
         	 _guardar(ctx,$selector,false);
-         },
-         custom:true
+         }
     };
   
-    //boton Cancelar
+    // Boton Cancelar
     ctx.oInit.inlineEdit.myButtons.cancelar = {
          text: function (dt) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel disabledButtonsTable',
+         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
          icon: "mdi-cancel",
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'cancel',
          action: function ( ) {
         	 	$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+        		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
         	 	$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
+        		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 	    		ctx.inlineEdit.lastRow = undefined;
 	    		ctx.oInit.inlineEdit.alta = undefined;
 	    		dt.ajax.reload(undefined,false)
-       },
-       custom:true
+       }
     };
 };
 
@@ -420,8 +420,16 @@ function _editInline ( dt,ctx, idRow ){
 		DataTable.Api().buttons.disableAllButtons(ctx);
 	}
 	
+	// Habilitamos en la botonera y contextMenu
 	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledButtonsTable');
+	$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
 	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledButtonsTable');
+	$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
+	
+	// Cuando sea añadir registro no hay que habilitar el boton de informes
+	if(!$rowSelect.hasClass("odd new")){
+		$('#' + ctx.sTableId+'informes_01').removeClass('disabledButtonsTable');
+	}
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
@@ -491,7 +499,7 @@ function _getRowSelected(dt,actionType){
 		});
 	}else{
 		if(ctx.oInit.inlineEdit !== undefined){
-			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
 		}
 		if(lastSelectedId === undefined || lastSelectedId === ''){
 			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
@@ -540,6 +548,19 @@ function _getRowSelected(dt,actionType){
 	return rowDefault;
 }
 
+/**
+* Método que clona el elemento seleccionado.
+*
+* @name cloneLine
+* @function
+* @since UDA 3.7.0 // Table 1.0.0
+*
+*
+* @param {object} dt - Es el objeto table.
+* @param {object} ctx - Contexto del Datatable.
+* @param {integer} line - Número de la fila.
+*
+*/
 function _cloneLine(dt,ctx,line){
 	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone');
 	dt.row(0).data(dt.row(line+1).data());
@@ -565,7 +586,7 @@ function _cloneLine(dt,ctx,line){
 * @function
 * @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} ctx - Settings object to operate on.
+* @param {object} ctx - Contexto del Datatable.
 * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
 * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
 *
@@ -1161,7 +1182,9 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		async : true,
 		success : function(data, status, xhr) {
 			$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+			$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 			$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
+			$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
