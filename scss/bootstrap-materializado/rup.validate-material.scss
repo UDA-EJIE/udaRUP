@@ -44,6 +44,7 @@ i.mdi.error {
 			&:focus:enabled {
 				border: 2px solid $validation-error-color;
 				caret-color: $validation-error-color;
+				outline: none;
 			
 				&:read-only {
 					caret-color: $no-color;
