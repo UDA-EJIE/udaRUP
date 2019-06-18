@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -339,7 +339,7 @@
 		}	);
 			
 			if(options.inlineEdit !== undefined){
-				//RSPONSIBLE CON EDITLINE
+				//RESPONSIVO CON EDITLINE
 	            var renderer = function ( api, rowIdx, columns ) {
 	    			var data = $.map( columns, function ( col ) {
 	    				var colShow = col.hidden ?
@@ -417,7 +417,7 @@
 						if(data === '1'){
 							iconCheck = 'mdi-check';
 						}
-				    return '<div class="d-flex"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
+				    return '<div class="centerOnResponsiveContainer"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
 			    }});
 				}
 				return {
@@ -741,11 +741,13 @@
 							filterSettings.$collapsableLayer.hide();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+							filterSettings.$filterToolbar.removeClass('formulario_opened');
 							settings.filter.showHidden = true;
 						} else{
 							filterSettings.$collapsableLayer.show();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+							filterSettings.$filterToolbar.addClass('formulario_opened');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -755,11 +757,13 @@
 					filterSettings.$collapsableLayer.hide();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+					filterSettings.$filterToolbar.removeClass('formulario_opened');
 					settings.filter.showHidden = true;
 				} else {
 					filterSettings.$collapsableLayer.show();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+					filterSettings.$filterToolbar.addClass('formulario_opened');
 					settings.filter.showHidden = false;
 				}
 
@@ -1285,9 +1289,9 @@
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
-$.fn.rup_table.defaults = {
-	foobar: false,
-	headerContextMenu: {
+	$.fn.rup_table.defaults = {
+		foobar: false,
+		headerContextMenu: {
 			show: true,
 			selectAllPage: true,
 			deselectAllPage: true,
@@ -1296,42 +1300,42 @@ $.fn.rup_table.defaults = {
 			deselectAll: true,
 			items: {}
 		},
-	 fixedHeader: {
+		 fixedHeader: {
 	        header: false,
 	        footer: true
 	    },
-	feedback:{
+		feedback:{
 			okFeedbackConfig:{
 				closeLink: true,
 				delay:2000
 			}
 		},
-	responsive: {           
-		details: {
-	    	type: 'column',
-	    	target: 'tr'
-				},
-		selectorResponsive: 'td span.dtr-data'		
+		responsive: {           
+			details: {
+		    	type: 'column',
+		    	target: 'tr'
+			},
+			selectorResponsive: 'td span.dtr-data'
 		}, 
-	dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-		't<"container-fluid paginationContainer"' +
-			'<"row"' +
-				'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-				'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-				'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
-				'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+		dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
+			't<"container-fluid paginationContainer"' +
+				'<"row"' +
+					'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+					'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+					'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+					'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+				'>' +
 			'>' +
-		'>' +
-		'r',
-    multiplePkToken: '~',
-    primaryKey:["id"],
-    blockPKeditForm: true,
-    searchPaginator:true,
-    pagingType: "full",
-    columnDefs: [],
-	adapter: 'table_material',
-    order: [[ 1, 'asc' ]],
-    showMultiSelectedZero: true
+			'r',
+	    multiplePkToken: '~',
+	    primaryKey:["id"],
+	    blockPKeditForm: true,
+	    searchPaginator:true,
+	    pagingType: "full",
+	    columnDefs: [],
+		adapter: 'table_material',
+	    order: [[ 1, 'asc' ]],
+	    showMultiSelectedZero: true
 	};
 
 }));

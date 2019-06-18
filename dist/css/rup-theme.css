@@ -1315,6 +1315,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
       text-decoration: none;
       float: right;
       padding-right: 2rem;
+      padding-top: .5rem;
       margin: 0;
       color: #818a91; }
       .rup-feedback.rup-feedback_image div.rup-feedback_closeLink:before {
@@ -3546,7 +3547,9 @@ tfoot .rup-date-input-group {
 .formulario_legend {
   border: 1px solid silver;
   margin-left: 2px;
-  margin-right: 2px; }
+  margin-right: 2px;
+  padding-left: 9px;
+  padding-right: 7px; }
 
 .dataTables_length label {
   display: inline-flex; }
@@ -3564,24 +3567,10 @@ table.dataTable tbody > tr:hover {
   background: #b9d4ec !important;
   font-weight: initial; }
 
-.formulario_legend {
-  border: 1px solid silver;
-  margin-left: 2px;
-  margin-right: 2px; }
-
-.dataTables_length label {
-  display: inline-flex; }
-
 .dataTables_length select, .dataTables_length .ui-multiselect, .dataTables_length .ui-selectmenu-dropdown,
 .dataTables_length .ui-multiselect,
 .dataTables_length .ui-selectmenu-dropdown {
   margin: 0px 5px; }
-
-.tr-highlight {
-  border: 1px solid #dad55e;
-  background: #fffa90;
-  color: #777620;
-  font-weight: bold; }
 
 .dtr-data {
   display: inline-block; }
@@ -3593,11 +3582,6 @@ table.dataTable tbody > tr:hover {
   margin-bottom: 0;
   justify-content: center;
   -ms-flex-pack: center; }
-
-.paginationContainer {
-  border: 1px solid #dee2e6;
-  border-top: none;
-  padding: 5px 0; }
 
 .openResponsive,
 .closeResponsive {
@@ -3955,7 +3939,8 @@ a.dt-button:focus:not(.disabled) {
   outline: none; }
 
 div.dt-buttons {
-  position: relative; }
+  position: relative;
+  border-radius: 5px; }
 
 div.dt-buttons.buttons-right {
   float: right; }
@@ -4094,9 +4079,7 @@ div.dt-button-background {
 
 @media screen and (max-width: 640px) {
   div.dt-buttons {
-    text-align: center; }
-  .align-right {
-    float: none !important; } }
+    text-align: center; } }
 
 @media screen and (max-width: 575px) {
   div.dt-buttons > button, div.dt-buttons > .ui-button.rup-button, .rup-dropdown-btn-group div.dt-buttons > .rup-dropdown-button, div.dt-buttons > a.rup-toolbar_menuButton.ui-button, .rup-wizard div.dt-buttons > a.rup-wizard_next, .rup-wizard div.dt-buttons > a.rup-wizard_prev, .rup-wizard div.dt-buttons > .rup-wizard_submitButton {
@@ -15506,6 +15489,9 @@ ul.dtr-details .dtr-data {
 
 /* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 /* COLORES */
+fieldset {
+  border-radius: 5px; }
+
 /* ESTILOS */
 /* ESTILOS ESPECIFICOS DE LOS BOTONES */
 /* ENFASIS ALTO */
@@ -15728,6 +15714,7 @@ ul.dtr-details .dtr-data {
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):hover:enabled {
     border-color: #212529; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
+    outline: none;
     border-color: #1472a4;
     caret-color: #1472a4;
     border-width: 2px;
@@ -16039,6 +16026,37 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
 .dialog-content-material .checkbox-material label:before, .dialog-content-material .checkbox-material label:after {
   left: 6px; }
 
+/* REDONDEAMOS LOS BORDES DE LA TABLA */
+table.table-material {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  /* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */ }
+  table.table-material > thead th:hover {
+    background-color: #b8d4e3; }
+  table.table-material > thead tr {
+    background-color: #e9e9e9; }
+  table.table-material > thead tr > th {
+    border: none;
+    border-bottom: 1px solid #dee2e6; }
+    table.table-material > thead tr > th:first-child {
+      border-top-left-radius: 5px; }
+    table.table-material > thead tr > th:last-child {
+      border-top-right-radius: 5px; }
+  table.table-material > tbody tr > td {
+    border: none;
+    border-top: 1px solid #dee2e6; }
+  table.table-material > tbody tr:hover > td {
+    background-color: #b8d4e3; }
+  table.table-material > tfoot tr > th {
+    border: none;
+    background-color: #FFFFFF; }
+  table.table-material > tfoot th:hover {
+    background-color: #b8d4e3; }
+  table.table-material i.mdi {
+    font-weight: bold;
+    vertical-align: middle;
+    font-size: 1.35rem; }
+
 /* ESTILOS ESPECIFICOS PARA CUANDO EL AUTOCOMPLETE SE ENCUENTRA DENTRO DE UN FORM-ROW */
 :not(.form-row) .form-groupMaterial {
   /* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */ }
@@ -16069,7 +16087,9 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
     .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]) {
       display: inline-block;
       width: calc(100% - 22.4px);
-      border-right-style: hidden; }
+      border-right-style: hidden;
+      border-top-right-radius: unset;
+      border-bottom-right-radius: unset; }
       .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a {
         border-color: #212529; }
       .form-groupMaterial .rup-combobox input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ a {
@@ -16091,6 +16111,8 @@ table div.checkbox-material-inline label:before, table div.checkbox-material-inl
       background: #FFFFFF; }
     .form-groupMaterial .rup-combobox ~ i.mdi.error {
       right: 32px; }
+  .form-groupMaterial.rup-validate-field-error .rup-combobox input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
+    border-right-style: hidden; }
 
 .rup-breadCrumb_logoutDiv .rup-breadCrumb_link i.mdi {
   vertical-align: text-bottom;
@@ -16243,9 +16265,9 @@ a.select-material {
 
 /* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
 div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]) {
+  display: inline-block;
   width: calc(100% - 26px);
   padding-left: 13px;
-  display: inline-block;
   border-right-style: hidden;
   color: #495057; }
   div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ .ui-button.rup-button, div.rup-date-input-group-material .rup-dropdown-btn-group input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ .rup-dropdown-button, .rup-dropdown-btn-group div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ .rup-dropdown-button, div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a.rup-toolbar_menuButton.ui-button, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a.rup-wizard_next, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a.rup-wizard_next, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a.rup-wizard_prev, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ a.rup-wizard_prev, div.rup-date-input-group-material .rup-wizard input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ .rup-wizard_submitButton, .rup-wizard div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]):hover:enabled ~ .rup-wizard_submitButton {
@@ -16328,7 +16350,8 @@ div.rup-feedback.rup-feedback_image {
   div.rup-feedback.rup-feedback_image > i.mdi {
     margin-right: 1rem;
     font-weight: 700;
-    font-size: 2rem; }
+    font-size: 2rem;
+    vertical-align: middle; }
     div.rup-feedback.rup-feedback_image > i.mdi + div {
       display: initial;
       vertical-align: middle; }
@@ -16346,6 +16369,132 @@ div.rup-message {
 .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]).rup_multifilter_selector {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
+
+/* AJUSTE DE MARGENES EN LA BOTONERA */
+div.dt-buttons .btn-material {
+  margin: 0.25rem; }
+
+/* FORMULARIO DE FILTRADO */
+div.formulario_legend {
+  border-radius: 5px; }
+  div.formulario_legend.formulario_opened {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    div.formulario_legend.formulario_opened + fieldset.rup-table-filter-fieldset {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0; }
+
+/* SE CAMBIAN LOS ICONOS DEL REORDENAMIENTO */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  background-image: none; }
+  table.dataTable thead .sorting span.mdi, table.dataTable thead .sorting_asc span.mdi, table.dataTable thead .sorting_desc span.mdi, table.dataTable thead .sorting_asc_disabled span.mdi, table.dataTable thead .sorting_desc_disabled span.mdi {
+    font-size: 1.2rem; }
+
+table.dataTable thead .sorting span.mdi-arrow-up {
+  color: #999; }
+
+table.dataTable thead .sorting span.mdi-arrow-down {
+  color: #999; }
+
+table.dataTable thead .sorting_asc span.mdi-arrow-up {
+  color: #1472a4; }
+
+table.dataTable thead .sorting_asc span.mdi-arrow-down {
+  color: #999; }
+
+table.dataTable thead .sorting_desc span.mdi-arrow-up {
+  color: #999; }
+
+table.dataTable thead .sorting_desc span.mdi-arrow-down {
+  color: #1472a4; }
+
+table.dataTable thead .sorting_asc_disabled span.mdi-arrow-up {
+  color: #c5c5c5; }
+
+table.dataTable thead .sorting_asc_disabled span.mdi-arrow-down {
+  color: #999; }
+
+table.dataTable thead .sorting_desc_disabled span.mdi-arrow-up {
+  color: #999; }
+
+table.dataTable thead .sorting_desc_disabled span.mdi-arrow-down {
+  color: #c5c5c5; }
+
+/*table.dataTable thead {
+	.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled,.sorting_desc_disabled {
+		background-image: none;
+		
+		&:before, &:after {
+			font: normal normal normal 1.5rem/1 "Material Design Icons";
+			float: right;
+		}
+		
+		&:before {
+			content: "\f05d";
+		}
+		
+		&:after {
+			content: "\f045";
+		}
+	}
+	
+	.sorting {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_asc {	
+		&:before {
+			color: $primary-color;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $primary-color;
+		}
+	}
+	
+	.sorting_asc_disabled {	
+		&:before {
+			color: $grey-color-ultra-light;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc_disabled {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $grey-color-ultra-light;
+		}
+	}
+}*/
+form + div.paginationContainer {
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px; }
 
 /* ESTABLECE LOS ESTILOS DE LAS VALIDACIONES CON ERROR DE FORMA GENERAL */
 i.mdi.error {
@@ -16377,7 +16526,8 @@ i.mdi.error {
         border-color: #d43f3a; }
       .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled, .form-groupMaterial.rup-validate-field-error select:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled {
         border: 2px solid #d43f3a;
-        caret-color: #d43f3a; }
+        caret-color: #d43f3a;
+        outline: none; }
         .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error select:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:read-only, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled:read-only {
           caret-color: transparent; }
         .form-groupMaterial.rup-validate-field-error input:not([type="checkbox"]):not([type="radio"]):focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error select:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error .ui-multiselect:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error .ui-selectmenu-dropdown:focus:enabled:-moz-read-only, .form-groupMaterial.rup-validate-field-error textarea:focus:enabled:-moz-read-only {
@@ -16442,38 +16592,6 @@ i.mdi.error {
     font-weight: 400; }
   .form-groupMaterial div.rup-date-input-group-material.rup-validate-field-error + label {
     color: #d9534f; }
-
-/* REDONDEAMOS EL LOS BORDES DE LA TABLA */
-table.table-material {
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-  /* HACEMOS MAS VISIBLES LOS ICONOS QUE ESTEN DENTRO DE LA TABLA */ }
-  table.table-material > thead th:hover {
-    background-color: #b8d4e3; }
-  table.table-material > thead > tr > th {
-    border: none;
-    border-bottom: 1px solid #dee2e6; }
-    table.table-material > thead > tr > th:first-child {
-      border-top-left-radius: 5px; }
-    table.table-material > thead > tr > th:last-child {
-      border-top-right-radius: 5px; }
-  table.table-material > tbody tr > td {
-    border: none;
-    border-top: 1px solid #dee2e6; }
-  table.table-material > tbody tr:hover > td {
-    background-color: #b8d4e3; }
-  table.table-material > tfoot tr > th {
-    border: none; }
-  table.table-material > tfoot th:hover {
-    background-color: #b8d4e3; }
-  table.table-material i.mdi {
-    font-weight: bold;
-    vertical-align: middle;
-    font-size: 1.35rem; }
-
-form + div.paginationContainer {
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px; }
 
 /* ESTILOS GENERALES */
 .material-rounded {

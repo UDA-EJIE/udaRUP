@@ -501,12 +501,12 @@ function _callSaveAjax(actionType,dt,row,idRow,continuar,idTableDetail,url){
 		success : function(data, status, xhr) {
 
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
-				if(continuar){//Se crea un feddback_ok,para que no se pise con el de los errores
+				if(continuar){//Se crea un feedback_ok, para que no se pise con el de los errores
 					var divOkFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
 					if(divOkFeedback.length === 0){
 						divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
 					}
-					_callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa,feedback del formulario
+					_callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa, feedback del formulario
 				}else{
 					ctx.oInit.formEdit.detailForm.rup_dialog("close");
 					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
@@ -1422,7 +1422,14 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 			autoOpen: false,
 			modal: true,
 			resizable: '',
-			width: 569
+			width: 569,
+			create: function( event, ui ) {
+				/* Se encarga de eliminar la clase que oculta los campos del formEdit. Esta clase esta presente
+				 * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
+				 * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
+				 */
+				$("div.rup-table-formEdit-detail").removeClass("d-none");
+			}
 		}, {}));
 	}
 
