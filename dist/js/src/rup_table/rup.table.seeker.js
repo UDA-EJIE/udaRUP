@@ -146,7 +146,7 @@ function _createFilterColumn(dt,ctx){
 	var idTabla = ctx.sTableId;
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
 		$('#'+idTabla+' tfoot th').each( function () {
-			var title = $(this).text();
+			var title = this.innerText;
 			var index = $(this).index();
 			
 			if(index > 0 || ctx.oInit.multiSelect === undefined){
@@ -220,8 +220,8 @@ function _createSearchRow (dt,ctx){
 			matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
 			navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
 			navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
-			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
 			navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
+			navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
@@ -240,13 +240,13 @@ function _createSearchRow (dt,ctx){
 			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
 			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
 			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find'))),
-			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset')));
+			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
+			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
 		$matchedLayer.append($matchedLabel);
-		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navSearchButton).append($navClearButton);
+		$navLayer.append($firstNavButton).append($backNavButton).append($forwardNavButton).append($lastNavButton).append($navClearButton).append($navSearchButton);
 
 		$searchRowHeader.append($collapseLayer);
 		$searchRowHeader.append($matchedLayer);
@@ -494,7 +494,7 @@ function _processData(dt,ctx,data){
 * @function
 * @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 * 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
@@ -533,7 +533,7 @@ function _createRupComponent(dt,ctx){
 				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
-					'title': ctx.aoColumns[i].sTitle,
+					'title': $('#'+cellColModel.name+'_seeker').attr('placeholder'),
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 	
