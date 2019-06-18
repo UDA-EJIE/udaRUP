@@ -19495,7 +19495,6 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		ajaxDetailOptions: {
 			dataType: 'json',
 			type: 'GET',
-			async: false,
 			contentType: 'application/json'
 		}
 	};

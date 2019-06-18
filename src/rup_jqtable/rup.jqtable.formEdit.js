@@ -2329,7 +2329,6 @@
 		ajaxDetailOptions: {
 			dataType: 'json',
 			type: 'GET',
-			async: false,
 			contentType: 'application/json'
 		}
 	};
