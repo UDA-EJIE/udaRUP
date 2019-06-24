@@ -526,7 +526,9 @@
 			//Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object(ctx.oInit.$filterForm[0]);
+			if(ctx.oInit.$filterForm[0] !== undefined){
+				data.filter = form2object(ctx.oInit.$filterForm[0]);
+			}
 			data.multiselection = undefined;
 			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
 				data.multiselection = ctx.multiselection;
@@ -691,7 +693,9 @@
 
 
 			if (filterSettings.$filterContainer.length===0){
-				alert('El identificador especificado para el fomulario de búsqueda no existe.');
+				if(settings.filterMessage === true){
+					alert('El identificador especificado para el fomulario de búsqueda no existe.');
+				}
 			}else if (filterSettings.$filterToolbar.length===0){
 				alert('El identificador especificado para la barra de controles del formulario de filtrado no existe.');
 			}else{
@@ -1149,6 +1153,20 @@
 					
 				settings.responsive = responsive;;
 			}
+			//se añaden los css para las flechas.
+			$.each($('#'+$self[0].id+' thead th'),function( ){
+				var titulo = $(this).text();
+				$(this).text('');
+				var span1 = $("<span/>").addClass('d-block d-xl-inline').text(titulo);
+				var span2 = $("<span/>").addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+				var span3 = $("<span/>").addClass('mdi mdi-arrow-up');
+				$(this).append(span1)
+				var div1 = $("<div/>").addClass('d-flex d-xl-inline');
+				div1.append(span2);
+				div1.append(span3);
+				$(this).append(div1);
+				
+			});
 			
 			$self._initOptions(settings);
 			
@@ -1337,7 +1355,8 @@
 	    columnDefs: [],
 		adapter: 'table_material',
 	    order: [[ 1, 'asc' ]],
-	    showMultiSelectedZero: true
+	    showMultiSelectedZero: true,
+	    filterMessage : true
 	};
 
 }));
