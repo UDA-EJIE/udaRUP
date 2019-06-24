@@ -1221,6 +1221,8 @@
 				});
 				
 				if(settingsTable.inlineEdit !== undefined ){
+					var ctx = $("#" + settingsTable.sTableId).rup_table("getContext");
+					
 					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
 					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
 						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
