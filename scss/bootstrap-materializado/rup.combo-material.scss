@@ -152,3 +152,31 @@ a.select-material {
 		}
 	}
 }
+
+/* COMBO CON MULTISELECCION */
+select.rup_combo ~ button.select-material {
+	width: 100%;
+	max-width: 100%;
+	height: 2rem;
+	display: block;
+	padding: 1px 0px 1px 18px;
+	border: 1px solid $grey-color-light;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 1rem;
+	overflow: visible;
+	background-color: $white-color;
+	
+	&:hover {
+		background-color: initial;
+	  	border-color: $black-color;
+	}
+	
+	&:focus {
+		border-color: $primary-color;
+		border-width: 2px;
+		box-shadow: none;
+		outline: none;
+		padding-left: 17px;
+	}
+}
