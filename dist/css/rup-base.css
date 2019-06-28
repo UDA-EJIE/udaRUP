@@ -18485,6 +18485,29 @@ a.select-material {
   .form-row .form-groupMaterial[class*="col-"] [ruptype="combo"] ~ label.select-material {
     left: 18px; }
 
+/* COMBO CON MULTISELECCION */
+select.rup_combo ~ button.select-material, .rup_combo.ui-multiselect ~ button.select-material, .rup_combo.ui-selectmenu-dropdown ~ button.select-material, select.rup_combo ~ .select-material.ui-button.rup-button, .rup_combo.ui-multiselect ~ .select-material.ui-button.rup-button, .rup_combo.ui-selectmenu-dropdown ~ .select-material.ui-button.rup-button, .rup-dropdown-btn-group select.rup_combo ~ .select-material.rup-dropdown-button, .rup-dropdown-btn-group .rup_combo.ui-multiselect ~ .select-material.rup-dropdown-button, .rup-dropdown-btn-group .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-dropdown-button, select.rup_combo ~ a.select-material.rup-toolbar_menuButton.ui-button, .rup_combo.ui-multiselect ~ a.select-material.rup-toolbar_menuButton.ui-button, .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-toolbar_menuButton.ui-button, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_next, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_next, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_next, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_prev, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_prev, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_prev, .rup-wizard select.rup_combo ~ .select-material.rup-wizard_submitButton, .rup-wizard .rup_combo.ui-multiselect ~ .select-material.rup-wizard_submitButton, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-wizard_submitButton {
+  width: 100%;
+  max-width: 100%;
+  height: 2rem;
+  display: block;
+  padding: 1px 0px 1px 18px;
+  border: 1px solid #757575;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  overflow: visible;
+  background-color: #FFFFFF; }
+  select.rup_combo ~ button.select-material:hover, .rup_combo.ui-multiselect ~ button.select-material:hover, .rup_combo.ui-selectmenu-dropdown ~ button.select-material:hover, select.rup_combo ~ .select-material.ui-button.rup-button:hover, .rup_combo.ui-multiselect ~ .select-material.ui-button.rup-button:hover, .rup_combo.ui-selectmenu-dropdown ~ .select-material.ui-button.rup-button:hover, .rup-dropdown-btn-group select.rup_combo ~ .select-material.rup-dropdown-button:hover, .rup-dropdown-btn-group .rup_combo.ui-multiselect ~ .select-material.rup-dropdown-button:hover, .rup-dropdown-btn-group .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-dropdown-button:hover, select.rup_combo ~ a.select-material.rup-toolbar_menuButton.ui-button:hover, .rup_combo.ui-multiselect ~ a.select-material.rup-toolbar_menuButton.ui-button:hover, .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-toolbar_menuButton.ui-button:hover, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_next:hover, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_next:hover, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_next:hover, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_prev:hover, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_prev:hover, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_prev:hover, .rup-wizard select.rup_combo ~ .select-material.rup-wizard_submitButton:hover, .rup-wizard .rup_combo.ui-multiselect ~ .select-material.rup-wizard_submitButton:hover, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-wizard_submitButton:hover {
+    background-color: initial;
+    border-color: #212529; }
+  select.rup_combo ~ button.select-material:focus, .rup_combo.ui-multiselect ~ button.select-material:focus, .rup_combo.ui-selectmenu-dropdown ~ button.select-material:focus, select.rup_combo ~ .select-material.ui-button.rup-button:focus, .rup_combo.ui-multiselect ~ .select-material.ui-button.rup-button:focus, .rup_combo.ui-selectmenu-dropdown ~ .select-material.ui-button.rup-button:focus, .rup-dropdown-btn-group select.rup_combo ~ .select-material.rup-dropdown-button:focus, .rup-dropdown-btn-group .rup_combo.ui-multiselect ~ .select-material.rup-dropdown-button:focus, .rup-dropdown-btn-group .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-dropdown-button:focus, select.rup_combo ~ a.select-material.rup-toolbar_menuButton.ui-button:focus, .rup_combo.ui-multiselect ~ a.select-material.rup-toolbar_menuButton.ui-button:focus, .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-toolbar_menuButton.ui-button:focus, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_next:focus, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_next:focus, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_next:focus, .rup-wizard select.rup_combo ~ a.select-material.rup-wizard_prev:focus, .rup-wizard .rup_combo.ui-multiselect ~ a.select-material.rup-wizard_prev:focus, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ a.select-material.rup-wizard_prev:focus, .rup-wizard select.rup_combo ~ .select-material.rup-wizard_submitButton:focus, .rup-wizard .rup_combo.ui-multiselect ~ .select-material.rup-wizard_submitButton:focus, .rup-wizard .rup_combo.ui-selectmenu-dropdown ~ .select-material.rup-wizard_submitButton:focus {
+    border-color: #1472a4;
+    border-width: 2px;
+    box-shadow: none;
+    outline: none;
+    padding-left: 17px; }
+
 /* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
 div.rup-date-input-group-material input:not([type="checkbox"]):not([type="radio"]) {
   display: inline-block;

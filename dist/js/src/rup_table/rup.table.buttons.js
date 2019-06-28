@@ -3458,7 +3458,12 @@ function inicio(ctx) {
 			
 		}
 	}
-	new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	if($('#'+ctx.sTableId+'_filter_form').length > 0){
+		new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	}else{
+		new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_wrapper'));
+	}
+	
 	var opts = ctx._buttons[0].inst.s.buttons;
 	DataTable.Api().buttons.initButtons(ctx,opts);
 	_initContextMenu(ctx,api);
