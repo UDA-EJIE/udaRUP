@@ -221,7 +221,9 @@ export function createDatatable1(ctx, callback) {
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
+    console.info('opts \n ******************************************\n'+ JSON.stringify(opts));
     $('#' + idDatatable).rup_table(opts);
+    console.info('=========== PASA')
 
 }
 
