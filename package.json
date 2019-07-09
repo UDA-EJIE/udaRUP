@@ -9,6 +9,7 @@
   },
   "scripts": {
     "install": "",
+    "reinstall": "rm -rf node_modules && npm install",
     "all": "run-s build portal",
     "all:x21a": "run-s build portal copy:x21a",
     "build": "run-p gulp:build  webpack:dev webpack:build",
