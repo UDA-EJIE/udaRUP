@@ -45,8 +45,8 @@ function generateHtml(idDatatable) {
                     </div>\
                 </fieldset>\
             </form>\
-        <div>\
-    <div>\
+        </div>\
+    </div>\
     <div id="' + idDatatable + '_detail_div" class="rup-table-formEdit-detail">\
         <div id ="' + idDatatable + '_detail_navigation"></div>\
         <div class="ui-dialog-content ui-widget-content" >\
@@ -134,84 +134,67 @@ export function createDatatable1(ctx, callback) {
 
     var defaults = {
         urlBase: "http://localhost:8081/demo/table/remote",
-        pageLength: 5,
-        fixedHeader: {
-            footer: false,
-            header: true
-        },
-        filter: {
-            id: idDatatable + "_filter_form",
-            filterToolbar: idDatatable + "_filter_toolbar",
-            collapsableLayerId: idDatatable + "_filter_fieldset"
-        },
-        formEdit: {
-            detailForm: "#" + idDatatable + "_detail_div",
-            validate: {
-                rules: {
-                    nombre: {
-                        required: true
+            colModel: [
+                {
+                    name: "id",
+                    index: "id",
+                    editable: true,
+                    width: 80,
+                    formoptions: {
+                        rowpos: 1,
+                        colpos: 1
+                    }
+                }, {
+                    name: "nombre",
+                    index: "nombre",
+                    editable: true,
+                    formoptions: {
+                        rowpos: 2,
+                        colpos: 1
+                    }
+                }, {
+                    name: "apellidos",
+                    index: "apellidos",
+                    editable: true,
+                    formoptions: {
+                        rowpos: 3,
+                        colpos: 1
                     },
-                    apellido1: {
-                        required: true
-                    },
-                    fechaAlta: {
-                        date: true
-                    },
-                    fechaBaja: {
-                        date: true
+                    classes: "ui-ellipsis"
+                }, {
+                    name: "edad",
+                    index: "edad",
+                    editable: true,
+                    formoptions: {
+                        rowpos: 4,
+                        colpos: 1
                     }
                 }
-            },
-            titleForm: "Modificar registro"
-        },
-        buttons: {
-            "activate": true
-        },
-        seeker: {
-            colModel: [{
-                name: "id",
-                index: "id",
-                editable: true,
-                width: 80,
-                formoptions: {
-                    rowpos: 1,
-                    colpos: 1
-                }
-            }, {
-                name: "nombre",
-                index: "nombre",
-                editable: true,
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 1
-                }
-            }, {
-                name: "apellidos",
-                index: "apellidos",
-                editable: true,
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 1
-                },
-                classes: "ui-ellipsis"
-            }, {
-                name: "edad",
-                index: "edad",
-                editable: true,
-                formoptions: {
-                    rowpos: 4,
-                    colpos: 1
-                }
-            }]
-        },
-        colReorder: {
-            fixedColumnsLeft: 1
-        },
+            ],
         initComplete: function () {
+            console.info('=========== PASA 2');
             setTimeout(function () {
+                console.info('=========== PASA 3');
                 callback();
             }, 300);
         }
+        , selector : 'td'
+        , filter:{
+            id:'example_filter_form'
+            ,filterToolbar:'example_filter_toolbar'
+            ,collapsableLayerId:'example_filter_fieldset'
+        }
+        ,formEdit:{
+            detailForm:'#example_detail_div'
+            ,titleForm:'Modificar registro'
+            ,saveContinueEdit:false
+        }
+        ,seeker:{activate:true}
+        ,colReorder:{fixedColumnsLeft:1}
+        // ,columnDefs:[
+        //     {targets:[4]}
+        //     // ,{name:'Nombre',targets:'Nombre'}
+        // ]
     };
 
     $.extend(opts, true, defaults);
@@ -221,9 +204,8 @@ export function createDatatable1(ctx, callback) {
     }
     var html = generateHtml(idDatatable);
     $('#content').append(html);
-    console.info('opts \n ******************************************\n'+ JSON.stringify(opts));
     $('#' + idDatatable).rup_table(opts);
-    console.info('=========== PASA')
+    console.info('=========== PASA');
 
 }
 
