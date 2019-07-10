@@ -534,7 +534,7 @@ function info ( api )
 
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = $("div.paginationContainer > div > div:first-child");
+		el = $('#' + ctx.sTableId + '_wrapper').find("div.paginationContainer > div > div:first-child");
 
 		var output  = $('<span class="select-info"/>');
 		add( output, 'row', rows );

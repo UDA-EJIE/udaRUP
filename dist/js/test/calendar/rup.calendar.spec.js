@@ -995,25 +995,26 @@ describe('Test rup_calendar (alternative)', () => {
                             cal2.rup_calendar('setView', 'day');
                         });
                         it(' > Debe haber retrocedido un día', () => {
-                            if (dayMap[initialDay] === 1) {
+                            if (initialDay === 1) {
                                 let month = monthMap[cal2.rup_calendar('getMonth')];
                                 // Si hay cambio de mes
+                                debugger;
                                 if (month % 2 === 0) {
                                     // El mes es par
                                     if (month === 2) {
                                         // Si era 1 de Marzo
                                         if (calendarUtils.leapYear(cal2.rup_calendar('getYear') - 1)) {
-                                            expect(cal2.rup_calendar('getStartDate')).toBe(29);
+                                            expect(cal2.rup_calendar('getStartDate').getDate()).toBe(29);
                                         } else {
-                                            expect(cal2.rup_calendar('getStartDate')).toBe(28);
+                                            expect(cal2.rup_calendar('getStartDate').getDate()).toBe(28);
                                         }
                                     } else {
                                         // Si no es febrero el mes anterior tiene 30 días
-                                        expect(cal2.rup_calendar('getStartDate')).toBe(30);
+                                        expect(cal2.rup_calendar('getStartDate').getDate()).toBe(30);
                                     }
                                 } else {
                                     // Los meses impares tienen 31 días
-                                    expect(cal2.rup_calendar('geStarttDate')).toBe(31);
+                                    expect(cal2.rup_calendar('geStartDate').getDate()).toBe(31);
                                 }
                             } else {
                                 expect(cal2.rup_calendar('getStartDate').getDate() + 1).toBe(initialDay);
@@ -1282,7 +1283,7 @@ describe('Test rup_calendar (alternative)', () => {
             });
             describe(' > Funciona cuando es false', () => {
                 beforeEach((done) => {
-                    cal2.on('afterRender', done);
+                    cal2.on('afterChangeView', done);
                     cal2.rup_calendar('navigate', 'next');
                 });
                 it(' > Si nos movemos fuera del rango debe dar false', () => {
@@ -1541,7 +1542,16 @@ var opts2 = {
     events_source: '/demo/calendar/events',
     weekbox: true,
     cell_navigation: false,
-    day: '' + new Date().getFullYear() + '-06-02',
+    day: (() => { 
+        var date = new Date();
+        var formatter = (val) => {
+            if (val < 10) {
+                return '0' + val;
+            }
+            return val;
+        };
+        return '' + date.getFullYear() + '-' + formatter(date.getMonth() + 1 ) + '-' + formatter(date.getDate());
+    })(),
     position: {
         start: new Date(new Date().getFullYear(), 0, 1, 0, 0, 0),
         end: new Date(new Date().getFullYear() + 1, 0, 1, 0, 0, 0)
