@@ -822,6 +822,15 @@
 				});
 			}
 		}
+		, format: function(_format) {
+			var args = $.makeArray(arguments).slice(1);
+			if (_format == null) {
+				_format = '';
+			}
+			return _format.replace(/\{(\d+)\}/g, function(m, i) {
+				return args[i];
+			});
+		}
 
 
 
