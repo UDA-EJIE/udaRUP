@@ -302,10 +302,11 @@ var Buttons = function( dt, config )
 		type: 'reports',
 		buttons: listadoExports
 	};
+	ctx.oInit.buttons.allButtons = [];
 	if(ctx.oInit.inlineEdit !== undefined){// añadir botones edición en linea
 		$.extend( ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
 		for ( var nameButton in ctx.oInit.inlineEdit.myButtons  ) {
-			Buttons.defaults.buttons.push(nameButton);
+			ctx.oInit.buttons.allButtons.push(nameButton);
 		}
 	}
 	//añadir botones personalizados//se almacenan en plugin de buttons
@@ -313,7 +314,7 @@ var Buttons = function( dt, config )
 		//se aseguran que todos sean customs.
 		$.extend( ctx.ext.buttons, ctx.oInit.buttons.myButtons);
 		for ( var nameButton in ctx.oInit.buttons.myButtons  ) {
-			Buttons.defaults.buttons.push(nameButton);
+			ctx.oInit.buttons.allButtons.push(nameButton);
 			//ctx.oInit.buttons.myButtons[nameButton].custom = true;
 		}
 	}
@@ -730,6 +731,11 @@ $.extend( Buttons.prototype, {
 		var dt = this.s.dt;
 		var dtSettings = dt.settings()[0];
 		var buttons =  this.c.buttons;
+		if(dtSettings.oInit.buttons.allButtons !== undefined){
+			for(var i=0; i < dtSettings.oInit.buttons.allButtons.length; i++){
+				buttons.push(dtSettings.oInit.buttons.allButtons[i]);
+			}
+		}
 
 		if ( ! dtSettings._buttons ) {
 			dtSettings._buttons = [];
