@@ -36,7 +36,7 @@
 		root.returnExports = factory();
 	}
 }(typeof self !== 'undefined' ? self : this, function () {
-
+    
 	var TableRequest = function(data){
 
 		var start = data.start,
@@ -122,7 +122,6 @@
 		};
 
 	};
-
 	return TableRequest;
 
 }));

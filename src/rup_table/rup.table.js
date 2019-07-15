@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','../core/utils/form2object','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','../core/utils/form2object','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -538,7 +538,8 @@
 				$.each(ctx.seeker.search.funcionParams,function(index,p) {
 					data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
 				});
-			}
+            }
+            console.info('XXXXXXXXX ' + JSON.stringify(TableRequest));
 			var tableRequest = new TableRequest(data);
 			var json = $.extend({}, data, tableRequest.getData());
 
