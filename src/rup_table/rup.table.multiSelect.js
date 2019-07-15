@@ -942,6 +942,7 @@ function _createContexMenuSelect(id,ctx){
 	}
 
 	id.rup_contextMenu({
+        selector: '#'+id.attr('id'),
 		trigger: 'left',
 		items: items,
 		position: function (contextMenu, x, y) {

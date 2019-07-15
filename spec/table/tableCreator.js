@@ -164,9 +164,8 @@ export function createDatatable1(ctx, callback) {
                 }
             ],
         initComplete: function () {
-            console.info('=========== PASA 2');
+            console.info('=========== DatatableInit');
             setTimeout(function () {
-                console.info('=========== PASA 3');
                 callback();
             }, 300);
         }
@@ -209,8 +208,7 @@ export function createDatatable1(ctx, callback) {
         $('#example').append(foot);
         
     } 
-    $('#' + idDatatable).rup_table(opts);
-    console.info('=========== PASA');
+    $('#' + idDatatable).rup_table(opts)
 
 }
 
