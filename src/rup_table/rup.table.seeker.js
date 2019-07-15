@@ -146,7 +146,7 @@ function _createFilterColumn(dt,ctx){
 	var idTabla = ctx.sTableId;
 	$('#'+idTabla+' tfoot').css('display','table-header-group');
 		$('#'+idTabla+' tfoot th').each( function () {
-			var title = $(this).text();
+			var title = this.innerText;
 			var index = $(this).index();
 			
 			if(index > 0 || ctx.oInit.multiSelect === undefined){
@@ -167,7 +167,8 @@ function _createFilterColumn(dt,ctx){
 				}
 			}
 		} );
-		
+
+
 	   dt.columns().eq(0).each(function(colIdx) {
 		   if(colIdx > 0){
 		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
@@ -191,10 +192,9 @@ function _createFilterColumn(dt,ctx){
 		   }
 	   });
 
-	   _createSearchRow(dt, ctx);
-	   ctx.seeker.searchForm = $('#' + idTabla + ' tfoot tr:nth-child(2)');
+	   _createSearchRow(dt,ctx);
+	   ctx.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
 	   ctx.seeker.searchForm.hide();
-
 	   _createRupComponent(dt,ctx);
 }
 /**
@@ -225,23 +225,23 @@ function _createSearchRow (dt,ctx){
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
-			$searchRowHeader = $($.rup_utils.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
+			$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
 			// Capa que controla el colapso del formulario
-			$collapseLayer = $($.rup_utils.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
-			$collapseIcon = $($.rup_utils.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
-			$collapseLabel = $($.rup_utils.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+			$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
+			$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
+			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
 			// Capa que muestra el número de ocurrencias
-			$matchedLayer = $($.rup_utils.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
-			$matchedLabel = $($.rup_utils.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, $.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+			$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
+			$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
 
 			// Capa que controla la navegación entre las diferentes ocurrencias
-			$navLayer = $($.rup_utils.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-			$firstNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-			$backNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-			$forwardNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-			$lastNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navClearButton = $($.rup_utils.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
-			$navSearchButton = $($.rup_utils.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
+			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
+			$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
+			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
+			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
+			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
+			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
+			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -340,12 +340,13 @@ function _createSearchRow (dt,ctx){
 			ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length-1;
 			_processData(dt,ctx,ctx.seeker.search.funcionParams);
 		});
-		
+
 		// Se recubre con un form
 		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
-		$('#' + idTabla).wrapAll($searchForm);
+
 		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
+        $('#'+idTabla).wrapAll($searchForm);
         ctx.seeker.search.pos = 0;
         ctx.seeker.search.accion = '';
 }
@@ -450,7 +451,7 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 		ctx.seeker.search.$lastNavButton.prop("disabled", false);
 	}
 
-	ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
 /**
@@ -480,7 +481,7 @@ function _processData(dt,ctx,data){
 
 	if (data.length === 0){
 		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
-		ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
+		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
 	}
@@ -493,7 +494,7 @@ function _processData(dt,ctx,data){
 * @function
 * @since UDA 3.4.0 // Table 1.0.0
 * 
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
 * 
 * @return {object} Devuelve el objeto mapeado de todos los campos.
 *
@@ -501,7 +502,7 @@ function _processData(dt,ctx,data){
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
 	if(datos !== undefined){
-		datos.search = form2object(ctx.seeker.search.$searchForm[0]);
+		datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
 	}
 	return datos;
 }
@@ -532,7 +533,7 @@ function _createRupComponent(dt,ctx){
 				var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
 				// Se añade el title de los elementos de acuerdo al colname
 				$elem.attr({
-					'title': ctx.aoColumns[i].sTitle,
+					'title': $('#'+cellColModel.name+'_seeker').attr('placeholder'),
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 	

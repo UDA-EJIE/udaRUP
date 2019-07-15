@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','../core/utils/form2object','./rup.table.request','datatables.net-bs4','datatables.net-responsive-bs4','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter', '../core/utils/form2object'], factory );
 	} else {
 
 		// Browser globals
@@ -339,7 +339,7 @@
 		}	);
 			
 			if(options.inlineEdit !== undefined){
-				//RSPONSIBLE CON EDITLINE
+				//RESPONSIVO CON EDITLINE
 	            var renderer = function ( api, rowIdx, columns ) {
 	    			var data = $.map( columns, function ( col ) {
 	    				var colShow = col.hidden ?
@@ -417,7 +417,7 @@
 						if(data === '1'){
 							iconCheck = 'mdi-check';
 						}
-				    return '<div class="d-flex"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
+				    return '<div class="centerOnResponsiveContainer"><i class="mdi ' + iconCheck + ' mx-auto"></i></div>';
 			    }});
 				}
 				return {
@@ -526,7 +526,9 @@
 			//Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
-			data.filter = form2object(ctx.oInit.$filterForm[0]);
+			if(ctx.oInit.$filterForm[0] !== undefined){
+				data.filter = form2object(ctx.oInit.$filterForm[0]);
+			}
 			data.multiselection = undefined;
 			if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
 				data.multiselection = ctx.multiselection;
@@ -545,21 +547,9 @@
 			json.core.pkNames = ctx.oInit.primaryKey;
 
 			ctx.aBaseJson = json;
+			return JSON.stringify(json);
 
-			const getCircularReplacer = () => {
-				const seen = new WeakSet();
-				return (key, value) => {
-					if (typeof value === "object" && value !== null) {
-						if (seen.has(value)) {
-							return;
-						}
-						seen.add(value);
-					}
-					return value;
-				};
-			};
 
-			return JSON.stringify(json, getCircularReplacer());
 		},
 
 		/**
@@ -703,7 +693,9 @@
 
 
 			if (filterSettings.$filterContainer.length===0){
-				alert('El identificador especificado para el fomulario de búsqueda no existe.');
+				if(settings.filterMessage === true){
+					alert('El identificador especificado para el fomulario de búsqueda no existe.');
+				}
 			}else if (filterSettings.$filterToolbar.length===0){
 				alert('El identificador especificado para la barra de controles del formulario de filtrado no existe.');
 			}else{
@@ -753,11 +745,13 @@
 							filterSettings.$collapsableLayer.hide();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+							filterSettings.$filterToolbar.removeClass('formulario_opened');
 							settings.filter.showHidden = true;
 						} else{
 							filterSettings.$collapsableLayer.show();
 							filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 							filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+							filterSettings.$filterToolbar.addClass('formulario_opened');
 							settings.filter.showHidden = false;
 						}
 					}
@@ -767,11 +761,13 @@
 					filterSettings.$collapsableLayer.hide();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+					filterSettings.$filterToolbar.removeClass('formulario_opened');
 					settings.filter.showHidden = true;
 				} else {
 					filterSettings.$collapsableLayer.show();
 					filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
 					filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+					filterSettings.$filterToolbar.addClass('formulario_opened');
 					settings.filter.showHidden = false;
 				}
 
@@ -1059,252 +1055,263 @@
 	// MÉTODO DE INICIALIZACION
 	//*******************************
 	$.fn.rup_table('extend', {
-		_init : function(args){	
+		_init : function(args){			
+			var $self = this;
+			//Se añade filter por defecto
+			$.fn.rup_table.defaults.filter = {
+									id:$self[0].id+"_filter_form",
+									filterToolbar:$self[0].id+"_filter_toolbar",
+									collapsableLayerId:$self[0].id+"_filter_fieldset"
+		       						};
+			var	settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 			
-			initRupI18nPromise.then(() => {
+			$self.triggerHandler('tableBeforeInit');
+			
+			var clone = jQuery("#"+$self[0].id).clone(true);	
+			// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
+			$self.attr('ruptype', 'table');
+			$self.triggerHandler('tableInit');
+			if(args[0].primaryKey !== undefined){
+				settings.primaryKey = args[0].primaryKey.split(";");
+			}
+			
+			//Comprobar plugin dependientes
+			if(settings.multiSelect !== undefined){
+				settings.columnDefs.unshift({
+			        orderable: false,
+			        className: 'select-checkbox',
+			        targets: 0,
+			        render: function (data, type, full, meta){
+			        	return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
+			        }
+			    });
+				//Modulo incompatible
+				settings.select = undefined;
+			}
+			
+			
+			if(settings.formEdit !== undefined){
+				settings.inlineEdit = undefined;
+			}
 
-				var $self = this;
-				//Se añade filter por defecto
-				$.fn.rup_table.defaults.filter = {
-										id:$self[0].id+"_filter_form",
-										filterToolbar:$self[0].id+"_filter_toolbar",
-										collapsableLayerId:$self[0].id+"_filter_fieldset"
-										};
-				var	settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
-				
-				$self.triggerHandler('tableBeforeInit');
-				
-				var clone = jQuery("#"+$self[0].id).clone(true);	
-				// Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
-				$self.attr('ruptype', 'table');
-				$self.triggerHandler('tableInit');
-				if(args[0].primaryKey !== undefined){
-					settings.primaryKey = args[0].primaryKey.split(";");
+			// getDefault multifilter
+			if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
+				var usuario;
+				if (settings.multiFilter.userFilter!=null){
+					usuario=settings.multiFilter.userFilter;
+				}else{
+					usuario=LOGGED_USER;
 				}
-				
-				//Comprobar plugin dependientes
-				if(settings.multiSelect !== undefined){
-					settings.columnDefs.unshift({
-						orderable: false,
-						className: 'select-checkbox',
-						targets: 0,
-						render: function (data, type, full, meta){
-							return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
+				var ctx = {};
+				ctx.oInit = settings;
+				ctx.sTableId = $self[0].id;
+				$.rup_ajax({
+					url : settings.urlBase
+												+ '/multiFilter/getDefault?filterSelector='
+												+ settings.multiFilter.idFilter + '&user='
+												+ usuario,
+					type : 'GET',
+					dataType : 'json',
+					showLoading : false,
+					contentType : 'application/json',
+					//async : false,
+					complete : function(jqXHR,
+						textStatus) {
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
+					},
+					success : function(data, status,
+						xhr) {
+						if (data != null) {
+							var valorFiltro = $
+								.parseJSON(data.filterValue);
+
+
+							DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
+							$self._doFilter(data);
+							$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
+							$(settings.filter.$filterSummary , 'i').append('}');
+
 						}
-					});
-					//Modulo incompatible
-					settings.select = undefined;
-				}
-				
-				
-				if(settings.formEdit !== undefined){
-					settings.inlineEdit = undefined;
-				}
-
-				// getDefault multifilter
-				if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
-					var usuario;
-					if (settings.multiFilter.userFilter!=null){
-						usuario=settings.multiFilter.userFilter;
-					}else{
-						usuario=LOGGED_USER;
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
+					},
+					error : function(xhr, ajaxOptions,
+						thrownError) {
+						$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
 					}
-					var ctx = {};
-					ctx.oInit = settings;
-					ctx.sTableId = $self[0].id;
-					$.rup_ajax({
-						url : settings.urlBase
-													+ '/multiFilter/getDefault?filterSelector='
-													+ settings.multiFilter.idFilter + '&user='
-													+ usuario,
-						type : 'GET',
-						dataType : 'json',
-						showLoading : false,
-						contentType : 'application/json',
-						//async : false,
-						complete : function(jqXHR,
-							textStatus) {
-							$('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
-						},
-						success : function(data, status,
-							xhr) {
-							if (data != null) {
-								var valorFiltro = $
-									.parseJSON(data.filterValue);
+				});
 
 
-								DataTable.Api().multiFilter.fillForm(valorFiltro,ctx);
-								$self._doFilter(data);
-								$(settings.filter.$filterSummary , 'i').prepend(data.filterName+'{');
-								$(settings.filter.$filterSummary , 'i').append('}');
+			}
+			
+			if(args[0].responsive === undefined){//si el usuario no cambia el selector
+				var responsive = {           
+					details: {
+				    	type: 'column',
+				    	target: 'td span.openResponsive'
+							},
+					selectorResponsive: 'td span.dtr-data'};		
+					
+				settings.responsive = responsive;;
+			}
+			//se añaden los css para las flechas.
+			$.each($('#'+$self[0].id+' thead th'),function( ){
+				var titulo = $(this).text();
+				$(this).text('');
+				var span1 = $("<span/>").addClass('d-block d-xl-inline').text(titulo);
+				var span2 = $("<span/>").addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+				var span3 = $("<span/>").addClass('mdi mdi-arrow-up');
+				$(this).append(span1)
+				var div1 = $("<div/>").addClass('d-flex d-xl-inline');
+				div1.append(span2);
+				div1.append(span3);
+				$(this).append(div1);
+				
+			});
+			
+			$self._initOptions(settings);
+			
+			if(settings.loadOnStartUp !== undefined && !settings.loadOnStartUp){
+				settings.deferLoading = 0;
+			}
+			
+			var tabla = $self.DataTable(settings);
 
-							}
-							$('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
-						},
-						error : function(xhr, ajaxOptions,
-							thrownError) {
-							$('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
+			settings.sTableId = $self[0].id;
+			$self._initializeMultiselectionProps(tabla.context[0]);
+			
+			//Crear tooltips cabecera;
+			$.each($('#'+$self[0].id+' thead th'),function( ){
+				$self._createTooltip($(this));
+			});
+			
+			tabla.on( 'draw', function (e,settingsTable) {
+				if(settings.searchPaginator){//Mirar el crear paginador
+					$self._createSearchPaginator($(this),settingsTable);
+					//Si el seeker esta vacio ocultarlo
+					if(settingsTable.seeker !== undefined && 
+							settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined){
+						if(settingsTable._iRecordsDisplay > 0){
+							settingsTable.seeker.search.$searchRow.show();
+						}else{
+							settingsTable.seeker.search.$searchRow.hide();
 						}
-					});
+					}
+				}
 
-
+				if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
+					if(settings.select !== undefined){//AL repintar vigilar el select.
+						if(settingsTable.select.selectedRowsPerPage !== undefined){
+							//viene de la navegacion buscar el id.
+							var line = 0;
+							var ctx = tabla.context[0];
+							if(settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last'){
+								line = ctx.json.rows.length-1;
+							}
+							
+							ctx.multiselection.selectedRowsPerPage = [];
+							var rowSelectAux = ctx.json.rows[line];
+							var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+							ctx.multiselection.selectedRowsPerPage.push({line:line,page:ctx.select.selectedRowsPerPage.page,id:id});
+							settingsTable.select.selectedRowsPerPage = undefined;
+							var numTotal = ctx.json.recordsTotal;
+							var index = (Number(ctx.json.page)-1) * 10;
+							index = index + line + 1;
+							DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
+						}
+						DataTable.Api().select.drawSelectId(tabla.context[0]);
+						if(tabla.context[0].oInit.inlineEdit !== undefined){
+							DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
+						}
+					}
+					if(settingsTable.seeker !== undefined 
+							&& settingsTable.seeker.search !== undefined){
+						var ctx = tabla.context[0];
+						if(settingsTable.seeker.search.funcionParams !== undefined && settingsTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
+									ctx.json.page !== settingsTable.seeker.search.funcionParams[settingsTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
+								DataTable.Api().seeker.selectSearch(tabla,ctx,settingsTable.seeker.search.funcionParams);
+						}
+					}
 				}
 				
-				if(args[0].responsive === undefined){//si el usuario no cambia el selector
-					var responsive = {           
-						details: {
-							type: 'column',
-							target: 'td span.openResponsive'
-								},
-						selectorResponsive: 'td span.dtr-data'};		
-						
-					settings.responsive = responsive;;
-				}
-				
-				$self._initOptions(settings);
-				
-				if(settings.loadOnStartUp !== undefined && !settings.loadOnStartUp){
-					settings.deferLoading = 0;
-				}
-				
-				var tabla = $self.DataTable(settings);
-
-				settings.sTableId = $self[0].id;
-				$self._initializeMultiselectionProps(tabla.context[0]);
-				
-				//Crear tooltips cabecera;
-				$.each($('#'+$self[0].id+' thead th'),function( ){
+				//Crear tooltips tds;
+				$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
 					$self._createTooltip($(this));
 				});
 				
-				tabla.on( 'draw', function (e,settingsTable) {
-					if(settings.searchPaginator){//Mirar el crear paginador
-						$self._createSearchPaginator($(this),settingsTable);
-						//Si el seeker esta vacio ocultarlo
-						if(settingsTable.seeker !== undefined && 
-								settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined){
-							if(settingsTable._iRecordsDisplay > 0){
-								settingsTable.seeker.search.$searchRow.show();
+				if(settingsTable.inlineEdit !== undefined ){
+					var ctx = $("#" + settingsTable.sTableId).rup_table("getContext");
+					
+					DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
+					if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
+						if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
+							DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+						}//else{
+							DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
+							var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+							if(count > 0){
+								ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
 							}else{
-								settingsTable.seeker.search.$searchRow.hide();
+								ctx.oInit.inlineEdit.rowDefault = undefined;
 							}
+					//	}
+					}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
+						var rowsBody = $( ctx.nTBody);
+						var $tr = $('tr:nth-child(1)',rowsBody);
+						if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id){
+							$tr.addClass('selected tr-highlight');
 						}
 					}
-
-					if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
-						if(settings.select !== undefined){//AL repintar vigilar el select.
-							if(settingsTable.select.selectedRowsPerPage !== undefined){
-								//viene de la navegacion buscar el id.
-								var line = 0;
-								var ctx = tabla.context[0];
-								if(settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last'){
-									line = ctx.json.rows.length-1;
-								}
-								
-								ctx.multiselection.selectedRowsPerPage = [];
-								var rowSelectAux = ctx.json.rows[line];
-								var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
-								ctx.multiselection.selectedRowsPerPage.push({line:line,page:ctx.select.selectedRowsPerPage.page,id:id});
-								settingsTable.select.selectedRowsPerPage = undefined;
-								var numTotal = ctx.json.recordsTotal;
-								var index = (Number(ctx.json.page)-1) * 10;
-								index = index + line + 1;
-								DataTable.Api().editForm.updateDetailPagination(ctx,index,numTotal);
-							}
-							DataTable.Api().select.drawSelectId(tabla.context[0]);
-							if(tabla.context[0].oInit.inlineEdit !== undefined){
-								DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
-							}
-						}
-						if(settingsTable.seeker !== undefined 
-								&& settingsTable.seeker.search !== undefined){
-							var ctx = tabla.context[0];
-							if(settingsTable.seeker.search.funcionParams !== undefined && settingsTable.seeker.search.funcionParams.length > 0 &&//Paginar para el seek y que siempre selecione
-										ctx.json.page !== settingsTable.seeker.search.funcionParams[settingsTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0){//ver si hay cambio de pagina.
-									DataTable.Api().seeker.selectSearch(tabla,ctx,settingsTable.seeker.search.funcionParams);
-							}
-						}
-					}
-					
-					//Crear tooltips tds;
-					$.each($('#'+settingsTable.sTableId+' tbody td'),function( ){
-						$self._createTooltip($(this));
-					});
-					
-					if(settingsTable.inlineEdit !== undefined ){
-						DataTable.Api().inlineEdit.drawInlineEdit(tabla,ctx);
-						if(ctx.oInit.inlineEdit.rowDefault !== undefined){//editando cuando se pagina
-							if(ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE'){
-								DataTable.Api().inlineEdit.cloneLine(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-							}//else{
-								DataTable.Api().inlineEdit.editInline(tabla,ctx,ctx.oInit.inlineEdit.rowDefault.line);
-								var count = tabla.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
-								if(count > 0){
-									ctx.oInit.inlineEdit.rowDefault = 'cambioEstado';
-								}else{
-									ctx.oInit.inlineEdit.rowDefault = undefined;
-								}
-						//	}
-						}else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
-							var rowsBody = $( ctx.nTBody);
-							var $tr = $('tr:nth-child(1)',rowsBody);
-							if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id){
-								$tr.addClass('selected tr-highlight');
-							}
-						}
-					}
-					
-					if(settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined
-							&& settingsTable.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
-						DataTable.Api().editForm.addchildIcons(settingsTable);
-					}
-					if(settings.inlineEdit === undefined && settings.formEdit === undefined){
-						DataTable.Api().editForm.addchildIcons(settingsTable);
-					}
-
-				});
+				}
 				
-				tabla.on( 'destroy', function (e,settingsTable) {
-
-					$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
-					$('#'+settingsTable.sTableId+'_detail_navigation').empty();
-
-					
-				});
-				
-				if(settings.inlineEdit !== undefined){
-					DataTable.Api().inlineEdit.onResponsiveResize(tabla);
+				if(settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined
+						&& settingsTable.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+					DataTable.Api().editForm.addchildIcons(settingsTable);
+				}
+				if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+					DataTable.Api().editForm.addchildIcons(settingsTable);
 				}
 
-				
-				if(settings.multiSelect !== undefined || settings.select !== undefined){
-					$self._createEventSelect(tabla);				
-				}
-				$self._ConfigureFiltern(settings);
-				
-				// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
-				$self.data('settings'+$self[0].id, settings);
-				$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
-				
-				$self.triggerHandler('tableAfterInit');
-				
-				if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
-						settings.multiselect === undefined && settings.select === undefined){
-						$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
-							DataTable.Api().editForm.addchildIcons(tabla.context[0]);
-						} ) );
-				}
+			  });
+			
+			tabla.on( 'destroy', function (e,settingsTable) {
 
+				$('#'+settingsTable.sTableId+'_filter_toolbar').empty();
+				$('#'+settingsTable.sTableId+'_detail_navigation').empty();
+
+				
 			});
+			
+			if(settings.inlineEdit !== undefined){
+				DataTable.Api().inlineEdit.onResponsiveResize(tabla);
+			}
+
+			
+			if(settings.multiSelect !== undefined || settings.select !== undefined){
+				$self._createEventSelect(tabla);				
+			}
+			$self._ConfigureFiltern(settings);
+			
+			// Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
+			$self.data('settings'+$self[0].id, settings);
+			$('#'+tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
+			
+			$self.triggerHandler('tableAfterInit');
+			
+			 if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
+					 settings.multiselect === undefined && settings.select === undefined){
+					$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+						DataTable.Api().editForm.addchildIcons(tabla.context[0]);
+					} ) );
+			 }
 		}
 	});
 
 	//******************************************************
 	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
 	//******************************************************
-$.fn.rup_table.defaults = {
-	foobar: false,
-	headerContextMenu: {
+	$.fn.rup_table.defaults = {
+		foobar: false,
+		headerContextMenu: {
 			show: true,
 			selectAllPage: true,
 			deselectAllPage: true,
@@ -1313,42 +1320,43 @@ $.fn.rup_table.defaults = {
 			deselectAll: true,
 			items: {}
 		},
-	 fixedHeader: {
+		 fixedHeader: {
 	        header: false,
 	        footer: true
 	    },
-	feedback:{
+		feedback:{
 			okFeedbackConfig:{
 				closeLink: true,
 				delay:2000
 			}
 		},
-	responsive: {           
-		details: {
-	    	type: 'column',
-	    	target: 'tr'
-				},
-		selectorResponsive: 'td span.dtr-data'		
+		responsive: {           
+			details: {
+		    	type: 'column',
+		    	target: 'tr'
+			},
+			selectorResponsive: 'td span.dtr-data'
 		}, 
-	dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-		't<"container-fluid paginationContainer"' +
-			'<"row"' +
-				'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-				'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-				'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
-				'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+		dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
+			't<"container-fluid paginationContainer"' +
+				'<"row"' +
+					'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+					'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+					'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+					'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+				'>' +
 			'>' +
-		'>' +
-		'r',
-    multiplePkToken: '~',
-    primaryKey:["id"],
-    blockPKeditForm: true,
-    searchPaginator:true,
-    pagingType: "full",
-    columnDefs: [],
-	adapter: 'table_material',
-    order: [[ 1, 'asc' ]],
-    showMultiSelectedZero: true
+			'r',
+	    multiplePkToken: '~',
+	    primaryKey:["id"],
+	    blockPKeditForm: true,
+	    searchPaginator:true,
+	    pagingType: "full",
+	    columnDefs: [],
+		adapter: 'table_material',
+	    order: [[ 1, 'asc' ]],
+	    showMultiSelectedZero: true,
+	    filterMessage : true
 	};
 
 }));
