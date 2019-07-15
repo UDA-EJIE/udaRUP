@@ -225,23 +225,23 @@ function _createSearchRow (dt,ctx){
 
 			// Objetos
 			$searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
-			$searchRowHeader = $(jQuery.jgrid.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
+			$searchRowHeader = $($.rup_utils.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
 			// Capa que controla el colapso del formulario
-			$collapseLayer = $(jQuery.jgrid.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
-			$collapseIcon = $(jQuery.jgrid.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
-			$collapseLabel = $(jQuery.jgrid.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+			$collapseLayer = $($.rup_utils.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
+			$collapseIcon = $($.rup_utils.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
+			$collapseLabel = $($.rup_utils.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
 			// Capa que muestra el número de ocurrencias
-			$matchedLayer = $(jQuery.jgrid.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
-			$matchedLabel = $(jQuery.jgrid.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+			$matchedLayer = $($.rup_utils.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
+			$matchedLabel = $($.rup_utils.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, $.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
 
 			// Capa que controla la navegación entre las diferentes ocurrencias
-			$navLayer = $(jQuery.jgrid.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-			$firstNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-			$backNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-			$forwardNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-			$lastNavButton = $(jQuery.jgrid.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-			$navClearButton = $(jQuery.jgrid.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
-			$navSearchButton = $(jQuery.jgrid.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
+			$navLayer = $($.rup_utils.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
+			$firstNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
+			$backNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
+			$forwardNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
+			$lastNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
+			$navClearButton = $($.rup_utils.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
+			$navSearchButton = $($.rup_utils.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
 
 		// Construcción del objeto final
 		$collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -451,7 +451,7 @@ function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
 		ctx.seeker.search.$lastNavButton.prop("disabled", false);
 	}
 
-	ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+	ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
 }
 
 /**
@@ -481,7 +481,7 @@ function _processData(dt,ctx,data){
 
 	if (data.length === 0){
 		ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
-		ctx.seeker.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
+		ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
 	}else{
 		_updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
 	}
