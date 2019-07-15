@@ -815,14 +815,14 @@ function _paintCheckboxSelect(ctx){
 			}
 
 	    });
-
-		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContext
-			_createContexMenuSelect($('#'+link[0].id),ctx)
-		}
-
+		
 		if(ctx.nTable.tHead !== null){
-			var th = $(ctx.nTable.tHead.rows[0].cells[0])
+			var th = $(ctx.nTable.tHead.rows[0].cells[0]);
 			th.append(input, link);
+		}
+		
+		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContext
+			_createContexMenuSelect($('#'+link[0].id),ctx);
 		}
 
 		//Se aseguro que no sea orderable

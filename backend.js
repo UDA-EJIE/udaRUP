@@ -110,17 +110,17 @@ module.exports = (PORT) => {
 	app.put('/dashboard/put', dashboardTable.put);
 
 	//Table
-	app.post('/demo/datatable/remote/filter', routesTable.filter);
-	app.post('/demo/datatable/remote/search', routesTable.search);
-	app.put('/demo/datatable/remote/simple', routesTable.simple);
-	app.post('/demo/datatable/remote', routesTable.formEdit);
-	app.put('/demo/datatable/remote', routesTable.formEdit);
+	app.post('/demo/table/remote/filter', routesTable.filter);
+	app.post('/demo/table/remote/search', routesTable.search);
+	app.put('/demo/table/remote/simple', routesTable.simple);
+	app.post('/demo/table/remote', routesTable.formEdit);
+	app.put('/demo/table/remote', routesTable.formEdit);
 
 	//Audit
 	app.post('/audit', routesAudit.audit);
 	app.get('/audit', routesAudit.getAudited);
 
-	app.options("/demo/datatable/remote", function(req, res, next){
+	app.options("/demo/table/remote", function (req, res, next) {
 		res.header('Access-Control-Allow-Origin', '*');
 		res.header('Access-Control-Allow-Methods', 'PUT,POST,OPTIONS');
 		res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');

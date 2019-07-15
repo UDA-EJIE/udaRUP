@@ -16,7 +16,7 @@
     "build:x21a": "run-s gulp:build  webpack:dev webpack:build copy:x21a",
     "portal": "gulp dist:portal",
     "doc": "gulp doc:api",
-    "test": "karma start --single-run --no-auto-watch karma.conf.js",
+    "test": "karma start --single-run --no-auto-watch --browsers PhantomJS karma.conf.js",
     "test:chrome": "karma start --single-run --no-auto-watch --browsers ChromeHeadless karma.conf.js",
     "test:dev": "karma start --browsers Chrome karma.conf.js",
     "dev": "webpack --env dev",
