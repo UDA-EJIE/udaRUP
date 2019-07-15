@@ -534,7 +534,7 @@ function info ( api )
 
 	// Internal knowledge of DataTables to loop over all information elements
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
-		el = $('#' + ctx.sTableId + '_wrapper').find("div.paginationContainer > div > div:first-child");
+		el = $("div.paginationContainer > div > div:first-child");
 
 		var output  = $('<span class="select-info"/>');
 		add( output, 'row', rows );
@@ -816,13 +816,13 @@ function _paintCheckboxSelect(ctx){
 
 	    });
 
-		if(ctx.nTable.tHead !== null){
-			var th = $(ctx.nTable.tHead.rows[0].cells[0]);
-			th.append(input, link);
+		if(ctx.oInit.headerContextMenu.show){//Se mira si se quiere mostrar el menuContext
+			_createContexMenuSelect($('#'+link[0].id),ctx)
 		}
 
-		if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
-			_createContexMenuSelect($('#' + link[0].id), ctx);
+		if(ctx.nTable.tHead !== null){
+			var th = $(ctx.nTable.tHead.rows[0].cells[0])
+			th.append(input, link);
 		}
 
 		//Se aseguro que no sea orderable
@@ -940,9 +940,8 @@ function _createContexMenuSelect(id,ctx){
 			}
 		});
 	}
-	
+
 	id.rup_contextMenu({
-		selector: '#'+id.attr('id'),
 		trigger: 'left',
 		items: items,
 		position: function (contextMenu, x, y) {
@@ -1082,7 +1081,7 @@ function selectAll(dt){
 */
 function deselectAll(dt){
 	var ctx = dt.settings()[0];
-	_initializeMultiselectionProps(ctx);
+	$self._initializeMultiselectionProps(ctx);
 
 	ctx.multiselection.accion = "uncheckAll";
 	$('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
