@@ -100,14 +100,6 @@ function generateHtml(idDatatable) {
                             <th data-col-prop="edad">Edad</th>\
                         </tr>\
                     </thead>\
-                    <tfoot>\
-                        <tr>\
-                            <th>Id</th>\
-                            <th>Nombre</th>\
-                            <th>Apellidos</th>\
-                            <th>Edad</th>\
-                        </tr>\
-                    </tfoot>\
             </table>\
         </div>\
     </div>';
@@ -116,7 +108,7 @@ function generateHtml(idDatatable) {
 export function createDatatable1(ctx, callback) {
     var idDatatable = '';
     var opts = {};
-    if (ctx == 0) {
+    if (ctx <= 0) {
         idDatatable = 'example';
         $.extend(opts, true, {
             multiSelect: {
@@ -202,8 +194,21 @@ export function createDatatable1(ctx, callback) {
     if ($('#content').length == 0) {
         $('body').append('<div id="content" class="container"></div>');
     }
+    
     var html = generateHtml(idDatatable);
     $('#content').append(html);
+    if(ctx < 0) {
+        var foot = '<tfoot>'
+                        + '<tr>'
+                            + '<th>Id</th>'
+                            + '<th>Nombre</th>'
+                            + '<th>Apellidos</th>'
+                            + '<th>Edad</th>'
+                        + '</tr>'
+                    + '</tfoot>';
+        $('#example').append(foot);
+        
+    } 
     $('#' + idDatatable).rup_table(opts);
     console.info('=========== PASA');
 
