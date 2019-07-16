@@ -344,9 +344,10 @@ function _createSearchRow (dt,ctx){
 		// Se recubre con un form
 		var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
 
+        $('#'+idTabla).wrapAll($searchForm);
+
 		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
-        $('#'+idTabla).wrapAll($searchForm);
         ctx.seeker.search.pos = 0;
         ctx.seeker.search.accion = '';
 }
