@@ -91,7 +91,7 @@
 					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
-						jsonParam={'filter':masterPkObject};
+						let jsonParam={'filter':masterPkObject};
 						jQuery.extend(true, postData, jsonParam);
 					}
 				},
@@ -107,7 +107,7 @@
 					var masterPkObject = $self.rup_jqtable('getMasterTablePkObject');
 
 					if (masterPkObject!==null){
-						jsonParam={'filter':masterPkObject};
+						let jsonParam={'filter':masterPkObject};
 						jQuery.extend(true, jsonData, jsonParam);
 					}
 				}

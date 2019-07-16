@@ -109,7 +109,9 @@
 
 			$self.one({
 				'jqGridLoadComplete.rupTable.contextMenu': function(data){
-					var $tbodyTr = jQuery('[id=\''+$self.attr('id')+'\'] tbody:first tr[role=\'row\'].jqgrow'), contextRowItems={},
+					var tbodyTr = '[id=\'' + $self.attr('id') + '\'] tbody:first tr[role=\'row\'].jqgrow',
+						$tbodyTr = jQuery(tbodyTr),
+						contextRowItems = {},
 						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
@@ -154,11 +156,15 @@
 
 					if (globalCellLevelContextMenu && !cellLevelContextMenu){
 						for (var i=0;i< contextMenuSettings.colNames.length;i++){
-							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, contextMenuSettings.colNames[i])+')');
-							$.contextMenu( 'destroy', $contextMenuSelector );
-							$contextMenuSelector.rup_contextMenu({
-								items: contextRowItems
-							});
+							let contextMenuSelector = '[id=\'' + $self.attr('id') + '\'] ' + contextMenuSettings.tbodyTdSelector + ':nth-child(' + getTdIndex(thArray, contextMenuSettings.colNames[i]) + ')';
+							$contextMenuSelector = jQuery(contextMenuSelector);
+							if ($contextMenuSelector.length > 0) {
+								$.contextMenu('destroy', $contextMenuSelector);
+								$contextMenuSelector.rup_contextMenu({
+									selector: contextMenuSelector,
+									items: contextRowItems
+								});
+							}
 						}
 					}else if (cellLevelContextMenu){
 
@@ -191,19 +197,25 @@
 						});
 
 						jQuery.each(itemsPerColumn, function(index, item){
-
-							$contextMenuSelector = jQuery('[id=\''+$self.attr('id')+'\'] ' + contextMenuSettings.tbodyTdSelector+':nth-child('+getTdIndex(thArray, index)+')');
+							let contextMenuSelector = '[id=\'' + $self.attr('id') + '\'] ' + contextMenuSettings.tbodyTdSelector + ':nth-child(' + getTdIndex(thArray, contextMenuSettings.colNames[i]) + ')';
+							$contextMenuSelector = jQuery(contextMenuSelector);
 							$.contextMenu( 'destroy', $contextMenuSelector );
-							$contextMenuSelector.rup_contextMenu({
-								items: item
-							});
+							if ($contextMenuSelector.length > 0) {
+								$contextMenuSelector.rup_contextMenu({
+									selector: contextMenuSelector,
+									items: item
+								});
+							}
 						});
 
 					}else{
 						$.contextMenu( 'destroy', $tbodyTr );
-						$tbodyTr.rup_contextMenu({
-							items: contextRowItems
-						});
+						if ($tbodyTr.length > 0) {
+							$tbodyTr.rup_contextMenu({
+								selector: tbodyTr,
+								items: contextRowItems
+							});
+						}
 					}
 
 				}

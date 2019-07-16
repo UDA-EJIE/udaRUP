@@ -1001,7 +1001,7 @@
 			$(self.p.colModel).each(function(i){
 
 				$row= $(self.rows.namedItem(rowid));
-				$tempRowId = $self.data('settings').inlineEditingRow;
+				let $tempRowId = $self.data('settings').inlineEditingRow;
 				$cell = $row.find('td:eq('+i+')');
 				//ruptypeObj = $cell.find("[ruptype]");
 				//				ruptypeObj = this.editoptions.ruptype;

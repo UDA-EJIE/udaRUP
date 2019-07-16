@@ -1,8 +1,10 @@
-import 'jasmine-jquery';
+import 'jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.calendar';
 import * as util from 'util';
-import { Utils } from 'handlebars';
+import {
+    Utils
+} from 'handlebars';
 
 var EVENTS = [{
     "id": "48605",
@@ -210,18 +212,18 @@ var EVENTS = [{
 }];
 
 var monthMap = {
-    'Enero':      1,
-    'Febrero':    2,
-    'Marzo':      3,
-    'Abril':      4,
-    'Mayo':       5,
-    'Junio':      6,
-    'Julio':      7,
-    'Agosto':     8,
+    'Enero': 1,
+    'Febrero': 2,
+    'Marzo': 3,
+    'Abril': 4,
+    'Mayo': 5,
+    'Junio': 6,
+    'Julio': 7,
+    'Agosto': 8,
     'Septiembre': 9,
-    'Octubre':    10,
-    'Noviembre':  11,
-    'Diciembre':  12
+    'Octubre': 10,
+    'Noviembre': 11,
+    'Diciembre': 12
 };
 var dayMap = {
     'Lunes': 1,
@@ -234,7 +236,7 @@ var dayMap = {
 };
 var calendarUtils = {
     leapYear: (year) => {
-        if((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))){
+        if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) {
             return true;
         }
         return false;
@@ -242,19 +244,18 @@ var calendarUtils = {
     countWeeks: (year) => {
         var isLeapYear = calendarUtils.leapYear(year);
         var startsAtSunday = () => {
-            let tmpDate = new Date((cal2.rup_calendar('getYear') - 1) + '-01-01');
+            let tmpDate = new Date(cal2.rup_calendar('getYear') - 1, 0, 1, 0, 0, 0);
             return tmpDate.getDay() === 7 ? true : false;
         };
 
-        if(isLeapYear && startsAtSunday()){
+        if (isLeapYear && startsAtSunday()) {
             //El año anterior tenía 53 semanas
             return 53;
-        }
-        else {
+        } else {
             return 52;
         }
     }
-}
+};
 
 describe('Test rup_calendar (default)', () => {
     var cal;
@@ -314,11 +315,11 @@ describe('Test rup_calendar (default)', () => {
                         beforeEach((done) => {
                             cal.on('afterRender', () => {
                                 cal.off('afterRender');
-                                cal.on('afterRender',done);
+                                cal.on('afterRender', done);
                                 initialYear = cal.rup_calendar('getYear');
                                 cal.rup_calendar('navigate', 'prev');
                             });
-                            cal.rup_calendar('setView','year');
+                            cal.rup_calendar('setView', 'year');
                         });
                         it(' > Debe haber retrocedido un año', () => {
                             expect(cal.rup_calendar('getYear') + 1).toBe(initialYear);
@@ -333,14 +334,13 @@ describe('Test rup_calendar (default)', () => {
                                 initialMonth = cal.rup_calendar('getMonth');
                                 cal.rup_calendar('navigate', 'prev');
                             });
-                            cal.rup_calendar('setView','month');
+                            cal.rup_calendar('setView', 'month');
                         });
                         it(' > Debe haber retrocedido un mes', () => {
-                            if( initialMonth === 1 ) {
+                            if (initialMonth === 1) {
                                 // Antes del 1 (enero) va el 12 (diciembre)
                                 expect(monthMap[cal.rup_calendar('getMonth')]).toBe(12);
-                            }
-                            else {
+                            } else {
                                 let mnth = monthMap[cal.rup_calendar('getMonth')] + 1;
                                 //Si es mayor que 12 es un año nuevo
                                 if (mnth > 12) {
@@ -356,20 +356,19 @@ describe('Test rup_calendar (default)', () => {
                         beforeEach((done) => {
                             cal.on('afterRender', () => {
                                 cal.off('afterRender');
-                                cal.on('afterRender',done);
+                                cal.on('afterRender', done);
                                 initialWeek = cal.rup_calendar('getWeek');
                                 cal.rup_calendar('navigate', 'prev');
                             });
-                            cal.rup_calendar('setView','week');
+                            cal.rup_calendar('setView', 'week');
                         });
                         it(' > Debe haber retrocedido una semana', () => {
                             // Un año tiene 52 semanas salvo si es bisiesto y
                             // empieza en domingo entonces serían 53
-                            if(initialWeek === 1) {
+                            if (initialWeek === 1) {
                                 expect(cal.rup_calendar('getWeek'))
                                     .toBe(calendarUtils.countWeeks(cal.rup_calendar('getYear') - 1));
-                            }
-                            else {
+                            } else {
                                 //Si es mayor a 52 es un año posterior.
                                 let wkk = cal.rup_calendar('getWeek') + 1;
                                 if (wkk > 52) {
@@ -384,47 +383,42 @@ describe('Test rup_calendar (default)', () => {
                         beforeEach((done) => {
                             cal.on('afterRender', () => {
                                 cal.off('afterRender');
-                                cal.on('afterRender',done);
+                                cal.on('afterRender', done);
                                 initialDay = cal.rup_calendar('getStartDate').getDate();
                                 cal.rup_calendar('navigate', 'prev');
                             });
-                            cal.rup_calendar('setView','day');
+                            cal.rup_calendar('setView', 'day');
                         });
                         it(' > Debe haber retrocedido un día', () => {
                             var maxmonth;
-                            if(initialDay === 1){
+                            if (initialDay === 1) {
                                 let month = monthMap[cal.rup_calendar('getMonth')];
                                 // Si hay cambio de mes ANTERIOR
-                                if(month % 2 === 0) {
+                                if (month % 2 === 0) {
                                     // El mes es par
-                                    if(month === 2) {
+                                    if (month === 2) {
                                         // Si era 1 de Marzo
                                         if (calendarUtils.leapYear(cal.rup_calendar('getYear') - 1)) {
                                             maxmonth = 29;
                                             expect(cal.rup_calendar('getStartDate').getDate()).toBe(29);
-                                        }
-                                        else {
+                                        } else {
                                             maxmonth = 28;
                                             expect(cal.rup_calendar('getStartDate').getDate()).toBe(28);
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         // Si no es febrero el mes anterior tiene 30 días
                                         maxmonth = 30;
                                         expect(cal.rup_calendar('getStartDate').getDate()).toBe(30);
                                     }
-                                }
-                                else {
+                                } else {
                                     // Los meses impares tienen 31 días
                                     maxmonth = 31;
                                     expect(cal.rup_calendar('getStartDate').getDate()).toBe(31);
                                 }
-                            }
-                            else {
-                                if(initialDay === 1) {
+                            } else {
+                                if (initialDay === 1) {
                                     expect(cal.rup_calendar('getStartDate').getDate()).toBe(maxmonth);
-                                }
-                                else {
+                                } else {
                                     expect(cal.rup_calendar('getStartDate').getDate() + 1).toBe(initialDay);
                                 }
                             }
@@ -513,7 +507,7 @@ describe('Test rup_calendar (default)', () => {
                             });
                             cal.rup_calendar('setView', 'year');
                         });
-                        it(' > La vista debe mostrar el año siguiente',() => {
+                        it(' > La vista debe mostrar el año siguiente', () => {
                             expect(cal.rup_calendar('getYear') - 1).toBe(initialYear)
                         });
                     });
@@ -528,12 +522,11 @@ describe('Test rup_calendar (default)', () => {
                             });
                             cal.rup_calendar('setView', 'month');
                         });
-                        it(' > La vista debe mostrar el año siguiente',() => {
-                            if(monthMap[initialMonth] === 12) {
+                        it(' > La vista debe mostrar el año siguiente', () => {
+                            if (monthMap[initialMonth] === 12) {
                                 //Tras el 12(diciembre) viene el 1 (enero)
                                 expect(monthMap[cal.rup_calendar('getMonth')]).toBe(1);
-                            }
-                            else {
+                            } else {
                                 expect(monthMap[cal.rup_calendar('getMonth')] - 1)
                                     .toBe(monthMap[initialMonth]);
                             }
@@ -555,11 +548,10 @@ describe('Test rup_calendar (default)', () => {
                             let weekNum = calendarUtils.countWeeks(cal.rup_calendar('getYear'));
                             // Si era la última semana del año el next sacara la vista de la semana
                             // 1 del siguiente año
-                            if(initialWeek === weekNum) {
+                            if (initialWeek === weekNum) {
                                 expect(cal.rup_calendar('getWeek')).toBe(1);
-                            }
-                            else {
-                                expect(cal.rup_calendar('getWeek') -1).toBe(initialWeek);
+                            } else {
+                                expect(cal.rup_calendar('getWeek') - 1).toBe(initialWeek);
                             }
                         });
                     });
@@ -580,27 +572,23 @@ describe('Test rup_calendar (default)', () => {
                             // Calculamos el número de días del mes inicial
                             var maxDay = 0;
                             initialMonth = monthMap[initialMonth];
-                            if (initialMonth % 2 === 0){
-                                if(initialMonth === 2) {
-                                    if(calendarUtils.leapYear(initialYear)){
+                            if (initialMonth % 2 === 0) {
+                                if (initialMonth === 2) {
+                                    if (calendarUtils.leapYear(initialYear)) {
                                         maxDay = 29;
-                                    }
-                                    else {
+                                    } else {
                                         maxDay = 28;
                                     }
-                                }
-                                else {
+                                } else {
                                     maxDay = 30;
                                 }
-                            }
-                            else {
+                            } else {
                                 maxDay = 31
                             }
 
-                            if(initialDay === maxDay) {
+                            if (initialDay === maxDay) {
                                 expect(cal.rup_calendar('getStartDate').getDate()).toBe(1);
-                            }
-                            else{
+                            } else {
                                 expect(cal.rup_calendar('getStartDate').getDate() - 1).toBe(initialDay);
                             }
                         });
@@ -703,7 +691,7 @@ describe('Test rup_calendar (default)', () => {
                 cal.on('afterViewLoad', () => {
                     done();
                 });
-                cal.rup_calendar('navigate', new Date('2018-06-02'));
+                cal.rup_calendar('navigate', new Date(2018, 5, 2, 0, 0, 0));
             });
             it(' > El titulo devuelto debe ser igual al del DOM', () => {
                 expect(cal.rup_calendar('getTitle')).toBe($('.page-header > h3').text());
@@ -712,7 +700,7 @@ describe('Test rup_calendar (default)', () => {
         describe(' > Método getYear', () => {
             beforeEach((done) => {
                 cal.on('afterRender', done);
-                cal.rup_calendar('navigate', new Date('2000-02-20'));
+                cal.rup_calendar('navigate', new Date(2000, 1, 20, 0, 0, 0));
             });
             it(' > Debe devolver el año correctamente', () => {
                 expect(cal.rup_calendar('getYear')).toBe(2000);
@@ -721,7 +709,7 @@ describe('Test rup_calendar (default)', () => {
         describe(' > Método getMonth', () => {
             beforeEach((done) => {
                 cal.on('afterRender', done);
-                cal.rup_calendar('navigate', new Date('2000-02-20'));
+                cal.rup_calendar('navigate', new Date(2000, 1, 20, 0, 0, 0));
             });
             it(' > Debe devolver el mes correctamente', () => {
                 expect(cal.rup_calendar('getMonth')).toBe('Febrero');
@@ -732,7 +720,7 @@ describe('Test rup_calendar (default)', () => {
                 cal.on('afterRender', () => {
                     cal.off('afterRender');
                     cal.on('afterRender', done);
-                    cal.rup_calendar('navigate', new Date('2000-02-20'));
+                    cal.rup_calendar('navigate', new Date(2000, 1, 20, 0, 0, 0));
                 });
                 cal.rup_calendar('setView', 'day');
             });
@@ -745,13 +733,13 @@ describe('Test rup_calendar (default)', () => {
                 cal.on('afterRender', () => {
                     cal.off('afterRender');
                     cal.on('afterRender', done);
-                    cal.rup_calendar('navigate', new Date('2018-01-20'));
+                    cal.rup_calendar('navigate', new Date(2018, 0, 20, 0, 0, 0));
                 });
                 cal.rup_calendar('setView', 'year');
             });
             it(' > Debe devolver la startDate apropiada', () => {
                 expect(cal.rup_calendar('getStartDate').toLocaleDateString())
-                    .toBe(new Date('2018-01-01').toLocaleDateString());
+                    .toBe(new Date(2018, 0, 1, 0, 0, 0).toLocaleDateString());
             });
         });
         describe(' > Método getEndDate', () => {
@@ -759,22 +747,21 @@ describe('Test rup_calendar (default)', () => {
                 cal.on('afterRender', () => {
                     cal.off('afterRender');
                     cal.on('afterRender', done);
-                    cal.rup_calendar('navigate', new Date('2018-01-20'));
+                    cal.rup_calendar('navigate', new Date(2018, 0, 20, 0, 0, 0));
                 });
                 cal.rup_calendar('setView', 'year');
             });
             it(' > Debe devolver la endDate apropiada', () => {
                 expect(cal.rup_calendar('getEndDate').toLocaleDateString())
-                    .toBe(new Date('2019-01-01').toLocaleDateString());
+                    .toBe(new Date(2019, 0, 1, 0, 0, 0).toLocaleDateString());
             });
         });
         describe(' > Método getEventsBetween', () => {
             it(' > Debe devolver los eventos entre las fechas especificadas', () => {
                 expect(cal.rup_calendar('getEventsBetween',
-                                        new Date(1541890799999),
-                                        new Date(1541890800001)))
-                    .toEqual([
-                        {
+                        new Date(1541890799999),
+                        new Date(1541890800001)))
+                    .toEqual([{
                             "id": "48605",
                             "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
                             "start": "1541890800000",
@@ -821,12 +808,12 @@ describe('Test rup_calendar (default)', () => {
                 cal.rup_calendar('refresh');
             });
             afterEach(() => {
-                EVENTS = EVENTS.filter( e => e.id != '48506' );
+                EVENTS = EVENTS.filter(e => e.id != '48506');
             });
             it(' > Debe haber actualizado los events', () => {
                 var evts = cal.rup_calendar('getEventsBetween',
-                                        new Date(1541890799999),
-                                        new Date(1541890800001));
+                    new Date(1541890799999),
+                    new Date(1541890800001));
                 expect(evts.length).toBe(3);
             });
         });
@@ -847,12 +834,12 @@ describe('Test rup_calendar (default)', () => {
         describe(' > Método showCell', () => {
             beforeEach((done) => {
                 cal.on('afterViewLoad', () => {
-                   cal.on('afterShowCell', () => {
+                    cal.on('afterShowCell', () => {
                         done();
                     });
-                    cal.rup_calendar('showCell', new Date('2018-12-01'));
+                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
                 });
-                cal.rup_calendar('navigate', new Date('2018-12-01'));
+                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
                 expect($('#cal-slide-box').css('display')).toBe('block');
@@ -865,9 +852,9 @@ describe('Test rup_calendar (default)', () => {
                         cal.on('afterHideCell', done);
                         cal.rup_calendar('hideCells');
                     });
-                    cal.rup_calendar('showCell', new Date('2018-12-01'));
+                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
                 });
-                cal.rup_calendar('navigate', new Date('2018-12-01'));
+                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
             });
             it(' > Deben ocultarse los eventos desplegados', () => {
                 expect($('#cal-slide-box').css('display')).toBe('none');
@@ -936,13 +923,13 @@ describe('Test rup_calendar (alternative)', () => {
                                 cal2.off('afterRender');
                                 cal2.on('afterRender', () => {
                                     cal2.off('afterRender');
-                                    cal2.on('afterRender',done);
+                                    cal2.on('afterRender', done);
                                     initialYear = cal2.rup_calendar('getYear');
                                     cal2.rup_calendar('navigate', 'prev');
                                 });
-                                cal2.rup_calendar('navigate', new Date('2020-01-01'));
+                                cal2.rup_calendar('navigate', new Date(2020, 0, 1, 0, 0, 0));
                             });
-                            cal2.rup_calendar('setView','year');
+                            cal2.rup_calendar('setView', 'year');
                         });
                         it(' > Debe haber retrocedido un año', () => {
                             expect(cal2.rup_calendar('getYear') + 1).toBe(initialYear);
@@ -957,14 +944,13 @@ describe('Test rup_calendar (alternative)', () => {
                                 initialMonth = cal2.rup_calendar('getMonth');
                                 cal2.rup_calendar('navigate', 'prev');
                             });
-                            cal2.rup_calendar('setView','month');
+                            cal2.rup_calendar('setView', 'month');
                         });
                         it(' > Debe haber retrocedido un mes', () => {
-                            if( initialMonth === 1 ) {
+                            if (initialMonth === 1) {
                                 // Antes del 1 (enero) va el 12 (diciembre)
                                 expect(monthMap[cal2.rup_calendar('getMonth')]).toBe(12);
-                            }
-                            else {
+                            } else {
                                 let mnth = monthMap[cal2.rup_calendar('getMonth')] + 1;
                                 //Si es mayor que 12 es un año nuevo
                                 if (mnth > 12) {
@@ -980,20 +966,19 @@ describe('Test rup_calendar (alternative)', () => {
                         beforeEach((done) => {
                             cal2.on('afterRender', () => {
                                 cal2.off('afterRender');
-                                cal2.on('afterRender',done);
+                                cal2.on('afterRender', done);
                                 initialWeek = cal2.rup_calendar('getWeek');
                                 cal2.rup_calendar('navigate', 'prev');
                             });
-                            cal2.rup_calendar('setView','week');
+                            cal2.rup_calendar('setView', 'week');
                         });
                         it(' > Debe haber retrocedido una semana', () => {
                             // Un año tiene 52 semanas salvo si es bisiesto y
                             // empieza en domingo entonces serían 53
-                            if(initialWeek === 1) {
+                            if (initialWeek === 1) {
                                 expect(cal2.rup_calendar('getWeek'))
                                     .toBe(calendarUtils.countWeeks(cal2.rup_calendar('getYear') - 1));
-                            }
-                            else {
+                            } else {
                                 //Si es mayor a 52 es un año posterior.
                                 let wkk = cal2.rup_calendar('getWeek') + 1;
                                 if (wkk > 52) {
@@ -1008,38 +993,35 @@ describe('Test rup_calendar (alternative)', () => {
                         beforeEach((done) => {
                             cal2.on('afterRender', () => {
                                 cal2.off('afterRender');
-                                cal2.on('afterRender',done);
+                                cal2.on('afterRender', done);
                                 initialDay = cal2.rup_calendar('getStartDate').getDate();
                                 cal2.rup_calendar('navigate', 'prev');
                             });
-                            cal2.rup_calendar('setView','day');
+                            cal2.rup_calendar('setView', 'day');
                         });
                         it(' > Debe haber retrocedido un día', () => {
-                            if(dayMap[initialDay] === 1){
+                            if (initialDay === 1) {
                                 let month = monthMap[cal2.rup_calendar('getMonth')];
                                 // Si hay cambio de mes
-                                if(month % 2 === 0) {
+                                debugger;
+                                if (month % 2 === 0) {
                                     // El mes es par
-                                    if(month === 2) {
+                                    if (month === 2) {
                                         // Si era 1 de Marzo
                                         if (calendarUtils.leapYear(cal2.rup_calendar('getYear') - 1)) {
-                                            expect(cal2.rup_calendar('getStartDate')).toBe(29);
+                                            expect(cal2.rup_calendar('getStartDate').getDate()).toBe(29);
+                                        } else {
+                                            expect(cal2.rup_calendar('getStartDate').getDate()).toBe(28);
                                         }
-                                        else {
-                                            expect(cal2.rup_calendar('getStartDate')).toBe(28);
-                                        }
-                                    }
-                                    else {
+                                    } else {
                                         // Si no es febrero el mes anterior tiene 30 días
-                                        expect(cal2.rup_calendar('getStartDate')).toBe(30);
+                                        expect(cal2.rup_calendar('getStartDate').getDate()).toBe(30);
                                     }
-                                }
-                                else {
+                                } else {
                                     // Los meses impares tienen 31 días
-                                    expect(cal2.rup_calendar('geStarttDate')).toBe(31);
+                                    expect(cal2.rup_calendar('geStartDate').getDate()).toBe(31);
                                 }
-                            }
-                            else {
+                            } else {
                                 expect(cal2.rup_calendar('getStartDate').getDate() + 1).toBe(initialDay);
                             }
                         });
@@ -1127,12 +1109,12 @@ describe('Test rup_calendar (alternative)', () => {
                                     initialYear = cal2.rup_calendar('getYear');
                                     cal2.rup_calendar('navigate', 'next');
                                 });
-                                cal2.rup_calendar('navigate', new Date('2019-01-02'));
+                                cal2.rup_calendar('navigate', new Date(2019, 0, 2, 0, 0, 0));
                             });
                             cal2.rup_calendar('setView', 'year');
                         });
-                        it(' > La vista debe mostrar el año siguiente',() => {
-                            expect(cal2.rup_calendar('getYear') - 1).toBe(initialYear)
+                        it(' > La vista debe mostrar el año siguiente', () => {
+                            expect(cal2.rup_calendar('getYear') - 1).toBe(initialYear);
                         });
                     });
                     describe(' > mes', () => {
@@ -1146,12 +1128,11 @@ describe('Test rup_calendar (alternative)', () => {
                             });
                             cal2.rup_calendar('setView', 'month');
                         });
-                        it(' > La vista debe mostrar el año siguiente',() => {
-                            if(monthMap[initialMonth] === 12) {
+                        it(' > La vista debe mostrar el año siguiente', () => {
+                            if (monthMap[initialMonth] === 12) {
                                 //Tras el 12(diciembre) viene el 1 (enero)
                                 expect(monthMap[cal2.rup_calendar('getMonth')]).toBe(1);
-                            }
-                            else {
+                            } else {
                                 expect(monthMap[cal2.rup_calendar('getMonth')] - 1)
                                     .toBe(monthMap[initialMonth]);
                             }
@@ -1173,11 +1154,10 @@ describe('Test rup_calendar (alternative)', () => {
                             let weekNum = calendarUtils.countWeeks(cal2.rup_calendar('getYear'));
                             // Si era la última semana del año el next sacara la vista de la semana
                             // 1 del siguiente año
-                            if(initialWeek === weekNum) {
+                            if (initialWeek === weekNum) {
                                 expect(cal2.rup_calendar('getWeek')).toBe(1);
-                            }
-                            else {
-                                expect(cal2.rup_calendar('getWeek') -1).toBe(initialWeek);
+                            } else {
+                                expect(cal2.rup_calendar('getWeek') - 1).toBe(initialWeek);
                             }
                         });
                     });
@@ -1198,27 +1178,23 @@ describe('Test rup_calendar (alternative)', () => {
                             // Calculamos el número de días del mes inicial
                             var maxDay = 0;
                             initialMonth = monthMap[initialMonth];
-                            if (initialMonth % 2 === 0){
-                                if(initialMonth === 2) {
-                                    if(calendarUtils.leapYear(initialYear)){
+                            if (initialMonth % 2 === 0) {
+                                if (initialMonth === 2) {
+                                    if (calendarUtils.leapYear(initialYear)) {
                                         maxDay = 29;
-                                    }
-                                    else {
+                                    } else {
                                         maxDay = 28;
                                     }
-                                }
-                                else {
+                                } else {
                                     maxDay = 30;
                                 }
-                            }
-                            else {
+                            } else {
                                 maxDay = 31
                             }
 
-                            if(initialDay === maxDay) {
+                            if (initialDay === maxDay) {
                                 expect(cal2.rup_calendar('getStartDate').getDate()).toBe(1);
-                            }
-                            else{
+                            } else {
                                 expect(cal2.rup_calendar('getStartDate').getDate() - 1).toBe(initialDay);
                             }
                         });
@@ -1304,7 +1280,7 @@ describe('Test rup_calendar (alternative)', () => {
             describe(' > Funciona cuando es true', () => {
                 beforeEach((done) => {
                     cal2.on('afterRender', done);
-                    cal2.rup_calendar('navigate', new Date('2019-01-03'));
+                    cal2.rup_calendar('navigate', new Date(2019, 0, 3, 0, 0, 0));
                 });
                 it(' > Según se genera no debería ser visible el today', () => {
                     expect(cal2.rup_calendar('isToday')).toBeFalsy();
@@ -1312,7 +1288,7 @@ describe('Test rup_calendar (alternative)', () => {
             });
             describe(' > Funciona cuando es false', () => {
                 beforeEach((done) => {
-                    cal2.on('afterRender', done);
+                    cal2.on('afterChangeView', done);
                     cal2.rup_calendar('navigate', 'next');
                 });
                 it(' > Si nos movemos fuera del rango debe dar false', () => {
@@ -1325,7 +1301,7 @@ describe('Test rup_calendar (alternative)', () => {
                 cal2.on('afterViewLoad', () => {
                     done();
                 });
-                cal2.rup_calendar('navigate', new Date('2018-06-02'));
+                cal2.rup_calendar('navigate', new Date(2018, 5, 2, 0, 0, 0));
             });
             it(' > El titulo devuelto debe ser igual al del DOM', () => {
                 expect(cal2.rup_calendar('getTitle')).toBe($('.page-header > h3').text());
@@ -1334,7 +1310,7 @@ describe('Test rup_calendar (alternative)', () => {
         describe(' > Método getYear', () => {
             beforeEach((done) => {
                 cal2.on('afterRender', done);
-                cal2.rup_calendar('navigate', new Date('2019-02-20'));
+                cal2.rup_calendar('navigate', new Date(2019, 1, 20, 0, 0, 0));
             });
             it(' > Debe devolver el año correctamente', () => {
                 expect(cal2.rup_calendar('getYear')).toBe(2019);
@@ -1343,7 +1319,7 @@ describe('Test rup_calendar (alternative)', () => {
         describe(' > Método getMonth', () => {
             beforeEach((done) => {
                 cal2.on('afterRender', done);
-                cal2.rup_calendar('navigate', new Date('2019-02-20'));
+                cal2.rup_calendar('navigate', new Date(2019, 1, 20, 0, 0, 0));
             });
             it(' > Debe devolver el mes correctamente', () => {
                 expect(cal2.rup_calendar('getMonth')).toBe('Febrero');
@@ -1354,7 +1330,7 @@ describe('Test rup_calendar (alternative)', () => {
                 cal2.on('afterRender', () => {
                     cal2.off('afterRender');
                     cal2.on('afterRender', done);
-                    cal2.rup_calendar('navigate', new Date('2019-02-19'));
+                    cal2.rup_calendar('navigate', new Date(2019, 1, 19, 0, 0, 0));
                 });
                 cal2.rup_calendar('setView', 'day');
             });
@@ -1367,13 +1343,13 @@ describe('Test rup_calendar (alternative)', () => {
                 cal2.on('afterRender', () => {
                     cal2.off('afterRender');
                     cal2.on('afterRender', done);
-                    cal2.rup_calendar('navigate', new Date('2019-01-20'));
+                    cal2.rup_calendar('navigate', new Date(2019, 0, 19, 0, 0, 0));
                 });
                 cal2.rup_calendar('setView', 'year');
             });
             it(' > Debe devolver la startDate apropiada', () => {
                 expect(cal2.rup_calendar('getStartDate').toLocaleDateString())
-                    .toBe(new Date('2019-01-01').toLocaleDateString());
+                    .toBe(new Date(2019, 0, 1, 0, 0, 0).toLocaleDateString());
             });
         });
         describe(' > Método getEndDate', () => {
@@ -1381,37 +1357,35 @@ describe('Test rup_calendar (alternative)', () => {
                 cal2.on('afterRender', () => {
                     cal2.off('afterRender');
                     cal2.on('afterRender', done);
-                    cal2.rup_calendar('navigate', new Date('2019-01-20'));
+                    cal2.rup_calendar('navigate', new Date(2019, 0, 20, 0, 0, 0));
                 });
                 cal2.rup_calendar('setView', 'year');
             });
             it(' > Debe devolver la endDate apropiada', () => {
                 expect(cal2.rup_calendar('getEndDate').toLocaleDateString())
-                    .toBe(new Date('2020-01-01').toLocaleDateString());
+                    .toBe(new Date(2020, 0, 1, 0, 0, 0).toLocaleDateString());
             });
         });
         describe(' > Método getEventsBetween', () => {
             it(' > Debe devolver los eventos entre las fechas especificadas', () => {
                 expect(cal2.rup_calendar('getEventsBetween',
-                                        new Date('2019-06-01'),
-                                        new Date('2019-06-07')))
-                    .toEqual([
-                        {
-                            "id": "48605",
-                            "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
-                            "start": '' + new Date('2019-06-02').getTime(),
-                            "class": " vertido muestreo completada",
-                            "end": '' + new Date('2019-06-03').getTime(),
-                            "url": "javascript:actions(48605)"
-                        }, {
-                            "id": "47278",
-                            "title": "<span><strong>REVISION DE LA AUTORIZACION DE VERTIDO DE AGUAS RESIDUALES DE LA LOCALIDAD DE ILARRATZA (2 P. VERTIDO), T.M. DE VITORIA-GASTEIZ. (REV. 2009-S-0372)</strong><ul class='pl-3'><li>Nºexp.:&nbsp;RAV-A-2014-0058</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li></ul></span>",
-                            "start": '' + new Date('2019-06-05').getTime(),
-                            "class": " vertido vigilancia",
-                            "end": '' + new Date('2019-06-06').getTime(),
-                            "url": "javascript:actions(47278)"
-                        }
-                    ]);
+                        new Date(2019, 5, 1, 0, 0, 0),
+                        new Date(2019, 5, 7, 0, 0, 0)))
+                    .toEqual([{
+                        "id": "48605",
+                        "title": "<span><strong>AUTORIZACIÓN DE VERTIDO DE AGUAS RESIDUALES PROCEDENTES DE ESTACIÓN DE SERVICIO Nº 7338 EN ARKAUTE, T.M .DE VITORIA-GASTEIZ</strong><ul class='pl-3'><li>Nºexp.:&nbsp;VDP-A-2012-0382</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li><li>Requiere muestra&nbsp;</li><li><i class='mdi mdi-check pr-1' aria-hidden='true'></i>COMPLETADA</li></ul></span>",
+                        "start": "1559433600000",
+                        "class": " vertido muestreo completada",
+                        "end": "1559520000000",
+                        "url": "javascript:actions(48605)"
+                    }, {
+                        "id": "47278",
+                        "title": "<span><strong>REVISION DE LA AUTORIZACION DE VERTIDO DE AGUAS RESIDUALES DE LA LOCALIDAD DE ILARRATZA (2 P. VERTIDO), T.M. DE VITORIA-GASTEIZ. (REV. 2009-S-0372)</strong><ul class='pl-3'><li>Nºexp.:&nbsp;RAV-A-2014-0058</li><li>P.vertido:&nbsp;PV1</li><li>Id.flujo:&nbsp;F1</li></ul></span>",
+                        "start": "1559692800000",
+                        "class": " vertido vigilancia",
+                        "end": "1559779200000",
+                        "url": "javascript:actions(47278)"
+                    }]);
             });
         });
         describe(' > Método option', () => {
@@ -1432,21 +1406,21 @@ describe('Test rup_calendar (alternative)', () => {
             beforeEach((done) => {
                 cal2.on('afterViewLoad', () => {
                     $.post('/demo/calendar/events/add')
-                    .done(() => {
-                        cal2.on('afterRefresh', done);
-                        cal2.rup_calendar('refresh');
-                    });
+                        .done(() => {
+                            cal2.on('afterRefresh', done);
+                            cal2.rup_calendar('refresh');
+                        });
                 });
-                cal2.rup_calendar('navigate', new Date('2019-06-02'));
+                cal2.rup_calendar('navigate', new Date(2019, 5, 2, 0, 0, 0));
             });
             afterEach((done) => {
                 $.post('/demo/calendar/events/restore')
-                .done(done);
+                    .done(done);
             });
             it(' > Debe haber actualizado los events', () => {
                 var evts = cal2.rup_calendar('getEventsBetween',
-                                        new Date('2019-06-01'),
-                                        new Date('2019-06-10'));
+                    new Date(2019, 5, 1, 0, 0, 0),
+                    new Date(2019, 5, 10, 0, 0, 0));
                 expect(evts.length).toBe(3);
             });
         });
@@ -1467,12 +1441,12 @@ describe('Test rup_calendar (alternative)', () => {
         describe(' > Método showCell', () => {
             beforeEach((done) => {
                 cal2.on('afterViewLoad', () => {
-                   cal2.on('afterShowCell', () => {
+                    cal2.on('afterShowCell', () => {
                         done();
                     });
-                    cal2.rup_calendar('showCell', new Date('2019-06-02'));
+                    cal2.rup_calendar('showCell', new Date(2019, 5, 2, 0, 0, 0));
                 });
-                cal2.rup_calendar('navigate', new Date('2019-06-02'));
+                cal2.rup_calendar('navigate', new Date(2019, 5, 2, 0, 0, 0));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
                 expect($('#cal-slide-box').css('display')).toBe('block');
@@ -1485,9 +1459,9 @@ describe('Test rup_calendar (alternative)', () => {
                         cal2.on('afterHideCell', done);
                         cal2.rup_calendar('hideCells');
                     });
-                    cal2.rup_calendar('showCell', new Date('2019-06-02'));
+                    cal2.rup_calendar('showCell', new Date(2019, 5, 2, 0, 0, 0));
                 });
-                cal2.rup_calendar('navigate', new Date('2019-06-02'));
+                cal2.rup_calendar('navigate', new Date(2019, 5, 2, 0, 0, 0));
             });
             it(' > Deben ocultarse los eventos desplegados', () => {
                 expect($('#cal-slide-box').css('display')).toBe('none');
@@ -1535,7 +1509,7 @@ describe('Test rup_calendar (alternative)', () => {
         describe(' > Classes', () => {
             beforeEach(() => {
                 cal2.rup_calendar('setView', 'week');
-                cal2.rup_calendar('navigate', new Date('2019-06-01'));
+                cal2.rup_calendar('navigate', new Date(2019, 5, 1, 0, 0, 0));
             });
             it(' > Debe tener la clase especificada', () => {
                 expect($('span[data-cal-date="2019-06-01"]').parent().parent().is('.randomClass')).toBeTruthy();
@@ -1545,7 +1519,7 @@ describe('Test rup_calendar (alternative)', () => {
 });
 
 var opts1 = {
-    tmpl_path: testutils.DIST +'/html/templates/rup_calendar/',
+    tmpl_path: testutils.DIST + '/html/templates/rup_calendar/',
     events_source: function () {
         return EVENTS;
     },
@@ -1567,24 +1541,33 @@ var opts1 = {
         $('.btn-group button').removeClass('active');
         $('button[data-calendar-view="' + view + '"]').addClass('active');
     }
-}
+};
 var opts2 = {
-    tmpl_path: testutils.DIST +'/html/templates/rup_calendar/',
+    tmpl_path: testutils.DIST + '/html/templates/rup_calendar/',
     events_source: '/demo/calendar/events',
     weekbox: true,
     cell_navigation: false,
-    day: '' + new Date().getFullYear() + '-06-02',
+    day: (() => { 
+        var date = new Date();
+        var formatter = (val) => {
+            if (val < 10) {
+                return '0' + val;
+            }
+            return val;
+        };
+        return '' + date.getFullYear() + '-' + formatter(date.getMonth() + 1 ) + '-' + formatter(date.getDate());
+    })(),
     position: {
-        start: new Date('' + new Date().getFullYear() + '-01-01'),
-        end: new Date('' + (new Date().getFullYear() + 1) + '-01-01')
+        start: new Date(new Date().getFullYear(), 0, 1, 0, 0, 0),
+        end: new Date(new Date().getFullYear() + 1, 0, 1, 0, 0, 0)
     },
-    classes:{
-        week:{
+    classes: {
+        week: {
             saturday: 'randomClass'
         }
     },
-    date_range_start: new Date('2019-01-01'),
-    date_range_end: new Date('2020-02-01'),
+    date_range_start: new Date(2019, 0, 1, 0, 0, 0),
+    date_range_end: new Date(2020, 1, 1, 0, 0, 0),
     rupAfterEventsLoad: function (events) {
         if (!events) {
             return;
@@ -1603,18 +1586,19 @@ var opts2 = {
         $('.btn-group button').removeClass('active');
         $('button[data-calendar-view="' + view + '"]').addClass('active');
     }
-}
-function createCalendar(opts,callback) {
+};
+
+function createCalendar(opts, callback) {
 
     let html = `
     <div class="row"></br>
-        <div class="col-xs-12 mb-3">
+        <div class="col-xl-12 mb-3">
             <h3>Ejemplo</h3>
             <hr>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xl-12">
             <div class="page-header w-100 mb-3">
                 <div class="pull-right form-inline">
                     <div class="btn-group mb-3">
@@ -1639,12 +1623,12 @@ function createCalendar(opts,callback) {
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-xs-12">
+        <div class="col-xl-12">
             <div id="calendar" class="calendar"></div>
         </div>
     </div>
     <div id="divLeyenda" class="row">
-        <div class="col-xs-5 noPadding">
+        <div class="col-xl-5 noPadding">
             <div id="divLegend" class="">
                 <span class="separator" style="color: #666;"> Leyenda:
                 </span>
@@ -1714,13 +1698,11 @@ function createCalendar(opts,callback) {
     <br>`;
     $('#content').append(html);
 
-
-    $('#calendar').rup_calendar(opts);
     var calendar = $('#calendar');
     $('.btn-group span[data-calendar-nav]').each((i, e) => {
         let $elem = $(e);
         $elem.click(function () {
-            calendar.rup_calendar('navigate',$elem.data('calendar-nav'));
+            calendar.rup_calendar('navigate', $elem.data('calendar-nav'));
         });
     });
 
@@ -1732,5 +1714,9 @@ function createCalendar(opts,callback) {
             $elem.addClass('active');
         });
     });
-    callback();
+
+    $('#calendar').on('afterInitCalendar', () => {
+        callback();
+    });
+    $('#calendar').rup_calendar(opts);
 }

@@ -12,6 +12,9 @@ function disableDays(date) {
 $.when(testDate('es'))
     .then(() => {
         testDate('eu');
+    })
+    .catch((a,b,c)=>{
+        console.error('Error en la ejecución del test de fecha');
     });
 
 function langStr(lang) {
@@ -297,9 +300,12 @@ function testDate(lang) {
             });
             describe('Método hide > ', () => {
                 describe('Date normal > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $date.rup_date('show');
                         $date.rup_date('hide');
+                        setTimeout(()=>{
+                            done();
+                        },1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         //Se hacen 2 comprobaciones poruq en ejie.eus se establece 
@@ -310,9 +316,12 @@ function testDate(lang) {
                     });
                 });
                 describe('Date alternativa > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $altDate.rup_date('show');
                         $altDate.rup_date('hide');
+                        setTimeout(() => {
+                            done();
+                        }, 1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -321,9 +330,12 @@ function testDate(lang) {
                     });
                 });
                 describe('Date múltiple > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $multiDate.rup_date('show');
                         $multiDate.rup_date('hide');
+                        setTimeout(() => {
+                            done();
+                        }, 1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -333,9 +345,12 @@ function testDate(lang) {
                 });
                 describe('Date desde-hasta > ', () => {
                     describe('Date desde > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
                             $('#desde').rup_date('show');
                             $('#desde').rup_date('hide');
+                            setTimeout(() => {
+                                done();
+                            }, 1000);
                         });
                         it(langStr(lang) + 'No debe mostrarse:', () => {
                             let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -344,9 +359,12 @@ function testDate(lang) {
                         });
                     });
                     describe('Date hasta > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
                             $('#hasta').rup_date('show');
                             $('#hasta').rup_date('hide');
+                            setTimeout(() => {
+                                done();
+                            }, 1000);
                         });
                         it(langStr(lang) + 'No debe mostrarse:', () => {
                             let test1 = $('#ui-datepicker-div').css('opacity') != 0;

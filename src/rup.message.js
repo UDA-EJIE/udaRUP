@@ -127,7 +127,7 @@
 
 			var self = this._createDiv().appendTo('body');
 			self.dialog(settings);
-			self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
 			this._createCloseLink(self);
 			this._addStyles(self, 'error', settings.message);
 			docHeight = $(document).height();
@@ -136,8 +136,8 @@
 			this._dialogInPortal(docWidth, docHeight, self, settings);
 			
 			// Limpieza del componente
-			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');
@@ -255,7 +255,7 @@
 
 			var self = this._createDiv().appendTo('body');
 			self.dialog(settings);
-			self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
 
 			this._createCloseLink(self);
 			this._addStyles(self, 'ok', settings.message);
@@ -265,8 +265,8 @@
 			this._dialogInPortal(docWidth, docHeight, self, settings);
 			
 			// Limpieza del componente
-			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
 			//Se audita el componente
 			$.rup.auditComponent('rup_message', 'init');

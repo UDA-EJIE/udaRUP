@@ -147,7 +147,7 @@
 			*/
 		postConfigureMultifilter : function(settings) {
 			var $self = this, multifilterSettings = settings.multifilter, filterSettings,$dropdownButton, $combo,$comboLabel
-				,$defaultCheck,$feedback,$comboButton,$closeDialog, dropdownButtonConfig;
+				,$defaultCheck,$feedback,$comboButton,$closeDialog, dropdownButtonConfig, xhrArray=[];
 
 
 			/*
@@ -329,11 +329,10 @@
 			// $('#'+multifilterSettings.dropdownDialogId).parent().addClass("rup_multifilter_container");
 			$('#' + multifilterSettings.dropdownDialogId).parent().css('width', '500px');
 
-
 			multifilterSettings.$dropdownButton.on('click', function(){
 				//guardo el filtroAnterior
 				var valorFiltro= form2object(settings.filter.$filterContainer[0]);
-				var xhrArray=$.rup_utils.jsontoarray(valorFiltro);
+				xhrArray=$.rup_utils.jsontoarray(valorFiltro);
 				$self.data('filtroAnterior',valorFiltro);
 
 
@@ -954,7 +953,7 @@
      * $self._searchFilterInCombo(settings);
      */
 		_searchFilterInCombo : function(settings) {
-			var multifilterSettings = settings.multifilter;
+			var multifilterSettings = settings.multifilter, xhrArray=[];
 
 			var name = $('#' + settings.id	+ '_multifilter_combo_label').val();
 			// var listaFiltros = $("#" + this.id+
@@ -973,8 +972,6 @@
 				multifilterSettings.$defaultCheck.attr('checked', objFiltro[0].filterDefault);
 
 				var valorFiltro = $.parseJSON(objFiltro[0].value);
-
-				var xhrArray = [];
 
 				// $.map(valorFiltro,function(item) {
 				// xhrArray[item.name] = item.value;

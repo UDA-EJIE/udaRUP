@@ -1,5 +1,4 @@
 
-
 import * as Marionette from 'marionette';
 import MainView from 'shared/main/mainView';
 import IndexView from 'pages/index/indexView';

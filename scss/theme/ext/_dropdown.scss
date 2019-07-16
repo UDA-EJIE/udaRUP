@@ -13,9 +13,9 @@
     margin-left: $rup-caret-width;
     vertical-align: middle;
     content: "";
-    border-top: $rup-caret-width solid;
-    border-right: $rup-caret-width solid transparent;
-    border-left: $rup-caret-width solid transparent;
+    border-top: $rup-caret-width solid !important;
+    border-right: $rup-caret-width solid transparent !important;
+    border-left: $rup-caret-width solid transparent !important;
   }
 
   // Prevent the focus on the dropdown toggle when closing dropdowns

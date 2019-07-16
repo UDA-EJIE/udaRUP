@@ -172,7 +172,7 @@
 		_init: function (args) {
 			var settings = $.extend({}, $.fn.rup_chart.defaults, args[0]);
 			settings.id = $(this).attr('id');
-			$self = this;
+			var $self = this;
 			var ctx = document.getElementById(settings.id).getContext('2d');
 			var grafico;
 

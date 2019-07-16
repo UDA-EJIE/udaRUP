@@ -4,10 +4,9 @@
 // import 'rup.dialog';
 // import 'rup.message';
 // import 'rup.contextMenu';
-// import 'rup.table';
-// import 'table/rup.table';
+// import 'rup_table/rup.table';
 // import * as testutils from '../common/specCommonUtils.js';
-// import * as dtGen from './datatableCreator';
+// import * as dtGen from './tableCreator';
 
 // function generateFormEditDatatable(callback) {
 //     dtGen.createDatatable1(0, callback);

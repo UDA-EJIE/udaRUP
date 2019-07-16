@@ -34,6 +34,8 @@
 
 	jQuery.migrateMute = true;
 
+	global.initRupI18nPromise = jQuery.Deferred();
+
 	/**
    * jQuery definition to anchor JsDoc comments.
    *
@@ -238,11 +240,10 @@
 				$.rup.lang = lang;
 			}
 			//Peticion ajax destinada a cargar el fichero  JSon de literales
-			$.rup_ajax({
+			return $.rup_ajax({
 				url: $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json',
 				dataType: 'json',
 				type: 'GET',
-				async: false,
 				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function (data) {
 					//Se cargan los literales generales de la aplicacion en RUP
@@ -261,11 +262,10 @@
 		//Funcion encargada de cargar el fichero i18n de la aplicación (síncrono)
 		getFile_i18n: function () {
 			//Peticion ajax destinada a devolver el fichero JSON indicado
-			$.rup_ajax({
+			return $.rup_ajax({
 				url: $.rup.APP_STATICS + '/resources/' + $.rup.WAR_NAME + '.i18n_' + $.rup.lang + '.json',
 				dataType: 'json',
 				type: 'GET',
-				async: false,
 				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function (data) {
 					//se carga la respuesta del servidor en la estructura I18n de RUP
@@ -430,11 +430,16 @@
 			}
 
 			//Se cargan los literales por defecto
-			$.rup.setLiterals();
-			//Carga de ficheros de literales de la apliaccion
-			if($.rup.WAR_NAME !== ''){
-				$.rup.getFile_i18n();
-			}
+			$.rup.setLiterals().then(() => {
+				//Carga de ficheros de literales de la apliaccion
+				if (jQuery.rup.WAR_NAME !== '') {
+					$.rup.getFile_i18n().then(()=>{
+						global.initRupI18nPromise.resolve();
+					});
+				} else {
+					global.initRupI18nPromise.resolve();
+				}
+			});
 		},
 		//Función encargada de cargar variables por defecto si no se han cargado los literales (ej. cookies deshabilitadas)
 		//NOTA: El que se entre en la función indica mala configuración/error en la aplicación
