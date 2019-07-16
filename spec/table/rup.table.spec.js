@@ -33,6 +33,9 @@ function clearDatatable(done) {
     } else {
         $('.dataTable').DataTable().destroy();
     }
+
+    $('#content').html('');
+	$('#content').nextAll().remove();
 }
 
 function testDatatable() {
