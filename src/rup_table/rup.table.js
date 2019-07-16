@@ -527,6 +527,7 @@
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
 			if(ctx.oInit.$filterForm[0] !== undefined){
+                debugger;
 				data.filter = form2object(ctx.oInit.$filterForm[0]);
 			}
 			data.multiselection = undefined;
