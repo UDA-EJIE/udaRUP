@@ -346,7 +346,7 @@ function _createSearchRow (dt,ctx){
 
         $('#'+idTabla).wrapAll($searchForm);
 
-		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
+		ctx.seeker.search.$searchForm = $('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
         ctx.seeker.search.pos = 0;
         ctx.seeker.search.accion = '';
