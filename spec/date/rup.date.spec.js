@@ -14,29 +14,19 @@ function disableDays(date) {
     return [(day != unavailableDay), ""];
 }
 
-$.when(testDate('es'))
-    .then(() => {
-        testDate('eu');
-    })
-    .catch((a,b,c)=>{
-        console.error('Error en la ejecución del test de fecha');
-    });
+testDate('es');
+testDate('eu');
 
 function langStr(lang) {
     return '[' + lang + '] ';
 }
 
 function testDate(lang) {
-    var defer = new $.Deferred();
     describe('Test Date > ', () => {
         var $date, $altDate, $multiDate;
 
         beforeAll((done) => {
             testutils.loadCss(done);
-        });
-
-        afterAll(() => {
-            defer.resolve();
         });
 
         beforeEach(() => {
