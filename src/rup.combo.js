@@ -633,7 +633,6 @@ el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 					var data = this._getParentsValues(settings.parent, true),
 						rupCombo = this;
 					if (data === null) {
-						settings.ultimaLlamada = '';
 						return false;
 					} //Se para la petición porque algún padre no tiene el dato cargado
 					var labelBlank = this._getBlankLabel(settings.id);
