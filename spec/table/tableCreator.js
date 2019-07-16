@@ -126,62 +126,64 @@ export function createDatatable1(ctx, callback) {
 
     var defaults = {
         urlBase: "http://localhost:8081/demo/table/remote",
-            colModel: [
-                {
-                    name: "id",
-                    index: "id",
-                    editable: true,
-                    width: 80,
-                    formoptions: {
-                        rowpos: 1,
-                        colpos: 1
-                    }
-                }, {
-                    name: "nombre",
-                    index: "nombre",
-                    editable: true,
-                    formoptions: {
-                        rowpos: 2,
-                        colpos: 1
-                    }
-                }, {
-                    name: "apellidos",
-                    index: "apellidos",
-                    editable: true,
-                    formoptions: {
-                        rowpos: 3,
-                        colpos: 1
-                    },
-                    classes: "ui-ellipsis"
-                }, {
-                    name: "edad",
-                    index: "edad",
-                    editable: true,
-                    formoptions: {
-                        rowpos: 4,
-                        colpos: 1
-                    }
-                }
-            ],
+        colModel: [{
+            name: "id",
+            index: "id",
+            editable: true,
+            width: 80,
+            formoptions: {
+                rowpos: 1,
+                colpos: 1
+            }
+        }, {
+            name: "nombre",
+            index: "nombre",
+            editable: true,
+            formoptions: {
+                rowpos: 2,
+                colpos: 1
+            }
+        }, {
+            name: "apellidos",
+            index: "apellidos",
+            editable: true,
+            formoptions: {
+                rowpos: 3,
+                colpos: 1
+            },
+            classes: "ui-ellipsis"
+        }, {
+            name: "edad",
+            index: "edad",
+            editable: true,
+            formoptions: {
+                rowpos: 4,
+                colpos: 1
+            }
+        }],
         initComplete: function () {
-            console.info('=========== DatatableInit');
+            // console.info('=========== DatatableInit');
             setTimeout(function () {
                 callback();
             }, 300);
+        },
+        selector: 'td',
+        filter: {
+            id: 'example_filter_form',
+            filterToolbar: 'example_filter_toolbar',
+            collapsableLayerId: 'example_filter_fieldset'
+        },
+        formEdit: {
+            detailForm: '#example_detail_div',
+            titleForm: 'Modificar registro',
+            saveContinueEdit: false
+        },
+        seeker: {
+            activate: true
+        },
+        colReorder: {
+            fixedColumnsLeft: 1
         }
-        , selector : 'td'
-        , filter:{
-            id:'example_filter_form'
-            ,filterToolbar:'example_filter_toolbar'
-            ,collapsableLayerId:'example_filter_fieldset'
-        }
-        ,formEdit:{
-            detailForm:'#example_detail_div'
-            ,titleForm:'Modificar registro'
-            ,saveContinueEdit:false
-        }
-        ,seeker:{activate:true}
-        ,colReorder:{fixedColumnsLeft:1}
         // ,columnDefs:[
         //     {targets:[4]}
         //     // ,{name:'Nombre',targets:'Nombre'}
@@ -193,22 +195,22 @@ export function createDatatable1(ctx, callback) {
     if ($('#content').length == 0) {
         $('body').append('<div id="content" class="container"></div>');
     }
-    
+
     var html = generateHtml(idDatatable);
     $('#content').append(html);
-    if(ctx < 0) {
-        var foot = '<tfoot>'
-                        + '<tr>'
-                            + '<th>Id</th>'
-                            + '<th>Nombre</th>'
-                            + '<th>Apellidos</th>'
-                            + '<th>Edad</th>'
-                        + '</tr>'
-                    + '</tfoot>';
+    if (ctx < 0) {
+        var foot = '<tfoot>' +
+            '<tr>' +
+            '<th>Id</th>' +
+            '<th>Nombre</th>' +
+            '<th>Apellidos</th>' +
+            '<th>Edad</th>' +
+            '</tr>' +
+            '</tfoot>';
         $('#example').append(foot);
-        
-    } 
-    $('#' + idDatatable).rup_table(opts)
+
+    }
+    $('#' + idDatatable).rup_table(opts);
 
 }
 

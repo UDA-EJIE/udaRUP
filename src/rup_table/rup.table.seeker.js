@@ -502,7 +502,7 @@ function _processData(dt,ctx,data){
 */
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
-	if(datos !== undefined){
+	if (datos !== undefined && $(ctx.seeker.search.$searchForm.selector)[0]!== undefined) {
 		datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
 	}
 	return datos;
