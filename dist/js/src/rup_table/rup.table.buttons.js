@@ -3303,11 +3303,11 @@ var _initContextMenu = function(ctx,api){
 				}
 			})
 		).done(function () {
-			var tableTrSelector = '#' + ctx.sTableId + ' > tbody > tr';
+            var tableTrSelector = '#' + ctx.sTableId + ' > tbody > tr';
 			var tableTr = $(tableTrSelector);
 			if(!jQuery.isEmptyObject(items)){
 				tableTr.rup_contextMenu({
-					selector: tableTrSelector,
+                    selector: tableTrSelector,
 					callback: function(key, options) {
 						var selector = items[key];
 						// Recogemos el id de la accion pulsada en el context menu

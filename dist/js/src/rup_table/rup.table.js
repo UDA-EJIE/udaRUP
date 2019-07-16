@@ -383,7 +383,7 @@
 			*
 		  */
 		_getColumns(options) {
-			$self = this;
+			var $self = this;
 			//Se crea la columna del select.
 			if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
@@ -714,10 +714,10 @@
 				filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.filterSummary');
 				toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.filter.toggleIcon2');
 
-				$toggleIcon1 = $(jQuery.jgrid.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
-				$toggleLabel = $(jQuery.jgrid.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
-				$filterSummary = $(jQuery.jgrid.format(filterSummaryTmpl, filterSettings.filterSummaryId));
-				$toggleIcon2 = $(jQuery.jgrid.format(toggleIcon2Tmpl, filterSettings.toggleIcon2Id));
+				$toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
+				$toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
+				$filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterSettings.filterSummaryId));
+				$toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterSettings.toggleIcon2Id));
 
 				filterSettings.$filterToolbar.append($toggleIcon1).append($toggleLabel).append($filterSummary).append($toggleIcon2);
 
