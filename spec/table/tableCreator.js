@@ -167,7 +167,9 @@ export function createDatatable1(ctx, callback) {
                 callback();
             }, 300);
         },
-        selector: 'td',
+        buttons : {
+            activate:    true
+        },
         filter: {
             id: 'example_filter_form',
             filterToolbar: 'example_filter_toolbar',
