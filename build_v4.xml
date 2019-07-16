@@ -106,13 +106,12 @@
 		<delete file="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar" />
         
         <echo>Generando ${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar ...</echo>
 		<jar destfile="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rss/**, com/ejie/x38/rup/**,  com/ejie/x38/cache/**" />
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rup/**,  com/ejie/x38/cache/**" />
 			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
 			<manifest>
 		      	<attribute name="Main-Class" value=""/>
@@ -135,17 +134,6 @@
 		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar ...</echo>
 		<jar destfile="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar">
 			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/pif/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-rss-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/rss/** LICENSE.txt NOTICE.txt" />
 			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
 			<manifest>
 		      	<attribute name="Main-Class" value=""/>

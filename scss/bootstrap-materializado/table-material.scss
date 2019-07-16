@@ -1,4 +1,4 @@
-/* REDONDEAMOS EL LOS BORDES DE LA TABLA */
+/* REDONDEAMOS LOS BORDES DE LA TABLA */
 table.table-material {
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
@@ -8,7 +8,11 @@ table.table-material {
 			background-color: $primary-color-light;
 		}
 		
-		> tr > th {
+		tr {
+			background-color: $whitish-grey-color-light;
+		}
+		
+		tr > th {
 			border: none;
 			border-bottom: 1px solid $whitish-grey-color;
 		
@@ -36,6 +40,7 @@ table.table-material {
 	> tfoot {
 		tr > th {
 			border: none;
+			background-color: $white-color;
 		}
 		
 		th:hover {
@@ -49,9 +54,4 @@ table.table-material {
 		vertical-align: middle;
 		font-size: 1.35rem;
 	}
-}
-
-form + div.paginationContainer {
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
 }

@@ -177,7 +177,8 @@ a.dt-button:focus:not(.disabled) {
 }
 
 div.dt-buttons {
-    position: relative
+    position: relative;
+    border-radius: 5px;
 }
 
 div.dt-buttons.buttons-right {
@@ -324,9 +325,6 @@ div.dt-button-background {
 @media screen and (max-width: 640px) {
     div.dt-buttons {
         text-align: center
-    }
-    .align-right {
-        float: none !important;
     }
 }
 

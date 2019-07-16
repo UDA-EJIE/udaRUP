@@ -84,7 +84,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.copyButton');
 		},
 		id: idTable+'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'buttons-copyButton',
+		className: 'btn-material-primary-low-emphasis buttons-copyButton',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'copyButton',
@@ -109,7 +109,7 @@ var Buttons = function( dt, config )
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.excelButton');
 			},
 			id: idTable+'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'buttons-copyButton',
+			className: 'btn-material-primary-low-emphasis buttons-copyButton',
 			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'excelButton',
@@ -132,7 +132,7 @@ var Buttons = function( dt, config )
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.pdfButton');
 			},
 			id: idTable+'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'buttons-copyButton',
+			className: 'btn-material-primary-low-emphasis buttons-copyButton',
 			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'pdfButton',
@@ -155,7 +155,7 @@ var Buttons = function( dt, config )
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.odsButton');
 			},
 			id: idTable+'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'buttons-copyButton',
+			className: 'btn-material-primary-low-emphasis buttons-copyButton',
 			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'odsButton',
@@ -178,7 +178,7 @@ var Buttons = function( dt, config )
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.csvButton');
 			},
 			id: idTable+'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'buttons-copyButton',
+			className: 'btn-material-primary-low-emphasis buttons-copyButton',
 			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'csvButton',
@@ -201,7 +201,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
 		},
 		id: idTable+'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'table_toolbar_btnAdd',
+		className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd',
 		displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'add',
@@ -220,7 +220,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
 		},
 		id: idTable+'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'table_toolbar_btnEdit',
+		className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'edit',
@@ -239,7 +239,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
 		},
 		id: idTable+'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'table_toolbar_btnClone',
+		className: 'btn-material-primary-high-emphasis table_toolbar_btnClone',
 		displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'clone',
@@ -258,7 +258,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
 		},
 		id: idTable+'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'table_toolbar_btnDelete',
+		className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 		type: 'delete',
@@ -296,7 +296,7 @@ var Buttons = function( dt, config )
 			return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
 		},
 		id: idTable+'informes_01',
-		className: 'align-right',
+		className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
 		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 		autoClose: true,
 		type: 'reports',
@@ -1616,7 +1616,7 @@ Buttons.defaults = {
 	dom: {
 		container: {
 			tag: 'div',
-			className: 'dt-buttons'
+			className: 'dt-buttons row'
 		},
 		collection: {
 			tag: 'div',
@@ -1624,7 +1624,7 @@ Buttons.defaults = {
 		},
 		button: {
 			tag: 'button',
-			className: 'btn-material btn-material-primary-high-emphasis',
+			className: 'col-12 col-sm-auto btn-material',
 			active: 'active',
 			disabled: 'disabledButtonsTable'
 		},
@@ -1659,7 +1659,10 @@ $.extend( _dtButtons, {
 		action: function ( e, dt, button, config ) {
 			var host = button;
 			var collectionParent = $(button).parents('div.dt-button-collection');
-			var hostPosition = host.position();
+			var hostPosition = { 
+					top: host.position().top + parseInt(host.css('marginTop'), 10), 
+					left: host.position().left + parseInt(host.css('marginLeft'), 10) 
+			};
 			var tableContainer = $( dt.table().container() );
 			var multiLevel = false;
 			var insertPoint = host;
@@ -1724,7 +1727,14 @@ $.extend( _dtButtons, {
 			}
 
 			if ( config.background ) {
-				Buttons.background( true, config.backgroundClassName, config.fade );
+				// Si la tabla se encuentra en un dialogo insertamos el background dentro del dialogo
+				if($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
+					$('div.rup-dialog #' + dt.context[0].sTableId + '_wrapper').append('<div class="dt-button-background"/>');
+				} 
+				// Si no usamos el funcionamiento por defecto
+				else{
+					Buttons.background( true, config.backgroundClassName, config.fade );
+				}
 			}
 
 			// Need to break the 'thread' for the collection button being
@@ -1747,13 +1757,39 @@ $.extend( _dtButtons, {
 							} );
 
 						$('div.dt-button-background').off( 'click.dtb-collection' );
-						Buttons.background( false, config.backgroundClassName, config.fade );
+						
+						// Si la tabla se encuentra en un dialogo eliminamos el background de dentro del dialogo
+						if($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
+							$('div.dt-button-background').remove();
+						} 
+						// Si no usamos el funcionamiento por defecto
+						else{
+							Buttons.background( false, config.backgroundClassName, config.fade );
+						}
 
 						$('body').off( 'click.dtb-collection' );
 						dt.off( 'buttons-action.b-internal' );
 					}
 				} );
 			}, 10 );
+			
+			// Como el boton se posiciona de manera absoluta hay que establecerle la posicion
+			// cada vez que se cambia el tamaño de la pantalla.
+			$(window).on("resize.ajustarCollection",(function() {
+				if(!$('div.dt-button-collection').is(':visible')) {
+					$(window).off("resize.ajustarCollection");
+				} else{
+					hostPosition = { 
+				    	top: host.position().top + parseInt(host.css('marginTop'), 10), 
+						left: host.position().left + parseInt(host.css('marginLeft'), 10) 
+					};
+					
+					config._collection.css( {
+						top: hostPosition.top + host.outerHeight(),
+						left: hostPosition.left
+					} );
+				}
+			} ));
 
 			if ( config.autoClose ) {
 				dt.on( 'buttons-action.b-internal', function () {
@@ -2201,7 +2237,7 @@ DataTable.Api.register( 'buttons.disableAllButtons()', function (ctx,exception) 
 	$.each(opts, function () {
 		if(exception === undefined){
 			$(this.node).addClass('disabledButtonsTable');//para el toolbar
-			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledButtonsTable');//para el contexmenu
+			$('#'+this.node.id+'_contextMenuToolbar').addClass('disabledButtonsTable');//para el contextmenu
 		}else if(this.node.id !== exception){//ponemos los regex a cero menos la excepcion
 			this.conf.displayRegex = undefined;
 		}
@@ -3424,7 +3460,12 @@ function inicio(ctx) {
 			
 		}
 	}
-	new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	if($('#'+ctx.sTableId+'_filter_form').length > 0){
+		new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_filter_form'));
+	}else{
+		new Buttons( api, defaultButtons ).container().insertBefore($('#'+ctx.sTableId+'_wrapper'));
+	}
+	
 	var opts = ctx._buttons[0].inst.s.buttons;
 	DataTable.Api().buttons.initButtons(ctx,opts);
 	_initContextMenu(ctx,api);

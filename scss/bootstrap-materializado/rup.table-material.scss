@@ -1,0 +1,153 @@
+/* AJUSTE DE MARGENES EN LA BOTONERA */
+div.dt-buttons .btn-material {
+	margin: 0.25rem;
+}
+
+/* FORMULARIO DE FILTRADO */
+div.formulario_legend {
+	border-radius: 5px;
+	
+	&.formulario_opened {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		
+		+ fieldset.rup-table-filter-fieldset {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+	}
+}
+
+/* SE CAMBIAN LOS ICONOS DEL REORDENAMIENTO */
+table.dataTable thead {
+	.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled,.sorting_desc_disabled {
+		background-image: none;
+		
+		span.mdi {
+			font-size: 1.2rem;
+		}
+	}
+	
+	.sorting {	
+		span.mdi-arrow-up {
+			color: $grey-color-very-light;
+		}
+		
+		span.mdi-arrow-down {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_asc {	
+		span.mdi-arrow-up {
+			color: $primary-color;
+		}
+		
+		span.mdi-arrow-down {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc {	
+		span.mdi-arrow-up {
+			color: $grey-color-very-light;
+		}
+		
+		span.mdi-arrow-down {
+			color: $primary-color;
+		}
+	}
+	
+	.sorting_asc_disabled {	
+		span.mdi-arrow-up {
+			color: $grey-color-ultra-light;
+		}
+		
+		span.mdi-arrow-down {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc_disabled {	
+		span.mdi-arrow-up {
+			color: $grey-color-very-light;
+		}
+		
+		span.mdi-arrow-down {
+			color: $grey-color-ultra-light;
+		}
+	}
+}
+/*table.dataTable thead {
+	.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled,.sorting_desc_disabled {
+		background-image: none;
+		
+		&:before, &:after {
+			font: normal normal normal 1.5rem/1 "Material Design Icons";
+			float: right;
+		}
+		
+		&:before {
+			content: "\f05d";
+		}
+		
+		&:after {
+			content: "\f045";
+		}
+	}
+	
+	.sorting {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_asc {	
+		&:before {
+			color: $primary-color;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $primary-color;
+		}
+	}
+	
+	.sorting_asc_disabled {	
+		&:before {
+			color: $grey-color-ultra-light;
+		}
+		
+		&:after {
+			color: $grey-color-very-light;
+		}
+	}
+	
+	.sorting_desc_disabled {	
+		&:before {
+			color: $grey-color-very-light;
+		}
+		
+		&:after {
+			color: $grey-color-ultra-light;
+		}
+	}
+}*/
+
+form + div.paginationContainer {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+}

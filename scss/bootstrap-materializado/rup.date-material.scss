@@ -1,9 +1,9 @@
 /* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
 div.rup-date-input-group-material { 
 	input:not([type="checkbox"]):not([type="radio"]) {
+		display: inline-block;
 		width: calc(100% - 26px);
 		padding-left: 13px;
-		display: inline-block;
 		border-right-style: hidden;
 		color: $grey-color;
 		

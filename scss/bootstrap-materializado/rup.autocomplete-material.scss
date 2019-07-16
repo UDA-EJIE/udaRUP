@@ -56,6 +56,8 @@
 			display: inline-block;
 			width: calc(100% - 22.4px);
 			border-right-style: hidden;
+			border-top-right-radius: unset;
+			border-bottom-right-radius: unset;
 			
 			&:hover:enabled ~ a {
 				border-color: $black-color;
@@ -90,6 +92,11 @@
 		
 		~ i.mdi.error {
 			right: 32px;
+		}
+	}
+	&.rup-validate-field-error .rup-combobox {
+		input:not([type="checkbox"]):not([type="radio"]):focus:enabled {
+			border-right-style: hidden;
 		}
 	}
 }

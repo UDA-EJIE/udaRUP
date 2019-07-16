@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter', '../core/utils/form2object'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
 	} else {
 
 		// Browser globals
@@ -527,7 +527,6 @@
 			data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
 			//El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
 			if(ctx.oInit.$filterForm[0] !== undefined){
-                debugger;
 				data.filter = form2object(ctx.oInit.$filterForm[0]);
 			}
 			data.multiselection = undefined;
