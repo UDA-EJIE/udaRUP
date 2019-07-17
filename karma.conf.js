@@ -10,28 +10,23 @@ createBackendServer(8081);
 
 module.exports = function (config) {
     config.set({
-        // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
-        //frameworks: ['jasmine'],
         coverageReporter: {
             reporters: [{
-                    type: 'html',
-                    subdir: 'html'
-                },
-                {
-                    type: 'lcovonly',
-                    subdir: '.'
-                },
+                type: 'html',
+                subdir: 'html'
+            },
+            {
+                type: 'lcovonly',
+                subdir: '.'
+            },
             ],
         },
         preprocessors: {
             'test.webpack.js': ['webpack', 'sourcemap'],
         },
         reporters: ['progress', 'spec', 'coverage', 'html'],
-        // htmlReporter configuration
         htmlReporter: {
             outputDir: 'spec', // where to put the reports 
             templatePath: null, // set if you moved jasmine_template.html
@@ -47,24 +42,24 @@ module.exports = function (config) {
         },
         // list of files / patterns to load in the browser
         files: [{
-                pattern: 'spec/helpers/rup.config.js'
-            },
-            {
-                pattern: 'i18n/*.json',
-                watched: false,
-                included: false,
-                served: true,
-                nocache: false
-            },
-            {
-                pattern: 'demo/x21a/resources/*.json',
-                watched: true,
-                served: true,
-                included: false
-            },
-            {
-                pattern: 'test.webpack.js'
-            },
+            pattern: 'spec/rup.config.js'
+        },
+        {
+            pattern: 'i18n/*.json',
+            watched: false,
+            included: false,
+            served: true,
+            nocache: false
+        },
+        {
+            pattern: 'demo/x21a/resources/*.json',
+            watched: true,
+            served: true,
+            included: false
+        },
+        {
+            pattern: 'test.webpack.js'
+        },
         ],
         proxies: {
             '/audit': 'http://localhost:8081/audit',
@@ -73,7 +68,9 @@ module.exports = function (config) {
             '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
             '/images': 'http://localhost:8081/dist/css/images',
             '/x21aAppWar/': '/',
-            '/x21aAppWar/patrones/': '/'
+            '/x21aAppWar/patrones/': '/',
+            '/externals/icons/': '/dist/externals/icons',
+            '/x21aResponsive/patrones/externals/icons/': '/dist/externals/icons'
         },
 
         // list of files to exclude
@@ -101,66 +98,66 @@ module.exports = function (config) {
             devtool: 'inline-source-map',
             module: {
                 rules: [{
-                        test: require.resolve("jquery-migrate"),
-                        use: "imports-loader?define=>false",
-                    }, {
-                        test: /spec\.js$/,
-                        enforce: 'pre',
-                        exclude: /(bower_components|node_modules)/,
-                        include: path.resolve(__dirname, 'spec'),
-                        loader: 'babel-loader',
-                        query: {
-                            cacheDirectory: true,
-                        },
+                    test: require.resolve('jquery-migrate'),
+                    use: 'imports-loader?define=>false',
+                }, {
+                    test: /spec\.js$/,
+                    enforce: 'pre',
+                    exclude: /(bower_components|node_modules)/,
+                    include: path.resolve(__dirname, 'spec'),
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
                     },
-                    {
-                        test: /\.json$/,
-                        enforce: 'pre',
-                        exclude: /(bower_components|node_modules)/,
-                        include: path.resolve(__dirname, 'spec'),
-                        loader: 'babel-loader',
-                        query: {
-                            cacheDirectory: true,
-                        },
+                },
+                {
+                    test: /\.json$/,
+                    enforce: 'pre',
+                    exclude: /(bower_components|node_modules)/,
+                    include: path.resolve(__dirname, 'spec'),
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
                     },
-                    {
-                        test: /\.js?$/,
-                        include: /src/,
-                        enforce: 'pre',
-                        exclude: /(node_modules|bower_components|spec)/,
-                        loader: 'babel-loader',
-                        query: {
-                            cacheDirectory: true,
-                        },
+                },
+                {
+                    test: /\.js?$/,
+                    include: /src/,
+                    enforce: 'pre',
+                    exclude: /(node_modules|bower_components|spec)/,
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
                     },
-                    {
-                        test: /spec\.js$/,
-                        include: path.resolve(__dirname, 'spec'),
-                        exclude: /(bower_components|node_modules|__tests__)/,
-                        loader: 'babel-loader',
-                        query: {
-                            cacheDirectory: true,
-                        },
-                    }, {
-                        test: /\.js?$/,
-                        enforce: 'pre',
-                        include: path.resolve(__dirname, 'spec/common'),
-                        loader: 'babel-loader',
-                        query: {
-                            cacheDirectory: true,
-                        },
-                    }, {
-                        test: /\.(html)\??.*$/,
-                        use: {
-                            loader: 'file-loader',
-                            options: {
-                                limit: 1024,
-                                name: '[name].[ext]',
-                                publicPath: '/rup/html/templates/rup_calendar/',
-                                outputPath: 'rup/html/templates/rup_calendar/'
-                            }
-                        },
-                    }
+                },
+                {
+                    test: /spec\.js$/,
+                    include: path.resolve(__dirname, 'spec'),
+                    exclude: /(bower_components|node_modules|__tests__)/,
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
+                    },
+                }, {
+                    test: /\.js?$/,
+                    enforce: 'pre',
+                    include: path.resolve(__dirname, 'spec/common'),
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
+                    },
+                }, {
+                    test: /\.(html)\??.*$/,
+                    use: {
+                        loader: 'file-loader',
+                        options: {
+                            limit: 1024,
+                            name: '[name].[ext]',
+                            publicPath: '/rup/html/templates/rup_calendar/',
+                            outputPath: 'rup/html/templates/rup_calendar/'
+                        }
+                    },
+                }
                 ],
             },
             resolve: {
@@ -224,7 +221,6 @@ module.exports = function (config) {
             },
         },
 
-
         // web server port
         port: 9877,
 
@@ -233,19 +229,15 @@ module.exports = function (config) {
         // enable / disable colors in the output (reporters and logs)
         colors: true,
 
-
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
-
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
 
-
         // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS', 'Chrome', 'ChromeHeadless'],
+        browsers: ['ChromeHeadless'],
         browserDisconnectTolerance: 8,
         browserNoActivityTimeout: 6000000,
         browserDisconnectTimeout: 2000000,

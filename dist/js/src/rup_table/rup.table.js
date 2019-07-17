@@ -27,7 +27,7 @@
 	if ( typeof define === 'function' && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter'], factory );
+		define( ['jquery','./rup.table.request','datatables.net-bs4','./rup.table.responsive','./rup.table.multiSelect','./rup.table.seeker','./rup.table.inlineEdit','./rup.table.editForm','./rup.table.buttons','./rup.table.colReorder','./rup.table.select','./rup.table.rowGroup','./rup.table.masterDetail','./rup.table.multiFilter', '../core/utils/form2object'], factory );
 	} else {
 
 		// Browser globals
