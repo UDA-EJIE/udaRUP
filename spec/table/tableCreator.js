@@ -1,4 +1,4 @@
-/* jslint multistr: true */
+/* eslint multistr: 0 */
 
 import 'jquery';
 
@@ -112,23 +112,22 @@ export function createDatatable1(ctx, callback) {
         idDatatable = 'example';
         $.extend(opts, true, {
             multiSelect: {
-                style: "multi"
+                style: 'multi'
             }
         });
     } else {
         idDatatable = 'example1';
         $.extend(opts, true, {
             multiSelect: {
-                style: "simple"
+                style: 'simple'
             }
         });
     }
-
     var defaults = {
-        urlBase: "http://localhost:8081/demo/table/remote",
+        urlBase: '/demo/table/remote',
         colModel: [{
-            name: "id",
-            index: "id",
+            name: 'id',
+            index: 'id',
             editable: true,
             width: 80,
             formoptions: {
@@ -136,25 +135,25 @@ export function createDatatable1(ctx, callback) {
                 colpos: 1
             }
         }, {
-            name: "nombre",
-            index: "nombre",
+            name: 'nombre',
+            index: 'nombre',
             editable: true,
             formoptions: {
                 rowpos: 2,
                 colpos: 1
             }
         }, {
-            name: "apellidos",
-            index: "apellidos",
+            name: 'apellidos',
+            index: 'apellidos',
             editable: true,
             formoptions: {
                 rowpos: 3,
                 colpos: 1
             },
-            classes: "ui-ellipsis"
+            classes: 'ui-ellipsis'
         }, {
-            name: "edad",
-            index: "edad",
+            name: 'edad',
+            index: 'edad',
             editable: true,
             formoptions: {
                 rowpos: 4,
@@ -220,9 +219,9 @@ export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
         multiSelect: {
-            style: "multi"
+            style: 'multi'
         },
-        urlBase: "http://localhost:8081/demo/table/remote",
+        urlBase: '/demo/table/remote',
         // serverSide: true,
         // deferLoading: 15,
         pageLength: 5,
@@ -231,12 +230,12 @@ export function createDatatable2(callback) {
             header: true
         },
         filter: {
-            id: idDatatable + "_filter_form",
-            filterToolbar: idDatatable + "_filter_toolbar",
-            collapsableLayerId: idDatatable + "_filter_fieldset"
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: "#" + idDatatable + "_detail_div",
+            detailForm: '#' + idDatatable + '_detail_div',
             validate: {
                 rules: {
                     nombre: {
@@ -253,15 +252,15 @@ export function createDatatable2(callback) {
                     }
                 }
             },
-            titleForm: "Modificar registro"
+            titleForm: 'Modificar registro'
         },
         buttons: {
-            "activate": true
+            'activate': true
         },
         seeker: {
             colModel: [{
-                name: "id",
-                index: "id",
+                name: 'id',
+                index: 'id',
                 editable: true,
                 width: 80,
                 formoptions: {
@@ -269,25 +268,25 @@ export function createDatatable2(callback) {
                     colpos: 1
                 }
             }, {
-                name: "nombre",
-                index: "nombre",
+                name: 'nombre',
+                index: 'nombre',
                 editable: true,
                 formoptions: {
                     rowpos: 2,
                     colpos: 1
                 }
             }, {
-                name: "apellidos",
-                index: "apellidos",
+                name: 'apellidos',
+                index: 'apellidos',
                 editable: true,
                 formoptions: {
                     rowpos: 3,
                     colpos: 1
                 },
-                classes: "ui-ellipsis"
+                classes: 'ui-ellipsis'
             }, {
-                name: "edad",
-                index: "edad",
+                name: 'edad',
+                index: 'edad',
                 editable: true,
                 formoptions: {
                     rowpos: 4,

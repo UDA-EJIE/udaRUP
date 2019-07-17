@@ -124,13 +124,18 @@ function testDatatable() {
                     });
 
                     describe('Item delete > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
+                            $('#example').on('tableEditFormAfterDelete', () => {
+                                done();
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            $('.ui-dialog-buttonset > button.ui-widget:contains(Aceptar)').click();
+                            debugger;
+                            $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 
                         it('Debe eliminar la línea:', () => {
+                            debugger;
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });

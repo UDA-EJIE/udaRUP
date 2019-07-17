@@ -69,8 +69,8 @@ module.exports = function (config) {
             '/images': 'http://localhost:8081/dist/css/images',
             '/x21aAppWar/': '/',
             '/x21aAppWar/patrones/': '/',
-            '/externals/icons/': '/dist/externals/icons',
-            '/x21aResponsive/patrones/externals/icons/': '/dist/externals/icons'
+            '/externals/icons/': '/dist/css/externals/icons',
+            '/x21aResponsive/patrones/externals/icons/': '/dist/css/externals/icons'
         },
 
         // list of files to exclude
