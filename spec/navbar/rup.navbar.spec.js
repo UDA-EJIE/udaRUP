@@ -1,3 +1,6 @@
+/* jslint multistr: true */
+/* eslint-env jasmine, jquery */
+
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
@@ -43,13 +46,11 @@ function createNavBar() {
 
 function navBarTest() {
     describe('Test NavBar > ', () =>{
-        var $navbar;
         beforeAll((done) => {
             testutils.loadCss(done);
         });
         beforeEach(() => {
             createNavBar();
-            $navbar = $('nav');
         });
         afterEach(() => {
             $('#content').html('');

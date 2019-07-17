@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -6,7 +7,7 @@ import 'jasmine-jquery';
 import 'rup.lang';
 
 describe('Test Lang >', () => {
-    var $lang, $lang2;
+    var $lang;
 
     beforeAll((done) => {
         testutils.loadCss(done);

@@ -346,7 +346,7 @@ function _createSearchRow (dt,ctx){
 
         $('#'+idTabla).wrapAll($searchForm);
 
-		ctx.seeker.search.$searchForm = jQuery('#'+idTabla+'_search_searchForm');
+		ctx.seeker.search.$searchForm = $('#'+idTabla+'_search_searchForm');
 		ctx.seeker.search.$searchRow.hide();
         ctx.seeker.search.pos = 0;
         ctx.seeker.search.accion = '';
@@ -502,7 +502,7 @@ function _processData(dt,ctx,data){
 */
 function _getDatos(ctx){
 	var datos = ctx.aBaseJson;
-	if(datos !== undefined){
+	if (datos !== undefined && $(ctx.seeker.search.$searchForm.selector)[0]!== undefined) {
 		datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
 	}
 	return datos;

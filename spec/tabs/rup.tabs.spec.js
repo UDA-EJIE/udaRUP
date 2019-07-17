@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -22,13 +23,13 @@ describe('Test Tabs > ', () => {
         $('#content').append(html);
         var opts = {
             tabs: [{
-                    i18nCaption: 'Tab1',
-                    layer: '#cont1'
-                },
-                {
-                    i18nCaption: 'Tab2',
-                    layer: '#cont2'
-                }
+                i18nCaption: 'Tab1',
+                layer: '#cont1'
+            },
+            {
+                i18nCaption: 'Tab2',
+                layer: '#cont2'
+            }
             ]
         };
         $('#exampleTabs').rup_tabs(opts);
