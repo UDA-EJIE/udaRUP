@@ -23,7 +23,7 @@
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
+		define( ['jquery', '../core/utils/jquery.form', 'datatables.net'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -331,7 +331,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 					accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
 						'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
 						'text':'text/plain','xml':'application/xml, text/xml'},
-					type : 'GET',
+					type : 'PUT',
 					data : [],
 					dataType : 'json',
 					showLoading : false,
@@ -341,7 +341,7 @@ DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idR
 						row = data;
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
-						var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
+						var divErrorFeedback = feed;//idTableDetail.find('#'+feed[0].id + '_ok');
 						if(divErrorFeedback.length === 0){
 							divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
 						}
