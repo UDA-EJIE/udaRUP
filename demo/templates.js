@@ -655,16 +655,16 @@ this["App"]["Templates"]["demo"]["app"]["shared"]["header"]["headerJQueryUITempl
 this["App"]["Templates"]["demo"]["app"]["shared"]["header"]["headerTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<header>\r\n  <div id=\"cabecera\" class=\"cabecera\" >\r\n  	<div style=\"float: left;\" >\r\n  		<img src=\"images/ejie.jpg\"/>\r\n  	</div>\r\n  	<a href=\"/x21aResponsiveWar/\" style=\"float: right;\">\r\n  		<img src=\"images/euskadieus_logo.gif\" alt=\"Euskadi Eus\"/>\r\n  	</a>\r\n  </div>\r\n\r\n</header>\r\n";
 },"useData":true});
+this["App"]["Templates"]["demo"]["app"]["shared"]["language"] = this["App"]["Templates"]["demo"]["app"]["shared"]["language"] || {};
+this["App"]["Templates"]["demo"]["app"]["shared"]["language"]["languageTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
 this["App"]["Templates"]["demo"]["app"]["shared"]["main"] = this["App"]["Templates"]["demo"]["app"]["shared"]["main"] || {};
 this["App"]["Templates"]["demo"]["app"]["shared"]["main"]["mainJQueryUITemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"contenedor\" >\r\n  <!-- Cabecera -->\r\n  <div id=\"header\"></div>\r\n  <!-- Idioma -->\r\n  <div id=\"language\" ></div><br/>\r\n\r\n  <!-- Menu -->\r\n  <div id=\"menu\"></div>\r\n\r\n  <!-- Migas de pan -->\r\n  <div id=\"breadCrumb\"></div><br/>\r\n\r\n  <!-- Contenidos -->\r\n  <div id=\"container\" class=\"content\"></div>\r\n\r\n  <!-- Pie -->\r\n  <div id=\"footer\"></div>\r\n</div>\r\n";
 },"useData":true});
 this["App"]["Templates"]["demo"]["app"]["shared"]["main"]["mainTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"contenedor\" >\r\n  <!-- Cabecera -->\r\n  <div id=\"header\"></div>\r\n  <!-- Idioma -->\r\n  <div id=\"language\" ></div>\r\n\r\n  <!-- Menu -->\r\n  <div id=\"menu\"></div>\r\n  <div id=\"overlay\"></div>\r\n\r\n  <!-- Migas de pan -->\r\n  <div id=\"breadCrumb\" class=\"rup-breadCrumb_root\"></div>\r\n\r\n  <!-- Contenidos -->\r\n  <div id=\"container\" class=\"content\"></div>\r\n\r\n  <!-- Pie -->\r\n  <div id=\"footer\"></div>\r\n</div>\r\n";
-},"useData":true});
-this["App"]["Templates"]["demo"]["app"]["shared"]["language"] = this["App"]["Templates"]["demo"]["app"]["shared"]["language"] || {};
-this["App"]["Templates"]["demo"]["app"]["shared"]["language"]["languageTemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "";
 },"useData":true});
 this["App"]["Templates"]["demo"]["app"]["shared"]["menu"] = this["App"]["Templates"]["demo"]["app"]["shared"]["menu"] || {};
 this["App"]["Templates"]["demo"]["app"]["shared"]["menu"]["menuJQueryUITemplate"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
