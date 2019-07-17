@@ -27,13 +27,7 @@ function clearDatatable(done) {
         }, 500);
     });
 
-    // if ($('.rup-feedback').length > 0) {
-    //     setTimeout(() => {
-    //         $('.dataTable').DataTable().destroy();
-    //     }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
-    // } else {
     $('.dataTable').DataTable().destroy();
-    // }
 
     $('#content').html('');
     $('#content').nextAll().remove();
