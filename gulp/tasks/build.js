@@ -137,7 +137,7 @@ gulp.task('build:resources', function (callback) {
 		.pipe(gulp.dest('./dist/js/test/common'));
 	
 	// Archivos fuentes
-	gulp.src(['./src/*'])
+	gulp.src(['./src/**/*'])
 		.pipe(gulp.dest('./dist/js/src'));
 	
 	callback();
