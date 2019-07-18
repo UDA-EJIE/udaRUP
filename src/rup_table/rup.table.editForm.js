@@ -605,8 +605,11 @@
             ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
         }else{
             //Se cambia el data
-            ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-            // debugger;
+            if(ajaxOptions.data == '') {
+                delete ajaxOptions.data;
+            } else {
+                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+            }
             $.rup_ajax(ajaxOptions);
         }
     }
