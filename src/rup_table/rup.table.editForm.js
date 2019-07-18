@@ -590,9 +590,10 @@
             error : function(xhr) {
                 var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
                 if(divErrorFeedback.length === 0){
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                 }
                 _callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
+                // debugger;
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
             },
             validate:validaciones,
@@ -605,6 +606,7 @@
         }else{
             //Se cambia el data
             ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+            // debugger;
             $.rup_ajax(ajaxOptions);
         }
     }
