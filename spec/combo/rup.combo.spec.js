@@ -1,7 +1,7 @@
 /* jslint multistr: true */
 /* eslint-env jasmine, jquery */
 
-import 'jquery';
+import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'rup.tooltip';
 import 'rup.combo';
@@ -14,16 +14,18 @@ describe('Test Combo > ', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
-        setupCombos();
+    beforeEach((done) => {
+        setupCombos(()=>{
+            $combo = $('#comboSimple');
+            $comboMulti = $('#comboMulti');
+            $comboPadre = $('#comboPadre');
+            $comboHijo = $('#comboHijo');
+            $comboGroup = $('#comboGroup');
+            selectedLiteral = $.rup.i18n.base.rup_combo.multiselect.selectedText;
+            selectedLiteral = selectedLiteral.split('#')[1].trim();
 
-        $combo = $('#comboSimple');
-        $comboMulti = $('#comboMulti');
-        $comboPadre = $('#comboPadre');
-        $comboHijo = $('#comboHijo');
-        $comboGroup = $('#comboGroup');
-        selectedLiteral = $.rup.i18n.base.rup_combo.multiselect.selectedText;
-        selectedLiteral = selectedLiteral.split('#')[1].trim();
+            done();
+        });
     });
 
     afterEach(() => {
@@ -845,7 +847,7 @@ describe('Test Combo > ', () => {
     });
 });
 
-function setupCombos() {
+function setupCombos(done) {
     let html = '<select id="comboSimple"></select>\
 		<select id="comboMulti"></select>\
 		<select id="comboPadre"></select>\
@@ -966,13 +968,12 @@ function setupCombos() {
         blank: '0',
         selected: '2.1'
     };
-
+    
     $('#comboSimple').rup_combo(optionsSimple);
     $('#comboMulti').rup_combo(optionsMulti);
     $('#comboPadre').rup_combo(optionsPadre);
     $('#comboHijo').rup_combo(optionsHijo);
     $('#comboGroup').rup_combo(optionsGroup);
-
 
     //Mete automaticamente randomClass asi que lo quitamos
     $('#comboSimple').removeClass('randomClass');
@@ -980,4 +981,6 @@ function setupCombos() {
     $('#comboPadre').removeClass('randomClass');
     $('#comboHijo').removeClass('randomClass');
     $('#comboGroup').removeClass('randomClass');
+    
+    setTimeout(done, 100);
 }
