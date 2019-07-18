@@ -27,13 +27,7 @@ function clearDatatable(done) {
         }, 500);
     });
 
-    if ($('.rup-feedback').length > 0) {
-        setTimeout(() => {
-            $('.dataTable').DataTable().destroy();
-        }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
-    } else {
-        $('.dataTable').DataTable().destroy();
-    }
+    $('.dataTable').DataTable().destroy();
 
     $('#content').html('');
     $('#content').nextAll().remove();
@@ -130,10 +124,15 @@ function testDatatable() {
                     });
 
                     describe('Item delete > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
+                            $('#example').on('tableEditFormAfterDelete', () => {
+                                $('#example').on('tableFilterSearch',() => {
+                                    done();
+                                });
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            $('.ui-dialog-buttonset > button.ui-widget:contains(Aceptar)').click();
+                            $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 
                         it('Debe eliminar la línea:', () => {
