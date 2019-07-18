@@ -587,7 +587,7 @@
             complete : function() {
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
             },
-            error : function(xhr, ajaxOptions,thrownError) {
+            error : function(xhr) {
                 var divErrorFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
                 if(divErrorFeedback.length === 0){
                     divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)

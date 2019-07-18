@@ -1,4 +1,5 @@
 /* eslint multistr: 0 */
+/* eslint-env jquery */
 
 import 'jquery';
 
