@@ -1,3 +1,4 @@
+/* eslint-env es6*/
 /**
   * Genera un table
   *
@@ -474,7 +475,7 @@
                     ret.recordsFiltered = json.records;
                     ret.data = json.rows;
 
-		     		var table = $('#'+options.id).DataTable();
+	         		var table = $('#'+options.id).DataTable();
                     var ctx = table.context[0];
 
                     var settings = ctx.oInit;
@@ -522,7 +523,6 @@
 			*
 		  */
         _ajaxRequestData(data, ctx) {
-
             //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
             data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
@@ -531,7 +531,8 @@
             }
             data.multiselection = undefined;
             if(ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0){
-                data.multiselection = ctx.multiselection;
+                data.multiselection = $.rup_utils.deepCopy(ctx.multiselection,4);
+                data.multiselection.internalFeedback[0] = {};
             }
             if(ctx.seeker !== undefined && ctx.seeker.search !== undefined 
 					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
@@ -541,18 +542,15 @@
                     data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
                 });
             }
+            
             var tableRequest = new TableRequest(data);
             var json = $.extend({}, data, tableRequest.getData());
 
             json.core.pkNames = ctx.oInit.primaryKey;
 
             ctx.aBaseJson = json;
-            //Se evitan errores cíclicos en el multiselect
-            json.multiselection && (json.multiselection.internalFeedback[0] = null);
-            json.multiselection && json.multiselection.internalFeedback.prevObject && (json.multiselection.internalFeedback.prevObject[0] = null);
+            
             return JSON.stringify(json);
-
-
         },
 
         /**
