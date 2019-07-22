@@ -1473,7 +1473,6 @@
 .r01gContainer .ui-jqgrid .ui-jqgrid-htable th div {
   overflow: hidden;
   position: relative;
-  height: 17px;
 }
 
 .r01gContainer .ui-th-column,
@@ -5475,9 +5474,9 @@
   margin-left: 0.3em;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-left: 0.3em solid transparent;
+  border-top: 0.3em solid !important;
+  border-right: 0.3em solid transparent !important;
+  border-left: 0.3em solid transparent !important;
 }
 
 .r01gContainer .rup-navbar .dropdown-toggle:focus {
@@ -24018,6 +24017,7 @@
   margin: 1rem 0;
   /* ESTILOS DE LOS INPUTS */
   /* ESTILOS DE LOS LABELS */
+  /* Añade un asterisco al label de los campos obligatorios */
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]) {
@@ -24082,6 +24082,10 @@
   padding: 0 5px;
   background-color: #FFFFFF;
   background-image: none;
+}
+
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+  content: " *";
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
@@ -25282,6 +25286,7 @@
   border-top-left-radius: 0;
   box-sizing: border-box;
   outline: none;
+  position: absolute;
 }
 
 .r01gContainer div.rup-date-input-group-material button i.mdi,
@@ -31503,7 +31508,7 @@
 }
 
 .r01gContainer .event {
-  display: block;
+  display: inline-block;
   background-color: #c3c3c3;
   width: 12px;
   height: 12px;

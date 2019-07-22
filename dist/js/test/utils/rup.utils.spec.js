@@ -48,7 +48,7 @@ describe('RUP Utils Tests', function(){
             jsonObj = {'propA':'valueA', 'propB':{'propBA':'valueBA'}};
             expectedObj = [];
             expectedObj.propA = 'valueA';
-            expectedObj.propB.propBA = 'valueBA';
+            expectedObj['propB.propBA'] = 'valueBA';
 
             arrObj = $.rup_utils.jsontoarray(jsonObj);
             expect(arrObj).toEqual(expectedObj);
