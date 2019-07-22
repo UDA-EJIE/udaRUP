@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 var unavailableDay = 0;
@@ -6,7 +7,7 @@ var unavailableDay = 0;
 //Funcion de complementaria para el test del método refresh
 function disableDays(date) {
     var day = date.getDay();
-    return [(day != unavailableDay), ""];
+    return [(day != unavailableDay), ''];
 }
 
 testDate('es');
@@ -465,7 +466,7 @@ function testDate(lang) {
                             $date.rup_date('setDate');
                         }
                         unavailableDay = 3;
-                        $date.rup_date("refresh");
+                        $date.rup_date('refresh');
                     });
                     it(langStr(lang) + 'comprobamos que los miércoles se hayan deshabilitado:', () => {
                         $('#ui-datepicker-div > table > tbody > tr')
