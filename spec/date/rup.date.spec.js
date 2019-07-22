@@ -30,7 +30,7 @@ function testDate(lang) {
             testutils.loadCss(done);
         });
 
-        beforeEach(() => {
+        beforeEach((done) => {
             var html = '<input id="exampleDate"></input>\
                         <input id="altDate"></input>\
                         <input id="multiDate"></input>\
@@ -65,16 +65,20 @@ function testDate(lang) {
                 beforeShowDay: disableDays
             };
 
-            $.rup.setLiterals(lang);
+            $.rup.setLiterals(lang).then(()=>{
+                $('#exampleDate').rup_date(props);
+                $('#altDate').rup_date(altProps);
+                $('#multiDate').rup_date(multiProps);
+                $.rup_date(fromToProps);
+                $date = $('#exampleDate');
+                $altDate = $('#altDate');
+                $multiDate = $('#multiDate');
 
-            $('#exampleDate').rup_date(props);
-            $('#altDate').rup_date(altProps);
-            $('#multiDate').rup_date(multiProps);
-            $.rup_date(fromToProps);
-            $date = $('#exampleDate');
-            $altDate = $('#altDate');
-            $multiDate = $('#multiDate');
+                done();
+            });
+
         });
+        
         afterEach(() => {
             $('.hasDatepicker').each((i,e)=>{
                 $(e).rup_date('destroy');
@@ -83,9 +87,11 @@ function testDate(lang) {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
+
         afterAll(() => {
             $.rup.setLiterals('es');
         });
+
         describe('Creación > ', () => {
             describe('Date normal > ', () => {
                 beforeEach(() => {
@@ -165,7 +171,7 @@ function testDate(lang) {
                             $altDate.rup_date('setRupValue', '08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            $('#altDate').rup_date('setRupValue', '2018/10/08 00:00');
+                            $altDate.rup_date('setRupValue', '2018/10/08 00:00');
                         }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
@@ -173,7 +179,7 @@ function testDate(lang) {
                             expect($altDate.rup_date('getRupValue')).toBe('08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/10/08 00:00');
+                            expect($altDate.rup_date('getRupValue')).toBe('2018/10/08 00:00');
                         }
                     });
                 });
