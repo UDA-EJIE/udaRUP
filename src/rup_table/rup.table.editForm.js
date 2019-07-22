@@ -576,13 +576,25 @@
                         DataTable.Api().select.deselect(ctx);
                         _callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
                     }
-                    $('#' + ctx.sTableId).trigger('tableEditFormAfterDelete');
-				
+
+                    $('#' + ctx.sTableId).on('tableEditFormInternalFeedbackClose', function() {
+                        $('#' + ctx.sTableId).off('tableEditFormInternalFeedbackClose');
+                        $('#' + ctx.sTableId).trigger('tableEditFormAfterDelete');
+                    });				
                 }
                 // Recargar datos
                 //primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
-                dt.ajax.reload(undefined,false);
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+                if(url === '/deleteAll' || actionType === 'DELETE') {
+                    $('#' + ctx.sTableId).on('tableEditFormAfterDelete', function () {
+                        dt.ajax.reload(function () {
+                            $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+                        },false);
+                    });
+                } else {
+                    dt.ajax.reload(function () {
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+                    },false);
+                }
             },
             complete : function() {
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');

@@ -125,18 +125,19 @@ function testDatatable() {
 
                     describe('Item delete > ', () => {
                         beforeEach((done) => {
-                            $('#example').on('tableEditFormAfterDelete', () => {
-                                // $('#example').on('tableFilterSearch', () => {
-                                //     done();
-                                // });
-                                $('#example').DataTable().ajax.reload(done);
+                            $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 700);
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
+                            debugger;
                             $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 
                         it('Debe eliminar la línea:', () => {
+                            debugger;
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });
