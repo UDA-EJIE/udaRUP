@@ -830,7 +830,38 @@
 			return _format.replace(/\{(\d+)\}/g, function(m, i) {
 				return args[i];
 			});
-		}
+        }
+        , deepCopy: function (obj, deep) {
+            var deepCont = 0;
+            var objBox =[];
+            var fnc = function(obj) {
+                var objtmp;
+                if(obj instanceof Array) {
+                    objtmp = [];
+                } else {
+                    objtmp = {};
+                }
+                Object.keys(obj).forEach(function(e) {
+                    if(['string','number','boolean', 'function'].includes(typeof obj[e])) {
+                        objtmp[e] = obj[e];
+                    } else {
+                        if(!objBox.includes(obj[e]) && deepCont <= deep){
+                            objBox.push(obj[e]);
+                            deepCont++;
+                            objtmp[e] = $.rup_utils.deepCopy(obj[e]);
+                        } else {
+                            if(deepCont > deep) {
+                                objtmp[e] = obj[e];
+                            } else {
+                                objtmp[e] = '__ciclico__';
+                            }
+                        }
+                    }
+                });
+                return objtmp;
+            };
+            return fnc(obj);
+        }
 
 
 

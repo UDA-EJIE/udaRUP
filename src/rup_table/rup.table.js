@@ -232,7 +232,7 @@
                 return id;
             } );
 		
-            /**
+        /**
 		* Método que gestiona el bloqueo de la edición de las claves primarias.
 		*
 		* @name blockPKEdit
@@ -475,10 +475,10 @@
                     ret.recordsFiltered = json.records;
                     ret.data = json.rows;
 
-	         		var table = $('#'+options.id).DataTable();
-                    var ctx = table.context[0];
+		     		// var table = $('#'+options.id).DataTable();
+                    var ctx = $('#'+options.id).rup_table('getContext');
 
-                    var settings = ctx.oInit;
+                    var settings = options;
                     if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
                         DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
                     }

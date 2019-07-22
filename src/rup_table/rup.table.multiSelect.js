@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /**
   * Módulo que permite toda la multiseleción
   *
@@ -644,8 +645,10 @@ handler that will select the items using the API methods.
                 feedback.rup_feedback({message:feedback.msgFeedBack,type:"ok",block:false});
                 //Aseguramos que el estilo es correcto.
                 setTimeout(function(){
-                    feedback.rup_feedback('destroy');
-                    feedback.css('width','100%');
+                    if(feedback.hasClass('rup-feedback')) {
+                        feedback.rup_feedback('destroy');
+                        feedback.css('width','100%');
+                    }
                     $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
                 }, confDelay);
                 feedback.type = '';

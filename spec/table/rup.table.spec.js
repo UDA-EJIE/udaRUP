@@ -126,9 +126,10 @@ function testDatatable() {
                     describe('Item delete > ', () => {
                         beforeEach((done) => {
                             $('#example').on('tableEditFormAfterDelete', () => {
-                                $('#example').on('tableFilterSearch',() => {
-                                    done();
-                                });
+                                // $('#example').on('tableFilterSearch', () => {
+                                //     done();
+                                // });
+                                $('#example').DataTable().ajax.reload(done);
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();

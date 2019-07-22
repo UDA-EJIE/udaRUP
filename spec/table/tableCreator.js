@@ -162,7 +162,6 @@ export function createDatatable1(ctx, callback) {
             }
         }],
         initComplete: function () {
-            // console.info('=========== DatatableInit');
             setTimeout(function () {
                 callback();
             }, 300);
