@@ -68,6 +68,11 @@
 		background-image: none;
 	}
 	
+	/* Añade un asterisco al label de los campos obligatorios */
+	input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+		content: " *";
+	}
+	
 	input:not([type="checkbox"]):not([type="radio"]):read-only {
 		background-color: $readonly-background-color;
 		
