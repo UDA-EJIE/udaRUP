@@ -570,11 +570,11 @@
                 }else{// Eliminar
                     ctx.multiselection.internalFeedback.type = 'eliminar';
                     ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
-
-                    $('#' + ctx.sTableId).on('rupTable_editFormDelete', function() {
-                        $('#' + ctx.sTableId).trigger('tableEditFormAfterDelete');
-                    });	
-
+                    $('#' + ctx.sTableId).on('rupTable_editFormDelete', function () {
+                        dt.ajax.reload(function () {
+                            $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+                        },false);
+                    });
                     if(ctx.oInit.multiSelect !== undefined){
                         $('#' + ctx.sTableId).on('rupTable_deselectAll', function() {
                             $('#' + ctx.sTableId).trigger('rupTable_editFormDelete');
@@ -590,13 +590,7 @@
                 }
                 // Recargar datos
                 //primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
-                if(url === '/deleteAll' || actionType === 'DELETE') {
-                    $('#' + ctx.sTableId).on('tableEditFormAfterDelete', function () {
-                        dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
-                        },false);
-                    });
-                } else {
+                if(url !== '/deleteAll' && actionType !== 'DELETE') {
                     dt.ajax.reload(function () {
                         $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
                     },false);
