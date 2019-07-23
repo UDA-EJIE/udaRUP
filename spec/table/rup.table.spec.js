@@ -126,31 +126,44 @@ function testDatatable() {
                     describe('Item delete > ', () => {
                         beforeEach((done) => {
                             $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
-                                debugger;
                                 done();
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            debugger;
                             $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 
                         it('Debe eliminar la línea:', () => {
-                            debugger;
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });
 
                     describe('Item copy > ', () => {
-                        beforeEach(() => {
-                            $('#content').append('<textarea rows="5" cols="100" id="testutilInput"></textarea>');
+                        beforeEach((done) => {
+                            document.copied = '';
+                            document.exC = document.execCommand;
+                            document.execCommand = (param) => {
+                                if(param === 'copy') {
+                                    document.copied = window.getSelection().toString();
+                                    return true;
+                                } else {
+                                    document.exC(param);
+                                }
+                            };
+                            $('#example').on('rupTable_confirmMsgOpen', () => {
+                                $('#example').on('rupTable_copied', () => {
+                                    done();
+                                });
+                                $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
-                            $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
                         });
-
+                        afterEach(() => {
+                            document.execCommand = document.exC;
+                        });
                         it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-                            expect($('#table_buttons_info textarea').val()).toBe('id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n');
+                            expect(document.copied).toBe('id;nombre;apellidos;edad\n2;Pedro;Allende Zabala;9\n');
                         });
                     });
                 });

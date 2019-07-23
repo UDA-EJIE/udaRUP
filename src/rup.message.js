@@ -30,45 +30,45 @@
 /*global jQuery */
 
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd) {
 
-		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base'], factory);
-	} else {
+        // AMD. Register as an anonymous module.
+        define(['jquery', './rup.base'], factory);
+    } else {
 
-		// Browser globals
-		factory(jQuery);
-	}
+        // Browser globals
+        factory(jQuery);
+    }
 }(function ($) {
 
-	//*****************************************************************************************************************
-	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-	//*****************************************************************************************************************
+    //*****************************************************************************************************************
+    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+    //*****************************************************************************************************************
 
-	var rup_messages = {};
+    var rup_messages = {};
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupObjectConstructor('rup_messages', rup_messages));
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupObjectConstructor('rup_messages', rup_messages));
 
-	window.alert = function (text) {
-		$.rup_messages('msgAlert', {
-			title: $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'),
-			message: text
-		});
-	};
+    window.alert = function (text) {
+        $.rup_messages('msgAlert', {
+            title: $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'),
+            message: text
+        });
+    };
 
-	//********************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//********************************
+    //********************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //********************************
 
-	/**
+    /**
      * Función a ejecutar justo antes de que se cierre la ventana.
      *
      * @callback jQuery.rup_messages~beforeCloseCallback
      * @param {Object} event - Objeto Event de jQuery.
      */
 
-	/**
+    /**
      * Función a ejecutar cuando el usuario pulsa el botón de Aceptar.
      *
      * @callback jQuery.rup_messages~OKFunctionCallback
@@ -76,7 +76,7 @@
      * @param {Object} ui - Objeto de tipo jQueryUi Dialog.
      */
 
-	/**
+    /**
      * Función a ejecutar cuando el usuario pulsa el enlace de Cancelar.
      *
      * @callback jQuery.rup_messages~CANCELFunctionCallback
@@ -84,8 +84,8 @@
      * @param {Object} ui - Objeto de tipo jQueryUi Dialog
      */
 
-	$.rup_messages('extend', {
-		/**
+    $.rup_messages('extend', {
+        /**
          * Muestra un mensaje de error.
          *
          * @function  msgError
@@ -101,48 +101,48 @@
          *      message: "<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>"
          * });
          */
-		msgError: function (properties) {
-			//Se recogen y cruzan las paremetrizaciones del objeto
-			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
-				docHeight, docWidth,
-				focused = $(document.activeElement);
-			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError'));
+        msgError: function (properties) {
+            //Se recogen y cruzan las paremetrizaciones del objeto
+            var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
+                docHeight, docWidth,
+                focused = $(document.activeElement);
+            this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError'));
 
-			settings._close = settings.close;
-			settings.close = function (event, ui) {
-				focused.focus();
-				if (settings._close !== undefined) {
-					$this._destroy(self);
-				}
-			};
+            settings._close = settings.close;
+            settings.close = function (event, ui) {
+                focused.focus();
+                if (settings._close !== undefined) {
+                    $this._destroy(self);
+                }
+            };
 
-			//parámetros específicos de tipo de mensaje
-			settings.buttons = [{
-				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
-				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('error'),
-				click: function () {
-					$this._destroy(self);
-				}
-			}];
+            //parámetros específicos de tipo de mensaje
+            settings.buttons = [{
+                text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+                class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('error'),
+                click: function () {
+                    $this._destroy(self);
+                }
+            }];
 
-			var self = this._createDiv().appendTo('body');
-			self.dialog(settings);
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
-			this._createCloseLink(self);
-			this._addStyles(self, 'error', settings.message);
-			docHeight = $(document).height();
-			docWidth = $(document).width();
-			self.dialog('open');
-			this._dialogInPortal(docWidth, docHeight, self, settings);
+            var self = this._createDiv().appendTo('body');
+            self.dialog(settings);
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
+            this._createCloseLink(self);
+            this._addStyles(self, 'error', settings.message);
+            docHeight = $(document).height();
+            docWidth = $(document).width();
+            self.dialog('open');
+            this._dialogInPortal(docWidth, docHeight, self, settings);
 			
-			// Limpieza del componente
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            // Limpieza del componente
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_message', 'init');
-		},
-		/**
+            //Se audita el componente
+            $.rup.auditComponent('rup_message', 'init');
+        },
+        /**
          * Muestra un mensaje de confirmación.
          *
          * @function  msgConfirm
@@ -165,56 +165,56 @@
          *      CANCELFunction : cancelClicked
          * });
          */
-		msgConfirm: function (properties) {
-			//Se recogen y cruzan las paremetrizaciones del objeto
-			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
-				docHeight, docWidth,
-				focused = $(document.activeElement);
-			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.confirmacion'));
+        msgConfirm: function (properties) {
+            //Se recogen y cruzan las paremetrizaciones del objeto
+            var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
+                docHeight, docWidth,
+                focused = $(document.activeElement);
+            this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.confirmacion'));
 
-			settings._close = settings.close;
-			settings.close = function (event, ui) {
-				focused.focus();
-				if (settings._close !== undefined) {
-					$this._destroy(self);
-				}
-			};
+            settings._close = settings.close;
+            settings.close = function (event, ui) {
+                focused.focus();
+                if (settings._close !== undefined) {
+                    $this._destroy(self);
+                }
+            };
 
-			var self = this._createDiv().appendTo('body'),
-				acceptButton;
-			self.dialog(settings);
-			self.data('uiDialog').uiDialog.addClass('rup-message rup-message-confirm');
+            var self = this._createDiv().appendTo('body'),
+                acceptButton;
+            self.dialog(settings);
+            self.data('uiDialog').uiDialog.addClass('rup-message rup-message-confirm');
 
-			//parámetros específicos de tipo de mensaje
-			acceptButton = [{
-				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
-				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('confirm'),
-				click: function () {
-					$this._destroy(self);
-					settings.OKFunction.call(this, self);
-				}
-			}];
-			self.dialog('option', 'buttons', acceptButton);
+            //parámetros específicos de tipo de mensaje
+            acceptButton = [{
+                text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+                class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('confirm'),
+                click: function () {
+                    $this._destroy(self);
+                    settings.OKFunction.call(this, self);
+                }
+            }];
+            self.dialog('option', 'buttons', acceptButton);
 
-			this._createCloseLink(self);
-			this._addStyles(self, 'confirm', settings.message);
-			this._createLinkButton(self, settings.CANCELFunction);
-			docHeight = $(document).height();
-			docWidth = $(document).width();
-			self.dialog('open');
-			this._dialogInPortal(docWidth, docHeight, self, settings);
+            this._createCloseLink(self);
+            this._addStyles(self, 'confirm', settings.message);
+            this._createLinkButton(self, settings.CANCELFunction);
+            docHeight = $(document).height();
+            docWidth = $(document).width();
+            self.dialog('open');
+            this._dialogInPortal(docWidth, docHeight, self, settings);
 			
-			// Limpieza del componente
-			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            // Limpieza del componente
+            self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+            self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
-			//Le ponemos el foco al botón aceptar en vez de al enlace
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:last').focus();
+            //Le ponemos el foco al botón aceptar en vez de al enlace
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:last').focus();
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_message', 'init');
-		},
-		/**
+            //Se audita el componente
+            $.rup.auditComponent('rup_message', 'init');
+        },
+        /**
          * Muestra un mensaje de aviso.
          *
          * @function  msgOK
@@ -229,49 +229,49 @@
          *      message: "Todo ha ido OK."
          * });
          */
-		msgOK: function (properties) {
-			//Se recogen y cruzan las paremetrizaciones del objeto
-			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
-				docHeight, docWidth,
-				focused = $(document.activeElement);
-			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.correct'));
+        msgOK: function (properties) {
+            //Se recogen y cruzan las paremetrizaciones del objeto
+            var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
+                docHeight, docWidth,
+                focused = $(document.activeElement);
+            this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.correct'));
 
-			settings._close = settings.close;
-			settings.close = function (event, ui) {
-				focused.focus();
-				if (settings._close !== undefined) {
-					$this._destroy(self);
-				}
-			};
+            settings._close = settings.close;
+            settings.close = function (event, ui) {
+                focused.focus();
+                if (settings._close !== undefined) {
+                    $this._destroy(self);
+                }
+            };
 
-			//parámetros específicos de tipo de mensaje
-			settings.buttons = [{
-				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
-				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('ok'),
-				click: function () {
-					$this._destroy(self);
-				}
-			}];
+            //parámetros específicos de tipo de mensaje
+            settings.buttons = [{
+                text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+                class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('ok'),
+                click: function () {
+                    $this._destroy(self);
+                }
+            }];
 
-			var self = this._createDiv().appendTo('body');
-			self.dialog(settings);
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
+            var self = this._createDiv().appendTo('body');
+            self.dialog(settings);
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
 
-			this._createCloseLink(self);
-			this._addStyles(self, 'ok', settings.message);
-			docHeight = $(document).height();
-			docWidth = $(document).width();
-			self.dialog('open');
-			this._dialogInPortal(docWidth, docHeight, self, settings);
+            this._createCloseLink(self);
+            this._addStyles(self, 'ok', settings.message);
+            docHeight = $(document).height();
+            docWidth = $(document).width();
+            self.dialog('open');
+            this._dialogInPortal(docWidth, docHeight, self, settings);
 			
-			// Limpieza del componente
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            // Limpieza del componente
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_message', 'init');
-		},
-		/**
+            //Se audita el componente
+            $.rup.auditComponent('rup_message', 'init');
+        },
+        /**
          * Muestra un mensaje de alerta.
          *
          * @function  msgAlert
@@ -286,82 +286,82 @@
          *      message: "Esto es una alerta."
          * });
          */
-		msgAlert: function (properties) {
-			//Se recogen y cruzan las paremetrizaciones del objeto
-			var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
-				docHeight, docWidth,
-				focused = $(document.activeElement);
-			this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'));
+        msgAlert: function (properties) {
+            //Se recogen y cruzan las paremetrizaciones del objeto
+            var $this = this, settings = $.extend({}, $.rup_messages.defaults, properties),
+                docHeight, docWidth,
+                focused = $(document.activeElement);
+            this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'));
 
-			settings._close = settings.close;
-			settings.close = function (event, ui) {
-				focused.focus();
-				if (settings._close !== undefined) {
-					$this._destroy(self);
-				}
-			};
+            settings._close = settings.close;
+            settings.close = function (event, ui) {
+                focused.focus();
+                if (settings._close !== undefined) {
+                    $this._destroy(self);
+                }
+            };
 
-			//parámetros específicos de tipo de mensaje
-			settings.buttons = [{
-				text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
-				class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('alert'),
-				click: function () {
-					$this._destroy(self);
-				}
-			}];
+            //parámetros específicos de tipo de mensaje
+            settings.buttons = [{
+                text: $.rup.i18nParse($.rup.i18n.base, 'rup_message.aceptar'),
+                class: $.rup.adapter[$.rup_messages.defaults.adapter].classComponent('alert'),
+                click: function () {
+                    $this._destroy(self);
+                }
+            }];
 
-			var self = this._createDiv().appendTo('body');
-			self.dialog(settings);
-			self.data('uiDialog').uiDialog.addClass('rup-message rup-message-alert');
-			this._createCloseLink(self);
-			this._addStyles(self, 'alert', settings.message);
-			docHeight = $(document).height();
-			docWidth = $(document).width();
-			self.dialog('open');
-			this._dialogInPortal(docWidth, docHeight, self, settings);
+            var self = this._createDiv().appendTo('body');
+            self.dialog(settings);
+            self.data('uiDialog').uiDialog.addClass('rup-message rup-message-alert');
+            this._createCloseLink(self);
+            this._addStyles(self, 'alert', settings.message);
+            docHeight = $(document).height();
+            docWidth = $(document).width();
+            self.dialog('open');
+            this._dialogInPortal(docWidth, docHeight, self, settings);
 			
-			// Limpieza del componente
-			self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            // Limpieza del componente
+            self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+            self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_message', 'init');
-		}
-	});
+            //Se audita el componente
+            $.rup.auditComponent('rup_message', 'init');
+        }
+    });
 
-	//********************************
-	// DEFINICIÓN DE MÉTODOS PRIVADOS
-	//********************************
+    //********************************
+    // DEFINICIÓN DE MÉTODOS PRIVADOS
+    //********************************
 
-	$.rup_messages('extend', {
-		_destroy: function(self){
-			self.dialog('destroy').remove();
-		},
-		/**
+    $.rup_messages('extend', {
+        _destroy: function(self){
+            self.dialog('destroy').remove();
+        },
+        /**
          * Crea los divs de los mensajes.
          *
          * @function  _createDiv
          * @private
          */
-		_createDiv: function () {
-			return $('<div/>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true').addClass('row py-4');
-		},
-		/**
+        _createDiv: function () {
+            return $('<div/>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true').addClass('row py-4');
+        },
+        /**
          * Crea los el enlace de cerrar en el título del mensaje de acuerdo a los estándares de accesibilidad.
          *
          * @param {Object} self - Referencia a la propia instancia.
          * @function  _createCloseLink
          * @private
          */
-		_createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
-			self.prev("div")
-				.append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
-				.on('click', 'i.mdi', function (event) {
-					self.dialog('close');
-					return false;
-				});
-		},
-		/**
+        _createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
+            self.prev("div")
+                .append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
+                .on('click', 'i.mdi', function (event) {
+                    self.dialog('close');
+                    return false;
+                });
+        },
+        /**
          * Aplica el estilo correspondiente al tipo de mensaje a mostrar así como el contenido del mensaje en sí.
          *
          * @param {Object} self - Referencia a la propia instancia.
@@ -370,33 +370,33 @@
          * @function  _addStyles
          * @private
          */
-		_addStyles: function (self, css, message) { //Le añade los divs del mensaje a mostrar y el icono correpondiente
-			// Establecemos el icono dependiendo del tipo de mensaje
-			var icon = '';
+        _addStyles: function (self, css, message) { //Le añade los divs del mensaje a mostrar y el icono correpondiente
+            // Establecemos el icono dependiendo del tipo de mensaje
+            var icon = '';
 			
-			switch(css){
-				case 'error':
-					icon = '<i class="mdi mdi-alert-circle" aria-hidden="true"></i>';
-					break;
-				case 'confirm':
-					icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
-					break;
-				case 'ok':
-					icon = '<i class="mdi mdi-check-circle" aria-hidden="true"></i>';
-					break;
-				case 'alert':
-					icon = '<i class="mdi mdi-message-alert" aria-hidden="true"></i>';
-					break;
-				default:
-					icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
-			}
+            switch(css){
+            case 'error':
+                icon = '<i class="mdi mdi-alert-circle" aria-hidden="true"></i>';
+                break;
+            case 'confirm':
+                icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
+                break;
+            case 'ok':
+                icon = '<i class="mdi mdi-check-circle" aria-hidden="true"></i>';
+                break;
+            case 'alert':
+                icon = '<i class="mdi mdi-message-alert" aria-hidden="true"></i>';
+                break;
+            default:
+                icon = '<i class="mdi mdi-alert" aria-hidden="true"></i>';
+            }
 			
-			var divMessageIcon = $('<div>').attr('id', 'rup_msgDIV_msg_icon').addClass('col-2').append(icon),
-				divMessage = $('<div>').attr('id', 'rup_msgDIV_msg').addClass('col-10').html(message);
-			self.append(divMessageIcon);
-			self.append(divMessage);
-		},
-		/**
+            var divMessageIcon = $('<div>').attr('id', 'rup_msgDIV_msg_icon').addClass('col-2').append(icon),
+                divMessage = $('<div>').attr('id', 'rup_msgDIV_msg').addClass('col-10').html(message);
+            self.append(divMessageIcon);
+            self.append(divMessage);
+        },
+        /**
          * Genera un enlace "Cancelar" para el mensaje de tipo confirmación.
          *
          * @param {Object} self - Referencia a la propia instancia.
@@ -405,23 +405,23 @@
          * @function  _createLinkButton
          * @private
          */
-		_createLinkButton: function (self, CANCELFunction) { //Creamos un boton
-			var clickFnc = CANCELFunction,
-				cancelHREF = $('<button></button>')
-					.attr('type', 'button')
-					.attr('id', self[0].id + '_cancel')
-					.addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
-					.html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
-					.click(function (event) {
-						self.dialog('close');
-						if (clickFnc !== undefined) {
-							clickFnc.call(this, self);
-						}
-						return false;
-					});
-			$('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
-		},
-		/**
+        _createLinkButton: function (self, CANCELFunction) { //Creamos un boton
+            var clickFnc = CANCELFunction,
+                cancelHREF = $('<button></button>')
+                    .attr('type', 'button')
+                    .attr('id', self[0].id + '_cancel')
+                    .addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
+                    .html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
+                    .click(function (event) {
+                        self.dialog('close');
+                        if (clickFnc !== undefined) {
+                            clickFnc.call(this, self);
+                        }
+                        return false;
+                    });
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonset ').prepend(cancelHREF);
+        },
+        /**
          * Ajuste en la visualización del mensaje para que se muestre correctamente en aplicaciones integradas en portal.
          *
          * @param {Number} docWidth - Anchura en pixeles del objeto document.
@@ -431,21 +431,21 @@
          * @function  _dialogInPortal
          * @private
          */
-		_dialogInPortal: function (docWidth, docHeight, $self, settings) {
-			var $overlayEl;
+        _dialogInPortal: function (docWidth, docHeight, $self, settings) {
+            var $overlayEl;
 
-			if ($.rup_utils.aplicatioInPortal()) {
-				if ($self.data('uiDialog').overlay !== null) {
-					$overlayEl = $self.data('uiDialog').overlay;
-					$overlayEl.css('height', docHeight).css('width', docWidth);
-					$('.r01gContainer').append($overlayEl).append($self.data('uiDialog').uiDialog);
-				}
-				if (settings.position === undefined || settings.position === null) {
-					$self.data('uiDialog').uiDialog.css('position', 'absolute').css('top', (docHeight / 2) - ($('.ui-dialog:visible').height() / 2));
-				}
-			}
-		},
-		/**
+            if ($.rup_utils.aplicatioInPortal()) {
+                if ($self.data('uiDialog').overlay !== null) {
+                    $overlayEl = $self.data('uiDialog').overlay;
+                    $overlayEl.css('height', docHeight).css('width', docWidth);
+                    $('.r01gContainer').append($overlayEl).append($self.data('uiDialog').uiDialog);
+                }
+                if (settings.position === undefined || settings.position === null) {
+                    $self.data('uiDialog').uiDialog.css('position', 'absolute').css('top', (docHeight / 2) - ($('.ui-dialog:visible').height() / 2));
+                }
+            }
+        },
+        /**
          * Realiza la inicialización de las propiedades utilizadas para configurar correctamente el plugin jQueryUi Dialog. </br></br>
          * La inicialización se realiza sobre las propiedades introducidas por el usuario de modo que se garantiza que la visualización del componente es siempre la adecuada.
          *
@@ -455,22 +455,22 @@
          * @function
          * @private
          */
-		_rupProperties: function (properties, title) {
-			properties.autoOpen = false;
-			properties.modal = true,
-			properties.resizable = false,
-			properties.title = (properties.title === null || properties.title === '' ? title : properties.title);
-			properties.closeText = $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError.cerrar'),
-			properties.close = function () {
-				$(this).remove();
-			};
-		}
-	});
+        _rupProperties: function (properties, title) {
+            properties.autoOpen = false;
+            properties.modal = true,
+            properties.resizable = false,
+            properties.title = (properties.title === null || properties.title === '' ? title : properties.title);
+            properties.closeText = $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError.cerrar'),
+            properties.close = function () {
+                $(this).remove();
+            };
+        }
+    });
 
-	//******************************************************
-	// DEFINICIN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//******************************************************
-	/**
+    //******************************************************
+    // DEFINICIN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //******************************************************
+    /**
      * @description Opciones por defecto de configuración del componente.
      *
      * @name defaults
@@ -478,9 +478,9 @@
      * @property {Number}  [minHeight=100] - Altura mínima con la que se va a mostrar el mensaje.
      * @property {string} adapter - Permite cambiar el aspecto visual del componente.
      */
-	$.rup_messages.defaults = {
-		minHeight: 100,
-		adapter: 'message_material'
-	};
+    $.rup_messages.defaults = {
+        minHeight: 100,
+        adapter: 'message_material'
+    };
 
 }));
