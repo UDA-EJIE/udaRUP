@@ -1929,17 +1929,23 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   right: 0;
   left: auto; }
 
-.rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial !important; }
-
-.rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial !important; }
-
 .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0; }
+
+.rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-center:after {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:after {
+  right: 10%;
+  left: initial !important; }
 
 .rup-navbar .dropdown-header {
   display: block;
@@ -15698,7 +15704,8 @@ fieldset {
   position: relative;
   margin: 1rem 0;
   /* ESTILOS DE LOS INPUTS */
-  /* ESTILOS DE LOS LABELS */ }
+  /* ESTILOS DE LOS LABELS */
+  /* Añade un asterisco al label de los campos obligatorios */ }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]) {
     display: block;
     width: 100%;
@@ -15747,6 +15754,8 @@ fieldset {
     padding: 0 5px;
     background-color: #FFFFFF;
     background-image: none; }
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+    content: " *"; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
     background-color: #e9ecef; }
     .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {

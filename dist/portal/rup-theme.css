@@ -2726,9 +2726,9 @@
   margin-left: 0.3em;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-left: 0.3em solid transparent;
+  border-top: 0.3em solid !important;
+  border-right: 0.3em solid transparent !important;
+  border-left: 0.3em solid transparent !important;
 }
 
 .r01gContainer .rup-navbar .dropdown-toggle:focus {
@@ -2827,19 +2827,27 @@
   left: auto;
 }
 
-.r01gContainer .rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial !important;
-}
-
-.r01gContainer .rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial !important;
-}
-
 .r01gContainer .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50% !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:after {
+  left: 50% !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:after {
+  right: 10%;
+  left: initial !important;
 }
 
 .r01gContainer .rup-navbar .dropdown-header {
@@ -21269,6 +21277,7 @@
   margin: 1rem 0;
   /* ESTILOS DE LOS INPUTS */
   /* ESTILOS DE LOS LABELS */
+  /* Añade un asterisco al label de los campos obligatorios */
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]) {
@@ -21333,6 +21342,10 @@
   padding: 0 5px;
   background-color: #FFFFFF;
   background-image: none;
+}
+
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+  content: " *";
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
@@ -22533,6 +22546,7 @@
   border-top-left-radius: 0;
   box-sizing: border-box;
   outline: none;
+  position: absolute;
 }
 
 .r01gContainer div.rup-date-input-group-material button i.mdi,
