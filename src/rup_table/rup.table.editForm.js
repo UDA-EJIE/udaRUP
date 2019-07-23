@@ -1,3 +1,4 @@
+/* eslint-env jquery,amd */
 /**
   * Módulo que habilita la edicción mediante un formulario.
   *
@@ -23,7 +24,7 @@
 (function( factory ){
     if ( typeof define === 'function' && define.amd ) {
         // AMD
-        define( ['jquery', '../core/utils/jquery.form', 'datatables.net'], function ( $ ) {
+        define( ['jquery', '../core/utils/jquery.form','../rup.form', 'datatables.net'], function ( $ ) {
             return factory( $, window, document );
         } );
     }
@@ -407,7 +408,7 @@
 
         // Se guardan los datos originales
         ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
-        ctx.oInit.formEdit.okCallBack = false
+        ctx.oInit.formEdit.okCallBack = false;
 
 
         button.unbind( "click" );

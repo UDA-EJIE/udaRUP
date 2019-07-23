@@ -118,7 +118,7 @@
         },
         //$("#idTable").rup_table("getContext");
         getContext: function() {
-            var dt = $("#"+this[0].id).DataTable();
+            var dt = $('#'+this[0].id).DataTable();
             return dt.context[0];
         }
     });
