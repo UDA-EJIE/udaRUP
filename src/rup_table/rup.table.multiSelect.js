@@ -1090,7 +1090,7 @@ handler that will select the items using the API methods.
         ctx.multiselection.accion = "uncheckAll";
         $('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
         dt['rows']().deselect();
-
+        $(ctx.sTableId).trigger('rupTable_deselectAll');
     }
 
 

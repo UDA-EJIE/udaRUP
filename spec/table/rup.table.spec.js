@@ -126,13 +126,10 @@ function testDatatable() {
                     describe('Item delete > ', () => {
                         beforeEach((done) => {
                             $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
-                                setTimeout(() => {
-                                    done();
-                                }, 700);
+                                done();
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            debugger;
                             $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 

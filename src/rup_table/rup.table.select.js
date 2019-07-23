@@ -215,7 +215,8 @@ apiRegister( 'select.deselect()', function (ctx ) {
 	$('tr',rowsBody).removeClass('selected tr-highlight');
 	ctx.multiselection.numSelected = 0;
 	ctx.multiselection.selectedIds = [];
-	DataTable.Api().buttons.displayRegex(ctx);
+    DataTable.Api().buttons.displayRegex(ctx);
+    $(ctx.sTableId).trigger('rupTable_deselect');
 } );
 
 apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {
