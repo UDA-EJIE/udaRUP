@@ -80,6 +80,23 @@ var json4 = {
     total: '2',
     records: 15
 };
+var json4Backup = {
+    page: '1',
+    rows: [
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+        { id: '2', nombre: 'Pedro', apellidos: 'Allende Zabala', edad: '9' },
+        { id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' },
+        { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' },
+        { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
+        { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
+        { id: '7', nombre: 'paco', apellidos: 'Allende Chicharro', edad: '20' },
+        { id: '8', nombre: 'Maria', apellidos: 'Gumuzio Ayo', edad: '22' },
+        { id: '9', nombre: 'Ekaitz', apellidos: 'Zabala Pando', edad: '23' },
+        { id: '10', nombre: 'Juaquin', apellidos: 'Camison Dominguez', edad: '15' }
+    ],
+    total: '2',
+    records: 15
+};
 
 var jsonMDInterFilter1 =  {
     page: '1',
@@ -286,5 +303,9 @@ exports.formEdit = (req, res) => {
 exports.delete = (req, res) => {
     json4.rows = json4.rows.filter((e) => { return e.id != req.params.id;});
     json4.records = 5 + json.rows.length;
-    res.status(200).json(json);
+    res.status(200).json(json4);
+};
+exports.deleteEnd = (req,res) => {
+    json4 = json4Backup;
+    res.status(200).json(json4);
 };
