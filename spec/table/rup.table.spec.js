@@ -134,7 +134,6 @@ function testDatatable() {
                         });
 
                         it('Debe eliminar la línea:', () => {
-                            debugger;
                             expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
                         });
                     });

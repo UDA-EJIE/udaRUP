@@ -572,7 +572,7 @@
                     ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
                     var reloadDt = function () {
                         dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
                         },false);
                     };
                     if(ctx.oInit.multiSelect !== undefined){
