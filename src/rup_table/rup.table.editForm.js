@@ -570,19 +570,19 @@
                 }else{// Eliminar
                     ctx.multiselection.internalFeedback.type = 'eliminar';
                     ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
-                    $('#' + ctx.sTableId).on('rupTable_editFormDelete', function () {
+                    var reloadDt = function () {
                         dt.ajax.reload(function () {
                             $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
                         },false);
-                    });
+                    };
                     if(ctx.oInit.multiSelect !== undefined){
                         $('#' + ctx.sTableId).on('rupTable_deselectAll', function() {
-                            $('#' + ctx.sTableId).trigger('rupTable_editFormDelete');
+                            reloadDt();
                         });
                         DataTable.Api().multiSelect.deselectAll(dt);
                     }else if(ctx.oInit.select !== undefined){
-                        ('#' + ctx.sTableId).on('rupTable_deselect', function() {
-                            $('#' + ctx.sTableId).trigger('rupTable_editFormDelete');
+                        $('#' + ctx.sTableId).on('rupTable_deselect', function() {
+                            reloadDt();
                         });
                         DataTable.Api().select.deselect(ctx);
                         _callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
