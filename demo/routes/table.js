@@ -284,7 +284,7 @@ exports.formEdit = (req, res) => {
     res.status(200).json(respuesta);
 };
 exports.delete = (req, res) => {
-    json.rows = json.rows.filter((e) => { return e.id != req.params.id;});
-    json.records = 10 + json.rows.length;
+    json4.rows = json4.rows.filter((e) => { return e.id != req.params.id;});
+    json4.records = 5 + json.rows.length;
     res.status(200).json(json);
 };
