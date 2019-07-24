@@ -186,12 +186,12 @@ function testDatatable() {
                     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
                         beforeEach((done) => {
                             $('#edad_detail_table').val(11);
-                            $('#example').on('tableEditFormCompleteCallSaveAjax', () => {
+                            $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
                                 done();
                             });
                             $('#example_detail_button_save_repeat').click();
                         });
-                        
+
                         it('Se ha actualizado la tabla:', () => {
                             let ctx = $('tbody > tr:eq(0)');
                             expect($('td:eq(4)', ctx).text()).toBe('11');

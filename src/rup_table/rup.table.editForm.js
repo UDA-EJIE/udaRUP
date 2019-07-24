@@ -567,6 +567,10 @@
                         }
                         $('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
                     }
+
+                    dt.ajax.reload(function () {
+                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
+                    },false);
 				
                 }else{// Eliminar
                     ctx.multiselection.internalFeedback.type = 'eliminar';
@@ -588,13 +592,6 @@
                         DataTable.Api().select.deselect(ctx);
                         _callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
                     }	
-                }
-                // Recargar datos
-                //primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
-                if(url !== '/deleteAll' && actionType !== 'DELETE') {
-                    dt.ajax.reload(function () {
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
-                    },false);
                 }
             },
             complete : function() {
