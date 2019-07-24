@@ -297,7 +297,6 @@ exports.formEdit = (req, res) => {
         res.status(406);
         res.send('KABOOM!');
     }
-    console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ' + JSON.stringify(json4.rows[0]));
     json4.rows[0].edad = req.body.edad;
     let respuesta = json4;
     res.status(200).json(respuesta);
