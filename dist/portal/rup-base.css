@@ -4673,7 +4673,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -4713,7 +4713,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -4753,7 +4753,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -4793,7 +4793,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;

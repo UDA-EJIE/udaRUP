@@ -114,7 +114,7 @@ describe('Test BreadCrumb >', () => {
                 });
                 it('El primer hijo debe tener un icono de flecha', () => {
                     expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li > span')
-                        .hasClass('ui-icon rup-icon rup-icon-separator-arrow')).toBeTruthy();
+                        .hasClass('mdi mdi-chevron-right')).toBeTruthy();
                 });
                 it('El segundo hijo debemostrarse como el actual', () => {
                     expect($('#subLeveledBreadCrumb > ul.rup-breadCrumb_main > li')

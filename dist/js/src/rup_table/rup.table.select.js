@@ -21,41 +21,41 @@
   */
 
 (function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net','../rup.contextMenu','../rup.feedback'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
+    if ( typeof define === 'function' && define.amd ) {
+        // AMD
+        define( ['jquery', 'datatables.net','../rup.contextMenu','../rup.feedback'], function ( $ ) {
+            return factory( $, window, document );
+        } );
+    }
+    else if ( typeof exports === 'object' ) {
+        // CommonJS
+        module.exports = function (root, $) {
+            if ( ! root ) {
+                root = window;
+            }
 
-			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net')(root, $).$;
-			}
+            if ( ! $ || ! $.fn.dataTable ) {
+                $ = require('datatables.net')(root, $).$;
+            }
 
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
+            return factory( $, root, root.document );
+        };
+    }
+    else {
+        // Browser
+        factory( jQuery, window, document );
+    }
 }(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
+    'use strict';
+    var DataTable = $.fn.dataTable;
 
 
-// Version information for debugger
-DataTable.select = {};
+    // Version information for debugger
+    DataTable.select = {};
 
-DataTable.select.version = '1.2.4';
+    DataTable.select.version = '1.2.4';
 
-/**
+    /**
 * Se inicializa el componente select
 *
 * @name init
@@ -65,41 +65,41 @@ DataTable.select.version = '1.2.4';
 * @param {object} dt - Es el objeto table.
 *
 */
-DataTable.select.init = function ( dt ) {
-	var ctx = dt.settings()[0];
-	ctx.select = [];
-	var rowsBody = $( ctx.nTBody);
-	//Se edita el row/fila.
-	rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
-		if(!$(e.target).is(':checkbox')){//no hacer nada si el evento es de un checkbox, esta en ediccion
-			if(e.target.className.indexOf("openResponsive") > -1 
+    DataTable.select.init = function ( dt ) {
+        var ctx = dt.settings()[0];
+        ctx.select = [];
+        var rowsBody = $( ctx.nTBody);
+        //Se edita el row/fila.
+        rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
+            if(!$(e.target).is(':checkbox')){//no hacer nada si el evento es de un checkbox, esta en ediccion
+                if(e.target.className.indexOf("openResponsive") > -1 
 					|| $(this).hasClass('editable')){
-				return false;
-			}
-			$(this).triggerHandler('tableSelectBeforeSelectRow');
-			var idRow = this._DT_RowIndex;
+                    return false;
+                }
+                $(this).triggerHandler('tableSelectBeforeSelectRow');
+                var idRow = this._DT_RowIndex;
 			 _selectRowIndex(dt,idRow,$(this));
 			 $(this).triggerHandler('tableSelectAfterSelectRow');
-		}
-	} );
+            }
+        } );
 	
-	//Se genera el div para el feedback del table.
-	var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
-	ctx.multiselection.internalFeedback = divFeedback;
+        //Se genera el div para el feedback del table.
+        var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width','100%');
+        ctx.multiselection.internalFeedback = divFeedback;
 	
 	 if(ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined){
-			$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
-				DataTable.Api().editForm.addchildIcons(ctx);
-			} ) );
+            $(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+                DataTable.Api().editForm.addchildIcons(ctx);
+            } ) );
 	 }
-};
+    };
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Local functions
  */
 
 
-/**
+    /**
  * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
  *
  *
@@ -112,21 +112,21 @@ DataTable.select.init = function ( dt ) {
  *
  * 
  */
-function _drawSelectId(ctx){
+    function _drawSelectId(ctx){
 	
-	if(ctx.multiselection.selectedRowsPerPage.length === 1){
-		var row = ctx.multiselection.selectedRowsPerPage[0];
-		var rowSelectAux = ctx.json.rows[row.line];
+        if(ctx.multiselection.selectedRowsPerPage.length === 1){
+            var row = ctx.multiselection.selectedRowsPerPage[0];
+            var rowSelectAux = ctx.json.rows[row.line];
 
-		if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
-			var rowsBody = $( ctx.nTBody);
-			var line = row.line + 1;
-			$('tr:nth-child('+line+')',rowsBody).addClass('selected tr-highlight');
-		}
-	}
-}
+            if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
+                var rowsBody = $( ctx.nTBody);
+                var line = row.line + 1;
+                $('tr:nth-child('+line+')',rowsBody).addClass('selected tr-highlight');
+            }
+        }
+    }
 
-/**
+    /**
  * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
  *
  *
@@ -139,122 +139,123 @@ function _drawSelectId(ctx){
  *
  * 
  */
-function _selectRowIndex(dt,index,tr){
-	var ctx = dt.settings()[0];
-	ctx.multiselection.selectedRowsPerPage = [];
-	ctx.oInit.select.funcionParams = '';
-	var rowsBody = $( ctx.nTBody);
-	if(tr.hasClass( "tr-highlight" )){//se deselecciona
-		tr.removeClass('selected tr-highlight');
-		if(tr.next('.child').length >= 1){
-			tr.next('.child').removeClass('selected tr-highlight');
-		}
-		ctx.multiselection.numSelected = 0;
-		ctx.multiselection.selectedIds = [];
-		ctx.multiselection.lastSelectedId = '';
-		//Si es en edicion en linea, no hacer nada
-		if(ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx,index)){
-			//Seleccionar la fila otra vez.
-			_selectRowIndex(dt,index,tr);
-		}
-	}else{ //se selecciona
-		$('tr',rowsBody).removeClass('selected tr-highlight');
-		tr.addClass('selected tr-highlight');
-		if(tr.next('.child').length >= 1){
-			tr.next('.child').addClass('selected tr-highlight');
-		}
-		tr.triggerHandler('tableHighlightRowAsSelected');
-		var row = ctx.json.rows[index];
-		if(row !== undefined){
-			var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
-			ctx.multiselection.selectedRowsPerPage.splice(0,0,arra);
-			ctx.multiselection.numSelected = 1;
-			ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
-			ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
-		}
-		// si es en edicion en linea,
-		if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
+    function _selectRowIndex(dt,index,tr){
+        var ctx = dt.settings()[0];
+        ctx.multiselection.selectedRowsPerPage = [];
+        ctx.oInit.select.funcionParams = '';
+        var rowsBody = $( ctx.nTBody);
+        if(tr.hasClass( "tr-highlight" )){//se deselecciona
+            tr.removeClass('selected tr-highlight');
+            if(tr.next('.child').length >= 1){
+                tr.next('.child').removeClass('selected tr-highlight');
+            }
+            ctx.multiselection.numSelected = 0;
+            ctx.multiselection.selectedIds = [];
+            ctx.multiselection.lastSelectedId = '';
+            //Si es en edicion en linea, no hacer nada
+            if(ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx,index)){
+                //Seleccionar la fila otra vez.
+                _selectRowIndex(dt,index,tr);
+            }
+        }else{ //se selecciona
+            $('tr',rowsBody).removeClass('selected tr-highlight');
+            tr.addClass('selected tr-highlight');
+            if(tr.next('.child').length >= 1){
+                tr.next('.child').addClass('selected tr-highlight');
+            }
+            tr.triggerHandler('tableHighlightRowAsSelected');
+            var row = ctx.json.rows[index];
+            if(row !== undefined){
+                var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
+                ctx.multiselection.selectedRowsPerPage.splice(0,0,arra);
+                ctx.multiselection.numSelected = 1;
+                ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
+                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+            }
+            // si es en edicion en linea,
+            if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
 				&& ctx.inlineEdit.lastRow.idx !== index){
-			DataTable.Api().inlineEdit.restaurarFila(ctx, true);
-		}
-	}
-	if(ctx.oInit.buttons !== undefined){
-		DataTable.Api().buttons.displayRegex(ctx);
-	}
-}
+                DataTable.Api().inlineEdit.restaurarFila(ctx, true);
+            }
+        }
+        if(ctx.oInit.buttons !== undefined){
+            DataTable.Api().buttons.displayRegex(ctx);
+        }
+    }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables selectors
  */
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables API
  *
  * For complete documentation, please refer to the docs/api directory or the
  * DataTables site
  */
 
-// Local variables to improve compression
-var apiRegister = DataTable.Api.register;
+    // Local variables to improve compression
+    var apiRegister = DataTable.Api.register;
 
-apiRegister( 'select()', function () {
-	return this.iterator( 'table', function ( ctx ) {
-		DataTable.select.init( new DataTable.Api( ctx ) );
-	} );
-} );
-
-
-apiRegister( 'select.drawSelectId()', function (ctx ) {
-	_drawSelectId(ctx);
-} );
-
-apiRegister( 'select.deselect()', function (ctx ) {
-	var rowsBody = $( ctx.nTBody);
-	$('tr',rowsBody).removeClass('selected tr-highlight');
-	ctx.multiselection.numSelected = 0;
-	ctx.multiselection.selectedIds = [];
-	DataTable.Api().buttons.displayRegex(ctx);
-} );
-
-apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {
-	var ctx = dt.settings()[0];
-	var rowsBody = $( ctx.nTBody);
-	var countTr = index;
-	if(isDoubleClick !== undefined){
-		countTr = countTr+1;
-	}
-	var tr = $('tr:nth-child('+countTr+')',rowsBody);
-	_selectRowIndex(dt,index,tr);
-} );
+    apiRegister( 'select()', function () {
+        return this.iterator( 'table', function ( ctx ) {
+            DataTable.select.init( new DataTable.Api( ctx ) );
+        } );
+    } );
 
 
-// Common events with suitable namespaces
-function namespacedEvents ( config ) {
-	var unique = config._eventNamespace;
+    apiRegister( 'select.drawSelectId()', function (ctx ) {
+        _drawSelectId(ctx);
+    } );
 
-	return 'draw.dt.DT'+unique+' select.dt.DT'+unique+' deselect.dt.DT'+unique;
-}
+    apiRegister( 'select.deselect()', function (ctx ) {
+        var rowsBody = $( ctx.nTBody);
+        $('tr',rowsBody).removeClass('selected tr-highlight');
+        ctx.multiselection.numSelected = 0;
+        ctx.multiselection.selectedIds = [];
+        DataTable.Api().buttons.displayRegex(ctx);
+        $('#' + ctx.sTableId).trigger('rupTable_deselect');
+    } );
+
+    apiRegister( 'select.selectRowIndex()', function (dt,index, isDoubleClick ) {
+        var ctx = dt.settings()[0];
+        var rowsBody = $( ctx.nTBody);
+        var countTr = index;
+        if(isDoubleClick !== undefined){
+            countTr = countTr+1;
+        }
+        var tr = $('tr:nth-child('+countTr+')',rowsBody);
+        _selectRowIndex(dt,index,tr);
+    } );
 
 
-/* * * ** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // Common events with suitable namespaces
+    function namespacedEvents ( config ) {
+        var unique = config._eventNamespace;
+
+        return 'draw.dt.DT'+unique+' select.dt.DT'+unique+' deselect.dt.DT'+unique;
+    }
+
+
+    /* * * ** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Initialisation
  */
 
-// DataTables creation - check if select has been defined in the options. Note
-// this required that the table be in the document! If it isn't then something
-// needs to trigger this method unfortunately. The next major release of
-// DataTables will rework the events and address this.
-$(document).on( 'preInit.dt.dtSelect', function (e, ctx) {
-	if ( e.namespace !== 'dt' ) {
-		return;
-	}
-	if(ctx.oInit.select !== undefined){
-		DataTable.select.init( new DataTable.Api( ctx ) );
-	}
-} );
+    // DataTables creation - check if select has been defined in the options. Note
+    // this required that the table be in the document! If it isn't then something
+    // needs to trigger this method unfortunately. The next major release of
+    // DataTables will rework the events and address this.
+    $(document).on( 'preInit.dt.dtSelect', function (e, ctx) {
+        if ( e.namespace !== 'dt' ) {
+            return;
+        }
+        if(ctx.oInit.select !== undefined){
+            DataTable.select.init( new DataTable.Api( ctx ) );
+        }
+    } );
 
 
-return DataTable.select;
+    return DataTable.select;
 }));

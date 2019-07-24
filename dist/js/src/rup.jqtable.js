@@ -12298,4 +12298,254 @@ function tableToGrid(selector, options) {
 		jQuery(this).width('99%');
 		var w = jQuery(this).width();
 
-		// Text whether we have single o
+		// Text whether we have single or multi select
+		var inputCheckbox = jQuery('tr td:first-child input[type=checkbox]:first', jQuery(this));
+		var inputRadio = jQuery('tr td:first-child input[type=radio]:first', jQuery(this));
+		var selectMultiple = inputCheckbox.length > 0;
+		var selectSingle = !selectMultiple && inputRadio.length > 0;
+		var selectable = selectMultiple || selectSingle;
+		//var inputName = inputCheckbox.attr("name") || inputRadio.attr("name");
+
+		// Build up the columnModel and the data
+		var colModel = [];
+		var colNames = [];
+		jQuery('th', jQuery(this)).each(function() {
+			if (colModel.length === 0 && selectable) {
+				colModel.push({
+					name: '__selection__',
+					index: '__selection__',
+					width: 0,
+					hidden: true
+				});
+				colNames.push('__selection__');
+			} else {
+				colModel.push({
+					name: jQuery(this).attr('id') || jQuery.trim(jQuery.jgrid.stripHtml(jQuery(this).html())).split(' ').join('_'),
+					index: jQuery(this).attr('id') || jQuery.trim(jQuery.jgrid.stripHtml(jQuery(this).html())).split(' ').join('_'),
+					width: jQuery(this).width() || 150
+				});
+				colNames.push(jQuery(this).html());
+			}
+		});
+		var data = [];
+		var rowIds = [];
+		var rowChecked = [];
+		jQuery('tbody > tr', jQuery(this)).each(function() {
+			var row = {};
+			var rowPos = 0;
+			jQuery('td', jQuery(this)).each(function() {
+				if (rowPos === 0 && selectable) {
+					var input = jQuery('input', jQuery(this));
+					var rowId = input.attr('value');
+					rowIds.push(rowId || data.length);
+					if (input.is(':checked')) {
+						rowChecked.push(rowId);
+					}
+					row[colModel[rowPos].name] = input.attr('value');
+				} else {
+					row[colModel[rowPos].name] = jQuery(this).html();
+				}
+				rowPos++;
+			});
+			if(rowPos >0) { data.push(row); }
+		});
+
+		// Clear the original HTML table
+		jQuery(this).empty();
+
+		// Mark it as jqGrid
+		jQuery(this).addClass('scroll');
+
+		jQuery(this).jqGrid(jQuery.extend({
+			datatype: 'local',
+			width: w,
+			colNames: colNames,
+			colModel: colModel,
+			multiselect: selectMultiple
+		//inputName: inputName,
+		//inputValueCol: imputName != null ? "__selection__" : null
+		}, options || {}));
+
+		// Add data
+		var a;
+		for (a = 0; a < data.length; a++) {
+			var id = null;
+			if (rowIds.length > 0) {
+				id = rowIds[a];
+				if (id && id.replace) {
+				// We have to do this since the value of a checkbox
+				// or radio button can be anything
+					id = encodeURIComponent(id).replace(/[.\-%]/g, '_');
+				}
+			}
+			if (id === null) {
+				id = a + 1;
+			}
+			jQuery(this).jqGrid('addRowData',id, data[a]);
+		}
+
+		// Set the selection
+		for (a = 0; a < rowChecked.length; a++) {
+			jQuery(this).jqGrid('setSelection',rowChecked[a]);
+		}
+	});
+
+}
+
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+(function($) {
+  jQuery.jgrid.fluid =
+  {
+    fluidWidth: function(options)
+    {
+      var grid = $(this);
+      var settings = $.extend(
+                        {
+                          fluidBaseLayer: "#gbox_"+grid.attr("id"),
+                          fluidOffset: 0,
+                          minWidth: null,
+                          maxWidth: null
+                        }, options || {});
+      
+      var resizeLayer = function(layer, forceEvent){
+		  var currentWidth = layer.width(), previousWidth = $(layer).data("previousWidth"), evntCurrentWidth = currentWidth;
+		  if (forceEvent===true || (currentWidth != previousWidth)) {
+			  $(layer).data("previousWidth",currentWidth);
+
+			  evntCurrentWidth= (settings.minWidth !==null && currentWidth < settings.minWidth?settings.minWidth:evntCurrentWidth);
+			  evntCurrentWidth= (settings.maxWidth !==null && currentWidth > settings.maxWidth?settings.maxWidth:evntCurrentWidth);
+			  
+			  grid.trigger("fluidWidth.resize",[previousWidth, evntCurrentWidth - settings.fluidOffset]);
+		  }
+	  };
+      
+      // Comprobamos si se esta monitorizando la anchura de la capa
+      if ($(settings.fluidBaseLayer).data("fluidWidth")!==true){
+    	  //Inidicamos que la capa esta siendo monitorizada
+    	  $(settings.fluidBaseLayer).data("fluidWidth", true);
+    	  
+    	  setInterval(function(){
+    		  resizeLayer($(settings.fluidBaseLayer), false);
+    	  }, 100);
+      }
+      
+      resizeLayer($(settings.fluidBaseLayer), true);
+    }
+  };
+})(jQuery);
+
+jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+
+/**
+ * Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
+ *
+ * @summary Componente RUP Table.
+ * @module rup_jqtable
+ * @see El componente está basado en el plugin {@link http://www.trirand.com/blog/|jQuery Grid Plugin – jqGrid}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://www.trirand.com/jqgridwiki/doku.php|aquí}.
+ * @example
+ *
+ * var properties = {
+ *		url: "../tableUrl",
+ *		colNames: [
+ *			"id","nombre","..."]
+ *		],
+ *		colModel: [
+ *			{name: "id", label: "id"},
+ *			{name: "nombre", label: "nombre"},
+ *			{name: "...", label: "..."}
+ *		],
+ *		model:"Usuario",
+ *		usePlugins:[
+ *			"formEdit",
+ *			"feedback",
+ *			"toolbar",
+ *			"contextMenu",
+ *			"fluid",
+ *			"filter",
+ *			"search"
+ *		],
+ *		primaryKey: "id"
+ *	};
+ *
+ * $("#jqtable").rup_jqtable(properties);
+ */
+
+/*global jQuery */
+
+(function ($) {
+
+
+	//*****************************************************************************************************************
+	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+	//*****************************************************************************************************************
+	var rup_jqtable = {};
+	rup_jqtable.plugins = [];
+
+	jQuery.rup_jqtable = jQuery.rup_jqtable || {};
+	jQuery.extend(jQuery.rup_jqtable, {
+		registerPlugin: function (name, settings) {
+			if (jQuery.inArray(name, rup_jqtable.plugins) === -1) {
+				rup_jqtable.plugins.push(name);
+				rup_jqtable.plugins[name] = settings;
+			}
+		}
+	});
+
+	//Se configura el arranque de UDA para que alberge el nuevo patrón
+	jQuery.extend(jQuery.rup.iniRup, jQuery.rup.rupSelectorObjectConstructor('rup_jqtable', rup_jqtable));
+
+	$.fn.fmatter.rup_combo = function (cellval, opts, rwd, act) {
+
+		var labelProp, label, settings;
+
+
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
+
+		// Se añade la info del formatter
+		var formatterObj = {};
+		formatterObj['rup_combo'] = {
+			value: cellval
+		};
+
+		//		formatterObj["rup_combo"] = cellval;
+
+		// Se añade la info de la columna
+		var colFormatter = {};
+		colFormatter[opts.colModel.name] = formatterObj;
+
+		// Se añade el id de la fila
+		var rowObj = {};
+		rowObj[opts.rowId] = colFormatter;
+
+
+
+		if (opts.colModel.f
