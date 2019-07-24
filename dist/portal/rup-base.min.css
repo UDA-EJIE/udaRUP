@@ -1,16 +1,5 @@
 @charset "UTF-8";
 
-/*!
- * jQuery UI CSS Framework 1.12.0
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- *
- * http://api.jqueryui.com/category/theming/
- */
-
 .r01gContainer .ui-button-icon-only,
 .r01gContainer .ui-controlgroup-vertical .ui-controlgroup-item {
   box-sizing: border-box;
@@ -26,6 +15,24 @@
 .r01gContainer a.select-material span:first-child {
   pointer-events: none;
 }
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"),local("Roboto-Regular"),url(fonts/roboto-v19-latin-regular.woff2) format("woff2"),url(fonts/roboto-v19-latin-regular.woff) format("woff"),url(fonts/roboto-v19-latin-regular.ttf) format("truetype");
+}
+
+/*!
+ * jQuery UI CSS Framework 1.12.0
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/theming/
+ */
 
 .r01gContainer .ui-helper-hidden {
   display: none;
@@ -5145,19 +5152,20 @@
   left: auto;
 }
 
-.r01gContainer .rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial!important;
-}
-
-.r01gContainer .rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial!important;
-}
-
 .r01gContainer .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:after,
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50%!important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:after,
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial!important;
 }
 
 .r01gContainer .rup-navbar .dropdown-header {
