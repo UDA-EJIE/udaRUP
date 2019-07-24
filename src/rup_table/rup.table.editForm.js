@@ -524,7 +524,7 @@
                                 return;
                             }
                         });
-                        if(ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search)
+                        if(ctx.seeker !== undefined && ctx.seeker.ajaxOption.data.search.value
 							&& ctx.seeker.search.funcionParams.length > 0){
                             _comprobarSeeker(row,ctx,idRow);
                         }

@@ -123,6 +123,7 @@ export function createDatatable1(ctx, callback) {
             }
         });
     }
+    
     var defaults = {
         urlBase: '/demo/table/remote',
         colModel: [{
@@ -161,9 +162,7 @@ export function createDatatable1(ctx, callback) {
             }
         }],
         initComplete: function () {
-            setTimeout(function () {
-                callback();
-            }, 300);
+            callback();
         },
         buttons : {
             activate:    true
@@ -210,6 +209,7 @@ export function createDatatable1(ctx, callback) {
         $('#example').append(foot);
 
     }
+    
     $('#' + idDatatable).rup_table(opts);
 
 }
