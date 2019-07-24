@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-env jquery,jasmine */
 
 function generateFormEditDatatable(callback) {
     dtGen.createDatatable1(0, callback);
@@ -19,9 +19,6 @@ function clearDatatable(done) {
     });
 
     $('.dataTable').DataTable().destroy();
-
-    $('#content').html('');
-    $('#content').nextAll().remove();
 }
 
 function testDatatable() {
@@ -40,212 +37,236 @@ function testDatatable() {
         });
 
         describe('Funcionamiento > ', () => {
-            describe('Menú contextual > ', () => {
-                beforeEach(() => {
-                    $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
-                });
+            // describe('Menú contextual > ', () => {
+            //     beforeEach(() => {
+            //         $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
+            //     });
                 
-                it('Debe mostrarse el menú contextual:', () => {
-                    expect($('#contextMenu2').is(':visible')).toBeTruthy();
-                });
-
-                it('Debe tener los items esperados y solo el add debe estar habilitado:', () => {
-                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
-                        .toBe(1);
-                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
-                        .toBe(1);
-                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledButtonsTable').length)
-                        .toBe(1);
-                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
-                        .toBe(1);
-                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledButtonsTable').length)
-                        .toBe(1);
-                });
-
-                it('Los items deben ser visibles:', () => {
-                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                });
-
-                describe('Funcionalidades de los items de contextMenu > ', () => {
-                    describe('Item añadir > ', () => {
-                        beforeEach(() => {
-                            $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
-                        });
-
-                        it('Debe aparecer el formulario:', () => {
-                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                        });
-                    });
-
-                    describe('Item editar > ', () => {
-                        beforeEach((done) => {
-                            $('#example_detail_div').on('rupDialog_open', () => {
-                                done();
-                            });
-                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
-                        });
-
-                        it('Debe aparecer el formulario:', () => {
-                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                            expect($('#id_detailForm_table').val()).toBe('1');
-                            expect($('#nombre_detail_table').val()).toBe('Ana');
-                            expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
-                            expect($('#edad_detail_table').val()).toBe('7');
-                        });
-                    });
-
-                    describe('Item clone > ', () => {
-                        beforeEach(() => {
-                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
-                        });
-
-                        it('Debe aparecer el formulario:', () => {
-                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                            expect($('#id_detailForm_table').val()).toBe('1');
-                            expect($('#nombre_detail_table').val()).toBe('Ana');
-                            expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
-                            expect($('#edad_detail_table').val()).toBe('7');
-                        });
-                    });
-
-                    describe('Item delete > ', () => {
-                        beforeEach((done) => {
-                            $('#example').on('tableEditFormAfterDelete', () => {
-                                // $('#example').on('tableFilterSearch', () => {
-                                //     done();
-                                // });
-                                $('#example').DataTable().ajax.reload(done);
-                            });
-                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
-                        });
-
-                        it('Debe eliminar la línea:', () => {
-                            expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
-                        });
-                    });
-
-                    describe('Item copy > ', () => {
-                        beforeEach(() => {
-                            $('#content').append('<textarea rows="5" cols="100" id="testutilInput"></textarea>');
-                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
-                            $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
-                        });
-
-                        it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-                            expect($('#table_buttons_info textarea').val()).toBe('id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n');
-                        });
-                    });
-                });
-            });
-
-            // describe('Edición con formulario > ', () => {
-            //     describe('Edición de elementos existentes > ', () => {
-            //         beforeEach(() => {
-            //             $('tbody > tr > td:contains(2)').dblclick();
-            //         });
-
-            //         it('El formulario debe mostrarse:', () => {
-            //             expect($('#example_detail_div').is(':visible')).toBeTruthy();
-            //         });
-
-            //         describe('Funcionalidad del boton "guardar y continuar" > ', () => {
-            //             beforeEach((done) => {
-            //                 $('#edad_detail_table').val(11);
-            //                 $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-            //                 $('#example_detail_button_save_repeat').click();
-            //             });
-
-            //             it('Se ha actualizado la tabla:', () => {
-            //                 let ctx = $('tbody > tr > td:contains(2)').parent();
-            //                 expect($('td:contains(11)', ctx).length).toBe(1);
-            //             });
-
-            //             it('No ha desaparecido el formulario:', () => {
-            //                 expect($('#example_detail_div').is(':visible')).toBeTruthy();
-            //             });
-            //         });
-
-            //         describe('Funcionalidad del botón "guardar" > ', () => {
-            //             beforeEach((done) => {
-            //                 $('#edad_detail_table').val(11);
-            //                 $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-            //                 $('#example_detail_button_save').click();
-            //             });
-
-            //             it('Se ha actualizado la tabla:', () => {
-            //                 let ctx = $('tbody > tr > td:contains(2)').parent();
-            //                 expect($('td:contains(11)', ctx).length).toBe(1);
-            //             });
-
-            //             it('Ha desaparecido el formulario:', () => {
-            //                 expect($('#example_detail_div').is(':visible')).toBeFalsy();
-            //             });
-            //         });
+            //     it('Debe mostrarse el menú contextual:', () => {
+            //         expect($('#contextMenu2').is(':visible')).toBeTruthy();
             //     });
 
-            //     describe('Añadido de nuevos elementos > ', () => {
-            //         beforeEach(() => {
-            //             $('.table_toolbar_btnAdd').click();
-            //         });
+            //     it('Debe tener los items esperados y solo el add debe estar habilitado:', () => {
+            //         expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
+            //             .toBe(1);
+            //         expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
+            //             .toBe(1);
+            //         expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledButtonsTable').length)
+            //             .toBe(1);
+            //         expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
+            //             .toBe(1);
+            //         expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledButtonsTable').length)
+            //             .toBe(1);
+            //     });
 
-            //         it('El formulario debe mostrarse:', () => {
-            //             expect($('#example_detail_div').is(':visible')).toBeTruthy();
-            //         });
+            //     it('Los items deben ser visibles:', () => {
+            //         expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+            //         expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+            //         expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+            //         expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+            //         expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+            //     });
 
-            //         describe('Funcionalidad del boton "guardar y continuar" > ', () => {
-            //             beforeEach((done) => {
-            //                 $('#id_detailForm_table').val(345);
-            //                 $('#nombre_detail_table').val('name');
-            //                 $('#apellidos_detail_table').val('lastname');
-            //                 $('#edad_detail_table').val(11);
-            //                 $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-            //                 $('#example_detail_button_save_repeat').click();
+            //     describe('Funcionalidades de los items de contextMenu > ', () => {
+            //         describe('Item añadir > ', () => {
+            //             beforeEach(() => {
+            //                 $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
             //             });
 
-            //             it('Se ha actualizado la tabla:', () => {
-            //                 let ctx = $('tbody > tr > td:contains(345)').parent();
-            //                 expect($('td:contains(name)', ctx).length).toBe(2);
-            //                 expect($('td:contains(lastname)', ctx).length).toBe(1);
-            //                 expect($('td:contains(11)', ctx).length).toBe(1);
-            //             });
-
-            //             it('No ha desaparecido el formulario:', () => {
+            //             it('Debe aparecer el formulario:', () => {
             //                 expect($('#example_detail_div').is(':visible')).toBeTruthy();
             //             });
             //         });
 
-            //         describe('Funcionalidad del botón "guardar" > ', () => {
+            //         describe('Item editar > ', () => {
             //             beforeEach((done) => {
-            //                 $('#id_detailForm_table').val(345);
-            //                 $('#nombre_detail_table').val('name');
-            //                 $('#apellidos_detail_table').val('lastname');
-            //                 $('#edad_detail_table').val(11);
-            //                 $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-            //                 $('#example_detail_button_save').click();
+            //                 $('#example_detail_div').on('rupDialog_open', () => {
+            //                     done();
+            //                 });
+            //                 $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+            //                 $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
             //             });
 
-            //             it('Se ha actualizado la tabla:', () => {
-            //                 let ctx = $('tbody > tr > td:contains(345)').parent();
-            //                 expect($('td:contains(name)', ctx).length).toBe(2);
-            //                 expect($('td:contains(lastname)', ctx).length).toBe(1);
-            //                 expect($('td:contains(11)', ctx).length).toBe(1);
+            //             it('Debe aparecer el formulario:', () => {
+            //                 expect($('#example_detail_div').is(':visible')).toBeTruthy();
+            //                 expect($('#id_detailForm_table').val()).toBe('1');
+            //                 expect($('#nombre_detail_table').val()).toBe('Ana');
+            //                 expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
+            //                 expect($('#edad_detail_table').val()).toBe('7');
+            //             });
+            //         });
+
+            //         describe('Item clone > ', () => {
+            //             beforeEach(() => {
+            //                 $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+            //                 $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
             //             });
 
-            //             it('Ha desaparecido el formulario:', () => {
-            //                 expect($('#example_detail_div').is(':visible')).toBeFalsy();
+            //             it('Debe aparecer el formulario:', () => {
+            //                 expect($('#example_detail_div').is(':visible')).toBeTruthy();
+            //                 expect($('#id_detailForm_table').val()).toBe('1');
+            //                 expect($('#nombre_detail_table').val()).toBe('Ana');
+            //                 expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
+            //                 expect($('#edad_detail_table').val()).toBe('7');
+            //             });
+            //         });
+
+            //         describe('Item delete > ', () => {
+            //             beforeEach((done) => {
+            //                 $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+            //                     done();
+            //                 });
+            //                 $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+            //                 $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
+            //                 $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
+            //             });
+
+            //             afterEach(() => {
+            //                 $.ajax('/demo/table/remote/deleteEnd',{
+            //                     type: 'POST'
+            //                     , data : '{"foo":"bar"}'
+            //                 });
+            //             });
+
+            //             it('Debe eliminar la línea:', () => {
+            //                 expect($('#example > tbody > tr:eq(0) > td:eq(1):contains(1)').length).toBe(0);
+            //             });
+            //         });
+
+            //         describe('Item copy > ', () => {
+            //             beforeEach((done) => {
+            //                 document.copied = '';
+            //                 document.exC = document.execCommand;
+            //                 document.execCommand = (param) => {
+            //                     if(param === 'copy') {
+            //                         document.copied = window.getSelection().toString();
+            //                         return true;
+            //                     } else {
+            //                         document.exC(param);
+            //                     }
+            //                 };
+            //                 $('#example').on('rupTable_confirmMsgOpen', () => {
+            //                     $('#example').on('rupTable_copied', () => {
+            //                         done();
+            //                     });
+            //                     $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
+            //                 });
+            //                 $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+            //                 $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
+            //             });
+            //             afterEach(() => {
+            //                 document.execCommand = document.exC;
+            //             });
+            //             it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
+            //                 expect(document.copied).toBe('id;nombre;apellidos;edad\n1;Ana;García Vázquez;7\n');
             //             });
             //         });
             //     });
             // });
+
+            describe('Edición con formulario > ', () => {
+                describe('Edición de elementos existentes > ', () => {
+                    beforeEach(() => {
+                        $('tbody > tr:eq(0) > td:eq(1)').dblclick();
+                    });
+
+                    // it('El formulario debe mostrarse:', () => {
+                    //     expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                    // });
+
+                    // describe('Funcionalidad del boton "guardar y continuar" > ', () => {
+                    //     beforeEach((done) => {
+                    //         $('#edad_detail_table').val(11);
+                    //         $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+                    //             done();
+                    //         });
+                    //         $('#example_detail_button_save_repeat').click();
+                    //     });
+
+                    //     it('Se ha actualizado la tabla:', () => {
+                    //         let ctx = $('tbody > tr:eq(0)');
+                    //         expect($('td:eq(4)', ctx).text()).toBe('11');
+                    //     });
+
+                    //     // it('No ha desaparecido el formulario:', () => {
+                    //     //     expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                    //     // });
+                    // });
+
+                    describe('Funcionalidad del botón "guardar" > ', () => {
+                        beforeEach((done) => {
+                            $('#edad_detail_table').val(11);
+                            $('#example').on('tableEditFormCompleteCallSaveAjax', ()=>{
+                                done();
+                            });
+                            $('#example_detail_button_save').click();
+                        });
+
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(2)').parent();
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
+
+                        // it('Ha desaparecido el formulario:', () => {
+                        //     expect($('#example_detail_div').is(':visible')).toBeFalsy();
+                        // });
+                    });
+                });
+
+                // describe('Añadido de nuevos elementos > ', () => {
+                //     beforeEach(() => {
+                //         $('.table_toolbar_btnAdd').click();
+                //     });
+
+                //     it('El formulario debe mostrarse:', () => {
+                //         expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                //     });
+
+                //     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
+                //         beforeEach((done) => {
+                //             $('#id_detailForm_table').val(345);
+                //             $('#nombre_detail_table').val('name');
+                //             $('#apellidos_detail_table').val('lastname');
+                //             $('#edad_detail_table').val(11);
+                //             $('#example').on('tableEditFormCompleteCallSaveAjax', done);
+                //             $('#example_detail_button_save_repeat').click();
+                //         });
+
+                //         it('Se ha actualizado la tabla:', () => {
+                //             let ctx = $('tbody > tr > td:contains(345)').parent();
+                //             expect($('td:contains(name)', ctx).length).toBe(2);
+                //             expect($('td:contains(lastname)', ctx).length).toBe(1);
+                //             expect($('td:contains(11)', ctx).length).toBe(1);
+                //         });
+
+                //         it('No ha desaparecido el formulario:', () => {
+                //             expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                //         });
+                //     });
+
+                //     describe('Funcionalidad del botón "guardar" > ', () => {
+                //         beforeEach((done) => {
+                //             $('#id_detailForm_table').val(345);
+                //             $('#nombre_detail_table').val('name');
+                //             $('#apellidos_detail_table').val('lastname');
+                //             $('#edad_detail_table').val(11);
+                //             $('#example').on('tableEditFormCompleteCallSaveAjax', done);
+                //             $('#example_detail_button_save').click();
+                //         });
+
+                //         it('Se ha actualizado la tabla:', () => {
+                //             let ctx = $('tbody > tr > td:contains(345)').parent();
+                //             expect($('td:contains(name)', ctx).length).toBe(2);
+                //             expect($('td:contains(lastname)', ctx).length).toBe(1);
+                //             expect($('td:contains(11)', ctx).length).toBe(1);
+                //         });
+
+                //         it('Ha desaparecido el formulario:', () => {
+                //             expect($('#example_detail_div').is(':visible')).toBeFalsy();
+                //         });
+                //     });
+                // });
+            });
 
             // describe('Filtrado > ', () => {
             //     beforeEach((done) => {
@@ -308,7 +329,7 @@ function testDatatable() {
             //         });
 
             //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe("2");
+            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
             //         });
 
             //         it('Los registros deben cambiar:', () => {
@@ -341,7 +362,7 @@ function testDatatable() {
             //             });
 
             //             it('Cambia el número de página:', () => {
-            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
             //             });
 
             //             it('Los registros deben cambiar:', () => {
@@ -375,7 +396,7 @@ function testDatatable() {
             //             });
 
             //             it('Cambia el número de página:', () => {
-            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
             //             });
 
             //             it('Los registros deben cambiar:', () => {
@@ -399,7 +420,7 @@ function testDatatable() {
             //         });
 
             //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
             //         });
 
             //         it('Los registros deben cambiar:', () => {
@@ -426,7 +447,7 @@ function testDatatable() {
             //         });
 
             //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
             //         });
 
             //         it('Los registros deben cambiar:', () => {
@@ -517,15 +538,15 @@ function testDatatable() {
             //     // TODO: Añadir botón extra
             // });
 
-            // // describe('Edición en línea > ', () => {
-            // //     beforeEach((done) => {
-            // //         clearDatatable($('#example').DataTable());
-            // //         generateInlineFormDatatable(done());
-            // //     });
-            // //     it('asd',() => {
-            // //         expect(1).toBe(1);
-            // //     });
-            // // });
+            // describe('Edición en línea > ', () => {
+            //     beforeEach((done) => {
+            //         clearDatatable($('#example').DataTable());
+            //         generateInlineFormDatatable(done());
+            //     });
+            //     it('asd',() => {
+            //         expect(1).toBe(1);
+            //     });
+            // });
 
             // describe('Multiseleccion > ', () => {
             //     beforeEach(() => {
@@ -697,9 +718,9 @@ function testDatatable() {
             //         beforeEach((done) => {
             //             //El evento no funciona (Tambien se ha probado con #example_detail_feedback)
             //             // $('#example_detail_feedback_ok').on('rupFeedback_show', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 },500);
+            //             setTimeout(() => {
+            //                 done();
+            //             },500);
             //             // });
             //             $('#example > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
             //             $('#edad_detail_table').val('asd');

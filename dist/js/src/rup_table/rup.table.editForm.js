@@ -1,3 +1,4 @@
+/* eslint-env jquery,amd */
 /**
   * Módulo que habilita la edicción mediante un formulario.
   *
@@ -23,7 +24,7 @@
 (function( factory ){
     if ( typeof define === 'function' && define.amd ) {
         // AMD
-        define( ['jquery', '../core/utils/jquery.form', 'datatables.net'], function ( $ ) {
+        define( ['jquery', '../core/utils/jquery.form','../rup.form', 'datatables.net'], function ( $ ) {
             return factory( $, window, document );
         } );
     }
@@ -407,7 +408,7 @@
 
         // Se guardan los datos originales
         ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
-        ctx.oInit.formEdit.okCallBack = false
+        ctx.oInit.formEdit.okCallBack = false;
 
 
         button.unbind( "click" );
@@ -523,7 +524,7 @@
                                 return;
                             }
                         });
-                        if(ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search)
+                        if(ctx.seeker !== undefined && ctx.seeker.ajaxOption.data.search.value
 							&& ctx.seeker.search.funcionParams.length > 0){
                             _comprobarSeeker(row,ctx,idRow);
                         }
@@ -566,23 +567,32 @@
                         }
                         $('#'+ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
                     }
+
+                    dt.ajax.reload(function () {
+                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
+                    },false);
 				
                 }else{// Eliminar
                     ctx.multiselection.internalFeedback.type = 'eliminar';
                     ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
+                    var reloadDt = function () {
+                        dt.ajax.reload(function () {
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
+                        },false);
+                    };
                     if(ctx.oInit.multiSelect !== undefined){
+                        $('#' + ctx.sTableId).on('rupTable_deselectAll', function() {
+                            reloadDt();
+                        });
                         DataTable.Api().multiSelect.deselectAll(dt);
                     }else if(ctx.oInit.select !== undefined){
+                        $('#' + ctx.sTableId).on('rupTable_deselect', function() {
+                            reloadDt();
+                        });
                         DataTable.Api().select.deselect(ctx);
                         _callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
-                    }
-                    $('#' + ctx.sTableId).trigger('tableEditFormAfterDelete');
-				
+                    }	
                 }
-                // Recargar datos
-                //primer parametro para mandar una funcion a ejecutar, 2 parametro bloquear la pagina
-                dt.ajax.reload(undefined,false);
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormSuccessCallSaveAjax');
             },
             complete : function() {
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');

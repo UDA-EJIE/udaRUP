@@ -70,7 +70,8 @@ module.exports = function (config) {
             '/x21aAppWar/': '/',
             '/x21aAppWar/patrones/': '/',
             '/externals/icons/': '/dist/css/externals/icons',
-            '/x21aResponsive/patrones/externals/icons/': '/dist/css/externals/icons'
+            '/x21aResponsive/patrones/externals/icons/': '/dist/css/externals/icons',
+            '/x21aStatics/4x/rup': '/dist'
         },
 
         // list of files to exclude
@@ -81,7 +82,6 @@ module.exports = function (config) {
             'karma-requirejs',
             'karma-firefox-launcher',
             'karma-chrome-launcher',
-            'karma-phantomjs-launcher',
             'karma-handlebars-preprocessor',
             'karma-webpack',
             'karma-sourcemap-loader',
