@@ -2653,19 +2653,20 @@
   left: auto;
 }
 
-.r01gContainer .rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial!important;
-}
-
-.r01gContainer .rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial!important;
-}
-
 .r01gContainer .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:after,
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50%!important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:after,
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial!important;
 }
 
 .r01gContainer .rup-navbar .dropdown-header {

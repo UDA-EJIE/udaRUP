@@ -1,4 +1,11 @@
 @charset "UTF-8";
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"), url("./fonts/roboto-v19-latin-regular.woff2") format("woff2"), url("./fonts/roboto-v19-latin-regular.woff") format("woff"), url("./fonts/roboto-v19-latin-regular.ttf") format("truetype"); }
+
 /*!
  * jQuery UI CSS Framework 1.12.0
  * http://jqueryui.com
@@ -4150,17 +4157,23 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   right: 0;
   left: auto; }
 
-.rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial !important; }
-
-.rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial !important; }
-
 .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0; }
+
+.rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-center:after {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:after {
+  right: 10%;
+  left: initial !important; }
 
 .rup-navbar .dropdown-header {
   display: block;
