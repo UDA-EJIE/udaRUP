@@ -499,7 +499,6 @@
                             ctx.inlineEdit.lastRow.idx = -1;
                         }
                     }
-
                     return ret.data;
                 },
                 'type': 'POST',

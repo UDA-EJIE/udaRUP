@@ -275,23 +275,23 @@ function testDatatable() {
                 // });
             });
 
-            // describe('Filtrado > ', () => {
-            //     beforeEach((done) => {
-            //         $('#example').on('draw.dt', () => {
-            //             setTimeout(() => {
-            //                 done();
-            //             }, 300);
-            //         });
-            //         $('#id_filter_table').val('4');
-            //         $('#example_filter_filterButton').click();
-            //     });
+            describe('Filtrado > ', () => {
+                beforeEach((done) => {
+                    $('#example').on('tableFilterSearch', () => {
+                        debugger;
+                        done();
+                    });
+                    $('#id_filter_table').val('4');
+                    debugger;
+                    $('#example_filter_filterButton').click();
+                });
 
-            //     it('Debe haberse completado el filtrado:', (done) => {
-            //         expect($('tbody > tr').length).toBe(1);
-            //         expect($('tbody > tr > td:eq(1)').text()).toBe('4');
-            //         done();
-            //     });
-            // });
+                it('Debe haberse completado el filtrado:', () => {
+                    debugger;
+                    expect($('tbody > tr').length).toBe(1);
+                    expect($('tbody > tr > td:eq(1)').text()).toBe('4');
+                });
+            });
 
             // describe('Búsqueda > ', () => {
             //     beforeEach(() => {
