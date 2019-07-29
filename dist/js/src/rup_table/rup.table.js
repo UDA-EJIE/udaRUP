@@ -444,8 +444,9 @@
         _doFilter(options) {
             var $self = this;
             $self._showSearchCriteria();
-            $('#'+options.id).triggerHandler('tableFilterSearch');
-            $self.DataTable().ajax.reload();
+            $self.DataTable().ajax.reload(() => {
+                $('#'+options.id).trigger('tableFilterSearch');
+            });
 
         },
 
