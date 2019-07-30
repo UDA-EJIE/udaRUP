@@ -297,10 +297,8 @@ export function createDatatable2(callback) {
             fixedColumnsLeft: 1
         },
         initComplete: function () {
-            setTimeout(function () {
-                $('#' + idDatatable + ' > tbody').children().remove();
-                callback();
-            }, 300);
+            $('#' + idDatatable + ' > tbody').children().remove();
+            callback();
         }
     };
 
