@@ -10,6 +10,13 @@ define(['jquery', 'marionette',
 
     function fncOnAttach() {
         $('#example').rup_table({
+            initComplete: function(){
+                $('#example').on('tableFilterSearch',() => {
+                    debugger;
+                });
+                $('#id_filter_example').val(1);
+                $('#example_filter_filterButton').click();
+            },
             fixedHeader: {
                 footer: false,
                 header: true
