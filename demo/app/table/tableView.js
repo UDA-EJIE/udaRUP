@@ -2,7 +2,7 @@ define(['marionette',
     './tableLayoutTemplate.hbs',
     './tableTemplate.hbs',
     './tableJsTemplate.hbs',
-    './tableBody.hbs',
+    './tableBody',
     './tableTestView',
     '../shared/component/componentExampleCodeView',
     'rup_table/rup.table'], function(Marionette, TableLayoutTemplate, TableTemplate, TableJsTemplate, TableBody, TableTestView, ComponentExampleCodeView){
