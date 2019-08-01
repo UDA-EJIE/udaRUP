@@ -75,3 +75,17 @@ exports.post = function(req, res) {
 
     res.status(200).json(req.body);
 };
+
+exports.search = function (req,res) {
+    var ret = [
+        {
+            'page': 1,
+            'pageLine': 0,
+            'tableLine': 0,
+            'pk': {
+                'id': '0'
+            }
+        }
+    ];
+    res.status(200).json(ret);
+};

@@ -80,6 +80,18 @@ var json4 = {
     total: '2',
     records: 15
 };
+var json4_2 = {
+    page: '2',
+    rows: [
+        { id: '11', nombre: 'Kevin', apellidos: 'Agüero Vázquez', edad: '32' },
+        { id: '12', nombre: 'Roberto', apellidos: 'Arana Chicharro', edad: '20' },
+        { id: '13', nombre: 'Luis', apellidos: 'Tejedor Ayo', edad: '22' },
+        { id: '14', nombre: 'Javi', apellidos: 'Pérez Pando', edad: '23' },
+        { id: '15', nombre: 'Hugo', apellidos: 'Boss Dominguez', edad: '17' }
+    ],
+    total: '2',
+    records: 15
+}
 var json4Backup = {
     page: '1',
     rows: [
@@ -148,6 +160,9 @@ var jsonIDFilterOrdered1 = {
 
 function getFilterResp(req) {
     let respuesta = {};
+    if(req.body.page == 2) {
+        return json4_2;
+    }
     if (req.body.filter.id == '4') {
         respuesta = {
             page: '1',
@@ -263,7 +278,7 @@ exports.search = (req, res) => {
         res.status(406);
         res.send('KABOOM');
     }
-    //console.info(search);
+    console.info(search);
     if (search.nombre === 'E') {
         let ret = [
             {
