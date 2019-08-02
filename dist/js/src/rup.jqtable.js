@@ -12548,4 +12548,254 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 
 
-		if (opts.colModel.f
+		if (opts.colModel.formatoptions && opts.colModel.formatoptions.labelName) {
+			labelProp = opts.colModel.formatoptions.labelName;
+			label = $.rup_utils.getJson(rwd, labelProp);
+
+		} else {
+			if (typeof opts.colModel.editoptions.source === 'string') {
+				// Combo remoto
+				// Obtener la propiedad que corresponde al texto a visualizar
+				if (opts.colModel.name.indexOf('.') !== -1) {
+					labelProp = opts.colModel.name.substring(0, opts.colModel.name.lastIndexOf('.')) + '.' + opts.colModel.editoptions.sourceParam.label;
+				} else {
+					labelProp = opts.colModel.editoptions.sourceParam.label;
+				}
+				label = $.rup_utils.getJson(rwd, labelProp);
+
+			} else {
+				// Combo local
+
+				var labelArr = $.grep(opts.colModel.editoptions.source, function (elem, index) {
+					if (elem.value === cellval) {
+						return true;
+					}
+				});
+
+				if (labelArr.length === 1) {
+					if (labelArr[0].i18nCaption) {
+						label = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], labelArr[0].i18nCaption);
+					} else {
+						label = labelArr[0].label;
+					}
+				}
+
+			}
+		}
+		formatterObj['rup_combo']['label'] = label;
+
+		$.extend(true, formatterData, rowObj);
+		$(this).data('rup.jqtable.formatter', formatterData);
+
+		return label || '';
+
+	};
+
+	$.fn.fmatter.rup_combo.unformat = function (cellvalue, options) {
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_combo']['value'];
+
+		return val || '';
+
+	};
+
+
+	$.fn.fmatter.rup_autocomplete = function (cellval, opts, rwd, act) {
+
+		var labelProp, label, settings;
+
+
+		var formatterData = $(this).data('rup.jqtable.formatter') !== undefined ? $(this).data('rup.jqtable.formatter') : {};
+
+		// Se añade la info del formatter
+		var formatterObj = {};
+		formatterObj['rup_autocomplete'] = {
+			value: cellval
+		};
+
+
+		//		formatterObj["rup_combo"] = cellval;
+
+		// Se añade la info de la columna
+		var colFormatter = {};
+		colFormatter[opts.colModel.name] = formatterObj;
+
+		// Se añade el id de la fila
+		var rowObj = {};
+		rowObj[opts.rowId] = colFormatter;
+
+
+
+		if (opts.colModel.formatoptions && opts.colModel.formatoptions.labelName) {
+			labelProp = opts.colModel.formatoptions.labelName;
+			label = $.rup_utils.getJson(rwd, labelProp);
+
+		} else {
+			if (typeof opts.colModel.editoptions.source === 'string') {
+				// Combo remoto
+				// Obtener la propiedad que corresponde al texto a visualizar
+				if (opts.colModel.name.indexOf('.') !== -1) {
+					labelProp = opts.colModel.name.substring(0, opts.colModel.name.lastIndexOf('.')) + '.' + opts.colModel.editoptions.sourceParam.label;
+				} else {
+					labelProp = opts.colModel.editoptions.sourceParam.label;
+				}
+				label = $.rup_utils.getJson(rwd, labelProp);
+
+			} else {
+				// Combo local
+
+				var labelArr = $.grep(opts.colModel.editoptions.source, function (elem, index) {
+					if (elem.value === cellval) {
+						return true;
+					}
+				});
+
+				if (labelArr.length === 1) {
+					if (labelArr[0].i18nCaption) {
+						label = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], labelArr[0].i18nCaption);
+					} else {
+						label = labelArr[0].label;
+					}
+				}
+
+			}
+		}
+		formatterObj['rup_autocomplete']['label'] = label;
+
+		$.extend(true, formatterData, rowObj);
+		$(this).data('rup.jqtable.formatter', formatterData);
+
+		return label || '';
+
+	};
+
+	$.fn.fmatter.rup_autocomplete.unformat = function (cellvalue, options) {
+		var val = $(this).data('rup.jqtable.formatter')[options.rowId][options.colModel.name]['rup_autocomplete']['value'];
+
+		return val || '';
+
+	};
+
+	/*
+   * SOBREESCITURAS
+   * Funciones extendidas (SOBREESCRITAS) del componente jqGrid
+   *
+   * Los métodos aquí indicados han sido extendidos y su implementación sustituida por completo.
+   * La extensión ha sido realizada para ajustar el comportamiento del componente jqGrid a los requisitos exigidos.
+   *
+   * Los métodos extendidos para su modificación son los siguientes:
+   *
+   * - createModal
+   * - hideModal
+   * - viewModal
+   */
+	jQuery.extend(jQuery.jgrid, {
+		createModal: function (aIDs, content, p, insertSelector, posSelector, appendsel, css) {
+			// aIDs: Identificadores de la modal
+			// -- aIDs.modalcontent :
+			// -- aIDs.modalhead :
+			// -- aIDs.scrollelm :
+			// -- aIDs.themodal :
+			// content: Contenido HTML del díalogo
+			// p: parámetros de configuración del diálogo
+			// insertSelector: selector que corresponde al elemento despues del que se va a insertar la modal
+			// posSelector: elemento base sobre el que se calcula la posición
+			var $divModal = jQuery('<div/>').attr('id', aIDs.themodal).append($(content));
+			var $scrollelm = $divModal.find('#' + aIDs.scrollelm);
+
+			$divModal.insertBefore($(insertSelector));
+			/* TODO : Añadir los parametros de configruación que puedan añadirse al rup_dialog. */
+			$divModal.rup_dialog({
+				type: $.rup.dialog.DIV,
+				autoOpen: false,
+				modal: true,
+				resizable: p.resize,
+				title: p.caption,
+				width: p.width,
+				buttons: p.buttons
+			});
+
+			// Eliminamos los eventos del boton de cerrar para mostrar el gestor de cambios
+
+			if (jQuery.isFunction(p.onClose)) {
+				jQuery('.ui-dialog-titlebar-close, a:has(#closeText_' + $divModal.first()[0].id + ')', $divModal.parent()).off('click').on('click', function (event) {
+					p.onClose.call(event);
+				});
+				// Se elimina el evento de cerrar al texto de cierre del dialogo y se asigna el evento de la gestion de cambios.
+				//				prop.detailDiv.parent().find("#closeText_" + prop.detailDiv.first()[0].id).parent().unbind('click').bind("click", function () {
+				//					self._checkDetailFormModifications(function(){
+				//						prop.detailDiv.rup_dialog("close");
+				//					});
+				//				});
+
+				// Se elimina el evento de cerrar al icono de cierre del dialogo y se asigna el evento de la gestion de cambios.
+				//				prop.detailDiv.parent().find(".ui-dialog-titlebar-close").unbind('click').bind("click", function () {
+				//					self._checkDetailFormModifications(function(){
+				//						prop.detailDiv.rup_dialog("close");
+				//					});
+				//				});
+			}
+
+			jQuery('#' + aIDs.scrollelm + '_2').addClass('botoneraModal');
+
+			jQuery('.fm-button', '#' + aIDs.scrollelm + '_2').on({
+				focusin: function () {
+					jQuery(this).addClass('ui-state-focus');
+				},
+				focusout: function () {
+					jQuery(this).removeClass('ui-state-focus');
+				}
+			});
+		},
+		hideModal: function (selector, o) {
+			jQuery(selector).rup_dialog('close');
+		},
+		viewModal: function (selector, o) {
+			jQuery(selector).rup_dialog('open');
+		}
+
+	});
+
+
+	jQuery.extend(jQuery.rup_jqtable, {
+		proxyAjax: function (ajaxOptions, identifier) {
+			jQuery.rup_ajax(ajaxOptions);
+		}
+	});
+
+	/* ******************************
+   * FUNCIONES DE CONFIGURACION
+   * ******************************/
+	jQuery.fn.rup_jqtable('extend', {
+		/**
+     * Metodo que realiza la pre-configuración del core del componente RUP Table.
+     * Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
+     *
+     * @name preConfigureCore
+     * @function
+     * @param {object} settings - Parámetros de configuración del componente.
+     * @fires module:rup_jqtable#rupTable_checkOutOfGrid
+     * @fires module:rup_jqtable#rupTable_serializeGridData
+     * @fires module:rup_jqtable#rupTable_beforeProcessing
+     */
+		preConfigureCore: function (settings) {
+			var $self = this,
+				colModel, colModelObj;
+
+			// Configuración del parámetro url
+			settings.baseUrl = settings.url;
+
+			// Ajuste en caso de no utilizar el plugin de filter
+			if (jQuery.inArray('filter', settings.usePlugins) === -1) {
+				settings.url += '/filter';
+			}
+
+			// Se almacena el identificador del objeto en la propiedad settings.id
+			settings.id = $self.attr('id');
+
+			// Se da valor a la propiedad ruptype
+			$self.attr('ruptype', 'jqtable');
+
+			settings.core.tableDiv = settings.id + '_div';
+			settings.core.$tableDiv = jQuery('#' + settings.core.tableDiv);
+
+		
