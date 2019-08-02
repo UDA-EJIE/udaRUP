@@ -92,6 +92,7 @@ module.exports = (PORT) => {
     app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
     app.put('/demo/jqGridUsuario', routesJqtable.put);
     app.post('/demo/jqGridUsuario', routesJqtable.post);
+    app.post('/demo/jqGridUsuario/search', routesJqtable.search);
 
     // Upload
     app.post('/upload', routesUpload.upload);

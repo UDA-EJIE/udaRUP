@@ -50,7 +50,7 @@ function testDatatable() {
                 beforeEach(() => {
                     $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
                 });
-                
+
                 it('Debe mostrarse el menú contextual:', () => {
                     expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
@@ -131,9 +131,9 @@ function testDatatable() {
                         });
 
                         afterEach(() => {
-                            $.ajax('/demo/table/remote/deleteEnd',{
-                                type: 'POST'
-                                , data : '{"foo":"bar"}'
+                            $.ajax('/demo/table/remote/deleteEnd', {
+                                type: 'POST',
+                                data: '{"foo":"bar"}'
                             });
                         });
 
@@ -147,7 +147,7 @@ function testDatatable() {
                             document.copied = '';
                             document.exC = document.execCommand;
                             document.execCommand = (param) => {
-                                if(param === 'copy') {
+                                if (param === 'copy') {
                                     document.copied = window.getSelection().toString();
                                     return true;
                                 } else {
@@ -277,195 +277,186 @@ function testDatatable() {
 
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
-                    $('#example').on('tableFilterSearch', () => {
-                        debugger;
+                    $('#example').on('draw.dt', () => {
                         done();
                     });
                     $('#id_filter_table').val('4');
-                    debugger;
                     $('#example_filter_filterButton').click();
                 });
 
                 it('Debe haberse completado el filtrado:', () => {
-                    debugger;
                     expect($('tbody > tr').length).toBe(1);
                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
                 });
             });
 
-            // describe('Búsqueda > ', () => {
-            //     beforeEach(() => {
-            //         $('#searchCollapsLabel_example').click();
-            //     });
+            describe('Búsqueda > ', () => {
+                beforeEach(() => {
+                    $('#searchCollapsLabel_example').click();
+                });
 
-            //     describe('Aparición del seeker > ', () => {
-            //         it('Se muestra el formulario de búsqueda:', () => {
-            //             expect($('#id_seeker').is(':visible')).toBeTruthy();
-            //             expect($('#nombre_seeker').is(':visible')).toBeTruthy();
-            //             expect($('#apellidos_seeker').is(':visible')).toBeTruthy();
-            //             expect($('#edad_seeker').is(':visible')).toBeTruthy();
-            //         });
-            //     });
+                describe('Aparición del seeker > ', () => {
+                    it('Se muestra el formulario de búsqueda:', () => {
+                        expect($('#id_seeker').is(':visible')).toBeTruthy();
+                        expect($('#nombre_seeker').is(':visible')).toBeTruthy();
+                        expect($('#apellidos_seeker').is(':visible')).toBeTruthy();
+                        expect($('#edad_seeker').is(':visible')).toBeTruthy();
+                    });
+                });
 
-            //     describe('Funcionalidad del seeker > ', () => {
-            //         beforeEach((done) => {
-            //             $('#nombre_seeker').val('E');
-            //             $('#search_nav_button_example').click();
-            //             $('#example').on('tableSeekerSearchComplete', done);
-            //         });
+                describe('Funcionalidad del seeker > ', () => {
+                    beforeEach((done) => {
+                        $('#example').on('draw.dt', () => {
+                            done();
+                        });
+                        $('#nombre_seeker').val('E');
+                        $('#search_nav_button_example').click();
+                    });
 
-            //         it('Se selecciona y marca el resultado de la selección: ', () => {
-            //             let ctx = $('td:contains(4)').parent();
-            //             expect($('td > span.ui-icon-search', ctx).length).toBe(1);
+                    it('Se selecciona y marca el resultado de la selección: ', () => {
+                        let ctx = $('td:contains(4)').parent();
+                        expect($('td > i.mdi.mdi-magnify.ui-icon-rupInfoCol.filtered-row', ctx).length).toBe(1);
 
-            //             ctx = $('td:contains(5)').parent();
-            //             expect($('td > span.ui-icon-search', ctx).length).toBe(1);
-            //         });
-            //     });
-            // });
+                        ctx = $('td:contains(5)').parent();
+                        expect($('td > i.mdi.mdi-magnify.ui-icon-rupInfoCol.filtered-row', ctx).length).toBe(1);
+                    });
+                });
+            });
 
-            // describe('Paginación > ', () => {
-            //     describe('Página siguiente > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('draw.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('#example_next').click();
-            //         });
+            describe('Paginación > ', () => {
+                describe('Página siguiente > ', () => {
+                    beforeEach((done) => {
+                        $('#example').on('draw.dt', () => {
+                            done();
+                        });
+                        $('#example_next').click();
+                    });
 
-            //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
-            //         });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                    });
 
-            //         it('Los registros deben cambiar:', () => {
-            //             expect($('tr > td:contains(6)').length).toBe(1);
-            //             expect($('tr > td:contains(7)').length).toBe(1);
-            //             expect($('tr > td:contains(8)').length).toBe(1);
-            //             expect($('tr > td:contains(9)').length).toBe(1);
-            //             expect($('tr > td:contains(10)').length).toBe(1);
-            //         });
-            //     });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tr > td:contains(11)').length).toBe(1);
+                        expect($('tr > td:contains(12)').length).toBe(1);
+                        expect($('tr > td:contains(13)').length).toBe(1);
+                        expect($('tr > td:contains(14)').length).toBe(1);
+                        expect($('tr > td:contains(15)').length).toBe(1);
+                    });
+                });
 
-            //     describe('Página anterior > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('draw.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('#example_next').click();
-            //         });
+                describe('Página anterior > ', () => {
+                    beforeEach((done) => {
+                        var fnc = () => {
+                            $('#example').off('draw.dt', fnc);
+                            $('#example').on('draw.dt', () => {
+                                done();
+                            });
+                            setTimeout(() => {$('#example_previous').click();}, 500);
+                        };
+                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                        $('#example').on('draw.dt', fnc);
+                        $('#example_next').click();
+                    });
 
-            //         describe('Realizacion de pruebas > ', () => {
-            //             beforeEach((done) => {
-            //                 $('#example').on('draw.dt', () => {
-            //                     setTimeout(() => {
-            //                         done();
-            //                     }, 300);
-            //                 });
-            //                 $('#example_previous').click();
-            //             });
 
-            //             it('Cambia el número de página:', () => {
-            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
-            //             });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
+                    });
 
-            //             it('Los registros deben cambiar:', () => {
-            //                 expect($('tr > td:contains(1)').length).toBe(1);
-            //                 expect($('tr > td:contains(2)').length).toBe(1);
-            //                 expect($('tr > td:contains(3)').length).toBe(1);
-            //                 expect($('tr > td:contains(4)').length).toBe(1);
-            //                 expect($('tr > td:contains(5)').length).toBe(1);
-            //             });
-            //         });
-            //     });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
+                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('6');
+                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('7');
+                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('8');
+                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('9');
+                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('10');
+                    });
+                });
 
-            //     describe('Página primera > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('page.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('#example_next').click();
-            //         });
+                describe('Página primera > ', () => {
+                    beforeEach((done) => {
+                        var fnc = () => {
+                            $('#example').off('draw.dt', fnc);
+                            $('#example').on('draw.dt', () => {
+                                done();
+                            });
+                            setTimeout(() => {$('#example_first').click();}, 500);
+                        };
+                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                        $('#example').on('draw.dt', fnc);
+                        $('#example_next').click();
+                    });
 
-            //         describe('Realizacion de pruebas', () => {
-            //             beforeEach((done) => {
-            //                 $('#example').on('page.dt', () => {
-            //                     setTimeout(() => {
-            //                         done();
-            //                     }, 300);
-            //                 });
-            //                 $('#example_first').click();
-            //             });
 
-            //             it('Cambia el número de página:', () => {
-            //                 expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
-            //             });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
+                    });
 
-            //             it('Los registros deben cambiar:', () => {
-            //                 expect($('tr > td:contains(1)').length).toBe(1);
-            //                 expect($('tr > td:contains(2)').length).toBe(1);
-            //                 expect($('tr > td:contains(3)').length).toBe(1);
-            //                 expect($('tr > td:contains(4)').length).toBe(1);
-            //                 expect($('tr > td:contains(5)').length).toBe(1);
-            //             });
-            //         });
-            //     });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
+                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('6');
+                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('7');
+                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('8');
+                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('9');
+                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('10');
+                    });
+                });
 
-            //     describe('Página última > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('page.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('#example_last').click();
-            //         });
+                describe('Página última > ', () => {
+                    beforeEach((done) => {
+                        $('#example').on('draw.dt', () => {
+                            done();
+                        });
+                        $('#example_last').click();
+                    });
 
-            //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
-            //         });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                    });
 
-            //         it('Los registros deben cambiar:', () => {
-            //             expect($('tr > td:contains(11)').length).toBe(1);
-            //             expect($('tr > td:contains(12)').length).toBe(1);
-            //             expect($('tr > td:contains(13)').length).toBe(1);
-            //             expect($('tr > td:contains(14)').length).toBe(1);
-            //             expect($('tr > td:contains(15)').length).toBe(1);
-            //         });
-            //     });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('11');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('12');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('13');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('14');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('15');
+                    });
+                });
 
-            //     describe('Página desde input > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('page.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('.ui-pg-input').val(3);
-            //             $('.ui-pg-input').trigger($.Event('keypress', {
-            //                 keyCode: 13,
-            //                 which: 13
-            //             }));
-            //         });
+                describe('Página desde input > ', () => {
+                    beforeEach((done) => {
+                        $('#example').on('draw.dt', () => {
+                            done();
+                        });
+                        $('.ui-pg-input').val(2);
+                        $('.ui-pg-input').trigger($.Event('keypress', {
+                            keyCode: 13,
+                            which: 13
+                        }));
+                    });
 
-            //         it('Cambia el número de página:', () => {
-            //             expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
-            //         });
+                    it('Cambia el número de página:', () => {
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                    });
 
-            //         it('Los registros deben cambiar:', () => {
-            //             expect($('tr > td:contains(11)').length).toBe(1);
-            //             expect($('tr > td:contains(12)').length).toBe(1);
-            //             expect($('tr > td:contains(13)').length).toBe(1);
-            //             expect($('tr > td:contains(14)').length).toBe(1);
-            //             expect($('tr > td:contains(15)').length).toBe(1);
-            //         });
-            //     });
-            // });
+                    it('Los registros deben cambiar:', () => {
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('11');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('12');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('13');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('14');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('15');
+                    });
+                });
+            });
 
             // describe('Variacion de número de registros por página > ', () => {
             //     beforeEach((done) => {

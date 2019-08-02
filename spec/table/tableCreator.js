@@ -126,6 +126,7 @@ export function createDatatable1(ctx, callback) {
     
     var defaults = {
         urlBase: '/demo/table/remote',
+        selector: 'td',
         colModel: [{
             name: 'id',
             index: 'id',
@@ -162,7 +163,8 @@ export function createDatatable1(ctx, callback) {
             }
         }],
         initComplete: function () {
-            callback();
+            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
+            setTimeout(callback, 500);
         },
         buttons : {
             activate:    true
@@ -183,10 +185,6 @@ export function createDatatable1(ctx, callback) {
         colReorder: {
             fixedColumnsLeft: 1
         }
-        // ,columnDefs:[
-        //     {targets:[4]}
-        //     // ,{name:'Nombre',targets:'Nombre'}
-        // ]
     };
 
     $.extend(opts, true, defaults);
@@ -209,7 +207,7 @@ export function createDatatable1(ctx, callback) {
         $('#example').append(foot);
 
     }
-    
+
     $('#' + idDatatable).rup_table(opts);
 
 }

@@ -538,7 +538,7 @@
 					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
                 data.seeker = {};
                 data.seeker.selectedIds = [];
-                $.each(ctx.seeker.search.funcionParams,function(index,p) {
+                $.each(ctx.seeker.search.funcionParams[0],function(index,p) {
                     data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
                 });
             }

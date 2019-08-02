@@ -1,51 +1,49 @@
 /**
-  * Buscador interno del table
-  *
-  * @summary 		Extensión del componente RUP Datatable
-  * @module			"rup.table.seeker"
-  * @version     1.0.0
-  * @license
-  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
-  * Solo podrá usarse esta obra si se respeta la Licencia.
-  * Puede obtenerse una copia de la Licencia en
-  *
-  *      http://ec.europa.eu/idabc/eupl.html
-  *
-  * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
-  * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
-  * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
-  * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
-  * que establece la Licencia.
-  * @copyright   Copyright 2018 E.J.I.E., S.A.
-  *
-  */
+ * Buscador interno del table
+ *
+ * @summary 		Extensión del componente RUP Datatable
+ * @module			"rup.table.seeker"
+ * @version     1.0.0
+ * @license
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ * @copyright   Copyright 2018 E.J.I.E., S.A.
+ *
+ */
 
-(function( factory ){
-    if ( typeof define === 'function' && define.amd ) {
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
         // AMD
-        define( ['jquery', 'datatables.net'], function ( $ ) {
-            return factory( $, window, document );
-        } );
-    }
-    else if ( typeof exports === 'object' ) {
+        define(['jquery', 'datatables.net'], function ($) {
+            return factory($, window, document);
+        });
+    } else if (typeof exports === 'object') {
         // CommonJS
         module.exports = function (root, $) {
-            if ( ! root ) {
+            if (!root) {
                 root = window;
             }
 
-            if ( ! $ || ! $.fn.dataTable ) {
+            if (!$ || !$.fn.dataTable) {
                 $ = require('datatables.net')(root, $).$;
             }
 
-            return factory( $, root, root.document );
+            return factory($, root, root.document);
         };
-    }
-    else {
+    } else {
         // Browser
-        factory( jQuery, window, document );
+        factory(jQuery, window, document);
     }
-}(function( $, window, document, undefined ) {
+}(function ($, window, document, undefined) {
     'use strict';
     var DataTable = $.fn.dataTable;
 
@@ -56,192 +54,196 @@
     DataTable.seeker.version = '1.2.4';
 
     /**
- * 
-* Se inicializa el componente seeker
-*
-* @name init
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-*
-*/
-    DataTable.seeker.init = function ( dt ) {
+     * 
+     * Se inicializa el componente seeker
+     *
+     * @name init
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     *
+     */
+    DataTable.seeker.init = function (dt) {
 
         var ctx = dt.settings()[0];
         //Se inicializa por cada instancia 1 tabla 1 instancia
         ctx.seeker = {};
-        _createFilterColumn(dt,ctx);
+        _createFilterColumn(dt, ctx);
 
         var ajaxOptions = {
-            url : ctx.oInit.urlBase+'/search',
-            accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
-                'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-                'text':'text/plain','xml':'application/xml, text/xml'},
-            type : 'POST',
-            data : _getDatos(ctx),
-            dataType : 'json',
-            showLoading : false,
-            contentType : 'application/json',
-            async : true,
-            success : function(data, status, xhr) {
-                $('#'+ctx.sTableId).triggerHandler('tableSeekerSearchSucess');
-                ctx.seeker.search.funcionParams = data;
-                ctx.seeker.search.pos = 0;// se inicializa por cada busqueda.
-                _processData(dt,ctx,data);
+            url: ctx.oInit.urlBase + '/search',
+            accepts: {
+                '*': '*/*',
+                'html': 'text/html',
+                'json': 'application/json, text/javascript',
+                'script': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+                'text': 'text/plain',
+                'xml': 'application/xml, text/xml'
             },
-            error : function(xhr, ajaxOptions,thrownError) {
-                console.log('Errors '+thrownError+ ": "+xhr.responseText);
-                $('#'+ctx.sTableId).triggerHandler('tableSeekerSearchError');
+            type: 'POST',
+            data: _getDatos(ctx),
+            dataType: 'json',
+            showLoading: false,
+            contentType: 'application/json',
+            async: true,
+            success: function (data, status, xhr) {
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchSucess');
+                ctx.seeker.search.funcionParams = data;
+                ctx.seeker.search.pos = 0; // se inicializa por cada busqueda.
+                _processData(dt, ctx, data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log('Errors ' + thrownError + ": " + xhr.responseText);
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchError');
 
             },
-            complete:function(xhr,status){
-                $('#'+ctx.sTableId).triggerHandler('tableSeekerSearchComplete');
+            complete: function (xhr, status) {
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchComplete');
             }
         };
 
         ctx.seeker.ajaxOption = ajaxOptions;
 
         //Ver el buscador interno de la tabla.
-        if(ctx.fnRecordsTotal() === 0){
+        if (ctx.fnRecordsTotal() === 0) {
             ctx.seeker.search.$searchRow.hide();
-        }else{
+        } else {
             ctx.seeker.search.$searchRow.show();
         }
-	
-        $('#'+ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar');
+
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar');
     };
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Local functions
- */
+     * Local functions
+     */
 
-    function _eventTrigger ( api, type, args, any )
-    {
-        if ( any && ! api.flatten().length ) {
+    function _eventTrigger(api, type, args, any) {
+        if (any && !api.flatten().length) {
             return;
         }
 
-        if ( typeof type === 'string' ) {
-            type = type +'.dt';
+        if (typeof type === 'string') {
+            type = type + '.dt';
         }
 
-        args.unshift( api );
+        args.unshift(api);
 
-        $(api.table().node()).trigger( type, args );
+        $(api.table().node()).trigger(type, args);
     }
     /**
-* Crea los componentes principales del buscador.
-*
-* @name createFilterColumn
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
-*
-*/
-    function _createFilterColumn(dt,ctx){
+     * Crea los componentes principales del buscador.
+     *
+     * @name createFilterColumn
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+     *
+     */
+    function _createFilterColumn(dt, ctx) {
 
         var idTabla = ctx.sTableId;
-        $('#'+idTabla+' tfoot').css('display','table-header-group');
-        $('#'+idTabla+' tfoot th').each( function () {
+        $('#' + idTabla + ' tfoot').css('display', 'table-header-group');
+        $('#' + idTabla + ' tfoot th').each(function () {
             var title = this.innerText;
             var index = $(this).index();
-			
-            if(index > 0 || ctx.oInit.multiSelect === undefined){
-				
+
+            if (index > 0 || ctx.oInit.multiSelect === undefined) {
+
                 var colModelIndex = index;
                 var position = index + 1;
-				
-                if(ctx.oInit.multiSelect != undefined) {
+
+                if (ctx.oInit.multiSelect != undefined) {
                     colModelIndex--;
                 }
-				
+
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if(ctx.oInit.seeker.colModel != undefined && ctx.oInit.seeker.colModel[colModelIndex].hidden) {
+                if (ctx.oInit.seeker.colModel != undefined && ctx.oInit.seeker.colModel[colModelIndex].hidden) {
                     $(this).empty();
                 } else {
-                    var nombre = $('#'+idTabla+' thead th:nth-child('+position+')').attr('data-col-prop');
-                    $(this).html( '<input type="text" placeholder="'+title+'" name="'+nombre+'" id="'+nombre+'_seeker"/>' );
+                    var nombre = $('#' + idTabla + ' thead th:nth-child(' + position + ')').attr('data-col-prop');
+                    $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_seeker"/>');
                 }
             }
-        } );
+        });
 
 
-	   dt.columns().eq(0).each(function(colIdx) {
-		   if(colIdx > 0){
-		        $( 'input', $('#'+idTabla+' tfoot')[0].rows[0].cells[colIdx] ).on( 'keypress', function (ev) {
-		        	this.focus();
-		        	if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
-		        		ctx.seeker.ajaxOption.data = _getDatos(ctx);
-		        		var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
-		        		//Se pasa sin el internalFeedback ya que no es necesario.
-		        		if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
-		        			ajaxOptions.data.multiselection.internalFeedback = [];
-		        		}
-		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-		        		if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
-		        			$('#'+idTabla+'_search_searchForm').rup_form();
-		        			$('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
-		        		}
-		        		$('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
+        dt.columns().eq(0).each(function (colIdx) {
+            if (colIdx > 0) {
+                $('input', $('#' + idTabla + ' tfoot')[0].rows[0].cells[colIdx]).on('keypress', function (ev) {
+                    this.focus();
+                    if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
+                        ctx.seeker.ajaxOption.data = _getDatos(ctx);
+                        var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
+                        //Se pasa sin el internalFeedback ya que no es necesario.
+                        if (ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined) {
+                            ajaxOptions.data.multiselection.internalFeedback = [];
+                        }
+                        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+                        if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
+                            $('#' + idTabla + '_search_searchForm').rup_form();
+                            $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+                        }
+                        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
 
-		        	}
-		        } );
-		   }
-	   });
+                    }
+                });
+            }
+        });
 
-	   _createSearchRow(dt,ctx);
-	   ctx.seeker.searchForm = $('#'+idTabla+' tfoot tr:nth-child(2)');
-	   ctx.seeker.searchForm.hide();
-	   _createRupComponent(dt,ctx);
+        _createSearchRow(dt, ctx);
+        ctx.seeker.searchForm = $('#' + idTabla + ' tfoot tr:nth-child(2)');
+        ctx.seeker.searchForm.hide();
+        _createRupComponent(dt, ctx);
     }
     /**
-* Genera la barra de controles para gestionar la búsqueda..
-*
-* @name createSearchRow
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
-*
-*/
-    function _createSearchRow (dt,ctx){
+     * Genera la barra de controles para gestionar la búsqueda..
+     *
+     * @name createSearchRow
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
+     *
+     */
+    function _createSearchRow(dt, ctx) {
         var idTabla = ctx.sTableId;
-        var	$gridHead = jQuery('tfoot','#'+idTabla),
+        var $gridHead = jQuery('tfoot', '#' + idTabla),
             // Templates
-            searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRowHeader'),
-            collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLayer'),
-            collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseIcon'),
-            collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.collapseLabel'),
-            matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLayer'),
-            matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.matchedLabel'),
-            navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navLayer'),
-            navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navButton'),
-            navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navClearButton'),
-            navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.navSearchButton'),
+            searchRowHeaderTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.searchRowHeader'),
+            collapseLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.collapseLayer'),
+            collapseIconTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.collapseIcon'),
+            collapseLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.collapseLabel'),
+            matchedLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.matchedLayer'),
+            matchedLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.matchedLabel'),
+            navLayerTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.navLayer'),
+            navButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.navButton'),
+            navClearButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.navClearButton'),
+            navSearchButtonTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.navSearchButton'),
 
             // Objetos
-            $searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.templates.search.searchRow')),
+            $searchRow = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.search.searchRow')),
             $searchRowHeader = $($.rup_utils.format(searchRowHeaderTmpl, $gridHead.find('th').length)),
             // Capa que controla el colapso del formulario
-            $collapseLayer = $($.rup_utils.format(collapseLayerTmpl, 'searchCollapseLayer_'+idTabla)),
-            $collapseIcon = $($.rup_utils.format(collapseIconTmpl, 'searchCollapseIcon_'+idTabla)),
-            $collapseLabel = $($.rup_utils.format(collapseLabelTmpl, 'searchCollapsLabel_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.searchCriteria'))),
+            $collapseLayer = $($.rup_utils.format(collapseLayerTmpl, 'searchCollapseLayer_' + idTabla)),
+            $collapseIcon = $($.rup_utils.format(collapseIconTmpl, 'searchCollapseIcon_' + idTabla)),
+            $collapseLabel = $($.rup_utils.format(collapseLabelTmpl, 'searchCollapsLabel_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.searchCriteria'))),
             // Capa que muestra el número de ocurrencias
-            $matchedLayer = $($.rup_utils.format(matchedLayerTmpl, 'matchedLayer_'+idTabla)),
-            $matchedLabel = $($.rup_utils.format(matchedLabelTmpl, 'matchedLabel_'+idTabla, $.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),0))),
+            $matchedLayer = $($.rup_utils.format(matchedLayerTmpl, 'matchedLayer_' + idTabla)),
+            $matchedLabel = $($.rup_utils.format(matchedLabelTmpl, 'matchedLabel_' + idTabla, $.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.matchedRecords'), 0))),
 
             // Capa que controla la navegación entre las diferentes ocurrencias
-            $navLayer = $($.rup_utils.format(navLayerTmpl, 'searchNavLayer_'+idTabla)),
-            $firstNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_first_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.first'))),
-            $backNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_back_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.previous'))),
-            $forwardNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_forward_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.next'))),
-            $lastNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_last_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.last'))),
-            $navClearButton = $($.rup_utils.format(navClearButtonTmpl, 'search_nav_clear_button'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Reset'))),
-            $navSearchButton = $($.rup_utils.format(navSearchButtonTmpl, 'search_nav_button_'+idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.search.Find')));
+            $navLayer = $($.rup_utils.format(navLayerTmpl, 'searchNavLayer_' + idTabla)),
+            $firstNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_first_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'))),
+            $backNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_back_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'))),
+            $forwardNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_forward_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.next'))),
+            $lastNavButton = $($.rup_utils.format(navButtonTmpl, 'search_nav_last_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.last'))),
+            $navClearButton = $($.rup_utils.format(navClearButtonTmpl, 'search_nav_clear_button' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.search.Reset'))),
+            $navSearchButton = $($.rup_utils.format(navSearchButtonTmpl, 'search_nav_button_' + idTabla, jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.search.Find')));
 
         // Construcción del objeto final
         $collapseLayer.append($collapseIcon).append($collapseLabel);
@@ -255,9 +257,9 @@
         $searchRow.append($searchRowHeader);
 
         $gridHead.prepend($searchRow);
-        jQuery('tfoot tr.search_row','#'+idTabla+'').addClass('ui-state-default');
+        jQuery('tfoot tr.search_row', '#' + idTabla + '').addClass('ui-state-default');
 
-        ctx.seeker.search = ctx.seeker.search  || {};
+        ctx.seeker.search = ctx.seeker.search || {};
 
         ctx.seeker.search.created = false;
 
@@ -270,14 +272,14 @@
         ctx.seeker.search.$lastNavButton = $lastNavButton;
 
         // Creacion del enlace de mostrar/ocultar el formulario
-        $collapseIcon.add($collapseLabel).on('click', function(){
-            if (!ctx.seeker.search.created){
+        $collapseIcon.add($collapseLabel).on('click', function () {
+            if (!ctx.seeker.search.created) {
                 ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-right');
                 ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-down');
                 ctx.seeker.search.created = true;
                 ctx.seeker.searchForm.show();
                 $navLayer.show();
-            }else{
+            } else {
                 ctx.seeker.search.$collapseIcon.removeClass('mdi-chevron-down');
                 ctx.seeker.search.$collapseIcon.addClass('mdi-chevron-right');
                 ctx.seeker.search.created = false;
@@ -287,137 +289,143 @@
         });
 
         // Evento de búsqueda asociado al botón
-        $navSearchButton.on('click', function(){
-            $('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+        $navSearchButton.on('click', function () {
+            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
             ctx.seeker.ajaxOption.data = _getDatos(ctx);
-            var ajaxOptions =  $.extend(true, [], ctx.seeker.ajaxOption);
+            var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
             //Se pasa sin el internalFeedback ya que no es necesario.
-            if(ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined){
+            if (ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined) {
                 ajaxOptions.data.multiselection.internalFeedback = [];
             }
-            $('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
-            if(!jQuery.isEmptyObject(ajaxOptions.data.search)){
-                $('#'+idTabla+'_search_searchForm').rup_form();
-                $('#'+idTabla+'_search_searchForm').rup_form('ajaxSubmit',ajaxOptions);
+            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+            if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
+                $('#' + idTabla + '_search_searchForm').rup_form();
+                var tmp = ajaxOptions.success;
+                ajaxOptions.success = function () {
+                    tmp(arguments);
+                    ajaxOptions.success = tmp;
+                    $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
+                };
+                $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
             }
-            $('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
+            // $('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
         });
 
         // Evento asociado a limpiar el fomulario de búsqueda
-        $navClearButton.on('click', function(){
-            _limpiarSeeker(dt,ctx);
+        $navClearButton.on('click', function () {
+            _limpiarSeeker(dt, ctx);
         });
 
         $navLayer.hide();
 
-        function doSearchButtonNavigation($button, buttonId){
-            if (!$button.prop("disabled")){
+        function doSearchButtonNavigation($button, buttonId) {
+            if (!$button.prop("disabled")) {
                 $self.rup_jqtable('navigateToMatchedRow', buttonId);
             }
         }
 
         // Elemento primero
-        $firstNavButton.on('click', function(){
+        $firstNavButton.on('click', function () {
             ctx.seeker.search.pos = 0;
-            _processData(dt,ctx,ctx.seeker.search.funcionParams);
+            _processData(dt, ctx, ctx.seeker.search.funcionParams);
         });
 
         // Elemento anterior
-        $backNavButton.on('click', function(){
+        $backNavButton.on('click', function () {
             ctx.seeker.search.pos--;
-            _processData(dt,ctx,ctx.seeker.search.funcionParams);
+            _processData(dt, ctx, ctx.seeker.search.funcionParams);
         });
 
         // Elemento siguiente
-        $forwardNavButton.on('click', function(){
+        $forwardNavButton.on('click', function () {
             ctx.seeker.search.accion = 'next';
             ctx.seeker.search.pos++;
-            _processData(dt,ctx,ctx.seeker.search.funcionParams);
+            _processData(dt, ctx, ctx.seeker.search.funcionParams);
         });
 
         // Elemento ultimo
-        $lastNavButton.on('click', function(){
-            ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length-1;
-            _processData(dt,ctx,ctx.seeker.search.funcionParams);
+        $lastNavButton.on('click', function () {
+            ctx.seeker.search.pos = ctx.seeker.search.funcionParams.length - 1;
+            _processData(dt, ctx, ctx.seeker.search.funcionParams);
         });
 
         // Se recubre con un form
-        var $searchForm = jQuery('<form>').attr('id',idTabla+'_search_searchForm');
+        var $searchForm = jQuery('<form>').attr('id', idTabla + '_search_searchForm');
 
-        $('#'+idTabla).wrapAll($searchForm);
+        $('#' + idTabla).wrapAll($searchForm);
 
-        ctx.seeker.search.$searchForm = $('#'+idTabla+'_search_searchForm');
+        ctx.seeker.search.$searchForm = $('#' + idTabla + '_search_searchForm');
         ctx.seeker.search.$searchRow.hide();
         ctx.seeker.search.pos = 0;
         ctx.seeker.search.accion = '';
     }
 
     /**
-* Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
-*
-* @name selectSearch
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
-* @param {object} rows - Filas del table de la página actual.
-*
-*/
-    function _selectSearch(dt,ctx,rows){
+     * Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
+     *
+     * @name selectSearch
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+     * @param {object} rows - Filas del table de la página actual.
+     *
+     */
+    function _selectSearch(dt, ctx, rows) {
         //Se limina el lapicero indicador.
-        $('#'+ctx.sTableId+' tbody tr td.select-checkbox i.filtered-row').remove();
-        $('#'+ctx.sTableId+' tbody tr td i.filtered-row').remove();
+        $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.filtered-row').remove();
+        $('#' + ctx.sTableId + ' tbody tr td i.filtered-row').remove();
 
         //se añade el span con la lupa
-        if(rows.length > 0 && ctx.fnRecordsTotal() > 0){
+        if (rows.length > 0 && ctx.fnRecordsTotal() > 0) {
             //Se selecciona el primero y se limpian los datos.
             var rowSelected = '';
 
-            $.each(ctx.json.rows, function( idx ,value) {
-                if(rows[ctx.seeker.search.pos].pageLine-1 === idx){
+            $.each(ctx.json.rows, function (idx, value) {
+                if (rows[ctx.seeker.search.pos].pageLine - 1 === idx) {
                     rowSelected = dt.rows().nodes()[idx];
                 }
-                var result = $.grep(rows, function(v) {
+                var result = $.grep(rows[0], function (v) {
                     return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
                 });
-                if(result.length === 1){
+                if (result.length === 1) {
                     var searchIcon = $("<i/>").addClass('mdi mdi-magnify ui-icon-rupInfoCol filtered-row');
 
-                    $($('#'+ctx.sTableId+' tbody tr td:nth-child(1)')[idx]).append(searchIcon);
+                    $($('#' + ctx.sTableId + ' tbody tr td:nth-child(1)')[idx]).append(searchIcon);
 
                 }
             });
             var rowUnique = rows[ctx.seeker.search.pos];
-            var rowList = ctx.json.rows[rowUnique.pageLine-1];
-            if(rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page)
-				&& DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
-				(ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)){//si no esta ya seleccionada.
-                if(ctx.oInit.multiSelect !== undefined){
-                    dt['row'](rowUnique.pageLine-1).multiSelect();
-                }else if(ctx.oInit.select !== undefined){
-                    DataTable.Api().select.selectRowIndex(dt,rowUnique.pageLine - 1, true);
+            var rowList = ctx.json.rows[rowUnique.pageLine - 1];
+            if (rowSelected !== '' && rowSelected.className.indexOf('selected') < 0 && rowUnique.page === Number(ctx.json.page) &&
+                DataTable.Api().rupTable.getIdPk(rowUnique.pk) === DataTable.Api().rupTable.getIdPk(rowList) &&
+                (ctx.oInit.formEdit === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length === undefined)) { //si no esta ya seleccionada.
+                if (ctx.oInit.multiSelect !== undefined) {
+                    dt['row'](rowUnique.pageLine - 1).multiSelect();
+                } else if (ctx.oInit.select !== undefined) {
+                    DataTable.Api().select.selectRowIndex(dt, rowUnique.pageLine - 1, true);
                 }
             }
             ctx.seeker.search.accion = '';
         }
-        $('#'+ctx.sTableId).trigger('selected.rup.dt');
+        $('#' + ctx.sTableId).trigger('selected.rup.dt');
     }
 
     /**
-* Metodo para saber si hay que paginar o no.
-*
-* @name paginar
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
-* @param {object} dato - Son los datos de las filas que viene del controller..
-*
-*/
-    function _paginar(ctx,dato){
+     * Metodo para saber si hay que paginar o no.
+     *
+     * @name paginar
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
+     * @param {object} dato - Son los datos de las filas que viene del controller..
+     *
+     */
+    function _paginar(ctx, dato) {
         var paginar = false;
-        if(dato !== undefined && dato.page !== Number(ctx.json.page)){
+        if (dato !== undefined && dato.page !== Number(ctx.json.page)) {
             paginar = true;
         }
 
@@ -425,17 +433,17 @@
     }
 
     /**
-* Actualiza la navegación del seeker.
-*
-* @name updateDetailSeekPagination
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
-* @param {integer} totalRowNum - Número total de registros seleccionados.
-*
-*/
-    function _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx){
+     * Actualiza la navegación del seeker.
+     *
+     * @name updateDetailSeekPagination
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
+     * @param {integer} totalRowNum - Número total de registros seleccionados.
+     *
+     */
+    function _updateDetailSeekPagination(currentRowNum, totalRowNum, ctx) {
 
         if (currentRowNum === 1) {
             ctx.seeker.search.$firstNavButton.prop("disabled", true);
@@ -452,98 +460,99 @@
             ctx.seeker.search.$lastNavButton.prop("disabled", false);
         }
 
-        ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecordsCount'),Number(currentRowNum), Number(totalRowNum)));
+        ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.matchedRecordsCount'), Number(currentRowNum), Number(totalRowNum)));
     }
 
     /**
-* Metodo para procesar los datos provinientes del controller.
-*
-* @name processData
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
-* @param {object} dato - Son los datos de las filas que viene del controller.
-*
-*/
-    function _processData(dt,ctx,data){
-        if(ctx.oInit.multiSelect !== undefined){
+     * Metodo para procesar los datos provinientes del controller.
+     *
+     * @name processData
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+     * @param {object} dato - Son los datos de las filas que viene del controller.
+     *
+     */
+    function _processData(dt, ctx, data) {
+        if (ctx.oInit.multiSelect !== undefined) {
             DataTable.Api().multiSelect.deselectAll(dt);
-        }else if(ctx.oInit.select !== undefined){
+        } else if (ctx.oInit.select !== undefined) {
             DataTable.Api().select.deselect(ctx);
         }
-        if(!_paginar(ctx,data[ctx.seeker.search.pos])){
-            _selectSearch(dt,ctx,data);
-        }else{
-            var tabla = $('#'+ctx.sTableId);
-            tabla.dataTable().fnPageChange( data[ctx.seeker.search.pos].page-1 );
+        if (!_paginar(ctx, data[ctx.seeker.search.pos])) {
+            _selectSearch(dt, ctx, data);
+        } else {
+            var tabla = $('#' + ctx.sTableId);
+            tabla.dataTable().fnPageChange(data[ctx.seeker.search.pos].page - 1);
         }
 
-        if (data.length === 0){
+        if (data.length === 0) {
             ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
-            ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_table.plugins.search.matchedRecords'),'0'));
-        }else{
-            _updateDetailSeekPagination(ctx.seeker.search.pos + 1,data.length,ctx);
+            ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.matchedRecords'), '0'));
+        } else {
+            _updateDetailSeekPagination(ctx.seeker.search.pos + 1, data.length, ctx);
         }
     }
 
     /**
-* Se obtienen los datos del formulario del seeker.
-*
-* @name getDatos
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
-* 
-* @return {object} Devuelve el objeto mapeado de todos los campos.
-*
-*/
-    function _getDatos(ctx){
+     * Se obtienen los datos del formulario del seeker.
+     *
+     * @name getDatos
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
+     * 
+     * @return {object} Devuelve el objeto mapeado de todos los campos.
+     *
+     */
+    function _getDatos(ctx) {
         var datos = ctx.aBaseJson;
-        if (datos !== undefined && $(ctx.seeker.search.$searchForm.selector)[0]!== undefined) {
-            datos.search = form2object($(ctx.seeker.search.$searchForm.selector)[0]);
+        if (datos !== undefined && ctx.seeker.search.$searchForm[0] !== undefined) {
+            datos.search = form2object(ctx.seeker.search.$searchForm[0]);
         }
         return datos;
     }
 
     /**
-* Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo.
-*
-* @name createRupComponent
-* @function
-* @since UDA 3.4.0 // Table 1.0.0
-* 
-* @param {object} dt - Es el objeto table.
-* @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
-*
-*/
-    function _createRupComponent(dt,ctx){
-        var colModel = ctx.oInit.colModel, searchEditOptions;
-        if(colModel !== undefined){
+     * Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo.
+     *
+     * @name createRupComponent
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     * 
+     * @param {object} dt - Es el objeto table.
+     * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
+     *
+     */
+    function _createRupComponent(dt, ctx) {
+        var colModel = ctx.oInit.colModel,
+            searchEditOptions;
+        if (colModel !== undefined) {
             $('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
-				
+
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');
-			
+
                 var cellColModel = colModel[i];
-                var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
-	
+                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined) ? cellColModel.searchoptions.rupType : cellColModel.rupType;
+
                 var colModelName = cellColModel.name;
-                var $elem = $('[name=\''+colModelName+'\']',ctx.seeker.searchForm);
+                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
                 // Se añade el title de los elementos de acuerdo al colname
                 $elem.attr({
-                    'title': $('#'+cellColModel.name+'_seeker').attr('placeholder'),
+                    'title': $('#' + cellColModel.name + '_seeker').attr('placeholder'),
                     'class': 'editable customelement form-control-customer'
                 }).removeAttr('readOnly');
-	
+
                 // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-                if(searchRupType!==undefined) {
+                if (searchRupType !== undefined) {
                     searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-	
+
                     // Invocación al componente RUP
-                    $elem['rup_'+searchRupType](searchEditOptions);
+                    $elem['rup_' + searchRupType](searchEditOptions);
                 }
 
             });
@@ -551,50 +560,46 @@
 
     }
 
-    function _limpiarSeeker(dt,ctx){
-        $('#'+ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
-        jQuery('input,textarea','#'+ctx.sTableId+' tfoot').val('');
-        jQuery('tfoot [ruptype=\'combo\']','table tfoot').rup_combo('clear');
-        jQuery('.ui-selectmenu-status','table tfoot').text('--');
+    function _limpiarSeeker(dt, ctx) {
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
+        jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
+        jQuery('tfoot [ruptype=\'combo\']', 'table tfoot').rup_combo('clear');
+        jQuery('.ui-selectmenu-status', 'table tfoot').text('--');
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
-        _processData(dt,ctx,[]);
-        $('#'+ctx.sTableId).triggerHandler('tableSeekerAfterClear');
+        _processData(dt, ctx, []);
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterClear');
     }
 
-    function _enabledButtons(ctx){
-        if(ctx.seeker !== undefined){
-            $.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
-                if($(this).attr("ruptype") === "date") {
+    function _enabledButtons(ctx) {
+        if (ctx.seeker !== undefined) {
+            $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
+                if ($(this).attr("ruptype") === "date") {
                     $(this).rup_date("disable");
                     $(this).next().addClass('form-control-customer');
-                } 
-                else if($(this).attr("ruptype") === "combo") {
+                } else if ($(this).attr("ruptype") === "combo") {
                     $(this).rup_combo("disable");
-                    $(this).next().find('a').addClass('form-control-customer').attr('readonly',true);
-                }
-                else if($(this).attr("ruptype") === "time") {
+                    $(this).next().find('a').addClass('form-control-customer').attr('readonly', true);
+                } else if ($(this).attr("ruptype") === "time") {
                     $(this).rup_time("disable");
-                }else{
+                } else {
                     $(this).attr('disabled', true);
                 }
             });
         }
     }
 
-    function _disabledButtons(ctx){
-        if(ctx.seeker !== undefined){
-            $.each($('#'+ctx.sTableId+' tfoot [id*="seeker"]:not(a)'),function(key,id) {
-                if($(this).attr("ruptype") === "date") {
+    function _disabledButtons(ctx) {
+        if (ctx.seeker !== undefined) {
+            $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
+                if ($(this).attr("ruptype") === "date") {
                     $(this).rup_date("enable");
-                } 
-                else if($(this).attr("ruptype") === "combo") {
+                } else if ($(this).attr("ruptype") === "combo") {
                     $(this).rup_combo("enable");
-                    $(this).next().find('a').attr('readonly',false);
-                }
-                else if($(this).attr("ruptype") === "time") {
+                    $(this).next().find('a').attr('readonly', false);
+                } else if ($(this).attr("ruptype") === "time") {
                     $(this).rup_time("enable");
-                }else{
+                } else {
                     $(this).removeAttr('disabled');
                 }
             });
@@ -602,57 +607,57 @@
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables API
- *
- * For complete documentation, please refer to the docs/api directory or the
- * DataTables site
- */
+     * DataTables API
+     *
+     * For complete documentation, please refer to the docs/api directory or the
+     * DataTables site
+     */
 
     // Local variables to improve compression
     var apiRegister = DataTable.Api.register;
 
-    apiRegister( 'seeker.eventTrigger()', function ( api, type, args, any ) {
-        DataTable.seeker._eventTrigger(api, type, args, any );
-    } );
-
-    apiRegister( 'seeker.selectSearch()', function ( dt,ctx,rows ) {
-        _selectSearch(dt,ctx,rows );
-    } );
-
-    apiRegister('seeker.limpiarSeeker()', function ( dt,ctx) {
-        _limpiarSeeker(dt,ctx);
+    apiRegister('seeker.eventTrigger()', function (api, type, args, any) {
+        DataTable.seeker._eventTrigger(api, type, args, any);
     });
 
-    apiRegister('seeker.updateDetailSeekPagination()', function ( currentRowNum,totalRowNum,ctx) {
-        _updateDetailSeekPagination(currentRowNum,totalRowNum,ctx);
+    apiRegister('seeker.selectSearch()', function (dt, ctx, rows) {
+        _selectSearch(dt, ctx, rows);
     });
 
-    apiRegister('seeker.disabledButtons()', function ( ctx) {
+    apiRegister('seeker.limpiarSeeker()', function (dt, ctx) {
+        _limpiarSeeker(dt, ctx);
+    });
+
+    apiRegister('seeker.updateDetailSeekPagination()', function (currentRowNum, totalRowNum, ctx) {
+        _updateDetailSeekPagination(currentRowNum, totalRowNum, ctx);
+    });
+
+    apiRegister('seeker.disabledButtons()', function (ctx) {
         _disabledButtons(ctx);
     });
 
-    apiRegister('seeker.enabledButtons()', function ( ctx) {
+    apiRegister('seeker.enabledButtons()', function (ctx) {
         _enabledButtons(ctx);
     });
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Initialization
- */
+     * Initialization
+     */
 
     // DataTables creation - check if select has been defined in the options. Note
     // this required that the table be in the document! If it isn't then something
     // needs to trigger this method unfortunately. The next major release of
     // DataTables will rework the events and address this.
-    $(document).on( 'plugin-init.dt', function (e, ctx) {
-        if ( e.namespace !== 'dt' ) {
+    $(document).on('plugin-init.dt', function (e, ctx) {
+        if (e.namespace !== 'dt') {
             return;
         }
-        if(ctx.oInit.seeker !== undefined){
-            DataTable.seeker.init( new DataTable.Api( ctx ) );
-        }else{
+        if (ctx.oInit.seeker !== undefined) {
+            DataTable.seeker.init(new DataTable.Api(ctx));
+        } else {
             $('tfoot').hide();
         }
 
-    } );
+    });
 
 
     return DataTable.seeker;
