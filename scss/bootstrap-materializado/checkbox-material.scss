@@ -1,162 +1,206 @@
-/* ESTILOS */
-$checkbox-material-margin: 0.5em 0;
+// ESTILOS
+$checkbox-material-margin: .5em 0;
 $checkbox-material-size: 1.25em;
 $checkbox-material-padding: .25em;
 $checkbox-material-border-width: 2px;
-$checkbox-material-border-radius: 0.125em;
+$checkbox-material-border-radius: .125em;
 $checkbox-material-ripple-size: 6.5px;
-$md-checkmark-width: 0.125em;
+$md-checkmark-width: .125em;
 $md-checkmark-color: $white-color;
 $checkbox-material-label-padding: .75em;
 
 @keyframes ripple-hover {
     0% {
-        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
     }
-    50% { 
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.05);
+
+    50% {
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .05);
     }
+
     100% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.1);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
     }
 }
 
 @keyframes ripple-active {
     0% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.1);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
     }
-    50% { 
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.4);
+
+    50% {
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .4);
     }
+
     100% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.6);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .6);
     }
 }
 
 .checkbox-material {
-	position: relative;
-	margin: $checkbox-material-margin;
-	text-align: left;
-  
-  	label {
-	    cursor: pointer;
-	    display: inline;
-	    line-height: $checkbox-material-size;
-	    vertical-align: top;
-	    clear: both;
-	    padding-left: 1px;
-      
-	    &:not(:empty) {
-	      padding-left: $checkbox-material-label-padding;
-		}   
-	    &:before, &:after {
-			content: "";
-			position: absolute;
-			left: 0;
-			top: 0;
-			box-sizing: border-box;
-	    }  
-	    &:before {
-		    /* CAJA */
-		    width: $checkbox-material-size;
-		    height: $checkbox-material-size;
-		    background: $white-color;
-		    border: $checkbox-material-border-width solid $checkbox-material-border-color;
-		    border-radius: $checkbox-material-border-radius;
-		    cursor: pointer;
-		    transition: background .3s;
-	    } 
-	    &:after {
-	      /* CHECK */
-	    }    
-  	}
-  
-  	input[type="checkbox"] {
-	    outline: 0;
-	    opacity: 0;
-	    width: $checkbox-material-size;
-	    margin: 0;
-	    display: block;
-	    float: left;
-	    font-size: inherit;
-      
-		/* CUANDO PASA EL RATON POR ENCIMA */  
-		&:hover:enabled + label:before, &:checked:hover:enabled + label:before {
-			animation: ripple-hover 0.2s linear forwards;
-		}
-		
-		/* CUANDO TIENE EL FOCO */
-		&:focus + label:before {
-			animation: ripple-active 0.2s linear forwards;
-		}
-      
-		&:checked {
-			+ label:before {
-		     	background: $checkbox-material-checked-color;
-				border:none;
-		   	}
-		   	+ label:after {
-				$md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
-				transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
-				width: $md-checkmark-size;
-				height: $md-checkmark-size / 2;
-				border: $md-checkmark-width solid $md-checkmark-color;
-				border-top-style: none;
-				border-right-style: none;
-		   	} 
-	    }
-		&:active:enabled + label:before {
-		  	animation: ripple-active 0.2s linear forwards;
-		}
-      
-      	/* CUANDO ESTA DISABLED */
-    	&:disabled {
-			+ label:before {
-				border-color: $checkbox-material-border-color-disabled;
-			}
-			+ label {
-			    pointer-events: none;
-			}
-			&:checked {
-				+ label:before {
-				    background: $checkbox-material-checked-color-disabled;
-				}
-			}
-		}
-  	}
-}
+    margin: $checkbox-material-margin;
+    position: relative;
+    text-align: left;
 
-.checkbox-material-inline {
-	display: inline-block;
-	margin: initial;
-}
+    label {
+        clear: both;
+        cursor: pointer;
+        display: inline;
+        line-height: $checkbox-material-size;
+        padding-left: 1px;
+        vertical-align: top;
 
-table div.checkbox-material-inline {
-	label {
-		&:before, &:after {
-			top: 3px;
-	    }
-	}
-}
+        &:not(:empty) {
+            padding-left: $checkbox-material-label-padding;
+        }
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
-.form-groupMaterial.checkbox-material > label {
-    position: initial;
-    line-height: 2.9em;
-    
-    &:before, &:after {
-    	left: 5px;
-    	top: 10px;
+        &::before,
+        &::after {
+            box-sizing: border-box;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+
+        &::before {
+            // CAJA
+            background: $white-color;
+            border: $checkbox-material-border-width solid $checkbox-material-border-color;
+            border-radius: $checkbox-material-border-radius;
+            cursor: pointer;
+            height: $checkbox-material-size;
+            transition: background .3s;
+            width: $checkbox-material-size;
+        }
+    }
+
+    input[type='checkbox'] {
+        display: block;
+        float: left;
+        font-size: inherit;
+        margin: 0;
+        opacity: 0;
+        outline: 0;
+        width: $checkbox-material-size;
+
+
+        // CUANDO PASA EL RATON POR ENCIMA
+        &:hover:enabled,
+        &:checked:hover:enabled {
+            @mixin hover-animation {
+                +label::before {
+                    animation: ripple-hover .2s linear forwards;
+                }
+            }
+
+            @include hover-animation;
+
+            +input[type='hidden'] {
+                @include hover-animation;
+            }
+        }
+
+        // CUANDO TIENE EL FOCO
+        &:focus {
+            @mixin focus-animation {
+                +label:before {
+                    animation: ripple-active .2s linear forwards;
+                }
+            }
+
+            @include focus-animation;
+
+            +input[type='hidden'] {
+                @include focus-animation;
+            }
+        }
+
+        &:checked {
+
+            @mixin checked-label {
+                +label::before {
+                    background: $checkbox-material-checked-color;
+                    border: 0;
+                }
+
+                +label::after {
+                    $md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
+                    border: $md-checkmark-width solid $md-checkmark-color;
+                    border-right-style: none;
+                    border-top-style: none;
+                    height: $md-checkmark-size / 2;
+                    transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
+                    width: $md-checkmark-size;
+                }
+            }
+
+            @include checked-label;
+
+            +input[type='hidden'] {
+                @include checked-label;
+            }
+        }
+
+        &:active:enabled+label::before {
+            animation: ripple-active .2s linear forwards;
+        }
+
+        // CUANDO ESTA DISABLED
+        &:disabled {
+            +label::before {
+                border-color: $checkbox-material-border-color-disabled;
+            }
+
+            +label {
+                pointer-events: none;
+            }
+
+            &:checked {
+                +label::before {
+                    background: $checkbox-material-checked-color-disabled;
+                }
+            }
+        }
     }
 }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
+.checkbox-material-inline {
+    display: inline-block;
+    margin: initial;
+}
+
+table div.checkbox-material-inline {
+    label {
+
+        &::before,
+        &::after {
+            top: 3px;
+        }
+    }
+}
+
+// PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO
+.form-groupMaterial.checkbox-material>label {
+    line-height: 2.9em;
+    position: initial;
+
+    &::before,
+    &::after {
+        left: 5px;
+        top: 10;
+    }
+}
+
+// PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO
 .dialog-content-material {
-	.checkbox-material {
-		label {
-			&:before, &:after {
-				left: 6px;
-			}
-		}
-	}
+    .checkbox-material {
+        label {
+
+            &::before,
+            &::after {
+                left: 6px;
+            }
+        }
+    }
 }
