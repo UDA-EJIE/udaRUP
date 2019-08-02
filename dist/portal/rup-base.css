@@ -6857,7 +6857,7 @@
 }
 
 .r01gContainer .rup-time-input-group .ui-timepicker-trigger {
-  padding: 0 0.5rem;
+  padding: .1rem 0.5rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   display: table-cell;
@@ -24381,128 +24381,141 @@
   left: 6px;
 }
 
-/* ESTILOS */
-
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.05);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.05);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1);
   }
 }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.4);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.4);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.6);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.6);
   }
 }
 
 .r01gContainer .checkbox-material {
-  position: relative;
   margin: 0.5em 0;
+  position: relative;
   text-align: left;
 }
 
 .r01gContainer .checkbox-material label {
+  clear: both;
   cursor: pointer;
   display: inline;
   line-height: 1.25em;
-  vertical-align: top;
-  clear: both;
   padding-left: 1px;
+  vertical-align: top;
 }
 
 .r01gContainer .checkbox-material label:not(:empty) {
   padding-left: 0.75em;
 }
 
-.r01gContainer .checkbox-material label:before,
-.r01gContainer .checkbox-material label:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
+.r01gContainer .checkbox-material label::before,
+.r01gContainer .checkbox-material label::after {
   box-sizing: border-box;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
 }
 
-.r01gContainer .checkbox-material label:before {
-  /* CAJA */
-  width: 1.25em;
-  height: 1.25em;
+.r01gContainer .checkbox-material label::before {
   background: #FFFFFF;
   border: 2px solid rgba(0, 0, 0, 0.54);
   border-radius: 0.125em;
   cursor: pointer;
+  height: 1.25em;
   transition: background .3s;
-}
-
-.r01gContainer .checkbox-material label:after {
-  /* CHECK */
-}
-
-.r01gContainer .checkbox-material input[type="checkbox"] {
-  outline: 0;
-  opacity: 0;
   width: 1.25em;
-  margin: 0;
+}
+
+.r01gContainer .checkbox-material input[type='checkbox'] {
   display: block;
   float: left;
   font-size: inherit;
-  /* CUANDO PASA EL RATON POR ENCIMA */
-  /* CUANDO TIENE EL FOCO */
-  /* CUANDO ESTA DISABLED */
+  margin: 0;
+  opacity: 0;
+  outline: 0;
+  width: 1.25em;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:hover:enabled + label:before,
-.r01gContainer .checkbox-material input[type="checkbox"]:checked:hover:enabled + label:before {
-  animation: ripple-hover 0.2s linear forwards;
+.r01gContainer .checkbox-material input[type='checkbox']:hover:enabled + label::before,
+.r01gContainer .checkbox-material input[type='checkbox']:checked:hover:enabled + label::before {
+  animation: ripple-hover .2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:focus + label:before {
-  animation: ripple-active 0.2s linear forwards;
+.r01gContainer .checkbox-material input[type='checkbox']:hover:enabled + input[type='hidden'] + label::before,
+.r01gContainer .checkbox-material input[type='checkbox']:checked:hover:enabled + input[type='hidden'] + label::before {
+  animation: ripple-hover .2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:checked + label:before {
+.r01gContainer .checkbox-material input[type='checkbox']:focus + label:before {
+  animation: ripple-active .2s linear forwards;
+}
+
+.r01gContainer .checkbox-material input[type='checkbox']:focus + input[type='hidden'] + label:before {
+  animation: ripple-active .2s linear forwards;
+}
+
+.r01gContainer .checkbox-material input[type='checkbox']:checked + label::before {
   background: #1472a4;
-  border: none;
+  border: 0;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:checked + label:after {
+.r01gContainer .checkbox-material input[type='checkbox']:checked + label::after {
+  border: 0.125em solid #FFFFFF;
+  border-right-style: none;
+  border-top-style: none;
+  height: 0.375em;
   transform: translate(0.25em, 0.33653846em) rotate(-45deg);
   width: 0.75em;
-  height: 0.375em;
+}
+
+.r01gContainer .checkbox-material input[type='checkbox']:checked + input[type='hidden'] + label::before {
+  background: #1472a4;
+  border: 0;
+}
+
+.r01gContainer .checkbox-material input[type='checkbox']:checked + input[type='hidden'] + label::after {
   border: 0.125em solid #FFFFFF;
-  border-top-style: none;
   border-right-style: none;
+  border-top-style: none;
+  height: 0.375em;
+  transform: translate(0.25em, 0.33653846em) rotate(-45deg);
+  width: 0.75em;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:active:enabled + label:before {
-  animation: ripple-active 0.2s linear forwards;
+.r01gContainer .checkbox-material input[type='checkbox']:active:enabled + label::before {
+  animation: ripple-active .2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled + label:before {
+.r01gContainer .checkbox-material input[type='checkbox']:disabled + label::before {
   border-color: rgba(0, 0, 0, 0.26);
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled + label {
+.r01gContainer .checkbox-material input[type='checkbox']:disabled + label {
   pointer-events: none;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled:checked + label:before {
+.r01gContainer .checkbox-material input[type='checkbox']:disabled:checked + label::before {
   background: rgba(0, 0, 0, 0.26);
 }
 
@@ -24511,28 +24524,24 @@
   margin: initial;
 }
 
-.r01gContainer table div.checkbox-material-inline label:before,
-.r01gContainer table div.checkbox-material-inline label:after {
+.r01gContainer table div.checkbox-material-inline label::before,
+.r01gContainer table div.checkbox-material-inline label::after {
   top: 3px;
 }
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
-
 .r01gContainer .form-groupMaterial.checkbox-material > label {
-  position: initial;
   line-height: 2.9em;
+  position: initial;
 }
 
-.r01gContainer .form-groupMaterial.checkbox-material > label:before,
-.r01gContainer .form-groupMaterial.checkbox-material > label:after {
+.r01gContainer .form-groupMaterial.checkbox-material > label::before,
+.r01gContainer .form-groupMaterial.checkbox-material > label::after {
   left: 5px;
-  top: 10px;
+  top: 10;
 }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
-
-.r01gContainer .dialog-content-material .checkbox-material label:before,
-.r01gContainer .dialog-content-material .checkbox-material label:after {
+.r01gContainer .dialog-content-material .checkbox-material label::before,
+.r01gContainer .dialog-content-material .checkbox-material label::after {
   left: 6px;
 }
 
