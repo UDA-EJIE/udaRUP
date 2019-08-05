@@ -458,66 +458,68 @@ function testDatatable() {
                 });
             });
 
-            // describe('Variacion de número de registros por página > ', () => {
-            //     beforeEach((done) => {
-            //         $('#example').on('draw.dt', () => {
-            //             done();
-            //         });
-            //         $('[name="example_length"]').val(10);
-            //         $('[name="example_length"]').trigger('change');
-            //     });
+            describe('Variacion de número de registros por página > ', () => {
+                beforeEach((done) => {
+                    $('#example').on('draw.dt', () => {
+                        done();
+                    });
+                    $('[name="example_length"]').val(10);
+                    $('[name="example_length"]').trigger('change');
+                });
 
-            //     it('Debe haber recibido los registros indicados:', () => {
-            //         expect($('tbody > tr', $('#example')).length).toBe(10);
-            //     });
+                it('Debe haber recibido los registros indicados:', () => {
+                    expect($('tbody > tr', $('#example')).length).toBe(10);
+                });
 
-            //     it('Deben haber únicamente 2 páginas disponibles:', () => {
-            //         expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
-            //     });
-            // });
+                it('Deben haber únicamente 2 páginas disponibles:', () => {
+                    expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
+                });
+            });
 
-            // describe('Ordenación > ', () => {
-            //     describe('Ordenación por nombre ascendente > ', () => {
-            //         beforeEach((done) => {
-            //             $('#example').on('draw.dt', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
-            //             $('th.sorting[data-col-prop="nombre"]').click();
-            //         });
+            describe('Ordenación > ', () => {
+                describe('Ordenación por nombre ascendente > ', () => {
+                    beforeEach((done) => {
+                        $('#example').on('draw.dt', done);
+                        $('th.sorting[data-col-prop="nombre"]').click();
+                    });
 
-            //         it('Comprobamos que haya cambiado el orden:', () => {
-            //             expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
-            //             expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('5');
-            //             expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
-            //             expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
-            //             expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('2');
-            //         });
-            //     });
+                    it('Comprobamos que haya cambiado el orden:', () => {
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('6');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('5');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('9');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('4');
+                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('3');
+                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('10');
+                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('8');
+                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('7');
+                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('2');
+                    });
+                });
 
-            //     describe('Ordenación por nombre descendente:', () => {
-            //         describe('Ordenacion por nombre descendente', () => {
-            //             beforeEach((done) => {
-            //                 $('#example').on('draw.dt', () => {
-            //                     setTimeout(() => {
-            //                         done();
-            //                     }, 300);
-            //                 });
-            //                 $('th[data-col-prop="nombre"]').click();
-            //             });
+                describe('Ordenación por nombre descendente:', () => {
+                    describe('Ordenacion por nombre descendente', () => {
+                        beforeEach((done) => {
+                            $('#example').on('draw.dt', done);
+                            $('th.sorting_asc[data-col-prop="nombre"]').click();
+                        });
 
-            //             it('Comprobamos que haya cambiado el orden:', () => {
-            //                 expect($('#example > tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
-            //                 expect($('#example > tbody > tr:eq(1) > td:eq(1)').text()).toBe('3');
-            //                 expect($('#example > tbody > tr:eq(2) > td:eq(1)').text()).toBe('4');
-            //                 expect($('#example > tbody > tr:eq(3) > td:eq(1)').text()).toBe('5');
-            //                 expect($('#example > tbody > tr:eq(4) > td:eq(1)').text()).toBe('1');
-            //             });
-            //         });
+                        it('Comprobamos que haya cambiado el orden:', () => {
+                            expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('2');
+                            expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('7');
+                            expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('8');
+                            expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('10');
+                            expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('3');
+                            expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('4');
+                            expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('9');
+                            expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('5');
+                            expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('6');
+                            expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('1');
+                        });
+                    });
 
-            //     });
-            // });
+                });
+            });
 
             // describe('Botonera > ', () => {
             //     describe('Aparecen los botones por defecto > ', () => {
