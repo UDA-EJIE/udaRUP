@@ -121,7 +121,7 @@ var json4OrderedInv = {
         { id: '9', nombre: 'Ekaitz', apellidos: 'Zabala Pando', edad: '23' },
         { id: '5', nombre: 'Eider', apellidos: 'Ahedo Dominguez', edad: '70' },
         { id: '6', nombre: 'Andoni', apellidos: 'García Vázquez', edad: '32' },
-        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' },
+        { id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' }
     ],
     total: '2',
     records: 15
@@ -365,4 +365,12 @@ exports.delete = (req, res) => {
 exports.deleteEnd = (req,res) => {
     json4 = json4Backup;
     res.status(200).json(json4);
+};
+exports.getReg = (req,res) => {
+    if(req.params.id == 3) {
+        res.status(200).json({ id: '3', nombre: 'Irene', apellidos: 'San Jose', edad: '8' });
+    }
+    if(req.params.id == 1) {
+        res.status(200).json({ id: '1', nombre: 'Ana', apellidos: 'García Vázquez', edad: '7' });
+    }
 };

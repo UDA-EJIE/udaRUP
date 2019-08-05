@@ -403,9 +403,9 @@
 	
         $('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
         // Establecemos el título del formulario
-        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
-	
+        
         ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
+        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
         ctx.oInit.formEdit.detailForm.rup_dialog('open');
 	
         // Establecemos el foco al primer elemento input o select que se

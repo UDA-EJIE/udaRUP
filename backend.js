@@ -117,6 +117,7 @@ module.exports = (PORT) => {
     app.put('/demo/table/remote', routesTable.formEdit);
     app.post('/demo/table/remote/deleteEnd', routesTable.deleteEnd);
     app.delete('/demo/table/remote/:id', routesTable.delete);
+    app.get('/demo/table/remote/:id', routesTable.getReg);
 
     //Audit
     app.post('/audit', routesAudit.audit);

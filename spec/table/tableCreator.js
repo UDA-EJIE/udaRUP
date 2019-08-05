@@ -177,7 +177,12 @@ export function createDatatable1(ctx, callback) {
         formEdit: {
             detailForm: '#example_detail_div',
             titleForm: 'Modificar registro',
-            saveContinueEdit: false
+            saveContinueEdit: false,
+            validate: {
+                rules: {
+                    nombre : {required : true}
+                }
+            }
         },
         seeker: {
             activate: true
