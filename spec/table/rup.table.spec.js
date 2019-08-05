@@ -548,127 +548,125 @@ function testDatatable() {
             //     });
             // });
 
-            // describe('Multiseleccion > ', () => {
-            //     beforeEach(() => {
-            //         $('#linkSelectTableHeadexample').click();
-            //     });
+            describe('Multiseleccion > ', () => {
+                beforeEach(() => {
+                    $('#linkSelectTableHeadexample').click();
+                });
 
-            //     it('Debe mostrarse el contextMenu:', () => {
-            //         expect($('ul:contains(Marcar visibles)').is(':visible')).toBeTruthy();
-            //     });
+                it('Debe mostrarse el contextMenu:', () => {
+                    expect($('ul:contains(Marcar visibles)').is(':visible')).toBeTruthy();
+                });
 
-            //     describe('Funcionalidad de las opciones multiselect > ', () => {
-            //         describe('Marcar visibles > ', () => {
-            //             beforeEach((done) => {
-            //                 $('ul > li:contains(Marcar visibles)').mouseup();
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
+                describe('Funcionalidad de las opciones multiselect > ', () => {
+                    describe('Marcar visibles > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar visibles)').mouseup();
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
 
-            //             it('Debe añadirlo al contexto:', () => {
-            //                 expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
-            //                     .toEqual(['2', '3', '4', '5', '1']);
-            //             });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
+                                .toBeFalsy();
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual([ '2', '7', '8', '10', '3', '4', '9', '5', '6', '1' ]);
+                        });
 
-            //             it('Debe marcar con highlight los elementos seleccionados:', () => {
-            //                 $('#example > tbody > tr').each((i, e) => {
-            //                     expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
-            //                 });
-            //             });
+                        it('Debe marcar con highlight los elementos seleccionados:', () => {
+                            $('#example > tbody > tr').each((i, e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
+                            });
+                        });
 
-            //             it('Debe mostrar el número de elementos seleccionados:', () => {
-            //                 expect(
-            //                     $('#example_info > span.select-info:contains(5 filas seleccionadas)').length
-            //                 ).toBe(1);
-            //             });
-            //         });
+                        it('Debe mostrar el número de elementos seleccionados:', () => {
+                            expect( $('span.select-info').text()).toBe('10 filas seleccionadas');
+                        });
+                    });
 
-            //         describe('Desmarcar visibles > ', () => {
-            //             beforeEach((done) => {
-            //                 $('ul > li:contains(Marcar visibles)').mouseup();
-            //                 setTimeout(() => {
-            //                     $('ul > li:contains(Desmarcar visibles)').mouseup();
-            //                     setTimeout(() => {
-            //                         done();
-            //                     }, 300);
-            //                 }, 300);
-            //             });
+                    describe('Desmarcar visibles > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar visibles)').mouseup();
+                            setTimeout(() => {
+                                $('ul > li:contains(Desmarcar visibles)').mouseup();
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            }, 300);
+                        });
 
-            //             it('Debe añadirlo al contexto:', () => {
-            //                 expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
-            //                     .toEqual([]);
-            //             });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual([]);
+                        });
 
-            //             it('Debe desmarcar con highlight los elementos:', () => {
-            //                 $('#example > tbody > tr').each((i, e) => {
-            //                     expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
-            //                 });
-            //             });
+                        it('Debe desmarcar con highlight los elementos:', () => {
+                            $('#example > tbody > tr').each((i, e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
+                            });
+                        });
 
-            //             it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
-            //                 expect(
-            //                     $('#example_info > span.select-info').length
-            //                 ).toBe(0);
-            //             });
-            //         });
+                        it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info').length
+                            ).toBe(0);
+                        });
+                    });
 
-            //         describe('Marcar todo > ', () => {
-            //             beforeEach((done) => {
-            //                 $('ul > li:contains(Marcar todo)').mouseup();
-            //                 setTimeout(() => {
-            //                     done();
-            //                 }, 300);
-            //             });
+                    describe('Marcar todo > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar todo)').mouseup();
+                            setTimeout(() => {
+                                done();
+                            }, 300);
+                        });
 
-            //             it('Debe añadirlo al contexto:', () => {
-            //                 expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
-            //                     .toBeTruthy();
-            //             });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
+                                .toBeTruthy();
+                        });
 
-            //             it('Debe marcar con highlight los elementos seleccionados:', () => {
-            //                 $('#example > tbody > tr').each((i, e) => {
-            //                     expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
-            //                 });
-            //             });
+                        it('Debe marcar con highlight los elementos seleccionados:', () => {
+                            $('#example > tbody > tr').each((i, e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeTruthy();
+                            });
+                        });
 
-            //             it('Debe mostrar el número de elementos seleccionados:', () => {
-            //                 expect(
-            //                     $('#example_info > span.select-info:contains(15 filas seleccionadas)').length
-            //                 ).toBe(1);
-            //             });
-            //         });
+                        it('Debe mostrar el número de elementos seleccionados:', () => {
+                            expect( $('span.select-info').text()).toBe('15 filas seleccionadas');
+                        });
+                    });
 
-            //         describe('Desmarcar todo > ', () => {
-            //             beforeEach((done) => {
-            //                 $('ul > li:contains(Marcar todo)').mouseup();
-            //                 setTimeout(() => {
-            //                     $('ul > li:contains(Desmarcar todo)').mouseup();
-            //                     setTimeout(() => {
-            //                         done();
-            //                     }, 300);
-            //                 }, 300);
-            //             });
+                    describe('Desmarcar todo > ', () => {
+                        beforeEach((done) => {
+                            $('ul > li:contains(Marcar todo)').mouseup();
+                            setTimeout(() => {
+                                $('ul > li:contains(Desmarcar todo)').mouseup();
+                                setTimeout(() => {
+                                    done();
+                                }, 300);
+                            }, 300);
+                        });
 
-            //             it('Debe añadirlo al contexto:', () => {
-            //                 expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
-            //                     .toEqual([]);
-            //             });
+                        it('Debe añadirlo al contexto:', () => {
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
+                                .toEqual([]);
+                        });
 
-            //             it('Debe desmarcar con highlight los elementos:', () => {
-            //                 $('#example > tbody > tr').each((i, e) => {
-            //                     expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
-            //                 });
-            //             });
+                        it('Debe desmarcar con highlight los elementos:', () => {
+                            $('#example > tbody > tr').each((i, e) => {
+                                expect($(e).hasClass('selected tr-highlight')).toBeFalsy();
+                            });
+                        });
 
-            //             it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
-            //                 expect(
-            //                     $('#example_info > span.select-info').length
-            //                 ).toBe(0);
-            //             });
-            //         });
-            //     });
-            // });
+                        it('No se debe mostrar el span con la informacion de los seleccionados:', () => {
+                            expect(
+                                $('#example_info > span.select-info').length
+                            ).toBe(0);
+                        });
+                    });
+                });
+            });
 
             // describe('Validación de formulario > ', () => {
             //     beforeEach((done) => {
