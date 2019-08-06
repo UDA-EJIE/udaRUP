@@ -352,7 +352,9 @@ function testDatatable() {
                             $('#example').on('draw.dt', () => {
                                 done();
                             });
-                            setTimeout(() => {$('#example_previous').click();}, 500);
+                            setTimeout(() => {
+                                $('#example_previous').click();
+                            }, 500);
                         };
                         // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
@@ -385,7 +387,9 @@ function testDatatable() {
                             $('#example').on('draw.dt', () => {
                                 done();
                             });
-                            setTimeout(() => {$('#example_first').click();}, 500);
+                            setTimeout(() => {
+                                $('#example_first').click();
+                            }, 500);
                         };
                         // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
@@ -521,22 +525,54 @@ function testDatatable() {
                 });
             });
 
-            // describe('Botonera > ', () => {
-            //     describe('Aparecen los botones por defecto > ', () => {
-            //         it('Botones por defecto existen:', () => {
-            //             expect($('.dt-buttons > .btn-primary').length).toBe(5);
-            //         });
+            describe('Botonera > ', () => {
+                describe('Aparecen los botones por defecto > ', () => {
+                    it('Botones por defecto existen:', () => {
+                        expect($('.dt-buttons > .btn-material').length).toBe(5);
+                    });
 
-            //         it('Solo el botón add está habilitado:', () => {
-            //             expect($('.table_toolbar_btnAdd').hasClass('disabledButtonsTable')).toBeFalsy();
-            //             expect($('.table_toolbar_btnEdit').hasClass('disabledButtonsTable')).toBeTruthy();
-            //             expect($('.table_toolbar_btnClone').hasClass('disabledButtonsTable')).toBeTruthy();
-            //             expect($('.table_toolbar_btnDelete').hasClass('disabledButtonsTable')).toBeTruthy();
-            //             expect($('.buttons-collection').hasClass('disabledButtonsTable')).toBeTruthy();
-            //         });
-            //     });
-            //     // TODO: Añadir botón extra
-            // });
+                    it('Solo el botón add está habilitado:', () => {
+                        expect($('.table_toolbar_btnAdd').hasClass('disabledButtonsTable')).toBeFalsy();
+                        expect($('.table_toolbar_btnEdit').hasClass('disabledButtonsTable')).toBeTruthy();
+                        expect($('.table_toolbar_btnClone').hasClass('disabledButtonsTable')).toBeTruthy();
+                        expect($('.table_toolbar_btnDelete').hasClass('disabledButtonsTable')).toBeTruthy();
+                        expect($('.buttons-collection').hasClass('disabledButtonsTable')).toBeTruthy();
+                    });
+                });
+                describe('Añadido de nuevo botón > ', () => {
+                    beforeEach((done) => {
+                        $('#example').one('rupTable-buttonsDraw', () => {
+                            $('.dt-buttons').children().eq(4).click();
+                            $('tbody > tr:eq(0) > td:eq(1)').contextmenu();
+                            done();
+                        });
+                        var btnObj = {
+                            text: 'addedBtn',
+                            action: () => {
+                                alert('action');
+                            },
+                            classname: 'btn-material-primary-high-emphasis',
+                            displayRegex: 1,
+                            id: 'addedButton',
+                            insideContextMenu: true
+                        };
+                        $('#example').rup_table('createButton', btnObj, 4);
+                    });
+
+                    afterEach((done) => {
+                        setTimeout(done, 1);
+                    });
+
+                    it('Se añade el nuevo botón en la posicion y con la funcionalidad e id esperado: ', () => {
+                        expect($('.dt-buttons').children().eq(4).text()).toBe('addedBtn');
+                        expect($('.dt-buttons').children().eq(4).is('#addedButton')).toBe(true);
+                        expect($('.rup-message-alert > .ui-dialog-content').text()).toBe('action');
+                    });
+                    it('Se añade la opcion al contextMenu: ', () => {
+                        expect($('#contextMenu2 > li:contains(addedBtn)').length).toBe(1);
+                    });
+                });
+            });
 
             // describe('Edición en línea > ', () => {
             //     beforeEach((done) => {
@@ -570,7 +606,7 @@ function testDatatable() {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
                                 .toBeFalsy();
                             expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
-                                .toEqual([ '2', '7', '8', '10', '3', '4', '9', '5', '6', '1' ]);
+                                .toEqual(['2', '7', '8', '10', '3', '4', '9', '5', '6', '1']);
                         });
 
                         it('Debe marcar con highlight los elementos seleccionados:', () => {
@@ -580,7 +616,7 @@ function testDatatable() {
                         });
 
                         it('Debe mostrar el número de elementos seleccionados:', () => {
-                            expect( $('span.select-info').text()).toBe('10 filas seleccionadas');
+                            expect($('span.select-info').text()).toBe('10 filas seleccionadas');
                         });
                     });
 
@@ -633,7 +669,7 @@ function testDatatable() {
                         });
 
                         it('Debe mostrar el número de elementos seleccionados:', () => {
-                            expect( $('span.select-info').text()).toBe('15 filas seleccionadas');
+                            expect($('span.select-info').text()).toBe('15 filas seleccionadas');
                         });
                     });
 

@@ -11,6 +11,23 @@ define(['jquery', 'marionette',
     function fncOnAttach() {
         $('#example').rup_table({
             urlBase: '/demo/table/remote',
+            initComplete: () => {
+                $('#example').one('rupTable-buttonsDraw', () => {
+                    $('.dt-buttons').children().eq(4).click();
+                    $('tbody > tr:eq(0) > td:eq(1)').contextmenu();
+                });
+                var btnObj = {
+                    text: 'addedBtn',
+                    action: () => {
+                        alert('action');
+                    },
+                    classname: 'btn-material-primary-high-emphasis',
+                    displayRegex: 1,
+                    id: 'exampleaddedButton_1',
+                    insideContextMenu: true
+                };
+                $('#example').rup_table('createButton', btnObj, 4);
+            },
             multiSelect: {
                 style: 'multi'
             },

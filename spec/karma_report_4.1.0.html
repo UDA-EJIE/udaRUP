@@ -94,16 +94,19 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in HeadlessChrome 75.0.3770 (Windows 7.0.0) on Mon Aug 05 2019</h1>
+<h1>Tested in HeadlessChrome 75.0.3770 (Windows 7.0.0) on Tue Aug 06 2019</h1>
 
 <div class="alert">
 
 
+<!-- <span class="failingAlert bar">Failed 1 specs</span> -->
+<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>48 specs, 1 failed, 0 pending</span>
+<span class="resultsMenu bar">
+<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
+   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
+</span>
 
-  
-  <span class="passingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>44 specs, 0 failed, 0 pending</span>
-  
 
 
 </div>
@@ -335,6 +338,32 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
+      <span class="description">Test DataTable &gt;  Funcionamiento &gt;  Botonera &gt;  Aparecen los botones por defecto &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Botones por defecto existen:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Solo el botón add está habilitado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">Test DataTable &gt;  Funcionamiento &gt;  Botonera &gt;  Añadido de nuevo botón &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Se añade el nuevo botón en la posicion y con la funcionalidad e id esperado: </span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">Se añade la opcion al contextMenu: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
       <span class="description">Test DataTable &gt;  Funcionamiento &gt;  Multiseleccion &gt; </span>
     
       <div class="specSummary passed">
@@ -425,6 +454,16 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 
 <div id="details">
   
+  
+  <div class="specDetail failed">
+    <span class="description">Test DataTable &gt;  Funcionamiento &gt;  Botonera &gt;  Añadido de nuevo botón &gt;  Se añade la opcion al contextMenu: </span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 0 to be 1.
+    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?ebb5fbe6ac522b8bbbfaf4c296e3717beef1c89d:721:83)</div>
+    </div>
+  </div>
+  
+  
 </div>
 
 <script>
@@ -436,7 +475,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    
+    case 50: showFailures(); break;
   }
 };
 
