@@ -720,69 +720,55 @@ function testDatatable() {
                 });
             });
 
-            // describe('Gestión de errores > ', () => {
-            //     describe('Errores al filtrar > ', () => {
-            //         var setup;
-            //         beforeEach(() => {
-            //             setup = (callback) => {
-            //                 $('#example').on('xhr.dt', () => {
-            //                     callback();
-            //                 });
-            //                 $('#id_filter_table').val('6');
-            //                 $('#example_filter_filterButton').click();
-            //             };
-            //         });
-            //         it('No da error:', (done) => {
-            //             expect(() => {setup(done);}).not.toThrowError();
-            //         });
-            //         describe('Tests > ', ()=> {
-            //             beforeEach((done) => {setup(done);});
-            //             it('El feedback debe mostrarse:', () => {
-            //                 expect($('#rup_feedback_example_ok').height()).toBeGreaterThan(0);
-            //             });
-            //             it('Debe contener el mensaje esperado:', () => {
-            //                 expect($('#rup_feedback_example_ok').text()).toBe('KABOOM!');
-            //             });
-            //         });
-            //     });
-            //     describe('Errores al guardar > ', () => {
-            //         beforeEach((done) => {
-            //             //El evento no funciona (Tambien se ha probado con #example_detail_feedback)
-            //             // $('#example_detail_feedback_ok').on('rupFeedback_show', () => {
-            //             setTimeout(() => {
-            //                 done();
-            //             },500);
-            //             // });
-            //             $('#example > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-            //             $('#edad_detail_table').val('asd');
-            //             $('#example_detail_button_save').click();
-            //         });
-            //         it('El feedback debe mostrarse:', () => {
-            //             expect($('#example_detail_feedback_ok').height()).toBeGreaterThan(0);
-            //         });
-            //         it('Debe contener el mensaje esperado:', () => {
-            //             expect($('#example_detail_feedback_ok').text()).toBe('KABOOM!');
-            //         });
-            //     });
-            //     describe('Errores al buscar > ', () => {
-            //         beforeEach((done) => {
-            //             $('#searchCollapsLabel_example').click();
-            //             $('#edad_seeker').val('asd');
-            //             $('#search_nav_button_example').click();
-            //             $('#example').on('tableSeekerSearchComplete', () => {
-            //                 setTimeout(() => {
-            //                     done();
-            //                 },500);
-            //             });
-            //         });
-            //         it('El feedback debe mostrarse:', () => {
-            //             expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
-            //         });
-            //         it('Debe contener el mensaje esperado:', () => {
-            //             expect($('#rup_feedback_example').text()).toBe('KABOOM!');
-            //         });
-            //     });
-            // });
+            describe('Gestión de errores > ', () => {
+                // FIXME : No peta por que sea un 406 (De ser el caso petaria al testear el error de guardado)
+
+
+                // describe('Errores al filtrar > ', () => {
+                //     beforeEach((done) => {
+                //         $('#example').on('tableEditFormFeedbackShow', done);
+                //         $('#id_filter_table').val('6');
+                //         $('#example_filter_filterButton').click();
+                //     });
+
+                //     it('El feedback debe comportarse de la manera esperada:', () => {
+                //         expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
+                //         expect($('#rup_feedback_example').text()).toBe('KABOOM!');
+                //     });
+                // });
+
+                describe('Errores al guardar > ', () => {
+                    beforeEach((done) => {
+                        $('#example_detail_feedback_ok').on('rupFeedback_show', () => {
+                            done();
+                        });
+                        $('#example > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
+                        $('#edad_detail_table').val('asd');
+                        $('#example_detail_button_save').click();
+                    });
+                    it('El feedback debe mostrarse:', () => {
+                        expect($('#example_detail_feedback_ok').height()).toBeGreaterThan(0);
+                    });
+                    it('Debe contener el mensaje esperado:', () => {
+                        expect($('#example_detail_feedback_ok').text()).toBe('KABOOM!');
+                    });
+                });
+
+                describe('Errores al buscar > ', () => {
+                    beforeEach((done) => {
+                        $('#searchCollapsLabel_example').click();
+                        $('#edad_seeker').val('asd');
+                        $('#search_nav_button_example').click();
+                        $('#example').on('tableSeekerSearchError', done);
+                    });
+                    it('El feedback debe mostrarse:', () => {
+                        expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
+                    });
+                    it('Debe contener el mensaje esperado:', () => {
+                        expect($('#rup_feedback_example').text()).toBe('Not Acceptable: KABOOM');
+                    });
+                });
+            });
         });
     });
 }

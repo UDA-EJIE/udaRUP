@@ -94,7 +94,13 @@
                 _processData(dt, ctx, data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                console.log('Errors ' + thrownError + ": " + xhr.responseText);
+                if($('#rup_feedback_'+ctx.sTableId).children().length > 1){
+                    $('#rup_feedback_'+ctx.sTableId).rup_feedback('destroy');
+                }
+                $('#rup_feedback_'+ctx.sTableId).rup_feedback({
+                    message: thrownError + ': ' + xhr.responseText
+                    , type : 'error'
+                });
                 $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchError');
 
             },
@@ -319,7 +325,7 @@
         $navLayer.hide();
 
         function doSearchButtonNavigation($button, buttonId) {
-            if (!$button.prop("disabled")) {
+            if (!$button.prop('disabled')) {
                 $self.rup_jqtable('navigateToMatchedRow', buttonId);
             }
         }
@@ -390,7 +396,7 @@
                     return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
                 });
                 if (result.length === 1) {
-                    var searchIcon = $("<i/>").addClass('mdi mdi-magnify ui-icon-rupInfoCol filtered-row');
+                    var searchIcon = $('<i/>').addClass('mdi mdi-magnify ui-icon-rupInfoCol filtered-row');
 
                     $($('#' + ctx.sTableId + ' tbody tr td:nth-child(1)')[idx]).append(searchIcon);
 
@@ -446,18 +452,18 @@
     function _updateDetailSeekPagination(currentRowNum, totalRowNum, ctx) {
 
         if (currentRowNum === 1) {
-            ctx.seeker.search.$firstNavButton.prop("disabled", true);
-            ctx.seeker.search.$backNavButton.prop("disabled", true);
+            ctx.seeker.search.$firstNavButton.prop('disabled', true);
+            ctx.seeker.search.$backNavButton.prop('disabled', true);
         } else {
-            ctx.seeker.search.$firstNavButton.prop("disabled", false);
-            ctx.seeker.search.$backNavButton.prop("disabled", false);
+            ctx.seeker.search.$firstNavButton.prop('disabled', false);
+            ctx.seeker.search.$backNavButton.prop('disabled', false);
         }
         if (currentRowNum === totalRowNum) {
-            ctx.seeker.search.$forwardNavButton.prop("disabled", true);
-            ctx.seeker.search.$lastNavButton.prop("disabled", true);
+            ctx.seeker.search.$forwardNavButton.prop('disabled', true);
+            ctx.seeker.search.$lastNavButton.prop('disabled', true);
         } else {
-            ctx.seeker.search.$forwardNavButton.prop("disabled", false);
-            ctx.seeker.search.$lastNavButton.prop("disabled", false);
+            ctx.seeker.search.$forwardNavButton.prop('disabled', false);
+            ctx.seeker.search.$lastNavButton.prop('disabled', false);
         }
 
         ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.matchedRecordsCount'), Number(currentRowNum), Number(totalRowNum)));
@@ -489,7 +495,7 @@
         }
 
         if (data.length === 0) {
-            ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop("disabled", true);
+            ctx.seeker.search.$firstNavButton.add(ctx.seeker.search.$backNavButton).add(ctx.seeker.search.$forwardNavButton).add(ctx.seeker.search.$lastNavButton).prop('disabled', true);
             ctx.seeker.search.$matchedLabel.html($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.plugins.search.matchedRecords'), '0'));
         } else {
             _updateDetailSeekPagination(ctx.seeker.search.pos + 1, data.length, ctx);
@@ -574,14 +580,14 @@
     function _enabledButtons(ctx) {
         if (ctx.seeker !== undefined) {
             $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
-                if ($(this).attr("ruptype") === "date") {
-                    $(this).rup_date("disable");
+                if ($(this).attr('ruptype') === 'date') {
+                    $(this).rup_date('disable');
                     $(this).next().addClass('form-control-customer');
-                } else if ($(this).attr("ruptype") === "combo") {
-                    $(this).rup_combo("disable");
+                } else if ($(this).attr('ruptype') === 'combo') {
+                    $(this).rup_combo('disable');
                     $(this).next().find('a').addClass('form-control-customer').attr('readonly', true);
-                } else if ($(this).attr("ruptype") === "time") {
-                    $(this).rup_time("disable");
+                } else if ($(this).attr('ruptype') === 'time') {
+                    $(this).rup_time('disable');
                 } else {
                     $(this).attr('disabled', true);
                 }
@@ -592,13 +598,13 @@
     function _disabledButtons(ctx) {
         if (ctx.seeker !== undefined) {
             $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
-                if ($(this).attr("ruptype") === "date") {
-                    $(this).rup_date("enable");
-                } else if ($(this).attr("ruptype") === "combo") {
-                    $(this).rup_combo("enable");
+                if ($(this).attr('ruptype') === 'date') {
+                    $(this).rup_date('enable');
+                } else if ($(this).attr('ruptype') === 'combo') {
+                    $(this).rup_combo('enable');
                     $(this).next().find('a').attr('readonly', false);
-                } else if ($(this).attr("ruptype") === "time") {
-                    $(this).rup_time("enable");
+                } else if ($(this).attr('ruptype') === 'time') {
+                    $(this).rup_time('enable');
                 } else {
                     $(this).removeAttr('disabled');
                 }

@@ -194,6 +194,9 @@ var jsonIDFilterOrdered1 = {
 
 function getFilterResp(req) {
     let respuesta = {};
+    if(req.body.filter.id == 6) {
+        return 'KABOOM!';
+    }
     if(req.body.page == 2) {
         return json4_2;
     } else {
@@ -287,9 +290,7 @@ function getFilterResp(req) {
             }
         }
     }
-    if(req.body.filter.id == 6) {
-        respuesta = 'KABOOM!';
-    }
+    
     return respuesta;
 }
 function getFilterStatus(req){
@@ -309,7 +310,10 @@ exports.filter = (req, res) => {
         res.status(status).json(respuesta);
     }
     else{
-        res.status(status).send(respuesta);
+        console.info('STATUS: ' + status);
+        console.info('RESPUESTA: ' + respuesta);
+        res.status(status);
+        res.send(respuesta);
     }
 };
 
