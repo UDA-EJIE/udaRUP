@@ -22,30 +22,54 @@ function clearDatatable(done) {
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
-        setTimeout(() => {
-            done();
-        }, 500);
+        setTimeout(done,500);
     });
 
     $('.dataTable').DataTable().destroy();
 }
 
 function testDatatable() {
-    describe('Test DataTable > ', () => {
-
+    describe('Test Datatable > ', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
         });
-
-        beforeEach((done) => {
-            generateFormEditDatatable(done);
-        });
-
+        
         afterEach((done) => {
-            clearDatatable(done);
+            clearDatatable(() => {
+                done();
+            });
         });
+        /*
+        describe('Edición inline datatable > ', () => {
+            beforeAll((done) => {
+                dtGen.createDatatableInlineEdit(done);
+            });
 
-        describe('Funcionamiento > ', () => {
+            describe('Funcionamiento de la edición inline > ', () => {
+                beforeEach((done) => {
+                    $('#exampleInline').on('tableEditInlineClickRow', () => {
+                        $('#exampleInline').on('draw.dt', () => {
+                            done();
+                        });
+                        $('#nombre_inline').val('Ane');
+                        var ev = $.Event('keydown');
+                        ev.keyCode = 13;
+                        $('#exampleInline > tbody > tr:eq(0)').trigger(ev);
+                    });
+                    $('#exampleInline > tbody > tr:eq(0) > td:eq(0)').dblclick();
+                });
+                it('Se ha actualizado el valor: ', () => {
+                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(1)').text()).toBe('Ane');
+                });
+            });
+        });
+        */
+        
+        describe('Funcionamiento General > ', () => {
+            beforeEach((done) => {
+                generateFormEditDatatable(done);
+            });
+
             describe('Menú contextual > ', () => {
                 beforeEach(() => {
                     $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
@@ -172,7 +196,6 @@ function testDatatable() {
                     });
                 });
             });
-
             describe('Edición con formulario > ', () => {
                 describe('Edición de elementos existentes > ', () => {
                     beforeEach(() => {
@@ -220,61 +243,64 @@ function testDatatable() {
                     });
                 });
 
-                // describe('Añadido de nuevos elementos > ', () => {
-                //     beforeEach(() => {
-                //         $('.table_toolbar_btnAdd').click();
-                //     });
+                describe('Añadido de nuevos elementos > ', () => {
+                    beforeEach(() => {
+                        $('.table_toolbar_btnAdd').click();
+                    });
 
-                //     it('El formulario debe mostrarse:', () => {
-                //         expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                //     });
+                    it('El formulario debe mostrarse:', () => {
+                        expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                    });
 
-                //     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
-                //         beforeEach((done) => {
-                //             $('#id_detailForm_table').val(345);
-                //             $('#nombre_detail_table').val('name');
-                //             $('#apellidos_detail_table').val('lastname');
-                //             $('#edad_detail_table').val(11);
-                //             $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-                //             $('#example_detail_button_save_repeat').click();
-                //         });
+                    describe('Funcionalidad del boton "guardar y continuar" > ', () => {
+                        beforeEach((done) => {
+                            $('#id_detailForm_table').val(345);
+                            $('#nombre_detail_table').val('Adriana');
+                            $('#apellidos_detail_table').val('Moreno');
+                            $('#edad_detail_table').val(11);
+                            $('#example').on('tableEditFormCompleteCallSaveAjax', () => {
+                                setTimeout(done, 600);
+                            });
+                            $('#example_detail_button_save_repeat').click();
+                        });
 
-                //         it('Se ha actualizado la tabla:', () => {
-                //             let ctx = $('tbody > tr > td:contains(345)').parent();
-                //             expect($('td:contains(name)', ctx).length).toBe(2);
-                //             expect($('td:contains(lastname)', ctx).length).toBe(1);
-                //             expect($('td:contains(11)', ctx).length).toBe(1);
-                //         });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(345)').parent();
+                            expect($('td:contains(Adriana)', ctx).length).toBe(1);
+                            expect($('td:contains(Moreno)', ctx).length).toBe(1);
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
 
-                //         it('No ha desaparecido el formulario:', () => {
-                //             expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                //         });
-                //     });
+                        it('No ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                        });
+                    });
 
-                //     describe('Funcionalidad del botón "guardar" > ', () => {
-                //         beforeEach((done) => {
-                //             $('#id_detailForm_table').val(345);
-                //             $('#nombre_detail_table').val('name');
-                //             $('#apellidos_detail_table').val('lastname');
-                //             $('#edad_detail_table').val(11);
-                //             $('#example').on('tableEditFormCompleteCallSaveAjax', done);
-                //             $('#example_detail_button_save').click();
-                //         });
+                    describe('Funcionalidad del botón "guardar" > ', () => {
+                        beforeEach((done) => {
+                            $('#id_detailForm_table').val(345);
+                            $('#nombre_detail_table').val('Adriana');
+                            $('#apellidos_detail_table').val('Moreno');
+                            $('#edad_detail_table').val(11);
+                            $('#example').on('tableEditFormCompleteCallSaveAjax', () => {
+                                setTimeout(done, 600);
+                            });
+                            $('#example_detail_button_save').click();
+                        });
 
-                //         it('Se ha actualizado la tabla:', () => {
-                //             let ctx = $('tbody > tr > td:contains(345)').parent();
-                //             expect($('td:contains(name)', ctx).length).toBe(2);
-                //             expect($('td:contains(lastname)', ctx).length).toBe(1);
-                //             expect($('td:contains(11)', ctx).length).toBe(1);
-                //         });
+                        it('Se ha actualizado la tabla:', () => {
+                            let ctx = $('tbody > tr > td:contains(345)').parent();
+                            expect($('td:contains(Adriana)', ctx).length).toBe(1);
+                            expect($('td:contains(Moreno)', ctx).length).toBe(1);
+                            expect($('td:contains(11)', ctx).length).toBe(1);
+                        });
 
-                //         it('Ha desaparecido el formulario:', () => {
-                //             expect($('#example_detail_div').is(':visible')).toBeFalsy();
-                //         });
-                //     });
-                // });
+                        it('Ha desaparecido el formulario:', () => {
+                            expect($('#example_detail_div').is(':visible')).toBeFalsy();
+                        });
+                    });
+                });
             });
-
             describe('Filtrado > ', () => {
                 beforeEach((done) => {
                     $('#example').on('draw.dt', () => {
@@ -289,7 +315,6 @@ function testDatatable() {
                     expect($('tbody > tr > td:eq(1)').text()).toBe('4');
                 });
             });
-
             describe('Búsqueda > ', () => {
                 beforeEach(() => {
                     $('#searchCollapsLabel_example').click();
@@ -322,7 +347,6 @@ function testDatatable() {
                     });
                 });
             });
-
             describe('Paginación > ', () => {
                 describe('Página siguiente > ', () => {
                     beforeEach((done) => {
@@ -356,7 +380,7 @@ function testDatatable() {
                                 $('#example_previous').click();
                             }, 500);
                         };
-                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                            // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
                         $('#example_next').click();
                     });
@@ -367,16 +391,16 @@ function testDatatable() {
                     });
 
                     it('Los registros deben cambiar:', () => {
-                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
-                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
-                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
-                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
-                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
-                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('6');
-                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('7');
-                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('8');
-                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('9');
-                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('10');
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('345');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('1');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('2');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('4');
+                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('5');
+                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('6');
+                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('7');
+                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('8');
+                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('9');
                     });
                 });
 
@@ -391,7 +415,7 @@ function testDatatable() {
                                 $('#example_first').click();
                             }, 500);
                         };
-                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                            // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
                         $('#example_next').click();
                     });
@@ -402,16 +426,16 @@ function testDatatable() {
                     });
 
                     it('Los registros deben cambiar:', () => {
-                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
-                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
-                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
-                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('4');
-                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('5');
-                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('6');
-                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('7');
-                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('8');
-                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('9');
-                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('10');
+                        expect($('tbody > tr:eq(0) > td:eq(1)').text()).toBe('345');
+                        expect($('tbody > tr:eq(1) > td:eq(1)').text()).toBe('1');
+                        expect($('tbody > tr:eq(2) > td:eq(1)').text()).toBe('2');
+                        expect($('tbody > tr:eq(3) > td:eq(1)').text()).toBe('3');
+                        expect($('tbody > tr:eq(4) > td:eq(1)').text()).toBe('4');
+                        expect($('tbody > tr:eq(5) > td:eq(1)').text()).toBe('5');
+                        expect($('tbody > tr:eq(6) > td:eq(1)').text()).toBe('6');
+                        expect($('tbody > tr:eq(7) > td:eq(1)').text()).toBe('7');
+                        expect($('tbody > tr:eq(8) > td:eq(1)').text()).toBe('8');
+                        expect($('tbody > tr:eq(9) > td:eq(1)').text()).toBe('9');
                     });
                 });
 
@@ -461,7 +485,6 @@ function testDatatable() {
                     });
                 });
             });
-
             describe('Variacion de número de registros por página > ', () => {
                 beforeEach((done) => {
                     $('#example').on('draw.dt', () => {
@@ -479,7 +502,6 @@ function testDatatable() {
                     expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
                 });
             });
-
             describe('Ordenación > ', () => {
                 describe('Ordenación por nombre ascendente > ', () => {
                     beforeEach((done) => {
@@ -524,7 +546,6 @@ function testDatatable() {
 
                 });
             });
-
             describe('Botonera > ', () => {
                 describe('Aparecen los botones por defecto > ', () => {
                     it('Botones por defecto existen:', () => {
@@ -573,17 +594,6 @@ function testDatatable() {
                     });
                 });
             });
-
-            // describe('Edición en línea > ', () => {
-            //     beforeEach((done) => {
-            //         clearDatatable($('#example').DataTable());
-            //         generateInlineFormDatatable(done());
-            //     });
-            //     it('asd',() => {
-            //         expect(1).toBe(1);
-            //     });
-            // });
-
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
                     $('#linkSelectTableHeadexample').click();
@@ -703,7 +713,6 @@ function testDatatable() {
                     });
                 });
             });
-
             describe('Validación de formulario > ', () => {
                 beforeEach((done) => {
                     $('#example_detail_feedback').on('rupFeedback_show', done);
@@ -719,14 +728,13 @@ function testDatatable() {
                         .toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
                 });
             });
-
             describe('Gestión de errores > ', () => {
                 // FIXME : No peta por que sea un 406 (De ser el caso petaria al testear el error de guardado)
 
 
                 // describe('Errores al filtrar > ', () => {
                 //     beforeEach((done) => {
-                //         $('#example').on('tableEditFormFeedbackShow', done);
+                //         $('#rup_feedback_example').on('rupFeedback_show', done);
                 //         $('#id_filter_table').val('6');
                 //         $('#example_filter_filterButton').click();
                 //     });
@@ -770,6 +778,7 @@ function testDatatable() {
                 });
             });
         });
+        
     });
 }
 

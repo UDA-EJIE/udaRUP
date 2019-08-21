@@ -1,3 +1,5 @@
+import { PassThrough } from "stream";
+
 /* eslint-env es6*/
 /**
   * Genera un table
@@ -1278,7 +1280,6 @@
 
                 $('#'+settingsTable.sTableId+'_filter_toolbar').empty();
                 $('#'+settingsTable.sTableId+'_detail_navigation').empty();
-
 				
             });
 			

@@ -1293,10 +1293,12 @@ function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
 		setTimeout(function(){
-			feedback.rup_feedback('destroy');
-			feedback.css('width','100%');
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineInternalFeedbackClose');
-		}, confDelay);
+            if(feedback.find('div').length > 0){//asegurar que esta inicializado
+                feedback.rup_feedback('destroy');
+                feedback.css('width','100%');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
+            }
+        }, confDelay);
 	}
 }
 

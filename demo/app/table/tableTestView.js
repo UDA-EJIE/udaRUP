@@ -1,6 +1,7 @@
 define(['jquery', 'marionette',
     './tableTemplate.hbs',
-    '../../../src/rup_table/rup.table.js'
+    '../../../src/rup_table/rup.table.js',
+    'rup.validate'
 ], function ($, Marionette, TableTestTemplate) {
     var TableTestView = Marionette.LayoutView.extend({
         template: TableTestTemplate,
@@ -10,27 +11,10 @@ define(['jquery', 'marionette',
 
     function fncOnAttach() {
         $('#example').rup_table({
-            urlBase: '/demo/table/remote',
             initComplete: () => {
-                $('#example').one('rupTable-buttonsDraw', () => {
-                    $('.dt-buttons').children().eq(4).click();
-                    $('tbody > tr:eq(0) > td:eq(1)').contextmenu();
-                });
-                var btnObj = {
-                    text: 'addedBtn',
-                    action: () => {
-                        alert('action');
-                    },
-                    classname: 'btn-material-primary-high-emphasis',
-                    displayRegex: 1,
-                    id: 'exampleaddedButton_1',
-                    insideContextMenu: true
-                };
-                $('#example').rup_table('createButton', btnObj, 4);
+                $('#example_detail_div').remove();
             },
-            multiSelect: {
-                style: 'multi'
-            },
+            urlBase: '/demo/table/remote',
             selector: 'td',
             colModel: [{
                 name: 'id',
@@ -67,24 +51,24 @@ define(['jquery', 'marionette',
                     colpos: 1
                 }
             }],
-            buttons : {
-                activate:    true
+            buttons: {
+                activate: true
             },
             filter: {
                 id: 'example_filter_form',
                 filterToolbar: 'example_filter_toolbar',
                 collapsableLayerId: 'example_filter_fieldset'
             },
-            formEdit: {
-                detailForm: '#example_detail_div',
-                titleForm: 'Modificar registro',
-                saveContinueEdit: false
-            },
-            seeker: {
-                activate: true
-            },
-            colReorder: {
-                fixedColumnsLeft: 1
+            seeker: { activate: true },
+            select: { activate: true },
+            inlineEdit: {
+                deselect: true,
+                validate:{
+                    rules: {
+                        id: { required: true}
+                        , nombre: { required: true }
+                    }
+                }
             }
         });
         // $('#example').rup_table({

@@ -2011,7 +2011,7 @@
 
     // Destroy the button sets selected
     DataTable.Api.register('buttons().destroy()', function () {
-        this.pluck('inst').unique().each(function (inst) {
+        this.pluck('inst').each(function (inst) {
             inst.destroy();
         });
 

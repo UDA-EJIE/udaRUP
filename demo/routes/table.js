@@ -197,6 +197,9 @@ function getFilterResp(req) {
     if(req.body.filter.id == 6) {
         return 'KABOOM!';
     }
+    if(json4.rows[0].nombre == 'Ane') {
+        return json4;
+    }
     if(req.body.page == 2) {
         return json4_2;
     } else {
@@ -310,8 +313,6 @@ exports.filter = (req, res) => {
         res.status(status).json(respuesta);
     }
     else{
-        console.info('STATUS: ' + status);
-        console.info('RESPUESTA: ' + respuesta);
         res.status(status);
         res.send(respuesta);
     }
@@ -322,8 +323,8 @@ exports.search = (req, res) => {
     if(search.edad === 'asd') {
         res.status(406);
         res.send('KABOOM');
+        return;
     }
-    console.info(search);
     if (search.nombre === 'E') {
         let ret = [
             {
@@ -344,9 +345,9 @@ exports.search = (req, res) => {
             }
         ];
         res.status(200).json(ret);
-        return;
+    } else {
+        res.status(200).json([]);
     }
-    res.status(200).json([]);
 };
 exports.simple = (req, res) => {
     let respuesta = req.body;
@@ -356,10 +357,26 @@ exports.formEdit = (req, res) => {
     if(req.body.edad === 'asd') {
         res.status(406);
         res.send('KABOOM!');
+        return;
     }
-    json4.rows[0].edad = req.body.edad;
-    let respuesta = json4;
-    res.status(200).json(respuesta);
+
+    if(req.body.nombre == 'Ane') {
+        json4.rows[0].nombre = 'Ane';
+    } else {
+        json4.rows[0].edad = req.body.edad;
+    }
+    if(req.body.nombre == 'Adriana' && json4.rows[0].id != 345) {
+        var newReg = {
+            id: req.body.id
+            , nombre : req.body.nombre
+            , apellidos : req.body.apellidos
+            , edad : req.body.edad
+        };
+        json4.rows.pop();
+        json4.rows.splice(0, 0, newReg);
+    }
+    res.status(200).json(json4);
+    
 };
 exports.delete = (req, res) => {
     json4.rows = json4.rows.filter((e) => { return e.id != req.params.id;});
