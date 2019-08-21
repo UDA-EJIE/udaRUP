@@ -326,13 +326,14 @@
                 //se obtiene el row entero de bbdd, meter parametro opcional.
                 var pk = DataTable.Api().rupTable.getIdPk(row);
                 var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
-                pk = pk.replace(ctx.oInit.multiplePkToken,'/');
+                var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+                pk = pk.replace(regex,'/');
                 var ajaxOptions = {
                     url : ctx.oInit.urlBase+'/'+pk,
                     accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
                         'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
                         'text':'text/plain','xml':'application/xml, text/xml'},
-                    type : 'PUT',
+                    type : 'GET',
                     data : [],
                     dataType : 'json',
                     showLoading : false,
@@ -1173,7 +1174,7 @@
                     _callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
                 }else{
                     row = ctx.multiselection.selectedIds[0];
-                    row = row.replace(ctx.oInit.multiplePkToken,'/');
+                    row = row.replace(regex,'/');
                     _callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
                 }
             }

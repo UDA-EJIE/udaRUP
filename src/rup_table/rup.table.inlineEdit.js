@@ -1537,7 +1537,8 @@ function _deleteAllSelects(dt){
 				_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
 			}else{
 				row = ctx.multiselection.selectedIds[0];
-				row = row.replace(ctx.oInit.multiplePkToken,'/');
+				var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+				row = row.replace(regex,'/');
 				_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
 			}
 		}
