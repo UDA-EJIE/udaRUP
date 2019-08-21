@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -119,336 +120,336 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                 </form>';
 
 function configurar() {
-	$('#feedbackMensajes').rup_feedback({
-		type: 'ok',
-		closeLink: true,
-		delay: 1000,
-		fadeSpeed: 500,
-		block: true
-	});
-	$('#sexo').rup_combo({
-		source: [{
-				i18nCaption: 'masculino',
-				value: 'M'
-			},
-			{
-				i18nCaption: 'femenino',
-				value: 'F'
-			}
-		],
-		i18nId: 'sexo'
-	});
-	let sourceJson = [{
-			i18nCaption: 'ab',
-			value: 'ab_value'
-		},
-		{
-			i18nCaption: 'tc',
-			value: 'tc_value'
-		},
-		{
-			i18nCaption: 'ud',
-			value: 'ud_value'
-		},
-		{
-			i18nCaption: 'le',
-			value: 'le_value'
-		},
-		{
-			i18nCaption: 'af',
-			value: 'af_value'
-		},
-		{
-			i18nCaption: 'mg',
-			value: 'mg_value'
-		},
-		{
-			i18nCaption: 'ah',
-			value: 'ah_value'
-		},
-		{
-			i18nCaption: 'ui',
-			value: 'ui_value'
-		},
-		{
-			i18nCaption: 'uj',
-			value: 'uj_value'
-		},
-		{
-			i18nCaption: 'ak',
-			value: 'ak_value'
-		}
-	];
-	$('#municipio').rup_autocomplete({
-		source: sourceJson,
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		minLength: 4
-	});
-	$('#calle').rup_autocomplete({
-		source: sourceJson,
-		sourceParam: {
-			label: 'dsO',
-			value: 'id'
-		},
-		minLength: 4
-	});
+    $('#feedbackMensajes').rup_feedback({
+        type: 'ok',
+        closeLink: true,
+        delay: 1000,
+        fadeSpeed: 500,
+        block: true
+    });
+    $('#sexo').rup_combo({
+        source: [{
+            i18nCaption: 'masculino',
+            value: 'M'
+        },
+        {
+            i18nCaption: 'femenino',
+            value: 'F'
+        }
+        ],
+        i18nId: 'sexo'
+    });
+    let sourceJson = [{
+        i18nCaption: 'ab',
+        value: 'ab_value'
+    },
+    {
+        i18nCaption: 'tc',
+        value: 'tc_value'
+    },
+    {
+        i18nCaption: 'ud',
+        value: 'ud_value'
+    },
+    {
+        i18nCaption: 'le',
+        value: 'le_value'
+    },
+    {
+        i18nCaption: 'af',
+        value: 'af_value'
+    },
+    {
+        i18nCaption: 'mg',
+        value: 'mg_value'
+    },
+    {
+        i18nCaption: 'ah',
+        value: 'ah_value'
+    },
+    {
+        i18nCaption: 'ui',
+        value: 'ui_value'
+    },
+    {
+        i18nCaption: 'uj',
+        value: 'uj_value'
+    },
+    {
+        i18nCaption: 'ak',
+        value: 'ak_value'
+    }
+    ];
+    $('#municipio').rup_autocomplete({
+        source: sourceJson,
+        sourceParam: {
+            label: 'dsO',
+            value: 'id'
+        },
+        minLength: 4
+    });
+    $('#calle').rup_autocomplete({
+        source: sourceJson,
+        sourceParam: {
+            label: 'dsO',
+            value: 'id'
+        },
+        minLength: 4
+    });
 }
 /**XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  */
 describe('Test Form', () => {
-	var $form, $formAlt;
+    var $form, $formAlt;
 
-	beforeAll((done) => {
-		testutils.loadCss(done);
-	});
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
 
-	beforeEach(() => {
-		var html = formHtml;
-		$('#content').append(html);
-		configurar();
-		var opts = {};
-		var optsAlt = {
-			url: testutils.DEMO + '/nora',
-			type: 'POST',
-			feedback: $('#feedbackMensajes'),
-			success: function (xhr) {
-				$('#feedback').rup_feedback('set', $.rup_utils.printMsg(jQuery.toJSON(xhr)), 'ok');
-			},
-			validate: {
-				rules: {
-					'nombre': {
-						required: true
-					}
-				}
-			}
-		};
-		$('#exampleForm').rup_form(opts);
-		$('#formHttpSubmit').rup_form(optsAlt);
-		$form = $('#exampleForm');
-		$formAlt = $('#formHttpSubmit');
-		//console.info($('body').html());
-	});
-	afterEach(() => {
-		$('#content').html('');
-		$('#content').nextAll().remove();
-	});
-	describe('Creación > ', () => {
-		describe('Form por defecto > ', () => {
-			it('Debe tener la clase de rup_form', () => {
-				expect($form).toHaveClass('rup_form');
-			});
-		});
-		describe('Form alternativo > ', () => {
-			it('Debe tener clases por defecto:', () => {
-				expect($formAlt).toHaveClass('rup_form rup_validate');
-			});
-		});
-	});
-	describe('Integracion con validate y feedback > ', () => {
-		beforeEach(() => {
-			$('#nombre').val('');
-			$('input[type="submit"]').trigger('click');
-		});
-		it('Debe mostrarse el feedback con el contenido:', () => {
-			expect($('#feedbackMensajes_content').text().toUpperCase())
-				.toBe('SE HAN PRODUCIDO LOS SIGUIENTES ERRORES:NOMBRE:CAMPO OBLIGATORIO.');
-		});
-	});
-	describe('Métodos públicos >', () => {
-		describe('Métodos de envío de formulario >', () => {
-			describe('Método ajaxSubmit >', () => {
-				var res;
-				beforeEach((done) => {
-					res = undefined;
-					$formAlt.rup_form('ajaxSubmit', {
-						url: testutils.DEMO + '/nora',
-						type: 'POST',
-						success: (data) => {},
-						error: (data) => {},
-						complete: (data) => {
-							// console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
-							res = data;
-							done();
-						}
-					});
-				});
-				it('La llamada debe tener éxito:', (done) => {
-					expect(res.status).toBe(200);
-					done();
-				});
-			});
-			describe('Método ajaxFormSubmit >', () => {
-				var res;
-				beforeEach((done) => {
-					res = undefined;
-					$formAlt.rup_form('ajaxFormSubmit', {
-						url: testutils.DEMO + '/nora',
-						type: 'POST',
-						success: (data) => {},
-						error: (data) => {},
-						complete: (data) => {
-							// console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
-							res = data;
-							done();
-						}
-					});
-				});
-				it('La llamada debe tener éxito:', (done) => {
-					expect(res.status).toBe(200);
-					done();
-				});
-			});
-		});
-		describe('Método formSerialize >', () => {
-			describe('Form por defecto > ', () => {
-				it('Debe devolver un string con los datos', () => {
-					let out = 'input1=txt1&input2=txt2&input3=opt1';
-					expect($form.rup_form('formSerialize')).toBe(out);
-				});
-			});
-			describe('Form alternativo > ', () => {
-				it('Debe devolver un string con los datos', () => {
-					let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
-						'&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-						'&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
-					expect($formAlt.rup_form('formSerialize')).toBe(out);
-				});
-			});
+    beforeEach(() => {
+        var html = formHtml;
+        $('#content').append(html);
+        configurar();
+        var opts = {};
+        var optsAlt = {
+            url: testutils.DEMO + '/nora',
+            type: 'POST',
+            feedback: $('#feedbackMensajes'),
+            success: function (xhr) {
+                $('#feedback').rup_feedback('set', $.rup_utils.printMsg(jQuery.toJSON(xhr)), 'ok');
+            },
+            validate: {
+                rules: {
+                    'nombre': {
+                        required: true
+                    }
+                }
+            }
+        };
+        $('#exampleForm').rup_form(opts);
+        $('#formHttpSubmit').rup_form(optsAlt);
+        $form = $('#exampleForm');
+        $formAlt = $('#formHttpSubmit');
+        //console.info($('body').html());
+    });
+    afterEach(() => {
+        $('#content').html('');
+        $('#content').nextAll().remove();
+    });
+    describe('Creación > ', () => {
+        describe('Form por defecto > ', () => {
+            it('Debe tener la clase de rup_form', () => {
+                expect($form).toHaveClass('rup_form');
+            });
+        });
+        describe('Form alternativo > ', () => {
+            it('Debe tener clases por defecto:', () => {
+                expect($formAlt).toHaveClass('rup_form rup_validate');
+            });
+        });
+    });
+    describe('Integracion con validate y feedback > ', () => {
+        beforeEach(() => {
+            $('#nombre').val('');
+            $('input[type="submit"]').trigger('click');
+        });
+        it('Debe mostrarse el feedback con el contenido:', () => {
+            expect($('#feedbackMensajes_content').text().toUpperCase())
+                .toBe('SE HAN PRODUCIDO LOS SIGUIENTES ERRORES:NOMBRE:CAMPO OBLIGATORIO.');
+        });
+    });
+    describe('Métodos públicos >', () => {
+        describe('Métodos de envío de formulario >', () => {
+            describe('Método ajaxSubmit >', () => {
+                var res;
+                beforeEach((done) => {
+                    res = undefined;
+                    $formAlt.rup_form('ajaxSubmit', {
+                        url: testutils.DEMO + '/nora',
+                        type: 'POST',
+                        success: () => {},
+                        error: () => {},
+                        complete: (data) => {
+                            // console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+                            res = data;
+                            done();
+                        }
+                    });
+                });
+                it('La llamada debe tener éxito:', (done) => {
+                    expect(res.status).toBe(200);
+                    done();
+                });
+            });
+            describe('Método ajaxFormSubmit >', () => {
+                var res;
+                beforeEach((done) => {
+                    res = undefined;
+                    $formAlt.rup_form('ajaxFormSubmit', {
+                        url: testutils.DEMO + '/nora',
+                        type: 'POST',
+                        success: () => {},
+                        error: () => {},
+                        complete: (data) => {
+                            // console.info(data !== undefined && data !== null ? JSON.stringify(data) : 'SIN RESPUESTA');
+                            res = data;
+                            done();
+                        }
+                    });
+                });
+                it('La llamada debe tener éxito:', (done) => {
+                    expect(res.status).toBe(200);
+                    done();
+                });
+            });
+        });
+        describe('Método formSerialize >', () => {
+            describe('Form por defecto > ', () => {
+                it('Debe devolver un string con los datos', () => {
+                    let out = 'input1=txt1&input2=txt2&input3=opt1';
+                    expect($form.rup_form('formSerialize')).toBe(out);
+                });
+            });
+            describe('Form alternativo > ', () => {
+                it('Debe devolver un string con los datos', () => {
+                    let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
+                        '&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+                        '&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
+                    expect($formAlt.rup_form('formSerialize')).toBe(out);
+                });
+            });
 
-		});
-		describe('Método fieldSerialize >', () => {
-			describe('Form por defecto > ', () => {
-				it('Debe devolver un string con los datos de los fields', () => {
-					let out = 'input1=txt1&input2=txt2';
-					expect($('input', $form).rup_form('fieldSerialize')).toBe(out);
-				});
-			});
-			describe('Form alternativo > ', () => {
-				it('Debe devolver un string con los datos de los fields:', () => {
-					let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono='+
-						'&dni=&usuario=&password=&password_confirm=&email=&email_confirm='+
-						'&provincia.id=&municipio.id=&calle.id=';
-					expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldSerialize')).toBe(out);
-				});
-			});
-		});
-		describe('Método fieldValue', () => {
-			describe('Form por defecto > ', () => {
-				it('Debe devolver los valores en un array', () => {
-					let out = 'txt1,txt2';
-					expect($('input', $form).rup_form('fieldValue').join()).toBe(out);
-				});
-			});
-			describe('Form alternativo > ', () => {
-				it('Debe devolver los valores en un array', () => {
-					let out = [
-						"pop", "", "", "", "", "", "",
-						"", "", "", "", "", "", ""
-					];
-					expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldValue')).toEqual(out);
-				});
-			});
-		});
-		describe('Método formToJson', () => {
-			describe('Form por defecto > ', () => {
-				it('Debe devolver los datos en un string en formato Json', () => {
-					let out = {
-						input1: 'txt1',
-						input2: 'txt2',
-						input3: 'opt1'
-					};
-					expect($form.rup_form('formToJson')).toEqual(out);
-				});
-			});
-			describe('Form alternativo > ', () => {
-				it('Debe devolver los datos rellenados en formato JSON:', () => {
-					let out = {
-						"nombre": "pop",
-						"sexo": "F"
-					};
-					expect($formAlt.rup_form('formToJson')).toEqual(out);
-				});
-			});
-		});
-		describe('Método clearForm > ', () => {
-			describe('Form por defecto > ', () => {
-				beforeEach(() => {
-					$form.rup_form('clearForm');
-				});
-				it('Debe haber limpiado todos los campos:', () => {
-					expect($('#input1').val()).toBe('');
-					expect($('#input2').val()).toBe('');
-					expect($('#input3').val()).toBe(null);
-				});
-			});
-			describe('Form alternativo > ', () => {
-				beforeEach(() => {
-					$('#nombre').val('NOMBRE');
-					$('#apellido1').val('APELLIDO1');
-					$('#apellido2').val('APELLIDO2');
-					$formAlt.rup_form('clearForm');
-				});
-				it('Debe haber limpiado todos los campos:', () => {
-					expect($('#nombre').val()).toBe('');
-					expect($('#apellido1').val()).toBe('');
-					expect($('#apellido2').val()).toBe('');
-				});
-			});
-		});
-		describe('Método resetForm > ', () => {
-			describe('Form por defecto > ', () => {
-				beforeEach(() => {
-					$form.rup_form('clearForm');
-					$form.rup_form('resetForm');
-				});
-				it('Debe tener los valores originales:', () => {
-					expect($('#input1').val()).toBe('txt1');
-					expect($('#input2').val()).toBe('txt2');
-					expect($('#input3').val()).toBe('opt1');
-				});
-			});
-			describe('Form alternativo > ', () => {
-				beforeEach(() => {
-					$('#nombre').val('NOMBRE');
-					$('#apellido1').val('APELLIDO1');
-					$('#apellido2').val('APELLIDO2');
-					$formAlt.rup_form('resetForm');
-				});
-				it('Debe quedar en su estado original > ', () => {
-					expect($('#nombre').val()).toBe('pop');
-					expect($('#apellido1').val()).toBe('');
-					expect($('#apellido2').val()).toBe('');
-				});
-			});
-		});
-		describe('Método clearFields > ', () => {
-			describe('Form por defecto > ', () => {
-				beforeEach(() => {
-					$('input', $form).rup_form('clearFields');
-				});
-				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
-					expect($('#input1').val()).toBe('');
-					expect($('#input2').val()).toBe('');
-					expect($('#input3').val()).toBe('opt1');
-				});
-			});
-			describe('Form alternativo > ', () => {
-				beforeEach(() => {
-					$('#nombre').val('NOMBRE');
-					$('#apellido1').val('APELLIDO1');
-					$('#apellido2').val('APELLIDO2');
-					$('input#apellido2', $formAlt).rup_form('clearFields');
-				});
-				it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
-					expect($('#nombre').val()).toBe('NOMBRE');
-					expect($('#apellido1').val()).toBe('APELLIDO1');
-					expect($('#apellido2').val()).toBe('');
-				});
-			});
-		});
-	});
+        });
+        describe('Método fieldSerialize >', () => {
+            describe('Form por defecto > ', () => {
+                it('Debe devolver un string con los datos de los fields', () => {
+                    let out = 'input1=txt1&input2=txt2';
+                    expect($('input', $form).rup_form('fieldSerialize')).toBe(out);
+                });
+            });
+            describe('Form alternativo > ', () => {
+                it('Debe devolver un string con los datos de los fields:', () => {
+                    let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=' +
+                        '&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
+                        '&provincia.id=&municipio.id=&calle.id=';
+                    expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldSerialize')).toBe(out);
+                });
+            });
+        });
+        describe('Método fieldValue', () => {
+            describe('Form por defecto > ', () => {
+                it('Debe devolver los valores en un array', () => {
+                    let out = 'txt1,txt2';
+                    expect($('input', $form).rup_form('fieldValue').join()).toBe(out);
+                });
+            });
+            describe('Form alternativo > ', () => {
+                it('Debe devolver los valores en un array', () => {
+                    let out = [
+                        'pop', '', '', '', '', '', '',
+                        '', '', '', '', '', '', ''
+                    ];
+                    expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldValue')).toEqual(out);
+                });
+            });
+        });
+        describe('Método formToJson', () => {
+            describe('Form por defecto > ', () => {
+                it('Debe devolver los datos en un string en formato Json', () => {
+                    let out = {
+                        input1: 'txt1',
+                        input2: 'txt2',
+                        input3: 'opt1'
+                    };
+                    expect($form.rup_form('formToJson')).toEqual(out);
+                });
+            });
+            describe('Form alternativo > ', () => {
+                it('Debe devolver los datos rellenados en formato JSON:', () => {
+                    let out = {
+                        'nombre': 'pop',
+                        'sexo': 'F'
+                    };
+                    expect($formAlt.rup_form('formToJson')).toEqual(out);
+                });
+            });
+        });
+        describe('Método clearForm > ', () => {
+            describe('Form por defecto > ', () => {
+                beforeEach(() => {
+                    $form.rup_form('clearForm');
+                });
+                it('Debe haber limpiado todos los campos:', () => {
+                    expect($('#input1').val()).toBe('');
+                    expect($('#input2').val()).toBe('');
+                    expect($('#input3').val()).toBe(null);
+                });
+            });
+            describe('Form alternativo > ', () => {
+                beforeEach(() => {
+                    $('#nombre').val('NOMBRE');
+                    $('#apellido1').val('APELLIDO1');
+                    $('#apellido2').val('APELLIDO2');
+                    $formAlt.rup_form('clearForm');
+                });
+                it('Debe haber limpiado todos los campos:', () => {
+                    expect($('#nombre').val()).toBe('');
+                    expect($('#apellido1').val()).toBe('');
+                    expect($('#apellido2').val()).toBe('');
+                });
+            });
+        });
+        describe('Método resetForm > ', () => {
+            describe('Form por defecto > ', () => {
+                beforeEach(() => {
+                    $form.rup_form('clearForm');
+                    $form.rup_form('resetForm');
+                });
+                it('Debe tener los valores originales:', () => {
+                    expect($('#input1').val()).toBe('txt1');
+                    expect($('#input2').val()).toBe('txt2');
+                    expect($('#input3').val()).toBe('opt1');
+                });
+            });
+            describe('Form alternativo > ', () => {
+                beforeEach(() => {
+                    $('#nombre').val('NOMBRE');
+                    $('#apellido1').val('APELLIDO1');
+                    $('#apellido2').val('APELLIDO2');
+                    $formAlt.rup_form('resetForm');
+                });
+                it('Debe quedar en su estado original > ', () => {
+                    expect($('#nombre').val()).toBe('pop');
+                    expect($('#apellido1').val()).toBe('');
+                    expect($('#apellido2').val()).toBe('');
+                });
+            });
+        });
+        describe('Método clearFields > ', () => {
+            describe('Form por defecto > ', () => {
+                beforeEach(() => {
+                    $('input', $form).rup_form('clearFields');
+                });
+                it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
+                    expect($('#input1').val()).toBe('');
+                    expect($('#input2').val()).toBe('');
+                    expect($('#input3').val()).toBe('opt1');
+                });
+            });
+            describe('Form alternativo > ', () => {
+                beforeEach(() => {
+                    $('#nombre').val('NOMBRE');
+                    $('#apellido1').val('APELLIDO1');
+                    $('#apellido2').val('APELLIDO2');
+                    $('input#apellido2', $formAlt).rup_form('clearFields');
+                });
+                it('Deben quedar en blanco unicamente los indicados por el selector:', () => {
+                    expect($('#nombre').val()).toBe('NOMBRE');
+                    expect($('#apellido1').val()).toBe('APELLIDO1');
+                    expect($('#apellido2').val()).toBe('');
+                });
+            });
+        });
+    });
 });

@@ -3150,7 +3150,10 @@ $.rup_messages('msgConfirm', {
 	message: dt.i18n('rup_table.copyButton.saveAndContinue', {
 		_: '¿Desea copiar %d registros?',
 		1: '¿Desea copiar un registro?'
-	}, exportDataRows),
+    }, exportDataRows),
+    open : function() {
+        $('#' + dt.context[0].sTableId).trigger('rupTable_confirmMsgOpen');
+    },
 	OKFunction: function () {
 		if(ctx.oInit.formEdit !== undefined){
 			ctx.oInit.formEdit.okCallBack = true;
@@ -3212,7 +3215,8 @@ var _reportsCopyDataToClipboard = function (dt, that, exportDataRows, hiddenDiv,
 				// del if evita un error
 				if (that.processing !== undefined) {
 					that.processing(false);
-				}
+                }
+                $('#' + dt.context[0].sTableId).trigger('rupTable_copied');
 				return;
 			}
 		}
@@ -3303,11 +3307,11 @@ var _initContextMenu = function(ctx,api){
 				}
 			})
 		).done(function () {
-			var tableTrSelector = '#' + ctx.sTableId + ' > tbody > tr';
+            var tableTrSelector = '#' + ctx.sTableId + ' > tbody > tr';
 			var tableTr = $(tableTrSelector);
 			if(!jQuery.isEmptyObject(items)){
 				tableTr.rup_contextMenu({
-					selector: tableTrSelector,
+                    selector: tableTrSelector,
 					callback: function(key, options) {
 						var selector = items[key];
 						// Recogemos el id de la accion pulsada en el context menu

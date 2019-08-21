@@ -1,9 +1,8 @@
-var testsContext = require.context('./spec/table', true, /(?<!X21a.*)\.spec\.js$/);
-//var testsContext = require.context('./spec', true, /(breadcrumb)(?<!X21a.*)\.spec\.js$/);
-// var testsContext = require.context('./spec', true, /(accordion|audit|autocomplete|breadcrumb|button|calendar|chart|combo|contextMenu|date|dialog|feedback|form|message|navbar|progressbar|report|slider|spinner|tabs|time|toolbar|tooltip|tree|upload|utils|validate|wizard)(?<!X21a.*)\.spec\.js$/);
-testsContext.keys().forEach(testsContext);
+// const context = require.context('./spec', true, /(?<!X21a.*)\.spec\.js$/);
+// var context = require.context('./spec', true, /(table)(?<!X21a.*)\.spec\.js$/);
+var context = require.context('./spec', true, /(accordion|audit|autocomplete|breadcrumb|button|calendar|chart|combo|contextMenu|date|dialog|feedback|form|lang|message|navbar|progressbar|report|slider|spinner|tabs|time|toolbar|tooltip|tree|upload|utils|validate|wizard)(?<!X21a.*)\.spec\.js$/);
 
-var srcContext = require.context('./spec/table', true, /(?<!X21a.*)\.spec\.js$/);
-//var srcContext = require.context('./spec', true, /(breadcrumb)(?<!X21a.*)\.spec\.js$/);
-// var srcContext = require.context('./spec', true, /(accordion|audit|autocomplete|breadcrumb|button|calendar|chart|combo|contextMenu|date|dialog|feedback|form|message|navbar|progressbar|report|slider|spinner|tabs|time|toolbar|tooltip|tree|upload|utils|validate|wizard)(?<!X21a.*)\.spec\.js$/);
+var testsContext = context;
+var srcContext = context;
+testsContext.keys().forEach(testsContext);
 srcContext.keys().forEach(srcContext);

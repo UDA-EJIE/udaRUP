@@ -1,10 +1,10 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
 import 'rup.contextMenu';
-import { EHOSTUNREACH } from 'constants';
 
 describe('Test ContextMenu > ', () => {
     var $context;
@@ -64,7 +64,7 @@ describe('Test ContextMenu > ', () => {
             beforeEach(() => {
                 $context.rup_contextMenu('show');
                 $context.rup_contextMenu('hide');
-            });sandbox
+            });
             it('No debe mostrarse:', () => {
                 expect($('#exampleContext .context-menu-list').is(':visible')).toBe(false);
             });

@@ -152,9 +152,13 @@
 			if ($(this).dialog('option', 'ajaxCache') === false) {
 				settings.id = $(this).attr('id');
 				settings.autoOpen = true;
+				settings.complete = function() {
+					$(this).trigger('rupDialog_open');
+				};
 				this._ajaxLoad(settings);
 			} else {
 				$(this).dialog('open');
+				$(this).trigger('rupDialog_open');
 			}
 
 			//Ajuste para portales

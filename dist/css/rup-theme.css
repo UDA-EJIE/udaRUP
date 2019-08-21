@@ -1371,7 +1371,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-sm > button, .rup-mbutton.rup-collapsed-sm > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-sm > .rup-dropdown-button, .rup-mbutton.rup-collapsed-sm > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-sm > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1387,7 +1387,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-md > button, .rup-mbutton.rup-collapsed-md > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-md > .rup-dropdown-button, .rup-mbutton.rup-collapsed-md > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-md > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1403,7 +1403,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-lg > button, .rup-mbutton.rup-collapsed-lg > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-lg > .rup-dropdown-button, .rup-mbutton.rup-collapsed-lg > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-lg > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1419,7 +1419,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-xl > button, .rup-mbutton.rup-collapsed-xl > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-xl > .rup-dropdown-button, .rup-mbutton.rup-collapsed-xl > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-xl > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;

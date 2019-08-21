@@ -1,3 +1,6 @@
+/* jslint multistr: true */
+/* eslint-env jasmine, jquery */
+
 
 const html = '\
 <nav class="rup-navbar navbar">\n\
@@ -39,13 +42,11 @@ function createNavBar() {
 
 function navBarTest() {
     describe('Test NavBar > ', () =>{
-        var $navbar;
         beforeAll((done) => {
             testutils.loadCss(done);
         });
         beforeEach(() => {
             createNavBar();
-            $navbar = $('nav');
         });
         afterEach(() => {
             $('#content').html('');

@@ -1,19 +1,20 @@
+window.APP_RESOURCES = 'demo/x21a';
+window.AUDIT_PATH = 'http://localhost:8081/audit';
+window.CTX_PATH = '/x21aResponsive/';
+window.STATICS = '';
+window.RESOURCES_PATH = '../../i18n/';
+window.RUP = '/x21aStatics/4x/rup/';
+window.WAR_NAME = 'x21aPilotoPatrones';
+//model
+window.LAYOUT = 'horizontal';
+//mvc-config.xml
+window.LOCALE_COOKIE_NAME = 'language';
+window.LOCALE_PARAM_NAME = 'locale';
+window.AVAILABLE_LANGS = 'es,eu,en,fr';
+window.DEFAULT_LANG = 'es';
+//breadCrumbs
+window.LOGGED_USER = 'NULL';
+window.DESTROY_XLNETS_SESSION = 'false';
+window.IS_EJIE = false;
 
-
-	var	APP_RESOURCES = window.location.pathname.substring(1,window.location.pathname.indexOf('/4x'))+'/4x/x21a',
-	CTX_PATH = '/x21aResponsive/',
-	STATICS = '',
-    RESOURCES_PATH = '../../i18n/',
-	RUP = '../../rup',
-	WAR_NAME = "x21aApp",
-	//model
-	LAYOUT = "horizontal",
-	//mvc-config.xml
-	LOCALE_COOKIE_NAME = "language",
-	LOCALE_PARAM_NAME = "locale",
-	AVAILABLE_LANGS = "es,eu,en,fr",
-    DEFAULT_LANG = "es",
-	//breadCrumbs
-	LOGGED_USER = "NULL",
-	DESTROY_XLNETS_SESSION = "false";
-	document.cookie = "language=es";;
+document.cookie = 'language=es';

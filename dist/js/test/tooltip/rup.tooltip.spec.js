@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 
@@ -24,12 +25,12 @@ describe('TEST Tooltip', () => {
         $('#content').append(html);
         let props = {
             content: {
-                text: "Texto Prueba"
+                text: 'Texto Prueba'
             },
             position: {
                 my: 'top center',
                 at: 'bottom center',
-                target: $("#inputExample")
+                target: $('#inputExample')
             },
             show: {
                 event: 'click'

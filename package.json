@@ -110,8 +110,8 @@
     "jquery-migrate": "^3.0.1",
     "jquery-validation": "^1.19.0",
     "jsdoc-to-markdown": "^3.0.4",
-    "karma": "~1.5.0",
-    "karma-chrome-launcher": "~1.0.1",
+    "karma": "~1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "~1.0.0",
     "karma-handlebars-preprocessor": "~0.3.0",
@@ -120,12 +120,11 @@
     "karma-ie-launcher": "~1.0.0",
     "karma-jasmine": "^1.1.2",
     "karma-mocha-reporter": "~2.2.2",
-    "karma-phantomjs-launcher": "^1.0.4",
     "karma-requirejs": "~1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.13",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "lokijs": "1.3.19",
     "merge-stream": "1.0.0",
     "node-sass": "^4.12.0",
@@ -171,6 +170,8 @@
     "jquery-ui-dist": "1.12.0",
     "jquery.scrollto": "2.1.2",
     "modernizr": "^3.7.1",
+    "natives": "^1.1.6",
+    "npm": "^6.10.1",
     "qtip2": "3.0.3"
   }
 }

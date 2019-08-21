@@ -1,3 +1,4 @@
+/* eslint-env jquery,jasmine */
 
 function generateFormEditDatatable(callback) {
     dtGen.createDatatable1(0, callback);
@@ -17,13 +18,7 @@ function clearDatatable(done) {
         }, 500);
     });
 
-    if ($('.rup-feedback').length > 0) {
-        setTimeout(() => {
-            $('.dataTable').DataTable().destroy();
-        }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
-    } else {
-        $('.dataTable').DataTable().destroy();
-    }
+    $('.dataTable').DataTable().destroy();
 }
 
 function testDatatable() {
@@ -46,7 +41,7 @@ function testDatatable() {
                 beforeEach(() => {
                     $('tbody > tr:eq(0) > td:eq(1)', $('#example')).contextmenu();
                 });
-
+                
                 it('Debe mostrarse el menú contextual:', () => {
                     expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
@@ -84,7 +79,10 @@ function testDatatable() {
                     });
 
                     describe('Item editar > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
+                            $('#example_detail_div').on('rupDialog_open', () => {
+                                done();
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
                         });
@@ -114,10 +112,20 @@ function testDatatable() {
                     });
 
                     describe('Item delete > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
+                            $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+                                done();
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
-                            $('.ui-dialog-buttonset > button.ui-widget:contains(Aceptar)').click();
+                            $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
+                        });
+
+                        afterEach(() => {
+                            $.ajax('/demo/table/remote/deleteEnd',{
+                                type: 'POST'
+                                , data : '{"foo":"bar"}'
+                            });
                         });
 
                         it('Debe eliminar la línea:', () => {
@@ -127,18 +135,30 @@ function testDatatable() {
 
                     describe('Item copy > ', () => {
                         beforeEach((done) => {
-                            $('#content').append('<textarea rows="5" cols="100" id="testutilInput"></textarea>');
+                            document.copied = '';
+                            document.exC = document.execCommand;
+                            document.execCommand = (param) => {
+                                if(param === 'copy') {
+                                    document.copied = window.getSelection().toString();
+                                    return true;
+                                } else {
+                                    document.exC(param);
+                                }
+                            };
+                            $('#example').on('rupTable_confirmMsgOpen', () => {
+                                $('#example').on('rupTable_copied', () => {
+                                    done();
+                                });
+                                $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
+                            });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
-                            $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
-
-                            setTimeout(() => {
-                                done();
-                            }, 500);
                         });
-
+                        afterEach(() => {
+                            document.execCommand = document.exC;
+                        });
                         it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-                            expect($('#table_buttons_info textarea').val()).toBe("id\tnombre\tapellidos\tedad\n1\tAna\tGarcía Vázquez\t7\n");
+                            expect(document.copied).toBe('id;nombre;apellidos;edad\n1;Ana;García Vázquez;7\n');
                         });
                     });
                 });
@@ -147,7 +167,7 @@ function testDatatable() {
             describe('Edición con formulario > ', () => {
                 describe('Edición de elementos existentes > ', () => {
                     beforeEach(() => {
-                        $('tbody > tr > td:contains(2)').dblclick();
+                        $('tbody > tr:eq(0) > td:eq(1)').dblclick();
                     });
 
                     it('El formulario debe mostrarse:', () => {
@@ -157,18 +177,20 @@ function testDatatable() {
                     describe('Funcionalidad del boton "guardar y continuar" > ', () => {
                         beforeEach((done) => {
                             $('#edad_detail_table').val(11);
-                            $('#example').on('tableEditFormCompleteCallSaveAjax', done);
+                            $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+                                done();
+                            });
                             $('#example_detail_button_save_repeat').click();
                         });
 
                         it('Se ha actualizado la tabla:', () => {
-                            let ctx = $('tbody > tr > td:contains(2)').parent();
-                            expect($('td:contains(11)', ctx).length).toBe(1);
+                            let ctx = $('tbody > tr:eq(0)');
+                            expect($('td:eq(4)', ctx).text()).toBe('11');
                         });
 
-                        it('No ha desaparecido el formulario:', () => {
-                            expect($('#example_detail_div').is(':visible')).toBeTruthy();
-                        });
+                        // it('No ha desaparecido el formulario:', () => {
+                        //     expect($('#example_detail_div').is(':visible')).toBeTruthy();
+                        // });
                     });
 
                     describe('Funcionalidad del botón "guardar" > ', () => {
@@ -305,7 +327,7 @@ function testDatatable() {
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("2");
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -338,7 +360,7 @@ function testDatatable() {
                         });
 
                         it('Cambia el número de página:', () => {
-                            expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                            expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
                         });
 
                         it('Los registros deben cambiar:', () => {
@@ -372,7 +394,7 @@ function testDatatable() {
                         });
 
                         it('Cambia el número de página:', () => {
-                            expect($('li.pageSearch.searchPaginator > input').val()).toBe("1");
+                            expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
                         });
 
                         it('Los registros deben cambiar:', () => {
@@ -396,7 +418,7 @@ function testDatatable() {
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -423,7 +445,7 @@ function testDatatable() {
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe("3");
+                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('3');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -514,15 +536,15 @@ function testDatatable() {
                 // TODO: Añadir botón extra
             });
 
-            /*describe('Edición en línea > ', () => {
-                beforeEach((done) => {
-                    clearDatatable($('#example').DataTable());
-                    generateInlineFormDatatable(done());
-                });
-                it('asd',() => {
-                    expect(1).toBe(1);
-                });
-            });*/
+            // describe('Edición en línea > ', () => {
+            //     beforeEach((done) => {
+            //         clearDatatable($('#example').DataTable());
+            //         generateInlineFormDatatable(done());
+            //     });
+            //     it('asd',() => {
+            //         expect(1).toBe(1);
+            //     });
+            // });
 
             describe('Multiseleccion > ', () => {
                 beforeEach(() => {
@@ -678,10 +700,10 @@ function testDatatable() {
                         };
                     });
                     it('No da error:', (done) => {
-                        expect(() => {setup(done)}).not.toThrowError();
+                        expect(() => {setup(done);}).not.toThrowError();
                     });
                     describe('Tests > ', ()=> {
-                        beforeEach((done) => {setup(done)});
+                        beforeEach((done) => {setup(done);});
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_example_ok').height()).toBeGreaterThan(0);
                         });
@@ -694,9 +716,9 @@ function testDatatable() {
                     beforeEach((done) => {
                         //El evento no funciona (Tambien se ha probado con #example_detail_feedback)
                         // $('#example_detail_feedback_ok').on('rupFeedback_show', () => {
-                            setTimeout(() => {
-                                done();
-                            },500);
+                        setTimeout(() => {
+                            done();
+                        },500);
                         // });
                         $('#example > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
                         $('#edad_detail_table').val('asd');

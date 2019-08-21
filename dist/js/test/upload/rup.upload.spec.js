@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 

@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils';
@@ -8,9 +9,8 @@ import 'rup.validate';
 
 
 describe('Test Validate >  ', () => {
-    var $validate, $feedBack, $validateEvent, $feedBackEvent;
-    var event_done = false,
-        event_fail = false,
+    var $validate, $feedBack, $validateEvent;
+    var event_fail = false,
         event_success = false;
 
     beforeAll((done) => {
@@ -30,7 +30,7 @@ describe('Test Validate >  ', () => {
         $('#content').append(htmlEvent);
 
         var optsFeedback = {
-            type: "ok",
+            type: 'ok',
             closeLink: true,
             block: false
         };
@@ -42,10 +42,10 @@ describe('Test Validate >  ', () => {
             showErrorsInFeedback: true,
             showFieldErrorsInFeedback: true,
             rules: {
-                "campoUno": {
+                'campoUno': {
                     required: true
                 },
-                "campoDos": {
+                'campoDos': {
                     required: true
                 }
             }
@@ -54,15 +54,15 @@ describe('Test Validate >  ', () => {
 
         $validateEvent = $('#exampleValidateEvent').rup_validate({
             rules: {
-                "campoUnoEvent": {
+                'campoUnoEvent': {
                     required: true
                 }
             },
-            onSubmitHandler: (form) => {
+            onSubmitHandler: () => {
                 event_success = true;
                 $('#exampleValidateEvent').triggerHandler('submitSuccessfull');
             },
-            invalidHandler: (event, validator) => {
+            invalidHandler: () => {
                 event_fail = true;
             }
         });
@@ -70,7 +70,6 @@ describe('Test Validate >  ', () => {
     afterEach(() => {
         $('#content').html('');
         $('#content').nextAll().html('');
-        event_done = undefined;
         event_success = false;
         event_fail = false;
     });

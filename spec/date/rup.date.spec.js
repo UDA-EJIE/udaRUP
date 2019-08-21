@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import 'rup.tooltip';
@@ -11,23 +12,17 @@ var unavailableDay = 0;
 //Funcion de complementaria para el test del método refresh
 function disableDays(date) {
     var day = date.getDay();
-    return [(day != unavailableDay), ""];
+    return [(day != unavailableDay), ''];
 }
 
-$.when(testDate('es'))
-    .then(() => {
-        testDate('eu');
-    })
-    .catch((a,b,c)=>{
-        console.error('Error en la ejecución del test de fecha');
-    });
+testDate('es');
+testDate('eu');
 
 function langStr(lang) {
     return '[' + lang + '] ';
 }
 
 function testDate(lang) {
-    var defer = new $.Deferred();
     describe('Test Date > ', () => {
         var $date, $altDate, $multiDate;
 
@@ -35,11 +30,7 @@ function testDate(lang) {
             testutils.loadCss(done);
         });
 
-        afterAll(() => {
-            defer.resolve();
-        });
-
-        beforeEach(() => {
+        beforeEach((done) => {
             var html = '<input id="exampleDate"></input>\
                         <input id="altDate"></input>\
                         <input id="multiDate"></input>\
@@ -74,16 +65,20 @@ function testDate(lang) {
                 beforeShowDay: disableDays
             };
 
-            $.rup.setLiterals(lang);
+            $.rup.setLiterals(lang).then(()=>{
+                $('#exampleDate').rup_date(props);
+                $('#altDate').rup_date(altProps);
+                $('#multiDate').rup_date(multiProps);
+                $.rup_date(fromToProps);
+                $date = $('#exampleDate');
+                $altDate = $('#altDate');
+                $multiDate = $('#multiDate');
 
-            $('#exampleDate').rup_date(props);
-            $('#altDate').rup_date(altProps);
-            $('#multiDate').rup_date(multiProps);
-            $.rup_date(fromToProps);
-            $date = $('#exampleDate');
-            $altDate = $('#altDate');
-            $multiDate = $('#multiDate');
+                done();
+            });
+
         });
+        
         afterEach(() => {
             $('.hasDatepicker').each((i,e)=>{
                 $(e).rup_date('destroy');
@@ -92,9 +87,11 @@ function testDate(lang) {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
+
         afterAll(() => {
             $.rup.setLiterals('es');
         });
+
         describe('Creación > ', () => {
             describe('Date normal > ', () => {
                 beforeEach(() => {
@@ -174,7 +171,7 @@ function testDate(lang) {
                             $altDate.rup_date('setRupValue', '08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            $('#altDate').rup_date('setRupValue', '2018/10/08 00:00');
+                            $altDate.rup_date('setRupValue', '2018/10/08 00:00');
                         }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
@@ -182,7 +179,7 @@ function testDate(lang) {
                             expect($altDate.rup_date('getRupValue')).toBe('08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/10/08 00:00');
+                            expect($altDate.rup_date('getRupValue')).toBe('2018/10/08 00:00');
                         }
                     });
                 });
@@ -480,7 +477,7 @@ function testDate(lang) {
                             $date.rup_date('setDate');
                         }
                         unavailableDay = 3;
-                        $date.rup_date("refresh");
+                        $date.rup_date('refresh');
                     });
                     it(langStr(lang) + 'comprobamos que los miércoles se hayan deshabilitado:', () => {
                         $('#ui-datepicker-div > table > tbody > tr')
