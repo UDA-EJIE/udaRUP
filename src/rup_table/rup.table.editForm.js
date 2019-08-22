@@ -1157,6 +1157,7 @@
         var ctx = dt.settings()[0];
         var row = ctx.multiselection.selectedIds;
         var idRow = 0;
+        var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
         $.rup_messages('msgConfirm', {
             message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
             title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
