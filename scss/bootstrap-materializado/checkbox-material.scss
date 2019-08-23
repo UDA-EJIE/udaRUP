@@ -81,21 +81,21 @@ $checkbox-material-label-padding: .75em;
 	    font-size: inherit;
       
 		/* CUANDO PASA EL RATON POR ENCIMA */  
-		&:hover:enabled + label:before, &:checked:hover:enabled + label:before {
+		&:hover:enabled ~ label:before, &:checked:hover:enabled ~ label:before {
 			animation: ripple-hover 0.2s linear forwards;
 		}
 		
 		/* CUANDO TIENE EL FOCO */
-		&:focus + label:before {
+		&:focus ~ label:before {
 			animation: ripple-active 0.2s linear forwards;
 		}
       
 		&:checked {
-			+ label:before {
+			~ label:before {
 		     	background: $checkbox-material-checked-color;
 				border:none;
 		   	}
-		   	+ label:after {
+		   	~ label:after {
 				$md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
 				transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
 				width: $md-checkmark-size;
@@ -105,20 +105,20 @@ $checkbox-material-label-padding: .75em;
 				border-right-style: none;
 		   	} 
 	    }
-		&:active:enabled + label:before {
+		&:active:enabled ~ label:before {
 		  	animation: ripple-active 0.2s linear forwards;
 		}
       
       	/* CUANDO ESTA DISABLED */
     	&:disabled {
-			+ label:before {
+			~ label:before {
 				border-color: $checkbox-material-border-color-disabled;
 			}
-			+ label {
+			~ label {
 			    pointer-events: none;
 			}
 			&:checked {
-				+ label:before {
+				~ label:before {
 				    background: $checkbox-material-checked-color-disabled;
 				}
 			}
