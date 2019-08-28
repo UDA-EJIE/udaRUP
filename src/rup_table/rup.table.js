@@ -1209,6 +1209,9 @@
                             if(settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last'){
                                 line = ctx.json.rows.length-1;
                             }
+                            
+                            // Se añaden los parametros para que funcione bien la paginación
+                            ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', tabla, line, settingsTable.select.selectedRowsPerPage.cambio];
 							
                             ctx.multiselection.selectedRowsPerPage = [];
                             var rowSelectAux = ctx.json.rows[line];
