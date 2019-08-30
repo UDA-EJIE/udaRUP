@@ -1261,7 +1261,7 @@
             // En caso de ser edición bloqueamos la modificación
             if(actionType === "PUT") {
                 $.each(ctx.oInit.primaryKey, function(key,id) {
-                    var input = $(idForm[0]).find(":input[name=" + id + "]");
+                    var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
                     if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
@@ -1307,7 +1307,7 @@
             // En caso de ser clonación permitimos la edición
             else if(actionType === "POST"){
                 $.each(ctx.oInit.primaryKey,function(key,id) {
-                    var input = $(idForm[0]).find(":input[name=" + id + "]");
+                    var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
                     if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {

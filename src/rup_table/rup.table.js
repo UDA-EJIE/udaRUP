@@ -222,8 +222,14 @@
 
                 var id = '';
 				
-                $.each(opts.primaryKey,function(index,key) {
-                    id = id + json[key];
+                $.each(opts.primaryKey, function(index, key) {
+                	// Comprueba si la primaryKey es un subcampo
+                	if(key.indexOf('.') !== -1) {
+                		id = $self._getDescendantProperty(json, key);
+                	} else {
+                		id = id + json[key];
+                	}
+                	
                     if(opts.primaryKey.length > 1 && index < opts.primaryKey.length-1){
                         id = id+opts.multiplePkToken;
                     }
@@ -259,9 +265,9 @@
                     // En caso de ser edición bloqueamos la modificación
                     if(actionType === "PUT") {
                         $.each(primaryKey,function(key,id) {
-                            var input = $(idForm[0]).find(":input[name=" + id + "]");
+                            var input = $(idForm[0]).find(":input[name='" + id + "']");
                             if(sufijo !== undefined){
-                                input = $(idForm[0]).find(":input[name=" + id + sufijo + "]");
+                                input = $(idForm[0]).find(":input[name='" + id + sufijo + "']");
                             }
 						
                             // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
@@ -308,7 +314,7 @@
                     // En caso de ser clonación permitimos la edición
                     else if(actionType === "POST"){
                         $.each(primaryKey,function(key,id) {
-                            var input = $(idForm[0]).find(":input[name=" + id + "]");
+                            var input = $(idForm[0]).find(":input[name='" + id + "']");
 						
                             // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
                             if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
@@ -371,6 +377,40 @@
             }
 			
             return options;
+        },
+        
+		/**
+		* Obtiene el subcampo
+		*
+		* @name _getDescendantProperty
+		* @function
+		* @since UDA 4.1.0 // Table 1.0.0
+		*
+		* @param {object} obj - Valores de la fila
+		* @param {string} key - Clave para extraer el valor
+		*
+		*/
+        _getDescendantProperty(obj, key) {
+            var indexes = key.split(".");
+
+            while (indexes.length && obj) {
+                var index = indexes.shift();
+                var match = new RegExp("(.+)\\[([0-9]*)\\]").exec(index);
+                
+                // Comprueba si es un array y aplica la logica necesaria para obtener el valor
+                if ((match !== null) && (match.length == 3)) {
+                    var arrayData = { arrayName: match[1], arrayIndex: match[2] };
+                    if (obj[arrayData.arrayName] != undefined) {
+                        obj = obj[arrayData.arrayName][arrayData.arrayIndex];
+                    } else {
+                        obj = undefined;
+                    }
+                } else {
+                    obj = obj[index]
+                }
+            }
+
+            return obj;
         },
 
         /**
