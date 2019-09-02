@@ -327,7 +327,8 @@
                 //se obtiene el row entero de bbdd, meter parametro opcional.
                 var pk = DataTable.Api().rupTable.getIdPk(row);
                 var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
-                pk = pk.replace(ctx.oInit.multiplePkToken,'/');
+                var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+                pk = pk.replace(regex,'/');
                 var ajaxOptions = {
                     url : ctx.oInit.urlBase+'/'+pk,
                     accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
@@ -1191,6 +1192,7 @@
         var ctx = dt.settings()[0];
         var row = ctx.multiselection.selectedIds;
         var idRow = 0;
+        var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
         $.rup_messages('msgConfirm', {
             message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
             title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
@@ -1208,7 +1210,7 @@
                     _callSaveAjax('POST',dt,row,idRow,false,ctx.oInit.formEdit.detailForm,'/deleteAll');
                 }else{
                     row = ctx.multiselection.selectedIds[0];
-                    row = row.replace(ctx.oInit.multiplePkToken,'/');
+                    row = row.replace(regex,'/');
                     _callSaveAjax('DELETE',dt,'',idRow,false,ctx.oInit.formEdit.detailForm,'/'+row);
                 }
             }
@@ -1294,7 +1296,7 @@
             // En caso de ser edición bloqueamos la modificación
             if(actionType === 'PUT') {
                 $.each(ctx.oInit.primaryKey, function(key,id) {
-                    var input = $(idForm[0]).find(':input[name=' + id + ']');
+                    var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
                     if(input.attr('ruptype') === 'date' && !input.rup_date('isDisabled')) {
@@ -1340,7 +1342,7 @@
             // En caso de ser clonación permitimos la edición
             else if(actionType === 'POST'){
                 $.each(ctx.oInit.primaryKey,function(key,id) {
-                    var input = $(idForm[0]).find(':input[name=' + id + ']');
+                    var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
                     if(input.attr('ruptype') === 'date' && input.rup_date('isDisabled')) {

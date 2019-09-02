@@ -40,39 +40,33 @@ $radio-material-ripple-size: 6px;
 
     input[type='radio'] {
         opacity: 0;
-        position: absolute;
-        z-index: 0;
-
-        // CUANDO PASA EL RATON POR ENCIMA
-        &:hover:enabled+label::before,
-        &:checked:hover:enabled+label::before {
-            animation: ripple-hover .2s linear forwards;
+        
+        /* CUANDO PASA EL RATON POR ENCIMA */  
+        &:hover:enabled ~ label:before, &:checked:hover:enabled ~ label:before {
+            animation: ripple-hover 0.2s linear forwards;
         }
-
-        // CUANDO TIENE EL FOCO
-        &:focus+label::before {
-            animation: ripple-active .2s linear forwards;
+        
+        /* CUANDO TIENE EL FOCO */
+        &:focus ~ label:before {
+			animation: ripple-active 0.2s linear forwards;
+		}
+        
+        /* CUANDO ESTA SELECCIONADO */  
+        &:checked ~ label:before {
+            border-color: $radio-material-checked-color; 
         }
-
-        // CUANDO ESTA SELECCIONADO
-        &:checked+label::before {
-            border-color: $radio-material-checked-color;
-        }
-
-        &:checked+label::after {
+        &:checked ~ label:after {
             transform: scale(1);
         }
-
-        &:active:enabled+label::before {
-            animation: ripple-active .2s linear forwards;
+        &:active:enabled ~ label:before {
+            animation: ripple-active 0.2s linear forwards;
         }
-
-        // CUANDO ESTA DISABLED
-        &:disabled+label::before {
+        
+        /* CUANDO ESTA DISABLED */
+        &:disabled ~ label:before {
             border-color: $radio-material-disabled-color;
         }
-
-        &:disabled+label::after {
+        &:disabled ~ label:after {
             background: $radio-material-disabled-color;
         }
     }
@@ -82,7 +76,7 @@ $radio-material-ripple-size: 6px;
         display: inline-block;
         height: $radio-material-size;
         margin-bottom: 0;
-        padding-left: ($radio-material-size + 10);
+        padding-left: ($radio-material-size + 10px);
         position: relative;
         vertical-align: bottom;
 

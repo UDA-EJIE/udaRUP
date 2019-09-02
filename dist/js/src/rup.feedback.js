@@ -338,6 +338,7 @@ de la aplicación pueda cerrar la capa manualmente.
             });
 
             $('#' + this.options._idFeedback + '_closeDiv').show();
+            $('#' + this.options._idFeedback).trigger('rupFeedback_show');
 
             /**
        * Permite asociar una función que se ejecutará cuando se muestre el feedback.

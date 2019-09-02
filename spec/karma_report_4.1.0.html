@@ -94,14 +94,14 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Wed Aug 21 2019</h1>
+<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Mon Sep 02 2019</h1>
 
 <div class="alert">
 
 
-<!-- <span class="failingAlert bar">Failed 1 specs</span> -->
+<!-- <span class="failingAlert bar">Failed 2 specs</span> -->
 <span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>695 specs, 1 failed, 0 pending</span>
+  <a href="#" onclick="unfold();">Unfold</a></span>695 specs, 2 failed, 0 pending</span>
 <span class="resultsMenu bar">
 <a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
    class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
@@ -1224,10 +1224,10 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     
     </div>
   
-    <div class="suite passed">
+    <div class="suite failed">
       <span class="description">Test rup_calendar (alternative)  &gt; Funcionalidad de las opciones  &gt; Weekbox</span>
     
-      <div class="specSummary passed">
+      <div class="specSummary failed">
       <span class="description"> &gt; Debe mostrar un div con la semana correcta</span>
       </div>
     
@@ -5079,10 +5079,20 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
   <div class="specDetail failed">
+    <span class="description">Test rup_calendar (alternative)  &gt; Funcionalidad de las opciones  &gt; Weekbox  &gt; Debe mostrar un div con la semana correcta</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Expected 'Semana 35' to be 'Semana 36'.
+    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?9f4cc907bc2ae778ee3ae1316c70f41e8a88ead4:51080:51)</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
     <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Botonera &gt;  Añadido de nuevo botón &gt;  Se añade la opcion al contextMenu: </span>
     <div class="stackTrace">
       <div class="resultMessage">Expected 0 to be 1.
-    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?5bc746e927ba9d05a3723090865aa67f5cc84ad1:107143:83)</div>
+    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?9f4cc907bc2ae778ee3ae1316c70f41e8a88ead4:107143:83)</div>
     </div>
   </div>
   
@@ -5098,7 +5108,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    case 50: showFailures(); break;
+    case 50: showFailures(); break;case 50: showFailures(); break;
   }
 };
 

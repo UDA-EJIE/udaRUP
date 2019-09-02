@@ -106,32 +106,32 @@ function createDatatable1(ctx, callback) {
         idDatatable = 'example';
         $.extend(opts, true, {
             multiSelect: {
-                style: "multi"
+                style: 'multi'
             }
         });
     } else {
         idDatatable = 'example1';
         $.extend(opts, true, {
             multiSelect: {
-                style: "simple"
+                style: 'simple'
             }
         });
     }
 
     var defaults = {
-        urlBase: window.location.origin+"/x21aAppWar/table",
+        urlBase: window.location.origin+'/x21aAppWar/table',
         pageLength: 9,
         fixedHeader: {
             footer: false,
             header: true
         },
         filter: {
-            id: idDatatable + "_filter_form",
-            filterToolbar: idDatatable + "_filter_toolbar",
-            collapsableLayerId: idDatatable + "_filter_fieldset"
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: "#" + idDatatable + "_detail_div",
+            detailForm: '#' + idDatatable + '_detail_div',
             validate: {
                 rules: {
                     nombre: {
@@ -148,15 +148,15 @@ function createDatatable1(ctx, callback) {
                     }
                 }
             },
-            titleForm: "Modificar registro"
+            titleForm: 'Modificar registro'
         },
         buttons: {
-            "activate": true
+            'activate': true
         },
         seeker: {
             colModel: [{
-                name: "id",
-                index: "id",
+                name: 'id',
+                index: 'id',
                 editable: true,
                 width: 80,
                 formoptions: {
@@ -164,27 +164,27 @@ function createDatatable1(ctx, callback) {
                     colpos: 1
                 }
             }, {
-                name: "nombre",
-                index: "nombre",
+                name: 'nombre',
+                index: 'nombre',
                 editable: true,
                 formoptions: {
                     rowpos: 2,
                     colpos: 1
                 }
             }, {
-                name: "apellido1",
-                index: "apellidos",
+                name: 'apellido1',
+                index: 'apellidos',
                 editable: true,
                 formoptions: {
                     rowpos: 3,
                     colpos: 1
                 },
-                classes: "ui-ellipsis"
-            }, {name: "fechaAlta",  index: "fecha_alta", editable:true, hidden:false, width: 120,
-				rupType: "date",
-				rwdClasses:"hidden-xs hidden-sm hidden-md",
+                classes: 'ui-ellipsis'
+            }, {name: 'fechaAlta',  index: 'fecha_alta', editable:true, hidden:false, width: 120,
+				rupType: 'date',
+				rwdClasses:'hidden-xs hidden-sm hidden-md',
 				editoptions:{
-					labelMaskId : "fecha-mask",
+					labelMaskId : 'fecha-mask',
 					showButtonPanel : true,
 					showOtherMonths : true,
 					noWeekend : true
@@ -218,9 +218,9 @@ function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
         multiSelect: {
-            style: "multi"
+            style: 'multi'
         },
-        urlBase: window.location.origin+"/x21aAppWar/table",
+        urlBase: window.location.origin+'/x21aAppWar/table',
         // serverSide: true,
         // deferLoading: 15,
         pageLength: 5,
@@ -229,12 +229,12 @@ function createDatatable2(callback) {
             header: true
         },
         filter: {
-            id: idDatatable + "_filter_form",
-            filterToolbar: idDatatable + "_filter_toolbar",
-            collapsableLayerId: idDatatable + "_filter_fieldset"
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: "#" + idDatatable + "_detail_div",
+            detailForm: '#' + idDatatable + '_detail_div',
             validate: {
                 rules: {
                     nombre: {
@@ -251,15 +251,15 @@ function createDatatable2(callback) {
                     }
                 }
             },
-            titleForm: "Modificar registro"
+            titleForm: 'Modificar registro'
         },
         buttons: {
-            "activate": true
+            'activate': true
         },
         seeker: {
             colModel: [{
-                name: "id",
-                index: "id",
+                name: 'id',
+                index: 'id',
                 editable: true,
                 width: 80,
                 formoptions: {
@@ -267,25 +267,25 @@ function createDatatable2(callback) {
                     colpos: 1
                 }
             }, {
-                name: "nombre",
-                index: "nombre",
+                name: 'nombre',
+                index: 'nombre',
                 editable: true,
                 formoptions: {
                     rowpos: 2,
                     colpos: 1
                 }
             }, {
-                name: "apellidos",
-                index: "apellidos",
+                name: 'apellidos',
+                index: 'apellidos',
                 editable: true,
                 formoptions: {
                     rowpos: 3,
                     colpos: 1
                 },
-                classes: "ui-ellipsis"
+                classes: 'ui-ellipsis'
             }, {
-                name: "edad",
-                index: "edad",
+                name: 'edad',
+                index: 'edad',
                 editable: true,
                 formoptions: {
                     rowpos: 4,

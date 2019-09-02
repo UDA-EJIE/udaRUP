@@ -38,131 +38,96 @@ $checkbox-material-label-padding: .75em;
 }
 
 .checkbox-material {
-    margin: $checkbox-material-margin;
-    position: relative;
-    text-align: left;
-
-    label {
-        clear: both;
-        cursor: pointer;
-        display: inline;
-        line-height: $checkbox-material-size;
-        padding-left: 1px;
-        vertical-align: top;
-
-        &:not(:empty) {
-            padding-left: $checkbox-material-label-padding;
-        }
-
-        &::before,
-        &::after {
-            box-sizing: border-box;
-            content: '';
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
-
-        &::before {
-            // CAJA
-            background: $white-color;
-            border: $checkbox-material-border-width solid $checkbox-material-border-color;
-            border-radius: $checkbox-material-border-radius;
-            cursor: pointer;
-            height: $checkbox-material-size;
-            transition: background .3s;
-            width: $checkbox-material-size;
-        }
-    }
-
-    input[type='checkbox'] {
-        display: block;
-        float: left;
-        font-size: inherit;
-        margin: 0;
-        opacity: 0;
-        outline: 0;
-        width: $checkbox-material-size;
-
-
-        // CUANDO PASA EL RATON POR ENCIMA
-        &:hover:enabled,
-        &:checked:hover:enabled {
-            @mixin hover-animation {
-                +label::before {
-                    animation: ripple-hover .2s linear forwards;
-                }
-            }
-
-            @include hover-animation;
-
-            +input[type='hidden'] {
-                @include hover-animation;
-            }
-        }
-
-        // CUANDO TIENE EL FOCO
-        &:focus {
-            @mixin focus-animation {
-                +label:before {
-                    animation: ripple-active .2s linear forwards;
-                }
-            }
-
-            @include focus-animation;
-
-            +input[type='hidden'] {
-                @include focus-animation;
-            }
-        }
-
-        &:checked {
-
-            @mixin checked-label {
-                +label::before {
-                    background: $checkbox-material-checked-color;
-                    border: 0;
-                }
-
-                +label::after {
-                    $md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
-                    border: $md-checkmark-width solid $md-checkmark-color;
-                    border-right-style: none;
-                    border-top-style: none;
-                    height: $md-checkmark-size / 2;
-                    transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
-                    width: $md-checkmark-size;
-                }
-            }
-
-            @include checked-label;
-
-            +input[type='hidden'] {
-                @include checked-label;
-            }
-        }
-
-        &:active:enabled+label::before {
-            animation: ripple-active .2s linear forwards;
-        }
-
-        // CUANDO ESTA DISABLED
-        &:disabled {
-            +label::before {
-                border-color: $checkbox-material-border-color-disabled;
-            }
-
-            +label {
-                pointer-events: none;
-            }
-
-            &:checked {
-                +label::before {
-                    background: $checkbox-material-checked-color-disabled;
-                }
-            }
-        }
-    }
+	position: relative;
+	margin: $checkbox-material-margin;
+	text-align: left;
+  
+  	label {
+	    cursor: pointer;
+	    display: inline;
+	    line-height: $checkbox-material-size;
+	    vertical-align: top;
+	    clear: both;
+	    padding-left: 1px;
+      
+	    &:not(:empty) {
+	      padding-left: $checkbox-material-label-padding;
+		}   
+	    &:before, &:after {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			box-sizing: border-box;
+	    }  
+	    &:before {
+		    /* CAJA */
+		    width: $checkbox-material-size;
+		    height: $checkbox-material-size;
+		    background: $white-color;
+		    border: $checkbox-material-border-width solid $checkbox-material-border-color;
+		    border-radius: $checkbox-material-border-radius;
+		    cursor: pointer;
+		    transition: background .3s;
+	    } 
+	    &:after {
+	      /* CHECK */
+	    }    
+  	}
+  
+  	input[type="checkbox"] {
+	    outline: 0;
+	    opacity: 0;
+	    width: $checkbox-material-size;
+	    margin: 0;
+	    display: block;
+	    float: left;
+	    font-size: inherit;
+      
+		/* CUANDO PASA EL RATON POR ENCIMA */  
+		&:hover:enabled ~ label:before, &:checked:hover:enabled ~ label:before {
+			animation: ripple-hover 0.2s linear forwards;
+		}
+		
+		/* CUANDO TIENE EL FOCO */
+		&:focus ~ label:before {
+			animation: ripple-active 0.2s linear forwards;
+		}
+      
+		&:checked {
+			~ label:before {
+		     	background: $checkbox-material-checked-color;
+				border:none;
+		   	}
+		   	~ label:after {
+				$md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
+				transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
+				width: $md-checkmark-size;
+				height: $md-checkmark-size / 2;
+				border: $md-checkmark-width solid $md-checkmark-color;
+				border-top-style: none;
+				border-right-style: none;
+		   	} 
+	    }
+		&:active:enabled ~ label:before {
+		  	animation: ripple-active 0.2s linear forwards;
+		}
+      
+      	/* CUANDO ESTA DISABLED */
+    	&:disabled {
+			~ label:before {
+				border-color: $checkbox-material-border-color-disabled;
+			}
+			~ label {
+			    pointer-events: none;
+			}
+			&:checked {
+				~ label:before {
+				    background: $checkbox-material-checked-color-disabled;
+				}
+			}
+		}
+  	}
 }
 
 .checkbox-material-inline {
@@ -188,7 +153,7 @@ table div.checkbox-material-inline {
     &::before,
     &::after {
         left: 5px;
-        top: 10;
+        top: 10px;
     }
 }
 
