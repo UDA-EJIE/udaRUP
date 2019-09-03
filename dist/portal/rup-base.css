@@ -24296,36 +24296,38 @@
 
 .r01gContainer .radio-material input[type='radio'] {
   opacity: 0;
-  position: absolute;
-  z-index: 0;
+  /* CUANDO PASA EL RATON POR ENCIMA */
+  /* CUANDO TIENE EL FOCO */
+  /* CUANDO ESTA SELECCIONADO */
+  /* CUANDO ESTA DISABLED */
 }
 
-.r01gContainer .radio-material input[type='radio']:hover:enabled + label::before,
-.r01gContainer .radio-material input[type='radio']:checked:hover:enabled + label::before {
-  animation: ripple-hover .2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:hover:enabled ~ label:before,
+.r01gContainer .radio-material input[type='radio']:checked:hover:enabled ~ label:before {
+  animation: ripple-hover 0.2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type='radio']:focus + label::before {
-  animation: ripple-active .2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:focus ~ label:before {
+  animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type='radio']:checked + label::before {
+.r01gContainer .radio-material input[type='radio']:checked ~ label:before {
   border-color: #1472a4;
 }
 
-.r01gContainer .radio-material input[type='radio']:checked + label::after {
+.r01gContainer .radio-material input[type='radio']:checked ~ label:after {
   transform: scale(1);
 }
 
-.r01gContainer .radio-material input[type='radio']:active:enabled + label::before {
-  animation: ripple-active .2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:active:enabled ~ label:before {
+  animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type='radio']:disabled + label::before {
+.r01gContainer .radio-material input[type='radio']:disabled ~ label:before {
   border-color: rgba(0, 0, 0, 0.26);
 }
 
-.r01gContainer .radio-material input[type='radio']:disabled + label::after {
+.r01gContainer .radio-material input[type='radio']:disabled ~ label:after {
   background: rgba(0, 0, 0, 0.26);
 }
 
@@ -24404,112 +24406,97 @@
 }
 
 .r01gContainer .checkbox-material {
-  margin: 0.5em 0;
   position: relative;
+  margin: 0.5em 0;
   text-align: left;
 }
 
 .r01gContainer .checkbox-material label {
-  clear: both;
   cursor: pointer;
   display: inline;
   line-height: 1.25em;
-  padding-left: 1px;
   vertical-align: top;
+  clear: both;
+  padding-left: 1px;
 }
 
 .r01gContainer .checkbox-material label:not(:empty) {
   padding-left: 0.75em;
 }
 
-.r01gContainer .checkbox-material label::before,
-.r01gContainer .checkbox-material label::after {
-  box-sizing: border-box;
-  content: '';
-  left: 0;
+.r01gContainer .checkbox-material label:before,
+.r01gContainer .checkbox-material label:after {
+  content: "";
   position: absolute;
+  left: 0;
   top: 0;
+  box-sizing: border-box;
 }
 
-.r01gContainer .checkbox-material label::before {
+.r01gContainer .checkbox-material label:before {
+  /* CAJA */
+  width: 1.25em;
+  height: 1.25em;
   background: #FFFFFF;
   border: 2px solid rgba(0, 0, 0, 0.54);
   border-radius: 0.125em;
   cursor: pointer;
-  height: 1.25em;
   transition: background .3s;
-  width: 1.25em;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox'] {
+.r01gContainer .checkbox-material label:after {
+  /* CHECK */
+}
+
+.r01gContainer .checkbox-material input[type="checkbox"] {
+  outline: 0;
+  opacity: 0;
+  width: 1.25em;
+  margin: 0;
   display: block;
   float: left;
   font-size: inherit;
-  margin: 0;
-  opacity: 0;
-  outline: 0;
-  width: 1.25em;
+  /* CUANDO PASA EL RATON POR ENCIMA */
+  /* CUANDO TIENE EL FOCO */
+  /* CUANDO ESTA DISABLED */
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:hover:enabled + label::before,
-.r01gContainer .checkbox-material input[type='checkbox']:checked:hover:enabled + label::before {
-  animation: ripple-hover .2s linear forwards;
+.r01gContainer .checkbox-material input[type="checkbox"]:hover:enabled ~ label:before,
+.r01gContainer .checkbox-material input[type="checkbox"]:checked:hover:enabled ~ label:before {
+  animation: ripple-hover 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:hover:enabled + input[type='hidden'] + label::before,
-.r01gContainer .checkbox-material input[type='checkbox']:checked:hover:enabled + input[type='hidden'] + label::before {
-  animation: ripple-hover .2s linear forwards;
+.r01gContainer .checkbox-material input[type="checkbox"]:focus ~ label:before {
+  animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:focus + label:before {
-  animation: ripple-active .2s linear forwards;
-}
-
-.r01gContainer .checkbox-material input[type='checkbox']:focus + input[type='hidden'] + label:before {
-  animation: ripple-active .2s linear forwards;
-}
-
-.r01gContainer .checkbox-material input[type='checkbox']:checked + label::before {
+.r01gContainer .checkbox-material input[type="checkbox"]:checked ~ label:before {
   background: #1472a4;
-  border: 0;
+  border: none;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:checked + label::after {
-  border: 0.125em solid #FFFFFF;
-  border-right-style: none;
-  border-top-style: none;
-  height: 0.375em;
+.r01gContainer .checkbox-material input[type="checkbox"]:checked ~ label:after {
   transform: translate(0.25em, 0.33653846em) rotate(-45deg);
   width: 0.75em;
-}
-
-.r01gContainer .checkbox-material input[type='checkbox']:checked + input[type='hidden'] + label::before {
-  background: #1472a4;
-  border: 0;
-}
-
-.r01gContainer .checkbox-material input[type='checkbox']:checked + input[type='hidden'] + label::after {
-  border: 0.125em solid #FFFFFF;
-  border-right-style: none;
-  border-top-style: none;
   height: 0.375em;
-  transform: translate(0.25em, 0.33653846em) rotate(-45deg);
-  width: 0.75em;
+  border: 0.125em solid #FFFFFF;
+  border-top-style: none;
+  border-right-style: none;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:active:enabled + label::before {
-  animation: ripple-active .2s linear forwards;
+.r01gContainer .checkbox-material input[type="checkbox"]:active:enabled ~ label:before {
+  animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:disabled + label::before {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled ~ label:before {
   border-color: rgba(0, 0, 0, 0.26);
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:disabled + label {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled ~ label {
   pointer-events: none;
 }
 
-.r01gContainer .checkbox-material input[type='checkbox']:disabled:checked + label::before {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled:checked ~ label:before {
   background: rgba(0, 0, 0, 0.26);
 }
 
@@ -24531,7 +24518,7 @@
 .r01gContainer .form-groupMaterial.checkbox-material > label::before,
 .r01gContainer .form-groupMaterial.checkbox-material > label::after {
   left: 5px;
-  top: 10;
+  top: 10px;
 }
 
 .r01gContainer .dialog-content-material .checkbox-material label::before,

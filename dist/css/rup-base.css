@@ -23205,7 +23205,7 @@ form.rup_validate label.error {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
   #cal-slide-tick:before {
-    content: "\f0d7"; }
+    content: "\F72D"; }
 
 #cal-slide-tick.tick-month1 {
   left: 12.5%; }
