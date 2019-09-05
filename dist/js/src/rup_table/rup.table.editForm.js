@@ -24,7 +24,7 @@
 (function( factory ){
     if ( typeof define === 'function' && define.amd ) {
         // AMD
-        define( ['jquery', '../core/utils/jquery.form','../rup.form', 'datatables.net'], function ( $ ) {
+        define(['jquery', '../core/utils/jquery.form', '../rup.form', '../rup.combo', 'datatables.net'], function ($) {
             return factory( $, window, document );
         } );
     }

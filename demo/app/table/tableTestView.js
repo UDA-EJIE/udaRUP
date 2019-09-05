@@ -10,12 +10,16 @@ define(['jquery', 'marionette',
     });
 
     function fncOnAttach() {
+        global.$=$;
         $('#example').rup_table({
             initComplete: () => {
                 $('#example_detail_div').remove();
             },
             urlBase: '/demo/table/remote',
             selector: 'td',
+            multiSelect: {
+                style: 'multi'
+            },
             colModel: [{
                 name: 'id',
                 index: 'id',

@@ -81,12 +81,12 @@ import { PassThrough } from "stream";
                 }
                 // Añadimos el boton genérico
                 dt.button().add(pos, {
-                    text: props.text,
+                    text: ()=>{return props.text;},
                     id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
                     className: props.className,
                     icon: props.icon,
                     displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
-                    insideContextMenu: props.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+                    insideContextMenu: props.insideContextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
                     action: props.action,
                     custom:props.custom
                 });

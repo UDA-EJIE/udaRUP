@@ -94,19 +94,16 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Tue Sep 03 2019</h1>
+<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Thu Sep 05 2019</h1>
 
 <div class="alert">
 
 
-<!-- <span class="failingAlert bar">Failed 1 specs</span> -->
-<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>695 specs, 1 failed, 0 pending</span>
-<span class="resultsMenu bar">
-<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
-   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
-</span>
 
+  
+  <span class="passingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>695 specs, 0 failed, 0 pending</span>
+  
 
 
 </div>
@@ -4179,14 +4176,14 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     
     </div>
   
-    <div class="suite failed">
+    <div class="suite passed">
       <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Botonera &gt;  Añadido de nuevo botón &gt; </span>
     
       <div class="specSummary passed">
       <span class="description">Se añade el nuevo botón en la posicion y con la funcionalidad e id esperado: </span>
       </div>
     
-      <div class="specSummary failed">
+      <div class="specSummary passed">
       <span class="description">Se añade la opcion al contextMenu: </span>
       </div>
     
@@ -5077,16 +5074,6 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 
 <div id="details">
   
-  
-  <div class="specDetail failed">
-    <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Botonera &gt;  Añadido de nuevo botón &gt;  Se añade la opcion al contextMenu: </span>
-    <div class="stackTrace">
-      <div class="resultMessage">Expected 0 to be 1.
-    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?5e3a1f42bb421152269033c6dc87aee67ea7ed5d:107153:83)</div>
-    </div>
-  </div>
-  
-  
 </div>
 
 <script>
@@ -5098,7 +5085,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    case 50: showFailures(); break;
+    
   }
 };
 

@@ -562,35 +562,30 @@ function testDatatable() {
                 });
                 describe('Añadido de nuevo botón > ', () => {
                     beforeEach((done) => {
-                        $('#example').one('rupTable-buttonsDraw', () => {
-                            $('.dt-buttons').children().eq(4).click();
-                            $('tbody > tr:eq(0) > td:eq(1)').contextmenu();
-                            done();
-                        });
                         var btnObj = {
                             text: 'addedBtn',
                             action: () => {
                                 alert('action');
+                                setTimeout(done, 300);
                             },
                             classname: 'btn-material-primary-high-emphasis',
                             displayRegex: 1,
-                            id: 'addedButton',
+                            id: 'exampleaddedButton_1',
                             insideContextMenu: true
                         };
                         $('#example').rup_table('createButton', btnObj, 4);
-                    });
-
-                    afterEach((done) => {
-                        setTimeout(done, 1);
+                        
+                        $('.dt-buttons').children().eq(4).click();
+                        $('tbody > tr:eq(0)').contextmenu();
                     });
 
                     it('Se añade el nuevo botón en la posicion y con la funcionalidad e id esperado: ', () => {
                         expect($('.dt-buttons').children().eq(4).text()).toBe('addedBtn');
-                        expect($('.dt-buttons').children().eq(4).is('#addedButton')).toBe(true);
+                        expect($('.dt-buttons').children().eq(4).is('#exampleaddedButton_1')).toBe(true);
                         expect($('.rup-message-alert > .ui-dialog-content').text()).toBe('action');
                     });
                     it('Se añade la opcion al contextMenu: ', () => {
-                        expect($('#contextMenu2 > li:contains(addedBtn)').length).toBe(1);
+                        expect($('#contextMenu3 > li:contains(addedBtn)').length).toBe(1);
                     });
                 });
             });

@@ -799,8 +799,6 @@
                     this._draw(buttons[i].collection, buttons[i].buttons);
                 }
             }
-
-            $('#example').trigger('rupTable-buttonsDraw');
         },
 
         /**
@@ -1996,6 +1994,7 @@
     // Add a new button
     DataTable.Api.register('button().add()', function (idx, conf) {
         var ctx = this.context;
+        var api = new DataTable.Api(ctx);
 
         // Don't use `this` as it could be empty - select the instances directly
         if (ctx.length) {
@@ -2003,6 +2002,8 @@
 
             if (inst.length) {
                 inst[0].add(conf, idx);
+                // Nuevo botón al contextMenu
+                _updateContextMenu(this[0].inst.s.buttons, api, ctx[0]);
             }
         }
 
@@ -3214,9 +3215,29 @@
         // Creacion del Context Menu
         if (ctx.oInit.buttons !== undefined) {
             var botonesToolbar = ctx._buttons[0].inst.s.buttons;
-            var items = {};
-            $.when(
-                $.each(botonesToolbar, function (i) {
+            _updateContextMenu(botonesToolbar, api, ctx);
+        }
+    };
+
+    var _updateContextMenu = function (botones, api, ctx) {
+        let items = {};
+        let tableId = ctx.sTableId;
+        $.each(botones, function () {
+            // Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
+            if (this.conf.insideContextMenu) {
+                // Poblamos el objeto 'items' con los botones habilitados
+                items[this.conf.id] = {
+                    id: this.conf.id + '_contextMenuToolbar',
+                    name: this.conf.text(api),
+                    icon: this.conf.icon,
+                    inCollection: this.inCollection,
+                    idCollection: undefined
+                };
+            }
+            // Comprueba si tiene botones hijos
+            if (this.buttons.length > 0) {
+                var idCollection = this.conf.id;
+                $.each(this.buttons, function (i) {
                     // Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
                     if (this.conf.insideContextMenu) {
                         // Poblamos el objeto 'items' con los botones habilitados
@@ -3225,74 +3246,56 @@
                             name: this.conf.text(api),
                             icon: this.conf.icon,
                             inCollection: this.inCollection,
-                            idCollection: undefined
-                        }
+                            idCollection: idCollection
+                        };
                     }
-                    // Comprueba si tiene botones hijos
-                    if (this.buttons.length > 0) {
-                        var idCollection = this.conf.id;
-                        $.each(this.buttons, function (i) {
-                            // Entra si tiene marcada la opcion para habilitarlo dentro del contextMenu
-                            if (this.conf.insideContextMenu) {
-                                // Poblamos el objeto 'items' con los botones habilitados
-                                items[this.conf.id] = {
-                                    id: this.conf.id + '_contextMenuToolbar',
-                                    name: this.conf.text(api),
-                                    icon: this.conf.icon,
-                                    inCollection: this.inCollection,
-                                    idCollection: idCollection
-                                }
+                });
+            }
+        });
+
+        var tableTrSelector = '#' + tableId + ' > tbody > tr';
+        var tableTr = $(tableTrSelector);
+        tableTr.selector = tableTrSelector;
+        if (!jQuery.isEmptyObject(items)) {
+            tableTr.rup_contextMenu('destroy');
+            tableTr.rup_contextMenu({
+                selector: tableTrSelector,
+                callback: function (key, options) {
+                    var selector = items[key];
+                    // Recogemos el id de la accion pulsada en el context menu
+                    var contextMenuActionId = selector.id;
+                    // Le quitamos la extension '_contextMenuToolbar' para tener asi
+                    // el id del boton que queremos accionar
+                    var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
+                    // Variable que nos dira si esta dentro de una coleccion
+                    var inCollection = selector.inCollection;
+                    // Variable que almacena el id de la coleccion (si no pertenece a una
+                    // siempre sera 'undefined')
+                    var idCollection = selector.idCollection;
+                    // Comprobamos si existe el elemento con este id
+                    if (inCollection && idCollection !== undefined) {
+                        // Obtenemos la info necesaria del boton y la guardamos en variables
+                        var buttonName;
+                        var dt = $('#' + ctx.sTableId).DataTable();
+                        var eventConfig;
+                        $.each(ctx.ext.buttons, function (key) {
+                            var buttonObject = ctx.ext.buttons[key];
+                            if (buttonObject.id === buttonId) {
+                                buttonName = key;
+                                eventConfig = buttonObject;
                             }
                         });
+                        // Llamamos directamente al action para no hacer aparecer y desaparecer
+                        // el boton, empeorando la UX
+                        ctx.ext.buttons[buttonName].action(undefined, dt, undefined, eventConfig);
+                    } else {
+                        $('#' + buttonId).trigger('click');
                     }
-                })
-            ).done(function () {
-                var tableTrSelector = '#' + ctx.sTableId + ' > tbody > tr';
-                var tableTr = $(tableTrSelector);
-                if (!jQuery.isEmptyObject(items)) {
-                    tableTr.rup_contextMenu({
-                        selector: tableTrSelector,
-                        callback: function (key, options) {
-                            var selector = items[key];
-                            // Recogemos el id de la accion pulsada en el context menu
-                            var contextMenuActionId = selector.id;
-                            // Le quitamos la extension '_contextMenuToolbar' para tener asi
-                            // el id del boton que queremos accionar
-                            var buttonId = contextMenuActionId.replace('_contextMenuToolbar', '');
-                            // Variable que nos dira si esta dentro de una coleccion
-                            var inCollection = selector.inCollection;
-                            // Variable que almacena el id de la coleccion (si no pertenece a una
-                            // siempre sera 'undefined')
-                            var idCollection = selector.idCollection;
-                            // Comprobamos si existe el elemento con este id
-                            if (inCollection && idCollection !== undefined) {
-                                // Obtenemos la info necesaria del boton y la guardamos en variables
-                                var buttonName;
-                                var dt = $('#' + ctx.sTableId).DataTable();
-                                var eventConfig;
-
-                                $.each(ctx.ext.buttons, function (key) {
-                                    var buttonObject = ctx.ext.buttons[key];
-                                    if (buttonObject.id === buttonId) {
-                                        buttonName = key;
-                                        eventConfig = buttonObject;
-                                    }
-                                });
-
-                                // Llamamos directamente al action para no hacer aparecer y desaparecer
-                                // el boton, empeorando la UX
-                                ctx.ext.buttons[buttonName].action(undefined, dt, undefined, eventConfig);
-                            } else {
-                                $('#' + buttonId).trigger('click');
-                            }
-
-                        },
-                        items
-                    });
-                }
+                },
+                items
             });
         }
-    }
+    };
 
     /**
      * Inicializa los botones
@@ -3371,7 +3374,7 @@
                 .append($defaultDialog_wait)
                 .append($defaultDialog_error);
         $('#' + ctx.sTableId).after($defaultDialog);
-    }
+    };
 
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -3426,7 +3429,7 @@
             DataTable.Api().buttons.displayRegex(ctx);
         }
 
-    };
+    }
 
     // DataTables `dom` feature option
     DataTable.ext.feature.push({
