@@ -1382,7 +1382,7 @@ describe('Test rup_calendar (alternative)', () => {
                 $.post('/demo/calendar/events/restore')
                     .done(done);
             });
-            it(' > Debe haber actualizado los events', () => {debugger;
+            it(' > Debe haber actualizado los events', () => {
                 var evts = cal2.rup_calendar('getEventsBetween',
                     new Date(2019, 5, 1, 0, 0, 0),
                     new Date(2019, 5, 10, 0, 0, 0));

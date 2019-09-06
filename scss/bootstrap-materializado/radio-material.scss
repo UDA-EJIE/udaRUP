@@ -39,34 +39,39 @@ $radio-material-ripple-size: 6px;
     }
 
     input[type='radio'] {
-        opacity: 0;
-        
-        /* CUANDO PASA EL RATON POR ENCIMA */  
-        &:hover:enabled ~ label:before, &:checked:hover:enabled ~ label:before {
-            animation: ripple-hover 0.2s linear forwards;
+        position: absolute;
+        z-index: -1;
+
+        /* CUANDO PASA EL RATON POR ENCIMA */
+        &:hover:enabled~label::before,
+        &:checked:hover:enabled~label::before {
+            animation: ripple-hover .2s linear forwards;
         }
-        
+
         /* CUANDO TIENE EL FOCO */
-        &:focus ~ label:before {
-			animation: ripple-active 0.2s linear forwards;
-		}
-        
-        /* CUANDO ESTA SELECCIONADO */  
-        &:checked ~ label:before {
-            border-color: $radio-material-checked-color; 
+        &:focus~label::before {
+            animation: ripple-active .2s linear forwards;
         }
-        &:checked ~ label:after {
+
+        /* CUANDO ESTA SELECCIONADO */
+        &:checked~label::before {
+            border-color: $radio-material-checked-color;
+        }
+
+        &:checked~label::after {
             transform: scale(1);
         }
-        &:active:enabled ~ label:before {
-            animation: ripple-active 0.2s linear forwards;
+
+        &:active:enabled~label::before {
+            animation: ripple-active .2s linear forwards;
         }
-        
+
         /* CUANDO ESTA DISABLED */
-        &:disabled ~ label:before {
+        &:disabled~label::before {
             border-color: $radio-material-disabled-color;
         }
-        &:disabled ~ label:after {
+
+        &:disabled~label::after {
             background: $radio-material-disabled-color;
         }
     }
