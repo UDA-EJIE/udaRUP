@@ -15880,24 +15880,26 @@ fieldset {
   .radio-material.radio-material-inline {
     display: inline-block; }
   .radio-material input[type='radio'] {
-    opacity: 0;
+    position: absolute;
+    z-index: -1;
     /* CUANDO PASA EL RATON POR ENCIMA */
     /* CUANDO TIENE EL FOCO */
     /* CUANDO ESTA SELECCIONADO */
     /* CUANDO ESTA DISABLED */ }
-    .radio-material input[type='radio']:hover:enabled ~ label:before, .radio-material input[type='radio']:checked:hover:enabled ~ label:before {
-      animation: ripple-hover 0.2s linear forwards; }
-    .radio-material input[type='radio']:focus ~ label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type='radio']:checked ~ label:before {
+    .radio-material input[type='radio']:hover:enabled ~ label::before,
+    .radio-material input[type='radio']:checked:hover:enabled ~ label::before {
+      animation: ripple-hover .2s linear forwards; }
+    .radio-material input[type='radio']:focus ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:checked ~ label::before {
       border-color: #1472a4; }
-    .radio-material input[type='radio']:checked ~ label:after {
+    .radio-material input[type='radio']:checked ~ label::after {
       transform: scale(1); }
-    .radio-material input[type='radio']:active:enabled ~ label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type='radio']:disabled ~ label:before {
+    .radio-material input[type='radio']:active:enabled ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:disabled ~ label::before {
       border-color: rgba(0, 0, 0, 0.26); }
-    .radio-material input[type='radio']:disabled ~ label:after {
+    .radio-material input[type='radio']:disabled ~ label::after {
       background: rgba(0, 0, 0, 0.26); }
   .radio-material label {
     cursor: pointer;
