@@ -1518,8 +1518,8 @@ function _notExistOnPage(ctx){
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	
 	var idRow = 0;
+	var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
 	$.rup_messages('msgConfirm', {
 		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
 		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
@@ -1537,7 +1537,6 @@ function _deleteAllSelects(dt){
 				_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
 			}else{
 				row = ctx.multiselection.selectedIds[0];
-				var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
 				row = row.replace(regex,'/');
 				_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
 			}
