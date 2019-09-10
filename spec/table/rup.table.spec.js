@@ -140,7 +140,7 @@ function testDatatable() {
                             expect($('#id_detailForm_table').val()).toBe('1');
                             expect($('#nombre_detail_table').val()).toBe('Ana');
                             expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
-                            expect($('#edad_detail_table').val()).toBe('7');
+                            expect($('#edad_detail_table').val()).toBe('12');
                         });
                     });
 
@@ -331,9 +331,7 @@ function testDatatable() {
 
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example').on('draw.dt', () => {
-                            done();
-                        });
+                        $('#example').on('draw.dt', done);
                         $('#nombre_seeker').val('E');
                         $('#search_nav_button_example').click();
                     });

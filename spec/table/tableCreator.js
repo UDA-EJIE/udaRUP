@@ -170,12 +170,12 @@ export function createDatatable1(ctx, callback) {
             activate: true
         },
         filter: {
-            id: 'example_filter_form',
-            filterToolbar: 'example_filter_toolbar',
-            collapsableLayerId: 'example_filter_fieldset'
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: '#example_detail_div',
+            detailForm: '#' + idDatatable + '_detail_div',
             titleForm: 'Modificar registro',
             saveContinueEdit: false,
             validate: {
@@ -211,7 +211,7 @@ export function createDatatable1(ctx, callback) {
             '<th>Edad</th>' +
             '</tr>' +
             '</tfoot>';
-        $('#example').append(foot);
+        $('#' + idDatatable).append(foot);
 
     }
 
@@ -269,14 +269,22 @@ export function createDatatableInlineEdit(callback) {
             filterToolbar: 'exampleInline_filter_toolbar',
             collapsableLayerId: 'exampleInline_filter_fieldset'
         },
-        seeker: { activate: true },
-        select: { activate: true },
+        seeker: {
+            activate: true
+        },
+        select: {
+            activate: true
+        },
         inlineEdit: {
             deselect: true,
-            validate:{
+            validate: {
                 rules: {
-                    id: { required: true}
-                    , nombre: { required: true }
+                    id: {
+                        required: true
+                    },
+                    nombre: {
+                        required: true
+                    }
                 }
             }
         }
@@ -289,16 +297,55 @@ export function createDatatableInlineEdit(callback) {
 export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
-        multiSelect: {
-            style: 'multi'
-        },
         urlBase: '/demo/table/remote',
-        // serverSide: true,
-        // deferLoading: 15,
-        pageLength: 5,
-        fixedHeader: {
-            footer: false,
-            header: true
+        selector: 'td',
+        multiSelect: {
+            style: 'simple'
+        },
+        colModel: [{
+            name: 'id',
+            index: 'id',
+            editable: true,
+            width: 80,
+            formoptions: {
+                rowpos: 1,
+                colpos: 1
+            }
+        }, {
+            name: 'nombre',
+            index: 'nombre',
+            editable: true,
+            formoptions: {
+                rowpos: 2,
+                colpos: 1
+            }
+        }, {
+            name: 'apellidos',
+            index: 'apellidos',
+            editable: true,
+            formoptions: {
+                rowpos: 3,
+                colpos: 1
+            },
+            classes: 'ui-ellipsis'
+        }, {
+            name: 'edad',
+            index: 'edad',
+            editable: true,
+            formoptions: {
+                rowpos: 4,
+                colpos: 1
+            }
+        }],
+        initComplete: function () {
+            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
+            setTimeout(() => {
+                $('#' + idDatatable + ' > tbody').children().remove();
+                callback();
+            }, 500);
+        },
+        buttons: {
+            activate: true
         },
         filter: {
             id: idDatatable + '_filter_form',
@@ -307,73 +354,24 @@ export function createDatatable2(callback) {
         },
         formEdit: {
             detailForm: '#' + idDatatable + '_detail_div',
+            titleForm: 'Modificar registro',
+            saveContinueEdit: false,
             validate: {
                 rules: {
                     nombre: {
                         required: true
-                    },
-                    apellido1: {
-                        required: true
-                    },
-                    fechaAlta: {
-                        date: true
-                    },
-                    fechaBaja: {
-                        date: true
                     }
                 }
-            },
-            titleForm: 'Modificar registro'
-        },
-        buttons: {
-            'activate': true
+            }
         },
         seeker: {
-            colModel: [{
-                name: 'id',
-                index: 'id',
-                editable: true,
-                width: 80,
-                formoptions: {
-                    rowpos: 1,
-                    colpos: 1
-                }
-            }, {
-                name: 'nombre',
-                index: 'nombre',
-                editable: true,
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 1
-                }
-            }, {
-                name: 'apellidos',
-                index: 'apellidos',
-                editable: true,
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 1
-                },
-                classes: 'ui-ellipsis'
-            }, {
-                name: 'edad',
-                index: 'edad',
-                editable: true,
-                formoptions: {
-                    rowpos: 4,
-                    colpos: 1
-                }
-            }]
+            activate: true
         },
         colReorder: {
             fixedColumnsLeft: 1
-        },
-        initComplete: function () {
-            $('#' + idDatatable + ' > tbody').children().remove();
-            callback();
         }
     };
-
+    
     if ($('#content').length == 0) {
         $('body').append('<div id="content" class="container"></div>');
     }

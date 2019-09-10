@@ -197,7 +197,7 @@ function getFilterResp(req) {
     if(req.body.filter.id == 6) {
         return 'KABOOM!';
     }
-    if(json4.rows[0].nombre == 'Ane') {
+    if(json4.rows[0].nombre == 'Ane' && req.body.filter.id != '4') {
         return json4;
     }
     if(req.body.page == 2) {
@@ -214,7 +214,7 @@ function getFilterResp(req) {
         respuesta = {
             page: '1',
             rows: [
-                { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '23' }
+                { id: '4', nombre: 'Erlantz', apellidos: 'Carrasson Pando', edad: '68' }
             ],
             total: '1',
             records: 1
@@ -358,6 +358,10 @@ exports.formEdit = (req, res) => {
         res.status(406);
         res.send('KABOOM!');
         return;
+    }
+
+    if(req.body.nombre == 'Juana') {
+        json4.rows[0].nombre = 'Juana';
     }
 
     if(req.body.nombre == 'Ane') {
