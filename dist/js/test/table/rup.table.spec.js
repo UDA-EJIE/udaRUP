@@ -27,34 +27,37 @@ function testDatatable() {
         
         afterEach((done) => {
             clearDatatable(() => {
+                $('#content').html('');
+                $('#content').nextAll().remove();
                 done();
             });
         });
-        /*
-        describe('Edición inline datatable > ', () => {
-            beforeAll((done) => {
-                dtGen.createDatatableInlineEdit(done);
-            });
+        
+        // describe('Edición inline datatable > ', () => {
+        //     beforeAll((done) => {
+        //         dtGen.createDatatableInlineEdit(done);
+        //     });
 
-            describe('Funcionamiento de la edición inline > ', () => {
-                beforeEach((done) => {
-                    $('#exampleInline').on('tableEditInlineClickRow', () => {
-                        $('#exampleInline').on('draw.dt', () => {
-                            done();
-                        });
-                        $('#nombre_inline').val('Ane');
-                        var ev = $.Event('keydown');
-                        ev.keyCode = 13;
-                        $('#exampleInline > tbody > tr:eq(0)').trigger(ev);
-                    });
-                    $('#exampleInline > tbody > tr:eq(0) > td:eq(0)').dblclick();
-                });
-                it('Se ha actualizado el valor: ', () => {
-                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(1)').text()).toBe('Ane');
-                });
-            });
-        });
-        */
+        //     describe('Funcionamiento de la edición inline > ', () => {
+        //         let nameEdit = 'inline_edit';
+        //         beforeEach((done) => {
+        //             $('#exampleInline').on('draw.dt', ()=>{
+        //                 done();
+        //             });
+        //             $('#exampleInline').on('tableEditInlineClickRow', () => {
+        //                 $('#nombre_inline').val(nameEdit);
+        //                 var ev = $.Event('keydown');
+        //                 ev.keyCode = 13;
+        //                 $('#exampleInline > tbody > tr:eq(0)').trigger(ev);
+        //             });
+        //             $('#exampleInline > tbody > tr:eq(0) > td:eq(0)').dblclick();
+        //         });
+        //         it('Se ha actualizado el valor: ', () => {
+        //             expect($('#exampleInline > tbody > tr:eq(0) > td:eq(1)').text()).toBe(nameEdit);
+        //         });
+        //     });
+        // });
+        
         
         describe('Funcionamiento General > ', () => {
             beforeEach((done) => {

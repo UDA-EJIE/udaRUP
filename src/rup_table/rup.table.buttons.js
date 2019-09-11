@@ -76,6 +76,31 @@
         var ctx = dt.context[0];
         ctx.ext = DataTable.ext;
         ctx.ext.buttons = {};
+        ctx.ext.buttons.defaults = {
+            buttons: ['addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton'],
+            name: 'main',
+            tabIndex: 0,
+            dom: {
+                container: {
+                    tag: 'div',
+                    className: 'dt-buttons row'
+                },
+                collection: {
+                    tag: 'div',
+                    className: 'dt-button-collection'
+                },
+                button: {
+                    tag: 'button',
+                    className: 'col-12 col-sm-auto btn-material',
+                    active: 'active',
+                    disabled: 'disabledButtonsTable'
+                },
+                buttonLiner: {
+                    tag: 'span',
+                    className: ''
+                }
+            }
+        };
         ctx.ext.buttons.copyButton = {
             text: function (dt) {
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.copyButton');
@@ -302,7 +327,7 @@
         if (ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
             $.extend(ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
             for (var nameButton in ctx.oInit.inlineEdit.myButtons) {
-                Buttons.defaults.buttons.push(nameButton);
+                ctx.ext.buttons.defaults.buttons.push(nameButton);
             }
         }
         //añadir botones personalizados//se almacenan en plugin de buttons
@@ -310,7 +335,7 @@
             //se aseguran que todos sean customs.
             $.extend(ctx.ext.buttons, ctx.oInit.buttons.myButtons);
             for (var nameButton in ctx.oInit.buttons.myButtons) {
-                Buttons.defaults.buttons.push(nameButton);
+                ctx.ext.buttons.defaults.buttons.push(nameButton);
                 //ctx.oInit.buttons.myButtons[nameButton].custom = true;
             }
         }
@@ -331,7 +356,7 @@
             };
         }
 
-        this.c = $.extend(true, {}, Buttons.defaults, config);
+        this.c = $.extend(true, {}, ctx.ext.buttons.defaults, config);
 
         // Don't want a deep copy for the buttons
         if (config.buttons) {
@@ -1553,46 +1578,6 @@
         }
 
         return ret;
-    };
-
-
-    /**
-     * Buttons defaults. For full documentation, please refer to the docs/option
-     * directory or the DataTables site. Contiene los botones expuestos en el toolbar.
-     *
-     * @name Buttons.defaults
-     * @function
-     * @since UDA 3.4.0 // Table 1.0.0
-     *
-     * @type {Object}
-     *
-     * @static
-     *
-     */
-    Buttons.defaults = {
-        buttons: ['addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton'],
-        name: 'main',
-        tabIndex: 0,
-        dom: {
-            container: {
-                tag: 'div',
-                className: 'dt-buttons row'
-            },
-            collection: {
-                tag: 'div',
-                className: 'dt-button-collection'
-            },
-            button: {
-                tag: 'button',
-                className: 'col-12 col-sm-auto btn-material',
-                active: 'active',
-                disabled: 'disabledButtonsTable'
-            },
-            buttonLiner: {
-                tag: 'span',
-                className: ''
-            }
-        }
     };
 
     /**
@@ -3387,26 +3372,10 @@
 
     function inicio(ctx) {
         var api = new DataTable.Api(ctx);
-        var defaultButtons = api.init().buttons || DataTable.defaults.buttons
+        var defaultButtons = api.init().buttons || DataTable.defaults.buttons;
         var numOfSelectedRows = ctx.multiselection.numSelected;
         var collectionObject;
 
-        // Toolbar por defecto del table
-        //lista negra de botones por defecto.
-        if (ctx.oInit.buttons.blackListButtons !== undefined) {
-            if (ctx.oInit.buttons.blackListButtons === 'all') { //si no se quiere ninguno se elimina
-                Buttons.defaults.buttons = [];
-            } else if (ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0) {
-                $.each(ctx.oInit.buttons.blackListButtons, function () {
-                    var name = this;
-                    var pos = $.inArray(name, Buttons.defaults.buttons);
-                    if (pos >= 0) {
-                        Buttons.defaults.buttons.splice(pos, 1);
-                    }
-                });
-
-            }
-        }
         if ($('#' + ctx.sTableId + '_filter_form').length > 0) {
             new Buttons(api, defaultButtons).container().insertBefore($('#' + ctx.sTableId + '_filter_form'));
         } else {
