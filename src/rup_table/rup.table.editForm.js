@@ -326,8 +326,12 @@
                 //se obtiene el row entero de bbdd, meter parametro opcional.
                 var pk = DataTable.Api().rupTable.getIdPk(row);
                 var feed = ctx.oInit.formEdit.detailForm.find('#'+ctx.sTableId+'_detail_feedback');
+                //se evita slash en la url GET como parámetros.Formateo de fecha.
+                var regexSlash = new RegExp('/', 'g');
+                pk = pk.replace(regexSlash,'-');
                 var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
                 pk = pk.replace(regex,'/');
+
                 var ajaxOptions = {
                     url : ctx.oInit.urlBase+'/'+pk,
                     accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
