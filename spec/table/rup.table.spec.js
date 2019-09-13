@@ -122,7 +122,7 @@ function testDatatable() {
                             $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
                         });
 
-                        it('Debe aparecer el formulario:', () => {debugger;
+                        it('Debe aparecer el formulario:', () => {
                             expect($('#example_detail_div').is(':visible')).toBeTruthy();
                             expect($('#id_detailForm_table').val()).toBe('1');
                             expect($('#nombre_detail_table').val()).toBe('Ana');
@@ -142,7 +142,7 @@ function testDatatable() {
                             expect($('#id_detailForm_table').val()).toBe('1');
                             expect($('#nombre_detail_table').val()).toBe('Ana');
                             expect($('#apellidos_detail_table').val()).toBe('García Vázquez');
-                            expect($('#edad_detail_table').val()).toBe('12');
+                            expect($('#edad_detail_table').val()).toBe('7');
                         });
                     });
 
