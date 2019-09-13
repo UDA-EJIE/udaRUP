@@ -26,13 +26,7 @@ function clearDatatable(done) {
         setTimeout(done, 500);
     });
 
-    if ($('.rup-feedback').length > 0) {
-        setTimeout(() => {
-            $('.dataTable').DataTable().destroy();
-        }, $('.dataTable').DataTable().settings().context[0].oInit.feedback.okFeedbackConfig.delay + 1);
-    } else {
-        $('.dataTable').DataTable().destroy();
-    }
+    $('.dataTable').DataTable().destroy();
 }
 
 function relacionMaestroDetalle(callback) {
@@ -55,9 +49,6 @@ function testForm2Form() {
     describe('Test Table Master-Detail Form2Form >', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
-        });
-        afterAll(() => {
-            defer1.resolve();
         });
         beforeEach((done) => {
             dtGen.createDatatable1(1, () => {
@@ -100,7 +91,7 @@ function testForm2Form() {
                         $('#example1_filter_fieldset').find('#example1_filter_filterButton').click();
                     });
                     it('Se debe de haber filtrado #example1:', () => {
-                        let ctx = $('#example1 > tbody > tr');
+                        let ctx = $('#example1 > tbody > tr:eq(0)');
                         expect(ctx.length).toBe(1);
                         expect($('td:eq(1)', ctx).text()).toBe('4');
                         expect($('td:eq(2)', ctx).text()).toBe('Erlantz');
@@ -119,7 +110,7 @@ function testForm2Form() {
                         $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                     });
                     it('Se debe de haber filtrado #example2:', () => {
-                        let ctx = $('#example2 > tbody > tr');
+                        let ctx = $('#example2 > tbody > tr:eq(0)');
                         expect(ctx.length).toBe(1);
                         expect($('td:eq(1)', ctx).text()).toBe('4');
                         expect($('td:eq(2)', ctx).text()).toBe('Erlantz');
@@ -211,6 +202,10 @@ function testForm2Form() {
                 });
             });
             describe('Formularios independientes > ', () => {
+                beforeEach((done) => {
+                    $('#example2').on('draw.dt', done);
+                    $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('tableEditFormAfterFillData', () => {
@@ -240,13 +235,10 @@ function testForm2Form() {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#example2').on('draw.dt', () => {
-                            $('#example2').on('tableEditFormAfterFillData', () => {
-                                setTimeout(done, 300);
-                            });
-                            $('#example2 > tbody > tr:eq(0)').dblclick();
+                        $('#example2').on('tableEditFormAfterFillData', () => {
+                            setTimeout(done, 300);
                         });
-                        $('#example1 > tbody > tr:eq(0) > td:eq(0)').click();
+                        $('#example2 > tbody > tr:eq(0)').dblclick();
                     });
                     it('El formulario debe mostrarse:', () => {
                         expect($('#example2_detail_div').is(':visible')).toBeTruthy();
@@ -257,7 +249,7 @@ function testForm2Form() {
                     describe('Funcionamiento del formulario', () => {
                         beforeEach((done) => {
                             $('#example2').on('tableEditFormCompleteCallSaveAjax', () => {
-                                setTimeout(done, 300);
+                                setTimeout(done, 350);
                             });
                             $('#example2_detail_div').find('#edad_detail_table').val(12);
                             $('#example2_detail_button_save').click();
@@ -265,6 +257,7 @@ function testForm2Form() {
                         it('Debe actualizar la línea en #example1 sin modificar #example2:', () => {
                             let ctx = $('#example2 > tbody > tr:eq(0)');
                             expect($('td:contains(12)', ctx).length).toBe(1);
+
                             ctx = $('#example1 > tbody > tr:eq(0)');
                             expect($('td:contains(12)', ctx).length).toBe(0);
                         });
@@ -358,7 +351,9 @@ function testForm2Form() {
             });
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', done);
+                    $('#example2').on('draw.dt', () => {
+                        setTimeout(done, 300);
+                    });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -388,28 +383,300 @@ function testForm2Form() {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        //Avanzamos una página en #example1
+                        //Avanzamos una página en #example2
                         $('#example2').on('draw.dt', done);
                         $('#example2_next').click();
                     });
-                    // it('Cambia el número de página de #example2:', () => {
-                    //     expect($('.pagination input', $('#example2_wrapper')).val()).toBe('2');
-                    // });
-                    // it('Debe haber cambiado la página de #example2:', () => {
-                    //     expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('11');
-                    //     expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('12');
-                    //     expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('13');
-                    //     expect($('#example2 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('14');
-                    //     expect($('#example2 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('15');
-                    // });
-                    // it('No cambia el número de página de #example1:', () => {
-                    //     expect($('.pagination input', $('#example1_wrapper')).val()).toBe('1');
-                    // });
-                    // it('No debe haber cambiado la página de #example1:', () => {
-                    //     expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
-                    //     expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
-                    //     expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
-                    // });
+                    it('Cambia el número de página de #example2:', () => {
+                        expect($('.pagination input', $('#example2_wrapper')).val()).toBe('2');
+                    });
+                    it('Debe haber cambiado la página de #example2:', () => {
+                        expect($('#example2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('11');
+                        expect($('#example2 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('12');
+                        expect($('#example2 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('13');
+                        expect($('#example2 > tbody > tr:eq(3) > td:eq(1)').text()).toBe('14');
+                        expect($('#example2 > tbody > tr:eq(4) > td:eq(1)').text()).toBe('15');
+                    });
+                    it('No cambia el número de página de #example1:', () => {
+                        expect($('.pagination input', $('#example1_wrapper')).val()).toBe('1');
+                    });
+                    it('No debe haber cambiado la página de #example1:', () => {
+                        expect($('#example1 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
+                        expect($('#example1 > tbody > tr:eq(1) > td:eq(1)').text()).toBe('2');
+                        expect($('#example1 > tbody > tr:eq(2) > td:eq(1)').text()).toBe('3');
+                    });
+                });
+            });
+            describe('Botonera y feedback independientes > ', () => {
+                beforeEach((done) => {
+                    $('#example2').on('draw.dt', done);
+                    $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                });
+                describe('Tabla maestro > ', () => {
+                    it('Debe tener su propia botonera:', () => {
+                        let contx = $('#example1_containerToolbar');
+                        expect($('#example1addButton_1', contx).length).toBe(1);
+                        expect($('#example1editButton_1', contx).length).toBe(1);
+                        expect($('#example1cloneButton_1', contx).length).toBe(1);
+                        expect($('#example1deleteButton_1', contx).length).toBe(1);
+                        expect($('#example1informes_01', contx).length).toBe(1);
+                    });
+                    describe('Feedback > ', () => {
+                        beforeEach((done) => {
+                            $('#rup_feedback_example1').on('rupFeedback_show', () => {
+                                done();
+                            });
+                            $('#example1 > tbody > tr:eq(2) > td:eq(1)').click();
+                            $('#example1editButton_1').click();
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#nombre_detail_table').val('Anabelle');
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#example1_detail_button_save').click();
+                        });
+                        it('Debe aparecer el feedback de #example1:', () => {
+                            expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
+                            expect($('#rup_feedback_example1')
+                                .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
+                        });
+                        it('No debe aparecer el feedback de #example2:', () => {
+                            expect($('#rup_feedback_example2').height()).toBe(0);
+                            expect($('#rup_feedback_example2').text()).toBe('');
+                        });
+                    });
+                });
+                describe('Tabla detalle > ', () => {
+                    it('Debe tener su propia botonera:', () => {
+                        let contx = $('#example2_containerToolbar');
+                        expect($('#example2addButton_1', contx).length).toBe(1);
+                        expect($('#example2editButton_1', contx).length).toBe(1);
+                        expect($('#example2cloneButton_1', contx).length).toBe(1);
+                        expect($('#example2deleteButton_1', contx).length).toBe(1);
+                        expect($('#example2informes_01', contx).length).toBe(1);
+                    });
+                    describe('Feedback > ', () => {
+                        beforeEach((done) => {
+                            $('#rup_feedback_example2').on('rupFeedback_show', () => {
+                                done();
+                            });
+                            $('#example2 > tbody > tr:eq(2) > td:eq(0)').click();
+                            $('#example2editButton_1').click();
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#nombre_detail_table').val('Arlene');
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#example2_detail_button_save').click();
+                        });
+                        it('Debe aparecer el feedback de #example2:', () => {
+                            expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
+                            expect($('#rup_feedback_example2')
+                                .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
+                        });
+                        it('No debe aparecer el feedback de #example1:', () => {
+                            expect($('#rup_feedback_example1').height()).toBe(0);
+                            expect($('#rup_feedback_example1').text()).toBe('');
+                        });
+                    });
+                });
+            });
+            describe('Validaciones de formulario independientes > ', () => {
+                beforeEach((done) => {
+                    $('#example2').on('draw.dt', done);
+                    $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                });
+                describe('Tabla maestro > ', () => {
+                    beforeEach((done) => {
+                        $('#example1_detail_feedback').on('rupFeedback_show', () => {
+                            done();
+                        });
+                        $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                        $('#example1editButton_1').click();
+                        $('div[aria-describedby="example1_detail_div"]')
+                            .find('#nombre_detail_table').val('');
+                        $('#example1_detail_button_save').click();
+                    });
+                    it('Debe mostrar el feedback del formulario de #example1:', () => {
+                        expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
+                        expect($('#example1_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
+                    });
+                    it('No debe mostrar el feedback del formulario de #example2:', () => {
+                        expect($('#example2_detail_feedback').height()).toBe(0);
+                        expect($('#example2_detail_feedback').text()).toBe('');
+                    });
+                });
+                describe('Tabla detalle > ', () => {
+                    beforeEach((done) => {
+                        $('#example2_detail_feedback').on('rupFeedback_show', () => {
+                            done();
+                        });
+                        $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                        $('#example2editButton_1').click();
+                        $('div[aria-describedby="example2_detail_div"]')
+                            .find('#nombre_detail_table').val('');
+                        $('#example2_detail_button_save').click();
+                    });
+                    it('Debe mostrar el feedback del formulario de #example2:', () => {
+                        expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
+                        expect($('#example2_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
+                    });
+                    it('No debe mostrar el feedback del formulario de #example1:', () => {
+                        expect($('#example1_detail_feedback').height()).toBe(0);
+                        expect($('#example1_detail_feedback').text()).toBe('');
+                    });
+                });
+            });
+            describe('Gestión de errores > ', () => {
+                beforeEach((done) => {
+                    $('#example2').on('draw.dt', done);
+                    $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
+                });
+                describe('Tabla maestro > ', () => {
+                    describe('Errores al filtrar > ', () => {
+                        var setup1;
+                        beforeEach(() => {
+                            setup1 = (callback) => {
+                                $('#rup_feedback_example1').on('rupFeedback_show', () => {
+                                    callback();
+                                });
+                                $('#example1_filter_fieldset').find('#id_filter_table').val('6');
+                                $('#example1_filter_filterButton').click();
+                            };
+                        });
+                        it('Setup no da error:', (done) => {
+                            expect(() => {
+                                setup1(done);
+                            }).not.toThrowError();
+                        });
+                        describe('Pruebas unitarias > ', () => {
+                            beforeEach((done) => {
+                                setup1(done);
+                            });
+                            it('El feedback debe mostrarse:', () => {
+                                expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
+                            });
+                            it('Debe contener el mensaje esperado:', () => {
+                                expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
+                            });
+                        });
+                    });
+                    describe('Errores en guardado > ', () => {
+                        beforeEach((done) => {
+                            //El evento no funciona (Tambien se ha probado con #example1_detail_feedback)
+                            // $('#example1_detail_feedback_ok').on('rupFeedback_show', () => {
+                            // setTimeout(() => {
+                            //     done();
+                            // },500);
+                            // });
+                            $('#example1 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
+                            $('#example1_detail_form').find('#edad_detail_table').val('asd');
+                            $('#example1_detail_button_save').click();
+                            setTimeout(() => {
+                                done();
+                            }, 500);
+                        });
+                        it('El feedback de #example1 debe mostrarse:', () => {
+                            expect($('#example1_detail_feedback_ok').height()).toBeGreaterThan(0);
+                        });
+                        it('El feedback de #example2 no debe mostrarse:', () => {
+                            expect($('#example1_detail_feedback').height()).not.toBeGreaterThan(0);
+                        });
+                        it('Debe contener el mensaje esperado:', () => {
+                            expect($('#example1_detail_feedback_ok').text()).toBe('KABOOM!');
+                        });
+                    });
+                    describe('Errores en búsqueda > ', () => {
+                        beforeEach((done) => {
+                            $('#example1').on('tableSeekerSearchComplete', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 800);
+                            });
+                            $('#searchCollapsLabel_example1').click();
+                            $('#example1').find('#edad_seeker').val('asd');
+                            $('#search_nav_button_example1').click();
+                        });
+                        it('El feedback de #example1 debe mostrarse:', () => {
+                            expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
+                        });
+                        it('El feedback de #example2 no debe mostrarse:', () => {
+                            expect($('#rup_feedback_example2').height()).toBe(0);
+                        });
+                        it('Debe contener el mensaje esperado:', () => {
+                            expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
+                        });
+                    });
+                });
+                describe('Tabla detalle > ', () => {
+                    describe('Errores en filtrado > ', () => {
+                        var setup2;
+                        beforeEach(() => {
+                            setup2 = (callback) => {
+                                $('#rup_feedback_example2').on('rupFeedback_show', () => {
+                                    callback();
+                                });
+                                $('#example2_filter_fieldset').find('#id_filter_table').val('6');
+                                $('#example2_filter_filterButton').click();
+                            };
+                        });
+                        it('El setup no debe lanzar errores:', (done) => {
+                            expect(setup2(done)).not.toThrowError();
+                        });
+                        describe('Pruebas unitarias > ', () => {
+                            beforeEach((done) => {
+                                setup2(done);
+                            });
+                            it('El feedback debe mostrarse:', () => {
+                                expect($('#rup_feedback_example2_ok').height()).toBeGreaterThan(0);
+                            });
+                            it('Debe contener el mensaje esperado:', () => {
+                                expect($('#rup_feedback_example2_ok').text()).toBe('KABOOM!');
+                            });
+                        });
+                    });
+                    describe('Errores en guardado > ', () => {
+                        beforeEach((done) => {
+                            //El evento no funciona (Tambien se ha probado con #example2_detail_feedback)
+                            $('#example2_detail_feedback_ok').on('rupFeedback_show', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 500);
+                            });
+                            $('#example2 > tbody > tr:contains(Irene) > td:eq(1)').dblclick();
+                            $('#example2_detail_form').find('#edad_detail_table').val('asd');
+                            $('#example2_detail_button_save').click();
+                            setTimeout(() => {
+                                done();
+                            }, 500);
+                        });
+                        it('El feedback de #example2 debe mostrarse:', () => {
+                            expect($('#example2_detail_feedback_ok').height()).toBeGreaterThan(0);
+                        });
+                        it('El feedback de #example1 no debe mostrarse:', () => {
+                            expect($('#example1_detail_feedback').height()).toBe(0);
+                        });
+                        it('Debe contener el mensaje esperado:', () => {
+                            expect($('#example2_detail_feedback_ok').text()).toBe('KABOOM!');
+                        });
+                    });
+                    describe('Errores en búsqueda > ', () => {
+                        beforeEach((done) => {
+                            $('#searchCollapsLabel_example2').click();
+                            $('#edad_seeker').val('asd');
+                            $('#search_nav_button_example2').click();
+                            $('#example2').on('tableSeekerSearchComplete', () => {
+                                setTimeout(() => {
+                                    done();
+                                }, 500);
+                            });
+                        });
+                        it('El feedback de #example2 debe mostrarse:', () => {
+                            expect($('#rup_feedback_example2_ok').height()).toBeGreaterThan(0);
+                        });
+                        it('El feedback de #example1 no debe mostrarse:', () => {
+                            expect($('#rup_feedback_example1').height()).toBe(0);
+                        });
+                        it('Debe contener el mensaje esperado:', () => {
+                            expect($('#rup_feedback_example2_ok').text()).toBe('KABOOM!');
+                        });
+                    });
                 });
             });
         });
@@ -420,9 +687,6 @@ function testForm2Inline() {
     describe('Test Table Master-Detail Form2Inline >', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
-        });
-        afterAll(() => {
-            defer2.resolve();
         });
 
         it('asd', () => {
@@ -436,9 +700,6 @@ function testInline2Inline() {
         beforeAll((done) => {
             testutils.loadCss(done);
         });
-        afterAll(() => {
-            defer3.resolve();
-        });
 
         it('asd', () => {
             expect(1).toBe(1);
@@ -446,304 +707,13 @@ function testInline2Inline() {
     });
 }
 
-var defer1 = $.Deferred();
-var defer2 = $.Deferred();
-var defer3 = $.Deferred();
-
-defer1.done(testForm2Inline);
-defer2.done(testInline2Inline);
-defer3.done(() => {
-    testutils.testTrace('INFO', 'testing de Master-Detail de rup_table completado');
-});
 
 testForm2Form();
+testForm2Inline();
+testInline2Inline();
 
 //     describe('Funcionamiento independiente > ', () => {
 
-
 //         
 //         
-//         describe('Botonera y feedback independientes > ', () => {
-//             beforeEach((done) => {
-//                 var contx = $('#example1 > tbody > tr > td:contains(Irene)').parent();
-//                 $('td.select-checkbox',contx).click();
-//                 setTimeout(() => {
-//                     $('td.select-checkbox',contx).click();
-//                     setTimeout(() => {
-//                         done();
-//                     },400);
-//                 },800);
-//             });
-//             describe('Tabla maestro > ', () => {
-//                 it('Debe tener su propia botonera:', () => {
-//                     let contx = $('button[aria-controls="example1"]').parent();
-//                     expect($('#example1addButton_1', contx).length).toBe(1);
-//                     expect($('#example1editButton_1', contx).length).toBe(1);
-//                     expect($('#example1cloneButton_1', contx).length).toBe(1);
-//                     expect($('#example1deleteButton_1', contx).length).toBe(1);
-//                     expect($('#example1informes_01', contx).length).toBe(1);
-//                 });
-//                 describe('Feedback > ', () => {
-//                     beforeEach((done) => {
-//                         $('#rup_feedback_example1').on('rupFeedback_show', () => {
-//                             done();
-//                         });
-//                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//                         $('#example1editButton_1').click();
-//                         $('div[aria-describedby="example1_detail_div"]')
-//                             .find('#nombre_detail_table').val('Anabelle');
-//                         $('div[aria-describedby="example1_detail_div"]')
-//                             .find('#example1_detail_button_save').click();
-//                     });
-//                     it('Debe aparecer el feedback de #example1:', () => {
-//                         expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
-//                         expect($('#rup_feedback_example1')
-//                             .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
-//                     });
-//                     it('No debe aparecer el feedback de #example2:', () => {
-//                         expect($('#rup_feedback_example2').height()).toBe(0);
-//                         expect($('#rup_feedback_example2').text()).toBe('');
-//                     });
-//                 });
-//             });
-//             describe('Tabla detalle > ', () => {
-//                 it('Debe tener su propia botonera:', () => {
-//                     let contx = $('button[aria-controls="example2"]').parent();
-//                     expect($('#example2addButton_1', contx).length).toBe(1);
-//                     expect($('#example2editButton_1', contx).length).toBe(1);
-//                     expect($('#example2cloneButton_1', contx).length).toBe(1);
-//                     expect($('#example2deleteButton_1', contx).length).toBe(1);
-//                     expect($('#example2informes_01', contx).length).toBe(1);
-//                 });
-//                 describe('Feedback > ', () => {
-//                     beforeEach((done) => {
-//                         $('#rup_feedback_example2').on('rupFeedback_show', () => {
-//                             done();
-//                         });
-//                         $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//                         $('#example2editButton_1').click();
-//                         $('div[aria-describedby="example2_detail_div"]')
-//                             .find('#nombre_detail_table').val('Arlene');
-//                         $('div[aria-describedby="example2_detail_div"]')
-//                             .find('#example2_detail_button_save').click();
-//                     });
-//                     it('Debe aparecer el feedback de #example2:', () => {
-//                         expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
-//                         expect($('#rup_feedback_example2')
-//                             .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
-//                     });
-//                     it('No debe aparecer el feedback de #example1:', () => {
-//                         expect($('#rup_feedback_example1').height()).toBe(0);
-//                         expect($('#rup_feedback_example1').text()).toBe('');
-//                     });
-//                 });
-//             });
-//         });
-//         describe('Validaciones de formulario independientes > ', () => {
-//             beforeEach((done) => {
-//                 $('#example2').on('draw.dt', () => {
-//                     setTimeout(() => {
-//                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//                         done();
-//                     }, 300);
-//                 });
-//                 $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//             });
-//             describe('Tabla maestro > ', () => {
-//                 beforeEach((done) => {
-//                     $('#example1_detail_feedback').on('rupFeedback_show', () => {
-//                         done();
-//                     });
-//                     $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//                     $('#example1editButton_1').click();
-//                     $('div[aria-describedby="example1_detail_div"]')
-//                         .find('#nombre_detail_table').val('');
-//                     $('#example1_detail_button_save').click();
-//                 });
-//                 it('Debe mostrar el feedback del formulario de #example1:', () => {
-//                     expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
-//                     expect($('#example1_detail_feedback')
-//                         .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
-//                         .toBeTruthy();
-//                 });
-//                 it('No debe mostrar el feedback del formulario de #example2:', () => {
-//                     expect($('#example2_detail_feedback').height()).toBe(0);
-//                     expect($('#example2_detail_feedback').text()).toBe('');
-//                 });
-//             });
-//             describe('Tabla detalle > ', () => {
-//                 beforeEach((done) => {
-//                     $('#example2_detail_feedback').on('rupFeedback_show', () => {
-//                         done();
-//                     });
-//                     $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//                     $('#example2editButton_1').click();
-//                     $('div[aria-describedby="example2_detail_div"]')
-//                         .find('#nombre_detail_table').val('');
-//                     $('#example2_detail_button_save').click();
-//                 });
-//                 it('Debe mostrar el feedback del formulario de #example2:', () => {
-//                     expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
-//                     expect($('#example2_detail_feedback')
-//                         .is(':contains(Se han producido los siguientes errores:Nombre:Campo obligatorio.)'))
-//                         .toBeTruthy();
-//                 });
-//                 it('No debe mostrar el feedback del formulario de #example1:', () => {
-//                     expect($('#example1_detail_feedback').height()).toBe(0);
-//                     expect($('#example1_detail_feedback').text()).toBe('');
-//                 });
-//             });
-//         });
-//         describe('Gestión de errores > ', () => {
-//             beforeEach((done) => {
-//                 $('#example2').on('draw.dt', () => {
-//                     setTimeout(() => {
-//                         done();
-//                     }, 300);
-//                 });
-//                 $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-//             });
-//             describe('Tabla maestro > ', () => {
-//                 describe('Errores al filtrar > ', () => {
-//                     var setup1;
-//                     beforeEach(() => {
-//                         setup1 = (callback) => {
-//                             $('#example1').on('xhr.dt', () => {
-//                                 callback();
-//                             });
-//                             $('#example1_filter_fieldset').find('#id_filter_table').val('6');
-//                             $('#example1_filter_filterButton').click();
-//                         };
-//                     });
-//                     it('Setup no da error:', (done) => {
-//                         expect(() => {setup1(done)}).not.toThrowError();
-//                     });
-//                     describe('Pruebas unitarias > ', ()=> {
-//                         beforeEach((done) => {setup1(done)});
-//                         it('El feedback debe mostrarse:', () => {
-//                             expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
-//                         });
-//                         it('Debe contener el mensaje esperado:', () => {
-//                             expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
-//                         });
-//                     });
-//                 });
-//                 describe('Errores en guardado > ', () => {
-//                     beforeEach((done) => {
-//                         //El evento no funciona (Tambien se ha probado con #example1_detail_feedback)
-//                         // $('#example1_detail_feedback_ok').on('rupFeedback_show', () => {
-//                             // setTimeout(() => {
-//                             //     done();
-//                             // },500);
-//                         // });
-//                         $('#example1 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-//                         $('#example1_detail_form').find('#edad_detail_table').val('asd');
-//                         $('#example1_detail_button_save').click();
-//                         setTimeout(() => {
-//                             done();
-//                         },500);
-//                     });
-//                     it('El feedback de #example1 debe mostrarse:', () => {
-//                         expect($('#example1_detail_feedback_ok').height()).toBeGreaterThan(0);
-//                     });
-//                     it('El feedback de #example2 no debe mostrarse:', () => {
-//                         expect($('#example1_detail_feedback').height()).not.toBeGreaterThan(0);
-//                     });
-//                     it('Debe contener el mensaje esperado:', () => {
-//                         expect($('#example1_detail_feedback_ok').text()).toBe('KABOOM!');
-//                     });
-//                 });
-//                 describe('Errores en búsqueda > ', () => {
-//                     beforeEach((done) => {
-//                         $('#example1').on('tableSeekerSearchComplete', () => {
-//                             setTimeout(() => {
-//                                 done();
-//                             },800);
-//                         });
-//                         $('#searchCollapsLabel_example1').click();
-//                         $('#example1').find('#edad_seeker').val('asd');
-//                         $('#search_nav_button_example1').click();
-//                     });
-//                     it('El feedback de #example1 debe mostrarse:', () => {
-//                         expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
-//                     });
-//                     it('El feedback de #example2 no debe mostrarse:', () => {
-//                         expect($('#rup_feedback_example2').height()).toBe(0);
-//                     });
-//                     it('Debe contener el mensaje esperado:', () => {
-//                         expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
-//                     });
-//                 });
-//             });
-//             describe('Tabla detalle > ', () => {
-//                 describe('Errores en filtrado > ', () => {
-//                     var setup2;
-//                     beforeEach(() => {
-//                         setup2 = (callback) => {
-//                             $('#example2').on('xhr.dt', () => {
-//                                 callback();
-//                             });
-//                             $('#example2_filter_fieldset').find('#id_filter_table').val('6');
-//                             $('#example2_filter_filterButton').click();
-//                         };
-//                     });
-//                     // it('El setup no debe lanzar errores:', (done) => {
-//                     //     expect(setup2(done)).not.toThrowError();
-//                     // });
-//                     // describe('Pruebas unitarias > ', () => {
-//                     //     beforeEach((done) => {setup2(done)});
-//                     //     it('asd2', () => {
-//                     //         expect(1).toBe(1);
-//                     //     });
-//                     // });
-//                 });
-//                 describe('Errores en guardado > ', () => {
-//                     beforeEach((done) => {
-//                         //El evento no funciona (Tambien se ha probado con #example2_detail_feedback)
-//                         $('#example2_detail_feedback_ok').on('rupFeedback_show', () => {
-//                             setTimeout(() => {
-//                                 done();
-//                             },500);
-//                         });
-//                         $('#example2 > tbody > tr:contains(Irene) > td:eq(1)').dblclick();
-//                         $('#example2_detail_form').find('#edad_detail_table').val('asd');
-//                         $('#example2_detail_button_save').click();
-//                         setTimeout(() => {
-//                             done();
-//                         },500);
-//                     });
-//                     it('El feedback de #example2 debe mostrarse:', () => {
-//                         expect($('#example2_detail_feedback_ok').height()).toBeGreaterThan(0);
-//                     });
-//                     it('El feedback de #example1 no debe mostrarse:', () => {
-//                         expect($('#example1_detail_feedback').height()).toBe(0);
-//                     });
-//                     it('Debe contener el mensaje esperado:', () => {
-//                         expect($('#example2_detail_feedback_ok').text()).toBe('KABOOM!');
-//                     });
-//                 });
-//                 describe('Errores en búsqueda > ', () => {
-//                     beforeEach((done) => {
-//                         $('#searchCollapsLabel_example2').click();
-//                         $('#edad_seeker').val('asd');
-//                         $('#search_nav_button_example2').click();
-//                         $('#example2').on('tableSeekerSearchComplete', () => {
-//                             setTimeout(() => {
-//                                 done();
-//                             },500);
-//                         });
-//                     });
-//                     it('El feedback de #example2 debe mostrarse:', () => {
-//                         expect($('#rup_feedback_example2_ok').height()).toBeGreaterThan(0);
-//                     });
-//                     it('El feedback de #example1 no debe mostrarse:', () => {
-//                         expect($('#rup_feedback_example1').height()).toBe(0);
-//                     });
-//                     it('Debe contener el mensaje esperado:', () => {
-//                         expect($('#rup_feedback_example2_ok').text()).toBe('KABOOM!');
-//                     });
-//                 });
-//             });
-//         });
-//     });
 // });
