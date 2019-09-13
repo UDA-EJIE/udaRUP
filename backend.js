@@ -92,6 +92,7 @@ module.exports = (PORT) => {
     app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
     app.put('/demo/jqGridUsuario', routesJqtable.put);
     app.post('/demo/jqGridUsuario', routesJqtable.post);
+    app.post('/demo/jqGridUsuario/search', routesJqtable.search);
 
     // Upload
     app.post('/upload', routesUpload.upload);
@@ -116,6 +117,8 @@ module.exports = (PORT) => {
     app.put('/demo/table/remote', routesTable.formEdit);
     app.post('/demo/table/remote/deleteEnd', routesTable.deleteEnd);
     app.delete('/demo/table/remote/:id', routesTable.delete);
+    app.get('/demo/table/remote/:id', routesTable.getReg);
+    app.get('/demo/table/reset', routesTable.reset);
 
     //Audit
     app.post('/audit', routesAudit.audit);

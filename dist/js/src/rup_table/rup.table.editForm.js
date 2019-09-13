@@ -24,7 +24,7 @@
 (function( factory ){
     if ( typeof define === 'function' && define.amd ) {
         // AMD
-        define( ['jquery', '../core/utils/jquery.form','../rup.form', 'datatables.net'], function ( $ ) {
+        define(['jquery', '../core/utils/jquery.form', '../rup.form', '../rup.combo', 'datatables.net'], function ($) {
             return factory( $, window, document );
         } );
     }
@@ -78,8 +78,8 @@
         ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
         ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div','');
         if(ctx.oInit.formEdit.detailForm !== undefined && 
-			$('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).length > 0){
-            $('body').find("[aria-describedby='"+ctx.oInit.formEdit.detailForm[0].id+"']" ).remove();
+			$('body').find('[aria-describedby=\''+ctx.oInit.formEdit.detailForm[0].id+'\']' ).length > 0){
+            $('body').find('[aria-describedby=\''+ctx.oInit.formEdit.detailForm[0].id+'\']' ).remove();
         }
 
         //Se coge el adapter, y se crea la barra de navegación
@@ -96,7 +96,7 @@
         ctx.oInit.formEdit.buttoCancel.bind('click', function() {
             cancelPopup(ctx);
             //Se cierra el dialog
-            ctx.oInit.formEdit.detailForm.rup_dialog("close");
+            ctx.oInit.formEdit.detailForm.rup_dialog('close');
         });
         var idRow;
         var rowsBody = $( ctx.nTBody);
@@ -118,7 +118,7 @@
         }
 
         //Se captura evento de cierre
-        ctx.oInit.formEdit.detailForm.on( "dialogbeforeclose", function( event, ui ) {
+        ctx.oInit.formEdit.detailForm.on( 'dialogbeforeclose', function( event, ui ) {
             if(event.originalEvent !== undefined){//el evento es cerrado por el aspa
                 ctx.oInit.formEdit.okCallBack = false;
             }
@@ -136,10 +136,10 @@
                     OKFunction: function () {
                         cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
-                        ctx.oInit.formEdit.detailForm.rup_dialog("close");
+                        ctx.oInit.formEdit.detailForm.rup_dialog('close');
                     },
                     CANCELFunction: function (){
-                        ctx.oInit.formEdit.okCallBack = false
+                        ctx.oInit.formEdit.okCallBack = false;
                     }
                 });
 
@@ -268,7 +268,7 @@
         //Despues de cerrar
         //Se limpia los elementos.
         if(ctx.oInit.formEdit.idForm.find('.error').length > 0){
-            ctx.oInit.formEdit.idForm.rup_validate("resetElements");
+            ctx.oInit.formEdit.idForm.rup_validate('resetElements');
         }
 
 
@@ -291,6 +291,7 @@
 *
 */
     DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType,dt,idRow){
+        var loadPromise = $.Deferred();
         var ctx = dt.settings()[0];
         var idForm = ctx.oInit.formEdit.idForm;
 
@@ -345,19 +346,24 @@
                     error : function(xhr, ajaxOptions,thrownError) {
                         var divErrorFeedback = feed;//idTableDetail.find('#'+feed[0].id + '_ok');
                         if(divErrorFeedback.length === 0){
-                            divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+                            divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         }
                         _callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
                         $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+                    },
+                    complete: () => {
+                        if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
+                            _showOnNav(dt, ctx.oInit.formEdit.$navigationBar.funcionParams[3]);
+                        }
                     }
                 };
-                $.rup_ajax(ajaxOptions);
+                loadPromise = $.rup_ajax(ajaxOptions);
                 //Se carga desde bbdd y se actualiza la fila
                 dt.row(idRow).data(row);
                 ctx.json.rows[idRow] = row;
                 //Se mantiene el checked sin quitar.
                 var identy = idRow + 1;
-                $('#'+ctx.sTableId+' > tbody > tr:nth-child('+identy+') > td.select-checkbox input[type="checkbox"]').prop('checked',true)
+                $('#'+ctx.sTableId+' > tbody > tr:nth-child('+identy+') > td.select-checkbox input[type="checkbox"]').prop('checked',true);
                 rowArray = $.rup_utils.jsontoarray(row);
             }
             $.rup_utils.populateForm(rowArray, idForm);
@@ -398,10 +404,10 @@
 	
         $('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
         // Establecemos el título del formulario
-        ctx.oInit.formEdit.detailForm.rup_dialog("setOption", "title", title);
-	
+        
         ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
-        ctx.oInit.formEdit.detailForm.rup_dialog("open");
+        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
+        ctx.oInit.formEdit.detailForm.rup_dialog('open');
 	
         // Establecemos el foco al primer elemento input o select que se
         // encuentre habilitado en el formulario
@@ -412,7 +418,7 @@
         ctx.oInit.formEdit.okCallBack = false;
 
 
-        button.unbind( "click" );
+        button.unbind( 'click' );
         button.bind('click', function() {
             // Comprobar si row ha sido modificada
             // Se serializa el formulario con los cambios
@@ -431,7 +437,7 @@
 
         ctx.oInit.formEdit.detailForm.buttonSaveContinue = buttonContinue;
         ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = actionType;
-        buttonContinue.unbind( "click" );
+        buttonContinue.unbind( 'click' );
         buttonContinue.bind('click', function() {
             var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
             // Comprobar si row ha sido modificada
@@ -444,11 +450,13 @@
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
 		
-            _callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'')
+            _callSaveAjax(actionSaveContinue,dt,row,idRow,true,ctx.oInit.formEdit.detailForm,'');
         });
 
         $('#'+ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm');
-    }
+
+        return loadPromise;
+    };
 
 
     /**
@@ -506,11 +514,11 @@
                     if(continuar){//Se crea un feedback_ok, para que no se pise con el de los errores
                         var divOkFeedback = idTableDetail.find('#'+feed[0].id + '_ok');
                         if(divOkFeedback.length === 0){
-                            divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed)
+                            divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         }
                         _callFeedbackOk(ctx,divOkFeedback,msgFeedBack,'ok');//Se informa, feedback del formulario
                     }else{
-                        ctx.oInit.formEdit.detailForm.rup_dialog("close");
+                        ctx.oInit.formEdit.detailForm.rup_dialog('close');
                         _callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
                     }
 
@@ -559,7 +567,7 @@
 					
                         ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
                         if(ctx.oInit.multiSelect !== undefined){
-                            ctx.multiselection.internalFeedback.type = "noBorrar";
+                            ctx.multiselection.internalFeedback.type = 'noBorrar';
                             dt['row']().multiSelect();
                         }
                         // Se actualiza la linea
@@ -608,7 +616,7 @@
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
             },
             validate:validaciones,
-            feedback:feed.rup_feedback({type:"error",block:false})
+            feedback:feed.rup_feedback({type:'error',block:false})
         };
 	
         if(url !== '/deleteAll' && actionType !== 'DELETE'){
@@ -670,7 +678,7 @@
     function _returnCheckEmpty(idForm,values){
         var maps = jQuery(idForm.selector+' input[type=checkbox]:not(:checked)').map(
             function() {
-                return "&"+this.name+"=0"
+                return '&'+this.name+'=0';
             }).get().toString();
         return values+maps;
     }
@@ -769,7 +777,6 @@
                         rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
                     }
                 }
-
                 break;
             case 'next':
                 // Si no se han seleccionado todos los elementos
@@ -790,7 +797,6 @@
                         rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
                     }
                 }
-
                 break;
             case 'last':
                 // Si no se han seleccionado todos los elementos
@@ -806,16 +812,21 @@
                         rowSelected.line = _getLineByPageSelectedReverse(ctx,-1);
                     }
                 }
+            }
 
-            }
-            if(Number(rowSelected.page) !== page){
-                var table = $('#'+ctx.sTableId).DataTable();
-                table.page( rowSelected.page-1 ).draw( 'page' );
-                //Se añaden los parametros para luego ejecutar, la funcion del dialog.
-                ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT',dt,rowSelected.line,linkType];
-            }else{//Si nose pagina se abre directamente la funcion.
-                DataTable.editForm.fnOpenSaveDialog('PUT',dt,rowSelected.line);
-            }
+            _hideOnNav(dt, linkType, () => {
+                if(Number(rowSelected.page) !== page){
+                    var table = $('#'+ctx.sTableId).DataTable();
+                    table.page(rowSelected.page - 1).draw('page');
+                    //Se añaden los parametros para luego ejecutar, la funcion del dialog.
+                    ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT',dt,rowSelected.line,linkType];
+                }else{//Si nose pagina se abre directamente la funcion.
+                    DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line).then(()=>{
+                        _showOnNav(dt, linkType);
+                    });
+                }
+            });
+
             //Se actualiza la ultima posicion movida.
             ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
             // Se añade el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
@@ -823,11 +834,35 @@
 
         };
 
-
         ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 	
         var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation,ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+    }
+
+    function _hideOnNav(dt, linkType, callback) {
+        const ctx = dt.settings()[0];
+        const direction = (linkType === 'prev' || linkType === 'first') ? 'right' : 'left';
+        const $dialogContent = $('#' + ctx.sTableId + '_detail_div .dialog-content-material');
+        $dialogContent.parent().css('overflow-x','hidden');
+        $dialogContent.hide('slide', {
+            direction: direction
+        }, 100, () => {
+            $dialogContent.after('<span id="' + ctx.sTableId + '_detail_div_loading" style="font-size: 5rem;"><i class="mdi mdi-spin mdi-loading" aria-hidden="true"/></span>');
+            callback();
+        });
+    }
+
+    function _showOnNav(dt, linkType) {
+        const ctx = dt.settings()[0];
+        const direction = (linkType === 'prev' || linkType === 'first') ? 'left' : 'right';
+        const $dialogContent = $('#' + ctx.sTableId + '_detail_div .dialog-content-material');
+        $('#' + ctx.sTableId + '_detail_div_loading').remove();
+        $dialogContent.show('slide', {
+            direction: direction
+        }, 100, ()=>{
+            $dialogContent.parent().css('overflow-x', 'auto');
+        });
     }
 
     /**
@@ -1139,7 +1174,7 @@
                     index = -1;
                 }
             }
-        };
+        }
         return line;
     }
 
@@ -1200,10 +1235,10 @@
         var length = idFormArray.length;
 	
         $.each( idFormArray, function( key, obj ) {
-            serializedForm += (obj.name + "=" + obj.value);
+            serializedForm += (obj.name + '=' + obj.value);
 		
             if(key < length - 1) {
-                serializedForm += "&";
+                serializedForm += '&';
             }
         });
 	
@@ -1259,43 +1294,43 @@
 	
         if(blockPK) {
             // En caso de ser edición bloqueamos la modificación
-            if(actionType === "PUT") {
+            if(actionType === 'PUT') {
                 $.each(ctx.oInit.primaryKey, function(key,id) {
                     var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
-                    if(input.attr("ruptype") === "date" && !input.rup_date("isDisabled")) {
-                        input.rup_date("disable");
+                    if(input.attr('ruptype') === 'date' && !input.rup_date('isDisabled')) {
+                        input.rup_date('disable');
                     } 
-                    else if(input.attr("ruptype") === "combo" && !input.rup_combo("isDisabled")) {
-                        input.rup_combo("disable");
+                    else if(input.attr('ruptype') === 'combo' && !input.rup_combo('isDisabled')) {
+                        input.rup_combo('disable');
                     }
-                    else if(input.attr("ruptype") === "time" && !input.rup_time("isDisabled")) {
-                        input.rup_time("disable");
+                    else if(input.attr('ruptype') === 'time' && !input.rup_time('isDisabled')) {
+                        input.rup_time('disable');
                     }
-                    else if(input.attr("type") === "checkbox") {
-                        if(!input.hasClass("checkboxPKBloqueado")) {
-                            input.addClass("checkboxPKBloqueado");						
+                    else if(input.attr('type') === 'checkbox') {
+                        if(!input.hasClass('checkboxPKBloqueado')) {
+                            input.addClass('checkboxPKBloqueado');						
                         }
 					
-                        var valorCheck = input.is(":checked") ? 1 : 0;
-                        var selectorInputSustituto = $("#" + id + "_bloqueado");
+                        var valorCheck = input.is(':checked') ? 1 : 0;
+                        var selectorInputSustituto = $('#' + id + '_bloqueado');
 					
                         // Comprobamos si es necesario cambiar el check
-                        if(selectorInputSustituto.attr("valor") !== valorCheck){
-                            if(selectorInputSustituto.attr("valor") !== undefined){
+                        if(selectorInputSustituto.attr('valor') !== valorCheck){
+                            if(selectorInputSustituto.attr('valor') !== undefined){
                                 selectorInputSustituto.remove();
                             }
 						
                             if(valorCheck === 1) {
-                                input.after("<i id='" + id + "_bloqueado' class='mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral' valor='1' aria-hidden='true'/>");
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'/>');
                             } else {
-                                input.after("<i id='" + id + "_bloqueado' class='mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross' valor='0' aria-hidden='true'/>");
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'/>');
                             }
                         }
                     }
                     else {
-                        input.prop("readOnly", true);
+                        input.prop('readOnly', true);
                     }
 				
                     // Quitamos el foco del elemento
@@ -1305,26 +1340,26 @@
                 });
             } 
             // En caso de ser clonación permitimos la edición
-            else if(actionType === "POST"){
+            else if(actionType === 'POST'){
                 $.each(ctx.oInit.primaryKey,function(key,id) {
                     var input = $(idForm[0]).find(":input[name='" + id + "']");
 				
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
-                    if(input.attr("ruptype") === "date" && input.rup_date("isDisabled")) {
-                        input.rup_date("enable");
+                    if(input.attr('ruptype') === 'date' && input.rup_date('isDisabled')) {
+                        input.rup_date('enable');
                     } 
-                    else if(input.attr("ruptype") === "combo" && input.rup_combo("isDisabled")) {
-                        input.rup_combo("enable");
+                    else if(input.attr('ruptype') === 'combo' && input.rup_combo('isDisabled')) {
+                        input.rup_combo('enable');
                     }
-                    else if(input.attr("ruptype") === "time" && input.rup_time("isDisabled")) {
-                        input.rup_time("enable");
+                    else if(input.attr('ruptype') === 'time' && input.rup_time('isDisabled')) {
+                        input.rup_time('enable');
                     }
-                    else if(input.attr("type") === "checkbox") {
-                        input.removeClass("checkboxPKBloqueado");
-                        $("#" + id + "_bloqueado").remove();
+                    else if(input.attr('type') === 'checkbox') {
+                        input.removeClass('checkboxPKBloqueado');
+                        $('#' + id + '_bloqueado').remove();
                     }
                     else {
-                        input.prop("readOnly", false);
+                        input.prop('readOnly', false);
                     }
 				
                     // Devolvemos el foco al elemento
@@ -1351,9 +1386,9 @@
     function _addChildIcons(ctx){
         var count = ctx.responsive._columnsVisiblity().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
         if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
-            $('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
+            $('#'+ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
             if(count > 0){//añadir span ala primera fila
-                $.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
+                $.each($('#'+ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'),function( ){
                     var $span = $('<span/>');
                     if($(this).find('span.openResponsive').length === 0){
                         $(this).prepend($span.addClass('openResponsive'));
@@ -1396,7 +1431,7 @@
     } );
 
     apiRegister( 'editForm.updateDetailPagination()', function ( ctx,currentRowNum,totalRowNum ) {
-        _updateDetailPagination(ctx,currentRowNum,totalRowNum)
+        _updateDetailPagination(ctx,currentRowNum,totalRowNum);
     } );
 
     apiRegister( 'editForm.getRowSelected()', function ( dt,actionType ) {
@@ -1445,7 +1480,7 @@
 				 * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
 				 * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
 				 */
-                    $("div.rup-table-formEdit-detail").removeClass("d-none");
+                    $('div.rup-table-formEdit-detail').removeClass('d-none');
                 }
             }, {}));
         }

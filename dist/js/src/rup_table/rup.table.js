@@ -1,3 +1,5 @@
+import { PassThrough } from "stream";
+
 /* eslint-env es6*/
 /**
   * Genera un table
@@ -79,12 +81,12 @@
                 }
                 // Añadimos el boton genérico
                 dt.button().add(pos, {
-                    text: props.text,
+                    text: ()=>{return props.text;},
                     id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
                     className: props.className,
                     icon: props.icon,
                     displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
-                    insideContextMenu: props.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+                    insideContextMenu: props.insideContextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
                     action: props.action,
                     custom:props.custom
                 });
@@ -539,7 +541,6 @@
                             ctx.inlineEdit.lastRow.idx = -1;
                         }
                     }
-
                     return ret.data;
                 },
                 'type': 'POST',
@@ -579,7 +580,7 @@
 					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
                 data.seeker = {};
                 data.seeker.selectedIds = [];
-                $.each(ctx.seeker.search.funcionParams,function(index,p) {
+                $.each(ctx.seeker.search.funcionParams[0],function(index,p) {
                     data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
                 });
             }
@@ -1322,7 +1323,6 @@
 
                 $('#'+settingsTable.sTableId+'_filter_toolbar').empty();
                 $('#'+settingsTable.sTableId+'_detail_navigation').empty();
-
 				
             });
 			

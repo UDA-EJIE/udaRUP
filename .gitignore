@@ -17,4 +17,5 @@ lib
 hs_err_pid*
 .vscode/launch.json
 spec/karma_report_3.5.0.html
+spec\karma_report_4.1.0.html
 .vscode/settings.json

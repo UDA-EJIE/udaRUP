@@ -1,35 +1,39 @@
-/* ESTILOS */
-$checkbox-material-margin: 0.5em 0;
+// ESTILOS
+$checkbox-material-margin: .5em 0;
 $checkbox-material-size: 1.25em;
 $checkbox-material-padding: .25em;
 $checkbox-material-border-width: 2px;
-$checkbox-material-border-radius: 0.125em;
+$checkbox-material-border-radius: .125em;
 $checkbox-material-ripple-size: 6.5px;
-$md-checkmark-width: 0.125em;
+$md-checkmark-width: .125em;
 $md-checkmark-color: $white-color;
 $checkbox-material-label-padding: .75em;
 
 @keyframes ripple-hover {
     0% {
-        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
     }
-    50% { 
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.05);
+
+    50% {
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .05);
     }
+
     100% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.1);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
     }
 }
 
 @keyframes ripple-active {
     0% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.1);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
     }
-    50% { 
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.4);
+
+    50% {
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .4);
     }
+
     100% {
-        box-shadow: 0px 0px 0px $checkbox-material-ripple-size rgba(20, 114, 164, 0.6);
+        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .6);
     }
 }
 
@@ -127,36 +131,41 @@ $checkbox-material-label-padding: .75em;
 }
 
 .checkbox-material-inline {
-	display: inline-block;
-	margin: initial;
+    display: inline-block;
+    margin: initial;
 }
 
 table div.checkbox-material-inline {
-	label {
-		&:before, &:after {
-			top: 3px;
-	    }
-	}
-}
+    label {
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
-.form-groupMaterial.checkbox-material > label {
-    position: initial;
-    line-height: 2.9em;
-    
-    &:before, &:after {
-    	left: 5px;
-    	top: 10px;
+        &::before,
+        &::after {
+            top: 3px;
+        }
     }
 }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
+// PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO
+.form-groupMaterial.checkbox-material>label {
+    line-height: 2.9em;
+    position: initial;
+
+    &::before,
+    &::after {
+        left: 5px;
+        top: 10px;
+    }
+}
+
+// PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO
 .dialog-content-material {
-	.checkbox-material {
-		label {
-			&:before, &:after {
-				left: 6px;
-			}
-		}
-	}
+    .checkbox-material {
+        label {
+
+            &::before,
+            &::after {
+                left: 6px;
+            }
+        }
+    }
 }
