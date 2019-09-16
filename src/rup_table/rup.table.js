@@ -547,7 +547,6 @@ import { PassThrough } from "stream";
                 'data': this._ajaxRequestData,
                 'contentType': 'application/json',
                 'dataType': 'json'
-
             };
 
 

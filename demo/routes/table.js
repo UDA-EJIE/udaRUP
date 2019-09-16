@@ -208,7 +208,7 @@ var jsonIDFilterOrdered1 = JSON.parse(JSON.stringify(C_JSONIDFILTERORDERED1));
 
 function getFilterResp(req) {
     let respuesta = {};
-    if (req.body.filter.id == 6) {
+    if (req.body.filter.id == '6') {
         return 'KABOOM!';
     }
     if (json4.rows[0].nombre == 'Ane') {
@@ -306,22 +306,19 @@ function getFilterResp(req) {
 }
 
 function getFilterStatus(req) {
-    let status = 0;
-    if (req.body.filter.id == 6) {
-        status = 406;
+    if (req.body.filter.id == '6') {
+        return 406;
     } else {
-        status = 200;
+        return 200;
     }
-    return status;
 }
 exports.filter = (req, res) => {
     let respuesta = getFilterResp(req);
-    let status = getFilterStatus(req);
-    if (status === 200) {
-        res.status(status).json(respuesta);
+    res.status(getFilterStatus(req));
+    if (respuesta) {
+        res.json(respuesta);
     } else {
-        res.status(status);
-        res.send(respuesta);
+        res.send('KABOOM');
     }
 };
 

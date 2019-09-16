@@ -94,16 +94,19 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Wed Sep 11 2019</h1>
+<h1>Tested in HeadlessChrome 76.0.3809 (Windows 7.0.0) on Mon Sep 16 2019</h1>
 
 <div class="alert">
 
 
+<!-- <span class="failingAlert bar">Failed 1 specs</span> -->
+<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>59 specs, 1 failed, 0 pending</span>
+<span class="resultsMenu bar">
+<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
+   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
+</span>
 
-  
-  <span class="passingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>58 specs, 0 failed, 0 pending</span>
-  
 
 
 </div>
@@ -490,6 +493,15 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     
     </div>
   
+    <div class="suite failed">
+      <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Gestión de errores &gt;  Errores al filtrar &gt; </span>
+    
+      <div class="specSummary failed">
+      <span class="description">El feedback debe comportarse de la manera esperada:</span>
+      </div>
+    
+    </div>
+  
     <div class="suite passed">
       <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Gestión de errores &gt;  Errores al guardar &gt; </span>
     
@@ -521,6 +533,17 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 
 <div id="details">
   
+  
+  <div class="specDetail failed">
+    <span class="description">Test Datatable &gt;  Funcionamiento General &gt;  Gestión de errores &gt;  Errores al filtrar &gt;  El feedback debe comportarse de la manera esperada:</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.,Expected 0 to be greater than 0.
+    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?f1763864e640579b08812c58208f4390450f7619:877:69),Expected '' to be 'KABOOM!'.
+    at Object.&lt;anonymous&gt; (http://localhost:9877/base/test.webpack.js?f1763864e640579b08812c58208f4390450f7619:878:67)</div>
+    </div>
+  </div>
+  
+  
 </div>
 
 <script>
@@ -532,7 +555,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    
+    case 50: showFailures(); break;
   }
 };
 
