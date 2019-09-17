@@ -730,17 +730,17 @@ function testDatatable() {
                 });
             });
             describe('Gestión de errores > ', () => {
-                // FIXME : No peta por que sea un 406 (De ser el caso petaria al testear el error de guardado)
                 describe('Errores al filtrar > ', () => {
                     beforeEach((done) => {
-                        $('#rup_feedback_example').on('rupFeedback_show', done);
                         $('#id_filter_table').val('6');
                         $('#example_filter_filterButton').click();
+                        setTimeout(done, 300);
                     });
 
                     it('El feedback debe comportarse de la manera esperada:', () => {
-                        expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
-                        expect($('#rup_feedback_example').text()).toBe('KABOOM!');
+                        expect($('.rup-message-alert').height()).toBeGreaterThan(0);
+                        expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
+                            .toBe('DataTables warning: table id=example - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
                     });
                 });
 

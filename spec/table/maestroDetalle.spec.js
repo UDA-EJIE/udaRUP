@@ -65,6 +65,11 @@ function testForm2Form() {
     describe('Test Table Master-Detail Form2Form >', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
+            window.onerror = (event) => {
+                console.info('Evento de error detectado en el window...\n' +
+                    'namespace: ' + event.namespace +
+                    'target: ' + event.target.id);
+            };
         });
         beforeEach((done) => {
             dtGen.createDatatable1(1, () => {
@@ -545,47 +550,28 @@ function testForm2Form() {
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
-                    // describe('Errores al filtrar > ', () => {
-                    //     var setup1;
-                    //     beforeEach(() => {
-                    //         setup1 = (callback) => {
-                    //             $('#rup_feedback_example1').on('rupFeedback_show', () => {
-                    //                 callback();
-                    //             });
-                    //             $('#example1_filter_fieldset').find('#id_filter_table').val('6');
-                    //             $('#example1_filter_filterButton').click();
-                    //         };
-                    //     });
-                    //     it('Setup no da error:', (done) => {
-                    //         expect(() => {
-                    //             setup1(done);
-                    //         }).not.toThrowError();
-                    //     });
-                    //     describe('Pruebas unitarias > ', () => {
-                    //         beforeEach((done) => {
-                    //             setup1(done);
-                    //         });
-                    //         it('El feedback debe mostrarse:', () => {
-                    //             expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
-                    //         });
-                    //         it('Debe contener el mensaje esperado:', () => {
-                    //             expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
-                    //         });
-                    //     });
-                    // });
+                    describe('Errores al filtrar > ', () => {
+                        beforeEach((done) => {
+                            $('#id_filter_table', $('#example1_filter_form')).val('6');
+                            $('#example1_filter_filterButton').click();
+                            setTimeout(done, 350);
+                        });
+    
+                        it('El feedback debe comportarse de la manera esperada:', () => {
+                            expect($('.rup-message-alert').height()).toBeGreaterThan(0);
+                            expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
+                                .toBe('DataTables warning: table id=example1 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                        });
+                    });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            //El evento no funciona (Tambien se ha probado con #example1_detail_feedback)
-                            $('#example1_detail_feedback_ok').on('rupFeedback_show', done);
-                            $('#example1 > tbody > tr:eq(0) > td:eq(1)').dblclick();
-                            $('#example1_detail_form').find('#edad_detail_table').val('asd');
+                            $('#example1').on('tableEditFormErrorCallSaveAjax', done);
+                            $('#example1 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
+                            $('#edad_detail_table',$('#example1_detail_div')).val('asd');
                             $('#example1_detail_button_save').click();
                         });
-                        it('El feedback de #example1 debe mostrarse:', () => {
+                        it('El feedback debe mostrarse:', () => {
                             expect($('#example1_detail_feedback_ok').height()).toBeGreaterThan(0);
-                        });
-                        it('El feedback de #example2 no debe mostrarse:', () => {
-                            expect($('#example1_detail_feedback').height()).not.toBeGreaterThan(0);
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example1_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -593,59 +579,42 @@ function testForm2Form() {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
-                            $('#example1').on('tableSeekerSearchComplete', done);
                             $('#searchCollapsLabel_example1').click();
-                            $('#example1').find('#edad_seeker').val('asd');
+                            $('#edad_seeker',$('#example1')).val('asd');
                             $('#search_nav_button_example1').click();
+                            $('#example1').on('tableSeekerSearchError', done);
                         });
-                        it('El feedback de #example1 debe mostrarse:', () => {
-                            expect($('#rup_feedback_example1_ok').height()).toBeGreaterThan(0);
-                        });
-                        it('El feedback de #example2 no debe mostrarse:', () => {
-                            expect($('#rup_feedback_example2').height()).toBe(0);
+                        it('El feedback debe mostrarse:', () => {
+                            expect($('#rup_feedback_example1').height()).toBeGreaterThan(0);
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#rup_feedback_example1_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_example1').text()).toBe('Not Acceptable: KABOOM');
                         });
                     });
                 });
                 describe('Tabla detalle > ', () => {
-                    // describe('Errores en filtrado > ', () => {
-                    //     var setup2;
-                    //     beforeEach(() => {
-                    //         setup2 = () => {
-                    //             $('#example2_filter_fieldset').find('#id_filter_table').val('6');
-                    //             $('#example2_filter_filterButton').click();
-                    //         };
-                    //     });
-                    //     it('El setup no debe lanzar errores:', () => {
-                    //         expect(() => { setup2(); }).not.toThrowError();
-                    //     });
-                    //     describe('Pruebas unitarias > ', () => {
-                    //         beforeEach((done) => {
-                    //             setup2(done);
-                    //         });
-                    //         it('El feedback debe mostrarse:', () => {
-                    //             expect($('#rup_feedback_example2_ok').height()).toBeGreaterThan(0);
-                    //         });
-                    //         it('Debe contener el mensaje esperado:', () => {
-                    //             expect($('#rup_feedback_example2_ok').text()).toBe('KABOOM!');
-                    //         });
-                    //     });
-                    // });
+                    describe('Errores al filtrar > ', () => {
+                        beforeEach((done) => {
+                            $('#id_filter_table', $('#example2_filter_form')).val('6');
+                            $('#example2_filter_filterButton').click();
+                            setTimeout(done, 350);
+                        });
+    
+                        it('El feedback debe comportarse de la manera esperada:', () => {
+                            expect($('.rup-message-alert').height()).toBeGreaterThan(0);
+                            expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
+                                .toBe('DataTables warning: table id=example2 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                        });
+                    });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            //El evento no funciona (Tambien se ha probado con #example2_detail_feedback)
-                            $('#example2_detail_feedback_ok').on('rupFeedback_show', done);
-                            $('#example2 > tbody > tr:contains(Irene) > td:eq(1)').dblclick();
-                            $('#example2_detail_form').find('#edad_detail_table').val('asd');
+                            $('#example2').on('tableEditFormErrorCallSaveAjax', done);
+                            $('#example2 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
+                            $('#edad_detail_table',$('#example2_detail_div')).val('asd');
                             $('#example2_detail_button_save').click();
                         });
-                        it('El feedback de #example2 debe mostrarse:', () => {
+                        it('El feedback debe mostrarse:', () => {
                             expect($('#example2_detail_feedback_ok').height()).toBeGreaterThan(0);
-                        });
-                        it('El feedback de #example1 no debe mostrarse:', () => {
-                            expect($('#example1_detail_feedback').height()).toBe(0);
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example2_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -653,19 +622,16 @@ function testForm2Form() {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
-                            $('#example2').on('tableSeekerSearchComplete', done);
                             $('#searchCollapsLabel_example2').click();
-                            $('#edad_seeker').val('asd');
+                            $('#edad_seeker',$('#example2')).val('asd');
                             $('#search_nav_button_example2').click();
+                            $('#example2').on('tableSeekerSearchError', done);
                         });
-                        it('El feedback de #example2 debe mostrarse:', () => {
-                            expect($('#rup_feedback_example2_ok').height()).toBeGreaterThan(0);
-                        });
-                        it('El feedback de #example1 no debe mostrarse:', () => {
-                            expect($('#rup_feedback_example1').height()).toBe(0);
+                        it('El feedback debe mostrarse:', () => {
+                            expect($('#rup_feedback_example2').height()).toBeGreaterThan(0);
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#rup_feedback_example2_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_example2').text()).toBe('Not Acceptable: KABOOM');
                         });
                     });
                 });
@@ -678,6 +644,11 @@ function testForm2Inline() {
     describe('Test Table Master-Detail Form2Inline >', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
+            window.onerror = (event) => {
+                console.info('Evento de error detectado en el window...\n' +
+                    'namespace: ' + event.namespace +
+                    'target: ' + event.target.id);
+            };
         });
         beforeEach((done) => {
             dtGen.createDatatable1(1, () => {
@@ -1103,23 +1074,26 @@ function testForm2Inline() {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', done);
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
-                });;
-                describe('Tabla maestro > ', () => {
-                    beforeEach((done) => {
-                        $('#example1_detail_feedback').on('rupFeedback_show', () => {
-                            done();
-                        });
-                        $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
-                        $('#example1editButton_1').click();
-                        $('div[aria-describedby="example1_detail_div"]')
-                            .find('#nombre_detail_table').val('');
-                        $('#example1_detail_button_save').click();
-                    });
-                    it('Debe mostrar el feedback del formulario de #example1:', () => {
-                        expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
-                        expect($('#example1_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
-                    });
                 });
+                // describe('Tabla maestro > ', () => {
+                //     beforeEach((done) => {
+                //         $('#example1_detail_feedback').on('rupFeedback_show', () => {
+                //             done();
+                //         });
+                //         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
+                //         $('#example1editButton_1').click();
+                //         $('div[aria-describedby="example1_detail_div"]')
+                //             .find('#nombre_detail_table').val('');
+                //         $('#example1_detail_button_save').click();
+                //     });
+                //     afterEach((done) => {
+                //         setTimeout(done, 300);
+                //     });
+                //     it('Debe mostrar el feedback del formulario de #example1:', () => {
+                //         expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
+                //         expect($('#example1_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
+                //     });
+                // });
                 // describe('Tabla detalle > ', () => {
                 //     beforeEach((done) => {
                 //         $('#inline2').on('tableEditInlineClickRow', () => {
@@ -1150,6 +1124,11 @@ function testInline2Inline() {
     describe('Test Table Master-Detail Inline2Inline >', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
+            window.onerror = (event) => {
+                console.info('Evento de error detectado en el window...\n' +
+                    'namespace: ' + event.namespace +
+                    'target: ' + event.target.id);
+            };
         });
 
         it('asd', () => {
@@ -1170,6 +1149,6 @@ function testInline2Inline() {
 }
 
 
-// testForm2Form();
+testForm2Form();
 testForm2Inline();
 // testInline2Inline();
