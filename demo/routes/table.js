@@ -216,13 +216,6 @@ function getFilterResp(req) {
     }
     if (req.body.page == 2) {
         return json4_2;
-    } else {
-        if (req.body.sidx == 'nombre' && req.body.sord == 'asc') {
-            return json4Ordered;
-        }
-        if (req.body.sidx == 'nombre' && req.body.sord == 'desc') {
-            return json4OrderedInv;
-        }
     }
     if (req.body.filter.id == '4') {
         respuesta = {
@@ -244,8 +237,14 @@ function getFilterResp(req) {
                 records: 1
             };
         } else {
-            if (req.body.length == 10) {
+            if (req.body.length == 10 ) {
                 respuesta = json4;
+                if (req.body.sidx == 'nombre' && req.body.sord == 'asc') {
+                    respuesta = json4Ordered;
+                }
+                if (req.body.sidx == 'nombre' && req.body.sord == 'desc') {
+                    respuesta = json4OrderedInv;
+                }
             } else {
                 if (req.body.filter.id == 1 ||
                     req.body.filter.id == 2 ||
@@ -404,20 +403,20 @@ exports.getReg = (req, res) => {
     }
 };
 exports.reset = (req, res) => {
-    json = C_JSON;
-    jsonOrderedAsc = C_JSONORDEREDASC;
-    jsonOrderedDesc = C_JSONORDEREDDESC;
-    json2 = C_JSON2;
-    json3 = C_JSON3;
-    json4 = C_JSON4;
-    json4_2 = C_JSON4_2;
-    json4Ordered = C_JSON4ORDERED;
-    json4OrderedInv = C_JSON4ORDEREDINV;
-    json4Backup = C_JSON4BACKUP;
-    jsonMDInterFilter1 = C_JSONMDINTERFILTER1;
-    jsonMDInterFilter2 = C_JSONMDINTERFILTER2;
-    jsonIDFilter1 = C_JSONIDFILTER1;
-    jsonIDFilter2 = C_JSONIDFILTER2;
-    jsonIDFilterOrdered1 = C_JSONIDFILTERORDERED1;
+    json = JSON.parse(JSON.stringify(C_JSON));
+    jsonOrderedAsc = JSON.parse(JSON.stringify(C_JSONORDEREDASC));
+    jsonOrderedDesc = JSON.parse(JSON.stringify(C_JSONORDEREDDESC));
+    json2 = JSON.parse(JSON.stringify(C_JSON2));
+    json3 = JSON.parse(JSON.stringify(C_JSON3));
+    json4 = JSON.parse(JSON.stringify(C_JSON4));
+    json4_2 = JSON.parse(JSON.stringify(C_JSON4_2));
+    json4Ordered = JSON.parse(JSON.stringify(C_JSON4ORDERED));
+    json4OrderedInv = JSON.parse(JSON.stringify(C_JSON4ORDEREDINV));
+    json4Backup = JSON.parse(JSON.stringify(C_JSON4BACKUP));
+    jsonMDInterFilter1 = JSON.parse(JSON.stringify(C_JSONMDINTERFILTER1));
+    jsonMDInterFilter2 = JSON.parse(JSON.stringify(C_JSONMDINTERFILTER2));
+    jsonIDFilter1 = JSON.parse(JSON.stringify(C_JSONIDFILTER1));
+    jsonIDFilter2 = JSON.parse(JSON.stringify(C_JSONIDFILTER2));
+    jsonIDFilterOrdered1 = JSON.parse(JSON.stringify(C_JSONIDFILTERORDERED1));
     res.status(200).json({});
 };

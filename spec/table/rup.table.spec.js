@@ -61,7 +61,7 @@ function testDatatable() {
                     $.get('/demo/table/reset', done);
                 });
                 it('Se ha actualizado el valor: ', () => {
-                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(1)').text()).toBe(nameEdit);
+                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(2)').text()).toBe(nameEdit);
                 });
             });
         });
