@@ -734,7 +734,7 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#id_filter_table').val('6');
                         $('#example_filter_filterButton').click();
-                        setTimeout(done, 300);
+                        setTimeout(done, 350);
                     });
 
                     it('El feedback debe comportarse de la manera esperada:', () => {
