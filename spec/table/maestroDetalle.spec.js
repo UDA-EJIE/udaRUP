@@ -23,7 +23,7 @@ function clearDatatable(done) {
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
-        setTimeout(done, 200);
+        setTimeout(done, 100);
     });
 
     $('.dataTable').DataTable().destroy();
@@ -42,7 +42,7 @@ function relacionMaestroDetalle(callback) {
         $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
 
     });
-    setTimeout(callback, 300);
+    callback();
 }
 
 function relacionMaestroDetalleF2I(callback) {
@@ -58,7 +58,7 @@ function relacionMaestroDetalleF2I(callback) {
         $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
 
     });
-    setTimeout(callback, 300);
+    callback();
 }
 
 function relacionMaestroDetalleI2F(callback) {
@@ -74,7 +74,7 @@ function relacionMaestroDetalleI2F(callback) {
         $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
 
     });
-    setTimeout(callback, 300);
+    callback();
 }
 
 function relacionMaestroDetalleI2I(callback) {
@@ -90,7 +90,7 @@ function relacionMaestroDetalleI2I(callback) {
         $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
 
     });
-    setTimeout(callback, 300);
+    callback();
 }
 
 function testForm2Form(defer) {
@@ -267,7 +267,7 @@ function testForm2Form(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('tableEditFormAfterFillData', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1 > tbody > tr:eq(0)').dblclick();
                     });
@@ -294,7 +294,7 @@ function testForm2Form(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#example2').on('tableEditFormAfterFillData', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2 > tbody > tr:eq(0)').dblclick();
                     });
@@ -330,13 +330,13 @@ function testForm2Form(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#example1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1').find('th:contains(Id)').click();
                     });
@@ -369,13 +369,13 @@ function testForm2Form(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#example2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#example2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2').find('th:contains(Id)').click();
                     });
@@ -408,7 +408,7 @@ function testForm2Form(defer) {
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
-                        setTimeout(done, 300);
+                        setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
@@ -580,7 +580,7 @@ function testForm2Form(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
@@ -854,13 +854,13 @@ function testForm2Inline(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#example1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1').find('th:contains(Id)').click();
                     });
@@ -893,13 +893,13 @@ function testForm2Inline(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline2').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline2').find('th:contains(Id)').click();
                     });
@@ -932,7 +932,7 @@ function testForm2Inline(defer) {
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 300);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -993,7 +993,7 @@ function testForm2Inline(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('tableEditFormAfterFillData', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example1 > tbody > tr:eq(0)').dblclick();
                     });
@@ -1107,7 +1107,7 @@ function testForm2Inline(defer) {
             describe('Validaciones de formulario independientes > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -1134,7 +1134,7 @@ function testForm2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
-                            setTimeout(done, 200);
+                            setTimeout(done,100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1151,7 +1151,7 @@ function testForm2Inline(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -1433,13 +1433,13 @@ function testInline2Form(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline1').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline1').find('th:contains(Id)').click();
                     });
@@ -1472,13 +1472,13 @@ function testInline2Form(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#example2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#example2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2').find('th:contains(Id)').click();
                     });
@@ -1511,7 +1511,7 @@ function testInline2Form(defer) {
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
-                        setTimeout(done, 300);
+                        setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
@@ -1590,7 +1590,7 @@ function testInline2Form(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#example2').on('tableEditFormAfterFillData', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#example2 > tbody > tr:eq(0)').dblclick();
                     });
@@ -1686,7 +1686,7 @@ function testInline2Form(defer) {
             describe('Validaciones de formulario independientes > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
@@ -1697,7 +1697,7 @@ function testInline2Form(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
-                            setTimeout(done, 200);
+                            setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1730,7 +1730,7 @@ function testInline2Form(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
@@ -2012,13 +2012,13 @@ function testInline2Inline(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline1').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline1').find('th:contains(Id)').click();
                     });
@@ -2051,13 +2051,13 @@ function testInline2Inline(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline2').find('th:contains(Nombre)').click();
                     });
                     afterEach((done) => {
                         $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 300);
+                            setTimeout(done, 100);
                         });
                         $('#inline2').find('th:contains(Id)').click();
                     });
@@ -2090,7 +2090,7 @@ function testInline2Inline(defer) {
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 300);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -2260,7 +2260,7 @@ function testInline2Inline(defer) {
             describe('Validaciones de formulario independientes > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -2271,7 +2271,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
-                            setTimeout(done, 200);
+                            setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2290,7 +2290,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
-                            setTimeout(done, 200);
+                            setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2306,7 +2306,7 @@ function testInline2Inline(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
-                        setTimeout(done, 200);
+                        setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
@@ -2421,5 +2421,4 @@ var runI2I = $.Deferred();
 testForm2Form(runF2F)
     .then(testInline2Inline(runI2I)
         .then(testForm2Inline(runF2I)
-            .then(testInline2Form(runI2F)
-                .then(testutils.testTrace('Fin', 'Testing maestro-detalle finalizado')))));
+            .then(testInline2Form(runI2F))));

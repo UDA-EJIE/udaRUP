@@ -164,8 +164,7 @@ export function createDatatable1(ctx, callback) {
         }],
         pageLength: 10,
         initComplete: function () {
-            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
-            setTimeout(callback, 500);
+            setTimeout(callback, 100);
         },
         buttons: {
             activate: true
@@ -231,7 +230,7 @@ export function createDatatableInlineEdit(callback, idDatatable) {
             if(idDatatable === 'inline2') {
                 $('#' +idDatatable + ' > tbody').children().remove();
             }
-            setTimeout(callback, 500);
+            setTimeout(callback, 100);
         },
         multiSelect: {
             style: 'simple'
@@ -352,11 +351,10 @@ export function createDatatable2(callback) {
             }
         }],
         initComplete: function () {
-            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
             setTimeout(() => {
                 $('#' + idDatatable + ' > tbody').children().remove();
                 callback();
-            }, 500);
+            }, 100);
         },
         buttons: {
             activate: true
