@@ -414,7 +414,7 @@
             contentType: 'application/json',
             async: false,
             beforeSend: function (xhr, options) {
-                return $self.triggerHandler('rupTable_multifilter_beforeAdd', [xhr, options]);
+				return $('#' + ctx.sTableId).triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
             },
             success: function (data, status, xhr) {
 
