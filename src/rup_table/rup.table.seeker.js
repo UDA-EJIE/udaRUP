@@ -308,7 +308,7 @@
                 $('#' + idTabla + '_search_searchForm').rup_form();
                 var tmp = ajaxOptions.success;
                 ajaxOptions.success = function () {
-                    tmp(arguments);
+                    tmp(arguments[0], arguments[1], arguments[2]);
                     ajaxOptions.success = tmp;
                     $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
                 };
