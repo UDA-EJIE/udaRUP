@@ -1563,7 +1563,7 @@ handler that will select the items using the API methods.
         //Se mira si hay feedback y en ese caso se elimina.
         var feedBack = ctx.multiselection.internalFeedback;
         if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
-            ctx.multiselection.internalFeedback.rup_feedback('destroy');
+            $('#rup_feedback_' + ctx.sTableId).rup_feedback('destroy');
             ctx.multiselection.internalFeedback.css('width','100%');
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
         }

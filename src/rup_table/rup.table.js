@@ -591,7 +591,21 @@ import { PassThrough } from "stream";
 
             ctx.aBaseJson = json;
             
-            return JSON.stringify(json);
+            // Posibles referencias circulares en json
+            let cache = [];
+            let strJson = JSON.stringify(json, function (key, value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Si se encuentra una key duplicada se descarta
+                        return;
+                    }
+                    // Se almacena para ver que no se repita
+                    cache.push(value);
+                }
+                return value;
+            });
+            cache = null; // Enable garbage collection
+            return strJson;
         },
 
         /**
