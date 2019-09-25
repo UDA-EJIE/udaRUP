@@ -330,7 +330,7 @@ function testDatatable() {
 
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example').on('draw.dt', done);
+                        $('#example').on('tableSeekerAfterSearch', done);
                         $('#nombre_seeker').val('E');
                         $('#search_nav_button_example').click();
                     });

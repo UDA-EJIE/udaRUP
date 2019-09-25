@@ -1088,6 +1088,7 @@ handler that will select the items using the API methods.
         var ctx = dt.settings()[0];
         _initializeMultiselectionProps(ctx);
 
+        ctx.multiselection.selectedIds =  [];
         ctx.multiselection.accion = "uncheckAll";
         $('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
         dt['rows']().deselect();
