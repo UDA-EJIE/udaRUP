@@ -547,7 +547,6 @@ import { PassThrough } from "stream";
                 'data': this._ajaxRequestData,
                 'contentType': 'application/json',
                 'dataType': 'json'
-
             };
 
 
@@ -580,7 +579,7 @@ import { PassThrough } from "stream";
 					&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
                 data.seeker = {};
                 data.seeker.selectedIds = [];
-                $.each(ctx.seeker.search.funcionParams[0],function(index,p) {
+                $.each(ctx.seeker.search.funcionParams,function(index,p) {
                     data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk));
                 });
             }
@@ -592,7 +591,21 @@ import { PassThrough } from "stream";
 
             ctx.aBaseJson = json;
             
-            return JSON.stringify(json);
+            // Posibles referencias circulares en json
+            let cache = [];
+            let strJson = JSON.stringify(json, function (key, value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Si se encuentra una key duplicada se descarta
+                        return;
+                    }
+                    // Se almacena para ver que no se repita
+                    cache.push(value);
+                }
+                return value;
+            });
+            cache = null; // Enable garbage collection
+            return strJson;
         },
 
         /**

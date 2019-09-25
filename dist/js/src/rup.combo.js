@@ -878,9 +878,15 @@
 		 */
         _getBlankLabel: function (id) {
             var app = $.rup.i18n.app;
+            // Comprueba si el combo tiene su propio texto personalizado
             if (app[id] && app[id]._blank) {
                 return app[id]._blank;
             }
+            // Comprueba si la aplicacion tiene un texto definido para todos los blank
+            else if(app.rup_combo && app.rup_combo.blank) {
+            	return app.rup_combo.blank;
+            }
+            // Si no hay textos definidos para los blank obtiene el por defecto de UDA
             return $.rup.i18n.base.rup_combo.blankNotDefined;
         },
         /**

@@ -979,9 +979,10 @@ handler that will select the items using the API methods.
         //FeedBack
         var countPage = dt.page()+1;
         var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
-        var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', ctx.json.recordsTotal);
+        var countRegister = ctx.json.recordsTotal - ctx.multiselection.selectedIds.length;
+        var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', countRegister);
         var remainingSelectButton = "<button id='rup_table_" + dt.context[0].sTableId + "_selectAll' class='btn-material btn-material-secondary-low-emphasis'><span>" + selectRestMsg +	"</span></button>";
-        if(!ctx.multiselection.selectedAll ||
+        if(countRegister > 0 && !ctx.multiselection.selectedAll ||
 			(ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length  > 0)){
             ctx.multiselection.internalFeedback.rup_feedback({message:selectMsg+remainingSelectButton,type:"alert"});
             ctx.multiselection.internalFeedback.type = 'fijo';
@@ -1087,6 +1088,7 @@ handler that will select the items using the API methods.
         var ctx = dt.settings()[0];
         _initializeMultiselectionProps(ctx);
 
+        ctx.multiselection.selectedIds =  [];
         ctx.multiselection.accion = "uncheckAll";
         $('#'+ctx.sTableId+' tbody tr td.select-checkbox i.selected-pencil').remove();
         dt['rows']().deselect();
@@ -1562,7 +1564,7 @@ handler that will select the items using the API methods.
         //Se mira si hay feedback y en ese caso se elimina.
         var feedBack = ctx.multiselection.internalFeedback;
         if($('#rup_feedback_'+ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo'){
-            ctx.multiselection.internalFeedback.rup_feedback('destroy');
+            $('#rup_feedback_' + ctx.sTableId).rup_feedback('destroy');
             ctx.multiselection.internalFeedback.css('width','100%');
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
         }

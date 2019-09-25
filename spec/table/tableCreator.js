@@ -162,9 +162,9 @@ export function createDatatable1(ctx, callback) {
                 colpos: 1
             }
         }],
+        pageLength: 10,
         initComplete: function () {
-            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
-            setTimeout(callback, 500);
+            setTimeout(callback, 100);
         },
         buttons: {
             activate: true
@@ -218,12 +218,24 @@ export function createDatatable1(ctx, callback) {
     $('#' + idDatatable).rup_table(opts);
 
 }
-export function createDatatableInlineEdit(callback) {
+export function createDatatableInlineEdit(callback, idDatatable) {
+    if(!idDatatable) {
+        idDatatable = 'exampleInline';
+    }
     var opts = {
         // No era cosa de no tener timeout, Quitar timeout
         initComplete: () => {
-            setTimeout(callback, 500);
+            //Los inline no requieren de formulario
+            $('#' + idDatatable + '_detail_div').remove();
+            if(idDatatable === 'inline2') {
+                $('#' +idDatatable + ' > tbody').children().remove();
+            }
+            setTimeout(callback, 100);
         },
+        multiSelect: {
+            style: 'simple'
+        },
+        pageLength: 10,
         urlBase: '/demo/table/remote',
         selector: 'td',
         colModel: [{
@@ -265,9 +277,9 @@ export function createDatatableInlineEdit(callback) {
             activate: true
         },
         filter: {
-            id: 'exampleInline_filter_form',
-            filterToolbar: 'exampleInline_filter_toolbar',
-            collapsableLayerId: 'exampleInline_filter_fieldset'
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         seeker: {
             activate: true
@@ -289,10 +301,10 @@ export function createDatatableInlineEdit(callback) {
             }
         }
     };
-    var html = generateHtml('exampleInline');
+    var html = generateHtml(idDatatable);
     $('#content').append(html);
 
-    $('#exampleInline').rup_table(opts);
+    $('#' + idDatatable).rup_table(opts);
 }
 export function createDatatable2(callback) {
     var idDatatable = 'example2';
@@ -302,6 +314,7 @@ export function createDatatable2(callback) {
         multiSelect: {
             style: 'simple'
         },
+        pageLength: 10,
         colModel: [{
             name: 'id',
             index: 'id',
@@ -338,11 +351,10 @@ export function createDatatable2(callback) {
             }
         }],
         initComplete: function () {
-            // FIXME : Hay que buscar alguna forma de prescindir del timeout.
             setTimeout(() => {
                 $('#' + idDatatable + ' > tbody').children().remove();
                 callback();
-            }, 500);
+            }, 100);
         },
         buttons: {
             activate: true

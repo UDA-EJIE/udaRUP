@@ -22,7 +22,7 @@ function clearDatatable(done) {
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
-        setTimeout(done, 500);
+        done();
     });
 
     $('.dataTable').DataTable().destroy();
@@ -32,12 +32,18 @@ function testDatatable() {
     describe('Test Datatable > ', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
+
+            window.onerror = (event) => {
+                console.info('Evento de error detectado en el window...\n' +
+                    'namespace: ' + event.namespace +
+                    'target: ' + event.target.id);
+            };
         });
-        
+
         afterEach((done) => {
             clearDatatable(done);
         });
-        
+
         describe('Edición inline datatable > ', () => {
             beforeAll((done) => {
                 dtGen.createDatatableInlineEdit(done);
@@ -46,7 +52,7 @@ function testDatatable() {
             describe('Funcionamiento de la edición inline > ', () => {
                 let nameEdit = 'Ane';
                 beforeEach((done) => {
-                    $('#exampleInline').on('draw.dt', ()=>{
+                    $('#exampleInline').on('draw.dt', () => {
                         done();
                     });
                     $('#exampleInline').on('tableEditInlineClickRow', () => {
@@ -57,16 +63,16 @@ function testDatatable() {
                     });
                     $('#exampleInline > tbody > tr:eq(0) > td:eq(0)').dblclick();
                 });
-                afterEach((done)=>{
+                afterEach((done) => {
                     $.get('/demo/table/reset', done);
                 });
                 it('Se ha actualizado el valor: ', () => {
-                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(1)').text()).toBe(nameEdit);
+                    expect($('#exampleInline > tbody > tr:eq(0) > td:eq(2)').text()).toBe(nameEdit);
                 });
             });
         });
-        
-        
+
+
         describe('Funcionamiento General > ', () => {
             beforeEach((done) => {
                 generateFormEditDatatable(done);
@@ -333,7 +339,7 @@ function testDatatable() {
 
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example').on('draw.dt', done);
+                        $('#example').on('tableSeekerAfterSearch', done);
                         $('#nombre_seeker').val('E');
                         $('#search_nav_button_example').click();
                     });
@@ -380,7 +386,7 @@ function testDatatable() {
                                 $('#example_previous').click();
                             }, 500);
                         };
-                            // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
                         $('#example_next').click();
                     });
@@ -415,7 +421,7 @@ function testDatatable() {
                                 $('#example_first').click();
                             }, 500);
                         };
-                            // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
+                        // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
                         $('#example_next').click();
                     });
@@ -574,7 +580,7 @@ function testDatatable() {
                             insideContextMenu: true
                         };
                         $('#example').rup_table('createButton', btnObj, 4);
-                        
+
                         $('.dt-buttons').children().eq(4).click();
                         $('tbody > tr:eq(0)').contextmenu();
                     });
@@ -724,21 +730,19 @@ function testDatatable() {
                 });
             });
             describe('Gestión de errores > ', () => {
-                // FIXME : No peta por que sea un 406 (De ser el caso petaria al testear el error de guardado)
+                describe('Errores al filtrar > ', () => {
+                    beforeEach((done) => {
+                        $('#id_filter_table').val('6');
+                        $('#example_filter_filterButton').click();
+                        setTimeout(done, 350);
+                    });
 
-
-                // describe('Errores al filtrar > ', () => {
-                //     beforeEach((done) => {
-                //         $('#rup_feedback_example').on('rupFeedback_show', done);
-                //         $('#id_filter_table').val('6');
-                //         $('#example_filter_filterButton').click();
-                //     });
-
-                //     it('El feedback debe comportarse de la manera esperada:', () => {
-                //         expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
-                //         expect($('#rup_feedback_example').text()).toBe('KABOOM!');
-                //     });
-                // });
+                    it('El feedback debe comportarse de la manera esperada:', () => {
+                        expect($('.rup-message-alert').height()).toBeGreaterThan(0);
+                        expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
+                            .toBe('DataTables warning: table id=example - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                    });
+                });
 
                 describe('Errores al guardar > ', () => {
                     beforeEach((done) => {
@@ -773,7 +777,7 @@ function testDatatable() {
                 });
             });
         });
-        
+
     });
 }
 
