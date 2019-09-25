@@ -206,7 +206,7 @@ function testForm2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example1').on('draw.dt', done);
+                            $('#example1').on('tableSeekerAfterSearch', done);
                             $('#example1').find('#nombre_seeker').val('E');
                             $('#search_nav_button_example1').click();
                         });
@@ -242,7 +242,7 @@ function testForm2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example2').on('draw.dt', done);
+                            $('#example2').on('tableSeekerAfterSearch', done);
                             $('#example2').find('#nombre_seeker').val('E');
                             $('#search_nav_button_example2').click();
                         });
@@ -793,7 +793,7 @@ function testForm2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example1').on('draw.dt', done);
+                            $('#example1').on('tableSeekerAfterSearch', done);
                             $('#example1').find('#nombre_seeker').val('E');
                             $('#search_nav_button_example1').click();
                         });
@@ -829,7 +829,7 @@ function testForm2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('draw.dt', done);
+                            $('#inline2').on('tableSeekerAfterSearch', done);
                             $('#inline2').find('#nombre_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
@@ -1372,7 +1372,7 @@ function testInline2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('draw.dt', done);
+                            $('#inline1').on('tableSeekerAfterSearch', done);
                             $('#inline1').find('#nombre_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
@@ -1408,7 +1408,7 @@ function testInline2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example2').on('draw.dt', done);
+                            $('#example2').on('tableSeekerAfterSearch', done);
                             $('#example2').find('#nombre_seeker').val('E');
                             $('#search_nav_button_example2').click();
                         });
@@ -1951,7 +1951,7 @@ function testInline2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('draw.dt', done);
+                            $('#inline1').on('tableSeekerAfterSearch', done);
                             $('#inline1').find('#nombre_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
@@ -1987,7 +1987,7 @@ function testInline2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('draw.dt', done);
+                            $('#inline2').on('tableSeekerAfterSearch', done);
                             $('#inline2').find('#nombre_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
