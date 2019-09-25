@@ -392,7 +392,7 @@
                 if (rows[ctx.seeker.search.pos].pageLine - 1 === idx) {
                     rowSelected = dt.rows().nodes()[idx];
                 }
-                var result = $.grep(rows[0], function (v) {
+                var result = $.grep(rows, function (v) {
                     return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
                 });
                 if (result.length === 1) {
