@@ -689,6 +689,8 @@ function testDatatable() {
                         it('Debe añadirlo al contexto:', () => {
                             expect($('#example').DataTable().settings()[0].multiselection.selectedIds)
                                 .toEqual([]);
+                            expect($('#example').DataTable().settings()[0].multiselection.selectedAll)
+                                .toEqual(false);
                         });
 
                         it('Debe desmarcar con highlight los elementos:', () => {
