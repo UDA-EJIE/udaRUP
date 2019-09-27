@@ -1,15 +1,10 @@
 /* global require */
+/* eslint no-console:0 */
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    http = require('http'),
-
-    //Table database
-    lokijs = require('lokijs'),
-    LokiDb = require('./lokiDb'),
-    lokiNativescriptAdapter = require('lokijs/src/loki-nativescript-adapter'),
     routesNora = require('./demo/routes/nora'),
-    dummyjson = require('dummy-json'),
     //Routes
     routesTabs = require('./demo/routes/tabs'),
     routesAutocomplete = require('./demo/routes/autocomplete'),
@@ -27,13 +22,11 @@ var express = require('express'),
 //var db = new lokijs('uda');
 
 module.exports = (PORT) => {
-
-    //var ldb = new LokiDb();
-    LokiDb.log();
-    LokiDb.setText('Inicializando LokiDB');
-    LokiDb.initialize();
-
     var app = express();
+
+    app.on('error', function (er) {
+        console.error('error', er.stack);
+    });
 
     app.use(bodyParser.json()); // support json encoded bodies
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -41,11 +34,6 @@ module.exports = (PORT) => {
 
     var cors = require('cors');
     app.use(cors());
-    app.use(function(req, res, next) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        next();
-    });
 
     app.use(express.static('./'));
 
@@ -92,6 +80,7 @@ module.exports = (PORT) => {
     app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
     app.put('/demo/jqGridUsuario', routesJqtable.put);
     app.post('/demo/jqGridUsuario', routesJqtable.post);
+    app.post('/demo/jqGridUsuario/search', routesJqtable.search);
 
     // Upload
     app.post('/upload', routesUpload.upload);
@@ -116,6 +105,8 @@ module.exports = (PORT) => {
     app.put('/demo/table/remote', routesTable.formEdit);
     app.post('/demo/table/remote/deleteEnd', routesTable.deleteEnd);
     app.delete('/demo/table/remote/:id', routesTable.delete);
+    app.get('/demo/table/remote/:id', routesTable.getReg);
+    app.get('/demo/table/reset', routesTable.reset);
 
     //Audit
     app.post('/audit', routesAudit.audit);

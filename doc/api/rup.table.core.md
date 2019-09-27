@@ -7,7 +7,30 @@ Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de
 **See**: El componente está basado en el plugin [jQuery Grid Plugin – jqGrid](http://www.trirand.com/blog/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://www.trirand.com/jqgridwiki/doku.php).  
 **Example**  
 ```js
-var properties = {		url: "../tableUrl",		colNames: [			"id","nombre","..."]		],		colModel: [			{name: "id", label: "id"},			{name: "nombre", label: "nombre"},			{name: "...", label: "..."}		],		model:"Usuario",		usePlugins:[			"formEdit",			"feedback",			"toolbar",			"contextMenu",			"fluid",			"filter",			"search"		],		primaryKey: "id"	};$("#table").rup_table(properties);
+var properties = {
+		url: "../tableUrl",
+		colNames: [
+			"id","nombre","..."]
+		],
+		colModel: [
+			{name: "id", label: "id"},
+			{name: "nombre", label: "nombre"},
+			{name: "...", label: "..."}
+		],
+		model:"Usuario",
+		usePlugins:[
+			"formEdit",
+			"feedback",
+			"toolbar",
+			"contextMenu",
+			"fluid",
+			"filter",
+			"search"
+		],
+		primaryKey: "id"
+	};
+
+$("#table").rup_table(properties);
 ```
 
 * [rup_table](#module_rup_table)
@@ -69,7 +92,8 @@ Evento que se produce al detectarse que el usuario interactua con un elemento ex
 
 **Example**  
 ```js
-$("#idComponente").on("rupTable_checkOutOfGrid", function(event,$originalTarget){ });
+$("#idComponente").on("rupTable_checkOutOfGrid", function(event,
+$originalTarget){ });
 ```
 <a name="module_rup_table+event_rupTable_serializeGridData"></a>
 
@@ -86,7 +110,8 @@ Este evento se lanza durante el proceso de serialización de la información que
 
 **Example**  
 ```js
-$("#idComponente").on("rupTable_serializeGridData", function(event, data){});
+$("#idComponente").on("rupTable_serializeGridData", function(event, data){
+});
 ```
 <a name="module_rup_table+event_rupTable_beforeProcessing"></a>
 
@@ -105,7 +130,8 @@ Evento que se lanza antes de que se procese la información recibida del servido
 
 **Example**  
 ```js
-$("#idComponente").on("rupTable_beforeProcessing", function(event, data, st,xhr){ });
+$("#idComponente").on("rupTable_beforeProcessing", function(event, data, st,
+xhr){ });
 ```
 <a name="module_rup_table+event_rupTableClearHighlightedRowAsSelected"></a>
 
@@ -187,7 +213,8 @@ Propiedades de configuración del componente.
 <a name="module_rup_table..preConfigureCore"></a>
 
 ### rup_table~preConfigureCore(settings)
-Metodo que realiza la pre-configuración del core del componente RUP Table.Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
+Metodo que realiza la pre-configuración del core del componente RUP Table.
+Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
 
 **Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Emits**: [<code>rupTable_checkOutOfGrid</code>](#module_rup_table+event_rupTable_checkOutOfGrid), [<code>rupTable_serializeGridData</code>](#module_rup_table+event_rupTable_serializeGridData), [<code>rupTable_beforeProcessing</code>](#module_rup_table+event_rupTable_beforeProcessing)  
@@ -199,7 +226,8 @@ Metodo que realiza la pre-configuración del core del componente RUP Table.Este
 <a name="module_rup_table..postConfigureCore"></a>
 
 ### rup_table~postConfigureCore(settings)
-Metodo que realiza la post-configuración del core del componente RUP Table.Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.
+Metodo que realiza la post-configuración del core del componente RUP Table.
+Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.
 
 **Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 
@@ -275,7 +303,8 @@ $("#idComponente").rup_table("getSelectedLines");
 <a name="module_rup_table..getPkUrl"></a>
 
 ### rup_table~getPkUrl(rowId) ⇒ <code>string</code>
-El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.
+El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.
+La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.
 
 **Kind**: inner method of [<code>rup_table</code>](#module_rup_table)  
 **Returns**: <code>string</code> - - Url para obtener los valores del registro correspondiente.  
@@ -429,7 +458,8 @@ Permite modificar el objeto interno _savedData que se utiliza en el control de c
 
 **Example**  
 ```js
-$("#idComponente").rup_table("updateSavedData", function(savedData){});
+$("#idComponente").rup_table("updateSavedData", function(savedData){
+});
 ```
 <a name="module_rup_table..configurePager"></a>
 
@@ -619,7 +649,9 @@ Función de callback que será ejecutada cuando el usuario realice una acción s
 
 **Example**  
 ```js
-callback: function(key, options){		alert("Operación 1");	}
+callback: function(key, options){
+		alert("Operación 1");
+	}
 ```
 <a name="module_rup_table..isEnabled"></a>
 
@@ -630,7 +662,9 @@ Función de callback que determina si la operación debe estar habilitada o no.
 **Returns**: <code>boolean</code> - - Devuelve si la operación debe de estar habilitada o no.  
 **Example**  
 ```js
-enabled: function(){		return true;	}
+enabled: function(){
+		return true;
+	}
 ```
 <a name="module_rup_table..Operations"></a>
 
@@ -649,7 +683,30 @@ Mediante esta propiedad se definen las posibles operaciones a realizar sobre los
 
 **Example**  
 ```js
-core:{	operations:{			"operacion1": {				name: "Operación 1",				icon: "rup-icon rup-icon-new",				enabled: function(){					return true;				},				callback: function(key, options){					alert("Operación 1");				}			},			"operacion2": {				name: "Operación 2",				icon: "rup-icon rup-icon-new",				enabled: function(){					return true;				},				callback: function(key, options){					alert("Operación 1");				}			}		}}
+core:{
+	operations:{
+			"operacion1": {
+				name: "Operación 1",
+				icon: "rup-icon rup-icon-new",
+				enabled: function(){
+					return true;
+				},
+				callback: function(key, options){
+					alert("Operación 1");
+				}
+			},
+			"operacion2": {
+				name: "Operación 2",
+				icon: "rup-icon rup-icon-new",
+				enabled: function(){
+					return true;
+				},
+				callback: function(key, options){
+					alert("Operación 1");
+				}
+			}
+		}
+}
 ```
 <a name="module_rup_table..ShowOperations"></a>
 
@@ -659,5 +716,121 @@ Permite habilitar/deshabilitar las operaciones definidas por defecto por otros m
 **Kind**: inner typedef of [<code>rup_table</code>](#module_rup_table)  
 **Example**  
 ```js
-core:{		showOperations:{			add:false;			clone:false;		}	}
+core:{
+		showOperations:{
+			add:false;
+			clone:false;
+		}
+	}
 ```
+
+# Eventos en rup_table
+
+- tableAfterReorderData
+- tableFilterSearch
+- tableFilterInitialize
+- tableFilterBeforeShow
+- tableFilterReset
+- tableBeforeInit
+- tableInit
+- tableMultiFilterCompleteGetDefaultFilter
+- tableMultiFilterSuccessGetDefaultFilter
+- tableMultiFilterErrorGetDefaultFilter
+- tableAfterComplete
+- tableAfterInit
+- tableButtonsBeforeCopyClick
+- tableButtonsAfterCopyClick
+- tableButtonsBeforeExcelClick
+- tableButtonsAfterExcelClick
+- tableButtonsBeforePdfClick
+- tableButtonsAfterPdfClick
+- tableButtonsBeforeOdsClick
+- tableButtonsAfterOdsClick
+- tableButtonsBeforeCsvClick
+- tableButtonsAfterCsvClick
+- tableButtonsBeforeAddClick
+- tableButtonsAfterAddClick
+- tableButtonsBeforeEditClick
+- tableButtonsAfterEditClick
+- tableButtonsBeforeCloneClick
+- tableButtonsAfterCloneClick
+- tableButtonsBeforeDeleteClick
+- tableButtonsAfterDeleteClick
+- tableButtonsSuccessReportsRequestData
+- tableButtonsCompleteReportsRequestData
+- tableButtonsErrorReportsRequestData
+- rupTable_confirmMsgOpen
+- rupTable_copied
+- tableEditFormClickRow
+- tableEditFormAddEditBeforeInitData
+- tableEditFormErrorCallSaveAjax
+- tableEditFormAfterFillData
+- tableEditFormAddEditBeforeShowForm
+- tableEditFormAddEditAfterShowForm
+- tableEditFormBeforeCallAjax
+- tableEditFormAfterInsertRow
+- tableEditFormSuccessCallSaveAjax
+- tableEditFormCompleteCallSaveAjax
+- tableEditFormErrorCallSaveAjax
+- tableEditFormFeedbackShow
+- tableEditFormInternalFeedbackClose
+- tableEditFormAddChildIcons
+- tableEditInlineClickRow
+- tableEditInlineAddRow
+- tableEditLineAddChildIcons
+- tableInlineEdit
+- tableEditInlineClone
+- tableEditInlineRestaurarFilaInit
+- tableEditLineRestaurarFilaEnd
+- tableEditLineCrearEventos
+- tableEditlineGuardar
+- tableEditInLineBeforeCallAjax
+- tableEditInLineAfterDelete
+- tableEditInLineSuccessCallSaveAjax
+- tableEditInLineCompleteCallSaveAjax
+- tableEditInLineErrorCallSaveAjax
+- tableEditInLineFeedbackShow
+- tableEditFormInternalFeedbackClose
+- tableMultiFilterAfterConfigureMultifilter
+- tableMultiFilterBeforeAddFilter
+- tableMultiFilterAfterAddFilter
+- tableMultiFilterBeforeCleanFilterForm
+- tableMultiFilterAfterCleanFilterForm
+- tableMultiFilterBeforeDeleteFilter
+- tableMultiFilterAfterDeleteFilter
+- tableMultiFilterSuccessDeleteFilter
+- tableMultiFilterCompleteDeleteFilter
+- tableMultiFilterErrorDeleteFilter
+- rupTable_multifilter_beforeAdd
+- tableMultiFilterSuccessAddFilter
+- tableMultiFilterCompleteAddFilter
+- tableMultiFilterErrorAddFilter
+- tableMultiFilterFillForm
+- tableMultiFilterBeforeCleanFilterForm
+- tableMultiFilterAfterCleanFilterForm
+- tableMultiSelectionRowNumberUpdate
+- tableMultiSelectFeedbackDestroy
+- tableHighlightRowAsSelected
+- tableMultiSelectFeedbackSelectAll
+- tableMultiSelectFeedbackDestroy
+- tableMultiSelectFeedbackDeselectAll
+- tableMultiSelectSelectAll
+- rupTable_deselectAll
+- tableMultiSelectFeedbackDestroy
+- tableMultiSelectBeforeSelectRow
+- tableMultiSelectAfterSelectRow
+- tablaGroupingClickGroup
+- tableSeekerSearchSucess
+- tableSeekerSearchError
+- tableSeekerSearchComplete
+- tableSeekerAfterCreateToolbar
+- tableSeekerBeforeSearch
+- tableSeekerAfterSearch
+- selected.rup.dt
+- tableSeekerBeforeClear
+- tableSeekerAfterClear
+- tableSelectBeforeSelectRow
+- tableSelectAfterSelectRow
+- tableHighlightRowAsSelected
+- rupTable_deselect
+

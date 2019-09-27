@@ -1,3 +1,5 @@
+import { PassThrough } from "stream";
+
 /* eslint-env es6*/
 /**
   * Genera un table
@@ -79,12 +81,12 @@
                 }
                 // Añadimos el boton genérico
                 dt.button().add(pos, {
-                    text: props.text,
+                    text: ()=>{return props.text;},
                     id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
                     className: props.className,
                     icon: props.icon,
                     displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
-                    insideContextMenu: props.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+                    insideContextMenu: props.insideContextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
                     action: props.action,
                     custom:props.custom
                 });
@@ -539,14 +541,12 @@
                             ctx.inlineEdit.lastRow.idx = -1;
                         }
                     }
-
                     return ret.data;
                 },
                 'type': 'POST',
                 'data': this._ajaxRequestData,
                 'contentType': 'application/json',
                 'dataType': 'json'
-
             };
 
 
@@ -591,7 +591,21 @@
 
             ctx.aBaseJson = json;
             
-            return JSON.stringify(json);
+            // Posibles referencias circulares en json
+            let cache = [];
+            let strJson = JSON.stringify(json, function (key, value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Si se encuentra una key duplicada se descarta
+                        return;
+                    }
+                    // Se almacena para ver que no se repita
+                    cache.push(value);
+                }
+                return value;
+            });
+            cache = null; // Enable garbage collection
+            return strJson;
         },
 
         /**
@@ -1322,7 +1336,6 @@
 
                 $('#'+settingsTable.sTableId+'_filter_toolbar').empty();
                 $('#'+settingsTable.sTableId+'_detail_navigation').empty();
-
 				
             });
 			

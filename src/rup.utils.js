@@ -47,17 +47,17 @@
 
 	$.extend($.rup_utils, {
 		/**
-         * Retorna el idioma actual capitalizado.
-         *
-         * El idioma actual se obtiene de la variable $.rup.lang
-         *
-         * @name jQuery.rup_utils#capitalizedLang
-         * @function
-         * @example
-         * // Retorna "Es" para un valor "es" en $.rup.lang.
-         * $.rup_utils.capitalizedLang();
-         * @returns {string} - Idioma actual capitalizado
-         */
+		 * Retorna el idioma actual capitalizado.
+		 *
+		 * El idioma actual se obtiene de la variable $.rup.lang
+		 *
+		 * @name jQuery.rup_utils#capitalizedLang
+		 * @function
+		 * @example
+		 * // Retorna "Es" para un valor "es" en $.rup.lang.
+		 * $.rup_utils.capitalizedLang();
+		 * @returns {string} - Idioma actual capitalizado
+		 */
 		capitalizedLang: function () {
 			if ($.rup.lang == null) {
 				return '';
@@ -92,25 +92,25 @@
 			}
 		},
 		/**
-         * Transforma un objeto JSON en un array Javascript.
-         *
-         * @name jQuery.rup_utils#jsontoarray
-         * @function
-         * @param {Object} obj - Objeto JSON que se desea transformar en un array.
-         * @returns {Object} - Array JavaScript.
-         * @example
-         * // Transforma un json obj={'prop':'value'} en un array arr['prop'] -> 'value'
-         * var obj={'prop':'value'};
-         * $.rup_utils.jsontoarray(obj);
-         * @example
-         * // Transforma un json obj={'propA':{'propAA':'value'}} en un array arr['propA.propAA'] -> 'value'
-         * var obj={'propA':{'propAA':'value'}};
-         * $.rup_utils.jsontoarray(obj);
-         * @example
-         * // Transforma un json obj={'propA':{'propAA':['a','b','c','d']}} en un array arr['propA.propAA[0]']
-         * var obj={'propA':{'propAA':['a','b','c','d']}};
-         * $.rup_utils.jsontoarray(obj);
-         */
+		 * Transforma un objeto JSON en un array Javascript.
+		 *
+		 * @name jQuery.rup_utils#jsontoarray
+		 * @function
+		 * @param {Object} obj - Objeto JSON que se desea transformar en un array.
+		 * @returns {Object} - Array JavaScript.
+		 * @example
+		 * // Transforma un json obj={'prop':'value'} en un array arr['prop'] -> 'value'
+		 * var obj={'prop':'value'};
+		 * $.rup_utils.jsontoarray(obj);
+		 * @example
+		 * // Transforma un json obj={'propA':{'propAA':'value'}} en un array arr['propA.propAA'] -> 'value'
+		 * var obj={'propA':{'propAA':'value'}};
+		 * $.rup_utils.jsontoarray(obj);
+		 * @example
+		 * // Transforma un json obj={'propA':{'propAA':['a','b','c','d']}} en un array arr['propA.propAA[0]']
+		 * var obj={'propA':{'propAA':['a','b','c','d']}};
+		 * $.rup_utils.jsontoarray(obj);
+		 */
 		jsontoarray: function (obj) {
 			var arr = [];
 
@@ -152,17 +152,17 @@
 
 		},
 		/**
-         * Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}.
-         *
-         * @name jQuery.rup_utils#unnestjson
-         * @function
-         * @param {Object} obj - Objeto JSON que se desea desanidar.
-         * @returns {Object} -  Objeto JSON desanidado.
-         * @example
-         * // Transforma un json obj={'propA':{'propAA':'valueAA'}} en un json obj={'propA.propAA':'valueAA'}}
-         * var obj={'propA':{'propAA':'valueAA'}};
-         * $.rup_utils.unnestjson(obj);
-         */
+		 * Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}.
+		 *
+		 * @name jQuery.rup_utils#unnestjson
+		 * @function
+		 * @param {Object} obj - Objeto JSON que se desea desanidar.
+		 * @returns {Object} -  Objeto JSON desanidado.
+		 * @example
+		 * // Transforma un json obj={'propA':{'propAA':'valueAA'}} en un json obj={'propA.propAA':'valueAA'}}
+		 * var obj={'propA':{'propAA':'valueAA'}};
+		 * $.rup_utils.unnestjson(obj);
+		 */
 		unnestjson: function (obj) {
 
 			var array = $.rup_utils.jsontoarray(obj);
@@ -178,17 +178,17 @@
 
 		},
 		/**
-         * Devuelve el objeto del dom existente en la posición indicada.
-         *
-         * @name jQuery.rup_utils#elementFromPoint
-         * @function
-         * @param {number} x - Coordenada x de la posición en la pantalla.
-         * @param {number} y - Coordenada y de la posición en la pantalla.
-         * @param {boolean} [argCheck=true] - Determina si debe de ajustarse en base al scroll realizado en la pantalla .
-         * @returns {Object} -  Objeto del DOM correspodiente a la posición indicada.
-         * @example
-         * $.rup_utils.elementFromPoint(120,140);
-         */
+		 * Devuelve el objeto del dom existente en la posición indicada.
+		 *
+		 * @name jQuery.rup_utils#elementFromPoint
+		 * @function
+		 * @param {number} x - Coordenada x de la posición en la pantalla.
+		 * @param {number} y - Coordenada y de la posición en la pantalla.
+		 * @param {boolean} [argCheck=true] - Determina si debe de ajustarse en base al scroll realizado en la pantalla .
+		 * @returns {Object} -  Objeto del DOM correspodiente a la posición indicada.
+		 * @example
+		 * $.rup_utils.elementFromPoint(120,140);
+		 */
 		elementFromPoint: function (x, y, argCheck) {
 			var isRelative = true,
 				check = argCheck || true;
@@ -199,10 +199,10 @@
 				var sl;
 				if ((sl = $(document).scrollTop()) > 0) {
 					isRelative = (document.elementFromPoint(0, sl +
-																								$(window).height() - 1) == null);
+						$(window).height() - 1) == null);
 				} else if ((sl = $(document).scrollLeft()) > 0) {
 					isRelative = (document.elementFromPoint(sl +
-																								$(window).width() - 1, 0) == null);
+						$(window).width() - 1, 0) == null);
 				}
 				check = (sl > 0);
 			}
@@ -215,30 +215,30 @@
 			return document.elementFromPoint(x, y);
 		},
 		/**
-         * Convierte en mínusculas el primer caracter de la cadena de caracteres pasada como parámetro.
-         *
-         * @name jQuery.rup_utils#firstCharToLowerCase
-         * @function
-         * @param {string} cadena - Cadena de caracteres inicial.
-         * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
-         * @example
-         * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
-         * $.rup_utils.firstCharToLowerCase("AbCdEfg");
-         */
+		 * Convierte en mínusculas el primer caracter de la cadena de caracteres pasada como parámetro.
+		 *
+		 * @name jQuery.rup_utils#firstCharToLowerCase
+		 * @function
+		 * @param {string} cadena - Cadena de caracteres inicial.
+		 * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
+		 * @example
+		 * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
+		 * $.rup_utils.firstCharToLowerCase("AbCdEfg");
+		 */
 		firstCharToLowerCase: function (cadena) {
 			return cadena.substring(0, 1).toLowerCase() + cadena.substring(1);
 		},
 		/**
-         * Devuelve un string que puede ser utilizado como selector de jQuery mediante el id ('#'). El método permite también escapar los caracteres reservados en los selectores de jQuery
-         *
-         * @name jQuery.rup_utils#firstCharToLowerCase
-         * @function
-         * @param {string} cadena - Cadena de caracteres inicial.
-         * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
-         * @example
-         * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
-         * $.rup_utils.firstCharToLowerCase("AbCdEfg");
-         */
+		 * Devuelve un string que puede ser utilizado como selector de jQuery mediante el id ('#'). El método permite también escapar los caracteres reservados en los selectores de jQuery
+		 *
+		 * @name jQuery.rup_utils#firstCharToLowerCase
+		 * @function
+		 * @param {string} cadena - Cadena de caracteres inicial.
+		 * @returns {string} - Cadena de caracteres resultante con su primer caracter convertido a minúsculas.
+		 * @example
+		 * // Convierte a minúsculas el primer caracter de la cadena "AbCdEfg" -> "abCdEfg"
+		 * $.rup_utils.firstCharToLowerCase("AbCdEfg");
+		 */
 		getJQueryId: function (sid, escaped) {
 			var returnIdSelector;
 
@@ -253,16 +253,16 @@
 			return null;
 		},
 		/**
-         * Convierte una cadena querystring en un objeto json.
-         *
-         * @name jQuery.rup_utils#queryStringToJson
-         * @function
-         * @param {string} queryString - Query string a transformar en un objeto json.
-         * @returns {object} - Objeto JSON creado a partir de la query string indicada.
-         * @example
-         * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
-         * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
-         */
+		 * Convierte una cadena querystring en un objeto json.
+		 *
+		 * @name jQuery.rup_utils#queryStringToJson
+		 * @function
+		 * @param {string} queryString - Query string a transformar en un objeto json.
+		 * @returns {object} - Objeto JSON creado a partir de la query string indicada.
+		 * @example
+		 * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
+		 * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
+		 */
 		queryStringToJson: function (queryString) {
 
 			function setValue(root, path, value) {
@@ -280,11 +280,13 @@
 						// Entra por aquí en caso de que uno de los path sea un objeto
 						var padre = path[0].slice(0, path[0].indexOf("."));
 						var hijo = path[0].slice(path[0].indexOf(".") + 1, path[0].length);
-						
-						if(root[padre] != undefined) {
-							root[padre][hijo] = value;							
+
+						if (root[padre] != undefined) {
+							root[padre][hijo] = value;
 						} else {
-							root[padre] = {[hijo]: value};
+							root[padre] = {
+								[hijo]: value
+							};
 						}
 					} else {
 						root[path] = value;
@@ -320,34 +322,34 @@
 			return data;
 		},
 		/**
-         * Devuelve un string Con los caracteres sencillos
-         *
-         * @name jQuery.rup_utils#normalize
-         * @function
-         * @param {string} cadena - Cadena de caracteres inicial.
-         * @returns {string} - Cadena de caracteres sin accentFolding.
-         * @example
-         * // Convierte los caracteres de la cadena "áéíóu" -> "aeiou"
-         * $.rup_utils.normalize("áéíóu");
-         */
+		 * Devuelve un string Con los caracteres sencillos
+		 *
+		 * @name jQuery.rup_utils#normalize
+		 * @function
+		 * @param {string} cadena - Cadena de caracteres inicial.
+		 * @returns {string} - Cadena de caracteres sin accentFolding.
+		 * @example
+		 * // Convierte los caracteres de la cadena "áéíóu" -> "aeiou"
+		 * $.rup_utils.normalize("áéíóu");
+		 */
 		normalize: function (texto) {
 			var accentMap = {
-					 'á':'a',
-					 'é':'e',
-					 'í':'i',
-					 'ó':'o',
-					 'ú':'u',
-					 'Á':'A',
-					 'É':'E',
-					 'Í':'I',
-					 'Ó':'O',
-					 'Ú':'U'
+				'á': 'a',
+				'é': 'e',
+				'í': 'i',
+				'ó': 'o',
+				'ú': 'u',
+				'Á': 'A',
+				'É': 'E',
+				'Í': 'I',
+				'Ó': 'O',
+				'Ú': 'U'
 			};
 			var cadena = '';
-			 	for ( var i = 0; i < texto.length; i++ ) {
-			 		cadena += accentMap[ texto.charAt(i) ] || texto.charAt(i);
-			 	}
-			 return cadena.toLowerCase();
+			for (var i = 0; i < texto.length; i++) {
+				cadena += accentMap[texto.charAt(i)] || texto.charAt(i);
+			}
+			return cadena.toLowerCase();
 		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
 			var ruptype, formElem;
@@ -410,16 +412,16 @@
 			return new Date(null, null, null, hour, minute, second);
 		},
 		/*!
-         * jQuery CooQuery Plugin v2
-         * http://cooquery.lenonmarcel.com.br/
-         *
-         * Copyright 2009, 2010 Lenon Marcel
-         * Dual licensed under the MIT and GPL licenses.
-         * http://www.opensource.org/licenses/mit-license.php
-         * http://www.gnu.org/licenses/gpl.html
-         *
-         * Date: 2010-01-24 (Sun, 24 January 2010)
-         */
+		 * jQuery CooQuery Plugin v2
+		 * http://cooquery.lenonmarcel.com.br/
+		 *
+		 * Copyright 2009, 2010 Lenon Marcel
+		 * Dual licensed under the MIT and GPL licenses.
+		 * http://www.opensource.org/licenses/mit-license.php
+		 * http://www.gnu.org/licenses/gpl.html
+		 *
+		 * Date: 2010-01-24 (Sun, 24 January 2010)
+		 */
 
 		//TODO: Documentacion -> http://plugins.jquery.com/project/cooquery
 		setCookie: function (name, value, options) {
@@ -821,47 +823,50 @@
 					$.rup_utils.swinging = false;
 				});
 			}
-		}
-		, format: function(_format) {
+		},
+		format: function (_format) {
 			var args = $.makeArray(arguments).slice(1);
 			if (_format == null) {
 				_format = '';
 			}
-			return _format.replace(/\{(\d+)\}/g, function(m, i) {
+			return _format.replace(/\{(\d+)\}/g, function (m, i) {
 				return args[i];
 			});
-        }
-        , deepCopy: function (obj, deep) {
-            var deepCont = 0;
-            var objBox =[];
-            var fnc = function(obj) {
-                var objtmp;
-                if(obj instanceof Array) {
-                    objtmp = [];
-                } else {
-                    objtmp = {};
-                }
-                Object.keys(obj).forEach(function(e) {
-                    if(['string','number','boolean', 'function'].includes(typeof obj[e])) {
-                        objtmp[e] = obj[e];
-                    } else {
-                        if(!objBox.includes(obj[e]) && deepCont <= deep){
-                            objBox.push(obj[e]);
-                            deepCont++;
-                            objtmp[e] = $.rup_utils.deepCopy(obj[e]);
-                        } else {
-                            if(deepCont > deep) {
-                                objtmp[e] = obj[e];
-                            } else {
-                                objtmp[e] = '__ciclico__';
-                            }
-                        }
-                    }
-                });
-                return objtmp;
-            };
-            return fnc(obj);
-        }
+		},
+		deepCopy: function (obj, deep) {
+			var deepCont = 0;
+			var objBox = [];
+			var fnc = function (obj) {
+				var objtmp;
+				if (obj instanceof Array) {
+					objtmp = [];
+				} else {
+					objtmp = {};
+				}
+				if (obj === null || obj === undefined) {
+					return {};
+				}
+				Object.keys(obj).forEach(function (e) {
+					if (['string', 'number', 'boolean', 'function'].includes(typeof obj[e])) {
+						objtmp[e] = obj[e];
+					} else {
+						if (!objBox.includes(obj[e]) && deepCont <= deep) {
+							objBox.push(obj[e]);
+							deepCont++;
+							objtmp[e] = $.rup_utils.deepCopy(obj[e]);
+						} else {
+							if (deepCont > deep) {
+								objtmp[e] = obj[e];
+							} else {
+								objtmp[e] = '__ciclico__';
+							}
+						}
+					}
+				});
+				return objtmp;
+			};
+			return fnc(obj);
+		}
 
 
 
@@ -886,12 +891,12 @@
 
 	$.fn.serializeArrayWithoutNulls = function () { //crea un array con campos de un formulario que tienen valor !=""
 		return this.map(function () {
-			return this.elements ? jQuery.makeArray(this.elements) : this;
-		})
+				return this.elements ? jQuery.makeArray(this.elements) : this;
+			})
 			.filter(function () {
 				return this.name && !this.disabled &&
-																				(this.checked || (/select|textarea/i).test(this.nodeName) ||
-																								(/color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i).test(this.type));
+					(this.checked || (/select|textarea/i).test(this.nodeName) ||
+						(/color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i).test(this.type));
 			})
 			.map(function (i, elem) {
 				var val = jQuery(this).val();
@@ -904,15 +909,15 @@
 				return val === null || val === '' ?
 					null :
 					jQuery.isArray(val) ?
-						jQuery.map(val, function (val, i) {
-							return {
-								name: elem.name,
-								value: val
-							};
-						}) : {
+					jQuery.map(val, function (val, i) {
+						return {
 							name: elem.name,
 							value: val
 						};
+					}) : {
+						name: elem.name,
+						value: val
+					};
 			}).get();
 	};
 
@@ -934,12 +939,12 @@
 
 	$.fn.serializeArrayNull = function () {
 		return this.map(function () {
-			return this.elements ? jQuery.makeArray(this.elements) : this;
-		})
+				return this.elements ? jQuery.makeArray(this.elements) : this;
+			})
 			.filter(function () {
 				return this.name && !this.disabled &&
-																				(this.checked || (/select|textarea/i).test(this.nodeName) ||
-																								(/color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i).test(this.type));
+					(this.checked || (/select|textarea/i).test(this.nodeName) ||
+						(/color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i).test(this.type));
 			})
 			.map(function (i, elem) {
 				var val = jQuery(this).val();
@@ -952,15 +957,15 @@
 				return val === null ?
 					null :
 					jQuery.isArray(val) ?
-						jQuery.map(val, function (val, i) {
-							return {
-								name: elem.name,
-								value: val
-							};
-						}) : {
+					jQuery.map(val, function (val, i) {
+						return {
 							name: elem.name,
 							value: val
 						};
+					}) : {
+						name: elem.name,
+						value: val
+					};
 			}).get();
 	};
 
@@ -987,8 +992,8 @@
 					enc4 = 64;
 				}
 				output = output +
-																				this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
-																				this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+					this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+					this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
 			}
 			return output;
 		},

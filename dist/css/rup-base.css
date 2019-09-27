@@ -5036,7 +5036,7 @@ table.ui-jqgrid-htable > thead > tr.search_row > th > div {
     border-bottom-right-radius: 0;
     display: table-cell; }
   .rup-time-input-group .ui-timepicker-trigger {
-    padding: 0 0.5rem;
+    padding: .1rem 0.5rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     display: table-cell; }
@@ -18087,98 +18087,97 @@ fieldset {
 .form-groupMaterial[class*="col-"] textarea ~ label {
   left: 19px; }
 
-/* ESTILOS */
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0); }
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0); }
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.05); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.05); }
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1); } }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1); } }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1); }
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.4); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.4); }
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.6); } }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.6); } }
 
 .radio-material {
-  margin: 0.5em 0; }
+  margin: .5em 0; }
   .radio-material.radio-material-inline {
     display: inline-block; }
-  .radio-material input[type="radio"] {
-    opacity: 0;
+  .radio-material input[type='radio'] {
+    position: absolute;
+    z-index: -1;
     /* CUANDO PASA EL RATON POR ENCIMA */
     /* CUANDO TIENE EL FOCO */
     /* CUANDO ESTA SELECCIONADO */
     /* CUANDO ESTA DISABLED */ }
-    .radio-material input[type="radio"]:hover:enabled ~ label:before, .radio-material input[type="radio"]:checked:hover:enabled ~ label:before {
-      animation: ripple-hover 0.2s linear forwards; }
-    .radio-material input[type="radio"]:focus ~ label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type="radio"]:checked ~ label:before {
+    .radio-material input[type='radio']:hover:enabled ~ label::before,
+    .radio-material input[type='radio']:checked:hover:enabled ~ label::before {
+      animation: ripple-hover .2s linear forwards; }
+    .radio-material input[type='radio']:focus ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:checked ~ label::before {
       border-color: #1472a4; }
-    .radio-material input[type="radio"]:checked ~ label:after {
+    .radio-material input[type='radio']:checked ~ label::after {
       transform: scale(1); }
-    .radio-material input[type="radio"]:active:enabled ~ label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type="radio"]:disabled ~ label:before {
+    .radio-material input[type='radio']:active:enabled ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:disabled ~ label::before {
       border-color: rgba(0, 0, 0, 0.26); }
-    .radio-material input[type="radio"]:disabled ~ label:after {
+    .radio-material input[type='radio']:disabled ~ label::after {
       background: rgba(0, 0, 0, 0.26); }
   .radio-material label {
+    cursor: pointer;
     display: inline-block;
     height: 18px;
-    position: relative;
-    padding-left: 28px;
     margin-bottom: 0;
-    cursor: pointer;
+    padding-left: 28px;
+    position: relative;
     vertical-align: bottom; }
-    .radio-material label:before, .radio-material label:after {
-      position: absolute;
-      content: '';
+    .radio-material label::before, .radio-material label::after {
       border-radius: 50%;
       box-sizing: border-box;
+      content: '';
+      position: absolute;
       transition: all .3s ease;
       transition-property: transform, border-color; }
-    .radio-material label:before {
+    .radio-material label::before {
+      border: 2px solid rgba(0, 0, 0, 0.54);
+      height: 18px;
       left: 0;
       top: 0;
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(0, 0, 0, 0.54); }
-    .radio-material label:after {
-      top: 5px;
-      left: 5px;
-      width: 8px;
+      width: 18px; }
+    .radio-material label::after {
+      background: #1472a4;
       height: 8px;
+      left: 5px;
+      top: 5px;
       transform: scale(0);
-      background: #1472a4; }
+      width: 8px; }
     .radio-material label:disabled {
       pointer-events: none; }
 
-/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
-.dialog-content-material .radio-material label:before, .dialog-content-material .radio-material label:after {
+.dialog-content-material .radio-material label::before, .dialog-content-material .radio-material label::after {
   left: 6px; }
 
-/* ESTILOS */
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0); }
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0); }
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.05); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.05); }
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1); } }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1); } }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1); }
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.4); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.4); }
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.6); } }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.6); } }
 
 .checkbox-material {
   position: relative;
@@ -18248,19 +18247,17 @@ fieldset {
   display: inline-block;
   margin: initial; }
 
-table div.checkbox-material-inline label:before, table div.checkbox-material-inline label:after {
+table div.checkbox-material-inline label::before, table div.checkbox-material-inline label::after {
   top: 3px; }
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
 .form-groupMaterial.checkbox-material > label {
-  position: initial;
-  line-height: 2.9em; }
-  .form-groupMaterial.checkbox-material > label:before, .form-groupMaterial.checkbox-material > label:after {
+  line-height: 2.9em;
+  position: initial; }
+  .form-groupMaterial.checkbox-material > label::before, .form-groupMaterial.checkbox-material > label::after {
     left: 5px;
     top: 10px; }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
-.dialog-content-material .checkbox-material label:before, .dialog-content-material .checkbox-material label:after {
+.dialog-content-material .checkbox-material label::before, .dialog-content-material .checkbox-material label::after {
   left: 6px; }
 
 /* REDONDEAMOS LOS BORDES DE LA TABLA */
@@ -21307,16 +21304,22 @@ ul.rup_menu_horizontal.ui-widget.ui-widget-content {
   text-decoration: underline; }
 
 .table-bordered {
-  border: 1px solid silver;
+  border: 1px solid #c0c0c0;
   border-bottom: 1px solid #dee2e6; }
 
 .paginationContainer {
-  border: 1px solid silver;
-  border-top: none;
+  border: 1px solid #c0c0c0;
+  border-top: 0;
   padding: 5px 0; }
 
 td > div.centerOnResponsiveContainer {
   display: flex; }
+
+.dataTable .sorting_asc .mdi.mdi-arrow-up::before {
+  font-weight: 600; }
+
+.dataTable .sorting_desc .mdi.mdi-arrow-down::before {
+  font-weight: 600; }
 
 /*!
  * Copyright 2013 E.J.I.E., S.A.
@@ -23204,7 +23207,7 @@ form.rup_validate label.error {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
   #cal-slide-tick:before {
-    content: "\f0d7"; }
+    content: "\F72D"; }
 
 #cal-slide-tick.tick-month1 {
   left: 12.5%; }
