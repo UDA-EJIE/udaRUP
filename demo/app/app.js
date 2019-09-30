@@ -35,6 +35,8 @@ import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
 // import DashboardView from 'dashboard/dashboardView';
 import CalendarView from 'components/calendar/calendarView';
+import ListView from 'list/listView';
+
 
 var RupResponsiveDemoApp = new Marionette.Application();
 
@@ -75,7 +77,8 @@ var MyRouter = Marionette.AppRouter.extend({
         'mobileTabletDesktop': 'mobileTabletDesktop',
         // 'mobileTabletDesktop': 'mobileTabletDesktop',
         // 'dashboard': 'dashboard',
-        'calendar': 'calendar'
+        'calendar': 'calendar',
+        'list':'list'
     }
 });
 
@@ -189,6 +192,9 @@ var RouteController = Marionette.Controller.extend({
     // },
     calendar: function () {
         RupResponsiveDemoApp.mainView.Container.show(new CalendarView());
+    },
+    list: function () {
+        RupResponsiveDemoApp.mainView.Container.show(new ListView());
     }
 });
 

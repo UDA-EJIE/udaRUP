@@ -1,0 +1,42 @@
+
+<h2> Componente rup_list </h2>
+
+{{> _listFilterForm}}
+<div id="rup-list-feedback" />
+<div id="rup-list-content">
+    <fieldset id="rup-list-header">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="rup-list-header-rowNum">Elementos por página:</label>
+                <select id="rup-list-header-rowNum"/>
+            </div>
+            <!-- Ordenar por -->
+            <div class="col-md-4">
+                <label for="rup-list-header-sidx">Ordenar por:</label>
+                <select id="rup-list-header-sidx"/>
+                <button id="rup-list-header-sord">
+                    <i class="mdi mdi-sort"/>
+                </button>
+            </div>
+            <!-- Navegación -->
+            <div class="col-md-4">
+                <nav id="rup-list-header-nav"/>
+            </div>
+        </div>
+    </fieldset>
+    <div id="rup-list"></div>
+    <div id="rup-list-itemTemplate">
+        <div id="templateContent">
+            <div class="row">
+                <h3> Datos del usuario <b><span id="usuario_label"></span></b></h3>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>Email :<span id="email_label"></span></li>
+                    <li>Edad :<span id="edad_label"></span></li>
+                    <li>Codigo cliente :<span id="codCliente_label"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
