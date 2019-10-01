@@ -53,8 +53,63 @@ const card6 = {
     , condition: 'vip'
     , credito: 100
 };
+const card7 = {
+    usuario:'user7'
+    , email:'user7@mail.com'
+    , edad: 23
+    , codCliente: 240
+    , codigoPK: 7
+    , condition: 'novip'
+    , credito: 100
+};
+const card8 = {
+    usuario:'user8'
+    , email:'user8@mail.com'
+    , edad: 18
+    , codCliente: 241
+    , codigoPK: 8
+    , condition: 'vip'
+    , credito: 100
+};
+const card9 = {
+    usuario:'user9'
+    , email:'user9@mail.com'
+    , edad: 39
+    , codCliente: 242
+    , codigoPK: 9
+    , condition: 'vip'
+    , credito: 100
+};
+const card10 = {
+    usuario:'user10'
+    , email:'user10@mail.com'
+    , edad: 40
+    , codCliente: 243
+    , codigoPK: 10
+    , condition: 'novip'
+    , credito: 100
+};
+const card11 = {
+    usuario:'user11'
+    , email:'user11@mail.com'
+    , edad: 21
+    , codCliente: 244
+    , codigoPK: 11
+    , condition: 'novip'
+    , credito: 100
+};
+const card12 = {
+    usuario:'user12'
+    , email:'user12@mail.com'
+    , edad: 12
+    , codCliente: 245
+    , codigoPK: 12
+    , condition: 'vip'
+    , credito: 100
+};
 
-const allregs = JSON.parse(JSON.stringify([card1, card2, card3, card4, card5, card6]));
+const allregs = JSON.parse(JSON.stringify(
+    [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12]));
 
 function getResult(req) {
     var filtered;

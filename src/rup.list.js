@@ -61,25 +61,25 @@
         _setOption: function (key, value) {
             var opciones = this.options;
             switch (key) {
-            case 'rowNum':
-                opciones.rowNum['value'] = value;
-                opciones.page = 1;
-                this.reload();
-                break;
-            case 'page':
-                opciones.page = value;
-                this.reload();
-                break;
-            case 'sidx':
-                opciones.sidx['value'] = value;
-                opciones.page = 1;
-                this.reload();
-                break;
-            case 'sord':
-                opciones.sord = value;
-                opciones.page = 1;
-                this.reload();
-                break;
+                case 'rowNum':
+                    opciones.rowNum['value'] = value;
+                    opciones.page = 1;
+                    this.reload();
+                    break;
+                case 'page':
+                    opciones.page = value;
+                    this.reload();
+                    break;
+                case 'sidx':
+                    opciones.sidx['value'] = value;
+                    opciones.page = 1;
+                    this.reload();
+                    break;
+                case 'sord':
+                    opciones.sord = value;
+                    opciones.page = 1;
+                    this.reload();
+                    break;
             }
         },
 
@@ -103,164 +103,211 @@
         },
 
         _create: function () {
-            var self = this;
+            global.initRupI18nPromise.then(() => {
+                var self = this;
 
-            if (!self._validateSkeleton()) {
-                $.rup_messages('msgAlert', {
-                    title: 'Esqueleto no válido',
-                    message: 'El esqueleto HTML sobre el que montar el listado no es correcto'
+                if (!self._validateSkeleton()) {
+                    $.rup_messages('msgAlert', {
+                        title: 'Esqueleto no válido',
+                        message: 'El esqueleto HTML sobre el que montar el listado no es correcto'
+                    });
+                    return;
+                }
+
+                var opciones = self.options;
+
+                // Si el nÃºmero de pÃ¡ginas visibles se ha definido menor que 3 se eleva a 3 que es el mÃ­nimo
+                opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
+
+                opciones._idContent = self.element.attr('id') + '-content';
+                opciones.content = $('#' + opciones._idContent);
+
+                opciones.feedback = $('#' + opciones.feedback).rup_feedback({
+                    gotoTop: false
                 });
-                return;
-            }
 
-            var opciones = self.options;
+                opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
+                opciones.itemTemplate = $('#' + opciones._idItemTemplate);
 
-            // Si el nÃºmero de pÃ¡ginas visibles se ha definido menor que 3 se eleva a 3 que es el mÃ­nimo
-            opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
+                opciones._idListHeader = {};
+                opciones._idListHeader.header = self.element.attr('id') + '-header';
+                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
+                opciones._idListHeader.pagePrev = self.element.attr('id') + '-header-page-prev';
+                opciones._idListHeader.pageNext = self.element.attr('id') + '-header-page-next';
+                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
+                opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
+                opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
+                opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
 
-            opciones._idContent = self.element.attr('id') + '-content';
-            opciones.content = $('#' + opciones._idContent);
+                opciones._header = {};
+                opciones._header.obj = $('#' + opciones._idListHeader.header);
+                opciones._header.pagenav = $('#' + opciones._idListHeader.pagenav);
+                opciones._header.pagePrev = $('#' + opciones._idListHeader.pagePrev);
+                opciones._header.pageNext = $('#' + opciones._idListHeader.pageNext);
+                opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
+                opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+                opciones._header.sord = $('#' + opciones._idListHeader.sord);
 
-            opciones.feedback = $('#' + opciones.feedback).rup_feedback({
-                gotoTop: false
-            });
-
-            opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
-            opciones.itemTemplate = $('#' + opciones._idItemTemplate);
-
-            opciones._idListHeader = {};
-            opciones._idListHeader.header = self.element.attr('id') + '-header';
-            opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-            opciones._idListHeader.pagePrev = self.element.attr('id') + '-header-page-prev';
-            opciones._idListHeader.pageNext = self.element.attr('id') + '-header-page-next';
-            opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-            opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
-            opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
-            opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
-
-            opciones._header = {};
-            opciones._header.obj = $('#' + opciones._idListHeader.header);
-            opciones._header.pagenav = $('#' + opciones._idListHeader.pagenav);
-            opciones._header.pagePrev = $('#' + opciones._idListHeader.pagePrev);
-            opciones._header.pageNext = $('#' + opciones._idListHeader.pageNext);
-            opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
-            opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-            opciones._header.sord = $('#' + opciones._idListHeader.sord);
-
-            if (opciones.createFooter) {
-                var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
-                $('#' + self.element.attr('id')).after(footerHTML);
-            }
-
-            opciones._idListFooter = {};
-            opciones._idListFooter.footer = self.element.attr('id') + '-footer';
-            opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
-            opciones._idListFooter.pagePrev = self.element.attr('id') + '-footer-page-prev';
-            opciones._idListFooter.pageNext = self.element.attr('id') + '-footer-page-next';
-            opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
-            opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
-            opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
-
-            opciones._footer = {};
-            opciones._footer.obj = $('#' + opciones._idListFooter.footer);
-            opciones._footer.pagenav = $('#' + opciones._idListFooter.pagenav);
-            opciones._footer.pagePrev = $('#' + opciones._idListFooter.pagePrev);
-            opciones._footer.pageNext = $('#' + opciones._idListFooter.pageNext);
-            opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
-            opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
-            opciones._footer.sord = $('#' + opciones._idListFooter.sord);
-
-            // RowNum select to rup-combo
-            var rowNumRupConf = {
-                source: opciones.rowNum.source,
-                width: 'initial',
-                selected: opciones.rowNum.value,
-                rowStriping: true,
-                ordered: false,
-                change: function () {
-                    if (!$(this).rup_combo('isDisabled')) {
-                        opciones._header.rowNum.rup_combo('disable');
-                        opciones._footer.rowNum.rup_combo('disable');
-                        opciones._header.rowNum.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                        opciones._footer.rowNum.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                        self._setOption('rowNum', $(this).rup_combo('getRupValue'));
-                        opciones._header.rowNum.rup_combo('enable');
-                        opciones._footer.rowNum.rup_combo('enable');
-                    }
+                if (opciones.createFooter) {
+                    var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
+                    $('#' + self.element.attr('id')).after(footerHTML);
                 }
-            };
-            opciones._header.rowNum.rup_combo(rowNumRupConf);
-            opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
-            opciones._footer.rowNum.rup_combo(rowNumRupConf);
-            opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
 
-            // Sidx select to rup-combo
-            var sidxRupConf = {
-                source: opciones.sidx.source,
-                width: 'initial',
-                selected: opciones.sidx.value,
-                rowStriping: true,
-                ordered: false,
-                change: function () {
-                    if (!$(this).rup_combo('isDisabled')) {
-                        opciones._header.sidx.rup_combo('disable');
-                        opciones._footer.sidx.rup_combo('disable');
-                        opciones._header.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                        opciones._footer.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                        self._setOption('sidx', $(this).rup_combo('getRupValue'));
-                        opciones._header.sidx.rup_combo('enable');
-                        opciones._footer.sidx.rup_combo('enable');
+                opciones._idListFooter = {};
+                opciones._idListFooter.footer = self.element.attr('id') + '-footer';
+                opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
+                opciones._idListFooter.pagePrev = self.element.attr('id') + '-footer-page-prev';
+                opciones._idListFooter.pageNext = self.element.attr('id') + '-footer-page-next';
+                opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
+                opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
+                opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
+
+                opciones._footer = {};
+                opciones._footer.obj = $('#' + opciones._idListFooter.footer);
+                opciones._footer.pagenav = $('#' + opciones._idListFooter.pagenav);
+                opciones._footer.pagePrev = $('#' + opciones._idListFooter.pagePrev);
+                opciones._footer.pageNext = $('#' + opciones._idListFooter.pageNext);
+                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+                opciones._footer.sord = $('#' + opciones._idListFooter.sord);
+
+                // RowNum select to rup-combo
+                var rowNumRupConf = {
+                    source: opciones.rowNum.source,
+                    width: 'initial',
+                    selected: opciones.rowNum.value,
+                    rowStriping: true,
+                    ordered: false,
+                    change: function () {
+                        if (!$('#' + this.id).rup_combo('isDisabled')) {
+                            if(this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')){
+                                opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                                opciones._header.rowNum.rup_combo('disable');
+                            }
+                            if(this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')){
+                                opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                                opciones._footer.rowNum.rup_combo('disable');
+                            }
+                            self._setOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._header.rowNum.rup_combo('enable');
+                            opciones._footer.rowNum.rup_combo('enable');
+                        }
                     }
+                };
+                opciones._header.rowNum.rup_combo(rowNumRupConf);
+                opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
+                opciones._footer.rowNum.rup_combo(rowNumRupConf);
+                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+
+                // Sidx select to rup-combo
+                var sidxRupConf = {
+                    source: opciones.sidx.source,
+                    width: 'initial',
+                    selected: opciones.sidx.value,
+                    rowStriping: true,
+                    ordered: false,
+                    change: function () {
+                        if (!$(this).rup_combo('isDisabled')) {
+                            opciones._header.sidx.rup_combo('disable');
+                            opciones._footer.sidx.rup_combo('disable');
+                            opciones._header.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
+                            opciones._footer.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
+                            self._setOption('sidx', $(this).rup_combo('getRupValue'));
+                            opciones._header.sidx.rup_combo('enable');
+                            opciones._footer.sidx.rup_combo('enable');
+                        }
+                    }
+                };
+                opciones._header.sidx.rup_combo(sidxRupConf);
+                opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+                opciones._footer.sidx.rup_combo(sidxRupConf);
+                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+
+                // InicializaciÃ³n sord
+                var sordH = opciones._header.sord.find('i');
+                var sordF = opciones._footer.sord.find('i');
+
+                if (opciones.sord === 'asc') {
+                    sordH.addClass('fa-sort-amount-asc');
+                    sordF.addClass('fa-sort-amount-asc');
+                    sordH.removeClass('fa-sort-amount-desc');
+                    sordF.removeClass('fa-sort-amount-desc');
+                } else {
+                    sordH.addClass('fa-sort-amount-desc');
+                    sordF.addClass('fa-sort-amount-desc');
+                    sordH.removeClass('fa-sort-amount-asc');
+                    sordF.removeClass('fa-sort-amount-asc');
                 }
-            };
-            opciones._header.sidx.rup_combo(sidxRupConf);
-            opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-            opciones._footer.sidx.rup_combo(sidxRupConf);
-            opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
 
-            // InicializaciÃ³n sord
-            var sordH = opciones._header.sord.find('i');
-            var sordF = opciones._footer.sord.find('i');
+                // Funcionamiento botÃ³n sord
+                $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
+                    sordH.toggleClass('fa-sort-amount-asc');
+                    sordH.toggleClass('fa-sort-amount-desc');
+                    sordF.toggleClass('fa-sort-amount-asc');
+                    sordF.toggleClass('fa-sort-amount-desc');
+                    self._setOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                });
 
-            if (opciones.sord === 'asc') {
-                sordH.addClass('fa-sort-amount-asc');
-                sordF.addClass('fa-sort-amount-asc');
-                sordH.removeClass('fa-sort-amount-desc');
-                sordF.removeClass('fa-sort-amount-desc');
-            } else {
-                sordH.addClass('fa-sort-amount-desc');
-                sordF.addClass('fa-sort-amount-desc');
-                sordH.removeClass('fa-sort-amount-asc');
-                sordF.removeClass('fa-sort-amount-asc');
-            }
+                // AsociaciÃ³n de eventos
+                self.element.on('load', opciones.load);
 
-            // Funcionamiento botÃ³n sord
-            $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                sordH.toggleClass('fa-sort-amount-asc');
-                sordH.toggleClass('fa-sort-amount-desc');
-                sordF.toggleClass('fa-sort-amount-asc');
-                sordF.toggleClass('fa-sort-amount-desc');
-                self._setOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                // Funcionalidad pagenav Ant./Sig.
+
+                var onPageChange = (elem) => {
+                    if($(elem).is('.disabled')){
+                        return false;
+                    }
+                    let maxpage = $('.page').eq(-1).attr('data-page');
+                    let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
+                    if(actualPage == 1){
+                        opciones._header.pagePrev.addClass('disabled');
+                        opciones._footer.pagePrev.addClass('disabled');
+                        opciones._header.pageNext.removeClass('disabled');
+                        opciones._footer.pageNext.removeClass('disabled');
+                        return true;
+                    }
+                    if(actualPage == maxpage){
+                        opciones._header.pagePrev.removeClass('disabled');
+                        opciones._footer.pagePrev.removeClass('disabled');
+                        opciones._header.pageNext.addClass('disabled');
+                        opciones._footer.pageNext.addClass('disabled');
+                        return true;
+                    }
+                    
+                    opciones._header.pagePrev.removeClass('disabled');
+                    opciones._footer.pagePrev.removeClass('disabled');
+                    opciones._header.pageNext.removeClass('disabled');
+                    opciones._footer.pageNext.removeClass('disabled');
+                    return true;
+                };
+
+                opciones._header.pagePrev.on('click', function () {
+                    if(!onPageChange(this)){
+                        return;
+                    }
+                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+                });
+                opciones._header.pageNext.on('click', function () {
+                    if(!onPageChange(this)){
+                        return;
+                    }
+                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+                });
+                opciones._footer.pagePrev.on('click', function () {
+                    if(!onPageChange(this)){
+                        return;
+                    }
+                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+                });
+                opciones._footer.pageNext.on('click', function () {
+                    if(!onPageChange(this)){
+                        return;
+                    }
+                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+                });
+
+                $('#' + opciones._idItemTemplate).hide();
             });
-
-            // AsociaciÃ³n de eventos
-            self.element.on('load', opciones.load);
-
-            // Funcionalidad pagenav Ant./Sig.
-            opciones._header.pagePrev.on('click', function () {
-                self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-            });
-            opciones._header.pageNext.on('click', function () {
-                self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-            });
-            opciones._footer.pagePrev.on('click', function () {
-                self._setOption('page', opciones._footer.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-            });
-            opciones._footer.pageNext.on('click', function () {
-                self._setOption('page', opciones._footer.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-            });
-
-            $('#' + opciones._idItemTemplate).hide();
         },
 
         _pagenavManagement: function (numPages) {

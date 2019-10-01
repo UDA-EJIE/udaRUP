@@ -21,7 +21,9 @@ define(['jquery', 'marionette',
             $('#listFilterForm').find('input').val('');
             $('#rup-list').rup_list('filter');
         });
-        $('#listFilterAceptar').on('click', () => {
+        $('#listFilterAceptar').on('click', (e) => {
+            e.stopImmediatePropagation();
+            e.preventDefault();
             $('#rup-list').rup_list('filter');
         });
         //Generamos el componente
