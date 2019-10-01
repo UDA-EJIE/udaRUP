@@ -5,6 +5,8 @@ const card1 = {
     , edad: 20
     , codCliente: 234
     , codigoPK: 1
+    , condition: 'vip'
+    , credito: 100
 };
 const card2 = {
     usuario:'user2'
@@ -12,6 +14,8 @@ const card2 = {
     , edad: 17
     , codCliente: 235
     , codigoPK: 2
+    , condition: 'vip'
+    , credito: 100
 };
 const card3 = {
     usuario:'user3'
@@ -19,6 +23,8 @@ const card3 = {
     , edad: 34
     , codCliente: 236
     , codigoPK: 3
+    , condition: 'vip'
+    , credito: 100
 };
 const card4 = {
     usuario:'user4'
@@ -26,6 +32,8 @@ const card4 = {
     , edad: 40
     , codCliente: 237
     , codigoPK: 4
+    , condition: 'novip'
+    , credito: 100
 };
 const card5 = {
     usuario:'user5'
@@ -33,6 +41,8 @@ const card5 = {
     , edad: 25
     , codCliente: 238
     , codigoPK: 5
+    , condition: 'novip'
+    , credito: 100
 };
 const card6 = {
     usuario:'user6'
@@ -40,6 +50,8 @@ const card6 = {
     , edad: 22
     , codCliente: 239
     , codigoPK: 6
+    , condition: 'vip'
+    , credito: 100
 };
 
 const allregs = JSON.parse(JSON.stringify([card1, card2, card3, card4, card5, card6]));

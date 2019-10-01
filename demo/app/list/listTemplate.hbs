@@ -25,18 +25,18 @@
         </div>
     </fieldset>
     <div id="rup-list"></div>
-    <div id="rup-list-itemTemplate">
-        <div id="templateContent">
-            <div class="row">
-                <h3> Datos del <span id="usuario_label"/> <b><span id="usuario_value"></span></b></h3>
-            </div>
-            <div class="row">
-                <ul>
-                    <li>Email :<span id="email_value"/></li>
-                    <li>Edad :<span id="edad_value"/></li>
-                    <li>Codigo cliente :<span id="codCliente_value"/></li>
-                </ul>
-            </div>
+    <div id="rup-list-itemTemplate" class="row" style="border: 1px solid gray; display:flex;margin:3px;">
+        <div class="col-md-1" style="border-right: 1px solid gray;display:flex;justify-content:center;align-items:center;">
+            <span class="mdi mdi-account-circle" style="transform:scale(2);"/>
         </div>
+        <div class="col-md-2" style="border-right: 1px solid gray;display:flex;align-items:center;flex-direction:column;">
+            <b><span id="usuario_label" style="border-bottom: 1px gray solid;"/></b>
+            <span id="usuario_value"/>
+        </div>
+        <div class="col-md-2" style="border-right: 1px solid gray;">
+            <p><span class="mdi mdi-email"/><span id="email_label"/></p>
+            <p><span id="email_value"/></p>
+        </div>
+
     </div>
 </div>

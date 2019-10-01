@@ -43,7 +43,7 @@ gulp.task('watch', [
 	'watch:sass:rup-theme',
 	'watch:sass:rup-jqueryui-theme',
 	'watch:table',
-	'watch:templates:demo',
+    'watch:templates:demo',
 	'watch:templates:rup',
 	// 'watch:templates:rup-core',
 	'watch:minimize:js:rup',
