@@ -58,28 +58,28 @@
             load: function () {}
         },
 
-        _setOption: function (key, value) {
+        _changeOption: function (key, value) {
             var opciones = this.options;
             switch (key) {
-                case 'rowNum':
-                    opciones.rowNum['value'] = value;
-                    opciones.page = 1;
-                    this.reload();
-                    break;
-                case 'page':
-                    opciones.page = value;
-                    this.reload();
-                    break;
-                case 'sidx':
-                    opciones.sidx['value'] = value;
-                    opciones.page = 1;
-                    this.reload();
-                    break;
-                case 'sord':
-                    opciones.sord = value;
-                    opciones.page = 1;
-                    this.reload();
-                    break;
+            case 'rowNum':
+                opciones.rowNum['value'] = value;
+                opciones.page = 1;
+                this.reload();
+                break;
+            case 'page':
+                opciones.page = value;
+                this.reload();
+                break;
+            case 'sidx':
+                opciones.sidx['value'] = value;
+                opciones.page = 1;
+                this.reload();
+                break;
+            case 'sord':
+                opciones.sord = value;
+                opciones.page = 1;
+                this.reload();
+                break;
             }
         },
 
@@ -188,7 +188,7 @@
                                 opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
                                 opciones._footer.rowNum.rup_combo('disable');
                             }
-                            self._setOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
+                            self._changeOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
                             opciones._header.rowNum.rup_combo('enable');
                             opciones._footer.rowNum.rup_combo('enable');
                         }
@@ -212,7 +212,7 @@
                             opciones._footer.sidx.rup_combo('disable');
                             opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
                             opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                            self._setOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
+                            self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
                             opciones._header.sidx.rup_combo('enable');
                             opciones._footer.sidx.rup_combo('enable');
                         }
@@ -245,7 +245,7 @@
                     sordH.toggleClass('fa-sort-amount-desc');
                     sordF.toggleClass('fa-sort-amount-asc');
                     sordF.toggleClass('fa-sort-amount-desc');
-                    self._setOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                    self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
                 });
 
                 // AsociaciÃ³n de eventos
@@ -285,25 +285,25 @@
                     if(!onPageChange(this)){
                         return;
                     }
-                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
                 });
                 opciones._header.pageNext.on('click', function () {
                     if(!onPageChange(this)){
                         return;
                     }
-                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
                 });
                 opciones._footer.pagePrev.on('click', function () {
                     if(!onPageChange(this)){
                         return;
                     }
-                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
                 });
                 opciones._footer.pageNext.on('click', function () {
                     if(!onPageChange(this)){
                         return;
                     }
-                    self._setOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
                 });
 
                 $('#' + opciones._idItemTemplate).hide();
@@ -392,7 +392,7 @@
                     $('#' + opciones._idListFooter.pagenav + ' .page-item.page.active').toggleClass('active');
                     // La pÃ¡gina seleccionada se activa
                     $(this).toggleClass('active');
-                    self._setOption('page', $(this).data('page'));
+                    self._changeOption('page', $(this).data('page'));
                 });
 
             if (opciones.page > 1) {

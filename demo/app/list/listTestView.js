@@ -17,7 +17,9 @@ define(['jquery', 'marionette',
         global.$ = $;
 
         // Preparamos los eventos de la pantalla
-        $('#listFilterLimpiar').on('click', () => {
+        $('#listFilterLimpiar').on('click', (e) => {
+            e.stopImmediatePropagation();
+            e.preventDefault();
             $('#listFilterForm').find('input').val('');
             $('#rup-list').rup_list('filter');
         });
