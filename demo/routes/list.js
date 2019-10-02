@@ -128,6 +128,51 @@ function getResult(req) {
     }
 
     var ordered = filtered; //TODO: Implementar ordenación
+    ordered =(() => {
+        let filterRes = filtered.slice(0);
+        let idx = req.body.sidx.toLowerCase();
+        let ord = req.body.sord.toLowerCase();
+ 
+        switch(idx) {
+        case 'usuario':
+            filterRes.sort((a,b) => {
+                if(a.usuario < b.usuario) {
+                    return -1;
+                }
+                if(a.usuario > b.usuario) {
+                    return 1;
+                }
+                return 0;
+            });
+            break;
+        case 'edad':
+            filterRes.sort((a,b) => {
+                if(a.edad < b.edad) {
+                    return -1;
+                }
+                if(a.edad > b.edad) {
+                    return 1;
+                }
+                return 0;
+            });
+            break;
+        case 'codcliente':
+            filterRes.sort((a,b) => {
+                if(a.codCliente < b.codCliente) {
+                    return -1;
+                }
+                if(a.codCliente > b.codCliente) {
+                    return 1;
+                }
+                return 0;
+            });
+            break;
+        }
+        if(ord == 'desc') {
+            return filterRes.reverse();
+        }
+        return filterRes;
+    })();
     var paginasTotales;
     var paginated = (() => {
         let paginatedArray = [];

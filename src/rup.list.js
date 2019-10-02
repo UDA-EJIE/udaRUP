@@ -207,12 +207,12 @@
                     rowStriping: true,
                     ordered: false,
                     change: function () {
-                        if (!$(this).rup_combo('isDisabled')) {
+                        if (!$('#' + this.id).rup_combo('isDisabled')) {
                             opciones._header.sidx.rup_combo('disable');
                             opciones._footer.sidx.rup_combo('disable');
-                            opciones._header.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                            opciones._footer.sidx.rup_combo('setRupValue', $(this).rup_combo('getRupValue'));
-                            self._setOption('sidx', $(this).rup_combo('getRupValue'));
+                            opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            self._setOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
                             opciones._header.sidx.rup_combo('enable');
                             opciones._footer.sidx.rup_combo('enable');
                         }
