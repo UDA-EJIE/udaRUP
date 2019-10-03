@@ -45,6 +45,19 @@ define(['jquery', 'marionette',
                 }],
                 value: 'USUARIO'
             },
+            rowNum: {
+                source: [{
+                    value: '5',
+                    i18nCaption: 'Cinco'
+                }, {
+                    value: '10',
+                    i18nCaption: 'Diez'
+                }, {
+                    value: '20',
+                    i18nCaption: 'Veinte'
+                }],
+                value: '10'
+            },
             load: () => {}
         });
     }
