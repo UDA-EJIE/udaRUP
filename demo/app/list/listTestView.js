@@ -48,13 +48,20 @@ define(['jquery', 'marionette',
                 }],
                 value: 'USUARIO'
             },
-            load: () => {
-                console.log('loaded');
-            }
-        });
-        
-        $('#rup-list').on('load', () => {
-            console.log('loaded2');
+            rowNum: {
+                source: [{
+                    value: '5',
+                    i18nCaption: 'Cinco'
+                }, {
+                    value: '10',
+                    i18nCaption: 'Diez'
+                }, {
+                    value: '20',
+                    i18nCaption: 'Veinte'
+                }],
+                value: '10'
+            },
+            load: () => {}
         });
     }
 
