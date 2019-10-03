@@ -222,5 +222,23 @@ describe('Test rup_list > ', () => {
                 });
             });
         });
+        describe('Control de errores > ', () => {
+            beforeEach((done) => {
+                $('#rup-list').on('load', () => {
+                    done();
+                });
+                $('#listFilterUsuario').val('user20');
+                $('#listFilterAceptar').click();
+            });
+            it('Aparece el feedback con el error:', () => {
+                expect($('#rup-list-feedback').hasClass('rup-feedback_image_error')).toBeTruthy();
+                expect($('#rup-list-feedback').text()).toBe('Error de prueba');
+            });
+            it('No se muestra el componente de listado:', () => {
+                expect($('#rup-list-header').css('display')).toBe('none');
+                expect($('#rup-list').css('display')).toBe('none');
+                expect($('#rup-list-footer').css('display')).toBe('none');
+            });
+        });
     });
 });
