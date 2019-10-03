@@ -34,6 +34,7 @@ define(['jquery', 'marionette',
             action: '/demo/list/filter',
             filterForm: 'listFilterForm',
             feedback: 'rup-list-feedback',
+            visiblePages: 2,
             key: 'codigoPK',
             sidx: {
                 source: [{
@@ -59,7 +60,7 @@ define(['jquery', 'marionette',
                     value: '20',
                     i18nCaption: 'Veinte'
                 }],
-                value: '10'
+                value: '5'
             },
             load: () => {}
         });

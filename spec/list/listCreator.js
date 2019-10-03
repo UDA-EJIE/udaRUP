@@ -152,6 +152,7 @@ export function createList(idLista, callback){
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
         key: 'codigoPK',
+        visiblePages: 2,
         sidx: {
             source: [{
                 value: 'USUARIO',
@@ -164,6 +165,19 @@ export function createList(idLista, callback){
                 i18nCaption: 'Codigo cliente'
             }],
             value: 'USUARIO'
+        },
+        rowNum: {
+            source: [{
+                value: '5',
+                i18nCaption: 'Cinco'
+            }, {
+                value: '10',
+                i18nCaption: 'Diez'
+            }, {
+                value: '20',
+                i18nCaption: 'Veinte'
+            }],
+            value: '5'
         }
     });
 }

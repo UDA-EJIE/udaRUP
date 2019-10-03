@@ -83,7 +83,7 @@ const card9 = {
 const card10 = {
     usuario:'user10'
     , email:'user10@mail.com'
-    , edad: 40
+    , edad: 50
     , codCliente: 243
     , codigoPK: 10
     , condition: 'novip'
@@ -107,9 +107,191 @@ const card12 = {
     , condition: 'vip'
     , credito: 100
 };
+const card13 = {
+    usuario:'user13'
+    , email:'user13@mail.com'
+    , edad: 23
+    , codCliente: 246
+    , codigoPK: 13
+    , condition: 'vip'
+    , credito: 100
+};
+const card14 = {
+    usuario:'user14'
+    , email:'user14@mail.com'
+    , edad: 24
+    , codCliente: 247
+    , codigoPK: 14
+    , condition: 'vip'
+    , credito: 100
+};
+const card15 = {
+    usuario:'user15'
+    , email:'user15@mail.com'
+    , edad: 25
+    , codCliente: 248
+    , codigoPK: 15
+    , condition: 'vip'
+    , credito: 100
+};
+const card16 = {
+    usuario:'user16'
+    , email:'user63@mail.com'
+    , edad: 26
+    , codCliente: 249
+    , codigoPK: 16
+    , condition: 'vip'
+    , credito: 100
+};
+const card17 = {
+    usuario:'user17'
+    , email:'user17@mail.com'
+    , edad: 27
+    , codCliente: 250
+    , codigoPK: 17
+    , condition: 'vip'
+    , credito: 100
+};
+const card18 = {
+    usuario:'user18'
+    , email:'user18@mail.com'
+    , edad: 28
+    , codCliente: 251
+    , codigoPK: 18
+    , condition: 'vip'
+    , credito: 100
+};
+const card19 = {
+    usuario:'user19'
+    , email:'user19@mail.com'
+    , edad: 29
+    , codCliente: 252
+    , codigoPK: 19
+    , condition: 'vip'
+    , credito: 100
+};
+const card20 = {
+    usuario:'user20'
+    , email:'user20@mail.com'
+    , edad: 30
+    , codCliente: 253
+    , codigoPK: 20
+    , condition: 'vip'
+    , credito: 100
+};
+const card21 = {
+    usuario:'user21'
+    , email:'user21@mail.com'
+    , edad: 21
+    , codCliente: 254
+    , codigoPK: 21
+    , condition: 'vip'
+    , credito: 100
+};
+const card22 = {
+    usuario:'user22'
+    , email:'user22@mail.com'
+    , edad: 22
+    , codCliente: 255
+    , codigoPK: 22
+    , condition: 'vip'
+    , credito: 100
+};
+const card23 = {
+    usuario:'user23'
+    , email:'user23@mail.com'
+    , edad: 33
+    , codCliente: 256
+    , codigoPK: 23
+    , condition: 'vip'
+    , credito: 100
+};
+const card24 = {
+    usuario:'user24'
+    , email:'user24@mail.com'
+    , edad: 24
+    , codCliente: 257
+    , codigoPK: 24
+    , condition: 'vip'
+    , credito: 100
+};
+const card25 = {
+    usuario:'user25'
+    , email:'user25@mail.com'
+    , edad: 25
+    , codCliente: 258
+    , codigoPK: 25
+    , condition: 'vip'
+    , credito: 100
+};
+const card26 = {
+    usuario:'user26'
+    , email:'user26@mail.com'
+    , edad: 26
+    , codCliente: 259
+    , codigoPK: 26
+    , condition: 'vip'
+    , credito: 100
+};
+const card27 = {
+    usuario:'user27'
+    , email:'user26@mail.com'
+    , edad: 27
+    , codCliente: 260
+    , codigoPK: 27
+    , condition: 'vip'
+    , credito: 100
+};
+const card28 = {
+    usuario:'user28'
+    , email:'user28@mail.com'
+    , edad: 28
+    , codCliente: 261
+    , codigoPK: 28
+    , condition: 'vip'
+    , credito: 100
+};
+const card29 = {
+    usuario:'user29'
+    , email:'user29@mail.com'
+    , edad: 29
+    , codCliente: 262
+    , codigoPK: 29
+    , condition: 'vip'
+    , credito: 100
+};
+const card30 = {
+    usuario:'user30'
+    , email:'user30@mail.com'
+    , edad: 30
+    , codCliente: 263
+    , codigoPK: 30
+    , condition: 'vip'
+    , credito: 100
+};
+const card31  = {
+    usuario:'user31 '
+    , email:'user31 @mail.com'
+    , edad: 31 
+    , codCliente: 264
+    , codigoPK: 31 
+    , condition: 'vip'
+    , credito: 100
+};
+const card32 = {
+    usuario:'user32'
+    , email:'user32@mail.com'
+    , edad: 32
+    , codCliente: 265
+    , codigoPK: 32
+    , condition: 'vip'
+    , credito: 100
+};
 
 const allregs = JSON.parse(JSON.stringify(
-    [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12]));
+    [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12,
+        card13, card14, card15, card16, card17, card18, card19, card20, card21, card22,
+        card23, card24, card25, card26, card27, card28, card29, card30, card31, card32]));
 
 function getResult(req) {
     var filtered;
