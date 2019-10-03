@@ -249,7 +249,7 @@
                 });
 
                 // AsociaciÃ³n de eventos
-                self.element.on('load', opciones.load);
+                $('#' + self.element[0].id).on('load', opciones.load);
 
                 // Funcionalidad pagenav Ant./Sig.
 
@@ -307,6 +307,7 @@
                 });
 
                 $('#' + opciones._idItemTemplate).hide();
+                $('#' + self.element[0].id).trigger('initComplete');
             });
         },
 
@@ -489,6 +490,7 @@
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
                                 var msgRecords =
                                     $.rup.i18nTemplate($.rup.i18n.base.rup_table.defaults, 'recordtext', initRecord, endRecord, records);
+                                opciones.feedback.rup_feedback({});
                                 opciones.feedback.rup_feedback('set', msgRecords, 'ok');
 
                                 self._pagenavManagement(Math.ceil(xhr.records / opciones.rowNum.value));
@@ -541,6 +543,7 @@
                             });
 
                         self.element.trigger('load');
+                        // $('#' + self.element[0].id).trigger('load');
                         self._unlock();
                     },
                     error: function (XMLHttpResponse) {

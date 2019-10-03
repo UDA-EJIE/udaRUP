@@ -146,6 +146,7 @@ export function createList(idLista, callback){
         $('#rup-list').rup_list('filter');
     });
 
+    $('#' + idLista).on('initComplete', callback);
     $('#' + idLista).rup_list({
         action: '/demo/list/filter',
         filterForm: 'listFilterForm',
@@ -163,9 +164,6 @@ export function createList(idLista, callback){
                 i18nCaption: 'Codigo cliente'
             }],
             value: 'USUARIO'
-        },
-        load: () => {
-            callback();
         }
     });
 }

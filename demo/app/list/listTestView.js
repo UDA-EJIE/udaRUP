@@ -14,7 +14,7 @@ define(['jquery', 'marionette',
     });
 
     function fncOnAttach() {
-        global.$ = $;
+        window.$ = $;
 
         // Preparamos los eventos de la pantalla
         $('#listFilterLimpiar').on('click', (e) => {
@@ -28,6 +28,7 @@ define(['jquery', 'marionette',
             e.preventDefault();
             $('#rup-list').rup_list('filter');
         });
+        
         //Generamos el componente
         $('#rup-list').rup_list({
             action: '/demo/list/filter',
@@ -47,7 +48,13 @@ define(['jquery', 'marionette',
                 }],
                 value: 'USUARIO'
             },
-            load: () => {}
+            load: () => {
+                console.log('loaded');
+            }
+        });
+        
+        $('#rup-list').on('load', () => {
+            console.log('loaded2');
         });
     }
 
