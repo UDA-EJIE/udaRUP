@@ -491,6 +491,10 @@
 							// Estilos RUP
 
 							$self.data('uiDialog').uiDialog.addClass('rup-dialog');
+							
+							if($.fn.rup_dialog.defaults.adapter === 'dialog_material') {
+								$self.data('uiDialog').uiDialogTitlebar.addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].titlebarColor());
+							}
 
 							$self.prev("div")
 								.append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
