@@ -22,7 +22,10 @@
 	DialogMaterialAdapter.prototype.classComponent = function () {
 		return 'btn-material btn-material-sm btn-material-primary-low-emphasis';
 	};
-
+	
+	DialogMaterialAdapter.prototype.titlebarColor = function () {
+		return 'app-primary-color';
+	};
 
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};

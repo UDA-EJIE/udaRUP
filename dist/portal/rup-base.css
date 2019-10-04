@@ -23706,9 +23706,17 @@
   }
 }
 
-/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
+/* IMPORTACIÓN DE PALETA DE COLORES */
 
 /* COLORES */
+
+/* PALETA DE COLORES */
+
+.r01gContainer .app-primary-color {
+  background-color: #1472a4 !important;
+}
+
+/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 
 .r01gContainer fieldset {
   border-radius: 5px;
@@ -24760,14 +24768,27 @@
   padding: .3em .4em .5em .4em;
 }
 
-/* ANIMACION */
-
 .r01gContainer div.rup-dialog {
+  /* ANIMACION */
   animation: fadein 1s;
   -webkit-animation: fadein 1s;
   -moz-animation: fadein 1s;
   -ms-animation: fadein 1s;
   -o-animation: fadein 1s;
+  /* QUITAR EL BORDE POR DEFECTO */
+}
+
+.r01gContainer div.rup-dialog.ui-dialog {
+  border: 0px;
+}
+
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar {
+  color: #FFFFFF;
+}
+
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar span.ui-dialog-title,
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar i {
+  font-size: 1.25rem;
 }
 
 /* LABEL */
