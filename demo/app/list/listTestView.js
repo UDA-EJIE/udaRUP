@@ -21,8 +21,7 @@ define(['jquery', 'marionette',
             e.stopImmediatePropagation();
             e.preventDefault();
             $('#listFilterForm').find('input').val('');
-            // $('#rup-list').rup_list('filter');
-            $('#rup-list').rup_list('destroy');
+            $('#rup-list').rup_list('filter');
         });
         $('#listFilterAceptar').on('click', (e) => {
             e.stopImmediatePropagation();
