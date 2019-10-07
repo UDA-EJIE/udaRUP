@@ -21,7 +21,8 @@ define(['jquery', 'marionette',
             e.stopImmediatePropagation();
             e.preventDefault();
             $('#listFilterForm').find('input').val('');
-            $('#rup-list').rup_list('filter');
+            // $('#rup-list').rup_list('filter');
+            $('#rup-list').rup_list('destroy');
         });
         $('#listFilterAceptar').on('click', (e) => {
             e.stopImmediatePropagation();
@@ -36,6 +37,10 @@ define(['jquery', 'marionette',
             feedback: 'rup-list-feedback',
             visiblePages: 2,
             key: 'codigoPK',
+            selectable:{
+                multi: true
+                , selector: '.mdi-account-circle'
+            },
             sidx: {
                 source: [{
                     value: 'USUARIO',
@@ -61,6 +66,10 @@ define(['jquery', 'marionette',
                     i18nCaption: 'Veinte'
                 }],
                 value: '5'
+            },
+            modElement:(ev, item, json) => {
+                var userVal = item.find('#usuario_value_' + json.codigoPK);
+                userVal.text(userVal.text() + ' :D');
             },
             load: () => {}
         });

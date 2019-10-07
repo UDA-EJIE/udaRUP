@@ -152,6 +152,7 @@ export function createList(idLista, callback){
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
         key: 'codigoPK',
+        modElement:() => {},
         visiblePages: 2,
         sidx: {
             source: [{

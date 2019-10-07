@@ -55,6 +55,7 @@
             sord: 'asc',
             visiblePages: 5,
             createFooter: true,
+            modElement:() => {},
             load: function () {}
         },
 
@@ -250,6 +251,10 @@
 
                 // AsociaciÃ³n de eventos
                 $('#' + self.element[0].id).on('load', opciones.load);
+                $('#' + self.element[0].id).on('modElement', (e, item, json) => {
+                    opciones.modElement(e, item, json);
+                    self.element.append(item);
+                });
 
                 // Funcionalidad pagenav Ant./Sig.
 
@@ -305,6 +310,46 @@
                     }
                     self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
                 });
+
+                //Gestion de multiselección
+                if(opciones.selectable){
+                    $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
+                    $('[rup-list-selector="enabled"]').click(function (e) {
+                        let clickedElemIdArr = e.currentTarget.id.split('_');
+                        let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
+                        if(opciones.multiselection.selectedIds.includes(clickedPK)){
+                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
+                            opciones.multiselection.selectedIds.splice(index, 1);
+                        } else {
+                            if(!opciones.selectable.multi){
+                                opciones.multiselection.selectedAll = false;
+                                opciones.multiselection.selectedIds = [];
+                                opciones.multiselection.selectedRowsPerPage = [];
+                            }
+                            opciones.multiselection.selectedRowsPerPage.push({
+                                id: self.element[0].id + '-itemTemplate_' + clickedPK
+                                , line: (function() {
+                                    let cont = 0;
+                                    let final = 0;
+                                    self.element.children().toArray().forEach(element => {
+                                        if(element.id == self.element.id + '-itemTemplate_' + clickedPK) {
+                                            final = cont;
+                                        }
+                                        cont++;
+                                    });
+                                    return final;
+                                })()
+                                , page: opciones.page
+                            });
+                            opciones.multiselection.selectedIds.push(clickedPK);
+                        }
+                    });
+                    opciones.multiselection = {
+                        selectedIds: []
+                        , selectedAll: false
+                        , selectedRowsPerPage: []
+                    };
+                }
 
                 $('#' + opciones._idItemTemplate).hide();
                 $('#' + self.element[0].id).trigger('initComplete');
@@ -436,6 +481,14 @@
 
         destroy: function () {
             // TODO: Eliminar el componente.
+            var self = this;
+            let id = self.element[0].id;
+            $('#'+ id).children().remove();
+            $('#'+ id +'-header').remove();
+            if(self.options.createFooter){
+                $('#'+ id +'-footer').remove();
+            }
+            self.options.feedback.rup_feedback('destroy');
             $.Widget.prototype.destroy.apply(this, arguments);
         },
 
@@ -453,6 +506,7 @@
                 rows: opciones.rowNum.value,
                 sidx: opciones.sidx.value,
                 sord: opciones.sord
+                , multiselection: opciones.multiselection
             };
 
             opciones.feedback.rup_feedback('hide');
@@ -501,6 +555,10 @@
 
                                     var elemArr = $.rup_utils.jsontoarray(elem);
                                     var elemArrKeys = Object.keys($.rup_utils.jsontoarray(elem));
+                                    if(opciones.selectable) {
+                                        let selectorElement = $(opciones.selectable.selector, $item);
+                                        selectorElement.attr('id', selectorElement.attr('id') + '_' + elem[opciones.key]);
+                                    }
 
                                     for (var i = 0; i < elemArrKeys.length; ++i) {
                                         $item.find('[id="' + elemArrKeys[i] + '_label"]')
@@ -510,8 +568,7 @@
                                             .text(elemArr[elemArrKeys[i]])
                                             .attr('id', elemArrKeys[i] + '_value_' + elem[opciones.key]);
                                     }
-
-                                    self.element.append($item);
+                                    $('#' + self.element[0].id).trigger('modElement',[$item,elem]);
                                 });
 
                                 // si ha resultados se muestran cabecera/pie y listado
@@ -615,7 +672,22 @@
             } else {
                 self._doFilter();
             }
+        },
+
+        page:  function (page) {
+            var self = this;
+            self._changeOption('page', page);
+        },
+
+        getSelectedIds: function () {
+            var self = this;
+            var options = self.options.multiselection;
+            return {
+                selectedIds: options.selectedIds
+                , selectedAll: options.selectedAll
+            };
         }
+        
 
         // , _init: function (message, type, imgClass) {}
     });
