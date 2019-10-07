@@ -39,7 +39,7 @@ define(['jquery', 'marionette',
             key: 'codigoPK',
             selectable:{
                 multi: true
-                , selector: '.mdi-account-circle'
+                , selector: '.list-item'
             },
             sidx: {
                 source: [{
