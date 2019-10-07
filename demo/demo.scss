@@ -1,0 +1,20 @@
+/* rup-list*/
+.list-item {
+    border: 1px solid gray;
+    display: flex;
+    margin: 3px;
+    padding: 3px;
+}
+
+.list-item:hover {
+    background-color: #69a3d6;
+    cursor: pointer;
+}
+
+.list-item-selected {
+    background-color: #337ab7;
+}
+
+.list-item-selected:hover {
+    background-color: #337ab7;
+}
