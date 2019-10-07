@@ -10,11 +10,24 @@ div.dialog-content-material + div.rup-table-buttonpanel-material {
 	padding: .3em .4em .5em .4em;
 }
 
-/* ANIMACION */
 div.rup-dialog {
+	/* ANIMACION */
 	animation: fadein 1s;
 	-webkit-animation: fadein 1s;
 	-moz-animation: fadein 1s;
 	-ms-animation: fadein 1s;
 	-o-animation: fadein 1s;
+	
+	/* QUITAR EL BORDE POR DEFECTO */
+	&.ui-dialog {
+		border: 0px;
+		
+		.ui-dialog-titlebar {
+			color: $white-color;
+			
+			span.ui-dialog-title, i {
+				font-size: 1.25rem;
+			}
+		}
+	}
 }
