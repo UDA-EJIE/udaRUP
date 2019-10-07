@@ -320,6 +320,10 @@
                         if(opciones.multiselection.selectedIds.includes(clickedPK)){
                             let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
                             opciones.multiselection.selectedIds.splice(index, 1);
+                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem => 
+                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
+                            );
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         } else {
                             if(!opciones.selectable.multi){
                                 opciones.multiselection.selectedAll = false;
@@ -342,6 +346,7 @@
                                 , page: opciones.page
                             });
                             opciones.multiselection.selectedIds.push(clickedPK);
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         }
                     });
                     opciones.multiselection = {
