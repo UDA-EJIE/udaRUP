@@ -179,3 +179,7 @@ li[id$='_contextMenuToolbar'] {
   background-color:#bababa;
   cursor: pointer;
 }
+
+.context-menu-item.context-menu-visible > .context-menu-list {
+    display:block;
+}
