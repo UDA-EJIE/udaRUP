@@ -317,6 +317,12 @@
                     $('[rup-list-selector="enabled"]').click(function (e) {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
+                        if(opciones.multiselection.selectedIds == null) {
+                            opciones.multiselection.selectedIds = [];
+                        }
+                        if(opciones.multiselection.selectedRowsPerPage == null) {
+                            opciones.multiselection.selectedRowsPerPage = [];
+                        }
                         if(opciones.multiselection.selectedIds.includes(clickedPK)){
                             let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
                             opciones.multiselection.selectedIds.splice(index, 1);
@@ -348,11 +354,17 @@
                             opciones.multiselection.selectedIds.push(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         }
+                        if(opciones.multiselection.selectedIds.length == 0) {
+                            opciones.multiselection.selectedIds = null;
+                        }
+                        if(opciones.multiselection.selectedRowsPerPage.length == 0) {
+                            opciones.multiselection.selectedRowsPerPage = null;
+                        }
                     });
                     opciones.multiselection = {
-                        selectedIds: []
+                        selectedIds: null
                         , selectedAll: false
-                        , selectedRowsPerPage: []
+                        , selectedRowsPerPage: null
                     };
                 }
 
@@ -512,6 +524,10 @@
                 sidx: opciones.sidx.value,
                 sord: opciones.sord
                 , multiselection: opciones.multiselection
+                , core:{
+                    pkNames:[opciones.key]
+                    , pkToken: '~'
+                }
             };
 
             opciones.feedback.rup_feedback('hide');
