@@ -372,18 +372,32 @@ function getResult(req) {
         return paginatedArray;
     })();
 
+    var reorderedSelection = (() => {
+        var rSelection = [];
+        req.body.multiselection.selectedRowsPerPage && req.body.multiselection.selectedRowsPerPage.forEach((arrElem) => {
+            let tmpObj = {
+                page: arrElem.page
+                , pageLine: arrElem.line + 1
+                , tableLine: (req.body.rows * (arrElem.page - 1)) + arrElem.line + 1
+                , pk: {
+                    codigoPK: arrElem.id.split('_').pop()
+                }
+            };
+            rSelection.push(tmpObj);
+        });
+        return rSelection;
+    })();
     var estructura = {
         page: req.body.page
         , rows: paginated[req.body.page - 1]
         , total: paginasTotales
         , records: ordered.length
-        , selectedAll: null
-        , reorderedSelection: null
+        , selectedAll: req.body.multiselection.selectedAll
+        , reorderedSelection: reorderedSelection
     };
 
     //Devolvemos los datos a la lista
     return estructura;
-
 }
 exports.filter = (req, res) => {
     if(req.body.filter.usuario == 'user20'){

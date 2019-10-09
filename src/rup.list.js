@@ -429,6 +429,7 @@
                     });
                     $('#' + elem).addClass('list-item-selected');
                 });
+                self.element.trigger('listAfterMultiselection');
             });
             $('.selectable-deselectAll').on('click', () => {
                 self.options.multiselection.selectedAll = false;
@@ -437,6 +438,7 @@
                 self._getPageIds().forEach((elem) => {
                     $('#' + elem).removeClass('list-item-selected');
                 });
+                self.element.trigger('listAfterMultiselection');
             });
             $('.selectable-selectPage').on('click', () => {
                 if(self.options.multiselection.selectedIds == null) {
@@ -486,6 +488,7 @@
                 if(self.options.multiselection.selectedRowsPerPage.length == 0) {
                     self.options.multiselection.selectedRowsPerPage = null;
                 }
+                self.element.trigger('listAfterMultiselection');
             });
             $('.selectable-deselectPage').on('click', () => {
                 if(self.options.multiselection.selectedIds == null) {
@@ -528,13 +531,14 @@
                         }
                     });
                 }
-                $('.list-item').removeClass('list-item-selected');
+                self.element.children().removeClass('list-item-selected');
                 if(self.options.multiselection.selectedIds.length == 0) {
                     self.options.multiselection.selectedIds = null;
                 }
                 if(self.options.multiselection.selectedRowsPerPage.length == 0) {
                     self.options.multiselection.selectedRowsPerPage = null;
                 }
+                self.element.trigger('listAfterMultiselection');
             });
 
         },

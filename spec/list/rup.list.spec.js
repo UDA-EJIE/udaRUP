@@ -5,6 +5,7 @@ import 'rup.feedback';
 import 'rup.combo';
 import 'rup.form';
 import 'rup.list';
+import 'bootstrap';
 import * as testutils from '../common/specCommonUtils.js';
 import * as listGen from './listCreator';
 
@@ -181,7 +182,6 @@ describe('Test rup_list > ', () => {
                     $('#rup-list').rup_list('filter');
                 });
                 it('No aparece el separador del final: ', () => {
-                    debugger;
                     expect($('.pagination',$('#rup-list-header-nav')).children().eq(-4).text()).toBe('6');
                 });
                 it('Aparece el separador del inicio: ', () => {
@@ -194,7 +194,6 @@ describe('Test rup_list > ', () => {
                     $('#rup-list').rup_list('filter');
                 });
                 it('Aparece el separador del final: ', () => {
-                    debugger;
                     expect($('.pagination',$('#rup-list-header-nav')).children().eq(-3).text()).toBe('...');
                 });
                 it('No aparece el separador del inicio: ', () => {
@@ -238,6 +237,129 @@ describe('Test rup_list > ', () => {
                 expect($('#rup-list-header').css('display')).toBe('none');
                 expect($('#rup-list').css('display')).toBe('none');
                 expect($('#rup-list-footer').css('display')).toBe('none');
+            });
+        });
+        describe('Selección y multiselección > ', () => {
+            beforeEach((done) => {
+                $('#rup-list').on('load', done);
+                $('#rup-list').rup_list('filter');
+            });
+            describe('Creación y funcionamiento del groupButton > ', () => {
+                it('Se crea el botón:', () => {
+                    expect($('button#rup-list-display-selectables', $('#rup-list-header')).length).toBe(1);
+                    expect($('button#rup-list-display-selectables', $('#rup-list-header')).text()).toBe('Opciones de seleccion:');
+                    expect($('button#rup-list-display-selectables', $('#rup-list-footer')).length).toBe(1);
+                    expect($('button#rup-list-display-selectables', $('#rup-list-footer')).text()).toBe('Opciones de seleccion:');
+                });
+                describe('Funcionamiento del botón > ', () => {
+                    beforeEach(() => {
+                        $('#rup-list-display-selectables', $('#rup-list-header')).click();
+                    });
+                    it('Deben mostrarse las opciones de selección:', () => {
+                        expect($('.dropdown-menu[aria-labelledby="rup-list-display-selectables"]', $('#rup-list-header')).is(':visible')).toBeTruthy();
+                    });
+                });
+            });
+            describe('Funcionalidad de las opciones > ', () => {
+                beforeEach(() => {
+                    $('#rup-list-display-selectables', $('#rup-list-header')).click();
+                });
+                describe('Opción Seleccionar página', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('listAfterMultiselection', done);
+                        $('.selectable-selectPage', $('#rup-list-header')).click();
+                    });
+                    it('Los elementos de la pagina se han seleccionado:', () => {
+                        $('#rup-list').children().toArray().forEach((elem) => {
+                            expect($(elem).hasClass('list-item-selected')).toBeTruthy();
+                        });
+                    });
+                    describe('Si vamos a la página siguiente > ', () => {
+                        beforeEach((done) => {
+                            $('#rup-list').on('load', done);
+                            $('#rup-list-header-page-next', $('#rup-list-header')).click();
+                        });
+                        it('Los elementos no están seleccionados', () => {
+                            $('#rup-list').children().toArray().forEach((elem) => {
+                                expect($(elem).hasClass('list-item-selected')).toBeFalsy();
+                            });
+                        });
+                        describe('Si volvemos a la pagina anterior', () => {
+                            beforeEach((done) => {
+                                $('#rup-list').on('load', done);
+                                $('#rup-list-header-page-prev', $('#rup-list-header')).click();
+                            });
+                            it('Los elementos de la pagina siguen estando seleccionados', () => {
+                                $('#rup-list').children().toArray().forEach((elem) => {
+                                    expect($(elem).hasClass('list-item-selected')).toBeTruthy();
+                                });
+                            });
+                        });
+                    });
+                });
+                describe('Opción Deseleccionar página', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('listAfterMultiselection', () => {
+                            $('#rup-list').off('listAfterMultiselection');
+                            $('#rup-list').on('listAfterMultiselection', done);
+                            $('.selectable-deselectPage', $('#rup-list-header')).click();
+                        });
+                        $('.selectable-selectPage', $('#rup-list-header')).click();
+                    });
+                    it('Los elementos no están seleccionados', () => {
+                        $('#rup-list').children().toArray().forEach((elem) => {
+                            expect($(elem).hasClass('list-item-selected')).toBeFalsy();
+                        });
+                    });
+                });
+                describe('Opción Seleccionar todo', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('listAfterMultiselection', done);
+                        $('.selectable-selectAll', $('#rup-list-header')).click();
+                    });
+                    it('Los elementos de la pagina se han seleccionado:', () => {
+                        $('#rup-list').children().toArray().forEach((elem) => {
+                            expect($(elem).hasClass('list-item-selected')).toBeTruthy();
+                        });
+                    });
+                    describe('Si vamos a la página siguiente > ', () => {
+                        beforeEach((done) => {
+                            $('#rup-list').on('load', done);
+                            $('#rup-list-header-page-next', $('#rup-list-header')).click();
+                        });
+                        it('Los elementos no están seleccionados', () => {
+                            $('#rup-list').children().toArray().forEach((elem) => {
+                                expect($(elem).hasClass('list-item-selected')).toBeTruthy();
+                            });
+                        });
+                    });
+                });
+                describe('Opción Deseleccionar todo', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('listAfterMultiselection', () => {
+                            $('#rup-list').off('listAfterMultiselection');
+                            $('#rup-list').on('listAfterMultiselection', done);
+                            $('.selectable-deselectAll', $('#rup-list-header')).click();
+                        });
+                        $('.selectable-selectAll', $('#rup-list-header')).click();
+                    });
+                    it('Los elementos de la pagina se han seleccionado:', () => {
+                        $('#rup-list').children().toArray().forEach((elem) => {
+                            expect($(elem).hasClass('list-item-selected')).toBeFalsy();
+                        });
+                    });
+                    describe('Si vamos a la página siguiente > ', () => {
+                        beforeEach((done) => {
+                            $('#rup-list').on('load', done);
+                            $('#rup-list-header-page-next', $('#rup-list-header')).click();
+                        });
+                        it('Los elementos no están seleccionados', () => {
+                            $('#rup-list').children().toArray().forEach((elem) => {
+                                expect($(elem).hasClass('list-item-selected')).toBeFalsy();
+                            });
+                        });
+                    });
+                });
             });
         });
     });

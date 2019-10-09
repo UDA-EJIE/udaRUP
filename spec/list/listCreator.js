@@ -55,12 +55,15 @@ function getHtml(idLista) {
         '<div id="' + idLista +'-content">' +
             '<fieldset id="' + idLista +'-header">' +
                 '<div class="row">' +
-                    '<div class="col-md-4">' +
+                    '<div id="rup-list-header-selectables" class="col-md-4">' +
+                        'Opciones de seleccion:' +
+                    '</div>' +
+                    '<div class="col-md-2">' +
                         '<label for="' + idLista +'-header-rowNum">Elementos por página:</label>' +
                         '<select id="' + idLista +'-header-rowNum"/>' +
                     '</div>' +
                     '<!-- Ordenar por -->' +
-                    '<div class="col-md-4">' +
+                    '<div class="col-md-2">' +
                         '<label for="' + idLista +'-header-sidx">Ordenar por:</label>' +
                         '<select id="' + idLista +'-header-sidx"/>' +
                         '<button id="' + idLista +'-header-sord">' +
@@ -152,6 +155,10 @@ export function createList(idLista, callback){
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
         key: 'codigoPK',
+        selectable:{
+            multi: true
+            , selector: '.list-item' 
+        },
         modElement:() => {},
         visiblePages: 2,
         sidx: {
