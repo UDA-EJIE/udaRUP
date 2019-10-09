@@ -693,14 +693,14 @@
             }
         },
         /**
-		 * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
+		 * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no ser que se cambie el valor del atributo ordered en la creación.
 		 *
 		 * @function  order
 		 * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
-		 * @param {boolean} orderAsNumber - Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos.
-		 * @param {boolean} skipFirst - Determina si se debe de obviar el primer elemento.
+		 * @param {boolean} orderAsNumber - Indica si se debe ordenar como valores numéricos en vez de alfabéticos.
+		 * @param {boolean} skipFirst - Determina si se debe obviar el primer elemento.
 		 * @example
-		 * $("#idCombo").rup_combo("reload");
+		 * $("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
 		 */
         order: function (orderedByValue, orderAsNumber, skipFirst) {
             var combo = $(this),
