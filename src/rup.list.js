@@ -20,7 +20,6 @@
         factory(jQuery);
     }
 }(function ($) {
-
     $.widget('$.rup_list', {
         options: {
             filterForm: null,
@@ -120,7 +119,7 @@
 
                 var opciones = self.options;
 
-                // Si el nÃºmero de pÃ¡ginas visibles se ha definido menor que 3 se eleva a 3 que es el mÃ­nimo
+                // Si el número de páginas visibles se ha definido menor que 3 se eleva a 3 que es el mínimo
                 opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
 
                 opciones._idContent = self.element.attr('id') + '-content';
@@ -133,6 +132,7 @@
                 opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
                 opciones.itemTemplate = $('#' + opciones._idItemTemplate);
 
+                // HEADER ELEMENTS IDs MAP
                 opciones._idListHeader = {};
                 opciones._idListHeader.header = self.element.attr('id') + '-header';
                 opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
@@ -142,7 +142,9 @@
                 opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
                 opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
                 opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
+                opciones._idListHeader.selectables = self.element.attr('id') + '-header-selectables';
 
+                // HEADER $OBJECTS MAP
                 opciones._header = {};
                 opciones._header.obj = $('#' + opciones._idListHeader.header);
                 opciones._header.pagenav = $('#' + opciones._idListHeader.pagenav);
@@ -151,12 +153,24 @@
                 opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
                 opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
                 opciones._header.sord = $('#' + opciones._idListHeader.sord);
+                opciones._header.selectables = $('#' + opciones._idListHeader.selectables);
+
+                // HEADER $OBJECTS CLASS ASSIGNMENT
+                opciones._header.obj.addClass('rup_list-header');
+                opciones._header.pagenav.addClass('rup_list-header-nav');
+                opciones._header.pagePrev.addClass('rup_list-header-page-prev');
+                opciones._header.pageNext.addClass('rup_list-header-page-next');
+                opciones._header.rowNum.addClass('rup_list-header-rowNum');
+                opciones._header.sidx.addClass('rup_list-header-sidx');
+                opciones._header.sord.addClass('rup_list-header-sord');
+                opciones._header.selectables.addClass('rup_list-header-selectables');
 
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
                     $('#' + self.element.attr('id')).after(footerHTML);
                 }
 
+                // FOOTER ELEMENTS IDs MAP
                 opciones._idListFooter = {};
                 opciones._idListFooter.footer = self.element.attr('id') + '-footer';
                 opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
@@ -165,7 +179,9 @@
                 opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
                 opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
                 opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
+                opciones._idListFooter.selectables = self.element.attr('id') + '-footer-selectables';
 
+                // FOOTER $OBJECTS MAP
                 opciones._footer = {};
                 opciones._footer.obj = $('#' + opciones._idListFooter.footer);
                 opciones._footer.pagenav = $('#' + opciones._idListFooter.pagenav);
@@ -174,6 +190,17 @@
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
                 opciones._footer.sord = $('#' + opciones._idListFooter.sord);
+                opciones._footer.selectables = $('#' + opciones._idListFooter.selectables);
+
+                // FOOTER $OBJECTS CLASS ASSIGNMENT
+                opciones._footer.obj.addClass('rup_list-footer');
+                opciones._footer.pagenav.addClass('rup_list-footer-nav');
+                opciones._footer.pagePrev.addClass('rup_list-footer-page-prev');
+                opciones._footer.pageNext.addClass('rup_list-footer-page-next');
+                opciones._footer.rowNum.addClass('rup_list-footer-rowNum');
+                opciones._footer.sidx.addClass('rup_list-footer-sidx');
+                opciones._footer.sord.addClass('rup_list-footer-sord');
+                opciones._footer.selectables.addClass('rup_list-footer-selectables');
 
                 // RowNum select to rup-combo
                 var rowNumRupConf = {
@@ -379,13 +406,15 @@
 
         _generateSelectablesBtnGroup: function() {
             var self = this;
+            var opciones = self.options;
+
             let $btnGroup = $('<div></div>');
-            $btnGroup.addClass('btn-group').attr('role', 'group');
+            $btnGroup.addClass('btn-group h-100').attr('role', 'group');
             let $displayButton = $('<button></button>');
             $displayButton.addClass('btn btn-secondary dropdown-toggle')
                 .attr('id', self.element.attr('id') + '-display-selectables').attr('type','button')
                 .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
-                .attr('aria-expanded', false).text($('#' + self.element.attr('id') + '-header-selectables').text());
+                .attr('aria-expanded', false).text(opciones._header.selectables.text());
             let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby',self.element.attr('id') + '-display-selectables');
 
             let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
@@ -396,12 +425,12 @@
             $menudiv.append($selectPage).append($deselectPage).append($selectAll).append($deselectAll);
 
             $btnGroup.append($displayButton).append($menudiv);
-            $('#' + self.element.attr('id') + '-header-selectables').text('');
-            $('#' + self.element.attr('id') + '-header-selectables').append($btnGroup.clone());
+            opciones._header.selectables.text('');
+            opciones._header.selectables.append($btnGroup.clone());
 
             if(self.options.createFooter) {
-                $('#' + self.element.attr('id') + '-footer-selectables').text('');
-                $('#' + self.element.attr('id') + '-footer-selectables').append($btnGroup.clone());
+                opciones._footer.selectables.text('');
+                opciones._footer.selectables.append($btnGroup.clone());
             }
 
             //Creamos funcionalidad
