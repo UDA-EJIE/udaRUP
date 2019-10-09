@@ -86,6 +86,9 @@
 
         _validateSkeleton: function () {
             var id = this.element.attr('id');
+            if(this.options.selectable && this.options.selectable.multi) {
+                return $('#' + id + '-header-selectables').length;
+            }
             return $('#' + id + '-content').length &&
                 $('#' + id + '-header').length &&
                 $('select').filter(function () {
@@ -366,11 +369,183 @@
                         , selectedAll: false
                         , selectedRowsPerPage: null
                     };
+                    self._generateSelectablesBtnGroup();
                 }
 
                 $('#' + opciones._idItemTemplate).hide();
                 $('#' + self.element[0].id).trigger('initComplete');
             });
+        },
+
+        _generateSelectablesBtnGroup: function() {
+            var self = this;
+            let $btnGroup = $('<div></div>');
+            $btnGroup.addClass('btn-group').attr('role', 'group');
+            let $displayButton = $('<button></button>');
+            $displayButton.addClass('btn btn-secondary dropdown-toggle')
+                .attr('id', self.element.attr('id') + '-display-selectables').attr('type','button')
+                .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
+                .attr('aria-expanded', false).text($('#' + self.element.attr('id') + '-header-selectables').text());
+            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby',self.element.attr('id') + '-display-selectables');
+
+            let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
+            let $deselectPage = $('<a></a>').addClass('dropdown-item selectable-deselectPage').text('Deseleccionar la página actual');
+            let $selectAll = $('<a></a>').addClass('dropdown-item selectable-selectAll').text('Seleccionar todo');
+            let $deselectAll = $('<a></a>').addClass('dropdown-item selectable-deselectAll').text('Deseleccionar todo');
+
+            $menudiv.append($selectPage).append($deselectPage).append($selectAll).append($deselectAll);
+
+            $btnGroup.append($displayButton).append($menudiv);
+            $('#' + self.element.attr('id') + '-header-selectables').text('');
+            $('#' + self.element.attr('id') + '-header-selectables').append($btnGroup.clone());
+
+            if(self.options.createFooter) {
+                $('#' + self.element.attr('id') + '-footer-selectables').text('');
+                $('#' + self.element.attr('id') + '-footer-selectables').append($btnGroup.clone());
+            }
+
+            //Creamos funcionalidad
+            $('.selectable-selectAll').on('click', () => {
+                self.options.multiselection.selectedAll = true;
+                self.options.multiselection.selectedIds = [];
+                self.options.multiselection.selectedRowsPerPage = [];
+
+                self._getPageIds().forEach((elem) => {
+                    self.options.multiselection.selectedIds.push(elem.split('_').pop());
+                    self.options.multiselection.selectedRowsPerPage.push({
+                        id: elem
+                        , line: (function() {
+                            let cont = 0;
+                            let final = 0;
+                            self.element.children().toArray().forEach(element => {
+                                if(element.id == elem) {
+                                    final = cont;
+                                }
+                                cont++;
+                            });
+                            return final;
+                        })()
+                        , page: self.options.page
+                    });
+                    $('#' + elem).addClass('list-item-selected');
+                });
+            });
+            $('.selectable-deselectAll').on('click', () => {
+                self.options.multiselection.selectedAll = false;
+                self.options.multiselection.selectedIds = null;
+                self.options.multiselection.selectedRowsPerPage = null;
+                self._getPageIds().forEach((elem) => {
+                    $('#' + elem).removeClass('list-item-selected');
+                });
+            });
+            $('.selectable-selectPage').on('click', () => {
+                if(self.options.multiselection.selectedIds == null) {
+                    self.options.multiselection.selectedIds = [];
+                }
+                if(self.options.multiselection.selectedRowsPerPage == null) {
+                    self.options.multiselection.selectedRowsPerPage = [];
+                }
+                if(self.options.multiselection.selectedAll == false) {
+                    self._getPageIds().forEach((arrElem) => {
+                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                        if(tmp.length == 0){
+                            let id = arrElem.split('_').pop();
+                            self.options.multiselection.selectedIds.push(id);
+                            self.options.multiselection.selectedRowsPerPage.push({
+                                id: arrElem
+                                , line: (function() {
+                                    let cont = 0;
+                                    let final = 0;
+                                    self.element.children().toArray().forEach(element => {
+                                        if(element.id == arrElem) {
+                                            final = cont;
+                                        }
+                                        cont++;
+                                    });
+                                    return final;
+                                })()
+                                , page: self.options.page
+                            });
+                            $('#' + arrElem).addClass('list-item-selected');
+                        }
+                    });
+                } else {
+                    self._getPageIds().forEach((arrElem) => {
+                        let tmp = self.options.multiselection.selectedRowsPerPage.fiter(x => x.id == arrElem);
+                        if(tmp.length == 0){
+                            let id = arrElem.split('_').pop();
+                            self.options.multiselection.selectedIds = self.options.multiselection.selectedIds.filter(z => z != id);
+                            self.options.multiselection.selectedRowsPerPage = self.options.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
+                            $('#' + arrElem).addClass('list-item-selected');
+                        }
+                    });
+                }
+                if(self.options.multiselection.selectedIds.length == 0) {
+                    self.options.multiselection.selectedIds = null;
+                }
+                if(self.options.multiselection.selectedRowsPerPage.length == 0) {
+                    self.options.multiselection.selectedRowsPerPage = null;
+                }
+            });
+            $('.selectable-deselectPage').on('click', () => {
+                if(self.options.multiselection.selectedIds == null) {
+                    self.options.multiselection.selectedIds = [];
+                }
+                if(self.options.multiselection.selectedRowsPerPage == null) {
+                    self.options.multiselection.selectedRowsPerPage = [];
+                }
+                if(self.options.multiselection.selectedAll == false) {
+                    self._getPageIds().forEach((arrElem) => {
+                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                        if(tmp.length > 0){
+                            let id = arrElem.split('_').pop();
+                            self.options.multiselection.selectedIds = self.options.multiselection.selectedIds.filter(z => z != id);
+                            self.options.multiselection.selectedRowsPerPage = self.options.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
+                        }
+                    });
+                } else {
+                    self._getPageIds().forEach((arrElem) => {
+                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                        if(tmp.length == 0){
+                            let id = arrElem.split('_').pop();
+                            self.options.multiselection.selectedIds.push(id);
+                            self.options.multiselection.selectedRowsPerPage.push({
+                                id: arrElem
+                                , line: (function() {
+                                    let cont = 0;
+                                    let final = 0;
+                                    self.element.children().toArray().forEach(element => {
+                                        if(element.id == arrElem) {
+                                            final = cont;
+                                        }
+                                        cont++;
+                                    });
+                                    return final;
+                                })()
+                                , page: self.options.page
+                            });
+
+                        }
+                    });
+                }
+                $('.list-item').removeClass('list-item-selected');
+                if(self.options.multiselection.selectedIds.length == 0) {
+                    self.options.multiselection.selectedIds = null;
+                }
+                if(self.options.multiselection.selectedRowsPerPage.length == 0) {
+                    self.options.multiselection.selectedRowsPerPage = null;
+                }
+            });
+
+        },
+
+        _getPageIds : function() {
+            var self = this;
+            var keys = [];
+            $('#' + self.element[0].id).children().toArray().forEach((elem) => {
+                keys.push($(elem)[0].id);
+            });
+            return keys;
         },
 
         _pagenavManagement: function (numPages) {
@@ -579,6 +754,12 @@
                                     if(opciones.selectable) {
                                         let selectorElement = $(opciones.selectable.selector, $item);
                                         selectorElement.attr('id', selectorElement.attr('id') + '_' + elem[opciones.key]);
+                                    }
+                                    if(xhr.reorderedSelection) {
+                                        let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
+                                        if(tmp.length > 0 || xhr.selectedAll) {
+                                            $item.addClass('list-item-selected');
+                                        }
                                     }
 
                                     for (var i = 0; i < elemArrKeys.length; ++i) {
