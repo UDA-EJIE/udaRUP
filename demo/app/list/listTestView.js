@@ -1,7 +1,7 @@
 /* eslint-env jquery,amd */
 define(['jquery', 'marionette',
     './listTemplate.hbs',
-    '../../../src/rup.list.js',
+    'rup.list',
     'rup.combo'
 ], function ($, Marionette, ListTestTemplate) {
     var ListTestView = Marionette.LayoutView.extend({
@@ -28,7 +28,7 @@ define(['jquery', 'marionette',
             e.preventDefault();
             $('#rup-list').rup_list('filter');
         });
-        
+
         //Generamos el componente
         $('#rup-list').rup_list({
             action: '/demo/list/filter',
@@ -36,9 +36,9 @@ define(['jquery', 'marionette',
             feedback: 'rup-list-feedback',
             visiblePages: 2,
             key: 'codigoPK',
-            selectable:{
-                multi: true
-                , selector: '.list-item'
+            selectable: {
+                multi: true,
+                selector: '.list-item'
             },
             sidx: {
                 source: [{
@@ -66,7 +66,7 @@ define(['jquery', 'marionette',
                 }],
                 value: '5'
             },
-            modElement:(ev, item, json) => {
+            modElement: (ev, item, json) => {
                 var userVal = item.find('#usuario_value_' + json.codigoPK);
                 userVal.text(userVal.text() + ' :D');
             },

@@ -20,7 +20,6 @@
         factory(jQuery);
     }
 }(function ($) {
-
     $.widget('$.rup_list', {
         options: {
             filterForm: null,
@@ -55,7 +54,7 @@
             sord: 'asc',
             visiblePages: 5,
             createFooter: true,
-            modElement:() => {},
+            modElement: () => {},
             load: function () {}
         },
 
@@ -63,7 +62,7 @@
             var opciones = this.options;
             switch (key) {
             case 'rowNum':
-                opciones.rowNum['value'] = value;
+                opciones.rowNum.value = value;
                 opciones.page = 1;
                 this.reload();
                 break;
@@ -72,7 +71,7 @@
                 this.reload();
                 break;
             case 'sidx':
-                opciones.sidx['value'] = value;
+                opciones.sidx.value = value;
                 opciones.page = 1;
                 this.reload();
                 break;
@@ -86,7 +85,7 @@
 
         _validateSkeleton: function () {
             var id = this.element.attr('id');
-            if(this.options.selectable && this.options.selectable.multi) {
+            if (this.options.selectable && this.options.selectable.multi) {
                 return $('#' + id + '-header-selectables').length;
             }
             return $('#' + id + '-content').length &&
@@ -120,7 +119,7 @@
 
                 var opciones = self.options;
 
-                // Si el nÃºmero de pÃ¡ginas visibles se ha definido menor que 3 se eleva a 3 que es el mÃ­nimo
+                // Si el número de páginas visibles se ha definido menor que 3 se eleva a 3 que es el mínimo
                 opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
 
                 opciones._idContent = self.element.attr('id') + '-content';
@@ -133,6 +132,7 @@
                 opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
                 opciones.itemTemplate = $('#' + opciones._idItemTemplate);
 
+                // HEADER ELEMENTS IDs MAP
                 opciones._idListHeader = {};
                 opciones._idListHeader.header = self.element.attr('id') + '-header';
                 opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
@@ -142,7 +142,9 @@
                 opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
                 opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
                 opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
+                opciones._idListHeader.selectables = self.element.attr('id') + '-header-selectables';
 
+                // HEADER $OBJECTS MAP
                 opciones._header = {};
                 opciones._header.obj = $('#' + opciones._idListHeader.header);
                 opciones._header.pagenav = $('#' + opciones._idListHeader.pagenav);
@@ -151,12 +153,24 @@
                 opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
                 opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
                 opciones._header.sord = $('#' + opciones._idListHeader.sord);
+                opciones._header.selectables = $('#' + opciones._idListHeader.selectables);
+
+                // HEADER $OBJECTS CLASS ASSIGNMENT
+                opciones._header.obj.addClass('rup_list-header');
+                opciones._header.pagenav.addClass('rup_list-header-nav');
+                opciones._header.pagePrev.addClass('rup_list-header-page-prev');
+                opciones._header.pageNext.addClass('rup_list-header-page-next');
+                opciones._header.rowNum.addClass('rup_list-header-rowNum');
+                opciones._header.sidx.addClass('rup_list-header-sidx');
+                opciones._header.sord.addClass('rup_list-header-sord');
+                opciones._header.selectables.addClass('rup_list-header-selectables');
 
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
                     $('#' + self.element.attr('id')).after(footerHTML);
                 }
 
+                // FOOTER ELEMENTS IDs MAP
                 opciones._idListFooter = {};
                 opciones._idListFooter.footer = self.element.attr('id') + '-footer';
                 opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
@@ -165,7 +179,9 @@
                 opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
                 opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
                 opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
+                opciones._idListFooter.selectables = self.element.attr('id') + '-footer-selectables';
 
+                // FOOTER $OBJECTS MAP
                 opciones._footer = {};
                 opciones._footer.obj = $('#' + opciones._idListFooter.footer);
                 opciones._footer.pagenav = $('#' + opciones._idListFooter.pagenav);
@@ -174,6 +190,17 @@
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
                 opciones._footer.sord = $('#' + opciones._idListFooter.sord);
+                opciones._footer.selectables = $('#' + opciones._idListFooter.selectables);
+
+                // FOOTER $OBJECTS CLASS ASSIGNMENT
+                opciones._footer.obj.addClass('rup_list-footer');
+                opciones._footer.pagenav.addClass('rup_list-footer-nav');
+                opciones._footer.pagePrev.addClass('rup_list-footer-page-prev');
+                opciones._footer.pageNext.addClass('rup_list-footer-page-next');
+                opciones._footer.rowNum.addClass('rup_list-footer-rowNum');
+                opciones._footer.sidx.addClass('rup_list-footer-sidx');
+                opciones._footer.sord.addClass('rup_list-footer-sord');
+                opciones._footer.selectables.addClass('rup_list-footer-selectables');
 
                 // RowNum select to rup-combo
                 var rowNumRupConf = {
@@ -184,11 +211,11 @@
                     ordered: false,
                     change: function () {
                         if (!$('#' + this.id).rup_combo('isDisabled')) {
-                            if(this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')){
+                            if (this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')) {
                                 opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
                                 opciones._header.rowNum.rup_combo('disable');
                             }
-                            if(this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')){
+                            if (this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')) {
                                 opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
                                 opciones._footer.rowNum.rup_combo('disable');
                             }
@@ -262,26 +289,26 @@
                 // Funcionalidad pagenav Ant./Sig.
 
                 var onPageChange = (elem) => {
-                    if($(elem).is('.disabled')){
+                    if ($(elem).is('.disabled')) {
                         return false;
                     }
                     let maxpage = $('.page').eq(-1).attr('data-page');
                     let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
-                    if(actualPage == 1){
+                    if (actualPage == 1) {
                         opciones._header.pagePrev.addClass('disabled');
                         opciones._footer.pagePrev.addClass('disabled');
                         opciones._header.pageNext.removeClass('disabled');
                         opciones._footer.pageNext.removeClass('disabled');
                         return true;
                     }
-                    if(actualPage == maxpage){
+                    if (actualPage == maxpage) {
                         opciones._header.pagePrev.removeClass('disabled');
                         opciones._footer.pagePrev.removeClass('disabled');
                         opciones._header.pageNext.addClass('disabled');
                         opciones._footer.pageNext.addClass('disabled');
                         return true;
                     }
-                    
+
                     opciones._header.pagePrev.removeClass('disabled');
                     opciones._footer.pagePrev.removeClass('disabled');
                     opciones._header.pageNext.removeClass('disabled');
@@ -290,84 +317,84 @@
                 };
 
                 opciones._header.pagePrev.on('click', function () {
-                    if(!onPageChange(this)){
+                    if (!onPageChange(this)) {
                         return;
                     }
                     self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
                 });
                 opciones._header.pageNext.on('click', function () {
-                    if(!onPageChange(this)){
+                    if (!onPageChange(this)) {
                         return;
                     }
                     self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
                 });
                 opciones._footer.pagePrev.on('click', function () {
-                    if(!onPageChange(this)){
+                    if (!onPageChange(this)) {
                         return;
                     }
                     self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
                 });
                 opciones._footer.pageNext.on('click', function () {
-                    if(!onPageChange(this)){
+                    if (!onPageChange(this)) {
                         return;
                     }
                     self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
                 });
 
                 //Gestion de multiselección
-                if(opciones.selectable){
+                if (opciones.selectable) {
                     $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
                     $('[rup-list-selector="enabled"]').click(function (e) {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
-                        if(opciones.multiselection.selectedIds == null) {
+                        if (opciones.multiselection.selectedIds == null) {
                             opciones.multiselection.selectedIds = [];
                         }
-                        if(opciones.multiselection.selectedRowsPerPage == null) {
+                        if (opciones.multiselection.selectedRowsPerPage == null) {
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
-                        if(opciones.multiselection.selectedIds.includes(clickedPK)){
+                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
                             let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
                             opciones.multiselection.selectedIds.splice(index, 1);
-                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem => 
+                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
                                 elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
                             );
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         } else {
-                            if(!opciones.selectable.multi){
+                            if (!opciones.selectable.multi) {
                                 opciones.multiselection.selectedAll = false;
                                 opciones.multiselection.selectedIds = [];
                                 opciones.multiselection.selectedRowsPerPage = [];
                             }
                             opciones.multiselection.selectedRowsPerPage.push({
-                                id: self.element[0].id + '-itemTemplate_' + clickedPK
-                                , line: (function() {
+                                id: self.element[0].id + '-itemTemplate_' + clickedPK,
+                                line: (function () {
                                     let cont = 0;
                                     let final = 0;
                                     self.element.children().toArray().forEach(element => {
-                                        if(element.id == self.element.id + '-itemTemplate_' + clickedPK) {
+                                        if (element.id == self.element.id + '-itemTemplate_' + clickedPK) {
                                             final = cont;
                                         }
                                         cont++;
                                     });
                                     return final;
-                                })()
-                                , page: opciones.page
+                                })(),
+                                page: opciones.page
                             });
                             opciones.multiselection.selectedIds.push(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         }
-                        if(opciones.multiselection.selectedIds.length == 0) {
+                        if (opciones.multiselection.selectedIds.length == 0) {
                             opciones.multiselection.selectedIds = null;
                         }
-                        if(opciones.multiselection.selectedRowsPerPage.length == 0) {
+                        if (opciones.multiselection.selectedRowsPerPage.length == 0) {
                             opciones.multiselection.selectedRowsPerPage = null;
                         }
                     });
                     opciones.multiselection = {
-                        selectedIds: null
-                        , selectedAll: false
-                        , selectedRowsPerPage: null
+                        selectedIds: null,
+                        selectedAll: false,
+                        selectedRowsPerPage: null
                     };
                     self._generateSelectablesBtnGroup();
                 }
@@ -377,16 +404,164 @@
             });
         },
 
-        _generateSelectablesBtnGroup: function() {
+        _selectAll: function() {
             var self = this;
+            var opciones = self.options;
+            
+            opciones.multiselection.selectedAll = true;
+            opciones.multiselection.selectedIds = [];
+            opciones.multiselection.selectedRowsPerPage = [];
+
+            self._getPageIds().forEach((elem) => {
+                opciones.multiselection.selectedIds.push(elem.split('_').pop());
+                opciones.multiselection.selectedRowsPerPage.push({
+                    id: elem,
+                    line: (function () {
+                        let cont = 0;
+                        let final = 0;
+                        self.element.children().toArray().forEach(element => {
+                            if (element.id == elem) {
+                                final = cont;
+                            }
+                            cont++;
+                        });
+                        return final;
+                    })(),
+                    page: opciones.page
+                });
+                $('#' + elem).addClass('list-item-selected');
+            });
+        },
+
+        _deselectAll: function () {
+            var self = this;
+            var opciones = self.options;
+
+            opciones.multiselection.selectedAll = false;
+            opciones.multiselection.selectedIds = null;
+            opciones.multiselection.selectedRowsPerPage = null;
+            self._getPageIds().forEach((elem) => {
+                $('#' + elem).removeClass('list-item-selected');
+            });
+        },
+
+        _selectPage: function () {
+            var self = this;
+            var opciones = self.options;
+
+            if (opciones.multiselection.selectedIds == null) {
+                opciones.multiselection.selectedIds = [];
+            }
+            if (opciones.multiselection.selectedRowsPerPage == null) {
+                opciones.multiselection.selectedRowsPerPage = [];
+            }
+            if (opciones.multiselection.selectedAll == false) {
+                self._getPageIds().forEach((arrElem) => {
+                    let tmp = opciones.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                    if (tmp.length == 0) {
+                        let id = arrElem.split('_').pop();
+                        opciones.multiselection.selectedIds.push(id);
+                        opciones.multiselection.selectedRowsPerPage.push({
+                            id: arrElem,
+                            line: (function () {
+                                let cont = 0;
+                                let final = 0;
+                                self.element.children().toArray().forEach(element => {
+                                    if (element.id == arrElem) {
+                                        final = cont;
+                                    }
+                                    cont++;
+                                });
+                                return final;
+                            })(),
+                            page: opciones.page
+                        });
+                        $('#' + arrElem).addClass('list-item-selected');
+                    }
+                });
+            } else {
+                self._getPageIds().forEach((arrElem) => {
+                    let tmp = opciones.multiselection.selectedRowsPerPage.fiter(x => x.id == arrElem);
+                    if (tmp.length == 0) {
+                        let id = arrElem.split('_').pop();
+                        opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
+                        opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
+                        $('#' + arrElem).addClass('list-item-selected');
+                    }
+                });
+            }
+            if (opciones.multiselection.selectedIds.length == 0) {
+                opciones.multiselection.selectedIds = null;
+            }
+            if (opciones.multiselection.selectedRowsPerPage.length == 0) {
+                opciones.multiselection.selectedRowsPerPage = null;
+            }
+        },
+
+        _deselectPage: function () {
+            var self = this;
+            var opciones = self.options;
+
+            if (opciones.multiselection.selectedIds == null) {
+                opciones.multiselection.selectedIds = [];
+            }
+            if (opciones.multiselection.selectedRowsPerPage == null) {
+                opciones.multiselection.selectedRowsPerPage = [];
+            }
+            if (opciones.multiselection.selectedAll == false) {
+                self._getPageIds().forEach((arrElem) => {
+                    let tmp = opciones.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                    if (tmp.length > 0) {
+                        let id = arrElem.split('_').pop();
+                        opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
+                        opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
+                    }
+                });
+            } else {
+                self._getPageIds().forEach((arrElem) => {
+                    let tmp = opciones.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                    if (tmp.length == 0) {
+                        let id = arrElem.split('_').pop();
+                        opciones.multiselection.selectedIds.push(id);
+                        opciones.multiselection.selectedRowsPerPage.push({
+                            id: arrElem,
+                            line: (function () {
+                                let cont = 0;
+                                let final = 0;
+                                self.element.children().toArray().forEach(element => {
+                                    if (element.id == arrElem) {
+                                        final = cont;
+                                    }
+                                    cont++;
+                                });
+                                return final;
+                            })(),
+                            page: opciones.page
+                        });
+                    }
+                });
+            }
+            $('.list-item').removeClass('list-item-selected');
+            if (opciones.multiselection.selectedIds.length == 0) {
+                opciones.multiselection.selectedIds = null;
+            }
+            if (opciones.multiselection.selectedRowsPerPage.length == 0) {
+                opciones.multiselection.selectedRowsPerPage = null;
+            }
+        },
+
+        _generateSelectablesBtnGroup: function () {
+            var self = this;
+            var opciones = self.options;
+
             let $btnGroup = $('<div></div>');
-            $btnGroup.addClass('btn-group').attr('role', 'group');
+            $btnGroup.addClass('btn-group h-100').attr('role', 'group');
             let $displayButton = $('<button></button>');
             $displayButton.addClass('btn btn-secondary dropdown-toggle')
-                .attr('id', self.element.attr('id') + '-display-selectables').attr('type','button')
+                .attr('id', self.element.attr('id') + '-display-selectables').attr('type', 'button')
                 .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
-                .attr('aria-expanded', false).text($('#' + self.element.attr('id') + '-header-selectables').text());
-            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby',self.element.attr('id') + '-display-selectables');
+                .attr('aria-expanded', false).text(opciones._header.selectables.text());
+            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', self.element.attr('id') + '-display-selectables');
 
             let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
             let $deselectPage = $('<a></a>').addClass('dropdown-item selectable-deselectPage').text('Deseleccionar la página actual');
@@ -396,154 +571,30 @@
             $menudiv.append($selectPage).append($deselectPage).append($selectAll).append($deselectAll);
 
             $btnGroup.append($displayButton).append($menudiv);
-            $('#' + self.element.attr('id') + '-header-selectables').text('');
-            $('#' + self.element.attr('id') + '-header-selectables').append($btnGroup.clone());
+            opciones._header.selectables.text('');
+            opciones._header.selectables.append($btnGroup.clone());
 
-            if(self.options.createFooter) {
-                $('#' + self.element.attr('id') + '-footer-selectables').text('');
-                $('#' + self.element.attr('id') + '-footer-selectables').append($btnGroup.clone());
+            if (opciones.createFooter) {
+                opciones._footer.selectables.text('');
+                opciones._footer.selectables.append($btnGroup.clone());
             }
 
             //Creamos funcionalidad
             $('.selectable-selectAll').on('click', () => {
-                self.options.multiselection.selectedAll = true;
-                self.options.multiselection.selectedIds = [];
-                self.options.multiselection.selectedRowsPerPage = [];
-
-                self._getPageIds().forEach((elem) => {
-                    self.options.multiselection.selectedIds.push(elem.split('_').pop());
-                    self.options.multiselection.selectedRowsPerPage.push({
-                        id: elem
-                        , line: (function() {
-                            let cont = 0;
-                            let final = 0;
-                            self.element.children().toArray().forEach(element => {
-                                if(element.id == elem) {
-                                    final = cont;
-                                }
-                                cont++;
-                            });
-                            return final;
-                        })()
-                        , page: self.options.page
-                    });
-                    $('#' + elem).addClass('list-item-selected');
-                });
-                self.element.trigger('listAfterMultiselection');
+                self._selectAll.apply(self);
             });
             $('.selectable-deselectAll').on('click', () => {
-                self.options.multiselection.selectedAll = false;
-                self.options.multiselection.selectedIds = null;
-                self.options.multiselection.selectedRowsPerPage = null;
-                self._getPageIds().forEach((elem) => {
-                    $('#' + elem).removeClass('list-item-selected');
-                });
-                self.element.trigger('listAfterMultiselection');
+                self._deselectAll.apply(self);
             });
             $('.selectable-selectPage').on('click', () => {
-                if(self.options.multiselection.selectedIds == null) {
-                    self.options.multiselection.selectedIds = [];
-                }
-                if(self.options.multiselection.selectedRowsPerPage == null) {
-                    self.options.multiselection.selectedRowsPerPage = [];
-                }
-                if(self.options.multiselection.selectedAll == false) {
-                    self._getPageIds().forEach((arrElem) => {
-                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
-                        if(tmp.length == 0){
-                            let id = arrElem.split('_').pop();
-                            self.options.multiselection.selectedIds.push(id);
-                            self.options.multiselection.selectedRowsPerPage.push({
-                                id: arrElem
-                                , line: (function() {
-                                    let cont = 0;
-                                    let final = 0;
-                                    self.element.children().toArray().forEach(element => {
-                                        if(element.id == arrElem) {
-                                            final = cont;
-                                        }
-                                        cont++;
-                                    });
-                                    return final;
-                                })()
-                                , page: self.options.page
-                            });
-                            $('#' + arrElem).addClass('list-item-selected');
-                        }
-                    });
-                } else {
-                    self._getPageIds().forEach((arrElem) => {
-                        let tmp = self.options.multiselection.selectedRowsPerPage.fiter(x => x.id == arrElem);
-                        if(tmp.length == 0){
-                            let id = arrElem.split('_').pop();
-                            self.options.multiselection.selectedIds = self.options.multiselection.selectedIds.filter(z => z != id);
-                            self.options.multiselection.selectedRowsPerPage = self.options.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                            $('#' + arrElem).addClass('list-item-selected');
-                        }
-                    });
-                }
-                if(self.options.multiselection.selectedIds.length == 0) {
-                    self.options.multiselection.selectedIds = null;
-                }
-                if(self.options.multiselection.selectedRowsPerPage.length == 0) {
-                    self.options.multiselection.selectedRowsPerPage = null;
-                }
-                self.element.trigger('listAfterMultiselection');
+                self._selectPage.apply(self);
             });
             $('.selectable-deselectPage').on('click', () => {
-                if(self.options.multiselection.selectedIds == null) {
-                    self.options.multiselection.selectedIds = [];
-                }
-                if(self.options.multiselection.selectedRowsPerPage == null) {
-                    self.options.multiselection.selectedRowsPerPage = [];
-                }
-                if(self.options.multiselection.selectedAll == false) {
-                    self._getPageIds().forEach((arrElem) => {
-                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
-                        if(tmp.length > 0){
-                            let id = arrElem.split('_').pop();
-                            self.options.multiselection.selectedIds = self.options.multiselection.selectedIds.filter(z => z != id);
-                            self.options.multiselection.selectedRowsPerPage = self.options.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                        }
-                    });
-                } else {
-                    self._getPageIds().forEach((arrElem) => {
-                        let tmp = self.options.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
-                        if(tmp.length == 0){
-                            let id = arrElem.split('_').pop();
-                            self.options.multiselection.selectedIds.push(id);
-                            self.options.multiselection.selectedRowsPerPage.push({
-                                id: arrElem
-                                , line: (function() {
-                                    let cont = 0;
-                                    let final = 0;
-                                    self.element.children().toArray().forEach(element => {
-                                        if(element.id == arrElem) {
-                                            final = cont;
-                                        }
-                                        cont++;
-                                    });
-                                    return final;
-                                })()
-                                , page: self.options.page
-                            });
-
-                        }
-                    });
-                }
-                self.element.children().removeClass('list-item-selected');
-                if(self.options.multiselection.selectedIds.length == 0) {
-                    self.options.multiselection.selectedIds = null;
-                }
-                if(self.options.multiselection.selectedRowsPerPage.length == 0) {
-                    self.options.multiselection.selectedRowsPerPage = null;
-                }
-                self.element.trigger('listAfterMultiselection');
+                self._deselectPage.apply(self);
             });
-
         },
 
-        _getPageIds : function() {
+        _getPageIds: function () {
             var self = this;
             var keys = [];
             $('#' + self.element[0].id).children().toArray().forEach((elem) => {
@@ -562,9 +613,9 @@
             var $pagenavF_prev = opciones._footer.pagePrev;
             var $pagenavF_next = opciones._footer.pageNext;
 
-            // Si el nÃºmero de pÃ¡ginas a mostrar es superior a las configuradas como visibles hay que mostrar el separador
+            // Si el número de páginas a mostrar es superior a las configuradas como visibles hay que mostrar el separador
             if (numPages > opciones.visiblePages + 1) {
-                // Mostrar las pÃ¡ginas visibles antes del separador
+                // Mostrar las páginas visibles antes del separador
                 var initPage = 1;
                 var endPage = 1;
                 if (opciones.page >= opciones.visiblePages) {
@@ -574,7 +625,7 @@
                         initPage = opciones.page - 1;
                     }
 
-                    // Se aÃ±ade la pÃ¡gina inicial
+                    // Se añade la página inicial
                     var page = '<li data-page="' + 1 + '" class="page-item page"><a class="page-link" href="javascript:void(0)">' + 1 + '</a></li>';
                     $pagenavH.find('.page-separator:first').before(page);
                     $pagenavF.find('.page-separator:first').before(page);
@@ -599,21 +650,21 @@
                 }
 
                 if (endPage < numPages) {
-                    // AÃ±adir el nÃºmero de la pÃ¡gina final
+                    // Añadir el número de la página final
                     let page = '<li data-page="' + numPages + '" class="page-item page"><a class="page-link" href="javascript:void(0)">' + numPages + '</a></li>';
                     $pagenavH.find('.page-separator:last').after(page);
                     $pagenavF.find('.page-separator:last').after(page);
                 }
             } else {
-                // AÃ±adir todas las pÃ¡ginas al nav
-                for (i = numPages; i > 0; i--) {
+                // Añadir todas las páginas al nav
+                for (let i = numPages; i > 0; i--) {
                     let page = '<li data-page="' + i + '" class="page-item page"><a class="page-link" href="javascript:void(0)">' + i + '</a></li>';
                     $pagenavH_prev.after(page);
                     $pagenavF_prev.after(page);
                 }
             }
 
-            // Ocultar el pagenav si sÃ³lo se muestra una Ãºnica pÃ¡gina
+            // Ocultar el pagenav si sólo se muestra una única página
             if (numPages > 1) {
                 opciones._header.pagenav.show();
                 opciones._footer.pagenav.show();
@@ -622,17 +673,17 @@
                 opciones._footer.pagenav.hide();
             }
 
-            // Marcar la pÃ¡gina actual como activa
+            // Marcar la página actual como activa
             $('#' + opciones._idListHeader.pagenav + ' ' + '.page[data-page="' + opciones.page + '"]').toggleClass('active');
             $('#' + opciones._idListFooter.pagenav + ' ' + '.page[data-page="' + opciones.page + '"]').toggleClass('active');
 
             // Funcionamiento del pagenav
             $('#' + opciones._idListHeader.pagenav + ' .page-item.page, #' + opciones._idListFooter.pagenav + ' .page-item.page')
                 .on('click', function () {
-                    // La pÃ¡gina activa se desactiva
+                    // La página activa se desactiva
                     $('#' + opciones._idListHeader.pagenav + ' .page-item.page.active').toggleClass('active');
                     $('#' + opciones._idListFooter.pagenav + ' .page-item.page.active').toggleClass('active');
-                    // La pÃ¡gina seleccionada se activa
+                    // La página seleccionada se activa
                     $(this).toggleClass('active');
                     self._changeOption('page', $(this).data('page'));
                 });
@@ -679,10 +730,10 @@
             // TODO: Eliminar el componente.
             var self = this;
             let id = self.element[0].id;
-            $('#'+ id).children().remove();
-            $('#'+ id +'-header').remove();
-            if(self.options.createFooter){
-                $('#'+ id +'-footer').remove();
+            $('#' + id).children().remove();
+            $('#' + id + '-header').remove();
+            if (self.options.createFooter) {
+                $('#' + id + '-footer').remove();
             }
             self.options.feedback.rup_feedback('destroy');
             $.Widget.prototype.destroy.apply(this, arguments);
@@ -701,11 +752,11 @@
                 page: opciones.page,
                 rows: opciones.rowNum.value,
                 sidx: opciones.sidx.value,
-                sord: opciones.sord
-                , multiselection: opciones.multiselection
-                , core:{
-                    pkNames:[opciones.key]
-                    , pkToken: '~'
+                sord: opciones.sord,
+                multiselection: opciones.multiselection,
+                core: {
+                    pkNames: [opciones.key],
+                    pkToken: '~'
                 }
             };
 
@@ -755,11 +806,11 @@
 
                                     var elemArr = $.rup_utils.jsontoarray(elem);
                                     var elemArrKeys = Object.keys($.rup_utils.jsontoarray(elem));
-                                    if(opciones.selectable) {
+                                    if (opciones.selectable) {
                                         let selectorElement = $(opciones.selectable.selector, $item);
                                         selectorElement.attr('id', selectorElement.attr('id') + '_' + elem[opciones.key]);
                                     }
-                                    if(xhr.reorderedSelection) {
+                                    if (xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
                                         if((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
                                             $item.addClass('list-item-selected');
@@ -774,7 +825,7 @@
                                             .text(elemArr[elemArrKeys[i]])
                                             .attr('id', elemArrKeys[i] + '_value_' + elem[opciones.key]);
                                     }
-                                    $('#' + self.element[0].id).trigger('modElement',[$item,elem]);
+                                    $('#' + self.element[0].id).trigger('modElement', [$item, elem]);
                                 });
 
                                 // si ha resultados se muestran cabecera/pie y listado
@@ -880,7 +931,7 @@
             }
         },
 
-        page:  function (page) {
+        page: function (page) {
             var self = this;
             self._changeOption('page', page);
         },
@@ -889,11 +940,11 @@
             var self = this;
             var options = self.options.multiselection;
             return {
-                selectedIds: options.selectedIds
-                , selectedAll: options.selectedAll
+                selectedIds: options.selectedIds,
+                selectedAll: options.selectedAll
             };
         }
-        
+
 
         // , _init: function (message, type, imgClass) {}
     });

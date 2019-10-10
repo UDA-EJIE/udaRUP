@@ -1,20 +1,65 @@
 /* rup-list*/
+
+.rup_list-header {
+    margin-bottom: .5rem;
+}
+
+.rup_list-footer {
+    margin-top: .5rem;
+}
+
+.rup_list-header,
+.rup_list-footer {
+    padding: .75rem 0;
+    border: 1px solid #bbb;
+    margin-left: 0;
+    margin-right: 0;
+
+    button {
+        height: 100% !important;
+    }
+
+    nav {
+        float: right;
+
+        a {
+            line-height: 3.5rem;
+        }
+    }
+
+    .rup_list-header-rowNum,
+    .rup_list-footer-rowNum {
+        &+span a {
+            width: 100% !important;
+        }
+    }
+
+    .rup_list-header-sidx,
+    .rup_list-footer-sidx {
+        &+span a {
+            width: 100% !important;
+        }
+    }
+}
+
 .list-item {
     border: 1px solid gray;
     display: flex;
-    margin: 3px;
+    margin: 3px 0;
     padding: 3px;
-}
 
-.list-item:hover {
-    background-color: #69a3d6;
-    cursor: pointer;
+    &:hover {
+        background-color: #b9d4ec;
+        cursor: pointer;
+    }
 }
 
 .list-item-selected {
-    background-color: #337ab7;
-}
+    background-color: #007bff;
+    color: #FFF;
+    border-color: #007bff;
 
-.list-item-selected:hover {
-    background-color: #337ab7;
+    &:hover {
+        background-color: #007bff;
+    }
 }
