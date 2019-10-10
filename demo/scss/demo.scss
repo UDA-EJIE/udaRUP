@@ -42,11 +42,28 @@
     }
 }
 
+.rup_list-content {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.rup_list-overlay {
+    position: absolute;
+}
+
 .list-item {
+    padding: .75rem;
     border: 1px solid gray;
-    display: flex;
-    margin: 3px 0;
-    padding: 3px;
+    border-color: transparent;
+    position: relative;
+    border: none;
+    border-radius: 0;
+    margin: 1rem 0rem;
+    width: auto;
+    box-shadow: 1px 1px 11px #ddd;
 
     &:hover {
         background-color: #b9d4ec;
@@ -57,7 +74,6 @@
 .list-item-selected {
     background-color: #007bff;
     color: #FFF;
-    border-color: #007bff;
 
     &:hover {
         background-color: #007bff;

@@ -107,7 +107,8 @@
 
         _create: function () {
             global.initRupI18nPromise.then(() => {
-                var self = this;
+                const self = this;
+                const selfId = self.element.attr('id');
 
                 if (!self._validateSkeleton()) {
                     $.rup_messages('msgAlert', {
@@ -122,28 +123,49 @@
                 // Si el número de páginas visibles se ha definido menor que 3 se eleva a 3 que es el mínimo
                 opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
 
-                opciones._idContent = self.element.attr('id') + '-content';
-                opciones.content = $('#' + opciones._idContent);
+                /**
+                 * CONTENT
+                 */
+                opciones._idContent = selfId + '-content';
+                opciones._content = $('#' + opciones._idContent);
+                opciones._content.addClass('rup_list-content');
 
+                /**
+                 * OVERLAY (Lock & Unlock)
+                 */
+                opciones._idOverlay = selfId + '-overlay';
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '"> </div>');
+                opciones._overlay.addClass('rup_list-overlay');
+
+                /**
+                 * FEEDBACK
+                 */
                 opciones.feedback = $('#' + opciones.feedback).rup_feedback({
                     gotoTop: false
                 });
+                opciones.feedback.addClass('rup_list-feedback');
 
-                opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
-                opciones.itemTemplate = $('#' + opciones._idItemTemplate);
+                /**
+                 * TEMPLATE
+                 */
+                opciones._idItemTemplate = selfId + '-itemTemplate';
+                opciones._itemTemplate = $('#' + opciones._idItemTemplate);
+                opciones._itemTemplate.addClass('rup_list-itemTemplate');
 
+                /**
+                 * HEADER
+                 */
                 // HEADER ELEMENTS IDs MAP
                 opciones._idListHeader = {};
-                opciones._idListHeader.header = self.element.attr('id') + '-header';
-                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-                opciones._idListHeader.pagePrev = self.element.attr('id') + '-header-page-prev';
-                opciones._idListHeader.pageNext = self.element.attr('id') + '-header-page-next';
-                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-                opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
-                opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
-                opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
-                opciones._idListHeader.selectables = self.element.attr('id') + '-header-selectables';
-
+                opciones._idListHeader.header = selfId + '-header';
+                opciones._idListHeader.pagenav = selfId + '-header-nav';
+                opciones._idListHeader.pagePrev = selfId + '-header-page-prev';
+                opciones._idListHeader.pageNext = selfId + '-header-page-next';
+                opciones._idListHeader.pagenav = selfId + '-header-nav';
+                opciones._idListHeader.rowNum = selfId + '-header-rowNum';
+                opciones._idListHeader.sidx = selfId + '-header-sidx';
+                opciones._idListHeader.sord = selfId + '-header-sord';
+                opciones._idListHeader.selectables = selfId + '-header-selectables';
                 // HEADER $OBJECTS MAP
                 opciones._header = {};
                 opciones._header.obj = $('#' + opciones._idListHeader.header);
@@ -154,7 +176,6 @@
                 opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
                 opciones._header.sord = $('#' + opciones._idListHeader.sord);
                 opciones._header.selectables = $('#' + opciones._idListHeader.selectables);
-
                 // HEADER $OBJECTS CLASS ASSIGNMENT
                 opciones._header.obj.addClass('rup_list-header');
                 opciones._header.pagenav.addClass('rup_list-header-nav');
@@ -167,20 +188,22 @@
 
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
-                    $('#' + self.element.attr('id')).after(footerHTML);
+                    $('#' + selfId).after(footerHTML);
                 }
 
+                /**
+                 * FOOTER
+                 */
                 // FOOTER ELEMENTS IDs MAP
                 opciones._idListFooter = {};
-                opciones._idListFooter.footer = self.element.attr('id') + '-footer';
-                opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
-                opciones._idListFooter.pagePrev = self.element.attr('id') + '-footer-page-prev';
-                opciones._idListFooter.pageNext = self.element.attr('id') + '-footer-page-next';
-                opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
-                opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
-                opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
-                opciones._idListFooter.selectables = self.element.attr('id') + '-footer-selectables';
-
+                opciones._idListFooter.footer = selfId + '-footer';
+                opciones._idListFooter.pagenav = selfId + '-footer-nav';
+                opciones._idListFooter.pagePrev = selfId + '-footer-page-prev';
+                opciones._idListFooter.pageNext = selfId + '-footer-page-next';
+                opciones._idListFooter.rowNum = selfId + '-footer-rowNum';
+                opciones._idListFooter.sidx = selfId + '-footer-sidx';
+                opciones._idListFooter.sord = selfId + '-footer-sord';
+                opciones._idListFooter.selectables = selfId + '-footer-selectables';
                 // FOOTER $OBJECTS MAP
                 opciones._footer = {};
                 opciones._footer.obj = $('#' + opciones._idListFooter.footer);
@@ -191,7 +214,6 @@
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
                 opciones._footer.sord = $('#' + opciones._idListFooter.sord);
                 opciones._footer.selectables = $('#' + opciones._idListFooter.selectables);
-
                 // FOOTER $OBJECTS CLASS ASSIGNMENT
                 opciones._footer.obj.addClass('rup_list-footer');
                 opciones._footer.pagenav.addClass('rup_list-footer-nav');
@@ -254,7 +276,7 @@
                 opciones._footer.sidx.rup_combo(sidxRupConf);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
 
-                // InicializaciÃ³n sord
+                // Inicialización sord
                 var sordH = opciones._header.sord.find('i');
                 var sordF = opciones._footer.sord.find('i');
 
@@ -270,7 +292,7 @@
                     sordF.removeClass('fa-sort-amount-asc');
                 }
 
-                // Funcionamiento botÃ³n sord
+                // Funcionamiento botón sord
                 $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
                     sordH.toggleClass('fa-sort-amount-asc');
                     sordH.toggleClass('fa-sort-amount-desc');
@@ -279,7 +301,7 @@
                     self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
                 });
 
-                // AsociaciÃ³n de eventos
+                // Asociación de eventos
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
@@ -405,8 +427,8 @@
         },
 
         _selectAll: function() {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
             
             opciones.multiselection.selectedAll = true;
             opciones.multiselection.selectedIds = [];
@@ -435,8 +457,8 @@
         },
 
         _deselectAll: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             opciones.multiselection.selectedAll = false;
             opciones.multiselection.selectedIds = null;
@@ -448,8 +470,8 @@
         },
 
         _selectPage: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             if (opciones.multiselection.selectedIds == null) {
                 opciones.multiselection.selectedIds = [];
@@ -502,8 +524,8 @@
         },
 
         _deselectPage: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             if (opciones.multiselection.selectedIds == null) {
                 opciones.multiselection.selectedIds = [];
@@ -556,17 +578,18 @@
         },
 
         _generateSelectablesBtnGroup: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const selfId = self.element.attr('id');
+            const opciones = self.options;
 
             let $btnGroup = $('<div></div>');
             $btnGroup.addClass('btn-group h-100').attr('role', 'group');
             let $displayButton = $('<button></button>');
-            $displayButton.addClass('btn btn-secondary dropdown-toggle')
-                .attr('id', self.element.attr('id') + '-display-selectables').attr('type', 'button')
+            $displayButton.addClass('dropdown-toggle')
+                .attr('id', selfId + '-display-selectables').attr('type', 'button')
                 .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
                 .attr('aria-expanded', false).text(opciones._header.selectables.text());
-            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', self.element.attr('id') + '-display-selectables');
+            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', selfId + '-display-selectables');
 
             let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
             let $deselectPage = $('<a></a>').addClass('dropdown-item selectable-deselectPage').text('Deseleccionar la página actual');
@@ -709,26 +732,33 @@
             }
         },
 
-        _lock: function () {
-            var opciones = this.options;
+        lock: function(){
+            this._lock();
+        },
 
-            opciones.content.css('opacity', '0.3');
-            var overlay;
-            if ($('#' + this.element.attr('id') + '-overlay').length > 0) {
-                overlay = $('#' + this.element.attr('id') + '-overlay');
-            } else {
-                overlay = jQuery('<div id="' + this.element.attr('id') + '-overlay"> </div>');
-                overlay.prependTo(opciones.content);
-            }
-            overlay.width(opciones.content.width());
-            overlay.height(opciones.content.height());
+        unlock: function () {
+            this._unlock();
+        },
+
+        _lock: function () {
+            const self = this;
+            const opciones = self.options;
+
+            opciones._content.css('opacity', '0.3');
+
+            $('#' + opciones._idOverlay).remove();
+            opciones._overlay.prependTo(opciones._content);
+            
+            opciones._overlay.width(opciones._content.width());
+            opciones._overlay.height(opciones._content.height());
         },
 
         _unlock: function () {
-            var opciones = this.options;
+            const self = this;
+            const opciones = self.options;
 
-            opciones.content.css('opacity', '1');
-            $('#' + this.element.attr('id') + '-overlay').remove();
+            opciones._content.css('opacity', '1');
+            $('#' + opciones._idOverlay).remove();
         },
 
         destroy: function () {
@@ -747,7 +777,7 @@
         _doFilter: function () {
             var self = this;
             var opciones = this.options;
-            var $itemTemplate = opciones.itemTemplate;
+            var $itemTemplate = opciones._itemTemplate;
             var $pagenavH = opciones._header.pagenav;
             var $pagenavF = opciones._footer.pagenav;
 
@@ -766,9 +796,6 @@
             };
 
             opciones.feedback.rup_feedback('hide');
-            opciones.feedback.rup_feedback('destroy').rup_feedback({
-                gotoTop: false
-            }); //FIXME: Pendiente de correcciÃ³n UDA
 
             if ($('#' + opciones.filterForm).rup_form('valid')) {
                 jQuery.rup_ajax({
@@ -789,7 +816,7 @@
                             self.element.hide();
                             opciones._footer.obj.hide();
                             opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.errors.errorOnGet, 'error');
-                            opciones.content.slideDown();
+                            opciones._content.slideDown();
 
                             self.element.trigger('load');
                             self._unlock();
@@ -839,14 +866,14 @@
                                 opciones._footer.obj.show();
 
                                 // Si no se estÃ¡ mostrando el content se despliega
-                                opciones.content.slideDown();
+                                opciones._content.slideDown();
                             } else {
                                 // Si no se devuelven resultados
                                 opciones._header.obj.hide();
                                 self.element.hide();
                                 opciones._footer.obj.hide();
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
-                                opciones.content.slideDown();
+                                opciones._content.slideDown();
                             }
                         }
 
@@ -870,7 +897,7 @@
                         opciones._header.obj.hide();
                         self.element.hide();
                         opciones._footer.obj.hide();
-                        opciones.content.slideDown();
+                        opciones._content.slideDown();
 
                         self.element.trigger('load');
                         self._unlock();
