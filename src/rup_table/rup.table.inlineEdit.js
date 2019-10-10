@@ -1203,7 +1203,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 						}
 					});
 					if(ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search)
-							&& ctx.seeker.search.funcionParams.length > 0){
+							&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
 						_comprobarSeeker(row,ctx,$fila.index());
 					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
