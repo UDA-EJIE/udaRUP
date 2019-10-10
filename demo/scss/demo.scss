@@ -79,3 +79,19 @@
         background-color: #007bff;
     }
 }
+
+.list-multiorder-dialog {
+    display: flex;
+    flex-direction: column;
+}
+.list-multiorder-orderfields {
+    display: flex;
+}
+.list-multiorder-ordersort {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-ord-line {
+    display: flex;
+}

@@ -13,7 +13,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base'], factory);
+        define(['jquery', 'rup.base', 'rup.button'], factory);
     } else {
 
         // Browser globals
@@ -252,54 +252,115 @@
                 opciones._footer.rowNum.rup_combo(rowNumRupConf);
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
 
-                // Sidx select to rup-combo
-                var sidxRupConf = {
-                    source: opciones.sidx.source,
-                    width: 'initial',
-                    selected: opciones.sidx.value,
-                    rowStriping: true,
-                    ordered: false,
-                    change: function () {
-                        if (!$('#' + this.id).rup_combo('isDisabled')) {
-                            opciones._header.sidx.rup_combo('disable');
-                            opciones._footer.sidx.rup_combo('disable');
-                            opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                            self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._header.sidx.rup_combo('enable');
-                            opciones._footer.sidx.rup_combo('enable');
+                if (opciones.orderType != 'multi') {
+                    // Sidx select to rup-combo
+                    var sidxRupConf = {
+                        source: opciones.sidx.source,
+                        width: 'initial',
+                        selected: opciones.sidx.value,
+                        rowStriping: true,
+                        ordered: false,
+                        change: function () {
+                            if (!$('#' + this.id).rup_combo('isDisabled')) {
+                                opciones._header.sidx.rup_combo('disable');
+                                opciones._footer.sidx.rup_combo('disable');
+                                opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                                opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                                self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
+                                opciones._header.sidx.rup_combo('enable');
+                                opciones._footer.sidx.rup_combo('enable');
+                            }
                         }
-                    }
-                };
-                opciones._header.sidx.rup_combo(sidxRupConf);
-                opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-                opciones._footer.sidx.rup_combo(sidxRupConf);
-                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+                    };
+                    opciones._header.sidx.rup_combo(sidxRupConf);
+                    opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+                    opciones._footer.sidx.rup_combo(sidxRupConf);
+                    opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
 
                 // Inicialización sord
-                var sordH = opciones._header.sord.find('i');
-                var sordF = opciones._footer.sord.find('i');
+                    var sordH = opciones._header.sord.find('i');
+                    var sordF = opciones._footer.sord.find('i');
 
-                if (opciones.sord === 'asc') {
-                    sordH.addClass('fa-sort-amount-asc');
-                    sordF.addClass('fa-sort-amount-asc');
-                    sordH.removeClass('fa-sort-amount-desc');
-                    sordF.removeClass('fa-sort-amount-desc');
-                } else {
-                    sordH.addClass('fa-sort-amount-desc');
-                    sordF.addClass('fa-sort-amount-desc');
-                    sordH.removeClass('fa-sort-amount-asc');
-                    sordF.removeClass('fa-sort-amount-asc');
-                }
+                    if (opciones.sord === 'asc') {
+                        sordH.addClass('fa-sort-amount-asc');
+                        sordF.addClass('fa-sort-amount-asc');
+                        sordH.removeClass('fa-sort-amount-desc');
+                        sordF.removeClass('fa-sort-amount-desc');
+                    } else {
+                        sordH.addClass('fa-sort-amount-desc');
+                        sordF.addClass('fa-sort-amount-desc');
+                        sordH.removeClass('fa-sort-amount-asc');
+                        sordF.removeClass('fa-sort-amount-asc');
+                    }
 
                 // Funcionamiento botón sord
-                $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                    sordH.toggleClass('fa-sort-amount-asc');
-                    sordH.toggleClass('fa-sort-amount-desc');
-                    sordF.toggleClass('fa-sort-amount-asc');
-                    sordF.toggleClass('fa-sort-amount-desc');
-                    self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
-                });
+                    $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
+                        sordH.toggleClass('fa-sort-amount-asc');
+                        sordH.toggleClass('fa-sort-amount-desc');
+                        sordF.toggleClass('fa-sort-amount-asc');
+                        sordF.toggleClass('fa-sort-amount-desc');
+                        self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                    });
+                } else {
+                    // Creamos un apartado en opciones
+                    opciones.multiorder = {
+                        sidx:''
+                        , sord:''
+                    };
+                    // Generamos un span para el resumen
+                    var $spanResumen = $('<span class="multiorder-summary"></span>');
+                    opciones._header.sidx.wrap('<div class="tmp-orderchange"></div>');
+                    opciones._footer.sidx.wrap('<div class="tmp-orderchange"></div>');
+
+                    $('.tmp-orderchange').children().remove();
+                    $('.tmp-orderchange').append($spanResumen.clone());
+
+                    $('.multiorder-summary').unwrap();
+                    // Creamos el botón para el dialogo
+                    var $btnOrderDialog = $('<button class="multiorder-dialogbtn"></button>');
+                    $btnOrderDialog.addClass('mdi mdi-pencil');
+                    opciones._header.sord.wrap('<div class="tmp-orderchange"></div>');
+                    opciones._footer.sord.wrap('<div class="tmp-orderchange"></div>');
+                    $('.tmp-orderchange').children().remove();
+                    $('.tmp-orderchange').append($btnOrderDialog.clone());
+                    $('.multiorder-dialogbtn').unwrap();
+                    //Creamos el dialogo
+                    var $multiorderDialog = $('<div id="multiorderDialog" class="list-multiorder-dialog" style="display:none"></div>');
+                    $multiorderDialog.append('<div class="list-multiorder-orderfields"></div>');
+                    $multiorderDialog.append('<div class="list-multiorder-ordersort"></div>');
+                    $('body').append($multiorderDialog);
+                    //Creamos el contenido del diálogo
+                    opciones.sidx.source.forEach((el) => {
+                        let $btn = $('<button></button>');
+                        $btn.attr('ord-value', el.value);
+                        $btn.text(el.i18nCaption);
+                        $('.list-multiorder-orderfields').append($btn.clone());
+                    });
+                    $('.list-multiorder-orderfields').children().on('click', function (e) {
+                        self._actualizarOrdenMulti(e, self);
+                    }); // trigger('click', [ctx, asc/desc])
+                    //Creamos el componente para el dialogo
+                    $('#multiorderDialog').rup_dialog({
+                        type: $.rup.dialog.DIV,
+                        autoOpen: false,
+                        modal: true,
+                        resizable: true,
+                        width: '90%',
+                        position: null,
+                        title: 'Multiordenación',
+                        buttons: [{
+                            text: 'cerrar',
+                            click: () => {
+                                $('#multiorderDialog').rup_dialog('close');
+                            }
+                        }]
+                    });
+                    // Establecemos el boton para el dialogo
+                    $('.multiorder-dialogbtn').click(() => {
+                        $('#multiorderDialog').rup_dialog('open');
+                    });
+                }
+
 
                 // Asociación de eventos
                 $('#' + self.element[0].id).on('load', opciones.load);
@@ -426,10 +487,109 @@
             });
         },
 
-        _selectAll: function() {
+        _actualizarOrdenMulti: function (e, ctx, ord = 'asc') {
+            var self = $(this);
+            var sortDiv = $('.list-multiorder-ordersort');
+            var opciones = ctx.options;
+            // Añadimos las opciones al componente
+            if(opciones.multiorder.sidx.length) {
+                opciones.multiorder.sidx = opciones.multiorder.sidx.split(',').map((e) => {return e.trim();}).push(self.attr('ord-value')).join(', ');
+                opciones.multiorder.sord = opciones.multiorder.sord.split(',').map((e) => {return e.trim();}).push(ord).join(', ');
+            }
+            //Creamos la linea
+            let $operateLine = $('<div></div>');
+            $operateLine.attr('ord-value', self.attr('ord-value'));
+            $operateLine.addClass('list-ord-line');
+            //Creamos los apartados de ordenacion, label y sord
+            let $apOrd = $('<div></div>');
+            $apOrd.addClass('list-apord');
+            let $labelOrd = $('<div></div>');
+            $labelOrd.text(self.text());
+            let $sord = $('<span></span>');
+            $sord.addClass('list-multi-sord badge badge-primary mdi');
+            $sord.attr('direction', ord);
+            let $quitOrd = $('<span></span>');
+            $quitOrd.addClass('mdi mdi-cancel');
+
+            $operateLine.append($apOrd).append($labelOrd).append($sord).append($quitOrd);
+
+            sortDiv.append($operateLine.clone());
+            ctx._fnOrderOfOrderFields(ctx, $('[ord-value="' + self.attr('ord-value') + '"]', sortDiv));
+            self.remove();
+
+        },
+        /**
+         * Crea la funcionalidad de la ordenacion de los orders y del asc/desc de los mismos
+         */
+        _fnOrderOfOrderFields: function (ctx, line) {
+            //Creamos el groupButton
+            let $btnGroupOrd = $('<div></div>');
+            $btnGroupOrd.addClass('btn-group');
+            let $btnUp = $('<button></button>').addClass('mdi mdi-arrow-up');
+            let $btnDown = $('<button></button>').addClass('mdi mdi-arrow-down');
+            $btnGroupOrd.append($btnUp).append($btnDown);
+            //Lo añadimos a la linea
+            $('.list-apord', line).append($btnGroupOrd.clone());
+            //funcionalidad del groupButton
+            if (line.is(':first-child')) {
+                $('.mdi-arrow-up', line).addClass('disabled');
+            }
+            if (line.is(':last-child')) {
+                $('.mdi-arrow-down', line).addClass('disabled');
+            }
+            $('.mdi-arrow-up', line).click(function () {
+                let $self = $(this);
+                if (self.hasClass('disabled')) {
+                    return;
+                }
+                $self.prev().before($self);
+                if (line.is(':first-child')) {
+                    $('.mdi-arrow-up', line).addClass('disabled');
+                }
+            });
+            $('.mdi-arrow-down', line).click(function () {
+                let $self = $(this);
+                if (self.hasClass('disabled')) {
+                    return;
+                }
+                $self.next().after($self);
+                if (line.is(':last-child')) {
+                    $('.mdi-arrow-down', line).addClass('disabled');
+                }
+            });
+            //ponemos icono al sord
+            if ($('.list-multi-sord').attr('direction') == 'asc') {
+                $('.list-multi-sord').addClass('mdi-chevron-up');
+            } else {
+                $('.list-multi-sord').addClass('mdi-chevron-down');
+            }
+            //funcionalidad del sord
+            $('.list-multi-sord').click(() => {
+                let sidxPos = ctx.options.multiorder.sidx.split(',').map((e) => {return e.trim();}).indexOf(line.attr('ord-value'));
+                let tmp = ctx.options.multiorder.sord.split(',').map((e) => {return e.trim();});
+                if($('.list-multi-sord').attr('direction') == 'asc'){
+                    tmp[sidxPos] = 'desc';
+                } else {
+                    tmp[sidxPos] = 'asc';
+                }
+            });
+            //funcionalidad de retirar la ordenación
+            $('.mdi-cancel', line).click(() => {
+                //recreamos el botón
+                let $btn = $('<button class="btn btn-secondary"></button>');
+                $btn.attr('ord-value', line.attr('ord-value'));
+                let text = ctx.options.sidx.source.filter(x => x.value == line.attr('ord-value'))[0].i18nCaption;
+                $btn.text(text);
+                $('.list-multiorder-orderfields').append($btn.clone());
+                // Eliminamos la linea
+                line.remove();
+            });
+        },
+
+        _selectAll: function () {
             const self = this;
             const opciones = self.options;
-            
+
             opciones.multiselection.selectedAll = true;
             opciones.multiselection.selectedIds = [];
             opciones.multiselection.selectedRowsPerPage = [];
@@ -844,7 +1004,7 @@
                                     }
                                     if (xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
-                                        if((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
+                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
                                             $item.addClass('list-item-selected');
                                         }
                                     }
