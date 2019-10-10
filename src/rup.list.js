@@ -761,7 +761,7 @@
                                     }
                                     if(xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
-                                        if(tmp.length > 0 || xhr.selectedAll) {
+                                        if((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
                                             $item.addClass('list-item-selected');
                                         }
                                     }

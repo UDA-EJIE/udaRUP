@@ -94,19 +94,16 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter">
-<h1>Tested in HeadlessChrome 77.0.3865 (Windows 7.0.0) on Wed Oct 02 2019</h1>
+<h1>Tested in HeadlessChrome 77.0.3865 (Windows 7.0.0) on Thu Oct 10 2019</h1>
 
 <div class="alert">
 
 
-<!-- <span class="failingAlert bar">Failed 2 specs</span> -->
-<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>2 specs, 2 failed, 0 pending</span>
-<span class="resultsMenu bar">
-<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
-   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
-</span>
 
+  
+  <span class="passingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>37 specs, 0 failed, 0 pending</span>
+  
 
 
 </div>
@@ -117,15 +114,285 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
   
-    <div class="suite failed">
+    <div class="suite passed">
       <span class="description">Test rup_list &gt;  Creación &gt; </span>
     
-      <div class="specSummary failed">
+      <div class="specSummary passed">
       <span class="description">Debe tener header y footer : </span>
       </div>
     
-      <div class="specSummary failed">
+      <div class="specSummary passed">
       <span class="description">El cuerpo de la lista debe estar vacío : </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Filtrado &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Filtra correctamente : </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Ordenación &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparecen ordenados por el campo especificado :</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Ordenación &gt;   Se invierte la ordenación mediante el botón definido para ello &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">La ordenacion se invierte: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Paginación &gt;  Página siguiente &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Ha cambiado la página activa en la navegación:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Se activa la opción de página anterior</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Están los registros esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Paginación &gt;  Página siguiente &gt;  Funcionalidad en la última página &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">El control para ir a la página siguiente está deshabilitado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Paginación &gt;  Página anterior &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Cambia la página activa en el nav: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Están los registros esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Paginación &gt;  Página anterior &gt;  Funcionamiento primera página &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Se desactiva la opción de página anterior</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Paginación &gt;  Acceso directo a página desde el nav &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Se marca la página correcta en el nav</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Se activa la opción de página anterior &gt; </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Elementos por página &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Varía el número de elementos por página:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Varía el número de páginas: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Elementos por página &gt;  Navegamos a la última página &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Hay el número de elementos esperados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Aparición de los separadores (&quot;...&quot;) en la paginación &gt;  Separador del inicio &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">No aparece el separador del final: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparece el separador del inicio: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Aparición de los separadores (&quot;...&quot;) en la paginación &gt;  Separador del final &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparece el separador del final: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">No aparece el separador del inicio: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Aparición de los separadores (&quot;...&quot;) en la paginación &gt;  Ambos separadores &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparece el separador del final: </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparece el separador del inicio: </span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Control de errores &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Aparece el feedback con el error:</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">No se muestra el componente de listado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Creación y funcionamiento del groupButton &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Se crea el botón:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Creación y funcionamiento del groupButton &gt;  Funcionamiento del botón &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Deben mostrarse las opciones de selección:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar página</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos de la pagina se han seleccionado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar página Si vamos a la página siguiente &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos no están seleccionados</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar página Si vamos a la página siguiente &gt;  Si volvemos a la pagina anterior</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos de la pagina siguen estando seleccionados</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Deseleccionar página</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos no están seleccionados</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar todo</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos de la pagina se han seleccionado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar todo Si deseleccionamos la página &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos estan deseleccionados</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar todo Si deseleccionamos la página &gt;  Y filtramos &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos deben estar deseleccionados:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Seleccionar todo Si vamos a la página siguiente &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos no están seleccionados</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Deseleccionar todo</span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos de la pagina se han seleccionado:</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Test rup_list &gt;  Funcionamiento &gt;  Selección y multiselección &gt;  Funcionalidad de las opciones &gt;  Opción Deseleccionar todo Si vamos a la página siguiente &gt; </span>
+    
+      <div class="specSummary passed">
+      <span class="description">Los elementos no están seleccionados</span>
       </div>
     
     </div>
@@ -134,22 +401,6 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </div>
 
 <div id="details">
-  
-  
-  <div class="specDetail failed">
-    <span class="description">Test rup_list &gt;  Creación &gt;  Debe tener header y footer : </span>
-    <div class="stackTrace">
-      <div class="resultMessage">Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.</div>
-    </div>
-  </div>
-  
-  <div class="specDetail failed">
-    <span class="description">Test rup_list &gt;  Creación &gt;  El cuerpo de la lista debe estar vacío : </span>
-    <div class="stackTrace">
-      <div class="resultMessage">Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.</div>
-    </div>
-  </div>
-  
   
 </div>
 
@@ -162,7 +413,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    case 50: showFailures(); break;
+    
   }
 };
 

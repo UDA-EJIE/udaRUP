@@ -322,6 +322,28 @@ describe('Test rup_list > ', () => {
                             expect($(elem).hasClass('list-item-selected')).toBeTruthy();
                         });
                     });
+                    describe('Si deseleccionamos la página > ', () => {
+                        beforeEach((done) => {
+                            $('#rup-list').on('listAfterMultiselection', done);
+                            $('.selectable-deselectPage', $('#rup-list-header')).click();
+                        });
+                        it('Los elementos estan deseleccionados', () => {
+                            $('#rup-list').children().toArray().forEach((e) => {
+                                expect($(e).hasClass('list-item-selected')).toBeFalsy();
+                            });
+                        });
+                        describe('Y filtramos > ', () => {
+                            beforeEach((done) => {
+                                $('#rup-list').on('load', done);
+                                $('#rup-list').rup_list('filter');
+                            });
+                            it('Los elementos deben estar deseleccionados:', () => {
+                                $('#rup-list').children().toArray().forEach((e) => {
+                                    expect($(e).hasClass('list-item-selected')).toBeFalsy();
+                                });
+                            });
+                        });
+                    });
                     describe('Si vamos a la página siguiente > ', () => {
                         beforeEach((done) => {
                             $('#rup-list').on('load', done);
