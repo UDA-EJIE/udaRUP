@@ -264,7 +264,7 @@ describe('Test rup_list > ', () => {
                 beforeEach(() => {
                     $('#rup-list-display-selectables', $('#rup-list-header')).click();
                 });
-                describe('Opción Seleccionar página', () => {
+                describe('Opción Seleccionar página > ', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('listAfterMultiselection', done);
                         $('.selectable-selectPage', $('#rup-list-header')).click();
@@ -297,7 +297,7 @@ describe('Test rup_list > ', () => {
                         });
                     });
                 });
-                describe('Opción Deseleccionar página', () => {
+                describe('Opción Deseleccionar página > ', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('listAfterMultiselection', () => {
                             $('#rup-list').off('listAfterMultiselection');
@@ -312,7 +312,7 @@ describe('Test rup_list > ', () => {
                         });
                     });
                 });
-                describe('Opción Seleccionar todo', () => {
+                describe('Opción Seleccionar todo > ', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('listAfterMultiselection', done);
                         $('.selectable-selectAll', $('#rup-list-header')).click();
@@ -356,7 +356,7 @@ describe('Test rup_list > ', () => {
                         });
                     });
                 });
-                describe('Opción Deseleccionar todo', () => {
+                describe('Opción Deseleccionar todo > ', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('listAfterMultiselection', () => {
                             $('#rup-list').off('listAfterMultiselection');

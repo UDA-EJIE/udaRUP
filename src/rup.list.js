@@ -431,6 +431,7 @@
                 });
                 $('#' + elem).addClass('list-item-selected');
             });
+            $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
         _deselectAll: function () {
@@ -443,6 +444,7 @@
             self._getPageIds().forEach((elem) => {
                 $('#' + elem).removeClass('list-item-selected');
             });
+            $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
         _selectPage: function () {
@@ -496,6 +498,7 @@
             if (opciones.multiselection.selectedRowsPerPage.length == 0) {
                 opciones.multiselection.selectedRowsPerPage = null;
             }
+            $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
         _deselectPage: function () {
@@ -515,6 +518,7 @@
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
+                        $('#' + arrElem).removeClass('list-item-selected');
                     }
                 });
             } else {
@@ -539,15 +543,16 @@
                             page: opciones.page
                         });
                     }
+                    $('#' + arrElem).removeClass('list-item-selected');
                 });
             }
-            $('.list-item').removeClass('list-item-selected');
             if (opciones.multiselection.selectedIds.length == 0) {
                 opciones.multiselection.selectedIds = null;
             }
             if (opciones.multiselection.selectedRowsPerPage.length == 0) {
                 opciones.multiselection.selectedRowsPerPage = null;
             }
+            $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
         _generateSelectablesBtnGroup: function () {
