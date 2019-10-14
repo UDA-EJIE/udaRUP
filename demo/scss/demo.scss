@@ -52,6 +52,65 @@
 
 .rup_list-overlay {
     position: absolute;
+    // background: url(../images/loader.gif) no-repeat center center transparent;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 1;
+    z-index: 10;
+
+    .loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 15vh;
+        max-width: 20rem;
+        height: 15vh;
+        max-height: 20rem;
+        margin: -10vh 0 0 -15vh;
+        border-radius: 50%;
+        border: 7px solid transparent;
+        border-top-color: #69a3d6;
+        animation: spin 2s linear infinite;
+        z-index: 1001;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 7px solid transparent;
+            border-top-color: #337ab7;
+            animation: spin 3s linear infinite;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 7px solid transparent;
+            border-top-color: #204d71;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+    }
 }
 
 .list-item {

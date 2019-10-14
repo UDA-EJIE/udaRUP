@@ -134,7 +134,7 @@
                  * OVERLAY (Lock & Unlock)
                  */
                 opciones._idOverlay = selfId + '-overlay';
-                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '"> </div>');
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '"><div class="loader"></div></div>');
                 opciones._overlay.addClass('rup_list-overlay');
 
                 /**
@@ -224,164 +224,23 @@
                 opciones._footer.sord.addClass('rup_list-footer-sord');
                 opciones._footer.selectables.addClass('rup_list-footer-selectables');
 
-                // RowNum select to rup-combo
-                var rowNumRupConf = {
-                    source: opciones.rowNum.source,
-                    width: 'initial',
-                    selected: opciones.rowNum.value,
-                    rowStriping: true,
-                    ordered: false,
-                    change: function () {
-                        if (!$('#' + this.id).rup_combo('isDisabled')) {
-                            if (this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')) {
-                                opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._header.rowNum.rup_combo('disable');
-                            }
-                            if (this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')) {
-                                opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._footer.rowNum.rup_combo('disable');
-                            }
-                            self._changeOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._header.rowNum.rup_combo('enable');
-                            opciones._footer.rowNum.rup_combo('enable');
-                        }
-                    }
-                };
-                opciones._header.rowNum.rup_combo(rowNumRupConf);
-                opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
-                opciones._footer.rowNum.rup_combo(rowNumRupConf);
-                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+                /**
+                 * ROWNUM
+                 */ 
+                self._rownumInit.apply(self);
 
+                /**
+                 * SORT - MULTISORT
+                 */
                 if (opciones.orderType != 'multi') {
                     // Sidx select to rup-combo
-                    var sidxRupConf = {
-                        source: opciones.sidx.source,
-                        width: 'initial',
-                        selected: opciones.sidx.value,
-                        rowStriping: true,
-                        ordered: false,
-                        change: function () {
-                            if (!$('#' + this.id).rup_combo('isDisabled')) {
-                                opciones._header.sidx.rup_combo('disable');
-                                opciones._footer.sidx.rup_combo('disable');
-                                opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._header.sidx.rup_combo('enable');
-                                opciones._footer.sidx.rup_combo('enable');
-                            }
-                        }
-                    };
-                    opciones._header.sidx.rup_combo(sidxRupConf);
-                    opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-                    opciones._footer.sidx.rup_combo(sidxRupConf);
-                    opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
-
-                // Inicialización sord
-                    var sordH = opciones._header.sord.find('i');
-                    var sordF = opciones._footer.sord.find('i');
-
-                    if (opciones.sord === 'asc') {
-                        sordH.addClass('fa-sort-amount-asc');
-                        sordF.addClass('fa-sort-amount-asc');
-                        sordH.removeClass('fa-sort-amount-desc');
-                        sordF.removeClass('fa-sort-amount-desc');
-                    } else {
-                        sordH.addClass('fa-sort-amount-desc');
-                        sordF.addClass('fa-sort-amount-desc');
-                        sordH.removeClass('fa-sort-amount-asc');
-                        sordF.removeClass('fa-sort-amount-asc');
-                    }
-
-                // Funcionamiento botón sord
-                    $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                        sordH.toggleClass('fa-sort-amount-asc');
-                        sordH.toggleClass('fa-sort-amount-desc');
-                        sordF.toggleClass('fa-sort-amount-asc');
-                        sordF.toggleClass('fa-sort-amount-desc');
-                        self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
-                    });
+                    self._sidxComboInit.apply(self);
+                    // Inicialización sord
+                    self._sordButtonInit(self);
                 } else {
-                    // Creamos un apartado en opciones
-                    opciones.multiorder = {
-                        sidx: opciones.sidx.value
-                        , sord:'asc'
-                    };
-                    // Generamos un span para el resumen
-                    var $spanResumen = $('<span class="rup_list-multiorder-summary"></span>');
-                    opciones._header.sidx.wrap('<div class="tmp-orderchange"></div>');
-                    opciones._footer.sidx.wrap('<div class="tmp-orderchange"></div>');
-
-                    $('label[for="rup-list-header-sidx"]').remove();
-                    $('label[for="rup-list-footer-sidx"]').remove();
-                    $('.tmp-orderchange').children().remove();
-                    $('.tmp-orderchange').append($spanResumen.clone());
-
-                    $('.rup_list-multiorder-summary').unwrap();
-                    let $summaryMultiOrder = $('<span class="badge badge-pill badge-primary"></span>');
-                    opciones.multiorder.sidx.split(',').map((e) => {return e.trim();}).forEach((e, i) => {
-                        let $tmpSum = $summaryMultiOrder.clone();
-                        let geti18n = (val) => {
-                            let srcVal = opciones.sidx.source.filter(x => x.value == val);
-                            return srcVal[0].i18nCaption;
-                        };
-                        let sordBadge = $('<span></span>');
-                        sordBadge.text(' ');
-                        let arrSord =opciones.multiorder.sord.split(',').map((e) => {return e.trim();});
-                        if(arrSord[i] == 'asc') {
-                            sordBadge.addClass('mdi mdi-chevron-up');
-                        } else {
-                            sordBadge.addClass('mdi mdi-chevron-down');
-                        }
-                        $tmpSum.append(geti18n(e)).append(sordBadge.clone());
-                        $('.rup_list-multiorder-summary').append($tmpSum.clone());
-                    });
-                    // Creamos el botón para el dialogo
-                    var $btnOrderDialog = $('<button class="rup_list-multiorder-dialogbtn"></button>');
-                    $btnOrderDialog.addClass('mdi mdi-pencil');
-                    opciones._header.sord.wrap('<div class="tmp-orderchange"></div>');
-                    opciones._footer.sord.wrap('<div class="tmp-orderchange"></div>');
-                    $('.tmp-orderchange').children().remove();
-                    $('.tmp-orderchange').append($btnOrderDialog.clone());
-                    $('.rup_list-multiorder-dialogbtn').unwrap();
-                    //Creamos el dialogo
-                    var $multiorderDialog = $('<div id="multiorderDialog" class="rup_list-multiorder-dialog" style="display:none"></div>');
-                    $multiorderDialog.append('<div class="rup_list-multiorder-orderfields"></div>');
-                    $multiorderDialog.append('<div class="rup_list-multiorder-ordersort"></div>');
-                    $('body').append($multiorderDialog);
-                    //Creamos el contenido del diálogo
-                    opciones.sidx.source.forEach((el) => {
-                        let $btn = $('<button></button>');
-                        $btn.attr('ord-value', el.value);
-                        $btn.text(el.i18nCaption);
-                        $('.rup_list-multiorder-orderfields').append($btn.clone());
-                    });
-                    $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
-                        self._actualizarOrdenMulti(e, $(this));
-                    }); // trigger('click', [btnobj, asc/desc])
-                    //Creamos el componente para el dialogo
-                    $('#multiorderDialog').rup_dialog({
-                        type: $.rup.dialog.DIV,
-                        autoOpen: false,
-                        modal: true,
-                        resizable: true,
-                        width: '90%',
-                        position: null,
-                        title: 'Multiordenación',
-                        buttons: [{
-                            text: 'cerrar',
-                            click: () => {
-                                $('#multiorderDialog').rup_dialog('close');
-                                self.element.rup_list('filter');
-                            }
-                        }]
-                    });
-                    // Establecemos el boton para el dialogo
-                    $('.rup_list-multiorder-dialogbtn').click(() => {
-                        $('#multiorderDialog').rup_dialog('open');
-                    });
+                    // Inicialización del multisort
+                    self._multisortInit.apply(self);
                 }
-
 
                 // Asociación de eventos
                 $('#' + self.element[0].id).on('load', opciones.load);
@@ -390,60 +249,10 @@
                     self.element.append(item);
                 });
 
-                // Funcionalidad pagenav Ant./Sig.
-
-                var onPageChange = (elem) => {
-                    if ($(elem).is('.disabled')) {
-                        return false;
-                    }
-                    let maxpage = $('.page').eq(-1).attr('data-page');
-                    let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
-                    if (actualPage == 1) {
-                        opciones._header.pagePrev.addClass('disabled');
-                        opciones._footer.pagePrev.addClass('disabled');
-                        opciones._header.pageNext.removeClass('disabled');
-                        opciones._footer.pageNext.removeClass('disabled');
-                        return true;
-                    }
-                    if (actualPage == maxpage) {
-                        opciones._header.pagePrev.removeClass('disabled');
-                        opciones._footer.pagePrev.removeClass('disabled');
-                        opciones._header.pageNext.addClass('disabled');
-                        opciones._footer.pageNext.addClass('disabled');
-                        return true;
-                    }
-
-                    opciones._header.pagePrev.removeClass('disabled');
-                    opciones._footer.pagePrev.removeClass('disabled');
-                    opciones._header.pageNext.removeClass('disabled');
-                    opciones._footer.pageNext.removeClass('disabled');
-                    return true;
-                };
-
-                opciones._header.pagePrev.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-                });
-                opciones._header.pageNext.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-                });
-                opciones._footer.pagePrev.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-                });
-                opciones._footer.pageNext.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-                });
+                /**
+                 * PAGENAV
+                 */
+                self._pagenavInit.apply(self);
 
                 //Gestion de multiselección
                 if (opciones.selectable) {
@@ -508,15 +317,246 @@
             });
         },
 
+        _sordButtonInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var sordH = opciones._header.sord.find('i');
+            var sordF = opciones._footer.sord.find('i');
+            if (opciones.sord === 'asc') {
+                sordH.addClass('fa-sort-amount-asc');
+                sordF.addClass('fa-sort-amount-asc');
+                sordH.removeClass('fa-sort-amount-desc');
+                sordF.removeClass('fa-sort-amount-desc');
+            } else {
+                sordH.addClass('fa-sort-amount-desc');
+                sordF.addClass('fa-sort-amount-desc');
+                sordH.removeClass('fa-sort-amount-asc');
+                sordF.removeClass('fa-sort-amount-asc');
+            }
+            // Funcionamiento botón sord
+            $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
+                sordH.toggleClass('fa-sort-amount-asc');
+                sordH.toggleClass('fa-sort-amount-desc');
+                sordF.toggleClass('fa-sort-amount-asc');
+                sordF.toggleClass('fa-sort-amount-desc');
+                self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+            });
+        },
+
+        _sidxComboInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var sidxRupConf = {
+                source: opciones.sidx.source,
+                width: 'initial',
+                selected: opciones.sidx.value,
+                rowStriping: true,
+                ordered: false,
+                change: function () {
+                    if (!$('#' + this.id).rup_combo('isDisabled')) {
+                        opciones._header.sidx.rup_combo('disable');
+                        opciones._footer.sidx.rup_combo('disable');
+                        opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                        self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._header.sidx.rup_combo('enable');
+                        opciones._footer.sidx.rup_combo('enable');
+                    }
+                }
+            };
+            opciones._header.sidx.rup_combo(sidxRupConf);
+            opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+            opciones._footer.sidx.rup_combo(sidxRupConf);
+            opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+        },
+
+        _multisortInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            // Creamos un apartado en opciones
+            opciones.multiorder = {
+                sidx: opciones.sidx.value,
+                sord: 'asc'
+            };
+            // Generamos un span para el resumen
+            var $spanResumen = $('<ul class="rup_list-multiorder-summary"/>');
+            opciones._header.sidx.wrap('<div class="tmp-orderchange"/>');
+            opciones._footer.sidx.wrap('<div class="tmp-orderchange"/>');
+            $('.tmp-orderchange').children().remove();
+            $('.tmp-orderchange').append($spanResumen.clone());
+            $('.rup_list-multiorder-summary').unwrap();
+            let $summaryMultiOrder = $('<li class="badge badge-pill badge-primary"/>');
+            opciones.multiorder.sidx.split(',').map((e) => {
+                return e.trim();
+            }).forEach((e, i) => {
+                let $tmpSum = $summaryMultiOrder.clone();
+                let geti18n = (val) => {
+                    let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                    return srcVal[0].i18nCaption;
+                };
+                let sordBadge = $('<span/>');
+                sordBadge.text(' ');
+                let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                    return e.trim();
+                });
+                if (arrSord[i] == 'asc') {
+                    sordBadge.addClass('mdi mdi-chevron-up');
+                } else {
+                    sordBadge.addClass('mdi mdi-chevron-down');
+                }
+                $tmpSum.append(geti18n(e)).append(sordBadge.clone());
+                $('.rup_list-multiorder-summary').append($tmpSum.clone());
+            });
+            // Creamos el botón para el dialogo
+            var $btnOrderDialog = $('<button class="rup_list-multiorder-dialogbtn"></button>');
+            $btnOrderDialog.addClass('mdi mdi-pencil');
+            opciones._header.sord.wrap('<div class="tmp-orderchange"></div>');
+            opciones._footer.sord.wrap('<div class="tmp-orderchange"></div>');
+            $('.tmp-orderchange').children().remove();
+            $('.tmp-orderchange').append($btnOrderDialog.clone());
+            $('.rup_list-multiorder-dialogbtn').unwrap();
+            //Creamos el dialogo
+            var $multiorderDialog = $('<div id="multiorderDialog" class="rup_list-multiorder-dialog" style="display:none"></div>');
+            $multiorderDialog.append('<div class="rup_list-multiorder-orderfields"></div>');
+            $multiorderDialog.append('<div class="rup_list-multiorder-ordersort"></div>');
+            $('body').append($multiorderDialog);
+            //Creamos el contenido del diálogo
+            opciones.sidx.source.forEach((el) => {
+                let $btn = $('<button></button>');
+                $btn.attr('ord-value', el.value);
+                $btn.text(el.i18nCaption);
+                $('.rup_list-multiorder-orderfields').append($btn.clone());
+            });
+            $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
+                self._actualizarOrdenMulti(e, $(this));
+            }); // trigger('click', [btnobj, asc/desc])
+            //Creamos el componente para el dialogo
+            $('#multiorderDialog').rup_dialog({
+                type: $.rup.dialog.DIV,
+                autoOpen: false,
+                modal: true,
+                resizable: true,
+                width: '90%',
+                position: null,
+                title: 'Multiordenación',
+                buttons: [{
+                    text: 'cerrar',
+                    click: () => {
+                        $('#multiorderDialog').rup_dialog('close');
+                        self.element.rup_list('filter');
+                    }
+                }]
+            });
+            // Establecemos el boton para el dialogo
+            $('.rup_list-multiorder-dialogbtn').click(() => {
+                $('#multiorderDialog').rup_dialog('open');
+            });
+        },
+
+        _rownumInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var rowNumRupConf = {
+                source: opciones.rowNum.source,
+                width: 'initial',
+                selected: opciones.rowNum.value,
+                rowStriping: true,
+                ordered: false,
+                change: function () {
+                    if (!$('#' + this.id).rup_combo('isDisabled')) {
+                        if (this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')) {
+                            opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._header.rowNum.rup_combo('disable');
+                        }
+                        if (this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')) {
+                            opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._footer.rowNum.rup_combo('disable');
+                        }
+                        self._changeOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._header.rowNum.rup_combo('enable');
+                        opciones._footer.rowNum.rup_combo('enable');
+                    }
+                }
+            };
+            opciones._header.rowNum.rup_combo(rowNumRupConf);
+            opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
+            opciones._footer.rowNum.rup_combo(rowNumRupConf);
+            opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+        },
+
+        _pagenavInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var onPageChange = (elem) => {
+                if ($(elem).is('.disabled')) {
+                    return false;
+                }
+                let maxpage = $('.page').eq(-1).attr('data-page');
+                let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
+                if (actualPage == 1) {
+                    opciones._header.pagePrev.addClass('disabled');
+                    opciones._footer.pagePrev.addClass('disabled');
+                    opciones._header.pageNext.removeClass('disabled');
+                    opciones._footer.pageNext.removeClass('disabled');
+                    return true;
+                }
+                if (actualPage == maxpage) {
+                    opciones._header.pagePrev.removeClass('disabled');
+                    opciones._footer.pagePrev.removeClass('disabled');
+                    opciones._header.pageNext.addClass('disabled');
+                    opciones._footer.pageNext.addClass('disabled');
+                    return true;
+                }
+                opciones._header.pagePrev.removeClass('disabled');
+                opciones._footer.pagePrev.removeClass('disabled');
+                opciones._header.pageNext.removeClass('disabled');
+                opciones._footer.pageNext.removeClass('disabled');
+                return true;
+            };
+            opciones._header.pagePrev.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+            });
+            opciones._header.pageNext.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+            });
+            opciones._footer.pagePrev.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+            });
+            opciones._footer.pageNext.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+            });
+        },
+
         _actualizarOrdenMulti: function (e, self, ord = 'asc') {
             var ctx = $(this)[0];
             var sortDiv = $('.rup_list-multiorder-ordersort');
             var opciones = ctx.options;
             // Añadimos las opciones al componente
-            if(opciones.multiorder.sidx.length) {
-                let tmpSidxArr = opciones.multiorder.sidx.split(',').map((e) => {return e.trim();});
+            if (opciones.multiorder.sidx.length) {
+                let tmpSidxArr = opciones.multiorder.sidx.split(',').map((e) => {
+                    return e.trim();
+                });
                 tmpSidxArr.push(self.attr('ord-value'));
-                let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {return e.trim();});
+                let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {
+                    return e.trim();
+                });
                 tmpSordArr.push(ord);
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
@@ -559,8 +599,8 @@
             //Función de guardado de la multiordenación
             var save = () => {
                 opciones.multiorder = {
-                    sidx: opciones.sidx.value
-                    , sord:'asc'
+                    sidx: opciones.sidx.value,
+                    sord: 'asc'
                 };
                 var sortDiv = $('.rup_list-multiorder-ordersort');
                 let sidxArr = [];
@@ -569,14 +609,16 @@
                     sidxArr.push($(elem).attr('ord-value'));
                     sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
                 });
-                if(sidxArr.length > 0){
+                if (sidxArr.length > 0) {
                     opciones.multiorder.sidx = sidxArr.join(',');
                     opciones.multiorder.sord = sordArr.join(',');
                 }
                 //Crear el label de resumen
                 let $summaryMultiOrder = $('<span class="badge badge-pill badge-primary"></span>');
                 $('.rup_list-multiorder-summary').children().remove();
-                opciones.multiorder.sidx.split(',').map((e) => {return e.trim();}).forEach((e, i) => {
+                opciones.multiorder.sidx.split(',').map((e) => {
+                    return e.trim();
+                }).forEach((e, i) => {
                     let $tmpSum = $summaryMultiOrder.clone();
                     let geti18n = (val) => {
                         let srcVal = opciones.sidx.source.filter(x => x.value == val);
@@ -584,8 +626,10 @@
                     };
                     let sordBadge = $('<span></span>');
                     sordBadge.text(' ');
-                    let arrSord =opciones.multiorder.sord.split(',').map((e) => {return e.trim();});
-                    if(arrSord[i] == 'asc') {
+                    let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                        return e.trim();
+                    });
+                    if (arrSord[i] == 'asc') {
                         sordBadge.addClass('mdi mdi-chevron-up');
                     } else {
                         sordBadge.addClass('mdi mdi-chevron-down');
@@ -620,7 +664,7 @@
             //funcionalidad del sord
             $('.rup_list-multi-sord', line).off('click');
             $('.rup_list-multi-sord', line).click(() => {
-                if($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
+                if ($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
                     $('.rup_list-multi-sord', line).attr('direction', 'desc');
                     $('.rup_list-multi-sord', line).addClass('mdi-chevron-down');
                     $('.rup_list-multi-sord', line).removeClass('mdi-chevron-up');
@@ -958,7 +1002,7 @@
             }
         },
 
-        lock: function(){
+        lock: function () {
             this._lock();
         },
 
@@ -974,7 +1018,7 @@
 
             $('#' + opciones._idOverlay).remove();
             opciones._overlay.prependTo(opciones._content);
-            
+
             opciones._overlay.width(opciones._content.width());
             opciones._overlay.height(opciones._content.height());
         },
@@ -1008,9 +1052,9 @@
             var $pagenavF = opciones._footer.pagenav;
 
             // Validar si la ordenacion es simple o múltiple
-            var sidx ='';
-            var sord ='';
-            if(opciones.orderType == 'multi') {
+            var sidx = '';
+            var sord = '';
+            if (opciones.orderType == 'multi') {
                 sidx = opciones.multiorder.sidx;
                 sord = opciones.multiorder.sord;
             } else {
