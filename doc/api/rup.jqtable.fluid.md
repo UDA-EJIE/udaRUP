@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/fluid"></a>
 
-## ~~rup\_jqtable/fluid~~
+## ~~rup_jqtable/fluid~~
 ***Deprecated***
 
 Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
@@ -20,7 +20,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["fuild"]
 ### rup_jqtable/fluid~options
 Propiedades de configuración del plugin multifilter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
+**Kind**: inner property of [<code>rup_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -35,7 +35,7 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 ### rup_jqtable/fluid~postConfigureFluid(settings)
 Metodo que realiza la post-configuración del plugin fuild del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
+**Kind**: inner method of [<code>rup_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
 
 | Param | Type | Description |
 | --- | --- | --- |

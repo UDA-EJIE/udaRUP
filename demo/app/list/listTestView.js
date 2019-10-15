@@ -34,7 +34,7 @@ define(['jquery', 'marionette',
             action: '/demo/list/filter',
             filterForm: 'listFilterForm',
             feedback: 'rup-list-feedback',
-            visiblePages: 2,
+            visiblePages: 3,
             key: 'codigoPK',
             selectable: {
                 multi: true,
@@ -51,7 +51,7 @@ define(['jquery', 'marionette',
                     value: 'CODCLIENTE',
                     i18nCaption: 'Codigo cliente'
                 }],
-                value: 'USUARIO'
+                value: 'EDAD,USUARIO'
             },
             rowNum: {
                 source: [{

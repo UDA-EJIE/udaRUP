@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/inlineEdit"></a>
 
-## rup\_jqtable/inlineEdit
+## rup_jqtable/inlineEdit
 Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
 
 **Summary**: Plugin de edición en línea del componente RUP Table.  
@@ -26,7 +26,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["inlineE
 ### rup_jqtable/inlineEdit~options
 Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner property of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **See**: Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.  
 **Properties**
 
@@ -42,7 +42,7 @@ Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 ### rup_jqtable/inlineEdit~preConfigureInlineEdit(settings)
 Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -53,7 +53,7 @@ Metodo que realiza la pre-configuración del plugin inlineEdit del componente RU
 ### rup_jqtable/inlineEdit~postConfigureInlineEdit(settings)
 Metodo que realiza la post-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -64,9 +64,9 @@ Metodo que realiza la post-configuración del plugin inlineEdit del componente R
 ### rup_jqtable/inlineEdit~addRow(options) ⇒ <code>object</code>
 Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: [<code>rupTable_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -81,9 +81,9 @@ $("#idTable").rup_jqtable("addRow", options);
 ### rup_jqtable/inlineEdit~cloneRow(rowId, options) ⇒ <code>object</code>
 Clona un registro determinado. Añade una nueva línea con el contenido del registro a partir del cual se desea clonar.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: [<code>rupTable_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -99,9 +99,9 @@ $("#idTable").rup_jqtable("cloneRow", rowId, options);
 ### rup_jqtable/inlineEdit~editRow(rowId, options) ⇒ <code>object</code>
 Pone el registro indicado en modo edición para permitir la edición de sus datos.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: [<code>rupTable_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -117,9 +117,9 @@ $("#idTable").rup_jqtable("editRow", rowId, options, true);
 ### rup_jqtable/inlineEdit~deleteRow(rowId, options) ⇒ <code>object</code>
 Elimina el registro indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), <code>module:rup\_jqtable#event:rupTable\_deleteAfterComplete</code>, [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: [<code>rupTable_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), <code>module:rup_jqtable#event:rupTable_deleteAfterComplete</code>, [<code>rupTable_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -135,9 +135,9 @@ $("#idTable").rup_jqtable("deleteRow", rowId, options);
 ### rup_jqtable/inlineEdit~saveRow(rowId, options) ⇒ <code>object</code>
 Guarda el registro modificado. Se almacenan los datos introducidos en la línea en modo edición.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeSaveRow</code>  
+**Emits**: <code>module:rup_jqtable#event:rupTable_beforeSaveRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -153,9 +153,9 @@ $("#idTable").rup_jqtable("saveRow", rowId, options);
 ### rup_jqtable/inlineEdit~restoreRow(rowId, afterrestorefunc) ⇒ <code>object</code>
 Restaura la fila indicada al estado anterior a habilitarse el modo edición.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeRestoreRow</code>  
+**Emits**: <code>module:rup_jqtable#event:rupTable_beforeRestoreRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -171,7 +171,7 @@ $("#idTable").rup_jqtable("restoreRow", rowId, function(){});
 ### rup_jqtable/inlineEdit~restoreRow(rowId) ⇒ <code>object</code>
 Restaura los campos RUP existentes en una fila de edición en línea.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
 
 | Param | Type | Description |

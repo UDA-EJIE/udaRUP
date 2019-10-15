@@ -1,6 +1,6 @@
 <a name="module_rup_breadCrumb"></a>
 
-## rup\_breadCrumb
+## rup_breadCrumb
 El componente de migas muestra a los usuarios la ruta de navegación que ha seguido por la aplicación permitiéndoles volver hacia niveles superiores hasta la página de inicio.
 
 **Summary**: Componente RUP BeadCrumb.  
@@ -20,7 +20,7 @@ var properties = {  logOutUrl: "/x21aAppWar/logout",  breadCrumb: {      "pat
 ### rup_breadCrumb~options
 Opciones por defecto de configuración del widget.
 
-**Kind**: inner property of [<code>rup\_breadCrumb</code>](#module_rup_breadCrumb)  
+**Kind**: inner property of [<code>rup_breadCrumb</code>](#module_rup_breadCrumb)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -38,7 +38,7 @@ Opciones por defecto de configuración del widget.
 ### rup_breadCrumb~destroy()
 Elimina los componenes visuales generados para el widget así como las estructuras internas.
 
-**Kind**: inner method of [<code>rup\_breadCrumb</code>](#module_rup_breadCrumb)  
+**Kind**: inner method of [<code>rup_breadCrumb</code>](#module_rup_breadCrumb)  
 **Example**  
 ```js
 // Elimina el feedbackjQuery("#breadCrumb").rup_breadCrumb("destroy");
@@ -48,7 +48,7 @@ Elimina los componenes visuales generados para el widget así como las estructur
 ### rup_breadCrumb~breadCrumb
 Configuración de la estructura de las migas
 
-**Kind**: inner typedef of [<code>rup\_breadCrumb</code>](#module_rup_breadCrumb)  
+**Kind**: inner typedef of [<code>rup_breadCrumb</code>](#module_rup_breadCrumb)  
 **Properties**
 
 | Name | Type | Description |
@@ -62,7 +62,7 @@ Configuración de la estructura de las migas
 ### rup_breadCrumb~sublevel
 Define un submenú para la miga a la que se asocia.
 
-**Kind**: inner typedef of [<code>rup\_breadCrumb</code>](#module_rup_breadCrumb)  
+**Kind**: inner typedef of [<code>rup_breadCrumb</code>](#module_rup_breadCrumb)  
 **Properties**
 
 | Name | Type | Description |

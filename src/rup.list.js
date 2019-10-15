@@ -8,6 +8,50 @@
  *
  * @summary Componente RUP List.
  * @module rup_list
+ * @example
+ * $('#rup-list').rup_list({
+ *      action: '/demo/list/filter',
+ *      filterForm: 'listFilterForm',
+ *      feedback: 'rup-list-feedback',
+ *      visiblePages: 3,
+ *      key: 'codigoPK',
+ *      selectable: {
+ *          multi: true,
+ *          selector: '.list-item'
+ *      },
+ *      sidx: {
+ *          source: [{
+ *              value: 'USUARIO',
+ *              i18nCaption: 'Usuario'
+ *          }, {
+ *              value: 'EDAD',
+ *              i18nCaption: 'Edad'
+ *          }, {
+ *              value: 'CODCLIENTE',
+ *              i18nCaption: 'Codigo cliente'
+ *          }],
+ *          value: 'EDAD,USUARIO'
+ *      },
+ *      rowNum: {
+ *          source: [{
+ *              value: '5',
+ *              i18nCaption: 'Cinco'
+ *          }, {
+ *              value: '10',
+ *              i18nCaption: 'Diez'
+ *          }, {
+ *              value: '20',
+ *              i18nCaption: 'Veinte'
+ *          }],
+ *          value: '5'
+ *      },
+ *      isMultiSort: true,
+ *      modElement: (ev, item, json) => {
+ *          var userVal = item.find('#usuario_value_' + json.codigoPK);
+ *          userVal.text(userVal.text() + ' :D');
+ *      },
+ *      load: () => {}
+ * });
  */
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -58,6 +102,14 @@
             load: function () {}
         },
 
+        /**
+         * Método interno para cambiar el valor de algunas opciones
+         * 
+         * @name _changeOption
+         * @function
+         * @param {String} key 
+         * @param {*} value 
+         */
         _changeOption: function (key, value) {
             var opciones = this.options;
             switch (key) {
@@ -83,6 +135,11 @@
             }
         },
 
+        /**
+         * Método interno que valida que el esqueleto html es válido para el componente
+         * @name _validateSkeleton
+         * @function
+         */
         _validateSkeleton: function () {
             var id = this.element.attr('id');
             if (this.options.selectable && this.options.selectable.multi) {
@@ -105,6 +162,11 @@
                 $('#' + id + '-itemTemplate').length;
         },
 
+        /**
+         * Método interno que configura el componente
+         * @name _create
+         * @function
+         */
         _create: function () {
             global.initRupI18nPromise.then(() => {
                 const self = this;
@@ -317,6 +379,11 @@
             });
         },
 
+        /**
+         * Método interno que configura el boton de alternar el sord en la ordenación simple
+         * @name _sordButtonInit
+         * @function
+         */
         _sordButtonInit: function () {
             const self = this;
             const opciones = self.options;
@@ -344,6 +411,11 @@
             });
         },
 
+        /**
+         * Método interno que configura el combo de seleccion de sidx en la ordenación simple
+         * @name _sidxComboInit
+         * @function
+         */
         _sidxComboInit: function () {
             const self = this;
             const opciones = self.options;
@@ -372,6 +444,11 @@
             opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
         },
 
+        /**
+         * Método interno que configura los elementos de la multiordenación.
+         * @name _multisortInit
+         * @function
+         */
         _multisortInit: function () {
             const self = this;
             const opciones = self.options;
@@ -379,7 +456,31 @@
             // Creamos un apartado en opciones
             opciones.multiorder = {
                 sidx: opciones.sidx.value,
-                sord: 'asc'
+                sord: (() => {
+                    if(opciones.sord){
+                        let sordArr = opciones.sord.split(',');
+                        let sidxArr = opciones.sidx.value.split(',');
+                        if(sordArr.length == sidxArr.length){
+                            return opciones.sord;
+                        }
+                        if(sordArr.length > sidxArr.length){
+                            return sordArr.splice(0, sidxArr.length).join(',');
+                        }
+                        if(sordArr.length < sidxArr.length){
+                            let diff = sidxArr.length - sordArr.length;
+                            for(let i = 0; i<diff; i++) {
+                                sordArr.push('asc');
+                            }
+                            return sordArr.join(',');
+                        }
+                    } else {
+                        let sordArr = [];
+                        for(let i = 0; i < opciones.sidx.value.split(',').length; i++) {
+                            sordArr.push('asc');
+                        }
+                        return sordArr.join(',');
+                    }
+                })()
             };
             // Generamos un span para el resumen
             var $spanResumen = $('<ul class="rup_list-multiorder-summary"/>');
@@ -456,6 +557,11 @@
             });
         },
 
+        /**
+         * Método interno que configura el combo de elementos de lista por página
+         * @name _rownumInit
+         * @function
+         */
         _rownumInit: function () {
             const self = this;
             const opciones = self.options;
@@ -488,6 +594,11 @@
             opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
         },
 
+        /**
+         * Método interno que configura el nav de la paginación
+         * @name _pagenavInit
+         * @function
+         */
         _pagenavInit: function () {
             const self = this;
             const opciones = self.options;
@@ -544,6 +655,15 @@
             });
         },
 
+        /**
+         * Método interno que crea la estructura de las líneas en la multiordenación
+         * 
+         * @name _actualizarOrdenMulti
+         * @function
+         * @param {Event} e 
+         * @param {JQueryObj} self  Objeto JQuery del botón
+         * @param {String} ord  Direccion de la ordenación con la que se va a generar la línea
+         */
         _actualizarOrdenMulti: function (e, self, ord = 'asc') {
             var ctx = $(this)[0];
             var sortDiv = $('.rup_list-multiorder-ordersort');
@@ -583,8 +703,14 @@
             self.remove();
 
         },
+        
         /**
-         * Crea la funcionalidad de la ordenacion de los orders y del asc/desc de los mismos
+         * Método interno que da funcionalidad a cada línea en la multiordenación
+         * 
+         * @name _fnOrderOfOrderFields
+         * @function
+         * @param {JQuery} ctx La instancia de rup_list
+         * @param {JQuery} line Objeto JQuery de la línea a la que se va a dar funcionalidad
          */
         _fnOrderOfOrderFields: function (ctx, line) {
             //Creamos el groupButton
@@ -696,6 +822,12 @@
             save();
         },
 
+        /**
+         * Método interno para seleccionar todos los elementos de la lista.
+         * 
+         * @name _selectAll
+         * @function
+         */
         _selectAll: function () {
             const self = this;
             const opciones = self.options;
@@ -726,6 +858,12 @@
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
+        /**
+         * Método interno para deseleccionar todos los elementos de la lista
+         * 
+         * @name _deselectAll
+         * @function
+         */
         _deselectAll: function () {
             const self = this;
             const opciones = self.options;
@@ -739,6 +877,12 @@
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
+        /**
+         * Método interno para seleccionar todos los elementos en la página actual
+         * 
+         * @name _selectPage
+         * @function
+         */
         _selectPage: function () {
             const self = this;
             const opciones = self.options;
@@ -793,6 +937,12 @@
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
+        /**
+         * Método interno para deseleccionar todos los elementos en la página actual
+         * 
+         * @name _deselectPage
+         * @function
+         */
         _deselectPage: function () {
             const self = this;
             const opciones = self.options;
@@ -847,6 +997,12 @@
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
         },
 
+        /**
+         * Método interno que genera el desplegable de multiseleccion
+         * 
+         * @name _generateSelectablesBtnGroup
+         * @function
+         */
         _generateSelectablesBtnGroup: function () {
             const self = this;
             const selfId = self.element.attr('id');
@@ -892,6 +1048,12 @@
             });
         },
 
+        /**
+         * Método interno para obtener los Ids de la página actual
+         * 
+         * @name _getPageIds
+         * @function
+         */
         _getPageIds: function () {
             var self = this;
             var keys = [];
@@ -901,6 +1063,13 @@
             return keys;
         },
 
+        /**
+         * Método interno que otorga funcionalidad a la paginación
+         * 
+         * @name _pagenavManagement
+         * @function
+         * @param {Number} numPages Número total de páginas
+         */
         _pagenavManagement: function (numPages) {
             var self = this;
             var opciones = this.options;
@@ -1002,14 +1171,36 @@
             }
         },
 
+        /**
+         * Método que bloquea el componente
+         * 
+         * @name lock
+         * @function
+         * @example
+         * $('#rup-list').rup_list('lock');
+         */
         lock: function () {
             this._lock();
         },
 
+        /**
+         * Método que desbloquea el componente
+         * 
+         * @name unlock
+         * @function
+         * @example
+         * $('#rup-list').rup_list('unlock');
+         */
         unlock: function () {
             this._unlock();
         },
 
+        /**
+         * Método interno que se encarga del bloqueo del componente
+         * 
+         * @name _lock
+         * @function
+         */
         _lock: function () {
             const self = this;
             const opciones = self.options;
@@ -1023,6 +1214,12 @@
             opciones._overlay.height(opciones._content.height());
         },
 
+        /**
+         * Método interno que se encarga del desbloqueo del componente
+         * 
+         * @name _unlock
+         * @function
+         */
         _unlock: function () {
             const self = this;
             const opciones = self.options;
@@ -1031,6 +1228,14 @@
             $('#' + opciones._idOverlay).remove();
         },
 
+        /**
+         * Método para destruir el componente
+         * 
+         * @name destroy
+         * @function
+         * @example
+         * $('#rup-list').rup_list('destroy');
+         */ 
         destroy: function () {
             // TODO: Eliminar el componente.
             var self = this;
@@ -1044,6 +1249,12 @@
             $.Widget.prototype.destroy.apply(this, arguments);
         },
 
+        /**
+         * Método interno que se encarga de realizar el filtrado y construir la lista desde los datos recibidos
+         * 
+         * @name _doFilter
+         * @function
+         */
         _doFilter: function () {
             var self = this;
             var opciones = this.options;
@@ -1054,7 +1265,7 @@
             // Validar si la ordenacion es simple o múltiple
             var sidx = '';
             var sord = '';
-            if (opciones.orderType == 'multi') {
+            if (opciones.isMultiSort) {
                 sidx = opciones.multiorder.sidx;
                 sord = opciones.multiorder.sord;
             } else {
@@ -1189,6 +1400,14 @@
             }
         },
 
+        /**
+         * Método que se encarga de realizar una recarga de la lista
+         * 
+         * @name reload
+         * @function
+         * @example
+         * $('#rup-list').rup_list('reload');
+         */
         reload: function () {
             var self = this;
 
@@ -1215,6 +1434,14 @@
             }
         },
 
+        /**
+         * Método que se encarga de realizar el filtrado de la lista
+         * 
+         * @name filter
+         * @function
+         * @example
+         * $('#rup-list').rup_list('filter');
+         */
         filter: function () {
             var self = this;
             var opciones = this.options;
@@ -1243,11 +1470,28 @@
             }
         },
 
+        /**
+         * Método para cambiar la página actual.
+         * 
+         * @name page
+         * @function
+         * @param {Number} page La página a la que navegar
+         * @example
+         * $('#rup-list').rup_list('page', 3);
+         */
         page: function (page) {
             var self = this;
             self._changeOption('page', page);
         },
 
+        /**
+         * Método que obtiene la información de la selección actual
+         * 
+         * @name getSelectedIds
+         * @function
+         * @example
+         * $('#rup-list').rup_list('getSelectedIds');
+         */
         getSelectedIds: function () {
             var self = this;
             var options = self.options.multiselection;

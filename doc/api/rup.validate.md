@@ -1,6 +1,6 @@
 <a name="module_rup_validate"></a>
 
-## rup\_validate
+## rup_validate
 Permite al usuario validar los datos introducidos en los campos que se presentan en la aplicación.
 
 **Summary**: Componente RUP Validate.  
@@ -30,7 +30,7 @@ var properties={  rules:{      "campoObligatorio":{required:true},      "dni"
 ### "rupValidate_formValidationError"
 Este evento es lanzado cuando se produce alguna violación entre las reglas de validación especificadas para ser aplicadas sobre los campos del formulario.
 
-**Kind**: event emitted by [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: event emitted by [<code>rup_validate</code>](#module_rup_validate)  
 **Properties**
 
 | Name | Type | Description |
@@ -46,7 +46,7 @@ $("#idFormulario").on("rupValidate_formValidationError", function(event){});
 ### rup_validate~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner property of [<code>rup_validate</code>](#module_rup_validate)  
 **See**: Para mas información consulte la documentación acerca de las opciones de configuración del plugin [jQuery Validation Plugin](http://jqueryvalidation.org/validate/).  
 **Properties**
 
@@ -82,7 +82,7 @@ Propiedades de configuración del componente.
 ### rup_validate~destroy()
 Se eliminan todos los objetos y eventos credos por el componente.
 
-**Kind**: inner method of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner method of [<code>rup_validate</code>](#module_rup_validate)  
 **Example**  
 ```js
 $("#formValidaciones").rup_validate("destroy");
@@ -92,7 +92,7 @@ $("#formValidaciones").rup_validate("destroy");
 ### rup_validate~resetForm()
 Se realiza un reset del formulario y se eliminan los mensajes de error de las reglas de validacion.
 
-**Kind**: inner method of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner method of [<code>rup_validate</code>](#module_rup_validate)  
 **Example**  
 ```js
 $("#formValidaciones").rup_validate("resetForm");
@@ -102,7 +102,7 @@ $("#formValidaciones").rup_validate("resetForm");
 ### rup_validate~resetForm()
 Se eliminan los menssajes de error de las reglas de validacion.
 
-**Kind**: inner method of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner method of [<code>rup_validate</code>](#module_rup_validate)  
 **Example**  
 ```js
 $("#formValidaciones").rup_validate("resetElements");
@@ -112,7 +112,7 @@ $("#formValidaciones").rup_validate("resetElements");
 ### rup_validate~onSubmitHandler : <code>function</code>
 Función de callback que se ejecutará cuando el formulario sea válido.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -140,7 +140,7 @@ $("#idFormulario").rup_tooltip({
 ### rup_validate~onInvalidHandler : <code>function</code>
 Función que se ejecutará cuando el formulario presente errores de validación.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -156,7 +156,7 @@ $(".selector").validate({  invalidHandler: function(event, validator) {   // '
 ### rup_validate~onShowErrors : <code>function</code>
 Función que se ejecutará cuando se produzca la validación de los datos permitiendo personalizar los errores de validación.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -174,7 +174,7 @@ $(".selector").validate({ showErrors: function(errorMap, errorList) {   $("#su
 ### rup_validate~onErrorPlacement : <code>function</code>
 Función de callback que permite personalizar el lugar en el que se posicionarán los mensajes de error.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -190,7 +190,7 @@ $("#myform").validate({  errorPlacement: function(error, element) {      error
 ### rup_validate~onHighlight : <code>function</code>
 Función de callback para determinar como se debe resaltar los campos inválidos.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -207,7 +207,7 @@ $(".selector").validate({  highlight: function(element, errorClass, validClass)
 ### rup_validate~onUnhighlight : <code>function</code>
 Función de callback para determinar como se debe resaltar los campos inválidos.
 
-**Kind**: inner typedef of [<code>rup\_validate</code>](#module_rup_validate)  
+**Kind**: inner typedef of [<code>rup_validate</code>](#module_rup_validate)  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -55,7 +55,7 @@
 
 <a name="module_rup_jqtable"></a>
 
-## rup\_jqtable
+## rup_jqtable
 Tiene como objetivo mostrar al usuario de manera gráfica el estado de avance de una tarea o proceso.
 
 **Summary**: Componente RUP Table.  
@@ -137,7 +137,7 @@ var properties = {		url: "../tableUrl",		colNames: [			"id","nombre","..."]	
 ### "rupTable_checkOutOfGrid"
 Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -154,7 +154,7 @@ $("#idComponente").on("rupTable_checkOutOfGrid", function(event,$originalTarget
 ### "rupTable_serializeGridData"
 Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -171,7 +171,7 @@ $("#idComponente").on("rupTable_serializeGridData", function(event, data){});
 ### "rupTable_beforeProcessing"
 Evento que se lanza antes de que se procese la información recibida del servidor.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -190,7 +190,7 @@ $("#idComponente").on("rupTable_beforeProcessing", function(event, data, st,xhr
 ### "rupTableClearHighlightedRowAsSelected"
 Se produce cuando se elimina el resaltado de un registro de la tabla.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -207,7 +207,7 @@ $("#idComponente").on("rupTableClearHighlightedRowAsSelected", function(event, $
 ### "rupTableHighlightRowAsSelected"
 Se produce cuando se añade el resaltado a un registro de la tabla.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -224,7 +224,7 @@ $("#idComponente").on("rupTableHighlightedRowAsSelected", function(event, $row){
 ### "rupTable_coreConfigFinished"
 Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -240,7 +240,7 @@ $("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
 ### "rupTable_beforeFilter"
 Se lanza antes de producirse la petición de filtrado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -256,7 +256,7 @@ $("#idComponente").on("rupTable_beforeFilter", function(event){ });
 ### "rupTable_filter_beforeCleanFilterForm"
 El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza antes de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -272,7 +272,7 @@ $("#idComponente").on("rupTable_filter_beforeCleanFilterForm", function(event){ 
 ### "rupTable_filter_afterCleanFilterForm"
 El botón de limpiar el formulario, limpia y filtra el formulario. Este evento se lanza después de limpiar el formulario del filtro pero antes de filtrar con el formulario limpio.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -288,7 +288,7 @@ $("#idComponente").on("rupTable_filter_afterCleanFilterForm", function(event,){ 
 ### "rupTable_searchAfterCreateToolbar"
 Se lanza al finalizar la creación de la linea de búsqueda de la tabla.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -305,7 +305,7 @@ $("#idComponente").on("rupTable_searchAfterCreateToolbar", function(event, $sear
 ### "rupTable_beforeSearch"
 Evento lanzado antes de realizarse la búsqueda.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -321,7 +321,7 @@ $("#idComponente").on("rupTable_beforeSearch", function(event){ });
 ### "rupTable_feedbackClose"
 Evento que se lanza cuando se cierra el feedback.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -338,7 +338,7 @@ $("#idComponente").on("rupTable_feedbackClose", function(event, $internalFeedbac
 ### "rupTable_beforeDeleteRow"
 Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -356,7 +356,7 @@ $("#idComponente").on("rupTable_beforeDeleteRow", function(event, deleteOptions,
 ### "rupTable_beforeEditRow"
 Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -374,7 +374,7 @@ $("#idComponente").on("rupTable_beforeEditRow", function(event, editOptions, sel
 ### "rupTable_deleteAfterSubmit"
 Evento que se lanza justo después de realizarse la petición de borrado de un registro.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -390,7 +390,7 @@ $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
 ### "rupTable_beforeAddRow"
 Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -407,7 +407,7 @@ $("#idComponente").on("rupTable_beforeAddRow", function(event, addOptions){ });
 ### "rupTable_beforeCloneRow"
 Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -425,7 +425,7 @@ $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, s
 ### "rupTable_beforeCloneRow"
 Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -443,7 +443,7 @@ $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, s
 ### "rupTable_afterDeleteRow"
 Evento lanzado después de que ha finalizado correctamente el proceso de eliminar un registro..
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -459,7 +459,7 @@ $("#idComponente").on("rupTable_afterDeleteRow", function(event){ });
 ### "rupTable_afterFormFillDataServerSide"
 Evento lanzado después de que ha finalizado correctamente el proceso de carga de datos en el formulario de edición a partir de una petición al servidor de aplicaciones.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -479,7 +479,7 @@ $("#idComponente").on("rupTable_afterFormFillDataServerSide", function(event, xh
 : Permite asociar manejadores de eventos para ejecutar
 	código que indique al proceso de control de cambios si se han producido modificaciones o no.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -497,7 +497,7 @@ $("#idComponente").on("rupTable_formEditCompareData ", function(event,	savedData
 ### "rupTable_beforeDeleteRow"
 Evento que se lanza justo antes de procesarse la petición de borrado de un registro. En caso de devolver false se detiene la ejecución del borrado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -515,7 +515,7 @@ $("#idComponente").on("rupTable_beforeDeleteRow", function(event, deleteOptions,
 ### "rupTable_beforeEditRow"
 Evento que se lanza justo antes de procesarse la petición de edición de un registro. En caso de devolver false se detiene la ejecución del borrado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -533,7 +533,7 @@ $("#idComponente").on("rupTable_beforeEditRow", function(event, editOptions, sel
 ### "rupTable_deleteAfterSubmit"
 Evento que se lanza justo después de realizarse la petición de borrado de un registro.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -549,7 +549,7 @@ $("#idComponente").on("rupTable_deleteAfterSubmit", function(event){ });
 ### "rupTable_beforeAddRow"
 Evento lanzado antes de ejecutarse el método de inserción de un registro. En caso de retornar false se cancelará la inserción.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -566,7 +566,7 @@ $("#idComponente").on("rupTable_beforeAddRow", function(event, addOptions){ });
 ### "rupTable_beforeCloneRow"
 Evento lanzado antes de ejecutarse el método de clonado de un registro. En caso de retornar false se cancelará el clonado.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -584,7 +584,7 @@ $("#idComponente").on("rupTable_beforeCloneRow", function(event, cloneOptions, s
 ### "rupTable_serializeReportData"
 Permite asociar un manejador al evento que se produce en el momento en el que se construye el objeto que se envía al servidor para solicitar la generación del informe. Permite la modificación del objeto postData para añadir, modificar o eliminar los parámetros que van a ser enviados.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -601,7 +601,7 @@ $("#idComponente").on("rupTable_serializeReportData", function(event, data){ });
 ### "rupTable_multifilter_beforeAdd"
 Evento lanzado justo antes de añadir un filtro.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -619,7 +619,7 @@ $("#idComponente").on("rupTable_multifilter_beforeAdd", function(event, xhr, opt
 ### "rupTable_multifilter_fillForm:"
 Evento ejecutado cuando se rellenar el formulario del filtro. Cada vez que se cancela, limpia o se selecciona un filtro se lanza este evento.
 
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: event emitted by [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -636,7 +636,7 @@ $("#idComponente").on("rupTable_multifilter_fillForm:", function(event, filterDa
 ### rup_jqtable~options
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner property of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **See**: Para mas información consulte la documentación acerca de las opciones de configuración del componente [jqGrid](http://www.trirand.com/jqgridwiki/doku.php).  
 **Properties**
 
@@ -663,8 +663,8 @@ Propiedades de configuración del componente.
 ### rup_jqtable~preConfigureCore(settings)
 Metodo que realiza la pre-configuración del core del componente RUP Table.Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Emits**: [<code>rupTable\_checkOutOfGrid</code>](#module_rup_jqtable+event_rupTable_checkOutOfGrid), [<code>rupTable\_serializeGridData</code>](#module_rup_jqtable+event_rupTable_serializeGridData), [<code>rupTable\_beforeProcessing</code>](#module_rup_jqtable+event_rupTable_beforeProcessing)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
+**Emits**: [<code>rupTable_checkOutOfGrid</code>](#module_rup_jqtable+event_rupTable_checkOutOfGrid), [<code>rupTable_serializeGridData</code>](#module_rup_jqtable+event_rupTable_serializeGridData), [<code>rupTable_beforeProcessing</code>](#module_rup_jqtable+event_rupTable_beforeProcessing)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -675,7 +675,7 @@ Metodo que realiza la pre-configuración del core del componente RUP Table.Este
 ### rup_jqtable~postConfigureCore(settings)
 Metodo que realiza la post-configuración del core del componente RUP Table.Este método se ejecuta antes de la post-configuración de los plugins y después de la invocación al componente jqGrid.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -686,7 +686,7 @@ Metodo que realiza la post-configuración del core del componente RUP Table.Est
 ### rup_jqtable~getColModel() ⇒ <code>object</code>
 Devuelve la propiedad colModel del jqGrid.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>object</code> - - Propiedad colModel del jqGrid.  
 **Example**  
 ```js
@@ -697,7 +697,7 @@ $("#idComponente").rup_jqtable("getColModel");
 ### rup_jqtable~getGridParam(pName) ⇒ <code>object</code>
 Devuelve el valor del parámetro del grid especificado.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>object</code> - - Valor del parámetro.  
 
 | Param | Type | Description |
@@ -713,7 +713,7 @@ $("#idComponente").rup_jqtable("getGridParam","nombreParametro");
 ### rup_jqtable~getGridParam(options) ⇒ <code>jQuery</code>
 Permite redimensionar la tabla de acuerdo a los parámetros indicados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -729,7 +729,7 @@ $("#idComponente").rup_jqtable("gridResize",{});
 ### rup_jqtable~getSelectedRows() ⇒ <code>Array.&lt;string&gt;</code>
 Devuelve un array con los identificadores de los registros seleccionados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>Array.&lt;string&gt;</code> - - Array con los identificadores de los registros seleccionados.  
 **Example**  
 ```js
@@ -740,7 +740,7 @@ $("#idComponente").rup_jqtable("getSelectedRows");
 ### rup_jqtable~getSelectedLines() ⇒ <code>Array.&lt;number&gt;</code>
 Devuelve un array con los índices de las líneas de los registros seleccionados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>Array.&lt;number&gt;</code> - - Array con los índices de las líneas de los registros seleccionados.  
 **Example**  
 ```js
@@ -751,7 +751,7 @@ $("#idComponente").rup_jqtable("getSelectedLines");
 ### rup_jqtable~getPkUrl(rowId) ⇒ <code>string</code>
 El objetivo de este método es construir una URL mediante la cual se pueda realizar una petición para obtener los datos de un registro concreto.La URL se genera concatenando los valores de las propiedades que forman la primary key del resgistro a la url base especificada en los settings de inicialización.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>string</code> - - Url para obtener los valores del registro correspondiente.  
 
 | Param | Type | Description |
@@ -767,7 +767,7 @@ $("#idComponente").rup_jqtable("getPkUrl","0001");
 ### rup_jqtable~reloadGrid(async, notSelect)
 Lanza la recarga de la tabla.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -783,7 +783,7 @@ $("#idComponente").rup_jqtable("reloadGrid", true);
 ### rup_jqtable~resetForm($form) ⇒ <code>jQuery</code>
 Resetea el formulario indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>jQuery</code> - - Referencia al propio objeto.  
 
 | Param | Type | Description |
@@ -799,7 +799,7 @@ $("#idComponente").rup_jqtable("resetForm", $("#idFormulario"));
 ### rup_jqtable~setGridParam(newParams) ⇒ <code>jQuery</code>
 Asigna a uno o varios parámetros del grid los valores indicados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>jQuery</code> - - Referencia al propio objeto.  
 
 | Param | Type | Description |
@@ -815,7 +815,7 @@ $("#idComponente").rup_jqtable("setGridParam", {param1:value1, param2:value2});
 ### rup_jqtable~setSelection(selectedRows, status)
 Selecciona o deselecciona los registros indicados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -831,7 +831,7 @@ $("#idComponente").rup_jqtable("setSelection", ["3","7"], true);
 ### rup_jqtable~showServerValidationFieldErrors($form, errors)
 Muestra en los campos del formulario los errores de validación indicados.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -847,7 +847,7 @@ $("#idComponente").rup_jqtable("showServerValidationFieldErrors ", $("#idFormula
 ### rup_jqtable~rupTableClearHighlightedRowAsSelected($row)
 Elimina el resaltado de la línea especificada de la tabla.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Emits**: [<code>rupTableClearHighlightedRowAsSelected</code>](#module_rup_jqtable+event_rupTableClearHighlightedRowAsSelected)  
 
 | Param | Type | Description |
@@ -863,7 +863,7 @@ $("#idComponente").rup_jqtable("clearHighlightedRowAsSelected", $("#idFila"));
 ### rup_jqtable~highlightRowAsSelected($row)
 Resalta la línea especificada de la tabla.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Emits**: [<code>rupTableHighlightRowAsSelected</code>](#module_rup_jqtable+event_rupTableHighlightRowAsSelected)  
 
 | Param | Type | Description |
@@ -879,7 +879,7 @@ $("#idComponente").rup_jqtable("highlightRowAsSelected", $("#idFila"));
 ### rup_jqtable~updateDetailPagination(currentRowNumArg, totalRowNumArg)
 Actualiza el valor de los datos que se muestran en la barra de paginación.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -895,11 +895,11 @@ $("#idComponente").rup_jqtable("updateDetailPagination", "1-10", "586" );
 ### rup_jqtable~updateSavedData(arg)
 Permite modificar el objeto interno _savedData que se utiliza en el control de cambios en el modo de edición en formulario y edición en línea.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| arg | <code>module:rup\_jqtable~onUpdateSavedData</code> | Función de callback desde la que se puede modificar el objeto _savedData. |
+| arg | <code>module:rup_jqtable~onUpdateSavedData</code> | Función de callback desde la que se puede modificar el objeto _savedData. |
 
 **Example**  
 ```js
@@ -910,7 +910,7 @@ $("#idComponente").rup_jqtable("updateSavedData", function(savedData){});
 ### rup_jqtable~configurePager(settings)
 Realiza la configuración interna del paginador de acuerdo a los parámetros de configuración indicados en la inicialización del componente.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -925,7 +925,7 @@ $("#idComponente").rup_jqtable("configurePager", settings);
 ### rup_jqtable~addRowData(rowid, data, position, srcrowid) ⇒ <code>jQuery</code>
 Añade una nueva línea a la tabla. Esta operación no realiza una inserción del registro en el sistema de persistencia, sino que únicamente añade una nueva fila de modo visual.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -944,7 +944,7 @@ $("#idComponente").rup_jqtable("addRowData", "10", {campo1:valor1,campo2:valor2}
 ### rup_jqtable~delRowData(rowid) ⇒ <code>jQuery</code>
 Elimina de la tabla un registro determinado. El registro no se elimina del sistema de persistencia. Solo se elimina de manera visual.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>jQuery</code> - - Referencia al propio componente.  
 
 | Param | Type | Description |
@@ -960,7 +960,7 @@ $("#idComponente").rup_jqtable("delRowData","10");
 ### rup_jqtable~getActiveRowId() ⇒ <code>string</code>
 Devuelve el identificador de la línea activa.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>string</code> - - Identificador de la línea activa.  
 **Example**  
 ```js
@@ -971,7 +971,7 @@ $("#idComponente").rup_jqtable("getActiveRowId");
 ### rup_jqtable~getActiveLineId() ⇒ <code>string</code>
 Devuelve el índice de la línea activa.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>string</code> - - Índice de la línea activa.  
 **Example**  
 ```js
@@ -982,7 +982,7 @@ $("#idComponente").rup_jqtable("getActiveLineId");
 ### rup_jqtable~setRowData(rowid, data, cssp)
 Actualiza los valores de las columnas de un registro determinado. La actualización de loa datos se realiza solo de manera visual. Los nuevos datos no se persisten.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -999,7 +999,7 @@ $("#idComponente").rup_jqtable("setRowData", "10", {campo1:valor1,campo2:valor2}
 ### rup_jqtable~getRowData(rowid) ⇒ <code>object</code>
 Devuelve un objeto json con los valores de los campos del registro indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>object</code> - - Objecto json con los valores del registro.  
 
 | Param | Type | Description |
@@ -1015,7 +1015,7 @@ $("#idComponente").rup_jqtable("getRowData", "10");
 ### rup_jqtable~getDataIDs() ⇒ <code>Array.&lt;string&gt;</code>
 Devuelve un array con los identificadores de los registros que se muestran actualmente en la página de la tabla.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>Array.&lt;string&gt;</code> - - Identificadores de lso registros mostrados en la página actual.  
 **Example**  
 ```js
@@ -1026,7 +1026,7 @@ $("#idComponente").rup_jqtable("getDataIDs");
 ### rup_jqtable~clearGridData(clearfooter)
 Limpia los registros mostrados en la tabla.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1041,7 +1041,7 @@ $("#idComponente").rup_jqtable("clearGridData", false);
 ### rup_jqtable~getColModel() ⇒ <code>object</code>
 Devuelve el objeto colModel del componente jqGrid.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>object</code> - - Objeto colModel de la tabla.  
 **Example**  
 ```js
@@ -1052,7 +1052,7 @@ $("#idComponente").rup_jqtable("getColModel");
 ### rup_jqtable~getCol(rowid, colName)
 Devuelve el valor de la columna de la fila indicada.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1068,7 +1068,7 @@ $("#idComponente").rup_jqtable("getCol", "10", "nombre");
 ### rup_jqtable~getSerializedForm(form, skipEmpty)
 Devuelve un objeto json que contiene la serialización del formulario.
 
-**Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner method of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1084,7 +1084,7 @@ $("#idComponente").rup_jqtable("getSerializedForm", $("#idFormulario"), false);
 ### rup_jqtable~onOperation : <code>function</code>
 Función de callback que será ejecutada cuando el usuario realice una acción sobre la operación.
 
-**Kind**: inner typedef of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner typedef of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1100,7 +1100,7 @@ callback: function(key, options){		alert("Operación 1");	}
 ### rup_jqtable~isEnabled ⇒ <code>boolean</code>
 Función de callback que determina si la operación debe estar habilitada o no.
 
-**Kind**: inner typedef of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner typedef of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Returns**: <code>boolean</code> - - Devuelve si la operación debe de estar habilitada o no.  
 **Example**  
 ```js
@@ -1111,7 +1111,7 @@ enabled: function(){		return true;	}
 ### rup_jqtable~Operations : <code>Object</code>
 Mediante esta propiedad se definen las posibles operaciones a realizar sobre los registros mostrados en la tabla. Debido al carácter global de estas operaciones se toman en cuenta por otros componentes (toolbar, menú contextual) a la hora de mostrar sus controles. Las operaciones se definen mediante un objeto json en el cual el nombre de la propiedad será el identificador de la propiedad.
 
-**Kind**: inner typedef of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner typedef of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Properties**
 
 | Name | Type | Description |
@@ -1130,14 +1130,14 @@ core:{	operations:{			"operacion1": {				name: "Operación 1",				icon: "rup
 ### rup_jqtable~ShowOperations
 Permite habilitar/deshabilitar las operaciones definidas por defecto por otros módulos.
 
-**Kind**: inner typedef of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
+**Kind**: inner typedef of [<code>rup_jqtable</code>](#module_rup_jqtable)  
 **Example**  
 ```js
 core:{		showOperations:{			add:false;			clone:false;		}	}
 ```
 <a name="module_rup_jqtable/contextMenu"></a>
 
-## rup\_jqtable/contextMenu
+## rup_jqtable/contextMenu
 Tiene como objetivo proporcionar al componente RUP Table de las funcionalidades que ofrece el uso de un menú contextual.
 
 **Summary**: Plugin de menú contextual del componente RUP Table.  
@@ -1156,7 +1156,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["context
 ### rup_jqtable/contextMenu~options
 Propiedades de configuración del plugin contextMenu del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner property of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1167,14 +1167,14 @@ Propiedades de configuración del plugin contextMenu del componente RUP Table.
 | [tbodyTdSelector] | <code>string</code> | <code>&quot;&#x27;tbody:first tr.jqgrow td&#x27;&quot;</code> | Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna. |
 | [theadThSelector] | <code>string</code> | <code>&quot;&#x27;thead:first th&#x27;&quot;</code> | Selector de jQuery que identifica las cabeceras de las columnas de la tabla. |
 | [items] | <code>object</code> | <code>{}}</code> | Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros. |
-| [showOperations] | <code>Array.&lt;rup\_jqtable~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
+| [showOperations] | <code>Array.&lt;rup_jqtable~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
 
 <a name="module_rup_jqtable/contextMenu..preConfigureContextMenu"></a>
 
 ### rup_jqtable/contextMenu~preConfigureContextMenu(settings)
 Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner method of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1185,7 +1185,7 @@ Metodo que realiza la pre-configuración del plugin contextMenu del componente R
 ### rup_jqtable/contextMenu~postConfigureContextMenu(settings)
 Metodo que realiza la post-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner method of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1193,7 +1193,7 @@ Metodo que realiza la post-configuración del plugin contextMenu del componente 
 
 <a name="module_rup_jqtable/filter"></a>
 
-## rup\_jqtable/filter
+## rup_jqtable/filter
 Gestiona las operaciones de filtrado de datos sobre el origen de datos que utiliza el componente.
 
 **Summary**: Plugin de filtrado del componente RUP Table.  
@@ -1219,7 +1219,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["filter"
 ### rup_jqtable/filter~options
 Propiedades de configuración del plugin filter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner property of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1234,7 +1234,7 @@ Propiedades de configuración del plugin filter del componente RUP Table.
 ### rup_jqtable/filter~preConfigureFilter(settings)
 Metodo que realiza la pre-configuración del plugin filter del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1245,7 +1245,7 @@ Metodo que realiza la pre-configuración del plugin filter del componente RUP Ta
 ### rup_jqtable/filter~postConfigureFilter(settings)
 Metodo que realiza la post-configuración del plugin filter del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1256,8 +1256,8 @@ Metodo que realiza la post-configuración del plugin filter del componente RUP T
 ### rup_jqtable/filter~cleanFilterForm()
 Limpia los campos del formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_filter\_beforeCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_beforeCleanFilterForm), [<code>rupTable\_filter\_afterCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_afterCleanFilterForm)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Emits**: [<code>rupTable_filter_beforeCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_beforeCleanFilterForm), [<code>rupTable_filter_afterCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_afterCleanFilterForm)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("cleanFilterForm");
@@ -1267,8 +1267,8 @@ $("#idComponente").rup_jqtable("cleanFilterForm");
 ### rup_jqtable/filter~filter()
 Realiza el filtrado de acuerdo a los datos existentes en el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_beforeFilter</code>](#module_rup_jqtable+event_rupTable_beforeFilter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Emits**: [<code>rupTable_beforeFilter</code>](#module_rup_jqtable+event_rupTable_beforeFilter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("filter");
@@ -1278,7 +1278,7 @@ $("#idComponente").rup_jqtable("filter");
 ### rup_jqtable/filter~getFilterParams()
 Devuelve los parámetros de filtrado empleados en el filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("getFilterParams");
@@ -1288,7 +1288,7 @@ $("#idComponente").rup_jqtable("getFilterParams");
 ### rup_jqtable/filter~hideFilterForm()
 Oculta el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("hideFilterForm");
@@ -1298,7 +1298,7 @@ $("#idComponente").rup_jqtable("hideFilterForm");
 ### rup_jqtable/filter~showFilterForm()
 Muestra el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("showFilterForm");
@@ -1308,7 +1308,7 @@ $("#idComponente").rup_jqtable("showFilterForm");
 ### rup_jqtable/filter~toggleFilterForm()
 Alterna el estado del formulario de filtrado entre visible y oculto.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("toggleFilterForm");
@@ -1318,14 +1318,14 @@ $("#idComponente").rup_jqtable("toggleFilterForm");
 ### rup_jqtable/filter~showSearchCriteria()
 Actualiza el resumen de los criterios de filtrado a partir de los valores existentes en el formulario.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("showSearchCriteria");
 ```
 <a name="module_rup_jqtable/search"></a>
 
-## rup\_jqtable/search
+## rup_jqtable/search
 Permite al usuario realizar una búsqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
 
 **Summary**: Plugin de search del componente RUP Table.  
@@ -1359,7 +1359,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["search"
 ### rup_jqtable/search~options
 Propiedades de configuración del plugin search del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner property of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1372,7 +1372,7 @@ Propiedades de configuración del plugin search del componente RUP Table.
 ### rup_jqtable/search~preConfigureSearch(settings)
 Metodo que realiza la pre-configuración del plugin search del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1383,7 +1383,7 @@ Metodo que realiza la pre-configuración del plugin search del componente RUP Ta
 ### rup_jqtable/search~postConfigureSearch(settings)
 Metodo que realiza la post-configuración del plugin search del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1394,7 +1394,7 @@ Metodo que realiza la post-configuración del plugin search del componente RUP T
 ### rup_jqtable/search~toggleSearchForm()
 Muestra/Oculta el formulario de búsqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("toggleSearchForm");
@@ -1404,8 +1404,8 @@ $("#idTable").rup_jqtable("toggleSearchForm");
 ### rup_jqtable/search~createSearchToolbar()
 Genera la barra de controles para gestionar la búsqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable\_searchAfterCreateToolbar</code>](#module_rup_jqtable+event_rupTable_searchAfterCreateToolbar)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Emits**: [<code>rupTable_searchAfterCreateToolbar</code>](#module_rup_jqtable+event_rupTable_searchAfterCreateToolbar)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("createSearchToolbar");
@@ -1415,7 +1415,7 @@ $("#idTable").rup_jqtable("createSearchToolbar");
 ### rup_jqtable/search~createSearchRow(settings)
 Genera la barra de controles para gestionar la búsqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1430,7 +1430,7 @@ $("#idTable").rup_jqtable("createSearchRow", settings);
 ### rup_jqtable/search~navigateToMatchedRow(matchedRow)
 Navega hasta el elemento indicado que se ajusta a los criterios de búsqueda indicados.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1445,8 +1445,8 @@ $("#idTable").rup_jqtable("navigateToMatchedRow", matchedRow);
 ### rup_jqtable/search~search()
 Lanza la operación de búsqueda además del evento previo.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable\_beforeSearch</code>](#module_rup_jqtable+event_rupTable_beforeSearch)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Emits**: [<code>rupTable_beforeSearch</code>](#module_rup_jqtable+event_rupTable_beforeSearch)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("search");
@@ -1456,7 +1456,7 @@ $("#idTable").rup_jqtable("search");
 ### rup_jqtable/search~navigateToMatchedRow()
 Lanza la operación de búsqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Emits**: [<code>masterDetail</code>](#module_rup_jqtable+rupTable_searchBeforeSubmit.rupTable.event_masterDetail)  
 **Example**  
 ```js
@@ -1467,7 +1467,7 @@ $("#idTable").rup_jqtable("doSearch");
 ### rup_jqtable/search~goToFirstMatched(paramPage)
 Navega hasta el primer elemento que se ajusta a los criterios de búsqueda. En caso de no existir elementos adecuados en la página actual se navega hasta el primer elemento.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1482,7 +1482,7 @@ $("#idTable").rup_jqtable("goToFirstMatched", paramPage);
 ### rup_jqtable/search~fncGetSearchNavigationParams(buttonType) ⇒ <code>object</code>
 Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Returns**: <code>object</code> - - Parametros de configuración asociados al tipo de enlace.  
 
 | Param | Type | Description |
@@ -1498,7 +1498,7 @@ $("#idTable").rup_jqtable("fncGetSearchNavigationParams", buttonType);
 ### rup_jqtable/search~fncGetSearchNavigationParams(arrParams)
 Realiza la navegación entre los elementos que se ajustan a los criterios de bús
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1513,7 +1513,7 @@ $("#idTable").rup_jqtable("doSearchNavigation", arrParams);
 ### rup_jqtable/search~clearSearch()
 Limpia los criterios de búsqueda introducidos por el usuario.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("clearSearch");
@@ -1523,7 +1523,7 @@ $("#idTable").rup_jqtable("clearSearch");
 ### rup_jqtable/search~clearHighlightedMatchedRows()
 Elimina el resaltado de los registros que se ajustan a los criterios de busqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("clearHighlightedMatchedRows");
@@ -1533,7 +1533,7 @@ $("#idTable").rup_jqtable("clearHighlightedMatchedRows");
 ### rup_jqtable/search~highlightMatchedRowsInPage(page)
 Resalta los registros que se ajustan a los criterios de búsqueda.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1548,7 +1548,7 @@ $("#idTable").rup_jqtable("highlightMatchedRowsInPage", page);
 ### rup_jqtable/search~highlightMatchedRow($row)
 Resalta como ocurrencia de la búsqueda la línea especificada.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1563,7 +1563,7 @@ $("#idTable").rup_jqtable("highlightMatchedRow", $("#idRow"));
 ### rup_jqtable/search~updateSearchPagination(paramRowId)
 Actualiza los valores de la navegación entre registros.
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1578,7 +1578,7 @@ $("#idTable").rup_jqtable("updateSearchPagination", paramRowId);
 ### rup_jqtable/search~getSearchCurrentRowCount(selectedRowId)
 Devuelve, para una linea determinada, la posición en que se encuentra dentro del total de registros que se ajustan a los criterios de búsqueda
 
-**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1590,7 +1590,7 @@ $("#idTable").rup_jqtable("getSearchCurrentRowCount", "05");
 ```
 <a name="module_rup_jqtable/toolbar"></a>
 
-## rup\_jqtable/toolbar
+## rup_jqtable/toolbar
 Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
 
 **Summary**: Plugin de toolbar del componente RUP Table.  
@@ -1609,7 +1609,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["toolbar
 ### rup_jqtable/toolbar~options
 Propiedades de configuración del plugin toolbar del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Kind**: inner property of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1625,7 +1625,7 @@ Propiedades de configuración del plugin toolbar del componente RUP Table.
 ### rup_jqtable/toolbar~preConfigureToolbar(settings)
 Metodo que realiza la pre-configuración del plugin toolbar del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Kind**: inner method of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1636,8 +1636,8 @@ Metodo que realiza la pre-configuración del plugin toolbar del componente RUP T
 ### rup_jqtable/toolbar~postConfigureToolbar(settings)
 Metodo que realiza la post-configuración del plugin toolbar del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
-**Emits**: [<code>rupTable\_feedbackClose</code>](#module_rup_jqtable+event_rupTable_feedbackClose)  
+**Kind**: inner method of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Emits**: [<code>rupTable_feedbackClose</code>](#module_rup_jqtable+event_rupTable_feedbackClose)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1645,7 +1645,7 @@ Metodo que realiza la post-configuración del plugin toolbar del componente RUP 
 
 <a name="module_rup_jqtable/feedback"></a>
 
-## rup\_jqtable/feedback
+## rup_jqtable/feedback
 Permite configurar un área para informar al usuario de cómo interactuar con el componente. Mediante el componente feedback se mostraran al usuario mensajes de confirmación, avisos y errores que faciliten y mejoren la interacción del usuario con la aplicación.
 
 **Summary**: Plugin de feedback del componente RUP Table.  
@@ -1665,7 +1665,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["feedbac
 ### rup_jqtable/feedback~options
 Propiedades de configuración del plugin feedback del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
+**Kind**: inner property of [<code>rup_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1682,7 +1682,7 @@ Propiedades de configuración del plugin feedback del componente RUP Table.
 ### rup_jqtable/feedback~preConfigureFeedback(settings)
 Metodo que realiza la pre-configuración del plugin feedback del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
+**Kind**: inner method of [<code>rup_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1693,7 +1693,7 @@ Metodo que realiza la pre-configuración del plugin feedback del componente RUP 
 ### rup_jqtable/feedback~postConfigureFeedback(settings)
 Metodo que realiza la post-configuración del plugin feedback del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
+**Kind**: inner method of [<code>rup_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1704,7 +1704,7 @@ Metodo que realiza la post-configuración del plugin feedback del componente RUP
 ### rup_jqtable/feedback~showFeedback($feedback, msg, type, options)
 Muestra el feedback indicado con la configuración especificada.
 
-**Kind**: inner method of [<code>rup\_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
+**Kind**: inner method of [<code>rup_jqtable/feedback</code>](#module_rup_jqtable/feedback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1719,7 +1719,7 @@ $("#idTable").rup_jqtable("showFeedback", $("#idFeedback"), "Texto...", "ok"), {
 ```
 <a name="module_rup_jqtable/fluid"></a>
 
-## ~~rup\_jqtable/fluid~~
+## ~~rup_jqtable/fluid~~
 ***Deprecated***
 
 Aplica al componente un diseño líquido de modo que se adapte al ancho de la capa en la que está contenido.
@@ -1739,7 +1739,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["fuild"]
 ### rup_jqtable/fluid~options
 Propiedades de configuración del plugin multifilter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
+**Kind**: inner property of [<code>rup_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -1754,7 +1754,7 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 ### rup_jqtable/fluid~postConfigureFluid(settings)
 Metodo que realiza la post-configuración del plugin fuild del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
+**Kind**: inner method of [<code>rup_jqtable/fluid</code>](#module_rup_jqtable/fluid)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1762,7 +1762,7 @@ Metodo que realiza la post-configuración del plugin fuild del componente RUP Ta
 
 <a name="module_rup_jqtable/formEdit"></a>
 
-## rup\_jqtable/formEdit
+## rup_jqtable/formEdit
 Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra dentro de un diálogo y ofrece las siguientes funcionalidades:- Añadir un nuevo registro o modificar uno ya existente.- Cancelar la inserción o edición de un registro.- Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre losdiferentes elementos.
 
 **Summary**: Plugin de edición en formulario del componente RUP Table.  
@@ -1787,7 +1787,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["formEdi
 ### rup_jqtable/formEdit~options
 Propiedades de configuración del plugin formEdit del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner property of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **See**: Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.  
 **Properties**
 
@@ -1806,7 +1806,7 @@ Propiedades de configuración del plugin formEdit del componente RUP Table.
 ### rup_jqtable/formEdit~preConfigureFormEdit(settings)
 Metodo que realiza la pre-configuración del plugin formEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1817,7 +1817,7 @@ Metodo que realiza la pre-configuración del plugin formEdit del componente RUP 
 ### rup_jqtable/formEdit~postConfigureFormEdit(settings)
 Metodo que realiza la post-configuración del plugin formEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1828,7 +1828,7 @@ Metodo que realiza la post-configuración del plugin formEdit del componente RUP
 ### rup_jqtable/formEdit~createDetailNavigation() ⇒ <code>object</code>
 Devuelve la template HTML correspondiente a la capa de navegación del fomulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Template correspondiente a la capa de navegación.  
 **Example**  
 ```js
@@ -1839,9 +1839,9 @@ $("#idTable").rup_jqtable("createDetailNavigation");
 ### rup_jqtable/formEdit~deleteElement(rowId, options) ⇒ <code>object</code>
 Elimina el registro correspondiente al identificador indicado y utilizando las opciones de borrado especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), [<code>rupTable\_afterDeleteRow</code>](#module_rup_jqtable+event_rupTable_afterDeleteRow), [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: [<code>rupTable_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), [<code>rupTable_afterDeleteRow</code>](#module_rup_jqtable+event_rupTable_afterDeleteRow), [<code>rupTable_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1857,9 +1857,9 @@ $("#idComponente").rup_jqtable("deleteElement", rowId, options);
 ### rup_jqtable/formEdit~editElement(rowId, options) ⇒ <code>object</code>
 Edita el registro correspondiente al identificador indicado y utilizando las opciones de edición especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: [<code>rupTable_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1875,9 +1875,9 @@ $("#idComponente").rup_jqtable("editElement", rowId, options);
 ### rup_jqtable/formEdit~newElement(addEvent) ⇒ <code>object</code>
 Muestra el formulario de detalle para permitir al usuario insertar un nuevo registro.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: [<code>rupTable_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1892,9 +1892,9 @@ $("#idComponente").rup_jqtable("newElement", true);
 ### rup_jqtable/formEdit~cloneElement(rowId, options, cloneEvent) ⇒ <code>object</code>
 Clona el registro correspondiente al identificador indicado y utilizando las opciones de clonado especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: [<code>rupTable_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1911,7 +1911,7 @@ $("#idComponente").rup_jqtable("cloneElement", rowId, options, cloneEvent);
 ### rup_jqtable/formEdit~hideFormErrors($form)
 Oculta los mensajes de error del formulario indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1923,7 +1923,7 @@ $("#idComponente").rup_jqtable("hideFormErrors", $form);
 ```
 <a name="module_rup_jqtable/inlineEdit"></a>
 
-## rup\_jqtable/inlineEdit
+## rup_jqtable/inlineEdit
 Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
 
 **Summary**: Plugin de edición en línea del componente RUP Table.  
@@ -1949,7 +1949,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["inlineE
 ### rup_jqtable/inlineEdit~options
 Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner property of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **See**: Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.  
 **Properties**
 
@@ -1965,7 +1965,7 @@ Propiedades de configuración del plugin inlineEdit del componente RUP Table.
 ### rup_jqtable/inlineEdit~preConfigureInlineEdit(settings)
 Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1976,7 +1976,7 @@ Metodo que realiza la pre-configuración del plugin inlineEdit del componente RU
 ### rup_jqtable/inlineEdit~postConfigureInlineEdit(settings)
 Metodo que realiza la post-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1987,9 +1987,9 @@ Metodo que realiza la post-configuración del plugin inlineEdit del componente R
 ### rup_jqtable/inlineEdit~addRow(options) ⇒ <code>object</code>
 Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: [<code>rupTable_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2004,9 +2004,9 @@ $("#idTable").rup_jqtable("addRow", options);
 ### rup_jqtable/inlineEdit~cloneRow(rowId, options) ⇒ <code>object</code>
 Clona un registro determinado. Añade una nueva línea con el contenido del registro a partir del cual se desea clonar.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: [<code>rupTable_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2022,9 +2022,9 @@ $("#idTable").rup_jqtable("cloneRow", rowId, options);
 ### rup_jqtable/inlineEdit~editRow(rowId, options) ⇒ <code>object</code>
 Pone el registro indicado en modo edición para permitir la edición de sus datos.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: [<code>rupTable_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2040,9 +2040,9 @@ $("#idTable").rup_jqtable("editRow", rowId, options, true);
 ### rup_jqtable/inlineEdit~deleteRow(rowId, options) ⇒ <code>object</code>
 Elimina el registro indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), <code>module:rup\_jqtable#event:rupTable\_deleteAfterComplete</code>, [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: [<code>rupTable_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), <code>module:rup_jqtable#event:rupTable_deleteAfterComplete</code>, [<code>rupTable_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2058,9 +2058,9 @@ $("#idTable").rup_jqtable("deleteRow", rowId, options);
 ### rup_jqtable/inlineEdit~saveRow(rowId, options) ⇒ <code>object</code>
 Guarda el registro modificado. Se almacenan los datos introducidos en la línea en modo edición.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeSaveRow</code>  
+**Emits**: <code>module:rup_jqtable#event:rupTable_beforeSaveRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2076,9 +2076,9 @@ $("#idTable").rup_jqtable("saveRow", rowId, options);
 ### rup_jqtable/inlineEdit~restoreRow(rowId, afterrestorefunc) ⇒ <code>object</code>
 Restaura la fila indicada al estado anterior a habilitarse el modo edición.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeRestoreRow</code>  
+**Emits**: <code>module:rup_jqtable#event:rupTable_beforeRestoreRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2094,7 +2094,7 @@ $("#idTable").rup_jqtable("restoreRow", rowId, function(){});
 ### rup_jqtable/inlineEdit~restoreRow(rowId) ⇒ <code>object</code>
 Restaura los campos RUP existentes en una fila de edición en línea.
 
-**Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
+**Kind**: inner method of [<code>rup_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
 
 | Param | Type | Description |
@@ -2107,7 +2107,7 @@ $("#idTable").rup_jqtable("restoreRow", rowId, options);
 ```
 <a name="module_rup_jqtable/multiselection"></a>
 
-## rup\_jqtable/multiselection
+## rup_jqtable/multiselection
 Permite realizar una selección múltiple de los registros que se muestran en la tabla.
 
 **Summary**: Plugin de multiselection del componente RUP Table.  
@@ -2125,7 +2125,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["multise
 ### rup_jqtable/multiselection~preConfigureMultiselection(settings)
 Metodo que realiza la pre-configuración del plugin multiselection del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multiselection</code>](#module_rup_jqtable/multiselection)  
+**Kind**: inner method of [<code>rup_jqtable/multiselection</code>](#module_rup_jqtable/multiselection)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2136,7 +2136,7 @@ Metodo que realiza la pre-configuración del plugin multiselection del component
 ### rup_jqtable/multiselection~postConfigureMultiselection(settings)
 Metodo que realiza la post-configuración del plugin multiselection del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multiselection</code>](#module_rup_jqtable/multiselection)  
+**Kind**: inner method of [<code>rup_jqtable/multiselection</code>](#module_rup_jqtable/multiselection)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2144,7 +2144,7 @@ Metodo que realiza la post-configuración del plugin multiselection del componen
 
 <a name="module_rup_jqtable/jerarquia"></a>
 
-## rup\_jqtable/jerarquia
+## rup_jqtable/jerarquia
 El objetivo principal del módulo Jerarquía es la presentación de un conjunto de datos (tabla) ordenados jerárquicamente en base a una relación existente entre ellos.
 
 **Summary**: Plugin de edición en línea del componente RUP Table.  
@@ -2164,7 +2164,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["jerarqu
 ### rup_jqtable/jerarquia~options
 Propiedades de configuración del plugin jerarquia del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
+**Kind**: inner property of [<code>rup_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -2185,7 +2185,7 @@ Propiedades de configuración del plugin jerarquia del componente RUP Table.
 ### rup_jqtable/jerarquia~preConfigurejerarquia(settings)
 Metodo que realiza la pre-configuración del plugin jerarquia del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
+**Kind**: inner method of [<code>rup_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2196,7 +2196,7 @@ Metodo que realiza la pre-configuración del plugin jerarquia del componente RUP
 ### rup_jqtable/jerarquia~postConfigurejerarquia(settings)
 Metodo que realiza la post-configuración del plugin jerarquia del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
+**Kind**: inner method of [<code>rup_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2207,14 +2207,14 @@ Metodo que realiza la post-configuración del plugin jerarquia del componente RU
 ### rup_jqtable/jerarquia~reset()
 Colapsa los nodos que han sido expandidos.
 
-**Kind**: inner method of [<code>rup\_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
+**Kind**: inner method of [<code>rup_jqtable/jerarquia</code>](#module_rup_jqtable/jerarquia)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("reset");
 ```
 <a name="module_rup_jqtable/masterDetail"></a>
 
-## rup\_jqtable/masterDetail
+## rup_jqtable/masterDetail
 Permite relacionar dos tablas de modo que tengan una relación maestro-detalle. De este modo, los resultados de la tabla detalle se muestran a partir del seleccionado en la tabla maestro.
 
 **Summary**: Plugin de edición en línea del componente RUP Table.  
@@ -2233,7 +2233,7 @@ $("#idComponenteMaestro").rup_jqtable({	url: "../jqGridUsuarioMaestro",});$(
 ### rup_jqtable/masterDetail~options
 Propiedades de configuración del plugin masterDetail del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner property of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 **Properties**
 
 | Name | Type | Description |
@@ -2246,7 +2246,7 @@ Propiedades de configuración del plugin masterDetail del componente RUP Table.
 ### rup_jqtable/masterDetail~preConfigureMasterDetail(settings)
 Metodo que realiza la pre-configuración del plugin masterDetail del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner method of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2257,7 +2257,7 @@ Metodo que realiza la pre-configuración del plugin masterDetail del componente 
 ### rup_jqtable/masterDetail~getMasterTablePkObject(options) ⇒ <code>object</code>
 Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
 
-**Kind**: inner method of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner method of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 **Returns**: <code>object</code> - - Objeto json con la clave primaria del registro correspondiente de la tabla maestra  
 
 | Param | Type | Description |
@@ -2270,7 +2270,7 @@ $("#idTable").rup_jqtable("getMasterTablePkObject");
 ```
 <a name="module_rup_jqtable/report"></a>
 
-## rup\_jqtable/report
+## rup_jqtable/report
 Genera los controles necesarios para permitir al usuario la exportación de los datos mostrados en la tabla.
 
 **Summary**: Plugin de reporting del componente RUP Table.  
@@ -2289,7 +2289,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["report"
 ### rup_jqtable/report~options
 Propiedades de configuración del plugin report del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
+**Kind**: inner property of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
 **Properties**
 
 | Name | Type | Description |
@@ -2303,7 +2303,7 @@ Propiedades de configuración del plugin report del componente RUP Table.
 ### rup_jqtable/report~preConfigureReport(settings)
 Metodo que realiza la pre-configuración del plugin report del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
+**Kind**: inner method of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2314,8 +2314,8 @@ Metodo que realiza la pre-configuración del plugin report del componente RUP Ta
 ### rup_jqtable/report~postConfigureReport(settings)
 Metodo que realiza la post-configuración del plugin report del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
-**Emits**: [<code>rupTable\_serializeReportData</code>](#module_rup_jqtable+event_rupTable_serializeReportData)  
+**Kind**: inner method of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
+**Emits**: [<code>rupTable_serializeReportData</code>](#module_rup_jqtable+event_rupTable_serializeReportData)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2323,7 +2323,7 @@ Metodo que realiza la post-configuración del plugin report del componente RUP T
 
 <a name="module_rup_jqtable/multifilter"></a>
 
-## rup\_jqtable/multifilter
+## rup_jqtable/multifilter
 Gestiona las operaciones de filtrado múltiple de datos sobre el origen de datos que utiliza el componente.
 
 **Summary**: Plugin de filtrado múltiple del componente RUP Table.  
@@ -2346,7 +2346,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["multifi
 ### rup_jqtable/multifilter~options
 Propiedades de configuración del plugin multifilter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner property of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -2361,7 +2361,7 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 ### rup_jqtable/multifilter~preConfigureMultifilter(settings)
 Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2372,8 +2372,8 @@ Metodo que realiza la pre-configuración del plugin de filtrado múltiple del co
 ### rup_jqtable/multifilter~postConfigureMultifilter(settings)
 Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_multifilter\_fillForm</code>  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Emits**: <code>module:rup_jqtable#event:rupTable_multifilter_fillForm</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2384,7 +2384,7 @@ Metodo que realiza la post-configuración del plugin de filtrado múltiple del c
 ### rup_jqtable/multifilter~getMultifilterDialogTemplate(settings) ⇒ <code>object</code>
 Devuelve la template html empleada para renderizar los controles del formulario de filtrado múltiple.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 **Returns**: <code>object</code> - - Objeto jQuery con el contenido html de la template.  
 
 | Param | Type | Description |
@@ -2400,7 +2400,7 @@ $("#idComponente").rup_jqtable("getMultifilterDialogTemplate", settings);
 ### rup_jqtable/multifilter~configureMultifilter(settings)
 Realiza la configuración interna del plugin multifilter a partir de las propiedades de configuración indicadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2415,8 +2415,8 @@ $("#idComponente").rup_jqtable("configureMultifilter", settings);
 ### rup_jqtable/multifilter~addFilter(filter)
 Función que añade un filtro al multifiltro
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
-**Emits**: [<code>rupTable\_multifilter\_beforeAdd</code>](#module_rup_jqtable+event_rupTable_multifilter_beforeAdd)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Emits**: [<code>rupTable_multifilter_beforeAdd</code>](#module_rup_jqtable+event_rupTable_multifilter_beforeAdd)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2431,7 +2431,7 @@ $("#idComponente").rup_jqtable("addFilter", filter);
 ### rup_jqtable/multifilter~deleteFilter(filter)
 Función que elimina un filtro del multifiltro.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2443,7 +2443,7 @@ $("#idComponente").rup_jqtable("deleteFilter", filter);
 ```
 <a name="module_rup_jqtable/responsive"></a>
 
-## rup\_jqtable/responsive
+## rup_jqtable/responsive
 Proporciona al componente RUP Table ciertas funcionalidades responsive.
 
 **Summary**: Plugin de toolbar del componente RUP Table.  
@@ -2463,7 +2463,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["respons
 ### rup_jqtable/responsive~options
 Propiedades de configuración del plugin responsive del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner property of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 **Properties**
 
 | Name | Type | Description |
@@ -2477,7 +2477,7 @@ Propiedades de configuración del plugin responsive del componente RUP Table.
 ### rup_jqtable/responsive~preConfigureResponsive(settings)
 Metodo que realiza la pre-configuración del plugin responsive del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2488,7 +2488,7 @@ Metodo que realiza la pre-configuración del plugin responsive del componente RU
 ### rup_jqtable/responsive~postConfigureResponsive(settings)
 Metodo que realiza la post-configuración del plugin responsive del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2499,5 +2499,5 @@ Metodo que realiza la post-configuración del plugin responsive del componente R
 ### rup_jqtable/responsive~getRwdColConfig() ⇒ <code>Array.&lt;object&gt;</code>
 Obtiene a partir de la configuración del colModel, la información correspondiente al comportamiento responsive de las columnas.
 
-**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 **Returns**: <code>Array.&lt;object&gt;</code> - - Configuración responsive para las columnas de la tabla.  

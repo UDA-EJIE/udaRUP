@@ -1,6 +1,6 @@
 <a name="module_rup_report"></a>
 
-## rup\_report
+## rup_report
 El objetivo principal del componente es mejorar la experiencia del usuario a la hora de generar informes mediante la presentación de diálogos de espera.
 
 **Summary**: Componente RUP Report.  
@@ -21,7 +21,7 @@ var properties={  // Propiedades de configuración};$.rup_report(properties)
 ### rup_report~options
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup\_report</code>](#module_rup_report)  
+**Kind**: inner property of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |
@@ -34,7 +34,7 @@ Opciones por defecto de configuración del componente.
 <a name="module_rup_report..button"></a>
 
 ### rup_report~button
-**Kind**: inner typedef of [<code>rup\_report</code>](#module_rup_report)  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -54,7 +54,7 @@ Opciones por defecto de configuración del componente.
 ### rup_report~columns
 Objeto que define si se van a enviar los datos de las columnas (nombres y posiciones):
 
-**Kind**: inner typedef of [<code>rup\_report</code>](#module_rup_report)  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -68,7 +68,7 @@ Objeto que define si se van a enviar los datos de las columnas (nombres y posici
 ### rup_report~dialog
 Objeto para sobrescribir los literales por defecto del diálogo del componente y asociar funciones de callback
 
-**Kind**: inner typedef of [<code>rup\_report</code>](#module_rup_report)  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |
@@ -87,7 +87,7 @@ Objeto para sobrescribir los literales por defecto del diálogo del componente y
 ### rup_report~customDialog
 Objeto para definir los diálogos propios definidos por el usuario. Puede modificar simplemente los literales para un botón determinado o puede definir sus propias capas para sus diálogos completamente personalizados
 
-**Kind**: inner typedef of [<code>rup\_report</code>](#module_rup_report)  
+**Kind**: inner typedef of [<code>rup_report</code>](#module_rup_report)  
 **Properties**
 
 | Name | Type | Description |

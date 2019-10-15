@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/contextMenu"></a>
 
-## rup\_jqtable/contextMenu
+## rup_jqtable/contextMenu
 Tiene como objetivo proporcionar al componente RUP Table de las funcionalidades que ofrece el uso de un menú contextual.
 
 **Summary**: Plugin de menú contextual del componente RUP Table.  
@@ -19,7 +19,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["context
 ### rup_jqtable/contextMenu~options
 Propiedades de configuración del plugin contextMenu del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner property of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -30,14 +30,14 @@ Propiedades de configuración del plugin contextMenu del componente RUP Table.
 | [tbodyTdSelector] | <code>string</code> | <code>&quot;&#x27;tbody:first tr.jqgrow td&#x27;&quot;</code> | Selector de jQuery que identifica las columnas de la tabla. Este selector se utiliza para mostrar el menú contextual a nivel de columna. |
 | [theadThSelector] | <code>string</code> | <code>&quot;&#x27;thead:first th&#x27;&quot;</code> | Selector de jQuery que identifica las cabeceras de las columnas de la tabla. |
 | [items] | <code>object</code> | <code>{}}</code> | Se especifica la configuración de los diferentes items que se van a mostrar en el menú contextual para los registros. |
-| [showOperations] | <code>Array.&lt;rup\_jqtable~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
+| [showOperations] | <code>Array.&lt;rup_jqtable~Operations&gt;</code> |  | Permite indicar que operaciones definidas de manera global van a ser mostradas como opciones en el menú contextual. |
 
 <a name="module_rup_jqtable/contextMenu..preConfigureContextMenu"></a>
 
 ### rup_jqtable/contextMenu~preConfigureContextMenu(settings)
 Metodo que realiza la pre-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner method of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ Metodo que realiza la pre-configuración del plugin contextMenu del componente R
 ### rup_jqtable/contextMenu~postConfigureContextMenu(settings)
 Metodo que realiza la post-configuración del plugin contextMenu del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
+**Kind**: inner method of [<code>rup_jqtable/contextMenu</code>](#module_rup_jqtable/contextMenu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
