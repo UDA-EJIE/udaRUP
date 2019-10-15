@@ -13,7 +13,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base'], factory);
+        define(['jquery', 'rup.base', 'rup.button'], factory);
     } else {
 
         // Browser globals
@@ -107,7 +107,8 @@
 
         _create: function () {
             global.initRupI18nPromise.then(() => {
-                var self = this;
+                const self = this;
+                const selfId = self.element.attr('id');
 
                 if (!self._validateSkeleton()) {
                     $.rup_messages('msgAlert', {
@@ -122,28 +123,49 @@
                 // Si el número de páginas visibles se ha definido menor que 3 se eleva a 3 que es el mínimo
                 opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
 
-                opciones._idContent = self.element.attr('id') + '-content';
-                opciones.content = $('#' + opciones._idContent);
+                /**
+                 * CONTENT
+                 */
+                opciones._idContent = selfId + '-content';
+                opciones._content = $('#' + opciones._idContent);
+                opciones._content.addClass('rup_list-content');
 
+                /**
+                 * OVERLAY (Lock & Unlock)
+                 */
+                opciones._idOverlay = selfId + '-overlay';
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '"><div class="loader"></div></div>');
+                opciones._overlay.addClass('rup_list-overlay');
+
+                /**
+                 * FEEDBACK
+                 */
                 opciones.feedback = $('#' + opciones.feedback).rup_feedback({
                     gotoTop: false
                 });
+                opciones.feedback.addClass('rup_list-feedback');
 
-                opciones._idItemTemplate = self.element.attr('id') + '-itemTemplate';
-                opciones.itemTemplate = $('#' + opciones._idItemTemplate);
+                /**
+                 * TEMPLATE
+                 */
+                opciones._idItemTemplate = selfId + '-itemTemplate';
+                opciones._itemTemplate = $('#' + opciones._idItemTemplate);
+                opciones._itemTemplate.addClass('rup_list-itemTemplate');
 
+                /**
+                 * HEADER
+                 */
                 // HEADER ELEMENTS IDs MAP
                 opciones._idListHeader = {};
-                opciones._idListHeader.header = self.element.attr('id') + '-header';
-                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-                opciones._idListHeader.pagePrev = self.element.attr('id') + '-header-page-prev';
-                opciones._idListHeader.pageNext = self.element.attr('id') + '-header-page-next';
-                opciones._idListHeader.pagenav = self.element.attr('id') + '-header-nav';
-                opciones._idListHeader.rowNum = self.element.attr('id') + '-header-rowNum';
-                opciones._idListHeader.sidx = self.element.attr('id') + '-header-sidx';
-                opciones._idListHeader.sord = self.element.attr('id') + '-header-sord';
-                opciones._idListHeader.selectables = self.element.attr('id') + '-header-selectables';
-
+                opciones._idListHeader.header = selfId + '-header';
+                opciones._idListHeader.pagenav = selfId + '-header-nav';
+                opciones._idListHeader.pagePrev = selfId + '-header-page-prev';
+                opciones._idListHeader.pageNext = selfId + '-header-page-next';
+                opciones._idListHeader.pagenav = selfId + '-header-nav';
+                opciones._idListHeader.rowNum = selfId + '-header-rowNum';
+                opciones._idListHeader.sidx = selfId + '-header-sidx';
+                opciones._idListHeader.sord = selfId + '-header-sord';
+                opciones._idListHeader.selectables = selfId + '-header-selectables';
                 // HEADER $OBJECTS MAP
                 opciones._header = {};
                 opciones._header.obj = $('#' + opciones._idListHeader.header);
@@ -154,7 +176,6 @@
                 opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
                 opciones._header.sord = $('#' + opciones._idListHeader.sord);
                 opciones._header.selectables = $('#' + opciones._idListHeader.selectables);
-
                 // HEADER $OBJECTS CLASS ASSIGNMENT
                 opciones._header.obj.addClass('rup_list-header');
                 opciones._header.pagenav.addClass('rup_list-header-nav');
@@ -167,20 +188,22 @@
 
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
-                    $('#' + self.element.attr('id')).after(footerHTML);
+                    $('#' + selfId).after(footerHTML);
                 }
 
+                /**
+                 * FOOTER
+                 */
                 // FOOTER ELEMENTS IDs MAP
                 opciones._idListFooter = {};
-                opciones._idListFooter.footer = self.element.attr('id') + '-footer';
-                opciones._idListFooter.pagenav = self.element.attr('id') + '-footer-nav';
-                opciones._idListFooter.pagePrev = self.element.attr('id') + '-footer-page-prev';
-                opciones._idListFooter.pageNext = self.element.attr('id') + '-footer-page-next';
-                opciones._idListFooter.rowNum = self.element.attr('id') + '-footer-rowNum';
-                opciones._idListFooter.sidx = self.element.attr('id') + '-footer-sidx';
-                opciones._idListFooter.sord = self.element.attr('id') + '-footer-sord';
-                opciones._idListFooter.selectables = self.element.attr('id') + '-footer-selectables';
-
+                opciones._idListFooter.footer = selfId + '-footer';
+                opciones._idListFooter.pagenav = selfId + '-footer-nav';
+                opciones._idListFooter.pagePrev = selfId + '-footer-page-prev';
+                opciones._idListFooter.pageNext = selfId + '-footer-page-next';
+                opciones._idListFooter.rowNum = selfId + '-footer-rowNum';
+                opciones._idListFooter.sidx = selfId + '-footer-sidx';
+                opciones._idListFooter.sord = selfId + '-footer-sord';
+                opciones._idListFooter.selectables = selfId + '-footer-selectables';
                 // FOOTER $OBJECTS MAP
                 opciones._footer = {};
                 opciones._footer.obj = $('#' + opciones._idListFooter.footer);
@@ -191,7 +214,6 @@
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
                 opciones._footer.sord = $('#' + opciones._idListFooter.sord);
                 opciones._footer.selectables = $('#' + opciones._idListFooter.selectables);
-
                 // FOOTER $OBJECTS CLASS ASSIGNMENT
                 opciones._footer.obj.addClass('rup_list-footer');
                 opciones._footer.pagenav.addClass('rup_list-footer-nav');
@@ -202,144 +224,35 @@
                 opciones._footer.sord.addClass('rup_list-footer-sord');
                 opciones._footer.selectables.addClass('rup_list-footer-selectables');
 
-                // RowNum select to rup-combo
-                var rowNumRupConf = {
-                    source: opciones.rowNum.source,
-                    width: 'initial',
-                    selected: opciones.rowNum.value,
-                    rowStriping: true,
-                    ordered: false,
-                    change: function () {
-                        if (!$('#' + this.id).rup_combo('isDisabled')) {
-                            if (this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')) {
-                                opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._header.rowNum.rup_combo('disable');
-                            }
-                            if (this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')) {
-                                opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                                opciones._footer.rowNum.rup_combo('disable');
-                            }
-                            self._changeOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._header.rowNum.rup_combo('enable');
-                            opciones._footer.rowNum.rup_combo('enable');
-                        }
-                    }
-                };
-                opciones._header.rowNum.rup_combo(rowNumRupConf);
-                opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
-                opciones._footer.rowNum.rup_combo(rowNumRupConf);
-                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+                /**
+                 * ROWNUM
+                 */ 
+                self._rownumInit.apply(self);
 
-                // Sidx select to rup-combo
-                var sidxRupConf = {
-                    source: opciones.sidx.source,
-                    width: 'initial',
-                    selected: opciones.sidx.value,
-                    rowStriping: true,
-                    ordered: false,
-                    change: function () {
-                        if (!$('#' + this.id).rup_combo('isDisabled')) {
-                            opciones._header.sidx.rup_combo('disable');
-                            opciones._footer.sidx.rup_combo('disable');
-                            opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
-                            self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
-                            opciones._header.sidx.rup_combo('enable');
-                            opciones._footer.sidx.rup_combo('enable');
-                        }
-                    }
-                };
-                opciones._header.sidx.rup_combo(sidxRupConf);
-                opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-                opciones._footer.sidx.rup_combo(sidxRupConf);
-                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
-
-                // InicializaciÃ³n sord
-                var sordH = opciones._header.sord.find('i');
-                var sordF = opciones._footer.sord.find('i');
-
-                if (opciones.sord === 'asc') {
-                    sordH.addClass('fa-sort-amount-asc');
-                    sordF.addClass('fa-sort-amount-asc');
-                    sordH.removeClass('fa-sort-amount-desc');
-                    sordF.removeClass('fa-sort-amount-desc');
+                /**
+                 * SORT - MULTISORT
+                 */
+                if (opciones.orderType != 'multi') {
+                    // Sidx select to rup-combo
+                    self._sidxComboInit.apply(self);
+                    // Inicialización sord
+                    self._sordButtonInit(self);
                 } else {
-                    sordH.addClass('fa-sort-amount-desc');
-                    sordF.addClass('fa-sort-amount-desc');
-                    sordH.removeClass('fa-sort-amount-asc');
-                    sordF.removeClass('fa-sort-amount-asc');
+                    // Inicialización del multisort
+                    self._multisortInit.apply(self);
                 }
 
-                // Funcionamiento botÃ³n sord
-                $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                    sordH.toggleClass('fa-sort-amount-asc');
-                    sordH.toggleClass('fa-sort-amount-desc');
-                    sordF.toggleClass('fa-sort-amount-asc');
-                    sordF.toggleClass('fa-sort-amount-desc');
-                    self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
-                });
-
-                // AsociaciÃ³n de eventos
+                // Asociación de eventos
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
                     self.element.append(item);
                 });
 
-                // Funcionalidad pagenav Ant./Sig.
-
-                var onPageChange = (elem) => {
-                    if ($(elem).is('.disabled')) {
-                        return false;
-                    }
-                    let maxpage = $('.page').eq(-1).attr('data-page');
-                    let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
-                    if (actualPage == 1) {
-                        opciones._header.pagePrev.addClass('disabled');
-                        opciones._footer.pagePrev.addClass('disabled');
-                        opciones._header.pageNext.removeClass('disabled');
-                        opciones._footer.pageNext.removeClass('disabled');
-                        return true;
-                    }
-                    if (actualPage == maxpage) {
-                        opciones._header.pagePrev.removeClass('disabled');
-                        opciones._footer.pagePrev.removeClass('disabled');
-                        opciones._header.pageNext.addClass('disabled');
-                        opciones._footer.pageNext.addClass('disabled');
-                        return true;
-                    }
-
-                    opciones._header.pagePrev.removeClass('disabled');
-                    opciones._footer.pagePrev.removeClass('disabled');
-                    opciones._header.pageNext.removeClass('disabled');
-                    opciones._footer.pageNext.removeClass('disabled');
-                    return true;
-                };
-
-                opciones._header.pagePrev.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-                });
-                opciones._header.pageNext.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-                });
-                opciones._footer.pagePrev.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
-                });
-                opciones._footer.pageNext.on('click', function () {
-                    if (!onPageChange(this)) {
-                        return;
-                    }
-                    self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
-                });
+                /**
+                 * PAGENAV
+                 */
+                self._pagenavInit.apply(self);
 
                 //Gestion de multiselección
                 if (opciones.selectable) {
@@ -404,10 +317,389 @@
             });
         },
 
-        _selectAll: function() {
-            var self = this;
-            var opciones = self.options;
-            
+        _sordButtonInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var sordH = opciones._header.sord.find('i');
+            var sordF = opciones._footer.sord.find('i');
+            if (opciones.sord === 'asc') {
+                sordH.addClass('fa-sort-amount-asc');
+                sordF.addClass('fa-sort-amount-asc');
+                sordH.removeClass('fa-sort-amount-desc');
+                sordF.removeClass('fa-sort-amount-desc');
+            } else {
+                sordH.addClass('fa-sort-amount-desc');
+                sordF.addClass('fa-sort-amount-desc');
+                sordH.removeClass('fa-sort-amount-asc');
+                sordF.removeClass('fa-sort-amount-asc');
+            }
+            // Funcionamiento botón sord
+            $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
+                sordH.toggleClass('fa-sort-amount-asc');
+                sordH.toggleClass('fa-sort-amount-desc');
+                sordF.toggleClass('fa-sort-amount-asc');
+                sordF.toggleClass('fa-sort-amount-desc');
+                self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+            });
+        },
+
+        _sidxComboInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var sidxRupConf = {
+                source: opciones.sidx.source,
+                width: 'initial',
+                selected: opciones.sidx.value,
+                rowStriping: true,
+                ordered: false,
+                change: function () {
+                    if (!$('#' + this.id).rup_combo('isDisabled')) {
+                        opciones._header.sidx.rup_combo('disable');
+                        opciones._footer.sidx.rup_combo('disable');
+                        opciones._header.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._footer.sidx.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                        self._changeOption('sidx', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._header.sidx.rup_combo('enable');
+                        opciones._footer.sidx.rup_combo('enable');
+                    }
+                }
+            };
+            opciones._header.sidx.rup_combo(sidxRupConf);
+            opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+            opciones._footer.sidx.rup_combo(sidxRupConf);
+            opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+        },
+
+        _multisortInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            // Creamos un apartado en opciones
+            opciones.multiorder = {
+                sidx: opciones.sidx.value,
+                sord: 'asc'
+            };
+            // Generamos un span para el resumen
+            var $spanResumen = $('<ul class="rup_list-multiorder-summary"/>');
+            opciones._header.sidx.wrap('<div class="tmp-orderchange"/>');
+            opciones._footer.sidx.wrap('<div class="tmp-orderchange"/>');
+            $('.tmp-orderchange').children().remove();
+            $('.tmp-orderchange').append($spanResumen.clone());
+            $('.rup_list-multiorder-summary').unwrap();
+            let $summaryMultiOrder = $('<li class="badge badge-pill badge-primary"/>');
+            opciones.multiorder.sidx.split(',').map((e) => {
+                return e.trim();
+            }).forEach((e, i) => {
+                let $tmpSum = $summaryMultiOrder.clone();
+                let geti18n = (val) => {
+                    let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                    return srcVal[0].i18nCaption;
+                };
+                let sordBadge = $('<span/>');
+                sordBadge.text(' ');
+                let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                    return e.trim();
+                });
+                if (arrSord[i] == 'asc') {
+                    sordBadge.addClass('mdi mdi-chevron-up');
+                } else {
+                    sordBadge.addClass('mdi mdi-chevron-down');
+                }
+                $tmpSum.append(geti18n(e)).append(sordBadge.clone());
+                $('.rup_list-multiorder-summary').append($tmpSum.clone());
+            });
+            // Creamos el botón para el dialogo
+            var $btnOrderDialog = $('<button class="rup_list-multiorder-dialogbtn"></button>');
+            $btnOrderDialog.addClass('mdi mdi-pencil');
+            opciones._header.sord.wrap('<div class="tmp-orderchange"></div>');
+            opciones._footer.sord.wrap('<div class="tmp-orderchange"></div>');
+            $('.tmp-orderchange').children().remove();
+            $('.tmp-orderchange').append($btnOrderDialog.clone());
+            $('.rup_list-multiorder-dialogbtn').unwrap();
+            //Creamos el dialogo
+            var $multiorderDialog = $('<div id="multiorderDialog" class="rup_list-multiorder-dialog" style="display:none"></div>');
+            $multiorderDialog.append('<div class="rup_list-multiorder-orderfields"></div>');
+            $multiorderDialog.append('<div class="rup_list-multiorder-ordersort"></div>');
+            $('body').append($multiorderDialog);
+            //Creamos el contenido del diálogo
+            opciones.sidx.source.forEach((el) => {
+                let $btn = $('<button></button>');
+                $btn.attr('ord-value', el.value);
+                $btn.text(el.i18nCaption);
+                $('.rup_list-multiorder-orderfields').append($btn.clone());
+            });
+            $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
+                self._actualizarOrdenMulti(e, $(this));
+            }); // trigger('click', [btnobj, asc/desc])
+            //Creamos el componente para el dialogo
+            $('#multiorderDialog').rup_dialog({
+                type: $.rup.dialog.DIV,
+                autoOpen: false,
+                modal: true,
+                resizable: true,
+                width: '90%',
+                position: null,
+                title: 'Multiordenación',
+                buttons: [{
+                    text: 'cerrar',
+                    click: () => {
+                        $('#multiorderDialog').rup_dialog('close');
+                        self.element.rup_list('filter');
+                    }
+                }]
+            });
+            // Establecemos el boton para el dialogo
+            $('.rup_list-multiorder-dialogbtn').click(() => {
+                $('#multiorderDialog').rup_dialog('open');
+            });
+        },
+
+        _rownumInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var rowNumRupConf = {
+                source: opciones.rowNum.source,
+                width: 'initial',
+                selected: opciones.rowNum.value,
+                rowStriping: true,
+                ordered: false,
+                change: function () {
+                    if (!$('#' + this.id).rup_combo('isDisabled')) {
+                        if (this.id == 'rup-list-footer-rowNum' && !opciones._header.rowNum.rup_combo('isDisabled')) {
+                            opciones._header.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._header.rowNum.rup_combo('disable');
+                        }
+                        if (this.id == 'rup-list-header-rowNum' && !opciones._footer.rowNum.rup_combo('isDisabled')) {
+                            opciones._footer.rowNum.rup_combo('setRupValue', $('#' + this.id).rup_combo('getRupValue'));
+                            opciones._footer.rowNum.rup_combo('disable');
+                        }
+                        self._changeOption('rowNum', $('#' + this.id).rup_combo('getRupValue'));
+                        opciones._header.rowNum.rup_combo('enable');
+                        opciones._footer.rowNum.rup_combo('enable');
+                    }
+                }
+            };
+            opciones._header.rowNum.rup_combo(rowNumRupConf);
+            opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
+            opciones._footer.rowNum.rup_combo(rowNumRupConf);
+            opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+        },
+
+        _pagenavInit: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var onPageChange = (elem) => {
+                if ($(elem).is('.disabled')) {
+                    return false;
+                }
+                let maxpage = $('.page').eq(-1).attr('data-page');
+                let actualPage = opciones._header.pagenav.find('.page-item.page.active').attr('data-page');
+                if (actualPage == 1) {
+                    opciones._header.pagePrev.addClass('disabled');
+                    opciones._footer.pagePrev.addClass('disabled');
+                    opciones._header.pageNext.removeClass('disabled');
+                    opciones._footer.pageNext.removeClass('disabled');
+                    return true;
+                }
+                if (actualPage == maxpage) {
+                    opciones._header.pagePrev.removeClass('disabled');
+                    opciones._footer.pagePrev.removeClass('disabled');
+                    opciones._header.pageNext.addClass('disabled');
+                    opciones._footer.pageNext.addClass('disabled');
+                    return true;
+                }
+                opciones._header.pagePrev.removeClass('disabled');
+                opciones._footer.pagePrev.removeClass('disabled');
+                opciones._header.pageNext.removeClass('disabled');
+                opciones._footer.pageNext.removeClass('disabled');
+                return true;
+            };
+            opciones._header.pagePrev.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+            });
+            opciones._header.pageNext.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+            });
+            opciones._footer.pagePrev.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').prev('[data-page]').data('page'));
+            });
+            opciones._footer.pageNext.on('click', function () {
+                if (!onPageChange(this)) {
+                    return;
+                }
+                self._changeOption('page', opciones._header.pagenav.find('.page-item.page.active').next('[data-page]').data('page'));
+            });
+        },
+
+        _actualizarOrdenMulti: function (e, self, ord = 'asc') {
+            var ctx = $(this)[0];
+            var sortDiv = $('.rup_list-multiorder-ordersort');
+            var opciones = ctx.options;
+            // Añadimos las opciones al componente
+            if (opciones.multiorder.sidx.length) {
+                let tmpSidxArr = opciones.multiorder.sidx.split(',').map((e) => {
+                    return e.trim();
+                });
+                tmpSidxArr.push(self.attr('ord-value'));
+                let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {
+                    return e.trim();
+                });
+                tmpSordArr.push(ord);
+                opciones.multiorder.sidx = tmpSidxArr.join(',');
+                opciones.multiorder.sord = tmpSordArr.join(',');
+            }
+            //Creamos la linea
+            let $operateLine = $('<div></div>');
+            $operateLine.attr('ord-value', self.attr('ord-value'));
+            $operateLine.addClass('rup_list-ord-line');
+            //Creamos los apartados de ordenacion, label y sord
+            let $apOrd = $('<div></div>');
+            $apOrd.addClass('rup_list-apord');
+            let $labelOrd = $('<div class="rup_list-multiorder-label"></div>');
+            $labelOrd.text(self.text());
+            let $sord = $('<span></span>');
+            $sord.addClass('rup_list-multi-sord badge badge-secondary mdi');
+            $sord.attr('direction', ord);
+            let $quitOrd = $('<span></span>');
+            $quitOrd.addClass('mdi mdi-cancel');
+
+            $operateLine.append($apOrd).append($labelOrd).append($sord).append($quitOrd);
+
+            sortDiv.append($operateLine.clone());
+            ctx._fnOrderOfOrderFields(ctx, $('[ord-value="' + self.attr('ord-value') + '"]', sortDiv));
+            self.remove();
+
+        },
+        /**
+         * Crea la funcionalidad de la ordenacion de los orders y del asc/desc de los mismos
+         */
+        _fnOrderOfOrderFields: function (ctx, line) {
+            //Creamos el groupButton
+            var opciones = ctx.options;
+            let $btnGroupOrd = $('<div></div>');
+            $btnGroupOrd.addClass('btn-group');
+            let $btnUp = $('<button></button>').addClass('mdi mdi-arrow-up');
+            let $btnDown = $('<button></button>').addClass('mdi mdi-arrow-down');
+            $btnGroupOrd.append($btnUp).append($btnDown);
+            //Lo añadimos a la linea
+            $('.rup_list-apord', line).append($btnGroupOrd.clone());
+            //Función de guardado de la multiordenación
+            var save = () => {
+                opciones.multiorder = {
+                    sidx: opciones.sidx.value,
+                    sord: 'asc'
+                };
+                var sortDiv = $('.rup_list-multiorder-ordersort');
+                let sidxArr = [];
+                let sordArr = [];
+                sortDiv.children().toArray().forEach((elem) => {
+                    sidxArr.push($(elem).attr('ord-value'));
+                    sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                });
+                if (sidxArr.length > 0) {
+                    opciones.multiorder.sidx = sidxArr.join(',');
+                    opciones.multiorder.sord = sordArr.join(',');
+                }
+                //Crear el label de resumen
+                let $summaryMultiOrder = $('<span class="badge badge-pill badge-primary"></span>');
+                $('.rup_list-multiorder-summary').children().remove();
+                opciones.multiorder.sidx.split(',').map((e) => {
+                    return e.trim();
+                }).forEach((e, i) => {
+                    let $tmpSum = $summaryMultiOrder.clone();
+                    let geti18n = (val) => {
+                        let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                        return srcVal[0].i18nCaption;
+                    };
+                    let sordBadge = $('<span></span>');
+                    sordBadge.text(' ');
+                    let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                        return e.trim();
+                    });
+                    if (arrSord[i] == 'asc') {
+                        sordBadge.addClass('mdi mdi-chevron-up');
+                    } else {
+                        sordBadge.addClass('mdi mdi-chevron-down');
+                    }
+                    $tmpSum.append(geti18n(e)).append(sordBadge.clone());
+                    $('.rup_list-multiorder-summary').append($tmpSum.clone());
+                });
+
+            };
+            //funcionalidad del groupButton
+            $('.mdi-arrow-up', line).click(function () {
+                if (line.is(':first-child')) {
+                    return;
+                }
+                line.prev().before(line);
+                save();
+            });
+            $('.mdi-arrow-down', line).click(function () {
+                if (line.is(':last-child')) {
+                    return;
+                }
+                line.next().after(line);
+                save();
+            });
+            //ponemos icono al sord
+            if ($('.rup_list-multi-sord').attr('direction') == 'asc') {
+                $('.rup_list-multi-sord').addClass('mdi-chevron-up');
+            } else {
+                $('.rup_list-multi-sord').addClass('mdi-chevron-down');
+            }
+            $('.rup_list-multi-sord').text(' ');
+            //funcionalidad del sord
+            $('.rup_list-multi-sord', line).off('click');
+            $('.rup_list-multi-sord', line).click(() => {
+                if ($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
+                    $('.rup_list-multi-sord', line).attr('direction', 'desc');
+                    $('.rup_list-multi-sord', line).addClass('mdi-chevron-down');
+                    $('.rup_list-multi-sord', line).removeClass('mdi-chevron-up');
+                } else {
+                    $('.rup_list-multi-sord', line).attr('direction', 'asc');
+                    $('.rup_list-multi-sord', line).addClass('mdi-chevron-up');
+                    $('.rup_list-multi-sord', line).removeClass('mdi-chevron-down');
+                }
+                save();
+            });
+            //funcionalidad de retirar la ordenación
+            $('.mdi-cancel', line).click(() => {
+                //recreamos el botón
+                let $btn = $('<button></button>');
+                $btn.attr('ord-value', line.attr('ord-value'));
+                $btn.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis');
+                let text = ctx.options.sidx.source.filter(x => x.value == line.attr('ord-value'))[0].i18nCaption;
+                $btn.text(text);
+                $('.rup_list-multiorder-orderfields').append($btn.clone());
+                $('.rup_list-multiorder-orderfields').children().off('click');
+                $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
+                    ctx._actualizarOrdenMulti(e, $(this));
+                });
+                // Eliminamos la linea
+                line.remove();
+                save();
+            });
+
+            save();
+        },
+
+        _selectAll: function () {
+            const self = this;
+            const opciones = self.options;
+
             opciones.multiselection.selectedAll = true;
             opciones.multiselection.selectedIds = [];
             opciones.multiselection.selectedRowsPerPage = [];
@@ -435,8 +727,8 @@
         },
 
         _deselectAll: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             opciones.multiselection.selectedAll = false;
             opciones.multiselection.selectedIds = null;
@@ -448,8 +740,8 @@
         },
 
         _selectPage: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             if (opciones.multiselection.selectedIds == null) {
                 opciones.multiselection.selectedIds = [];
@@ -502,8 +794,8 @@
         },
 
         _deselectPage: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const opciones = self.options;
 
             if (opciones.multiselection.selectedIds == null) {
                 opciones.multiselection.selectedIds = [];
@@ -556,17 +848,18 @@
         },
 
         _generateSelectablesBtnGroup: function () {
-            var self = this;
-            var opciones = self.options;
+            const self = this;
+            const selfId = self.element.attr('id');
+            const opciones = self.options;
 
             let $btnGroup = $('<div></div>');
             $btnGroup.addClass('btn-group h-100').attr('role', 'group');
             let $displayButton = $('<button></button>');
-            $displayButton.addClass('btn btn-secondary dropdown-toggle')
-                .attr('id', self.element.attr('id') + '-display-selectables').attr('type', 'button')
+            $displayButton.addClass('dropdown-toggle')
+                .attr('id', selfId + '-display-selectables').attr('type', 'button')
                 .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
                 .attr('aria-expanded', false).text(opciones._header.selectables.text());
-            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', self.element.attr('id') + '-display-selectables');
+            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', selfId + '-display-selectables');
 
             let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
             let $deselectPage = $('<a></a>').addClass('dropdown-item selectable-deselectPage').text('Deseleccionar la página actual');
@@ -709,26 +1002,33 @@
             }
         },
 
-        _lock: function () {
-            var opciones = this.options;
+        lock: function () {
+            this._lock();
+        },
 
-            opciones.content.css('opacity', '0.3');
-            var overlay;
-            if ($('#' + this.element.attr('id') + '-overlay').length > 0) {
-                overlay = $('#' + this.element.attr('id') + '-overlay');
-            } else {
-                overlay = jQuery('<div id="' + this.element.attr('id') + '-overlay"> </div>');
-                overlay.prependTo(opciones.content);
-            }
-            overlay.width(opciones.content.width());
-            overlay.height(opciones.content.height());
+        unlock: function () {
+            this._unlock();
+        },
+
+        _lock: function () {
+            const self = this;
+            const opciones = self.options;
+
+            opciones._content.css('opacity', '0.3');
+
+            $('#' + opciones._idOverlay).remove();
+            opciones._overlay.prependTo(opciones._content);
+
+            opciones._overlay.width(opciones._content.width());
+            opciones._overlay.height(opciones._content.height());
         },
 
         _unlock: function () {
-            var opciones = this.options;
+            const self = this;
+            const opciones = self.options;
 
-            opciones.content.css('opacity', '1');
-            $('#' + this.element.attr('id') + '-overlay').remove();
+            opciones._content.css('opacity', '1');
+            $('#' + opciones._idOverlay).remove();
         },
 
         destroy: function () {
@@ -747,17 +1047,27 @@
         _doFilter: function () {
             var self = this;
             var opciones = this.options;
-            var $itemTemplate = opciones.itemTemplate;
+            var $itemTemplate = opciones._itemTemplate;
             var $pagenavH = opciones._header.pagenav;
             var $pagenavF = opciones._footer.pagenav;
 
+            // Validar si la ordenacion es simple o múltiple
+            var sidx = '';
+            var sord = '';
+            if (opciones.orderType == 'multi') {
+                sidx = opciones.multiorder.sidx;
+                sord = opciones.multiorder.sord;
+            } else {
+                sidx = opciones.sidx.value;
+                sord = opciones.sord;
+            }
             // Componer el filtro
             var filter = {
                 filter: $('#' + opciones.filterForm).rup_form('formToJson'),
                 page: opciones.page,
                 rows: opciones.rowNum.value,
-                sidx: opciones.sidx.value,
-                sord: opciones.sord,
+                sidx: sidx,
+                sord: sord,
                 multiselection: opciones.multiselection,
                 core: {
                     pkNames: [opciones.key],
@@ -766,9 +1076,6 @@
             };
 
             opciones.feedback.rup_feedback('hide');
-            opciones.feedback.rup_feedback('destroy').rup_feedback({
-                gotoTop: false
-            }); //FIXME: Pendiente de correcciÃ³n UDA
 
             if ($('#' + opciones.filterForm).rup_form('valid')) {
                 jQuery.rup_ajax({
@@ -789,7 +1096,7 @@
                             self.element.hide();
                             opciones._footer.obj.hide();
                             opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.errors.errorOnGet, 'error');
-                            opciones.content.slideDown();
+                            opciones._content.slideDown();
 
                             self.element.trigger('load');
                             self._unlock();
@@ -817,7 +1124,7 @@
                                     }
                                     if (xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
-                                        if((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
+                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
                                             $item.addClass('list-item-selected');
                                         }
                                     }
@@ -839,14 +1146,14 @@
                                 opciones._footer.obj.show();
 
                                 // Si no se estÃ¡ mostrando el content se despliega
-                                opciones.content.slideDown();
+                                opciones._content.slideDown();
                             } else {
                                 // Si no se devuelven resultados
                                 opciones._header.obj.hide();
                                 self.element.hide();
                                 opciones._footer.obj.hide();
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
-                                opciones.content.slideDown();
+                                opciones._content.slideDown();
                             }
                         }
 
@@ -870,7 +1177,7 @@
                         opciones._header.obj.hide();
                         self.element.hide();
                         opciones._footer.obj.hide();
-                        opciones.content.slideDown();
+                        opciones._content.slideDown();
 
                         self.element.trigger('load');
                         self._unlock();
