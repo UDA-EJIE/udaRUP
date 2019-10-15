@@ -232,7 +232,7 @@
                 /**
                  * SORT - MULTISORT
                  */
-                if (opciones.orderType != 'multi') {
+                if (!opciones.isMultiSort) {
                     // Sidx select to rup-combo
                     self._sidxComboInit.apply(self);
                     // Inicialización sord
