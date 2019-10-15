@@ -48,7 +48,7 @@
  *      isMultiSort: true,
  *      modElement: (ev, item, json) => {
  *          var userVal = item.find('#usuario_value_' + json.codigoPK);
- *          userVal.text(userVal.text() + ' :D');
+ *          userVal.text(userVal.text() + ' -Added');
  *      },
  *      load: () => {}
  * });
@@ -64,6 +64,63 @@
         factory(jQuery);
     }
 }(function ($) {
+    //*******************************************************
+    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //*******************************************************
+
+    /**
+     * @description Opciones por defecto de configuración del componente.
+     * @name defaults
+     * @property {String} [action=null] - Determina la url contra la que se hacen las llamadas del listado.
+     * @property {String} [filterForm=null] - Determina el selector del formulario de filtrado del listado.
+     * @property {String} [feedback=null] - Determina el selector del feedback.
+     * @property {Number} [visiblePages=5] - Determina el número de páginas que serán visibles desde la paginación (mínimo 3).
+     * @property {String} [key=null] - Determina el identificador de cada tarjeta que vendrá especificado en el JSON.
+     * @property {Object} [rowNum=Object] - Determina la configuracion de la seleccion de elementos por página.
+     * @property {Object} [sidx = Object] - Determina los campos por los que se podrán ordenar los elementos
+     * @property {String} [sord=null] - Determina la dirección de la ordenación
+     * @property {Number} [page=1] - Determina página en la que se inicia por defecto
+     * @property {boolean} [createFooter=true] - Si es true crea una copia del header en la parte inferior del listado
+     * @property {String} [sord=null] - Determina la dirección de la ordenación
+     * @property {Funcion} [modElement=() =>{}] - Callback que se ejecuta antes del añadido de cada tarjeta al listado
+     * @property {Funcion} [load=() => {}] - Callback que se ejecuta tras cada filtrado
+     * @property {Object} [selectable=Object] - Determina la configuración de la selección
+     * @property {boolean} [isMultiSort=false] - Si es true el modo de ordenación cambia a multiordenación
+     *
+     */
+
+    /**
+    * @description Opciones por defecto de configuración de rowNum
+    * @name defaultsRowNum
+    * 
+    * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de los elementos por página
+    * @property {String} [value=5] - Valor del source por defecto 
+    */
+
+    /**
+    * @description Opciones por defecto de configuración de sidx
+    * @name defaultsSidx
+    * 
+    * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de la ordenacion.
+    * @property {String} [value=5] - Valor del source por defecto. En caso de ser multiOrdenacion se pueden añadir campos separados por comas
+    */
+
+    /**
+    * @description Opciones por defecto de configuración de selectable
+    * @name defaultsSelectable
+    * 
+    * @property {boolean} [multi=null] - Si es true será de selección múltiple, de ser false será de seleccion simple.
+    * @property {selector} [value=null] - Selctor JQuery sobre el que se deberá hacer click para seleccionar o deseleccionar elementos.
+    */
+
+    /**
+    * @description Eventos lanzados sobre rup-list
+    * @name defaultsEvents
+    * 
+    * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
+    * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
+    */
+
     $.widget('$.rup_list', {
         options: {
             filterForm: null,
