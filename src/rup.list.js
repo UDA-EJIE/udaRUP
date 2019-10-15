@@ -588,8 +588,8 @@
                 $btn.text(el.i18nCaption);
                 $('.rup_list-multiorder-orderfields').append($btn.clone());
             });
-            $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
-                self._actualizarOrdenMulti(e, $(this));
+            $('.rup_list-multiorder-orderfields').children().on('click', function (e, param) {
+                self._actualizarOrdenMulti(e, $(this), param);
             });
             //Creamos el componente para el dialogo
             $('#multiorderDialog').rup_dialog({
@@ -612,10 +612,11 @@
             $('.rup_list-multiorder-dialogbtn').click(() => {
                 $('#multiorderDialog').rup_dialog('open');
             });
-            
+
             let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
-            arrSidx.forEach((elem) => {
-                $('button[ord-value="'+ elem +'"]').click();
+            let arrSord = opciones.multiorder.sord.split(',').map(a => a.trim());
+            arrSidx.forEach((elem, i) => {
+                $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
             });
         },
 
@@ -843,10 +844,10 @@
                 save();
             });
             //ponemos icono al sord
-            if ($('.rup_list-multi-sord').attr('direction') == 'asc') {
-                $('.rup_list-multi-sord').addClass('mdi-chevron-up');
+            if ($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
+                $('.rup_list-multi-sord', line).addClass('mdi-chevron-up');
             } else {
-                $('.rup_list-multi-sord').addClass('mdi-chevron-down');
+                $('.rup_list-multi-sord', line).addClass('mdi-chevron-down');
             }
             $('.rup_list-multi-sord').text(' ');
             //funcionalidad del sord

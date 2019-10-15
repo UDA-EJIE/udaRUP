@@ -395,9 +395,9 @@ describe('Test rup_list > Funcionamiento > Multiordenación', () => {
             sum.forEach((elem) => {
                 let children = $('.badge', $(elem)).toArray();
                 expect(children.length).toBe(2);
-                expect($(children[0]).text()).toBe('Edad');
+                expect($(children[0]).text().trim()).toBe('Edad');
                 expect($('span.mdi-chevron-up',$(children[0])).length).toBe(1);
-                expect($(children[1]).text()).toBe('usuario');
+                expect($(children[1]).text().trim()).toBe('Usuario');
                 expect($('span.mdi-chevron-up',$(children[1])).length).toBe(1);
             });
             
@@ -418,6 +418,7 @@ describe('Test rup_list > Funcionamiento > Multiordenación', () => {
         it('Se muestra el dialogo:', () => {
             expect($('.rup_list-multiorder-dialog').is(':visible')).toBeTruthy();
         });
+        it('Los campos de la ordenación por defecto están convertidos a líneas:', () => {});
 
         describe('Los botones se convierten en líneas > ', () => {
             beforeEach(() => {
