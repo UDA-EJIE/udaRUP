@@ -384,5 +384,67 @@ describe('Test rup_list > ', () => {
                 });
             });
         });
+
+    });
+});
+describe('Test rup_list > Funcionamiento > Multiordenación', () => {
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
+    beforeEach((done) => {
+        listGen.createListMultiorder('rup-list', done);
+    });
+    afterEach(() => {
+        clearList();
+    });
+
+    describe('Creación del summary y el botón de edición de la ordenación > ', () => {
+        it('Debe crear el summary con los dos valores por defecto:', () => {
+            let sum = $('.rup_list-multiorder-summary').toArray();
+            sum.forEach((elem) => {
+                let children = $('.badge', $(elem)).toArray();
+                expect(children.length).toBe(2);
+                expect($(children[0]).text()).toBe('Edad');
+                expect($('span.mdi-chevron-up',$(children[0])).length).toBe(1);
+                expect($(children[1]).text()).toBe('usuario');
+                expect($('span.mdi-chevron-up',$(children[1])).length).toBe(1);
+            });
+            
+        });
+        it('Debe crear el botón:', () => {
+            let ctx = $('.rup_list-multiorder-dialogbtn').toArray();
+
+            ctx.forEach((elem) => {
+                expect($(elem).hasClass('mdi-pencil')).toBeTruthy();
+            });
+        });
+    });
+    describe('Funcionamiento del dialogo de edición de la ordenación > ', () => {
+        beforeEach(() => {
+            $('.rup_list-multiorder-dialogbtn').click();
+        });
+
+        it('Se muestra el dialogo:', () => {
+            expect($('.rup_list-multiorder-dialog').is(':visible')).toBeTruthy();
+        });
+
+        describe('Los botones se convierten en líneas > ', () => {
+            beforeEach(() => {
+                $('button[ord-value="EDAD"]').click();
+            });
+            it('Desaparece el botón:', () => {
+                expect($('button[ord-value="EDAD"]').length).toBe(0);
+            });
+            it('Aparece la línea: ', () => {});
+            it('Los cambios se reflejan en el summary:', () => {});
+        });
+        describe('Las lineas se convierten en botones > ', () => {
+            it('Los cambios se reflejan en el summary:', () => {});
+        });
+    });
+    describe('Funcionamiento del multiSort > ', () => {
+        describe('Ordenación con el valor por defecto > ', () => {});
+        describe('Ordenación con todos los valores de ordenación > ', () => {});
+        describe('Ordenación con un valor ascendente y otro descendente > ', () => {});
     });
 });

@@ -590,7 +590,7 @@
             });
             $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
                 self._actualizarOrdenMulti(e, $(this));
-            }); // trigger('click', [btnobj, asc/desc])
+            });
             //Creamos el componente para el dialogo
             $('#multiorderDialog').rup_dialog({
                 type: $.rup.dialog.DIV,
@@ -611,6 +611,11 @@
             // Establecemos el boton para el dialogo
             $('.rup_list-multiorder-dialogbtn').click(() => {
                 $('#multiorderDialog').rup_dialog('open');
+            });
+            
+            let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
+            arrSidx.forEach((elem) => {
+                $('button[ord-value="'+ elem +'"]').click();
             });
         },
 

@@ -189,3 +189,63 @@ export function createList(idLista, callback){
         }
     });
 }
+
+export function createListMultiorder(idLista, callback){
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content" class="container"></div>');
+    }
+    $('#content').append(getHtml(idLista));
+
+    $('#listFilterLimpiar').on('click', (e) => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        $('#listFilterForm').find('input').val('');
+        $('#rup-list').rup_list('filter');
+    });
+    $('#listFilterAceptar').on('click', (e) => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        $('#rup-list').rup_list('filter');
+    });
+
+    $('#' + idLista).on('initComplete', callback);
+    $('#' + idLista).rup_list({
+        action: '/demo/list/filter',
+        filterForm: 'listFilterForm',
+        feedback: idLista + '-feedback',
+        key: 'codigoPK',
+        selectable:{
+            multi: true
+            , selector: '.list-item' 
+        },
+        modElement:() => {},
+        isMultiSort: true,
+        visiblePages: 2,
+        sidx: {
+            source: [{
+                value: 'USUARIO',
+                i18nCaption: 'Usuario'
+            }, {
+                value: 'EDAD',
+                i18nCaption: 'Edad'
+            }, {
+                value: 'CODCLIENTE',
+                i18nCaption: 'Codigo cliente'
+            }],
+            value: 'EDAD,USUARIO'
+        },
+        rowNum: {
+            source: [{
+                value: '5',
+                i18nCaption: 'Cinco'
+            }, {
+                value: '10',
+                i18nCaption: 'Diez'
+            }, {
+                value: '20',
+                i18nCaption: 'Veinte'
+            }],
+            value: '5'
+        }
+    });
+}
