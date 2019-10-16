@@ -241,6 +241,8 @@
 
                 var opciones = self.options;
 
+                $(self.element).addClass('rup_list');
+
                 // Si el número de páginas visibles se ha definido menor que 3 se eleva a 3 que es el mínimo
                 opciones.visiblePages = opciones.visiblePages < 3 ? 3 : opciones.visiblePages;
 
@@ -255,7 +257,10 @@
                  * OVERLAY (Lock & Unlock)
                  */
                 opciones._idOverlay = selfId + '-overlay';
-                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '"><div class="loader"></div></div>');
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '" class="rup_list-overlay"/>');
+                opciones._overlay
+                    .append('<div class="rup_list-overlay-layer"/>')
+                    .append('<div class="rup_list-overlay-loader"/>');
                 opciones._overlay.addClass('rup_list-overlay');
 
                 /**
@@ -436,8 +441,8 @@
                 $('#' + opciones._idItemTemplate).hide();
                 if(opciones.isMultisort){
                     $('#' + self.element[0].id).on('rup_list-multiorder-inited', () => {
-                        $('#' + self.element[0].id).trigger('initComplete');
-                    });
+                $('#' + self.element[0].id).trigger('initComplete');
+            });
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
@@ -548,13 +553,13 @@
                 })()
             };
             // Generamos un span para el resumen
-            var $spanResumen = $('<ul class="rup_list-multiorder-summary"/>');
+            var $spanResumen = $('<ul class="rup_list-multiorder-summary p-0"/>');
             opciones._header.sidx.wrap('<div class="tmp-orderchange"/>');
             opciones._footer.sidx.wrap('<div class="tmp-orderchange"/>');
             $('.tmp-orderchange').children().remove();
             $('.tmp-orderchange').append($spanResumen.clone());
             $('.rup_list-multiorder-summary').unwrap();
-            let $summaryMultiOrder = $('<li class="badge badge-pill badge-primary"/>');
+            let $summaryMultiOrder = $('<li class="rup_list-multiorder-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
             opciones.multiorder.sidx.split(',').map((e) => {
                 return e.trim();
             }).forEach((e, i) => {
@@ -563,7 +568,7 @@
                     let srcVal = opciones.sidx.source.filter(x => x.value == val);
                     return srcVal[0].i18nCaption;
                 };
-                let sordBadge = $('<span/>');
+                let sordBadge = $('<span class="rup_list-multiorder-summary-badge-sord"/>');
                 sordBadge.text(' ');
                 let arrSord = opciones.multiorder.sord.split(',').map((e) => {
                     return e.trim();
@@ -632,9 +637,9 @@
                         $(self.element).trigger('rup_list-multiorder-inited');
                     }
                 });
-                arrSidx.forEach((elem, i) => {
-                    $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
-                });
+            arrSidx.forEach((elem, i) => {
+                $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
+            });
             } else {
                 $(self.element).trigger('rup_list-multiorder-inited');
             }
@@ -762,7 +767,7 @@
                 });
                 if(tmpSidxArr.indexOf(self.attr('ord-value')) == -1) {
                     tmpSidxArr.push(self.attr('ord-value'));
-                    tmpSordArr.push(ord);
+                tmpSordArr.push(ord);
                 }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
@@ -818,8 +823,8 @@
                 let sordArr = [];
                 sortDiv.children().toArray().forEach((elem) => {
                     if(sidxArr.indexOf($(elem).attr('ord-value')) == -1) {
-                        sidxArr.push($(elem).attr('ord-value'));
-                        sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                    sidxArr.push($(elem).attr('ord-value'));
+                    sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
                     }
                 });
                 if (sidxArr.length > 0) {
@@ -1297,12 +1302,13 @@
             const self = this;
             const opciones = self.options;
 
-            opciones._content.css('opacity', '0.3');
+            opciones._header.obj.css('opacity', '0.3');
+            self.element.css('opacity', '0.3');
+            opciones._footer.obj.css('opacity', '0.3');
 
             $('#' + opciones._idOverlay).remove();
             opciones._overlay.prependTo(opciones._content);
 
-            opciones._overlay.width(opciones._content.width());
             opciones._overlay.height(opciones._content.height());
         },
 
@@ -1316,7 +1322,9 @@
             const self = this;
             const opciones = self.options;
 
-            opciones._content.css('opacity', '1');
+            opciones._header.obj.css('opacity', '1');
+            self.element.css('opacity', '1');
+            opciones._footer.obj.css('opacity', '1');
             $('#' + opciones._idOverlay).remove();
         },
 
