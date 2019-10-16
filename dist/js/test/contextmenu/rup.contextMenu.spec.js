@@ -101,7 +101,7 @@ describe('Test ContextMenu > ', () => {
         beforeEach((done) => {
             $context.rup_contextMenu('show');
             setTimeout(() => {
-                $('.context-menu-submenu').click();
+                $('.context-menu-submenu').mouseenter();
                 done();
             }, 200);
         });
