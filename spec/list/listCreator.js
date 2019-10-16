@@ -234,6 +234,7 @@ export function createListMultiorder(idLista, callback){
             }],
             value: 'EDAD,USUARIO'
         },
+        sord: 'asc, desc',
         rowNum: {
             source: [{
                 value: '5',

@@ -119,6 +119,8 @@
     * 
     * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
     * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
+    * @property [rup_list-multiorder-inited] - Se lanza una vez se ha inicializado la característica de multiorder
+    * @property [rup_list-multiorder-changed] - Se lanza cuando se vería la multiordenación
     */
 
     $.widget('$.rup_list', {
@@ -432,7 +434,13 @@
                 }
 
                 $('#' + opciones._idItemTemplate).hide();
-                $('#' + self.element[0].id).trigger('initComplete');
+                if(opciones.isMultisort){
+                    $('#' + self.element[0].id).on('rup_list-multiorder-inited', () => {
+                        $('#' + self.element[0].id).trigger('initComplete');
+                    });
+                } else {
+                    $('#' + self.element[0].id).trigger('initComplete');
+                }
             });
         },
 
@@ -615,9 +623,22 @@
 
             let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
             let arrSord = opciones.multiorder.sord.split(',').map(a => a.trim());
-            arrSidx.forEach((elem, i) => {
-                $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
-            });
+
+            if(arrSidx.length > 0) {
+                let cont = 0;
+                $(self.element).on('rup_list-multiorder-changed', () => {
+                    cont ++;
+                    if(cont == arrSidx.length){
+                        $(self.element).trigger('rup_list-multiorder-inited');
+                    }
+                });
+                arrSidx.forEach((elem, i) => {
+                    $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
+                });
+            } else {
+                $(self.element).trigger('rup_list-multiorder-inited');
+            }
+            
         },
 
         /**
@@ -736,11 +757,13 @@
                 let tmpSidxArr = opciones.multiorder.sidx.split(',').map((e) => {
                     return e.trim();
                 });
-                tmpSidxArr.push(self.attr('ord-value'));
                 let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {
                     return e.trim();
                 });
-                tmpSordArr.push(ord);
+                if(tmpSidxArr.indexOf(self.attr('ord-value')) == -1) {
+                    tmpSidxArr.push(self.attr('ord-value'));
+                    tmpSordArr.push(ord);
+                }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
             }
@@ -787,20 +810,25 @@
             $('.rup_list-apord', line).append($btnGroupOrd.clone());
             //Función de guardado de la multiordenación
             var save = () => {
-                opciones.multiorder = {
-                    sidx: opciones.sidx.value,
-                    sord: 'asc'
-                };
+                let sordDefault = opciones.multiorder.sord;
+                opciones.multiorder.sidx = '';
+                opciones.multiorder.sord = '';
                 var sortDiv = $('.rup_list-multiorder-ordersort');
                 let sidxArr = [];
                 let sordArr = [];
                 sortDiv.children().toArray().forEach((elem) => {
-                    sidxArr.push($(elem).attr('ord-value'));
-                    sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                    if(sidxArr.indexOf($(elem).attr('ord-value')) == -1) {
+                        sidxArr.push($(elem).attr('ord-value'));
+                        sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                    }
                 });
                 if (sidxArr.length > 0) {
                     opciones.multiorder.sidx = sidxArr.join(',');
                     opciones.multiorder.sord = sordArr.join(',');
+                } else {
+                    // Si no hay parámetros de ordenación se usa la ordenación por defecto
+                    opciones.multiorder.sidx = opciones.sidx.value;
+                    opciones.multiorder.sord = sordDefault;
                 }
                 //Crear el label de resumen
                 let $summaryMultiOrder = $('<span class="badge badge-pill badge-primary"></span>');
@@ -826,6 +854,7 @@
                     $tmpSum.append(geti18n(e)).append(sordBadge.clone());
                     $('.rup_list-multiorder-summary').append($tmpSum.clone());
                 });
+                $(ctx.element).trigger('rup_list-multiorder-changed');
 
             };
             //funcionalidad del groupButton
