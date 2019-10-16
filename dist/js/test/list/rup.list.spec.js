@@ -3,6 +3,8 @@
 
 function clearList () {
     $('#content').html('');
+    $('.rup_list-multiorder-dialog').remove();
+    $('.ui-dialog').remove();
     $('#rup_list').rup_list('destroy');
 }
 describe('Test rup_list > ', () => {
@@ -398,7 +400,7 @@ describe('Test rup_list > Funcionamiento > Multiordenación', () => {
                 expect($(children[0]).text().trim()).toBe('Edad');
                 expect($('span.mdi-chevron-up',$(children[0])).length).toBe(1);
                 expect($(children[1]).text().trim()).toBe('Usuario');
-                expect($('span.mdi-chevron-up',$(children[1])).length).toBe(1);
+                expect($('span.mdi-chevron-down',$(children[1])).length).toBe(1);
             });
             
         });
@@ -418,25 +420,95 @@ describe('Test rup_list > Funcionamiento > Multiordenación', () => {
         it('Se muestra el dialogo:', () => {
             expect($('.rup_list-multiorder-dialog').is(':visible')).toBeTruthy();
         });
-        it('Los campos de la ordenación por defecto están convertidos a líneas:', () => {});
+        it('Los campos de la ordenación por defecto están convertidos a líneas:', () => {
+            let ctx = $('.rup_list-ord-line').toArray();
+            expect($(ctx[0]).attr('ord-value')).toBe('EDAD');
+            expect($('span[direction="asc"]', $(ctx[0])).length).toBe(1);
+            expect($(ctx[1]).attr('ord-value')).toBe('USUARIO');
+            expect($('span[direction="desc"]', $(ctx[1])).length).toBe(1);
+        });
 
         describe('Los botones se convierten en líneas > ', () => {
             beforeEach(() => {
-                $('button[ord-value="EDAD"]').click();
+                $('button[ord-value="CODCLIENTE"]').click();
             });
             it('Desaparece el botón:', () => {
-                expect($('button[ord-value="EDAD"]').length).toBe(0);
+                expect($('button[ord-value="CODCLIENTE"]').length).toBe(0);
             });
-            it('Aparece la línea: ', () => {});
-            it('Los cambios se reflejan en el summary:', () => {});
+            it('Aparece la línea: ', () => {
+                expect($('.rup_list-ord-line[ord-value="CODCLIENTE"]').length).toBe(1);
+            });
+            it('Los cambios se reflejan en el summary:', () => {
+                let ctx = $('.rup_list-multiorder-summary').toArray();
+                ctx.forEach((menu) => {
+                    expect($('.badge:contains(Codigo cliente)', $(menu)).length).toBe(1);
+                });
+            });
         });
         describe('Las lineas se convierten en botones > ', () => {
-            it('Los cambios se reflejan en el summary:', () => {});
+            beforeEach(() => {
+                $('.mdi-cancel',$('[ord-value="USUARIO"]')).click();
+            });
+            it('Desaparece la línea: ', () => {
+                expect($('.rup_list-ord-line[ord-value="USUARIO"]').length).toBe(0);
+            });
+            it('Aparece el botón: ', () => {
+                expect($('button[ord-value="USUARIO"]').length).toBe(1);
+            });
+            it('Los cambios se reflejan en el summary:', () => {
+                let ctx = $('.rup_list-multiorder-summary').toArray();
+                ctx.forEach((menu) => {
+                    expect($('.badge:contains(Usuario)', $(menu)).length).toBe(0);
+                });
+            });
         });
     });
     describe('Funcionamiento del multiSort > ', () => {
-        describe('Ordenación con el valor por defecto > ', () => {});
-        describe('Ordenación con todos los valores de ordenación > ', () => {});
-        describe('Ordenación con un valor ascendente y otro descendente > ', () => {});
+        describe('Ordenación con el valor por defecto > ', () => {
+            beforeEach((done) => {
+                $('#rup-list').on('load', done);
+                $('#listFilterAceptar').click();
+            });
+            it('Deben aparecer los resultados esperados:', () => {
+                let cards = $('#rup-list').children().toArray();
+                expect(cards[0].id).toBe('rup-list-itemTemplate_12');
+                expect(cards[1].id).toBe('rup-list-itemTemplate_2');
+                expect(cards[2].id).toBe('rup-list-itemTemplate_8');
+                expect(cards[3].id).toBe('rup-list-itemTemplate_1');
+                expect(cards[4].id).toBe('rup-list-itemTemplate_11');
+            });
+        });
+        describe('Ordenación con todos los valores de ordenación > ', () => {
+            beforeEach((done) => {
+                $('#rup-list').on('load', done);
+                $('.rup_list-multiorder-dialogbtn').click();
+                $('button[ord-value="CODCLIENTE"]').click();
+                $('.ui-dialog-buttonset > button').click();
+            });
+            it('Deben aparecer los resultados esperados:', () => {
+                let cards = $('#rup-list').children().toArray();
+                expect(cards[0].id).toBe('rup-list-itemTemplate_12');
+                expect(cards[1].id).toBe('rup-list-itemTemplate_2');
+                expect(cards[2].id).toBe('rup-list-itemTemplate_8');
+                expect(cards[3].id).toBe('rup-list-itemTemplate_1');
+                expect(cards[4].id).toBe('rup-list-itemTemplate_11');
+            });
+        });
+        describe('Ordenación con un valor ascendente y otro descendente > ', () => {
+            beforeEach((done) => {
+                $('#rup-list').on('load', done);
+                $('.rup_list-multiorder-dialogbtn').click();
+                $('.rup_list-multi-sord',$('[ord-value="EDAD"]')).click();
+                $('.ui-dialog-buttonset > button').click();
+            });
+            it('Deben aparecer los resultados esperados:', () => {
+                let cards = $('#rup-list').children().toArray();
+                expect(cards[0].id).toBe('rup-list-itemTemplate_10');
+                expect(cards[1].id).toBe('rup-list-itemTemplate_4');
+                expect(cards[2].id).toBe('rup-list-itemTemplate_9');
+                expect(cards[3].id).toBe('rup-list-itemTemplate_3');
+                expect(cards[4].id).toBe('rup-list-itemTemplate_23');
+            });
+        });
     });
 });
