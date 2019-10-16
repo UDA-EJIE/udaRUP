@@ -20236,6 +20236,9 @@ li[id$='_contextMenuToolbar'] {
   background-color: #bababa;
   cursor: pointer; }
 
+.context-menu-item.context-menu-visible > .context-menu-list {
+  display: block; }
+
 /*!
  * Copyright 2019 E.J.I.E., S.A.
  *

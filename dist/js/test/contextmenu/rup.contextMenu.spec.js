@@ -24,6 +24,12 @@ describe('Test ContextMenu > ', () => {
             items: {
                 'edit': {name: 'Clickable', icon: 'edit'},
                 'cut': {name: 'Disabled', icon: 'cut'}
+                , 'fold1': {
+                    name: 'Submenu'
+                    , items: {
+                        edit: { name: 'Clickable2', icon: 'edit' }
+                    }
+                }
             }
         };
         $('#exampleContext').rup_contextMenu(props);
@@ -89,6 +95,18 @@ describe('Test ContextMenu > ', () => {
             it('Debe eliminar el ul del DOM:', () => {
                 expect($('#exampleContext .context-menu-list').length).toBe(0);
             });
+        });
+    });
+    describe('Testing submenu > ', () => {
+        beforeEach((done) => {
+            $context.rup_contextMenu('show');
+            setTimeout(() => {
+                $('.context-menu-submenu').click();
+                done();
+            }, 200);
+        });
+        it('Se muestra el elemento del submenu > ', () => {
+            expect($('span:contains(Clickable2)').is(':visible')).toBeTruthy();
         });
     });
 });
