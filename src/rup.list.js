@@ -86,7 +86,8 @@
      * @property {Funcion} [load=() => {}] - Callback que se ejecuta tras cada filtrado
      * @property {Object} [selectable=Object] - Determina la configuración de la selección
      * @property {boolean} [isMultiSort=false] - Si es true el modo de ordenación cambia a multiordenación
-     *
+     * @property {boolean} [isScrollList=false] - Si es true quita la paginación a favor de una carga dinámica de las tarjetas
+     * 
      */
 
     /**
@@ -367,7 +368,11 @@
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
-                    self.element.append(item);
+                    if(opciones.isScrollList){
+                        self.element.prepend(item);
+                    } else {
+                        self.element.append(item);
+                    }
                 });
 
                 /**
@@ -433,6 +438,10 @@
                     self._generateSelectablesBtnGroup();
                 }
 
+                if(opciones.isScrollList){
+                    self._scrollListInit();
+                }
+
                 $('#' + opciones._idItemTemplate).hide();
                 if(opciones.isMultisort){
                     $('#' + self.element[0].id).on('rup_list-multiorder-inited', () => {
@@ -442,6 +451,24 @@
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
             });
+        },
+
+        /**
+         * Método interno que crea el scrollList
+         * @name _scrollListInit
+         * @function
+         */
+        _scrollListInit: function() {
+            let self = this;
+            let opciones = self.options;
+
+            opciones._header.pagenav.remove();
+            opciones._footer.pagenav.remove();
+
+            // TODO: Crear una lista invisible para el target <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+            let $scrollSignal = $('<div id="scrollSignal" ></div>');
+            $(self.element).append($scrollSignal.clone());
         },
 
         /**
