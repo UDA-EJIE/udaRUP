@@ -68,7 +68,7 @@ define(['jquery', 'marionette',
                 value: '5'
             },
             isMultiSort: true,
-            isScrollList: true,
+            // isScrollList: true,
             modElement: (ev, item, json) => {
                 var userVal = item.find('#usuario_value_' + json.codigoPK);
                 userVal.text(userVal.text() + ' :D');

@@ -397,14 +397,7 @@
                         if (opciones.multiselection.selectedRowsPerPage == null) {
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
-                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
-                            opciones.multiselection.selectedIds.splice(index, 1);
-                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
-                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
-                            );
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        } else {
+                        let select = (clickedPK) => {
                             if (!opciones.selectable.multi) {
                                 opciones.multiselection.selectedAll = false;
                                 opciones.multiselection.selectedIds = [];
@@ -427,6 +420,35 @@
                             });
                             opciones.multiselection.selectedIds.push(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        };
+                        let deselect = (clickedPK) => {
+                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
+                            opciones.multiselection.selectedIds.splice(index, 1);
+                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
+                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
+                            );
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        };
+                        let selectAll = (clickedPK) => {
+                            deselect(clickedPK);
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        };
+                        let deselectAll= (clickedPK) => {
+                            select(clickedPK);
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        };
+                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                            if(opciones.multiselection.selectedAll){
+                                selectAll(clickedPK);
+                            } else {
+                                deselect(clickedPK);
+                            }
+                        } else {
+                            if(opciones.multiselection.selectedAll){
+                                deselectAll(clickedPK);
+                            } else {
+                                select(clickedPK);
+                            }
                         }
                         if (opciones.multiselection.selectedIds.length == 0) {
                             opciones.multiselection.selectedIds = null;
@@ -450,8 +472,8 @@
                 $('#' + opciones._idItemTemplate).hide();
                 if(opciones.isMultisort){
                     $('#' + self.element[0].id).on('rup_list-multiorder-inited', () => {
-                $('#' + self.element[0].id).trigger('initComplete');
-            });
+                        $('#' + self.element[0].id).trigger('initComplete');
+                    });
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
@@ -664,9 +686,9 @@
                         $(self.element).trigger('rup_list-multiorder-inited');
                     }
                 });
-            arrSidx.forEach((elem, i) => {
-                $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
-            });
+                arrSidx.forEach((elem, i) => {
+                    $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
+                });
             } else {
                 $(self.element).trigger('rup_list-multiorder-inited');
             }
@@ -794,7 +816,7 @@
                 });
                 if(tmpSidxArr.indexOf(self.attr('ord-value')) == -1) {
                     tmpSidxArr.push(self.attr('ord-value'));
-                tmpSordArr.push(ord);
+                    tmpSordArr.push(ord);
                 }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
@@ -850,8 +872,8 @@
                 let sordArr = [];
                 sortDiv.children().toArray().forEach((elem) => {
                     if(sidxArr.indexOf($(elem).attr('ord-value')) == -1) {
-                    sidxArr.push($(elem).attr('ord-value'));
-                    sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                        sidxArr.push($(elem).attr('ord-value'));
+                        sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
                     }
                 });
                 if (sidxArr.length > 0) {
@@ -961,22 +983,6 @@
             opciones.multiselection.selectedRowsPerPage = [];
 
             self._getPageIds().forEach((elem) => {
-                opciones.multiselection.selectedIds.push(elem.split('_').pop());
-                opciones.multiselection.selectedRowsPerPage.push({
-                    id: elem,
-                    line: (function () {
-                        let cont = 0;
-                        let final = 0;
-                        self.element.children().toArray().forEach(element => {
-                            if (element.id == elem) {
-                                final = cont;
-                            }
-                            cont++;
-                        });
-                        return final;
-                    })(),
-                    page: opciones.page
-                });
                 $('#' + elem).addClass('list-item-selected');
             });
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
