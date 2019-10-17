@@ -66,7 +66,7 @@
         display: block;
         height: 15vh;
         left: 50%;
-        margin: -5% 0 0 -9%;
+        margin: -5% 0 0 -8vh;
         max-height: 20rem;
         max-width: 20rem;
         position: relative;
@@ -153,4 +153,9 @@
 
 .rup_list-ord-line {
     display: flex;
+
+    button {
+        max-width: 3rem;
+        padding: .5rem;
+    }
 }

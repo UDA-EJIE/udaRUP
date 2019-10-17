@@ -86,6 +86,7 @@
      * @property {Funcion} [load=() => {}] - Callback que se ejecuta tras cada filtrado
      * @property {Object} [selectable=Object] - Determina la configuración de la selección
      * @property {boolean} [isMultiSort=false] - Si es true el modo de ordenación cambia a multiordenación
+     * @property {boolean} [isScrollList=false] - Si es true quita la paginación a favor de una carga dinámica de las tarjetas
      *
      */
 
@@ -119,8 +120,8 @@
     * 
     * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
     * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
-    * @property [rup_list-multiorder-inited] - Se lanza una vez se ha inicializado la característica de multiorder
-    * @property [rup_list-multiorder-changed] - Se lanza cuando se vería la multiordenación
+     * @property [rup_list-mord-inited] - Se lanza una vez se ha inicializado la característica de multiorder
+     * @property [rup_list-mord-changed] - Se lanza cuando se vería la multiordenación
     */
 
     $.widget('$.rup_list', {
@@ -279,76 +280,57 @@
                 opciones._itemTemplate.addClass('rup_list-itemTemplate');
 
                 /**
-                 * HEADER
+                 * HEADER & FOOTER
                  */
-                // HEADER ELEMENTS IDs MAP
-                opciones._idListHeader = {};
-                opciones._idListHeader.header = selfId + '-header';
-                opciones._idListHeader.pagenav = selfId + '-header-nav';
-                opciones._idListHeader.pagePrev = selfId + '-header-page-prev';
-                opciones._idListHeader.pageNext = selfId + '-header-page-next';
-                opciones._idListHeader.pagenav = selfId + '-header-nav';
-                opciones._idListHeader.rowNum = selfId + '-header-rowNum';
-                opciones._idListHeader.sidx = selfId + '-header-sidx';
-                opciones._idListHeader.sord = selfId + '-header-sord';
-                opciones._idListHeader.selectables = selfId + '-header-selectables';
-                // HEADER $OBJECTS MAP
-                opciones._header = {};
-                opciones._header.obj = $('#' + opciones._idListHeader.header);
-                opciones._header.pagenav = $('#' + opciones._idListHeader.pagenav);
-                opciones._header.pagePrev = $('#' + opciones._idListHeader.pagePrev);
-                opciones._header.pageNext = $('#' + opciones._idListHeader.pageNext);
-                opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
-                opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
-                opciones._header.sord = $('#' + opciones._idListHeader.sord);
-                opciones._header.selectables = $('#' + opciones._idListHeader.selectables);
-                // HEADER $OBJECTS CLASS ASSIGNMENT
-                opciones._header.obj.addClass('rup_list-header');
-                opciones._header.pagenav.addClass('rup_list-header-nav');
-                opciones._header.pagePrev.addClass('rup_list-header-page-prev');
-                opciones._header.pageNext.addClass('rup_list-header-page-next');
-                opciones._header.rowNum.addClass('rup_list-header-rowNum');
-                opciones._header.sidx.addClass('rup_list-header-sidx');
-                opciones._header.sord.addClass('rup_list-header-sord');
-                opciones._header.selectables.addClass('rup_list-header-selectables');
+                var populateHeaderfooterOpts = (isFooter) => {
+                    let idObj = isFooter ? '_idListFooter' : '_idListHeader';
+                    let obj = isFooter ? '_footer' : '_header';
+                    let label = isFooter ? '-footer' : '-header';
 
+                // HEADER ELEMENTS IDs MAP
+                    opciones[idObj] = {};
+                    opciones[idObj].multiSort = {};
+                    opciones[idObj].header = selfId + label;
+                    opciones[idObj].pagenav = selfId + label + '-nav';
+                    opciones[idObj].pagePrev = selfId + label + '-page-prev';
+                    opciones[idObj].pageNext = selfId + label + '-page-next';
+                    opciones[idObj].pagenav = selfId + label + '-nav';
+                    opciones[idObj].rowNum = selfId + label + '-rowNum';
+                    opciones[idObj].sidx = selfId + label + '-sidx';
+                    opciones[idObj].sord = selfId + label + '-sord';
+                    opciones[idObj].selectables = selfId + label + '-selectables';
+                // HEADER $OBJECTS MAP
+                    opciones[obj] = {};
+                    opciones[obj].obj = $('#' + opciones[idObj].header);
+                    opciones[obj].multiSort = {};
+                    opciones[obj].pagenav = $('#' + opciones[idObj].pagenav);
+                    opciones[obj].pagePrev = $('#' + opciones[idObj].pagePrev);
+                    opciones[obj].pageNext = $('#' + opciones[idObj].pageNext);
+                    opciones[obj].rowNum = $('#' + opciones[idObj].rowNum);
+                    opciones[obj].sidx = $('#' + opciones[idObj].sidx);
+                    opciones[obj].sord = $('#' + opciones[idObj].sord);
+                    opciones[obj].selectables = $('#' + opciones[idObj].selectables);
+                // HEADER $OBJECTS CLASS ASSIGNMENT
+                    opciones[obj].obj.addClass('rup_list' + label);
+                    opciones[obj].pagenav.addClass('rup_list' + label + '-nav');
+                    opciones[obj].pagePrev.addClass('rup_list' + label + '-page-prev');
+                    opciones[obj].pageNext.addClass('rup_list' + label + '-page-next');
+                    opciones[obj].rowNum.addClass('rup_list' + label + '-rowNum');
+                    opciones[obj].sidx.addClass('rup_list' + label + '-sidx');
+                    opciones[obj].sord.addClass('rup_list' + label + '-sord');
+                    opciones[obj].selectables.addClass('rup_list' + label + '-selectables');
+                };
+                populateHeaderfooterOpts();
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
                     $('#' + selfId).after(footerHTML);
                 }
+                populateHeaderfooterOpts(true);
 
                 /**
-                 * FOOTER
+                 * MULTISORT DIALOG
                  */
-                // FOOTER ELEMENTS IDs MAP
-                opciones._idListFooter = {};
-                opciones._idListFooter.footer = selfId + '-footer';
-                opciones._idListFooter.pagenav = selfId + '-footer-nav';
-                opciones._idListFooter.pagePrev = selfId + '-footer-page-prev';
-                opciones._idListFooter.pageNext = selfId + '-footer-page-next';
-                opciones._idListFooter.rowNum = selfId + '-footer-rowNum';
-                opciones._idListFooter.sidx = selfId + '-footer-sidx';
-                opciones._idListFooter.sord = selfId + '-footer-sord';
-                opciones._idListFooter.selectables = selfId + '-footer-selectables';
-                // FOOTER $OBJECTS MAP
-                opciones._footer = {};
-                opciones._footer.obj = $('#' + opciones._idListFooter.footer);
-                opciones._footer.pagenav = $('#' + opciones._idListFooter.pagenav);
-                opciones._footer.pagePrev = $('#' + opciones._idListFooter.pagePrev);
-                opciones._footer.pageNext = $('#' + opciones._idListFooter.pageNext);
-                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
-                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
-                opciones._footer.sord = $('#' + opciones._idListFooter.sord);
-                opciones._footer.selectables = $('#' + opciones._idListFooter.selectables);
-                // FOOTER $OBJECTS CLASS ASSIGNMENT
-                opciones._footer.obj.addClass('rup_list-footer');
-                opciones._footer.pagenav.addClass('rup_list-footer-nav');
-                opciones._footer.pagePrev.addClass('rup_list-footer-page-prev');
-                opciones._footer.pageNext.addClass('rup_list-footer-page-next');
-                opciones._footer.rowNum.addClass('rup_list-footer-rowNum');
-                opciones._footer.sidx.addClass('rup_list-footer-sidx');
-                opciones._footer.sord.addClass('rup_list-footer-sord');
-                opciones._footer.selectables.addClass('rup_list-footer-selectables');
+
 
                 /**
                  * ROWNUM
@@ -372,7 +354,11 @@
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
+                    if(opciones.isScrollList){
+                        self.element.prepend(item);
+                    } else {
                     self.element.append(item);
+                    }
                 });
 
                 /**
@@ -392,14 +378,7 @@
                         if (opciones.multiselection.selectedRowsPerPage == null) {
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
-                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
-                            opciones.multiselection.selectedIds.splice(index, 1);
-                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
-                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
-                            );
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        } else {
+                        let select = (clickedPK) => {
                             if (!opciones.selectable.multi) {
                                 opciones.multiselection.selectedAll = false;
                                 opciones.multiselection.selectedIds = [];
@@ -422,6 +401,35 @@
                             });
                             opciones.multiselection.selectedIds.push(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        };
+                        let deselect = (clickedPK) => {
+                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
+                            opciones.multiselection.selectedIds.splice(index, 1);
+                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
+                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
+                            );
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        };
+                        let selectAll = (clickedPK) => {
+                            deselect(clickedPK);
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        };
+                        let deselectAll= (clickedPK) => {
+                            select(clickedPK);
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        };
+                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                            if(opciones.multiselection.selectedAll){
+                                selectAll(clickedPK);
+                            } else {
+                                deselect(clickedPK);
+                            }
+                        } else {
+                            if(opciones.multiselection.selectedAll){
+                                deselectAll(clickedPK);
+                            } else {
+                                select(clickedPK);
+                            }
                         }
                         if (opciones.multiselection.selectedIds.length == 0) {
                             opciones.multiselection.selectedIds = null;
@@ -438,15 +446,37 @@
                     self._generateSelectablesBtnGroup();
                 }
 
+                if(opciones.isScrollList){
+                    self._scrollListInit();
+                }
+
                 $('#' + opciones._idItemTemplate).hide();
                 if(opciones.isMultisort){
-                    $('#' + self.element[0].id).on('rup_list-multiorder-inited', () => {
+                    $('#' + self.element[0].id).on('rup_list-mord-inited', () => {
                 $('#' + self.element[0].id).trigger('initComplete');
             });
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
             });
+        },
+
+        /**
+         * Método interno que crea el scrollList
+         * @name _scrollListInit
+         * @function
+         */
+        _scrollListInit: function() {
+            let self = this;
+            let opciones = self.options;
+
+            opciones._header.pagenav.remove();
+            opciones._footer.pagenav.remove();
+
+            // TODO: Crear una lista invisible para el target <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+            let $scrollSignal = $('<div id="scrollSignal" ></div>');
+            $(self.element).append($scrollSignal.clone());
         },
 
         /**
@@ -522,6 +552,7 @@
         _multisortInit: function () {
             const self = this;
             const opciones = self.options;
+            const selfId = self.element.attr('id');
 
             // Creamos un apartado en opciones
             opciones.multiorder = {
@@ -552,23 +583,36 @@
                     }
                 })()
             };
+
+            let doInit = (isFooter) => {
+                let idObj = isFooter ? '_idListFooter' : '_idListHeader';
+                let obj = isFooter ? '_footer' : '_header';
+                let label = isFooter ? '-footer-' : '-header-';
+
+                opciones[idObj].multiSort.dialog = selfId + label + 'mord-dialog';
+                opciones[idObj].multiSort.summary = selfId + label + 'mord-summary';
+                opciones[idObj].multiSort.edit = selfId + label + 'mord-edit';
+
             // Generamos un span para el resumen
-            var $spanResumen = $('<ul class="rup_list-multiorder-summary p-0"/>');
-            opciones._header.sidx.wrap('<div class="tmp-orderchange"/>');
-            opciones._footer.sidx.wrap('<div class="tmp-orderchange"/>');
-            $('.tmp-orderchange').children().remove();
-            $('.tmp-orderchange').append($spanResumen.clone());
-            $('.rup_list-multiorder-summary').unwrap();
-            let $summaryMultiOrder = $('<li class="rup_list-multiorder-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
+                let $spanResumen = $('<ul id="' + opciones[idObj].multiSort.summary + '" class="rup_list-mord-summary p-0"/>');
+                let $tmpWrapSummary = $('<div class="tmp-orderchange"/>');
+                opciones[obj].sidx.wrap($tmpWrapSummary);
+                $tmpWrapSummary = opciones[obj].sidx.parent();
+                $tmpWrapSummary.children().remove();
+                $tmpWrapSummary.append($spanResumen);
+                $spanResumen.unwrap();
+                opciones[obj].multiSort.summary = $('#' + opciones[idObj].multiSort.summary);
+
+                // Se rellena el resumen con el order por defecto
             opciones.multiorder.sidx.split(',').map((e) => {
                 return e.trim();
             }).forEach((e, i) => {
-                let $tmpSum = $summaryMultiOrder.clone();
+                    let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
                 let geti18n = (val) => {
                     let srcVal = opciones.sidx.source.filter(x => x.value == val);
                     return srcVal[0].i18nCaption;
                 };
-                let sordBadge = $('<span class="rup_list-multiorder-summary-badge-sord"/>');
+                    let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
                 sordBadge.text(' ');
                 let arrSord = opciones.multiorder.sord.split(',').map((e) => {
                     return e.trim();
@@ -579,71 +623,81 @@
                     sordBadge.addClass('mdi mdi-chevron-down');
                 }
                 $tmpSum.append(geti18n(e)).append(sordBadge.clone());
-                $('.rup_list-multiorder-summary').append($tmpSum.clone());
+                    $spanResumen.append($tmpSum.clone());
             });
+
             // Creamos el botón para el dialogo
-            var $btnOrderDialog = $('<button class="rup_list-multiorder-dialogbtn"></button>');
-            $btnOrderDialog.addClass('mdi mdi-pencil');
-            opciones._header.sord.wrap('<div class="tmp-orderchange"></div>');
-            opciones._footer.sord.wrap('<div class="tmp-orderchange"></div>');
-            $('.tmp-orderchange').children().remove();
-            $('.tmp-orderchange').append($btnOrderDialog.clone());
-            $('.rup_list-multiorder-dialogbtn').unwrap();
+                var $btnOrderDialog = $('<button id="' + opciones[idObj].multiSort.edit + '" class="rup_list-mord-dialogbtn mdi mdi-pencil"/>');
+                let $tmpWrapEditMord = $('<div class="tmp-orderchange"/>');
+                opciones[obj].sord.wrap($tmpWrapEditMord);
+                $tmpWrapEditMord = opciones[obj].sord.parent();
+                $tmpWrapEditMord.children().remove();
+                $tmpWrapEditMord.append($btnOrderDialog);
+                $btnOrderDialog.unwrap();
+                opciones[obj].multiSort.edit = $('#' + opciones[idObj].multiSort.edit);
+
+                // Establecemos el boton para el dialogo
+                opciones[obj].multiSort.edit.click(() => {
+                    opciones._multiSortDialog.rup_dialog('open');
+                });
+                
+
+                let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
+                let arrSord = opciones.multiorder.sord.split(',').map(a => a.trim());
+
+                if (arrSidx.length > 0) {
+                    let cont = 0;
+                    $(self.element).on('rup_list-mord-changed', () => {
+                        cont++;
+                        if (cont == arrSidx.length) {
+                            $(self.element).trigger('rup_list-mord-inited');
+                        }
+                    });
+                    arrSidx.forEach((elem, i) => {
+                        $('button[data-ordValue="' + elem + '"]').trigger('click', [arrSord[i]]);
+                    });
+                } else {
+                    $(self.element).trigger('rup_list-mord-inited');
+                }
+            };
+
             //Creamos el dialogo
-            var $multiorderDialog = $('<div id="multiorderDialog" class="rup_list-multiorder-dialog" style="display:none"></div>');
-            $multiorderDialog.append('<div class="rup_list-multiorder-orderfields"></div>');
-            $multiorderDialog.append('<div class="rup_list-multiorder-ordersort"></div>');
-            $('body').append($multiorderDialog);
+            $('<div id="' + opciones._idMultiSortDialog + '" class="rup_list-mord-dialog" style="display:none"/>')
+                .append('<div class="rup_list-mord-orderfields"/>')
+                .append('<div class="rup_list-mord-ordersort"/>')
+                .appendTo('body');
+            opciones._multiSortDialog = $('#' + opciones._idMultiSortDialog);
+
             //Creamos el contenido del diálogo
             opciones.sidx.source.forEach((el) => {
-                let $btn = $('<button></button>');
-                $btn.attr('ord-value', el.value);
-                $btn.text(el.i18nCaption);
-                $('.rup_list-multiorder-orderfields').append($btn.clone());
+                let $btn = $('<button/>')
+                    .attr('data-ordValue', el.value)
+                    .text(el.i18nCaption);
+                $('.rup_list-mord-orderfields').append($btn.clone());
             });
-            $('.rup_list-multiorder-orderfields').children().on('click', function (e, param) {
-                self._actualizarOrdenMulti(e, $(this), param);
+            $('.rup_list-mord-orderfields').children().on('click', function (e, param) {
+                self._actualizarOrdenMulti.apply(self, [e, param]);
             });
+
             //Creamos el componente para el dialogo
-            $('#multiorderDialog').rup_dialog({
+            opciones._multiSortDialog.rup_dialog({
                 type: $.rup.dialog.DIV,
                 autoOpen: false,
                 modal: true,
-                resizable: true,
-                width: '90%',
-                position: null,
+                resizable: false,
+                width: 'auto',
                 title: 'Multiordenación',
                 buttons: [{
                     text: 'cerrar',
                     click: () => {
-                        $('#multiorderDialog').rup_dialog('close');
+                        opciones._multiSortDialog.rup_dialog('close');
                         self.element.rup_list('filter');
                     }
                 }]
             });
-            // Establecemos el boton para el dialogo
-            $('.rup_list-multiorder-dialogbtn').click(() => {
-                $('#multiorderDialog').rup_dialog('open');
-            });
 
-            let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
-            let arrSord = opciones.multiorder.sord.split(',').map(a => a.trim());
-
-            if(arrSidx.length > 0) {
-                let cont = 0;
-                $(self.element).on('rup_list-multiorder-changed', () => {
-                    cont ++;
-                    if(cont == arrSidx.length){
-                        $(self.element).trigger('rup_list-multiorder-inited');
-                    }
-                });
-            arrSidx.forEach((elem, i) => {
-                $('button[ord-value="'+ elem +'"]').trigger('click',[arrSord[i]]);
-            });
-            } else {
-                $(self.element).trigger('rup_list-multiorder-inited');
-            }
-            
+            doInit();
+            doInit(true);
         },
 
         /**
@@ -753,10 +807,12 @@
          * @param {JQueryObj} self  Objeto JQuery del botón
          * @param {String} ord  Direccion de la ordenación con la que se va a generar la línea
          */
-        _actualizarOrdenMulti: function (e, self, ord = 'asc') {
-            var ctx = $(this)[0];
-            var sortDiv = $('.rup_list-multiorder-ordersort');
-            var opciones = ctx.options;
+        _actualizarOrdenMulti: function (e, ord = 'asc') {
+            const self = this;
+            const opciones = self.options;
+
+            var sortDiv = $('.rup_list-mord-ordersort');
+
             // Añadimos las opciones al componente
             if (opciones.multiorder.sidx.length) {
                 let tmpSidxArr = opciones.multiorder.sidx.split(',').map((e) => {
@@ -765,34 +821,38 @@
                 let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {
                     return e.trim();
                 });
-                if(tmpSidxArr.indexOf(self.attr('ord-value')) == -1) {
-                    tmpSidxArr.push(self.attr('ord-value'));
+                if (tmpSidxArr.indexOf($(e.target).attr('data-ordValue')) == -1) {
+                    tmpSidxArr.push($(e.target).attr('data-ordValue'));
                 tmpSordArr.push(ord);
                 }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
             }
             //Creamos la linea
-            let $operateLine = $('<div></div>');
-            $operateLine.attr('ord-value', self.attr('ord-value'));
-            $operateLine.addClass('rup_list-ord-line');
+            let $operateLine = $('<div class="rup_list-ord-line btn-group mb-3"/>')
+                .attr('data-ordValue', $(e.target).attr('data-ordValue'));
+
             //Creamos los apartados de ordenacion, label y sord
-            let $apOrd = $('<div></div>');
-            $apOrd.addClass('rup_list-apord');
-            let $labelOrd = $('<div class="rup_list-multiorder-label"></div>');
-            $labelOrd.text(self.text());
-            let $sord = $('<span></span>');
-            $sord.addClass('rup_list-multi-sord badge badge-secondary mdi');
-            $sord.attr('direction', ord);
-            let $quitOrd = $('<span></span>');
-            $quitOrd.addClass('mdi mdi-cancel');
+            let $apOrd = $('<div class="rup_list-apord input-group-text"/>');
+            let $btnUp = $('<button type="button" class="rup_list-mord-up btn btn-secondary p-1 mdi mdi-arrow-up"/>');
+            let $btnDown = $('<button type="button" class="rup_list-mord-down btn btn-secondary p-1 mdi mdi-arrow-down"/>');
+            let $labelOrd = $('<div class="rup_list-mord-label input-group-text rounded-0 w-50"/>')
+                .text($(e.target).text());
+            let $sord = $('<button class="rup_list-mord btn btn-secondary mdi"/>')
+                .attr('data-direction', ord);
+            let $quitOrd = $('<button class="rup_list-mord-remove btn btn-danger mdi mdi-close-circle"/>');
 
-            $operateLine.append($apOrd).append($labelOrd).append($sord).append($quitOrd);
-
+            $operateLine
+                .append($apOrd)
+                .append($btnUp)
+                .append($btnDown)
+                .append($labelOrd)
+                .append($sord)
+                .append($quitOrd);
             sortDiv.append($operateLine.clone());
-            ctx._fnOrderOfOrderFields(ctx, $('[ord-value="' + self.attr('ord-value') + '"]', sortDiv));
-            self.remove();
 
+            self._fnOrderOfOrderFields.apply(self, $('[data-ordValue="' + $(e.target).attr('data-ordValue') + '"]', sortDiv));
+            $(e.target).remove();
         },
         
         /**
@@ -803,28 +863,22 @@
          * @param {JQuery} ctx La instancia de rup_list
          * @param {JQuery} line Objeto JQuery de la línea a la que se va a dar funcionalidad
          */
-        _fnOrderOfOrderFields: function (ctx, line) {
-            //Creamos el groupButton
-            var opciones = ctx.options;
-            let $btnGroupOrd = $('<div></div>');
-            $btnGroupOrd.addClass('btn-group');
-            let $btnUp = $('<button></button>').addClass('mdi mdi-arrow-up');
-            let $btnDown = $('<button></button>').addClass('mdi mdi-arrow-down');
-            $btnGroupOrd.append($btnUp).append($btnDown);
-            //Lo añadimos a la linea
-            $('.rup_list-apord', line).append($btnGroupOrd.clone());
+        _fnOrderOfOrderFields: function (line) {
+            const self = this;
+            const opciones = self.options;
+
             //Función de guardado de la multiordenación
             var save = () => {
                 let sordDefault = opciones.multiorder.sord;
                 opciones.multiorder.sidx = '';
                 opciones.multiorder.sord = '';
-                var sortDiv = $('.rup_list-multiorder-ordersort');
+                var sortDiv = $('.rup_list-mord-ordersort');
                 let sidxArr = [];
                 let sordArr = [];
                 sortDiv.children().toArray().forEach((elem) => {
-                    if(sidxArr.indexOf($(elem).attr('ord-value')) == -1) {
-                    sidxArr.push($(elem).attr('ord-value'));
-                    sordArr.push($('.rup_list-multi-sord', $(elem)).attr('direction'));
+                    if (sidxArr.indexOf($(elem).attr('data-ordValue')) == -1) {
+                        sidxArr.push($(elem).attr('data-ordValue'));
+                        sordArr.push($('.rup_list-mord', $(elem)).attr('data-direction'));
                     }
                 });
                 if (sidxArr.length > 0) {
@@ -835,19 +889,18 @@
                     opciones.multiorder.sidx = opciones.sidx.value;
                     opciones.multiorder.sord = sordDefault;
                 }
+
                 //Crear el label de resumen
-                let $summaryMultiOrder = $('<span class="badge badge-pill badge-primary"></span>');
-                $('.rup_list-multiorder-summary').children().remove();
+                opciones._content.find('.rup_list-mord-summary').empty();
                 opciones.multiorder.sidx.split(',').map((e) => {
                     return e.trim();
                 }).forEach((e, i) => {
-                    let $tmpSum = $summaryMultiOrder.clone();
                     let geti18n = (val) => {
                         let srcVal = opciones.sidx.source.filter(x => x.value == val);
                         return srcVal[0].i18nCaption;
                     };
-                    let sordBadge = $('<span></span>');
-                    sordBadge.text(' ');
+                    let sordBadge = $('<span/>')
+                        .text(' ');
                     let arrSord = opciones.multiorder.sord.split(',').map((e) => {
                         return e.trim();
                     });
@@ -856,63 +909,70 @@
                     } else {
                         sordBadge.addClass('mdi mdi-chevron-down');
                     }
-                    $tmpSum.append(geti18n(e)).append(sordBadge.clone());
-                    $('.rup_list-multiorder-summary').append($tmpSum.clone());
+                    $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>')
+                        .append(geti18n(e)).append(sordBadge.clone())
+                        .appendTo(opciones._content.find('.rup_list-mord-summary'));
                 });
-                $(ctx.element).trigger('rup_list-multiorder-changed');
 
+                // Función para dehabilitar los botones de reordenación correspondientes
+                $(self.element).find('.rup_list-mord-up, .rup_list-mord-down').attr('disabled', false);
+                $(self.element).find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('disabled', true);
+
+                $(self.element).trigger('rup_list-mord-changed');
             };
-            //funcionalidad del groupButton
-            $('.mdi-arrow-up', line).click(function () {
-                if (line.is(':first-child')) {
+
+            // Funcionalidad de los botones de reordenación
+            $('.rup_list-mord-up', line).click(function () {
+                if ($(line).is(':first-child')) {
                     return;
                 }
-                line.prev().before(line);
+                $(line).prev().before(line);
                 save();
             });
-            $('.mdi-arrow-down', line).click(function () {
-                if (line.is(':last-child')) {
+            $('.rup_list-mord-down', line).click(function () {
+                if ($(line).is(':last-child')) {
                     return;
                 }
-                line.next().after(line);
+                $(line).next().after(line);
                 save();
             });
+
             //ponemos icono al sord
-            if ($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
-                $('.rup_list-multi-sord', line).addClass('mdi-chevron-up');
+            if ($('.rup_list-mord', line).attr('data-direction') == 'asc') {
+                $('.rup_list-mord', line).addClass('mdi-chevron-up');
             } else {
-                $('.rup_list-multi-sord', line).addClass('mdi-chevron-down');
+                $('.rup_list-mord', line).addClass('mdi-chevron-down');
             }
-            $('.rup_list-multi-sord').text(' ');
+            $('.rup_list-mord').text(' ');
+
             //funcionalidad del sord
-            $('.rup_list-multi-sord', line).off('click');
-            $('.rup_list-multi-sord', line).click(() => {
-                if ($('.rup_list-multi-sord', line).attr('direction') == 'asc') {
-                    $('.rup_list-multi-sord', line).attr('direction', 'desc');
-                    $('.rup_list-multi-sord', line).addClass('mdi-chevron-down');
-                    $('.rup_list-multi-sord', line).removeClass('mdi-chevron-up');
+            $('.rup_list-mord', line).off('click');
+            $('.rup_list-mord', line).click(() => {
+                if ($('.rup_list-mord', line).attr('data-direction') == 'asc') {
+                    $('.rup_list-mord', line).attr('data-direction', 'desc');
+                    $('.rup_list-mord', line).addClass('mdi-chevron-down');
+                    $('.rup_list-mord', line).removeClass('mdi-chevron-up');
                 } else {
-                    $('.rup_list-multi-sord', line).attr('direction', 'asc');
-                    $('.rup_list-multi-sord', line).addClass('mdi-chevron-up');
-                    $('.rup_list-multi-sord', line).removeClass('mdi-chevron-down');
+                    $('.rup_list-mord', line).attr('data-direction', 'asc');
+                    $('.rup_list-mord', line).addClass('mdi-chevron-up');
+                    $('.rup_list-mord', line).removeClass('mdi-chevron-down');
                 }
                 save();
             });
+
             //funcionalidad de retirar la ordenación
-            $('.mdi-cancel', line).click(() => {
+            $('.rup_list-mord-remove', line).click(() => {
                 //recreamos el botón
-                let $btn = $('<button></button>');
-                $btn.attr('ord-value', line.attr('ord-value'));
-                $btn.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis');
-                let text = ctx.options.sidx.source.filter(x => x.value == line.attr('ord-value'))[0].i18nCaption;
-                $btn.text(text);
-                $('.rup_list-multiorder-orderfields').append($btn.clone());
-                $('.rup_list-multiorder-orderfields').children().off('click');
-                $('.rup_list-multiorder-orderfields').children().on('click', function (e) {
-                    ctx._actualizarOrdenMulti(e, $(this));
+                let $btn = $('<button class="btn-material btn-material-sm btn-material-primary-low-emphasis"/>')
+                    .attr('data-ordValue', $(line).attr('data-ordValue'))
+                    .text(opciones.sidx.source.filter(x => x.value == $(line).attr('data-ordValue'))[0].i18nCaption);
+                $('.rup_list-mord-orderfields').append($btn.clone());
+                $('.rup_list-mord-orderfields').children().off('click');
+                $('.rup_list-mord-orderfields').children().on('click', function (e) {
+                    self._actualizarOrdenMulti.apply(self, [e]);
                 });
                 // Eliminamos la linea
-                line.remove();
+                $(line).remove();
                 save();
             });
 
@@ -934,22 +994,6 @@
             opciones.multiselection.selectedRowsPerPage = [];
 
             self._getPageIds().forEach((elem) => {
-                opciones.multiselection.selectedIds.push(elem.split('_').pop());
-                opciones.multiselection.selectedRowsPerPage.push({
-                    id: elem,
-                    line: (function () {
-                        let cont = 0;
-                        let final = 0;
-                        self.element.children().toArray().forEach(element => {
-                            if (element.id == elem) {
-                                final = cont;
-                            }
-                            cont++;
-                        });
-                        return final;
-                    })(),
-                    page: opciones.page
-                });
                 $('#' + elem).addClass('list-item-selected');
             });
             $('#' + self.element[0].id).trigger('listAfterMultiselection');
@@ -1105,8 +1149,7 @@
             const selfId = self.element.attr('id');
             const opciones = self.options;
 
-            let $btnGroup = $('<div></div>');
-            $btnGroup.addClass('btn-group h-100').attr('role', 'group');
+            let $btnGroup = $('<div class="btn-group" role="group"/>');
             let $displayButton = $('<button></button>');
             $displayButton.addClass('dropdown-toggle')
                 .attr('id', selfId + '-display-selectables').attr('type', 'button')

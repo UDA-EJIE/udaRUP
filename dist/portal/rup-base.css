@@ -32183,7 +32183,10 @@
 }
 
 .r01gContainer .rup_list-overlay {
+  height: 100%;
+  left: 0;
   position: absolute;
+  width: 100%;
   z-index: 10;
 }
 
@@ -32201,7 +32204,7 @@
   display: block;
   height: 15vh;
   left: 50%;
-  margin: -10vh 0 0 -15vh;
+  margin: -5% 0 0 -8vh;
   max-height: 20rem;
   max-width: 20rem;
   position: relative;
@@ -32287,4 +32290,19 @@
 
 .r01gContainer .rup_list-ord-line {
   display: flex;
+}
+
+.r01gContainer .rup_list-ord-line button,
+.r01gContainer .rup_list-ord-line .ui-button.rup-button,
+.r01gContainer .rup_list-ord-line .rup-dropdown-btn-group .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup_list-ord-line .rup-dropdown-button,
+.r01gContainer .rup_list-ord-line a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup_list-ord-line .rup-wizard a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup_list-ord-line a.rup-wizard_next,
+.r01gContainer .rup_list-ord-line .rup-wizard a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup_list-ord-line a.rup-wizard_prev,
+.r01gContainer .rup_list-ord-line .rup-wizard .rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup_list-ord-line .rup-wizard_submitButton {
+  max-width: 3rem;
+  padding: .5rem;
 }

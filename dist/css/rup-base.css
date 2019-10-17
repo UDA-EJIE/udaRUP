@@ -23896,7 +23896,7 @@ a.cal-event-week {
     display: block;
     height: 15vh;
     left: 50%;
-    margin: -5% 0 0 -9%;
+    margin: -5% 0 0 -8vh;
     max-height: 20rem;
     max-width: 20rem;
     position: relative;
@@ -23964,3 +23964,6 @@ a.cal-event-week {
 
 .rup_list-ord-line {
   display: flex; }
+  .rup_list-ord-line button, .rup_list-ord-line .ui-button.rup-button, .rup_list-ord-line .rup-dropdown-btn-group .rup-dropdown-button, .rup-dropdown-btn-group .rup_list-ord-line .rup-dropdown-button, .rup_list-ord-line a.rup-toolbar_menuButton.ui-button, .rup_list-ord-line .rup-wizard a.rup-wizard_next, .rup-wizard .rup_list-ord-line a.rup-wizard_next, .rup_list-ord-line .rup-wizard a.rup-wizard_prev, .rup-wizard .rup_list-ord-line a.rup-wizard_prev, .rup_list-ord-line .rup-wizard .rup-wizard_submitButton, .rup-wizard .rup_list-ord-line .rup-wizard_submitButton {
+    max-width: 3rem;
+    padding: .5rem; }
