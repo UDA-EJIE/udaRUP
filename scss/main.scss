@@ -694,3 +694,9 @@ section>h1, section>h2, section>h3, section>h4, section>h5, section>h6 {
 .celdaEspacio {
 	width: 5em;
 }
+
+.custom-select {
+	-webkit-appearance: menulist;
+  	-moz-appearance: menulist;
+  	appearance: menulist;
+}
