@@ -253,6 +253,7 @@
                 opciones._idContent = selfId + '-content';
                 opciones._content = $('#' + opciones._idContent);
                 opciones._content.addClass('rup_list-content');
+                opciones._content.hide();
 
                 /**
                  * OVERLAY (Lock & Unlock)
@@ -287,7 +288,7 @@
                     let obj = isFooter ? '_footer' : '_header';
                     let label = isFooter ? '-footer' : '-header';
 
-                // HEADER ELEMENTS IDs MAP
+                    // HEADER ELEMENTS IDs MAP
                     opciones[idObj] = {};
                     opciones[idObj].multiSort = {};
                     opciones[idObj].header = selfId + label;
@@ -299,7 +300,7 @@
                     opciones[idObj].sidx = selfId + label + '-sidx';
                     opciones[idObj].sord = selfId + label + '-sord';
                     opciones[idObj].selectables = selfId + label + '-selectables';
-                // HEADER $OBJECTS MAP
+                    // HEADER $OBJECTS MAP
                     opciones[obj] = {};
                     opciones[obj].obj = $('#' + opciones[idObj].header);
                     opciones[obj].multiSort = {};
@@ -310,7 +311,7 @@
                     opciones[obj].sidx = $('#' + opciones[idObj].sidx);
                     opciones[obj].sord = $('#' + opciones[idObj].sord);
                     opciones[obj].selectables = $('#' + opciones[idObj].selectables);
-                // HEADER $OBJECTS CLASS ASSIGNMENT
+                    // HEADER $OBJECTS CLASS ASSIGNMENT
                     opciones[obj].obj.addClass('rup_list' + label);
                     opciones[obj].pagenav.addClass('rup_list' + label + '-nav');
                     opciones[obj].pagePrev.addClass('rup_list' + label + '-page-prev');
@@ -357,7 +358,7 @@
                     if(opciones.isScrollList){
                         self.element.prepend(item);
                     } else {
-                    self.element.append(item);
+                        self.element.append(item);
                     }
                 });
 
@@ -453,8 +454,8 @@
                 $('#' + opciones._idItemTemplate).hide();
                 if(opciones.isMultisort){
                     $('#' + self.element[0].id).on('rup_list-mord-inited', () => {
-                $('#' + self.element[0].id).trigger('initComplete');
-            });
+                        $('#' + self.element[0].id).trigger('initComplete');
+                    });
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
@@ -593,7 +594,7 @@
                 opciones[idObj].multiSort.summary = selfId + label + 'mord-summary';
                 opciones[idObj].multiSort.edit = selfId + label + 'mord-edit';
 
-            // Generamos un span para el resumen
+                // Generamos un span para el resumen
                 let $spanResumen = $('<ul id="' + opciones[idObj].multiSort.summary + '" class="rup_list-mord-summary p-0"/>');
                 let $tmpWrapSummary = $('<div class="tmp-orderchange"/>');
                 opciones[obj].sidx.wrap($tmpWrapSummary);
@@ -604,29 +605,29 @@
                 opciones[obj].multiSort.summary = $('#' + opciones[idObj].multiSort.summary);
 
                 // Se rellena el resumen con el order por defecto
-            opciones.multiorder.sidx.split(',').map((e) => {
-                return e.trim();
-            }).forEach((e, i) => {
-                    let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
-                let geti18n = (val) => {
-                    let srcVal = opciones.sidx.source.filter(x => x.value == val);
-                    return srcVal[0].i18nCaption;
-                };
-                    let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
-                sordBadge.text(' ');
-                let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                opciones.multiorder.sidx.split(',').map((e) => {
                     return e.trim();
-                });
-                if (arrSord[i] == 'asc') {
-                    sordBadge.addClass('mdi mdi-chevron-up');
-                } else {
-                    sordBadge.addClass('mdi mdi-chevron-down');
-                }
-                $tmpSum.append(geti18n(e)).append(sordBadge.clone());
+                }).forEach((e, i) => {
+                    let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
+                    let geti18n = (val) => {
+                        let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                        return srcVal[0].i18nCaption;
+                    };
+                    let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
+                    sordBadge.text(' ');
+                    let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                        return e.trim();
+                    });
+                    if (arrSord[i] == 'asc') {
+                        sordBadge.addClass('mdi mdi-chevron-up');
+                    } else {
+                        sordBadge.addClass('mdi mdi-chevron-down');
+                    }
+                    $tmpSum.append(geti18n(e)).append(sordBadge.clone());
                     $spanResumen.append($tmpSum.clone());
-            });
+                });
 
-            // Creamos el botón para el dialogo
+                // Creamos el botón para el dialogo
                 var $btnOrderDialog = $('<button id="' + opciones[idObj].multiSort.edit + '" class="rup_list-mord-dialogbtn mdi mdi-pencil"/>');
                 let $tmpWrapEditMord = $('<div class="tmp-orderchange"/>');
                 opciones[obj].sord.wrap($tmpWrapEditMord);
@@ -823,7 +824,7 @@
                 });
                 if (tmpSidxArr.indexOf($(e.target).attr('data-ordValue')) == -1) {
                     tmpSidxArr.push($(e.target).attr('data-ordValue'));
-                tmpSordArr.push(ord);
+                    tmpSordArr.push(ord);
                 }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
                 opciones.multiorder.sord = tmpSordArr.join(',');
@@ -1149,7 +1150,7 @@
             const selfId = self.element.attr('id');
             const opciones = self.options;
 
-            let $btnGroup = $('<div class="btn-group" role="group"/>');
+            let $btnGroup = $('<div class="btn-group h-100" role="group"/>');
             let $displayButton = $('<button></button>');
             $displayButton.addClass('dropdown-toggle')
                 .attr('id', selfId + '-display-selectables').attr('type', 'button')
@@ -1380,15 +1381,12 @@
          * $('#rup-list').rup_list('destroy');
          */ 
         destroy: function () {
-            // TODO: Eliminar el componente.
-            var self = this;
-            let id = self.element[0].id;
-            $('#' + id).children().remove();
-            $('#' + id + '-header').remove();
-            if (self.options.createFooter) {
-                $('#' + id + '-footer').remove();
-            }
-            self.options.feedback.rup_feedback('destroy');
+            const self = this;
+            const opciones = this.options;
+
+            $(self.element).empty();
+            opciones._footer.obj.remove();
+            opciones.feedback.rup_feedback('destroy');
             $.Widget.prototype.destroy.apply(this, arguments);
         },
 
@@ -1399,11 +1397,11 @@
          * @function
          */
         _doFilter: function () {
-            var self = this;
-            var opciones = this.options;
-            var $itemTemplate = opciones._itemTemplate;
-            var $pagenavH = opciones._header.pagenav;
-            var $pagenavF = opciones._footer.pagenav;
+            const self = this;
+            const opciones = this.options;
+            const $itemTemplate = opciones._itemTemplate;
+            const $pagenavH = opciones._header.pagenav;
+            const $pagenavF = opciones._footer.pagenav;
 
             // Validar si la ordenacion es simple o múltiple
             var sidx = '';
@@ -1429,7 +1427,7 @@
                 }
             };
 
-            opciones.feedback.rup_feedback('hide');
+            // opciones.feedback.rup_feedback('hide');
 
             if ($('#' + opciones.filterForm).rup_form('valid')) {
                 jQuery.rup_ajax({
@@ -1455,7 +1453,7 @@
                             self.element.trigger('load');
                             self._unlock();
                         } else {
-                            if (xhr.rows.length > 0) {
+                            if (xhr.rows && xhr.rows.length > 0) {
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
@@ -1499,7 +1497,7 @@
                                 self.element.show();
                                 opciones._footer.obj.show();
 
-                                // Si no se estÃ¡ mostrando el content se despliega
+                                // Si no se está mostrando el content se despliega
                                 opciones._content.slideDown();
                             } else {
                                 // Si no se devuelven resultados
@@ -1643,8 +1641,5 @@
                 selectedAll: options.selectedAll
             };
         }
-
-
-        // , _init: function (message, type, imgClass) {}
     });
 }));
