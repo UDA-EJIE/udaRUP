@@ -73,7 +73,7 @@
 		content: " *";
 	}
 	
-	input:not([type="checkbox"]):not([type="radio"]):read-only {
+	input:not([type="checkbox"]):not([type="radio"]):read-only, input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
 		background-color: $readonly-background-color;
 		
 		&:hover {
