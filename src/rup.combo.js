@@ -693,14 +693,14 @@
             }
         },
         /**
-		 * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
+		 * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no ser que se cambie el valor del atributo ordered en la creación.
 		 *
 		 * @function  order
 		 * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
-		 * @param {boolean} orderAsNumber - Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos.
-		 * @param {boolean} skipFirst - Determina si se debe de obviar el primer elemento.
+		 * @param {boolean} orderAsNumber - Indica si se debe ordenar como valores numéricos en vez de alfabéticos.
+		 * @param {boolean} skipFirst - Determina si se debe obviar el primer elemento.
 		 * @example
-		 * $("#idCombo").rup_combo("reload");
+		 * $("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
 		 */
         order: function (orderedByValue, orderAsNumber, skipFirst) {
             var combo = $(this),
@@ -1037,7 +1037,14 @@
             } else {
                 //Multiple > multiselect
                 $('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
-                settings.minWidth = settings.width;
+                
+                // Si tiene porcentaje
+                if((typeof settings.width === 'string' || settings.width instanceof String) && settings.width.includes("%")) {
+                	settings.minWidth = $('#' + settings.id).parent().width() * (parseInt(settings.width.slice(0, -1)) / 100);
+                } else {
+                	settings.minWidth = settings.width;
+                }
+                
                 $('#' + settings.id).multiselect(settings);
                 $('#' + settings.id).data('echMultiselect').button.attr('id', settings.id + '-button');
                 $('#' + settings.id).rup_combo('refresh'); //Actualizar cambios (remotos)
@@ -1882,8 +1889,16 @@
         legacyWrapMode: false,
         open: function () {
             var anchoCombo = $('#' + this.id + '-button').outerWidth();
-            $('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
-            $('#' + this.id + '-menu').outerWidth(anchoCombo);
+            
+            // Si es un combo multiselect
+            if(this.multiple) {
+            	$('#rup-multiCombo_' + this.id).outerWidth(anchoCombo);
+            } 
+            // Si es un combo normal
+            else {
+            	$('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
+                $('#' + this.id + '-menu').outerWidth(anchoCombo);
+            }
         }
     };
 
