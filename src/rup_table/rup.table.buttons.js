@@ -3399,8 +3399,8 @@
             DataTable.Api().buttons.displayRegex(ctx);
         });
 
-        if (ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
-            // se deja el boton solo de informes
+        if (!ctx.oInit.noEdit && ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
+            // se deja solo el boton de informes
             DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
             ctx._buttons[0].inst.s.disableAllButttons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
