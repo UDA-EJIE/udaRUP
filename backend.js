@@ -131,8 +131,8 @@ module.exports = (PORT) => {
     //Dialog
     app.get('/demo/dialog/dialogAjax', routesDialog.getHTML);
 
-    app.listen(PORT);
+    var server = app.listen(PORT);
 
     console.log(`Listening on port ${PORT}...`);
-    return;
+    return server;
 };

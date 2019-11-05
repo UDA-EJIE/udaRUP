@@ -133,7 +133,7 @@ function getHtml(idLista) {
 
 export function createList(idLista, callback){
     if ($('#content').length == 0) {
-        $('body').append('<div id="content" class="container"></div>');
+        $('body').append('<div id="content" class="container mt-4"></div>');
     }
     $('#content').append(getHtml(idLista));
 
@@ -192,7 +192,7 @@ export function createList(idLista, callback){
 
 export function createListMultiorder(idLista, callback){
     if ($('#content').length == 0) {
-        $('body').append('<div id="content" class="container"></div>');
+        $('body').append('<div id="content" class="container mt-4"></div>');
     }
     $('#content').append(getHtml(idLista));
 

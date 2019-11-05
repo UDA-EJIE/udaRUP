@@ -10,6 +10,22 @@ createBackendServer(8081);
 
 module.exports = function (config) {
     config.set({
+        plugins: [
+            'karma-jasmine',
+            'karma-requirejs',
+            'karma-firefox-launcher',
+            'karma-chrome-launcher',
+            'karma-handlebars-preprocessor',
+            'karma-webpack',
+            'karma-sourcemap-loader',
+            'karma-spec-reporter',
+            // 'karma-coverage',
+            'karma-html-reporter',
+            'karma-jasmine-html-reporter'
+            //  'karma-ie-launcher',
+            //  'karma-mocha-reporter'
+            
+        ],
         basePath: '',
         frameworks: ['jasmine'],
         coverageReporter: {
@@ -20,13 +36,13 @@ module.exports = function (config) {
             {
                 type: 'lcovonly',
                 subdir: '.'
-            },
+            }
             ],
         },
         preprocessors: {
             'test.webpack.js': ['webpack', 'sourcemap'],
         },
-        reporters: ['progress', 'spec', 'coverage', 'html'],
+        reporters: ['progress', 'spec', 'html'],
         htmlReporter: {
             outputDir: 'spec', // where to put the reports 
             templatePath: null, // set if you moved jasmine_template.html
@@ -39,6 +55,15 @@ module.exports = function (config) {
             // experimental
             preserveDescribeNesting: false, // folded suites stay folded 
             foldAll: false, // reports start folded (only with preserveDescribeNesting)
+        },
+        specReporter: {
+            // maxLogLines: 5, // limit number of lines logged per test
+            // suppressErrorSummary: true, // do not print error summary
+            suppressFailed: false, // do not print information about failed tests
+            suppressPassed: true, // do not print information about passed tests
+            suppressSkipped: true, // do not print information about skipped tests
+            showSpecTiming: true, // print the time elapsed for each spec
+            // failFast: true // test would finish with error when a first fail occurs. 
         },
         // list of files / patterns to load in the browser
         files: [{
@@ -58,11 +83,12 @@ module.exports = function (config) {
             included: false
         },
         {
-            pattern: 'test.webpack.js'
+            pattern: 'test.webpack.js',
         },
         ],
         proxies: {
             '/audit': 'http://localhost:8081/audit',
+            '/test': 'http://localhost:8081/test',
             '/dist': 'http://localhost:8081/dist',
             '/demo': 'http://localhost:8081/demo',
             '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
@@ -76,21 +102,6 @@ module.exports = function (config) {
 
         // list of files to exclude
         exclude: [],
-
-        plugins: [
-            'karma-jasmine',
-            'karma-requirejs',
-            'karma-firefox-launcher',
-            'karma-chrome-launcher',
-            'karma-handlebars-preprocessor',
-            'karma-webpack',
-            'karma-sourcemap-loader',
-            'karma-spec-reporter',
-            'karma-coverage',
-            'karma-html-reporter'
-            //  'karma-ie-launcher',
-            //  'karma-mocha-reporter'
-        ],
 
         webpack: {
             mode: 'none',
@@ -231,7 +242,7 @@ module.exports = function (config) {
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_ERROR,
 
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
@@ -248,6 +259,15 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        client: {
+            clearContext: true,
+            jasmine: {
+                random: false,
+                failFast: false,
+                timeoutInterval: 2000
+            }
+        }
     });
 };

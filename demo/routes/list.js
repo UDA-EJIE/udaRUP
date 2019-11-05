@@ -405,6 +405,7 @@ function getResult(req) {
 exports.filter = (req, res) => {
     if(req.body.filter.usuario == 'user20'){
         res.status(406).send('Error de prueba');
+        return;
     }
     var resultado = getResult(req);
     res.status(200).json(resultado);

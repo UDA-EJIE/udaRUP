@@ -138,7 +138,7 @@ describe('Test rup_list > ', () => {
                     $('#rup-list').on('load', done);
                     $('.page[data-page="2"]',$('#rup-list-header')).click();
                 });
-                it('Se marca la página correcta en el nav', () => {
+                describe('Se marca la página correcta en el nav', () => {
                     it('Ha cambiado la página activa en la navegación:', () => {
                         expect($('.page.active').attr('data-page')).toBe('2');
                     });

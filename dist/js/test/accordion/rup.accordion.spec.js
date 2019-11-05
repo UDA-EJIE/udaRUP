@@ -1,11 +1,15 @@
 /* jslint multistr: true */
 /* eslint-env jasmine, jquery */
 
+import * as testutils from '../common/specCommonUtils.js';
 
 describe('Test Accordion > ', () => {
     var $defAccordion, $altAccordion;
 
     beforeAll((done) => {
+        if ($('#content').length == 0) {
+            $('body').append('<div id="content" class="container mt-4"></div>');
+        }
         testutils.loadCss(done);
     });
 
