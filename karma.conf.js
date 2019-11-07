@@ -22,9 +22,6 @@ module.exports = function (config) {
             // 'karma-coverage',
             'karma-html-reporter',
             'karma-jasmine-html-reporter'
-            //  'karma-ie-launcher',
-            //  'karma-mocha-reporter'
-            
         ],
         basePath: '',
         frameworks: ['jasmine'],
@@ -57,9 +54,9 @@ module.exports = function (config) {
             foldAll: false, // reports start folded (only with preserveDescribeNesting)
         },
         specReporter: {
-            // maxLogLines: 5, // limit number of lines logged per test
-            // suppressErrorSummary: true, // do not print error summary
-            suppressFailed: false, // do not print information about failed tests
+            maxLogLines: 1, // limit number of lines logged per test
+            suppressErrorSummary: false, // do not print error summary
+            suppressFailed: true, // do not print information about failed tests
             suppressPassed: true, // do not print information about passed tests
             suppressSkipped: true, // do not print information about skipped tests
             showSpecTiming: true, // print the time elapsed for each spec
@@ -242,7 +239,7 @@ module.exports = function (config) {
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_ERROR,
+        logLevel: config.LOG_DISABLE,
 
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
@@ -266,7 +263,7 @@ module.exports = function (config) {
             jasmine: {
                 random: false,
                 failFast: false,
-                timeoutInterval: 2000
+                timeoutInterval: 5000
             }
         }
     });
