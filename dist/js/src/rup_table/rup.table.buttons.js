@@ -296,34 +296,42 @@
 
         var listadoExports = ['copyButton', 'excelButton', 'pdfButton', 'odsButton', 'csvButton'];
 
-
-        if (ctx.oInit.buttons.blackListButtons !== undefined) {
-            if (ctx.oInit.buttons.blackListButtons === 'all') { //si no se quiere ninguno se elimina
-                listadoExports = [];
-            } else if (ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0) {
-                $.each(ctx.oInit.buttons.blackListButtons, function () {
-                    var name = this;
-                    var pos = $.inArray(name, listadoExports);
-                    if (pos >= 0) {
-                        listadoExports.splice(pos, 1);
-                    }
-                });
-
-            }
-        }
-
         ctx.ext.buttons.reportsButton = {
-            extend: 'collection',
-            text: function (dt) {
-                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
-            },
-            id: idTable + 'informes_01',
-            className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
-            displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            autoClose: true,
-            type: 'reports',
-            buttons: listadoExports
-        };
+                extend: 'collection',
+                text: function (dt) {
+                    return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
+                },
+                id: idTable + 'informes_01',
+                className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
+                displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+                autoClose: true,
+                type: 'reports',
+                buttons: listadoExports
+            };
+        
+    	if(ctx.oInit.buttons.blackListButtons !== undefined){
+    		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
+    			listadoExports = [];
+    			ctx.ext.buttons.defaults.buttons = [];
+    		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+    			$.each(ctx.oInit.buttons.blackListButtons, function () {
+    				var name = this;
+    				var pos = $.inArray(name, listadoExports);
+    				if(pos >= 0){
+    					listadoExports.splice(pos,1);
+    				}
+    				//Resto de botones
+    				
+    				var posBoton = $.inArray(name, ctx.ext.buttons.defaults.buttons);
+    				if(posBoton >= 0){
+    					ctx.ext.buttons.defaults.buttons.splice(posBoton,1);
+    				}
+    			});
+    			
+    		}
+    	}
+
+
         if (ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
             $.extend(ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
             for (var nameButton in ctx.oInit.inlineEdit.myButtons) {
@@ -3391,8 +3399,8 @@
             DataTable.Api().buttons.displayRegex(ctx);
         });
 
-        if (ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
-            // se deja el boton solo de informes
+        if (!ctx.oInit.noEdit && ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
+            // se deja solo el boton de informes
             DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
             ctx._buttons[0].inst.s.disableAllButttons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);

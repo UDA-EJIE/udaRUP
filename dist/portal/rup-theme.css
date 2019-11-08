@@ -21356,22 +21356,27 @@
   content: " *";
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
   background-color: #e9ecef;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:hover {
   border-color: #757575;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus {
   border-color: #757575;
   caret-color: transparent;
   padding-left: 18px;
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label,
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
   top: -10px;
   font-size: .9rem;
   color: #212529;

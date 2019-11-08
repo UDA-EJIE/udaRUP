@@ -1355,12 +1355,15 @@ import { PassThrough } from "stream";
 			
             $self.triggerHandler('tableAfterInit');
 			
-			 if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
-					 settings.multiselect === undefined && settings.select === undefined){
-                $(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
-                    DataTable.Api().editForm.addchildIcons(tabla.context[0]);
-                } ) );
-			 }
+			if(settings.inlineEdit === undefined && settings.formEdit === undefined && 
+				settings.multiselect === undefined && settings.select === undefined){
+				$(window).on( 'resize.dtr', DataTable.util.throttle( function () {//Se calcula el responsive
+					DataTable.Api().editForm.addchildIcons(tabla.context[0]);
+				} ) );
+			}
+			
+			//Se audita el componente
+			$.rup.auditComponent('rup_table', 'init');
         }
     });
 
@@ -1414,7 +1417,8 @@ import { PassThrough } from "stream";
         adapter: 'table_material',
 	    order: [[ 1, 'asc' ]],
 	    showMultiSelectedZero: true,
-	    filterMessage : true
+	    filterMessage : true,
+	    noEdit: false
     };
 
 }));

@@ -15761,15 +15761,15 @@ fieldset {
     background-image: none; }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
     content: " *"; }
-  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
     background-color: #e9ecef; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:hover {
       border-color: #757575; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus {
       border-color: #757575;
       caret-color: transparent;
       padding-left: 18px; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
       top: -10px;
       font-size: .9rem;
       color: #212529;
