@@ -14,25 +14,45 @@
  * que establece la Licencia.
  */
 
-.rup-table-filter-fieldset{
-	border-top-style: hidden;
+.rup-table-filter-fieldset {
+    border-top-style: hidden;
 }
 
 .rup-table-filter-toggle-label {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .table-bordered {
-    border: 1px solid silver;
+    border: 1px solid #c0c0c0;
     border-bottom: 1px solid #dee2e6;
 }
 
 .paginationContainer {
-	border: 1px solid silver;
-    border-top: none;
-    padding: 5px 0
+    border: 1px solid #c0c0c0;
+    border-top: 0;
+    padding: 5px 0;
 }
 
-td > div.centerOnResponsiveContainer {
-	display: flex;
+td>div.centerOnResponsiveContainer {
+    display: flex;
+}
+
+.dataTable {
+    .sorting_asc {
+        .mdi.mdi-arrow-up::before {
+            font-weight: 600;
+        }
+    }
+
+    .sorting_desc {
+        .mdi.mdi-arrow-down::before {
+            font-weight: 600;
+        }
+    }
+}
+
+.custom-select {
+	-webkit-appearance: menulist;
+  	-moz-appearance: menulist;
+  	appearance: menulist;
 }

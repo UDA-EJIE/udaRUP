@@ -35,22 +35,22 @@
 /*global jQuery */
  
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd) {
 
-		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base','./rup.tooltip'], factory);
-	} else {
+        // AMD. Register as an anonymous module.
+        define(['jquery', './rup.base','./rup.tooltip'], factory);
+    } else {
 
-		// Browser globals
-		factory(jQuery);
-	}
+        // Browser globals
+        factory(jQuery);
+    }
 }(function ($) {
 
 
 
 
-	$.widget('$.rup_feedback', {
-		/**
+    $.widget('$.rup_feedback', {
+        /**
          * @description Opciones por defecto de configuración del widget.
          * @name options
          *
@@ -66,105 +66,105 @@ no un espacio fijo en la pantalla.
          * @property {closeLink}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario
 de la aplicación pueda cerrar la capa manualmente.
          */
-		options: {
-			type: null, //[ok, alert, error]
-			imgClass: null,
-			delay: null,
-			fadeSpeed: null,
-			gotoTop: true,
-			block: true,
-			closeLink: true,
-			//uso privado
-			_idFeedback: null,
-			_divClose: null,
-		},
-	/**
+        options: {
+            type: null, //[ok, alert, error]
+            imgClass: null,
+            delay: null,
+            fadeSpeed: null,
+            gotoTop: true,
+            block: true,
+            closeLink: true,
+            //uso privado
+            _idFeedback: null,
+            _divClose: null,
+        },
+        /**
      * @function	_setOption
      * @private
      * @description Modifica las opciones de configuración del componente.
      */
-		_setOption: function (key, value) {
-			var opciones = this.options,
-				element = this.element;
-			switch (key) {
-			case 'type':
-				//Eliminar imagenes anteriores y poner el tipo indicado
-				if (value !== null) {
-					element.removeClass(opciones.imgClass + ' rup-feedback_image_' + opciones.type);
-					element.addClass('rup-feedback_image rup-feedback_image_' + value);
-				} else {
-					element.removeClass('rup-feedback_image rup-feedback_image_' + opciones.type);
-				}
-				break;
-			case 'imgClass':
-				//Eliminar imagenes anteriores y poner la personal
-				if (value !== null) {
-					element.removeClass(opciones.imgClass + ' rup-feedback_image rup-feedback_image_' + opciones.type);
-					element.addClass(value);
-				} else {
-					element.removeClass(opciones.imgClass);
-				}
-				break;
-			case 'closeLink':
-								//Gestionar capa enlace cierre
-				if (value) {
-					this._addCloseLink();
-				} else {
-					$('#' + this.options._idFeedback + '_closeDiv').remove();
-				}
-				break;
-			}
-			$.Widget.prototype._setOption.apply(this, arguments);
-		},
-	/**
+        _setOption: function (key, value) {
+            var opciones = this.options,
+                element = this.element;
+            switch (key) {
+            case 'type':
+                //Eliminar imagenes anteriores y poner el tipo indicado
+                if (value !== null) {
+                    element.removeClass(opciones.imgClass + ' rup-feedback_image_' + opciones.type);
+                    element.addClass('rup-feedback_image rup-feedback_image_' + value);
+                } else {
+                    element.removeClass('rup-feedback_image rup-feedback_image_' + opciones.type);
+                }
+                break;
+            case 'imgClass':
+                //Eliminar imagenes anteriores y poner la personal
+                if (value !== null) {
+                    element.removeClass(opciones.imgClass + ' rup-feedback_image rup-feedback_image_' + opciones.type);
+                    element.addClass(value);
+                } else {
+                    element.removeClass(opciones.imgClass);
+                }
+                break;
+            case 'closeLink':
+                //Gestionar capa enlace cierre
+                if (value) {
+                    this._addCloseLink();
+                } else {
+                    $('#' + this.options._idFeedback + '_closeDiv').remove();
+                }
+                break;
+            }
+            $.Widget.prototype._setOption.apply(this, arguments);
+        },
+        /**
      * @function	_create
      * @private
      * @description Crea en el DOM los elementos que conforman el componente.
      */
-		_create: function () {
-			var opciones = this.options;
-			opciones._idFeedback =
+        _create: function () {
+            var opciones = this.options;
+            opciones._idFeedback =
 				this.element
-					.addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
-					.addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
-					.attr({
-						role: 'alert'
-					})
-					.css('display', opciones.block ? 'block' : 'none')
-					.css('visibility', 'hidden')
-					.append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
-					.context.id;
+				    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
+				    .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
+				    .attr({
+				        role: 'alert'
+				    })
+				    .css('display', opciones.block ? 'block' : 'none')
+				    .css('visibility', 'hidden')
+				    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
+				    .attr('id');
 
-			//Crear capa cierre
-			opciones._divClose = $('<div />')
-				.html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeIcon())
-				.attr('id', opciones._idFeedback + '_closeDiv')
-				.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
-				.addClass('rup-feedback_closeLink')
-				.addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].classComponent());
+            //Crear capa cierre
+            opciones._divClose = $('<div />')
+                .html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeIcon())
+                .attr('id', opciones._idFeedback + '_closeDiv')
+                .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
+                .addClass('rup-feedback_closeLink')
+                .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].classComponent());
 			
-			//Si se define texto sacarlo
-			if (opciones.message) {
-				this.set(opciones.message, opciones.type, opciones.imgClass);
-			}
+            //Si se define texto sacarlo
+            if (opciones.message) {
+                this.set(opciones.message, opciones.type, opciones.imgClass);
+            }
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_feedback', 'init');
-		},
-	/**
+            //Se audita el componente
+            $.rup.auditComponent('rup_feedback', 'init');
+        },
+        /**
      * @description Añade el enlace de cierre.
      *
      * @function	_addCloseLink
      * @private
      */
-		_addCloseLink: function () {
-			var opciones = this.options;
-			opciones._divClose.click(function () {
-				$('#' + opciones._idFeedback).rup_feedback('close');
-			});
-			this.element.prepend(opciones._divClose);
-		},
-	/**
+        _addCloseLink: function () {
+            var opciones = this.options;
+            opciones._divClose.click(function () {
+                $('#' + opciones._idFeedback).rup_feedback('close');
+            });
+            this.element.prepend(opciones._divClose);
+        },
+        /**
      * Elimina las modificaciones realizadas sobre la capa para convertirla en feedback volviendo a ser una simple capa.
      *
      * @function	destroy
@@ -172,19 +172,19 @@ de la aplicación pueda cerrar la capa manualmente.
      * // Elimina el feedback
      * jQuery("#feedback").rup_feedback("destroy");
      */
-		destroy: function () {
-			var opciones = this.options;
-			this.element
-				.removeClass()
-				.removeAttr('role')
-				.css('cssText', '')
-				.html('')
-				.stop().animate({
-					opacity: '100'
-				}); //Por si está desapareciendo (hide)
-			$.Widget.prototype.destroy.apply(this, arguments);
-		},
-		/**
+        destroy: function () {
+            var opciones = this.options;
+            this.element
+                .removeClass()
+                .removeAttr('role')
+                .css('cssText', '')
+                .html('')
+                .stop().animate({
+                    opacity: '100'
+                }); //Por si está desapareciendo (hide)
+            $.Widget.prototype.destroy.apply(this, arguments);
+        },
+        /**
      * Establece el texto (msg) a mostrar en el feedback, que podrá ser tanto texto plano como html. <br/><br/>
      * En caso de sólo definirse el parámetro msg, se mostrará como imagen aquella definida anteriormente ya sea de un tipo por defecto o de una imagen con estilo personalizado (si es que se había definido). <br/><br/>
      * En caso de que se envíe el parámetro type informado de modificará la capa para mostrar la imagen por defecto asociada al tipo, borrando algún posible estilos personalizado establecido anteriormente. <br/><br/>
@@ -200,62 +200,62 @@ de la aplicación pueda cerrar la capa manualmente.
      * @example <caption>Feedback estableciendo un estilo personalizado:</caption>
      * $("#id_capa").rup_feedback("set", "...", null, "imgPropio");
      */
-		set: function (message, type, imgClass) {
-			var element = this.element,
-				opciones = this.options;
+        set: function (message, type, imgClass) {
+            var element = this.element,
+                opciones = this.options;
 
-			//En caso de que está desapareciendo parar animación
-			element.stop().animate({
-				opacity: '100'
-			});
+            //En caso de que está desapareciendo parar animación
+            element.stop().animate({
+                opacity: '100'
+            });
 
-			//Gestión 'type'
-			if (type != undefined) {
-				element.removeClass(opciones.imgClass);
-				//Si se recibe type xxx se eliminan posibles tipo anterior y se establece ese
-				if (opciones.type != null) {
-					element.removeClass('rup-feedback_image_' + opciones.type);
-				} else {
-					element.addClass('rup-feedback_image');
-				}
-				element.addClass('rup-feedback_image_' + type);
-				opciones.type = type;
-			} else if (type === null) {
-				//Si se recibe type 'null' se eliminan posibles tipos anteriores
-				element.removeClass('rup-feedback_image rup-feedback_image_' + opciones.type);
-				opciones.type = null;
-			}
+            //Gestión 'type'
+            if (type != undefined) {
+                element.removeClass(opciones.imgClass);
+                //Si se recibe type xxx se eliminan posibles tipo anterior y se establece ese
+                if (opciones.type != null) {
+                    element.removeClass('rup-feedback_image_' + opciones.type);
+                } else {
+                    element.addClass('rup-feedback_image');
+                }
+                element.addClass('rup-feedback_image_' + type);
+                opciones.type = type;
+            } else if (type === null) {
+                //Si se recibe type 'null' se eliminan posibles tipos anteriores
+                element.removeClass('rup-feedback_image rup-feedback_image_' + opciones.type);
+                opciones.type = null;
+            }
 
-			//Gestión 'imgClass'
-			if (imgClass != undefined) {
-				if (opciones.imgClass != null) {
-					element.removeClass(opciones.imgClass);
-				}
-				element.addClass(imgClass);
-				opciones.imgClass = imgClass;
-			}
+            //Gestión 'imgClass'
+            if (imgClass != undefined) {
+                if (opciones.imgClass != null) {
+                    element.removeClass(opciones.imgClass);
+                }
+                element.addClass(imgClass);
+                opciones.imgClass = imgClass;
+            }
 
-			//Sacar mensaje
-			$('#' + opciones._idFeedback + '_content').remove();
-			element.append($('<div/>').attr('id', opciones._idFeedback + '_content').html(message));
-			//Añadir cierre (evento y capa)
-			if (opciones.closeLink) {
-				this._addCloseLink();
-			}
-			this.show();
+            //Sacar mensaje
+            $('#' + opciones._idFeedback + '_content').remove();
+            element.append($('<div/>').attr('id', opciones._idFeedback + '_content').html(message));
+            //Añadir cierre (evento y capa)
+            if (opciones.closeLink) {
+                this._addCloseLink();
+            }
+            this.show();
 
-			//Ir al inicio
-			if (opciones.gotoTop) {
-				$('html, body').animate({
-					scrollTop: '0px'
-				}, 0);
-			}
-			//Ocultacion mensaje
-			if (opciones.delay != null) {
-				this.hide();
-			}
-		},
-		/**
+            //Ir al inicio
+            if (opciones.gotoTop) {
+                $('html, body').animate({
+                    scrollTop: '0px'
+                }, 0);
+            }
+            //Ocultacion mensaje
+            if (opciones.delay != null) {
+                this.hide();
+            }
+        },
+        /**
      * Oculta la capa del feedback con una animación. <br/><br/>
      * Si no se definen los parámetros se tomaran los definidos con anterioridad (creación del feedback por ejemplo) o si no los valores por defecto (null, null) que implica una animación sin espera con una “velocidad” de 400 ms.
      *
@@ -270,25 +270,25 @@ de la aplicación pueda cerrar la capa manualmente.
      * // Ocultar el feedback. Se realiza con una demora de 1000ms y la transición dura 500ms.
      * jQuery("#feedback").rup_feedback("hide",1000,500);
      */
-		hide: function (delay, fadeSpeed) {
-			var opciones = this.options,
-				element = this.element;
+        hide: function (delay, fadeSpeed) {
+            var opciones = this.options,
+                element = this.element;
 
-			//Si no se reciben parámetros se toman los valores de la configuración inicial
-			if (delay == undefined) {
-				delay = opciones.delay;
-			}
-			if (fadeSpeed == undefined) {
-				fadeSpeed = opciones.fadeSpeed;
-			}
+            //Si no se reciben parámetros se toman los valores de la configuración inicial
+            if (delay == undefined) {
+                delay = opciones.delay;
+            }
+            if (fadeSpeed == undefined) {
+                fadeSpeed = opciones.fadeSpeed;
+            }
 
-			element.delay(delay).fadeOut(eval(fadeSpeed), function () {
-				$('#' + opciones._idFeedback).rup_feedback('close', true);
-			});
+            element.delay(delay).fadeOut(eval(fadeSpeed), function () {
+                $('#' + opciones._idFeedback).rup_feedback('close', true);
+            });
 
-			$('#' + this.options._idFeedback + '_closeDiv').hide();
-		},
-		/**
+            $('#' + this.options._idFeedback + '_closeDiv').hide();
+        },
+        /**
      * Oculta la capa del feedback sin animación alguna.<br/>
      * Esta función será invocada por el enlace de cierre (parámetro closeLink) en caso de que se muestre.
      *
@@ -299,15 +299,15 @@ de la aplicación pueda cerrar la capa manualmente.
      * // Cierra el feedback.
      * jQuery("#feedback").rup_feedback("close");
      */
-		close: function (notEmpty) {
-			var element = this.element;
-			element.css('display', this.options.block ? 'block' : 'none');
-			element.css('visibility', 'hidden');
-			if (notEmpty === undefined) {
-				element.empty();
-			}
-		},
-		/**
+        close: function (notEmpty) {
+            var element = this.element;
+            element.css('display', this.options.block ? 'block' : 'none');
+            element.css('visibility', 'hidden');
+            if (notEmpty === undefined) {
+                element.empty();
+            }
+        },
+        /**
      * Muestra la capa del feedback.
      * Esta función será invocada automáticamente cada vez que se invoque la función set(…)
      *
@@ -318,44 +318,45 @@ de la aplicación pueda cerrar la capa manualmente.
      * jQuery("#feedback").rup_feedback("show");
      */
 
-		show: function () {
-			var element = this.element;
-			element.css('display', 'block');
-			element.css('visibility', 'visible');
+        show: function () {
+            var element = this.element;
+            element.css('display', 'block');
+            element.css('visibility', 'visible');
 			
-			// Se comprueba si ya esta el icono material
-			if($('.mdi',element).length === 0) {
-				element.prepend('<i class=\'mdi\'>');
-			}
+            // Se comprueba si ya esta el icono material
+            if($('.mdi',element).length === 0) {
+                element.prepend('<i class=\'mdi\'>');
+            }
 			
-			// Se aplica el tooltip
-			this.element.find('[title]').rup_tooltip({
-				position: {
-					at: 'bottom center',
-					my: 'top center'
-				},
-				applyToPortal: true
-			});
+            // Se aplica el tooltip
+            this.element.find('[title]').rup_tooltip({
+                position: {
+                    at: 'bottom center',
+                    my: 'top center'
+                },
+                applyToPortal: true
+            });
 
-			$('#' + this.options._idFeedback + '_closeDiv').show();
+            $('#' + this.options._idFeedback + '_closeDiv').show();
+            $('#' + this.options._idFeedback).trigger('rupFeedback_show');
 
-			/**
+            /**
        * Permite asociar una función que se ejecutará cuando se muestre el feedback.
        * @event module:rup_feedback#rupFeedback_show
        * @example
        * $("#feedback").on("rupFeedback_show", function(event){});
        */
-			jQuery(this.element).triggerHandler('rupFeedback_show');
-		}
+            jQuery(this.element).triggerHandler('rupFeedback_show');
+        }
 
-		//*******************************************************
-		// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-		//*******************************************************
-		/*  $.fn.rup_feedback.defaults = {
+        //*******************************************************
+        // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+        //*******************************************************
+        /*  $.fn.rup_feedback.defaults = {
         adapter = "feedback_material"
       };*/
 
-		/**
+        /**
      * Permite cambiar las propiedades definidas en el feedback.<br/><br/>
      * Puede invocarase antes que la funcion set(…) para modificar cualquiera de los parámetros del mensaje a mostar: icono, imagen personalizada, tiempo de espera hasta desaparecer…
      *
@@ -373,18 +374,18 @@ de la aplicación pueda cerrar la capa manualmente.
      * var properties = {"closeLink":false, "block":false};
      * $("#id_capa").rup_feedback("option", properties);
      */
-	});
-	/*  $.fn.rup_feedback.defaults = {
+    });
+    /*  $.fn.rup_feedback.defaults = {
       adapter = "feedback_material"
     };*/
 
-	var rup_feedback = {};
+    var rup_feedback = {};
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_feedback', rup_feedback));
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_feedback', rup_feedback));
 
-	$.fn.rup_feedback.defaults = {
-		adapter: 'feedback_material'
-	};
+    $.fn.rup_feedback.defaults = {
+        adapter: 'feedback_material'
+    };
 
 }));

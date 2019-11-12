@@ -1,10 +1,12 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 
 describe('Test Validate >  ', () => {
-    var $validate, $feedBack, $validateEvent, $feedBackEvent;
-    var  event_fail = false, event_success = false;
+    var $validate, $feedBack, $validateEvent;
+    var event_fail = false,
+        event_success = false;
 
     beforeAll((done) => {
         testutils.loadCss(done);
@@ -23,7 +25,7 @@ describe('Test Validate >  ', () => {
         $('#content').append(htmlEvent);
 
         var optsFeedback = {
-            type: "ok",
+            type: 'ok',
             closeLink: true,
             block: false
         };
@@ -35,10 +37,10 @@ describe('Test Validate >  ', () => {
             showErrorsInFeedback: true,
             showFieldErrorsInFeedback: true,
             rules: {
-                "campoUno": {
+                'campoUno': {
                     required: true
                 },
-                "campoDos": {
+                'campoDos': {
                     required: true
                 }
             }
@@ -47,15 +49,15 @@ describe('Test Validate >  ', () => {
 
         $validateEvent = $('#exampleValidateEvent').rup_validate({
             rules: {
-                "campoUnoEvent": {
+                'campoUnoEvent': {
                     required: true
                 }
             },
-            onSubmitHandler: (form) => {
+            onSubmitHandler: () => {
                 event_success = true;
                 $('#exampleValidateEvent').triggerHandler('submitSuccessfull');
             },
-            invalidHandler: (event, validator) => {
+            invalidHandler: () => {
                 event_fail = true;
             }
         });
@@ -63,7 +65,6 @@ describe('Test Validate >  ', () => {
     afterEach(() => {
         $('#content').html('');
         $('#content').nextAll().html('');
-        event_done = undefined;
         event_success = false;
         event_fail = false;
     });
@@ -124,7 +125,7 @@ describe('Test Validate >  ', () => {
                 $validateEvent.submit();
                 setTimeout(() => {
                     done();
-                },500);
+                }, 500);
             });
             it('Debe lanzarse el evento', () => {
                 expect(event_success).toBeTruthy();

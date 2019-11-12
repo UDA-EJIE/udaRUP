@@ -1,5 +1,7 @@
+/* jslint multistr: true */
+/* eslint-env jasmine, jquery */
+
 import 'jquery';
-import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils';
 import 'rup.progressbar';
 import 'rup.spinner';
@@ -23,7 +25,7 @@ describe('Test auditoría > ', () => {
         $('#exampleSpinner').rup_spinner();
         //Damos un poco de tiempo a que el backend recoja los datos.
         setTimeout(() => {
-            done()
+            done();
         },400);
     });
     it('Comprobamos si se auditan los componentes:', (done) => {
@@ -34,6 +36,6 @@ describe('Test auditoría > ', () => {
                 expect(data.slice(-2).sort()).toEqual(['rup_progressbar','rup_spinner']);
                 done();
             }
-        })
+        });
     });
 });

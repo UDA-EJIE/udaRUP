@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 describe('Test Chart', () => {
@@ -91,11 +92,9 @@ describe('Test Chart', () => {
                 resp = $chart.rup_chart('toBase64Image');
             });
             it('Debe ser un string', () => {
-                expect(typeof (resp) == "string").toBeTruthy();
+                expect(typeof (resp) == 'string').toBeTruthy();
             });
             it('Debe comenzar con una secuencia de caracteres concreta', () => {
-                console.info(resp.indexOf('data:image/png'));
-                console.info(resp.indexOf('base64'));
                 expect(resp.indexOf('data:image/png') >= 0 && resp.indexOf('base64') >= 0).toBe(true);
             });
         });

@@ -7,7 +7,10 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o de var
 **See**: El componente está basado en el plugin [jQuery UI Selectmenu](http://jqueryui.com/selectmenu/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/selectmenu/).  
 **Example**  
 ```js
-$("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}});
+$("#idCombo").rup_combo({
+	source : "comboSimple/remote",
+	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
+});
 ```
 
 * [rup_combo](#module_rup_combo)
@@ -146,7 +149,10 @@ Selecciona el elemento enviado como parámetro. En caso de ser un numérico se s
 
 **Example**  
 ```js
-// Simple$("#idCombo").rup_combo("select", 2);// Multiple$("#idCombo").rup_combo("select", [0,2]);
+// Simple
+$("#idCombo").rup_combo("select", 2);
+// Multiple
+$("#idCombo").rup_combo("select", [0,2]);
 ```
 <a name="module_rup_combo..selectLabel"></a>
 
@@ -161,7 +167,10 @@ Selecciona el elemento del combo que contiene como texto el indicado. En caso de
 
 **Example**  
 ```js
-// Simple$("#idCombo").rup_combo("selectLabel", "No");// Multiple$("#idCombo").rup_combo("selectLabel", ["No","Si"]);
+// Simple
+$("#idCombo").rup_combo("selectLabel", "No");
+// Multiple
+$("#idCombo").rup_combo("selectLabel", ["No","Si"]);
 ```
 <a name="module_rup_combo..value"></a>
 
@@ -324,17 +333,17 @@ $("#idCombo").rup_combo("reload");
 <a name="module_rup_combo..order"></a>
 
 ### rup_combo~order(orderedByValue, orderAsNumber, skipFirst)
-Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no se que se cambie el valor del atributo ordered en la creación.
+Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no ser que se cambie el valor del atributo ordered en la creación.
 
 **Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | orderedByValue | <code>boolean</code> | Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor. |
-| orderAsNumber | <code>boolean</code> | Indica si se debe den de ordenar como valores numéricos en vez de alfabéticos. |
-| skipFirst | <code>boolean</code> | Determina si se debe de obviar el primer elemento. |
+| orderAsNumber | <code>boolean</code> | Indica si se debe ordenar como valores numéricos en vez de alfabéticos. |
+| skipFirst | <code>boolean</code> | Determina si se debe obviar el primer elemento. |
 
 **Example**  
 ```js
-$("#idCombo").rup_combo("reload");
+$("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
 ```

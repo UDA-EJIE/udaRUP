@@ -135,7 +135,7 @@
 						cellColModel = colModel[i];
 						searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
 
-						colModelName = cellColModel.name;
+						var colModelName = cellColModel.name;
 						$elem = $('[name=\''+colModelName+'\']',$searchRow);
 						// Se añade el title de los elementos de acuerdo al colname
 						$elem.attr({
@@ -288,7 +288,7 @@
 						colM.stype = 'text';
 					}
 				}
-				soptions = $.extend({},colM.searchoptions || colM.editoptions || {}, {id:colM.name,name:colM.name});
+				var soptions = $.extend({},colM.searchoptions || colM.editoptions || {}, {id:colM.name,name:colM.name});
 				if(colM.search){
 					elc = $.jgrid.createEl.call($self[0],colM.stype!==undefined?colM.stype:colM.edittype,soptions,'',true,$.extend({},$.jgrid.ajaxOptions,soptions.ajaxSelectOptions || {}));
 					$elc=jQuery(elc);
@@ -509,7 +509,7 @@
 				data: jQuery.toJSON($.extend(true, {}, postData, jsonData)),
 				contentType: 'application/json',
 				success: function(xhr,b,c){
-					rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
+					var rowsPerPage = parseInt($self.rup_jqtable('getGridParam', 'rowNum'),10);
 
 					if (xhr.length===0){
 						$self._initializeSearchProps(settings);
@@ -713,7 +713,9 @@
      * $("#idTable").rup_jqtable("doSearchNavigation", arrParams);
      */
 		doSearchNavigation: function(arrParams){
-			var $self = this, settings = $self.data('settings'), execute, changePage, index, newPage, newPageIndex, indexAux, ret, actualRowId, rowId;
+			var $self = this,
+				settings = $self.data('settings'),
+				buttonType, execute, changePage, index, npos, newPage, newPageIndex, indexAux, ret, actualRowId, rowId, pagePos, $row;
 
 			if ($.isArray(arrParams)){
 				buttonType = arrParams[0];
@@ -815,7 +817,7 @@
 
 
 			for (var i=0;i<settings.search.matchedRowsPerPage[page].length;i++){
-				newIndexPos = settings.search.matchedRowsPerPage[page][i];
+				var newIndexPos = settings.search.matchedRowsPerPage[page][i];
 				$row = $($self.jqGrid('getInd',newIndexPos, true));
 				$self.rup_jqtable('highlightMatchedRow', $row);
 				//				if (i==0){
@@ -872,18 +874,26 @@
 
 					if (numMatched===1){
 						settings.search.$firstNavButton.addClass('ui-state-disabled');
+						settings.search.$firstNavButton.attr('disabled', 'disabled');
 						settings.search.$backNavButton.addClass('ui-state-disabled');
+						settings.search.$backNavButton.attr('disabled', 'disabled');
 					}else{
 						settings.search.$firstNavButton.removeClass('ui-state-disabled');
+						settings.search.$firstNavButton.removeAttr("disabled");
 						settings.search.$backNavButton.removeClass('ui-state-disabled');
+						settings.search.$backNavButton.removeAttr("disabled");
 					}
 
 					if (numMatched===settings.search.numMatched){
 						settings.search.$lastNavButton.addClass('ui-state-disabled');
+						settings.search.$lastNavButton.attr('disabled', 'disabled');
 						settings.search.$forwardNavButton.addClass('ui-state-disabled');
+						settings.search.$forwardNavButton.attr('disabled', 'disabled');
 					}else{
 						settings.search.$lastNavButton.removeClass('ui-state-disabled');
+						settings.search.$lastNavButton.removeAttr("disabled");
 						settings.search.$forwardNavButton.removeClass('ui-state-disabled');
+						settings.search.$forwardNavButton.removeAttr("disabled");
 					}
 
 				}else{
@@ -891,9 +901,9 @@
 						settings.search.$matchedLabel.html(jQuery.jgrid.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base,'rup_jqtable.plugins.search.matchedRecords'),$.fmatter.util.NumberFormat(settings.search.numMatched,formatter)));
 					}
 					settings.search.$firstNavButton.removeClass('ui-state-disabled');
-					settings.search.$backNavButton.removeClass('ui-state-disabled');
+					settings.search.$backNavButton.removeAttr("disabled");
 					settings.search.$forwardNavButton.removeClass('ui-state-disabled');
-					settings.search.$lastNavButton.removeClass('ui-state-disabled');
+					settings.search.$lastNavButton.removeAttr("disabled");
 
 					// Miramos a ver si desde la posición actual hay anterior
 					if (jQuery.inArray(settings.search.matchedPages, page) > 0){

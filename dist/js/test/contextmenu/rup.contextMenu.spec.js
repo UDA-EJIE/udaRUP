@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 describe('Test ContextMenu > ', () => {
@@ -59,7 +60,7 @@ describe('Test ContextMenu > ', () => {
             beforeEach(() => {
                 $context.rup_contextMenu('show');
                 $context.rup_contextMenu('hide');
-            });sandbox
+            });
             it('No debe mostrarse:', () => {
                 expect($('#exampleContext .context-menu-list').is(':visible')).toBe(false);
             });

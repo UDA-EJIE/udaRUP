@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 
@@ -16,31 +17,31 @@ describe('Test Toolbar > ', () => {
         let html = '<div id="exampleToolbar"></div>';
         let options = {
             buttons: [{
-                    id: 'searchBtn',
-                    css: 'mdi mdi-magnify',
+                id: 'searchBtn',
+                css: 'mdi mdi-magnify',
+                i18nCaption: 'buscar',
+                click: handler
+            },
+            {
+                id: 'mbutton1',
+                i18nCaption: 'botones',
+                buttons: [{
+                    id: 'searchMBtn',
                     i18nCaption: 'buscar',
                     click: handler
                 },
                 {
-                    id: "mbutton1",
-                    i18nCaption: "botones",
-                    buttons: [{
-                            id: 'searchMBtn',
-                            i18nCaption: 'buscar',
-                            click: handler
-                        },
-                        {
-                            id: 'editMBtn',
-                            i18nCaption: 'editar',
-                            click: handler
-                        },
-                        {
-                            id: 'copyMBtn',
-                            i18nCaption: 'copiar',
-                            click: handler
-                        }
-                    ]
+                    id: 'editMBtn',
+                    i18nCaption: 'editar',
+                    click: handler
+                },
+                {
+                    id: 'copyMBtn',
+                    i18nCaption: 'copiar',
+                    click: handler
                 }
+                ]
+            }
             ]
         };
         $('#content').append(html);
@@ -78,26 +79,26 @@ describe('Test Toolbar > ', () => {
             beforeEach(() => {
                 mButton = {
                     idParent: 'exampleToolbar',
-                    id: "addedMButton",
-                    i18nCaption: "addedMButton",
+                    id: 'addedMButton',
+                    i18nCaption: 'addedMButton',
                     buttons: [{
-                            id: 'new',
-                            i18nCaption: "nuevo",
-                            css: "nuevo",
-                            click: () => {}
-                        },
-                        {
-                            id: 'editar',
-                            i18nCaption: "editar",
-                            css: "editar",
-                            click: () => {}
-                        },
-                        {
-                            id: 'cancelar',
-                            i18nCaption: "cancelar",
-                            css: "cancelar",
-                            click: () => {}
-                        }
+                        id: 'new',
+                        i18nCaption: 'nuevo',
+                        css: 'nuevo',
+                        click: () => {}
+                    },
+                    {
+                        id: 'editar',
+                        i18nCaption: 'editar',
+                        css: 'editar',
+                        click: () => {}
+                    },
+                    {
+                        id: 'cancelar',
+                        i18nCaption: 'cancelar',
+                        css: 'cancelar',
+                        click: () => {}
+                    }
                     ]
                 };
                 var idMBtn = mButton.idParent+'##'+mButton.id;

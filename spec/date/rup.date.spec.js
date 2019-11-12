@@ -1,9 +1,9 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import 'rup.tooltip';
 import * as testutils from '../common/specCommonUtils.js';
-import 'jasmine-jquery';
 import 'rup.tooltip';
 import 'rup.date';
 
@@ -12,20 +12,17 @@ var unavailableDay = 0;
 //Funcion de complementaria para el test del método refresh
 function disableDays(date) {
     var day = date.getDay();
-    return [(day != unavailableDay), ""];
+    return [(day != unavailableDay), ''];
 }
 
-$.when(testDate('es'))
-    .then(() => {
-        testDate('eu');
-    });
+testDate('es');
+testDate('eu');
 
 function langStr(lang) {
     return '[' + lang + '] ';
 }
 
 function testDate(lang) {
-    var defer = new $.Deferred();
     describe('Test Date > ', () => {
         var $date, $altDate, $multiDate;
 
@@ -33,11 +30,7 @@ function testDate(lang) {
             testutils.loadCss(done);
         });
 
-        afterAll(() => {
-            defer.resolve();
-        });
-
-        beforeEach(() => {
+        beforeEach((done) => {
             var html = '<input id="exampleDate"></input>\
                         <input id="altDate"></input>\
                         <input id="multiDate"></input>\
@@ -72,16 +65,20 @@ function testDate(lang) {
                 beforeShowDay: disableDays
             };
 
-            $.rup.setLiterals(lang);
+            $.rup.setLiterals(lang).then(()=>{
+                $('#exampleDate').rup_date(props);
+                $('#altDate').rup_date(altProps);
+                $('#multiDate').rup_date(multiProps);
+                $.rup_date(fromToProps);
+                $date = $('#exampleDate');
+                $altDate = $('#altDate');
+                $multiDate = $('#multiDate');
 
-            $('#exampleDate').rup_date(props);
-            $('#altDate').rup_date(altProps);
-            $('#multiDate').rup_date(multiProps);
-            $.rup_date(fromToProps);
-            $date = $('#exampleDate');
-            $altDate = $('#altDate');
-            $multiDate = $('#multiDate');
+                done();
+            });
+
         });
+        
         afterEach(() => {
             $('.hasDatepicker').each((i,e)=>{
                 $(e).rup_date('destroy');
@@ -90,9 +87,11 @@ function testDate(lang) {
             $('#content').html('');
             $('#content').nextAll().remove();
         });
+
         afterAll(() => {
             $.rup.setLiterals('es');
         });
+
         describe('Creación > ', () => {
             describe('Date normal > ', () => {
                 beforeEach(() => {
@@ -172,7 +171,7 @@ function testDate(lang) {
                             $altDate.rup_date('setRupValue', '08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            $('#altDate').rup_date('setRupValue', '2018/10/08 00:00');
+                            $altDate.rup_date('setRupValue', '2018/10/08 00:00');
                         }
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
@@ -180,7 +179,7 @@ function testDate(lang) {
                             expect($altDate.rup_date('getRupValue')).toBe('08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
-                            expect($('#altDate').rup_date('getRupValue')).toBe('2018/10/08 00:00');
+                            expect($altDate.rup_date('getRupValue')).toBe('2018/10/08 00:00');
                         }
                     });
                 });
@@ -303,9 +302,12 @@ function testDate(lang) {
             });
             describe('Método hide > ', () => {
                 describe('Date normal > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $date.rup_date('show');
                         $date.rup_date('hide');
+                        setTimeout(()=>{
+                            done();
+                        },1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         //Se hacen 2 comprobaciones poruq en ejie.eus se establece 
@@ -316,9 +318,12 @@ function testDate(lang) {
                     });
                 });
                 describe('Date alternativa > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $altDate.rup_date('show');
                         $altDate.rup_date('hide');
+                        setTimeout(() => {
+                            done();
+                        }, 1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -327,9 +332,12 @@ function testDate(lang) {
                     });
                 });
                 describe('Date múltiple > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $multiDate.rup_date('show');
                         $multiDate.rup_date('hide');
+                        setTimeout(() => {
+                            done();
+                        }, 1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -339,9 +347,12 @@ function testDate(lang) {
                 });
                 describe('Date desde-hasta > ', () => {
                     describe('Date desde > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
                             $('#desde').rup_date('show');
                             $('#desde').rup_date('hide');
+                            setTimeout(() => {
+                                done();
+                            }, 1000);
                         });
                         it(langStr(lang) + 'No debe mostrarse:', () => {
                             let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -350,9 +361,12 @@ function testDate(lang) {
                         });
                     });
                     describe('Date hasta > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
                             $('#hasta').rup_date('show');
                             $('#hasta').rup_date('hide');
+                            setTimeout(() => {
+                                done();
+                            }, 1000);
                         });
                         it(langStr(lang) + 'No debe mostrarse:', () => {
                             let test1 = $('#ui-datepicker-div').css('opacity') != 0;
@@ -463,7 +477,7 @@ function testDate(lang) {
                             $date.rup_date('setDate');
                         }
                         unavailableDay = 3;
-                        $date.rup_date("refresh");
+                        $date.rup_date('refresh');
                     });
                     it(langStr(lang) + 'comprobamos que los miércoles se hayan deshabilitado:', () => {
                         $('#ui-datepicker-div > table > tbody > tr')

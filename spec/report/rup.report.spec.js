@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -19,7 +20,6 @@ describe('Test Report > ', () => {
 
     beforeEach(() => {
         var handler = () => {
-            console.log('XXX');
         };
         let html = '<div id="exampleToolbar"></div>';
         let options = {
@@ -31,23 +31,23 @@ describe('Test Report > ', () => {
                     click: handler
                 },
                 {
-                    id: "mbutton1",
-                    i18nCaption: "botones",
+                    id: 'mbutton1',
+                    i18nCaption: 'botones',
                     buttons: [{
-                            id: 'searchMBtn',
-                            i18nCaption: 'buscar',
-                            click: handler
-                        },
-                        {
-                            id: 'editMBtn',
-                            i18nCaption: 'editar',
-                            click: handler
-                        },
-                        {
-                            id: 'copyMBtn',
-                            i18nCaption: 'copiar',
-                            click: handler
-                        }
+                        id: 'searchMBtn',
+                        i18nCaption: 'buscar',
+                        click: handler
+                    },
+                    {
+                        id: 'editMBtn',
+                        i18nCaption: 'editar',
+                        click: handler
+                    },
+                    {
+                        id: 'copyMBtn',
+                        i18nCaption: 'copiar',
+                        click: handler
+                    }
                     ]
                 }
             ]

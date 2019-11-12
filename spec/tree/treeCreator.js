@@ -1,3 +1,6 @@
+/* jslint multistr: true */
+/* eslint-env jquery */
+
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 
@@ -33,7 +36,7 @@ export function treeHtml(callback) {
     $tree.on('loaded.jstree', function () {
         callback();
     });
-};
+}
 export function treeJson(callback) {
     var html = '<div id="exampleTree" name="exampleTree"></div>';
     $('#content').append(html);
@@ -52,26 +55,26 @@ export function treeJson(callback) {
     $tree.on('loaded.jstree', function () {
         callback();
     });
-};
+}
 export function treeXML (callback) {
     var html = '<div id="exampleTree" name="exampleTree"></div>';
     $('#content').append(html);
     var $tree = $('#exampleTree');
     $tree.rup_tree({
         xml_data: {
-            "data": ""+
-            "<?xml version='1.0' encoding='UTF-8'?>"+
-			"<root>"+
-				"<item id='node1'>"+
-					"<content><name><![CDATA[Padre 1]]></name></content>"+
-					"<item id='node11' parent_id='node1'>"+
-						"<content><name><![CDATA[Hijo 1]]></name></content>"+
-					"</item>"+
-					"<item id='node12' parent_id='node1'>"+
-						"<content><name><![CDATA[Hijo 2]]></name></content>"+
-					"</item>"+
-				"</item>"+
-			"</root>"
+            'data': ''+
+            '<?xml version=\'1.0\' encoding=\'UTF-8\'?>'+
+			'<root>'+
+				'<item id=\'node1\'>'+
+					'<content><name><![CDATA[Padre 1]]></name></content>'+
+					'<item id=\'node11\' parent_id=\'node1\'>'+
+						'<content><name><![CDATA[Hijo 1]]></name></content>'+
+					'</item>'+
+					'<item id=\'node12\' parent_id=\'node1\'>'+
+						'<content><name><![CDATA[Hijo 2]]></name></content>'+
+					'</item>'+
+				'</item>'+
+			'</root>'
         },
         plugins: treePlugins,
         checkbox: {
@@ -82,4 +85,4 @@ export function treeXML (callback) {
         testutils.testTrace('html',$('#content').html());
         callback();
     });
-};
+}

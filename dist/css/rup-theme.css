@@ -1371,7 +1371,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-sm > button, .rup-mbutton.rup-collapsed-sm > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-sm > .rup-dropdown-button, .rup-mbutton.rup-collapsed-sm > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-sm > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-sm > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1387,7 +1387,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-md > button, .rup-mbutton.rup-collapsed-md > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-md > .rup-dropdown-button, .rup-mbutton.rup-collapsed-md > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-md > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-md > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1403,7 +1403,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-lg > button, .rup-mbutton.rup-collapsed-lg > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-lg > .rup-dropdown-button, .rup-mbutton.rup-collapsed-lg > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-lg > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-lg > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1419,7 +1419,7 @@ select.form-control:not([size]):not([multiple]), .form-control.ui-multiselect:no
   .rup-mbutton.rup-collapsed-xl > button, .rup-mbutton.rup-collapsed-xl > .ui-button.rup-button, .rup-dropdown-btn-group .rup-mbutton.rup-collapsed-xl > .rup-dropdown-button, .rup-mbutton.rup-collapsed-xl > a.rup-toolbar_menuButton.ui-button, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_next, .rup-wizard .rup-mbutton.rup-collapsed-xl > a.rup-wizard_prev, .rup-wizard .rup-mbutton.rup-collapsed-xl > .rup-wizard_submitButton {
     display: none; }
   .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1851,9 +1851,9 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   margin-left: 0.3em;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-left: 0.3em solid transparent; }
+  border-top: 0.3em solid !important;
+  border-right: 0.3em solid transparent !important;
+  border-left: 0.3em solid transparent !important; }
 
 .rup-navbar .dropdown-toggle:focus {
   outline: 0; }
@@ -1929,17 +1929,23 @@ button, button.ui-button, .ui-button.rup-button, .rup-dropdown-btn-group .rup-dr
   right: 0;
   left: auto; }
 
-.rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial !important; }
-
-.rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial !important; }
-
 .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0; }
+
+.rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-center:after {
+  left: 50% !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial !important; }
+
+.rup-navbar .dropdown-menu-arrow-right:after {
+  right: 10%;
+  left: initial !important; }
 
 .rup-navbar .dropdown-header {
   display: block;
@@ -2802,7 +2808,7 @@ table.ui-jqgrid-htable > thead > tr.search_row > th > div {
     border-bottom-right-radius: 0;
     display: table-cell; }
   .rup-time-input-group .ui-timepicker-trigger {
-    padding: 0 0.5rem;
+    padding: .1rem 0.5rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     display: table-cell; }
@@ -15487,8 +15493,13 @@ ul.dtr-details .dtr-data {
   to {
     opacity: 1; } }
 
-/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
+/* IMPORTACIÓN DE PALETA DE COLORES */
 /* COLORES */
+/* PALETA DE COLORES */
+.app-primary-color {
+  background-color: #1472a4 !important; }
+
+/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 fieldset {
   border-radius: 5px; }
 
@@ -15698,7 +15709,8 @@ fieldset {
   position: relative;
   margin: 1rem 0;
   /* ESTILOS DE LOS INPUTS */
-  /* ESTILOS DE LOS LABELS */ }
+  /* ESTILOS DE LOS LABELS */
+  /* Añade un asterisco al label de los campos obligatorios */ }
   .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]) {
     display: block;
     width: 100%;
@@ -15747,15 +15759,17 @@ fieldset {
     padding: 0 5px;
     background-color: #FFFFFF;
     background-image: none; }
-  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+    content: " *"; }
+  .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
     background-color: #e9ecef; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:hover {
       border-color: #757575; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus {
       border-color: #757575;
       caret-color: transparent;
       padding-left: 18px; }
-    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+    .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus ~ label, .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
       top: -10px;
       font-size: .9rem;
       color: #212529;
@@ -15850,98 +15864,97 @@ fieldset {
 .form-groupMaterial[class*="col-"] textarea ~ label {
   left: 19px; }
 
-/* ESTILOS */
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0); }
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0); }
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.05); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.05); }
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1); } }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1); } }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1); }
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.4); }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.4); }
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.6); } }
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.6); } }
 
 .radio-material {
-  margin: 0.5em 0; }
+  margin: .5em 0; }
   .radio-material.radio-material-inline {
     display: inline-block; }
-  .radio-material input[type="radio"] {
-    opacity: 0;
+  .radio-material input[type='radio'] {
+    position: absolute;
+    z-index: -1;
     /* CUANDO PASA EL RATON POR ENCIMA */
     /* CUANDO TIENE EL FOCO */
     /* CUANDO ESTA SELECCIONADO */
     /* CUANDO ESTA DISABLED */ }
-    .radio-material input[type="radio"]:hover:enabled + label:before, .radio-material input[type="radio"]:checked:hover:enabled + label:before {
-      animation: ripple-hover 0.2s linear forwards; }
-    .radio-material input[type="radio"]:focus + label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type="radio"]:checked + label:before {
+    .radio-material input[type='radio']:hover:enabled ~ label::before,
+    .radio-material input[type='radio']:checked:hover:enabled ~ label::before {
+      animation: ripple-hover .2s linear forwards; }
+    .radio-material input[type='radio']:focus ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:checked ~ label::before {
       border-color: #1472a4; }
-    .radio-material input[type="radio"]:checked + label:after {
+    .radio-material input[type='radio']:checked ~ label::after {
       transform: scale(1); }
-    .radio-material input[type="radio"]:active:enabled + label:before {
-      animation: ripple-active 0.2s linear forwards; }
-    .radio-material input[type="radio"]:disabled + label:before {
+    .radio-material input[type='radio']:active:enabled ~ label::before {
+      animation: ripple-active .2s linear forwards; }
+    .radio-material input[type='radio']:disabled ~ label::before {
       border-color: rgba(0, 0, 0, 0.26); }
-    .radio-material input[type="radio"]:disabled + label:after {
+    .radio-material input[type='radio']:disabled ~ label::after {
       background: rgba(0, 0, 0, 0.26); }
   .radio-material label {
+    cursor: pointer;
     display: inline-block;
     height: 18px;
-    position: relative;
-    padding-left: 28px;
     margin-bottom: 0;
-    cursor: pointer;
+    padding-left: 28px;
+    position: relative;
     vertical-align: bottom; }
-    .radio-material label:before, .radio-material label:after {
-      position: absolute;
-      content: '';
+    .radio-material label::before, .radio-material label::after {
       border-radius: 50%;
       box-sizing: border-box;
+      content: '';
+      position: absolute;
       transition: all .3s ease;
       transition-property: transform, border-color; }
-    .radio-material label:before {
+    .radio-material label::before {
+      border: 2px solid rgba(0, 0, 0, 0.54);
+      height: 18px;
       left: 0;
       top: 0;
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(0, 0, 0, 0.54); }
-    .radio-material label:after {
-      top: 5px;
-      left: 5px;
-      width: 8px;
+      width: 18px; }
+    .radio-material label::after {
+      background: #1472a4;
       height: 8px;
+      left: 5px;
+      top: 5px;
       transform: scale(0);
-      background: #1472a4; }
+      width: 8px; }
     .radio-material label:disabled {
       pointer-events: none; }
 
-/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
-.dialog-content-material .radio-material label:before, .dialog-content-material .radio-material label:after {
+.dialog-content-material .radio-material label::before, .dialog-content-material .radio-material label::after {
   left: 6px; }
 
-/* ESTILOS */
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0); }
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0); }
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.05); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.05); }
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1); } }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1); } }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1); }
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.4); }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.4); }
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.6); } }
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.6); } }
 
 .checkbox-material {
   position: relative;
@@ -15984,46 +15997,44 @@ fieldset {
     /* CUANDO PASA EL RATON POR ENCIMA */
     /* CUANDO TIENE EL FOCO */
     /* CUANDO ESTA DISABLED */ }
-    .checkbox-material input[type="checkbox"]:hover:enabled + label:before, .checkbox-material input[type="checkbox"]:checked:hover:enabled + label:before {
+    .checkbox-material input[type="checkbox"]:hover:enabled ~ label:before, .checkbox-material input[type="checkbox"]:checked:hover:enabled ~ label:before {
       animation: ripple-hover 0.2s linear forwards; }
-    .checkbox-material input[type="checkbox"]:focus + label:before {
+    .checkbox-material input[type="checkbox"]:focus ~ label:before {
       animation: ripple-active 0.2s linear forwards; }
-    .checkbox-material input[type="checkbox"]:checked + label:before {
+    .checkbox-material input[type="checkbox"]:checked ~ label:before {
       background: #1472a4;
       border: none; }
-    .checkbox-material input[type="checkbox"]:checked + label:after {
+    .checkbox-material input[type="checkbox"]:checked ~ label:after {
       transform: translate(0.25em, 0.33653846em) rotate(-45deg);
       width: 0.75em;
       height: 0.375em;
       border: 0.125em solid #FFFFFF;
       border-top-style: none;
       border-right-style: none; }
-    .checkbox-material input[type="checkbox"]:active:enabled + label:before {
+    .checkbox-material input[type="checkbox"]:active:enabled ~ label:before {
       animation: ripple-active 0.2s linear forwards; }
-    .checkbox-material input[type="checkbox"]:disabled + label:before {
+    .checkbox-material input[type="checkbox"]:disabled ~ label:before {
       border-color: rgba(0, 0, 0, 0.26); }
-    .checkbox-material input[type="checkbox"]:disabled + label {
+    .checkbox-material input[type="checkbox"]:disabled ~ label {
       pointer-events: none; }
-    .checkbox-material input[type="checkbox"]:disabled:checked + label:before {
+    .checkbox-material input[type="checkbox"]:disabled:checked ~ label:before {
       background: rgba(0, 0, 0, 0.26); }
 
 .checkbox-material-inline {
   display: inline-block;
   margin: initial; }
 
-table div.checkbox-material-inline label:before, table div.checkbox-material-inline label:after {
+table div.checkbox-material-inline label::before, table div.checkbox-material-inline label::after {
   top: 3px; }
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
 .form-groupMaterial.checkbox-material > label {
-  position: initial;
-  line-height: 2.9em; }
-  .form-groupMaterial.checkbox-material > label:before, .form-groupMaterial.checkbox-material > label:after {
+  line-height: 2.9em;
+  position: initial; }
+  .form-groupMaterial.checkbox-material > label::before, .form-groupMaterial.checkbox-material > label::after {
     left: 5px;
     top: 10px; }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
-.dialog-content-material .checkbox-material label:before, .dialog-content-material .checkbox-material label:after {
+.dialog-content-material .checkbox-material label::before, .dialog-content-material .checkbox-material label::after {
   left: 6px; }
 
 /* REDONDEAMOS LOS BORDES DE LA TABLA */
@@ -16157,13 +16168,20 @@ div.dialog-content-material {
 div.dialog-content-material + div.rup-table-buttonpanel-material {
   padding: .3em .4em .5em .4em; }
 
-/* ANIMACION */
 div.rup-dialog {
+  /* ANIMACION */
   animation: fadein 1s;
   -webkit-animation: fadein 1s;
   -moz-animation: fadein 1s;
   -ms-animation: fadein 1s;
-  -o-animation: fadein 1s; }
+  -o-animation: fadein 1s;
+  /* QUITAR EL BORDE POR DEFECTO */ }
+  div.rup-dialog.ui-dialog {
+    border: 0px; }
+    div.rup-dialog.ui-dialog .ui-dialog-titlebar {
+      color: #FFFFFF; }
+      div.rup-dialog.ui-dialog .ui-dialog-titlebar span.ui-dialog-title, div.rup-dialog.ui-dialog .ui-dialog-titlebar i {
+        font-size: 1.25rem; }
 
 /* LABEL */
 label.select-material {
@@ -16349,7 +16367,8 @@ div.rup-date-input-group-material button, div.rup-date-input-group-material .ui-
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   box-sizing: border-box;
-  outline: none; }
+  outline: none;
+  position: absolute; }
   div.rup-date-input-group-material button i.mdi, div.rup-date-input-group-material .ui-button.rup-button i.mdi, div.rup-date-input-group-material .rup-dropdown-btn-group .rup-dropdown-button i.mdi, .rup-dropdown-btn-group div.rup-date-input-group-material .rup-dropdown-button i.mdi, div.rup-date-input-group-material a.rup-toolbar_menuButton.ui-button i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_next i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_next i.mdi, div.rup-date-input-group-material .rup-wizard a.rup-wizard_prev i.mdi, .rup-wizard div.rup-date-input-group-material a.rup-wizard_prev i.mdi, div.rup-date-input-group-material .rup-wizard .rup-wizard_submitButton i.mdi, .rup-wizard div.rup-date-input-group-material .rup-wizard_submitButton i.mdi {
     vertical-align: initial;
     line-height: 1; }

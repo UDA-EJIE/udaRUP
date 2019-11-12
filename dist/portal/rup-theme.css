@@ -1925,7 +1925,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-sm .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -1965,7 +1965,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-md .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -2005,7 +2005,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-lg .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -2045,7 +2045,7 @@
   }
 
   .r01gContainer .rup-mbutton.rup-collapsed-xl .rup-mbutton-container {
-    display: inline;
+    display: inline !important;
     position: static;
     padding: 0;
     border: none;
@@ -2726,9 +2726,9 @@
   margin-left: 0.3em;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-left: 0.3em solid transparent;
+  border-top: 0.3em solid !important;
+  border-right: 0.3em solid transparent !important;
+  border-left: 0.3em solid transparent !important;
 }
 
 .r01gContainer .rup-navbar .dropdown-toggle:focus {
@@ -2827,19 +2827,27 @@
   left: auto;
 }
 
-.r01gContainer .rup-navbar .dropdown-menu-right:before {
-  right: 12px;
-  left: initial !important;
-}
-
-.r01gContainer .rup-navbar .dropdown-menu-right:after {
-  right: 13px;
-  left: initial !important;
-}
-
 .r01gContainer .rup-navbar .dropdown-menu-left {
   right: auto;
   left: 0;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:before {
+  left: 50% !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-center:after {
+  left: 50% !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:before {
+  right: 10%;
+  left: initial !important;
+}
+
+.r01gContainer .rup-navbar .dropdown-menu-arrow-right:after {
+  right: 10%;
+  left: initial !important;
 }
 
 .r01gContainer .rup-navbar .dropdown-header {
@@ -4092,7 +4100,7 @@
 }
 
 .r01gContainer .rup-time-input-group .ui-timepicker-trigger {
-  padding: 0 0.5rem;
+  padding: .1rem 0.5rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   display: table-cell;
@@ -20941,9 +20949,17 @@
   }
 }
 
-/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
+/* IMPORTACIÓN DE PALETA DE COLORES */
 
 /* COLORES */
+
+/* PALETA DE COLORES */
+
+.r01gContainer .app-primary-color {
+  background-color: #1472a4 !important;
+}
+
+/* IMPORTACIÓN DE LOS DIFERENTES COMPONENTES MATERIALIZADOS */
 
 .r01gContainer fieldset {
   border-radius: 5px;
@@ -21269,6 +21285,7 @@
   margin: 1rem 0;
   /* ESTILOS DE LOS INPUTS */
   /* ESTILOS DE LOS LABELS */
+  /* Añade un asterisco al label de los campos obligatorios */
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]) {
@@ -21335,22 +21352,31 @@
   background-image: none;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):required ~ label:after {
+  content: " *";
+}
+
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
   background-color: #e9ecef;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:hover {
   border-color: #757575;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus {
   border-color: #757575;
   caret-color: transparent;
   padding-left: 18px;
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label,
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
   top: -10px;
   font-size: .9rem;
   color: #212529;
@@ -21488,156 +21514,151 @@
   left: 19px;
 }
 
-/* ESTILOS */
-
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.05);
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.05);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1);
   }
 }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.1);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.4);
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.4);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6px rgba(20, 114, 164, 0.6);
+    box-shadow: 0 0 0 6px rgba(20, 114, 164, 0.6);
   }
 }
 
 .r01gContainer .radio-material {
-  margin: 0.5em 0;
+  margin: .5em 0;
 }
 
 .r01gContainer .radio-material.radio-material-inline {
   display: inline-block;
 }
 
-.r01gContainer .radio-material input[type="radio"] {
-  opacity: 0;
+.r01gContainer .radio-material input[type='radio'] {
+  position: absolute;
+  z-index: -1;
   /* CUANDO PASA EL RATON POR ENCIMA */
   /* CUANDO TIENE EL FOCO */
   /* CUANDO ESTA SELECCIONADO */
   /* CUANDO ESTA DISABLED */
 }
 
-.r01gContainer .radio-material input[type="radio"]:hover:enabled + label:before,
-.r01gContainer .radio-material input[type="radio"]:checked:hover:enabled + label:before {
-  animation: ripple-hover 0.2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:hover:enabled ~ label::before,
+.r01gContainer .radio-material input[type='radio']:checked:hover:enabled ~ label::before {
+  animation: ripple-hover .2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type="radio"]:focus + label:before {
-  animation: ripple-active 0.2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:focus ~ label::before {
+  animation: ripple-active .2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type="radio"]:checked + label:before {
+.r01gContainer .radio-material input[type='radio']:checked ~ label::before {
   border-color: #1472a4;
 }
 
-.r01gContainer .radio-material input[type="radio"]:checked + label:after {
+.r01gContainer .radio-material input[type='radio']:checked ~ label::after {
   transform: scale(1);
 }
 
-.r01gContainer .radio-material input[type="radio"]:active:enabled + label:before {
-  animation: ripple-active 0.2s linear forwards;
+.r01gContainer .radio-material input[type='radio']:active:enabled ~ label::before {
+  animation: ripple-active .2s linear forwards;
 }
 
-.r01gContainer .radio-material input[type="radio"]:disabled + label:before {
+.r01gContainer .radio-material input[type='radio']:disabled ~ label::before {
   border-color: rgba(0, 0, 0, 0.26);
 }
 
-.r01gContainer .radio-material input[type="radio"]:disabled + label:after {
+.r01gContainer .radio-material input[type='radio']:disabled ~ label::after {
   background: rgba(0, 0, 0, 0.26);
 }
 
 .r01gContainer .radio-material label {
+  cursor: pointer;
   display: inline-block;
   height: 18px;
-  position: relative;
-  padding-left: 28px;
   margin-bottom: 0;
-  cursor: pointer;
+  padding-left: 28px;
+  position: relative;
   vertical-align: bottom;
 }
 
-.r01gContainer .radio-material label:before,
-.r01gContainer .radio-material label:after {
-  position: absolute;
-  content: '';
+.r01gContainer .radio-material label::before,
+.r01gContainer .radio-material label::after {
   border-radius: 50%;
   box-sizing: border-box;
+  content: '';
+  position: absolute;
   transition: all .3s ease;
   transition-property: transform, border-color;
 }
 
-.r01gContainer .radio-material label:before {
+.r01gContainer .radio-material label::before {
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  height: 18px;
   left: 0;
   top: 0;
   width: 18px;
-  height: 18px;
-  border: 2px solid rgba(0, 0, 0, 0.54);
 }
 
-.r01gContainer .radio-material label:after {
-  top: 5px;
-  left: 5px;
-  width: 8px;
-  height: 8px;
-  transform: scale(0);
+.r01gContainer .radio-material label::after {
   background: #1472a4;
+  height: 8px;
+  left: 5px;
+  top: 5px;
+  transform: scale(0);
+  width: 8px;
 }
 
 .r01gContainer .radio-material label:disabled {
   pointer-events: none;
 }
 
-/* PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO */
-
-.r01gContainer .dialog-content-material .radio-material label:before,
-.r01gContainer .dialog-content-material .radio-material label:after {
+.r01gContainer .dialog-content-material .radio-material label::before,
+.r01gContainer .dialog-content-material .radio-material label::after {
   left: 6px;
 }
 
-/* ESTILOS */
-
 @keyframes ripple-hover {
   0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.05);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.05);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1);
   }
 }
 
 @keyframes ripple-active {
   0% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.1);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.1);
   }
 
   50% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.4);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.4);
   }
 
   100% {
-    box-shadow: 0px 0px 0px 6.5px rgba(20, 114, 164, 0.6);
+    box-shadow: 0 0 0 6.5px rgba(20, 114, 164, 0.6);
   }
 }
 
@@ -21697,21 +21718,21 @@
   /* CUANDO ESTA DISABLED */
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:hover:enabled + label:before,
-.r01gContainer .checkbox-material input[type="checkbox"]:checked:hover:enabled + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:hover:enabled ~ label:before,
+.r01gContainer .checkbox-material input[type="checkbox"]:checked:hover:enabled ~ label:before {
   animation: ripple-hover 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:focus + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:focus ~ label:before {
   animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:checked + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:checked ~ label:before {
   background: #1472a4;
   border: none;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:checked + label:after {
+.r01gContainer .checkbox-material input[type="checkbox"]:checked ~ label:after {
   transform: translate(0.25em, 0.33653846em) rotate(-45deg);
   width: 0.75em;
   height: 0.375em;
@@ -21720,19 +21741,19 @@
   border-right-style: none;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:active:enabled + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:active:enabled ~ label:before {
   animation: ripple-active 0.2s linear forwards;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled ~ label:before {
   border-color: rgba(0, 0, 0, 0.26);
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled + label {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled ~ label {
   pointer-events: none;
 }
 
-.r01gContainer .checkbox-material input[type="checkbox"]:disabled:checked + label:before {
+.r01gContainer .checkbox-material input[type="checkbox"]:disabled:checked ~ label:before {
   background: rgba(0, 0, 0, 0.26);
 }
 
@@ -21741,28 +21762,24 @@
   margin: initial;
 }
 
-.r01gContainer table div.checkbox-material-inline label:before,
-.r01gContainer table div.checkbox-material-inline label:after {
+.r01gContainer table div.checkbox-material-inline label::before,
+.r01gContainer table div.checkbox-material-inline label::after {
   top: 3px;
 }
 
-/* PARA CUANDO ESTÁ DENTRO DE UN FORMULARIO */
-
 .r01gContainer .form-groupMaterial.checkbox-material > label {
-  position: initial;
   line-height: 2.9em;
+  position: initial;
 }
 
-.r01gContainer .form-groupMaterial.checkbox-material > label:before,
-.r01gContainer .form-groupMaterial.checkbox-material > label:after {
+.r01gContainer .form-groupMaterial.checkbox-material > label::before,
+.r01gContainer .form-groupMaterial.checkbox-material > label::after {
   left: 5px;
   top: 10px;
 }
 
-/* PARA CUANDO EL CHECKBOX ESTA DENTRO DE UN DIALOGO */
-
-.r01gContainer .dialog-content-material .checkbox-material label:before,
-.r01gContainer .dialog-content-material .checkbox-material label:after {
+.r01gContainer .dialog-content-material .checkbox-material label::before,
+.r01gContainer .dialog-content-material .checkbox-material label::after {
   left: 6px;
 }
 
@@ -21999,14 +22016,27 @@
   padding: .3em .4em .5em .4em;
 }
 
-/* ANIMACION */
-
 .r01gContainer div.rup-dialog {
+  /* ANIMACION */
   animation: fadein 1s;
   -webkit-animation: fadein 1s;
   -moz-animation: fadein 1s;
   -ms-animation: fadein 1s;
   -o-animation: fadein 1s;
+  /* QUITAR EL BORDE POR DEFECTO */
+}
+
+.r01gContainer div.rup-dialog.ui-dialog {
+  border: 0px;
+}
+
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar {
+  color: #FFFFFF;
+}
+
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar span.ui-dialog-title,
+.r01gContainer div.rup-dialog.ui-dialog .ui-dialog-titlebar i {
+  font-size: 1.25rem;
 }
 
 /* LABEL */
@@ -22533,6 +22563,7 @@
   border-top-left-radius: 0;
   box-sizing: border-box;
   outline: none;
+  position: absolute;
 }
 
 .r01gContainer div.rup-date-input-group-material button i.mdi,

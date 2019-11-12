@@ -25,9 +25,13 @@ gulp.task('rup:build:table', function (cb) {
             // Browser globals
             factory( jQuery );
          }
-        } ( function( $ ) {
-          <%= contents %>
-        }));
+        } ( 
+            function( $ ) {
+               initRupI18nPromise.then(() => {
+                  <%= contents %>
+               });
+            })
+        );
         `))
 		.pipe(gulp.dest('src'));
 });

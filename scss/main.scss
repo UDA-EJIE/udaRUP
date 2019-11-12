@@ -2,7 +2,6 @@
 @import 'theme/mixins/border-radius';
 @import 'theme/mixins/box-shadow';
 @import 'theme/mixins/forms';
-@import 'fonts/roboto';
 @import 'theme/rup-variables';
 
 
@@ -132,6 +131,28 @@ footer .footer-row-2 > img.footer-image {
 /*************/
 /* RUP NAVBAR */
 /**************/
+.rup-navbar div > a.nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    line-height: 3rem;
+}
+
+.rup-navbar div > a.nav-link:hover {
+    background: #337ab7;
+}
+
+@media (max-width: 991px) {
+	.rup-navbar div > a.nav-link {
+		display: block;
+    	float: none;
+    	margin: 0;
+    	background: #337ab7;
+    }
+    
+    .rup-navbar div > a.nav-link:hover {
+	    background: #69a3d6;
+	}
+}
 
 /** CONTAINER */
 .content {

@@ -311,7 +311,7 @@
   border: 1px solid #800080;
 }
 .event {
-  display: block;
+  display: inline-block;
   background-color: #c3c3c3;
   width: 12px;
   height: 12px;

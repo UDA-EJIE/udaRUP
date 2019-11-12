@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -81,29 +82,29 @@ describe('Test Slider > ', () => {
                 $slider.rup_slider('option', 'max', 400);
                 //Tras cambiar el max el objeto debe quedar así:
                 objConf = {
-                    "classes": {
-                        "ui-slider": "ui-corner-all",
-                        "ui-slider-handle": "ui-corner-all",
-                        "ui-slider-range": "ui-corner-all ui-widget-header"
+                    'classes': {
+                        'ui-slider': 'ui-corner-all',
+                        'ui-slider-handle': 'ui-corner-all',
+                        'ui-slider-range': 'ui-corner-all ui-widget-header'
                     },
-                    "disabled": false,
-                    "create": null,
-                    "cancel": "input, textarea, button, select, option",
-                    "distance": 0,
-                    "delay": 0,
-                    "animate": false,
-                    "max": 400,
-                    "min": 0,
-                    "orientation": "horizontal",
-                    "range": false,
-                    "step": 1,
-                    "value": 0,
-                    "values": null,
-                    "change": null,
-                    "slide": null,
-                    "start": null,
-                    "stop": null,
-                    "foobar": false
+                    'disabled': false,
+                    'create': null,
+                    'cancel': 'input, textarea, button, select, option',
+                    'distance': 0,
+                    'delay': 0,
+                    'animate': false,
+                    'max': 400,
+                    'min': 0,
+                    'orientation': 'horizontal',
+                    'range': false,
+                    'step': 1,
+                    'value': 0,
+                    'values': null,
+                    'change': null,
+                    'slide': null,
+                    'start': null,
+                    'stop': null,
+                    'foobar': false
                 };
             });
             it('El valor de la propiedad debe cambiar', () => {

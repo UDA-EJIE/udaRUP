@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 
 
@@ -71,17 +72,17 @@ describe('Test progressbar > ', () => {
                 var obj = null;
                 beforeEach(() => {
                     obj = {
-                        "classes": {
-                            "ui-progressbar": "ui-corner-all",
-                            "ui-progressbar-value": "ui-corner-left",
-                            "ui-progressbar-complete": "ui-corner-right"
+                        'classes': {
+                            'ui-progressbar': 'ui-corner-all',
+                            'ui-progressbar-value': 'ui-corner-left',
+                            'ui-progressbar-complete': 'ui-corner-right'
                         },
-                        "disabled": false,
-                        "create": null,
-                        "max": 100,
-                        "value": 0,
-                        "change": null,
-                        "complete": null
+                        'disabled': false,
+                        'create': null,
+                        'max': 100,
+                        'value': 0,
+                        'change': null,
+                        'complete': null
                     };
                 });
                 it('Debe obtener el objeto', () => {

@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -13,16 +14,11 @@ describe('Test Lang >', () => {
     });
 
     beforeEach(() => {
-        var html = '<a class="nav-link rup-nav-tool-icon" href="#" \
-                    id="exampleLang" data-toggle="dropdown">\
-                        <i class="mdi mdi-earth" aria-hidden="true"></i>\
-                        <span data-rup-lang-current=""></span></a>\
-                    <div class="dropdown-menu" aria-labelledby="exampleLang"></div>\
-                    <a class="nav-link rup-nav-tool-icon" href="#" \
-                    id="exampleLang2" data-toggle="dropdown">\
-                        <i class="mdi mdi-earth" aria-hidden="true"></i>\
-                        <span data-rup-lang-current=""></span></a>\
-                    <div class="dropdown-menu" aria-labelledby="exampleLang"></div>';
+        var html = '<a class="nav-link rup-nav-tool-icon" href="#" ' +
+                    'id="exampleLang" data-toggle="dropdown">' +
+                    '    <i class="mdi mdi-earth" aria-hidden="true"></i>' +
+                    '    <span data-rup-lang-current=""></span></a>' +
+                    '<div class="dropdown-menu" aria-labelledby="exampleLang"></div>';
         $('#content').append(html);
         $('#exampleLang').rup_language({
             languages: jQuery.rup.AVAILABLE_LANGS_ARRAY
@@ -32,7 +28,6 @@ describe('Test Lang >', () => {
             modo: 'portal'
         });
         $lang = $('#exampleLang');
-        $lang2 = $('#exampleLang2');
     });
 
     afterEach(() => {

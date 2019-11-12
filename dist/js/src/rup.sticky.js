@@ -107,12 +107,6 @@
 					$('.rup-navbar.navbar').addClass('rup-navbar-sticky');
 				}
 			});
-
-
-			// El reescalado de la pantalla navega al inicio del contenido
-			$(window).resize(function () {
-				$.rup_utils.swing2Top();
-			});
 		},
 		/**
 			* Aplica el modo 'sticky' al menu del wizard

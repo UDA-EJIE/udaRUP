@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local("fonts/Roboto"), local("fonts/Roboto-Regular") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 .r01gContainer html,
 .r01gContainer .r01gContainer {
   font-size: 12px;
@@ -132,6 +124,29 @@
 /* RUP NAVBAR */
 
 /**************/
+
+.r01gContainer .rup-navbar div > a.nav-link {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 3rem;
+}
+
+.r01gContainer .rup-navbar div > a.nav-link:hover {
+  background: #337ab7;
+}
+
+@media (max-width: 991px) {
+  .r01gContainer .rup-navbar div > a.nav-link {
+    display: block;
+    float: none;
+    margin: 0;
+    background: #337ab7;
+  }
+
+  .r01gContainer .rup-navbar div > a.nav-link:hover {
+    background: #69a3d6;
+  }
+}
 
 /** CONTAINER */
 

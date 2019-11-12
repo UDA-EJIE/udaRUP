@@ -1,4 +1,5 @@
 /* jslint multistr: true */
+/* eslint-env jasmine, jquery */
 
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
@@ -31,7 +32,7 @@ function createAutocomplete() {
         contains: false,
         delay: 0
     });
-     $('#exampleAutocompleteDos').rup_autocomplete({
+    $('#exampleAutocompleteDos').rup_autocomplete({
         source: sourceJson,
         defaultValue: 'a',
         contains: true,
@@ -165,7 +166,7 @@ describe('Test Autocomplete > ', () => {
 
                 describe('Autocomplete3 > ', () => {
                     beforeEach(() => {
-                       $autocomplete3.rup_autocomplete('search', 'u');
+                        $autocomplete3.rup_autocomplete('search', 'u');
                     });
                     it('Deben no mostrarse autocomplete', () => {
                         expect($('#exampleAutocompleteTres_menu').is(':visible')).toBe(false);
@@ -176,8 +177,8 @@ describe('Test Autocomplete > ', () => {
 
             });
             describe('Contiene una letra > ', () => {
-                 beforeEach(() => {
-                     $('body').trigger('mousedown');
+                beforeEach(() => {
+                    $('body').trigger('mousedown');
 
                     $autocomplete.rup_autocomplete('search', 'a');
                     $autocomplete2.rup_autocomplete('search', 'j');
@@ -190,7 +191,7 @@ describe('Test Autocomplete > ', () => {
             });
         });
         describe('Método close > ', () => {
-             beforeEach(() => {
+            beforeEach(() => {
                 $autocomplete.rup_autocomplete('close');
             });
             it('Deben mostrarse la opciones', () => {
