@@ -88,12 +88,12 @@ module.exports = function (config) {
             '/test': 'http://localhost:8081/test',
             '/dist': 'http://localhost:8081/dist',
             '/demo': 'http://localhost:8081/demo',
-            '/fonts': 'http://localhost:8081/dist/css/externals/fonts',
+            '/fonts': 'http://localhost:8081/dist/css/fonts',
             '/images': 'http://localhost:8081/dist/css/images',
             '/x21aAppWar/': '/',
             '/x21aAppWar/patrones/': '/',
             '/externals/icons/': '/dist/css/externals/icons',
-            '/x21aResponsive/patrones/externals/icons/': '/dist/css/externals/icons',
+            '/x21aResponsive/patrones/': '/dist/css/',
             '/x21aStatics/4x/rup': '/dist'
         },
 

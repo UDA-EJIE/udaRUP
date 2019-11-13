@@ -152,11 +152,11 @@ export function createList(idLista, callback){
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
         key: 'codigoPK',
-        selectable:{
-            multi: true
-            , selector: '.list-item' 
+        selectable: {
+            multi: true,
+            selector: '.list-item'
         },
-        modElement:() => {},
+        modElement: () => {},
         visiblePages: 2,
         sidx: {
             source: [{
@@ -208,11 +208,11 @@ export function createListMultiorder(idLista, callback){
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
         key: 'codigoPK',
-        selectable:{
-            multi: true
-            , selector: '.list-item' 
+        selectable: {
+            multi: true,
+            selector: '.list-item'
         },
-        modElement:() => {},
+        modElement: () => {},
         isMultiSort: true,
         visiblePages: 2,
         sidx: {
