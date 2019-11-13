@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/toolbar"></a>
 
-## rup_jqtable/toolbar
+## rup\_jqtable/toolbar
 Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
 
 **Summary**: Plugin de toolbar del componente RUP Table.  
@@ -19,7 +19,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["toolbar
 ### rup_jqtable/toolbar~options
 Propiedades de configuración del plugin toolbar del componente RUP Table.
 
-**Kind**: inner property of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Kind**: inner property of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -35,7 +35,7 @@ Propiedades de configuración del plugin toolbar del componente RUP Table.
 ### rup_jqtable/toolbar~preConfigureToolbar(settings)
 Metodo que realiza la pre-configuración del plugin toolbar del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Kind**: inner method of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -46,8 +46,8 @@ Metodo que realiza la pre-configuración del plugin toolbar del componente RUP T
 ### rup_jqtable/toolbar~postConfigureToolbar(settings)
 Metodo que realiza la post-configuración del plugin toolbar del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
-**Emits**: [<code>rupTable_feedbackClose</code>](#module_rup_jqtable+event_rupTable_feedbackClose)  
+**Kind**: inner method of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_feedbackClose</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

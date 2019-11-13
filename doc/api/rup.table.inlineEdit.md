@@ -1,184 +1,419 @@
-<a name="module_rup_table/inlineEdit"></a>
+<a name="module_rup.table.inlineEdit"></a>
 
-## rup_table/inlineEdit
-Permite la edición de los registros de la tabla mostrando los campos de edición sobre la propia línea del registro.
+## rup.table.inlineEdit
+Módulo que habilita la edicción mediante un formulario.
 
-**Summary**: Plugin de edición en línea del componente RUP Table.  
-**Example**  
-```js
-$("#idComponente").rup_table({	url: "../jqGridUsuario",	usePlugins:["inlineEdit"],	inlineEdit:{		// Propiedades de configuración del plugin inlineEdit	}});
-```
+**Summary**: Extensión del componente RUP Datatable  
+**Version**: 1.0.0  
+**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
+**Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
-* [rup_table/inlineEdit](#module_rup_table/inlineEdit)
-    * [~options](#module_rup_table/inlineEdit..options)
-    * [~preConfigureInlineEdit(settings)](#module_rup_table/inlineEdit..preConfigureInlineEdit)
-    * [~postConfigureInlineEdit(settings)](#module_rup_table/inlineEdit..postConfigureInlineEdit)
-    * [~addRow(options)](#module_rup_table/inlineEdit..addRow) ⇒ <code>object</code>
-    * [~cloneRow(rowId, options)](#module_rup_table/inlineEdit..cloneRow) ⇒ <code>object</code>
-    * [~editRow(rowId, options)](#module_rup_table/inlineEdit..editRow) ⇒ <code>object</code>
-    * [~deleteRow(rowId, options)](#module_rup_table/inlineEdit..deleteRow) ⇒ <code>object</code>
-    * [~saveRow(rowId, options)](#module_rup_table/inlineEdit..saveRow) ⇒ <code>object</code>
-    * [~restoreRow(rowId, afterrestorefunc)](#module_rup_table/inlineEdit..restoreRow) ⇒ <code>object</code>
-    * [~restoreRow(rowId)](#module_rup_table/inlineEdit..restoreRow) ⇒ <code>object</code>
+* [rup.table.inlineEdit](#module_rup.table.inlineEdit)
+    * [~init(dt)](#module_rup.table.inlineEdit..init)
+    * [~init(ctx)](#module_rup.table.inlineEdit..init)
+    * [~_onResponsiveResize(dt)](#module_rup.table.inlineEdit.._onResponsiveResize)
+    * [~_add(dt, ctx)](#module_rup.table.inlineEdit.._add)
+    * [~_addChildIcons(ctx)](#module_rup.table.inlineEdit.._addChildIcons)
+    * [~_add(dt, ctx, idRow)](#module_rup.table.inlineEdit.._add)
+    * [~getRowSelected(dt, actionType)](#module_rup.table.inlineEdit..getRowSelected) ⇒ <code>object</code>
+    * [~cloneLine(dt, ctx, line)](#module_rup.table.inlineEdit..cloneLine)
+    * [~getNextPageSelected(ctx, pageInit, orden)](#module_rup.table.inlineEdit..getNextPageSelected) ⇒
+    * [~getLineByPageSelected(ctx, lineInit)](#module_rup.table.inlineEdit..getLineByPageSelected) ⇒
+    * [~_restaurarFila(ctx, limpiar)](#module_rup.table.inlineEdit.._restaurarFila)
+    * [~_changeInputsToRup(ctx, idRow)](#module_rup.table.inlineEdit.._changeInputsToRup)
+    * [~_recorrerCeldas(ctx, $fila, $celdas, cont)](#module_rup.table.inlineEdit.._recorrerCeldas)
+    * [~_restaurarCeldas(ctx, $fila, $celdas, contRest)](#module_rup.table.inlineEdit.._restaurarCeldas)
+    * [~_comprobarFila(ctx, $fila)](#module_rup.table.inlineEdit.._comprobarFila)
+    * [~_crearEventos(ctx, $selector)](#module_rup.table.inlineEdit.._crearEventos)
+    * [~_lastIndexEditable(ctx, $target)](#module_rup.table.inlineEdit.._lastIndexEditable) ⇒
+    * [~_inlineEditFormSerialize($fila, ctx, child)](#module_rup.table.inlineEdit.._inlineEditFormSerialize)
+    * [~_guardar(ctx, $fila, $child)](#module_rup.table.inlineEdit.._guardar)
+    * [~_callSaveAjax(actionType, ctx, $fila, $row, url)](#module_rup.table.inlineEdit.._callSaveAjax)
+    * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.inlineEdit..callFeedbackOk)
+    * [~_inResponsiveChangeInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._inResponsiveChangeInputsValues)
+    * [~_asignarInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._asignarInputsValues)
+    * [~_createTr(dt, ctx, $columns)](#module_rup.table.inlineEdit.._createTr)
+    * [~_drawInLineEdit(tabla, ctx)](#module_rup.table.inlineEdit.._drawInLineEdit)
+    * [~_notExistOnPage(ctx)](#module_rup.table.inlineEdit.._notExistOnPage) ⇒ <code>boolean</code>
+    * [~_deleteAllSelects(dt)](#module_rup.table.inlineEdit.._deleteAllSelects)
+    * [~_comprobarSeeker(row, ctx, idRow)](#module_rup.table.inlineEdit.._comprobarSeeker)
 
-<a name="module_rup_table/inlineEdit..options"></a>
+<a name="module_rup.table.inlineEdit..init"></a>
 
-### rup_table/inlineEdit~options
-Propiedades de configuración del plugin inlineEdit del componente RUP Table.
+### rup.table.inlineEdit~init(dt)
+Se inicializa el componente editInline
 
-**Kind**: inner property of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**See**: Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| [addEditOptions] | <code>object</code> | Propiedades de configuración comunes a las acciones de edición e inserciónde un registro. |
-| [addOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de inserción de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| [editOptions] | <code>object</code> | Propiedades de configuración exclusivas de la acción de edición de un registro. Sobrescriben las indicadas en la propiedad addEditOptions. |
-| [deleteOptions] | <code>object</code> | Propiedades de configuración de la acción de borrado de un registro. |
-
-<a name="module_rup_table/inlineEdit..preConfigureInlineEdit"></a>
-
-### rup_table/inlineEdit~preConfigureInlineEdit(settings)
-Metodo que realiza la pre-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
-
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
-
-<a name="module_rup_table/inlineEdit..postConfigureInlineEdit"></a>
-
-### rup_table/inlineEdit~postConfigureInlineEdit(settings)
-Metodo que realiza la post-configuración del plugin inlineEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
-
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.4.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
+| dt | <code>object</code> | Es el objeto table. |
 
-<a name="module_rup_table/inlineEdit..addRow"></a>
+<a name="module_rup.table.inlineEdit..init"></a>
 
-### rup_table/inlineEdit~addRow(options) ⇒ <code>object</code>
-Añade una nueva línea en blanco al mantenimiento para permitir introducir los datos del nuevo registro.
+### rup.table.inlineEdit~init(ctx)
+Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable_beforeAddRow</code>](#module_rup_table+event_rupTable_beforeAddRow)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>object</code> | Opciones de configuración de la acción de inserción. |
-
-**Example**  
-```js
-$("#idTable").rup_table("addRow", options);
-```
-<a name="module_rup_table/inlineEdit..cloneRow"></a>
-
-### rup_table/inlineEdit~cloneRow(rowId, options) ⇒ <code>object</code>
-Clona un registro determinado. Añade una nueva línea con el contenido del registro a partir del cual se desea clonar.
-
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable_beforeCloneRow</code>](#module_rup_table+event_rupTable_beforeCloneRow)  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador del registro a partir del cual se desea realizar el clonado. |
-| options | <code>object</code> | Opciones de configuración de la acción de clonado. |
+| ctx | <code>DataTable.settings</code> | Settings object to operate on |
 
-**Example**  
-```js
-$("#idTable").rup_table("cloneRow", rowId, options);
-```
-<a name="module_rup_table/inlineEdit..editRow"></a>
+<a name="module_rup.table.inlineEdit.._onResponsiveResize"></a>
 
-### rup_table/inlineEdit~editRow(rowId, options) ⇒ <code>object</code>
-Pone el registro indicado en modo edición para permitir la edición de sus datos.
+### rup.table.inlineEdit~\_onResponsiveResize(dt)
+Función ejecutada cuando se activa el responsive.
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable_beforeEditRow</code>](#module_rup_table+event_rupTable_beforeEditRow)  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador del registro que se desea editar. |
-| options | <code>object</code> | Opciones de configuración de la acción de modificación. |
+| dt | <code>object</code> | Es el objeto table. |
 
-**Example**  
-```js
-$("#idTable").rup_table("editRow", rowId, options, true);
-```
-<a name="module_rup_table/inlineEdit..deleteRow"></a>
+<a name="module_rup.table.inlineEdit.._add"></a>
 
-### rup_table/inlineEdit~deleteRow(rowId, options) ⇒ <code>object</code>
-Elimina el registro indicado.
+### rup.table.inlineEdit~\_add(dt, ctx)
+Se añade un nuevo registro.
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable_deleteAfterSubmit</code>](#module_rup_table+event_rupTable_deleteAfterSubmit), <code>module:rup_table#event:rupTable_deleteAfterComplete</code>, [<code>rupTable_beforeDeleteRow</code>](#module_rup_table+event_rupTable_beforeDeleteRow)  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador del registro que se desea eliminar. |
-| options | <code>object</code> | Opciones de configuración de la acción de borrado.. |
+| dt | <code>object</code> | Es el objeto table. |
+| ctx | <code>object</code> | Contexto del Datatable. |
 
-**Example**  
-```js
-$("#idTable").rup_table("deleteRow", rowId, options);
-```
-<a name="module_rup_table/inlineEdit..saveRow"></a>
+<a name="module_rup.table.inlineEdit.._addChildIcons"></a>
 
-### rup_table/inlineEdit~saveRow(rowId, options) ⇒ <code>object</code>
-Guarda el registro modificado. Se almacenan los datos introducidos en la línea en modo edición.
+### rup.table.inlineEdit~\_addChildIcons(ctx)
+Se añaden los iconos al responsive.
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup_table#event:rupTable_beforeSaveRow</code>  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador del registro que se desea guardar. |
-| options | <code>object</code> | Opciones de configuración de la acción de guardado.. |
+| ctx | <code>object</code> | Contexto del Datatable. |
 
-**Example**  
-```js
-$("#idTable").rup_table("saveRow", rowId, options);
-```
-<a name="module_rup_table/inlineEdit..restoreRow"></a>
+<a name="module_rup.table.inlineEdit.._add"></a>
 
-### rup_table/inlineEdit~restoreRow(rowId, afterrestorefunc) ⇒ <code>object</code>
-Restaura la fila indicada al estado anterior a habilitarse el modo edición.
+### rup.table.inlineEdit~\_add(dt, ctx, idRow)
+Método principal para la edición en línea.
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: <code>module:rup_table#event:rupTable_beforeRestoreRow</code>  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador de la línea que se desea guardar. |
-| afterrestorefunc | <code>function</code> | Función de callback que se ejecuta después de restaurar la fila. |
+| dt | <code>object</code> | Es el objeto table. |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
 
-**Example**  
-```js
-$("#idTable").rup_table("restoreRow", rowId, function(){});
-```
-<a name="module_rup_table/inlineEdit..restoreRow"></a>
+<a name="module_rup.table.inlineEdit..getRowSelected"></a>
 
-### rup_table/inlineEdit~restoreRow(rowId) ⇒ <code>object</code>
-Restaura los campos RUP existentes en una fila de edición en línea.
+### rup.table.inlineEdit~getRowSelected(dt, actionType) ⇒ <code>object</code>
+Metodo que obtiene la fila siguiente seleccionada.
 
-**Kind**: inner method of [<code>rup_table/inlineEdit</code>](#module_rup_table/inlineEdit)  
-**Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Returns**: <code>object</code> - que contiene  el identificador, la pagina y la linea de la fila seleccionada  
+**Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| rowId | <code>string</code> | Identificador de la línea que se desea guardar. |
+| dt | <code>object</code> | Es el objeto table. |
+| actionType | <code>string</code> | Es el objeto table. |
 
-**Example**  
-```js
-$("#idTable").rup_table("restoreRow", rowId, options);
-```
+<a name="module_rup.table.inlineEdit..cloneLine"></a>
+
+### rup.table.inlineEdit~cloneLine(dt, ctx, line)
+Método que clona el elemento seleccionado.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | Es el objeto table. |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| line | <code>integer</code> | Número de la fila. |
+
+<a name="module_rup.table.inlineEdit..getNextPageSelected"></a>
+
+### rup.table.inlineEdit~getNextPageSelected(ctx, pageInit, orden) ⇒
+Método que obtiene la página siguiente donde está el primer elemento o elemento seleccionado.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Returns**: integer - devuele la página  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| pageInit | <code>integer</code> | Página a partir de la cual hay que mirar, en general serà la 1. |
+| orden | <code>string</code> | Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás. |
+
+<a name="module_rup.table.inlineEdit..getLineByPageSelected"></a>
+
+### rup.table.inlineEdit~getLineByPageSelected(ctx, lineInit) ⇒
+Método que obtiene la linea siguiente donde está el primer elemento o elemento seleccionado.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Returns**: integer - devuele la linea  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Settings object to operate on. |
+| lineInit | <code>integer</code> | Linea a partir de la cual hay que mirar, en general será la 1. |
+
+<a name="module_rup.table.inlineEdit.._restaurarFila"></a>
+
+### rup.table.inlineEdit~\_restaurarFila(ctx, limpiar)
+Se restaura la línea(fila) en la edición.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| limpiar | <code>boolean</code> | Si es true limpia e inicializa todo y si es false solo restaura la línea. |
+
+<a name="module_rup.table.inlineEdit.._changeInputsToRup"></a>
+
+### rup.table.inlineEdit~\_changeInputsToRup(ctx, idRow)
+Cambia los inputs por los componentes rup.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
+
+<a name="module_rup.table.inlineEdit.._recorrerCeldas"></a>
+
+### rup.table.inlineEdit~\_recorrerCeldas(ctx, $fila, $celdas, cont)
+Método que recorre las celdas y las procesa.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+| $celdas | <code>object</code> | Todas las celdas a recorrer. |
+| cont | <code>integer</code> | Contador para saber en que celda nos movemos, sobre todo en el responsive. |
+
+<a name="module_rup.table.inlineEdit.._restaurarCeldas"></a>
+
+### rup.table.inlineEdit~\_restaurarCeldas(ctx, $fila, $celdas, contRest)
+Método para restaurar las celdas.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+| $celdas | <code>object</code> | Todas las celdas a recorrer. |
+| contRest | <code>integer</code> | Contador para saber en que celda nos movemos, sobre todo en el responsive. |
+
+<a name="module_rup.table.inlineEdit.._comprobarFila"></a>
+
+### rup.table.inlineEdit~\_comprobarFila(ctx, $fila)
+Comprueba que si la fila está en responsive mantenga el diseño.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+
+<a name="module_rup.table.inlineEdit.._crearEventos"></a>
+
+### rup.table.inlineEdit~\_crearEventos(ctx, $selector)
+Crea los eventos asociados a la fila.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $selector | <code>object</code> | fila que se está editando. |
+
+<a name="module_rup.table.inlineEdit.._lastIndexEditable"></a>
+
+### rup.table.inlineEdit~\_lastIndexEditable(ctx, $target) ⇒
+Método para recorre las celdas y las procesa.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Returns**: devuelve si es el último index editado  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $target | <code>object</code> | fila que se está editando. |
+
+<a name="module_rup.table.inlineEdit.._inlineEditFormSerialize"></a>
+
+### rup.table.inlineEdit~\_inlineEditFormSerialize($fila, ctx, child)
+Metodo que serializa los datos del formulario.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.2.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| $fila | <code>object</code> | Fila la cual estamos editando. |
+| ctx | <code>object</code> | Contexto del table. |
+| child | <code>boolean</code> | boolean para saber si tiene hijos en el responsive. |
+
+<a name="module_rup.table.inlineEdit.._guardar"></a>
+
+### rup.table.inlineEdit~\_guardar(ctx, $fila, $child)
+Método para llamar al ajax de guardado y nuevo.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+| $child | <code>boolean</code> | boolean para decir si la llamada es del hijo o del padre |
+
+<a name="module_rup.table.inlineEdit.._callSaveAjax"></a>
+
+### rup.table.inlineEdit~\_callSaveAjax(actionType, ctx, $fila, $row, url)
+Llamada al servidor con los datos de edición.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| actionType | <code>string</code> | Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest. |
+| ctx | <code>object</code> | Es el contexto table. |
+| $fila | <code>object</code> | Fila que se está editando. |
+| $row | <code>object</code> | Son los datos que se cargan. |
+| url | <code>string</code> | Url que se añade para llamar  al controller. Añadir, editar o borrar. |
+
+<a name="module_rup.table.inlineEdit..callFeedbackOk"></a>
+
+### rup.table.inlineEdit~callFeedbackOk(ctx, feedback, msgFeedBack, type)
+Llamada para crear el feedback dentro del dialog.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Settings object to operate on. |
+| feedback | <code>object</code> | Div donde se va ejecutar el feedback. |
+| msgFeedBack | <code>string</code> | Mensaje para el feedback. |
+| type | <code>string</code> | Tipos del feedback, mirar en el rup.feedback.. |
+
+<a name="module_rup.table.inlineEdit.._inResponsiveChangeInputsValues"></a>
+
+### rup.table.inlineEdit~\_inResponsiveChangeInputsValues(ctx, $fila)
+Cambiar los valores de los inputs de responsive a normal y viciversa.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+
+<a name="module_rup.table.inlineEdit.._asignarInputsValues"></a>
+
+### rup.table.inlineEdit~\_asignarInputsValues(ctx, $fila)
+Asignar los valores de los inputs en responsive.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $fila | <code>object</code> | fila que se está editando. |
+
+<a name="module_rup.table.inlineEdit.._createTr"></a>
+
+### rup.table.inlineEdit~\_createTr(dt, ctx, $columns)
+Se crear un tr ficticio cuando se va a añadir un registro.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | table |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+| $columns | <code>object</code> | Módelo de columnas de la tabla. |
+
+<a name="module_rup.table.inlineEdit.._drawInLineEdit"></a>
+
+### rup.table.inlineEdit~\_drawInLineEdit(tabla, ctx)
+Dibujar los iconos del responsive.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tabla | <code>object</code> | Api de la tabla |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+
+<a name="module_rup.table.inlineEdit.._notExistOnPage"></a>
+
+### rup.table.inlineEdit~\_notExistOnPage(ctx) ⇒ <code>boolean</code>
+Para saber si hay paginación o no.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Returns**: <code>boolean</code> - si existe paginación o no.  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Es el contexto de cada tabla. |
+
+<a name="module_rup.table.inlineEdit.._deleteAllSelects"></a>
+
+### rup.table.inlineEdit~\_deleteAllSelects(dt)
+Metodo que elimina todos los registros seleccionados.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | Es el objeto table. |
+
+<a name="module_rup.table.inlineEdit.._comprobarSeeker"></a>
+
+### rup.table.inlineEdit~\_comprobarSeeker(row, ctx, idRow)
+Metodo que comprueba el seeker.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 3.7.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| row | <code>object</code> | Son los datos que se cargan. |
+| ctx | <code>object</code> | Settings object to operate on. |
+| idRow | <code>number</code> | Identificador de la fila. |
+

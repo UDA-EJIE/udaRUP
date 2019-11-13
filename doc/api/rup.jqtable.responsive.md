@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/responsive"></a>
 
-## rup_jqtable/responsive
+## rup\_jqtable/responsive
 Proporciona al componente RUP Table ciertas funcionalidades responsive.
 
 **Summary**: Plugin de toolbar del componente RUP Table.  
@@ -20,7 +20,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["respons
 ### rup_jqtable/responsive~options
 Propiedades de configuración del plugin responsive del componente RUP Table.
 
-**Kind**: inner property of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner property of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 **Properties**
 
 | Name | Type | Description |
@@ -34,7 +34,7 @@ Propiedades de configuración del plugin responsive del componente RUP Table.
 ### rup_jqtable/responsive~preConfigureResponsive(settings)
 Metodo que realiza la pre-configuración del plugin responsive del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -45,7 +45,7 @@ Metodo que realiza la pre-configuración del plugin responsive del componente RU
 ### rup_jqtable/responsive~postConfigureResponsive(settings)
 Metodo que realiza la post-configuración del plugin responsive del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -56,5 +56,5 @@ Metodo que realiza la post-configuración del plugin responsive del componente R
 ### rup_jqtable/responsive~getRwdColConfig() ⇒ <code>Array.&lt;object&gt;</code>
 Obtiene a partir de la configuración del colModel, la información correspondiente al comportamiento responsive de las columnas.
 
-**Kind**: inner method of [<code>rup_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
+**Kind**: inner method of [<code>rup\_jqtable/responsive</code>](#module_rup_jqtable/responsive)  
 **Returns**: <code>Array.&lt;object&gt;</code> - - Configuración responsive para las columnas de la tabla.  

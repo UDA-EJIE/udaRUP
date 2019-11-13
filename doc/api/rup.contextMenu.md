@@ -1,6 +1,6 @@
 <a name="module_rup_contextMenu"></a>
 
-## rup_contextMenu
+## rup\_contextMenu
 Un menú contextual consta de un menú dentro de una interfaz gráfica que se muestra a partir de una interacción del usuario. El menú contextual muestra una serie de opciones disponibles en el contexto o estado actual de la aplicación.
 
 **Summary**: Componente RUP ContextMenu.  
@@ -21,7 +21,7 @@ var properties = { items : {      "edit": {name: "Edit", icon: "edit"},      
 ### rup_contextMenu~defaults
 Propiedades de configuración del componente.
 
-**Kind**: inner property of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
+**Kind**: inner property of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -50,7 +50,7 @@ Propiedades de configuración del componente.
 ### rup_contextMenu~show()
 Muestra el menú contextual.
 
-**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
+**Kind**: inner method of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("show");
@@ -60,7 +60,7 @@ $("#contextMenu").rup_contextMenu("show");
 ### rup_contextMenu~enable()
 Habilita el menú contextual. El menú se mostrará al lanzarse el evento asociado.
 
-**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
+**Kind**: inner method of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("enable");
@@ -70,7 +70,7 @@ $("#contextMenu").rup_contextMenu("enable");
 ### rup_contextMenu~disable()
 Deshabilita el menú contextual. El menú no se mostrará aunque se lance el evento asociado.
 
-**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
+**Kind**: inner method of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("disable");
@@ -80,7 +80,7 @@ $("#contextMenu").rup_contextMenu("disable");
 ### rup_contextMenu~destroy()
 Elimina el menú contextual.
 
-**Kind**: inner method of [<code>rup_contextMenu</code>](#module_rup_contextMenu)  
+**Kind**: inner method of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
 **Example**  
 ```js
 $("#contextMenu").rup_contextMenu("destroy");

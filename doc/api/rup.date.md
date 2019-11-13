@@ -1,6 +1,6 @@
 <a name="module_rup_date"></a>
 
-## rup_date
+## rup\_date
 Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
 
 **Summary**: Componente RUP Date.  
@@ -11,83 +11,26 @@ Permite al usuario introducir y seleccionar una fecha, tanto de forma manual com
 ```
 
 * [rup_date](#module_rup_date)
-    * _instance_
-        * ["create"](#module_rup_date+event_create)
-        * ["beforeShow"](#module_rup_date+event_beforeShow)
-        * ["onChangeMonthYear"](#module_rup_date+event_onChangeMonthYear)
-        * ["onSelect"](#module_rup_date+event_onSelect)
-        * ["onClose"](#module_rup_date+event_onClose)
-    * _inner_
-        * [~options](#module_rup_date..options)
-        * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> \| <code>array</code>
-        * [~setRupValue(param)](#module_rup_date..setRupValue)
-        * [~destroy()](#module_rup_date..destroy)
-        * [~disable()](#module_rup_date..disable)
-        * [~enable()](#module_rup_date..enable)
-        * [~isDisabled()](#module_rup_date..isDisabled) ⇒ <code>boolean</code>
-        * [~hide()](#module_rup_date..hide)
-        * [~show()](#module_rup_date..show)
-        * [~getDate()](#module_rup_date..getDate) ⇒ <code>date</code>
-        * [~setDate()](#module_rup_date..setDate)
-        * [~refresh()](#module_rup_date..refresh)
-        * [~option(optionName, [value])](#module_rup_date..option)
+    * [~options](#module_rup_date..options)
+    * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> \| <code>array</code>
+    * [~setRupValue(param)](#module_rup_date..setRupValue)
+    * [~destroy()](#module_rup_date..destroy)
+    * [~disable()](#module_rup_date..disable)
+    * [~enable()](#module_rup_date..enable)
+    * [~isDisabled()](#module_rup_date..isDisabled) ⇒ <code>boolean</code>
+    * [~hide()](#module_rup_date..hide)
+    * [~show()](#module_rup_date..show)
+    * [~getDate()](#module_rup_date..getDate) ⇒ <code>date</code>
+    * [~setDate()](#module_rup_date..setDate)
+    * [~refresh()](#module_rup_date..refresh)
+    * [~option(optionName, [value])](#module_rup_date..option)
 
-<a name="module_rup_date+event_create"></a>
-
-### "create"
-Función que se lanza cuando se crea el calendario. La invocación es automática por parte del componente
-
-**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ create: function(){...} });
-```
-<a name="module_rup_date+event_beforeShow"></a>
-
-### "beforeShow"
-Permite asociar una función que se ejecutará antes de que se muestre el calendario. Los parámetros recibidos son el campo del calendario y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ beforeShow: function(input, inst){...} });
-```
-<a name="module_rup_date+event_onChangeMonthYear"></a>
-
-### "onChangeMonthYear"
-Permite asociar una función que se ejecutará cuando se cambie de mes o de año en el calendario. Los parámetros recibidos son el año y mes seleccionados así como la instancia del componente
-
-**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({onChangeMonthYear: function(y,m,inst){...} });
-```
-<a name="module_rup_date+event_onSelect"></a>
-
-### "onSelect"
-Permite asociar una función que se ejecutará cuando se seleccione un valor del calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ onSelect: function(dateText, inst){...} });
-```
-<a name="module_rup_date+event_onClose"></a>
-
-### "onClose"
-Permite asociar una función que se ejecutará cuando se oculte el calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ onClose: function(dateText, inst){...} });
-```
 <a name="module_rup_date..options"></a>
 
 ### rup_date~options
 A continuación se muestran los posibles parámetros de configuración que recibe el componente.
 
-**Kind**: inner property of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner property of [<code>rup\_date</code>](#module_rup_date)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -144,7 +87,7 @@ A continuación se muestran los posibles parámetros de configuración que recib
 ### rup_date~getRupValue() ⇒ <code>string</code> \| <code>array</code>
 Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Returns**: <code>string</code> \| <code>array</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
@@ -155,7 +98,7 @@ $("#idDate").rup_date("getRupValue");
 ### rup_date~setRupValue(param)
 Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -170,7 +113,7 @@ Método utilizado para asignar el valor al componente. Este método es el utiliz
 ### rup_date~destroy()
 Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("destroy");
@@ -180,7 +123,7 @@ $("#idDate").rup_date("destroy");
 ### rup_date~disable()
 Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("disable");
@@ -190,7 +133,7 @@ $("#idDate").rup_date("disable");
 ### rup_date~enable()
 Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("enable");
@@ -200,7 +143,7 @@ $("#idDate").rup_date("enable");
 ### rup_date~isDisabled() ⇒ <code>boolean</code>
 Indica si el componente se encuentra deshabilitado o no.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Returns**: <code>boolean</code> - - Devuelve si el componente está deshabilitado o no.  
 **Example**  
 ```js
@@ -211,7 +154,7 @@ $("#idDate").rup_date("isDisabled");
 ### rup_date~hide()
 Oculta el calendario para seleccionar una fecha.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("hide");
@@ -221,7 +164,7 @@ $("#idDate").rup_date("hide");
 ### rup_date~show()
 Muestra el calendario para seleccionar una fecha.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("show");
@@ -231,7 +174,7 @@ $("#idDate").rup_date("show");
 ### rup_date~getDate() ⇒ <code>date</code>
 Devuelve la fecha seleccionada, si no se ha seleccionado nada devuelve vacío.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Returns**: <code>date</code> - - Fecha seleccionada.  
 **Example**  
 ```js
@@ -242,7 +185,7 @@ $("#idDate").rup_date("getDate");
 ### rup_date~setDate()
 Establece la fecha del componente. El parámetro debe ser un objeto date.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 
 | Type | Description |
 | --- | --- |
@@ -257,7 +200,7 @@ $("#idDate").rup_date("setDate", new Date());
 ### rup_date~refresh()
 Refresca el calendario desplegado por si ha habido algún cambio.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
 ```js
 $("#idDate").rup_date("refresh");
@@ -267,7 +210,7 @@ $("#idDate").rup_date("refresh");
 ### rup_date~option(optionName, [value])
 Permite consultar y modificar la configuración del componente.
 
-**Kind**: inner method of [<code>rup_date</code>](#module_rup_date)  
+**Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 
 | Param | Type | Description |
 | --- | --- | --- |

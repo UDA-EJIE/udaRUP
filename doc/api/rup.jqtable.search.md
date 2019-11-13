@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/search"></a>
 
-## rup_jqtable/search
+## rup\_jqtable/search
 Permite al usuario realizar una búsqueda entre el conjunto de resultados que se le muestran. Mediante una serie de criterios de búsqueda permite al usuario posicionarse entre los diferentes registros que se ajustan a dichos criterios.
 
 **Summary**: Plugin de search del componente RUP Table.  
@@ -34,7 +34,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["search"
 ### rup_jqtable/search~options
 Propiedades de configuración del plugin search del componente RUP Table.
 
-**Kind**: inner property of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner property of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -47,7 +47,7 @@ Propiedades de configuración del plugin search del componente RUP Table.
 ### rup_jqtable/search~preConfigureSearch(settings)
 Metodo que realiza la pre-configuración del plugin search del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -58,7 +58,7 @@ Metodo que realiza la pre-configuración del plugin search del componente RUP Ta
 ### rup_jqtable/search~postConfigureSearch(settings)
 Metodo que realiza la post-configuración del plugin search del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -69,7 +69,7 @@ Metodo que realiza la post-configuración del plugin search del componente RUP T
 ### rup_jqtable/search~toggleSearchForm()
 Muestra/Oculta el formulario de búsqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("toggleSearchForm");
@@ -79,8 +79,8 @@ $("#idTable").rup_jqtable("toggleSearchForm");
 ### rup_jqtable/search~createSearchToolbar()
 Genera la barra de controles para gestionar la búsqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable_searchAfterCreateToolbar</code>](#module_rup_jqtable+event_rupTable_searchAfterCreateToolbar)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_searchAfterCreateToolbar</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("createSearchToolbar");
@@ -90,7 +90,7 @@ $("#idTable").rup_jqtable("createSearchToolbar");
 ### rup_jqtable/search~createSearchRow(settings)
 Genera la barra de controles para gestionar la búsqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -105,7 +105,7 @@ $("#idTable").rup_jqtable("createSearchRow", settings);
 ### rup_jqtable/search~navigateToMatchedRow(matchedRow)
 Navega hasta el elemento indicado que se ajusta a los criterios de búsqueda indicados.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -120,8 +120,8 @@ $("#idTable").rup_jqtable("navigateToMatchedRow", matchedRow);
 ### rup_jqtable/search~search()
 Lanza la operación de búsqueda además del evento previo.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable_beforeSearch</code>](#module_rup_jqtable+event_rupTable_beforeSearch)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeSearch</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("search");
@@ -131,8 +131,8 @@ $("#idTable").rup_jqtable("search");
 ### rup_jqtable/search~navigateToMatchedRow()
 Lanza la operación de búsqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>masterDetail</code>](#module_rup_jqtable+rupTable_searchBeforeSubmit.rupTable.event_masterDetail)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
+**Emits**: <code>module:rup\_jqtable#rupTable\_searchBeforeSubmit.rupTable.event:masterDetail</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("doSearch");
@@ -142,7 +142,7 @@ $("#idTable").rup_jqtable("doSearch");
 ### rup_jqtable/search~goToFirstMatched(paramPage)
 Navega hasta el primer elemento que se ajusta a los criterios de búsqueda. En caso de no existir elementos adecuados en la página actual se navega hasta el primer elemento.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -157,7 +157,7 @@ $("#idTable").rup_jqtable("goToFirstMatched", paramPage);
 ### rup_jqtable/search~fncGetSearchNavigationParams(buttonType) ⇒ <code>object</code>
 Devuelve los parámetros correspondientes al tipo de enlace de navegación indicado por parámetro.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 **Returns**: <code>object</code> - - Parametros de configuración asociados al tipo de enlace.  
 
 | Param | Type | Description |
@@ -173,7 +173,7 @@ $("#idTable").rup_jqtable("fncGetSearchNavigationParams", buttonType);
 ### rup_jqtable/search~fncGetSearchNavigationParams(arrParams)
 Realiza la navegación entre los elementos que se ajustan a los criterios de bús
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -188,7 +188,7 @@ $("#idTable").rup_jqtable("doSearchNavigation", arrParams);
 ### rup_jqtable/search~clearSearch()
 Limpia los criterios de búsqueda introducidos por el usuario.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("clearSearch");
@@ -198,7 +198,7 @@ $("#idTable").rup_jqtable("clearSearch");
 ### rup_jqtable/search~clearHighlightedMatchedRows()
 Elimina el resaltado de los registros que se ajustan a los criterios de busqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("clearHighlightedMatchedRows");
@@ -208,7 +208,7 @@ $("#idTable").rup_jqtable("clearHighlightedMatchedRows");
 ### rup_jqtable/search~highlightMatchedRowsInPage(page)
 Resalta los registros que se ajustan a los criterios de búsqueda.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -223,7 +223,7 @@ $("#idTable").rup_jqtable("highlightMatchedRowsInPage", page);
 ### rup_jqtable/search~highlightMatchedRow($row)
 Resalta como ocurrencia de la búsqueda la línea especificada.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -238,7 +238,7 @@ $("#idTable").rup_jqtable("highlightMatchedRow", $("#idRow"));
 ### rup_jqtable/search~updateSearchPagination(paramRowId)
 Actualiza los valores de la navegación entre registros.
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -253,7 +253,7 @@ $("#idTable").rup_jqtable("updateSearchPagination", paramRowId);
 ### rup_jqtable/search~getSearchCurrentRowCount(selectedRowId)
 Devuelve, para una linea determinada, la posición en que se encuentra dentro del total de registros que se ajustan a los criterios de búsqueda
 
-**Kind**: inner method of [<code>rup_jqtable/search</code>](#module_rup_jqtable/search)  
+**Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
 
 | Param | Type | Description |
 | --- | --- | --- |

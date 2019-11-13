@@ -8,7 +8,6 @@ const fs = require('fs');
 
 gulp.task('doc:html', function (cb) {
     var config = require('../../jsdoc.conf.json');
-    //gulp.src(['README.md', './src/**/*.js']).pipe(jsdoc(config, cb));
     gulp.src(['README.md', './src/*.js']).pipe(jsdoc(config, cb));
 });
 
@@ -17,34 +16,42 @@ var runJsdoc2md = function (fileSource, outputPath) {
     var basename;
     return gulp.src(fileSource)
         .pipe(tap(function (file) {
-            basename = file.relative.split('.js')[0];
-            console.log('outpath ' + outputPath + ' File ' + file.path + '  ' + basename);
+            if (file.relative !== 'rup.jqtable.js') {
+                basename = file.relative.split('.js')[0];
+                console.log('outpath ' + outputPath + ' File ' + file.path + '  ' + basename);
 
-            var output = jsdoc2md.renderSync({
-                files: file.path
-            });
-            fs.writeFileSync(outputPath + basename + '.md', output);
+                var output = jsdoc2md.renderSync({
+                    files: file.path
+                });
+                fs.writeFileSync(outputPath + basename + '.md', output);
+            }
         }));
 };
 
-gulp.task('doc:api', function () {
-
-
-    var fileSource = 'src/rup*.js';
+gulp.task('doc:api:jqtable', function () {
+    var fileSource = 'src/rup_jqtable/rup*.js';
     var outputPath = './doc/api/';
 
-    runJsdoc2md(fileSource, outputPath);
-    //rup_jqtable
-    fileSource = 'src/rup_jqtable/rup*.js';
-    //outputPath = './doc/api/';
-    runJsdoc2md(fileSource, outputPath);
-    //rup_table antes datatable
-    fileSource = 'src/table/*.js';
-    //outputPath = './doc/api/';
-    runJsdoc2md(fileSource, outputPath);
-    //outputPath = './doc/api/';
-    runJsdoc2md(fileSource, outputPath);
+    return runJsdoc2md(fileSource, outputPath);
 });
+
+gulp.task('doc:api:table', function () {
+    var fileSource = 'src/rup_table/rup*.js';
+    var outputPath = './doc/api/';
+
+    return runJsdoc2md(fileSource, outputPath);
+});
+
+gulp.task('doc:api', gulp.series(
+    'doc:api:jqtable',
+    'doc:api:table',
+    function () {
+        var fileSource = 'src/rup*.js';
+        var outputPath = './doc/api/';
+
+        return runJsdoc2md(fileSource, outputPath);
+    }
+));
 
 gulp.task('jsdocFile', function () {
     var filePath = 'src/rup_jqtable/';

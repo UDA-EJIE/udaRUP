@@ -1,6 +1,6 @@
 <a name="module_rup_list"></a>
 
-## rup_list
+## rup\_list
 Presenta los elementos que presenta una tabla rup_table en formato listado. Pensado para movilidad.
 
 **Summary**: Componente RUP List.  
@@ -18,6 +18,7 @@ $('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'li
     * [~_changeOption(key, value)](#module_rup_list.._changeOption)
     * [~_validateSkeleton()](#module_rup_list.._validateSkeleton)
     * [~_create()](#module_rup_list.._create)
+    * [~_scrollListInit()](#module_rup_list.._scrollListInit)
     * [~_sordButtonInit()](#module_rup_list.._sordButtonInit)
     * [~_sidxComboInit()](#module_rup_list.._sidxComboInit)
     * [~_multisortInit()](#module_rup_list.._multisortInit)
@@ -48,7 +49,7 @@ $('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'li
 ### rup_list~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner property of [<code>rup\_list</code>](#module_rup_list)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -68,13 +69,14 @@ Opciones por defecto de configuración del componente.
 | [load] | <code>Funcion</code> | <code>() &#x3D;&gt; {}</code> | Callback que se ejecuta tras cada filtrado |
 | [selectable] | <code>Object</code> | <code>Object</code> | Determina la configuración de la selección |
 | [isMultiSort] | <code>boolean</code> | <code>false</code> | Si es true el modo de ordenación cambia a multiordenación |
+| [isScrollList] | <code>boolean</code> | <code>false</code> | Si es true quita la paginación a favor de una carga dinámica de las tarjetas |
 
 <a name="module_rup_list..defaultsRowNum"></a>
 
 ### rup_list~defaultsRowNum
 Opciones por defecto de configuración de rowNum
 
-**Kind**: inner property of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner property of [<code>rup\_list</code>](#module_rup_list)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -87,7 +89,7 @@ Opciones por defecto de configuración de rowNum
 ### rup_list~defaultsSidx
 Opciones por defecto de configuración de sidx
 
-**Kind**: inner property of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner property of [<code>rup\_list</code>](#module_rup_list)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -100,7 +102,7 @@ Opciones por defecto de configuración de sidx
 ### rup_list~defaultsSelectable
 Opciones por defecto de configuración de selectable
 
-**Kind**: inner property of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner property of [<code>rup\_list</code>](#module_rup_list)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -113,20 +115,22 @@ Opciones por defecto de configuración de selectable
 ### rup_list~defaultsEvents
 Eventos lanzados sobre rup-list
 
-**Kind**: inner property of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner property of [<code>rup\_list</code>](#module_rup_list)  
 **Properties**
 
 | Name | Description |
 | --- | --- |
 | [initComplete] | Se lanza una vez el componente ha sido inicializado. |
 | [listAfterMultiselection] | Se lanza tras finalizar operaciones de multiseleccion desde el desplegable. |
+| [rup_list-mord-inited] | Se lanza una vez se ha inicializado la característica de multiorder |
+| [rup_list-mord-changed] | Se lanza cuando se vería la multiordenación |
 
 <a name="module_rup_list.._changeOption"></a>
 
-### rup_list~_changeOption(key, value)
+### rup_list~\_changeOption(key, value)
 Método interno para cambiar el valor de algunas opciones
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 
 | Param | Type |
 | --- | --- |
@@ -135,52 +139,58 @@ Método interno para cambiar el valor de algunas opciones
 
 <a name="module_rup_list.._validateSkeleton"></a>
 
-### rup_list~_validateSkeleton()
+### rup_list~\_validateSkeleton()
 Método interno que valida que el esqueleto html es válido para el componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._create"></a>
 
-### rup_list~_create()
+### rup_list~\_create()
 Método interno que configura el componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
+<a name="module_rup_list.._scrollListInit"></a>
+
+### rup_list~\_scrollListInit()
+Método interno que crea el scrollList
+
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._sordButtonInit"></a>
 
-### rup_list~_sordButtonInit()
+### rup_list~\_sordButtonInit()
 Método interno que configura el boton de alternar el sord en la ordenación simple
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._sidxComboInit"></a>
 
-### rup_list~_sidxComboInit()
+### rup_list~\_sidxComboInit()
 Método interno que configura el combo de seleccion de sidx en la ordenación simple
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._multisortInit"></a>
 
-### rup_list~_multisortInit()
+### rup_list~\_multisortInit()
 Método interno que configura los elementos de la multiordenación.
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._rownumInit"></a>
 
-### rup_list~_rownumInit()
+### rup_list~\_rownumInit()
 Método interno que configura el combo de elementos de lista por página
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._pagenavInit"></a>
 
-### rup_list~_pagenavInit()
+### rup_list~\_pagenavInit()
 Método interno que configura el nav de la paginación
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._actualizarOrdenMulti"></a>
 
-### rup_list~_actualizarOrdenMulti(e, self, ord)
+### rup_list~\_actualizarOrdenMulti(e, self, ord)
 Método interno que crea la estructura de las líneas en la multiordenación
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -190,10 +200,10 @@ Método interno que crea la estructura de las líneas en la multiordenación
 
 <a name="module_rup_list.._fnOrderOfOrderFields"></a>
 
-### rup_list~_fnOrderOfOrderFields(ctx, line)
+### rup_list~\_fnOrderOfOrderFields(ctx, line)
 Método interno que da funcionalidad a cada línea en la multiordenación
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -202,46 +212,46 @@ Método interno que da funcionalidad a cada línea en la multiordenación
 
 <a name="module_rup_list.._selectAll"></a>
 
-### rup_list~_selectAll()
+### rup_list~\_selectAll()
 Método interno para seleccionar todos los elementos de la lista.
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._deselectAll"></a>
 
-### rup_list~_deselectAll()
+### rup_list~\_deselectAll()
 Método interno para deseleccionar todos los elementos de la lista
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._selectPage"></a>
 
-### rup_list~_selectPage()
+### rup_list~\_selectPage()
 Método interno para seleccionar todos los elementos en la página actual
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._deselectPage"></a>
 
-### rup_list~_deselectPage()
+### rup_list~\_deselectPage()
 Método interno para deseleccionar todos los elementos en la página actual
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._generateSelectablesBtnGroup"></a>
 
-### rup_list~_generateSelectablesBtnGroup()
+### rup_list~\_generateSelectablesBtnGroup()
 Método interno que genera el desplegable de multiseleccion
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._getPageIds"></a>
 
-### rup_list~_getPageIds()
+### rup_list~\_getPageIds()
 Método interno para obtener los Ids de la página actual
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._pagenavManagement"></a>
 
-### rup_list~_pagenavManagement(numPages)
+### rup_list~\_pagenavManagement(numPages)
 Método interno que otorga funcionalidad a la paginación
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -252,7 +262,7 @@ Método interno que otorga funcionalidad a la paginación
 ### rup_list~lock()
 Método que bloquea el componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('lock');
@@ -262,45 +272,45 @@ $('#rup-list').rup_list('lock');
 ### rup_list~unlock()
 Método que desbloquea el componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('unlock');
 ```
 <a name="module_rup_list.._lock"></a>
 
-### rup_list~_lock()
+### rup_list~\_lock()
 Método interno que se encarga del bloqueo del componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._unlock"></a>
 
-### rup_list~_unlock()
+### rup_list~\_unlock()
 Método interno que se encarga del desbloqueo del componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list..destroy"></a>
 
 ### rup_list~destroy()
 Método para destruir el componente
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('destroy');
 ```
 <a name="module_rup_list.._doFilter"></a>
 
-### rup_list~_doFilter()
+### rup_list~\_doFilter()
 Método interno que se encarga de realizar el filtrado y construir la lista desde los datos recibidos
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list..reload"></a>
 
 ### rup_list~reload()
 Método que se encarga de realizar una recarga de la lista
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('reload');
@@ -310,7 +320,7 @@ $('#rup-list').rup_list('reload');
 ### rup_list~filter()
 Método que se encarga de realizar el filtrado de la lista
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('filter');
@@ -320,7 +330,7 @@ $('#rup-list').rup_list('filter');
 ### rup_list~page(page)
 Método para cambiar la página actual.
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -335,7 +345,7 @@ $('#rup-list').rup_list('page', 3);
 ### rup_list~getSelectedIds()
 Método que obtiene la información de la selección actual
 
-**Kind**: inner method of [<code>rup_list</code>](#module_rup_list)  
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 **Example**  
 ```js
 $('#rup-list').rup_list('getSelectedIds');

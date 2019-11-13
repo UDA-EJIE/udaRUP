@@ -188,7 +188,7 @@ Convert from the original column index, to the original
 
 <a name="_fnCursorPosition"></a>
 
-## _fnCursorPosition(e, prop) ⇒ <code>number</code>
+## \_fnCursorPosition(e, prop) ⇒ <code>number</code>
 Get cursor position regardless of mouse or touch input
 
 **Kind**: global function  

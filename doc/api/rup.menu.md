@@ -1,6 +1,6 @@
 <a name="module_rup_menu"></a>
 
-## rup_menu
+## rup\_menu
 Menú de la aplicación mantenido a lo largo de todas las páginas de forma consistente que muestra entradas directas a secciones clave de la aplicación.
 
 **Summary**: Componente RUP Menu.  
@@ -19,7 +19,7 @@ var properties={  // Propiedades de configuración};$("#idMenu").rup_menu(pr
 ### rup_menu~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup_menu</code>](#module_rup_menu)  
+**Kind**: inner property of [<code>rup\_menu</code>](#module_rup_menu)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -42,7 +42,7 @@ Opciones por defecto de configuración del componente.
 ### rup_menu~disable(entryMenuId)
 Deshabilita una opción de menú.
 
-**Kind**: inner method of [<code>rup_menu</code>](#module_rup_menu)  
+**Kind**: inner method of [<code>rup\_menu</code>](#module_rup_menu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ $("#idlanguage").rup_menu("disable","opAdmin);
 ### rup_menu~enable(entryMenuId)
 Habilita una opción de menú.
 
-**Kind**: inner method of [<code>rup_menu</code>](#module_rup_menu)  
+**Kind**: inner method of [<code>rup\_menu</code>](#module_rup_menu)  
 
 | Param | Type | Description |
 | --- | --- | --- |
