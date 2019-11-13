@@ -87,7 +87,6 @@ gulp.task('templates:rup', function () {
         }
         ));
         `))
-        .pipe(gulp.dest('build/src/'))
         .pipe(gulp.dest('src/'));
 });
 
