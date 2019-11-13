@@ -2,9 +2,11 @@
 
 
 describe('RUP Feedback Tests', () => {
+    beforeAll((done) => {
+        testutils.loadCss(done);
+    });
 
-
-    describe('Invocación de un RUP Feedback por defecto', () => {
+    describe('> Invocación de un RUP Feedback por defecto', () => {
 
         var $feedback;
 
@@ -32,9 +34,10 @@ describe('RUP Feedback Tests', () => {
             expect($feedback.css('display')).toBe('block');
         });
 
-        describe('Asignación de un mensaje al feedback', () => {
+        describe('> Asignación de un mensaje al feedback', () => {
 
-            beforeAll(() => {
+            beforeEach((done) => {
+                $feedback.on('rupFeedback_afterSet', done);
                 $feedback.rup_feedback('set', 'Feedback de ejemplo');
             });
 
@@ -67,7 +70,7 @@ describe('RUP Feedback Tests', () => {
             });
         });
 
-        describe('Ocultar el feedback mediante la función hide', () => {
+        describe('> Ocultar el feedback mediante la función hide', () => {
 
             beforeEach(() => {
                 $feedback.rup_feedback('show');
@@ -99,7 +102,7 @@ describe('RUP Feedback Tests', () => {
     });
 
     // Tests de la función set
-    describe('Creación de diferentes tipos de feedback mediante el método set', () => {
+    describe('> Creación de diferentes tipos de feedback mediante el método set', () => {
 
         var $feedback, $textDivId, textDivId, message;
 
@@ -120,7 +123,7 @@ describe('RUP Feedback Tests', () => {
             jQuery('#feedback').remove();
         });
 
-        describe('Mostrar feedback de tipo \'ok\' con el texto \'Todo ha ido bien\'', () => {
+        describe('> Mostrar feedback de tipo \'ok\' con el texto \'Todo ha ido bien\'', () => {
             beforeAll(() => {
                 message = 'Todo ha ido bien';
                 $feedback.rup_feedback('set', message, 'ok');
@@ -135,7 +138,7 @@ describe('RUP Feedback Tests', () => {
             });
         });
 
-        describe('Mostrar feedback de tipo \'alert\' con el texto \'Se ha producido un mensaje de aviso\'', () => {
+        describe('> Mostrar feedback de tipo \'alert\' con el texto \'Se ha producido un mensaje de aviso\'', () => {
             beforeAll(() => {
                 message = 'Se ha producido un mensaje de aviso';
                 $feedback.rup_feedback('set', message, 'alert');
@@ -150,7 +153,7 @@ describe('RUP Feedback Tests', () => {
             });
         });
 
-        describe('Mostrar feedback de tipo \'error\' con el texto \'Se ha producido un error\'', () => {
+        describe('> Mostrar feedback de tipo \'error\' con el texto \'Se ha producido un error\'', () => {
             beforeAll(() => {
                 message = 'Se ha producido un error';
                 $feedback.rup_feedback('set', message, 'error');
@@ -167,4 +170,3 @@ describe('RUP Feedback Tests', () => {
 
     });
 });
-// }));

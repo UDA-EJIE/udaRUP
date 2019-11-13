@@ -36,7 +36,7 @@ export function loadCss(callback) {
                                                 .then((data) => {
                                                     $('head > style').append(data);
                                                     if($('#content').length === 0) {
-                                                        $('body').append('<div id="content" class="container"></div>');
+                                                        $('body').append('<div id="content" class="container mt-4"></div>');
                                                     }
                                                     callback();
                                                 });

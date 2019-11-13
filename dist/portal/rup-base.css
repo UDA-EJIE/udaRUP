@@ -24113,22 +24113,27 @@
   content: " *";
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] {
   background-color: #e9ecef;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:hover,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:hover {
   border-color: #757575;
 }
 
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus {
   border-color: #757575;
   caret-color: transparent;
   padding-left: 18px;
 }
 
 .r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only:focus ~ label,
-.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"]):read-only ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"]:focus ~ label,
+.r01gContainer .form-groupMaterial input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
   top: -10px;
   font-size: .9rem;
   color: #212529;
@@ -27518,6 +27523,10 @@
   cursor: pointer;
 }
 
+.r01gContainer .context-menu-item.context-menu-visible > .context-menu-list {
+  display: block;
+}
+
 /*!
  * Copyright 2019 E.J.I.E., S.A.
  *
@@ -28887,6 +28896,12 @@
 
 .r01gContainer .dataTable .sorting_desc .mdi.mdi-arrow-down::before {
   font-weight: 600;
+}
+
+.r01gContainer .custom-select {
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
 }
 
 /*!
@@ -32110,4 +32125,199 @@
   background: mediumblue !important;
   border: solid 1px #288E28 !important;
   color: white !important;
+}
+
+.r01gContainer .rup_list {
+  transition: all .5s ease;
+}
+
+.r01gContainer .rup_list-header {
+  margin-bottom: .5rem;
+}
+
+.r01gContainer .rup_list-footer {
+  margin-top: .5rem;
+}
+
+.r01gContainer .rup_list-header,
+.r01gContainer .rup_list-footer {
+  border: 1px solid #bbb;
+  margin-left: 0;
+  margin-right: 0;
+  padding: .75rem 0;
+  transition: all .5s ease;
+}
+
+.r01gContainer .rup_list-header button,
+.r01gContainer .rup_list-header .ui-button.rup-button,
+.r01gContainer .rup_list-header .rup-dropdown-btn-group .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup_list-header .rup-dropdown-button,
+.r01gContainer .rup_list-header a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup_list-header .rup-wizard a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup_list-header a.rup-wizard_next,
+.r01gContainer .rup_list-header .rup-wizard a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup_list-header a.rup-wizard_prev,
+.r01gContainer .rup_list-header .rup-wizard .rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup_list-header .rup-wizard_submitButton,
+.r01gContainer .rup_list-footer button,
+.r01gContainer .rup_list-footer .ui-button.rup-button,
+.r01gContainer .rup_list-footer .rup-dropdown-btn-group .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup_list-footer .rup-dropdown-button,
+.r01gContainer .rup_list-footer a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup_list-footer .rup-wizard a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup_list-footer a.rup-wizard_next,
+.r01gContainer .rup_list-footer .rup-wizard a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup_list-footer a.rup-wizard_prev,
+.r01gContainer .rup_list-footer .rup-wizard .rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup_list-footer .rup-wizard_submitButton {
+  height: 100% !important;
+}
+
+.r01gContainer .rup_list-header nav,
+.r01gContainer .rup_list-footer nav {
+  float: right;
+}
+
+.r01gContainer .rup_list-header nav a,
+.r01gContainer .rup_list-footer nav a {
+  line-height: 3.5rem;
+}
+
+.r01gContainer .rup_list-header .rup_list-header-rowNum + span a,
+.r01gContainer .rup_list-header .rup_list-footer-rowNum + span a,
+.r01gContainer .rup_list-footer .rup_list-header-rowNum + span a,
+.r01gContainer .rup_list-footer .rup_list-footer-rowNum + span a {
+  width: 100% !important;
+}
+
+.r01gContainer .rup_list-header .rup_list-header-sidx + span a,
+.r01gContainer .rup_list-header .rup_list-footer-sidx + span a,
+.r01gContainer .rup_list-footer .rup_list-header-sidx + span a,
+.r01gContainer .rup_list-footer .rup_list-footer-sidx + span a {
+  width: 100% !important;
+}
+
+.r01gContainer .rup_list-overlay {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.r01gContainer .rup_list-overlay .rup_list-overlay-layer {
+  filter: alpha(opacity=0);
+  opacity: 1;
+  z-index: 11;
+}
+
+.r01gContainer .rup_list-overlay .rup_list-overlay-loader {
+  animation: spin 2s linear infinite;
+  border: 7px solid transparent;
+  border-radius: 50%;
+  border-top-color: #69a3d6;
+  display: block;
+  height: 15vh;
+  left: 50%;
+  margin: -5% 0 0 -8vh;
+  max-height: 20rem;
+  max-width: 20rem;
+  position: relative;
+  top: 50%;
+  width: 15vh;
+  z-index: 12;
+}
+
+.r01gContainer .rup_list-overlay .rup_list-overlay-loader::before {
+  animation: spin 3s linear infinite;
+  border: 7px solid transparent;
+  border-radius: 50%;
+  border-top-color: #337ab7;
+  bottom: 5px;
+  content: "";
+  left: 5px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.r01gContainer .rup_list-overlay .rup_list-overlay-loader::after {
+  animation: spin 1.5s linear infinite;
+  border: 7px solid transparent;
+  border-radius: 50%;
+  border-top-color: #204d71;
+  bottom: 15px;
+  content: "";
+  left: 15px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.r01gContainer .list-item {
+  border: 1px solid gray;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: 1px 1px 11px #ddd;
+  margin: 1rem 0rem;
+  padding: .75rem;
+  position: relative;
+  width: auto;
+}
+
+.r01gContainer .list-item:hover {
+  background-color: #b9d4ec;
+  cursor: pointer;
+}
+
+.r01gContainer .list-item-selected {
+  background-color: #007bff;
+  color: #FFF;
+}
+
+.r01gContainer .list-item-selected:hover {
+  background-color: #007bff;
+}
+
+.r01gContainer .rup_list-multiorder-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.r01gContainer .rup_list-multiorder-orderfields {
+  display: flex;
+}
+
+.r01gContainer .rup_list-multiorder-ordersort {
+  display: flex;
+  flex-direction: column;
+}
+
+.r01gContainer .rup_list-ord-line {
+  display: flex;
+}
+
+.r01gContainer .rup_list-ord-line button,
+.r01gContainer .rup_list-ord-line .ui-button.rup-button,
+.r01gContainer .rup_list-ord-line .rup-dropdown-btn-group .rup-dropdown-button,
+.r01gContainer .rup-dropdown-btn-group .rup_list-ord-line .rup-dropdown-button,
+.r01gContainer .rup_list-ord-line a.rup-toolbar_menuButton.ui-button,
+.r01gContainer .rup_list-ord-line .rup-wizard a.rup-wizard_next,
+.r01gContainer .rup-wizard .rup_list-ord-line a.rup-wizard_next,
+.r01gContainer .rup_list-ord-line .rup-wizard a.rup-wizard_prev,
+.r01gContainer .rup-wizard .rup_list-ord-line a.rup-wizard_prev,
+.r01gContainer .rup_list-ord-line .rup-wizard .rup-wizard_submitButton,
+.r01gContainer .rup-wizard .rup_list-ord-line .rup-wizard_submitButton {
+  max-width: 3rem;
+  padding: .5rem;
 }

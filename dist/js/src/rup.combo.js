@@ -666,6 +666,8 @@
                                 if (wasInited) {
                                     $('#' + settings.id).addClass('inited');
                                 }
+                                
+                                $('#'+settings.id).triggerHandler('comboAjaxSucess',[data]); 
                             },
                             error: function (xhr, textStatus, errorThrown) {
                                 if (settings.onLoadError !== null) {
@@ -1037,7 +1039,14 @@
             } else {
                 //Multiple > multiselect
                 $('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
-                settings.minWidth = settings.width;
+                
+                // Si tiene porcentaje
+                if((typeof settings.width === 'string' || settings.width instanceof String) && settings.width.includes("%")) {
+                	settings.minWidth = $('#' + settings.id).parent().width() * (parseInt(settings.width.slice(0, -1)) / 100);
+                } else {
+                	settings.minWidth = settings.width;
+                }
+                
                 $('#' + settings.id).multiselect(settings);
                 $('#' + settings.id).data('echMultiselect').button.attr('id', settings.id + '-button');
                 $('#' + settings.id).rup_combo('refresh'); //Actualizar cambios (remotos)
@@ -1882,8 +1891,16 @@
         legacyWrapMode: false,
         open: function () {
             var anchoCombo = $('#' + this.id + '-button').outerWidth();
-            $('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
-            $('#' + this.id + '-menu').outerWidth(anchoCombo);
+            
+            // Si es un combo multiselect
+            if(this.multiple) {
+            	$('#rup-multiCombo_' + this.id).outerWidth(anchoCombo);
+            } 
+            // Si es un combo normal
+            else {
+            	$('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
+                $('#' + this.id + '-menu').outerWidth(anchoCombo);
+            }
         }
     };
 

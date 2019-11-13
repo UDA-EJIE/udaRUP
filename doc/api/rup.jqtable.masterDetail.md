@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/masterDetail"></a>
 
-## rup\_jqtable/masterDetail
+## rup_jqtable/masterDetail
 Permite relacionar dos tablas de modo que tengan una relación maestro-detalle. De este modo, los resultados de la tabla detalle se muestran a partir del seleccionado en la tabla maestro.
 
 **Summary**: Plugin de edición en línea del componente RUP Table.  
@@ -19,7 +19,7 @@ $("#idComponenteMaestro").rup_jqtable({	url: "../jqGridUsuarioMaestro",});$(
 ### rup_jqtable/masterDetail~options
 Propiedades de configuración del plugin masterDetail del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner property of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 **Properties**
 
 | Name | Type | Description |
@@ -32,7 +32,7 @@ Propiedades de configuración del plugin masterDetail del componente RUP Table.
 ### rup_jqtable/masterDetail~preConfigureMasterDetail(settings)
 Metodo que realiza la pre-configuración del plugin masterDetail del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner method of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -43,7 +43,7 @@ Metodo que realiza la pre-configuración del plugin masterDetail del componente 
 ### rup_jqtable/masterDetail~getMasterTablePkObject(options) ⇒ <code>object</code>
 Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
 
-**Kind**: inner method of [<code>rup\_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
+**Kind**: inner method of [<code>rup_jqtable/masterDetail</code>](#module_rup_jqtable/masterDetail)  
 **Returns**: <code>object</code> - - Objeto json con la clave primaria del registro correspondiente de la tabla maestra  
 
 | Param | Type | Description |

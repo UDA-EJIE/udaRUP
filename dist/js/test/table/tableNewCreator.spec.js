@@ -2,7 +2,7 @@
 // function generateHtml(idDatatable) {
 //     var html =
 //         '<div class="row">\
-//         <div class="col-xs-12">\
+//         <div class="col-md-12">\
 //             <form id="' + idDatatable + '_filter_form">\
 //                 <div id="' + idDatatable + '_filter_toolbar" class="formulario_legend"></div>\
 //                 <fieldset id="' + idDatatable + '_filter_fieldset" class="rup-table-filter-fieldset">\
@@ -83,7 +83,7 @@
 //         </div>\
 //     </div>\
 //     <div class="row">\
-//         <div class="col-xs-12">\
+//         <div class="col-md-12">\
 //             <table id="' + idDatatable + '" class="tableFit table-striped table-bordered table-material" \
 //                 data-filter-form="#' + idDatatable + '_filter_form">\
 //                 <thead>\
@@ -206,7 +206,7 @@
 //     $.extend(opts, true, defaults);
 
 //     if ($('#content').length == 0) {
-//         $('body').append('<div id="content" class="container"></div>');
+//         $('body').append('<div id="content" class="container mt-4"></div>');
 //     }
 //     var html = generateHtml(idDatatable);
 //     $('#content').append(html);
@@ -305,7 +305,7 @@
 //     };
 
 //     if ($('#content').length == 0) {
-//         $('body').append('<div id="content" class="container"></div>');
+//         $('body').append('<div id="content" class="container mt-4"></div>');
 //     }
 //     var html = generateHtml(idDatatable);
 //     $('#content').append(html);

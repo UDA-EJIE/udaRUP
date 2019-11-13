@@ -1,6 +1,6 @@
 <a name="module_rup_calendar"></a>
 
-## rup\_calendar
+## rup_calendar
 Componente de calendario para la visualización de eventos sobre una interfaz dinámica y personalizable.
 
 **Summary**: Componente RUP Calendar.  
@@ -38,7 +38,7 @@ var properties = { day: 'now',	classes: {		months: {			inmonth: 'cal-day-inm
 ### rup_calendar~getYear ⇒ <code>number</code>
 Obtiene el año del calendario
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>number</code> - el año del calendario  
 **Example**  
 ```js
@@ -49,7 +49,7 @@ $('#calendar').rup_calendar('getYear');
 ### rup_calendar~getMonth ⇒ <code>string</code>
 Obtiene el mes del calendario (Enero, Febrero, ..., Diciembre)
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>string</code> - el mes del calendario  
 **Example**  
 ```js
@@ -60,7 +60,7 @@ $('#calendar').rup_calendar('getMonth');
 ### rup_calendar~getWeek ⇒ <code>number</code>
 Obtiene la semana del calendario
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>number</code> - la semana del calendario  
 **Example**  
 ```js
@@ -71,7 +71,7 @@ $('#calendar').rup_calendar('getWeek');
 ### rup_calendar~getDay ⇒ <code>string</code>
 Obtiene el día de la semana (Lunes - Domingo)
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>string</code> - el día de la semana  
 **Example**  
 ```js
@@ -82,7 +82,7 @@ $('#calendar').rup_calendar('getDay');
 ### rup_calendar~defaults
 Propiedades de configuración del componente. Todas son opcionales. Se puede crear un calendario con la funcionalidad básica sin especificar ninguna de estas opciones.
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Properties**
 
 | Name | Type | Description |
@@ -123,7 +123,7 @@ Propiedades de configuración del componente. Todas son opcionales. Se puede cre
 ### rup_calendar~classes
 Propiedades del objeto 'classes'
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Properties**
 
 | Name | Type | Description |
@@ -147,7 +147,7 @@ Propiedades del objeto 'classes'
 ### rup_calendar~views
 Propiedades del objeto 'views'
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Properties**
 
 | Name | Type | Description |
@@ -168,7 +168,7 @@ Propiedades del objeto 'views'
 ### rup_calendar~Eventos
 Ya sea desde local o remoto el JSON con los eventos es un array de objetos en el que cada objeto tiene las siguientes propiedades:
 
-**Kind**: inner property of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner property of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Properties**
 
 | Name | Type | Description |
@@ -185,7 +185,7 @@ Ya sea desde local o remoto el JSON con los eventos es un array de objetos en el
 ### rup_calendar~navigate(navigation)
 Navega en el calendario al punto especificadoSi el parámetro es un string las únicas opciones son: - next - prev - today
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -200,7 +200,7 @@ $("#calendar").rup_calendar('navigate','next');
 ### rup_calendar~isToday() ⇒ <code>boolean</code>
 Confirma si en la vista está el día actual.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>boolean</code> - true si el dia actual está en la vista. false en caso contrario  
 **Example**  
 ```js
@@ -211,7 +211,7 @@ $("#calendar").rup_calendar('isToday');
 ### rup_calendar~instance() ⇒ <code>object</code>
 Devuelve la instancia del subyacente bootstrap-calendar
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>object</code> - instancia del calendar subyacente  
 **Example**  
 ```js
@@ -222,7 +222,7 @@ $("#calendar").rup_calendar('instance');
 ### rup_calendar~setView(viewmode)
 Oculta el menú contextual.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -237,7 +237,7 @@ $("#calendar").rup_calendar('setView','day');
 ### rup_calendar~getView() ⇒ <code>string</code>
 Obtiene el modo de visualización actual.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>string</code> - modo de visualización  
 **Example**  
 ```js
@@ -248,7 +248,7 @@ $('#calendar').rup_calendar('getView');
 ### rup_calendar~getTitle() ⇒ <code>string</code>
 Obtiene el título de la vista de calendario.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>string</code> - título de la vista  
 **Example**  
 ```js
@@ -259,7 +259,7 @@ $("#calendar").rup_calendar("getTitle");
 ### rup_calendar~getStartDate() ⇒ <code>Date</code>
 Obtiene la fecha desde la que se muestra el calendario
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>Date</code> - fecha  
 **Example**  
 ```js
@@ -270,7 +270,7 @@ $("#calendar").rup_calendar("getStartDate");
 ### rup_calendar~getEndDate() ⇒ <code>Date</code>
 Obtiene la fecha hasta la que se muestra el calendario
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>Date</code> - fecha  
 **Example**  
 ```js
@@ -281,7 +281,7 @@ $("#calendar").rup_calendar("getEndDate");
 ### rup_calendar~option(opción, value)
 Método que establece y recarga las opciones
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -297,7 +297,7 @@ $('#calendar').rup_calendar('weekbox', true);$('#calendar').rup_calendar({weekb
 ### rup_calendar~getEventsBetween(fechaDesde, fechaHasta) ⇒ <code>Array</code>
 Devuelve un listado de eventos entre las dos fechas introducidas
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>Array</code> - listado de Eventos entre las fechas  
 
 | Param | Type |
@@ -310,7 +310,7 @@ Devuelve un listado de eventos entre las dos fechas introducidas
 ### rup_calendar~showCell(fecha) ⇒ <code>boolean</code>
 Muestra los eventos de la casilla con la fecha especificada.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Returns**: <code>boolean</code> - true si había eventos. false en caso contrario.  
 
 | Param | Type | Description |
@@ -326,7 +326,7 @@ $('#calendar').rup_calendar('showCell', new Date('2000-01-01'));
 ### rup_calendar~hideCells()
 Oculta el div con los eventos si está desplegado
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Example**  
 ```js
 $('#calendar').rup_calendar('hideCells');
@@ -336,7 +336,7 @@ $('#calendar').rup_calendar('hideCells');
 ### rup_calendar~refresh()
 Recarga los eventos y aplica las opciones cambiadas
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Example**  
 ```js
 $('#calendar').rup_calendar('refresh');
@@ -346,7 +346,7 @@ $('#calendar').rup_calendar('refresh');
 ### rup_calendar~destroy()
 Elimina el calendario y retorna a la estructura HTML anterior a la creación del calendario.
 
-**Kind**: inner method of [<code>rup\_calendar</code>](#module_rup_calendar)  
+**Kind**: inner method of [<code>rup_calendar</code>](#module_rup_calendar)  
 **Example**  
 ```js
 $("#contextMenu").rup_calendar("destroy");

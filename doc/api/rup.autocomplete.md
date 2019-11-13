@@ -1,6 +1,6 @@
 <a name="module_rup_autocomplete"></a>
 
-## rup\_autocomplete
+## rup_autocomplete
 Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
 
 **Summary**: Componente RUP Autocomplete.  
@@ -38,7 +38,7 @@ $("#idAutocomplete").rup_autocomplete({	source : "autocomplete/remote",	source
 ### "rupAutocomplete_loadComplete"
 Permite asociar una función que se ejecutará cuando se complete la carga de los registros correspondientes al texto de búsqueda introducido.
 
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: event emitted by [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#autocomplete").on("rupAutocomplete_loadComplete", function(event, data){});
@@ -48,7 +48,7 @@ $("#autocomplete").on("rupAutocomplete_loadComplete", function(event, data){});
 ### "rupAutocomplete_change"
 Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del comonente
 
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: event emitted by [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#autocomplete").on("rupAutocomplete_change", function(event, data){});
@@ -58,7 +58,7 @@ $("#autocomplete").on("rupAutocomplete_change", function(event, data){});
 ### "rupAutocomplete_select"
 Permite asociar una función que se ejecutará cuando se produzca la selección de un registro de entre la lista de resultados
 
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: event emitted by [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#autocomplete").on("rupAutocomplete_select", function(event, data){});
@@ -68,7 +68,7 @@ $("#autocomplete").on("rupAutocomplete_select", function(event, data){});
 ### "rupAutocomplete_beforeLoadComplete"
 Permite manipular la respuesta del servidor antes de construir la lista de resultados.
 
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: event emitted by [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#autocomplete").on("rupAutocomplete_beforeLoadComplete", function(event, data){});
@@ -78,7 +78,7 @@ $("#autocomplete").on("rupAutocomplete_beforeLoadComplete", function(event, data
 ### rup_autocomplete~defaults
 Opciones por defecto de configuración del componente.
 
-**Kind**: inner property of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner property of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -100,7 +100,7 @@ Opciones por defecto de configuración del componente.
 Método utilizado para obtener el valor del componente. Este método es el utilizado
         por el resto de componentes RUP para estandarizar la obtención del valor del Autocomplete.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Returns**: <code>string</code> \| <code>number</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
 **Example**  
 ```js
@@ -112,7 +112,7 @@ $("#idAutocomplete").rup_autocomplete("getRupValue");
 Método utilizado para asignar el valor al componente. Este método es el utilizado por
 el resto de componentes RUP para estandarizar la asignación del valor al Autocomplete.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -127,7 +127,7 @@ $("#idAutocomplete").rup_autocomplete("setRupValue", "Si");
 ### rup_autocomplete~destroy()
 Elimina el autocomplete.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("destroy");
@@ -137,7 +137,7 @@ $("#idAutocomplete").rup_autocomplete("destroy");
 ### rup_autocomplete~off()
 Deshabilita el autocomplete (solo la parte de sugerencias, el input sigue habilitado).
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("off");
@@ -147,7 +147,7 @@ $("#idAutocomplete").rup_autocomplete("off");
 ### rup_autocomplete~on()
 Habilita el autocomplete (solo la parte de sugerencias).
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("on");
@@ -157,7 +157,7 @@ $("#idAutocomplete").rup_autocomplete("on");
 ### rup_autocomplete~disable()
 Deshabilita el autocomplete. Internamente invoca al método [off](#module_rup_autocomplete..off).
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("disable");
@@ -167,7 +167,7 @@ $("#idAutocomplete").rup_autocomplete("disable");
 ### rup_autocomplete~enable()
 Habilita el autocomplete. Internamente invoca al método [on](#module_rup_autocomplete..on).
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("enable");
@@ -177,7 +177,7 @@ $("#idAutocomplete").rup_autocomplete("enable");
 ### rup_autocomplete~option(optionName, [value], aux)
 Permite consultar y modificar la configuración del componente.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -195,7 +195,7 @@ Permite consultar y modificar la configuración del componente.
 Lanza una búsqueda en el autocomplete con el parámetro indicado y el foco va a parar al
 input.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -210,7 +210,7 @@ $("#idAutocomplete").rup_autocomplete("search", "java");
 ### rup_autocomplete~close()
 Oculta el autocomplete.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 $("#idAutocomplete").rup_autocomplete("close");
@@ -220,7 +220,7 @@ $("#idAutocomplete").rup_autocomplete("close");
 ### rup_autocomplete~val()
 Devuelve el valor del autocomplete. Este es el valor que se guarda en el campo oculto antes descrito al final del apartado 7.Para obtener la descripción (dato que se muestra en el input) se invocará a la función estándar de jQuery.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 **Example**  
 ```js
 // Recuperar el valor$("#idAutocomplete").rup_autocomplete("val");// Recuperar la descripción$("#idAutocomplete").val();
@@ -230,7 +230,7 @@ Devuelve el valor del autocomplete. Este es el valor que se guarda en el campo o
 ### rup_autocomplete~set(value, label)
 Método utilizado para asignar el valor y el literal al componente. El valor se almacena en el campo hidden creado por el componente. El contenido indicado en la propiedad label se mostrará en el campo input del componente.
 
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -244,14 +244,14 @@ $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
 <a name="module_rup_autocomplete..success"></a>
 
 ### rup_autocomplete~success()
-**Kind**: inner method of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
-**Emits**: <code>event:{[event]} rupAutocomplete\_beforeLoadComplete [description]</code>  
+**Kind**: inner method of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
+**Emits**: <code>event:{[event]} rupAutocomplete_beforeLoadComplete [description]</code>  
 <a name="module_rup_autocomplete..onLoadError"></a>
 
 ### rup_autocomplete~onLoadError : <code>function</code>
 Función a ejecutar en caso de producirse un error a la hora de obtener los elementos a mostrar.
 
-**Kind**: inner typedef of [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
+**Kind**: inner typedef of [<code>rup_autocomplete</code>](#module_rup_autocomplete)  
 
 | Param | Type | Description |
 | --- | --- | --- |

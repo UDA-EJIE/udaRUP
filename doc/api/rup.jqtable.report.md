@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/report"></a>
 
-## rup\_jqtable/report
+## rup_jqtable/report
 Genera los controles necesarios para permitir al usuario la exportación de los datos mostrados en la tabla.
 
 **Summary**: Plugin de reporting del componente RUP Table.  
@@ -19,7 +19,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["report"
 ### rup_jqtable/report~options
 Propiedades de configuración del plugin report del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
+**Kind**: inner property of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
 **Properties**
 
 | Name | Type | Description |
@@ -33,7 +33,7 @@ Propiedades de configuración del plugin report del componente RUP Table.
 ### rup_jqtable/report~preConfigureReport(settings)
 Metodo que realiza la pre-configuración del plugin report del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
+**Kind**: inner method of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -44,8 +44,8 @@ Metodo que realiza la pre-configuración del plugin report del componente RUP Ta
 ### rup_jqtable/report~postConfigureReport(settings)
 Metodo que realiza la post-configuración del plugin report del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
-**Emits**: [<code>rupTable\_serializeReportData</code>](#module_rup_jqtable+event_rupTable_serializeReportData)  
+**Kind**: inner method of [<code>rup_jqtable/report</code>](#module_rup_jqtable/report)  
+**Emits**: [<code>rupTable_serializeReportData</code>](#module_rup_jqtable+event_rupTable_serializeReportData)  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -5,9 +5,10 @@
  *
  * User: Sergey Romanov <serg4172@mail.ru>
  */
-"use strict";
+/* eslint-env jquery */
 
 Date.prototype.getWeek = function (dowOffset) {
+    'use strict';
     /*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
 
     dowOffset = typeof (dowOffset) == 'int' ? dowOffset : 0; //default dowOffset to zero
@@ -34,10 +35,12 @@ Date.prototype.getWeek = function (dowOffset) {
     return weeknum;
 };
 Date.prototype.getMonthFormatted = function() {
+    'use strict';
     var month = this.getMonth() + 1;
     return month < 10 ? '0' + month : month;
 };
 Date.prototype.getDateFormatted = function() {
+    'use strict';
     var date = this.getDate();
     return date < 10 ? '0' + date : date;
 };
@@ -52,14 +55,15 @@ if(!String.prototype.format) {
 }
 if(!String.prototype.formatNum) {
     String.prototype.formatNum = function(decimal) {
-        var r = "" + this;
+        var r = '' + this;
         while(r.length < decimal)
-            r = "0" + r;
+            r = '0' + r;
         return r;
     };
 }
 
 (function($) {
+    'use strict';
 
     var defaults = {
         // Container to append the tooltip
@@ -90,8 +94,8 @@ if(!String.prototype.formatNum) {
         events_cache: false,
         // Set format12 to true if you want to use 12 Hour format instead of 24 Hour
         format12: false,
-        am_suffix: "AM",
-        pm_suffix: "PM",
+        am_suffix: 'AM',
+        pm_suffix: 'PM',
         // Path to templates should end with slash /. It can be as relative
         // /component/bootstrap-calendar/tmpls/
         // or absolute
@@ -118,7 +122,7 @@ if(!String.prototype.formatNum) {
         // ID of the element of modal window. If set, events URLs will be opened in modal windows.
         modal: null,
         //	modal handling setting, one of "iframe", "ajax" or "template"
-        modal_type: "iframe",
+        modal_type: 'iframe',
         //	function to set modal title, will be passed the event as a parameter
         modal_title: null,
         views: {
@@ -183,25 +187,25 @@ if(!String.prototype.formatNum) {
         week_numbers_iso_8601: false,
         holidays: {
             // January 1
-            '01-01': "New Year's Day",
+            '01-01': 'New Year\'s Day',
             // Third (+3*) Monday (1) in January (01)
-            '01+3*1': "Birthday of Dr. Martin Luther King, Jr.",
+            '01+3*1': 'Birthday of Dr. Martin Luther King, Jr.',
             // Third (+3*) Monday (1) in February (02)
-            '02+3*1': "Washington's Birthday",
+            '02+3*1': 'Washington\'s Birthday',
             // Last (-1*) Monday (1) in May (05)
-            '05-1*1': "Memorial Day",
+            '05-1*1': 'Memorial Day',
             // July 4
-            '04-07': "Independence Day",
+            '04-07': 'Independence Day',
             // First (+1*) Monday (1) in September (09)
-            '09+1*1': "Labor Day",
+            '09+1*1': 'Labor Day',
             // Second (+2*) Monday (1) in October (10)
-            '10+2*1': "Columbus Day",
+            '10+2*1': 'Columbus Day',
             // November 11
-            '11-11': "Veterans Day",
+            '11-11': 'Veterans Day',
             // Fourth (+4*) Thursday (4) in November (11)
-            '11+4*4': "Thanksgiving Day",
+            '11+4*4': 'Thanksgiving Day',
             // December 25
-            '25-12': "Christmas"
+            '25-12': 'Christmas'
         }
     };
 
@@ -271,6 +275,7 @@ if(!String.prototype.formatNum) {
         }
     }
     catch(e) {
+        console.error('No se pudo determinar la zona horaria');
     }
 
     function buildEventsUrl(events_url, data) {
@@ -424,7 +429,7 @@ if(!String.prototype.formatNum) {
         if('modal' in object) {
             this._update_modal();
         }
-    }
+    };
 
     Calendar.prototype.setLanguage = function(lang) {
         if(window.calendar_languages && (lang in window.calendar_languages)) {
@@ -434,7 +439,7 @@ if(!String.prototype.formatNum) {
             this.locale = strings;
             delete this.options.language;
         }
-    }
+    };
 
     Calendar.prototype._render = function() {
         $(this.context).trigger('beforeRender');
@@ -448,9 +453,9 @@ if(!String.prototype.formatNum) {
 
         // Getting list of days in a week in correct order. Works for month and week views
         if(getExtentedOption(this, 'first_day') == 1) {
-            data.days_name = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
+            data.days_name = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0];
         } else {
-            data.days_name = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
+            data.days_name = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6];
         }
 
         // Get all events between start and end
@@ -479,7 +484,7 @@ if(!String.prototype.formatNum) {
     };
 
     Calendar.prototype._format_hour = function(str_hour, leadingZero) {
-        var hour_split = str_hour.split(":");
+        var hour_split = str_hour.split(':');
         var hour = parseInt(hour_split[0]);
         var minutes = parseInt(hour_split[1]);
         var leadingZero = leadingZero == 'undefined' ? true : false;
@@ -518,8 +523,8 @@ if(!String.prototype.formatNum) {
             $.error(this.locale.error_timedevide);
         }
 
-        var time_start = this.options.time_start.split(":");
-        var time_end = this.options.time_end.split(":");
+        var time_start = this.options.time_start.split(':');
+        var time_end = this.options.time_end.split(':');
 
         data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * time_split_hour;
         var lines = data.hours * time_split_count - parseInt(time_start[1]) / time_split;
@@ -609,19 +614,19 @@ if(!String.prototype.formatNum) {
     };
 
     Calendar.prototype._hour_min = function(hour) {
-        var time_start = this.options.time_start.split(":");
+        var time_start = this.options.time_start.split(':');
         var time_split = parseInt(this.options.time_split);
         var in_hour = 60 / time_split;
         return (hour == 0) ? (in_hour - (parseInt(time_start[1]) / time_split)) : in_hour;
     };
 
     Calendar.prototype._hour = function(hour, part) {
-        var time_start = this.options.time_start.split(":");
+        var time_start = this.options.time_start.split(':');
         var time_split = parseInt(this.options.time_split);
-        var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
-        var m = "" + time_split * part;
+        var h = '' + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+        var m = '' + time_split * part;
 
-        return this._format_hour(h.formatNum(2) + ":" + m.formatNum(2));
+        return this._format_hour(h.formatNum(2) + ':' + m.formatNum(2));
     };
 
     Calendar.prototype._week = function(event) {
@@ -666,7 +671,7 @@ if(!String.prototype.formatNum) {
         t.events = events;
         t.cal = this;
         return self.options.templates['week-days'](t);
-    }
+    };
 
     Calendar.prototype._month = function(month) {
         this._loadTemplate('year-month');
@@ -681,7 +686,7 @@ if(!String.prototype.formatNum) {
         t.end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 1, 0, 0, 0).getTime());
         t.events = this.getEventsBetween(t.start, t.end);
         return this.options.templates['year-month'](t);
-    }
+    };
 
     Calendar.prototype._day = function(week, day) {
         this._loadTemplate('month-day');
@@ -714,7 +719,7 @@ if(!String.prototype.formatNum) {
             cls = this.options.classes.months.outmonth;
         }
 
-        cls = $.trim(cls + " " + this._getDayClass("months", curdate));
+        cls = $.trim(cls + ' ' + this._getDayClass('months', curdate));
 
         if(day <= 0) {
             var daysinprevmonth = (new Date(this.options.position.start.getFullYear(), this.options.position.start.getMonth(), 0)).getDate();
@@ -751,7 +756,7 @@ if(!String.prototype.formatNum) {
         t.end = parseInt(t.start + 86400000);
         t.events = this.getEventsBetween(t.start, t.end);
         return this.options.templates['month-day'](t);
-    }
+    };
 
     Calendar.prototype._getHoliday = function(date) {
         var result = false;
@@ -773,38 +778,38 @@ if(!String.prototype.formatNum) {
 
     Calendar.prototype._getHolidayName = function(date) {
         var holiday = this._getHoliday(date);
-        return (holiday === false) ? "" : holiday;
+        return (holiday === false) ? '' : holiday;
     };
 
     Calendar.prototype._getDayClass = function(class_group, date) {
         var self = this;
         var addClass = function(which, to) {
             var cls;
-            cls = (self.options.classes && (class_group in self.options.classes) && (which in self.options.classes[class_group])) ? self.options.classes[class_group][which] : "";
-            if((typeof(cls) == "string") && cls.length) {
+            cls = (self.options.classes && (class_group in self.options.classes) && (which in self.options.classes[class_group])) ? self.options.classes[class_group][which] : '';
+            if((typeof(cls) == 'string') && cls.length) {
                 to.push(cls);
             }
         };
         var classes = [];
         if(date.toDateString() == (new Date()).toDateString()) {
-            addClass("today", classes);
+            addClass('today', classes);
         }
         var holiday = this._getHoliday(date);
         if(holiday !== false) {
-            addClass("holidays", classes);
+            addClass('holidays', classes);
         }
         switch(date.getDay()) {
         case 0:
-            addClass("sunday", classes);
+            addClass('sunday', classes);
             break;
         case 6:
-            addClass("saturday", classes);
+            addClass('saturday', classes);
             break;
         }
 
         addClass(date.toDateString(), classes);
 
-        return classes.join(" ");
+        return classes.join(' ');
     };
 
     Calendar.prototype.view = function(view) {
@@ -864,7 +869,7 @@ if(!String.prototype.formatNum) {
             to.start.setTime(new Date().getTime());
         }
         else {
-            $.error(this.locale.error_where.format(where))
+            $.error(this.locale.error_where.format(where));
         }
         var self = this;
         var getEndDate = function () {
@@ -1001,15 +1006,15 @@ if(!String.prototype.formatNum) {
             return true;
         }
         return false;
-    }
+    };
 
     Calendar.prototype.getStartDate = function() {
         return this.options.position.start;
-    }
+    };
 
     Calendar.prototype.getEndDate = function() {
         return this.options.position.end;
-    }
+    };
 
     Calendar.prototype._loadEvents = function() {
         var self = this;
@@ -1102,7 +1107,7 @@ if(!String.prototype.formatNum) {
 
     Calendar.prototype._templatePath = function(name) {
         if(typeof this.options.tmpl_path == 'function') {
-            return this.options.tmpl_path(name)
+            return this.options.tmpl_path(name);
         }
         else {
             return this.options.tmpl_path + name + '.html';
@@ -1175,11 +1180,11 @@ if(!String.prototype.formatNum) {
         }
 
         var ifrm = null;
-        if(self.options.modal_type == "iframe") {
-            ifrm = $(document.createElement("iframe"))
+        if(self.options.modal_type == 'iframe') {
+            ifrm = $(document.createElement('iframe'))
                 .attr({
-                    width: "100%",
-                    frameborder: "0"
+                    width: '100%',
+                    frameborder: '0'
                 });
         }
 
@@ -1188,12 +1193,12 @@ if(!String.prototype.formatNum) {
             event.stopPropagation();
 
             var url = $(this).attr('href');
-            var id = $(this).data("event-id");
+            var id = $(this).data('event-id');
             var event = _.find(self.options.events, function(event) {
-                return event.id == id
+                return event.id == id;
             });
 
-            if(self.options.modal_type == "iframe") {
+            if(self.options.modal_type == 'iframe') {
                 ifrm.attr('src', url);
                 $('.modal-body', modal).html(ifrm);
             }
@@ -1205,29 +1210,29 @@ if(!String.prototype.formatNum) {
                     .on('show.bs.modal', function() {
                         var modal_body = $(this).find('.modal-body');
                         switch(self.options.modal_type) {
-                        case "iframe" :
+                        case 'iframe' :
                             var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
                             $(this).find('iframe').height(Math.max(height, 50));
                             break;
 
-                        case "ajax":
+                        case 'ajax':
                             $.ajax({
-                                url: url, dataType: "html", async: false, success: function(data) {
+                                url: url, dataType: 'html', async: false, success: function(data) {
                                     modal_body.html(data);
                                 }
                             });
                             break;
 
-                        case "template":
-                            self._loadTemplate("modal");
+                        case 'template':
+                            self._loadTemplate('modal');
                             //	also serve calendar instance to underscore template to be able to access current language strings
-                            modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}))
+                            modal_body.html(self.options.templates['modal']({'event': event, 'calendar': self}));
                             break;
                         }
 
                         //	set the title of the bootstrap modal
                         if(_.isFunction(self.options.modal_title)) {
-                            modal.find(".modal-title").html(self.options.modal_title(event));
+                            modal.find('.modal-title').html(self.options.modal_title(event));
                         }
                     })
                     .on('shown.bs.modal', function() {
@@ -1413,7 +1418,7 @@ if(!String.prototype.formatNum) {
         var k = c % 4;
         var l = (32 + 2 * e + 2 * i - h - k) % 7;
         var m = Math.floor((a + 11 * h + 22 * l) / 451);
-        var n0 = (h + l + 7 * m + 114)
+        var n0 = (h + l + 7 * m + 114);
         var n = Math.floor(n0 / 31) - 1;
         var p = n0 % 31 + 1;
         return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
@@ -1421,5 +1426,5 @@ if(!String.prototype.formatNum) {
 
     $.fn.calendar = function(params) {
         return new Calendar(params, this);
-    }
+    };
 }(jQuery));

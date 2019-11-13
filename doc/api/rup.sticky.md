@@ -22,14 +22,14 @@ Gestiona las inicializaciones de componentes en modo 'sticky'
 **Since**: UDA 3.3.0 // Sticky 1.0.0  
 <a name="module_rup.sticky.._navbarSticky"></a>
 
-### rup.sticky~\_navbarSticky()
+### rup.sticky~_navbarSticky()
 Aplica el modo 'sticky' al navbar
 
 **Kind**: inner method of [<code>rup.sticky</code>](#module_rup.sticky)  
 **Since**: UDA 3.3.0 // Sticky 1.0.0  
 <a name="module_rup.sticky.._wizardSticky"></a>
 
-### rup.sticky~\_wizardSticky()
+### rup.sticky~_wizardSticky()
 Aplica el modo 'sticky' al menu del wizard
 
 **Kind**: inner method of [<code>rup.sticky</code>](#module_rup.sticky)  

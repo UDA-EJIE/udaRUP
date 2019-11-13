@@ -1417,7 +1417,8 @@ import { PassThrough } from "stream";
         adapter: 'table_material',
 	    order: [[ 1, 'asc' ]],
 	    showMultiSelectedZero: true,
-	    filterMessage : true
+	    filterMessage : true,
+	    noEdit: false
     };
 
 }));

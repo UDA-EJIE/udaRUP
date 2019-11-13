@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/formEdit"></a>
 
-## rup\_jqtable/formEdit
+## rup_jqtable/formEdit
 Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra dentro de un diálogo y ofrece las siguientes funcionalidades:- Añadir un nuevo registro o modificar uno ya existente.- Cancelar la inserción o edición de un registro.- Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre losdiferentes elementos.
 
 **Summary**: Plugin de edición en formulario del componente RUP Table.  
@@ -25,7 +25,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["formEdi
 ### rup_jqtable/formEdit~options
 Propiedades de configuración del plugin formEdit del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner property of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **See**: Las posibles propiedades que se pueden indicar en cada una de las siguientes propiedades, se especifican con más detalle en la documentación del plugin subyacente jqGrid.  
 **Properties**
 
@@ -44,7 +44,7 @@ Propiedades de configuración del plugin formEdit del componente RUP Table.
 ### rup_jqtable/formEdit~preConfigureFormEdit(settings)
 Metodo que realiza la pre-configuración del plugin formEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -55,7 +55,7 @@ Metodo que realiza la pre-configuración del plugin formEdit del componente RUP 
 ### rup_jqtable/formEdit~postConfigureFormEdit(settings)
 Metodo que realiza la post-configuración del plugin formEdit del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -66,7 +66,7 @@ Metodo que realiza la post-configuración del plugin formEdit del componente RUP
 ### rup_jqtable/formEdit~createDetailNavigation() ⇒ <code>object</code>
 Devuelve la template HTML correspondiente a la capa de navegación del fomulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Template correspondiente a la capa de navegación.  
 **Example**  
 ```js
@@ -77,9 +77,9 @@ $("#idTable").rup_jqtable("createDetailNavigation");
 ### rup_jqtable/formEdit~deleteElement(rowId, options) ⇒ <code>object</code>
 Elimina el registro correspondiente al identificador indicado y utilizando las opciones de borrado especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), [<code>rupTable\_afterDeleteRow</code>](#module_rup_jqtable+event_rupTable_afterDeleteRow), [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: [<code>rupTable_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), [<code>rupTable_afterDeleteRow</code>](#module_rup_jqtable+event_rupTable_afterDeleteRow), [<code>rupTable_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -95,9 +95,9 @@ $("#idComponente").rup_jqtable("deleteElement", rowId, options);
 ### rup_jqtable/formEdit~editElement(rowId, options) ⇒ <code>object</code>
 Edita el registro correspondiente al identificador indicado y utilizando las opciones de edición especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: [<code>rupTable_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -113,9 +113,9 @@ $("#idComponente").rup_jqtable("editElement", rowId, options);
 ### rup_jqtable/formEdit~newElement(addEvent) ⇒ <code>object</code>
 Muestra el formulario de detalle para permitir al usuario insertar un nuevo registro.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: [<code>rupTable_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -130,9 +130,9 @@ $("#idComponente").rup_jqtable("newElement", true);
 ### rup_jqtable/formEdit~cloneElement(rowId, options, cloneEvent) ⇒ <code>object</code>
 Clona el registro correspondiente al identificador indicado y utilizando las opciones de clonado especificadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: [<code>rupTable_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -149,7 +149,7 @@ $("#idComponente").rup_jqtable("cloneElement", rowId, options, cloneEvent);
 ### rup_jqtable/formEdit~hideFormErrors($form)
 Oculta los mensajes de error del formulario indicado.
 
-**Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
+**Kind**: inner method of [<code>rup_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 
 | Param | Type | Description |
 | --- | --- | --- |

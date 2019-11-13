@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/filter"></a>
 
-## rup\_jqtable/filter
+## rup_jqtable/filter
 Gestiona las operaciones de filtrado de datos sobre el origen de datos que utiliza el componente.
 
 **Summary**: Plugin de filtrado del componente RUP Table.  
@@ -26,7 +26,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["filter"
 ### rup_jqtable/filter~options
 Propiedades de configuración del plugin filter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner property of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -41,7 +41,7 @@ Propiedades de configuración del plugin filter del componente RUP Table.
 ### rup_jqtable/filter~preConfigureFilter(settings)
 Metodo que realiza la pre-configuración del plugin filter del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ Metodo que realiza la pre-configuración del plugin filter del componente RUP Ta
 ### rup_jqtable/filter~postConfigureFilter(settings)
 Metodo que realiza la post-configuración del plugin filter del componente RUP Table.Este método se ejecuta después de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -63,8 +63,8 @@ Metodo que realiza la post-configuración del plugin filter del componente RUP T
 ### rup_jqtable/filter~cleanFilterForm()
 Limpia los campos del formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_filter\_beforeCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_beforeCleanFilterForm), [<code>rupTable\_filter\_afterCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_afterCleanFilterForm)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Emits**: [<code>rupTable_filter_beforeCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_beforeCleanFilterForm), [<code>rupTable_filter_afterCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_afterCleanFilterForm)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("cleanFilterForm");
@@ -74,8 +74,8 @@ $("#idComponente").rup_jqtable("cleanFilterForm");
 ### rup_jqtable/filter~filter()
 Realiza el filtrado de acuerdo a los datos existentes en el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_beforeFilter</code>](#module_rup_jqtable+event_rupTable_beforeFilter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Emits**: [<code>rupTable_beforeFilter</code>](#module_rup_jqtable+event_rupTable_beforeFilter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("filter");
@@ -85,7 +85,7 @@ $("#idComponente").rup_jqtable("filter");
 ### rup_jqtable/filter~getFilterParams()
 Devuelve los parámetros de filtrado empleados en el filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("getFilterParams");
@@ -95,7 +95,7 @@ $("#idComponente").rup_jqtable("getFilterParams");
 ### rup_jqtable/filter~hideFilterForm()
 Oculta el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("hideFilterForm");
@@ -105,7 +105,7 @@ $("#idComponente").rup_jqtable("hideFilterForm");
 ### rup_jqtable/filter~showFilterForm()
 Muestra el formulario de filtrado.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("showFilterForm");
@@ -115,7 +115,7 @@ $("#idComponente").rup_jqtable("showFilterForm");
 ### rup_jqtable/filter~toggleFilterForm()
 Alterna el estado del formulario de filtrado entre visible y oculto.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("toggleFilterForm");
@@ -125,7 +125,7 @@ $("#idComponente").rup_jqtable("toggleFilterForm");
 ### rup_jqtable/filter~showSearchCriteria()
 Actualiza el resumen de los criterios de filtrado a partir de los valores existentes en el formulario.
 
-**Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
+**Kind**: inner method of [<code>rup_jqtable/filter</code>](#module_rup_jqtable/filter)  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("showSearchCriteria");

@@ -1,6 +1,6 @@
 <a name="module_rup_jqtable/multifilter"></a>
 
-## rup\_jqtable/multifilter
+## rup_jqtable/multifilter
 Gestiona las operaciones de filtrado múltiple de datos sobre el origen de datos que utiliza el componente.
 
 **Summary**: Plugin de filtrado múltiple del componente RUP Table.  
@@ -23,7 +23,7 @@ $("#idComponente").rup_jqtable({	url: "../jqGridUsuario",	usePlugins:["multifi
 ### rup_jqtable/multifilter~options
 Propiedades de configuración del plugin multifilter del componente RUP Table.
 
-**Kind**: inner property of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner property of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -38,7 +38,7 @@ Propiedades de configuración del plugin multifilter del componente RUP Table.
 ### rup_jqtable/multifilter~preConfigureMultifilter(settings)
 Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -49,8 +49,8 @@ Metodo que realiza la pre-configuración del plugin de filtrado múltiple del co
 ### rup_jqtable/multifilter~postConfigureMultifilter(settings)
 Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_multifilter\_fillForm</code>  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Emits**: <code>module:rup_jqtable#event:rupTable_multifilter_fillForm</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -61,7 +61,7 @@ Metodo que realiza la post-configuración del plugin de filtrado múltiple del c
 ### rup_jqtable/multifilter~getMultifilterDialogTemplate(settings) ⇒ <code>object</code>
 Devuelve la template html empleada para renderizar los controles del formulario de filtrado múltiple.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 **Returns**: <code>object</code> - - Objeto jQuery con el contenido html de la template.  
 
 | Param | Type | Description |
@@ -77,7 +77,7 @@ $("#idComponente").rup_jqtable("getMultifilterDialogTemplate", settings);
 ### rup_jqtable/multifilter~configureMultifilter(settings)
 Realiza la configuración interna del plugin multifilter a partir de las propiedades de configuración indicadas.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -92,8 +92,8 @@ $("#idComponente").rup_jqtable("configureMultifilter", settings);
 ### rup_jqtable/multifilter~addFilter(filter)
 Función que añade un filtro al multifiltro
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
-**Emits**: [<code>rupTable\_multifilter\_beforeAdd</code>](#module_rup_jqtable+event_rupTable_multifilter_beforeAdd)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Emits**: [<code>rupTable_multifilter_beforeAdd</code>](#module_rup_jqtable+event_rupTable_multifilter_beforeAdd)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ $("#idComponente").rup_jqtable("addFilter", filter);
 ### rup_jqtable/multifilter~deleteFilter(filter)
 Función que elimina un filtro del multifiltro.
 
-**Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
+**Kind**: inner method of [<code>rup_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
 
 | Param | Type | Description |
 | --- | --- | --- |
