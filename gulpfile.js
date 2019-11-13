@@ -34,24 +34,6 @@ gulp.task('watch', gulp.series(
     'watch:table',
     'watch:templates:demo',
     'watch:templates:rup',
-    'watch:minimize:js:rup',
-    'watch:dist',
-    'watch:x21a'
-));
-
-gulp.task('watch:dist', gulp.series(
-    'watch:sass:rup-base',
-    'watch:sass:rup-theme',
-    'watch:sass:rup-jqueryui-theme',
-    'watch:table',
-    'watch:templates:demo',
-    'watch:templates:rup',
-    'watch:minimize:js:rup',
-    'watch:uglify:css:rup-base',
-    'watch:uglify:css:rup-jqueryui-theme',
-    'watch:uglify:css:rup-theme',
-    'watch:uglify:js:rup',
-    'watch:dist',
     'watch:x21a'
 ));
 
