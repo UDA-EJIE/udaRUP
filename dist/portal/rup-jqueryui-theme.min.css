@@ -11,12 +11,6 @@
  * To view and modify this theme, visit http://jqueryui.com/themeroller/
  */
 
-.r01gContainer .ui-widget-content a,
-.r01gContainer .ui-widget-header,
-.r01gContainer .ui-widget-header a {
-  color: #222;
-}
-
 /*!
  * jQuery UI CSS Framework 1.12.0
  * http://jqueryui.com
@@ -57,10 +51,19 @@
   color: #222;
 }
 
+.r01gContainer .ui-widget-content a {
+  color: #222;
+}
+
 .r01gContainer .ui-widget-header {
   border: 1px solid #aaa;
   background: url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x #ccc;
+  color: #222;
   font-weight: 700;
+}
+
+.r01gContainer .ui-widget-header a {
+  color: #222;
 }
 
 .r01gContainer .ui-button,

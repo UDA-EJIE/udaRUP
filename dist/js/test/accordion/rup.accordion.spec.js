@@ -1,7 +1,6 @@
 /* jslint multistr: true */
 /* eslint-env jasmine, jquery */
 
-import * as testutils from '../common/specCommonUtils.js';
 
 describe('Test Accordion > ', () => {
     var $defAccordion, $altAccordion;

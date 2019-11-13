@@ -666,6 +666,8 @@
                                 if (wasInited) {
                                     $('#' + settings.id).addClass('inited');
                                 }
+                                
+                                $('#'+settings.id).triggerHandler('comboAjaxSucess',[data]); 
                             },
                             error: function (xhr, textStatus, errorThrown) {
                                 if (settings.onLoadError !== null) {

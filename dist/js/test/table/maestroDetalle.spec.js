@@ -88,7 +88,7 @@ function testForm2Form(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window', 
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -671,7 +671,7 @@ function testForm2Inline(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window', 
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -1250,7 +1250,7 @@ function testInline2Form(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window',
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -1829,7 +1829,7 @@ function testInline2Inline(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window',
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };

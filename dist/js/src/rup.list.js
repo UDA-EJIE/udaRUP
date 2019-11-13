@@ -91,38 +91,38 @@
      */
 
     /**
-    * @description Opciones por defecto de configuración de rowNum
-    * @name defaultsRowNum
-    * 
-    * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de los elementos por página
-    * @property {String} [value=5] - Valor del source por defecto 
-    */
+     * @description Opciones por defecto de configuración de rowNum
+     * @name defaultsRowNum
+     * 
+     * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de los elementos por página
+     * @property {String} [value=5] - Valor del source por defecto 
+     */
 
     /**
-    * @description Opciones por defecto de configuración de sidx
-    * @name defaultsSidx
-    * 
-    * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de la ordenacion.
-    * @property {String} [value=5] - Valor del source por defecto. En caso de ser multiOrdenacion se pueden añadir campos separados por comas
-    */
+     * @description Opciones por defecto de configuración de sidx
+     * @name defaultsSidx
+     * 
+     * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de la ordenacion.
+     * @property {String} [value=5] - Valor del source por defecto. En caso de ser multiOrdenacion se pueden añadir campos separados por comas
+     */
 
     /**
-    * @description Opciones por defecto de configuración de selectable
-    * @name defaultsSelectable
-    * 
-    * @property {boolean} [multi=null] - Si es true será de selección múltiple, de ser false será de seleccion simple.
-    * @property {selector} [value=null] - Selctor JQuery sobre el que se deberá hacer click para seleccionar o deseleccionar elementos.
-    */
+     * @description Opciones por defecto de configuración de selectable
+     * @name defaultsSelectable
+     * 
+     * @property {boolean} [multi=null] - Si es true será de selección múltiple, de ser false será de seleccion simple.
+     * @property {selector} [value=null] - Selctor JQuery sobre el que se deberá hacer click para seleccionar o deseleccionar elementos.
+     */
 
     /**
-    * @description Eventos lanzados sobre rup-list
-    * @name defaultsEvents
-    * 
-    * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
-    * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
+     * @description Eventos lanzados sobre rup-list
+     * @name defaultsEvents
+     * 
+     * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
+     * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
      * @property [rup_list-mord-inited] - Se lanza una vez se ha inicializado la característica de multiorder
      * @property [rup_list-mord-changed] - Se lanza cuando se vería la multiordenación
-    */
+     */
 
     $.widget('$.rup_list', {
         options: {
@@ -331,11 +331,11 @@
                 /**
                  * MULTISORT DIALOG
                  */
-
+                opciones._idMultiSortDialog = selfId + '-mord-dialog';
 
                 /**
                  * ROWNUM
-                 */ 
+                 */
                 self._rownumInit.apply(self);
 
                 /**
@@ -355,7 +355,7 @@
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
-                    if(opciones.isScrollList){
+                    if (opciones.isScrollList) {
                         self.element.prepend(item);
                     } else {
                         self.element.append(item);
@@ -415,18 +415,18 @@
                             deselect(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         };
-                        let deselectAll= (clickedPK) => {
+                        let deselectAll = (clickedPK) => {
                             select(clickedPK);
                             $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         };
                         if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                            if(opciones.multiselection.selectedAll){
+                            if (opciones.multiselection.selectedAll) {
                                 selectAll(clickedPK);
                             } else {
                                 deselect(clickedPK);
                             }
                         } else {
-                            if(opciones.multiselection.selectedAll){
+                            if (opciones.multiselection.selectedAll) {
                                 deselectAll(clickedPK);
                             } else {
                                 select(clickedPK);
@@ -447,12 +447,12 @@
                     self._generateSelectablesBtnGroup();
                 }
 
-                if(opciones.isScrollList){
+                if (opciones.isScrollList) {
                     self._scrollListInit();
                 }
 
                 $('#' + opciones._idItemTemplate).hide();
-                if(opciones.isMultisort){
+                if (opciones.isMultisort) {
                     $('#' + self.element[0].id).on('rup_list-mord-inited', () => {
                         $('#' + self.element[0].id).trigger('initComplete');
                     });
@@ -467,7 +467,7 @@
          * @name _scrollListInit
          * @function
          */
-        _scrollListInit: function() {
+        _scrollListInit: function () {
             let self = this;
             let opciones = self.options;
 
@@ -559,25 +559,25 @@
             opciones.multiorder = {
                 sidx: opciones.sidx.value,
                 sord: (() => {
-                    if(opciones.sord){
+                    if (opciones.sord) {
                         let sordArr = opciones.sord.split(',');
                         let sidxArr = opciones.sidx.value.split(',');
-                        if(sordArr.length == sidxArr.length){
+                        if (sordArr.length == sidxArr.length) {
                             return opciones.sord;
                         }
-                        if(sordArr.length > sidxArr.length){
+                        if (sordArr.length > sidxArr.length) {
                             return sordArr.splice(0, sidxArr.length).join(',');
                         }
-                        if(sordArr.length < sidxArr.length){
+                        if (sordArr.length < sidxArr.length) {
                             let diff = sidxArr.length - sordArr.length;
-                            for(let i = 0; i<diff; i++) {
+                            for (let i = 0; i < diff; i++) {
                                 sordArr.push('asc');
                             }
                             return sordArr.join(',');
                         }
                     } else {
                         let sordArr = [];
-                        for(let i = 0; i < opciones.sidx.value.split(',').length; i++) {
+                        for (let i = 0; i < opciones.sidx.value.split(',').length; i++) {
                             sordArr.push('asc');
                         }
                         return sordArr.join(',');
@@ -641,7 +641,7 @@
                 opciones[obj].multiSort.edit.click(() => {
                     opciones._multiSortDialog.rup_dialog('open');
                 });
-                
+
 
                 let arrSidx = opciones.multiorder.sidx.split(',').map(a => a.trim());
                 let arrSord = opciones.multiorder.sord.split(',').map(a => a.trim());
@@ -694,7 +694,13 @@
                         opciones._multiSortDialog.rup_dialog('close');
                         self.element.rup_list('filter');
                     }
-                }]
+                }],
+                open: () => {
+                    $(self.element).trigger('rup_list-mord-dialogOpen');
+                },
+                onBeforeClose: () => {
+                    $(self.element).trigger('rup_list-mord-dialogClose');
+                }
             });
 
             doInit();
@@ -855,7 +861,7 @@
             self._fnOrderOfOrderFields.apply(self, $('[data-ordValue="' + $(e.target).attr('data-ordValue') + '"]', sortDiv));
             $(e.target).remove();
         },
-        
+
         /**
          * Método interno que da funcionalidad a cada línea en la multiordenación
          * 
@@ -1379,7 +1385,7 @@
          * @function
          * @example
          * $('#rup-list').rup_list('destroy');
-         */ 
+         */
         destroy: function () {
             const self = this;
             const opciones = this.options;
@@ -1515,13 +1521,12 @@
                                     $(e).show('drop', {}, 200, function () {
                                         if ($(e).next().length == 0) {
                                             self.element.css('height', 'auto');
+                                            self.element.trigger('load');
                                         }
                                     });
                                 }, 50 + (i * 50));
                             });
 
-                        self.element.trigger('load');
-                        // $('#' + self.element[0].id).trigger('load');
                         self._unlock();
                     },
                     error: function (XMLHttpResponse) {
