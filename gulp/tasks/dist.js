@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 
-gulp.task('dist:x21a', function () {
+gulp.task('dist:x21a', async function () {
     gulp.src(['!./dist/css/main.css', './dist/**/*.*'])
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/4x/rup/'));
 
