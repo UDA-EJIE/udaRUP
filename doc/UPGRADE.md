@@ -31,8 +31,121 @@ Para actualizar una aplicación UDA a la versión v4.0.0 se deben realizar las s
 
 2. #### Templates
     Para generar código correspondiente a la versión v4.0.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.0.0/templates-v4.0.0.zip).
+    
+3. #### Aplicar estilos material
+	La construcción de formularios será realizada de la siguiente manera:
+	
+	1. En primer lugar se ha de usar un contenedor (un div por ejemplo) que contenga la clase “form-row” o “row”. También se le pueden añadir ciertas clases de Bootstrap cómo la de maquetación por columnas “col-sm-12”.
+	2. Dentro del anterior contenedor insertaremos otro contenedor con la clase “form-groupMaterial” que a su vez puede contener clases de maquetación por columnas. Esta clase no ha de introducirse cuando los elementos hijos vayan a ser del tipo “checkbox” o “radio”.
+	3. Ahora es cuando debemos insertar el “input” y “label” deseado (de momento en este mismo orden) sin necesidad de darles ninguna clase.
+	
+	El siguiente fragmento de código muestra un ejemplo de la estructura:
+	```jsp
+    <form:form id="formColumnsRequired" modelAttribute="alumno" method="get">
+		<div class="form-row">
+			<div class="form-groupMaterial col-sm">
+			  	<form:input path="nombre" id="nombre" required="required" />
+		     	<label for="nombre"><spring:message code="nombre" /></label>
+			</div>
+			<div class="form-groupMaterial col-sm">
+			  	<form:input path="apellido1" id="apellido1" required="required" />
+		     	<label for="apellido1"><spring:message code="apellido1" /></label>
+			</div>
+			<div class="form-groupMaterial col-sm">
+			  	<form:input path="apellido2" id="apellido2" required="required" />
+		     	<label for="apellido2"><spring:message code="apellido2" /></label>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<button type="submit" class="btn-material btn-material-secondary-high-emphasis">Validar</button>
+		</div>
+	</form:form>
+   ```
+   
+   <img src="guides/img/migrateUDA4/validatedFormMaterial.png"/>
+   
+   Otro ejemplo, esta vez de un formulario de edición dentro de un diálogo:
+   ```jsp
+   <div class="dialog-content-material">
+		<!-- Formulario -->
+		<form:form modelAttribute="usuario" id="example_detail_form">
+			<!-- Feedback del formulario de detalle -->
+			<div id ="example_detail_feedback"></div>	
+			<div class="form-row">
+				<!-- Campos del formulario de detalle -->
+				<div class="form-groupMaterial col-sm">
+			    	<form:input path="id" id="id_detailForm_table" />
+					<label for="id_detailForm_table"><spring:message code="id" /></label>
+			    </div>
+			    
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="nombre" id="nombre_detail_table" />
+			    	<label for="nombre_detail_table"><spring:message code="nombre" /></label>
+			    </div>
+			</div>
+			<div class="form-row">       
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="apellido1" id="apellido1_detail_table" />
+			    	<label for="apellido1_detail_table"><spring:message code="apellido1" /></label>
+			    </div>  
+			    
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="apellido2" id="apellido2_detail_table" />
+			    	<label for="apellido2_detail_table"><spring:message code="apellido2" /></label>
+			    </div>
+			</div>
+			<div class="form-row">       
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="fechaBaja" id="fechaBaja_detail_table" />
+			    	<label for="fechaBaja_detail_table"><spring:message code="fechaBaja" /></label>
+			    </div>
+			    
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="fechaAlta" id="fechaAlta_detail_table" />
+			    	<label for="fechaAlta_detail_table"><spring:message code="fechaAlta" /></label>
+			    </div>
+			</div>
+			<div class="form-row">
+			    <div class="col-sm checkbox-material">
+			    	<form:checkbox path="ejie" id="ejie_detail_table" value="1" />
+			    	<label for="ejie_detail_table"><spring:message code="ejie" /></label>
+			    </div> 
+			    
+			    <div class="form-groupMaterial col-sm">
+			    	<form:input path="rol" id="rol_detail_table" />
+			    	<label for="rol_detail_table"><spring:message code="rol" /></label>
+			    </div>
+			</div>	
+			<div class="form-row d-none">	
+				<div class="form-groupMaterial col-sm" id="divImagenAlumno">
+					<input type="file" name="imagenAlumno" id="imagenAlumno" disabled/>
+					<label for="imagenAlumno"><spring:message code="subidaImg" /></label>
+				</div>	
+			</div>	
+		</form:form>
+	</div>
+	```
+	
+	<img src="guides/img/migrateUDA4/editFormMaterial.png"/>
+	
+	En cuanto a los cambios necesarios para el componente rup_combo, es tan sencillo como usar la propiedad “customClasses” y asignarle un array que contenga la clase “select-material”. Por ejemplo:
+	
+	```js
+	options_role_combo = {
+        source : [
+           {label: "---", value:""},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
+        ],
+        width: "100%",
+        customClasses: ["select-material"]
+    };
+	```
 
-3. #### Actualizar la versión de x38 y nuevas librerías:
+4. #### Actualizar la versión de x38 y nuevas librerías:
     Para actualizar la librería habrá que descargar la [nueva versión de x38](https://github.com/UDA-EJIE/udaLib/releases/download/v4.0.0/x38ShLibClasses-4.0.0-RELEASE.jar) y seguir los siguientes pasos:
 
     1. Actualizar fichero ```pom.xml```
@@ -126,7 +239,7 @@ Para actualizar una aplicación UDA a la versión v4.0.0 se deben realizar las s
 
     5. Borra versión o versiones anteriores, en caso de que permanezca alguna.
 
-4. #### Modificar el descriptor del aplicativo weblogic "weblogic-application.xml":
+5. #### Modificar el descriptor del aplicativo weblogic "weblogic-application.xml":
     ```xml
     <wls:prefer-application-packages>
         <wls:package-name>javax.persistence.*</wls:package-name>
@@ -134,7 +247,7 @@ Para actualizar una aplicación UDA a la versión v4.0.0 se deben realizar las s
     </wls:prefer-application-packages>
     ```
 
-5. #### Actualizar los archivos de configuración de Spring a las nuevas versiones:
+6. #### Actualizar los archivos de configuración de Spring a las nuevas versiones:
       * xxxWar/WebContent/WEB-INF/spring/__app-config.xml__
 
            <img src="guides/img/migrateUDA4/4_0_0_001.png"/>
@@ -209,13 +322,13 @@ Para actualizar una aplicación UDA a la versión v4.0.0 se deben realizar las s
 
            <img src="guides/img/migrateUDA4/4_0_0_019.png"/>
 
-6. #### Cambiar el archivo de configuración del tiles en ```xxxWar/WebContent/WEB-INF/views/tiles.xml```
+7. #### Cambiar el archivo de configuración del tiles en ```xxxWar/WebContent/WEB-INF/views/tiles.xml```
 
     <img src="guides/img/migrateUDA4/4_0_0_020.png"/>
 
-7. #### Cambiar las versiones de los archivos .tld por las nuevas incluidas en el fichero [tld-v4.0.0.zip](https://github.com/UDA-EJIE/uda-ejie.github.io/raw/master/resources/migrateUDA4/tld-v4.0.0.zip) en la carpeta ```xxxWar/WebContent/WEB-INF/tld/```
+8. #### Cambiar las versiones de los archivos .tld por las nuevas incluidas en el fichero [tld-v4.0.0.zip](https://github.com/UDA-EJIE/uda-ejie.github.io/raw/master/resources/migrateUDA4/tld-v4.0.0.zip) en la carpeta ```xxxWar/WebContent/WEB-INF/tld/```
 
-8. #### Cambios en los DAOs.
+9. #### Cambios en los DAOs.
 
     ```jdbcTemplate.queryForXXX(query)``` -> ```jdbcTemplate.queryForObject(query, Object.class)```
 
