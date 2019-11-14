@@ -471,13 +471,43 @@
             let self = this;
             let opciones = self.options;
 
-            opciones._header.pagenav.remove();
-            opciones._footer.pagenav.remove();
+            opciones._header.pagenav.hide();
+            opciones._footer.pagenav.hide();
 
             // TODO: Crear una lista invisible para el target <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+            //se crea un div señal que habrá que detectar para cargar más elementos
             let $scrollSignal = $('<div id="scrollSignal" ></div>');
-            $(self.element).append($scrollSignal.clone());
+            // se inserta el div señal debajo del div que contendrá los elementos de la lista
+            $(self.element).after($scrollSignal);
+            //se crea un elemento nav que estará "oculto" con height:0 y width:0
+            //ya que si se utiliza el atributo hidden, scrollspy lo ignora
+            let $navElement = $('<nav id="rupListScrollspy" style="height:0px; width:0px;"><ul><li><a href="#scrollSignal"></a></li></ul></nav>');
+            //y se añade antes del div que contendrá los elementos de la lista
+            $(self.element).before($navElement);
+            // se cambia el elemento body añadiendo los atributos necesarios para que sea compatible con scrollspy
+            $('body').css({'position':'relative'});
+            $('body').scrollspy({ target: '#rupListScrollspy' });
+
+            //se establece el número de elementos totales a  mostrar
+            let numRegistros = this.rup_list().data().count();
+
+            //en el momento que se activa el elemento
+            $('#rupListScrollspy').on('activate.bs.scrollspy', function () {
+                //se establece el número de elementos mostrados
+                let registrosMostrados = $('.rup-list-item').length;
+                //se busca el atributo href del elemento activo
+                var activeElement = $(this).find('li.active a').attr('href');
+                //si el href coincide con el div señal 
+                //y el número de elementos mostrados es menor al número total de elementos
+                if (activeSection === '#scrollSignal' && registrosMostrados < numRegistros ) {
+                    //se establece que la página con los items "a mostrar" sea la siguiente a la actual
+                    opciones.page=opciones.page+1;
+                    //se hace un filter de la página nueva, con lo que carga el siguiente bloque de elementos
+                    self._doFilter();
+                }
+            });
+            
         },
 
         /**
