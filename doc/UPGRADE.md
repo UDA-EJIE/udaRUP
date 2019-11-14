@@ -1,14 +1,388 @@
 # Actualizar
 
-En este documento iremos indicando cómo actualizar las últimas versiones disponibles de los componentes en caso de que los cambios sean muy grandes.
+En esta sección iremos indicando como mantenerse actualizado con las últimas versiones disponibles de los componentes de <img src='https://uda-ejie.github.io/images/imgwikis/uda-mini-micro2.png' alt='UDA' />, es decir, cuando ya se dispone de una aplicación generada, y se desea incorporar las últimas actualizaciones.
 
-Para el proceso de actualización dan por sentados los siguientes supuestos:
-
+**Para el proceso de actualización se dan por sentados los siguientes supuestos**:
 * La actualización se realiza sobre una aplicación con la versión 3.0.0 de RUP. La actualización directa desde versiones anteriores no ha sido probada por lo que es posible que pueda darse la necesidad de realizar modificaciones extras.
-
 * Los ficheros originales de RUP no han sido modificados.
 
 Si lo que buscas es información sobre como mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar).
+  
+***
+
+### v4.1.0 (12-Noviembre-2019)
+
+Para actualizar una aplicación UDA a la versión v4.1.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v4.1.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v4.1.0/rup-v4.1.0.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v4.1.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.1.0/templates-v4.1.0.zip).
+
+### v4.0.0 (28-Junio-2019)
+
+Para actualizar una aplicación UDA a la versión v4.0.0 se deben realizar las siguientes modificaciones:
+
+1. #### Componentes RUP
+    Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v4.0.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v4.0.0/rup-v4.0.0.zip).
+
+2. #### Templates
+    Para generar código correspondiente a la versión v4.0.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.0.0/templates-v4.0.0.zip).
+
+3. #### Actualizar la versión de x38 y nuevas librerías:
+    Para actualizar la librería habrá que descargar la [nueva versión de x38](https://github.com/UDA-EJIE/udaLib/releases/download/v4.0.0/x38ShLibClasses-4.0.0-RELEASE.jar) y seguir los siguientes pasos:
+
+    1. Actualizar fichero ```pom.xml```
+        * En la parte superior del archivo cambiar las siguientes versiones de librerías
+            ```xml
+            <properties>
+                <org.springframework.version>4.3.22.RELEASE</org.springframework.version>
+                <org.springframework.security.version>4.2.11.RELEASE</org.springframework.security.version>
+                <org.logback.version>1.2.3</org.logback.version>
+                <org.slf4j.version>1.7.25</org.slf4j.version>
+                <com.ejie.x38.version>4.0.0-RELEASE</com.ejie.x38.version>
+                <org.apache.tiles.version>3.0.8</org.apache.tiles.version>
+                <org.jackson.version>2.7.9.5</org.jackson.version>
+            </properties>
+            ```
+        * Actualizar la librería del Apache tiles:
+            ```xml
+            <!-- TILES -->
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-api</artifactId>
+                <version>${org.apache.tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-core</artifactId>
+                <version>${org.apache.tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-jsp</artifactId>
+                <version>${org.apache.tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-servlet</artifactId>
+                <version>${org.apache.tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-template</artifactId>
+                <version>${org.apache.tiles.version}</version>
+            </dependency>
+            ```
+        * Añadir el siguiente extracto de dependencias a la parte de logging:
+            ```xml
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>3.3.0.Final</version>
+            </dependency>
+            ```
+        * Actualizar la versión de Hibernate Validator:
+            ```xml
+            <!-- Hibernate Validator -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.4.3.Final</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.jboss.logging</groupId>
+                        <artifactId>jboss-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            ```
+        * Actualizar Jackson JSON Mapper y AspectJ:
+            ```xml
+            <!-- Jackson JSON Mapper -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${org.jackson.version}</version>
+            </dependency>
+
+            <!-- AspectJ -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.8.13</version>
+            </dependency>
+            ```
+
+    2. Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+    3. Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+    4. Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+    5. Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+4. #### Modificar el descriptor del aplicativo weblogic "weblogic-application.xml":
+    ```xml
+    <wls:prefer-application-packages>
+        <wls:package-name>javax.persistence.*</wls:package-name>
+        <wls:package-name>org.apache.log4j.*</wls:package-name>
+    </wls:prefer-application-packages>
+    ```
+
+5. #### Actualizar los archivos de configuración de Spring a las nuevas versiones:
+      * xxxWar/WebContent/WEB-INF/spring/__app-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_001.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__jackson-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_002.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__log-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_003.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__mvc-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_004.png"/>
+
+           <img src="guides/img/migrateUDA4/4_0_0_005.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__reports-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_006.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__security-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_007.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__security-core-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_008.png"/>
+
+           Construcción del bean *springSecurityFilterChain*
+
+           <img src="guides/img/migrateUDA4/4_0_0_009.png"/>
+
+           Construcción del bean *exceptionTraslationFilter*
+
+           <img src="guides/img/migrateUDA4/4_0_0_010.png"/>
+
+           Constructor del bean *affirmativeBased*
+
+           <img src="guides/img/migrateUDA4/4_0_0_011.png"/>
+
+      * xxxWar/WebContent/WEB-INF/spring/__validation-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_012.png"/>
+
+      * xxxEARClasses/src/spring/__cache-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_013.png"/>
+
+      * xxxEARClasses/src/spring/__dao-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_014.png"/>
+
+      * xxxEARClasses/src/spring/__log-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_015.png"/>
+
+      * xxxEARClasses/src/spring/__security-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_016.png"/>
+
+      * xxxEARClasses/src/spring/__service-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_017.png"/>
+
+      * xxxEARClasses/src/spring/__tx-config.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_018.png"/>
+
+      * xxxEARClasses/src/__beanRefContext.xml__
+
+           <img src="guides/img/migrateUDA4/4_0_0_019.png"/>
+
+6. #### Cambiar el archivo de configuración del tiles en ```xxxWar/WebContent/WEB-INF/views/tiles.xml```
+
+    <img src="guides/img/migrateUDA4/4_0_0_020.png"/>
+
+7. #### Cambiar las versiones de los archivos .tld por las nuevas incluidas en el fichero [tld-v4.0.0.zip](https://github.com/UDA-EJIE/uda-ejie.github.io/raw/master/resources/migrateUDA4/tld-v4.0.0.zip) en la carpeta ```xxxWar/WebContent/WEB-INF/tld/```
+
+8. #### Cambios en los DAOs.
+
+    ```jdbcTemplate.queryForXXX(query)``` -> ```jdbcTemplate.queryForObject(query, Object.class)```
+
+    Por ejemplo el siguiente extracto de código:
+    ```Java
+    final long nextId = 
+        jdbcTemplate.queryForLong("SELECT MI_SECUENCIA.NEXTVAL FROM DUAL");
+    ```
+    Se actualizaría de la siguiente forma:
+    ```Java
+    final long nextId = 
+        jdbcTemplate.queryForObject("SELECT MI_SECUENCIA.NEXTVAL FROM DUAL", Long.class);
+    ```
+
+***
+
+### v3.7.3 (17-Julio-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.3 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.3.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.3/rup-v3.7.3.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.3 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.3/templates-v3.7.3.zip).
+
+### v3.7.2 (2-Mayo-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.2 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.2.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.2/rup-v3.7.2.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.2 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.2/templates-v3.7.2.zip).
+
+### v3.7.1 (23-Abril-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.1 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.1.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.1/rup-v3.7.1.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.1 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.1/templates-v3.7.1.zip).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=1Qrb-D_FW5sCQs44gIlyUFBKwzlOgcDla&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.7.1-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+### v3.7.0 (28-Febrero-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.0/rup-v3.7.0.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.0/templates-v3.7.0.zip).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=172gtjOPGXZh9rL4ayW65O2K8gpjGEwkO&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.7.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+### v3.6.0 (19-Noviembre-2018)
+
+Para actualizar una aplicación UDA a la versión v3.6.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.6.0.zip](https://docs.google.com/uc?authuser=0&id=1bwVe2uyVWCKO4PEUKg-f8bZJtB6No6Fu&export=download).
+
+	* NOTA: 
+	En el componente rup_table se han modificado los enlaces por botones.
+	Se sustituye: 
+	- Enlace cancelar: id del componente + " _detail_link_cancel"
+	- Enlace limpiar: id del componente + " _filter_cleanLink"
+
+	Por 
+	- Botón cancelar: id del componente + "_detail_button_cancel"
+	- Botón limpiar: id del componente + "_filter_cleanButton" 
+	
+
+**_Para hacer uso del componente rup_table responsive_**, en el fichero `codappStatics\WebContent\codapp\scripts\codappNombre\vista.js` 
+
+	Sustituir: 
+	     $("#vista").rup_table({
+
+	Por:
+	     $("#vista").rup_datatable({
+
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.6.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://docs.google.com/uc?authuser=0&id=12rhPeGp_W724pd7BONxM-Vw-ysX7yM7a&export=download).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=1WzAsSWYH6coQvk3dTeQLocD_xHwZTBFR&export=download) o utilizar el [repositorio Maven](https://docs.google.com/uc?authuser=0&id=1rhXb6FJp4qyJoUgEI7pjrKSi6Gj9o7RR&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.6.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
 
 ### v3.5.0 (06-Julio-2018)
 
