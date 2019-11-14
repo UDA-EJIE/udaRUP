@@ -710,8 +710,7 @@ import { PassThrough } from "stream";
             // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
             //jQuery('input,textarea').val('');
 			
-            // No es necesario ya que se usa bootstrap
-            //jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+            $('#' + options.id + '_filter_form .ui-selectmenu-status').text('--');
 			
             $.rup_utils.populateForm([], options.$filterForm)
 
