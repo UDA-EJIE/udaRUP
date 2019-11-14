@@ -37,6 +37,8 @@ export function loadCss(callback) {
                                                     $('head > style').append(data);
                                                     if($('#content').length === 0) {
                                                         $('body').append('<div id="content" class="container mt-4"></div>');
+                                                        $('.jasmine_html-reporter').css('margin','0px');
+                                                        $('body').css('overflow-x','hidden');
                                                     }
                                                     callback();
                                                 });

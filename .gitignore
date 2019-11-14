@@ -1,9 +1,10 @@
+dist
 node_modules
 bower_components
 build
 coverage
 lib
-spec\karma_report_*.html
+spec/karma_report_*
 .vscode
 
 # Mobile Tools for Java (J2ME)

@@ -494,6 +494,7 @@ import * as underscore from 'underscore';
                 self = this;
                 var customSettings = args[0];
                 var settings = $.extend({}, $.fn.rup_calendar.defaults, customSettings);
+                self._ADAPTER = $.rup.adapter[settings.adapter];
                 settings.onAfterEventsLoad = function (...args) {
                     self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
                     self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
@@ -633,7 +634,8 @@ import * as underscore from 'underscore';
             }
         },
         onAfterEventsLoad: (events) => {},
-        onAfterViewLoad: (view) => {}
+        onAfterViewLoad: (view) => {},
+        adapter: 'calendar_bootstrap'
     };
 
 }));
