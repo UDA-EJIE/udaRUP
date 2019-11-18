@@ -177,7 +177,7 @@ module.exports = {
             '../images': path.join(__dirname, '../demo/images'),
             './cursors': path.join(__dirname, '../assets/cursors'),
             '../css/images/table': path.join(__dirname, '/images'),
-            './externals/icons': path.join(__dirname, '../dist/css/externals/icons'),
+            './externals/icons': '@mdi/font/fonts',
             './fonts': path.join(__dirname, '../assets/fonts'),
         }
 

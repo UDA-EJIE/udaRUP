@@ -73,7 +73,8 @@ define(['jquery', 'marionette',
                 var userVal = item.find('#usuario_value_' + json.codigoPK);
                 userVal.text(userVal.text() + ' :D');
             },
-            load: () => {}
+            load: () => {},
+            isScrollList: true
         });
     }
 

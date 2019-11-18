@@ -18,22 +18,22 @@ export function loadCss(callback) {
     $('head > style').remove();
     $('head').append('<style></style>');
     return $.when($.ajax(DIST + '/css/externals/tether/tether.min.css'))
-        .then((data) => {
+        .always((data) => {
             $('head > style').append(data);
             $.when($.ajax(DIST + '/css/externals/bootstrap/bootstrap.min.css'))
-                .then((data) => {
+                .always((data) => {
                     $('head > style').append(data);
                     $.when($.ajax(DIST + '/css/rup-base.css'))
-                        .then((data) => {
+                        .always((data) => {
                             $('head > style').append(data);
                             $.when($.ajax(DIST + '/css/rup-theme.css'))
-                                .then((data) => {
+                                .always((data) => {
                                     $('head > style').append(data);
                                     $.when($.ajax(DIST + '/css/rup-jqueryui-theme.css'))
-                                        .then((data) => {
+                                        .always((data) => {
                                             $('head > style').append(data);
                                             $.when($.ajax(DIST + '/css/main.css'))
-                                                .then((data) => {
+                                                .always((data) => {
                                                     $('head > style').append(data);
                                                     if($('#content').length === 0) {
                                                         $('body').append('<div id="content" class="container mt-4"></div>');

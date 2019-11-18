@@ -53,50 +53,54 @@ function getHtml(idLista) {
         '</form>' +
         '<div id="' + idLista +'-feedback" />' +
         '<div id="' + idLista +'-content">' +
-            '<fieldset id="' + idLista +'-header">' +
-                '<div class="row">' +
-                    '<div id="rup-list-header-selectables" class="col-md-4">' +
-                        'Opciones de seleccion:' +
-                    '</div>' +
-                    '<div class="col-md-2">' +
-                        '<label for="' + idLista +'-header-rowNum">Elementos por página:</label>' +
-                        '<select id="' + idLista +'-header-rowNum"/>' +
-                    '</div>' +
-                    '<!-- Ordenar por -->' +
-                    '<div class="col-md-2">' +
-                        '<label for="' + idLista +'-header-sidx">Ordenar por:</label>' +
-                        '<select id="' + idLista +'-header-sidx"/>' +
-                        '<button id="' + idLista +'-header-sord">' +
-                            '<i class="mdi mdi-sort"/>' +
-                        '</button>' +
-                    '</div>' +
-                    '<!-- Navegación -->' +
-                    '<div class="col-md-4">' +
-                        '<nav id="' + idLista +'-header-nav">' +
-                            '<ul class="pagination">' +
-                                '<li id="' + idLista +'-header-page-prev" class="page-item disabled">' +
-                                    '<a href="javascript:void(0)" class="page-link d-none d-lg-inline" tabindex="-1">Anterior</a>' +
-                                    '<a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">' +
-                                        '<span class="mdi mdi-arrow-right-bold-circle-outline mdi-rotate-180"/>' +
-                                    '</a>' +
-                                '</li>' +
-                                '<li class="page-item page-separator disabled">' +
-                                    '<a class="page-link" tabindex="-1">...</a>' +
-                                '</li>' +
-                                '<li class="page-item page-separator disabled">' +
-                                    '<a class="page-link" tabindex="-1">...</a>' +
-                                '</li>' +
-                                '<li id="' + idLista +'-header-page-next" class="page-item disabled">' +
-                                    '<a href="javascript:void(0)" class="page-link d-none d-lg-inline">Siguiente</a>' +
-                                    '<a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">' +
-                                        '<span class="mdi mdi-arrow-right-bold-circle-outline"/>' +
-                                    '</a>' +
-                                '</li>' +
-                            '</ul>' +
-                        '</nav>' +
+            '<div id="rup-list-header" class="row">' +
+                '<div id="rup-list-header-selectables" class="col-md-3">' +
+                    'Opciones de seleccion:' +
+                '</div>' +
+                '<div class="col-md-2">' +
+                    '<label for="' + idLista +'-header-rowNum">Elementos por página:</label>' +
+                    '<select id="' + idLista +'-header-rowNum"/>' +
+                '</div>' +
+                '<!-- Ordenar por -->' +
+                '<div class="col-md-3">' +
+                    '<div class="row">' +
+                        '<div class="col-md-7">' +
+                            '<label for="' + idLista +'-header-sidx">Ordenar por:</label>' +
+                            '<select id="' + idLista +'-header-sidx"/>' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
+                            '<button id="' + idLista +'-header-sord">' +
+                                '<i class="mdi mdi-sort"/>' +
+                            '</button>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
-            '</fieldset>' +
+                '<!-- Navegación -->' +
+                '<div class="col-md-4">' +
+                    '<nav id="' + idLista +'-header-nav">' +
+                        '<ul class="pagination">' +
+                            '<li id="' + idLista +'-header-page-prev" class="page-item disabled">' +
+                                '<a href="javascript:void(0)" class="page-link d-none d-lg-flex" tabindex="-1">Anterior</a>' +
+                                '<a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">' +
+                                    '<span class="mdi mdi-arrow-right-bold-circle-outline mdi-rotate-180"/>' +
+                                '</a>' +
+                            '</li>' +
+                            '<li class="page-item page-separator disabled">' +
+                                '<a class="page-link" tabindex="-1">...</a>' +
+                            '</li>' +
+                            '<li class="page-item page-separator disabled">' +
+                                '<a class="page-link" tabindex="-1">...</a>' +
+                            '</li>' +
+                            '<li id="' + idLista +'-header-page-next" class="page-item disabled">' +
+                                '<a href="javascript:void(0)" class="page-link d-none d-lg-flex">Siguiente</a>' +
+                                '<a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">' +
+                                    '<span class="mdi mdi-arrow-right-bold-circle-outline"/>' +
+                                '</a>' +
+                            '</li>' +
+                        '</ul>' +
+                    '</nav>' +
+                '</div>' +
+            '</div>' +
             '<div id="' + idLista +'"></div>' +
             '<div id="' + idLista +'-itemTemplate" class="row" style="border: 1px solid gray; display:flex;margin:3px;padding:3px;">' +
                 '<div class="col-md-1" style="border-right: 1px solid gray;display:flex;justify-content:center;align-items:center;">' +
@@ -131,23 +135,8 @@ function getHtml(idLista) {
         '</div>';
 }
 
-export function createList(idLista, callback){
-    $('#content').append(getHtml(idLista));
-
-    $('#listFilterLimpiar').on('click', (e) => {
-        e.stopImmediatePropagation();
-        e.preventDefault();
-        $('#listFilterForm').find('input').val('');
-        $('#rup-list').rup_list('filter');
-    });
-    $('#listFilterAceptar').on('click', (e) => {
-        e.stopImmediatePropagation();
-        e.preventDefault();
-        $('#rup-list').rup_list('filter');
-    });
-
-    $('#' + idLista).on('initComplete', callback);
-    $('#' + idLista).rup_list({
+function commonListOptions(idLista) {
+    return {
         action: '/demo/list/filter',
         filterForm: 'listFilterForm',
         feedback: idLista + '-feedback',
@@ -156,7 +145,7 @@ export function createList(idLista, callback){
             multi: true,
             selector: '.list-item'
         },
-        modElement: () => {},
+        modElement: () => { },
         visiblePages: 2,
         sidx: {
             source: [{
@@ -184,12 +173,11 @@ export function createList(idLista, callback){
             }],
             value: '5'
         }
-    });
+    };
 }
 
-export function createListMultiorder(idLista, callback){
+function commonListCreator(idLista, callback) {
     $('#content').append(getHtml(idLista));
-
     $('#listFilterLimpiar').on('click', (e) => {
         e.stopImmediatePropagation();
         e.preventDefault();
@@ -201,46 +189,27 @@ export function createListMultiorder(idLista, callback){
         e.preventDefault();
         $('#rup-list').rup_list('filter');
     });
-
     $('#' + idLista).on('initComplete', callback);
-    $('#' + idLista).rup_list({
-        action: '/demo/list/filter',
-        filterForm: 'listFilterForm',
-        feedback: idLista + '-feedback',
-        key: 'codigoPK',
-        selectable: {
-            multi: true,
-            selector: '.list-item'
-        },
-        modElement: () => {},
-        isMultiSort: true,
-        visiblePages: 2,
-        sidx: {
-            source: [{
-                value: 'USUARIO',
-                i18nCaption: 'Usuario'
-            }, {
-                value: 'EDAD',
-                i18nCaption: 'Edad'
-            }, {
-                value: 'CODCLIENTE',
-                i18nCaption: 'Codigo cliente'
-            }],
-            value: 'EDAD,USUARIO'
-        },
-        sord: 'asc, desc',
-        rowNum: {
-            source: [{
-                value: '5',
-                i18nCaption: 'Cinco'
-            }, {
-                value: '10',
-                i18nCaption: 'Diez'
-            }, {
-                value: '20',
-                i18nCaption: 'Veinte'
-            }],
-            value: '5'
-        }
-    });
+    let opts = commonListOptions(idLista);
+    return opts;
+}
+
+export function createList(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    $('#' + idLista).rup_list(opts);
+} 
+
+export function createListScroll(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isScrollList = true;
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createListMultiorder(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isMultiSort = true;
+    opts.sidx.value = 'EDAD,USUARIO';
+    opts.sord = 'asc, desc';
+
+    $('#' + idLista).rup_list(opts);
 }

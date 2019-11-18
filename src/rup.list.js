@@ -1,7 +1,21 @@
-/* eslint-env jquery,amd */
 /*!
- * @author Lander Laparra
+ * Copyright 2016 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
  */
+
+/* eslint-env jquery,amd */
+/* eslint-disable no-console */
 
 /**
  * Presenta los elementos que presenta una tabla rup_table en formato listado. Pensado para movilidad.
@@ -237,6 +251,7 @@
                         title: 'Esqueleto no válido',
                         message: 'El esqueleto HTML sobre el que montar el listado no es correcto'
                     });
+                    console.error('El esqueleto HTML sobre el que montar el listado no es correcto');
                     return;
                 }
 
@@ -448,7 +463,7 @@
                 }
 
                 if (opciones.isScrollList) {
-                    self._scrollListInit();
+                    self._scrollListInit.apply(self);
                 }
 
                 $('#' + opciones._idItemTemplate).hide();
