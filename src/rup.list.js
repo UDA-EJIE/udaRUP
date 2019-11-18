@@ -474,6 +474,8 @@
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
+            }).catch((error)=>{
+                console.error('Error al inicializar el componente:\n', error);
             });
         },
 
