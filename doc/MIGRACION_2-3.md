@@ -2,7 +2,7 @@
 
 ## Introducción
 
-En el presente documento se van a detallar los pasos a seguir para realizar la actualización de una aplicación UDA a la versión v3.0.
+En el presente documento se van a detallar los pasos a seguir para realizar la actualización de una aplicación UDA a la versión v3.0.0.
 > 
 **Antes de aplicar los pasos del documento se debe de actualizar la aplicación a la última de la rama v2.4.x.**
 
