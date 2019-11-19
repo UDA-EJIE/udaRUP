@@ -752,7 +752,7 @@ handler that will select the items using the API methods.
         if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
             //Se rellena todo, la columna select.
         	//si metes esta propiedad se oculta el div:
-        	if(!ctx.oInit.multiSelect.hideMultiselect){
+        	if(ctx.oInit.multiSelect === undefined || !ctx.oInit.multiSelect.hideMultiselect){
 		            var input = $('<div>')
 		                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
 		                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
