@@ -1424,9 +1424,11 @@
      *
      */
     function _addChildIcons(ctx) {
+    	var fistColumn = true;
         var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
-        	if(a === 0){//La primera columna nunca se puede ocultar.
+        	if(fistColumn){//La primera columna nunca se puede ocultar.
         		b = true;
+        		fistColumn = false;
         	}
             return b === false ? a + 1 : a;
         }, 0);
