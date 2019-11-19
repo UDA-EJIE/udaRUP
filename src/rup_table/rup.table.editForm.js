@@ -100,19 +100,22 @@
         var rowsBody = $(ctx.nTBody);
         //Se edita el row/fila.
         if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
-            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
-                idRow = this._DT_RowIndex;
-                //Añadir la seleccion del mismo.
-                if (ctx.oInit.multiSelect !== undefined) {
-                    dt['row'](idRow).multiSelect();
-                } else {
-                    $('tr', rowsBody).removeClass('selected tr-highlight');
-                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
-                }
-                _getRowSelected(dt, 'PUT');
-                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
-            });
+        	var sel = !undefined ? ctx.oInit.multiSelect : ctx.oInit.select;
+        	if(!sel.deleteDoubleClick){//Propiedad para desactivar el doble click
+	            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
+	                idRow = this._DT_RowIndex;
+	                //Añadir la seleccion del mismo.
+	                if (ctx.oInit.multiSelect !== undefined) {
+	                    dt['row'](idRow).multiSelect();
+	                } else {
+	                    $('tr', rowsBody).removeClass('selected tr-highlight');
+	                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
+	                }
+	                _getRowSelected(dt, 'PUT');
+	                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
+	                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+	            });
+        	}
         }
 
         //Se captura evento de cierre
@@ -1419,6 +1422,9 @@
      */
     function _addChildIcons(ctx) {
         var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
+        	if(a === 0){//La primera columna nunca se puede ocultar.
+        		b = true;
+        	}
             return b === false ? a + 1 : a;
         }, 0);
         if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto

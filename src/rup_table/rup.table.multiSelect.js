@@ -751,33 +751,35 @@ handler that will select the items using the API methods.
         var columnDefs = ctx.oInit.aoColumnDefs;
         if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
             //Se rellena todo, la columna select.
-
-            var input = $('<div>')
-                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
-                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
-                .append(
-                    $('<input/>')
-                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
-                        .attr('type', 'checkbox')
-                ).append(
-                    $('<label/>')
-                );
-
-
-            var link = $('<a/>')
-                .addClass('ui-icon rup-table_checkmenu_arrow')
-                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
-
-            input.click(function () {
-                var dt = new DataTable.Api(ctx);
-                if ($(this).find('input').is(':checked')) {
-                    deselectAllPage(dt);
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                    selectAllPage(dt);
-                }
-            });
+        	//si metes esta propiedad se oculta el div:
+        	if(!ctx._multiSelect.hideMultiselect){
+	            var input = $('<div>')
+	                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
+	                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
+	                .append(
+	                    $('<input/>')
+	                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
+	                        .attr('type', 'checkbox')
+	                ).append(
+	                    $('<label/>')
+	                );
+	
+	
+	            var link = $('<a/>')
+	                .addClass('ui-icon rup-table_checkmenu_arrow')
+	                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
+	
+	            input.click(function () {
+	                var dt = new DataTable.Api(ctx);
+	                if ($(this).find('input').is(':checked')) {
+	                    deselectAllPage(dt);
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                } else {
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                    selectAllPage(dt);
+	                }
+	            });
+        	}
 
             link.click(function () {
                 var dt = new DataTable.Api(ctx);
