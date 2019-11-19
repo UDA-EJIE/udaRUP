@@ -752,99 +752,101 @@ handler that will select the items using the API methods.
         if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
             //Se rellena todo, la columna select.
         	//si metes esta propiedad se oculta el div:
-        	if(!ctx._multiSelect.hideMultiselect){
-	            var input = $('<div>')
-	                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
-	                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
-	                .append(
-	                    $('<input/>')
-	                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
-	                        .attr('type', 'checkbox')
-	                ).append(
-	                    $('<label/>')
-	                );
+        	if(!ctx.oInit.multiSelect.hideMultiselect){
+		            var input = $('<div>')
+		                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
+		                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
+		                .append(
+		                    $('<input/>')
+		                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
+		                        .attr('type', 'checkbox')
+		                ).append(
+		                    $('<label/>')
+		                );
+		
+		
+		            var link = $('<a/>')
+		                .addClass('ui-icon rup-table_checkmenu_arrow')
+		                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
+		
+		            input.click(function () {
+		                var dt = new DataTable.Api(ctx);
+		                if ($(this).find('input').is(':checked')) {
+		                    deselectAllPage(dt);
+		                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+		                } else {
+		                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+		                    selectAllPage(dt);
+		                }
+		            });
+	        	
 	
-	
-	            var link = $('<a/>')
-	                .addClass('ui-icon rup-table_checkmenu_arrow')
-	                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
-	
-	            input.click(function () {
+	            link.click(function () {
 	                var dt = new DataTable.Api(ctx);
-	                if ($(this).find('input').is(':checked')) {
-	                    deselectAllPage(dt);
+	                //Marcar todos
+	                if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                }
+	                //Desmarcar todos
+	                if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                }
+	                if (ctx.multiselection.selectedIds.length > 0) {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                }
+	                if (ctx.multiselection.deselectedIds.length > 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                }
+	                //Si la pagina esta completamente seleccionada
+	                if (checkPageSelectedAll(dt, true)) {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                } else {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                }
+	
+	                //Si la pagina esta completamente deseleccionada
+	                if (checkPageSelectedAll(dt, false)) {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
 	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
 	                } else {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
 	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-	                    selectAllPage(dt);
 	                }
+	
 	            });
+	
+	            if (ctx.nTable.tHead !== null) {
+	                var th = $(ctx.nTable.tHead.rows[0].cells[0]);
+	                th.append(input, link);
+	            }
+	
+	            if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
+	                _createContexMenuSelect($('#' + link[0].id), ctx);
+	            }
+            
         	}
-
-            link.click(function () {
-                var dt = new DataTable.Api(ctx);
-                //Marcar todos
-                if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-                //Desmarcar todos
-                if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                }
-                if (ctx.multiselection.selectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                }
-                if (ctx.multiselection.deselectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                }
-                //Si la pagina esta completamente seleccionada
-                if (checkPageSelectedAll(dt, true)) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                }
-
-                //Si la pagina esta completamente deseleccionada
-                if (checkPageSelectedAll(dt, false)) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-
-            });
-
-            if (ctx.nTable.tHead !== null) {
-                var th = $(ctx.nTable.tHead.rows[0].cells[0]);
-                th.append(input, link);
-            }
-
-            if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
-                _createContexMenuSelect($('#' + link[0].id), ctx);
-            }
 
             //Se aseguro que no sea orderable
             columnDefs[0].orderable = false;

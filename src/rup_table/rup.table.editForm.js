@@ -100,7 +100,10 @@
         var rowsBody = $(ctx.nTBody);
         //Se edita el row/fila.
         if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
-        	var sel = !undefined ? ctx.oInit.multiSelect : ctx.oInit.select;
+        	var sel = ctx.oInit.multiSelect;
+        	if(sel !== undefined){
+        		ctx.oInit.select;
+        	}
         	if(!sel.deleteDoubleClick){//Propiedad para desactivar el doble click
 	            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
 	                idRow = this._DT_RowIndex;
