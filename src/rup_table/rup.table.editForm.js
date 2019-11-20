@@ -100,19 +100,25 @@
         var rowsBody = $(ctx.nTBody);
         //Se edita el row/fila.
         if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
-            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
-                idRow = this._DT_RowIndex;
-                //Añadir la seleccion del mismo.
-                if (ctx.oInit.multiSelect !== undefined) {
-                    dt['row'](idRow).multiSelect();
-                } else {
-                    $('tr', rowsBody).removeClass('selected tr-highlight');
-                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
-                }
-                _getRowSelected(dt, 'PUT');
-                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
-            });
+        	var sel = ctx.oInit.multiSelect;
+        	if(sel === undefined){
+        		sel = ctx.oInit.select;
+        	}
+        	if(!sel.deleteDoubleClick){//Propiedad para desactivar el doble click.
+	            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
+	                idRow = this._DT_RowIndex;
+	                //Añadir la seleccion del mismo.
+	                if (ctx.oInit.multiSelect !== undefined) {
+	                    dt['row'](idRow).multiSelect();
+	                } else {
+	                    $('tr', rowsBody).removeClass('selected tr-highlight');
+	                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
+	                }
+	                _getRowSelected(dt, 'PUT');
+	                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
+	                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+	            });
+        	}
         }
 
         //Se captura evento de cierre
@@ -1255,7 +1261,8 @@
                     row = row.replace(regex, '/');
                     _callSaveAjax('DELETE', dt, '', idRow, false, ctx.oInit.formEdit.detailForm, '/' + row);
                 }
-            }
+            },
+            CANCELFunction : ctx.oInit.formEdit.cancelDeleteFunction
         });
     }
 
@@ -1418,7 +1425,12 @@
      *
      */
     function _addChildIcons(ctx) {
+    	var fistColumn = true;
         var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
+        	if(fistColumn){//La primera columna nunca se puede ocultar.
+        		b = true;
+        		fistColumn = false;
+        	}
             return b === false ? a + 1 : a;
         }, 0);
         if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
@@ -1519,6 +1531,9 @@
                     $('div.rup-table-formEdit-detail').removeClass('d-none');
                 }
             }, {}));
+            if(ctx.oInit.formEdit.cancelDeleteFunction === undefined){
+                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {  };
+            }
         }
 
     });

@@ -431,7 +431,7 @@ import { PassThrough } from "stream";
             if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
 					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
 					(options.multiSelect !== undefined)){
-                //Se crear el th thead, se añade la columnal.
+                //Se crea el th thead, se añade la columna.
 				
                 var th = $("<th/>").attr('data-col-prop','');
 
@@ -442,6 +442,10 @@ import { PassThrough } from "stream";
                 //Se aseguro que no sea orderable
                 if(options.columnDefs.length > 0){
                     options.columnDefs[0].orderable = false;
+                }
+                //Se oculta la columna por decision del usuario
+                if(options.multiSelect !== undefined && options.multiSelect.hideMultiselect){
+                	options.columnDefs[0].visible = false;
                 }
             }
 			
@@ -710,8 +714,7 @@ import { PassThrough } from "stream";
             // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
             //jQuery('input,textarea').val('');
 			
-            // No es necesario ya que se usa bootstrap
-            //jQuery('.ui-selectmenu-status','.rup-table-filter-fieldset').text('--');
+            $('#' + options.id + '_filter_form .ui-selectmenu-status').text('--');
 			
             $.rup_utils.populateForm([], options.$filterForm)
 
