@@ -1,5 +1,38 @@
+$mordFieldColor: #e9ecef;
+$mordFieldColorHover: #ced1d4;
+$listShadows: #ddd;
+$listBorders: #bbb;
+$listColorLight: #69a3d6;
+$listColorNormal: #337ab7;
+$listColorDark: #204d71;
+
 .rup_list {
     transition: all .5s ease;
+
+    .list-item {
+        border: 1px solid $checkbox-material-border-color;
+        border-color: transparent;
+        border-radius: 0;
+        box-shadow: 1px 1px 11px $listShadows;
+        margin: 1rem 0;
+        padding: .75rem;
+        position: relative;
+        width: auto;
+
+        &:hover {
+            background-color: $secondary-color-very-light;
+            cursor: pointer;
+        }
+    }
+
+    .list-item-selected {
+        background-color: $primary-color;
+        color: $rup-color-white;
+
+        &:hover {
+            background-color: $primary-color;
+        }
+    }
 }
 
 .rup_list-header {
@@ -12,14 +45,14 @@
 
 .rup_list-header,
 .rup_list-footer {
-    border: 1px solid #bbb;
+    border: 1px solid $listBorders;
     margin-left: 0;
     margin-right: 0;
     padding: .75rem 0;
     transition: all .5s ease;
 
     button {
-        height: 100% !important;
+        height: 100%;
     }
 
     nav {
@@ -32,15 +65,19 @@
 
     .rup_list-header-rowNum,
     .rup_list-footer-rowNum {
-        &+span a {
-            width: 100% !important;
+        &+span {
+            a {
+                width: 100% !important;
+            }
         }
     }
 
     .rup_list-header-sidx,
     .rup_list-footer-sidx {
-        &+span a {
-            width: 100% !important;
+        &+span {
+            a {
+                width: 100% !important;
+            }
         }
     }
 }
@@ -62,7 +99,7 @@
         animation: spin 2s linear infinite;
         border: 7px solid transparent;
         border-radius: 50%;
-        border-top-color: #69a3d6;
+        border-top-color: $listColorLight;
         display: block;
         height: 15vh;
         left: 50%;
@@ -78,9 +115,9 @@
             animation: spin 3s linear infinite;
             border: 7px solid transparent;
             border-radius: 50%;
-            border-top-color: #337ab7;
+            border-top-color: $listColorNormal;
             bottom: 5px;
-            content: "";
+            content: '';
             left: 5px;
             position: absolute;
             right: 5px;
@@ -91,9 +128,9 @@
             animation: spin 1.5s linear infinite;
             border: 7px solid transparent;
             border-radius: 50%;
-            border-top-color: #204d71;
+            border-top-color: $listColorDark;
             bottom: 15px;
-            content: "";
+            content: '';
             left: 15px;
             position: absolute;
             right: 15px;
@@ -112,50 +149,44 @@
     }
 }
 
-.list-item {
-    border: 1px solid gray;
-    border-color: transparent;
-    border-radius: 0;
-    box-shadow: 1px 1px 11px #ddd;
-    margin: 1rem 0rem;
-    padding: .75rem;
-    position: relative;
-    width: auto;
-
-    &:hover {
-        background-color: #b9d4ec;
-        cursor: pointer;
-    }
-}
-
-.list-item-selected {
-    background-color: #007bff;
-    color: #FFF;
-
-    &:hover {
-        background-color: #007bff;
-    }
-}
-
-.rup_list-multiorder-dialog {
+.rup_list-mord-dialog {
     display: flex;
     flex-direction: column;
-}
 
-.rup_list-multiorder-orderfields {
-    display: flex;
-}
+    .rup_list-mord-orderfields {
+        display: flex;
 
-.rup_list-multiorder-ordersort {
-    display: flex;
-    flex-direction: column;
-}
+        .rup_list-mord-field {
+            background-color: $mordFieldColor;
+            margin-right: .5rem;
+            padding: 0 0 0 8px;
 
-.rup_list-ord-line {
-    display: flex;
+            &:hover {
+                background-color: $mordFieldColorHover;
+            }
 
-    button {
-        max-width: 3rem;
-        padding: .5rem;
+            i {
+                background-color: $primary-color;
+                border-radius: 0 4px 4px 0;
+                color: $rup-color-white;
+                font-size: 14px;
+                margin: 0 0 0 5px;
+                padding: 5px 1px;
+            }
+        }
+    }
+
+    .rup_list-mord-ordersort {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rup_list-ord-line {
+        display: flex;
+
+        button {
+            max-width: 3rem;
+            padding: .5rem;
+        }
     }
 }

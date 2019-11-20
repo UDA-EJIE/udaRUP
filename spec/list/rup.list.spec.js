@@ -295,9 +295,9 @@ describe('Test rup_list', () => {
             describe('> Creación y funcionamiento del groupButton', () => {
                 it('> Se crea el botón:', () => {
                     expect($('button#rup-list-display-selectables', $('#rup-list-header')).length).toBe(1);
-                    expect($('button#rup-list-display-selectables', $('#rup-list-header')).text()).toBe('Opciones de seleccion:');
+                    expect($('button#rup-list-display-selectables', $('#rup-list-header')).text().trim()).toBe('Opciones de seleccion:');
                     expect($('button#rup-list-display-selectables', $('#rup-list-footer')).length).toBe(1);
-                    expect($('button#rup-list-display-selectables', $('#rup-list-footer')).text()).toBe('Opciones de seleccion:');
+                    expect($('button#rup-list-display-selectables', $('#rup-list-footer')).text().trim()).toBe('Opciones de seleccion:');
                 });
                 describe('> Funcionamiento del botón', () => {
                     beforeEach(() => {

@@ -1058,5 +1058,26 @@
             "08-12": "Inmaculada Concepción",
             "25-12": "Navidad"
         }
+    },
+    "rup_list": {
+        "errors": {
+            "validateSkeletonDialog": {
+                "title": "Eskeletoak ez du balio",
+                "msg": "Zerrenda sortzeko HTML eskeletoa ez da zuzena."
+            }
+        },
+        "multiSortDialog": {
+            "title": "Multi-ordenación",
+            "msg1": "Hautatu ordenazio anitzera gehitzeko dauden aukeretako bat:",
+            "msg2": "Bat ere ez bada bistaratzen, beheko zerrendako ordenazioan sartu direlako da.",
+            "msg3": "Dagoeneko ordenazioan gehituta dauden eremuak:",
+            "msg4": "Berrantolatu, ezabatu edota bakoitzaren ordenazio mota alda dezakezu."
+        },
+        "multiselection": {
+            "deselectAll": "Hautaketatik kendu guztiak",
+            "deselectAllPage": "Hautaketatik kendu ikusgaiak",
+            "selectAll": "Hautatu guztiak",
+            "selectAllPage": "Hautatu ikusgaiak"
+        }
     }
 }

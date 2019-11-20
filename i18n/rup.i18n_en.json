@@ -1054,5 +1054,26 @@
             "08-12": "Inmaculada Concepción",
             "25-12": "Navidad"
         }
+    },
+    "rup_list": {
+        "errors": {
+            "validateSkeletonDialog": {
+                "title": "en_Esqueleto no válido",
+                "msg": "en_El esqueleto HTML sobre el que montar el listado no es correcto."
+            }
+        },
+        "multiSortDialog": {
+            "title": "en_Multi-ordenación",
+            "msg1": "en_Seleccione alguna de las opciones disponibles para agregar a la multi-ordenación:",
+            "msg2": "en_Si no se visualiza ninguno es porque ya han sido todos incluídos en la ordenación en la lista inferior.",
+            "msg3": "en_Campos ya incluídos en la ordenación:",
+            "msg4": "en_Puede reordenarlos, eliminarlos o cambiar el tipo de ordenación de cada uno."
+        },
+        "multiselection": {
+            "deselectAll": "en_Desmarcar todos",
+            "deselectAllPage": "en_Desmarcar visibles",
+            "selectAll": "en_Marcar todos",
+            "selectAllPage": "en_Marcar visibles"
+        }
     }
 }

@@ -351,7 +351,7 @@ function getResult(req) {
                 });
                 break;
             }
-            if (ord[i].trim() == 'desc') {
+            if (ord[i] && ord[i].trim() == 'desc') {
                 filterRes.reverse();
             }
         });
@@ -377,17 +377,19 @@ function getResult(req) {
 
     var reorderedSelection = (() => {
         var rSelection = [];
-        req.body.multiselection.selectedRowsPerPage && req.body.multiselection.selectedRowsPerPage.forEach((arrElem) => {
-            let tmpObj = {
-                page: arrElem.page,
-                pageLine: arrElem.line + 1,
-                tableLine: (req.body.rows * (arrElem.page - 1)) + arrElem.line + 1,
-                pk: {
-                    codigoPK: arrElem.id.split('_').pop()
-                }
-            };
-            rSelection.push(tmpObj);
-        });
+        if(req.body.multiselection.selectedRowsPerPage){
+            req.body.multiselection.selectedRowsPerPage.forEach((arrElem) => {
+                let tmpObj = {
+                    page: arrElem.page,
+                    pageLine: arrElem.line + 1,
+                    tableLine: (req.body.rows * (arrElem.page - 1)) + arrElem.line + 1,
+                    pk: {
+                        codigoPK: arrElem.id.split('_').pop()
+                    }
+                };
+                rSelection.push(tmpObj);
+            });
+        }
         return rSelection;
     })();
     var estructura = {

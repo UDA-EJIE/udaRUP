@@ -248,10 +248,10 @@
 
                 if (!self._validateSkeleton()) {
                     $.rup_messages('msgAlert', {
-                        title: 'Esqueleto no válido',
-                        message: 'El esqueleto HTML sobre el que montar el listado no es correcto'
+                        title: $.rup.i18n.base.rup_list.errors.validateSkeletonDialog.title,
+                        message: $.rup.i18n.base.rup_list.errors.validateSkeletonDialog.msg
                     });
-                    console.error('El esqueleto HTML sobre el que montar el listado no es correcto');
+                    console.error($.rup.i18n.base.rup_list.errors.validateSkeletonDialog.msg);
                     return;
                 }
 
@@ -382,7 +382,9 @@
                  */
                 self._pagenavInit.apply(self);
 
-                //Gestion de multiselección
+                /**
+                 * SELECT/MULTISELECT
+                 */
                 if (opciones.selectable) {
                     $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
                     $('[rup-list-selector="enabled"]').click(function (e) {
@@ -474,7 +476,7 @@
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
         },
@@ -503,8 +505,12 @@
             //y se añade antes del div que contendrá los elementos de la lista
             $(self.element).before($navElement);
             // se cambia el elemento body añadiendo los atributos necesarios para que sea compatible con scrollspy
-            $('body').css({'position':'relative'});
-            $('body').scrollspy({ target: '#rupListScrollspy' });
+            $('body').css({
+                'position': 'relative'
+            });
+            $('body').scrollspy({
+                target: '#rupListScrollspy'
+            });
 
             //se establece el número de elementos totales a  mostrar
             let numRegistros = this.rup_list().data().count();
@@ -517,14 +523,14 @@
                 var activeElement = $(this).find('li.active a').attr('href');
                 //si el href coincide con el div señal 
                 //y el número de elementos mostrados es menor al número total de elementos
-                if (activeSection === '#scrollSignal' && registrosMostrados < numRegistros ) {
+                if (activeSection === '#scrollSignal' && registrosMostrados < numRegistros) {
                     //se establece que la página con los items "a mostrar" sea la siguiente a la actual
-                    opciones.page=opciones.page+1;
+                    opciones.page = opciones.page + 1;
                     //se hace un filter de la página nueva, con lo que carga el siguiente bloque de elementos
                     self._doFilter();
                 }
             });
-            
+
         },
 
         /**
@@ -655,27 +661,29 @@
                 opciones.multiorder.sidx.split(',').map((e) => {
                     return e.trim();
                 }).forEach((e, i) => {
-                    let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
-                    let geti18n = (val) => {
-                        let srcVal = opciones.sidx.source.filter(x => x.value == val);
-                        return srcVal[0].i18nCaption;
-                    };
-                    let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
-                    sordBadge.text(' ');
-                    let arrSord = opciones.multiorder.sord.split(',').map((e) => {
-                        return e.trim();
-                    });
-                    if (arrSord[i] == 'asc') {
-                        sordBadge.addClass('mdi mdi-chevron-up');
-                    } else {
-                        sordBadge.addClass('mdi mdi-chevron-down');
+                    if(e!==''){
+                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
+                        let geti18n = (val) => {
+                            let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                            return srcVal[0].i18nCaption;
+                        };
+                        let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
+                        sordBadge.text(' ');
+                        let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                            return e.trim();
+                        });
+                        if (arrSord[i] == 'asc') {
+                            sordBadge.addClass('mdi mdi-chevron-up');
+                        } else {
+                            sordBadge.addClass('mdi mdi-chevron-down');
+                        }
+                        $tmpSum.append(geti18n(e)).append(sordBadge.clone());
+                        $spanResumen.append($tmpSum.clone());
                     }
-                    $tmpSum.append(geti18n(e)).append(sordBadge.clone());
-                    $spanResumen.append($tmpSum.clone());
                 });
 
                 // Creamos el botón para el dialogo
-                var $btnOrderDialog = $('<button id="' + opciones[idObj].multiSort.edit + '" class="rup_list-mord-dialogbtn mdi mdi-pencil"/>');
+                var $btnOrderDialog = $(`<button id="${opciones[idObj].multiSort.edit}" class="rup_list-mord-dialogbtn mdi mdi-pencil"/>`);
                 let $tmpWrapEditMord = $('<div class="tmp-orderchange"/>');
                 opciones[obj].sord.wrap($tmpWrapEditMord);
                 $tmpWrapEditMord = opciones[obj].sord.parent();
@@ -711,16 +719,33 @@
 
             //Creamos el dialogo
             $('<div id="' + opciones._idMultiSortDialog + '" class="rup_list-mord-dialog" style="display:none"/>')
-                .append('<div class="rup_list-mord-orderfields"/>')
-                .append('<div class="rup_list-mord-ordersort"/>')
+                .append(`
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">${$.rup.i18n.base.rup_list.multiSortDialog.msg1}</h5>
+                            <h5 class="card-subtitle mb-4 text-muted">${$.rup.i18n.base.rup_list.multiSortDialog.msg2}</h5>
+                            <div class="rup_list-mord-orderfields"/>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">${$.rup.i18n.base.rup_list.multiSortDialog.msg3}</h4>
+                            <h5 class="card-subtitle mb-4 text-muted">${$.rup.i18n.base.rup_list.multiSortDialog.msg4}</h5>
+                            <div class="rup_list-mord-ordersort"/>
+                        </div>
+                    </div>
+                `)
                 .appendTo('body');
             opciones._multiSortDialog = $('#' + opciones._idMultiSortDialog);
 
             //Creamos el contenido del diálogo
             opciones.sidx.source.forEach((el) => {
-                let $btn = $('<button/>')
-                    .attr('data-ordValue', el.value)
-                    .text(el.i18nCaption);
+                let $btn = $(`
+                    <button class="rup_list-mord-field" data-ordValue="${el.value}">
+                        ${el.i18nCaption}
+                        <i class="mdi mdi-plus"/>
+                    </button>
+                `);
                 $('.rup_list-mord-orderfields').append($btn.clone());
             });
             $('.rup_list-mord-orderfields').children().on('click', function (e, param) {
@@ -734,7 +759,7 @@
                 modal: true,
                 resizable: false,
                 width: 'auto',
-                title: 'Multiordenación',
+                title: $.rup.i18n.base.rup_list.multiSortDialog.title,
                 buttons: [{
                     text: 'cerrar',
                     click: () => {
@@ -751,7 +776,9 @@
             });
 
             doInit();
-            doInit(true);
+            if (opciones.createFooter) {
+                doInit(true);
+            }
         },
 
         /**
@@ -883,27 +910,18 @@
                 opciones.multiorder.sord = tmpSordArr.join(',');
             }
             //Creamos la linea
-            let $operateLine = $('<div class="rup_list-ord-line btn-group mb-3"/>')
-                .attr('data-ordValue', $(e.target).attr('data-ordValue'));
-
-            //Creamos los apartados de ordenacion, label y sord
-            let $apOrd = $('<div class="rup_list-apord input-group-text"/>');
-            let $btnUp = $('<button type="button" class="rup_list-mord-up btn btn-secondary p-1 mdi mdi-arrow-up"/>');
-            let $btnDown = $('<button type="button" class="rup_list-mord-down btn btn-secondary p-1 mdi mdi-arrow-down"/>');
-            let $labelOrd = $('<div class="rup_list-mord-label input-group-text rounded-0 w-50"/>')
-                .text($(e.target).text());
-            let $sord = $('<button class="rup_list-mord btn btn-secondary mdi"/>')
-                .attr('data-direction', ord);
-            let $quitOrd = $('<button class="rup_list-mord-remove btn btn-danger mdi mdi-close-circle"/>');
-
-            $operateLine
-                .append($apOrd)
-                .append($btnUp)
-                .append($btnDown)
-                .append($labelOrd)
-                .append($sord)
-                .append($quitOrd);
-            sortDiv.append($operateLine.clone());
+            let $operateLine = $(`
+                <div class="rup_list-ord-line btn-group mb-3" data-ordValue="${$(e.target).attr('data-ordValue')}">
+                    <div class="rup_list-apord input-group-text"/>
+                    <button type="button" class="rup_list-mord-up btn btn-secondary p-1 mdi mdi-arrow-up"></button>
+                    <button type="button" class="rup_list-mord-down btn btn-secondary p-1 mdi mdi-arrow-down"></button>
+                    <div class="rup_list-mord-label input-group-text rounded-0 w-50">${$(e.target).text()}</div>
+                    <button class="rup_list-mord btn btn-secondary mdi" data-direction="${ord}"></button>
+                    <button class="rup_list-mord-remove btn btn-danger mdi mdi-close-circle"></button>
+                </div>
+            `);
+            $operateLine.find('button').rup_button();
+            sortDiv.append($operateLine);
 
             self._fnOrderOfOrderFields.apply(self, $('[data-ordValue="' + $(e.target).attr('data-ordValue') + '"]', sortDiv));
             $(e.target).remove();
@@ -923,7 +941,6 @@
 
             //Función de guardado de la multiordenación
             var save = () => {
-                let sordDefault = opciones.multiorder.sord;
                 opciones.multiorder.sidx = '';
                 opciones.multiorder.sord = '';
                 var sortDiv = $('.rup_list-mord-ordersort');
@@ -938,39 +955,37 @@
                 if (sidxArr.length > 0) {
                     opciones.multiorder.sidx = sidxArr.join(',');
                     opciones.multiorder.sord = sordArr.join(',');
-                } else {
-                    // Si no hay parámetros de ordenación se usa la ordenación por defecto
-                    opciones.multiorder.sidx = opciones.sidx.value;
-                    opciones.multiorder.sord = sordDefault;
                 }
 
                 //Crear el label de resumen
                 opciones._content.find('.rup_list-mord-summary').empty();
-                opciones.multiorder.sidx.split(',').map((e) => {
-                    return e.trim();
-                }).forEach((e, i) => {
-                    let geti18n = (val) => {
-                        let srcVal = opciones.sidx.source.filter(x => x.value == val);
-                        return srcVal[0].i18nCaption;
-                    };
-                    let sordBadge = $('<span/>')
-                        .text(' ');
-                    let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                if (opciones.multiorder.sidx != null && opciones.multiorder.sidx.length > 0) {
+                    opciones.multiorder.sidx.split(',').map((e) => {
                         return e.trim();
+                    }).forEach((e, i) => {
+                        let geti18n = (val) => {
+                            let srcVal = opciones.sidx.source.filter(x => x.value == val);
+                            return srcVal[0].i18nCaption;
+                        };
+                        let sordBadge = $('<span/>')
+                            .text(' ');
+                        let arrSord = opciones.multiorder.sord.split(',').map((e) => {
+                            return e.trim();
+                        });
+                        if (arrSord[i] == 'asc') {
+                            sordBadge.addClass('mdi mdi-chevron-up');
+                        } else {
+                            sordBadge.addClass('mdi mdi-chevron-down');
+                        }
+                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>')
+                            .append(geti18n(e)).append(sordBadge.clone())
+                            .appendTo(opciones._content.find('.rup_list-mord-summary'));
                     });
-                    if (arrSord[i] == 'asc') {
-                        sordBadge.addClass('mdi mdi-chevron-up');
-                    } else {
-                        sordBadge.addClass('mdi mdi-chevron-down');
-                    }
-                    $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>')
-                        .append(geti18n(e)).append(sordBadge.clone())
-                        .appendTo(opciones._content.find('.rup_list-mord-summary'));
-                });
+                }
 
                 // Función para dehabilitar los botones de reordenación correspondientes
-                $(self.element).find('.rup_list-mord-up, .rup_list-mord-down').attr('disabled', false);
-                $(self.element).find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('disabled', true);
+                opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').button('enable');
+                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').button('disable');
 
                 $(self.element).trigger('rup_list-mord-changed');
             };
@@ -1017,9 +1032,13 @@
             //funcionalidad de retirar la ordenación
             $('.rup_list-mord-remove', line).click(() => {
                 //recreamos el botón
-                let $btn = $('<button class="btn-material btn-material-sm btn-material-primary-low-emphasis"/>')
-                    .attr('data-ordValue', $(line).attr('data-ordValue'))
-                    .text(opciones.sidx.source.filter(x => x.value == $(line).attr('data-ordValue'))[0].i18nCaption);
+                let $btn = $(`
+                    <button class="rup_list-mord-field btn btn-material btn-material-sm btn-material-primary-low-emphasis" 
+                        data-ordValue="${$(line).attr('data-ordValue')}">
+                        ${opciones.sidx.source.filter(x => x.value == $(line).attr('data-ordValue'))[0].i18nCaption}
+                        <i class="mdi mdi-plus"/>
+                    </button>
+                `);
                 $('.rup_list-mord-orderfields').append($btn.clone());
                 $('.rup_list-mord-orderfields').children().off('click');
                 $('.rup_list-mord-orderfields').children().on('click', function (e) {
@@ -1114,8 +1133,8 @@
                 });
             } else {
                 self._getPageIds().forEach((arrElem) => {
-                    let tmp = opciones.multiselection.selectedRowsPerPage.fiter(x => x.id == arrElem);
-                    if (tmp.length == 0) {
+                    let tmp = opciones.multiselection.selectedRowsPerPage.filter(x => x.id == arrElem);
+                    if (tmp.length > 0) {
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
@@ -1203,22 +1222,30 @@
             const selfId = self.element.attr('id');
             const opciones = self.options;
 
-            let $btnGroup = $('<div class="btn-group h-100" role="group"/>');
-            let $displayButton = $('<button></button>');
-            $displayButton.addClass('dropdown-toggle')
-                .attr('id', selfId + '-display-selectables').attr('type', 'button')
-                .attr('data-toggle', 'dropdown').attr('aria-haspopup', true)
-                .attr('aria-expanded', false).text(opciones._header.selectables.text());
-            let $menudiv = $('<div></div>').addClass('dropdown-menu').attr('aria-labelledby', selfId + '-display-selectables');
+            let $btnGroup = $(`
+                <div class="btn-group h-100" role="group">
+                    <button id="${selfId + '-display-selectables'}" 
+                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="false">
+                        ${opciones._header.selectables.text()}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="${selfId + '-display-selectables'}">
+                        <button class="dropdown-item selectable-selectPage">
+                            ${$.rup.i18n.base.rup_list.multiselection.selectAllPage}
+                        </button>
+                        <button class="dropdown-item selectable-deselectPage">
+                            ${$.rup.i18n.base.rup_list.multiselection.deselectAllPage}
+                        </button>
+                        <button class="dropdown-item selectable-selectAll">
+                            ${$.rup.i18n.base.rup_list.multiselection.selectAll}
+                        </button>
+                        <button class="dropdown-item selectable-deselectAll">
+                            ${$.rup.i18n.base.rup_list.multiselection.deselectAll}
+                        </button>
+                    </div>
+                </div>
+            `);
 
-            let $selectPage = $('<a></a>').addClass('dropdown-item selectable-selectPage').text('Seleccionar la página actual');
-            let $deselectPage = $('<a></a>').addClass('dropdown-item selectable-deselectPage').text('Deseleccionar la página actual');
-            let $selectAll = $('<a></a>').addClass('dropdown-item selectable-selectAll').text('Seleccionar todo');
-            let $deselectAll = $('<a></a>').addClass('dropdown-item selectable-deselectAll').text('Deseleccionar todo');
-
-            $menudiv.append($selectPage).append($deselectPage).append($selectAll).append($deselectAll);
-
-            $btnGroup.append($displayButton).append($menudiv);
             opciones._header.selectables.text('');
             opciones._header.selectables.append($btnGroup.clone());
 
@@ -1363,30 +1390,6 @@
                 $pagenavH_next.addClass('disabled');
                 $pagenavF_next.addClass('disabled');
             }
-        },
-
-        /**
-         * Método que bloquea el componente
-         * 
-         * @name lock
-         * @function
-         * @example
-         * $('#rup-list').rup_list('lock');
-         */
-        lock: function () {
-            this._lock();
-        },
-
-        /**
-         * Método que desbloquea el componente
-         * 
-         * @name unlock
-         * @function
-         * @example
-         * $('#rup-list').rup_list('unlock');
-         */
-        unlock: function () {
-            this._unlock();
         },
 
         /**
@@ -1615,7 +1618,7 @@
                             $(e).hide('drop', {}, 200, function () {
                                 $(this).remove();
 
-                                // Si hemos llegado al Ãºltimo elemento procedemos a buscar el nuevo listado
+                                // Si hemos llegado al último elemento procedemos a buscar el nuevo listado
                                 if (self.element.children().length == 0) {
                                     self._doFilter();
                                 }
@@ -1651,7 +1654,7 @@
                             $(e).hide('drop', {}, 200, function () {
                                 $(this).remove();
 
-                                // Si hemos llegado al Ãºltimo elemento procedemos a buscar el nuevo listado
+                                // Si hemos llegado al último elemento procedemos a buscar el nuevo listado
                                 if (self.element.children().length == 0) {
                                     self._doFilter();
                                 }

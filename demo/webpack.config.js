@@ -10,6 +10,8 @@ const createBackendServer = require('../backend.js');
 createBackendServer(8081);
 
 module.exports = {
+    mode: 'development',
+    devtool: 'source-map',
     entry: {
         main: path.resolve(__dirname, 'app/main-bt4.js')
     },
@@ -42,7 +44,10 @@ module.exports = {
             pathRewrite: {
                 '/demo/api': '/demo'
             }
-        }]
+        }],
+        open: true,
+        progress: true,
+        openPage: 'webpack-dev-server/demo/'
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -181,7 +186,5 @@ module.exports = {
             './fonts': path.join(__dirname, '../assets/fonts'),
         }
 
-    },
-
-    devtool: 'source-map'
+    }
 };

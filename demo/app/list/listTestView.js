@@ -74,7 +74,6 @@ define(['jquery', 'marionette',
                 userVal.text(userVal.text() + ' :D');
             },
             load: () => {},
-            isScrollList: true
         });
     }
 

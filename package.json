@@ -7,6 +7,7 @@
     "doc": "docs",
     "test": "test"
   },
+  "sasslintConfig": ".sasslintrc",
   "scripts": {
     "install": "",
     "reinstall": "rm -rf node_modules && npm install",
@@ -16,8 +17,8 @@
     "build:x21a": "run-s gulp:build  webpack:dev webpack:build copy:x21a",
     "portal": "gulp dist:portal",
     "doc": "gulp doc:api",
-    "test": "karma start --single-run --no-auto-watch karma.conf.js",
-    "test:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
+    "test": "run-p gulp:build webpack:dev webpack:build & karma start --single-run --no-auto-watch karma.conf.js",
+    "test:dev": "run-p gulp:build webpack:dev webpack:build & karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
     "dev": "webpack --env dev",
     "watch": "run-p watch:src webpack:watch",
     "watch:x21a": "run-p watch:src webpack:watch watch-x21a",
@@ -34,7 +35,7 @@
     "watch-x21a": "gulp watch:x21a",
     "demo:templates": "gulp templates:app:rup-classic",
     "build-demo": "rungulp build && gulp build:babel",
-    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --progress --colors",
+    "dev-server": "webpack-dev-server --config=./demo/webpack.config.js --colors",
     "dist": "gulp dist && gulp dist:portal"
   },
   "repository": {
@@ -48,7 +49,7 @@
   },
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
-    "@mdi/font": "^3.6.95",
+    "@mdi/font": "^4.5.95",
     "acorn": "^7.1.0",
     "autoprefixer": "^7.2.6",
     "babel": "^6.23.0",
@@ -96,7 +97,7 @@
     "gulp-uglify": "1.5.4",
     "gulp-watch": "^5.0.1",
     "gulp-wrap": "^0.15.0",
-    "handlebars": "^4.5.1",
+    "handlebars": "^4.5.3",
     "handlebars-loader": "^1.7.1",
     "highlight.js": "9.6.0",
     "html": "^1.0.0",
@@ -152,7 +153,6 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
-    "@mdi/font": "3.6.95",
     "block-ui": "2.70.1",
     "blueimp-canvas-to-blob": "3.3.0",
     "blueimp-file-upload": "^9.22.1",
@@ -167,8 +167,8 @@
     "flexibility": "^2.0.1",
     "jquery-contextmenu": "^2.8.0",
     "jquery-form": "3.50.0",
-    "jquery-ui": "1.12.0",
-    "jquery-ui-dist": "1.12.0",
+    "jquery-ui": "^1.12.1",
+    "jquery-ui-dist": "^1.12.1",
     "jquery.scrollto": "2.1.2",
     "modernizr": "^3.7.1",
     "natives": "^1.1.6",
