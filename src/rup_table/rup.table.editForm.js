@@ -1261,7 +1261,8 @@
                     row = row.replace(regex, '/');
                     _callSaveAjax('DELETE', dt, '', idRow, false, ctx.oInit.formEdit.detailForm, '/' + row);
                 }
-            }
+            },
+            CANCELFunction : ctx.oInit.formEdit.cancelDeleteFunction
         });
     }
 
@@ -1530,6 +1531,9 @@
                     $('div.rup-table-formEdit-detail').removeClass('d-none');
                 }
             }, {}));
+            if(ctx.oInit.formEdit.cancelDeleteFunction === undefined){
+                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {  };
+            }
         }
 
     });
