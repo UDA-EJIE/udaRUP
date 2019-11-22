@@ -498,19 +498,10 @@ handler that will select the items using the API methods.
         if (api.multiSelect.style() === 'api') {
             return;
         }
-        var DataTable = $.fn.dataTable;
 
         var rows = api.rows({
             selected: true
         }).flatten().length;
-        var columns = api.columns({
-            selected: true
-        }).flatten().length;
-        var cells = api.cells({
-            selected: true
-        }).flatten().length;
-
-
 
         var add = function (el, name, num) {
             name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
@@ -541,12 +532,10 @@ handler that will select the items using the API methods.
 
         // Internal knowledge of DataTables to loop over all information elements
         $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('div.paginationContainer > div > div:first-child');
+            el = $('div.paginationContainer > div > div:first-child', ctx.nTableWrapper);
 
             var output = $('<span class="select-info"/>');
             add(output, 'row', rows);
-            //add( output, 'column', columns );
-            //add( output, 'cell', cells  );
 
             var existing = el.children('span.select-info');
             if (existing.length) {
@@ -906,10 +895,9 @@ handler that will select the items using the API methods.
                 'selectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
                     icon: 'check',
-                    disabled: function (key, opt) {
-                        //
+                    disabled: function () {
                     },
-                    callback: function (key, options) {
+                    callback: function () {
                         selectAllPage(dt);
                     }
                 }
@@ -921,10 +909,9 @@ handler that will select the items using the API methods.
                 'deselectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
                     icon: 'uncheck',
-                    disabled: function (key, opt) {
-                        //
+                    disabled: function () {
                     },
-                    callback: function (key, options) {
+                    callback: function () {
                         deselectAllPage(dt);
                     }
                 }
@@ -940,10 +927,9 @@ handler that will select the items using the API methods.
                 'selectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
                     icon: 'check_all',
-                    disabled: function (key, opt) {
-                        //
+                    disabled: function () {
                     },
-                    callback: function (key, options) {
+                    callback: function () {
                         selectAll(dt);
                     }
                 }
@@ -954,10 +940,9 @@ handler that will select the items using the API methods.
                 'deselectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
                     icon: 'uncheck_all',
-                    disabled: function (key, opt) {
-                        //
+                    disabled: function () {
                     },
-                    callback: function (key, options) {
+                    callback: function () {
                         deselectAll(dt);
                     }
                 }
@@ -968,7 +953,7 @@ handler that will select the items using the API methods.
             selector: '#' + id.attr('id'),
             trigger: 'left',
             items: items,
-            position: function (contextMenu, x, y) {
+            position: function (contextMenu) {
                 contextMenu.$menu.css({
                     top: this.parent().offset().top + this.parent().height(),
                     left: this.parent().parent().offset().left
@@ -990,7 +975,7 @@ handler that will select the items using the API methods.
     function selectAllPage(dt) {
         var ctx = dt.settings()[0];
         ctx.multiselection.accion = 'checkAll';
-        dt['rows']().multiSelect();
+        dt.rows().multiSelect();
 
         $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
         // Marcamos el check del tHead
@@ -1011,11 +996,11 @@ handler that will select the items using the API methods.
             ctx.multiselection.internalFeedback.type = 'fijo';
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
         }
-        $('#' + $(remainingSelectButton)[0].id).on('click', function (event) {
+        $('#' + $(remainingSelectButton)[0].id).on('click', function () {
             selectAll(dt);
         });
 
-        $('#' + ctx.multiselection.internalFeedback[0].id + '_closeDiv').on('click', function (event) {
+        $('#' + ctx.multiselection.internalFeedback[0].id + '_closeDiv').on('click', function () {
             ctx.multiselection.internalFeedback.rup_feedback('destroy');
             ctx.multiselection.internalFeedback.css('width', '100%');
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
@@ -1039,7 +1024,7 @@ handler that will select the items using the API methods.
     function deselectAllPage(dt) {
         var ctx = dt.settings()[0];
         ctx.multiselection.accion = 'uncheck';
-        dt['rows']().deselect();
+        dt.rows().deselect();
 
         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
         // Desmarcamos el check del tHead
@@ -1058,7 +1043,7 @@ handler that will select the items using the API methods.
             ctx.multiselection.internalFeedback.type = 'fijo';
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
         }
-        $('#' + $(remainingDeselectButton)[0].id).on('click', function (event) {
+        $('#' + $(remainingDeselectButton)[0].id).on('click', function () {
             deselectAll(dt);
         });
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
@@ -1087,7 +1072,7 @@ handler that will select the items using the API methods.
         // Marcamos el check del tHead
         $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
 
-        dt['rows']().multiSelect();
+        dt.rows().multiSelect();
         if (dt.page() === 0) {
             DataTable.Api().rupTable.selectPencil(ctx, 0);
             ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
@@ -1115,7 +1100,7 @@ handler that will select the items using the API methods.
         ctx.multiselection = _initializeMultiselectionProps(ctx);
         ctx.multiselection.accion = 'uncheckAll';
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
-        dt['rows']().deselect();
+        dt.rows().deselect();
         $('#' + ctx.sTableId).trigger('rupTable_deselectAll');
     }
 
@@ -1656,7 +1641,7 @@ handler that will select the items using the API methods.
         });
         if (pagina) { //Cuando se pagina, se filtra, o se reordena.
             if (ctx.multiselection.selectedAll) { //Si pagina y están todos sleccionados se pintan.
-                var ctx = api.settings()[0];
+                let ctx = api.settings()[0];
                 $.each(api.context[0].aoData, function (idx) {
                     var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
                     //Si esta en la lista de deselecionados, significa que no debería marcarse.
@@ -1686,7 +1671,6 @@ handler that will select the items using the API methods.
 
         //al paginar
         var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
-        var link = $(ctx.nTable.tHead.rows[0].cells[0]).find('a');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);
@@ -1807,7 +1791,6 @@ handler that will select the items using the API methods.
 
         //al paginar
         var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
-        var link = $(ctx.nTable.tHead.rows[0].cells[0]).find('a');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);
