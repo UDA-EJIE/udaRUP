@@ -583,39 +583,39 @@ describe('Test rup_list', () => {
             });
         });
 
-        describe('> Carga en Scroll', () => {
-            beforeAll((done) => {
-                testutils.loadCss(done);
-            });
-            beforeEach((done) => {
-                listGen.createListScroll('rup-list', () => {
-                    $('#rup-list').on('load', done);
-                    $('#rup-list').rup_list('filter');
-                });
-            });
+        // describe('> Carga en Scroll', () => {
+        //     beforeAll((done) => {
+        //         testutils.loadCss(done);
+        //     });
+        //     beforeEach((done) => {
+        //         listGen.createListScroll('rup-list', () => {
+        //             $('#rup-list').on('load', done);
+        //             $('#rup-list').rup_list('filter');
+        //         });
+        //     });
 
-            it('El bloque de paginación debe desaparecer:', () => {
-                expect($('#rup-list-header-nav').is(':visible')).toBe(false);
-                expect($('#rup-list-footer-nav').is(':visible')).toBe(false);
-            });
-            it('Debe crear el div señal y colocarlo después del listado:', () => {
-                expect($('#scrollSignal').length).toBe(1);
-                expect($('#rup-list').next().attr('id').toBe('scrollSignal'));
-            });
-            it('Debe crear el nav señal y colocarlo antes del listado:', () => {
-                expect($('#rupListScrollspy').length).toBe(1);
-                expect($('#rup-list').previous().attr('id').toBe('rupListScrollspy'));
-                expect($('#rupListScrollspy').width().toBe(0));
-                expect($('#rupListScrollspy').height().toBe(0));
-            });
-            it('El body debe tener position relative y data-target apuntando al nav creado:', () => {
-                expect($('body').css('position').toBe('relative'));
-                expect($('body').scrollspy('target').toBe('#rupListScrollspy'));
-            });
-            it('El número de elementos mostrados en pantalla debe ser igual al total de elementos a mostrar:', () => {
-                expect($('.rup-list-item').length).toEqual($('#rup-list').rup_list().data().count());
-            });
-        });
+        //     it('El bloque de paginación debe desaparecer:', () => {
+        //         expect($('#rup-list-header-nav').is(':visible')).toBe(false);
+        //         expect($('#rup-list-footer-nav').is(':visible')).toBe(false);
+        //     });
+        //     it('Debe crear el div señal y colocarlo después del listado:', () => {
+        //         expect($('#scrollSignal').length).toBe(1);
+        //         expect($('#rup-list').next().attr('id').toBe('scrollSignal'));
+        //     });
+        //     it('Debe crear el nav señal y colocarlo antes del listado:', () => {
+        //         expect($('#rupListScrollspy').length).toBe(1);
+        //         expect($('#rup-list').previous().attr('id').toBe('rupListScrollspy'));
+        //         expect($('#rupListScrollspy').width().toBe(0));
+        //         expect($('#rupListScrollspy').height().toBe(0));
+        //     });
+        //     it('El body debe tener position relative y data-target apuntando al nav creado:', () => {
+        //         expect($('body').css('position').toBe('relative'));
+        //         expect($('body').scrollspy('target').toBe('#rupListScrollspy'));
+        //     });
+        //     it('El número de elementos mostrados en pantalla debe ser igual al total de elementos a mostrar:', () => {
+        //         expect($('.rup-list-item').length).toEqual($('#rup-list').rup_list().data().count());
+        //     });
+        // });
 
     });
 });

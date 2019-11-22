@@ -7,6 +7,10 @@ lib
 spec/karma_report_*
 .vscode
 
+# Archivos auto-generados
+demo/templates.js
+package-lock.json
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
