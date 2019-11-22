@@ -1,14 +1,166 @@
 # Actualizar
 
-En este documento iremos indicando cómo actualizar las últimas versiones disponibles de los componentes en caso de que los cambios sean muy grandes.
+En esta sección iremos indicando como mantenerse actualizado con las últimas versiones disponibles de los componentes de <img src='https://uda-ejie.github.io/images/imgwikis/uda-mini-micro2.png' alt='UDA' />, es decir, cuando ya se dispone de una aplicación generada, y se desea incorporar las últimas actualizaciones.
 
-Para el proceso de actualización dan por sentados los siguientes supuestos:
-
+**Para el proceso de actualización se dan por sentados los siguientes supuestos**:
 * La actualización se realiza sobre una aplicación con la versión 3.0.0 de RUP. La actualización directa desde versiones anteriores no ha sido probada por lo que es posible que pueda darse la necesidad de realizar modificaciones extras.
-
 * Los ficheros originales de RUP no han sido modificados.
 
 Si lo que buscas es información sobre como mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar).
+  
+***
+
+### v3.7.3 (17-Julio-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.3 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.3.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.3/rup-v3.7.3.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.3 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.3/templates-v3.7.3.zip).
+
+### v3.7.2 (2-Mayo-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.2 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.2.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.2/rup-v3.7.2.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.2 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.2/templates-v3.7.2.zip).
+
+### v3.7.1 (23-Abril-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.1 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.1.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.1/rup-v3.7.1.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.1 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.1/templates-v3.7.1.zip).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=1Qrb-D_FW5sCQs44gIlyUFBKwzlOgcDla&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.7.1-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+### v3.7.0 (28-Febrero-2019)
+
+Para actualizar una aplicación UDA a la versión v3.7.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.7.0.zip](https://github.com/UDA-EJIE/udaRUP/releases/download/v3.7.0/rup-v3.7.0.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.7.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v3.7.0/templates-v3.7.0.zip).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=172gtjOPGXZh9rL4ayW65O2K8gpjGEwkO&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.7.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
+
+### v3.6.0 (19-Noviembre-2018)
+
+Para actualizar una aplicación UDA a la versión v3.6.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup-v3.6.0.zip](https://docs.google.com/uc?authuser=0&id=1bwVe2uyVWCKO4PEUKg-f8bZJtB6No6Fu&export=download).
+
+	* NOTA: 
+	En el componente rup_table se han modificado los enlaces por botones.
+	Se sustituye: 
+	- Enlace cancelar: id del componente + " _detail_link_cancel"
+	- Enlace limpiar: id del componente + " _filter_cleanLink"
+
+	Por 
+	- Botón cancelar: id del componente + "_detail_button_cancel"
+	- Botón limpiar: id del componente + "_filter_cleanButton" 
+	
+
+**_Para hacer uso del componente rup_table responsive_**, en el fichero `codappStatics\WebContent\codapp\scripts\codappNombre\vista.js` 
+
+	Sustituir: 
+	     $("#vista").rup_table({
+
+	Por:
+	     $("#vista").rup_datatable({
+
+
+#### Templates
+
+Para generar código correspondiente a la versión v3.6.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://docs.google.com/uc?authuser=0&id=12rhPeGp_W724pd7BONxM-Vw-ysX7yM7a&export=download).
+
+#### Actualizar la versión de x38:
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://docs.google.com/uc?authuser=0&id=1WzAsSWYH6coQvk3dTeQLocD_xHwZTBFR&export=download) o utilizar el [repositorio Maven](https://docs.google.com/uc?authuser=0&id=1rhXb6FJp4qyJoUgEI7pjrKSi6Gj9o7RR&export=download) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+		<org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+		<org.springframework.security.version>3.2.9.RELEASE</org.springframework.security.version>
+		<org.logback.version>1.1.7</org.logback.version>
+		<org.slf4j.version>1.7.21</org.slf4j.version>
+		<com.ejie.x38.version>3.6.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
+* Abre el build.xml del proyecto xxxEAR con el editor ant (botón derecho sobre el fichero, Open With>Ant Editor)
+
+* Ejecuta la tarea mavenRunDependencies (botón derecho sobre la tarea, Run As>Ant Build) actualizando las nuevas librerías xxxEAR\APP_INF\lib
+
+* Sobre el proyecto xxxEAR pulsa F5 (Refresh)
+
+* Borra versión o versiones anteriores, en caso de que permanezca alguna.
 
 ### v3.5.0 (06-Julio-2018)
 
