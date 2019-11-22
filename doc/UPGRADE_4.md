@@ -21,3 +21,25 @@ Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incl
 #### Templates
 
 Para generar código correspondiente a la versión v4.1.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.1.0/templates-v4.1.0.zip).
+
+#### Estáticos
+
+En esta versión de UDA se ha incluido la función **initRupI18nPromise()**, esta se encargará de cargar los recursos idiomáticos cuando estén disponibles, evitando así demorar la carga de la aplicación.
+
+Es importante remarcar que, para usar esta función de manera correcta, sólo se debe usar para cargar recursos idiomáticos y no toda la lógica de la vista con la que se esté trabajando. Un ejemplo de buena práctica sería el siguiente:
+```js
+initRupI18nPromise.then(function(){
+    var options_role_combo = {
+        source : [
+           {label: "---", value:""},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
+           {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
+        ],
+        width: "100%",
+        customClasses: ["select-material"]
+    };
+});
+```
