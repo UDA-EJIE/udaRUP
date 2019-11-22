@@ -29,7 +29,7 @@ En esta versión de UDA se ha incluido la función **initRupI18nPromise()**, est
 Es importante remarcar que, para usar esta función de manera correcta, sólo se debe usar para cargar recursos idiomáticos y no toda la lógica de la vista con la que se esté trabajando. Un ejemplo de buena práctica sería el siguiente:
 ```js
 initRupI18nPromise.then(function(){
-    var options_role_combo = {
+    options_role_combo = {
         source : [
            {label: "---", value:""},
            {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
