@@ -646,10 +646,10 @@ function _getLineByPageSelected(ctx,lineInit){
 
 	$.each(rows, function( index, row ) {
 		if(index > lineInit){
-			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
+			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row,ctx.oInit), ctx.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:ctx.json.page,line:index};
+				var arra = {id:DataTable.Api().rupTable.getIdPk(row,ctx.oInit),page:ctx.json.page,line:index};
 				if(ctx.oInit.inilineEdit !== undefined){
 					ctx.oInit.inilineEdit.currentPos = arra;
 				}
@@ -1206,10 +1206,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 							&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
 						_comprobarSeeker(row,ctx,$fila.index());
 					}
-					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
-					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
+					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
+					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
 				}else{// dar alta
-					var idPk = DataTable.Api().rupTable.getIdPk(row);
+					var idPk = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
 					ctx.multiselection.selectedIds = [idPk];
 					ctx.multiselection.lastSelectedId = idPk;
 					ctx.multiselection.numSelected = 1;
@@ -1496,10 +1496,10 @@ function _drawInlineEdit(tabla,ctx){
 *@return {boolean} si existe paginación o no.
 */
 function _notExistOnPage(ctx){
-	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row);
+	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row,ctx.oInit);
 	var encontrado = true;
 	$.each(ctx.json.rows,function(index,r) {
-		if(DataTable.Api().rupTable.getIdPk(r) === pk){
+		if(DataTable.Api().rupTable.getIdPk(r,ctx.oInit) === pk){
 			encontrado = false;
 			return false;
 		}
