@@ -118,7 +118,7 @@
             var row = ctx.multiselection.selectedRowsPerPage[0];
             var rowSelectAux = ctx.json.rows[row.line];
 
-            if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux)){
+            if(rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux,ctx.oInit)){
                 var rowsBody = $( ctx.nTBody);
                 var line = row.line + 1;
                 $('tr:nth-child('+line+')',rowsBody).addClass('selected tr-highlight');
@@ -166,11 +166,11 @@
             tr.triggerHandler('tableHighlightRowAsSelected');
             var row = ctx.json.rows[index];
             if(row !== undefined){
-                var arra = {id:DataTable.Api().rupTable.getIdPk(row),page:dt.page()+1,line:index};
+                var arra = {id:DataTable.Api().rupTable.getIdPk(row,ctx.oInit),page:dt.page()+1,line:index};
                 ctx.multiselection.selectedRowsPerPage.splice(0,0,arra);
                 ctx.multiselection.numSelected = 1;
-                ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row)];
-                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+                ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row,ctx.oInit)];
+                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
             }
             // si es en edicion en linea,
             if(ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined

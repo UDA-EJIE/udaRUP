@@ -203,7 +203,7 @@
                 //Viene del servidor por eso la linea de la pagina es 1 menos.
                 $.each(json.reorderedSelection, function (index, p) {
                     var arra = {
-                        id: DataTable.Api().rupTable.getIdPk(p.pk),
+                        id: DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit),
                         page: p.page,
                         line: p.pageLine - 1
                     };
@@ -598,8 +598,8 @@
                 ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
                 data.seeker = {};
                 data.seeker.selectedIds = [];
-                $.each(ctx.seeker.search.funcionParams, function (index, p) {
-                    data.seeker.selectedIds.splice(index, 0, DataTable.Api().rupTable.getIdPk(p.pk));
+                $.each(ctx.seeker.search.funcionParams,function(index,p) {
+                    data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk,ctx.oInit));
                 });
             }
 
@@ -1297,7 +1297,7 @@
 
                             ctx.multiselection.selectedRowsPerPage = [];
                             var rowSelectAux = ctx.json.rows[line];
-                            var id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+                            var id = DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit);
                             ctx.multiselection.selectedRowsPerPage.push({
                                 line: line,
                                 page: ctx.select.selectedRowsPerPage.page,
@@ -1347,10 +1347,10 @@
                             ctx.oInit.inlineEdit.rowDefault = undefined;
                         }
                         //	}
-                    } else if (ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0) {
-                        var rowsBody = $(ctx.nTBody);
-                        var $tr = $('tr:nth-child(1)', rowsBody);
-                        if (DataTable.Api().rupTable.getIdPk(ctx.json.rows[0]) === ctx.multiselection.selectedRowsPerPage[0].id) {
+                    }else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
+                        var rowsBody = $( ctx.nTBody);
+                        var $tr = $('tr:nth-child(1)',rowsBody);
+                        if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0],ctx.oInit) === ctx.multiselection.selectedRowsPerPage[0].id){
                             $tr.addClass('selected tr-highlight');
                         }
                     }

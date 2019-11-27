@@ -22,6 +22,7 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $primary-color;
+		border-color: $primary-color;
 	}		
 }
 
@@ -30,6 +31,7 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $secondary-color;
+		border-color: $secondary-color;
 	}		
 }
 
@@ -38,6 +40,7 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $success-color;
+		border-color: $success-color;
 	}		
 }
 
@@ -46,6 +49,7 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $danger-color;
+		border-color: $danger-color;
 	}		
 }
 
@@ -54,6 +58,7 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $warning-color;
+		border-color: $warning-color;
 	}		
 }
 
@@ -62,7 +67,16 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $info-color;
-	}		
+		border-color: $info-color;
+	}	
+	
+	&:focus {
+		border: 1px solid $info-color;
+	}
+}
+
+.btn-material[class*="high-emphasis"]:focus {
+	opacity: 0.6;
 }
 
 /* ENFASIS MEDIO */
@@ -71,6 +85,12 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $primary-color-very-light;
+		border-color: $primary-color-very-light;
+	}	
+	
+	&:focus {
+		background-color: $primary-color-light;
+		border-color: $primary-color-light;
 	}	
 }
 
@@ -79,7 +99,13 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $secondary-color-very-light;
-	}		
+		border-color: $secondary-color-very-light;
+	}	
+	
+	&:focus {
+		background-color: $secondary-color-light;
+		border-color: $secondary-color-light;
+	}	
 }
 
 .btn-material[class*="success-medium-emphasis"] {
@@ -87,6 +113,12 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $success-color-very-light;
+		border-color: $success-color-very-light;
+	}	
+	
+	&:focus {
+		background-color: $success-color-light;
+		border-color: $success-color-light;
 	}	
 }
 
@@ -95,11 +127,25 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $danger-color-very-light;
-	}		
+		border-color: $danger-color-very-light;
+	}
+	
+	&:focus {
+		background-color: $danger-color-light;
+		border-color: $danger-color-light;
+	}	
 }
 
-.btn-material[class*="warning-dark-medium-emphasis"]:hover {
-	background-color: $warning-color-very-light;
+.btn-material[class*="warning-dark-medium-emphasis"] {
+	&:hover {
+		background-color: $warning-color-very-light;
+		border-color: $warning-color-very-light;
+	}
+	
+	&:focus {
+		background-color: $warning-color-light;
+		border-color: $warning-color-light;
+	}	
 }
 
 .btn-material[class*="info-medium-emphasis"] {
@@ -107,6 +153,12 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $info-color-very-light;
+		border-color: $info-color-very-light;
+	}
+	
+	&:focus {
+		background-color: $info-color-light;
+		border-color: $info-color-light;
 	}		
 }
 
@@ -116,10 +168,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $primary-color-very-light;
+		border-color: $primary-color-very-light;
 	}
 	
 	&:active {
 		background-color: $primary-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $primary-color-light;
 	}
 }
 
@@ -128,10 +185,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $secondary-color-very-light;
+		border-color: $secondary-color-very-light;
 	}
 	
 	&:active {
 		background-color: $secondary-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $secondary-color-light;
 	}
 }
 
@@ -140,10 +202,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $success-color-very-light;
+		border-color: $success-color-very-light;
 	}
 	
 	&:active {
 		background-color: $success-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $success-color-light;
 	}
 }
 
@@ -152,10 +219,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $danger-color-very-light;
+		border-color: $danger-color-very-light;
 	}
 	
 	&:active {
 		background-color: $danger-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $danger-color-light;
 	}
 }
 
@@ -164,10 +236,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $warning-color-very-light;
+		border-color: $warning-color-very-light;
 	}
 	
 	&:active {
 		background-color: $warning-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $warning-color-light;
 	}
 }
 
@@ -176,10 +253,15 @@ $btn-material-box-shadow-active:
 	
 	&:hover {
 		background-color: $info-color-very-light;
+		border-color: $info-color-very-light;
 	}
 	
 	&:active {
 		background-color: $info-color-light;
+	}
+	
+	&:focus {
+		border: 3px solid $info-color-light;
 	}
 }
 
@@ -247,12 +329,12 @@ $btn-material-box-shadow-active:
 	min-width: 64px;
 	height: 30px;
 	padding: 6px 10px;
-	border: none;
+	border: 3px solid $no-color;
 	border-radius: 4px;
 	font-size: .9rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	font-weight: 400;
 	letter-spacing: initial;
-	line-height: 1;
+	line-height: .7;
 	text-decoration: none;
 	text-transform: uppercase;
 	box-sizing: border-box;
@@ -305,6 +387,7 @@ $btn-material-box-shadow-active:
 	font-size: 1rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	height: 34px;
 	padding: 6px 13px;
+	line-height: .8;
 	
 	/* AJUSTE DE TAMAÑO DEL ICONO */
 	> i.mdi {

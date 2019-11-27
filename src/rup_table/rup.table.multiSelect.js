@@ -532,7 +532,7 @@ handler that will select the items using the API methods.
 
         // Internal knowledge of DataTables to loop over all information elements
         $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('div.paginationContainer > div > div:first-child', ctx.nTableWrapper);
+            el = $('#'+ctx.sTableId+'PaginationContainer > div > div:first-child');
 
             var output = $('<span class="select-info"/>');
             add(output, 'row', rows);
@@ -566,6 +566,11 @@ handler that will select the items using the API methods.
      */
     function init(ctx) {
         var api = new DataTable.Api(ctx);
+        
+        //Se añade el context, al pagination container
+        if($('#'+ctx.sTableId).next($('div.paginationContainer')).length === 1){
+        	$('#'+ctx.sTableId).next($('div.paginationContainer')).attr('id',ctx.sTableId+'PaginationContainer');
+        }
 
         // Row callback so that classes can be added to rows and cells if the item
         // was selected before the element was created. This will happen with the
@@ -695,7 +700,7 @@ handler that will select the items using the API methods.
         $.each(ctx.multiselection.selectedIds, function (index, value) {
             var idx = -1;
             $.each(api.context[0].json.rows, function (indexData, valueData) {
-                if (value === DataTable.Api().rupTable.getIdPk(valueData)) {
+                if (value === DataTable.Api().rupTable.getIdPk(valueData,ctx.oInit)) {
                     idx = indexData;
                     return false;
                 }
@@ -1075,7 +1080,7 @@ handler that will select the items using the API methods.
         dt.rows().multiSelect();
         if (dt.page() === 0) {
             DataTable.Api().rupTable.selectPencil(ctx, 0);
-            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
+            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0],ctx.oInit);
         } else {
             DataTable.Api().rupTable.selectPencil(ctx, -1);
             ctx.multiselection.lastSelectedId = '';
@@ -1373,7 +1378,7 @@ handler that will select the items using the API methods.
             if (id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0) {
                 if (line === undefined) {
                     $.each(ctx.json.rows, function (index, value) {
-                        if (DataTable.Api().rupTable.getIdPk(value) === id) {
+                        if (DataTable.Api().rupTable.getIdPk(value,ctx.oInit) === id) {
                             line = index;
                             return false;
                         }
@@ -1596,7 +1601,7 @@ handler that will select the items using the API methods.
         }
 
         if (multiSelect === false) {
-            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data()), 0, pagina, 0, ctx);
+            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(),ctx.oInit), 0, pagina, 0, ctx);
             //Cuando se resta de 1 en 1 la accion es empty
             ctx.multiselection.accion = '';
             var deselectes = this.deselect();
@@ -1624,7 +1629,7 @@ handler that will select the items using the API methods.
             // Marcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
 
             //Se mira el contador para sumar seleccionados
             if (ctx.multiselection.numSelected < ctx.json.recordsTotal &&
@@ -1643,7 +1648,7 @@ handler that will select the items using the API methods.
             if (ctx.multiselection.selectedAll) { //Si pagina y están todos sleccionados se pintan.
                 let ctx = api.settings()[0];
                 $.each(api.context[0].aoData, function (idx) {
-                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
                     //Si esta en la lista de deselecionados, significa que no debería marcarse.
                     if (jQuery.inArray(id, ctx.multiselection.deselectedIds) === -1) {
                         ctx.aoData[idx]._multiSelect_selected = true;
@@ -1762,7 +1767,7 @@ handler that will select the items using the API methods.
             // Desmarcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', false);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
 
             //Se mira el contador para restar deselecionados.
             if (ctx.multiselection.numSelected > 0 &&
