@@ -596,23 +596,15 @@ table.dataTable tbody>tr:hover {
 }
 
 .openResponsive:hover {
-    background-color: #197019;
+    background-color: #0c4462;
 }
 
 .openResponsive {
-    background-color: #31b131;
+    background-color: #1472a4;
 }
 
 .closeResponsive:before {
     content: '-'
-}
-
-.closeResponsive {
-    background-color: #d33333;
-}
-
-.closeResponsive:hover {
-    background-color: #fc081f;
 }
 
 .select-checkbox {
