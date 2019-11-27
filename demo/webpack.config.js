@@ -13,7 +13,7 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     entry: {
-        main: path.resolve(__dirname, 'app/main-bt4.js')
+        main: path.resolve(__dirname, 'app/main.js')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -47,7 +47,7 @@ module.exports = {
         }],
         open: true,
         progress: true,
-        openPage: 'webpack-dev-server/demo/'
+        openPage: 'webpack-dev-server/demo/',
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -152,30 +152,16 @@ module.exports = {
         alias: {
             'handlebars': 'handlebars/dist/handlebars.js',
             'marionette': 'backbone.marionette/lib/backbone.marionette.js',
-            'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
-            'jquery-ui': 'jquery-ui/ui/',
+
             'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-            'jquery.fileupload': 'blueimp-file-upload/js/jquery.fileupload.js',
-            'jquery.fileupload-ui': 'blueimp-file-upload/js/jquery.fileupload-ui.js',
-            'jquery.fileupload-jquery-ui': 'blueimp-file-upload/js/jquery.fileupload-jquery-ui.js',
-            'jquery.fileupload-process': 'blueimp-file-upload/js/jquery.fileupload-process.js',
-            'jquery.fileupload-image': 'blueimp-file-upload/js/jquery.fileupload-image.js',
-            'jquery.fileupload-audio': 'blueimp-file-upload/js/jquery.fileupload-audio.js',
-            'jquery.fileupload-video': 'blueimp-file-upload/js/jquery.fileupload-video.js',
-            'jquery.fileupload-validate': 'blueimp-file-upload/js/jquery.fileupload-validate.js',
+
             'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
             'load-image-meta': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-meta.js',
             'load-image-exif': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-exif.js',
             'load-image-scale': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-scale.js',
             'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
-            'jquery-form': 'jquery-form/jquery.form.js',
-            'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
-            'jquery.ui.widget': 'jquery-ui/widget.js',
-            'tmpl': 'blueimp-tmpl/js/tmpl.js',
-            'tether': 'tether/dist/js/tether.js',
-            'popper': 'popper.js/dist/umd/popper.js',
-            'calendar': 'bootstrap-calendar',
-            'material-icons': '@mdi/font/fonts/',
+
+            'calendar': path.join(__dirname, '../src/external/bootstrap-calendar'),
 
             // CSS ROUTES
             './images': path.join(__dirname, '../assets/images'),
@@ -184,6 +170,7 @@ module.exports = {
             '../css/images/table': path.join(__dirname, '/images'),
             './externals/icons': '@mdi/font/fonts',
             './fonts': path.join(__dirname, '../assets/fonts'),
+            '../fonts': '@mdi/font/fonts/'
         }
 
     }

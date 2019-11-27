@@ -31,9 +31,6 @@
  * $("#id_capa").rup_feedback (properties);
  */
 
-/*global define */
-/*global jQuery */
- 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
 
@@ -173,7 +170,6 @@ de la aplicación pueda cerrar la capa manualmente.
      * jQuery("#feedback").rup_feedback("destroy");
      */
         destroy: function () {
-            var opciones = this.options;
             this.element
                 .removeClass()
                 .removeAttr('role')

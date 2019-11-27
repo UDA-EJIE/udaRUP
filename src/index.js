@@ -1,12 +1,17 @@
-import 'expose-loader?jQuery!jquery';
-import 'expose-loader?$!jquery';
 
-global.$ = global.jQuery = $;
+/**
+ * VENDOR
+ */
+import 'jquery';
+import 'bootstrap';
 
+import 'bootstrap/scss/bootstrap.scss';
+
+
+/**
+ * RUP
+ */
 import './helper/handlebars-helper-i18n.js';
-
-import 'jquery-migrate';
-
 import './rup.base';
 import './rup.utils';
 import './rup.accordion';
@@ -42,7 +47,15 @@ import './rup.validate';
 import './rup.wizard';
 import './rup.list';
 import './rup.calendar';
+import Rup from './templates';
+
+import '../scss/rup-base.scss';
+import '../scss/rup-theme.scss';
 
 
+/**
+ * GLOBAL DEFINITIONS
+ */
 
-// import 'tether';
+global.Rup = Rup;
+global.$ = global.jQuery = $;

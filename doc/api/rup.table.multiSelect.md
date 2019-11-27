@@ -5,7 +5,17 @@ Módulo que permite toda la multiseleción
 
 **Summary**: Extensión del componente RUP Datatable  
 **Version**: 1.0.0  
-**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
+**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+Solo podrá usarse esta obra si se respeta la Licencia.
+Puede obtenerse una copia de la Licencia en
+
+     http://ec.europa.eu/idabc/eupl.html
+
+Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+que establece la Licencia.  
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table.multiSelect](#module_rup.table.multiSelect)
@@ -45,7 +55,13 @@ Se inicializa el componente multiselect
 <a name="module_rup.table.multiSelect..cellRange"></a>
 
 ### rup.table.multiSelect~cellRange(dt, idx, last)
-Add one or more cells to the selection when shift clicking in OS selectionstyle cell selection.Cell range is more complicated than row and column as we want to selectin the visible grid rather than by index in sequence. For example, if youclick first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1should also be selected (and not 1-3, 1-4. etc)
+Add one or more cells to the selection when shift clicking in OS selection
+style cell selection.
+
+Cell range is more complicated than row and column as we want to select
+in the visible grid rather than by index in sequence. For example, if you
+click first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1
+should also be selected (and not 1-3, 1-4. etc)
 
 **Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -98,7 +114,8 @@ Trigger an event on a DataTable
 <a name="module_rup.table.multiSelect..info"></a>
 
 ### rup.table.multiSelect~info(api)
-Update the information element of the DataTable showing information about theitems selected. This is done by adding tags to the existing text
+Update the information element of the DataTable showing information about the
+items selected. This is done by adding tags to the existing text
 
 **Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -110,7 +127,11 @@ Update the information element of the DataTable showing information about theit
 <a name="module_rup.table.multiSelect..init"></a>
 
 ### rup.table.multiSelect~init(ctx)
-Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
+Initialisation of a new table. Attach event handlers and callbacks to allow
+Select to operate correctly.
+
+This will occur _after_ the initial DataTables initialisation, although
+before Ajax data is rendered, if there is ajax data
 
 **Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -122,7 +143,11 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 <a name="module_rup.table.multiSelect..drawSelectId"></a>
 
 ### rup.table.multiSelect~drawSelectId(ctx)
-Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
+Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
+
+
+This will occur _after_ the initial DataTables initialisation, although
+before Ajax data is rendered
 
 **Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -220,7 +245,8 @@ Metodo que deselecciona todos los elementos.
 <a name="module_rup.table.multiSelect..rowColumnRange"></a>
 
 ### rup.table.multiSelect~rowColumnRange(dt, type, idx, last)
-Add one or more items (rows or columns) to the selection when shift clickingin OS selection style
+Add one or more items (rows or columns) to the selection when shift clicking
+in OS selection style
 
 **Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
 **Since**: UDA 3.4.0 // Table 1.0.0  

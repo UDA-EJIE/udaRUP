@@ -17,7 +17,11 @@
 /* eslint-env jquery,amd */
 /* eslint-disable no-console */
 
-import * as underscore from 'underscore';
+import underscore from 'underscore';
+import 'jquery';
+import 'rup.base';
+import 'popper.js';
+import './external/bootstrap-calendar';
 
 /**
  * Componente de calendario para la visualización de eventos sobre una interfaz dinámica y personalizable.
@@ -50,42 +54,30 @@ import * as underscore from 'underscore';
  * $('#calendar').rup_calendar(properties);
  */
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
+//****************************************************************************************************************
+// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+//****************************************************************************************************************
 
-        // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', 'popper.js', './external/bootstrap-calendar'], factory);
-    } else {
+var rup_calendar = {};
+var calObj = {};
+var errorstr = (str) => {
+    let estr = 'Cannot call methods on rup_calendar before init. tried to call method ' + str;
+    throw ReferenceError(estr);
+};
+var self;
 
-        // Browser globals
-        factory(jQuery);
-    }
-}(function ($) {
+////El componente subyacente requiere underscore en el scope de window
+window._ = underscore;
 
-    //****************************************************************************************************************
-    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-    //****************************************************************************************************************
-
-    var rup_calendar = {};
-    var calObj = {};
-    var errorstr = (str) => {
-        let estr = 'Cannot call methods on rup_calendar before init. tried to call method ' + str;
-        throw ReferenceError(estr);
-    };
-    var self;
-
-    ////El componente subyacente requiere underscore en el scope de window
-    window._ = underscore;
-
-    //Se configura el arranque de UDA para que alberge el nuevo patrón
-    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_calendar', rup_calendar));
+//Se configura el arranque de UDA para que alberge el nuevo patrón
+$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_calendar', rup_calendar));
 
 
-    //*******************************
-    // DEFINICIÓN DE MÉTODOS PÚBLICOS
-    //*******************************
-    $.fn.rup_calendar('extend', {
-        /**
+//*******************************
+// DEFINICIÓN DE MÉTODOS PÚBLICOS
+//*******************************
+$.fn.rup_calendar('extend', {
+    /**
          * Navega en el calendario al punto especificado
          * Si el parámetro es un string las únicas opciones son:
          *  - next
@@ -98,43 +90,43 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar('navigate','next');
          */
-        navigate: function (navigation) {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('navigate');
+    navigate: function (navigation) {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('navigate');
+        }
+        // Si el valor es un objeto Date en función navegamos hasta la posición indicada
+        if( navigation instanceof Date ) {
+            if($(ctx).data('cal').options.date_range_start !== undefined ) {
+                if (navigation.getTime() < $(ctx).data('cal').options.date_range_start.getTime()) {
+                    console.warn('Can´t navigate to an out of range time.');
+                    return;
+                }
             }
-            // Si el valor es un objeto Date en función navegamos hasta la posición indicada
-            if( navigation instanceof Date ) {
-                if($(ctx).data('cal').options.date_range_start !== undefined ) {
-                    if (navigation.getTime() < $(ctx).data('cal').options.date_range_start.getTime()) {
-                        console.warn('Can´t navigate to an out of range time.');
-                        return;
-                    }
+            if($(ctx).data('cal').options.date_range_end !== undefined ) {
+                if (navigation.getTime() > $(ctx).data('cal').options.date_range_end.getTime()) {
+                    console.warn('Can´t navigate to an out of range time.');
+                    return;
                 }
-                if($(ctx).data('cal').options.date_range_end !== undefined ) {
-                    if (navigation.getTime() > $(ctx).data('cal').options.date_range_end.getTime()) {
-                        console.warn('Can´t navigate to an out of range time.');
-                        return;
-                    }
-                }
+            }
 
-                let pos = $.extend({}, $(ctx).data('cal').options.position);
+            let pos = $.extend({}, $(ctx).data('cal').options.position);
 
-                pos.start.setTime(navigation.getTime());
-                $(ctx).data('cal').options.day = pos.start.getFullYear() + '-' +
+            pos.start.setTime(navigation.getTime());
+            $(ctx).data('cal').options.day = pos.start.getFullYear() + '-' +
                                     pos.start.getMonthFormatted() + '-' +
                                     pos.start.getDateFormatted();
-                $(ctx).data('cal').view();
-                return;
-            }
-            // Si no hay valor se considera que por defecto es "today"
-            navigation = navigation ? navigation : 'today';
-            if ($.inArray(navigation, ['next', 'prev', 'today']) < 0) {
-                throw Error('Parámetro inválido');
-            }
-            $(ctx).data('cal').navigate(navigation);
-        },
-        /**
+            $(ctx).data('cal').view();
+            return;
+        }
+        // Si no hay valor se considera que por defecto es "today"
+        navigation = navigation ? navigation : 'today';
+        if ($.inArray(navigation, ['next', 'prev', 'today']) < 0) {
+            throw Error('Parámetro inválido');
+        }
+        $(ctx).data('cal').navigate(navigation);
+    },
+    /**
          * Confirma si en la vista está el día actual.
          * @name isToday
          * @returns {boolean} true si el dia actual está en la vista. false en caso contrario
@@ -142,14 +134,14 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar('isToday');
          */
-        isToday: function() {
-            var ctx = this;
-            if (!$(ctx).data('cal').options) {
-                errorstr('isToday');
-            }
-            return $(ctx).data('cal').isToday();
-        },
-        /**
+    isToday: function() {
+        var ctx = this;
+        if (!$(ctx).data('cal').options) {
+            errorstr('isToday');
+        }
+        return $(ctx).data('cal').isToday();
+    },
+    /**
          * Devuelve la instancia del subyacente bootstrap-calendar
          * 
          * @name instance
@@ -158,14 +150,14 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar('instance');
          */
-        instance: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('instance');
-            }
-            return $(ctx).data('cal');
-        },
-        /**
+    instance: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('instance');
+        }
+        return $(ctx).data('cal');
+    },
+    /**
          * Oculta el menú contextual.
          *
          * @name setView
@@ -174,19 +166,19 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar('setView','day');
          */
-        setView: function (viewmode) {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('setView');
-            }
-            // El valor por defecto es month.
-            viewmode = viewmode ? viewmode : 'month';
-            if ($.inArray(viewmode, ['year', 'month', 'week', 'day']) < 0) {
-                throw Error('Parámetro inválido');
-            }
-            $(ctx).data('cal').view(viewmode);
-        },
-        /**
+    setView: function (viewmode) {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('setView');
+        }
+        // El valor por defecto es month.
+        viewmode = viewmode ? viewmode : 'month';
+        if ($.inArray(viewmode, ['year', 'month', 'week', 'day']) < 0) {
+            throw Error('Parámetro inválido');
+        }
+        $(ctx).data('cal').view(viewmode);
+    },
+    /**
          * Obtiene el modo de visualización actual.
          * 
          * @name getView
@@ -195,71 +187,71 @@ import * as underscore from 'underscore';
          * @example
          * $('#calendar').rup_calendar('getView');
          */
-        getView: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getView');
-            }
-            return $(ctx).data('cal').options.view;
-        },
-        /**
+    getView: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getView');
+        }
+        return $(ctx).data('cal').options.view;
+    },
+    /**
          * Obtiene el año del calendario
          * @name getYear
          * @returns {number} el año del calendario
          * @example
          * $('#calendar').rup_calendar('getYear');
          */
-        getYear: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getYear');
-            }
-            return $(ctx).data('cal').getYear();
-        },
-        /**
+    getYear: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getYear');
+        }
+        return $(ctx).data('cal').getYear();
+    },
+    /**
          * Obtiene el mes del calendario (Enero, Febrero, ..., Diciembre)
          * @name getMonth
          * @returns {string} el mes del calendario
          * @example
          * $('#calendar').rup_calendar('getMonth');
          */
-        getMonth: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getMonth');
-            }
-            return $(ctx).data('cal').getMonth();
-        },
-        /**
+    getMonth: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getMonth');
+        }
+        return $(ctx).data('cal').getMonth();
+    },
+    /**
          * Obtiene la semana del calendario
          * @name getWeek
          * @returns {number} la semana del calendario
          * @example
          * $('#calendar').rup_calendar('getWeek');
          */
-        getWeek: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getWeek');
-            }
-            let date = new Date($(ctx).data('cal').getStartDate());
-            return date.getWeek();
-        },
-        /**
+    getWeek: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getWeek');
+        }
+        let date = new Date($(ctx).data('cal').getStartDate());
+        return date.getWeek();
+    },
+    /**
          * Obtiene el día de la semana (Lunes - Domingo)
          * @name getDay
          * @returns {string} el día de la semana
          * @example
          * $('#calendar').rup_calendar('getDay');
          */
-        getDay: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getDay');
-            }
-            return $(ctx).data('cal').getDay();
-        },
-        /**
+    getDay: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getDay');
+        }
+        return $(ctx).data('cal').getDay();
+    },
+    /**
          * Obtiene el título de la vista de calendario.
          *
          * @name getTitle
@@ -268,14 +260,14 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar("getTitle");
          */
-        'getTitle': function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getTitle');
-            }
-            return $(ctx).data('cal').getTitle();
-        },
-        /**
+    'getTitle': function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getTitle');
+        }
+        return $(ctx).data('cal').getTitle();
+    },
+    /**
          * Obtiene la fecha desde la que se muestra el calendario
          * @name getStartDate
          * @function
@@ -283,14 +275,14 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar("getStartDate");
          */
-        getStartDate:function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getStartDate');
-            }
-            return $(ctx).data('cal').getStartDate();
-        },
-        /**
+    getStartDate:function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getStartDate');
+        }
+        return $(ctx).data('cal').getStartDate();
+    },
+    /**
          * Obtiene la fecha hasta la que se muestra el calendario
          * @name getEndDate
          * @function
@@ -298,14 +290,14 @@ import * as underscore from 'underscore';
          * @example
          * $("#calendar").rup_calendar("getEndDate");
          */
-        getEndDate:function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getEndDate');
-            }
-            return $(ctx).data('cal').getEndDate();
-        },
-        /**
+    getEndDate:function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getEndDate');
+        }
+        return $(ctx).data('cal').getEndDate();
+    },
+    /**
          * Método que establece y recarga las opciones
          * 
          * @name option
@@ -316,28 +308,28 @@ import * as underscore from 'underscore';
          * $('#calendar').rup_calendar('weekbox', true);
          * $('#calendar').rup_calendar({weekbox:true, view:'month'});
          */
-        option: function(opt, val) {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('option');
-            }
-            if(typeof opt === 'object'){
-                let optNames = Object.keys(opt);
-                $.each(optNames, (i,e) => {
-                    $(ctx).data('cal').options[e] = opt[e];
-                    $(ctx).data('cal')._render();
-                });
-                return;
-            }
-            if(val === undefined) {
-                return $(ctx).data('cal').options[opt];
-            }
-            else {
-                $(ctx).data('cal').options[opt] = val;
+    option: function(opt, val) {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('option');
+        }
+        if(typeof opt === 'object'){
+            let optNames = Object.keys(opt);
+            $.each(optNames, (i,e) => {
+                $(ctx).data('cal').options[e] = opt[e];
                 $(ctx).data('cal')._render();
-            }
-        },
-        /**
+            });
+            return;
+        }
+        if(val === undefined) {
+            return $(ctx).data('cal').options[opt];
+        }
+        else {
+            $(ctx).data('cal').options[opt] = val;
+            $(ctx).data('cal')._render();
+        }
+    },
+    /**
          * Devuelve un listado de eventos entre las dos fechas introducidas
          * 
          * @name getEventsBetween
@@ -346,14 +338,14 @@ import * as underscore from 'underscore';
          * @param {Date} fechaHasta
          * @returns {Array} listado de Eventos entre las fechas
          */
-        getEventsBetween: function(desde, hasta) {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('getEventsBetween');
-            }
-            return $(ctx).data('cal').getEventsBetween(desde,hasta);
-        },
-        /**
+    getEventsBetween: function(desde, hasta) {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('getEventsBetween');
+        }
+        return $(ctx).data('cal').getEventsBetween(desde,hasta);
+    },
+    /**
          * Muestra los eventos de la casilla con la fecha especificada.
          * @name showCell
          * @function
@@ -362,55 +354,55 @@ import * as underscore from 'underscore';
          * @example
          * $('#calendar').rup_calendar('showCell', new Date('2000-01-01'));
          */
-        showCell : function(date) {
-            var ctx = this;
-            if (!$(ctx).data('cal').options) {
-                errorstr('showCell');
-            }
-            if (!(date instanceof Date)) {
-                throw TypeError('Se requiere un Date como parámetro');
-            }
-            var getCell = (date) => {
-                let ts = date.getTime();
-                let col = $('.events-list');
-                let sel = col.filter( (i, e) => {
-                    return $(e).attr('data-cal-start') <= ts && $(e).attr('data-cal-end') > ts;
-                });
-                if(sel.length === 0) {
-                    return false;
-                }
-                return $(sel).parent();
-            };
-            let cell = getCell(date);
-            if( cell ) {
-                if ($('#cal-slide-box').css('display') === undefined ||
-                    $('#cal-slide-box').css('display') === 'none' ){
-                    $(ctx).trigger('beforeShowCell');
-                    cell.mouseover();
-                    cell.click();
-                }
-            }
-            else {
+    showCell : function(date) {
+        var ctx = this;
+        if (!$(ctx).data('cal').options) {
+            errorstr('showCell');
+        }
+        if (!(date instanceof Date)) {
+            throw TypeError('Se requiere un Date como parámetro');
+        }
+        var getCell = (date) => {
+            let ts = date.getTime();
+            let col = $('.events-list');
+            let sel = col.filter( (i, e) => {
+                return $(e).attr('data-cal-start') <= ts && $(e).attr('data-cal-end') > ts;
+            });
+            if(sel.length === 0) {
                 return false;
             }
-        },
-        /**
+            return $(sel).parent();
+        };
+        let cell = getCell(date);
+        if( cell ) {
+            if ($('#cal-slide-box').css('display') === undefined ||
+                    $('#cal-slide-box').css('display') === 'none' ){
+                $(ctx).trigger('beforeShowCell');
+                cell.mouseover();
+                cell.click();
+            }
+        }
+        else {
+            return false;
+        }
+    },
+    /**
          * Oculta el div con los eventos si está desplegado
          * @name hideCells
          * @function
          * @example
          * $('#calendar').rup_calendar('hideCells');
          */
-        hideCells: function() {
-            var ctx = this;
-            if (!$(ctx).data('cal').options) {
-                errorstr('showCell');
-            }
-            $(ctx).trigger('beforeHideCell');
-            $('#cal-slide-box').css('display','none');
-            $(ctx).trigger('afterHideCell');
-        },
-        /**
+    hideCells: function() {
+        var ctx = this;
+        if (!$(ctx).data('cal').options) {
+            errorstr('showCell');
+        }
+        $(ctx).trigger('beforeHideCell');
+        $('#cal-slide-box').css('display','none');
+        $(ctx).trigger('afterHideCell');
+    },
+    /**
          * Recarga los eventos y aplica las opciones cambiadas
          * 
          * @name refresh
@@ -418,21 +410,21 @@ import * as underscore from 'underscore';
          * @example
          * $('#calendar').rup_calendar('refresh');
          */
-        refresh: function() {
-            var ctx = this;
-            if( !$(ctx).data('cal').options) {
-                errorstr('refresh');
-            }
-            //Primero actualizamos las opciones (Por si se cambia events_source)
-            $(ctx).data('cal')._render();
-            //Actualizamos los eventos
-            $(ctx).data('cal')._loadEvents();
-            $(ctx).data('cal')._render();
-            setTimeout(function () {
-                $(ctx).trigger('afterRefresh');
-            }, 400);
-        },
-        /**
+    refresh: function() {
+        var ctx = this;
+        if( !$(ctx).data('cal').options) {
+            errorstr('refresh');
+        }
+        //Primero actualizamos las opciones (Por si se cambia events_source)
+        $(ctx).data('cal')._render();
+        //Actualizamos los eventos
+        $(ctx).data('cal')._loadEvents();
+        $(ctx).data('cal')._render();
+        setTimeout(function () {
+            $(ctx).trigger('afterRefresh');
+        }, 400);
+    },
+    /**
          * Elimina el calendario y retorna a la estructura HTML anterior a la creación del calendario.
          *
          * @name destroy
@@ -440,45 +432,45 @@ import * as underscore from 'underscore';
          * @example
          * $("#contextMenu").rup_calendar("destroy");
          */
-        destroy: function () {
-            var ctx = this;
-            if($(ctx).data('cal') === undefined) {
-                errorstr('destroy');
-            }
-            if( !$(ctx).data('cal').options) {
-                errorstr('destroy');
-            }
-            $(ctx).data('cal').options.selector = undefined;
-            $(ctx).removeClass('cal-context');
-            $(ctx).removeData();
-            $(ctx).children().remove();
-            $(ctx).trigger('afterDestroy');
+    destroy: function () {
+        var ctx = this;
+        if($(ctx).data('cal') === undefined) {
+            errorstr('destroy');
         }
-    });
+        if( !$(ctx).data('cal').options) {
+            errorstr('destroy');
+        }
+        $(ctx).data('cal').options.selector = undefined;
+        $(ctx).removeClass('cal-context');
+        $(ctx).removeData();
+        $(ctx).children().remove();
+        $(ctx).trigger('afterDestroy');
+    }
+});
 
 
-    //*******************************
-    // DEFINICIÓN DE MÉTODOS PRIVADOS
-    //*******************************
-    $.fn.rup_calendar('extend', {
-        _callIfFunction: function (...args) {
-            if (args.length === 0) return false;
-            if (args.length > 1) {
-                let fnc = args[0];
-                let params = args.slice(1);
-                if (fnc !== undefined && typeof fnc === 'function') {
-                    return fnc.apply(this, params);
-                } else {
-                    return false;
-                }
+//*******************************
+// DEFINICIÓN DE MÉTODOS PRIVADOS
+//*******************************
+$.fn.rup_calendar('extend', {
+    _callIfFunction: function (...args) {
+        if (args.length === 0) return false;
+        if (args.length > 1) {
+            let fnc = args[0];
+            let params = args.slice(1);
+            if (fnc !== undefined && typeof fnc === 'function') {
+                return fnc.apply(this, params);
             } else {
-                if (args !== undefined && typeof (args) === 'function') {
-                    return args.call(this);
-                }
+                return false;
             }
-        },
+        } else {
+            if (args !== undefined && typeof (args) === 'function') {
+                return args.call(this);
+            }
+        }
+    },
 
-        /**
+    /**
          * Método de inicialización del componente.
          *
          * @name _init
@@ -486,51 +478,51 @@ import * as underscore from 'underscore';
          * @private
          * @param {object} args - Parámetros de inicialización del componente.
          */
-        _init: function (args) {
-            if (args.length > 1) {
-                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
-            } else {
-                //Se recogen y cruzan las paremetrizaciones del objeto
-                self = this;
-                var customSettings = args[0];
-                var settings = $.extend({}, $.fn.rup_calendar.defaults, customSettings);
-                self._ADAPTER = $.rup.adapter[settings.adapter];
-                settings.onAfterEventsLoad = function (...args) {
-                    self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
-                    self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
-                    $(self).trigger('afterEventsLoad');
-                };
-                settings.onAfterViewLoad = function (...args) {
-                    self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterViewLoad, args);
-                    self._callIfFunction.call(this, customSettings.rupAfterViewLoad, args);
-                    $(self).trigger('afterViewLoad');
-                };
+    _init: function (args) {
+        if (args.length > 1) {
+            $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+        } else {
+            //Se recogen y cruzan las paremetrizaciones del objeto
+            self = this;
+            var customSettings = args[0];
+            var settings = $.extend({}, $.fn.rup_calendar.defaults, customSettings);
+            self._ADAPTER = $.rup.adapter[settings.adapter];
+            settings.onAfterEventsLoad = function (...args) {
+                self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterEventsLoad, args);
+                self._callIfFunction.call(this, customSettings.rupAfterEventsLoad, args);
+                $(self).trigger('afterEventsLoad');
+            };
+            settings.onAfterViewLoad = function (...args) {
+                self._callIfFunction.call(this, $.fn.rup_calendar.defaults.onAfterViewLoad, args);
+                self._callIfFunction.call(this, customSettings.rupAfterViewLoad, args);
+                $(self).trigger('afterViewLoad');
+            };
                 
-                // if ($.rup_utils.aplicatioInPortal()) {
-                // 	settings.appendTo = '.r01gContainer';
-                // }
+            // if ($.rup_utils.aplicatioInPortal()) {
+            // 	settings.appendTo = '.r01gContainer';
+            // }
 
-                //El componente subyacente requiere i18n en una variable del scope de window
-                if (!window.calendar_languages) {
-                    window.calendar_languages = {};
-                }
-                window.calendar_languages[settings.language] = $.rup.i18n.base.rup_calendar;
-
-                //Lanzar el plugin subyaciente
-                calObj = new $(self).calendar(settings);
-                this.data('cal',calObj);
-                this.trigger('afterInitCalendar');
-                // Se audita el componente
-                $.rup.auditComponent('rup_calendar', 'init');
+            //El componente subyacente requiere i18n en una variable del scope de window
+            if (!window.calendar_languages) {
+                window.calendar_languages = {};
             }
+            window.calendar_languages[settings.language] = $.rup.i18n.base.rup_calendar;
+
+            //Lanzar el plugin subyaciente
+            calObj = new $(self).calendar(settings);
+            this.data('cal',calObj);
+            this.trigger('afterInitCalendar');
+            // Se audita el componente
+            $.rup.auditComponent('rup_calendar', 'init');
         }
-    });
+    }
+});
 
-    //******************************************************
-    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-    //******************************************************
+//******************************************************
+// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+//******************************************************
 
-    /**
+/**
      * @description Propiedades de configuración del componente. Todas son opcionales. Se puede crear un calendario con la funcionalidad básica sin especificar ninguna de estas opciones.
      *
      * @name defaults
@@ -566,7 +558,7 @@ import * as underscore from 'underscore';
      * @property {function} onAfterModalHidden - Callback que se ejecuta tras esconder el modal.(Recibe los eventos como parámetros).
      */
 
-    /**
+/**
      * @description Propiedades del objeto 'classes'
      * 
      * @name classes
@@ -586,7 +578,7 @@ import * as underscore from 'underscore';
      * @property {string} classes.week.today - Establece las clases para la celda que representan el día actual.
      */
 
-    /**
+/**
      * @description Propiedades del objeto 'views'
      * 
      * @name views
@@ -603,7 +595,7 @@ import * as underscore from 'underscore';
      * @property {integer} views.day.enable - Si el valor es 1 habilita la vista.
      */
 
-    /**
+/**
       * @description Ya sea desde local o remoto el JSON con los eventos es un array de objetos en el que
       *  cada objeto tiene las siguientes propiedades:
       * 
@@ -618,24 +610,22 @@ import * as underscore from 'underscore';
       * 
       */
 
-    $.fn.rup_calendar.defaults = {
-        events_source: () => {
-            return [];
-        },
-        language: $.rup.lang,
-        view: 'month',
-        tmpl_path: global.STATICS + '/rup/html/templates/rup_calendar/',
-        tmpl_cache: false,
-        day: 'now',
-        weekbox: false,
-        classes: {
-            months: {
-                general: 'label'
-            }
-        },
-        onAfterEventsLoad: (events) => {},
-        onAfterViewLoad: (view) => {},
-        adapter: 'calendar_bootstrap'
-    };
-
-}));
+$.fn.rup_calendar.defaults = {
+    events_source: () => {
+        return [];
+    },
+    language: $.rup.lang,
+    view: 'month',
+    tmpl_path: global.STATICS + '/rup/html/templates/rup_calendar/',
+    tmpl_cache: false,
+    day: 'now',
+    weekbox: false,
+    classes: {
+        months: {
+            general: 'label'
+        }
+    },
+    onAfterEventsLoad: () => {},
+    onAfterViewLoad: () => {},
+    adapter: 'calendar_bootstrap'
+};

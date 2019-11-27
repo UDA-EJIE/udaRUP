@@ -1,3 +1,4 @@
+/* global Backbone */
 
 import * as Marionette from 'marionette';
 import MainView from 'shared/main/mainView';
@@ -33,7 +34,6 @@ import JqtableFilterView from 'jqtable/jqtableFilterView';
 import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHorizontalView';
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
-// import DashboardView from 'dashboard/dashboardView';
 import CalendarView from 'components/calendar/calendarView';
 import ListView from 'list/listView';
 import ListDobleView from 'list/doble/listDobleView';
@@ -71,13 +71,10 @@ var MyRouter = Marionette.AppRouter.extend({
         'wizardSimple' : 'wizardSimple',
         'wizardDynamic' : 'wizardDynamic',
         'comboSimple' : 'comboSimple',
-        'tableFilter': 'tableFilter',
         'jqtableFilter' : 'jqtableFilter',
         'stackedHorizontal': 'stackedHorizontal',
         'mobileDesktop': 'mobileDesktop',
         'mobileTabletDesktop': 'mobileTabletDesktop',
-        // 'mobileTabletDesktop': 'mobileTabletDesktop',
-        // 'dashboard': 'dashboard',
         'calendar': 'calendar',
         'list':'list',
         'listDoble':'listDoble',
@@ -158,9 +155,6 @@ var RouteController = Marionette.Controller.extend({
     treeDragDrop: function(){
         RupResponsiveDemoApp.mainView.Container.show(new TreeDragDropView());
     },
-    spinner: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
-    },
     tabsStatic: function(){
         RupResponsiveDemoApp.mainView.Container.show(new TabsStaticView());
     },
@@ -173,9 +167,6 @@ var RouteController = Marionette.Controller.extend({
     comboSimple: function(){
         RupResponsiveDemoApp.mainView.Container.show(new ComboSimpleView());
     },
-    tableFilter: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new TableFilterView());
-    },
     jqtableFilter: function(){
         RupResponsiveDemoApp.mainView.Container.show(new JqtableFilterView());
     },
@@ -183,16 +174,11 @@ var RouteController = Marionette.Controller.extend({
         RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
     },
     mobileDesktop: function(){
-
         RupResponsiveDemoApp.mainView.Container.show(new MobileDesktopView());
     },
     mobileTabletDesktop: function(){
         RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
     },
-    // dashboard: function(){
-    // 	jQuery(RupResponsiveDemoApp.mainView.Container.el).addClass('dashboard-content');
-    // 	RupResponsiveDemoApp.mainView.Container.show(new DashboardView());
-    // },
     calendar: function () {
         RupResponsiveDemoApp.mainView.Container.show(new CalendarView());
     },
@@ -207,9 +193,6 @@ var RouteController = Marionette.Controller.extend({
     }
 });
 
-
-
-
 RupResponsiveDemoApp.on('start', function(){
     RupResponsiveDemoApp.Controller = new RouteController();
 
@@ -219,9 +202,7 @@ RupResponsiveDemoApp.on('start', function(){
     Backbone.history.start();
 });
 
-
 RupResponsiveDemoApp.mainView = new MainView();
 RupResponsiveDemoApp.mainView.render();
-
 
 export {RupResponsiveDemoApp};

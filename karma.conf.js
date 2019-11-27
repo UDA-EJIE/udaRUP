@@ -171,48 +171,13 @@ module.exports = function (config) {
             resolve: {
                 modules: ['node_modules', 'src', path.resolve(__dirname, 'src')],
                 alias: {
-
-                    'handlebars': 'handlebars/dist/handlebars.js',
-                    'marionette': 'backbone.marionette/lib/backbone.marionette.js',
-                    'jquery': 'jquery/dist/jquery.js',
-                    'jasmine-jquery': 'jasmine-jquery/lib/jasmine-jquery.js',
-                    'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
-                    'jquery-ui': 'jquery-ui/ui/',
                     'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-                    'highlight': 'highlight.js/lib/highlight.js',
-                    'jquery.fileupload': 'blueimp-file-upload/js/jquery.fileupload.js',
-                    'jquery.fileupload-ui': 'blueimp-file-upload/js/jquery.fileupload-ui.js',
-                    'jquery.fileupload-jquery-ui': 'blueimp-file-upload/js/jquery.fileupload-jquery-ui.js',
-                    'jquery.fileupload-process': 'blueimp-file-upload/js/jquery.fileupload-process.js',
-                    'jquery.fileupload-image': 'blueimp-file-upload/js/jquery.fileupload-image.js',
-                    'jquery.fileupload-audio': 'blueimp-file-upload/js/jquery.fileupload-audio.js',
-                    'jquery.fileupload-video': 'blueimp-file-upload/js/jquery.fileupload-video.js',
-                    'jquery.fileupload-validate': 'blueimp-file-upload/js/jquery.fileupload-validate.js',
+
                     'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
                     'load-image-meta': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-meta.js',
                     'load-image-exif': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-exif.js',
                     'load-image-scale': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-scale.js',
                     'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
-                    'jquery.scrollTo': 'jquery.scrollto/jquery.scrollTo.js',
-                    'jquery-contextMenu': 'jquery-contextmenu/dist/jquery.contextMenu.js',
-                    'jquery-ui-timepicker': 'src/core/ui/jquery-ui.timepicker.js',
-                    'jquery-ui-multidatespicker': 'src/core/ui/jquery-ui.multidatespicker.js',
-                    'jquery.form': 'jquery-form/jquery.form.js',
-                    'jquery.validate': 'jquery-validation/dist/jquery.validate.js',
-                    'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
-                    'chartjs': 'chart.js/dist/Chart.js',
-                    'jquery-jstree': 'src/core/utils/jquery.jstree.js',
-                    'jquery-hotkeys': 'src/core/utils/jquery.hotkeys.js',
-                    'form2object': 'src/core/utils/form2object.js',
-                    'jquery.fileDownload': 'src/core/utils/jquery.fileDownload.js',
-                    'jquery.ui.widget': 'jquery-ui/widget.js',
-                    'tmpl': 'blueimp-tmpl/js/tmpl.js',
-
-                    'bt4': path.resolve(__dirname, 'dist/js/externals/bootstrap/bootstrap.bundle.min.js'),
-
-                    'templates': path.resolve(__dirname, 'templates.js'),
-                    'popper': 'popper.js/dist/umd/popper.js',
-                    'calendar': 'bootstrap-calendar'
                 }
 
             },
@@ -263,7 +228,7 @@ module.exports = function (config) {
             jasmine: {
                 random: false,
                 failFast: false,
-                timeoutInterval: 5000
+                timeoutInterval: 6000
             }
         }
     });

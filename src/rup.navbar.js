@@ -14,9 +14,6 @@
  * que establece la Licencia.
  */
 
-/*global define */
-/*global jQuery */
-
 /**
  * Proporciona una herramienta para navegar a través de las aplicación web.
  * 
@@ -73,210 +70,164 @@
                                 </div>\
                             </li>\
                     </ul>\
-			  </nav>';
-		$('#content').append(html);
-		$('nav').rup_navbar(); 
+              </nav>';
+        $('#content').append(html);
+        $('nav').rup_navbar(); 
  */
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd) {
 
-		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', './external/util', './external/dropdown', './rup.sticky'], factory);
-	} else {
+        // AMD. Register as an anonymous module.
+        define(['jquery', './rup.base', './external/util', './external/dropdown', './rup.sticky'], factory);
+    } else {
 
-		// Browser globals
-		factory(jQuery);
-	}
-}(function ($, RupBase, Util, Dropdown) {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 
-	var rup_navbar = {};
+    var rup_navbar = {};
 
-	const TRANSITION_DURATION = 600;
-	const DATA_KEY            = 'rup.collapse';
-	const EVENT_KEY           = `.${DATA_KEY}`;
-	const DATA_API_KEY        = '.data-api';
+    const Dimension = {
+        WIDTH  : 'width',
+        HEIGHT : 'height'
+    };
 
-	const Event = {
-		SHOW           : `show${EVENT_KEY}`,
-		SHOWN          : `shown${EVENT_KEY}`,
-		HIDE           : `hide${EVENT_KEY}`,
-		HIDDEN         : `hidden${EVENT_KEY}`,
-		CLICK_DATA_API : `click${EVENT_KEY}${DATA_API_KEY}`
-	};
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_navbar', rup_navbar));
 
-	const ClassName = {
-		SHOW       : 'show',
-		COLLAPSE   : 'rup-collapse',
-		COLLAPSING : 'rup-collapsing',
-		COLLAPSED  : 'rup-collapsed'
-	};
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //*******************************
+    $.fn.rup_navbar('extend', {
 
-	const Selector = {
-		ACTIVES     : '.card > .show, .card > .collapsing',
-		DATA_TOGGLE : '[data-toggle="collapse"]'
-	};
+    });
 
-	const Dimension = {
-		WIDTH  : 'width',
-		HEIGHT : 'height'
-	};
+    $.fn.rup_navbar('extend', {
+        /**
+         * Funcion que alterna el estado del navbar entre desplegado y oculto.
+         * @function
+         * @name toggle
+         * @example
+         * $('nav').rup_navbar('toggle');
+         */
+        toggle: function() {
+            this.click();
+        },
+        /**
+         * Funcion que despliega el navbar.
+         * @function
+         * @name show
+         * @example
+         * $('nav').rup_navbar('show');
+         */
+        show: function() {
+            if(!$('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
+                this.rup_navbar('toggle');
+            }
+        },
+        /**
+         * Funcion que oculta el navbar.
+         * @function
+         * @name hide
+         * @example
+         * $('nav').rup_navbar('hide');
+         */
+        hide: function () {
+            if($('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
+                this.rup_navbar('toggle');
+            }
+        },
+        /**
+         * Define si habrá o no transición al desplegar y ocultar el navbar
+         * @function
+         * @name setTransitioning
+         * @param {boolean} transición -True: hay transicion; False: no hay transicion
+         * @example
+         * $('nav').rup_navbar('setTransitioning', true);
+         */
+        setTransitioning: function(isTransitioning) {
+            this._isTransitioning = isTransitioning;
+        },
+        _getDimension() {
+            let hasWidth = $(this._element).hasClass(Dimension.WIDTH);
+            return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
+        },
+        _init: function () {
+            var $self = this;
 
+            $self._isTransitioning = false;
+            $self._element         = $self[0];
+            $self._triggerArray    = $.makeArray($(
+                `[data-toggle="rup-colapse"][href="#${$self._element.id}"],` +
+                                `[data-toggle="rup-colapse"][data-target="#${$self._element.id}"]`
+            ));
+            //Lo añadimos a data para mantenerlo
+            $self.data('_triggerArray',$self._triggerArray);
+            $self.data('_element', $self._element);
 
-	// $(document).off(".dropdown.data-api");
-	// $(document).off(".collapse.data-api");
+            // El botón de volver a la parte superior del contenido
+            $('nav .swingTop')
+                .off('click')
+                .on('click', function () {
+                    $('.navbar-toggler:visible').click();
+                    $.rup_utils.swing2Top();
+                });
 
+            // Hacer click fuera de menú lo cierra
+            $('#overlay').on('click tap', function () {
+                $('.navbar-toggler:visible').click();
+            });
 
+            // Funcionamiento de apertura del menú
+            $('.navbar-toggler').on('click tap', function () {
+                $self.toggle();
+                $('#overlay').toggleClass('on');
+                $('.navbar-toggleable-md .rup-open').removeClass('rup-open');
+            });
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_navbar', rup_navbar));
+            // Cierre de menú al navegar a un item
+            $('nav .dropdown-item').not('.dropdown-toggle').on('click', function () {
+                $('.navbar-toggler:visible').click();
+            });
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//*******************************
-	$.fn.rup_navbar('extend', {
+            // Funcionamiento acordeón entre desplegables en el menú
+            $('nav .dropdown>a').on('click tap', function () {
+                $('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
+                $(this).parent().toggleClass('rup-open');
+            });
 
-	});
+            $('.dropdown-toggle', $self).dropdown($('.dropdown-toggle', $self));
 
-	$.fn.rup_navbar('extend', {
-		/**
-		 * Funcion que alterna el estado del navbar entre desplegado y oculto.
-		 * @function
-		 * @name toggle
-		 * @example
-		 * $('nav').rup_navbar('toggle');
-		 */
-		toggle: function() {
-			this.click();
-		},
-		/**
-		 * Funcion que despliega el navbar.
-		 * @function
-		 * @name show
-		 * @example
-		 * $('nav').rup_navbar('show');
-		 */
-		show: function() {
-			if(!$('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
-				this.rup_navbar('toggle');
-			}
-		},
-		/**
-		 * Funcion que oculta el navbar.
-		 * @function
-		 * @name hide
-		 * @example
-		 * $('nav').rup_navbar('hide');
-		 */
-		hide: function () {
-			if($('[aria-labelledby="'+this.attr('id')+'"]').is(':visible')) {
-				this.rup_navbar('toggle');
-			}
-		},
-		/**
-		 * Define si habrá o no transición al desplegar y ocultar el navbar
-		 * @function
-		 * @name setTransitioning
-		 * @param {boolean} transición -True: hay transicion; False: no hay transicion
-		 * @example
-		 * $('nav').rup_navbar('setTransitioning', true);
-		 */
-		setTransitioning: function(isTransitioning) {
-			this._isTransitioning = isTransitioning;
-		},
-		_getDimension() {
-			let hasWidth = $(this._element).hasClass(Dimension.WIDTH);
-			return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
-		},
-		_init: function (args) {
-			var $self = this;
+            // Funcionamiento de apertura de sub-desplegables en el menú
+            $('nav .dropdown-submenu a').on('click tap', function () {
+                $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
+                $(this).parent().toggleClass('rup-open');
 
-			$self._isTransitioning = false;
-			$self._element         = $self[0];
-			// this._config          = this._getConfig(args);
+                var menuScrollPos = 0;
+                var end = $(this).parent().index();
+                $(this).parent().siblings().each(function (i, e) {
+                    if (i < end) {
+                        if ($(e).children('.dropdown-menu').length > 0) {
+                            menuScrollPos += $(e).children('.dropdown-item:first').outerHeight(true);
+                        } else {
+                            menuScrollPos += $(e).outerHeight(true);
+                        }
+                    }
+                });
+                $(this).parent().parent().animate({
+                    scrollTop: menuScrollPos
+                }, 500);
+            });
 
-			// $('[data-toggle="collapse"]', $self).each(function(elem){
-			// 	elem.attr('data-toggle', 'rup-colapse');
-			// });
-			$self._triggerArray    = $.makeArray($(
-				`[data-toggle="rup-colapse"][href="#${$self._element.id}"],` +
-								`[data-toggle="rup-colapse"][data-target="#${$self._element.id}"]`
-			));
-			//Lo añadimos a data para mantenerlo
-			$self.data('_triggerArray',$self._triggerArray);
-			$self.data('_element', $self._element);
-
-			// this._parent = this._config.parent ? this._getParent() : null;
-
-			// if (!this._config.parent) {
-			// 	this._addAriaAndCollapsedClass(this._element, this._triggerArray);
-			// }
-
-			// if (this._config.toggle) {
-			// 	this.toggle();
-			// }
-
-			// El botón de volver a la parte superior del contenido
-			$('nav .swingTop')
-				.off('click')
-				.on('click', function () {
-					$('.navbar-toggler:visible').click();
-					$.rup_utils.swing2Top();
-				});
-
-			// Hacer click fuera de menú lo cierra
-			$('#overlay').on('click tap', function () {
-				$('.navbar-toggler:visible').click();
-			});
-
-			// Funcionamiento de apertura del menú
-			$('.navbar-toggler').on('click tap', function () {
-				$self.toggle();
-				$('#overlay').toggleClass('on');
-				$('.navbar-toggleable-md .rup-open').removeClass('rup-open');
-			});
-
-			// Cierre de menú al navegar a un item
-			$('nav .dropdown-item').not('.dropdown-toggle').on('click', function () {
-				$('.navbar-toggler:visible').click();
-			});
-
-			// Funcionamiento acordeón entre desplegables en el menú
-			$('nav .dropdown>a').on('click tap', function () {
-				$('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
-				$(this).parent().toggleClass('rup-open');
-			});
-
-			$('.dropdown-toggle', $self).dropdown($('.dropdown-toggle', $self));
-
-			// Funcionamiento de apertura de sub-desplegables en el menú
-			$('nav .dropdown-submenu a').on('click tap', function () {
-				$('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
-				$(this).parent().toggleClass('rup-open');
-
-				var menuScrollPos = 0;
-				var end = $(this).parent().index();
-				$(this).parent().siblings().each(function (i, e) {
-					if (i < end) {
-						if ($(e).children('.dropdown-menu').length > 0) {
-							menuScrollPos += $(e).children('.dropdown-item:first').outerHeight(true);
-						} else {
-							menuScrollPos += $(e).outerHeight(true);
-						}
-					}
-				});
-				$(this).parent().parent().animate({
-					scrollTop: menuScrollPos
-				}, 500);
-			});
-
-			//Se audita el componente
-			$.rup.auditComponent('rup_navbar', 'init');
-			
-			//Añadimos un handler para cuando esté en modo responsive
-			$('button.navbar-toggler', $(this).parent()).on('click', function () {
-				$('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
-			});
-		}
-	});
+            //Se audita el componente
+            $.rup.auditComponent('rup_navbar', 'init');
+            
+            //Añadimos un handler para cuando esté en modo responsive
+            $('button.navbar-toggler', $(this).parent()).on('click', function () {
+                $('div.navbar-toggleable-md', $(this).parent()).toggleClass('collapse');
+            });
+        }
+    });
 
 }));

@@ -1,16 +1,21 @@
 /*eslint no-console: off */
 
 const gulp = require('gulp');
+const clean = require('gulp-clean');
 const jsdoc = require('gulp-jsdoc3');
 const jsdoc2md = require('jsdoc-to-markdown');
 const tap = require('gulp-tap');
 const fs = require('fs');
 
+gulp.task('doc:api:clean', function () {
+    return gulp.src('./doc/api/**/.*', {allowEmpty: true})
+        .pipe(clean({force: true}));
+});
+
 gulp.task('doc:html', function (cb) {
     var config = require('../../jsdoc.conf.json');
     gulp.src(['README.md', './src/*.js']).pipe(jsdoc(config, cb));
 });
-
 
 var runJsdoc2md = function (fileSource, outputPath) {
     var basename;
@@ -42,7 +47,8 @@ gulp.task('doc:api:table', function () {
     return runJsdoc2md(fileSource, outputPath);
 });
 
-gulp.task('doc:api', gulp.series(
+gulp.task('doc', gulp.series(
+    'doc:api:clean',
     'doc:api:jqtable',
     'doc:api:table',
     function () {

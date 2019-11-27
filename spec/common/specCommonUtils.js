@@ -23,27 +23,19 @@ export function loadCss(callback) {
             $.when($.ajax(DIST + '/css/externals/bootstrap/bootstrap.min.css'))
                 .always((data) => {
                     $('head > style').append(data);
-                    $.when($.ajax(DIST + '/css/rup-base.css'))
+                    $.when($.ajax(DIST + '/css/rup.min.css'))
                         .always((data) => {
                             $('head > style').append(data);
-                            $.when($.ajax(DIST + '/css/rup-theme.css'))
-                                .always((data) => {
-                                    $('head > style').append(data);
-                                    $.when($.ajax(DIST + '/css/rup-jqueryui-theme.css'))
-                                        .always((data) => {
-                                            $('head > style').append(data);
-                                            $.when($.ajax(DIST + '/css/main.css'))
-                                                .always((data) => {
-                                                    $('head > style').append(data);
-                                                    if($('#content').length === 0) {
-                                                        $('body').append('<div id="content" class="container mt-4"></div>');
-                                                        $('.jasmine_html-reporter').css('margin','0px');
-                                                        $('body').css('overflow-x','hidden');
-                                                    }
-                                                    callback();
-                                                });
-                                        });
-                                });
+                            // $.when($.ajax(DIST + '/css/rup-theme.css'))
+                            //     .always((data) => {
+                            //         $('head > style').append(data);
+                            if($('#content').length === 0) {
+                                $('body').append('<div id="content" class="container mt-4"></div>');
+                                $('.jasmine_html-reporter').css('margin','0px');
+                                $('body').css('overflow-x','hidden');
+                            }
+                            callback();
+                            // });
                         });
                 });
         });

@@ -1123,8 +1123,8 @@
                     content: {
                         text: id.text()
                     },
-                    show: {
-                        event: 'hover'
+                    show:{
+                        event: 'mouseover'
                     },
                     position: {
                         viewport: $(window),

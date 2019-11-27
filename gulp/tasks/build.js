@@ -1,51 +1,47 @@
 /*eslint no-console: off */
 
-require('./sass.js');
-require('./rup.js');
 require('./templates.js');
-require('./uglify.js');
 
 const gulp = require('gulp');
 const deleteLines = require('gulp-delete-lines');
+const fs = require('fs');
+const concat = require('gulp-concat');
+const wrap = require('gulp-wrap');
+const minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
 
+gulp.task('rup:build:table', function () {
+    console.log('Minimizando RUP Table...');
+    return gulp.src(minimizeConf.rupTableFiles, {
+        cwd: 'src'
+    })
+        .pipe(concat('rup.jqtable.js'))
+        .pipe(wrap(`
+        ( function( factory ) {
+         if ( typeof define === "function" && define.amd ) {
 
-gulp.task('build:sass', gulp.series(
-    'sass:rup-base',
-    'sass:rup-theme',
-    'sass:rup-jqueryui-theme',
-    'sass:main',
-    function (done) {
-        // build:sass code here
-        done();
-    }
-));
+            // AMD. Register as an anonymous module.
+            define( ["jquery","./rup.base","./rup.form", "./rup.contextMenu", "./rup.toolbar","./rup.report","./core/utils/form2object"], factory );
+         } else {
+
+            // Browser globals
+            factory( jQuery );
+         }
+        } ( 
+            function( $ ) {
+               initRupI18nPromise.then(() => {
+                  <%= contents %>
+               });
+            })
+        );
+        `))
+        .pipe(gulp.dest('src'));
+});
 
 gulp.task('build:js', gulp.series(
     'rup:build:table',
-    'templates:demo',
-    'templates:rup',
+    'templates',
     function (done) {
         // build:js code here
-        done();
-    }
-));
-
-gulp.task('build:uglify', gulp.series(
-    'uglify:css:rup-base',
-    'uglify:css:rup-jqueryui-theme',
-    'uglify:css:rup-theme',
-    function (done) {
-        // build:uglify code here
-        done();
-    }
-));
-
-gulp.task('build:css', gulp.series(
-    'build:sass',
-    'build:js',
-    'build:uglify',
-    function (done) {
-        // build:css code here
         done();
     }
 ));
@@ -83,34 +79,6 @@ gulp.task('build:resources', function (callback) {
 
     // externals
     console.log('externals ');
-
-    // bootstrap
-    console.log('bootstrap');
-    gulp.src(['./node_modules/bootstrap/dist/css/bootstrap.*'])
-        .pipe(gulp.dest('./dist/css/externals/bootstrap'))
-        .pipe(gulp.dest('./dist/portal/externals/bootstrap'));
-
-    gulp.src(['./node_modules/bootstrap/dist/js/*bundle*.*'])
-        .pipe(gulp.dest('./dist/js/externals/bootstrap'));
-
-    // @mdi/font (fuente iconos material)
-    console.log('@mdi/font (fuente iconos material)');
-    gulp.src(['./node_modules/@mdi/font/fonts/materialdesignicons-*.*'])
-        .pipe(gulp.dest('./dist/css/externals/icons'))
-        .pipe(gulp.dest('./dist/portal/externals/icons'));
-
-    // tether
-    console.log('tether');
-    gulp.src(['./node_modules/tether/dist/css/tether\.*'])
-        .pipe(gulp.dest('./dist/css/externals/tether'));
-
-    gulp.src(['./node_modules/tether/dist/js/tether\.*'])
-        .pipe(gulp.dest('./dist/js/externals/tether'));
-
-    // popper.js
-    console.log('popper');
-    gulp.src(['./node_modules/popper.js/dist/umd/popper\.*'])
-        .pipe(gulp.dest('./dist/js/externals/popper'));
 
     // jasmine
     console.log('jasmine');

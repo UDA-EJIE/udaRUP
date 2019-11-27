@@ -155,7 +155,7 @@ Función encargada de añadir una nueva pestaña cuando el componente ya está c
 
 **Example**  
 ```js
-$("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  label: "nuevaPestaña",  url: "fragmento3" });
+$("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  url: "fragmento3" });
 ```
 <a name="module_rup_tabs..removeTab"></a>
 

@@ -38,8 +38,6 @@
  * $("#idToolbar").rup_toolbar(properties);
  */
 
-/*global define */
-/*global jQuery */
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -215,7 +213,9 @@
             if (id.indexOf(this.attr('id')) === -1) {
                 id = this.attr('id') + '##' + id;
             }
-            $('[id=\'' + id + '\']').button('disable');
+            $('[id=\'' + id + '\']')
+                .button('disable')
+                .attr('disabled', true);
         },
         /**
          * Habilita el botón correspondiente al identificador indicado.
@@ -229,7 +229,9 @@
             if (id.indexOf(this.attr('id')) === -1) {
                 id = this.attr('id') + '##' + id;
             }
-            $('[id=\'' + id + '\']').button('enable');
+            $('[id=\'' + id + '\']')
+                .button('enable')
+                .attr('disabled', false);
         },
         /**
          * Añade el estilo de css indicado para simular un estado press en el botón.

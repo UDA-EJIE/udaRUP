@@ -14,7 +14,6 @@
  * que establece la Licencia.
  */
 
-/* eslint-env jquery,amd */
 /* eslint-disable no-console */
 
 /**

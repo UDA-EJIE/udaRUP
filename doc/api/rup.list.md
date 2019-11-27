@@ -33,8 +33,6 @@ $('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'li
     * [~_generateSelectablesBtnGroup()](#module_rup_list.._generateSelectablesBtnGroup)
     * [~_getPageIds()](#module_rup_list.._getPageIds)
     * [~_pagenavManagement(numPages)](#module_rup_list.._pagenavManagement)
-    * [~lock()](#module_rup_list..lock)
-    * [~unlock()](#module_rup_list..unlock)
     * [~_lock()](#module_rup_list.._lock)
     * [~_unlock()](#module_rup_list.._unlock)
     * [~destroy()](#module_rup_list..destroy)
@@ -257,26 +255,6 @@ Método interno que otorga funcionalidad a la paginación
 | --- | --- | --- |
 | numPages | <code>Number</code> | Número total de páginas |
 
-<a name="module_rup_list..lock"></a>
-
-### rup_list~lock()
-Método que bloquea el componente
-
-**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
-**Example**  
-```js
-$('#rup-list').rup_list('lock');
-```
-<a name="module_rup_list..unlock"></a>
-
-### rup_list~unlock()
-Método que desbloquea el componente
-
-**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
-**Example**  
-```js
-$('#rup-list').rup_list('unlock');
-```
 <a name="module_rup_list.._lock"></a>
 
 ### rup_list~\_lock()
